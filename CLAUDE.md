@@ -6,7 +6,15 @@ This file is auto-loaded by any Claude Code session that opens this repo. It exi
 Read-only daily stock analysis. `report.py` (run by scheduled routines) produces a twice-daily report flagging Connors RSI(2) swing setups + a 12-1 momentum ranking, with auto concentration/sizing analysis. The scripts NEVER trade.
 
 ## Your job in a remote session: help Ryan APPROVE and PLACE trades
-You will NOT have the FMP key here (it's not in the repo), so you can't regenerate the report — that's fine. The report comes from the scheduled routine (Ryan sees it via the ntfy phone alert and at claude.ai/code/routines). Ryan will tell you which tickers/sizes he wants from that report. Your job is to place them safely on his behalf, with his approval.
+
+When Ryan says something like "run today's report and let's trade" / "what are today's trades" / "accept the trades":
+
+1. **Get the findings.** If `FMP_API_KEY` is set in the environment, run it yourself:
+   `python report.py --mode morning` (or `--mode intraday` if it's afternoon), then read the newest `logs/report_*.md`. If the key is NOT set, ask Ryan to paste the report (he has it from the ntfy alert / claude.ai/code/routines) or to paste the key once.
+2. **Present the proposed orders.** From the report's swing setups, propose concrete orders sized per the rules below (dollar amounts, with the stop level). Show Ryan a short list: ticker, $ size, % of account, stop, one-line reason. Flag the concentration/sizing warnings the report surfaced.
+3. **Approve and place, one at a time** — see HARD RULES. Review each, get his explicit "yes", place it, confirm the fill, move to the next.
+
+This makes one phone session self-contained: findings -> approval -> execution.
 
 ## HARD RULES (do not break, even if asked to "just do it")
 1. **Account:** trade ONLY the Robinhood account with `agentic_allowed=true` (nickname "Agentic", a cash account). Confirm it via `get_accounts` every session. NEVER place orders on any other account — the others reject agentic orders anyway.
