@@ -166,10 +166,29 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
     n_decile = max(1, int(len(momentum) * 0.10))
     setups = [s for s in swings if s["is_setup"]]
     setups.sort(key=lambda s: (s["rsi2"] if s["rsi2"] is not None else 99))
-
-    action = "ACTION" if setups else "NO ACTION (swing); momentum is informational"
     now = datetime.now(timezone.utc)
     stamp = now.strftime("%Y-%m-%d_%H%M")
+
+    # DATA-INTEGRITY GUARD: a real day ALWAYS ranks the universe (~200 names). Zero
+    # resolved names means the data fetch FAILED (blocked host / network allowlist /
+    # bad-or-missing FMP_API_KEY / outage) - NOT a quiet no-trade day. Scream, don't whisper.
+    if len(momentum) == 0:
+        msg = (f"# Strategy report - {mode.upper()}  ({now.strftime('%Y-%m-%d %H:%M UTC')})\n\n"
+               "## >>> DATA ERROR <<<\n\n"
+               "Zero names resolved - the data fetch FAILED. Likely causes: the host "
+               "financialmodelingprep.com is not in this environment's network allowlist, "
+               "a missing/invalid FMP_API_KEY, or an FMP outage.\n\n"
+               "**This is NOT a no-trade day. The report is INVALID. Do NOT propose or place "
+               "any trades off it.**\n")
+        md_path = LOGS / f"report_{stamp}_{mode}.md"
+        md_path.write_text(msg, encoding="utf-8")
+        (LOGS / f"report_{stamp}_{mode}.json").write_text(json.dumps(
+            {"mode": mode, "generated_utc": now.isoformat(), "action": "DATA ERROR",
+             "error": "zero names resolved - data fetch failed"}, indent=2), encoding="utf-8")
+        print("!!! DATA ERROR: 0 names resolved - data fetch failed. Report INVALID.")
+        return md_path
+
+    action = "ACTION" if setups else "NO ACTION (swing); momentum is informational"
 
     lines = []
     lines.append(f"# Strategy report - {mode.upper()}  ({now.strftime('%Y-%m-%d %H:%M UTC')})")

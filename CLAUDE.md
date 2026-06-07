@@ -9,8 +9,7 @@ Read-only daily stock analysis. `report.py` (run by scheduled routines) produces
 
 When Ryan says something like "run today's report and let's trade" / "what are today's trades" / "accept the trades":
 
-1. **Get the findings.** If `FMP_API_KEY` is set in the environment, run it yourself:
-   `python report.py --mode morning` (or `--mode intraday` if it's afternoon), then read the newest `logs/report_*.md`. If the key is NOT set, ask Ryan to paste the report (he has it from the ntfy alert / claude.ai/code/routines) or to paste the key once.
+1. **Get the findings.** Read the latest committed report at the repo root: **`latest_morning.md`** or **`latest_intraday.md`** (whichever is newer / matches the time of day). These are produced by the **GitHub Actions** scheduled job (which has internet + the FMP key) and committed here. **Do NOT run `report.py` in this environment** — it can't reach financialmodelingprep.com (network allowlist) and would produce an empty/invalid report. If the `latest_*.md` is missing, stale, or its header says **`>>> DATA ERROR <<<`**, STOP and tell Ryan — do not trade off a stale or invalid report. (Newest data is also on his ntfy alert; he can paste it.)
 2. **Present the proposed orders.** From the report's swing setups, propose concrete orders sized per the rules below (dollar amounts, with the stop level). Show Ryan a short list: ticker, $ size, % of account, stop, one-line reason. Flag the concentration/sizing warnings the report surfaced.
 3. **Approve and place, one at a time** — see HARD RULES. Review each, get his explicit "yes", place it, confirm the fill, move to the next.
 

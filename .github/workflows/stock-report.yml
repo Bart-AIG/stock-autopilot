@@ -1,0 +1,88 @@
+name: Stock Report
+
+# Generates the twice-daily report on GitHub's runners (full internet + the FMP
+# key from secrets), fires a phone alert on ACTION, and commits the report so a
+# phone Claude session can read it without needing FMP access.
+# NOTE: GitHub cron can run a few minutes late; that's fine for this use.
+
+on:
+  schedule:
+    - cron: '30 14 * * 1-5'   # ~9:30 AM US Central (morning)
+    - cron: '30 19 * * 1-5'   # ~2:30 PM US Central (intraday)
+  workflow_dispatch:           # manual run button (for testing)
+    inputs:
+      mode:
+        description: 'morning or intraday'
+        default: morning
+        type: choice
+        options: [morning, intraday]
+
+permissions:
+  contents: write              # allow committing the report back
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Determine mode
+        id: m
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            MODE="${{ github.event.inputs.mode }}"
+          elif [ "$(date -u +%H)" -lt 17 ]; then
+            MODE="morning"     # the 14:30 UTC schedule (robust to delays before 17:00)
+          else
+            MODE="intraday"    # the 19:30 UTC schedule
+          fi
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "Running mode: $MODE"
+
+      - name: Generate report
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+        run: python report.py --mode ${{ steps.m.outputs.mode }}
+
+      - name: Alert on ACTION + publish report
+        env:
+          MODE: ${{ steps.m.outputs.mode }}
+        run: |
+          python - <<'PY'
+          import json, glob, os, shutil, subprocess
+          mode = os.environ['MODE']
+          jf = sorted(glob.glob(f'logs/report_*_{mode}.json'))
+          if not jf:
+              raise SystemExit('ERROR: report produced no JSON output')
+          d = json.load(open(jf[-1]))
+          action = d.get('action', '')
+          setups = d.get('swing_setups', [])
+          title = msg = None
+          if action.startswith('ACTION'):
+              tickers = ', '.join(s['symbol'] for s in setups[:10])
+              title = f'Stock Autopilot {mode}: ACTION'
+              msg = f'{len(setups)} swing setups: {tickers}. Open Claude app -> "read the latest report" to review/approve.'
+          elif action == 'DATA ERROR':
+              title = f'Stock Autopilot {mode}: DATA ERROR'
+              msg = 'Scan failed to fetch data - report is INVALID, do not trade.'
+          if msg:
+              subprocess.run(['curl', '-s', '-H', f'Title: {title}', '-H', 'Priority: high',
+                              '-d', msg, 'https://ntfy.sh/stk-ap-rb-9k4m7q2x'], check=False)
+              print(f'alert sent: {title}')
+          else:
+              print('no alert (NO ACTION day)')
+          # publish the human-readable report to a stable path for the phone session
+          md = sorted(glob.glob(f'logs/report_*_{mode}.md'))[-1]
+          shutil.copy(md, f'latest_{mode}.md')
+          PY
+
+      - name: Commit the published report
+        run: |
+          git config user.name 'stock-autopilot-bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "latest_${{ steps.m.outputs.mode }}.md"
+          git commit -m "report: ${{ steps.m.outputs.mode }} $(date -u +%Y-%m-%dT%H:%MZ)" || echo "no change to commit"
+          git push
