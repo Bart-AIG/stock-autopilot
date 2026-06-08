@@ -60,20 +60,25 @@ jobs:
           d = json.load(open(jf[-1]))
           action = d.get('action', '')
           setups = d.get('swing_setups', [])
-          title = msg = None
           if action.startswith('ACTION'):
               tickers = ', '.join(s['symbol'] for s in setups[:10])
               title = f'Stock Autopilot {mode}: ACTION'
               msg = f'{len(setups)} swing setups: {tickers}. Open Claude app -> "read the latest report" to review/approve.'
+              priority = 'high'
           elif action == 'DATA ERROR':
               title = f'Stock Autopilot {mode}: DATA ERROR'
               msg = 'Scan failed to fetch data - report is INVALID, do not trade.'
-          if msg:
-              subprocess.run(['curl', '-s', '-H', f'Title: {title}', '-H', 'Priority: high',
-                              '-d', msg, 'https://ntfy.sh/stk-ap-rb-9k4m7q2x'], check=False)
-              print(f'alert sent: {title}')
+              priority = 'high'
           else:
-              print('no alert (NO ACTION day)')
+              # Daily heartbeat: ping even on a NO-ACTION day so that *silence*
+              # always means the job didn't run (broken), never "quietly fine".
+              title = f'Stock Autopilot {mode}: no trades'
+              msg = f'Report ran OK, {len(setups)} swing setups - nothing to do today. (heartbeat)'
+              priority = 'low'
+          # always alert; priority distinguishes act-now from heartbeat
+          subprocess.run(['curl', '-s', '-H', f'Title: {title}', '-H', f'Priority: {priority}',
+                          '-d', msg, 'https://ntfy.sh/stk-ap-rb-9k4m7q2x'], check=False)
+          print(f'alert sent ({priority}): {title}')
           # publish the human-readable report to a stable path for the phone session
           md = sorted(glob.glob(f'logs/report_*_{mode}.md'))[-1]
           shutil.copy(md, f'latest_{mode}.md')
