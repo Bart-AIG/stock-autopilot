@@ -1,14 +1,18 @@
 name: Stock Report
 
-# Generates the twice-daily report on GitHub's runners (full internet + the FMP
+# Generates the daily reports on GitHub's runners (full internet + the FMP
 # key from secrets), fires a phone alert on ACTION, and commits the report so a
 # phone Claude session can read it without needing FMP access.
-# NOTE: GitHub cron can run a few minutes late; that's fine for this use.
+# NOTE: GitHub cron is best-effort and can fire well late (minutes to hours).
+# Mode is therefore derived from the TRIGGERING cron (github.event.schedule),
+# never the wall clock, so a delayed run is still labeled correctly.
+# Times below are ET during EDT (UTC-4); in EST (winter) they land 1h earlier.
 
 on:
   schedule:
-    - cron: '30 14 * * 1-5'   # ~9:30 AM US Central (morning)
-    - cron: '30 19 * * 1-5'   # ~2:30 PM US Central (intraday)
+    - cron: '0 14 * * 1-5'    # ~10:00 AM ET (after the open settles) -> morning full scan
+    - cron: '30 16 * * 1-5'   # ~12:30 PM ET midday                   -> intraday refresh
+    - cron: '30 19 * * 1-5'   # ~3:30 PM ET power hour                -> intraday refresh
   workflow_dispatch:           # manual run button (for testing)
     inputs:
       mode:
@@ -34,13 +38,19 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             MODE="${{ github.event.inputs.mode }}"
-          elif [ "$(date -u +%H)" -lt 17 ]; then
-            MODE="morning"     # the 14:30 UTC schedule (robust to delays before 17:00)
           else
-            MODE="intraday"    # the 19:30 UTC schedule
+            # Map the TRIGGERING cron -> mode. This is delay-proof: even if GitHub
+            # fires a cron hours late, github.event.schedule still names the slot,
+            # so a late morning run can never masquerade as the intraday one.
+            case "${{ github.event.schedule }}" in
+              "0 14 * * 1-5")  MODE="morning"  ;;  # first run: full scan + build cache
+              "30 16 * * 1-5") MODE="intraday" ;;  # midday refresh
+              "30 19 * * 1-5") MODE="intraday" ;;  # power-hour refresh
+              *)               MODE="morning"  ;;  # safe fallback (manual reruns, etc.)
+            esac
           fi
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
-          echo "Running mode: $MODE"
+          echo "Running mode: $MODE (event=${{ github.event_name }}, cron='${{ github.event.schedule }}')"
 
       - name: Generate report
         env:
