@@ -5,7 +5,7 @@ This file is auto-loaded by any Claude Code session that opens this repo. It exi
 > **Resuming an in-progress session?** Read **`HANDOFF.md`** first (if present) — it carries the current working state and any corrections to the notes below (scheduling, FMP access, in-flight stop tasks).
 
 ## What this project is
-Read-only daily stock analysis. `report.py` (run by scheduled routines) produces a thrice-daily report (a morning full scan + two intraday refreshes, ~10:00 / 12:30 / 15:30 ET, Mon–Fri — see `docs/cron-job-setup.md`) flagging Connors RSI(2) swing setups + a 12-1 momentum ranking, with auto concentration/sizing analysis. The scripts NEVER trade.
+Read-only daily stock analysis. `report.py` (run by scheduled routines) produces reports through the trading day (a morning full scan then hourly intraday refreshes, ~09:00–14:00 ET, Mon–Fri — see `docs/cron-job-setup.md`) flagging Connors RSI(2) swing setups + a 12-1 momentum ranking, with auto concentration/sizing analysis. The scripts NEVER trade.
 
 ## Your job in a remote session: help Ryan APPROVE and PLACE trades
 

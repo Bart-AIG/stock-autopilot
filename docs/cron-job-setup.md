@@ -10,19 +10,27 @@ is the real scheduler.
 
 ---
 
-## What each cron-job.org job does
+## The cron-job.org job
 
-It sends an authenticated `POST` to GitHub's "create a workflow dispatch event"
-endpoint, passing the report `mode` in the body. A successful trigger returns
+A **single** job fires **hourly, ~09:00–14:00 ET, Mon–Fri**. It sends an
+authenticated `POST` to GitHub's "create a workflow dispatch event" endpoint with
+`mode=auto`. The workflow itself then decides morning vs intraday from the Eastern
+time of day (first run of the day, before 10:00 ET → `morning` full scan; every
+later run → `intraday` live-price refresh). A successful trigger returns
 **HTTP 204** (no content).
 
-**Endpoint (same for all three jobs):**
+> **Why one job + `auto`** instead of three mode-specific jobs: one job can only
+> send one fixed body, so the *workflow* picks the mode by ET hour. This is safe
+> because cron-job.org fires on time — the mislabel bug we fixed earlier was
+> GitHub's own cron firing hours late and crossing the morning/intraday boundary.
+
+**Endpoint:**
 
 ```
 POST https://api.github.com/repos/Bart-AIG/stock-autopilot/actions/workflows/stock-report.yml/dispatches
 ```
 
-**Headers (same for all three):**
+**Headers:**
 
 | Header | Value |
 |--------|-------|
@@ -31,17 +39,21 @@ POST https://api.github.com/repos/Bart-AIG/stock-autopilot/actions/workflows/sto
 | `X-GitHub-Api-Version` | `2022-11-28` |
 | `Content-Type` | `application/json` |
 
-**Body — one job per slot:**
+**Request body** (the `ref` is REQUIRED — without it the API returns **422**):
 
-| Job | Time (ET) | Request body |
-|-----|-----------|--------------|
-| Morning (full scan) | 10:00 | `{"ref":"master","inputs":{"mode":"morning"}}` |
-| Midday refresh | 12:30 | `{"ref":"master","inputs":{"mode":"intraday"}}` |
-| Power-hour refresh | 15:30 | `{"ref":"master","inputs":{"mode":"intraday"}}` |
+```json
+{"ref":"master","inputs":{"mode":"auto"}}
+```
 
-Run them **Mon–Fri** only. Set the cron-job.org job timezone to
-**America/New_York** so the ET times track DST automatically (this is the main
-win over GitHub's fixed-UTC cron).
+**Schedule:** every hour at minute 0, hours **9–14**, **Mon–Fri**. In a standard
+cron expression that's `0 9-14 * * 1-5`. Set the cron-job.org job timezone to
+**America/New_York** so those hours track DST automatically (this is the main win
+over GitHub's fixed-UTC cron). That yields 6 runs/day: 09:00 (morning) then
+10:00/11:00/12:00/13:00/14:00 (intraday).
+
+> Want to force a specific mode for a one-off test, instead of `auto`? Send
+> `"mode":"morning"` or `"mode":"intraday"` in the body — the workflow honors an
+> explicit mode and skips the time-of-day guess.
 
 ---
 
@@ -75,14 +87,18 @@ keeps working.
 
 ## FMP usage note
 
-Each run scans ~217 names ≈ 217 FMP calls. Three runs/day ≈ 650+ calls/day
-(more on days the safety-net also fires). Confirm your FMP plan's daily/minute
-limits comfortably cover that before relying on it.
+Each run scans ~217 names ≈ 217 FMP calls (intraday adds ~20 live-quote calls).
+Six runs/day ≈ ~1,400 calls/day, more on days the safety-net also fires. The FMP
+**Starter** plan (300 calls/min, **no daily cap**) covers this comfortably — each
+run's calls are spread over ~45s, well under the per-minute limit.
 
 ## Verifying
 
 - A good trigger returns **204** in cron-job.org's execution history.
 - **401/403** = token problem (wrong/expired token, or missing Actions:write).
 - **404** = usually a wrong repo path or the token can't see the repo.
+- **422** = the body is missing the required `"ref":"master"` (only `inputs` sent).
 - After a 204, a new run appears under the repo's **Actions** tab within seconds,
   and you get the ntfy alert (heartbeat on a no-trade day, high-priority on ACTION).
+  The run log's "Determine mode" step prints the resolved mode + ET hour, so you
+  can confirm `auto` picked the slot you expected.

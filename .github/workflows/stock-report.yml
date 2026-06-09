@@ -4,12 +4,15 @@ name: Stock Report
 # key from secrets), fires a phone alert on ACTION, and commits the report so a
 # phone Claude session can read it without needing FMP access.
 #
-# SCHEDULING: the punctual 3x/day cadence is driven EXTERNALLY by cron-job.org,
-# which fires this workflow via the workflow_dispatch REST API (mode passed in
-# the request body). See docs/cron-job-setup.md. GitHub's own cron is best-effort
-# and fires minutes-to-hours late, so the single `schedule:` entry below is kept
-# ONLY as a once-daily safety-net (in case cron-job.org or its token is down).
-# NOTE: each run scans ~217 names against FMP — don't add duplicate schedules.
+# SCHEDULING: the cadence is driven EXTERNALLY by cron-job.org, which fires this
+# workflow via the workflow_dispatch REST API on a single hourly job (~9:00-14:00
+# ET, Mon-Fri). The job sends mode=auto; this workflow then picks morning vs
+# intraday from the Eastern time of day (see "Determine mode" below). That clock
+# guess is safe ONLY because cron-job.org fires on time — GitHub's own cron is
+# best-effort (minutes-to-hours late), so the single `schedule:` entry below is
+# kept ONLY as a once-daily safety-net (in case cron-job.org or its token is down)
+# and is hard-pinned to morning so a late fire can never mislabel a run.
+# See docs/cron-job-setup.md. NOTE: each run scans ~217 names against FMP.
 
 on:
   schedule:
@@ -20,10 +23,10 @@ on:
   workflow_dispatch:           # manual button + cron-job.org entry point
     inputs:
       mode:
-        description: 'morning or intraday'
-        default: morning
+        description: 'auto (decide by ET time of day), or force morning / intraday'
+        default: auto
         type: choice
-        options: [morning, intraday]
+        options: [auto, morning, intraday]
 
 permissions:
   contents: write              # allow committing the report back
@@ -40,17 +43,27 @@ jobs:
       - name: Determine mode
         id: m
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            MODE="${{ github.event.inputs.mode }}"
-          else
-            # The only native schedule left is the morning safety-net cron; the
-            # precise 3x/day runs arrive via workflow_dispatch (cron-job.org passes
-            # mode explicitly above). Any native cron trigger => morning full scan,
-            # which is delay-proof: a late fire still does the right thing.
+          REQ="${{ github.event.inputs.mode }}"   # set only on workflow_dispatch
+          ETHOUR="$(TZ=America/New_York date +%H)"
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            # Native backstop cron only. Always a full morning scan: delay-proof
+            # (a late fire still does the right thing) and never mislabels, because
+            # it doesn't consult the clock.
             MODE="morning"
+          elif [ "$REQ" = "morning" ] || [ "$REQ" = "intraday" ]; then
+            # Explicit override: the manual "Run workflow" button, or any automation
+            # that pins the mode. Honor it verbatim.
+            MODE="$REQ"
+          else
+            # mode=auto (what the hourly cron-job.org job sends) or unset: pick by
+            # Eastern time of day. Safe to trust the clock here because cron-job.org
+            # fires ON TIME — the old mislabel bug was GitHub's own cron firing hours
+            # late. First run of the trading day (before 10:00 ET) = morning baseline
+            # + cache; every later run = intraday live-price refresh.
+            if [ "$ETHOUR" -lt 10 ]; then MODE="morning"; else MODE="intraday"; fi
           fi
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
-          echo "Running mode: $MODE (event=${{ github.event_name }}, cron='${{ github.event.schedule }}')"
+          echo "Running mode: $MODE (event=${{ github.event_name }}, req='${REQ:-}', etHour=$ETHOUR, cron='${{ github.event.schedule }}')"
 
       - name: Generate report
         env:
