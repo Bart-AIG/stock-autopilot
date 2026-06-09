@@ -23,16 +23,17 @@
   reason in CLAUDE.md is now environment-specific, but the "use the committed
   report" guidance is unchanged.)
 
-## Scheduling — repo side DONE, cron-job.org setup IN PROGRESS
+## Scheduling — LIVE (repo + cron-job.org both done)
 Goal: reports run on time, Mon–Fri, through market hours — a morning full-scan
 baseline then hourly intraday refreshes.
 
-- **Cadence (current):** ONE cron-job.org job firing **hourly, ~09:00–14:00 ET,
+- **Cadence (current):** ONE cron-job.org job firing **hourly, ~09:00–14:00 CT,
   Mon–Fri** (6 runs/day). It sends `mode=auto`; the workflow then picks the mode
-  by Eastern hour: **before 10:00 ET → morning** full scan (baseline + cache →
-  `latest_morning.md`); **10:00–14:00 ET → intraday** live-price refresh →
-  `latest_intraday.md`. (Earlier plan was 3 separate mode-specific jobs at
-  10:00/12:30/15:30; collapsed to one hourly job — see PR for the auto-mode change.)
+  by Central hour: **before 10:00 CT → morning** full scan (baseline + cache →
+  `latest_morning.md`); **10:00–14:00 CT → intraday** live-price refresh →
+  `latest_intraday.md`. So the 09:00 CT slot is the morning baseline; the five
+  later slots are intraday. (Earlier plan was 3 separate mode-specific jobs;
+  collapsed to one hourly job — see PR #5.)
 - **Primary driver = cron-job.org** hitting the workflow's `workflow_dispatch`
   REST endpoint (on-time and DST-aware). GitHub's own cron is best-effort and was
   firing **hours late**, so it's been reduced to a single daily **backstop**
@@ -40,25 +41,24 @@ baseline then hourly intraday refreshes.
 - **Mode logic:** decided in the workflow's "Determine mode" step. Native cron
   (backstop) is hard-pinned to `morning` so a late fire can never mislabel. An
   explicit `mode=morning|intraday` in the dispatch body overrides the clock (handy
-  for tests). `mode=auto` (the hourly job) uses the ET-hour rule above. Trusting
-  the clock is safe now ONLY because cron-job.org is punctual — the old mislabel
-  bug was GitHub's own cron firing hours late across the boundary.
+  for tests). `mode=auto` (the hourly job) uses the CT-hour rule above, read in
+  `America/Chicago` to match the cron-job.org job's timezone. Trusting the clock
+  is safe ONLY because cron-job.org is punctual — the old mislabel bug was
+  GitHub's own cron firing hours late across the boundary.
 - Merged to `master`: PR #2 (3×/day + delay-proof mode), PR #3 (cron-job.org
-  primary + backstop). NEW PR: single hourly job + `mode=auto` time-of-day logic.
-  Full setup steps: `docs/cron-job-setup.md`.
-- **Remaining (Ryan's manual steps):**
-  1. Fine-grained PAT — DONE (repo-scoped, Actions: Read and write).
-  2. Merge the auto-mode PR.
-  3. Configure the single cron-job.org job: schedule `0 9-14 * * 1-5`, timezone
-     **America/New_York**, POST to the dispatch endpoint with the 4 headers and
+  primary + backstop), PR #5 (single hourly job + `mode=auto`), PR #6 (resolve
+  `auto` by Central time so the 09:00 CT slot = morning). Full setup steps:
+  `docs/cron-job-setup.md`.
+- **Setup done (2026-06-09):**
+  1. Fine-grained PAT — repo-scoped, Actions: Read and write. ✓
+  2. cron-job.org job live: schedule `0 9-14 * * 1-5`, timezone
+     **America/Chicago**, POST to the dispatch endpoint with the 4 headers and
      body `{"ref":"master","inputs":{"mode":"auto"}}` (the `ref` is REQUIRED —
-     omitting it gives a 422). See `docs/cron-job-setup.md`.
-  4. Test run — expect **HTTP 204**, then a run appears under the Actions tab; its
-     "Determine mode" log line shows the resolved mode + ET hour.
-- **Interim:** until the job is live, only the single backstop run/day fires.
-  Optional once verified for a few days: delete the `schedule:` block to drop the
-  duplicate backstop scan (the noon backstop currently also refreshes
-  `latest_morning.md`, so leaving it in keeps that file fresh daily).
+     omitting it gives a 422). ✓ Test run returned **HTTP 204**.
+- **Optional cleanup** once cron-job.org is proven over a few days: delete the
+  `schedule:` block to drop the duplicate backstop scan (the backstop currently
+  also refreshes `latest_morning.md`, so leaving it in keeps that file fresh daily
+  even if cron-job.org or its token goes down).
 
 ## Trade / stops task — IN FLIGHT (specifics held off the public repo)
 - A stop-loss tightening task is mid-flight on the agentic cash account. **Re-read
@@ -72,6 +72,6 @@ baseline then hourly intraday refreshes.
   HARD RULE for any stop change.
 
 ## Quick open-items checklist
-- [ ] Ryan: finish cron-job.org setup (PAT → 3 jobs → test 204).
+- [x] cron-job.org setup done (PAT, single hourly job, `mode=auto`, test 204).
 - [ ] Ryan: confirm the pending stop-level decision.
 - [ ] Optional: remove the GitHub `schedule:` backstop once cron-job.org is proven.
