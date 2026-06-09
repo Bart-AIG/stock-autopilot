@@ -12,15 +12,15 @@ is the real scheduler.
 
 ## The cron-job.org job
 
-A **single** job fires **hourly, ~09:00–14:00 ET, Mon–Fri**. It sends an
+A **single** job fires **hourly, ~09:00–14:00 CT, Mon–Fri**. It sends an
 authenticated `POST` to GitHub's "create a workflow dispatch event" endpoint with
-`mode=auto`. The workflow itself then decides morning vs intraday from the Eastern
-time of day (first run of the day, before 10:00 ET → `morning` full scan; every
+`mode=auto`. The workflow itself then decides morning vs intraday from the Central
+time of day (first run of the day, before 10:00 CT → `morning` full scan; every
 later run → `intraday` live-price refresh). A successful trigger returns
 **HTTP 204** (no content).
 
 > **Why one job + `auto`** instead of three mode-specific jobs: one job can only
-> send one fixed body, so the *workflow* picks the mode by ET hour. This is safe
+> send one fixed body, so the *workflow* picks the mode by CT hour. This is safe
 > because cron-job.org fires on time — the mislabel bug we fixed earlier was
 > GitHub's own cron firing hours late and crossing the morning/intraday boundary.
 
@@ -47,9 +47,11 @@ POST https://api.github.com/repos/Bart-AIG/stock-autopilot/actions/workflows/sto
 
 **Schedule:** every hour at minute 0, hours **9–14**, **Mon–Fri**. In a standard
 cron expression that's `0 9-14 * * 1-5`. Set the cron-job.org job timezone to
-**America/New_York** so those hours track DST automatically (this is the main win
-over GitHub's fixed-UTC cron). That yields 6 runs/day: 09:00 (morning) then
-10:00/11:00/12:00/13:00/14:00 (intraday).
+**America/Chicago** so those hours track DST automatically (this is the main win
+over GitHub's fixed-UTC cron). That yields 6 runs/day: 09:00 CT (morning) then
+10:00/11:00/12:00/13:00/14:00 CT (intraday). The workflow's "Determine mode" step
+reads the hour in America/Chicago too, so the schedule and the mode decision stay
+in the same timezone.
 
 > Want to force a specific mode for a one-off test, instead of `auto`? Send
 > `"mode":"morning"` or `"mode":"intraday"` in the body — the workflow honors an
@@ -100,5 +102,5 @@ run's calls are spread over ~45s, well under the per-minute limit.
 - **422** = the body is missing the required `"ref":"master"` (only `inputs` sent).
 - After a 204, a new run appears under the repo's **Actions** tab within seconds,
   and you get the ntfy alert (heartbeat on a no-trade day, high-priority on ACTION).
-  The run log's "Determine mode" step prints the resolved mode + ET hour, so you
+  The run log's "Determine mode" step prints the resolved mode + CT hour, so you
   can confirm `auto` picked the slot you expected.
