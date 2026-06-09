@@ -6,8 +6,8 @@ name: Stock Report
 #
 # SCHEDULING: the cadence is driven EXTERNALLY by cron-job.org, which fires this
 # workflow via the workflow_dispatch REST API on a single hourly job (~9:00-14:00
-# ET, Mon-Fri). The job sends mode=auto; this workflow then picks morning vs
-# intraday from the Eastern time of day (see "Determine mode" below). That clock
+# CT, Mon-Fri). The job sends mode=auto; this workflow then picks morning vs
+# intraday from the Central time of day (see "Determine mode" below). That clock
 # guess is safe ONLY because cron-job.org fires on time — GitHub's own cron is
 # best-effort (minutes-to-hours late), so the single `schedule:` entry below is
 # kept ONLY as a once-daily safety-net (in case cron-job.org or its token is down)
@@ -44,7 +44,7 @@ jobs:
         id: m
         run: |
           REQ="${{ github.event.inputs.mode }}"   # set only on workflow_dispatch
-          ETHOUR="$(TZ=America/New_York date +%H)"
+          CTHOUR="$(TZ=America/Chicago date +%H)"
           if [ "${{ github.event_name }}" = "schedule" ]; then
             # Native backstop cron only. Always a full morning scan: delay-proof
             # (a late fire still does the right thing) and never mislabels, because
@@ -56,14 +56,16 @@ jobs:
             MODE="$REQ"
           else
             # mode=auto (what the hourly cron-job.org job sends) or unset: pick by
-            # Eastern time of day. Safe to trust the clock here because cron-job.org
-            # fires ON TIME — the old mislabel bug was GitHub's own cron firing hours
-            # late. First run of the trading day (before 10:00 ET) = morning baseline
-            # + cache; every later run = intraday live-price refresh.
-            if [ "$ETHOUR" -lt 10 ]; then MODE="morning"; else MODE="intraday"; fi
+            # Central time of day, matching the cron-job.org job's America/Chicago
+            # schedule (runs 09:00-14:00 CT, Mon-Fri). Safe to trust the clock here
+            # because cron-job.org fires ON TIME — the old mislabel bug was GitHub's
+            # own cron firing hours late. First run of the trading day (the 09:00 CT
+            # slot, before 10:00 CT) = morning baseline + cache; every later run =
+            # intraday live-price refresh.
+            if [ "$CTHOUR" -lt 10 ]; then MODE="morning"; else MODE="intraday"; fi
           fi
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
-          echo "Running mode: $MODE (event=${{ github.event_name }}, req='${REQ:-}', etHour=$ETHOUR, cron='${{ github.event.schedule }}')"
+          echo "Running mode: $MODE (event=${{ github.event_name }}, req='${REQ:-}', ctHour=$CTHOUR, cron='${{ github.event.schedule }}')"
 
       - name: Generate report
         env:
