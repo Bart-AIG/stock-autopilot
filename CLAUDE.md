@@ -22,14 +22,14 @@ This makes one phone session self-contained: findings -> approval -> execution.
 2. **Per-order approval, always:** for EACH order, first call `review_equity_order`, show Ryan the live quote, estimated shares, and total cost, then WAIT for his explicit "yes" before `place_equity_order`. One order at a time. Never batch-place on a single "yes." Never skip the review.
 3. **Order type:** dollar-based **market** orders, `market_hours=regular_hours` (fractional only works this way). If the market is closed, the order queues for the next open — tell Ryan that.
 4. **Sizing / risk:** per-name ≤ ~15-20% of account value; total SPECULATIVE-sleeve exposure ≤ ~25% (spec = quantum/nuclear/uranium/space/eVTOL/drones/photonics/AI-infra small caps). Respect settled buying power (cash account: sale proceeds take ~1 day to settle). Keep a cash buffer.
-5. **Stops:** every new position should have a stop level (the report gives one). Fractional positions can't rest broker stops (Robinhood: stops/limits need whole shares) — for those, the stop is monitored, not automatic. Tell Ryan this. For whole-share positions, offer to place a resting GTC stop.
+5. **Stops — place them at order time:** every new position should have a stop level (the report gives one). **As soon as a buy fills, immediately place a resting GTC `stop_market` sell on the WHOLE-SHARE portion of that position** (round the filled quantity DOWN to whole shares; e.g. a 2.39-share fill → stop 2 shares). Do this without waiting to be asked — it's part of placing the order. Robinhood resting stops need whole shares, so the fractional remainder (and any position under 1 whole share) can't rest a broker stop — call those out explicitly as **monitored, not automatic**. Confirm the buy actually filled (`get_equity_positions` → `shares_available_for_sells`) before placing the stop sell.
 6. **No autonomy:** only act on Ryan's explicit, current instruction for THIS session. Do not place anything speculatively. Scheduled/unattended runs must NEVER trade.
 
 ## Typical flow
 1. Ryan: "today's report flagged INTC and CCJ; let's do $100 of INTC."
 2. You: `get_accounts` → find the agentic account. `get_portfolio` → check buying power. `review_equity_order` (INTC, buy, market, dollar_amount=100, regular_hours) → show quote + est shares + cost + note it's ~X% of the account.
 3. Ryan: "yes."
-4. You: `place_equity_order` (same params, fresh ref_id). Confirm the fill. If he wants more, repeat per order.
+4. You: `place_equity_order` (same params, fresh ref_id). Confirm the fill, then **immediately place the resting GTC `stop_market` sell on the whole-share portion** (HARD RULE 5) and note any fractional remainder as monitored. If he wants more, repeat per order.
 
 ## Logging
 After any fill, summarize it back to Ryan (symbol, side, $, shares, avg price, order id) so he has a record.
