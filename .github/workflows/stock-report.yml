@@ -10,9 +10,9 @@ name: Stock Report
 
 on:
   schedule:
-    - cron: '0 14 * * 1-5'    # ~10:00 AM ET (after the open settles) -> morning full scan
-    - cron: '30 16 * * 1-5'   # ~12:30 PM ET midday                   -> intraday refresh
-    - cron: '30 19 * * 1-5'   # ~3:30 PM ET power hour                -> intraday refresh
+    - cron: '7 14 * * 1-5'    # ~10:07 AM ET (after the open settles) -> morning full scan
+    - cron: '23 16 * * 1-5'   # ~12:23 PM ET midday                   -> intraday refresh
+    - cron: '33 19 * * 1-5'   # ~3:33 PM ET power hour                -> intraday refresh
   workflow_dispatch:           # manual run button (for testing)
     inputs:
       mode:
@@ -43,9 +43,9 @@ jobs:
             # fires a cron hours late, github.event.schedule still names the slot,
             # so a late morning run can never masquerade as the intraday one.
             case "${{ github.event.schedule }}" in
-              "0 14 * * 1-5")  MODE="morning"  ;;  # first run: full scan + build cache
-              "30 16 * * 1-5") MODE="intraday" ;;  # midday refresh
-              "30 19 * * 1-5") MODE="intraday" ;;  # power-hour refresh
+              "7 14 * * 1-5")  MODE="morning"  ;;  # first run: full scan + build cache
+              "23 16 * * 1-5") MODE="intraday" ;;  # midday refresh
+              "33 19 * * 1-5") MODE="intraday" ;;  # power-hour refresh
               *)               MODE="morning"  ;;  # safe fallback (manual reruns, etc.)
             esac
           fi
