@@ -135,11 +135,16 @@ jobs:
           shutil.copy(md, f'latest_{mode}.md')
           PY
 
+      - name: Build read-only dashboard
+        # Best-effort: a dashboard bug must never block the report or the alert.
+        continue-on-error: true
+        run: python dashboard.py
+
       - name: Commit the published report
         run: |
           git config user.name 'stock-autopilot-bot'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add "latest_${{ steps.m.outputs.mode }}.md"
+          git add "latest_${{ steps.m.outputs.mode }}.md" DASHBOARD.md
           git commit -m "report: ${{ steps.m.outputs.mode }} $(date -u +%Y-%m-%dT%H:%MZ)" || echo "no change to commit"
           # A trading session may have pushed (e.g. holdings.json) while this run
           # was in flight — rebase on top so the push doesn't get rejected.

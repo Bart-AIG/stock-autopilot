@@ -315,6 +315,24 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
     rotation = ([r["symbol"] for r in momentum[:n_decile] if r["symbol"] not in held_syms][:8]
                 if exits else [])
 
+    # Snapshot every held position for the read-only dashboard (dashboard.py):
+    # ledger fields + this run's price/indicators, so it needs no FMP access.
+    exiting_syms = {e["symbol"] for e in exits}
+    held_snapshot = []
+    for p in holdings:
+        sym = p.get("symbol")
+        s = swing_by_sym.get(sym)
+        held_snapshot.append({
+            "symbol": sym, "sleeve": p.get("sleeve", "legacy"),
+            "shares": p.get("shares"), "entry_price": p.get("entry_price"),
+            "entry_date": p.get("entry_date"), "stop": p.get("stop"),
+            "target": p.get("target"),
+            "price": s["price"] if s else None,
+            "rsi2": s["rsi2"] if s else None,
+            "ma200": s["ma200"] if s else None,
+            "exiting": sym in exiting_syms,
+        })
+
     action = "ACTION" if (setups or exits) else "NO ACTION (swing); momentum is informational"
 
     lines = []
@@ -418,6 +436,7 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
                     "action": action, "swing_setups": setups,
                     "exit_signals": exits, "trail_suggestions": trails,
                     "rotation_candidates": rotation,
+                    "held_snapshot": held_snapshot,
                     "momentum_top": momentum[:n_decile]}, indent=2), encoding="utf-8")
     return md_path
 
