@@ -90,17 +90,31 @@ jobs:
           action = d.get('action', '')
           setups = d.get('swing_setups', [])
           exits = d.get('exit_signals', [])
+          trails = d.get('trail_suggestions', [])
           if action.startswith('ACTION'):
-              # Exits first — managing existing risk beats new entries.
-              bits = []
+              # Paste-able alert: each line carries what the trading session needs
+              # to act on a name (price, stop, target, flags) so Ryan can copy the
+              # notification straight into a Claude session. Exits lead — managing
+              # existing risk beats new entries.
+              lines = []
               if exits:
-                  bits.append(f"SELL signals on {len(exits)} holding(s): "
-                              + ', '.join(e['symbol'] for e in exits[:10]))
+                  lines.append('SELL: ' + ' | '.join(
+                      f"{e['symbol']} {e['price']} ({'; '.join(e['reasons'])})"
+                      for e in exits[:10]))
+              if trails:
+                  lines.append('TRAIL STOP: ' + ' | '.join(
+                      f"{t['symbol']} {t['old_stop']}->{t['new_stop']}" for t in trails[:10]))
               if setups:
-                  bits.append(f"{len(setups)} swing setups: "
-                              + ', '.join(s['symbol'] for s in setups[:10]))
+                  def flags(s):
+                      f = [x for x, on in (('HELD', s.get('held')), ('SPEC', s.get('speculative'))) if on]
+                      return f" [{'/'.join(f)}]" if f else ''
+                  lines.append('BUY: ' + ' | '.join(
+                      f"{s['symbol']} {s['price']} stop {s['stop']} tgt {s['target']}{flags(s)}"
+                      for s in setups[:10]))
+                  if len(setups) > 10:
+                      lines.append(f"(+{len(setups) - 10} more in latest_{mode}.md)")
               title = f'Stock Autopilot {mode}: ACTION'
-              msg = '; '.join(bits) + '. Open Claude app -> "read the latest report" to review/approve.'
+              msg = '\n'.join(lines)
               priority = 'high'
           elif action == 'DATA ERROR':
               title = f'Stock Autopilot {mode}: DATA ERROR'
