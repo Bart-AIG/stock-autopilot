@@ -71,8 +71,6 @@ def connors_swing(sym: str, closes_desc: list[float], live_price: float | None =
     if len(closes) < 201:
         return None
     price = closes[0]
-    if price < MIN_PRICE:
-        return None
 
     ma5 = sum(closes[:5]) / 5
     ma20 = sum(closes[:20]) / 20
@@ -87,11 +85,17 @@ def connors_swing(sym: str, closes_desc: list[float], live_price: float | None =
     uptrend = price > ma200 and ma200 >= ma200_prev   # only mean-revert uptrends
     oversold = rsi2 is not None and rsi2 < RSI2_OVERSOLD
     pullback = price < ma20                            # buying a dip, not a breakout
-    is_setup = bool(uptrend and oversold and pullback)
+    # MIN_PRICE gates new ENTRIES only — a held name dropping under $5 must keep
+    # producing indicators so the exit engine can still see it.
+    is_setup = bool(uptrend and oversold and pullback and price >= MIN_PRICE)
 
     stop_dist = STOP_SIGMA_MULT * sigma
     stop = round(price * (1 - stop_dist), 2)
-    target = round(max(ma20, price * (1 + 1.5 * stop_dist)), 2)  # revert toward the mean
+    # Revert toward the mean: 1.5R, but capped at the 20-day high — a mean-reversion
+    # bounce rarely clears the recent range, and uncapped 1.5R targets on high-sigma
+    # names (30%+ away) were never going to be hit before the RSI2/MA5 exits fire.
+    hi20 = max(closes[:20])
+    target = round(max(ma20, min(price * (1 + 1.5 * stop_dist), hi20)), 2)
 
     return {
         "symbol": sym,
@@ -130,6 +134,14 @@ def load_holdings() -> list[dict]:
         return blob.get("positions", []) if isinstance(blob, dict) else []
     except (ValueError, AttributeError):
         return []
+
+
+def scan_universe() -> list[str]:
+    """UNIVERSE plus any held symbols missing from it, so the exit engine always
+    has data for every position in the ledger (a held name that isn't scanned
+    can never fire its exit rules)."""
+    held = {p.get("symbol") for p in load_holdings()}
+    return UNIVERSE + sorted(s for s in held if s and s not in UNIVERSE)
 
 
 def evaluate_exits(holdings: list[dict], swing_by_sym: dict,
@@ -216,17 +228,19 @@ def _load_fresh_cache(key: str) -> dict:
         except (ValueError, AttributeError):
             pass
     print("  no fresh morning cache - rebuilding with a full scan...")
-    _, _, cache = _scan_full_list(key, UNIVERSE)
+    _, _, cache = _scan_full_list(key, scan_universe())
     CACHE.write_text(json.dumps({"date": today, "histories": cache}), encoding="utf-8")
     return cache
 
 
 def scan_intraday(key: str, _unused: list[str]) -> tuple[list[dict], list[dict]]:
-    """Afternoon: reuse cached history (or rebuild). Refresh LIVE prices only for the
-    ~20 names nearest a swing trigger (uptrend + RSI2<25), to stay under the API cap."""
+    """Afternoon: reuse cached history (or rebuild). Refresh LIVE prices for the
+    names nearest a swing trigger (uptrend + RSI2<25) AND every held position —
+    exits (stop breaches especially) must be judged on live prices, not the
+    morning cache. Starter plan (300 calls/min) absorbs the quote calls easily."""
     cache = _load_fresh_cache(key)
     momentum, base = [], {}
-    for sym in UNIVERSE:
+    for sym in scan_universe():
         rows = cache.get(sym)
         if not rows:
             continue
@@ -236,19 +250,27 @@ def scan_intraday(key: str, _unused: list[str]) -> tuple[list[dict], list[dict]]
         closes_desc = [r["price"] for r in rows if "price" in r]
         s = connors_swing(sym, closes_desc)
         if s:
-            base[sym] = (closes_desc, s)
+            base[sym] = (rows, s)
 
-    # Only names already in an uptrend and near oversold can flip to a trigger intraday.
-    near = [sym for sym, (_, s) in base.items()
-            if s["uptrend"] and s["rsi2"] is not None and s["rsi2"] < 25][:20]
+    held_syms = {p.get("symbol") for p in load_holdings()}
+    # Names already in an uptrend and near oversold can flip to an entry trigger
+    # intraday; held names always get a live price so exit rules see reality.
+    near = {sym for sym, (_, s) in base.items()
+            if sym in held_syms
+            or (s["uptrend"] and s["rsi2"] is not None and s["rsi2"] < 25)}
 
+    today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     swings = []
-    for sym, (closes_desc, s) in base.items():
+    for sym, (rows, s) in base.items():
         if sym in near:
             live = fmp_quote_price(sym, key)
             time.sleep(0.2)
             if live:
-                s2 = connors_swing(sym, closes_desc, live_price=live)
+                # Drop today's partial EOD row (if FMP already lists one) so the
+                # live overlay doesn't count today twice.
+                closes_hist = [r["price"] for r in rows
+                               if "price" in r and r.get("date") != today_str]
+                s2 = connors_swing(sym, closes_hist, live_price=live)
                 if s2:
                     s2["live_overlay"] = True
                     swings.append(s2)
@@ -332,13 +354,15 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
         for s in setups:
             s["theme"] = theme_of(s["symbol"])
             s["speculative"] = s["symbol"] in SPECULATIVE
+            s["held"] = s["symbol"] in held_syms
         lines.append("Oversold (RSI2<10) inside a rising 200-day uptrend. Entry/stop/target are ESTIMATES.\n")
-        lines.append("| Ticker | Theme | Spec | Price | RSI2 | Entry | Stop | Target | Stop% |")
-        lines.append("|---|---|---|---|---|---|---|---|---|")
+        lines.append("| Ticker | Theme | Spec | Held | Price | RSI2 | Entry | Stop | Target | Stop% |")
+        lines.append("|---|---|---|---|---|---|---|---|---|---|")
         for s in setups:
             spec = "SPEC" if s["speculative"] else ""
+            held = "HELD" if s["held"] else ""
             wide = " ⚠" if abs(s["stop_pct"]) > 15 else ""
-            lines.append(f"| {s['symbol']} | {s['theme']} | {spec} | {s['price']} | {s['rsi2']} | "
+            lines.append(f"| {s['symbol']} | {s['theme']} | {spec} | {held} | {s['price']} | {s['rsi2']} | "
                          f"{s['entry']} | {s['stop']} | {s['target']} | {s['stop_pct']}%{wide} |")
 
         # --- Concentration / correlation / sizing analysis ---
@@ -347,13 +371,21 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
         ai_n = sum(n for th, n in themes.items() if th in AI_COMPLEX)
         spec_n = sum(1 for s in setups if s["speculative"])
         wide_n = sum(1 for s in setups if abs(s["stop_pct"]) > 15)
-        top_theme, top_cnt = themes.most_common(1)[0]
+        # "Other" is the fallback for unmapped tickers, not a real theme — never
+        # call it a correlated cluster.
+        clusters = Counter({th: n for th, n in themes.items() if th != "Other"})
         lines.append("\n### How to read this (concentration & sizing)")
+        held_overlap = [s["symbol"] for s in setups if s["held"]]
+        if held_overlap:
+            lines.append(f"- 📌 **Already held (marked HELD):** {', '.join(held_overlap)}. A new buy "
+                         "ADDS to the existing position — skip unless you mean to add, and re-check "
+                         "the per-name cap on the combined size.")
         if ai_n >= max(3, total * 0.5):
             lines.append(f"- 🔴 **Correlated cluster:** {ai_n}/{total} setups are in the AI/tech complex "
                          "(semis, AI-infra, quantum, photonics). They move together — buying several is "
                          "**ONE leveraged AI bet, not diversification.** Pick 1-2, not the cluster.")
-        elif top_cnt >= 3:
+        elif clusters and clusters.most_common(1)[0][1] >= 3:
+            top_theme, top_cnt = clusters.most_common(1)[0]
             lines.append(f"- 🟡 **Cluster:** {top_cnt}/{total} setups are '{top_theme}' — correlated, don't buy them all.")
         if spec_n:
             lines.append(f"- ⚠️ **{spec_n}/{total} are speculative** (high-vol). Size tiny; keep TOTAL speculative "
@@ -399,7 +431,8 @@ def main() -> None:
     key = load_api_key()
     LOGS.mkdir(exist_ok=True)
 
-    universe = UNIVERSE[: args.limit] if args.limit else UNIVERSE
+    # Always include held symbols so the exit engine sees every ledger position.
+    universe = scan_universe()[: args.limit] if args.limit else scan_universe()
 
     print(f"Combined report - mode={args.mode}, {len(universe)} names")
     if args.mode == "morning":

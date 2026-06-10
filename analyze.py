@@ -59,7 +59,7 @@ UNIVERSE: list[str] = [
     "ABNB","SHOP","DASH",
     # Consumer discretionary
     "HD","LOW","NKE","MCD","SBUX","CMG","BKNG","MAR","TJX","ROST",
-    "LULU","ULTA","DG","DLTR","TGT","F","GM","RIVN","DKNG",
+    "LULU","ULTA","DG","DLTR","TGT","F","GM","RIVN","NIO","DKNG",
     # Consumer staples
     "WMT","COST","PG","KO","PEP","MDLZ","CL","KMB","MO","PM","GIS","KHC",
     # Financials / payments
@@ -128,6 +128,7 @@ THEME_MAP: dict[str, str] = {
     **{t: "Gene-edit" for t in ("CRSP",)},
     **{t: "Energy" for t in ("XOM","CVX","COP","SLB","OXY","MPC","PSX","VLO","EOG",
                              "KMI","WMB","HAL","DVN")},
+    **{t: "Index-ETF" for t in ("SPY","QQQ","IWM","DIA")},
 }
 
 # Themes that move together as one risk factor (the "AI/tech complex").

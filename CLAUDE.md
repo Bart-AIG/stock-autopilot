@@ -19,6 +19,29 @@ When Ryan says something like "run today's report and let's trade" / "what are t
 
 This makes one phone session self-contained: findings -> approval -> execution.
 
+### Ryan's usual entry point: he pastes the ntfy alert
+The scheduled job's ACTION notification is paste-able and is often the whole prompt
+you get. Format (pipe-separated names, max 10 per line):
+
+```
+SELL: <sym> <price> (<exit reasons>) | ...
+TRAIL STOP: <sym> <old_stop>-><new_stop> | ...
+BUY: <sym> <price> stop <stop> tgt <target> [HELD/SPEC] | ...
+```
+
+When a message looks like that, don't ask what he wants — run the flow above:
+1. Cross-check against the committed `latest_*.md` (freshness, `DATA ERROR`,
+   anything the alert truncated) and reconcile `holdings.json` vs `get_equity_positions`.
+2. **SELL lines first** — propose each sell with a live quote, per-order approval.
+3. **TRAIL STOP lines** — propose the stop replacement (cancel old GTC stop, place new)
+   per-order approval.
+4. **BUY lines** — check real buying power via `get_portfolio` (pending deposits are
+   usually NOT spendable), then propose 1-2 sized entries. Skip `[HELD]` names unless
+   Ryan explicitly wants to add; respect the SPEC-sleeve cap for `[SPEC]` names. Prefer
+   whole-share quantities so the position can carry a resting GTC stop (Ryan's stated
+   preference).
+All HARD RULES below still apply — the alert is the findings, never the approval.
+
 ## HARD RULES (do not break, even if asked to "just do it")
 1. **Account:** trade ONLY the Robinhood account with `agentic_allowed=true` (nickname "Agentic", a cash account). Confirm it via `get_accounts` every session. NEVER place orders on any other account — the others reject agentic orders anyway.
 2. **Per-order approval, always:** for EACH order, first call `review_equity_order`, show Ryan the live quote, estimated shares, and total cost, then WAIT for his explicit "yes" before `place_equity_order`. One order at a time. Never batch-place on a single "yes." Never skip the review.
