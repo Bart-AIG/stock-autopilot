@@ -80,19 +80,23 @@ Personal Access Token**, scoped as tightly as possible:
 
 ## Safety-net cron
 
-`.github/workflows/stock-report.yml` keeps a single native cron (~16:00 UTC,
-Mon–Fri) that runs a morning scan if cron-job.org is down. On a normal day this
-**also** fires (late) and produces one duplicate morning scan (~217 FMP calls).
-Once cron-job.org is verified for a few days, you can delete the entire
-`schedule:` block from the workflow to eliminate the duplicate — `workflow_dispatch`
-keeps working.
+`.github/workflows/stock-report.yml` keeps a single native cron (**13:00 UTC**,
+Mon–Fri — pre-market in Central time) that runs a morning scan if cron-job.org
+is down. Because it fires before the market opens, it acts as an early baseline
+that the real 09:00 CT morning run overwrites; it never clobbers
+`latest_morning.md` mid-session. On a normal day it still produces one duplicate
+morning scan (~218 FMP calls). Once cron-job.org is verified for a few days, you
+can delete the entire `schedule:` block from the workflow to eliminate the
+duplicate — `workflow_dispatch` keeps working.
 
 ## FMP usage note
 
-Each run scans ~217 names ≈ 217 FMP calls (intraday adds ~20 live-quote calls).
-Six runs/day ≈ ~1,400 calls/day, more on days the safety-net also fires. The FMP
-**Starter** plan (300 calls/min, **no daily cap**) covers this comfortably — each
-run's calls are spread over ~45s, well under the per-minute limit.
+Each run scans the universe plus any held symbols not in it (~218 history
+calls); intraday also live-quotes every near-trigger name **and every held
+position** (a few dozen quote calls). Six runs/day ≈ ~1,500 calls/day, more on
+days the safety-net also fires. The FMP **Starter** plan (300 calls/min, **no
+daily cap**) covers this comfortably — each run's calls are spread over ~45s,
+well under the per-minute limit.
 
 ## Verifying
 

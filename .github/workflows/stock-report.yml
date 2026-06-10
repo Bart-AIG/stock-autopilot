@@ -12,14 +12,18 @@ name: Stock Report
 # best-effort (minutes-to-hours late), so the single `schedule:` entry below is
 # kept ONLY as a once-daily safety-net (in case cron-job.org or its token is down)
 # and is hard-pinned to morning so a late fire can never mislabel a run.
-# See docs/cron-job-setup.md. NOTE: each run scans ~217 names against FMP.
+# See docs/cron-job-setup.md. NOTE: each run scans ~218 names (universe + any
+# held symbols not in it) against FMP; intraday also live-quotes near-trigger
+# names and every held position.
 
 on:
   schedule:
     # Safety-net only. Delete this whole `schedule:` block once cron-job.org is
-    # verified if you want zero duplicate scans. ~16:00 UTC keeps it clear of the
-    # cron-job.org morning run; it can fire late without mislabeling (see below).
-    - cron: '0 16 * * 1-5'     # backstop -> morning full scan (+ heartbeat)
+    # verified if you want zero duplicate scans. 13:00 UTC is PRE-MARKET in
+    # Central time (07:00-08:00 CT depending on DST), so this acts as an early
+    # baseline that the real 09:00 CT morning run overwrites — it never clobbers
+    # latest_morning.md mid-session, and it can fire late without mislabeling.
+    - cron: '0 13 * * 1-5'     # backstop -> morning full scan (+ heartbeat)
   workflow_dispatch:           # manual button + cron-job.org entry point
     inputs:
       mode:
@@ -85,10 +89,18 @@ jobs:
           d = json.load(open(jf[-1]))
           action = d.get('action', '')
           setups = d.get('swing_setups', [])
+          exits = d.get('exit_signals', [])
           if action.startswith('ACTION'):
-              tickers = ', '.join(s['symbol'] for s in setups[:10])
+              # Exits first — managing existing risk beats new entries.
+              bits = []
+              if exits:
+                  bits.append(f"SELL signals on {len(exits)} holding(s): "
+                              + ', '.join(e['symbol'] for e in exits[:10]))
+              if setups:
+                  bits.append(f"{len(setups)} swing setups: "
+                              + ', '.join(s['symbol'] for s in setups[:10]))
               title = f'Stock Autopilot {mode}: ACTION'
-              msg = f'{len(setups)} swing setups: {tickers}. Open Claude app -> "read the latest report" to review/approve.'
+              msg = '; '.join(bits) + '. Open Claude app -> "read the latest report" to review/approve.'
               priority = 'high'
           elif action == 'DATA ERROR':
               title = f'Stock Autopilot {mode}: DATA ERROR'
@@ -98,7 +110,7 @@ jobs:
               # Daily heartbeat: ping even on a NO-ACTION day so that *silence*
               # always means the job didn't run (broken), never "quietly fine".
               title = f'Stock Autopilot {mode}: no trades'
-              msg = f'Report ran OK, {len(setups)} swing setups - nothing to do today. (heartbeat)'
+              msg = f'Report ran OK, no exits and {len(setups)} swing setups - nothing to do today. (heartbeat)'
               priority = 'low'
           # always alert; priority distinguishes act-now from heartbeat
           subprocess.run(['curl', '-s', '-H', f'Title: {title}', '-H', f'Priority: {priority}',
@@ -115,4 +127,7 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add "latest_${{ steps.m.outputs.mode }}.md"
           git commit -m "report: ${{ steps.m.outputs.mode }} $(date -u +%Y-%m-%dT%H:%MZ)" || echo "no change to commit"
+          # A trading session may have pushed (e.g. holdings.json) while this run
+          # was in flight — rebase on top so the push doesn't get rejected.
+          git pull --rebase
           git push

@@ -37,7 +37,8 @@ baseline then hourly intraday refreshes.
 - **Primary driver = cron-job.org** hitting the workflow's `workflow_dispatch`
   REST endpoint (on-time and DST-aware). GitHub's own cron is best-effort and was
   firing **hours late**, so it's been reduced to a single daily **backstop**
-  (~16:00 UTC) to avoid duplicate FMP scans.
+  (13:00 UTC — pre-market CT, so it's an early baseline the real 09:00 CT run
+  overwrites, never a mid-session clobber of `latest_morning.md`).
 - **Mode logic:** decided in the workflow's "Determine mode" step. Native cron
   (backstop) is hard-pinned to `morning` so a late fire can never mislabel. An
   explicit `mode=morning|intraday` in the dispatch body overrides the clock (handy
