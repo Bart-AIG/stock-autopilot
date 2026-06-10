@@ -19,9 +19,10 @@ IMPORTANT caveats (read these):
   - Daily indicators only change after the close. That's why the intraday run
     overlays a LIVE price as a provisional bar - so it can catch dips that develop
     during the day. Names FMP can't quote on the free tier keep their morning value.
-  - This job CANNOT see your Robinhood positions and CANNOT trade. It flags MARKET
-    setups only. Position-level exits and ALL execution happen in-session, with your
-    per-order approval.
+  - This job CANNOT see your Robinhood positions live and CANNOT trade. It flags
+    MARKET setups (entries) and reads a committed ledger (holdings.json, maintained
+    by the trading session) to flag EXITS on the names you hold. ALL execution and
+    the actual sell happen in-session, with your per-order approval.
 """
 
 from __future__ import annotations
@@ -96,6 +97,7 @@ def connors_swing(sym: str, closes_desc: list[float], live_price: float | None =
         "symbol": sym,
         "price": round(price, 2),
         "rsi2": rsi2,
+        "ma5": round(ma5, 2),
         "ma20": round(ma20, 2),
         "ma50": round(ma50, 2),
         "ma200": round(ma200, 2),
@@ -107,6 +109,100 @@ def connors_swing(sym: str, closes_desc: list[float], live_price: float | None =
         "stop_pct": -round(stop_dist * 100, 1),
         "sigma_pct": round(sigma * 100, 1),
     }
+
+
+HOLDINGS = Path(__file__).resolve().parent / "holdings.json"
+
+# Exit thresholds (mirror the entry rules).
+RSI2_OVERBOUGHT = 70.0        # swing take-profit: bounce done (mirror of the <10 entry)
+SWING_TIME_STOP_DAYS = 14     # ~10 trading days held without a target -> recycle capital
+
+
+def load_holdings() -> list[dict]:
+    """Read the committed positions ledger that the trading session maintains
+    (a buy appends, a sell removes). Each position: symbol, sleeve
+    (swing|momentum|legacy), entry_date, entry_price, shares, stop, target.
+    Missing/empty file -> no exit signals (report still flags entries)."""
+    if not HOLDINGS.exists():
+        return []
+    try:
+        blob = json.loads(HOLDINGS.read_text(encoding="utf-8"))
+        return blob.get("positions", []) if isinstance(blob, dict) else []
+    except (ValueError, AttributeError):
+        return []
+
+
+def evaluate_exits(holdings: list[dict], swing_by_sym: dict,
+                   momentum_rank: dict, n_decile: int) -> tuple[list[dict], list[dict], list[str]]:
+    """Turn the indicators the report already computes into SELL signals on the
+    positions you actually hold. Returns (exits, trail_suggestions, no_data_syms).
+
+    Exit rules by sleeve:
+      swing  (Connors mean-reversion, classic-fast): RSI2>=70 OR price reclaims the
+             5-day MA OR price>=target OR price<=stop OR held >=~10 trading days OR
+             closes below the 200-day MA (the rising-uptrend premise broke).
+      momentum (12-1 trend): fell out of the top decile OR closes below the 200-day MA.
+      legacy/manual: closes below the 200-day MA (trend break) or hits a set stop.
+
+    Winners not yet exiting that are up >=1R get a 'tighten the stop' suggestion."""
+    today = datetime.now(timezone.utc).date()
+    exits, trails, no_data = [], [], []
+    for pos in holdings:
+        sym = pos.get("symbol")
+        sleeve = pos.get("sleeve", "legacy")
+        s = swing_by_sym.get(sym)
+        if not s:
+            no_data.append(sym)
+            continue
+        price = s["price"]
+        stop, target, entry = pos.get("stop"), pos.get("target"), pos.get("entry_price")
+        reasons: list[str] = []
+
+        # A breached stop is a hard exit in every sleeve.
+        if stop and price <= stop:
+            reasons.append(f"price {price} <= stop {stop}")
+
+        if sleeve == "swing":
+            if target and price >= target:
+                reasons.append(f"reached target {target}")
+            if s.get("rsi2") is not None and s["rsi2"] >= RSI2_OVERBOUGHT:
+                reasons.append(f"RSI2 {s['rsi2']} overbought — mean-reversion bounce done")
+            if s.get("ma5") and price >= s["ma5"]:
+                reasons.append(f"reclaimed 5-day MA ({s['ma5']})")
+            ed = pos.get("entry_date")
+            if ed:
+                try:
+                    age = (today - datetime.strptime(ed, "%Y-%m-%d").date()).days
+                    if age >= SWING_TIME_STOP_DAYS:
+                        reasons.append(f"held {age}d — time-stop (~10 trading days)")
+                except ValueError:
+                    pass
+            if s.get("ma200") and price < s["ma200"]:
+                reasons.append(f"below 200-day MA ({s['ma200']}) — uptrend premise broke")
+        elif sleeve == "momentum":
+            rank = momentum_rank.get(sym)
+            if rank and rank > n_decile:
+                reasons.append(f"fell out of the top decile (rank {rank}, decile={n_decile})")
+            if s.get("ma200") and price < s["ma200"]:
+                reasons.append(f"below 200-day MA ({s['ma200']}) — trend break")
+        else:  # legacy / manual
+            if s.get("ma200") and price < s["ma200"]:
+                reasons.append(f"below 200-day MA ({s['ma200']}) — trend break")
+
+        if reasons:
+            exits.append({"symbol": sym, "sleeve": sleeve, "price": price,
+                          "entry": entry, "stop": stop, "target": target, "reasons": reasons})
+            continue
+
+        # Not exiting: a swing winner up >=1R should trail its stop up to lock the gain.
+        if sleeve == "swing" and entry and stop and entry > stop:
+            r = (price - entry) / (entry - stop)
+            if r >= 1.0:
+                new_stop = round(max(entry, price - (entry - stop)), 2)  # breakeven-or-better trail
+                if new_stop > stop:
+                    trails.append({"symbol": sym, "price": price, "entry": entry,
+                                   "old_stop": stop, "new_stop": new_stop, "r": round(r, 1)})
+    return exits, trails, no_data
 
 
 def _load_fresh_cache(key: str) -> dict:
@@ -188,11 +284,48 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
         print("!!! DATA ERROR: 0 names resolved - data fetch failed. Report INVALID.")
         return md_path
 
-    action = "ACTION" if setups else "NO ACTION (swing); momentum is informational"
+    # --- Exit engine: sell signals on the positions you actually hold (ledger) ---
+    swing_by_sym = {s["symbol"]: s for s in swings}
+    momentum_rank = {r["symbol"]: i for i, r in enumerate(momentum, 1)}
+    holdings = load_holdings()
+    exits, trails, exit_no_data = evaluate_exits(holdings, swing_by_sym, momentum_rank, n_decile)
+    held_syms = {p.get("symbol") for p in holdings}
+    rotation = ([r["symbol"] for r in momentum[:n_decile] if r["symbol"] not in held_syms][:8]
+                if exits else [])
+
+    action = "ACTION" if (setups or exits) else "NO ACTION (swing); momentum is informational"
 
     lines = []
     lines.append(f"# Strategy report - {mode.upper()}  ({now.strftime('%Y-%m-%d %H:%M UTC')})")
     lines.append(f"\n## >>> {action} <<<\n")
+
+    # SELL signals first — managing existing risk takes priority over new entries.
+    lines.append("## SELL / EXIT signals (your holdings)")
+    if exits:
+        lines.append("Positions whose exit rule fired. Confirm with a live quote and approve each sell in-session.\n")
+        lines.append("| Ticker | Sleeve | Price | Entry | Stop | Why exit |")
+        lines.append("|---|---|---|---|---|---|")
+        for e in exits:
+            lines.append(f"| {e['symbol']} | {e['sleeve']} | {e['price']} | "
+                         f"{e['entry'] if e['entry'] is not None else '—'} | "
+                         f"{e['stop'] if e['stop'] is not None else '—'} | {'; '.join(e['reasons'])} |")
+        if rotation:
+            lines.append(f"\n- 🔄 **Better-play rotation:** top-decile momentum names you don't hold — "
+                         f"{', '.join(rotation)}. If buying power is tight, fund a new entry by exiting the weakest above.")
+    elif holdings:
+        lines.append(f"No exits — all {len(holdings)} tracked positions still pass their hold rules.")
+    else:
+        lines.append("_No holdings ledger yet. The trading session writes `holdings.json` on each fill "
+                     "(buy → add, sell → remove); once populated, sell signals appear here._")
+    if trails:
+        lines.append("\n### Tighten stops (winners up ≥1R — trail to lock the gain)")
+        lines.append("| Ticker | Price | Stop now | Trail to | R |")
+        lines.append("|---|---|---|---|---|")
+        for t in trails:
+            lines.append(f"| {t['symbol']} | {t['price']} | {t['old_stop']} | {t['new_stop']} | {t['r']} |")
+    if exit_no_data:
+        lines.append(f"\n_No price data this run for held: {', '.join(s for s in exit_no_data if s)} — not evaluated._")
+    lines.append("")
 
     lines.append("## Connors RSI(2) swing setups (1-3 week holds)")
     if setups:
@@ -251,6 +384,8 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
     (LOGS / f"report_{stamp}_{mode}.json").write_text(
         json.dumps({"mode": mode, "generated_utc": now.isoformat(),
                     "action": action, "swing_setups": setups,
+                    "exit_signals": exits, "trail_suggestions": trails,
+                    "rotation_candidates": rotation,
                     "momentum_top": momentum[:n_decile]}, indent=2), encoding="utf-8")
     return md_path
 

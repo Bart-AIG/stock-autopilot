@@ -5,7 +5,9 @@ This file is auto-loaded by any Claude Code session that opens this repo. It exi
 > **Resuming an in-progress session?** Read **`HANDOFF.md`** first (if present) — it carries the current working state and any corrections to the notes below (scheduling, FMP access, in-flight stop tasks).
 
 ## What this project is
-Read-only daily stock analysis. `report.py` (run by scheduled routines) produces reports through the trading day (a morning full scan then hourly intraday refreshes, ~09:00–14:00 CT, Mon–Fri — see `docs/cron-job-setup.md`) flagging Connors RSI(2) swing setups + a 12-1 momentum ranking, with auto concentration/sizing analysis. The scripts NEVER trade.
+Read-only daily stock analysis. `report.py` (run by scheduled routines) produces reports through the trading day (a morning full scan then hourly intraday refreshes, ~09:00–14:00 CT, Mon–Fri — see `docs/cron-job-setup.md`) flagging Connors RSI(2) swing setups + a 12-1 momentum ranking (entries), **SELL/EXIT signals on positions in the `holdings.json` ledger**, and auto concentration/sizing analysis. The scripts NEVER trade.
+
+**Exit engine:** the report reads `holdings.json` (the positions ledger) and flags sells. Swing sleeve (classic-fast): RSI2≥70 OR price reclaims the 5-day MA OR target hit OR stop hit OR ~10-trading-day time-stop OR close below the 200-day MA. Momentum sleeve: fell out of the top decile OR below the 200-day MA, plus a "better-play" rotation list. Winners up ≥1R get a trail-your-stop suggestion. These are SIGNALS — confirm with a live quote and approve each sell per the HARD RULES.
 
 ## Your job in a remote session: help Ryan APPROVE and PLACE trades
 
@@ -33,3 +35,9 @@ This makes one phone session self-contained: findings -> approval -> execution.
 
 ## Logging
 After any fill, summarize it back to Ryan (symbol, side, $, shares, avg price, order id) so he has a record.
+
+## Keep the positions ledger current (`holdings.json`)
+The report's exit engine only sees what's in `holdings.json`, so the trading session MUST keep it in sync with the agentic account:
+- **On a BUY fill:** append a position — `symbol`, `sleeve` (`swing` for RSI(2) entries, `momentum` for 12-1 holds, `legacy` for pre-strategy names), `entry_date` (UTC YYYY-MM-DD), `entry_price` (avg fill), `shares`, `stop`, `target` (swing entries carry stop+target+entry_date; momentum/legacy may leave them null).
+- **On a SELL fill:** remove that position (or reduce `shares` on a partial), and bump `updated_utc`.
+- When in doubt, reconcile against `get_equity_positions` so the ledger matches reality, then **commit `holdings.json`** so the next scheduled report evaluates the right book.
