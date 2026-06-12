@@ -1,4 +1,4 @@
-# Strategy report - INTRADAY  (2026-06-11 19:01 UTC)
+# Strategy report - INTRADAY  (2026-06-12 15:01 UTC)
 
 ## >>> ACTION <<<
 
@@ -7,52 +7,44 @@ Positions whose exit rule fired. Confirm with a live quote and approve each sell
 
 | Ticker | Sleeve | Price | Entry | Stop | Why exit |
 |---|---|---|---|---|---|
-| GEV | swing | 913.77 | 915.9 | 863.02 | reclaimed 5-day MA (913.69) |
+| F | swing | 14.8 | 14.36 | 12.98 | reclaimed 5-day MA (14.75) |
 
-- 🔄 **Better-play rotation:** top-decile momentum names you don't hold — LITE, ONDS, AAOI, MU, APLD, IREN, LASR, WULF. If buying power is tight, fund a new entry by exiting the weakest above.
+- 🔄 **Better-play rotation:** top-decile momentum names you don't hold — LITE, AAOI, ONDS, MU, APLD, IREN, LASR, WULF. If buying power is tight, fund a new entry by exiting the weakest above.
 
 ## Connors RSI(2) swing setups (1-3 week holds)
-Oversold (RSI2<10) inside a rising 200-day uptrend. Entry/stop/target are ESTIMATES.
-
-| Ticker | Theme | Spec | Held | Price | RSI2 | Entry | Stop | Target | Stop% |
-|---|---|---|---|---|---|---|---|---|---|
-| GOOGL | Other |  | HELD | 355.17 | 9.5 | 355.17 | 341.46 | 378.36 | -3.9% |
-
-### How to read this (concentration & sizing)
-- 📌 **Already held (marked HELD):** GOOGL. A new buy ADDS to the existing position — skip unless you mean to add, and re-check the per-name cap on the combined size.
-- ✅ **Discipline:** take the 1-2 highest-conviction, least-correlated names. Per-name cap ~15-20%, and set the stop on every entry.
+No swing setups today (nothing oversold inside an uptrend). Hold / wait — a 'no-trade' day is normal and correct.
 
 ## 12-1 momentum ranking (top decile = 21 of 214)
 Multi-week / monthly trend holds. Rebalance on a monthly cadence, not daily.
 
 | # | Ticker | mom12-1% | RSI14 | >200MA |
 |---|---|---|---|---|
-| 1 **TOP** | LITE | 1283.5 | 48.1 | T |
-| 2 **TOP** | ONDS | 989.4 | 44.9 | T |
-| 3 **TOP** | AAOI | 932.2 | 48.5 | T |
-| 4 **TOP** | MU | 730.6 | 60.3 | T |
-| 5 **TOP** | APLD | 727.3 | 48.2 | T |
-| 6 **TOP** | IREN | 653.1 | 49.2 | T |
-| 7 **TOP** | LASR | 571.6 | 46.7 | T |
-| 8 **TOP** | WULF | 555.2 | 53.4 | T |
-| 9 **TOP** | VIAV | 463.3 | 51.3 | T |
-| 10 **TOP** | RKLB | 453.0 | 49.2 | T |
-| 11 **TOP** | INTC | 443.8 | 57.1 | T |
-| 12 **TOP** | COHR | 380.9 | 47.5 | T |
-| 13 **TOP** | UUUU | 349.6 | 38.1 | F |
-| 14 **TOP** | AMD | 314.6 | 55.8 | T |
-| 15 **TOP** | TE | 300.7 | 47.6 | T |
-| 16 **TOP** | FCEL | 273.1 | 47.3 | T |
-| 17 **TOP** | LRCX | 251.7 | 66.7 | T |
-| 18 **TOP** | POET | 207.8 | 45.3 | T |
-| 19 **TOP** | MTSI | 195.9 | 54.0 | T |
-| 20 **TOP** | WBD | 194.7 | 47.4 | T |
-| 21 **TOP** | UEC | 180.3 | 36.8 | F |
-| 22  | ASTS | 168.6 | 50.3 | T |
-| 23  | CAT | 166.3 | 51.9 | T |
-| 24  | GEV | 157.3 | 38.9 | T |
-| 25  | INOD | 157.2 | 57.0 | T |
-| 26  | AMAT | 156.7 | 71.3 | T |
+| 1 **TOP** | LITE | 1282.9 | 51.1 | T |
+| 2 **TOP** | AAOI | 999.6 | 48.9 | T |
+| 3 **TOP** | ONDS | 925.8 | 44.1 | T |
+| 4 **TOP** | MU | 729.1 | 60.7 | T |
+| 5 **TOP** | APLD | 710.7 | 54.6 | T |
+| 6 **TOP** | IREN | 579.4 | 54.2 | T |
+| 7 **TOP** | LASR | 506.5 | 49.6 | T |
+| 8 **TOP** | WULF | 503.7 | 57.6 | T |
+| 9 **TOP** | RKLB | 468.7 | 45.6 | T |
+| 10 **TOP** | VIAV | 465.1 | 58.8 | T |
+| 11 **TOP** | INTC | 433.2 | 61.6 | T |
+| 12 **TOP** | COHR | 411.7 | 53.5 | T |
+| 13 **TOP** | FCEL | 365.4 | 47.9 | T |
+| 14 **TOP** | UUUU | 346.5 | 39.5 | F |
+| 15 **TOP** | AMD | 296.1 | 60.6 | T |
+| 16 **TOP** | TE | 269.1 | 51.1 | T |
+| 17 **TOP** | LRCX | 246.6 | 67.7 | T |
+| 18 **TOP** | POET | 227.3 | 50.6 | T |
+| 19 **TOP** | MTSI | 209.6 | 57.5 | T |
+| 20 **TOP** | WBD | 196.8 | 47.2 | T |
+| 21 **TOP** | ASTS | 181.8 | 45.5 | T |
+| 22  | UEC | 173.0 | 41.0 | F |
+| 23  | MRVL | 171.8 | 64.3 | T |
+| 24  | CAT | 155.9 | 55.0 | T |
+| 25  | ON | 152.8 | 53.7 | T |
+| 26  | GOOGL | 152.4 | 43.1 | T |
 
 ---
 _Read-only. No positions checked, no trades placed. Bring this into a session to act with live quotes and per-order approval._
