@@ -279,6 +279,33 @@ def scan_intraday(key: str, _unused: list[str]) -> tuple[list[dict], list[dict]]
     return momentum, swings
 
 
+def pick_options_candidates(momentum: list[dict], max_each: int = 5) -> dict:
+    """From the momentum ranking, pick options-worthy UNDERLYINGS (not contracts).
+
+      CALLS (bullish): strongest uptrends — above the 200-day MA and not already
+            extended (RSI14 < 75), taken in momentum-rank order.
+      PUTS  (bearish): clear downtrends — below the 200-day MA with weak momentum and
+            RSI14 in ~25-55 (rolling over, not already washed out), weakest first.
+
+    These are candidates for the options sleeve (single-leg long calls/puts). This is
+    PURELY TECHNICAL and runs in CI with no broker access — the session still picks the
+    actual contract off the live chain (~30-45 DTE, ~0.35 delta, IV-sane, liquid) and
+    gates each with the news/thesis check. See docs/options-strategy.md."""
+    calls, puts = [], []
+    for r in momentum:  # already sorted by momentum desc → strongest first
+        rsi = r.get("rsi14")
+        if r.get("above_ma200") and rsi is not None and rsi < 75 and len(calls) < max_each:
+            calls.append({"symbol": r["symbol"], "mom_12_1_pct": r.get("mom_12_1_pct"),
+                          "rsi14": rsi, "spec": r["symbol"] in SPECULATIVE})
+    for r in sorted(momentum, key=lambda x: x.get("mom_12_1_pct") or 0):  # weakest first
+        rsi = r.get("rsi14")
+        if r.get("above_ma200") is False and rsi is not None and 25 <= rsi < 55 \
+                and len(puts) < max_each:
+            puts.append({"symbol": r["symbol"], "mom_12_1_pct": r.get("mom_12_1_pct"),
+                         "rsi14": rsi, "spec": r["symbol"] in SPECULATIVE})
+    return {"calls": calls, "puts": puts}
+
+
 def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
     momentum.sort(key=lambda r: r["mom_12_1_pct"], reverse=True)
     n_decile = max(1, int(len(momentum) * 0.10))
@@ -407,6 +434,29 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
         lines.append(f"| {rank} {flag} | {r['symbol']} | {r['mom_12_1_pct']} | {r['rsi14']} | "
                      f"{str(r.get('above_ma200'))[0]} |")
 
+    # --- Options candidates (sleeve: options) — underlyings only, acted in-session ---
+    opts = pick_options_candidates(momentum)
+    lines.append("\n## Options candidates (sleeve: options — single-leg LONG)")
+    lines.append("Underlyings only. In-session: pick the contract off the live Robinhood "
+                 "chain (~30-45 DTE, ~0.35 delta, IV-sane, liquid), gate with news/thesis, "
+                 "≤$150/trade & ≤15% total. See docs/options-strategy.md.\n")
+    if opts["calls"]:
+        lines.append("**Calls (bullish — strong uptrend > 200MA):**")
+        lines.append("| Ticker | mom12-1% | RSI14 | Spec |")
+        lines.append("|---|---|---|---|")
+        for c in opts["calls"]:
+            lines.append(f"| {c['symbol']} | {c['mom_12_1_pct']} | {c['rsi14']} | "
+                         f"{'SPEC' if c['spec'] else ''} |")
+    if opts["puts"]:
+        lines.append("\n**Puts (bearish — downtrend < 200MA):**")
+        lines.append("| Ticker | mom12-1% | RSI14 | Spec |")
+        lines.append("|---|---|---|---|")
+        for p in opts["puts"]:
+            lines.append(f"| {p['symbol']} | {p['mom_12_1_pct']} | {p['rsi14']} | "
+                         f"{'SPEC' if p['spec'] else ''} |")
+    if not opts["calls"] and not opts["puts"]:
+        lines.append("_No clean options candidates this run._")
+
     lines.append("\n---")
     lines.append("_Read-only. No positions checked, no trades placed. Bring this into a session "
                  "to act with live quotes and per-order approval._")
@@ -418,7 +468,8 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
                     "action": action, "swing_setups": setups,
                     "exit_signals": exits, "trail_suggestions": trails,
                     "rotation_candidates": rotation,
-                    "momentum_top": momentum[:n_decile]}, indent=2), encoding="utf-8")
+                    "momentum_top": momentum[:n_decile],
+                    "options_candidates": opts}, indent=2), encoding="utf-8")
     return md_path
 
 
