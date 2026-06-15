@@ -29,23 +29,37 @@ TRAIL STOP: <sym> <old_stop>-><new_stop> | ...
 BUY: <sym> <price> stop <stop> tgt <target> [HELD/SPEC] | ...
 ```
 
-When a message looks like that, don't ask what he wants — run the flow above:
+When a message looks like that, don't ask what he wants — prepare the whole batch,
+then take ONE approval (see "One-tap batch approval" below):
 1. Cross-check against the committed `latest_*.md` (freshness, `DATA ERROR`,
    anything the alert truncated) and reconcile `holdings.json` vs `get_equity_positions`.
-2. **SELL lines first** — propose each sell with a live quote, per-order approval.
-3. **TRAIL STOP lines** — propose the stop replacement (cancel old GTC stop, place new)
-   per-order approval.
+2. **SELL lines first** — reconcile each against live positions; cancel any resting
+   stop that blocks the sell.
+3. **TRAIL STOP lines** — prepare the stop replacement (cancel old GTC stop, place new).
 4. **BUY lines** — check real buying power via `get_portfolio` (pending deposits are
-   usually NOT spendable), then propose 1-2 sized entries. Skip `[HELD]` names unless
-   Ryan explicitly wants to add; respect the SPEC-sleeve cap for `[SPEC]` names. Prefer
+   usually NOT spendable), size each per HARD RULE 4. Skip `[HELD]` names unless Ryan
+   explicitly wants to add; respect the SPEC-sleeve cap for `[SPEC]` names. Prefer
    whole-share quantities so the position can carry a resting GTC stop (Ryan's stated
    preference).
-For every SELL and BUY line, run the news/thesis check (HARD RULE 7) before proposing it.
+For every SELL and BUY line, run the news/thesis check (HARD RULE 7) before listing it.
 All HARD RULES below still apply — the alert is the findings, never the approval.
+
+### One-tap batch approval (Ryan's chosen semi-auto mode)
+Robinhood has no trading API and the account can't expose a TOTP seed, so execution
+must happen in a session — but Ryan wants ONE approval, not a per-order Q&A. So:
+- Do ALL the prep above silently, then present a SINGLE consolidated list of every
+  proposed order: ticker, side, $ size / shares, fresh live quote (from
+  `review_equity_order`), stop, and a one-line thesis-gate verdict (intact/weakened/
+  broken). Show vetoed and over-cap names separately as "excluded, reply to override".
+- Then wait for ONE explicit **"approve"**. On that single word, place the whole batch
+  in order (sells → trails → approved buys), auto-placing every stop (HARD RULE 5),
+  with NO further per-order prompts. Report all fills at the end and sync `holdings.json`.
+- Never place a name you didn't list; never silently include a vetoed/over-cap name.
+  Fall back to per-order "yes" whenever Ryan asks or for a one-off ad-hoc order.
 
 ## HARD RULES (do not break, even if asked to "just do it")
 1. **Account:** trade ONLY the Robinhood account with `agentic_allowed=true` (nickname "Agentic", a cash account). Confirm it via `get_accounts` every session. NEVER place orders on any other account — the others reject agentic orders anyway.
-2. **Per-order approval, always:** for EACH order, first call `review_equity_order`, show Ryan the live quote, estimated shares, and total cost, then WAIT for his explicit "yes" before `place_equity_order`. One order at a time. Never batch-place on a single "yes." Never skip the review.
+2. **Approval before placing — one-tap batch is Ryan's chosen default:** show Ryan a fresh live quote (`review_equity_order`), estimated shares, and total cost for EVERY order before any `place_equity_order`. Ryan has opted into ONE-TAP approval: present the full priced batch (see "One-tap batch approval" above) and WAIT for a single explicit **"approve"**; that one word authorizes the whole listed batch and you place it without pausing per order. NEVER place before showing the priced batch, never place a name not on the list, never include a vetoed/over-cap name unless Ryan adds it. (Per-order "yes" remains available on request and for one-off ad-hoc orders. A bare "place it" is still never a bypass of the review/listing.)
 3. **Order type:** dollar-based **market** orders, `market_hours=regular_hours` (fractional only works this way). If the market is closed, the order queues for the next open — tell Ryan that.
 4. **Sizing / risk:** per-name ≤ ~15-20% of account value; total SPECULATIVE-sleeve exposure ≤ ~25% (spec = quantum/nuclear/uranium/space/eVTOL/drones/photonics/AI-infra small caps). Respect settled buying power (cash account: sale proceeds take ~1 day to settle). Keep a cash buffer.
 5. **Stops — place them at order time:** every new position should have a stop level (the report gives one). **As soon as a buy fills, immediately place a resting GTC `stop_market` sell on the WHOLE-SHARE portion of that position** (round the filled quantity DOWN to whole shares; e.g. a 2.39-share fill → stop 2 shares). Do this without waiting to be asked — it's part of placing the order. Robinhood resting stops need whole shares, so the fractional remainder (and any position under 1 whole share) can't rest a broker stop — call those out explicitly as **monitored, not automatic**. Confirm the buy actually filled (`get_equity_positions` → `shares_available_for_sells`) before placing the stop sell.
