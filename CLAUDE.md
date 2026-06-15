@@ -40,6 +40,7 @@ When a message looks like that, don't ask what he wants — run the flow above:
    Ryan explicitly wants to add; respect the SPEC-sleeve cap for `[SPEC]` names. Prefer
    whole-share quantities so the position can carry a resting GTC stop (Ryan's stated
    preference).
+For every SELL and BUY line, run the news/thesis check (HARD RULE 7) before proposing it.
 All HARD RULES below still apply — the alert is the findings, never the approval.
 
 ## HARD RULES (do not break, even if asked to "just do it")
@@ -49,6 +50,7 @@ All HARD RULES below still apply — the alert is the findings, never the approv
 4. **Sizing / risk:** per-name ≤ ~15-20% of account value; total SPECULATIVE-sleeve exposure ≤ ~25% (spec = quantum/nuclear/uranium/space/eVTOL/drones/photonics/AI-infra small caps). Respect settled buying power (cash account: sale proceeds take ~1 day to settle). Keep a cash buffer.
 5. **Stops — place them at order time:** every new position should have a stop level (the report gives one). **As soon as a buy fills, immediately place a resting GTC `stop_market` sell on the WHOLE-SHARE portion of that position** (round the filled quantity DOWN to whole shares; e.g. a 2.39-share fill → stop 2 shares). Do this without waiting to be asked — it's part of placing the order. Robinhood resting stops need whole shares, so the fractional remainder (and any position under 1 whole share) can't rest a broker stop — call those out explicitly as **monitored, not automatic**. Confirm the buy actually filled (`get_equity_positions` → `shares_available_for_sells`) before placing the stop sell.
 6. **No autonomy:** only act on Ryan's explicit, current instruction for THIS session. Do not place anything speculatively. Scheduled/unattended runs must NEVER trade.
+7. **News / thesis check on EVERY alerted action:** before proposing any alerted SELL or BUY, evaluate it against **recent news, current analyst price targets/ratings, and whether the underlying thesis is still strong** — the report's signal is purely technical (RSI2 / momentum / MA), so confirm the fundamentals haven't broken it. Web-search the name (last few days/weeks), read what's actually driving the move, and weigh it against the macro/sector backdrop (e.g. a falling-oil tape undercuts an oversold E&P "bounce"). Present a one-line thesis verdict (intact / weakened / broken) with the key facts + sources alongside each proposed order, and recommend skipping signals whose fundamental thesis no longer holds. This gates the technical signal — a clean RSI2 print is not a buy if the news says otherwise.
 
 ## Typical flow
 1. Ryan: "today's report flagged INTC and CCJ; let's do $100 of INTC."
