@@ -81,3 +81,13 @@ The report's exit engine only sees what's in `holdings.json`, so the trading ses
 - **On a BUY fill:** append a position — `symbol`, `sleeve` (`swing` for RSI(2) entries, `momentum` for 12-1 holds, `legacy` for pre-strategy names), `entry_date` (UTC YYYY-MM-DD), `entry_price` (avg fill), `shares`, `stop`, `target` (swing entries carry stop+target+entry_date; momentum/legacy may leave them null).
 - **On a SELL fill:** remove that position (or reduce `shares` on a partial), and bump `updated_utc`.
 - When in doubt, reconcile against `get_equity_positions` so the ledger matches reality, then **commit `holdings.json`** so the next scheduled report evaluates the right book.
+
+## Rebalance cadence (scheduled ritual, by sleeve)
+Each sleeve turns over on its own clock — there is NO single blanket rebalance frequency:
+- **Swing (RSI2) — daily, signal-driven, NO calendar rebalance.** 1-3 week trades exited by the report's rules (RSI2≥70 / MA5 reclaim / target / stop / ~10-day time-stop / 200MA). Just keep actioning the SELL alerts; never force a calendar exit on these.
+- **Momentum (12-1) — MONTHLY.** Re-rank the top decile; exit held momentum names that fell out of the decile or broke the 200-day MA; weigh the better-play rotation list. Monthly because the 12-1 signal uses a 12-month lookback and barely moves week to week — weekly churn just pays spreads.
+- **Concentration / sizing — MONTHLY (+ ad-hoc).** Trim any position over the per-name cap (~15-20%) or the speculative sleeve over ~25%; confirm the cash buffer. Also trigger ad-hoc whenever a runner breaches a cap mid-month.
+- **Legacy — QUARTERLY (Jan/Apr/Jul/Oct).** Reclassify each `legacy` holding into a real sleeve or exit it; set a stop on anything kept.
+- **Options — rule-based, not calendar.** Governed by the HARD RULE 8 exits (+50-100% TP / −50% cut / broken thesis / DTE<~14 / pre-earnings).
+
+**The ritual:** on the **first trading day of each month**, run one monthly portfolio session = momentum rotate + concentration check (+ quarterly legacy sweep). `report.py` prints a **`📅 MONTHLY REBALANCE DUE`** banner in the ACTION block on that day (and the quarterly legacy line on Jan/Apr/Jul/Oct) so the alert itself reminds you — it's a nudge, not an order; approve every resulting trade per the HARD RULES.

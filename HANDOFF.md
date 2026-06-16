@@ -72,7 +72,18 @@ baseline then hourly intraday refreshes.
   before changing that order. Follow the per-order review + explicit-approval
   HARD RULE for any stop change.
 
+## Rebalance cadence — LIVE (process now codified)
+- Cadence is per-sleeve (full spec in `CLAUDE.md` → "Rebalance cadence"): swing +
+  options are daily/rule-driven (no calendar rebalance); **momentum + concentration
+  rebalance MONTHLY**, **legacy QUARTERLY** (Jan/Apr/Jul/Oct).
+- **Anchor = first trading day of each month.** `report.py` now prints a
+  **`📅 MONTHLY REBALANCE DUE`** banner in the ACTION block on that day (and the
+  quarterly legacy-sweep line in Jan/Apr/Jul/Oct), so the ntfy alert reminds the
+  session. First-trading-day = first Mon-Fri of the month (ignores holidays — a
+  reminder nudge, may land a day early on Jan 1 / Jul 4 weeks).
+
 ## Quick open-items checklist
 - [x] cron-job.org setup done (PAT, single hourly job, `mode=auto`, test 204).
+- [x] Rebalance cadence codified (CLAUDE.md) + monthly nudge in report.py.
 - [ ] Ryan: confirm the pending stop-level decision.
 - [ ] Optional: remove the GitHub `schedule:` backstop once cron-job.org is proven.

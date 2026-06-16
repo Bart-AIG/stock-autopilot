@@ -35,7 +35,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 # Reuse the universe + helpers from the momentum tool (single source of truth).
@@ -306,6 +306,16 @@ def pick_options_candidates(momentum: list[dict], max_each: int = 5) -> dict:
     return {"calls": calls, "puts": puts}
 
 
+def _first_trading_day_of_month(d):
+    """First weekday (Mon-Fri) of d's month. Approximates the first trading day —
+    it ignores market holidays, which is fine for a reminder nudge (worst case the
+    reminder lands a day early when Jan 1 / July 4 etc. fall on the first weekday)."""
+    first = d.replace(day=1)
+    while first.weekday() >= 5:  # Sat=5, Sun=6
+        first += timedelta(days=1)
+    return first
+
+
 def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
     momentum.sort(key=lambda r: r["mom_12_1_pct"], reverse=True)
     n_decile = max(1, int(len(momentum) * 0.10))
@@ -347,6 +357,22 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
     lines = []
     lines.append(f"# Strategy report - {mode.upper()}  ({now.strftime('%Y-%m-%d %H:%M UTC')})")
     lines.append(f"\n## >>> {action} <<<\n")
+
+    # Monthly rebalance ritual — fires on the first trading day of the month so the
+    # alert itself reminds the session to run the periodic portfolio review (swing +
+    # options stay daily/rule-driven; only momentum/concentration/legacy are calendar-based).
+    today = now.date()
+    if today == _first_trading_day_of_month(today):
+        lines.append("## 📅 MONTHLY REBALANCE DUE (first trading day of the month)")
+        lines.append("Run the monthly portfolio review alongside today's signals:")
+        lines.append("- **Momentum rotate:** re-rank the 12-1 top decile (below); exit held momentum "
+                     "names that dropped out of the decile or broke the 200-day MA; weigh the better-play list.")
+        lines.append("- **Concentration check:** trim any position over the per-name cap (~15-20%) or the "
+                     "speculative sleeve over ~25%; confirm the cash buffer.")
+        if today.month in (1, 4, 7, 10):
+            lines.append("- **Quarterly legacy sweep:** reclassify each `legacy` holding into a real sleeve "
+                         "(swing/momentum) or exit it; set a stop on anything kept.")
+        lines.append("")
 
     # SELL signals first — managing existing risk takes priority over new entries.
     lines.append("## SELL / EXIT signals (your holdings)")
