@@ -218,7 +218,8 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict,
                     f"building a cushion toward a trailing stop"]
 
         rows.append({"symbol": sym, "sleeve": sleeve, "price": price, "entry": entry,
-                     "pnl": pnl, "stop": stop, "action": action, "note": "; ".join(note)})
+                     "pnl": pnl, "stop": stop, "new_stop": trail,
+                     "action": action, "note": "; ".join(note)})
     return rows, no_data
 
 
