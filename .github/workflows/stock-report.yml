@@ -103,8 +103,9 @@ jobs:
                       f"{r['symbol']} {r['price']} ({r['note']})"
                       for r in sells[:10]))
               if trails:
-                  lines.append('TRAIL STOP: ' + ' | '.join(
-                      f"{r['symbol']} {r['stop'] if r['stop'] is not None else 'none'}->{r['new_stop']}"
+                  # Green-enough names: prompt Ryan to set a NATIVE trailing stop in-app.
+                  lines.append('SET TRAILING STOP: ' + ' | '.join(
+                      f"{r['symbol']} {r['price']} ({r['pnl']:+.0%}) -> 15% native, floor ~{r['new_stop']}"
                       for r in trails[:10]))
               if reviews:
                   lines.append('THESIS CHECK: ' + ' | '.join(

@@ -120,6 +120,9 @@ HOLDINGS = Path(__file__).resolve().parent / "holdings.json"
 # Exit thresholds (mirror the entry rules).
 RSI2_OVERBOUGHT = 70.0        # swing take-profit: bounce done (mirror of the <10 entry)
 SWING_TIME_STOP_DAYS = 14     # ~10 trading days held without a target -> recycle capital
+TRAIL_PCT = 0.15              # trailing-stop distance below the high; a winner is "green
+                              # enough" to trail once price >= entry/(1-TRAIL_PCT) (~+17.6%),
+                              # so a 15%-below-high stop clears breakeven (set 2026-06-17)
 
 
 def load_holdings() -> list[dict]:
@@ -173,6 +176,7 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict,
             continue
         price = s["price"]
         entry, target, stop = pos.get("entry_price"), pos.get("target"), pos.get("stop")
+        native = pos.get("native_trail_pct")  # native (in-app) trailing stop, % trail
         ma200, rsi2 = s.get("ma200"), s.get("rsi2")
         rank = momentum_rank.get(sym)
         pnl = (price - entry) / entry if entry else None
@@ -187,38 +191,37 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict,
         if sleeve == "momentum" and rank and rank > n_decile:
             review.append(f"out of top decile (rank {rank}/{n_decile}) — rotate candidate")
 
-        # Ratchet-up trailing stop once the winner has run far enough that a 15%-below-high
-        # stop clears breakeven (entry*1.176). max(entry, 0.85*price) floors it at breakeven.
-        trail = None
-        if entry and price >= entry * 1.176:
-            cand = round(max(entry, 0.85 * price), 2)
-            if stop is None or cand > stop:
-                trail = cand
+        # "Green enough" to trail: the name has run far enough that a TRAIL_PCT-below-high
+        # stop clears breakeven (price >= entry / (1-TRAIL_PCT) ≈ +17.6% for 15%). The
+        # suggested stop floors at breakeven so a winner can only ever be sold for a gain.
+        green_enough = bool(entry and price >= entry / (1 - TRAIL_PCT))
+        suggested = round(max(entry, price * (1 - TRAIL_PCT)), 2) if green_enough else None
 
         if sell_reasons:
             action, note = "SELL / TAKE-PROFIT", sell_reasons + review
-        elif trail:
-            action = f"TRAIL stop → {trail}"
-            note = [f"winner {pnl:+.0%}; ratchet GTC stop to 15% below high "
-                    f"(was {stop if stop is not None else 'none'})"] + review
+        elif native:
+            action = "HOLD"
+            note = [f"native {native}% trailing stop set in-app — auto-locks the gain "
+                    f"({pnl:+.0%})"] + review
         elif review:
             action = "REVIEW / THESIS-CHECK"
             note = review + ["sell only if the thesis is dead; else hold to monthly rebalance"]
+        elif green_enough:
+            action = f"TRAIL: set {TRAIL_PCT:.0%} native trailing stop in-app"
+            note = [f"winner {pnl:+.0%} — GREEN ENOUGH: set a {TRAIL_PCT:.0%} NATIVE trailing "
+                    f"stop in-app (locks ≥{suggested}). I'll rest a fixed {suggested} stop as "
+                    f"fallback until you do"] + review
         elif pnl is not None and pnl < 0:
             action = "HOLD (thesis-watch)"
             note = [f"underwater {pnl:+.0%}; no price stop — sell only if the thesis breaks, "
                     f"else cull at monthly rebalance"]
-        elif stop is not None:
-            action = "HOLD"
-            note = [f"{('up '+format(pnl, '+.0%')) if pnl is not None else 'flat'}; "
-                    f"trailing GTC stop at {stop} already locks the gain"] + review
         else:
             action = "HOLD"
             note = [f"{('up '+format(pnl, '+.0%')) if pnl is not None else 'flat'}; "
-                    f"building a cushion toward a trailing stop"]
+                    f"building toward the +{(1 / (1 - TRAIL_PCT) - 1):.0%} trailing-stop trigger"]
 
         rows.append({"symbol": sym, "sleeve": sleeve, "price": price, "entry": entry,
-                     "pnl": pnl, "stop": stop, "new_stop": trail,
+                     "pnl": pnl, "stop": stop, "new_stop": suggested, "native": native,
                      "action": action, "note": "; ".join(note)})
     return rows, no_data
 

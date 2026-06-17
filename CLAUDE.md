@@ -25,13 +25,14 @@ you get. Format (pipe-separated names, max 10 per line):
 
 ```
 TAKE PROFIT / SELL: <sym> <price> (<reason>) | ...
-TRAIL STOP: <sym> <old_stop>-><new_stop> | ...
+SET TRAILING STOP: <sym> <price> (<pnl>) -> 15% native, floor ~<level> | ...
 THESIS CHECK: <sym> <price> (<reason: below 200MA / out of decile>) | ...
 BUY: <sym> <price> stop <stop> tgt <target> [HELD/SPEC] | ...
 ```
 (The report judges the WHOLE book each run, so these lines come straight from the
-per-position actions — `TAKE PROFIT / SELL` = bank the gain, `TRAIL STOP` = ratchet the
-GTC stop up, `THESIS CHECK` = research the name and sell only if the thesis is dead.)
+per-position actions — `TAKE PROFIT / SELL` = bank the gain, `SET TRAILING STOP` = a name
+just went green enough (≥~+17.6%) so set a **15% native trailing stop in-app** (or I rest
+the fixed fallback), `THESIS CHECK` = research the name and sell only if the thesis is dead.)
 
 When a message looks like that, don't ask what he wants — prepare the whole batch,
 then take ONE approval (see "One-tap batch approval" below):
@@ -83,7 +84,10 @@ So for future alerts:
 4. **Sizing / risk:** per-name ≤ ~15-20% of account value; total SPECULATIVE-sleeve exposure ≤ ~25% (spec = quantum/nuclear/uranium/space/eVTOL/drones/photonics/AI-infra small caps). Respect settled buying power (cash account: sale proceeds take ~1 day to settle). Keep a cash buffer.
 5. **Stops & exits — TRAILING profit-locks, never stale loss-stops (policy set 2026-06-17):**
    - **No fixed loss-stops below entry.** We do NOT rest a stop under our cost basis — those just turn normal pullbacks into realized losses (that's how HAL got chopped). Stale stops are banned.
-   - **Winners get a TRAILING stop = ~15% below the running high**, ratcheted **UP only** and **floored at breakeven (entry)**. It only *activates* once a name has run far enough that "15% below high" clears entry (~+18%). Place/raise it as a GTC `stop_market` sell on the **whole-share** portion, and **re-raise it each session** when a new high lifts the level. A winner can then only ever be sold for a **locked-in gain**. (Robinhood has no native trailing order — WE ratchet the fixed `stop_price` up each run. Fractional remainders / sub-1-share positions can't rest a broker stop → **monitored, not automatic**.)
+   - **Winners get a ~15% TRAILING stop, native-preferred (hybrid model, set 2026-06-17).** The trail *activates* the moment a name is **"green enough"** — price ≥ entry ÷ 0.85 (≈ **+17.6%**), so a 15%-below-high stop clears breakeven. `report.py` watches this every run and fires a **`SET TRAILING STOP`** alert when a name crosses it.
+     - **Preferred:** Ryan sets a **native 15% trailing stop in the Robinhood app** (it auto-follows the price up continuously, protecting between sessions). Record it in the ledger as `"native_trail_pct": 15` (and `stop: null`); the report then marks the name protected and stops re-alerting it.
+     - **Fallback (agentic):** the trade API can only place a **fixed** `stop_market` (no native trailing type). So until the native stop is set, rest a fixed GTC `stop_market` at the suggested floor (`max(entry, 15%-below-high)`) on the **whole-share** portion and **re-raise it each session** when a new high lifts the level — up only, never below breakeven.
+     - A winner can then only ever be sold for a **locked-in gain**. Fractional / sub-1-share positions can't rest a broker stop → **monitored, not automatic**.
    - **If a trailing stop fires but momentum/thesis is still alive, plan a BUYBACK lower** (below the exit price) rather than abandoning the name.
    - **Underwater / not-yet-trailing names carry NO price stop.** Manage them by **thesis** (HARD RULE 7): research the news for a thesis break and **sell only if the thesis is dead**; otherwise hold and cull at the monthly rebalance.
    - **Take profits when it makes sense** — this is an income / grow-the-balance account, not buy-and-forget. Bank gains on target hits / RSI2-overbought swing bounces, and let the trailing stop harvest extended runners.
@@ -104,7 +108,7 @@ After any fill, summarize it back to Ryan (symbol, side, $, shares, avg price, o
 ## Keep the positions ledger current (`holdings.json`)
 The report's portfolio engine only sees what's in `holdings.json`, so the trading session MUST keep it in sync with the agentic account:
 - **No `legacy` sleeve.** Every position is `swing` (RSI(2) mean-reversion entries) or `momentum` (12-1 / trend holds) and is **judged on every run** with a per-name action (take-profit / trail / hold / thesis-check) — nothing is parked. Treat the book as an **income / grow-the-balance** portfolio: take profits when it makes sense.
-- **On a BUY fill:** append a position — `symbol`, `sleeve`, `entry_date` (UTC YYYY-MM-DD), `entry_price` (avg fill), `shares`, `stop`, `target`. `stop` starts `null` (no loss-stop below entry); it is set/raised only once the name is a winner and earns a **trailing** stop (HARD RULE 5). swing entries carry a `target`; momentum may leave it null.
+- **On a BUY fill:** append a position — `symbol`, `sleeve`, `entry_date` (UTC YYYY-MM-DD), `entry_price` (avg fill), `shares`, `stop`, `target`. `stop` starts `null` (no loss-stop below entry); it is set/raised only once the name is a winner and earns a **trailing** stop (HARD RULE 5). When Ryan sets a **native** trailing stop in-app, record `"native_trail_pct": 15` and leave `stop: null` — the report then treats the name as protected and stops re-alerting it. swing entries carry a `target`; momentum may leave it null.
 - **On a SELL fill:** remove that position (or reduce `shares` on a partial), and bump `updated_utc`.
 - When in doubt, reconcile against `get_equity_positions` so the ledger matches reality, then **commit `holdings.json`** so the next scheduled report evaluates the right book.
 

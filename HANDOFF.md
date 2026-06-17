@@ -76,10 +76,15 @@ baseline then hourly intraday refreshes.
 - **No fixed loss-stops.** All four legacy fixed stops were cancelled this session
   (FCEL $13.30, CRWD $595.15, MRK $109.05, PSX $163.60). They sat below entry and were
   turning pullbacks into losses (that's how HAL got chopped at −$14).
-- **Winners trail:** GTC stop ~**15% below the running high**, ratcheted **up only**,
-  floored at breakeven; activates ~+18%. Re-raise each session. Only **FCEL** qualifies
-  today → trailing stop placed at **$18.70** (10 sh, +21% locked). If a trail fires but
-  momentum/thesis is intact, plan a **buyback lower**.
+- **Winners trail — HYBRID, native-preferred (set 2026-06-17).** A name is "green enough"
+  to trail at **price ≥ entry ÷ 0.85 (~+17.6%)**; `report.py` fires a **`SET TRAILING STOP`**
+  alert at that point. Preferred = Ryan sets a **15% NATIVE trailing stop in the RH app**
+  (record `"native_trail_pct": 15`, `stop: null`); fallback = the agentic API rests a fixed
+  `stop_market` at `max(entry, 15%-below-high)` and re-raises it each session (the API has
+  no native trailing type). If a trail fires but momentum/thesis is intact, plan a **buyback lower**.
+- **FCEL converted to native (2026-06-17):** cancelled the agentic fixed $18.70 stop; Ryan
+  is setting a 15% native trailing stop in-app (10 sh). Ledger marks `native_trail_pct:15`.
+  ⚠️ Confirm the native stop is actually live in the app — there's a brief unprotected gap.
 - **Underwater names: NO price stop** — thesis-managed (research news; sell only if the
   thesis is dead) and culled at the monthly rebalance.
 - **No `legacy` sleeve.** `holdings.json` reclassified: every position is `swing` or
