@@ -374,7 +374,7 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
 
     # Monthly rebalance ritual — fires on the first trading day of the month so the
     # alert itself reminds the session to run the periodic portfolio review (swing +
-    # options stay daily/rule-driven; only momentum/concentration/legacy are calendar-based).
+    # options stay daily/rule-driven; only momentum/concentration/laggard-cull are calendar-based).
     today = now.date()
     if today == _first_trading_day_of_month(today):
         lines.append("## 📅 MONTHLY REBALANCE DUE (first trading day of the month)")
