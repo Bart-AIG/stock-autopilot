@@ -72,6 +72,22 @@ baseline then hourly intraday refreshes.
   before changing that order. Follow the per-order review + explicit-approval
   HARD RULE for any stop change.
 
+## Stops & whole-book evaluation — NEW POLICY (set 2026-06-17)
+- **No fixed loss-stops.** All four legacy fixed stops were cancelled this session
+  (FCEL $13.30, CRWD $595.15, MRK $109.05, PSX $163.60). They sat below entry and were
+  turning pullbacks into losses (that's how HAL got chopped at −$14).
+- **Winners trail:** GTC stop ~**15% below the running high**, ratcheted **up only**,
+  floored at breakeven; activates ~+18%. Re-raise each session. Only **FCEL** qualifies
+  today → trailing stop placed at **$18.70** (10 sh, +21% locked). If a trail fires but
+  momentum/thesis is intact, plan a **buyback lower**.
+- **Underwater names: NO price stop** — thesis-managed (research news; sell only if the
+  thesis is dead) and culled at the monthly rebalance.
+- **No `legacy` sleeve.** `holdings.json` reclassified: every position is `swing` or
+  `momentum` and is judged each run. `report.py` rewritten: `evaluate_exits` →
+  `evaluate_portfolio`, which emits a per-name action (take-profit / trail / hold /
+  thesis-check) for the WHOLE book; the report's "Portfolio review" table replaces the old
+  SELL-only section. Treat the account as **income / grow-the-balance** — take profits.
+
 ## Sector focus — de-emphasize oil energy (set 2026-06-17)
 - Ryan's standing steer: **don't focus on oil-related energy for new entries** (upside
   capped by political/market forces, not a growth sector). Full rule in `CLAUDE.md` →

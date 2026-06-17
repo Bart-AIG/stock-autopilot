@@ -1,17 +1,17 @@
 {
-  "_comment": "Positions ledger for the exit engine in report.py. Maintained by the trading session: a buy fill APPENDS a position, a sell fill REMOVES it. sleeve = swing|momentum|legacy. swing entries carry entry_date/stop/target (drive RSI2/MA5/target/time-stop/200MA exits); momentum entries are judged on top-decile rank + 200MA; legacy = pre-strategy holdings, judged on 200MA break / set stop only until reclassified.",
-  "updated_utc": "2026-06-17T16:10:00Z",
+  "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance).",
+  "updated_utc": "2026-06-17T17:20:00Z",
   "positions": [
-    {"symbol": "PSX", "sleeve": "swing", "entry_date": "2026-06-16", "entry_price": 171.3854, "shares": 1.0, "stop": 163.60, "target": 181.98},
-    {"symbol": "HAL", "sleeve": "legacy", "entry_price": 38.37, "shares": 0.818628, "stop": null, "target": null},
-    {"symbol": "MRK", "sleeve": "swing", "entry_date": "2026-06-15", "entry_price": 115.50, "shares": 2.380952, "stop": 109.05, "target": 122.41},
-    {"symbol": "CRWD", "sleeve": "legacy", "entry_price": 660.77, "shares": 1.0, "stop": null, "target": null},
-    {"symbol": "FCEL", "sleeve": "legacy", "entry_price": 15.37, "shares": 10.0, "stop": null, "target": null},
-    {"symbol": "NVDA", "sleeve": "legacy", "entry_price": 224.20, "shares": 0.527646, "stop": null, "target": null},
-    {"symbol": "GOOGL", "sleeve": "legacy", "entry_price": 366.34, "shares": 0.409455, "stop": null, "target": null},
-    {"symbol": "KO", "sleeve": "legacy", "entry_price": 78.87, "shares": 1.521548, "stop": null, "target": null},
-    {"symbol": "XOM", "sleeve": "legacy", "entry_price": 149.38, "shares": 0.535546, "stop": null, "target": null},
-    {"symbol": "INTC", "sleeve": "legacy", "entry_price": 103.60, "shares": 0.694983, "stop": null, "target": null},
-    {"symbol": "C", "sleeve": "legacy", "entry_price": 132.33, "shares": 0.544101, "stop": null, "target": null}
+    {"symbol": "PSX", "sleeve": "swing", "entry_date": "2026-06-16", "entry_price": 171.3854, "shares": 1.0, "stop": null, "target": 181.98},
+    {"symbol": "MRK", "sleeve": "swing", "entry_date": "2026-06-15", "entry_price": 115.50, "shares": 2.380952, "stop": null, "target": 122.41},
+    {"symbol": "FCEL", "sleeve": "momentum", "entry_price": 15.37, "shares": 10.0, "stop": 18.70, "target": null},
+    {"symbol": "CRWD", "sleeve": "momentum", "entry_price": 660.77, "shares": 1.0, "stop": null, "target": null},
+    {"symbol": "NVDA", "sleeve": "momentum", "entry_price": 224.20, "shares": 0.527646, "stop": null, "target": null},
+    {"symbol": "GOOGL", "sleeve": "momentum", "entry_price": 366.34, "shares": 0.409455, "stop": null, "target": null},
+    {"symbol": "KO", "sleeve": "momentum", "entry_price": 78.87, "shares": 1.521548, "stop": null, "target": null},
+    {"symbol": "XOM", "sleeve": "momentum", "entry_price": 149.38, "shares": 0.535546, "stop": null, "target": null},
+    {"symbol": "INTC", "sleeve": "momentum", "entry_price": 103.60, "shares": 0.694983, "stop": null, "target": null},
+    {"symbol": "C", "sleeve": "momentum", "entry_price": 132.33, "shares": 0.544101, "stop": null, "target": null},
+    {"symbol": "HAL", "sleeve": "momentum", "entry_price": 38.37, "shares": 0.818628, "stop": null, "target": null}
   ]
 }
