@@ -57,6 +57,21 @@ must happen in a session — but Ryan wants ONE approval, not a per-order Q&A. S
 - Never place a name you didn't list; never silently include a vetoed/over-cap name.
   Fall back to per-order "yes" whenever Ryan asks or for a one-off ad-hoc order.
 
+## Sector focus — Ryan's standing steer (set 2026-06-17)
+**De-emphasize oil-related energy for NEW entries.** Ryan's view: the oil complex's
+upside is capped by political/market forces and it is not a trending, growing sector.
+So for future alerts:
+- **Do NOT propose new oil-energy buys by default.** This covers E&P/upstream, oilfield
+  services, refiners, and integrated majors (e.g. HAL, SLB, EOG, XOM, CVX, COP, OXY,
+  PSX, VLO, MPC). When such names show up as RSI2/momentum signals, list them as
+  **excluded ("de-emphasized sector, reply to override")** rather than as proposed orders.
+- **Prefer non-energy and trending/growth-sector names** when choosing which signals to
+  surface as actual entries.
+- **Not a hard ban:** Ryan can override per alert ("add CVX", etc.). Honor it for that order only.
+- **Existing energy positions:** as of 2026-06-17 Ryan chose to KEEP what's held (PSX, XOM)
+  and manage them on their stops — the steer is about new focus, not forced liquidation.
+  Don't dump existing energy without an explicit instruction or a fired exit signal.
+
 ## HARD RULES (do not break, even if asked to "just do it")
 1. **Account:** trade ONLY the Robinhood account with `agentic_allowed=true` (nickname "Agentic", a cash account). Confirm it via `get_accounts` every session. NEVER place orders on any other account — the others reject agentic orders anyway.
 2. **Approval before placing — one-tap batch is Ryan's chosen default:** show Ryan a fresh live quote (`review_equity_order`), estimated shares, and total cost for EVERY order before any `place_equity_order`. Ryan has opted into ONE-TAP approval: present the full priced batch (see "One-tap batch approval" above) and WAIT for a single explicit **"approve"**; that one word authorizes the whole listed batch and you place it without pausing per order. NEVER place before showing the priced batch, never place a name not on the list, never include a vetoed/over-cap name unless Ryan adds it. (Per-order "yes" remains available on request and for one-off ad-hoc orders. A bare "place it" is still never a bypass of the review/listing.)

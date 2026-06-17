@@ -72,6 +72,18 @@ baseline then hourly intraday refreshes.
   before changing that order. Follow the per-order review + explicit-approval
   HARD RULE for any stop change.
 
+## Sector focus — de-emphasize oil energy (set 2026-06-17)
+- Ryan's standing steer: **don't focus on oil-related energy for new entries** (upside
+  capped by political/market forces, not a growth sector). Full rule in `CLAUDE.md` →
+  "Sector focus". For future alerts, list oil-energy signals (E&P / oilfield svcs /
+  refiners / integrated: HAL, SLB, EOG, XOM, CVX, PSX, VLO, MPC…) as **excluded**, not
+  proposed; prefer non-energy / growth names. Override allowed per alert.
+- **Existing energy kept** (Ryan's call 2026-06-17): hold PSX (1 sh) + legacy XOM on
+  their stops — steer is about new focus, not liquidation.
+- **HAL exited via stop** 2026-06-17: resting GTC stop sold the 7 whole shares @ $36.60;
+  the 0.818628 fractional remnant is being **kept** (monitored, no broker stop) — Ryan
+  opted to keep what's held rather than sweep the remnant.
+
 ## Rebalance cadence — LIVE (process now codified)
 - Cadence is per-sleeve (full spec in `CLAUDE.md` → "Rebalance cadence"): swing +
   options are daily/rule-driven (no calendar rebalance); **momentum + concentration
