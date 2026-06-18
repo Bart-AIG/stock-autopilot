@@ -208,9 +208,8 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict,
             note = review + ["sell only if the thesis is dead; else hold to monthly rebalance"]
         elif green_enough:
             action = f"TRAIL: set {TRAIL_PCT:.0%} native trailing stop in-app"
-            note = [f"winner {pnl:+.0%} — GREEN ENOUGH: set a {TRAIL_PCT:.0%} NATIVE trailing "
-                    f"stop in-app (locks ≥{suggested}). I'll rest a fixed {suggested} stop as "
-                    f"fallback until you do"] + review
+            note = [f"winner {pnl:+.0%} — GREEN ENOUGH: Ryan sets a {TRAIL_PCT:.0%} NATIVE "
+                    f"trailing stop in-app (locks ≥{suggested}). The agent places no stop."] + review
         elif pnl is not None and pnl < 0:
             action = "HOLD (thesis-watch)"
             note = [f"underwater {pnl:+.0%}; no price stop — sell only if the thesis breaks, "
