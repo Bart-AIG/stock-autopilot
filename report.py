@@ -35,7 +35,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 # Reuse the universe + helpers from the momentum tool (single source of truth).
@@ -120,13 +120,17 @@ HOLDINGS = Path(__file__).resolve().parent / "holdings.json"
 # Exit thresholds (mirror the entry rules).
 RSI2_OVERBOUGHT = 70.0        # swing take-profit: bounce done (mirror of the <10 entry)
 SWING_TIME_STOP_DAYS = 14     # ~10 trading days held without a target -> recycle capital
+TRAIL_PCT = 0.15              # trailing-stop distance below the high; a winner is "green
+                              # enough" to trail once price >= entry/(1-TRAIL_PCT) (~+17.6%),
+                              # so a 15%-below-high stop clears breakeven (set 2026-06-17)
 
 
 def load_holdings() -> list[dict]:
     """Read the committed positions ledger that the trading session maintains
     (a buy appends, a sell removes). Each position: symbol, sleeve
-    (swing|momentum|legacy), entry_date, entry_price, shares, stop, target.
-    Missing/empty file -> no exit signals (report still flags entries)."""
+    (swing|momentum — no 'legacy'; every position is judged each run), entry_date,
+    entry_price, shares, stop, target.
+    Missing/empty file -> no portfolio review (report still flags entries)."""
     if not HOLDINGS.exists():
         return []
     try:
@@ -144,77 +148,82 @@ def scan_universe() -> list[str]:
     return UNIVERSE + sorted(s for s in held if s and s not in UNIVERSE)
 
 
-def evaluate_exits(holdings: list[dict], swing_by_sym: dict,
-                   momentum_rank: dict, n_decile: int) -> tuple[list[dict], list[dict], list[str]]:
-    """Turn the indicators the report already computes into SELL signals on the
-    positions you actually hold. Returns (exits, trail_suggestions, no_data_syms).
+def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict,
+                       momentum_rank: dict, n_decile: int) -> tuple[list[dict], list[str]]:
+    """Evaluate EVERY held position and assign a per-name action. No position is parked
+    in a 'legacy' bucket — the whole book is judged on each run (BUY/SELL/HOLD style),
+    treating the account as an income / grow-the-balance portfolio. Returns (rows, no_data).
 
-    Exit rules by sleeve:
-      swing  (Connors mean-reversion, classic-fast): RSI2>=70 OR price reclaims the
-             5-day MA OR price>=target OR price<=stop OR held >=~10 trading days OR
-             closes below the 200-day MA (the rising-uptrend premise broke).
-      momentum (12-1 trend): fell out of the top decile OR closes below the 200-day MA.
-      legacy/manual: closes below the 200-day MA (trend break) or hits a set stop.
-
-    Winners not yet exiting that are up >=1R get a 'tighten the stop' suggestion."""
-    today = datetime.now(timezone.utc).date()
-    exits, trails, no_data = [], [], []
+    Policy (set 2026-06-17):
+      • SELL / TAKE-PROFIT: a name reached its target, or a swing bounce printed
+        RSI2>=70 (mean-reversion done). Bank the gain.
+      • TRAIL: a winner that has run far enough that a stop 15% below its high clears
+        breakeven gets a ratchet-UP trailing stop = max(entry, 0.85*price). Up only — a
+        winner can then only ever be sold for a locked-in gain. (Current price proxies the
+        running high; the session ratchets the broker stop only when this would raise it.)
+      • REVIEW / THESIS-CHECK: below the 200-day MA, or a momentum name out of the top
+        decile — a possible thesis break. Research the news; sell only if the thesis is
+        dead, otherwise hold to the monthly rebalance.
+      • HOLD: in profit but still building a cushion toward a trailing stop; or underwater
+        with an intact thesis — NO price stop (thesis-managed, culled at monthly rebalance)."""
+    rows, no_data = [], []
     for pos in holdings:
         sym = pos.get("symbol")
-        sleeve = pos.get("sleeve", "legacy")
+        sleeve = pos.get("sleeve") or "momentum"
         s = swing_by_sym.get(sym)
         if not s:
             no_data.append(sym)
             continue
         price = s["price"]
-        stop, target, entry = pos.get("stop"), pos.get("target"), pos.get("entry_price")
-        reasons: list[str] = []
+        entry, target, stop = pos.get("entry_price"), pos.get("target"), pos.get("stop")
+        native = pos.get("native_trail_pct")  # native (in-app) trailing stop, % trail
+        ma200, rsi2 = s.get("ma200"), s.get("rsi2")
+        rank = momentum_rank.get(sym)
+        pnl = (price - entry) / entry if entry else None
 
-        # A breached stop is a hard exit in every sleeve.
-        if stop and price <= stop:
-            reasons.append(f"price {price} <= stop {stop}")
+        sell_reasons, review = [], []
+        if target and price >= target:
+            sell_reasons.append(f"hit target {target} — take profit")
+        if sleeve == "swing" and rsi2 is not None and rsi2 >= RSI2_OVERBOUGHT:
+            sell_reasons.append(f"RSI2 {rsi2} overbought — swing bounce done, take profit")
+        if ma200 and price < ma200:
+            review.append(f"below 200-day MA ({ma200}) — possible trend/thesis break")
+        if sleeve == "momentum" and rank and rank > n_decile:
+            review.append(f"out of top decile (rank {rank}/{n_decile}) — rotate candidate")
 
-        if sleeve == "swing":
-            if target and price >= target:
-                reasons.append(f"reached target {target}")
-            if s.get("rsi2") is not None and s["rsi2"] >= RSI2_OVERBOUGHT:
-                reasons.append(f"RSI2 {s['rsi2']} overbought — mean-reversion bounce done")
-            if s.get("ma5") and price >= s["ma5"]:
-                reasons.append(f"reclaimed 5-day MA ({s['ma5']})")
-            ed = pos.get("entry_date")
-            if ed:
-                try:
-                    age = (today - datetime.strptime(ed, "%Y-%m-%d").date()).days
-                    if age >= SWING_TIME_STOP_DAYS:
-                        reasons.append(f"held {age}d — time-stop (~10 trading days)")
-                except ValueError:
-                    pass
-            if s.get("ma200") and price < s["ma200"]:
-                reasons.append(f"below 200-day MA ({s['ma200']}) — uptrend premise broke")
-        elif sleeve == "momentum":
-            rank = momentum_rank.get(sym)
-            if rank and rank > n_decile:
-                reasons.append(f"fell out of the top decile (rank {rank}, decile={n_decile})")
-            if s.get("ma200") and price < s["ma200"]:
-                reasons.append(f"below 200-day MA ({s['ma200']}) — trend break")
-        else:  # legacy / manual
-            if s.get("ma200") and price < s["ma200"]:
-                reasons.append(f"below 200-day MA ({s['ma200']}) — trend break")
+        # "Green enough" to trail: the name has run far enough that a TRAIL_PCT-below-high
+        # stop clears breakeven (price >= entry / (1-TRAIL_PCT) ≈ +17.6% for 15%). The
+        # suggested stop floors at breakeven so a winner can only ever be sold for a gain.
+        green_enough = bool(entry and price >= entry / (1 - TRAIL_PCT))
+        suggested = round(max(entry, price * (1 - TRAIL_PCT)), 2) if green_enough else None
 
-        if reasons:
-            exits.append({"symbol": sym, "sleeve": sleeve, "price": price,
-                          "entry": entry, "stop": stop, "target": target, "reasons": reasons})
-            continue
+        if sell_reasons:
+            action, note = "SELL / TAKE-PROFIT", sell_reasons + review
+        elif native:
+            action = "HOLD"
+            note = [f"native {native}% trailing stop set in-app — auto-locks the gain "
+                    f"({pnl:+.0%})"] + review
+        elif review:
+            action = "REVIEW / THESIS-CHECK"
+            note = review + ["sell only if the thesis is dead; else hold to monthly rebalance"]
+        elif green_enough:
+            action = f"TRAIL: set {TRAIL_PCT:.0%} native trailing stop in-app"
+            note = [f"winner {pnl:+.0%} — GREEN ENOUGH: Ryan sets a {TRAIL_PCT:.0%} NATIVE "
+                    f"trailing stop in-app (locks ≥{suggested}). The agent places no stop."] + review
+        elif pnl is not None and pnl < 0:
+            action = "HOLD (thesis-watch)"
+            note = [f"underwater {pnl:+.0%}; no price stop — sell only if the thesis breaks, "
+                    f"else cull at monthly rebalance"]
+        else:
+            action = "HOLD"
+            note = [f"{('up '+format(pnl, '+.0%')) if pnl is not None else 'flat'}; "
+                    f"building toward the +{(1 / (1 - TRAIL_PCT) - 1):.0%} trailing-stop trigger"]
 
-        # Not exiting: a swing winner up >=1R should trail its stop up to lock the gain.
-        if sleeve == "swing" and entry and stop and entry > stop:
-            r = (price - entry) / (entry - stop)
-            if r >= 1.0:
-                new_stop = round(max(entry, price - (entry - stop)), 2)  # breakeven-or-better trail
-                if new_stop > stop:
-                    trails.append({"symbol": sym, "price": price, "entry": entry,
-                                   "old_stop": stop, "new_stop": new_stop, "r": round(r, 1)})
-    return exits, trails, no_data
+        rows.append({"symbol": sym, "sleeve": sleeve, "price": price, "entry": entry,
+                     "pnl": pnl, "stop": stop, "new_stop": suggested, "native": native,
+                     "action": action, "note": "; ".join(note)})
+    return rows, no_data
+
 
 
 def _load_fresh_cache(key: str) -> dict:
@@ -306,6 +315,16 @@ def pick_options_candidates(momentum: list[dict], max_each: int = 5) -> dict:
     return {"calls": calls, "puts": puts}
 
 
+def _first_trading_day_of_month(d):
+    """First weekday (Mon-Fri) of d's month. Approximates the first trading day —
+    it ignores market holidays, which is fine for a reminder nudge (worst case the
+    reminder lands a day early when Jan 1 / July 4 etc. fall on the first weekday)."""
+    first = d.replace(day=1)
+    while first.weekday() >= 5:  # Sat=5, Sun=6
+        first += timedelta(days=1)
+    return first
+
+
 def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
     momentum.sort(key=lambda r: r["mom_12_1_pct"], reverse=True)
     n_decile = max(1, int(len(momentum) * 0.10))
@@ -333,47 +352,64 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
         print("!!! DATA ERROR: 0 names resolved - data fetch failed. Report INVALID.")
         return md_path
 
-    # --- Exit engine: sell signals on the positions you actually hold (ledger) ---
+    # --- Portfolio review: judge EVERY held position, assign a per-name action ---
     swing_by_sym = {s["symbol"]: s for s in swings}
     momentum_rank = {r["symbol"]: i for i, r in enumerate(momentum, 1)}
     holdings = load_holdings()
-    exits, trails, exit_no_data = evaluate_exits(holdings, swing_by_sym, momentum_rank, n_decile)
+    port, port_no_data = evaluate_portfolio(holdings, swing_by_sym, momentum_rank, n_decile)
+    sells = [r for r in port if r["action"].startswith("SELL")]
+    trailing = [r for r in port if r["action"].startswith("TRAIL")]
+    reviews = [r for r in port if r["action"].startswith("REVIEW")]
     held_syms = {p.get("symbol") for p in holdings}
     rotation = ([r["symbol"] for r in momentum[:n_decile] if r["symbol"] not in held_syms][:8]
-                if exits else [])
+                if (sells or reviews) else [])
 
-    action = "ACTION" if (setups or exits) else "NO ACTION (swing); momentum is informational"
+    action = ("ACTION" if (setups or sells or trailing)
+              else "NO ACTION (swing); momentum is informational")
 
     lines = []
     lines.append(f"# Strategy report - {mode.upper()}  ({now.strftime('%Y-%m-%d %H:%M UTC')})")
     lines.append(f"\n## >>> {action} <<<\n")
 
-    # SELL signals first — managing existing risk takes priority over new entries.
-    lines.append("## SELL / EXIT signals (your holdings)")
-    if exits:
-        lines.append("Positions whose exit rule fired. Confirm with a live quote and approve each sell in-session.\n")
-        lines.append("| Ticker | Sleeve | Price | Entry | Stop | Why exit |")
-        lines.append("|---|---|---|---|---|---|")
-        for e in exits:
-            lines.append(f"| {e['symbol']} | {e['sleeve']} | {e['price']} | "
-                         f"{e['entry'] if e['entry'] is not None else '—'} | "
-                         f"{e['stop'] if e['stop'] is not None else '—'} | {'; '.join(e['reasons'])} |")
+    # Monthly rebalance ritual — fires on the first trading day of the month so the
+    # alert itself reminds the session to run the periodic portfolio review (swing +
+    # options stay daily/rule-driven; only momentum/concentration/laggard-cull are calendar-based).
+    today = now.date()
+    if today == _first_trading_day_of_month(today):
+        lines.append("## 📅 MONTHLY REBALANCE DUE (first trading day of the month)")
+        lines.append("Run the monthly portfolio review alongside today's signals:")
+        lines.append("- **Momentum rotate:** re-rank the 12-1 top decile (below); exit held momentum "
+                     "names that dropped out of the decile or broke the 200-day MA; weigh the better-play list.")
+        lines.append("- **Concentration check:** trim any position over the per-name cap (~15-20%) or the "
+                     "speculative sleeve over ~25%; confirm the cash buffer.")
+        lines.append("- **Cull the laggards:** this is the moment to sell underwater names whose thesis "
+                     "has weakened — they carry no price stop, so the monthly review is their exit gate.")
+        if today.month in (1, 4, 7, 10):
+            lines.append("- **Quarterly deep review:** re-confirm the thesis on every long-held position "
+                         "and re-sleeve (swing/momentum) anything that has drifted.")
+        lines.append("")
+
+    # Portfolio review first — managing what we hold (take profit / trail / hold) takes
+    # priority over new entries. EVERY position is judged each run; nothing is parked.
+    lines.append("## Portfolio review — every position (take-profit / trail / hold)")
+    if port:
+        lines.append("Each holding is judged on every run. Confirm with a live quote and approve any "
+                     "action in-session.\n")
+        lines.append("| Ticker | Sleeve | Price | Entry | P/L | Action | Why |")
+        lines.append("|---|---|---|---|---|---|---|")
+        for r in port:
+            pnl = f"{r['pnl']:+.0%}" if r["pnl"] is not None else "—"
+            entry = r["entry"] if r["entry"] is not None else "—"
+            lines.append(f"| {r['symbol']} | {r['sleeve']} | {r['price']} | {entry} | {pnl} | "
+                         f"{r['action']} | {r['note']} |")
         if rotation:
             lines.append(f"\n- 🔄 **Better-play rotation:** top-decile momentum names you don't hold — "
-                         f"{', '.join(rotation)}. If buying power is tight, fund a new entry by exiting the weakest above.")
-    elif holdings:
-        lines.append(f"No exits — all {len(holdings)} tracked positions still pass their hold rules.")
+                         f"{', '.join(rotation)}. Fund a new entry by exiting a weak name above.")
     else:
         lines.append("_No holdings ledger yet. The trading session writes `holdings.json` on each fill "
-                     "(buy → add, sell → remove); once populated, sell signals appear here._")
-    if trails:
-        lines.append("\n### Tighten stops (winners up ≥1R — trail to lock the gain)")
-        lines.append("| Ticker | Price | Stop now | Trail to | R |")
-        lines.append("|---|---|---|---|---|")
-        for t in trails:
-            lines.append(f"| {t['symbol']} | {t['price']} | {t['old_stop']} | {t['new_stop']} | {t['r']} |")
-    if exit_no_data:
-        lines.append(f"\n_No price data this run for held: {', '.join(s for s in exit_no_data if s)} — not evaluated._")
+                     "(buy → add, sell → remove); once populated, every position is judged here._")
+    if port_no_data:
+        lines.append(f"\n_No price data this run for held: {', '.join(s for s in port_no_data if s)} — not evaluated._")
     lines.append("")
 
     lines.append("## Connors RSI(2) swing setups (1-3 week holds)")
@@ -466,7 +502,8 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
     (LOGS / f"report_{stamp}_{mode}.json").write_text(
         json.dumps({"mode": mode, "generated_utc": now.isoformat(),
                     "action": action, "swing_setups": setups,
-                    "exit_signals": exits, "trail_suggestions": trails,
+                    "portfolio_review": port, "sell_signals": sells,
+                    "trail_signals": trailing, "review_signals": reviews,
                     "rotation_candidates": rotation,
                     "momentum_top": momentum[:n_decile],
                     "options_candidates": opts}, indent=2), encoding="utf-8")

@@ -72,7 +72,51 @@ baseline then hourly intraday refreshes.
   before changing that order. Follow the per-order review + explicit-approval
   HARD RULE for any stop change.
 
+## Stops & whole-book evaluation — NEW POLICY (set 2026-06-17)
+- **No fixed loss-stops.** All four legacy fixed stops were cancelled this session
+  (FCEL $13.30, CRWD $595.15, MRK $109.05, PSX $163.60). They sat below entry and were
+  turning pullbacks into losses (that's how HAL got chopped at −$14).
+- **Winners trail — HYBRID, native-preferred (set 2026-06-17).** A name is "green enough"
+  to trail at **price ≥ entry ÷ 0.85 (~+17.6%)**; `report.py` fires a **`SET TRAILING STOP`**
+  alert at that point. Preferred = Ryan sets a **15% NATIVE trailing stop in the RH app**
+  (record `"native_trail_pct": 15`, `stop: null`); fallback = the agentic API rests a fixed
+  `stop_market` at `max(entry, 15%-below-high)` and re-raises it each session (the API has
+  no native trailing type). If a trail fires but momentum/thesis is intact, plan a **buyback lower**.
+- **FCEL converted to native (2026-06-17):** cancelled the agentic fixed $18.70 stop; Ryan
+  is setting a 15% native trailing stop in-app (10 sh). Ledger marks `native_trail_pct:15`.
+  ⚠️ Confirm the native stop is actually live in the app — there's a brief unprotected gap.
+- **Underwater names: NO price stop** — thesis-managed (research news; sell only if the
+  thesis is dead) and culled at the monthly rebalance.
+- **No `legacy` sleeve.** `holdings.json` reclassified: every position is `swing` or
+  `momentum` and is judged each run. `report.py` rewritten: `evaluate_exits` →
+  `evaluate_portfolio`, which emits a per-name action (take-profit / trail / hold /
+  thesis-check) for the WHOLE book; the report's "Portfolio review" table replaces the old
+  SELL-only section. Treat the account as **income / grow-the-balance** — take profits.
+
+## Sector focus — de-emphasize oil energy (set 2026-06-17)
+- Ryan's standing steer: **don't focus on oil-related energy for new entries** (upside
+  capped by political/market forces, not a growth sector). Full rule in `CLAUDE.md` →
+  "Sector focus". For future alerts, list oil-energy signals (E&P / oilfield svcs /
+  refiners / integrated: HAL, SLB, EOG, XOM, CVX, PSX, VLO, MPC…) as **excluded**, not
+  proposed; prefer non-energy / growth names. Override allowed per alert.
+- **Existing energy kept** (Ryan's call 2026-06-17): hold PSX (1 sh) + legacy XOM on
+  their stops — steer is about new focus, not liquidation.
+- **HAL exited via stop** 2026-06-17: resting GTC stop sold the 7 whole shares @ $36.60;
+  the 0.818628 fractional remnant is being **kept** (monitored, no broker stop) — Ryan
+  opted to keep what's held rather than sweep the remnant.
+
+## Rebalance cadence — LIVE (process now codified)
+- Cadence is per-sleeve (full spec in `CLAUDE.md` → "Rebalance cadence"): swing +
+  options are daily/rule-driven (no calendar rebalance); **momentum + concentration
+  rebalance MONTHLY**, **legacy QUARTERLY** (Jan/Apr/Jul/Oct).
+- **Anchor = first trading day of each month.** `report.py` now prints a
+  **`📅 MONTHLY REBALANCE DUE`** banner in the ACTION block on that day (and the
+  quarterly legacy-sweep line in Jan/Apr/Jul/Oct), so the ntfy alert reminds the
+  session. First-trading-day = first Mon-Fri of the month (ignores holidays — a
+  reminder nudge, may land a day early on Jan 1 / Jul 4 weeks).
+
 ## Quick open-items checklist
 - [x] cron-job.org setup done (PAT, single hourly job, `mode=auto`, test 204).
+- [x] Rebalance cadence codified (CLAUDE.md) + monthly nudge in report.py.
 - [ ] Ryan: confirm the pending stop-level decision.
 - [ ] Optional: remove the GitHub `schedule:` backstop once cron-job.org is proven.

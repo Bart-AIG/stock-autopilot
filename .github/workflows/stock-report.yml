@@ -89,21 +89,28 @@ jobs:
           d = json.load(open(jf[-1]))
           action = d.get('action', '')
           setups = d.get('swing_setups', [])
-          exits = d.get('exit_signals', [])
-          trails = d.get('trail_suggestions', [])
+          sells = d.get('sell_signals', [])
+          trails = d.get('trail_signals', [])
+          reviews = d.get('review_signals', [])
           if action.startswith('ACTION'):
               # Paste-able alert: each line carries what the trading session needs
-              # to act on a name (price, stop, target, flags) so Ryan can copy the
-              # notification straight into a Claude session. Exits lead — managing
-              # existing risk beats new entries.
+              # to act on a name so Ryan can copy the notification straight into a
+              # Claude session. Order = manage the book first (take-profit, trail,
+              # thesis-check), then new entries.
               lines = []
-              if exits:
-                  lines.append('SELL: ' + ' | '.join(
-                      f"{e['symbol']} {e['price']} ({'; '.join(e['reasons'])})"
-                      for e in exits[:10]))
+              if sells:
+                  lines.append('TAKE PROFIT / SELL: ' + ' | '.join(
+                      f"{r['symbol']} {r['price']} ({r['note']})"
+                      for r in sells[:10]))
               if trails:
-                  lines.append('TRAIL STOP: ' + ' | '.join(
-                      f"{t['symbol']} {t['old_stop']}->{t['new_stop']}" for t in trails[:10]))
+                  # Green-enough names: prompt Ryan to set a NATIVE trailing stop in-app.
+                  lines.append('SET TRAILING STOP: ' + ' | '.join(
+                      f"{r['symbol']} {r['price']} ({r['pnl']:+.0%}) -> 15% native, floor ~{r['new_stop']}"
+                      for r in trails[:10]))
+              if reviews:
+                  lines.append('THESIS CHECK: ' + ' | '.join(
+                      f"{r['symbol']} {r['price']} ({r['note']})"
+                      for r in reviews[:10]))
               if setups:
                   def flags(s):
                       f = [x for x, on in (('HELD', s.get('held')), ('SPEC', s.get('speculative'))) if on]
@@ -124,7 +131,7 @@ jobs:
               # Daily heartbeat: ping even on a NO-ACTION day so that *silence*
               # always means the job didn't run (broken), never "quietly fine".
               title = f'Stock Autopilot {mode}: no trades'
-              msg = f'Report ran OK, no exits and {len(setups)} swing setups - nothing to do today. (heartbeat)'
+              msg = f'Report ran OK, no portfolio actions and {len(setups)} swing setups - nothing to do today. (heartbeat)'
               priority = 'low'
           # always alert; priority distinguishes act-now from heartbeat
           subprocess.run(['curl', '-s', '-H', f'Title: {title}', '-H', f'Priority: {priority}',
