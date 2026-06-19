@@ -1,4 +1,4 @@
-# Strategy report - MORNING  (2026-06-18 16:37 UTC)
+# Strategy report - MORNING  (2026-06-19 14:02 UTC)
 
 ## >>> ACTION <<<
 
@@ -7,40 +7,41 @@ Positions whose exit rule fired. Confirm with a live quote and approve each sell
 
 | Ticker | Sleeve | Price | Entry | Stop | Why exit |
 |---|---|---|---|---|---|
-| HAL | swing | 34.77 | 38.37 | 36.61 | price 34.77 <= stop 36.61 |
+| HAL | swing | 34.93 | 38.37 | 36.61 | price 34.93 <= stop 36.61 |
 
-- 🔄 **Better-play rotation:** top-decile momentum names you don't hold — LITE, ONDS, AAOI, MU, TE, IREN, LASR, APLD. If buying power is tight, fund a new entry by exiting the weakest above.
+- 🔄 **Better-play rotation:** top-decile momentum names you don't hold — LITE, ONDS, AAOI, TE, MU, IREN, APLD, WULF. If buying power is tight, fund a new entry by exiting the weakest above.
 
 ## Connors RSI(2) swing setups (1-3 week holds)
 Oversold (RSI2<10) inside a rising 200-day uptrend. Entry/stop/target are ESTIMATES.
 
 | Ticker | Theme | Spec | Held | Price | RSI2 | Entry | Stop | Target | Stop% |
 |---|---|---|---|---|---|---|---|---|---|
-| HAL | Energy |  | HELD | 34.77 | 0.4 | 34.77 | 32.88 | 39.44 | -5.4% |
-| SLB | Energy |  |  | 48.4 | 0.9 | 48.4 | 45.42 | 55.27 | -6.2% |
-| CVX | Energy |  |  | 173.1 | 2.1 | 173.1 | 166.4 | 185.19 | -3.9% |
-| PSX | Energy |  |  | 165.03 | 2.2 | 165.03 | 157.86 | 177.33 | -4.3% |
-| MPC | Energy |  |  | 240.3 | 2.9 | 240.3 | 226.61 | 260.84 | -5.7% |
-| JNJ | Other |  |  | 227.96 | 3.0 | 227.96 | 220.0 | 239.9 | -3.5% |
-| OXY | Energy |  |  | 51.35 | 3.0 | 51.35 | 48.92 | 56.74 | -4.7% |
-| BMY | Other |  |  | 53.84 | 3.2 | 53.84 | 51.36 | 57.55 | -4.6% |
-| VLO | Energy |  |  | 236.09 | 3.2 | 236.09 | 223.41 | 255.12 | -5.4% |
-| LLY | Other |  |  | 1095.92 | 3.4 | 1095.92 | 1042.86 | 1160.95 | -4.8% |
-| COP | Energy |  |  | 107.68 | 3.4 | 107.68 | 102.53 | 116.0 | -4.8% |
-| KO | Other |  | HELD | 78.88 | 3.6 | 78.88 | 75.81 | 83.49 | -3.9% |
-| WMT | Other |  |  | 117.33 | 5.0 | 117.33 | 111.36 | 121.34 | -5.1% |
-| XOM | Energy |  | HELD | 136.77 | 5.2 | 136.77 | 130.85 | 147.94 | -4.3% |
-| NUE | Other |  |  | 244.44 | 5.2 | 244.44 | 231.38 | 264.05 | -5.3% |
-| AMGN | Other |  |  | 336.14 | 5.7 | 336.14 | 321.38 | 355.2 | -4.4% |
-| DDOG | AI-software |  |  | 220.82 | 6.5 | 220.82 | 197.15 | 256.32 | -10.7% |
-| DVN | Energy |  |  | 41.98 | 6.7 | 41.98 | 39.25 | 46.08 | -6.5% |
-| MRK | Other |  | HELD | 113.03 | 7.9 | 113.03 | 106.72 | 122.41 | -5.6% |
-| LASR | Photonics | SPEC |  | 64.17 | 9.9 | 64.17 | 55.68 | 76.9 | -13.2% |
+| HAL | Energy |  | HELD | 34.93 | 0.4 | 34.93 | 33.06 | 39.45 | -5.3% |
+| SLB | Energy |  |  | 48.09 | 0.8 | 48.09 | 45.08 | 55.25 | -6.3% |
+| CVX | Energy |  |  | 173.63 | 2.2 | 173.63 | 166.99 | 185.22 | -3.8% |
+| PSX | Energy |  |  | 166.14 | 2.7 | 166.14 | 158.96 | 177.39 | -4.3% |
+| EA | Other |  |  | 202.15 | 2.8 | 202.15 | 200.93 | 203.4 | -0.6% |
+| JNJ | Other |  |  | 228.39 | 3.2 | 228.39 | 220.51 | 240.21 | -3.5% |
+| VLO | Energy |  |  | 236.3 | 3.3 | 236.3 | 223.62 | 255.32 | -5.4% |
+| COP | Energy |  |  | 107.74 | 3.4 | 107.74 | 102.6 | 116.0 | -4.8% |
+| BMY | Other |  |  | 54 | 3.5 | 54 | 51.54 | 57.69 | -4.6% |
+| OXY | Energy |  |  | 51.82 | 3.7 | 51.82 | 49.43 | 56.77 | -4.6% |
+| LLY | Other |  |  | 1098.57 | 3.8 | 1098.57 | 1045.68 | 1160.95 | -4.8% |
+| MPC | Energy |  |  | 242.91 | 4.1 | 242.91 | 229.2 | 263.48 | -5.6% |
+| WMT | Other |  |  | 117.18 | 4.8 | 117.18 | 111.22 | 121.34 | -5.1% |
+| NUE | Other |  |  | 243.83 | 5.0 | 243.83 | 230.66 | 263.58 | -5.4% |
+| KO | Other |  | HELD | 79.39 | 5.1 | 79.39 | 76.33 | 83.59 | -3.9% |
+| UNP | Other |  |  | 256.88 | 5.5 | 256.88 | 244.73 | 275.1 | -4.7% |
+| XOM | Energy |  | HELD | 137.81 | 6.3 | 137.81 | 131.98 | 147.99 | -4.2% |
+| AMGN | Other |  |  | 337.6 | 6.6 | 337.6 | 322.94 | 355.2 | -4.3% |
+| DVN | Energy |  |  | 42.12 | 7.5 | 42.12 | 39.38 | 46.22 | -6.5% |
+| VZ | Other |  |  | 45.37 | 7.8 | 45.37 | 43.65 | 47.95 | -3.8% |
+| DDOG | AI-software |  |  | 223 | 8.4 | 223 | 199.25 | 258.63 | -10.7% |
+| WBD | Other |  |  | 26.2 | 8.7 | 26.2 | 25.52 | 27.22 | -2.6% |
 
 ### How to read this (concentration & sizing)
-- 📌 **Already held (marked HELD):** HAL, KO, XOM, MRK. A new buy ADDS to the existing position — skip unless you mean to add, and re-check the per-name cap on the combined size.
-- 🟡 **Cluster:** 10/20 setups are 'Energy' — correlated, don't buy them all.
-- ⚠️ **1/20 are speculative** (high-vol). Size tiny; keep TOTAL speculative exposure ≤ ~20-25% of the account.
+- 📌 **Already held (marked HELD):** HAL, KO, XOM. A new buy ADDS to the existing position — skip unless you mean to add, and re-check the per-name cap on the combined size.
+- 🟡 **Cluster:** 10/22 setups are 'Energy' — correlated, don't buy them all.
 - ✅ **Discipline:** take the 1-2 highest-conviction, least-correlated names. Per-name cap ~15-20%, and set the stop on every entry.
 
 ## 12-1 momentum ranking (top decile = 21 of 214)
@@ -48,32 +49,32 @@ Multi-week / monthly trend holds. Rebalance on a monthly cadence, not daily.
 
 | # | Ticker | mom12-1% | RSI14 | >200MA |
 |---|---|---|---|---|
-| 1 **TOP** | LITE | 1043.0 | 46.0 | T |
-| 2 **TOP** | ONDS | 832.2 | 41.7 | F |
-| 3 **TOP** | AAOI | 799.8 | 47.1 | T |
-| 4 **TOP** | MU | 608.3 | 65.9 | T |
-| 5 **TOP** | TE | 514.3 | 53.6 | T |
-| 6 **TOP** | IREN | 459.0 | 53.3 | T |
-| 7 **TOP** | LASR | 449.3 | 41.7 | T |
-| 8 **TOP** | APLD | 437.0 | 57.8 | T |
-| 9 **TOP** | WULF | 433.5 | 65.6 | T |
-| 10 **TOP** | VIAV | 431.0 | 48.0 | T |
-| 11 **TOP** | INTC | 418.2 | 63.7 | T |
-| 12 **TOP** | RKLB | 393.4 | 45.1 | T |
-| 13 **TOP** | COHR | 345.5 | 54.5 | T |
-| 14 **TOP** | UUUU | 272.0 | 47.1 | F |
-| 15 **TOP** | AMD | 260.9 | 60.8 | T |
-| 16 **TOP** | ASTS | 258.0 | 42.0 | F |
-| 17 **TOP** | FCEL | 255.7 | 57.2 | T |
-| 18 **TOP** | LRCX | 226.2 | 70.2 | T |
-| 19 **TOP** | WBD | 199.3 | 43.6 | T |
-| 20 **TOP** | MTSI | 193.0 | 56.9 | T |
-| 21 **TOP** | MRVL | 181.8 | 66.7 | T |
-| 22  | POET | 178.1 | 48.5 | T |
-| 23  | AMAT | 145.2 | 77.0 | T |
-| 24  | CAT | 144.0 | 65.7 | T |
-| 25  | ON | 141.8 | 53.8 | T |
-| 26  | GOOGL | 132.8 | 48.0 | T |
+| 1 **TOP** | LITE | 1025.8 | 45.8 | T |
+| 2 **TOP** | ONDS | 893.0 | 43.3 | F |
+| 3 **TOP** | AAOI | 771.6 | 46.6 | T |
+| 4 **TOP** | TE | 698.2 | 55.3 | T |
+| 5 **TOP** | MU | 646.2 | 66.4 | T |
+| 6 **TOP** | IREN | 512.2 | 53.2 | T |
+| 7 **TOP** | APLD | 487.2 | 57.2 | T |
+| 8 **TOP** | INTC | 459.3 | 64.2 | T |
+| 9 **TOP** | WULF | 451.8 | 64.6 | T |
+| 10 **TOP** | VIAV | 419.4 | 45.5 | T |
+| 11 **TOP** | RKLB | 416.5 | 46.9 | T |
+| 12 **TOP** | LASR | 415.2 | 42.3 | T |
+| 13 **TOP** | COHR | 351.2 | 53.3 | T |
+| 14 **TOP** | FCEL | 341.5 | 61.9 | T |
+| 15 **TOP** | AMD | 294.3 | 61.2 | T |
+| 16 **TOP** | UUUU | 281.4 | 47.8 | F |
+| 17 **TOP** | ASTS | 257.9 | 43.2 | T |
+| 18 **TOP** | LRCX | 246.5 | 68.6 | T |
+| 19 **TOP** | POET | 216.5 | 49.0 | T |
+| 20 **TOP** | MTSI | 204.2 | 59.0 | T |
+| 21 **TOP** | MRVL | 204.1 | 64.6 | T |
+| 22  | WBD | 197.1 | 38.1 | T |
+| 23  | AMAT | 157.6 | 76.0 | T |
+| 24  | INOD | 154.5 | 50.5 | T |
+| 25  | CAT | 149.7 | 65.5 | T |
+| 26  | ON | 149.0 | 54.7 | T |
 
 ## Options candidates (sleeve: options — single-leg LONG)
 Underlyings only. In-session: pick the contract off the live Robinhood chain (~30-45 DTE, ~0.35 delta, IV-sane, liquid), gate with news/thesis, ≤$150/trade & ≤15% total. See docs/options-strategy.md.
@@ -81,20 +82,20 @@ Underlyings only. In-session: pick the contract off the live Robinhood chain (~3
 **Calls (bullish — strong uptrend > 200MA):**
 | Ticker | mom12-1% | RSI14 | Spec |
 |---|---|---|---|
-| LITE | 1043.0 | 46.0 |  |
-| AAOI | 799.8 | 47.1 | SPEC |
-| MU | 608.3 | 65.9 |  |
-| TE | 514.3 | 53.6 | SPEC |
-| IREN | 459.0 | 53.3 | SPEC |
+| LITE | 1025.8 | 45.8 |  |
+| AAOI | 771.6 | 46.6 | SPEC |
+| TE | 698.2 | 55.3 | SPEC |
+| MU | 646.2 | 66.4 |  |
+| IREN | 512.2 | 53.2 | SPEC |
 
 **Puts (bearish — downtrend < 200MA):**
 | Ticker | mom12-1% | RSI14 | Spec |
 |---|---|---|---|
-| LULU | -63.2 | 33.1 |  |
-| SMR | -59.0 | 51.5 | SPEC |
-| WDAY | -52.7 | 37.0 |  |
-| NOW | -50.4 | 40.7 |  |
-| ACHR | -48.1 | 42.7 | SPEC |
+| LULU | -61.7 | 32.2 |  |
+| SMR | -55.7 | 53.4 | SPEC |
+| WDAY | -53.8 | 35.8 |  |
+| NOW | -49.5 | 40.8 |  |
+| ACHR | -48.8 | 45.3 | SPEC |
 
 ---
 _Read-only. No positions checked, no trades placed. Bring this into a session to act with live quotes and per-order approval._
