@@ -1,27 +1,36 @@
-# Strategy report - INTRADAY  (2026-06-19 17:01 UTC)
+# Strategy report - INTRADAY  (2026-06-19 18:01 UTC)
 
 ## >>> ACTION <<<
 
-## SELL / EXIT signals (your holdings)
-Positions whose exit rule fired. Confirm with a live quote and approve each sell in-session.
+## Portfolio review — every position (take-profit / trail / hold)
+Each holding is judged on every run. Confirm with a live quote and approve any action in-session.
 
-| Ticker | Sleeve | Price | Entry | Stop | Why exit |
-|---|---|---|---|---|---|
-| HAL | swing | 34.93 | 38.37 | 36.61 | price 34.93 <= stop 36.61 |
+| Ticker | Sleeve | Price | Entry | P/L | Action | Why |
+|---|---|---|---|---|---|---|
+| PSX | swing | 166.14 | 171.3854 | -3% | HOLD (thesis-watch) | underwater -3%; no price stop — sell only if the thesis breaks, else cull at monthly rebalance |
+| MRK | swing | 113.87 | 115.5 | -1% | HOLD (thesis-watch) | underwater -1%; no price stop — sell only if the thesis breaks, else cull at monthly rebalance |
+| JNJ | momentum | 228.39 | 228.63 | -0% | REVIEW / THESIS-CHECK | out of top decile (rank 61/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
+| CRWD | momentum | 684.86 | 660.77 | +4% | REVIEW / THESIS-CHECK | out of top decile (rank 66/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
+| NVDA | momentum | 210.69 | 224.2 | -6% | REVIEW / THESIS-CHECK | out of top decile (rank 49/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
+| GOOGL | momentum | 368.03 | 366.34 | +0% | REVIEW / THESIS-CHECK | out of top decile (rank 28/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
+| KO | momentum | 79.39 | 78.87 | +1% | REVIEW / THESIS-CHECK | out of top decile (rank 121/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
+| XOM | momentum | 137.81 | 149.38 | -8% | REVIEW / THESIS-CHECK | out of top decile (rank 62/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
+| INTC | momentum | 133.99 | 103.6 | +29% | TRAIL: set 15% native trailing stop in-app | winner +29% — GREEN ENOUGH: Ryan sets a 15% NATIVE trailing stop in-app (locks ≥113.89). The agent places no stop. |
+| C | momentum | 143.09 | 132.33 | +8% | REVIEW / THESIS-CHECK | out of top decile (rank 51/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
 
-- 🔄 **Better-play rotation:** top-decile momentum names you don't hold — LITE, ONDS, AAOI, TE, MU, IREN, APLD, WULF. If buying power is tight, fund a new entry by exiting the weakest above.
+- 🔄 **Better-play rotation:** top-decile momentum names you don't hold — LITE, ONDS, AAOI, TE, MU, IREN, APLD, WULF. Fund a new entry by exiting a weak name above.
 
 ## Connors RSI(2) swing setups (1-3 week holds)
 Oversold (RSI2<10) inside a rising 200-day uptrend. Entry/stop/target are ESTIMATES.
 
 | Ticker | Theme | Spec | Held | Price | RSI2 | Entry | Stop | Target | Stop% |
 |---|---|---|---|---|---|---|---|---|---|
-| HAL | Energy |  | HELD | 34.93 | 0.4 | 34.93 | 33.06 | 39.1 | -5.4% |
+| HAL | Energy |  |  | 34.93 | 0.4 | 34.93 | 33.06 | 39.1 | -5.4% |
 | SLB | Energy |  |  | 48.09 | 0.8 | 48.09 | 45.08 | 54.79 | -6.3% |
 | CVX | Energy |  |  | 173.63 | 2.2 | 173.63 | 166.99 | 184.35 | -3.8% |
-| PSX | Energy |  |  | 166.14 | 2.7 | 166.14 | 159.39 | 176.99 | -4.1% |
+| PSX | Energy |  | HELD | 166.14 | 2.7 | 166.14 | 159.39 | 176.99 | -4.1% |
 | EA | Other |  |  | 202.15 | 2.8 | 202.15 | 200.93 | 203.4 | -0.6% |
-| JNJ | Other |  |  | 228.39 | 3.2 | 228.39 | 220.63 | 240.03 | -3.4% |
+| JNJ | Other |  | HELD | 228.39 | 3.2 | 228.39 | 220.63 | 240.03 | -3.4% |
 | VLO | Energy |  |  | 236.3 | 3.3 | 236.3 | 225.31 | 252.79 | -4.7% |
 | COP | Energy |  |  | 107.74 | 3.4 | 107.74 | 102.62 | 115.42 | -4.8% |
 | BMY | Other |  |  | 54.0 | 3.5 | 54.0 | 51.63 | 57.56 | -4.4% |
@@ -40,7 +49,7 @@ Oversold (RSI2<10) inside a rising 200-day uptrend. Entry/stop/target are ESTIMA
 | WBD | Other |  |  | 26.2 | 8.7 | 26.2 | 25.54 | 27.19 | -2.5% |
 
 ### How to read this (concentration & sizing)
-- 📌 **Already held (marked HELD):** HAL, KO, XOM. A new buy ADDS to the existing position — skip unless you mean to add, and re-check the per-name cap on the combined size.
+- 📌 **Already held (marked HELD):** PSX, JNJ, KO, XOM. A new buy ADDS to the existing position — skip unless you mean to add, and re-check the per-name cap on the combined size.
 - 🟡 **Cluster:** 10/22 setups are 'Energy' — correlated, don't buy them all.
 - ✅ **Discipline:** take the 1-2 highest-conviction, least-correlated names. Per-name cap ~15-20%, and set the stop on every entry.
 
