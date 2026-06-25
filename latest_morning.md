@@ -1,4 +1,4 @@
-# Strategy report - MORNING  (2026-06-24 15:35 UTC)
+# Strategy report - MORNING  (2026-06-25 14:01 UTC)
 
 ## >>> ACTION <<<
 
@@ -7,71 +7,78 @@ Each holding is judged on every run. Confirm with a live quote and approve any a
 
 | Ticker | Sleeve | Price | Entry | P/L | Action | Why |
 |---|---|---|---|---|---|---|
-| PSX | swing | 168.38 | 171.3854 | -2% | HOLD (thesis-watch) | underwater -2%; no price stop — sell only if the thesis breaks, else cull at monthly rebalance |
-| MRK | momentum | 120.02 | 115.5 | +4% | REVIEW / THESIS-CHECK | out of top decile (rank 64/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
-| JNJ | momentum | 240.25 | 228.63 | +5% | REVIEW / THESIS-CHECK | out of top decile (rank 69/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
-| CRWD | momentum | 680.11 | 660.77 | +3% | REVIEW / THESIS-CHECK | out of top decile (rank 74/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
-| NVDA | momentum | 200.92 | 224.2 | -10% | REVIEW / THESIS-CHECK | out of top decile (rank 56/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
-| GOOGL | momentum | 350.89 | 366.34 | -4% | REVIEW / THESIS-CHECK | out of top decile (rank 30/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
-| KO | momentum | 81.42 | 78.87 | +3% | REVIEW / THESIS-CHECK | out of top decile (rank 126/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
-| XOM | momentum | 135.68 | 149.38 | -9% | REVIEW / THESIS-CHECK | out of top decile (rank 72/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
-| C | momentum | 144.52 | 132.33 | +9% | REVIEW / THESIS-CHECK | out of top decile (rank 49/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
+| PSX | swing | 171.38 | 171.3854 | -0% | SELL / TAKE-PROFIT | RSI2 75.4 overbought — swing bounce done, take profit |
+| MRK | momentum | 122.87 | 115.5 | +6% | REVIEW / THESIS-CHECK | out of top decile (rank 66/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
+| JNJ | momentum | 246.02 | 228.63 | +8% | REVIEW / THESIS-CHECK | out of top decile (rank 68/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
+| CRWD | momentum | 681.78 | 660.77 | +3% | REVIEW / THESIS-CHECK | out of top decile (rank 73/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
+| NVDA | momentum | 192.82 | 224.2 | -14% | REVIEW / THESIS-CHECK | out of top decile (rank 59/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
+| GOOGL | momentum | 339.09 | 366.34 | -7% | REVIEW / THESIS-CHECK | out of top decile (rank 30/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
+| KO | momentum | 81.24 | 78.87 | +3% | REVIEW / THESIS-CHECK | out of top decile (rank 126/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
+| XOM | momentum | 137.2 | 149.38 | -8% | REVIEW / THESIS-CHECK | out of top decile (rank 74/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
+| C | momentum | 145.7 | 132.33 | +10% | REVIEW / THESIS-CHECK | out of top decile (rank 50/21) — rotate candidate; sell only if the thesis is dead; else hold to monthly rebalance |
 
-- 🔄 **Better-play rotation:** top-decile momentum names you don't hold — LITE, AAOI, ONDS, MU, TE, APLD, IREN, INTC. Fund a new entry by exiting a weak name above.
+- 🔄 **Better-play rotation:** top-decile momentum names you don't hold — LITE, ONDS, TE, AAOI, MU, IREN, WULF, INTC. Fund a new entry by exiting a weak name above.
 
 ## Connors RSI(2) swing setups (1-3 week holds)
 Oversold (RSI2<10) inside a rising 200-day uptrend. Entry/stop/target are ESTIMATES.
 
 | Ticker | Theme | Spec | Held | Price | RSI2 | Entry | Stop | Target | Stop% |
 |---|---|---|---|---|---|---|---|---|---|
-| SLB | Energy |  |  | 46.09 | 0.2 | 46.09 | 43.2 | 53.72 | -6.3% |
-| RKLB | Space | SPEC |  | 88.66 | 3.1 | 88.66 | 75.3 | 114.47 | -15.1% ⚠ |
-| HAL | Energy |  |  | 33.84 | 3.7 | 33.84 | 31.94 | 38.43 | -5.6% |
-| FCX | Other |  |  | 62.04 | 3.8 | 62.04 | 56.1 | 70.95 | -9.6% |
-| INOD | AI-infra | SPEC |  | 85.43 | 4.4 | 85.43 | 70.4 | 107.97 | -17.6% ⚠ |
-| IREN | AI-infra | SPEC |  | 52.47 | 6.5 | 52.47 | 44.21 | 64.84 | -15.7% ⚠ |
-| FDX | Other |  |  | 314.53 | 7.7 | 314.53 | 297.24 | 338.75 | -5.5% |
-| APLD | AI-infra | SPEC |  | 42.89 | 8.0 | 42.89 | 37.58 | 49.65 | -12.4% |
-| OXY | Energy |  |  | 50.9 | 9.6 | 50.9 | 48.51 | 55.77 | -4.7% |
-| QCOM | Semis |  |  | 196.75 | 9.7 | 196.75 | 170.32 | 236.39 | -13.4% |
+| AAPL | Other |  |  | 278.88 | 1.4 | 278.88 | 266.56 | 299.91 | -4.4% |
+| RKLB | Space | SPEC |  | 80.09 | 1.4 | 80.09 | 68.03 | 110.8 | -15.1% ⚠ |
+| INOD | AI-infra | SPEC |  | 77.78 | 1.5 | 77.78 | 64.07 | 100.77 | -17.6% ⚠ |
+| POET | Photonics | SPEC |  | 9.67 | 2.0 | 9.67 | 7.49 | 12.94 | -22.6% ⚠ |
+| APLD | AI-infra | SPEC |  | 40.45 | 3.5 | 40.45 | 35.69 | 47.59 | -11.8% |
+| GOOGL | Other |  | HELD | 339.09 | 3.9 | 339.09 | 322.01 | 364.72 | -5.0% |
+| NVDA | Semis |  | HELD | 192.82 | 4.6 | 192.82 | 178.69 | 214.01 | -7.3% |
+| ARM | Semis |  |  | 343.0 | 6.7 | 343.0 | 276.28 | 439.46 | -19.5% ⚠ |
+| ROST | Other |  |  | 223.32 | 6.7 | 223.32 | 212.55 | 239.48 | -4.8% |
+| IONQ | Quantum | SPEC |  | 50.96 | 6.8 | 50.96 | 43.42 | 62.27 | -14.8% |
+| AAOI | Photonics | SPEC |  | 136.81 | 7.4 | 136.81 | 103.91 | 186.16 | -24.0% ⚠ |
+| SPY | Index-ETF |  |  | 730.45 | 7.4 | 730.45 | 711.64 | 758.66 | -2.6% |
+| WULF | AI-infra | SPEC |  | 25.47 | 7.8 | 25.47 | 22.34 | 28.98 | -12.3% |
+| LASR | Photonics | SPEC |  | 61.04 | 8.6 | 61.04 | 53.46 | 72.41 | -12.4% |
+| FCEL | Battery/H2 | SPEC |  | 18.8 | 8.9 | 18.8 | 13.91 | 24.64 | -26.0% ⚠ |
+| MRVL | Semis |  |  | 266.27 | 9.0 | 266.27 | 199.08 | 316.43 | -25.2% ⚠ |
 
 ### How to read this (concentration & sizing)
-- 🟡 **Cluster:** 3/10 setups are 'Energy' — correlated, don't buy them all.
-- ⚠️ **4/10 are speculative** (high-vol). Size tiny; keep TOTAL speculative exposure ≤ ~20-25% of the account.
-- ⚠️ **3 have stops wider than 15%** (marked ⚠) — extreme volatility. Size so the dollar-risk-to-stop is small, not the dollar position.
+- 📌 **Already held (marked HELD):** GOOGL, NVDA. A new buy ADDS to the existing position — skip unless you mean to add, and re-check the per-name cap on the combined size.
+- 🔴 **Correlated cluster:** 10/16 setups are in the AI/tech complex (semis, AI-infra, quantum, photonics). They move together — buying several is **ONE leveraged AI bet, not diversification.** Pick 1-2, not the cluster.
+- ⚠️ **9/16 are speculative** (high-vol). Size tiny; keep TOTAL speculative exposure ≤ ~20-25% of the account.
+- ⚠️ **7 have stops wider than 15%** (marked ⚠) — extreme volatility. Size so the dollar-risk-to-stop is small, not the dollar position.
 - ✅ **Discipline:** take the 1-2 highest-conviction, least-correlated names. Per-name cap ~15-20%, and set the stop on every entry.
 
-## 12-1 momentum ranking (top decile = 21 of 214)
+## 12-1 momentum ranking (top decile = 21 of 212)
 Multi-week / monthly trend holds. Rebalance on a monthly cadence, not daily.
 
 | # | Ticker | mom12-1% | RSI14 | >200MA |
 |---|---|---|---|---|
-| 1 **TOP** | LITE | 1149.7 | 46.1 | T |
-| 2 **TOP** | AAOI | 915.0 | 42.9 | T |
-| 3 **TOP** | ONDS | 877.6 | 35.8 | F |
-| 4 **TOP** | MU | 704.3 | 56.2 | T |
-| 5 **TOP** | TE | 669.5 | 48.9 | T |
-| 6 **TOP** | APLD | 523.2 | 49.2 | T |
-| 7 **TOP** | IREN | 523.1 | 44.1 | T |
-| 8 **TOP** | INTC | 497.7 | 61.4 | T |
-| 9 **TOP** | WULF | 480.7 | 57.6 | T |
-| 10 **TOP** | VIAV | 444.7 | 49.9 | T |
-| 11 **TOP** | LASR | 442.1 | 44.0 | T |
-| 12 **TOP** | RKLB | 434.1 | 37.5 | T |
-| 13 **TOP** | COHR | 381.2 | 52.1 | T |
-| 14 **TOP** | FCEL | 356.4 | 55.5 | T |
-| 15 **TOP** | ASTS | 339.3 | 38.1 | F |
-| 16 **TOP** | AMD | 323.8 | 56.3 | T |
-| 17 **TOP** | LRCX | 276.7 | 57.7 | T |
-| 18 **TOP** | UUUU | 234.1 | 41.4 | F |
-| 19 **TOP** | POET | 233.1 | 46.1 | T |
-| 20 **TOP** | MRVL | 223.5 | 53.8 | T |
-| 21 **TOP** | MTSI | 217.3 | 52.2 | T |
-| 22  | WBD | 200.3 | 56.0 | T |
-| 23  | ON | 181.6 | 49.1 | T |
-| 24  | AMAT | 174.4 | 63.5 | T |
-| 25  | DELL | 163.3 | 68.5 | T |
-| 26  | INOD | 161.7 | 44.1 | T |
+| 1 **TOP** | LITE | 1102.1 | 44.0 | T |
+| 2 **TOP** | ONDS | 954.2 | 32.6 | F |
+| 3 **TOP** | TE | 895.2 | 46.5 | T |
+| 4 **TOP** | AAOI | 893.4 | 40.7 | T |
+| 5 **TOP** | MU | 859.5 | 61.9 | T |
+| 6 **TOP** | IREN | 555.5 | 39.2 | F |
+| 7 **TOP** | WULF | 540.7 | 49.1 | T |
+| 8 **TOP** | INTC | 516.1 | 56.3 | T |
+| 9 **TOP** | APLD | 513.3 | 44.7 | T |
+| 10 **TOP** | VIAV | 491.7 | 47.3 | T |
+| 11 **TOP** | RKLB | 463.3 | 34.0 | T |
+| 12 **TOP** | LASR | 462.9 | 38.4 | T |
+| 13 **TOP** | ASTS | 396.7 | 35.6 | F |
+| 14 **TOP** | COHR | 386.0 | 50.0 | T |
+| 15 **TOP** | AMD | 356.8 | 57.4 | T |
+| 16 **TOP** | FCEL | 345.3 | 48.4 | T |
+| 17 **TOP** | LRCX | 298.1 | 59.4 | T |
+| 18 **TOP** | MRVL | 243.2 | 52.9 | T |
+| 19 **TOP** | UUUU | 240.7 | 39.1 | F |
+| 20 **TOP** | MTSI | 236.8 | 50.3 | T |
+| 21 **TOP** | ON | 207.7 | 48.3 | T |
+| 22  | POET | 204.8 | 40.5 | T |
+| 23  | WBD | 200.0 | 56.6 | T |
+| 24  | AMAT | 188.8 | 67.2 | T |
+| 25  | DELL | 172.1 | 57.2 | T |
+| 26  | KLAC | 165.6 | 59.4 | T |
 
 ## Options candidates (sleeve: options — single-leg LONG)
 Underlyings only. In-session: pick the contract off the live Robinhood chain (~30-45 DTE, ~0.35 delta, IV-sane, liquid), gate with news/thesis, ≤$150/trade & ≤15% total. See docs/options-strategy.md.
@@ -79,20 +86,20 @@ Underlyings only. In-session: pick the contract off the live Robinhood chain (~3
 **Calls (bullish — strong uptrend > 200MA):**
 | Ticker | mom12-1% | RSI14 | Spec |
 |---|---|---|---|
-| LITE | 1149.7 | 46.1 |  |
-| AAOI | 915.0 | 42.9 | SPEC |
-| MU | 704.3 | 56.2 |  |
-| TE | 669.5 | 48.9 | SPEC |
-| APLD | 523.2 | 49.2 | SPEC |
+| LITE | 1102.1 | 44.0 |  |
+| TE | 895.2 | 46.5 | SPEC |
+| AAOI | 893.4 | 40.7 | SPEC |
+| MU | 859.5 | 61.9 |  |
+| WULF | 540.7 | 49.1 | SPEC |
 
 **Puts (bearish — downtrend < 200MA):**
 | Ticker | mom12-1% | RSI14 | Spec |
 |---|---|---|---|
-| SMR | -62.3 | 45.8 | SPEC |
-| LULU | -59.1 | 38.8 |  |
-| INTU | -55.6 | 34.8 |  |
-| NOW | -49.2 | 42.6 |  |
-| WDAY | -46.2 | 41.6 |  |
+| SMR | -59.6 | 43.3 | SPEC |
+| LULU | -59.0 | 38.9 |  |
+| INTU | -57.7 | 30.9 |  |
+| NOW | -50.3 | 38.3 |  |
+| WDAY | -47.9 | 38.8 |  |
 
 ---
 _Read-only. No positions checked, no trades placed. Bring this into a session to act with live quotes and per-order approval._
