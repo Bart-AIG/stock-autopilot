@@ -210,8 +210,8 @@ def fmp_fundamentals(sym: str, key: str) -> dict:
 
     out = {
         "pe": pick("priceToEarningsRatioTTM", "peRatioTTM"),
-        "pfcf": pick("priceToFreeCashFlowsRatioTTM", "priceToFreeCashFlowRatioTTM", "pfcfRatioTTM"),
-        "peg": pick("priceEarningsToGrowthRatioTTM", "pegRatioTTM"),
+        "pfcf": pick("priceToFreeCashFlowRatioTTM", "priceToFreeCashFlowsRatioTTM", "pfcfRatioTTM"),
+        "peg": pick("priceToEarningsGrowthRatioTTM", "pegRatioTTM"),
     }
     return out if any(v is not None for v in out.values()) else {}
 
