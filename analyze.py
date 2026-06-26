@@ -127,8 +127,17 @@ THEME_MAP: dict[str, str] = {
     **{t: "Battery/H2" for t in ("QS","TE","FCEL")},
     **{t: "Gene-edit" for t in ("CRSP",)},
     **{t: "Energy" for t in ("XOM","CVX","COP","SLB","OXY","MPC","PSX","VLO","EOG",
-                             "KMI","WMB","HAL","DVN")},
+                             "KMI","WMB","HAL","DVN","EPD")},
     **{t: "Index-ETF" for t in ("SPY","QQQ","IWM","DIA")},
+    # --- Joint-watch names not otherwise mapped (so theme/cluster tags render) ---
+    **{t: "AI-software" for t in ("PATH","FIG")},
+    **{t: "Semis" for t in ("TSEM","AEHR")},
+    **{t: "Space" for t in ("BKSY",)},
+    **{t: "Financials" for t in ("IBKR","ACGL")},
+    **{t: "Industrials" for t in ("EME",)},
+    **{t: "BTC-mining" for t in ("HIVE",)},
+    **{t: "Comm" for t in ("NOK",)},
+    **{t: "Mining" for t in ("TMC",)},
 }
 
 # Themes that move together as one risk factor (the "AI/tech complex").
@@ -171,6 +180,40 @@ def fmp_history(sym: str, key: str, days: int = 430) -> list[dict] | None:
                 continue
             return None  # 402 paywall or other -> skip this name
     return None
+
+
+def fmp_fundamentals(sym: str, key: str) -> dict:
+    """TTM valuation snapshot for the long-term VALUE lens: P/E, P/FCF, PEG.
+
+    ONE call to /stable/ratios-ttm. PEG (P/E ÷ earnings growth) is the key 'value for
+    growth' read — it discounts a high P/E by the growth rate, which is exactly the
+    'value in high-growth names' question. Returns {} on paywall/empty/error so the
+    caller degrades gracefully to the price-only screen (fundamentals are OPTIONAL —
+    if the data tier doesn't expose this endpoint, the screen still works on price)."""
+    url = f"{BASE}/ratios-ttm?symbol={sym}&apikey={key}"
+    try:
+        with urllib.request.urlopen(url, timeout=15) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+    except (urllib.error.HTTPError, urllib.error.URLError, ValueError):
+        return {}
+    if not (isinstance(data, list) and data and isinstance(data[0], dict)):
+        return {}
+    d = data[0]
+
+    def pick(*keys):
+        # FMP field spellings have drifted across versions — try the known aliases.
+        for k in keys:
+            v = d.get(k)
+            if isinstance(v, (int, float)):
+                return round(float(v), 1)
+        return None
+
+    out = {
+        "pe": pick("priceToEarningsRatioTTM", "peRatioTTM"),
+        "pfcf": pick("priceToFreeCashFlowsRatioTTM", "priceToFreeCashFlowRatioTTM", "pfcfRatioTTM"),
+        "peg": pick("priceEarningsToGrowthRatioTTM", "pegRatioTTM"),
+    }
+    return out if any(v is not None for v in out.values()) else {}
 
 
 def price_on_or_before(rows_desc: list[dict], target: str) -> float | None:
