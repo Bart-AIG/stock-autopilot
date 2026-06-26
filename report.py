@@ -243,26 +243,33 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict,
 
 
 
-# Long-term accumulation (joint port) thresholds. "Growth on sale" = a confirmed
-# long-term uptrend in a name with positive 12-1 momentum, currently pulled back to
-# a relative-value entry. PRICE-BASED v1; a fundamental value lens (P/E, P/FCF,
-# revenue growth) is the planned fast-follow once the data tier is confirmed.
-LT_RSI_VALUE = 45.0      # RSI14 <= this = pulled back enough to be a value entry
+# Long-term accumulation (joint port) thresholds. The PRIMARY signal is TECHNICAL —
+# a confirmed long-term uptrend (price > rising 200-day MA + positive 12-1 momentum)
+# currently OVERSOLD / pulled back on the technicals (RSI + moving averages). The
+# fundamental snapshot (P/E, P/FCF, PEG) is SECONDARY context, not the headline read.
+LT_RSI_VALUE = 45.0      # RSI14 <= this = pulled back enough to be an accumulation entry
 LT_MA50_BAND = 1.01      # price at/under 50-day MA * this = "on sale" within the uptrend
+LT_RSI_OVERSOLD = 35.0   # RSI14 <= this (or RSI2 < 10) = genuinely oversold, not just a mild dip
+
+
+def technical_grade(rsi14, rsi2) -> str:
+    """Primary TECHNICAL read for the joint screen: how oversold the pullback is."""
+    deep = (rsi14 is not None and rsi14 <= LT_RSI_OVERSOLD) or (rsi2 is not None and rsi2 < 10)
+    return "🟢 oversold" if deep else "🟡 dip"
 
 
 def long_term_accumulation(momentum: list[dict], swing_by_sym: dict,
                            joint_held: set, agentic_held: set) -> list[dict]:
-    """Buy/accumulate screen for the long-term (joint) port: GROWTH ON SALE.
+    """Buy/accumulate screen for the long-term (joint) port: OVERSOLD WITHIN AN UPTREND.
 
     Gate (durable growth trend): price above a RISING 200-day MA AND positive 12-1
     momentum — a high-growth name whose long-term trend is intact (not a falling knife).
-    Trigger (value entry): pulled back to support — price at/below the 50-day MA, OR
-    RSI14 in a moderate value zone (<=45). This surfaces quality growth names currently
-    discounted, which is the long-term investor's 'value in high-growth' entry.
+    PRIMARY signal (TECHNICAL): the name is pulled back / oversold — price at/below the
+    50-day MA, OR RSI14 in a value zone (<=45). Candidates are RANKED by how oversold they
+    are (RSI + distance below the moving averages), so the most washed-out dips surface first.
 
-    PRICE-BASED only (free-tier data is daily closes). It is NOT a fundamental value
-    verdict — confirm each with the news/thesis and a real valuation (FCF, P/E) before buying."""
+    The technicals identify the oversold/undervalued entry; the fundamental snapshot
+    (P/E, P/FCF, PEG) is attached later as SECONDARY context, not the headline verdict."""
     rows = []
     for r in momentum:  # momentum rows carry mom_12_1, rsi14, ma50/ma200, above_ma200, close
         sym = r["symbol"]
@@ -270,20 +277,25 @@ def long_term_accumulation(momentum: list[dict], swing_by_sym: dict,
         ma50, price, above200 = r.get("ma50"), r.get("close"), r.get("above_ma200")
         s = swing_by_sym.get(sym)
         rising200 = s["uptrend"] if s else bool(above200)  # price>ma200 AND ma200 rising
+        ma20, rsi2 = (s.get("ma20"), s.get("rsi2")) if s else (None, None)
         # Durable long-term uptrend in a growth name (positive 12-1 momentum).
         if not (above200 and rising200 and mom is not None and mom > 0):
             continue
-        # On sale within the uptrend — pulled back, not extended.
+        # Oversold / pulled back on the technicals — not extended.
+        disc20 = round((price / ma20 - 1) * 100, 1) if ma20 else None
         disc50 = round((price / ma50 - 1) * 100, 1) if ma50 else None
         on_sale = (ma50 and price <= ma50 * LT_MA50_BAND) or (rsi14 is not None and rsi14 <= LT_RSI_VALUE)
         if not on_sale:
             continue
         rows.append({"symbol": sym, "theme": theme_of(sym), "price": price,
-                     "mom_12_1_pct": mom, "rsi14": rsi14, "disc_ma50_pct": disc50,
-                     "rsi2": s.get("rsi2") if s else None,
+                     "mom_12_1_pct": mom, "rsi14": rsi14, "rsi2": rsi2,
+                     "disc_ma20_pct": disc20, "disc_ma50_pct": disc50,
+                     "signal": technical_grade(rsi14, rsi2),
                      "held_joint": sym in joint_held, "held_agentic": sym in agentic_held})
-    # Strongest growth first; deepest discount to the 50-day breaks ties.
-    rows.sort(key=lambda x: (-(x["mom_12_1_pct"] or 0), x["disc_ma50_pct"] if x["disc_ma50_pct"] is not None else 0))
+    # PRIMARY ranking is TECHNICAL: most oversold first (lowest RSI14), deepest pullback
+    # below the 50-day MA breaks ties. Momentum/fundamentals are context, not the sort key.
+    rows.sort(key=lambda x: (x["rsi14"] if x["rsi14"] is not None else 999,
+                             x["disc_ma50_pct"] if x["disc_ma50_pct"] is not None else 0))
     return rows
 
 
@@ -583,39 +595,43 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
                      f"{str(r.get('above_ma200'))[0]} |")
 
     # --- Joint long-term port — accumulate signals (watch-only, BUY side only) ---
-    lines.append("\n## Joint long-term port — accumulate signals (growth-on-sale)")
+    lines.append("\n## Joint long-term port — accumulate signals (oversold within an uptrend)")
     lines.append("Watch-only — the agent can't trade the joint account, so this surfaces BUY/ADD "
-                 "ideas ONLY (no exit alerts, not part of the ACTION trigger). Screen: a confirmed "
-                 "long-term uptrend (price above a RISING 200-day MA + positive 12-1 momentum) that "
-                 "has pulled back to a value entry (≤ 50-day MA, or RSI14 ≤ 45), then graded on a "
-                 "TTM **value** lens. **Value** (PEG-primary, P/FCF fallback): ✅ = reasonably priced "
-                 "for the growth (PEG ≤ ~1.5, or P/FCF ≤ ~25 when PEG isn't meaningful), ⚠️ = rich "
-                 "(PEG > 3 / P/FCF > 45), — = middling, blank = fundamentals not on the data tier.\n")
+                 "ideas ONLY (no exit alerts, not part of the ACTION trigger). **Primary signal is "
+                 "TECHNICAL:** a confirmed long-term uptrend (price above a RISING 200-day MA + positive "
+                 "12-1 momentum) that is **oversold / pulled back** on the technicals (RSI + moving "
+                 "averages), ranked most-oversold first. **Signal:** 🟢 oversold (RSI14 ≤ 35 or RSI2 < 10) "
+                 "/ 🟡 dip. The P/E, P/FCF, PEG columns are **secondary value context** — not the "
+                 "headline read (Val: ✅ cheap-for-growth / ⚠️ rich / — / blank = no data).\n")
     if lt_rows:
         adds = [r for r in lt_rows if r["held_joint"]]
         ideas = [r for r in lt_rows if not r["held_joint"] and not r["held_agentic"]][:10]
-        hdr = "| Ticker | Theme | Price | 12-1 mom% | RSI14 | vs 50-day | P/E | P/FCF | PEG | Value |"
-        sep = "|---|---|---|---|---|---|---|---|---|---|"
+        hdr = ("| Signal | Ticker | Theme | Price | RSI14 | RSI2 | vs 20d | vs 50d | mom12-1% "
+               "| P/E | P/FCF | PEG | Val |")
+        sep = "|---|---|---|---|---|---|---|---|---|---|---|---|---|"
         def _fmt(x):
             return f"{x:.1f}" if isinstance(x, (int, float)) else "—"
+        def _pct(x):
+            return f"{x:+.1f}%" if isinstance(x, (int, float)) else "—"
         def _row(r):
             f = r.get("value") or {}
-            d = f"{r['disc_ma50_pct']:+.1f}%" if r["disc_ma50_pct"] is not None else "—"
-            return (f"| {r['symbol']} | {r['theme']} | {r['price']} | {r['mom_12_1_pct']} | {r['rsi14']} | {d} | "
-                    f"{_fmt(f.get('pe'))} | {_fmt(f.get('pfcf'))} | {_fmt(f.get('peg'))} | {value_verdict(f)} |")
+            return (f"| {r['signal']} | {r['symbol']} | {r['theme']} | {r['price']} | {_fmt(r['rsi14'])} "
+                    f"| {_fmt(r['rsi2'])} | {_pct(r['disc_ma20_pct'])} | {_pct(r['disc_ma50_pct'])} "
+                    f"| {r['mom_12_1_pct']} | {_fmt(f.get('pe'))} | {_fmt(f.get('pfcf'))} "
+                    f"| {_fmt(f.get('peg'))} | {value_verdict(f)} |")
         if adds:
-            lines.append("**Held in the joint port — ADD / average-in candidates (on sale within their uptrend):**")
+            lines.append("**Held in the joint port — ADD / average-in candidates (oversold within their uptrend):**")
             lines.append(hdr); lines.append(sep)
             lines.extend(_row(r) for r in adds)
         if ideas:
-            lines.append("\n**New long-term ideas you don't hold (growth on sale):**")
+            lines.append("\n**New long-term ideas you don't hold (oversold uptrends):**")
             lines.append(hdr); lines.append(sep)
             lines.extend(_row(r) for r in ideas)
         if not adds and not ideas:
             lines.append("_Qualifying names this run are all already held in the Agentic book — nothing new for the joint port._")
-        lines.append("\n_The price screen + value grade are SIGNALS, not a buy. Confirm each with the "
-                     "news/thesis (HARD RULE 7) before buying — a ⚠️-rich name can still be right if the "
-                     "growth justifies it, and a ✅-value name can be a value trap if the thesis is broken._")
+        lines.append("\n_The technical screen is the SIGNAL (oversold within an uptrend); the value columns "
+                     "are context. Confirm each with the news/thesis (HARD RULE 7) and a real valuation "
+                     "before buying — an oversold name can keep falling if the thesis is broken._")
     else:
         lines.append("_No long-term accumulation signals this run — no qualifying growth name is currently on sale. "
                      "Normal; wait for a pullback._")
