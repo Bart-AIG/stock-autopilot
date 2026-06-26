@@ -127,8 +127,17 @@ THEME_MAP: dict[str, str] = {
     **{t: "Battery/H2" for t in ("QS","TE","FCEL")},
     **{t: "Gene-edit" for t in ("CRSP",)},
     **{t: "Energy" for t in ("XOM","CVX","COP","SLB","OXY","MPC","PSX","VLO","EOG",
-                             "KMI","WMB","HAL","DVN")},
+                             "KMI","WMB","HAL","DVN","EPD")},
     **{t: "Index-ETF" for t in ("SPY","QQQ","IWM","DIA")},
+    # --- Joint-watch names not otherwise mapped (so theme/cluster tags render) ---
+    **{t: "AI-software" for t in ("PATH","FIG")},
+    **{t: "Semis" for t in ("TSEM","AEHR")},
+    **{t: "Space" for t in ("BKSY",)},
+    **{t: "Financials" for t in ("IBKR","ACGL")},
+    **{t: "Industrials" for t in ("EME",)},
+    **{t: "BTC-mining" for t in ("HIVE",)},
+    **{t: "Comm" for t in ("NOK",)},
+    **{t: "Mining" for t in ("TMC",)},
 }
 
 # Themes that move together as one risk factor (the "AI/tech complex").

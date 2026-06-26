@@ -116,6 +116,7 @@ def connors_swing(sym: str, closes_desc: list[float], live_price: float | None =
 
 
 HOLDINGS = Path(__file__).resolve().parent / "holdings.json"
+JOINT_WATCH = Path(__file__).resolve().parent / "watchlist_joint.json"
 
 # Exit thresholds (mirror the entry rules).
 RSI2_OVERBOUGHT = 70.0        # swing take-profit: bounce done (mirror of the <10 entry)
@@ -140,12 +141,28 @@ def load_holdings() -> list[dict]:
         return []
 
 
+def load_joint_watch() -> list[str]:
+    """WATCH-ONLY list of the JOINT (long-term) account's holdings — kept SEPARATE
+    from holdings.json on purpose. The agent can't trade the joint account, so these
+    names get COVERAGE (added to the scan) and BUY/ACCUMULATE signals only; they NEVER
+    drive the Agentic exit alerts (SELL/TRAIL/THESIS-CHECK) or the ntfy ACTION trigger.
+    Missing/empty file -> no joint coverage (the rest of the report is unaffected)."""
+    if not JOINT_WATCH.exists():
+        return []
+    try:
+        blob = json.loads(JOINT_WATCH.read_text(encoding="utf-8"))
+        return [s for s in blob.get("symbols", []) if s] if isinstance(blob, dict) else []
+    except (ValueError, AttributeError):
+        return []
+
+
 def scan_universe() -> list[str]:
-    """UNIVERSE plus any held symbols missing from it, so the exit engine always
-    has data for every position in the ledger (a held name that isn't scanned
-    can never fire its exit rules)."""
+    """UNIVERSE plus any AGENTIC-held symbols (so the exit engine always has data for
+    every ledger position — a held name that isn't scanned can never fire its exit
+    rules) plus the JOINT watch-list names (coverage for the long-term buy screen)."""
     held = {p.get("symbol") for p in load_holdings()}
-    return UNIVERSE + sorted(s for s in held if s and s not in UNIVERSE)
+    joint = set(load_joint_watch())
+    return UNIVERSE + sorted(s for s in (held | joint) if s and s not in UNIVERSE)
 
 
 def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict,
@@ -224,6 +241,50 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict,
                      "action": action, "note": "; ".join(note)})
     return rows, no_data
 
+
+
+# Long-term accumulation (joint port) thresholds. "Growth on sale" = a confirmed
+# long-term uptrend in a name with positive 12-1 momentum, currently pulled back to
+# a relative-value entry. PRICE-BASED v1; a fundamental value lens (P/E, P/FCF,
+# revenue growth) is the planned fast-follow once the data tier is confirmed.
+LT_RSI_VALUE = 45.0      # RSI14 <= this = pulled back enough to be a value entry
+LT_MA50_BAND = 1.01      # price at/under 50-day MA * this = "on sale" within the uptrend
+
+
+def long_term_accumulation(momentum: list[dict], swing_by_sym: dict,
+                           joint_held: set, agentic_held: set) -> list[dict]:
+    """Buy/accumulate screen for the long-term (joint) port: GROWTH ON SALE.
+
+    Gate (durable growth trend): price above a RISING 200-day MA AND positive 12-1
+    momentum — a high-growth name whose long-term trend is intact (not a falling knife).
+    Trigger (value entry): pulled back to support — price at/below the 50-day MA, OR
+    RSI14 in a moderate value zone (<=45). This surfaces quality growth names currently
+    discounted, which is the long-term investor's 'value in high-growth' entry.
+
+    PRICE-BASED only (free-tier data is daily closes). It is NOT a fundamental value
+    verdict — confirm each with the news/thesis and a real valuation (FCF, P/E) before buying."""
+    rows = []
+    for r in momentum:  # momentum rows carry mom_12_1, rsi14, ma50/ma200, above_ma200, close
+        sym = r["symbol"]
+        mom, rsi14 = r.get("mom_12_1_pct"), r.get("rsi14")
+        ma50, price, above200 = r.get("ma50"), r.get("close"), r.get("above_ma200")
+        s = swing_by_sym.get(sym)
+        rising200 = s["uptrend"] if s else bool(above200)  # price>ma200 AND ma200 rising
+        # Durable long-term uptrend in a growth name (positive 12-1 momentum).
+        if not (above200 and rising200 and mom is not None and mom > 0):
+            continue
+        # On sale within the uptrend — pulled back, not extended.
+        disc50 = round((price / ma50 - 1) * 100, 1) if ma50 else None
+        on_sale = (ma50 and price <= ma50 * LT_MA50_BAND) or (rsi14 is not None and rsi14 <= LT_RSI_VALUE)
+        if not on_sale:
+            continue
+        rows.append({"symbol": sym, "theme": theme_of(sym), "price": price,
+                     "mom_12_1_pct": mom, "rsi14": rsi14, "disc_ma50_pct": disc50,
+                     "rsi2": s.get("rsi2") if s else None,
+                     "held_joint": sym in joint_held, "held_agentic": sym in agentic_held})
+    # Strongest growth first; deepest discount to the 50-day breaks ties.
+    rows.sort(key=lambda x: (-(x["mom_12_1_pct"] or 0), x["disc_ma50_pct"] if x["disc_ma50_pct"] is not None else 0))
+    return rows
 
 
 def _load_fresh_cache(key: str) -> dict:
@@ -364,6 +425,11 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
     rotation = ([r["symbol"] for r in momentum[:n_decile] if r["symbol"] not in held_syms][:8]
                 if (sells or reviews) else [])
 
+    # Joint long-term port — buy/accumulate signals only (watch-only; never an exit
+    # alert and never part of the ACTION trigger, which stays driven by the Agentic book).
+    joint_held = set(load_joint_watch())
+    lt_rows = long_term_accumulation(momentum, swing_by_sym, joint_held, held_syms)
+
     action = ("ACTION" if (setups or sells or trailing)
               else "NO ACTION (swing); momentum is informational")
 
@@ -470,6 +536,37 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
         lines.append(f"| {rank} {flag} | {r['symbol']} | {r['mom_12_1_pct']} | {r['rsi14']} | "
                      f"{str(r.get('above_ma200'))[0]} |")
 
+    # --- Joint long-term port — accumulate signals (watch-only, BUY side only) ---
+    lines.append("\n## Joint long-term port — accumulate signals (growth-on-sale)")
+    lines.append("Watch-only — the agent can't trade the joint account, so this surfaces BUY/ADD "
+                 "ideas ONLY (no exit alerts, not part of the ACTION trigger). Screen: a confirmed "
+                 "long-term uptrend (price above a RISING 200-day MA + positive 12-1 momentum) that "
+                 "has pulled back to a value entry (≤ 50-day MA, or RSI14 ≤ 45). PRICE-BASED v1 — a "
+                 "fundamental value lens (P/E, P/FCF, growth) is the planned fast-follow.\n")
+    if lt_rows:
+        adds = [r for r in lt_rows if r["held_joint"]]
+        ideas = [r for r in lt_rows if not r["held_joint"] and not r["held_agentic"]][:10]
+        hdr = "| Ticker | Theme | Price | 12-1 mom% | RSI14 | vs 50-day |"
+        sep = "|---|---|---|---|---|---|"
+        def _row(r):
+            d = f"{r['disc_ma50_pct']:+.1f}%" if r["disc_ma50_pct"] is not None else "—"
+            return f"| {r['symbol']} | {r['theme']} | {r['price']} | {r['mom_12_1_pct']} | {r['rsi14']} | {d} |"
+        if adds:
+            lines.append("**Held in the joint port — ADD / average-in candidates (on sale within their uptrend):**")
+            lines.append(hdr); lines.append(sep)
+            lines.extend(_row(r) for r in adds)
+        if ideas:
+            lines.append("\n**New long-term ideas you don't hold (growth on sale):**")
+            lines.append(hdr); lines.append(sep)
+            lines.extend(_row(r) for r in ideas)
+        if not adds and not ideas:
+            lines.append("_Qualifying names this run are all already held in the Agentic book — nothing new for the joint port._")
+        lines.append("\n_'On sale within an uptrend' is TECHNICAL, not a value verdict. Confirm each with "
+                     "the news/thesis and a real valuation (FCF, P/E) before buying._")
+    else:
+        lines.append("_No long-term accumulation signals this run — no qualifying growth name is currently on sale. "
+                     "Normal; wait for a pullback._")
+
     # --- Options candidates (sleeve: options) — underlyings only, acted in-session ---
     opts = pick_options_candidates(momentum)
     lines.append("\n## Options candidates (sleeve: options — single-leg LONG)")
@@ -506,6 +603,7 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
                     "trail_signals": trailing, "review_signals": reviews,
                     "rotation_candidates": rotation,
                     "momentum_top": momentum[:n_decile],
+                    "joint_accumulation": lt_rows,
                     "options_candidates": opts}, indent=2), encoding="utf-8")
     return md_path
 
