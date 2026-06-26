@@ -288,22 +288,26 @@ def long_term_accumulation(momentum: list[dict], swing_by_sym: dict,
 
 
 # Fundamental VALUE lens (Phase 2). Rough thresholds — a transparent flag, not a model.
-# PEG ≤ ~2 (P/E ≤ ~2× growth) or P/FCF ≤ ~25 reads as reasonably priced for the growth;
-# PEG > 3 or P/FCF > 45 reads as rich (the multiple needs the growth to keep delivering).
+# PEG is the PRIMARY read (P/E ÷ growth): ≤1.5 reasonably priced for the growth, >3 rich.
+# P/FCF is a FALLBACK only when PEG isn't meaningful (missing, or ≤0 = declining earnings),
+# because P/FCF is capex-distorted — e.g. a heavy-capex name (GOOGL) can show a high P/FCF
+# while its PEG says it's fairly priced. ≤25 cheap / >45 rich on the fallback.
 VALUE_FETCH_CAP = 40   # bound the per-run fundamentals calls (candidate list is small anyway)
 
 
 def value_verdict(f: dict) -> str:
-    """One-word value read from the TTM fundamentals (P/E, P/FCF, PEG). '' when no data."""
+    """One-word value read from the TTM fundamentals. PEG-primary, P/FCF fallback. '' when no data."""
     if not f:
         return ""
-    pfcf, peg = f.get("pfcf"), f.get("peg")
-    cheap = (peg is not None and 0 < peg <= 2) or (pfcf is not None and 0 < pfcf <= 25)
-    rich = (peg is not None and peg > 3) or (pfcf is not None and pfcf > 45)
-    if cheap and not rich:
-        return "✅ value"
-    if rich:
-        return "⚠️ rich"
+    peg, pfcf = f.get("peg"), f.get("pfcf")
+    if peg is not None and peg > 0:          # PEG is the cleaner 'value for growth' signal
+        if peg <= 1.5:
+            return "✅ value"
+        return "⚠️ rich" if peg > 3 else "—"
+    if pfcf is not None and pfcf > 0:        # fall back to P/FCF when PEG isn't meaningful
+        if pfcf <= 25:
+            return "✅ value"
+        return "⚠️ rich" if pfcf > 45 else "—"
     return "—"
 
 
@@ -584,9 +588,9 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
                  "ideas ONLY (no exit alerts, not part of the ACTION trigger). Screen: a confirmed "
                  "long-term uptrend (price above a RISING 200-day MA + positive 12-1 momentum) that "
                  "has pulled back to a value entry (≤ 50-day MA, or RSI14 ≤ 45), then graded on a "
-                 "TTM **value** lens (P/E, P/FCF, PEG). **Value:** ✅ = reasonably priced for the "
-                 "growth (PEG ≤ ~2 or P/FCF ≤ ~25), ⚠️ = rich (needs the growth to keep delivering), "
-                 "— = middling, blank = fundamentals not available on the data tier (price-only).\n")
+                 "TTM **value** lens. **Value** (PEG-primary, P/FCF fallback): ✅ = reasonably priced "
+                 "for the growth (PEG ≤ ~1.5, or P/FCF ≤ ~25 when PEG isn't meaningful), ⚠️ = rich "
+                 "(PEG > 3 / P/FCF > 45), — = middling, blank = fundamentals not on the data tier.\n")
     if lt_rows:
         adds = [r for r in lt_rows if r["held_joint"]]
         ideas = [r for r in lt_rows if not r["held_joint"] and not r["held_agentic"]][:10]
