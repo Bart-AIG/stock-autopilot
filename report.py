@@ -42,7 +42,7 @@ from pathlib import Path
 from analyze import (
     AI_COMPLEX, BASE, LOGS, MIN_PRICE, SPECULATIVE, UNIVERSE,
     analyze as momentum_analyze,
-    compute_rsi, fmp_history, load_api_key, theme_of,
+    compute_rsi, fmp_fundamentals, fmp_history, load_api_key, theme_of,
 )
 
 CACHE = LOGS / "history_cache.json"
@@ -287,6 +287,44 @@ def long_term_accumulation(momentum: list[dict], swing_by_sym: dict,
     return rows
 
 
+# Fundamental VALUE lens (Phase 2). Rough thresholds — a transparent flag, not a model.
+# PEG ≤ ~2 (P/E ≤ ~2× growth) or P/FCF ≤ ~25 reads as reasonably priced for the growth;
+# PEG > 3 or P/FCF > 45 reads as rich (the multiple needs the growth to keep delivering).
+VALUE_FETCH_CAP = 40   # bound the per-run fundamentals calls (candidate list is small anyway)
+
+
+def value_verdict(f: dict) -> str:
+    """One-word value read from the TTM fundamentals (P/E, P/FCF, PEG). '' when no data."""
+    if not f:
+        return ""
+    pfcf, peg = f.get("pfcf"), f.get("peg")
+    cheap = (peg is not None and 0 < peg <= 2) or (pfcf is not None and 0 < pfcf <= 25)
+    rich = (peg is not None and peg > 3) or (pfcf is not None and pfcf > 45)
+    if cheap and not rich:
+        return "✅ value"
+    if rich:
+        return "⚠️ rich"
+    return "—"
+
+
+def build_value_data(momentum: list[dict], swings: list[dict], key: str) -> dict:
+    """Fetch the TTM valuation snapshot (P/E, P/FCF, PEG) for the long-term (joint)
+    accumulation candidates ONLY — a small set (the names that pass the price gate),
+    so the extra fundamentals calls stay tiny. Degrades to {} per name if the data
+    tier doesn't expose the endpoint (the screen then runs price-only)."""
+    swing_by_sym = {s["symbol"]: s for s in swings}
+    joint_held = set(load_joint_watch())
+    agentic_held = {p.get("symbol") for p in load_holdings()}
+    cands = long_term_accumulation(momentum, swing_by_sym, joint_held, agentic_held)
+    out = {}
+    for r in cands[:VALUE_FETCH_CAP]:
+        f = fmp_fundamentals(r["symbol"], key)
+        if f:
+            out[r["symbol"]] = f
+        time.sleep(0.2)
+    return out
+
+
 def _load_fresh_cache(key: str) -> dict:
     """Return today's cached histories, rebuilding via a full scan if missing/stale."""
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
@@ -386,7 +424,9 @@ def _first_trading_day_of_month(d):
     return first
 
 
-def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
+def write_report(momentum: list[dict], swings: list[dict], mode: str,
+                 value_data: dict | None = None) -> Path:
+    value_data = value_data or {}
     momentum.sort(key=lambda r: r["mom_12_1_pct"], reverse=True)
     n_decile = max(1, int(len(momentum) * 0.10))
     setups = [s for s in swings if s["is_setup"]]
@@ -429,6 +469,8 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
     # alert and never part of the ACTION trigger, which stays driven by the Agentic book).
     joint_held = set(load_joint_watch())
     lt_rows = long_term_accumulation(momentum, swing_by_sym, joint_held, held_syms)
+    for r in lt_rows:  # attach the fundamental value snapshot (Phase 2) when available
+        r["value"] = value_data.get(r["symbol"], {})
 
     action = ("ACTION" if (setups or sells or trailing)
               else "NO ACTION (swing); momentum is informational")
@@ -541,16 +583,22 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
     lines.append("Watch-only — the agent can't trade the joint account, so this surfaces BUY/ADD "
                  "ideas ONLY (no exit alerts, not part of the ACTION trigger). Screen: a confirmed "
                  "long-term uptrend (price above a RISING 200-day MA + positive 12-1 momentum) that "
-                 "has pulled back to a value entry (≤ 50-day MA, or RSI14 ≤ 45). PRICE-BASED v1 — a "
-                 "fundamental value lens (P/E, P/FCF, growth) is the planned fast-follow.\n")
+                 "has pulled back to a value entry (≤ 50-day MA, or RSI14 ≤ 45), then graded on a "
+                 "TTM **value** lens (P/E, P/FCF, PEG). **Value:** ✅ = reasonably priced for the "
+                 "growth (PEG ≤ ~2 or P/FCF ≤ ~25), ⚠️ = rich (needs the growth to keep delivering), "
+                 "— = middling, blank = fundamentals not available on the data tier (price-only).\n")
     if lt_rows:
         adds = [r for r in lt_rows if r["held_joint"]]
         ideas = [r for r in lt_rows if not r["held_joint"] and not r["held_agentic"]][:10]
-        hdr = "| Ticker | Theme | Price | 12-1 mom% | RSI14 | vs 50-day |"
-        sep = "|---|---|---|---|---|---|"
+        hdr = "| Ticker | Theme | Price | 12-1 mom% | RSI14 | vs 50-day | P/E | P/FCF | PEG | Value |"
+        sep = "|---|---|---|---|---|---|---|---|---|---|"
+        def _fmt(x):
+            return f"{x:.1f}" if isinstance(x, (int, float)) else "—"
         def _row(r):
+            f = r.get("value") or {}
             d = f"{r['disc_ma50_pct']:+.1f}%" if r["disc_ma50_pct"] is not None else "—"
-            return f"| {r['symbol']} | {r['theme']} | {r['price']} | {r['mom_12_1_pct']} | {r['rsi14']} | {d} |"
+            return (f"| {r['symbol']} | {r['theme']} | {r['price']} | {r['mom_12_1_pct']} | {r['rsi14']} | {d} | "
+                    f"{_fmt(f.get('pe'))} | {_fmt(f.get('pfcf'))} | {_fmt(f.get('peg'))} | {value_verdict(f)} |")
         if adds:
             lines.append("**Held in the joint port — ADD / average-in candidates (on sale within their uptrend):**")
             lines.append(hdr); lines.append(sep)
@@ -561,8 +609,9 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str) -> Path:
             lines.extend(_row(r) for r in ideas)
         if not adds and not ideas:
             lines.append("_Qualifying names this run are all already held in the Agentic book — nothing new for the joint port._")
-        lines.append("\n_'On sale within an uptrend' is TECHNICAL, not a value verdict. Confirm each with "
-                     "the news/thesis and a real valuation (FCF, P/E) before buying._")
+        lines.append("\n_The price screen + value grade are SIGNALS, not a buy. Confirm each with the "
+                     "news/thesis (HARD RULE 7) before buying — a ⚠️-rich name can still be right if the "
+                     "growth justifies it, and a ✅-value name can be a value trap if the thesis is broken._")
     else:
         lines.append("_No long-term accumulation signals this run — no qualifying growth name is currently on sale. "
                      "Normal; wait for a pullback._")
@@ -635,7 +684,9 @@ def main() -> None:
         momentum, swings = scan_intraday(key, shortlist)
 
     setups = [s for s in swings if s["is_setup"]]
-    path = write_report(momentum, swings, args.mode)
+    # Phase 2 value lens: fetch TTM fundamentals for the joint long-term candidates only.
+    value_data = build_value_data(momentum, swings, key) if momentum else {}
+    path = write_report(momentum, swings, args.mode, value_data)
     print(f"\nRanked {len(momentum)} momentum, found {len(setups)} swing setup(s).")
     print(f"Wrote {path}")
     print("NOTE: read-only. No trades placed. No Robinhood access.")
