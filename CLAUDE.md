@@ -118,7 +118,7 @@ So for future alerts:
    - **Exits enforced on EVERY run (this is where losses are minimized):** +50–100% take-profit; **hard −50% stop**; close on a broken/weakened thesis; roll/close at DTE < ~14 or before earnings. Options do NOT get equities' "hold underwater on thesis" treatment.
    - **Daily loss cap:** if realized options losses hit **−$150 in a day** (conservative for the current ~$2.7k account — raise as it grows), STOP opening new option trades until the next session.
    - **Size:** start at **1 contract, ≤ $150 premium** and prove the approach before scaling. Log every fill to `holdings.json` (`sleeve:"options"`) immediately, with entry, max loss, and the exit plan.
-   - **Cadence:** a market-hours scheduled cron checks entries + manages open-option exits (e.g., ~every 30 min); it is NOT tick-level, so never rely on catching an intraday spike between runs.
+   - **Cadence:** a market-hours scheduled cron checks entries + manages open-option exits **every 15 min** (9:30 AM–4:00 PM ET, Mon–Fri, ~26 runs/day; Ryan's choice 2026-07-01); it is NOT tick-level, so never rely on catching an intraday spike between runs.
    - **Prerequisites before going live:** (a) the Robinhood order tools must be pre-authorized in Ryan's client — the interactive "requires approval" wall we hit breaks unattended execution; (b) settled cash available; (c) this ruleset merged to `master`. Until all three hold, run options in-session with approval only.
 
 ## Typical flow
