@@ -49,6 +49,17 @@ then take ONE approval (see "One-tap batch approval" below):
    explicitly wants to add; respect the SPEC-sleeve cap for `[SPEC]` names. Prefer
    whole-share quantities so the position can carry a resting GTC stop (Ryan's stated
    preference).
+5. **ALWAYS run the live market-wide dip scan (standing rule, set 2026-06-30).** EVERY time
+   Ryan pastes the ntfy alert, also call `run_scan` on the saved Robinhood scanner
+   **`14a2ec7a-cf7a-4b99-b0a2-5b62f8c5b05f`** ("Connors RSI(2) oversold dip — market-wide":
+   `RSI(2) < 10` + `last > $5` + `market cap > $2B`). It surfaces oversold setups OUTSIDE the
+   report's ~220-name universe. The scan is the oversold **TRIGGER only** — gate each hit like a
+   BUY line: confirm price > a **RISING 200-day MA** (a dip in an uptrend, NOT a falling knife)
+   **+** the HARD RULE 7 news/thesis check, then fold the survivors into the proposed batch
+   tagged "(live dip scan — outside report universe)". Respect the sector steer (de-emphasized
+   oil) and the SPEC cap. If the saved scan 404s on a fresh account, recreate it with
+   `create_scan` using those exact filters (no "price > MA200" filter exists in the scanner, so
+   the uptrend confirmation is always the in-session step).
 For every SELL and BUY line, run the news/thesis check (HARD RULE 7) before listing it.
 All HARD RULES below still apply — the alert is the findings, never the approval.
 
