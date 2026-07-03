@@ -1,4 +1,4 @@
-# Strategy report - INTRADAY  (2026-07-03 15:02 UTC)
+# Strategy report - INTRADAY  (2026-07-03 16:03 UTC)
 
 ## >>> ACTION <<<
 
@@ -100,7 +100,7 @@ Watch-only — the agent can't trade the joint account, so this surfaces BUY/ADD
 | 🟢 oversold | AEHR | Semis | 69.96 | 34.8 | 3.8 | -28.6% | -28.1% | 1019.0 | -185.7 | -190.1 | 1.8 | — |
 | 🟢 oversold | INOD | AI-infra | 68.88 | 35.8 | 6.4 | -22.8% | -16.4% | 144.5 | 56.0 | 36.3 | 16.7 | ⚠️ rich |
 | 🟢 oversold | AAOI | Photonics | 120.95 | 37.7 | 7.2 | -23.5% | -28.3% | 998.3 | -183.6 | -40.6 | -1.7 | — |
-| 🟢 oversold | NOK | Comm | 12.07 | 37.8 | 6.4 | -11.8% | -12.2% | 213.3 | 78.7 | 45.1 | 0.8 | ✅ value |
+| 🟢 oversold | NOK | Comm | 12.07 | 37.8 | 6.4 | -11.8% | -12.2% | 213.3 | 79.3 | 45.4 | 0.8 | ✅ value |
 | 🟢 oversold | QCOM | Semis | 176.25 | 38.1 | 2.7 | -12.8% | -13.0% | 67.9 | 18.9 | 14.9 | -3.1 | ✅ value |
 | 🟡 dip | EME | Industrials | 774.66 | 39.2 | 12.5 | -5.7% | -9.7% | 73.5 | 26.0 | 32.0 | 0.8 | ✅ value |
 | 🟢 oversold | TSEM | Semis | 219.05 | 39.6 | 5.6 | -15.2% | -11.8% | 561.2 | 103.2 | 76.6 | 5.2 | ⚠️ rich |
