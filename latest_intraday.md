@@ -1,4 +1,4 @@
-# Strategy report - INTRADAY  (2026-07-03 17:01 UTC)
+# Strategy report - INTRADAY  (2026-07-03 18:01 UTC)
 
 ## >>> ACTION <<<
 
@@ -103,7 +103,7 @@ Watch-only — the agent can't trade the joint account, so this surfaces BUY/ADD
 | 🟢 oversold | NOK | Comm | 12.07 | 37.8 | 6.4 | -11.8% | -12.2% | 213.3 | 79.3 | 45.4 | 0.8 | ✅ value |
 | 🟢 oversold | QCOM | Semis | 176.25 | 38.1 | 2.7 | -12.8% | -13.0% | 67.9 | 18.9 | 14.9 | -3.1 | ✅ value |
 | 🟡 dip | EME | Industrials | 774.66 | 39.2 | 12.5 | -5.7% | -9.7% | 73.5 | 26.0 | 32.0 | 0.8 | ✅ value |
-| 🟢 oversold | TSEM | Semis | 219.05 | 39.6 | 5.6 | -15.2% | -11.8% | 561.2 | 103.1 | 76.5 | 5.2 | ⚠️ rich |
+| 🟢 oversold | TSEM | Semis | 219.05 | 39.6 | 5.6 | -15.2% | -11.8% | 561.2 | 103.2 | 76.6 | 5.2 | ⚠️ rich |
 | 🟢 oversold | COHR | Photonics | 333.36 | 41.2 | 5.6 | -12.4% | -9.7% | 418.5 | 145.6 | -98.2 | -0.2 | — |
 | 🟡 dip | NVDA | Semis | 194.83 | 41.2 | 26.6 | -4.3% | -7.1% | 52.1 | 29.7 | 39.6 | 0.3 | ✅ value |
 | 🟡 dip | BKSY | Space | 27.88 | 41.3 | 46.0 | -7.3% | -23.4% | 231.7 | -10.9 | -12.1 | -5.2 | — |
