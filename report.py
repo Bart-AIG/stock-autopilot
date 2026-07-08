@@ -187,6 +187,12 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict,
     for pos in holdings:
         sym = pos.get("symbol")
         sleeve = pos.get("sleeve") or "momentum"
+        # Options-sleeve entries (single-leg contracts logged by the options autopilot)
+        # are NOT equity positions — the routine manages their exits on its own cadence.
+        # Judging their UNDERLYING here fires phantom thesis-checks (e.g. a bearish PUT's
+        # underlying being below its 200MA is the thesis WORKING, not a break).
+        if sleeve == "options":
+            continue
         s = swing_by_sym.get(sym)
         if not s:
             no_data.append(sym)
@@ -477,7 +483,9 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     sells = [r for r in port if r["action"].startswith("SELL")]
     trailing = [r for r in port if r["action"].startswith("TRAIL")]
     reviews = [r for r in port if r["action"].startswith("REVIEW")]
-    held_syms = {p.get("symbol") for p in holdings}
+    # HELD markers / rotation reflect EQUITY positions only — an options-sleeve contract
+    # on an underlying is not a stock holding (a new equity buy would not be an "add").
+    held_syms = {p.get("symbol") for p in holdings if (p.get("sleeve") or "momentum") != "options"}
     rotation = ([r["symbol"] for r in momentum[:n_decile] if r["symbol"] not in held_syms][:8]
                 if (sells or reviews) else [])
 
