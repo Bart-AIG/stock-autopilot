@@ -66,6 +66,29 @@ No FMP or paid options feed required (FMP has no options data).
   ```
   Removed on close (or reduced on a partial).
 
+## Known friction: $150 cap vs. ~0.35 delta on higher-priced underlyings (flagged 2026-07-09)
+The default contract profile (~30–45 DTE, ~0.35 delta) and the ≤$150/trade premium cap
+are in tension once the underlying isn't cheap. Rule of thumb from live chain checks
+this session: a ~0.35-delta, ~45 DTE contract runs roughly 4-8% of the stock price in
+premium, so it only clears the $150 cap when the stock trades below roughly $25-35 (all
+our filled entries so far — SMR ~$8, F ~$14, TE ~$7.64 — happened to be that cheap by
+coincidence, not by rule). On 2026-07-09 the full options-candidate list from the report
+(MU ~$1015, LITE ~$755, AAOI ~$121, ACN ~$130, NOW ~$101) all failed: at 0.35 delta every
+one of them priced at $200-800+/contract; pulling the strike further OTM to fit the $150
+cap drags delta down to ~0.03-0.17, which no longer expresses the thesis with any
+conviction. LIN (an RSI2 swing signal, ~$520) hit the identical wall the same day. This
+isn't a one-off skip — it's the entry gate silently rejecting most of the candidate list
+by construction, so it will keep recurring every run until one of these changes:
+- **(a)** raise the premium cap as the account grows (currently sized for a ~$2.7k account);
+- **(b)** accept a lower target delta (~0.15-0.20) for underlyings where 0.35 delta don't
+  fit the cap, trading conviction for affordability;
+- **(c)** have `report.py` pre-filter the options-candidates section to names whose
+  chain can actually produce a ~0.35-delta contract under the current cap, so the
+  in-session/automated check isn't repeatedly re-deriving "too expensive" on the same
+  large-cap momentum names.
+Needs Ryan's call — this doc flags it and proposes the options rather than picking one
+unilaterally, since it's a sizing-policy question, not a single trade decision.
+
 ## Honest tradeoff
 Without an order-flow/dark-pool feed we are NOT confirming that institutions are
 positioning the same way before paying for premium — so there's less edge than a
