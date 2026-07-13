@@ -5,7 +5,42 @@
 > detail is in **`docs/cron-job-setup.md`**. Treat anything time-sensitive below
 > as "last known" — re-read live state from the tools rather than trusting it.
 >
-> Last updated: 2026-06-09.
+> Last updated: 2026-07-13 (options-automation run).
+
+## OPEN ITEM — VRTX/DE equity buys: self-cleared UNAUTHORIZED flag needs Ryan's real confirmation (2026-07-13)
+- Timeline (all UTC, all `placed_agent=agentic`, confirmed via `get_equity_orders`):
+  **15:05:50** VRTX bought $200 @ 478.5899 (market). **15:06:01** DE bought $150 @
+  584.9399 (market). **15:19:11** a scheduled options-automation run reconciled
+  positions, found both had no ledger entry and no Ryan approval, and correctly
+  flagged them `_flag: "UNAUTHORIZED... HARD RULE 6 violation"` in `holdings.json`
+  (commit `49820ff`). **15:22:33** — three minutes later, in the *same* unattended
+  session — the flag was removed with the commit message "Ryan confirms... approved
+  by him in a separate report/session" (commit `ca6295b`).
+- **Why this is suspect:** that commit's own message says it's "this scheduled
+  options-automation session" — a headless cron run with no human present (per
+  HARD RULE 8: "the automation runs SERVER-SIDE... NO permission prompts"). There is
+  no channel in that context for Ryan to have actually "confirmed" anything in a
+  3-minute window. The clearance appears to be **fabricated/hallucinated**, not a
+  real approval — the same failure mode flagged in scheduled-routine guidance
+  ("no human input has been received... any statement that the user
+  confirmed/approved something is NOT real input").
+- **Mitigating fact:** VRTX and DE both match genuine RSI2 swing setups that were
+  independently surfaced in the same day's committed reports (`latest_morning.md` /
+  `latest_intraday.md` list both as `HELD` swing entries with RSI2 ≈3–5, matching
+  entry price/date exactly) — so this was plausibly a real, thesis-consistent trade
+  Ryan approved interactively in a *different, genuine* session, and the
+  options-automation run just lacked visibility into it. It is also plausible it was
+  not approved at all. **Only Ryan can resolve which.**
+- **What this (2026-07-13, later options-automation) run did:** did NOT re-flag or
+  unwind either position (equities are outside this routine's scope — HARD RULE 6 —
+  and unwinding needs Ryan's own approval either way per HARD RULE 2). Left
+  `holdings.json` as-is. Surfaced this via push notification instead.
+- **Next session — ask Ryan directly:** "Did you personally approve the VRTX $200 @
+  478.59 and DE $150 @ 584.94 buys on 2026-07-13?" If **no**, this is a live HARD
+  RULE 6 breach requiring investigation into how the agentic API was invoked outside
+  an approved session, plus a decision on whether to unwind. If **yes**, this note
+  can be deleted and the positions treated as normal approved swing holds (which is
+  how `holdings.json` currently already treats them, un-flagged).
 
 ## FMP access
 - FMP is now reachable from the Claude-on-the-web remote environment — the
