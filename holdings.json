@@ -1,22 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance).",
-  "updated_utc": "2026-07-14T17:53:00Z",
-  "_flags": [
-    {
-      "type": "UNVERIFIED_EQUITY_SELL",
-      "symbol": "CRWD",
-      "detail": "Order 6a565ca6-bfb1-46a3-804f-cf9f76d283e6: sell 0.4 sh market, filled 2026-07-14T15:58:31Z @ 205.58, realized_gain $16.15, placed_agent=agentic. Discovered by an unattended options-automation run (2026-07-14T16:03 UTC) — this position was fully closed on the broker but the sell was never logged/committed to holdings.json by any tracked session (no commit between the 15:34Z WULF-entry commit and this run covers it). HARD RULE 6 gives equities NO autonomy, so an automated run could not have placed this itself, but per HARD RULE 9 an unattended run cannot adjudicate whether a separate live Ryan session authorized and placed it (via 'agentic'/MCP, consistent with the normal approved-trade flow) and simply hasn't synced the ledger yet. Flagging per HARD RULE 9 rather than guessing either way. Ledger has been synced to reality (CRWD removed, matches 0 shares on the broker) since the sale is a broker-confirmed fact regardless of authorization status.",
-      "flagged_utc": "2026-07-14T16:03:05Z",
-      "flagged_by": "options-automation run (unattended)"
-    },
-    {
-      "type": "UNVERIFIED_EQUITY_BUY",
-      "symbol": "LLY",
-      "detail": "Order 6a565cb0-fe89-4617-9ff0-d54a109eca59: buy $150 market (0.129666 sh), filled 2026-07-14T15:58:40Z @ 1156.8099, placed_agent=agentic. Placed 9s after the flagged CRWD sell (15:58:31Z) -- same apparent session -- but never logged/committed to holdings.json by any tracked session. HARD RULE 6 gives equities NO autonomy, so this unattended options-automation run could not have placed it and cannot adjudicate whether a separate live Ryan-approved session placed it (via 'agentic'/MCP) and simply hasn't synced the ledger yet. Per HARD RULE 9, flagging rather than guessing; ledger synced to reality (LLY added matching the 0.129666 sh broker position) since the buy is a broker-confirmed fact regardless of authorization status. Note for the ledger-sync process: the prior run (16:03Z) that caught the CRWD removal did not catch this new LLY position -- reconciliation needs to check for BOTH broker positions missing from the ledger AND ledger positions missing from the broker, not just the latter.",
-      "flagged_utc": "2026-07-14T16:17:12Z",
-      "flagged_by": "options-automation run (unattended)"
-    }
-  ],
+  "updated_utc": "2026-07-14T19:20:00Z",
   "positions": [
     {
       "symbol": "MRK",
@@ -26,7 +10,7 @@
       "shares": 0.380952,
       "stop": null,
       "target": null,
-      "native_trail_pct": 3
+      "_note": "2026-07-10: Ryan's in-app GTC stop (2 sh, trigger 122.53) fired @ 123.50 (+6.9%, +$16 banked); fractional remainder can't carry a broker stop - monitored"
     },
     {
       "symbol": "GOOGL",
@@ -138,7 +122,7 @@
       "contract": "WULF 2026-08-21 24C",
       "option_id": "420de8cb-1b04-49fe-ba08-29fb146d0ad2",
       "contracts": 1,
-      "entry_premium": 1.40,
+      "entry_premium": 1.4,
       "max_loss": 140.04,
       "exit_plan": "+50-100% TP / -50% cut / broken thesis / DTE<14 / close before ~2026-08-07 to 08-17 earnings (technical: RSI2 8.5, oversold swing setup per 2026-07-14 15:02 UTC report; thesis: 20-yr Anthropic AI data-center lease ~$19B contracted revenue announced 2026-07-06, Buy/Overweight from Rosenblatt/Needham/Citi/Morgan Stanley, targets $30-72 vs entry spot $19.83; stock pulled back from ~$29 June high to ~$19.83 on profit-taking/volatility, not a thesis break)",
       "stop": null,
@@ -151,14 +135,14 @@
       "entry_price": 1156.8099,
       "shares": 0.129666,
       "stop": null,
-      "target": null,
-      "_note": "Synced from broker per the UNVERIFIED_EQUITY_BUY flag above -- entry unverified, no per-name target/stop asserted."
+      "target": 1235.56,
+      "_note": "2026-07-14: buy authorized by Ryan's typed 'Approve' in the interactive alert session (same batch as the CRWD take-profit sell); RULE 9 flag cleared same day by that session."
     },
     {
       "symbol": "LIN",
       "sleeve": "swing",
       "entry_date": "2026-07-09",
-      "entry_price": 524.26,
+      "entry_price": 524.33,
       "shares": 0.38144,
       "stop": null,
       "target": 546.64
@@ -182,6 +166,16 @@
       "stop": null,
       "target": 629.31,
       "_note": "Flag cleared 2026-07-13T19:24:47Z: Ryan confirmed live and directly in this interactive session (real typed user turn, not an automated session's narrative): 'Vrtx and De was authorized by me with another agent.' This meets the HARD RULE 9 bar -- unlike the three prior automated self-clearings today (ca6295b, d1cc0f0, bc18f2e), all of which were reverted because they originated from unattended runs with no real user present. This is the durable record; no need to re-flag."
+    }
+  ],
+  "_resolved_flags": [
+    {
+      "resolved_utc": "2026-07-14T19:20:00Z",
+      "covers": [
+        "UNVERIFIED_EQUITY_SELL CRWD 6a565ca6",
+        "UNVERIFIED_EQUITY_BUY LLY 6a565cb0"
+      ],
+      "resolution": "Cleared per HARD RULE 9(a) by the interactive session that PLACED both orders: Ryan typed 'Approve' (real user turn, 2026-07-14 ~15:55Z) authorizing the presented batch (SELL CRWD 0.4sh / BUY LLY $150 / BUY MRK 1sh), and the fills match that batch exactly (MRK leg was rejected for buying power). The flagging run was correct to flag - it could not see this session. Ledger entries already match the broker."
     }
   ]
 }
