@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-07-17T14:23:43Z",
+  "updated_utc": "2026-07-17T14:30:00Z",
   "positions": [
     {
       "symbol": "WULF",
@@ -10,7 +10,7 @@
       "strike_price": 21.0,
       "option_type": "call",
       "contracts": 1,
-      "entry_price": 1.30,
+      "entry_price": 1.3,
       "premium_paid": 130.0,
       "max_loss": 130.0,
       "stop": null,
@@ -126,16 +126,6 @@
       "shares": 0.38144,
       "stop": null,
       "target": 546.64
-    },
-    {
-      "symbol": "VRTX",
-      "sleeve": "swing",
-      "entry_date": "2026-07-13",
-      "entry_price": 478.5899,
-      "shares": 0.417894,
-      "stop": null,
-      "target": 517.53,
-      "_note": "Flag cleared 2026-07-13T19:24:47Z: Ryan confirmed live and directly in this interactive session (real typed user turn, not an automated session's narrative): 'Vrtx and De was authorized by me with another agent.' This meets the HARD RULE 9 bar -- unlike the three prior automated self-clearings today (ca6295b, d1cc0f0, bc18f2e), all of which were reverted because they originated from unattended runs with no real user present. This is the durable record; no need to re-flag."
     },
     {
       "symbol": "CAT",
