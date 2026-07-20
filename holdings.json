@@ -1,7 +1,20 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-07-20T16:20:00Z",
+  "updated_utc": "2026-07-20T16:50:00Z",
   "positions": [
+    {
+      "symbol": "RBRK",
+      "sleeve": "options",
+      "entry_date": "2026-07-20",
+      "contract": "RBRK 2026-08-21 90C",
+      "option_id": "b88b0bd9-2238-43b6-a252-72aedf904bb2",
+      "contracts": 1,
+      "entry_premium": 2.9,
+      "max_loss": 290.04,
+      "exit_plan": "RYAN'S FAST-EXIT INSTRUCTION (live turn 2026-07-20: 'Do the call but, we need to sell once it pops meaningfully'): take profit at +50% premium (~$4.35) OR underlying tags ~$85.50 (20-day zone), WHICHEVER FIRST - do not ride toward +100%. Standard exits also apply: -50% cut (~$1.45) / broken thesis / DTE<14 (~Aug 7). Aug 21 expiry avoids early-Sept earnings. NOTE: $290 premium exceeds the ~$150/trade cap by Ryan's explicit override this session (account now ~$3.6k; position 7.9% of acct, within 15% sleeve). Entry stack: RSI2 oversold after 4 red closes at ~$79.26 in rising 200-day uptrend + thesis INTACT (Q1 FY27 +39% rev, ARR +32%, drop was sector multiple-compression) + liquidity (OI 904, spread 2.65/3.00) + IV 69% noted elevated.",
+      "stop": null,
+      "target": null
+    },
     {
       "symbol": "WULF",
       "sleeve": "options",
