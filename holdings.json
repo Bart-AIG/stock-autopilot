@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-07-17T14:30:00Z",
+  "updated_utc": "2026-07-20T15:40:00Z",
   "positions": [
     {
       "symbol": "WULF",
@@ -75,12 +75,13 @@
     },
     {
       "symbol": "IREN",
-      "sleeve": "swing",
+      "sleeve": "momentum",
       "entry_date": "2026-06-24",
       "entry_price": 45.04,
       "shares": 6.810007,
       "stop": null,
-      "target": 64.84
+      "target": null,
+      "_note": "Ryan, live turn 2026-07-20: 'Don't sell iren. Good stock just volatile due to the large rise in ai play. People just selling down for profit and risks but still a good longterm play' -- conviction long-term hold; reclassified swing->momentum so RSI2-bounce exits stop firing on it. Manage by thesis (HARD RULE 7) and the monthly rebalance only."
     },
     {
       "symbol": "QCOM",
