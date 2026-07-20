@@ -1,7 +1,20 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-07-20T17:30:00Z",
+  "updated_utc": "2026-07-20T19:52:00Z",
   "positions": [
+    {
+      "symbol": "ACHR",
+      "sleeve": "options",
+      "entry_date": "2026-07-20",
+      "contract": "ACHR 2028-01-21 5C",
+      "option_id": "e5ddb521-1043-4342-8551-6363d0354724",
+      "contracts": 1,
+      "entry_premium": 2.47,
+      "max_loss": 247.0,
+      "stop": null,
+      "target": null,
+      "_note": "Reconciliation (options-automation run, 19:38-19:52Z): placed_agent='user' on the fill (2026-07-20T19:38:22Z, $2.47/contract, $247 premium) -- Ryan bought this himself in the app, automation did not place it and was not consulted. Long-dated LEAP (18mo out, deep ITM-trending strike $5 vs underlying ~$5.30), a materially different risk profile than the sleeve's normal 30-45 DTE/~0.35-delta plays -- not gated by the HARD RULE 8 entry checklist since it wasn't an autonomous entry. Missing from the ledger until this run; added to match the broker, no trade action taken. FLAGGING FOR RYAN: this purchase pushed total options-sleeve mark value to ~$691 on a ~$3601 account (~19.2%), over the HARD RULE 8 ~15% sleeve cap (~$540) -- automation will skip new option entries until this comes back under cap. Mechanical -50%/+50-100% exit rules are not being auto-applied to this LEAP given the distinct risk profile and that Ryan placed it deliberately; flag if you want it treated differently."
+    },
     {
       "symbol": "RBRK",
       "sleeve": "options",
