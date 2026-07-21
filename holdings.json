@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-07-22T14:30:00Z",
+  "updated_utc": "2026-07-21T21:05:00Z",
   "positions": [
     {
       "symbol": "ACHR",
@@ -168,5 +168,51 @@
       ],
       "resolution": "Cleared per HARD RULE 9(a) by the interactive session that PLACED both orders: Ryan typed 'Approve' (real user turn, 2026-07-14 ~15:55Z) authorizing the presented batch (SELL CRWD 0.4sh / BUY LLY $150 / BUY MRK 1sh), and the fills match that batch exactly (MRK leg was rejected for buying power). The flagging run was correct to flag - it could not see this session. Ledger entries already match the broker."
     }
-  ]
+  ],
+  "_pending_orders": {
+    "note": "CONSOLIDATION BATCH - Ryan-approved live 2026-07-21 (concentrated-book strategy adopted; 'Just do market sells to capture any gains at the start of tomorrow'). Eight market sells QUEUED for the 2026-07-22 open, placed_agent=agentic, this interactive session. When fills appear, remove these positions and this block - do NOT flag the sells; they are authorized.",
+    "queued_utc": "2026-07-21T20:58:00Z",
+    "orders": [
+      {
+        "symbol": "MRK",
+        "qty": 1.380952,
+        "order_id": "6a5fdd5e-0eb7-4677-b50f-91987cdb9ef3"
+      },
+      {
+        "symbol": "GOOGL",
+        "qty": 0.409455,
+        "order_id": "6a5fdd64-17b3-4ec4-9f4f-15d25d53d22f"
+      },
+      {
+        "symbol": "KO",
+        "qty": 1.53174,
+        "order_id": "6a5fdd69-300a-4672-ab8f-f62bfe91f8d3"
+      },
+      {
+        "symbol": "C",
+        "qty": 0.919899,
+        "order_id": "6a5fdd70-eb17-4ef0-a83f-2a4906f00052"
+      },
+      {
+        "symbol": "FCX",
+        "qty": 1.0,
+        "order_id": "6a5fdd76-9355-45a8-9d6e-4f15f700f726"
+      },
+      {
+        "symbol": "QCOM",
+        "qty": 1.0,
+        "order_id": "6a5fdd7c-635d-4f92-85c1-0cae501b9f52"
+      },
+      {
+        "symbol": "IBKR",
+        "qty": 0.991593,
+        "order_id": "6a5fdd83-18f8-45c3-9def-998db06b2499"
+      },
+      {
+        "symbol": "RKLB",
+        "qty": 1.0,
+        "order_id": "6a5fdd89-d912-4f4a-bcb7-eee280b1d85e"
+      }
+    ]
+  }
 }
