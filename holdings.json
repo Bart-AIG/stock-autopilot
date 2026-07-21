@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-07-20T19:52:00Z",
+  "updated_utc": "2026-07-21T13:32:59Z",
   "positions": [
     {
       "symbol": "ACHR",
@@ -27,21 +27,6 @@
       "exit_plan": "RYAN'S FAST-EXIT INSTRUCTION (live turn 2026-07-20: 'Do the call but, we need to sell once it pops meaningfully'): take profit at +50% premium (~$4.35) OR underlying tags ~$85.50 (20-day zone), WHICHEVER FIRST - do not ride toward +100%. Standard exits also apply: -50% cut (~$1.45) / broken thesis / DTE<14 (~Aug 7). Aug 21 expiry avoids early-Sept earnings. NOTE: $290 premium exceeds the ~$150/trade cap by Ryan's explicit override this session (account now ~$3.6k; position 7.9% of acct, within 15% sleeve). Entry stack: RSI2 oversold after 4 red closes at ~$79.26 in rising 200-day uptrend + thesis INTACT (Q1 FY27 +39% rev, ARR +32%, drop was sector multiple-compression) + liquidity (OI 904, spread 2.65/3.00) + IV 69% noted elevated.",
       "stop": null,
       "target": null
-    },
-    {
-      "symbol": "WULF",
-      "sleeve": "options",
-      "entry_date": "2026-07-17",
-      "expiration_date": "2026-08-21",
-      "strike_price": 21.0,
-      "option_type": "call",
-      "contracts": 1,
-      "entry_price": 1.3,
-      "premium_paid": 130.0,
-      "max_loss": 130.0,
-      "stop": null,
-      "target": null,
-      "_note": "Options automation run (market open, options-autopilot routine). Entry stack: RSI2 1.8 deep oversold + momentum top-5 decile (605.3% mom12-1, >200MA) + HARD RULE 7 thesis intact/strengthening ($19B/20yr Anthropic AI lease at Kentucky campus, Rosenblatt/Needham/Morgan Stanley PT hikes to Buy/Overweight; pullback from high-$20s to $17.44 read as sector-wide/technical, not thesis break; NY hyperscale moratorium is a minor overhang, doesn't touch the KY campus) + liquidity (OI 21,838, ask $1.30/bid $1.19) + no earnings in window. Distinct from the WULF 24C x2 stopped out 2026-07-16 at -50% -- this is a fresh, materially lower-strike entry ($21 vs prior higher basis) off a deeper oversold print, not a re-chase of the same trade. Exits per HARD RULE 8: +50-100% TP, -50% hard stop, broken thesis, or DTE<14/pre-earnings."
     },
     {
       "symbol": "MRK",
