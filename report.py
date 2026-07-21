@@ -205,10 +205,19 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict,
         pnl = (price - entry) / entry if entry else None
 
         sell_reasons, review = [], []
+        underwater = pnl is not None and pnl < 0
         if target and price >= target:
             sell_reasons.append(f"hit target {target} — take profit")
         if sleeve == "swing" and rsi2 is not None and rsi2 >= RSI2_OVERBOUGHT:
-            sell_reasons.append(f"RSI2 {rsi2} overbought — swing bounce done, take profit")
+            if underwater:
+                # An RSI2 bounce on a position still below basis is NOT a profit take —
+                # calling it one has repeatedly misled the alert reader (IREN 7/20, INOD
+                # 7/21). Surface it honestly as an optional exit-into-strength.
+                sell_reasons.append(
+                    f"RSI2 {rsi2} overbought but position UNDERWATER ({pnl:+.0%}) — "
+                    f"optional exit-into-strength; policy default is hold-on-thesis")
+            else:
+                sell_reasons.append(f"RSI2 {rsi2} overbought — swing bounce done, take profit")
         if ma200 and price < ma200:
             review.append(f"below 200-day MA ({ma200}) — possible trend/thesis break")
         if sleeve == "momentum" and rank and rank > n_decile:
@@ -221,7 +230,11 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict,
         suggested = round(max(entry, price * (1 - TRAIL_PCT)), 2) if green_enough else None
 
         if sell_reasons:
-            action, note = "SELL / TAKE-PROFIT", sell_reasons + review
+            if underwater:
+                action = "EXIT-INTO-STRENGTH (underwater — optional)"
+            else:
+                action = "SELL / TAKE-PROFIT"
+            note = sell_reasons + review
         elif native:
             action = "HOLD"
             note = [f"native {native}% trailing stop set in-app — auto-locks the gain "
@@ -482,7 +495,11 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     port, port_no_data = evaluate_portfolio(holdings, swing_by_sym, momentum_rank, n_decile)
     sells = [r for r in port if r["action"].startswith("SELL")]
     trailing = [r for r in port if r["action"].startswith("TRAIL")]
-    reviews = [r for r in port if r["action"].startswith("REVIEW")]
+    # Underwater RSI2 bounces are surfaced on the THESIS CHECK line (hold is the policy
+    # default), NOT the TAKE PROFIT / SELL line — labeling them "take profit" repeatedly
+    # misled the alert (IREN 2026-07-20, INOD 2026-07-21).
+    reviews = [r for r in port
+               if r["action"].startswith("REVIEW") or r["action"].startswith("EXIT-INTO-STRENGTH")]
     # HELD markers / rotation reflect EQUITY positions only — an options-sleeve contract
     # on an underlying is not a stock holding (a new equity buy would not be an "add").
     held_syms = {p.get("symbol") for p in holdings if (p.get("sleeve") or "momentum") != "options"}
