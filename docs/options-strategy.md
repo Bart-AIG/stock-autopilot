@@ -57,6 +57,17 @@ No FMP or paid options feed required (FMP has no options data).
 ## Execution & bookkeeping
 - Review with `review_option_order` (show quote, greeks, fees, and **max loss**), then
   use the **one-tap batch approval** flow (same as equities).
+- **Order pricing on exits — work the spread, don't just cross it (Ryan, 2026-07-21).**
+  A sell-to-close should NOT default to a fully marketable price (i.e. essentially
+  hitting the bid) — that needlessly gives up the spread on every single exit. Instead:
+  pull the live bid/ask (`get_option_quotes`), place the closing `limit` order at or
+  near the **midpoint** (or a touch better, toward the ask), and only step the price
+  down toward the bid if it isn't filling and the exit is time-sensitive (a mechanical
+  −50% stop or a fast-moving name shouldn't be left unfilled for long — some slippage
+  from mid is fine to guarantee the fill, but starting at the bid on the first try is
+  not). This applies to every mechanical exit (TP, stop, thesis-close, DTE/earnings
+  roll-off) — check the realized fill against the quoted mid when logging it so a
+  pattern of bad fills can be caught later.
 - Record fills in `holdings.json` under a new sleeve, e.g.:
   ```json
   {"symbol": "NVDA", "sleeve": "options", "type": "call",
