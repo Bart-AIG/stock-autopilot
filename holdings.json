@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-07-21T21:05:00Z",
+  "updated_utc": "2026-07-22T14:55:00Z",
   "positions": [
     {
       "symbol": "ACHR",
@@ -20,62 +20,6 @@
       }
     },
     {
-      "symbol": "MRK",
-      "sleeve": "momentum",
-      "entry_date": "2026-06-15",
-      "entry_price": 120.9166,
-      "shares": 1.380952,
-      "stop": null,
-      "target": null,
-      "_note": "2026-07-10: Ryan's in-app stop banked 2sh @123.50 (+$16); 2026-07-15: 1sh buyback @122.98 approved by Ryan (below the 123.50 exit; earnings 7/28 sized small). Blended basis."
-    },
-    {
-      "symbol": "GOOGL",
-      "sleeve": "momentum",
-      "entry_date": "2026-06-02",
-      "entry_price": 366.34,
-      "shares": 0.409455,
-      "stop": null,
-      "target": null
-    },
-    {
-      "symbol": "KO",
-      "sleeve": "momentum",
-      "entry_date": "2026-06-02",
-      "entry_price": 78.87,
-      "shares": 1.53174,
-      "stop": null,
-      "target": null
-    },
-    {
-      "symbol": "C",
-      "sleeve": "momentum",
-      "entry_date": "2026-06-05",
-      "entry_price": 132.6241,
-      "shares": 0.919899,
-      "stop": null,
-      "target": null,
-      "_note": "2026-07-15: $50 add @133.05 approved by Ryan on the post-Q2 sell-the-news dip (Q2 beat, thesis intact). Blended basis."
-    },
-    {
-      "symbol": "RKLB",
-      "sleeve": "momentum",
-      "entry_date": "2026-06-23",
-      "entry_price": 95.77,
-      "shares": 1.0,
-      "stop": null,
-      "target": null
-    },
-    {
-      "symbol": "FCX",
-      "sleeve": "momentum",
-      "entry_date": "2026-06-23",
-      "entry_price": 64.61,
-      "shares": 1.0,
-      "stop": null,
-      "target": 70.0
-    },
-    {
       "symbol": "IREN",
       "sleeve": "momentum",
       "entry_date": "2026-06-24",
@@ -84,15 +28,6 @@
       "stop": null,
       "target": null,
       "_note": "Ryan, live turn 2026-07-20: 'Don't sell iren. Good stock just volatile due to the large rise in ai play. People just selling down for profit and risks but still a good longterm play' -- conviction long-term hold; reclassified swing->momentum so RSI2-bounce exits stop firing on it. Manage by thesis (HARD RULE 7) and the monthly rebalance only. Reconciled 2026-07-20T17:30Z (options-automation run): Ryan bought 5 more shares himself in-app (placed_agent=user, $40.195 fill, 2026-07-20T16:10Z) -- broker now shows 11.810007sh @ blended $42.99 avg cost; ledger drift fixed to match, no trade action taken by automation."
-    },
-    {
-      "symbol": "QCOM",
-      "sleeve": "momentum",
-      "entry_date": "2026-06-24",
-      "entry_price": 197.65,
-      "shares": 1.0,
-      "stop": null,
-      "target": null
     },
     {
       "symbol": "INOD",
@@ -111,15 +46,6 @@
       "shares": 1.0,
       "stop": null,
       "target": 62.27
-    },
-    {
-      "symbol": "IBKR",
-      "sleeve": "momentum",
-      "entry_date": "2026-07-01",
-      "entry_price": 92.78,
-      "shares": 0.991593,
-      "stop": null,
-      "target": null
     },
     {
       "symbol": "LIN",
@@ -169,50 +95,8 @@
       "resolution": "Cleared per HARD RULE 9(a) by the interactive session that PLACED both orders: Ryan typed 'Approve' (real user turn, 2026-07-14 ~15:55Z) authorizing the presented batch (SELL CRWD 0.4sh / BUY LLY $150 / BUY MRK 1sh), and the fills match that batch exactly (MRK leg was rejected for buying power). The flagging run was correct to flag - it could not see this session. Ledger entries already match the broker."
     }
   ],
-  "_pending_orders": {
-    "note": "CONSOLIDATION BATCH - Ryan-approved live 2026-07-21 (concentrated-book strategy adopted; 'Just do market sells to capture any gains at the start of tomorrow'). Eight market sells QUEUED for the 2026-07-22 open, placed_agent=agentic, this interactive session. When fills appear, remove these positions and this block - do NOT flag the sells; they are authorized.",
-    "queued_utc": "2026-07-21T20:58:00Z",
-    "orders": [
-      {
-        "symbol": "MRK",
-        "qty": 1.380952,
-        "order_id": "6a5fdd5e-0eb7-4677-b50f-91987cdb9ef3"
-      },
-      {
-        "symbol": "GOOGL",
-        "qty": 0.409455,
-        "order_id": "6a5fdd64-17b3-4ec4-9f4f-15d25d53d22f"
-      },
-      {
-        "symbol": "KO",
-        "qty": 1.53174,
-        "order_id": "6a5fdd69-300a-4672-ab8f-f62bfe91f8d3"
-      },
-      {
-        "symbol": "C",
-        "qty": 0.919899,
-        "order_id": "6a5fdd70-eb17-4ef0-a83f-2a4906f00052"
-      },
-      {
-        "symbol": "FCX",
-        "qty": 1.0,
-        "order_id": "6a5fdd76-9355-45a8-9d6e-4f15f700f726"
-      },
-      {
-        "symbol": "QCOM",
-        "qty": 1.0,
-        "order_id": "6a5fdd7c-635d-4f92-85c1-0cae501b9f52"
-      },
-      {
-        "symbol": "IBKR",
-        "qty": 0.991593,
-        "order_id": "6a5fdd83-18f8-45c3-9def-998db06b2499"
-      },
-      {
-        "symbol": "RKLB",
-        "qty": 1.0,
-        "order_id": "6a5fdd89-d912-4f4a-bcb7-eee280b1d85e"
-      }
-    ]
+  "_resolved_pending_orders": {
+    "resolved_utc": "2026-07-22T14:55:00Z",
+    "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   }
 }
