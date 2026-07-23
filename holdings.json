@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-07-23T16:20:00Z",
+  "updated_utc": "2026-07-23T17:12:00Z",
   "positions": [
     {
       "symbol": "WULF",
@@ -9,7 +9,7 @@
       "contract": "WULF 2026-08-21 24C",
       "option_id": "420de8cb-1b04-49fe-ba08-29fb146d0ad2",
       "contracts": 1,
-      "entry_premium": 1.30,
+      "entry_premium": 1.3,
       "max_loss": 130.0,
       "stop": null,
       "target": null,
@@ -71,24 +71,6 @@
       "target": 546.64
     },
     {
-      "symbol": "CAT",
-      "sleeve": "swing",
-      "entry_date": "2026-07-16",
-      "entry_price": 892.7199,
-      "shares": 0.224034,
-      "stop": null,
-      "target": 1003.24
-    },
-    {
-      "symbol": "CSCO",
-      "sleeve": "swing",
-      "entry_date": "2026-07-16",
-      "entry_price": 107.655,
-      "shares": 1.857786,
-      "stop": null,
-      "target": 118.42
-    },
-    {
       "symbol": "RBRK",
       "sleeve": "swing",
       "entry_date": "2026-07-20",
@@ -97,6 +79,16 @@
       "stop": null,
       "target": 85.5,
       "_note": "Swing leg of Ryan's 'do both' RBRK play (paired with the 8/21 90C). Same fast exit: bank the pop at ~85.50 / RSI2>=70; entry on the 4-red-close oversold at the 77-78 pullback zone, thesis INTACT. Distinct from the 1sh RKLB momentum position - do not confuse tickers."
+    },
+    {
+      "symbol": "CRWD",
+      "sleeve": "swing",
+      "entry_date": "2026-07-23",
+      "entry_price": 183.7554,
+      "shares": 2.721008,
+      "stop": null,
+      "target": 208.43,
+      "_note": "First full-size slot under the concentrated-book strategy ($500, 13.7% acct). A-grade gate: thesis INTACT (post-split unwind, UBS PT raise to $235 into the dip, rev +26%/ARR +32%), earnings Sept 2 (confirmed, outside window), re-entry 11% below the July 14 exit at 205.58."
     }
   ],
   "_resolved_flags": [
