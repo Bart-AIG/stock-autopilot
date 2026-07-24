@@ -1,4 +1,4 @@
-# Strategy report - INTRADAY  (2026-07-24 16:03 UTC)
+# Strategy report - INTRADAY  (2026-07-24 17:03 UTC)
 
 ## >>> ACTION <<<
 
@@ -7,12 +7,12 @@ Each holding is judged on every run. Confirm with a live quote and approve any a
 
 | Ticker | Sleeve | Price | Entry | P/L | Action | Why |
 |---|---|---|---|---|---|---|
-| IREN | momentum | 39.69 | 42.99 | -8% | REVIEW / THESIS-CHECK | below 200-day MA (48.78) — possible trend/thesis break; sell only if the thesis is dead; else hold to monthly rebalance |
-| INOD | swing | 57.24 | 73.27 | -22% | REVIEW / THESIS-CHECK | below 200-day MA (62.72) — possible trend/thesis break; sell only if the thesis is dead; else hold to monthly rebalance |
-| IONQ | swing | 33.49 | 52.4699 | -36% | REVIEW / THESIS-CHECK | below 200-day MA (47.35) — possible trend/thesis break; sell only if the thesis is dead; else hold to monthly rebalance |
-| LIN | swing | 510.06 | 524.33 | -3% | HOLD (thesis-watch) | underwater -3%; no price stop — sell only if the thesis breaks, else cull at monthly rebalance |
-| RBRK | swing | 72.92 | 78.9899 | -8% | HOLD (thesis-watch) | underwater -8%; no price stop — sell only if the thesis breaks, else cull at monthly rebalance |
-| CRWD | swing | 183.42 | 183.7554 | -0% | HOLD (thesis-watch) | underwater -0%; no price stop — sell only if the thesis breaks, else cull at monthly rebalance |
+| IREN | momentum | 38.49 | 42.99 | -10% | REVIEW / THESIS-CHECK | below 200-day MA (48.77) — possible trend/thesis break; sell only if the thesis is dead; else hold to monthly rebalance |
+| INOD | swing | 57.0 | 73.27 | -22% | REVIEW / THESIS-CHECK | below 200-day MA (62.72) — possible trend/thesis break; sell only if the thesis is dead; else hold to monthly rebalance |
+| IONQ | swing | 33.13 | 52.4699 | -37% | REVIEW / THESIS-CHECK | below 200-day MA (47.35) — possible trend/thesis break; sell only if the thesis is dead; else hold to monthly rebalance |
+| LIN | swing | 510.38 | 524.33 | -3% | HOLD (thesis-watch) | underwater -3%; no price stop — sell only if the thesis breaks, else cull at monthly rebalance |
+| RBRK | swing | 73.09 | 78.9899 | -7% | HOLD (thesis-watch) | underwater -7%; no price stop — sell only if the thesis breaks, else cull at monthly rebalance |
+| CRWD | swing | 182.69 | 183.7554 | -1% | HOLD (thesis-watch) | underwater -1%; no price stop — sell only if the thesis breaks, else cull at monthly rebalance |
 
 - 🔄 **Better-play rotation:** top-decile momentum names you don't hold — LITE, MU, AEHR, WULF, TSEM, AAOI, TE, INTC. Fund a new entry by exiting a weak name above.
 
@@ -21,10 +21,10 @@ Oversold (RSI2<10) inside a rising 200-day uptrend. Entry/stop/target are ESTIMA
 
 | Ticker | Theme | Spec | Held | Price | RSI2 | Entry | Stop | Target | Stop% |
 |---|---|---|---|---|---|---|---|---|---|
-| MRNA | Other |  |  | 54.54 | 0.8 | 54.54 | 47.12 | 67.8 | -13.6% |
-| CRWD | AI-software |  | HELD | 183.42 | 2.1 | 183.42 | 165.78 | 209.88 | -9.6% |
-| PANW | AI-software |  |  | 325.88 | 6.0 | 325.88 | 294.76 | 358.68 | -9.5% |
-| NOK | Comm |  |  | 9.21 | 7.1 | 9.21 | 8.24 | 11.55 | -10.6% |
+| MRNA | Other |  |  | 54.52 | 0.8 | 54.52 | 47.1 | 67.8 | -13.6% |
+| CRWD | AI-software |  | HELD | 182.69 | 1.8 | 182.69 | 165.11 | 209.06 | -9.6% |
+| NOK | Comm |  |  | 9.18 | 6.8 | 9.18 | 8.2 | 11.55 | -10.6% |
+| PANW | AI-software |  |  | 326.07 | 8.1 | 326.07 | 294.94 | 358.68 | -9.5% |
 
 ### How to read this (concentration & sizing)
 - 📌 **Already held (marked HELD):** CRWD. A new buy ADDS to the existing position — skip unless you mean to add, and re-check the per-name cap on the combined size.
@@ -35,33 +35,33 @@ Multi-week / monthly trend holds. Rebalance on a monthly cadence, not daily.
 
 | # | Ticker | mom12-1% | RSI14 | >200MA |
 |---|---|---|---|---|
-| 1 **TOP** | LITE | 817.7 | 47.9 | T |
-| 2 **TOP** | MU | 719.7 | 48.9 | T |
-| 3 **TOP** | AEHR | 695.3 | 46.9 | T |
-| 4 **TOP** | WULF | 602.3 | 41.4 | T |
-| 5 **TOP** | TSEM | 545.5 | 49.2 | T |
-| 6 **TOP** | AAOI | 531.0 | 40.0 | T |
-| 7 **TOP** | TE | 522.6 | 31.8 | F |
-| 8 **TOP** | INTC | 483.8 | 39.7 | T |
-| 9 **TOP** | VIAV | 398.6 | 44.1 | T |
-| 10 **TOP** | COHR | 384.8 | 39.6 | T |
-| 11 **TOP** | ONDS | 383.0 | 50.6 | F |
-| 12 **TOP** | ALAB | 358.3 | 39.7 | T |
-| 13 **TOP** | IREN | 335.9 | 42.6 | F |
-| 14 **TOP** | APLD | 306.8 | 36.7 | F |
-| 15 **TOP** | LRCX | 291.9 | 43.8 | T |
-| 16 **TOP** | AMD | 275.5 | 52.9 | T |
-| 17 **TOP** | MRVL | 267.9 | 40.3 | T |
-| 18 **TOP** | FCEL | 263.6 | 50.4 | T |
-| 19 **TOP** | DELL | 259.9 | 58.1 | T |
-| 20 **TOP** | LASR | 254.7 | 53.8 | T |
-| 21 **TOP** | AMAT | 226.9 | 47.9 | T |
-| 22 **TOP** | CRDO | 192.6 | 45.2 | T |
-| 23  | KLAC | 170.5 | 46.2 | T |
-| 24  | MTSI | 166.8 | 34.7 | T |
-| 25  | CAT | 166.6 | 44.2 | T |
-| 26  | UUUU | 166.0 | 32.6 | F |
-| 27  | NOK | 165.6 | 29.5 | T |
+| 1 **TOP** | LITE | 817.7 | 46.8 | T |
+| 2 **TOP** | MU | 719.7 | 48.2 | T |
+| 3 **TOP** | AEHR | 695.3 | 46.5 | T |
+| 4 **TOP** | WULF | 602.3 | 40.3 | T |
+| 5 **TOP** | TSEM | 545.5 | 48.4 | T |
+| 6 **TOP** | AAOI | 531.0 | 39.5 | T |
+| 7 **TOP** | TE | 522.6 | 31.4 | F |
+| 8 **TOP** | INTC | 483.8 | 39.3 | T |
+| 9 **TOP** | VIAV | 398.6 | 43.4 | T |
+| 10 **TOP** | COHR | 384.8 | 39.0 | T |
+| 11 **TOP** | ONDS | 383.0 | 49.3 | F |
+| 12 **TOP** | ALAB | 358.3 | 39.2 | T |
+| 13 **TOP** | IREN | 335.9 | 41.2 | F |
+| 14 **TOP** | APLD | 306.8 | 36.3 | F |
+| 15 **TOP** | LRCX | 291.9 | 42.7 | T |
+| 16 **TOP** | AMD | 275.5 | 52.7 | T |
+| 17 **TOP** | MRVL | 267.9 | 40.0 | T |
+| 18 **TOP** | FCEL | 263.6 | 50.0 | T |
+| 19 **TOP** | DELL | 259.9 | 58.2 | T |
+| 20 **TOP** | LASR | 254.7 | 53.1 | T |
+| 21 **TOP** | AMAT | 226.9 | 47.2 | T |
+| 22 **TOP** | CRDO | 192.6 | 44.6 | T |
+| 23  | KLAC | 170.5 | 45.5 | T |
+| 24  | MTSI | 166.8 | 33.9 | T |
+| 25  | CAT | 166.6 | 43.6 | T |
+| 26  | UUUU | 166.0 | 32.4 | F |
+| 27  | NOK | 165.6 | 29.3 | T |
 
 ## Joint long-term port — accumulate signals (oversold within an uptrend)
 Watch-only — the agent can't trade the joint account, so this surfaces BUY/ADD ideas ONLY (no exit alerts, not part of the ACTION trigger). **Primary signal is TECHNICAL:** a confirmed long-term uptrend (price above a RISING 200-day MA + positive 12-1 momentum) that is **oversold / pulled back** on the technicals (RSI + moving averages), ranked most-oversold first. **Signal:** 🟢 oversold (RSI14 ≤ 35 or RSI2 < 10) / 🟡 dip. The P/E, P/FCF, PEG columns are **secondary value context** — not the headline read (Val: ✅ cheap-for-growth / ⚠️ rich / — / blank = no data).
@@ -69,33 +69,33 @@ Watch-only — the agent can't trade the joint account, so this surfaces BUY/ADD
 **Held in the joint port — ADD / average-in candidates (oversold within their uptrend):**
 | Signal | Ticker | Theme | Price | RSI14 | RSI2 | vs 20d | vs 50d | mom12-1% | P/E | P/FCF | PEG | Val |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 🟢 oversold | NOK | Comm | 9.22 | 29.5 | 7.1 | -20.2% | -31.2% | 165.6 | 65.0 | 85.6 | -2.3 | ⚠️ rich |
-| 🟡 dip | COHR | Photonics | 290.56 | 39.6 | 16.7 | -10.3% | -19.5% | 384.8 | 126.5 | -85.4 | -0.2 | — |
-| 🟡 dip | ALAB | Other | 301.75 | 39.7 | 13.6 | -19.5% | -13.8% | 358.3 | 189.8 | 150.9 | 0.3 | ✅ value |
-| 🟡 dip | AAOI | Photonics | 104.48 | 40.0 | 21.7 | -12.4% | -32.0% | 531.0 | -157.8 | -34.9 | -1.5 | — |
-| 🟡 dip | MRVL | Semis | 199.17 | 40.3 | 19.1 | -13.3% | -16.8% | 267.9 | 67.6 | 104.6 | 0.0 | ⚠️ rich |
-| 🟡 dip | WULF | AI-infra | 19.72 | 41.4 | 49.7 | -7.2% | -16.9% | 602.3 | -7.9 | -5.8 | 0.0 | — |
-| 🟡 dip | EME | Industrials | 759.23 | 42.4 | 43.6 | -2.1% | -7.2% | 69.2 | 25.5 | 31.4 | 0.8 | ✅ value |
-| 🟡 dip | CRDO | Other | 219 | 45.2 | 28.7 | -8.4% | -5.5% | 192.6 | 83.6 | 100.4 | 0.1 | ✅ value |
-| 🟡 dip | AEHR | Semis | 80.88 | 46.9 | 19.1 | -0.5% | -13.3% | 695.3 | -350.7 | -487.3 | 4.4 | ⚠️ rich |
-| 🟡 dip | MU | Semis | 945.75 | 48.9 | 37.8 | -3.2% | -1.1% | 719.7 | 21.1 | 40.8 | 0.0 | — |
-| 🟡 dip | TSEM | Semis | 242.73 | 49.2 | 31.2 | +1.8% | -5.1% | 545.5 | 119.6 | 88.7 | 6.0 | ⚠️ rich |
-| 🟡 dip | FCEL | Battery/H2 | 22.18 | 50.4 | 45.4 | -7.2% | +0.8% | 263.6 | -3.4 | -9.5 | 0.0 | — |
-| 🟡 dip | NVDA | Semis | 210.19 | 54.2 | 62.9 | +3.3% | +0.4% | 34.6 | — | — | — |  |
+| 🟢 oversold | NOK | Comm | 9.19 | 29.3 | 6.8 | -20.4% | -31.5% | 165.6 | 65.0 | 85.6 | -2.3 | ⚠️ rich |
+| 🟡 dip | COHR | Photonics | 287.78 | 39.0 | 15.4 | -11.1% | -20.2% | 384.8 | 125.4 | -84.6 | -0.2 | — |
+| 🟡 dip | ALAB | Other | 298.29 | 39.2 | 12.0 | -20.3% | -14.8% | 358.3 | 187.1 | 148.7 | 0.3 | ✅ value |
+| 🟡 dip | AAOI | Photonics | 102.9 | 39.5 | 19.7 | -13.7% | -33.0% | 531.0 | -155.6 | -34.4 | -1.4 | — |
+| 🟡 dip | MRVL | Semis | 198.24 | 40.0 | 17.7 | -13.7% | -17.1% | 267.9 | 67.2 | 103.9 | 0.0 | ⚠️ rich |
+| 🟡 dip | WULF | AI-infra | 19.38 | 40.3 | 34.4 | -8.8% | -18.3% | 602.3 | -7.7 | -5.7 | 0.0 | — |
+| 🟡 dip | EME | Industrials | 754.82 | 41.4 | 35.9 | -2.6% | -7.8% | 69.2 | 25.3 | 31.1 | 0.8 | ✅ value |
+| 🟡 dip | CRDO | Other | 216.63 | 44.6 | 26.3 | -9.3% | -6.5% | 192.6 | 82.3 | 98.8 | 0.1 | ✅ value |
+| 🟡 dip | AEHR | Semis | 80.22 | 46.5 | 18.1 | -1.2% | -14.0% | 695.3 | -347.7 | -483.2 | 4.3 | ⚠️ rich |
+| 🟡 dip | MU | Semis | 935.38 | 48.2 | 33.4 | -4.2% | -2.1% | 719.7 | 20.8 | 40.3 | 0.0 | — |
+| 🟡 dip | TSEM | Semis | 239.97 | 48.4 | 28.3 | +0.7% | -6.1% | 545.5 | 119.3 | 88.5 | 6.0 | ⚠️ rich |
+| 🟡 dip | FCEL | Battery/H2 | 21.95 | 50.0 | 41.0 | -8.1% | -0.3% | 263.6 | -3.3 | -9.4 | 0.0 | — |
+| 🟡 dip | NVDA | Semis | 210.26 | 54.2 | 63.4 | +3.3% | +0.5% | 34.6 | — | — | — |  |
 
 **New long-term ideas you don't hold (oversold uptrends):**
 | Signal | Ticker | Theme | Price | RSI14 | RSI2 | vs 20d | vs 50d | mom12-1% | P/E | P/FCF | PEG | Val |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 🟢 oversold | MTSI | Photonics | 272.44 | 34.7 | 13.8 | -11.8% | -22.0% | 166.8 | 114.5 | 135.8 | 0.2 | ✅ value |
-| 🟢 oversold | MRNA | Other | 54.65 | 37.3 | 0.8 | -19.4% | -5.3% | 125.4 | -6.7 | -13.7 | -3.3 | — |
-| 🟡 dip | MCHP | Semis | 79.53 | 39.6 | 16.6 | -6.7% | -12.5% | 31.3 | 299.0 | 49.5 | -0.0 | ⚠️ rich |
-| 🟡 dip | INTC | Semis | 96.8 | 39.7 | 17.6 | -12.8% | -16.1% | 483.8 | -45.9 | 171.8 | 0.0 | ⚠️ rich |
-| 🟡 dip | ARM | Semis | 272.58 | 40.8 | 17.7 | -9.8% | -15.5% | 129.6 | 324.0 | 304.5 | 27.0 | ⚠️ rich |
-| 🟡 dip | ON | Semis | 88.05 | 41.0 | 19.6 | -3.9% | -18.5% | 113.5 | 62.3 | 23.5 | -15.3 | ✅ value |
-| 🟡 dip | QQQ | Index-ETF | 691.27 | 41.6 | 15.7 | -2.9% | -3.8% | 31.6 | — | — | — |  |
-| 🟡 dip | ADI | Semis | 373.27 | 42.0 | 17.0 | -3.1% | -7.4% | 75.8 | 55.1 | 39.8 | 0.7 | ✅ value |
-| 🟡 dip | TXN | Semis | 280.83 | 42.5 | 13.9 | -4.7% | -6.7% | 47.3 | 42.3 | 47.5 | 2.1 | — |
-| 🟡 dip | NXPI | Semis | 271.03 | 43.4 | 22.2 | -2.4% | -8.3% | 34.6 | 25.7 | 23.1 | 2.0 | — |
+| 🟢 oversold | MTSI | Photonics | 269.39 | 33.9 | 11.7 | -12.8% | -22.9% | 166.8 | 113.4 | 134.5 | 0.2 | ✅ value |
+| 🟢 oversold | MRNA | Other | 54.5 | 37.2 | 0.8 | -19.6% | -5.6% | 125.4 | -6.7 | -13.7 | -3.3 | — |
+| 🟡 dip | INTC | Semis | 96.2 | 39.3 | 15.7 | -13.3% | -16.6% | 483.8 | -45.4 | 170.1 | 0.0 | ⚠️ rich |
+| 🟡 dip | MCHP | Semis | 79.29 | 39.3 | 15.9 | -7.0% | -12.7% | 31.3 | 298.1 | 49.4 | -0.0 | ⚠️ rich |
+| 🟡 dip | ARM | Semis | 268.67 | 40.0 | 14.0 | -11.0% | -16.7% | 129.6 | 318.4 | 299.3 | 26.5 | ⚠️ rich |
+| 🟡 dip | ON | Semis | 87.66 | 40.6 | 18.5 | -4.3% | -18.9% | 113.5 | 62.1 | 23.4 | -15.2 | ✅ value |
+| 🟡 dip | QQQ | Index-ETF | 689.48 | 41.0 | 13.1 | -3.2% | -4.0% | 31.6 | — | — | — |  |
+| 🟡 dip | ADI | Semis | 371.89 | 41.5 | 15.5 | -3.5% | -7.8% | 75.8 | 54.9 | 39.6 | 0.7 | ✅ value |
+| 🟡 dip | LRCX | Semis | 312.37 | 42.7 | 18.6 | -9.5% | -7.7% | 291.9 | 58.6 | 60.4 | 1.2 | ✅ value |
+| 🟡 dip | TXN | Semis | 281.15 | 42.7 | 15.1 | -4.6% | -6.6% | 47.3 | 42.5 | 47.7 | 2.2 | — |
 
 _The technical screen is the SIGNAL (oversold within an uptrend); the value columns are context. Confirm each with the news/thesis (HARD RULE 7) and a real valuation before buying — an oversold name can keep falling if the thesis is broken._
 
@@ -105,19 +105,19 @@ Underlyings only. In-session: pick the contract off the live Robinhood chain (~3
 **Calls (bullish — strong uptrend > 200MA):**
 | Ticker | mom12-1% | RSI14 | Spec |
 |---|---|---|---|
-| LITE | 817.7 | 47.9 |  |
-| MU | 719.7 | 48.9 |  |
-| AEHR | 695.3 | 46.9 |  |
-| WULF | 602.3 | 41.4 | SPEC |
-| TSEM | 545.5 | 49.2 |  |
+| LITE | 817.7 | 46.8 |  |
+| MU | 719.7 | 48.2 |  |
+| AEHR | 695.3 | 46.5 |  |
+| WULF | 602.3 | 40.3 | SPEC |
+| TSEM | 545.5 | 48.4 |  |
 
 **Puts (bearish — downtrend < 200MA):**
 | Ticker | mom12-1% | RSI14 | Spec |
 |---|---|---|---|
-| SMR | -76.4 | 41.4 | SPEC |
-| INTU | -65.5 | 52.3 |  |
-| ZS | -58.7 | 48.4 |  |
-| ACN | -57.1 | 51.7 |  |
+| SMR | -76.4 | 40.9 | SPEC |
+| INTU | -65.5 | 52.5 |  |
+| ZS | -58.7 | 48.8 |  |
+| ACN | -57.1 | 51.6 |  |
 | COIN | -56.5 | 46.4 |  |
 
 ---
