@@ -110,5 +110,10 @@
   "_resolved_pending_orders": {
     "resolved_utc": "2026-07-22T14:55:00Z",
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
+  },
+  "_last_entry_evaluation": {
+    "run_utc": "2026-07-24T19:39:00Z",
+    "decision": "NO new entry this run (a concurrent run at 19:18Z reached the same decision independently, citing cost/liquidity gates -- this note adds the sharper reason found)",
+    "reasoning": "Evaluated latest_intraday.md's (19:01 UTC) options candidates -- calls: LITE/MU/AEHR/WULF/TSEM; puts: SMR/INTU/ZS/ACN/COIN. Live get_equity_quotes at ~19:20 UTC showed a violent, signal-contradicting intraday move NOT reflected in the report's EOD-based technicals: LITE -9.3%, MU -8.3%, AEHR -14.3%, TSEM -9.8% (all supposed bullish-uptrend calls, actually mid a live semiconductor-sector selloff -- SMH -3.9% same day, confirmed via web search as a multi-week AI-capex-fear/profit-taking rout distinct from the broad market, SPY roughly flat at -0.07%); meanwhile put candidates INTU +5.0% and ACN +6.1% were spiking up, fighting their bearish thesis. Buying calls into a live double-digit-down day is a falling-knife entry against the momentum signal; buying puts into a large up-day fights the tape. Also LITE/MU share prices (~$750-900) make a >=0.35-delta 30-45 DTE contract likely to blow through the $150/trade premium cap regardless of direction. HARD RULE 8 'any doubt = skip' applied -- no entry placed."
   }
 }
