@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-07-28T19:20:00Z",
+  "updated_utc": "2026-07-29T14:18:47Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-07-24",
     "trades": [
@@ -19,7 +19,7 @@
     "total_realized_pnl": -67.04,
     "daily_loss_cap": -150,
     "cap_hit": false,
-    "_note": "No options fills today (2026-07-28) -- get_option_orders since 2026-07-28T00:00Z returns empty. This block's date_utc reflects the last realized trade, not today; today's realized P&L is $0 and the -$150/day cap is not hit."
+    "_note": "No options fills today (2026-07-29) -- get_option_orders since 2026-07-29T00:00Z returns empty. This block's date_utc reflects the last realized trade, not today; today's realized P&L is $0 and the -$150/day cap is not hit."
   },
   "positions": [
     {
@@ -123,8 +123,8 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-07-29T13:00:00Z",
+    "run_utc": "2026-07-29T14:18:47Z",
     "decision": "NO new entry this run",
-    "reasoning": "First automation run of the day (heartbeat stamped this run, 13:00 UTC). Both latest_morning.md and latest_intraday.md on master are still stamped 2026-07-28 (yesterday) -- today's morning report has not fired yet as of this run, so there is no fresh technical signal to gate an entry against. Any doubt = skip per HARD RULE 8. EXITS: get_option_positions confirms only ACHR 2028-01-21 5C open -- placed_agent=user, active manual_hold_override, no mechanical exit applied, no re-notification (unchanged state, HARD RULE 9). get_option_orders since 2026-07-29T00:00Z: zero fills today, realized options P&L $0, -$150 daily cap not hit. Options sleeve $211 on total_value $3450.33 (~6.1%), well under the 15% cap. Equity positions reconciled via get_equity_positions: NVDA/INTC/CRWD/IREN/INOD/LIN/RBRK match holdings.json exactly, no drift. No _flag entries found or touched."
+    "reasoning": "Second automation run today; heartbeat already stamped at 13:00 UTC (prior run), not re-stamped. latest_morning.md refreshed this run (2026-07-29 14:02 UTC) -- fresh technical signal available, evaluated the 5 call candidates (MU, LITE, AEHR, TSEM, INTC): (1) LITE earnings 2026-08-11 (13 days out) and TSEM earnings 2026-08-04 (6 days out) both fall inside a 30-45 DTE window -- skip, imminent earnings. (2) MU: technically oversold (RSI2 5.2, >200MA) but news shows a genuine thesis-weakening -- stock down >30% from ATH, broke below $800/$898 support on CXMT (China) competition and memory-oversupply concerns; a falling tape undercutting an oversold bounce per HARD RULE 7 -- skip. (3) AEHR: thesis intact (Q4 beat, record bookings, FY27 guide well above consensus) but options fail the liquidity/IV gate outright -- IV ~130-150% (extreme), open interest only 2-9 contracts on near-money Aug/Sep strikes (needs >500), spreads up to ~50% wide -- skip, fails IV sanity + liquidity. (4) INTC: clears the earnings gate (next ~Oct 22) but IV still elevated post-earnings (~88%), premium for a ~0.35-delta contract ($673-753) is far over the $150/trade cap, and it would stack further concentration onto an already-large (13.7%) equity position currently underwater -6% on capex/foundry-loss concerns -- honesty-test doubt, skip. No candidate cleared the full checklist -- per 'any doubt = skip,' no entry placed. EXITS: get_option_positions confirms only ACHR 2028-01-21 5C open, placed_agent=user with an active manual_hold_override -- no mechanical exit applied, unchanged from the 13:00 UTC run, no re-notification (HARD RULE 9). get_option_orders since 2026-07-29T00:00Z: zero fills, realized options P&L $0, -$150 daily cap not hit. Options sleeve $205 on total_value $3388.86 (~6.0%), well under the 15% cap. Equity positions reconciled via get_equity_positions: NVDA/INTC/CRWD/IREN/INOD/LIN/RBRK match holdings.json exactly, no drift. No _flag entries found or touched."
   }
 }
