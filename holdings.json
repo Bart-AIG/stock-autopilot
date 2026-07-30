@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-07-30T18:16:00Z",
+  "updated_utc": "2026-07-30T18:19:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-07-24",
     "trades": [
@@ -37,7 +37,7 @@
       "_current_state": {
         "mark_price": 0.875,
         "pct_from_entry": -5.9,
-        "last_checked_utc": "2026-07-30T18:15:00Z",
+        "last_checked_utc": "2026-07-30T18:19:00Z",
         "status": "no threshold fired"
       }
     },
@@ -56,7 +56,7 @@
       "_current_state": {
         "mark_price": 1.935,
         "pct_from_entry": -21.7,
-        "last_checked_utc": "2026-07-30T18:15:00Z",
+        "last_checked_utc": "2026-07-30T18:19:00Z",
         "status": "unchanged, manual_hold_override active, no action"
       },
       "manual_hold_override": {
@@ -78,9 +78,9 @@
       "exit_trigger_pending": {
         "detected_utc": "2026-07-30T13:45:00Z",
         "trigger": "+50-100% take-profit zone",
-        "mark_price": 2.095,
-        "pct_from_entry": 62.4,
-        "last_checked_utc": "2026-07-30T18:15:00Z",
+        "mark_price": 2.09,
+        "pct_from_entry": 62.0,
+        "last_checked_utc": "2026-07-30T18:19:00Z",
         "earnings_date": "2026-08-05",
         "note": "HARD RULE 8 TP threshold crossed at 13:45Z and still active (band has ranged ~50-90% all session, never exiting it). placed_agent='user' (Ryan placed this position himself), so per the exit-gate-by-who-placed-the-entry rule the automation may only DETECT this, not sell -- awaiting Ryan's go-ahead in a live session, same as an equity approval. Earnings 2026-08-05 AM (confirmed) already surfaced to Ryan (17:45Z run); will re-notify only if the band is exited (>100% or <50%) or the DTE/earnings gate (<~3 trading days) is crossed -- neither has happened since."
       },
@@ -160,8 +160,8 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-07-30T18:16:00Z",
+    "run_utc": "2026-07-30T18:19:00Z",
     "decision": "NO new entry this run",
-    "reasoning": "Sub-hourly options-automation run (cron-job.org fire), market open (14:16 ET Thu). Heartbeat already stamped today at 13:31Z -- not re-stamped. No new option fills since the 16:29Z TE fill (get_option_orders since 2026-07-30T00:00Z shows only that, all placed_agent=user). Options sleeve is $790 on total_value $3652.04 (~21.6%) -- still over the ~15% HARD RULE 8 sleeve cap, so new autonomous entries stay blocked; 'any doubt = skip'. EXITS: all 3 open option positions (TE, WULF, ACHR) are placed_agent='user', so automation may only DETECT thresholds, never auto-execute. TE: -5.9%, no threshold. ACHR: -21.7%, manual_hold_override active. WULF: +62.4%, still inside the same +50-100% TP band already flagged, no new information -- no re-notification (HARD RULE 9). No agentic-placed option positions, so no mechanical exits applied. Realized options P&L today $0, -$150 cap not hit. Ledger note-bloat fix this run: compressed the TE/ACHR/WULF per-run prose history (12+ appended paragraphs each) into compact _current_state fields -- see CLAUDE.md lesson."
+    "reasoning": "Sub-hourly options-automation run (cron-job.org fire), market open (14:19 ET Thu). Heartbeat already stamped today at 13:31Z -- not re-stamped. No new option fills since the 16:29Z TE fill (get_option_orders since 2026-07-30T00:00Z shows only that, all placed_agent=user). Options sleeve is $788 on total_value $3646.31 (~21.6%) -- still over the ~15% HARD RULE 8 sleeve cap, so new autonomous entries stay blocked; 'any doubt = skip'. EXITS: all 3 open option positions (TE, WULF, ACHR) are placed_agent='user', so automation may only DETECT thresholds, never auto-execute. TE: -5.9%, no threshold. ACHR: -21.7%, manual_hold_override active. WULF: +62.0%, still inside the same +50-100% TP band already flagged, no new information -- no re-notification (HARD RULE 9). No agentic-placed option positions, so no mechanical exits applied. Realized options P&L today $0, -$150 cap not hit. Equity positions (NVDA, CRWD, IREN, INOD, LIN, RBRK) match holdings.json exactly, no drift."
   }
 }
