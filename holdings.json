@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-07-31T18:00:00Z",
+  "updated_utc": "2026-07-31T18:20:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-07-24",
     "trades": [
@@ -127,13 +127,13 @@
     },
     {
       "symbol": "NVDA",
-      "sleeve": "swing",
+      "sleeve": "momentum",
       "entry_date": "2026-07-27",
       "entry_price": 195.86,
       "shares": 2.552843,
       "stop": null,
-      "target": 212.5,
-      "_note": "Slot 3 ($500, 13.7% acct). A-grade gate: dip = WSJ $250B OpenAI-financing headline (structure worry, not demand; GOOGL raised 2026 capex to $195-205B, 'compute-constrained') + RSI2 oversold in uptrend + earnings Aug 26 outside window. Known event exposure: MSFT/META 7/29, AMZN 7/30 capex guides (proxy risk, first print was a raise)."
+      "target": null,
+      "_note": "Ryan, live turn 2026-07-31: 'Nvidia is bouncing off 200 sma, so it should continue to rise' -- declined the RSI2-74 mechanical swing exit at ~$199.5 (+1.8%); converted swing->momentum position hold on the 200-day-bounce thesis. Manage by thesis: resistance zone $206-212 overhead, own earnings Aug 26 is the decision point; no stop per policy; native trail applies only if green-enough (~$230). Joint account separately holds 3.15 sh for the long-term thesis."
     }
   ],
   "_resolved_flags": [
