@@ -51,6 +51,14 @@ CACHE = LOGS / "history_cache.json"
 RSI2_OVERSOLD = 10.0     # buy trigger
 STOP_SIGMA_MULT = 2.5    # stop distance = 2.5 * daily sigma (ATR proxy)
 
+# Rough affordability flag for the options sleeve (HARD RULE 8 caps a single contract
+# at ~$150 premium). Above this underlying price, even a far-OTM/low-delta ~30-45 DTE
+# contract tends to blow that budget (confirmed in-session on MU ~$990 and LITE ~$796 -
+# ATM-ish premiums of $50-80+/share). Not a hard filter (IV varies name to name and
+# can't be checked from this CI job with no broker access) - just a heads-up so the
+# session doesn't re-discover the same "too expensive to size" candidate every run.
+OPTIONS_PRICE_CEILING = 150.0
+
 
 def fmp_quote_price(sym: str, key: str) -> float | None:
     """Live last price for the intraday overlay. None on paywall/empty."""
@@ -433,19 +441,27 @@ def pick_options_candidates(momentum: list[dict], max_each: int = 5) -> dict:
     These are candidates for the options sleeve (single-leg long calls/puts). This is
     PURELY TECHNICAL and runs in CI with no broker access — the session still picks the
     actual contract off the live chain (~30-45 DTE, ~0.35 delta, IV-sane, liquid) and
-    gates each with the news/thesis check. See docs/options-strategy.md."""
+    gates each with the news/thesis check. See docs/options-strategy.md.
+
+    Each candidate carries `price` and a `pricey` flag (price > OPTIONS_PRICE_CEILING)
+    so the report itself surfaces underlyings unlikely to fit the $150/trade premium
+    cap, instead of the session burning tool calls discovering it live every run."""
     calls, puts = [], []
     for r in momentum:  # already sorted by momentum desc → strongest first
         rsi = r.get("rsi14")
         if r.get("above_ma200") and rsi is not None and rsi < 75 and len(calls) < max_each:
             calls.append({"symbol": r["symbol"], "mom_12_1_pct": r.get("mom_12_1_pct"),
-                          "rsi14": rsi, "spec": r["symbol"] in SPECULATIVE})
+                          "rsi14": rsi, "spec": r["symbol"] in SPECULATIVE,
+                          "price": r.get("close"),
+                          "pricey": bool(r.get("close")) and r["close"] > OPTIONS_PRICE_CEILING})
     for r in sorted(momentum, key=lambda x: x.get("mom_12_1_pct") or 0):  # weakest first
         rsi = r.get("rsi14")
         if r.get("above_ma200") is False and rsi is not None and 25 <= rsi < 55 \
                 and len(puts) < max_each:
             puts.append({"symbol": r["symbol"], "mom_12_1_pct": r.get("mom_12_1_pct"),
-                         "rsi14": rsi, "spec": r["symbol"] in SPECULATIVE})
+                         "rsi14": rsi, "spec": r["symbol"] in SPECULATIVE,
+                         "price": r.get("close"),
+                         "pricey": bool(r.get("close")) and r["close"] > OPTIONS_PRICE_CEILING})
     return {"calls": calls, "puts": puts}
 
 
@@ -669,20 +685,26 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
                  "≤$150/trade & ≤15% total. See docs/options-strategy.md.\n")
     if opts["calls"]:
         lines.append("**Calls (bullish — strong uptrend > 200MA):**")
-        lines.append("| Ticker | mom12-1% | RSI14 | Spec |")
-        lines.append("|---|---|---|---|")
+        lines.append("| Ticker | Price | mom12-1% | RSI14 | Spec |")
+        lines.append("|---|---|---|---|---|")
         for c in opts["calls"]:
-            lines.append(f"| {c['symbol']} | {c['mom_12_1_pct']} | {c['rsi14']} | "
+            price = f"{c['price']}{' ⚠️pricey' if c['pricey'] else ''}" if c['price'] else "—"
+            lines.append(f"| {c['symbol']} | {price} | {c['mom_12_1_pct']} | {c['rsi14']} | "
                          f"{'SPEC' if c['spec'] else ''} |")
     if opts["puts"]:
         lines.append("\n**Puts (bearish — downtrend < 200MA):**")
-        lines.append("| Ticker | mom12-1% | RSI14 | Spec |")
-        lines.append("|---|---|---|---|")
+        lines.append("| Ticker | Price | mom12-1% | RSI14 | Spec |")
+        lines.append("|---|---|---|---|---|")
         for p in opts["puts"]:
-            lines.append(f"| {p['symbol']} | {p['mom_12_1_pct']} | {p['rsi14']} | "
+            price = f"{p['price']}{' ⚠️pricey' if p['pricey'] else ''}" if p['price'] else "—"
+            lines.append(f"| {p['symbol']} | {price} | {p['mom_12_1_pct']} | {p['rsi14']} | "
                          f"{'SPEC' if p['spec'] else ''} |")
     if not opts["calls"] and not opts["puts"]:
         lines.append("_No clean options candidates this run._")
+    lines.append("\n_⚠️pricey = underlying > ${:.0f}: even a far-OTM/low-delta ~30-45 DTE "
+                 "contract tends to exceed the $150/trade premium cap (HARD RULE 8) — size "
+                 "very small or skip. Not IV-checked here; confirm live in-session._"
+                 .format(OPTIONS_PRICE_CEILING))
 
     lines.append("\n---")
     lines.append("_Read-only. No positions checked, no trades placed. Bring this into a session "
