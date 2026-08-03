@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-03T15:20:00Z",
+  "updated_utc": "2026-08-03T15:55:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-03",
     "trades": [
@@ -75,16 +75,6 @@
       "_note": "Ryan, live turn 2026-07-20: 'Don't sell iren. Good stock just volatile due to the large rise in ai play. People just selling down for profit and risks but still a good longterm play' -- conviction long-term hold; reclassified swing->momentum so RSI2-bounce exits stop firing on it. Manage by thesis (HARD RULE 7) and the monthly rebalance only. Reconciled 2026-07-20T17:30Z (options-automation run): Ryan bought 5 more shares himself in-app (placed_agent=user, $40.195 fill, 2026-07-20T16:10Z) -- broker now shows 11.810007sh @ blended $42.99 avg cost; ledger drift fixed to match, no trade action taken by automation."
     },
     {
-      "symbol": "INOD",
-      "sleeve": "swing",
-      "entry_date": "2026-06-24",
-      "entry_price": 73.27,
-      "shares": 3.201353,
-      "stop": null,
-      "target": 107.97,
-      "_note": "Ryan, live turn 2026-07-31: 'don't sell inod' -- declined the RSI2-80 exit-into-strength at -17%; holds to the Aug 3 rebalance review per policy."
-    },
-    {
       "symbol": "LIN",
       "sleeve": "swing",
       "entry_date": "2026-07-09",
@@ -92,16 +82,6 @@
       "shares": 0.38144,
       "stop": null,
       "target": 546.64
-    },
-    {
-      "symbol": "RBRK",
-      "sleeve": "swing",
-      "entry_date": "2026-07-20",
-      "entry_price": 78.9899,
-      "shares": 2.531969,
-      "stop": null,
-      "target": 85.5,
-      "_note": "Swing leg of Ryan's 'do both' RBRK play (paired with the 8/21 90C). Same fast exit: bank the pop at ~85.50 / RSI2>=70; entry on the 4-red-close oversold at the 77-78 pullback zone, thesis INTACT. Distinct from the 1sh RKLB momentum position - do not confuse tickers."
     },
     {
       "symbol": "NVDA",
@@ -112,6 +92,26 @@
       "stop": null,
       "target": null,
       "_note": "Ryan, live turn 2026-07-31: 'Nvidia is bouncing off 200 sma, so it should continue to rise' -- declined the RSI2-74 mechanical swing exit at ~$199.5 (+1.8%); converted swing->momentum position hold on the 200-day-bounce thesis. Manage by thesis: resistance zone $206-212 overhead, own earnings Aug 26 is the decision point; no stop per policy; native trail applies only if green-enough (~$230). Joint account separately holds 3.15 sh for the long-term thesis."
+    },
+    {
+      "symbol": "AAPL",
+      "sleeve": "swing",
+      "entry_date": "2026-08-03",
+      "entry_price": 302.889,
+      "shares": 1.650769,
+      "stop": null,
+      "target": 331.06,
+      "_note": "Aug slot 1 ($500). A-grade: record June quarter (rev +16%, iPhone +22%), dip = soft Q4 guide on SUPPLY shortages not demand; next earnings ~late Oct."
+    },
+    {
+      "symbol": "JNJ",
+      "sleeve": "swing",
+      "entry_date": "2026-08-03",
+      "entry_price": 253.6748,
+      "shares": 1.773924,
+      "stop": null,
+      "target": 267.24,
+      "_note": "Aug slot 2 ($450). A-grade: July beat + $5.5B talc settlement removes the decade overhang; oversold on defensive-rotation flows; next earnings ~mid-Oct."
     }
   ],
   "_resolved_flags": [
