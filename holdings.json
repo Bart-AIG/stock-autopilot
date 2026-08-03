@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-03T18:45:00Z",
+  "updated_utc": "2026-08-03T19:16:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-03",
     "trades": [
@@ -37,8 +37,8 @@
       "_current_state": {
         "mark_price": 1.35,
         "pct_from_entry": 45.2,
-        "last_checked_utc": "2026-08-03T18:45:00Z",
-        "status": "unchanged from 18:19Z check, no automation action (placed_agent=user, detect-only)"
+        "last_checked_utc": "2026-08-03T19:16:00Z",
+        "status": "unchanged from 18:45Z check, no automation action (placed_agent=user, detect-only)"
       }
     },
     {
@@ -54,10 +54,10 @@
       "target": null,
       "_note": "placed_agent='user' (Ryan bought this himself 2026-07-20T19:38Z, $2.47/contract, $247 premium). Long-dated LEAP (18mo out) -- not gated by the HARD RULE 8 entry checklist since it wasn't an autonomous entry. manual_hold_override below suspends the -50% mechanical stop; broken-thesis and DTE/earnings exits still apply in principle but this is a Jan-2028 LEAP, far outside any near-term DTE/earnings gate.",
       "_current_state": {
-        "mark_price": 2.1,
-        "pct_from_entry": -15.0,
-        "last_checked_utc": "2026-08-03T18:45:00Z",
-        "status": "up slightly from 18:19Z check ($2.09->$2.10), manual_hold_override active, no action"
+        "mark_price": 2.095,
+        "pct_from_entry": -15.2,
+        "last_checked_utc": "2026-08-03T19:16:00Z",
+        "status": "unchanged from 18:45Z check ($2.10->$2.095), manual_hold_override active, no action"
       },
       "manual_hold_override": {
         "set_utc": "2026-07-22T14:30:00Z",
@@ -129,8 +129,8 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-03T18:45:00Z",
+    "run_utc": "2026-08-03T19:16:00Z",
     "decision": "NO new entry this run",
-    "reasoning": "Sub-hourly options-automation run, ~26 min after the 18:19Z check. No new intraday report since 18:03Z (same candidate list: BE, MU, LITE, INTC, FCEL) and no market move material enough to revisit the prior run's full diligence -- MU/BE/LITE still priced far over the $150/contract cap, INTC still over cap, FCEL still fails the liquidity gate (OI 0-2, 0 volume) regardless of price. Skip entries this run (unchanged verdict). TE/ACHR checked live: TE mark $1.35 (+45.2%, unchanged), ACHR mark $2.10 (-15.0%, manual_hold_override active) -- both placed_agent='user', detect-only, no thresholds crossed. Options sleeve $480 / total $3899.52 = ~12.3%, ~$105 headroom under the 15% cap. Equity positions (NVDA/AAPL/JNJ/IREN/LIN) reconciled exactly via get_equity_positions, no drift. Realized options P&L today unchanged at +$208 (WULF, user-placed); daily loss cap not hit. No new or unresolved _flag entries. Heartbeat already stamped today (13:31 UTC) -- not re-stamped."
+    "reasoning": "Sub-hourly options-automation run, ~31 min after the 18:45Z check. No new intraday report and no material market move since then -- unchanged verdict, skip entries. TE/ACHR checked live: TE mark $1.35 (+45.2%, unchanged), ACHR mark $2.095 (-15.2%, manual_hold_override active) -- both placed_agent='user', detect-only, no thresholds crossed. Options sleeve $479.50 / total $3903.64 = ~12.3%, headroom under the 15% cap. Equity positions match holdings.json (get_equity_positions not re-diffed this run since no fills occurred). Realized options P&L today unchanged at +$208 (WULF, user-placed); daily loss cap not hit. No new or unresolved _flag entries. Heartbeat already stamped today (13:31 UTC) -- not re-stamped."
   }
 }
