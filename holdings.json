@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-03T16:47:00Z",
+  "updated_utc": "2026-08-03T17:00:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-03",
     "trades": [
@@ -37,8 +37,8 @@
       "_current_state": {
         "mark_price": 1.225,
         "pct_from_entry": 31.7,
-        "last_checked_utc": "2026-08-03T16:47:00Z",
-        "status": "unchanged from 16:30Z check -- no automation action (placed_agent=user, detect-only) -- Ryan's resting sell-to-close limit order (2 contracts @ $1.30, placed 15:50Z) still confirmed/unfilled (mark $1.225, bid $1.15/ask $1.30)"
+        "last_checked_utc": "2026-08-03T17:00:00Z",
+        "status": "unchanged from 16:47Z check -- no automation action (placed_agent=user, detect-only) -- Ryan's resting sell-to-close limit order (2 contracts @ $1.30, placed 15:50Z) still confirmed/unfilled (mark $1.225, bid $1.15/ask $1.30)"
       }
     },
     {
@@ -54,9 +54,9 @@
       "target": null,
       "_note": "placed_agent='user' (Ryan bought this himself 2026-07-20T19:38Z, $2.47/contract, $247 premium). Long-dated LEAP (18mo out) -- not gated by the HARD RULE 8 entry checklist since it wasn't an autonomous entry. manual_hold_override below suspends the -50% mechanical stop; broken-thesis and DTE/earnings exits still apply in principle but this is a Jan-2028 LEAP, far outside any near-term DTE/earnings gate.",
       "_current_state": {
-        "mark_price": 2.055,
-        "pct_from_entry": -16.8,
-        "last_checked_utc": "2026-08-03T16:47:00Z",
+        "mark_price": 2.075,
+        "pct_from_entry": -16.0,
+        "last_checked_utc": "2026-08-03T17:00:00Z",
         "status": "unchanged, manual_hold_override active, no action"
       },
       "manual_hold_override": {
@@ -129,8 +129,8 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-03T16:47:00Z",
+    "run_utc": "2026-08-03T17:00:00Z",
     "decision": "NO new entry this run",
-    "reasoning": "Sub-hourly options-automation run, same 16:03Z intraday report (no new report since). No new fills since 14:05Z WULF sell (user-placed). get_option_positions still shows only TE+ACHR open, both placed_agent='user' (detect-only, per exit-gate-by-who-placed-the-entry): TE mark $1.225 (+31.7%), Ryan's own resting sell-to-close limit @ $1.30 (placed 15:50Z) still unfilled, no automation action; ACHR mark $2.055 (-16.8%, manual_hold_override active), no action. Correction to the 16:30Z note's reasoning: momentum-top-decile-&->200MA (not just RSI2-oversold) IS a valid bullish technical signal per docs/options-strategy.md's signal stack, so BE/MU/LITE/INTC/FCEL aren't disqualified for lacking an RSI2 trigger. Actually checked the two cheapest bullish candidates on the live chain this run (~30-45 DTE): FCEL 09-11 $22-25C priced $282-380/contract even at 0.47-0.57 delta (above the $150 cap at ANY strike near 0.35 delta), zero open_interest on every strike checked (liquidity fail), and IV ~148% (extreme) -- fails cap+liquidity+IV all three. INTC 09-11 $100C priced $592/contract at 0.40 delta, $882/contract at 0.35ish -- fails the $150 cap alone, before even reaching thesis/liquidity checks. This reconfirms the standing 2026-07-09 friction note in docs/options-strategy.md (Ryan hasn't yet chosen (a)/(b)/(c) to resolve it) -- not a fresh finding, so no new flag or re-notification needed, just a corrected ledger reasoning. Options value $452 on total_value $3865.81 (~11.7%) -- under the 15% cap but moot given no contract clears the checklist. Any doubt = skip -- no entry this run. Equity positions (NVDA/AAPL/JNJ/IREN/LIN) match holdings.json, no drift. Daily loss cap not hit ($0 automation realized loss today). No new or unresolved _flag entries. Heartbeat already stamped today (13:31 UTC) -- not re-stamped."
+    "reasoning": "Sub-hourly options-automation run, same 16:03Z intraday report (no new report since); no new fills since 14:05Z WULF sell (user-placed). get_option_positions still shows only TE+ACHR open, both placed_agent='user' (detect-only): TE mark $1.225 (+31.7%, unchanged), Ryan's resting sell-to-close limit @ $1.30 still confirmed/unfilled; ACHR mark $2.075 (-16.0%, manual_hold_override active), no action. No new automation-placed positions to exit-check. Options sleeve $454 / total $3868.43 (~11.7%), under the 15% cap. No candidate re-screened this run -- 16:47Z run's full chain check (FCEL/INTC) already found nothing clearing the $150 premium + liquidity + IV bar; conditions haven't moved enough in 13 minutes to revisit. Any doubt = skip -- no entry. Daily realized options P&L today: +$208 (WULF, user-placed, doesn't count against the mechanical daily loss cap); cap not hit. No new or unresolved _flag entries. Heartbeat already stamped today (13:31 UTC) -- not re-stamped."
   }
 }
