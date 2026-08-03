@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-03T17:16:00Z",
+  "updated_utc": "2026-08-03T17:31:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-03",
     "trades": [
@@ -37,8 +37,8 @@
       "_current_state": {
         "mark_price": 1.225,
         "pct_from_entry": 31.7,
-        "last_checked_utc": "2026-08-03T17:16:00Z",
-        "status": "unchanged from 17:00Z check -- no automation action (placed_agent=user, detect-only) -- Ryan's resting sell-to-close limit order (2 contracts @ $1.30, placed 15:50Z) still confirmed/unfilled (mark $1.225, bid $1.15/ask exactly at his $1.30 limit)"
+        "last_checked_utc": "2026-08-03T17:31:00Z",
+        "status": "unchanged from 17:16Z check -- no automation action (placed_agent=user, detect-only) -- Ryan's resting sell-to-close limit order (2 contracts @ $1.30, placed 15:50Z) still confirmed/unfilled (mark $1.225, bid $1.15/ask exactly at his $1.30 limit)"
       }
     },
     {
@@ -56,8 +56,8 @@
       "_current_state": {
         "mark_price": 2.105,
         "pct_from_entry": -14.8,
-        "last_checked_utc": "2026-08-03T17:16:00Z",
-        "status": "improved from -16.0% at 17:00Z, manual_hold_override active, no action"
+        "last_checked_utc": "2026-08-03T17:31:00Z",
+        "status": "unchanged from 17:16Z check, manual_hold_override active, no action"
       },
       "manual_hold_override": {
         "set_utc": "2026-07-22T14:30:00Z",
@@ -129,8 +129,8 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-03T17:16:00Z",
+    "run_utc": "2026-08-03T17:31:00Z",
     "decision": "NO new entry this run",
-    "reasoning": "Sub-hourly options-automation run. Fresh intraday report landed at 17:03Z (monthly-rebalance-due banner, same swing/momentum picture as 16:03Z -- no new RSI2 setups outside the already-seen list: MAR, LLY, ABBV, EPD, MRK, VRTX; EPD excluded as de-emphasized energy per the sector steer, others already passed over in prior runs). No new fills since 14:05Z WULF sell (user-placed). get_option_positions still shows only TE+ACHR open, both placed_agent='user' (detect-only): TE mark $1.225 (+31.7%, unchanged, Ryan's resting $1.30 sell-to-close still confirmed/unfilled with ask now exactly at his limit); ACHR mark $2.105 (-14.8%, improved from -16.0%, manual_hold_override active), no action either. No automation-placed positions open, so no mechanical exits to apply. Options sleeve value $457 / total $3876.23 (~11.8%), under the 15% cap. Did not re-run a full options-chain screen this cycle -- 16:47Z's FCEL/INTC chain check already found nothing clearing the $150 premium + liquidity bar, and neither the report nor the tape has moved enough in the last ~15 minutes to justify re-screening. Any doubt = skip -- no entry. Daily realized options P&L today: +$208 (WULF, user-placed, doesn't count against the mechanical daily loss cap); cap not hit. No new or unresolved _flag entries. Heartbeat already stamped today (13:31 UTC) -- not re-stamped."
+    "reasoning": "Sub-hourly options-automation run, ~15 min after the 17:16Z check-in. Report unchanged (still the 17:03Z intraday, same RSI2 list: MAR, LLY, ABBV, EPD, MRK, VRTX -- EPD excluded, de-emphasized energy; no new setups). No new fills (get_option_orders since 00:00Z UTC still shows only the WULF sell + TE's still-unfilled resting sell). get_option_positions unchanged: TE+ACHR only, both placed_agent='user' (detect-only). TE mark $1.225 (+31.7%, flat), Ryan's $1.30 sell-to-close still confirmed/unfilled. ACHR mark $2.105 (-14.8%, flat), manual_hold_override active, no action. No automation-placed positions, so no mechanical exits. Options sleeve ~$455.50 / total $3881.25 (~11.7%), under the 15% cap. Skipped re-running a chain screen -- nothing in the tape or report changed since the 16:47Z screen and 17:16Z decision to hold off; any doubt = skip. Equity positions (NVDA/AAPL/JNJ/IREN/LIN) reconciled exactly against holdings.json, no drift. Realized options P&L today unchanged at +$208 (WULF, user-placed); daily loss cap not hit. No new or unresolved _flag entries. Heartbeat already stamped today (13:31 UTC) -- not re-stamped. Note: this run's initial `git fetch origin master <branch>` used a combined refspec where the branch ref didn't resolve, which silently left the local origin/master cache stale (pointing at 2026-07-30) and looked like master had gone 4 days stale -- a bare `git fetch origin master` immediately corrected it (master == this branch's tip, fully current). No actual staleness; caution for future sessions: fetch master with its own single-ref command, don't bundle it with a possibly-nonexistent branch ref."
   }
 }
