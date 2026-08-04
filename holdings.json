@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-04T15:17:00Z",
+  "updated_utc": "2026-08-04T15:32:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-04",
     "trades": [
@@ -38,8 +38,8 @@
       "_current_state": {
         "mark_price": 2.245,
         "pct_from_entry": -9.1,
-        "last_checked_utc": "2026-08-04T15:17:00Z",
-        "status": "unchanged from 15:03Z, manual_hold_override active regardless, no action"
+        "last_checked_utc": "2026-08-04T15:32:00Z",
+        "status": "unchanged from 15:17Z, manual_hold_override active regardless, no action"
       },
       "manual_hold_override": {
         "set_utc": "2026-07-22T14:30:00Z",
@@ -111,8 +111,8 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-04T15:17:00Z",
-    "decision": "NO new entry this run -- re-checked INTC directly, gap extended further (99.33 vs 98.76 twelve minutes ago, now +9.1% vs yesterday's 91.00 close), so the premium/IV block from the 15:03Z run still holds and has not eased. Skip stands.",
-    "reasoning": "Same intraday report as the 15:03Z run (latest_intraday.md, 15:02Z commit 8c91a79) -- unchanged options-candidates calls list (BE/MU/LITE/INTC/FCEL). Live-quoted INTC/MU/LITE/BE/FCEL: all five still gapped further above yesterday's close (INTC +9.1%, MU +7.6%, LITE +9.1%, BE +8.2%, FCEL +7.5%) -- broad rally continuing, not cooling off. No re-quote of the option chain needed: if anything premiums are higher now than the already-5x-over-cap $785 INTC 45D call priced at 15:03Z. No viable entry passes the pre-trade checklist (premium cap + IV sanity). EXITS: no new option orders since TE closed by Ryan at 14:57:42Z (get_option_orders confirms zero new fills today). ACHR mark $2.245 (-9.1%, unchanged from 15:03Z), manual_hold_override active, no action. No agentic-placed option positions open. Realized options P&L today: +$114 (gain, no impact on the -$150 daily loss cap). Equity positions (NVDA, AAPL, JNJ, IREN, LIN) reconciled via get_equity_positions this run -- exact match to holdings.json, no drift. No new or unresolved _flag entries. Heartbeat already stamped today (13:32Z) -- not re-stamped."
+    "run_utc": "2026-08-04T15:32:00Z",
+    "decision": "NO new entry this run -- widened the candidate search beyond the momentum better-play list to the RSI2 oversold-dip swing setups (MAR/PM/ABBV/F/JNJ/UNH), since the momentum names remain badly extended intraday. Only F is cheap enough to fit a ~0.35-delta 30-45DTE call under the $150 cap ($15C 9/18, ask $0.33 x up to 4 contracts, delta 0.33, IV 31.7%, OI 33k -- premium/IV/liquidity all pass), but the news/thesis check came back mixed-to-weakened (Ford/Dacia Romania plant halted to Aug 19 on power supply, EV margin pressure persists, stock already past its post-earnings rally and giving it back) rather than a clean intact thesis, so the honesty test fails and the entry is skipped. Momentum list (BE/MU/LITE/INTC/FCEL) still gapped further (INTC +9.5%, LITE +9.4%, AEHR +16.3%, MU +7.8%, BE +7.9%, FCEL +8.5% vs yesterday's close) -- premium/IV block persists, worse than the 15:17Z check.",
+    "reasoning": "Report unchanged since 15:02Z (latest_intraday.md, commit 8c91a79) -- no fresh technical signal. EXITS: no new option orders since TE closed by Ryan at 14:57:42Z (get_option_orders confirms zero new fills today, realized P&L +$114, daily loss cap not hit). ACHR mark $2.245 (-9.1%, unchanged from 15:17Z), manual_hold_override active, no action. No agentic-placed option positions open, so no mechanical exits applied. Equity positions not re-reconciled this run (options-only automation; no equity fills possible). No new or unresolved _flag entries. Heartbeat already stamped today (13:32Z) -- not re-stamped."
   }
 }
