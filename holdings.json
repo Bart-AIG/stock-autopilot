@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-04T15:03:00Z",
+  "updated_utc": "2026-08-04T15:17:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-04",
     "trades": [
@@ -38,8 +38,8 @@
       "_current_state": {
         "mark_price": 2.245,
         "pct_from_entry": -9.1,
-        "last_checked_utc": "2026-08-04T15:03:00Z",
-        "status": "was -5.9% at 14:46Z, manual_hold_override active regardless, no action"
+        "last_checked_utc": "2026-08-04T15:17:00Z",
+        "status": "unchanged from 15:03Z, manual_hold_override active regardless, no action"
       },
       "manual_hold_override": {
         "set_utc": "2026-07-22T14:30:00Z",
@@ -111,8 +111,8 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-04T15:03:00Z",
-    "decision": "NO new entry this run -- fresh check on BE/LITE/INTC/FCEL (the top of the options-candidates calls list): all four gapped +7-9% intraday today, confirming the IV/premium-cap block. Skip stands.",
-    "reasoning": "Same morning report as prior runs (latest_morning.md, 14:01Z commit 45ea7b0). Live-quoted INTC (98.76, +8.5% vs yesterday's 91.00 close) and its ~30-45 DTE calls directly: IV ~85%, and even a 0.42-delta $110C (45 DTE) costs $785/contract -- more than 5x the $150/trade premium cap. FCEL (+6.9%), BE (+6.8%), LITE (+7.9%) show the same gap pattern -- broad rally across the whole options-candidates call list, not an isolated MU/INTC issue. No viable entry passes the pre-trade checklist (premium cap + IV sanity both fail). Puts list (SMR/QUBT/COIN/ZTS/RBLX) not pursued -- unchanged from prior runs' reasoning (cap/IV + ZTS joint-thesis conflict). EXITS: TE closed by Ryan himself in-app at 14:57:42Z for a +$114 gain (2 contracts, $0.93->$1.50) -- banked the +50-100% TP that had been flagged since 13:32Z; removed from positions, logged under _realized_options_pnl_today. ACHR mark $2.245 (-9.1%, was -5.9% at 14:46Z), manual_hold_override active, no action. No agentic-placed option positions open. Realized options P&L today: +$114 (gain, no impact on the -$150 daily loss cap). No drift in equity positions vs holdings.json (not re-diffed this run -- no equity fills possible per HARD RULE 6, and last full reconciliation was 14:46Z). No new or unresolved _flag entries."
+    "run_utc": "2026-08-04T15:17:00Z",
+    "decision": "NO new entry this run -- re-checked INTC directly, gap extended further (99.33 vs 98.76 twelve minutes ago, now +9.1% vs yesterday's 91.00 close), so the premium/IV block from the 15:03Z run still holds and has not eased. Skip stands.",
+    "reasoning": "Same intraday report as the 15:03Z run (latest_intraday.md, 15:02Z commit 8c91a79) -- unchanged options-candidates calls list (BE/MU/LITE/INTC/FCEL). Live-quoted INTC/MU/LITE/BE/FCEL: all five still gapped further above yesterday's close (INTC +9.1%, MU +7.6%, LITE +9.1%, BE +8.2%, FCEL +7.5%) -- broad rally continuing, not cooling off. No re-quote of the option chain needed: if anything premiums are higher now than the already-5x-over-cap $785 INTC 45D call priced at 15:03Z. No viable entry passes the pre-trade checklist (premium cap + IV sanity). EXITS: no new option orders since TE closed by Ryan at 14:57:42Z (get_option_orders confirms zero new fills today). ACHR mark $2.245 (-9.1%, unchanged from 15:03Z), manual_hold_override active, no action. No agentic-placed option positions open. Realized options P&L today: +$114 (gain, no impact on the -$150 daily loss cap). Equity positions (NVDA, AAPL, JNJ, IREN, LIN) reconciled via get_equity_positions this run -- exact match to holdings.json, no drift. No new or unresolved _flag entries. Heartbeat already stamped today (13:32Z) -- not re-stamped."
   }
 }
