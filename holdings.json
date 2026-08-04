@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-04T14:16:00Z",
+  "updated_utc": "2026-08-04T14:31:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-04",
     "trades": [],
@@ -25,8 +25,8 @@
       "_current_state": {
         "mark_price": 1.475,
         "pct_from_entry": 58.6,
-        "last_checked_utc": "2026-08-04T14:16:00Z",
-        "status": "still in +50-100% TP band (was +55.9% at 2026-08-04T14:02Z) -- no new threshold crossed since last check, already flagged/notified, placed_agent=user so detect-only, no auto-sell"
+        "last_checked_utc": "2026-08-04T14:31:00Z",
+        "status": "unchanged since 14:16Z check -- still in +50-100% TP band, already flagged/notified, placed_agent=user so detect-only, no auto-sell"
       },
       "exit_trigger_pending": {
         "trigger": "+50-100% TP band",
@@ -49,10 +49,10 @@
       "target": null,
       "_note": "placed_agent='user' (Ryan bought this himself 2026-07-20T19:38Z, $2.47/contract, $247 premium). Long-dated LEAP (18mo out) -- not gated by the HARD RULE 8 entry checklist since it wasn't an autonomous entry. manual_hold_override below suspends the -50% mechanical stop; broken-thesis and DTE/earnings exits still apply in principle but this is a Jan-2028 LEAP, far outside any near-term DTE/earnings gate.",
       "_current_state": {
-        "mark_price": 2.225,
-        "pct_from_entry": -9.9,
-        "last_checked_utc": "2026-08-04T14:16:00Z",
-        "status": "was -12.1% at 2026-08-04T14:02Z, manual_hold_override active regardless, no action"
+        "mark_price": 2.21,
+        "pct_from_entry": -10.5,
+        "last_checked_utc": "2026-08-04T14:31:00Z",
+        "status": "was -9.9% at 2026-08-04T14:16Z, manual_hold_override active regardless, no action"
       },
       "manual_hold_override": {
         "set_utc": "2026-07-22T14:30:00Z",
@@ -124,8 +124,8 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-04T14:06:00Z",
-    "decision": "NO new entry this run",
+    "run_utc": "2026-08-04T14:31:00Z",
+    "decision": "NO new entry this run -- re-check of the 14:06Z eval, no material change (same morning report, same IV/premium-cap block on MU/INTC 24min later), skip stands",
     "reasoning": "Fresh morning report landed on master mid-run (2026-08-04 14:01Z, report: morning commit 45ea7b0) with an explicit options-candidates section: calls BE/MU/LITE/INTC/FCEL(spec) on strong >200MA momentum, puts SMR(spec)/QUBT(spec)/COIN/ZTS/RBLX on downtrend. Evaluated the two most liquid/well-known call candidates against the full HARD RULE 8 checklist: MU (Strong Buy consensus, avg PT ~$1522 vs $880 spot, earnings not until 2026-09-22 -- thesis intact) and INTC (Hold-leaning mixed but huge 7/24 earnings beat, +172% YTD, no near-term earnings -- thesis intact). Both fail the entry stack on cash mechanics: today is a broad, fundamentally-driven semis rally (SOXX/AMD/INTC/MU all up big since 7/30 on hyperscaler AI-capex earnings, MU/INTC each +6-8% again today) so IV is extremely elevated -- INTC 30-45 DTE (2026-09-11) calls near the ~0.35-delta target show IV ~80-82% and premiums of $600-940/contract (delta 0.39-0.53 across $105-$110 strikes, thin OI 1-55 on several), nowhere close to the $150/trade cap; MU's ATM region isn't even reachable within the $150 cap (spot ~$880, strikes only reach $595 before falling deep ITM). Checklist fails on (1) premium ≤$150 and (2) IV sanity -- buying calls into an already-extended, high-IV rally chases the move and risks a vol-crush give-back. Per 'any doubt = skip,' skipped. Did not evaluate the put candidates (COIN/ZTS/RBLX/SMR/QUBT) further given the primary cap/IV issue is size-and-vol driven, not underlying-specific, and would recur; also ZTS is a name Ryan's joint-account quality-rotation plan wants to BUY long-term, so a bearish put on it would cut against the standing joint thesis -- would need explicit reconciliation before ever using it as a short-side pick. TE/ACHR checked live at 14:02Z, no material change: TE mark $1.45 (+55.9%, was +61.3%) -- still in the +50-100% TP band, already flagged/notified at 13:32Z, no new notification needed. ACHR mark $2.17 (-12.1%, was -12.3%), manual_hold_override active, no action. No open option orders today, no fills, realized options P&L today: $0 (reset _realized_options_pnl_today for the new trading day -- see that section's _note). Daily loss cap not hit. No new or unresolved _flag entries."
   }
 }
