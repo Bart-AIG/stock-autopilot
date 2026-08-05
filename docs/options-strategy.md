@@ -42,10 +42,19 @@ No FMP or paid options feed required (FMP has no options data).
   `get_option_quotes`.
 
 ## Risk & sizing (its own sleeve)
-- **≤ ~$150 premium per trade** — max loss = premium paid (defined).
-- **Total options premium-at-risk ≤ ~15% of account value** at any time; only a few
-  concurrent. Separate from the equity per-name/spec caps.
-- Cash account: premium paid from settled cash; respect buying power + the buffer.
+- **Total AGENTIC-placed premium-at-risk ≤ $1,500** (2026-08-05 sizing amendment, Ryan
+  live turn — replaces both the old ≤$150/trade cap and the old 15%-of-account sleeve
+  cap). Deployable as ONE contract or spread across multiple positions; no per-trade
+  limit, but premium must scale with conviction — "quality, thought-out" trades only,
+  full pre-trade checklist every time. Max loss = premium paid (defined).
+- Ryan's manually-placed options (`placed_agent: "user"`) do NOT count against the
+  $1,500 budget (2026-08-03 agentic sub-sleeve amendment). Separate from the equity
+  per-name/spec caps.
+- **Daily realized-loss cap −$400** (raised 2026-08-05 from −$150): when hit, no NEW
+  entries until the next day; exits still run.
+- Cash account: premium paid from settled cash; respect buying power + the buffer
+  (the full $1,500 ≈ all settled cash at amendment time — stagger entries unless one
+  setup is truly exceptional).
 
 ## Exits
 - **Take profit** ~+50–100% of premium.
@@ -77,7 +86,10 @@ No FMP or paid options feed required (FMP has no options data).
   ```
   Removed on close (or reduced on a partial).
 
-## Known friction: $150 cap vs. ~0.35 delta on higher-priced underlyings (flagged 2026-07-09)
+## Known friction: $150 cap vs. ~0.35 delta on higher-priced underlyings (flagged 2026-07-09 — RESOLVED 2026-08-05)
+**RESOLVED via option (a) below:** Ryan raised the budget to $1,500 total (see "Risk &
+sizing" above), so the ~0.35-delta liquid strike now fits on most candidates — prefer it
+over a cheap illiquid strike. Section kept for history:
 The default contract profile (~30–45 DTE, ~0.35 delta) and the ≤$150/trade premium cap
 are in tension once the underlying isn't cheap. Rule of thumb from live chain checks
 this session: a ~0.35-delta, ~45 DTE contract runs roughly 4-8% of the stock price in
