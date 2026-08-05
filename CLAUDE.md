@@ -76,6 +76,14 @@ must happen in a session — but Ryan wants ONE approval, not a per-order Q&A. S
 - Never place a name you didn't list; never silently include a vetoed/over-cap name.
   Fall back to per-order "yes" whenever Ryan asks or for a one-off ad-hoc order.
 
+## DEFENSIVE POSTURE — Aug-Oct 2026 drawdown watch (Ryan adopted 2026-08-05)
+Ryan agrees with the Street's Aug-Oct drawdown warnings (Lee: possible 10-20% air pocket before year-end strength) and adopted a four-layer defensive posture. This stands until a >12% SPY drawdown plays out and re-entry completes, or Ryan lifts it (~Nov 1 review otherwise):
+- **Agentic cash floor ≥45%** through October. Swing-exit proceeds ACCUMULATE, do not auto-recycle. Max ONE new swing/week at $400-500, A-grade only, PREFER low-beta/defensive setups over high-beta momentum. Mechanical exits unchanged.
+- **Winners defended by native trails, not sales:** NVDA trail fires at $230.40 green-enough trigger (Ryan sets 15% native in-app); IREN trigger ~$50.60. No pre-emptive selling of conviction holds.
+- **Agentic put hedge authorized by Ryan (2026-08-05):** single-leg long SPY/QQQ put, Oct-Dec expiry, sized per the approved batch (may exceed the ~$150/trade cap only by Ryan's explicit per-order override; joint account gets NO puts per Ryan). Managed under HARD RULE 8 exits except: a hedge put is NOT subject to the -50% mechanical cut (it is insurance, expected to decay in a melt-up; hold to ~21 DTE then roll/close decision with Ryan).
+- **Joint de-risk list (Ryan-approved 2026-08-05, he executes in-app, into strength):** SELL ALL TQQQ + PATH; TRIM HALF MU, HOOD, FIG; TRIM ⅓ WULF after its earnings settle. Target ~$10-12k (~10%) joint cash. CORE UNTOUCHED: MSFT/GOOGL/AMZN/META/NOW/ADBE/ZTS/ISRG/RBRK/V/JPM/QQQI (QQQI stays 100% — covered-call income is the defensive engine).
+- **Pre-committed re-entry tranches (execute mechanically, not emotionally):** SPY −7% from highs → deploy ⅓ of raised cash (quality screen at limits: MSFT <$400, NOW <$100, ADBE <$230); SPY −12% → next ⅓ (add NVDA <$185, META <$500, ISRG <$340); SPY −18% → final ⅓ into whatever gates A-grade. Joint tranches are recommendations; Agentic tranches use the normal batch-approval flow.
+
 ## Sector focus — Ryan's standing steer (set 2026-06-17)
 **De-emphasize oil-related energy for NEW entries.** Ryan's view: the oil complex's
 upside is capped by political/market forces and it is not a trending, growing sector.
