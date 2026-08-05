@@ -56,12 +56,40 @@ No FMP or paid options feed required (FMP has no options data).
   (the full $1,500 ≈ all settled cash at amendment time — stagger entries unless one
   setup is truly exceptional).
 
-## Exits
-- **Take profit** ~+50–100% of premium.
-- **Cut** ~−50% of premium.
-- **Close on a broken/weakened thesis.**
-- **Time/event:** close when **DTE < ~14** (theta) or **before earnings** — no naked
-  long gamma into a binary unless that was the explicit thesis.
+## Exits (2026-08-05 exit-method amendment — replaces the flat −50% cut / fixed +50–100% TP)
+Modeled on how experienced options traders manage long premium: stops on the
+UNDERLYING's chart (not the option's leveraged P&L, which whipsaws on vol), the
+~21-DTE management rule (theta and gamma both accelerate in the final 3 weeks),
+and time stops (a flat long option is a losing long option).
+
+**Losers — thesis-first, patience scaled to time-to-expiry:**
+
+| Time left | A −50% premium print means | Hard backstop |
+|---|---|---|
+| **>45 DTE** | Alert + thesis re-check only — hold if the setup is intact | **−70%** |
+| **21–45 DTE** | Re-check; sell only if ≤−50% holds ≥2 consecutive runs AND the thesis re-check fails | **−65%** |
+| **7–21 DTE** | Cut stands, confirmed by one re-check the following run | **−50%** (and flat by DTE 2) |
+
+- **PRIMARY exit at any DTE:** the underlying closes through the trade's
+  `setup_invalidation` level (recorded in the ledger at entry) or the HARD RULE 7
+  thesis breaks. Premium % is the backstop, not the trigger.
+- **Time stop / 21-DTE review (replaces the old DTE<~14 roll-off):** at 21 DTE every
+  swing position gets a roll/close decision; flat or losing at 21 DTE = close or
+  roll, never hold into the theta/gamma window.
+- Backstops are unconditional — only `manual_hold_override` or the hedge-put
+  exemption (defensive-posture insurance) suspends them.
+
+**Winners — pop-banking + trailing ratchet, no fixed ceiling:**
+- **Pop-bank:** a one-day gain ≥ +80% (or a blow-off spike into overbought) → sell
+  into strength and recycle the capital into the next trade.
+- **Ratchet:** arms at +50%; track `peak_premium` in `_current_state` each run; exit
+  if the gain gives back ~40% of its peak (peak +100% → exit floor ≈ +60%). The
+  floor only moves up.
+- **Let it ride:** while trend + momentum + thesis all hold, no fixed take-profit —
+  the pop rule, the ratchet, and the 21-DTE review are the only winner exits.
+- Short-DTE entries keep the quicker +30–50% banking.
+- **Before earnings:** still close/roll — no naked long gamma into a binary unless
+  that was the explicit thesis.
 
 ## Execution & bookkeeping
 - Review with `review_option_order` (show quote, greeks, fees, and **max loss**), then
