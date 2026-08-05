@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-05T16:20:00Z",
+  "updated_utc": "2026-08-05T17:01:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-05",
     "trades": [],
@@ -23,9 +23,9 @@
       "target": null,
       "_note": "placed_agent='user' (Ryan bought this himself 2026-07-20T19:38Z, $2.47/contract, $247 premium). Long-dated LEAP (18mo out) -- not gated by the HARD RULE 8 entry checklist since it wasn't an autonomous entry. manual_hold_override below suspends the -50% mechanical stop; broken-thesis and DTE/earnings exits still apply in principle but this is a Jan-2028 LEAP, far outside any near-term DTE/earnings gate.",
       "_current_state": {
-        "mark_price": 2.28,
-        "pct_from_entry": -7.7,
-        "last_checked_utc": "2026-08-05T15:46:00Z",
+        "mark_price": 2.285,
+        "pct_from_entry": -7.5,
+        "last_checked_utc": "2026-08-05T17:01:00Z",
         "status": "unchanged, manual_hold_override active regardless, no action"
       },
       "manual_hold_override": {
@@ -88,10 +88,9 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-05T16:20:00Z",
-    "decision": "NO new entry this run -- fresh 2026-08-05T16:01Z intraday report added two new RSI2-oversold swing setups not seen in the prior evaluation: F (Ford, RSI2 6.7) and ACGL (Arch Capital, RSI2 9.5), both outside the de-emphasized oil sector. Researched both; both fail the HARD RULE 8 entry stack -- SKIP. EOG/PSX/DVN/COP still excluded (oil sector steer); CVS/PM/MO unchanged from prior skip.",
-    "reasoning": "ACGL: thesis is actually strong (Q2 beat, RBC PT raised to $120 from $115, Wells Fargo Buy 2026-07-30, ~22% upside to target) -- but options liquidity fails objectively: Sep-18 chain OI tops out at 240 (100C), 98 (105C), 88 (110C) -- all well under the 500-OI floor -- with bid/ask spreads of 20-51% of mid. Liquidity gate fails regardless of thesis strength. F: technical signal present (RSI2 6.7 in uptrend) but thesis is only neutral -- 22-analyst consensus 'Hold', PT $15.68 vs ~$14.20-15.28 spot (~10% upside only), plus a negative operational note (Romania plant suspended to Aug 19). Not a clear bullish confluence for a leveraged long-call bet. Per 'any doubt = skip' and the honesty test, skipped rather than force an entry. 0/3 autonomous entries used today, 0% of 15% sleeve cap used (no agentic-placed option positions open).",
-    "exits": "ACHR (placed_agent=user, manual_hold_override active, mark ~$2.28-2.39) -- exit-gated per HARD RULE 8, no action taken. No agentic-placed option positions open -- no mechanical exits to enforce.",
-    "other": "Realized options P&L today: $0 (get_option_orders confirms zero orders since 2026-08-05T00:00Z), daily loss cap not hit. Equity positions (NVDA, AAPL, JNJ, IREN, LIN) match holdings.json exactly via get_equity_positions, no drift. No new or unresolved _flag entries. Note: 16:01Z intraday report flags JNJ SELL/TAKE-PROFIT -- that is an EQUITY signal, out of scope for this options-only automation run (HARD RULE 6 -- equities need Ryan's per-batch approval); left for an interactive session."
+    "run_utc": "2026-08-05T17:01:00Z",
+    "decision": "NO new entry this run -- committed report is still the same 2026-08-05T16:01Z intraday (no fresher report posted since the prior evaluation 40min ago); no new technical signal to evaluate. CVS/PM/F/ACGL/MO all unchanged from the 16:20Z skip; EOG/PSX/DVN/COP still excluded (oil sector steer). 0/3 autonomous entries used today, 0% of 15% sleeve cap used (no agentic-placed option positions open).",
+    "exits": "ACHR (placed_agent=user, manual_hold_override active, mark $2.285/-7.5%) -- exit-gated per HARD RULE 8, no material move since last check, no action taken. No agentic-placed option positions open -- no mechanical exits to enforce.",
+    "other": "Realized options P&L today: $0 (get_option_orders confirms zero orders since 2026-08-05T00:00Z), daily loss cap not hit. Heartbeat already stamped today (2026-08-05T12:35:00Z) -- not re-stamped. No new or unresolved _flag entries."
   }
 }
