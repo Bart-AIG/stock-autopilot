@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-05T15:31:30Z",
+  "updated_utc": "2026-08-05T15:46:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-05",
     "trades": [],
@@ -25,7 +25,7 @@
       "_current_state": {
         "mark_price": 2.28,
         "pct_from_entry": -7.7,
-        "last_checked_utc": "2026-08-05T15:31:30Z",
+        "last_checked_utc": "2026-08-05T15:46:00Z",
         "status": "unchanged, manual_hold_override active regardless, no action"
       },
       "manual_hold_override": {
@@ -98,8 +98,8 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-05T15:31:30Z",
-    "decision": "NO new entry this run -- fresh 2026-08-05T15:18Z morning report evaluated. Swing setups: CVS/PM (fail HARD RULE 7/8 news gate per prior evaluation, unchanged), EOG/PSX/COP/DVN (oil sector steer, excluded), MO (new candidate this run -- evaluated and SKIPPED). Any doubt = skip.",
-    "reasoning": "EXITS: only open option position is ACHR (placed_agent=user, manual_hold_override active) -- automation may only detect, not act; mark $2.28 (-7.7%), unchanged, no action. MO entry checklist: technical signal passes (RSI2 9.1, oversold within reported rising-200MA uptrend, 'Other' sector so not caught by the oil steer); but HARD RULE 7 thesis gate failed -- analyst consensus price target ($64.50) sits BELOW the current price ($67.76), Q2 2026 adjusted EPS ($1.48) missed estimates, and coverage flags a 30% premium to historical P/E with a Sell rating on valuation despite reaffirmed FY guidance. An oversold bounce needs at least a not-broken thesis with upside room; a target below spot fails the honesty test ('would I approve this if Ryan asked, purely on the port's interest?') -- skipped per 'any doubt = skip'. No agentic-placed option positions open, so 0% of the 15% sleeve cap used and 0/3 autonomous entries used today. Realized options P&L today: $0 (get_option_orders confirms zero orders since 2026-08-05T00:00Z). Daily loss cap (-$150) not hit. Equity positions (NVDA, AAPL, JNJ, IREN, LIN) match holdings.json exactly, no drift. No new or unresolved _flag entries."
+    "run_utc": "2026-08-05T15:46:00Z",
+    "decision": "NO new entry this run -- same 2026-08-05T15:18Z morning report as the prior 15:31Z check (no newer report posted). Swing setups unchanged: CVS/PM (news-gate fail), EOG/PSX/COP/DVN (oil sector steer, excluded), MO (already evaluated and skipped last run). Any doubt = skip.",
+    "reasoning": "Routine 15-min re-check, no material change since the 15:31Z run. EXITS: ACHR (placed_agent=user, manual_hold_override active) mark $2.28 (-7.7%), unchanged, no action. No agentic-placed option positions open -- 0% of 15% sleeve cap used, 0/3 autonomous entries used today. Realized options P&L today: $0, daily loss cap not hit. Equity positions (NVDA, AAPL, JNJ, IREN, LIN) match holdings.json exactly via get_equity_positions, no drift. No new or unresolved _flag entries."
   }
 }
