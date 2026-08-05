@@ -1,26 +1,13 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-04T19:22:00Z",
+  "updated_utc": "2026-08-05T12:35:00Z",
   "_realized_options_pnl_today": {
-    "date_utc": "2026-08-04",
-    "trades": [
-      {
-        "symbol": "TE",
-        "contract": "TE 2026-09-04 4C",
-        "action": "sell_to_close",
-        "contracts": 2,
-        "entry_premium": 0.93,
-        "exit_premium": 1.50,
-        "realized_pnl": 114.0,
-        "placed_agent": "user",
-        "filled_utc": "2026-08-04T14:57:42Z",
-        "note": "Ryan closed this himself in-app -- banked the +50-100% TP gain that had been flagged/pending since 13:32Z. Not an automation-executed exit (placed_agent=user, exit-gate rule correctly left this to Ryan)."
-      }
-    ],
-    "total_realized_pnl": 114.0,
+    "date_utc": "2026-08-05",
+    "trades": [],
+    "total_realized_pnl": 0.0,
     "daily_loss_cap": -150,
     "cap_hit": false,
-    "_note": "TE closed for a +$114 gain (Ryan, in-app) -- gain, so no impact on the -$150 daily loss cap."
+    "_note": "New trading day -- no options orders filled yet today (get_option_orders confirms zero since 2026-08-05T00:00Z). Yesterday's TE close (+$114, Ryan in-app) is prior-day history, not carried forward."
   },
   "positions": [
     {
@@ -36,9 +23,9 @@
       "target": null,
       "_note": "placed_agent='user' (Ryan bought this himself 2026-07-20T19:38Z, $2.47/contract, $247 premium). Long-dated LEAP (18mo out) -- not gated by the HARD RULE 8 entry checklist since it wasn't an autonomous entry. manual_hold_override below suspends the -50% mechanical stop; broken-thesis and DTE/earnings exits still apply in principle but this is a Jan-2028 LEAP, far outside any near-term DTE/earnings gate.",
       "_current_state": {
-        "mark_price": 2.415,
-        "pct_from_entry": -2.2,
-        "last_checked_utc": "2026-08-04T19:22:00Z",
+        "mark_price": 2.39,
+        "pct_from_entry": -3.2,
+        "last_checked_utc": "2026-08-05T12:35:00Z",
         "status": "unchanged, manual_hold_override active regardless, no action"
       },
       "manual_hold_override": {
@@ -111,8 +98,8 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-04T19:22:00Z",
-    "decision": "NO new entry this run -- report unchanged since the 19:03Z intraday (already evaluated last run, F skipped on weak thesis + no strike near 0.35 delta). No new signal to re-diligence.",
-    "reasoning": "EXITS: only open option position is ACHR (placed_agent=user, manual_hold_override active) -- automation may only detect, not act; mark $2.415 (-2.2%), unchanged status, no action. No agentic-placed option positions open today, so no mechanical exits and 0/3 autonomous entries used. Realized options P&L today unchanged ($0 agentic; TE +$114 was Ryan's own trade). Daily loss cap not hit. Heartbeat already stamped today (13:32Z). No new/unresolved _flag entries."
+    "run_utc": "2026-08-05T12:35:00Z",
+    "decision": "NO new entry this run -- today's report (latest_morning.md / latest_intraday.md on master) has not posted yet; the newest committed report is still yesterday's 2026-08-04 19:03Z intraday. No fresh technical signal for today to diligence -- any doubt = skip.",
+    "reasoning": "EXITS: only open option position is ACHR (placed_agent=user, manual_hold_override active) -- automation may only detect, not act; mark $2.39 (-3.2%), unchanged status, no action. No agentic-placed option positions open, so no mechanical exits and 0/3 autonomous entries used today. Realized options P&L today: $0 (get_option_orders confirms zero orders since 2026-08-05T00:00Z). Daily loss cap (-$150) not hit. Equity positions (NVDA, AAPL, JNJ, IREN, LIN) match holdings.json exactly, no drift. No new or unresolved _flag entries in holdings.json this run."
   }
 }
