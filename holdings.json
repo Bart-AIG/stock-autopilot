@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-05T18:18:00Z",
+  "updated_utc": "2026-08-05T18:31:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-05",
     "trades": [],
@@ -25,7 +25,7 @@
       "_current_state": {
         "mark_price": 2.305,
         "pct_from_entry": -6.7,
-        "last_checked_utc": "2026-08-05T18:18:00Z",
+        "last_checked_utc": "2026-08-05T18:31:00Z",
         "status": "unchanged, manual_hold_override active regardless, no action"
       },
       "manual_hold_override": {
@@ -88,10 +88,10 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-05T18:18:00Z",
-    "decision": "NO new entry this run -- still the same 2026-08-05T18:02Z intraday report. This run closed out the last two un-diligenced 'Options candidates' names -- FCEL (calls) and ACHR (puts). Both SKIPPED -- the full 10-name options-candidates list from today's report (CVS/ACGL/F equities-adjacent + MU/INTC/ZTS/BE/LITE/SMR/QUBT/COIN/FCEL/ACHR options list) is now fully exhausted across today's runs with zero entries. 0/3 autonomous entries used today, 0% of 15% sleeve cap used (no agentic-placed option positions open).",
-    "reasoning": "FCEL (calls, mom12-1 440.5%, SPEC, $21.735/share, IV ~140-150%): no strike threads both gates at once. The strike nearest the ~0.35 target delta with real liquidity ($30 strike, delta 0.357, OI 1161) marks at $2.075 = $207/contract, 38% over the $150 cap. The cheapest strike inside budget ($33, mark $1.45 = $145) only has OI 80 and a bid/ask spread ~34% of mid -- both well under the 500-OI / tight-spread liquidity floor. Same sizing-vs-liquidity failure mode as BE/MU on 8/5. SKIP -- sizing + liquidity gate (thesis itself was actually constructive: UBS raised PT to $27 on AI/data-center pipeline growth, but never got tested). ACHR (puts candidate, mom12-1 -47.2%, SPEC): fails the earnings gate outright -- Archer reports Q2 earnings Monday 2026-08-10 after close, ~3 trading days out (Thu/Fri/Mon), inside the 'imminent earnings unless that's the thesis' exclusion. Also a double thesis conflict: (1) sell-side consensus leans bullish (~$11.75 avg PT, ~137% implied upside per recent coverage, though Goldman trimmed to $8 Neutral on cert-timeline/liquidity risk) -- not a clean bearish confluence; (2) the book already holds a long-dated ACHR 2028 LEAP call (placed_agent=user, manual_hold_override, Ryan: 'I'll handle the achr leap, just leave it be') -- opening an autonomous bearish put on the same underlying Ryan is deliberately long-term bullish on fights our own book, not just the tape. SKIP -- earnings gate + thesis/position conflict. Honesty test on both: not a clear yes -- skip stands. Every name on today's report's options-candidates list has now been diligenced; next new-entry attempt waits on a fresher report or a changed setup.",
-    "exits": "ACHR (placed_agent=user, manual_hold_override active, mark $2.305/-6.7%, earnings 2026-08-10 doesn't gate it -- 2028 LEAP, far outside any near-term DTE/earnings window) -- exit-gated per HARD RULE 8, no material move, no action taken. No agentic-placed option positions open -- no mechanical exits to enforce.",
+    "run_utc": "2026-08-05T18:31:00Z",
+    "decision": "NO new entry this run -- still the same 2026-08-05T18:02Z intraday report (no fresher report posted), and the full options-candidates list from it was already exhausted (zero entries) by the 18:18Z run. Nothing new to diligence. 0/3 autonomous entries used today, 0% of 15% sleeve cap used (no agentic-placed option positions open).",
+    "reasoning": "Unchanged from 18:18Z run -- see that entry for full per-name diligence (CVS/ACGL/MU/INTC/ZTS/BE/LITE/SMR/QUBT/COIN/FCEL/ACHR, all SKIPPED on sizing/liquidity/earnings/thesis gates).",
+    "exits": "ACHR (placed_agent=user, manual_hold_override active, mark $2.305/-6.7%, flat vs 18:18Z check) -- exit-gated per HARD RULE 8, no material move, no action taken. No agentic-placed option positions open -- no mechanical exits to enforce.",
     "other": "Realized options P&L today: $0 (get_option_orders confirms zero orders since 2026-08-05T00:00Z), daily loss cap not hit. Heartbeat already stamped today (2026-08-05T12:35:00Z) -- not re-stamped. No new or unresolved _flag entries."
   }
 }
