@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-07T19:19:00Z",
+  "updated_utc": "2026-08-07T19:31:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-07",
     "trades": [],
@@ -27,7 +27,7 @@
         "mark_price": 7.175,
         "peak_premium": 7.825,
         "pct_from_entry": -4.21,
-        "last_checked_utc": "2026-08-07T19:19:00Z",
+        "last_checked_utc": "2026-08-07T19:31:00Z",
         "status": "unchanged, insurance position exempt from mechanical premium stops, no action"
       }
     },
@@ -46,7 +46,7 @@
       "_current_state": {
         "mark_price": 2.55,
         "pct_from_entry": 3.24,
-        "last_checked_utc": "2026-08-07T19:19:00Z",
+        "last_checked_utc": "2026-08-07T19:31:00Z",
         "status": "unchanged, manual_hold_override active regardless, no action"
       },
       "manual_hold_override": {
@@ -68,10 +68,10 @@
       "setup_invalidation": "RSI2 mean-reversion long call invalidates if CVS closes back below its 20-day MA / rolls over from here, or breaks the rising 200-day MA (84.98 as of 2026-08-07) -- either would mean the oversold bounce failed and the uptrend read was wrong.",
       "_note": "placed_agent='agentic' -- autonomous entry under HARD RULE 8 bounded options autonomy. Entry stack: RSI2=2.0 (deeply oversold) with price $95.85 well above a rising 200d MA ($84.98, +12.9%) -- textbook RSI2 buy-the-dip inside a confirmed uptrend, surfaced in the 2026-08-07 15:01Z intraday report's swing-setup table. HARD RULE 7 thesis: CVS beat Q2 2026 earnings and raised FY26 guidance (Aetna insurance unit recovering); 24/28 analysts rate Buy, 0 Sell; multiple banks (UBS, Barclays, TD Cowen, Bernstein, Mizuho, Morgan Stanley, Wells Fargo) raised price targets into the $106-126 range this week, median target $113 (~18% upside from entry). IV 26.9% (normal, not elevated -- next earnings ~Nov, well past this 42-DTE Sept expiry). Liquidity: OI 4,054, $1.90/$2.07 bid-ask, filled at the $2.00 limit (mid-to-slightly-above). Not an oil/energy name so no sector-steer conflict. Defensive-posture check: SPY spot $772.68, comfortably above the 746-748 early-warning level -- 'business as usual' per the calibration note, A-grade setups still taken. Sizing: $200 premium is 1st of up to 3 entries today (throttle 1/3 used); agentic-placed premium-at-risk now $749 (SPY hedge) + $200 (this) = $949 of the $1,500 total budget, $551 remaining.",
       "_current_state": {
-        "mark_price": 1.905,
+        "mark_price": 1.88,
         "peak_premium": 2.0,
-        "pct_from_entry": -4.75,
-        "last_checked_utc": "2026-08-07T19:19:00Z",
+        "pct_from_entry": -6.0,
+        "last_checked_utc": "2026-08-07T19:31:00Z",
         "status": "normal noise on a 42-DTE swing entry, well inside the 21-45 DTE re-check threshold (-50%), setup intact, no action"
       }
     },
@@ -111,9 +111,9 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-07T19:19:00Z",
+    "run_utc": "2026-08-07T19:31:00Z",
     "decision": "SKIPPED a new entry -- latest report still the 19:03Z intraday (same swing setups: CVS already held, LASR already screened/rejected, VLO excluded -- de-emphasized oil/energy sector steer). Throttle stays 1/3 used, no fresh eligible signal this run.",
-    "exits": "CVS 100C: mark $1.905 (-4.75% from $2.00 entry), setup intact, well inside the 21-45 DTE re-check threshold (-50%), no action. SPY 700P: mark $7.175 (-4.21% from entry, peak $7.825), insurance-exempt, no action. ACHR LEAP: mark $2.55 (+3.24% from entry), manual_hold_override active, no action.",
-    "other": "Realized options P&L today: $0. Daily loss cap (-$400) not hit. Agentic-placed premium-at-risk unchanged at $949 of $1,500 budget, $551 remaining. Ledger reconciliation: get_option_positions (CVS/SPY/ACHR) and get_equity_positions (AAPL/IREN) match holdings.json exactly -- no drift. Heartbeat already stamped for 2026-08-07 (13:31:22Z). No new or unresolved _flag entries. PROCESS FIX this run: discovered the whole day's commits (13:31Z-19:19Z) had piled up on this session's branch with no PR to master ever opened -- opened+merged PR #TBD to close the gap; see CLAUDE.md note on this failure mode."
+    "exits": "CVS 100C: mark $1.88 (-6.0% from $2.00 entry), setup intact, well inside the 21-45 DTE re-check threshold (-50%), no action. SPY 700P: mark $7.175 (-4.21% from entry, peak $7.825), insurance-exempt, no action. ACHR LEAP: mark $2.55 (+3.24% from entry), manual_hold_override active, no action.",
+    "other": "Realized options P&L today: $0. Daily loss cap (-$400) not hit. Agentic-placed premium-at-risk unchanged at $949 of $1,500 budget, $551 remaining. Ledger reconciliation: get_option_positions (CVS/SPY/ACHR) and get_equity_positions (AAPL/IREN) match holdings.json exactly -- no drift. Heartbeat already stamped for 2026-08-07 (13:31:22Z). No new or unresolved _flag entries. Branch parity confirmed: local branch head matches origin/master (no drift)."
   }
 }
