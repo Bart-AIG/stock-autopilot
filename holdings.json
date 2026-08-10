@@ -1,13 +1,23 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-10T17:46:00Z",
+  "updated_utc": "2026-08-10T19:15:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-10",
-    "trades": [],
-    "total_realized_pnl": 0.0,
+    "trades": [
+      {
+        "contract": "ZTS 2026-09-18 70P",
+        "entry_premium": 2.55,
+        "exit_premium": 1.68,
+        "contracts": 1,
+        "realized_pnl": -87.0,
+        "closed_by": "user",
+        "_note": "Ryan sold-to-close in-app 2026-08-10T17:53Z (order 6a7a102e, $1.68 fill vs $2.55 agentic entry same morning). His stated reasoning (live turn, interactive session): sentiment had turned -- strong call-option activity, analyst targets still well above spot, stock already beaten down too hard (-42% YTD, guidance cut fully priced) -- the put was chasing a downtrend that was already complete. This close is the founding incident for the trend-maturity gate added to CLAUDE.md HARD RULE 8 (2026-08-10)."
+      }
+    ],
+    "total_realized_pnl": -87.0,
     "daily_loss_cap": -400,
     "cap_hit": false,
-    "_note": "get_option_orders since 2026-08-10T17:20Z still shows zero new orders/closes -- only the ZTS entry fill remains today's activity."
+    "_note": "Daily realized: -$87 (ZTS put, Ryan's close of an agentic entry). Cap not hit; new entries still permitted (throttle: 1 of 3 agentic entries used today). Agentic premium-at-risk after this close: $749 (SPY 700P hedge) + $200 (CVS 100C) = $949 of the $1,500 budget, $551 remaining."
   },
   "positions": [
     {
