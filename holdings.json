@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-10T16:16:00Z",
+  "updated_utc": "2026-08-10T16:22:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-10",
     "trades": [],
@@ -24,11 +24,11 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "mark_price": 6.895,
+        "mark_price": 6.885,
         "peak_premium": 7.825,
-        "pct_from_entry": -7.94,
-        "last_checked_utc": "2026-08-10T16:16:00Z",
-        "status": "-7.94% from entry (peak +4.5%), setup not invalidated -- insurance position exempt from mechanical premium stops, no action"
+        "pct_from_entry": -8.08,
+        "last_checked_utc": "2026-08-10T16:22:00Z",
+        "status": "-8.08% from entry (peak +4.5%), setup not invalidated -- insurance position exempt from mechanical premium stops, no action"
       }
     },
     {
@@ -46,7 +46,7 @@
       "_current_state": {
         "mark_price": 3.15,
         "pct_from_entry": 27.53,
-        "last_checked_utc": "2026-08-10T16:16:00Z",
+        "last_checked_utc": "2026-08-10T16:22:00Z",
         "status": "+27.53% from entry, manual_hold_override active regardless, no action"
       },
       "manual_hold_override": {
@@ -71,7 +71,7 @@
         "mark_price": 1.495,
         "peak_premium": 2.055,
         "pct_from_entry": -25.25,
-        "last_checked_utc": "2026-08-10T16:16:00Z",
+        "last_checked_utc": "2026-08-10T16:22:00Z",
         "status": "-25.25% from entry (39 DTE, 21-45 DTE tier: -50% would trigger a re-check, backstop -65%), setup not invalidated, no action"
       }
     },
@@ -89,11 +89,11 @@
       "setup_invalidation": "Bearish RSI2/momentum-breakdown put invalidates if ZTS reclaims and closes back above its 20-day MA / breaks back above its (currently falling) 200-day MA, or a credible fundamental turnaround signal emerges on the Trio share-loss/derm decline story that drove the Q2 guidance cut.",
       "_note": "placed_agent='agentic' -- autonomous entry under HARD RULE 8 bounded options autonomy. Entry stack: mom12-1 -51.2%, RSI14 38.7, below 200d MA -- confirmed downtrend, surfaced in the 2026-08-10 14:02Z morning report's bearish-put candidate table. HARD RULE 7 thesis: ZTS reported Q2 2026 on 2026-08-06 -- EPS beat by $0.01 but revenue missed ($2.5B vs $2.51B est, flat YoY), FY26 guidance cut, worse-than-expected derm/Trio share loss; William Blair downgraded to Market Perform, JPMorgan cut PT to $115 from $130, stock down ~42% YTD to $71.83, new CFO/COO starting 2026-08-17 (disclosed leadership overhaul, not a fresh catalyst risk within this contract's life). IV 37% (moderate, not extreme -- next earnings ~Nov, well past this 39-DTE Sept 18 expiry so no earnings-gate conflict). Liquidity: OI 2,233, $2.35/$2.60 bid-ask, filled at $2.55 (mid-to-slightly-above). Not oil/energy, no sector-steer conflict. Defensive-posture check: SPY spot $774.22, comfortably above the 746-748 early-warning level; this put also aligns with the posture's 'lean toward defensive structures (puts/hedges)' guidance. Sizing: $255 premium is 2nd of up to 3 entries today (throttle 2/3 used); agentic-placed premium-at-risk now $949 (SPY hedge + CVS) + $255 (this) = $1,204 of the $1,500 total budget, $296 remaining -- sized moderately (not max) given a solid but not exceptional setup, leaving room for future opportunities.",
       "_current_state": {
-        "mark_price": 1.975,
+        "mark_price": 1.9,
         "peak_premium": 2.55,
-        "pct_from_entry": -22.55,
-        "last_checked_utc": "2026-08-10T16:16:00Z",
-        "status": "-22.55% from entry, thesis intact, setup not invalidated, no action"
+        "pct_from_entry": -25.49,
+        "last_checked_utc": "2026-08-10T16:22:00Z",
+        "status": "-25.49% from entry, thesis intact, setup not invalidated, no action"
       }
     },
     {
@@ -142,9 +142,9 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-10T16:16:00Z",
-    "decision": "SKIPPED new entry -- still the same 2026-08-10 16:02Z intraday report (no new report posted since; next hourly intraday refresh hasn't landed yet). No new candidate set to screen. ZTS remains the only agentic entry today (1 of 3 used, 2 remaining) -- $1,204 of $1,500 budget deployed, $296 remaining. Any doubt = skip.",
-    "exits": "SPY 700P: mark $6.895 (-7.94% from entry, peak $7.825), insurance-exempt, no action. CVS 100C: mark $1.495 (-25.25% from $2.00 entry, 39 DTE / 21-45 tier, backstop -65%), setup intact, no action. ZTS 70P: mark $1.975 (-22.55% from entry), thesis intact, no action. ACHR LEAP: mark $3.15 (+27.53% from entry), manual_hold_override active + placed_agent=user, no action. None within 21-DTE review window (ZTS/CVS 39 DTE, SPY ~102 DTE, ACHR LEAP ~529 DTE) and no new earnings-window changes since the 16:02Z check.",
-    "other": "Realized options P&L today: $0 (get_option_orders since 2026-08-10T00:00Z still shows only the ZTS entry fill). Daily loss cap (-$400) not hit. Agentic-placed premium-at-risk unchanged at $1,204 of $1,500 budget, $296 remaining. Ledger reconciliation: get_option_positions (SPY/CVS/ZTS/ACHR) and get_equity_positions (AAPL/IREN/ACGL) matched holdings.json exactly -- no drift. Heartbeat already stamped today (13:31:00Z), not re-stamped. No new or unresolved _flag entries. Branch/master parity confirmed at run start (base = d42c40b, matches origin/master exactly, zero unmerged commits)."
+    "run_utc": "2026-08-10T16:22:00Z",
+    "decision": "SKIPPED new entry -- still the same 2026-08-10 16:02Z intraday report (no new report posted since the 16:16Z run 6 minutes ago; next hourly intraday refresh hasn't landed yet). No new candidate set to screen. ZTS remains the only agentic entry today (1 of 3 used, 2 remaining) -- $1,204 of $1,500 budget deployed, $296 remaining. Any doubt = skip.",
+    "exits": "SPY 700P: mark $6.885 (-8.08% from entry, peak $7.825), insurance-exempt, no action. CVS 100C: mark $1.495 (-25.25% from $2.00 entry, 39 DTE / 21-45 tier, backstop -65%), setup intact, no action. ZTS 70P: mark $1.90 (-25.49% from entry, 39 DTE / 21-45 tier, backstop -65%), thesis intact, no action. ACHR LEAP: mark $3.15 (+27.53% from entry), manual_hold_override active + placed_agent=user, no action. None within 21-DTE review window (ZTS/CVS 39 DTE, SPY ~102 DTE, ACHR LEAP ~529 DTE) and no new earnings-window changes since the 16:16Z check.",
+    "other": "Realized options P&L today: $0 (get_option_orders since 2026-08-10T00:00Z still shows only the ZTS entry fill). Daily loss cap (-$400) not hit. Agentic-placed premium-at-risk unchanged at $1,204 of $1,500 budget, $296 remaining. Ledger reconciliation: get_option_positions (SPY/CVS/ZTS/ACHR) and get_equity_positions matched holdings.json exactly -- no drift. Heartbeat already stamped today (13:31:00Z), not re-stamped. No new or unresolved _flag entries. Branch/master parity confirmed at run start (base = 4af4096, matches origin/master exactly, zero unmerged commits)."
   }
 }
