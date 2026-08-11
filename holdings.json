@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-11T16:31:15Z",
+  "updated_utc": "2026-08-11T16:46:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-11",
     "trades": [],
@@ -24,11 +24,11 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "mark_price": 7.19,
+        "mark_price": 7.2,
         "peak_premium": 7.825,
-        "pct_from_entry": -4.01,
-        "last_checked_utc": "2026-08-11T16:31:15Z",
-        "status": "-4.01% from entry (peak +4.5%), SPY $771.79 still above the 746-748 early-warning level (business as usual) and well below ATH-confirmation zone, setup not invalidated -- insurance position exempt from mechanical premium stops, no action"
+        "pct_from_entry": -3.87,
+        "last_checked_utc": "2026-08-11T16:46:00Z",
+        "status": "-3.87% from entry (peak +4.5%), SPY still above the 746-748 early-warning level (business as usual) and well below ATH-confirmation zone, setup not invalidated -- insurance position exempt from mechanical premium stops, no action"
       }
     },
     {
@@ -44,10 +44,10 @@
       "target": null,
       "_note": "placed_agent='user' (Ryan bought this himself 2026-07-20T19:38Z, $2.47/contract, $247 premium). Long-dated LEAP (18mo out) -- not gated by the HARD RULE 8 entry checklist since it wasn't an autonomous entry. manual_hold_override below suspends the -50% mechanical stop; broken-thesis and DTE/earnings exits still apply in principle but this is a Jan-2028 LEAP, far outside any near-term DTE/earnings gate.",
       "_current_state": {
-        "mark_price": 3.575,
-        "pct_from_entry": 44.74,
-        "last_checked_utc": "2026-08-11T16:31:15Z",
-        "status": "+44.74% from entry (delta 0.81), manual_hold_override active regardless, no action"
+        "mark_price": 3.55,
+        "pct_from_entry": 43.72,
+        "last_checked_utc": "2026-08-11T16:46:00Z",
+        "status": "+43.72% from entry (delta 0.81), manual_hold_override active regardless, no action"
       },
       "manual_hold_override": {
         "set_utc": "2026-07-22T14:30:00Z",
@@ -68,11 +68,11 @@
       "setup_invalidation": "RSI2 mean-reversion long call invalidates if CVS closes back below its 20-day MA / rolls over from here, or breaks the rising 200-day MA (84.98 as of 2026-08-07) -- either would mean the oversold bounce failed and the uptrend read was wrong.",
       "_note": "placed_agent='agentic' -- autonomous entry under HARD RULE 8 bounded options autonomy. Entry stack: RSI2=2.0 (deeply oversold) with price $95.85 well above a rising 200d MA ($84.98, +12.9%) -- textbook RSI2 buy-the-dip inside a confirmed uptrend, surfaced in the 2026-08-07 15:01Z intraday report's swing-setup table. HARD RULE 7 thesis: CVS beat Q2 2026 earnings and raised FY26 guidance (Aetna insurance unit recovering); 24/28 analysts rate Buy, 0 Sell; multiple banks (UBS, Barclays, TD Cowen, Bernstein, Mizuho, Morgan Stanley, Wells Fargo) raised price targets into the $106-126 range this week, median target $113 (~18% upside from entry). IV 26.9% (normal, not elevated -- next earnings ~Nov, well past this 42-DTE Sept expiry). Liquidity: OI 4,054, $1.90/$2.07 bid-ask, filled at the $2.00 limit (mid-to-slightly-above). Not an oil/energy name so no sector-steer conflict. Defensive-posture check: SPY spot $772.68, comfortably above the 746-748 early-warning level -- 'business as usual' per the calibration note, A-grade setups still taken. Sizing: $200 premium is 1st of up to 3 entries today (throttle 1/3 used); agentic-placed premium-at-risk now $749 (SPY hedge) + $200 (this) = $949 of the $1,500 total budget, $551 remaining.",
       "_current_state": {
-        "mark_price": 1.025,
+        "mark_price": 0.99,
         "peak_premium": 2.055,
-        "pct_from_entry": -48.75,
-        "last_checked_utc": "2026-08-11T16:31:15Z",
-        "status": "-48.75% from entry (38 DTE, 21-45 DTE tier), underlying CVS $93.54 (still above rising 200d MA $84.98, +10.1%, setup not invalidated) -- approaching but has NOT crossed the -50% re-check trigger; no action yet, watch closely next run"
+        "pct_from_entry": -50.5,
+        "last_checked_utc": "2026-08-11T16:46:00Z",
+        "status": "-50.5% from entry (38 DTE, 21-45 DTE tier) -- FIRST run crossing the -50% re-check trigger (prior run 16:31Z was -48.75%). Per 2026-08-05 exit-method amendment, a sell requires ~2 CONSECUTIVE runs <=-50% AND a failed thesis re-check -- only 1 of 2 conditions met so far, NO SELL this run. Thesis re-check just performed: underlying CVS $93.42 (down -2.35% today, closed $95.67 8/10) still comfortably above the rising 200d MA ($85.11, +9.8%) -- setup_invalidation NOT triggered. News: stock is down since the 8/5 earnings beat/guidance raise because of margin-pressure concerns on the new discounted GLP-1/Eli Lilly virtual-visit pricing strategy (investors read it as trading margin for volume) plus the pre-existing Caremark-membership/340B overhang -- Morgan Stanley and others still Buy-rated with raised targets post-earnings. Verdict: WEAKENED (real margin concern, price still falling) but NOT BROKEN (200MA intact, fundamentals/ratings still supportive) -- re-check again next run; if it holds <=-50% again AND thesis still reads weakened-not-broken, no sell yet per the rule text (needs a FAILED thesis, not just weakened); if it deteriorates to broken, sell on the next crossing."
       }
     },
     {
@@ -127,9 +127,9 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-11T16:31:15Z",
-    "decision": "SKIPPED new entry -- no new report since the 16:03Z intraday report (already screened twice this cycle: CVS and FCEL both skipped, see below). No fresh technical signal to re-evaluate. Entry-throttle remains 0/3 used today.",
-    "exits": "SPY 700P: mark $7.19 (-4.01% from entry), insurance-exempt, no action. CVS 100C: mark $1.025 (-48.75% from $2.00 entry, 38 DTE, 21-45 DTE tier), underlying $93.54 still above rising 200d MA $84.98 (+10.1%), setup not invalidated -- has NOT crossed the -50% re-check trigger, no action, watch closely next run. ACHR LEAP: mark $3.575 (+44.74% from entry), manual_hold_override active + placed_agent=user, no action.",
-    "other": "Realized options P&L today: $0. Daily loss cap (-$400) not hit. Agentic-placed premium-at-risk unchanged at $949 of $1,500 budget, $551 remaining. get_option_positions and get_equity_positions match ledger exactly (AAPL/IREN/ACGL equities; SPY/CVS/ACHR options), no drift. No new or unresolved _flag entries. Heartbeat already stamped today (13:30:28Z) -- no re-stamp needed. Branch/master parity confirmed at run start (3cad5b0, no drift). Prior-run entry screen (same 16:03Z report): CVS 93.84/RSI2 0.6 skipped (already hold a souring CVS 100C, trend-maturity gate fails, honesty test fails on doubling down); FCEL 19.45/RSI2 8.8 SPEC skipped (mixed fundamentals, tape not confirming a bounce)."
+    "run_utc": "2026-08-11T16:46:00Z",
+    "decision": "SKIPPED new entry -- no new report since the 16:03Z intraday report (already screened this cycle: CVS and FCEL both skipped). No fresh technical signal to re-evaluate. Entry-throttle remains 0/3 used today.",
+    "exits": "SPY 700P: mark $7.20 (-3.87% from entry), insurance-exempt, no action. CVS 100C: mark $0.99 (-50.5% from $2.00 entry, 38 DTE, 21-45 DTE tier) -- FIRST run crossing the -50% re-check trigger. Thesis re-check: underlying CVS $93.42 still above rising 200d MA $85.11 (+9.8%), setup not invalidated; news is margin-pressure worry from the new discounted GLP-1/Lilly pricing plus the pre-existing Caremark/340B overhang, but Buy ratings + raised targets persist post-earnings -- verdict WEAKENED not BROKEN. Rule requires ~2 consecutive runs <=-50% AND a failed thesis check; only 1 of 2 met -- NO SELL this run, re-check again next run. ACHR LEAP: mark $3.55 (+43.72% from entry), manual_hold_override active + placed_agent=user, no action.",
+    "other": "Realized options P&L today: $0. Daily loss cap (-$400) not hit. Agentic-placed premium-at-risk unchanged at $949 of $1,500 budget, $551 remaining. get_option_positions and get_equity_positions match ledger exactly (AAPL/IREN/ACGL equities; SPY/CVS/ACHR options), no drift. No new or unresolved _flag entries. Heartbeat already stamped today (13:30:28Z) -- no re-stamp needed. Branch/master parity confirmed at run start (HEAD abe1b4c == origin/master abe1b4c via GitHub API; local shallow-clone merge-base showed a false divergence, resolved -- no drift). Prior entry screen (same 16:03Z report): CVS 93.84/RSI2 0.6 skipped (already hold a souring CVS 100C, trend-maturity gate fails, honesty test fails on doubling down); FCEL 19.45/RSI2 8.8 SPEC skipped (mixed fundamentals, tape not confirming a bounce)."
   }
 }
