@@ -106,7 +106,8 @@ jobs:
               compact = full.encode()[:1200].decode(errors='ignore') \
                         + f'\n[compact fallback — full report: {FULL_URL}]'
               if send('Options daily report', body, email=EMAIL):
-                  print('delivered: tier 1 (full report, ntfy + email)')
+                  print('delivered: tier 1 (full report, '
+                        + ('ntfy + email' if TOKEN else 'ntfy push only — no NTFY_TOKEN, so no email copy') + ')')
               elif send('Options daily report (compact)', compact, email=EMAIL):
                   print('delivered: tier 2 (compact, ntfy + email) — full-size send '
                         'was rejected; likely a body-size limit')
