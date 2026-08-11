@@ -1,0 +1,21 @@
+{
+  "_comment": "Written-thesis trade journal for the options-automation sleeve (routine prompt v3, HARD RULE 8). Every run appends an entry: regime label, positions reviewed with one-line verdicts, any entry (full thesis + conviction score, gate is >=7/10 or skip) or exit (realized P&L + whether the plan was followed). Weekly reviews appended on Fridays. Bootstrapped 2026-08-11 -- this file did not exist before (first run since the v3 prompt merged to master ~16:43Z today); prior runs logged reasoning inline in holdings.json _current_state/_note fields (see git history there for the pre-v3 record).",
+  "entries": [
+    {
+      "run_utc": "2026-08-11T16:55:00Z",
+      "regime": "risk-on (confirmed uptrend, SPY/QQQ above all key MAs, VIX 15.44 low) with a tactical tech-to-cyclical rotation today and elevated near-term event risk -- CPI print tomorrow AM 2026-08-12, ongoing Iran/oil geopolitical overhang. Not chop, but entry bar raised for new short-DTE tech-momentum longs into the print.",
+      "positions_reviewed": [
+        {"symbol": "SPY 2026-11-20 700P", "placed_agent": "agentic", "verdict": "Thesis intact, insurance-exempt from mechanical stops. Mark $7.215 (-3.67%). SPY $771.34 comfortably above the 746-748 defensive-posture tripwire. Hold to ~21-DTE review (~2026-10-30)."},
+        {"symbol": "CVS 2026-09-18 100C", "placed_agent": "agentic", "verdict": "Thesis WEAKENING. Mark $0.975 (-51.25%), first run crossing the -50% backstop (21-45 DTE tier). Hard invalidation (200d MA $84.98) not broken, but no new catalyst since the 2026-08-05 Caremark/PBM guidance warning and price has drifted lower for 4 straight sessions instead of the expected RSI2 bounce. Per the 2-consecutive-run rule: HOLD, re-confirm next run."},
+        {"symbol": "ACHR 2028-01-21 5C", "placed_agent": "user", "verdict": "Ownership-gated (Ryan's LEAP, manual_hold_override active since 2026-07-22). Mark $3.55 (+43.72%). No action taken or contemplated -- informational only."}
+      ],
+      "entries_considered": [
+        {"symbol": "AMD", "signal": "RSI2 17.6, deep uptrend (spot $466.08 vs 200d MA $319.45, +45.9%)", "iv_context": "atm_iv 56.5%, rv_30d 83.6%, iv_rv_ratio 0.68 (cheap, would favor a single-leg if it triggered)", "conviction_score": null, "outcome": "SKIPPED -- RSI2 has not crossed <10, no confirmed oversold trigger yet. Watchlisted for next run."},
+        {"symbol": "NVDA", "signal": "RSI2 38 (neutral), pulling back with today's tech-rotation tape", "iv_context": "atm_iv 38.2%, rv_30d 39.9%, iv_rv_ratio 0.96", "conviction_score": null, "outcome": "SKIPPED -- routine pullback, not a signal."}
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "notes": "First run under routine prompt v3 (merged to master ~16:43Z today, 3 minutes before this run started). Bootstrapped market_brief.json, iv_history.json, and this journal since none existed yet. IV self-tracking: logged core list (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) + CVS (open position) -- day 1 of tracking, all iv_rv_ratio readings comfortably under the 1.5 rich-premium threshold (range 0.55-1.18), see iv_history.json. No earnings in the next 5 sessions for any core-list or open-position name. Entry-throttle 0/3 used today. Daily loss cap not hit ($0 realized today). Agentic premium-at-risk $949 of $1,500 budget."
+    }
+  ]
+}

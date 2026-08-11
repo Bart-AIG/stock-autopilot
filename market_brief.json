@@ -1,0 +1,49 @@
+{
+  "_comment": "Daily market brief for the options-automation sleeve (routine prompt v3, HARD RULE 8). Built first run of the day; later runs read it, rebuilt intraday only on a major catalyst (surprise headline, VIX >15% intraday spike, an index breaking a brief level). Bootstrapped 2026-08-11 -- this file did not exist before (first run since the v3 prompt merged to master ~16:43Z today).",
+  "date_utc": "2026-08-11",
+  "built_at_utc": "2026-08-11T16:55:00Z",
+  "macro": {
+    "headline": "CPI print due tomorrow AM (2026-08-12) -- the key near-term catalyst. Consensus: headline +0.1% m/m (vs -0.4% June), 3.4% y/y (down from 3.5%); core +0.1% m/m, 2.5% y/y.",
+    "fed": "Fed officials divided on a rate hike -- weighing the Iran-conflict oil shock's inflation impact against Friday's surprisingly weak jobs report, which took some pressure off. CPI tomorrow is pivotal for the next move.",
+    "geopolitical": "Middle East/Iran tensions keeping oil bid and putting a floor under near-term vol -- VIX ticked up today on 'fresh Iran worries' after closing near 2026 lows on Friday.",
+    "tape_today": "Rotation out of high-flying mega-cap tech into cyclicals/small-caps; Nasdaq -0.21%, S&P -0.09%, oil up. NVDA pulling back intraday.",
+    "source": "WebSearch (Schwab market update, Yahoo Finance market live blog, Investrade morning preview) -- 2026-08-11."
+  },
+  "regime": {
+    "label": "risk-on (confirmed uptrend) with a tactical tech-to-cyclical rotation today and elevated near-term event risk (CPI tomorrow, Iran/oil overhang) -- NOT chop, but raise the entry bar for short-DTE tech-momentum longs into the print",
+    "spy": {"spot": 771.34, "sma20": 751.37, "sma50": 747.56, "sma200": 703.48, "note": "comfortably above all MAs; well clear of the defensive-posture 746-748 early-warning level (business as usual per CLAUDE.md calibration)"},
+    "qqq": {"spot": 718.10, "sma20": 700.80, "sma50": 714.27, "sma200": 648.40, "note": "above all MAs but only +0.5% above the 50d -- tech relatively weaker today, consistent with the rotation"},
+    "vix": {"level": 15.44, "note": "low/calm but ticking up intraday on Iran headlines; not a stress reading"}
+  },
+  "catalysts_next_5_sessions": [
+    {"symbol": "CRWV", "date": "2026-08-11", "timing": "pm", "note": "CoreWeave earnings today after close -- AI-infra read-through, not held, watch reaction only"},
+    {"symbol": "NBIS", "date": "2026-08-12", "timing": "am", "note": "Nebius earnings -- AI-infra, watch reaction only"},
+    {"symbol": "CSCO", "date": "2026-08-12", "timing": "pm", "note": "Cisco earnings -- networking/AI-infra capex read-through"},
+    {"symbol": "AMAT", "date": "2026-08-13", "timing": "pm", "note": "Applied Materials earnings -- semicap read-through for the AI-semi complex"}
+  ],
+  "core_iv_names_earnings_check": "None of SPY/QQQ/NVDA/AMD/TSM/AVGO/MSFT/TSLA report this week -- no forced pre-earnings closes needed on the IV-tracked core list or open positions (CVS next earnings ~Nov, past this contract's Sept expiry).",
+  "watchlist": [
+    {
+      "symbol": "AMD",
+      "thesis": "Deep uptrend (spot $466.08 vs 200d MA $319.45, +45.9%) pulling back -- RSI2 17.6, closest to oversold among the AI-semi complex but not yet a confirmed RSI2<10 dip-buy signal.",
+      "confirms_at": "RSI2 prints <10 with price holding/reclaiming the 20d MA on the confirming day (present-tape check) -- would be a garden-variety pullback-in-an-uptrend entry, not a breakdown.",
+      "kills_at": "Daily close below the 200d MA ($319.45) or a break of the recent swing low that invalidates the uptrend structure.",
+      "status": "WATCH ONLY -- not actionable yet, RSI2 hasn't crossed the oversold threshold."
+    },
+    {
+      "symbol": "NVDA",
+      "thesis": "Pulling back today with the broader tech rotation (RSI2 38, neutral) inside a long-term uptrend.",
+      "confirms_at": "A deeper RSI2 oversold print (<10) with the 20d/50d MA structure intact would flip this to an actionable dip-buy.",
+      "kills_at": "Loss of the 50d MA on a closing basis, or the rotation-out-of-tech theme accelerating into a real breakdown.",
+      "status": "WATCH ONLY -- today's move is a routine pullback, not a signal."
+    },
+    {
+      "symbol": "SPY/QQQ",
+      "thesis": "Defensive-posture hedge (existing SPY 700P) is the standing bearish expression; the 746-748 SPY level is the tripwire per CLAUDE.md.",
+      "confirms_at": "N/A -- managed under the existing hedge position, not a new entry candidate.",
+      "kills_at": "N/A",
+      "status": "MONITORING existing hedge, no new entry."
+    }
+  ],
+  "iv_context_summary": "First day of IV self-tracking (bootstrapped today) -- <20 readings for every name, so only iv_rv_ratio applies (no percentile yet). All core names show iv_rv_ratio comfortably under the 1.5 'elevated premium' threshold (range 0.55-1.18) -- options are pricing in-line-to-cheap relative to trailing realized vol across the board right now, not rich. See iv_history.json for the full readings."
+}
