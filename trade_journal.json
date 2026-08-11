@@ -1,513 +1,548 @@
 {
- "_comment": "Written-thesis trade journal for the options-automation sleeve (routine prompt v3, HARD RULE 8). Every run appends an entry: regime label, positions reviewed with one-line verdicts, any entry (full thesis + conviction score, gate is >=7/10 or skip) or exit (realized P&L + whether the plan was followed). Weekly reviews appended on Fridays. Bootstrapped 2026-08-11 -- this file did not exist before (first run since the v3 prompt merged to master ~16:43Z today); prior runs logged reasoning inline in holdings.json _current_state/_note fields (see git history there for the pre-v3 record).",
- "entries": [
-  {
-   "run_utc": "2026-08-11T16:55:00Z",
-   "regime": "risk-on (confirmed uptrend, SPY/QQQ above all key MAs, VIX 15.44 low) with a tactical tech-to-cyclical rotation today and elevated near-term event risk -- CPI print tomorrow AM 2026-08-12, ongoing Iran/oil geopolitical overhang. Not chop, but entry bar raised for new short-DTE tech-momentum longs into the print.",
-   "positions_reviewed": [
+  "_comment": "Written-thesis trade journal for the options-automation sleeve (routine prompt v3, HARD RULE 8). Every run appends an entry: regime label, positions reviewed with one-line verdicts, any entry (full thesis + conviction score, gate is >=7/10 or skip) or exit (realized P&L + whether the plan was followed). Weekly reviews appended on Fridays. Bootstrapped 2026-08-11 -- this file did not exist before (first run since the v3 prompt merged to master ~16:43Z today); prior runs logged reasoning inline in holdings.json _current_state/_note fields (see git history there for the pre-v3 record).",
+  "entries": [
     {
-     "symbol": "SPY 2026-11-20 700P",
-     "placed_agent": "agentic",
-     "verdict": "Thesis intact, insurance-exempt from mechanical stops. Mark $7.215 (-3.67%). SPY $771.34 comfortably above the 746-748 defensive-posture tripwire. Hold to ~21-DTE review (~2026-10-30)."
+      "run_utc": "2026-08-11T16:55:00Z",
+      "regime": "risk-on (confirmed uptrend, SPY/QQQ above all key MAs, VIX 15.44 low) with a tactical tech-to-cyclical rotation today and elevated near-term event risk -- CPI print tomorrow AM 2026-08-12, ongoing Iran/oil geopolitical overhang. Not chop, but entry bar raised for new short-DTE tech-momentum longs into the print.",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "Thesis intact, insurance-exempt from mechanical stops. Mark $7.215 (-3.67%). SPY $771.34 comfortably above the 746-748 defensive-posture tripwire. Hold to ~21-DTE review (~2026-10-30)."
+        },
+        {
+          "symbol": "CVS 2026-09-18 100C",
+          "placed_agent": "agentic",
+          "verdict": "Thesis WEAKENING. Mark $0.975 (-51.25%), first run crossing the -50% backstop (21-45 DTE tier). Hard invalidation (200d MA $84.98) not broken, but no new catalyst since the 2026-08-05 Caremark/PBM guidance warning and price has drifted lower for 4 straight sessions instead of the expected RSI2 bounce. Per the 2-consecutive-run rule: HOLD, re-confirm next run."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "Ownership-gated (Ryan's LEAP, manual_hold_override active since 2026-07-22). Mark $3.55 (+43.72%). No action taken or contemplated -- informational only."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD",
+          "signal": "RSI2 17.6, deep uptrend (spot $466.08 vs 200d MA $319.45, +45.9%)",
+          "iv_context": "atm_iv 56.5%, rv_30d 83.6%, iv_rv_ratio 0.68 (cheap, would favor a single-leg if it triggered)",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- RSI2 has not crossed <10, no confirmed oversold trigger yet. Watchlisted for next run."
+        },
+        {
+          "symbol": "NVDA",
+          "signal": "RSI2 38 (neutral), pulling back with today's tech-rotation tape",
+          "iv_context": "atm_iv 38.2%, rv_30d 39.9%, iv_rv_ratio 0.96",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- routine pullback, not a signal."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "notes": "First run under routine prompt v3 (merged to master ~16:43Z today, 3 minutes before this run started). Bootstrapped market_brief.json, iv_history.json, and this journal since none existed yet. IV self-tracking: logged core list (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) + CVS (open position) -- day 1 of tracking, all iv_rv_ratio readings comfortably under the 1.5 rich-premium threshold (range 0.55-1.18), see iv_history.json. No earnings in the next 5 sessions for any core-list or open-position name. Entry-throttle 0/3 used today. Daily loss cap not hit ($0 realized today). Agentic premium-at-risk $949 of $1,500 budget."
     },
     {
-     "symbol": "CVS 2026-09-18 100C",
-     "placed_agent": "agentic",
-     "verdict": "Thesis WEAKENING. Mark $0.975 (-51.25%), first run crossing the -50% backstop (21-45 DTE tier). Hard invalidation (200d MA $84.98) not broken, but no new catalyst since the 2026-08-05 Caremark/PBM guidance warning and price has drifted lower for 4 straight sessions instead of the expected RSI2 bounce. Per the 2-consecutive-run rule: HOLD, re-confirm next run."
+      "run_utc": "2026-08-11T17:03:00Z",
+      "regime": "Unchanged from the 16:55Z run (~6min prior, sub-hourly cron cadence) -- risk-on with tactical tech rotation, CPI print tomorrow AM, elevated event risk into the print.",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "Thesis intact, insurance-exempt. Mark $7.265 (-3.00%). No action."
+        },
+        {
+          "symbol": "CVS 2026-09-18 100C",
+          "placed_agent": "agentic",
+          "verdict": "Thesis FAILED, position CLOSED. Mark $0.935 (-53.25%) was the second consecutive run crossing the -50% backstop (first crossed 16:55Z). Re-check: no bounce after 5 straight down sessions, closed below the 20d MA, no new catalyst since the 2026-08-05 Caremark/PBM warning -- the RSI2 mean-reversion thesis this trade was built on did not play out. Hard 200d MA invalidation ($84.98) not broken, so this was the mechanical premium-backstop rule firing (2 consecutive runs + failed re-check), not a setup-break exit."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "Ownership-gated, manual_hold_override active. Mark $3.55 (+43.72%). No action."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD",
+          "signal": "RSI2 17.6 (yesterday's close, today not yet closed) -- unchanged from 16:55Z, still no confirmed <10 oversold cross",
+          "iv_context": "unchanged, iv_rv_ratio 0.68 (cheap)",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no new trigger since the last run."
+        },
+        {
+          "symbol": "NVDA",
+          "signal": "RSI2 38.3 (yesterday's close) -- unchanged, neutral",
+          "iv_context": "unchanged, iv_rv_ratio 0.96",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no signal."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": {
+        "symbol": "CVS",
+        "contract": "CVS 2026-09-18 100C",
+        "order_id": "6a7b55c5-5ece-4e49-87a4-752ac2c4cae4",
+        "fill_price": 0.92,
+        "realized_pnl": -108.04,
+        "pct": -54.02,
+        "plan_followed": "Yes -- 21-45 DTE tier rule: 2 consecutive runs at <=-50% AND failed thesis re-check. Exit priced at the exit-pricing rule (started at $0.94 near midpoint, stepped down to $0.90 near the bid after ~50sec with no fill since this was a time-sensitive confirmed exit; filled with price improvement at $0.92)."
+      },
+      "notes": "Second run of the day, ~8 minutes after the first (sub-hourly cron). CVS close frees $200 of premium-at-risk budget -- now $749 of $1,500 deployed (SPY hedge only), $751 remaining. Daily realized P&L -$108.04, $291.96 of headroom before the -$400 loss cap (which gates new entries only; exits unaffected). Entry-throttle still 0/3 used today (no entries placed). No drift between holdings.json and live broker positions before or after the close."
     },
     {
-     "symbol": "ACHR 2028-01-21 5C",
-     "placed_agent": "user",
-     "verdict": "Ownership-gated (Ryan's LEAP, manual_hold_override active since 2026-07-22). Mark $3.55 (+43.72%). No action taken or contemplated -- informational only."
+      "run_utc": "2026-08-11T17:16:00Z",
+      "regime": "Unchanged from the 16:55Z brief -- risk-on with a tactical tech-to-cyclical rotation (SPY -0.34% / QQQ -0.51% / NVDA -0.28% intraday), CPI print tomorrow AM, elevated event risk into the print. No rebuild trigger (no VIX spike, no brief level broken).",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "Thesis intact, insurance-exempt. Mark $7.31 (-2.40%), SPY $770.43 above the 746-748 tripwire. Hold to ~21-DTE review (~2026-10-30)."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "Ownership-gated, manual_hold_override active. Mark $3.525 (+42.71%). No action."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD",
+          "signal": "RSI2 17.6 through the 8/10 close; today -0.8% intraday ($465.70) -- no confirmed <10 print, and spot is 7% BELOW the 20d MA ($500.20) so the brief's confirm condition (oversold holding/reclaiming the 20d) is not met",
+          "iv_context": "iv_rv_ratio 0.68 (cheap, day-1 tracking -- ratio only, no percentile)",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- trigger not confirmed. Stays watchlisted."
+        },
+        {
+          "symbol": "NVDA",
+          "signal": "RSI2 38 (8/10 close), -0.28% today -- neutral, routine rotation pullback",
+          "iv_context": "iv_rv_ratio 0.96",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no signal."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "notes": "Quiet run, ~13 min after the 17:03Z run. Sleeve: $749 of $1,500 deployed (SPY hedge only), $751 available; realized -$108.04 today (CVS close, prior run), $291.96 headroom to the -$400 cap. Entry-throttle 0/3. Positions and ledger match, no drift, no flags. No EOD report duty yet (12:17 CT < 14:30 CT)."
+    },
+    {
+      "run_utc": "2026-08-11T17:21:00Z",
+      "regime": "Unchanged from the 16:55Z brief -- risk-on with a tactical tech-to-cyclical rotation (SPY -0.30% / QQQ -0.46% / NVDA -0.24% intraday), CPI print tomorrow AM, elevated event risk into the print. No rebuild trigger (no VIX spike, no brief level broken).",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "Thesis intact, insurance-exempt. Mark $7.25 (-3.20%), SPY $770.70 above the 746-748 tripwire. Hold to ~21-DTE review (~2026-10-30)."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "Ownership-gated, manual_hold_override active. Mark $3.525 (+42.71%). No action."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD",
+          "signal": "$466.13 (-0.73% intraday) -- still no confirmed RSI2<10 print, spot ~7% below the 20d MA ($500.20); brief confirm condition unmet",
+          "iv_context": "iv_rv_ratio 0.68 (cheap, day-1 tracking -- ratio only, no percentile)",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- trigger not confirmed. Stays watchlisted."
+        },
+        {
+          "symbol": "NVDA",
+          "signal": "$217.03 (-0.24% intraday), RSI2 neutral -- routine rotation pullback",
+          "iv_context": "iv_rv_ratio 0.96",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no signal."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "notes": "Quiet run, ~5 min after the 17:16Z run (overlapping cron triggers). Sleeve: $749 of $1,500 deployed (SPY hedge only), $751 available; realized -$108.04 today, $291.96 headroom to the -$400 cap. Entry-throttle 0/3. get_option_positions matches the ledger (SPY/ACHR only), no drift, no flags. No EOD report duty yet (12:21 CT < 14:30 CT)."
+    },
+    {
+      "run_utc": "2026-08-11T17:31:00Z",
+      "regime": "Unchanged from the 16:55Z brief -- risk-on with a tactical tech-to-cyclical rotation (SPY -0.29% / QQQ -0.46% / AMD -0.79% intraday), CPI print tomorrow AM. No rebuild trigger (no VIX spike, no brief level broken).",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "Thesis intact, insurance-exempt. Mark $7.23 (-3.47%), SPY $770.78 above the 746-748 tripwire. Hold to ~21-DTE review (~2026-10-30)."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "Ownership-gated, manual_hold_override active. Mark $3.525 (+42.71%). No action."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD",
+          "signal": "$465.85 (-0.79% intraday) -- RSI2 last close 17.6, no confirmed <10 print, and spot 6.9% below the 20d MA ($500.20); brief confirm condition (oversold print holding/reclaiming the 20d) unmet",
+          "iv_context": "iv_rv_ratio 0.68 (cheap, day-1 tracking -- ratio only, no percentile)",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- trigger not confirmed. Stays watchlisted."
+        },
+        {
+          "symbol": "NVDA",
+          "signal": "$217.21 (-0.16% intraday), RSI2 neutral -- routine rotation pullback",
+          "iv_context": "iv_rv_ratio 0.96",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no signal."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "notes": "Quiet run, ~9 min after the 17:21Z run (overlapping cron triggers). Sleeve: $749 of $1,500 deployed (SPY hedge only), $751 available; realized -$108.04 today (CVS close, 17:03Z run), $291.96 headroom to the -$400 cap. Entry-throttle 0/3. get_option_positions matches the ledger (SPY/ACHR only), no drift, no flags. No EOD report duty yet (12:30 CT < 14:30 CT)."
+    },
+    {
+      "run_utc": "2026-08-11T17:46:00Z",
+      "regime": "Unchanged from the 16:55Z brief -- risk-on with a tactical tech-to-cyclical rotation (SPY -0.23% / QQQ -0.36% / AMD -0.25% intraday), CPI print tomorrow AM. No rebuild trigger (no VIX spike, no brief level broken).",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "Thesis intact, insurance-exempt. Mark $7.155 (-4.47%), SPY $771.26 above the 746-748 tripwire. Hold to ~21-DTE review (~2026-10-30)."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "Ownership-gated, manual_hold_override active. Mark $3.525 (+42.71%). No action."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD",
+          "signal": "$468.37 (-0.25% intraday, off the morning lows) -- RSI2 last close 17.6, no confirmed <10 print, and spot ~6.4% below the 20d MA ($500.20); brief confirm condition (oversold print holding/reclaiming the 20d) unmet",
+          "iv_context": "iv_rv_ratio 0.68 (cheap, day-1 tracking -- ratio only, no percentile)",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- trigger not confirmed. Stays watchlisted."
+        },
+        {
+          "symbol": "NVDA",
+          "signal": "$217.58 (+0.01% intraday, recovered flat), RSI2 neutral -- routine rotation pullback, no signal",
+          "iv_context": "iv_rv_ratio 0.96",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no signal."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "notes": "Quiet run, ~15 min after the 17:31Z run. Sleeve: $749 of $1,500 deployed (SPY hedge only), $751 available; realized -$108.04 today (CVS close, 17:03Z run), $291.96 headroom to the -$400 cap. Entry-throttle 0/3. get_option_positions matches the ledger (SPY/ACHR only), no drift, no flags. No EOD report duty yet (12:46 CT < 14:30 CT)."
+    },
+    {
+      "run_utc": "2026-08-11T18:00:00Z",
+      "regime": "Unchanged from the 16:55Z brief -- risk-on with a tech-to-cyclical rotation (SPY $771.21 -0.24% / QQQ $718.24 -0.36% intraday), CPI print tomorrow AM. No rebuild trigger.",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "Thesis intact, insurance-exempt. Mark $7.135 (-4.74%), SPY $771.21 above the 746-748 tripwire, IV 21.0% steady, OI 19,743. Hold to ~21-DTE review (~2026-10-30)."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "Ownership-gated, manual_hold_override active. Mark $3.50 (+41.70%). No action."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD",
+          "signal": "$469.50, flat vs prior close -- RSI2 confirm condition (<10 print holding/reclaiming the 20d MA) still unmet; a flat day cannot produce it",
+          "iv_context": "iv_rv_ratio 0.68 (day-1 tracking, ratio only)",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- trigger not confirmed. Stays watchlisted."
+        },
+        {
+          "symbol": "NVDA",
+          "signal": "$217.75, flat (+0.09%), RSI2 neutral -- no signal",
+          "iv_context": "iv_rv_ratio 0.96",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no signal."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "notes": "Quiet run 15 min after the 17:46Z one; nothing changed materially. Entry throttle 0/3 used today; realized P&L today -$108.04 (CVS, earlier run), $291.96 headroom to the -$400 cap. Agentic premium-at-risk $749 of $1,500. Broker positions (SPY 700P, ACHR LEAP) match the ledger, no drift. Next watchpoint: CPI 2026-08-12 AM; CRWV earnings tonight (watch-only). EOD report due on the first run at/after 14:30 CT (19:30Z)."
+    },
+    {
+      "run_utc": "2026-08-11T18:16:00Z",
+      "regime": "Unchanged from the 16:55Z brief -- risk-on with a tech-to-cyclical rotation (SPY $770.81 -0.29% / QQQ $717.68 -0.44% intraday), CPI print tomorrow AM. No rebuild trigger.",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "Thesis intact, insurance-exempt. Mark $7.165 (-4.34%), SPY $770.81 above the 746-748 tripwire, IV 21.0% steady, OI 19,743. Hold to ~21-DTE review (~2026-10-30)."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "Ownership-gated, manual_hold_override active. Mark $3.525 (+42.71%). No action."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD",
+          "signal": "$471.69 +0.45% -- green day, RSI2 rising not falling; the <10 oversold confirm cannot print today. Stays watchlisted.",
+          "iv_context": "iv_rv_ratio 0.68 (day-1 tracking, ratio only)",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- trigger not confirmed."
+        },
+        {
+          "symbol": "NVDA",
+          "signal": "$216.93 -0.28%, neutral -- no signal",
+          "iv_context": "iv_rv_ratio 0.96",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no signal."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "notes": "Quiet run. Entry throttle 0/3 used today; realized P&L today -$108.04 (CVS, earlier run), $291.96 headroom to the -$400 cap. Agentic premium-at-risk $749 of $1,500. Broker positions (SPY 700P, ACHR LEAP) match the ledger, no drift. Next watchpoints: CPI 2026-08-12 AM; CRWV earnings tonight (watch-only). EOD report due on the first run at/after 19:30Z (14:30 CT)."
+    },
+    {
+      "run_utc": "2026-08-11T18:19:00Z",
+      "regime": "Unchanged from the 16:55Z brief -- risk-on with a tech-to-cyclical rotation (SPY $770.75 -0.29% / QQQ $717.63 -0.45% intraday), CPI print tomorrow AM. No rebuild trigger. NOTE: this run fired ~3 min after the 18:16Z run (overlapping/backstop trigger) -- re-verified state, nothing changed.",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "Thesis intact, insurance-exempt. Mark $7.175 (-4.21%), SPY $770.75 above the 746-748 tripwire, IV 21.0%, OI 19,743. Hold to ~21-DTE review (~2026-10-30)."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "Ownership-gated, manual_hold_override active. Mark $3.525 (+42.71%). No action."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD",
+          "signal": "$471.69 +0.45% -- green day, RSI2 rising; the <10 oversold confirm cannot print today. Stays watchlisted.",
+          "iv_context": "iv_rv_ratio 0.68 (day-1 tracking, ratio only)",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- trigger not confirmed."
+        },
+        {
+          "symbol": "NVDA",
+          "signal": "$216.94 -0.28%, neutral -- no signal",
+          "iv_context": "iv_rv_ratio 0.96",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no signal."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "notes": "Near-duplicate backstop run 3 min after 18:16Z; state re-verified, no changes. Entry throttle 0/3 used today; realized P&L today -$108.04 (CVS), $291.96 headroom to the -$400 cap. Agentic premium-at-risk $749 of $1,500. Broker positions match the ledger, no drift. Next watchpoints: CPI 2026-08-12 AM; CRWV earnings tonight (watch-only). EOD report due on the first run at/after 19:30Z (14:30 CT)."
+    },
+    {
+      "run_utc": "2026-08-11T18:31:00Z",
+      "regime": "Unchanged from the 16:55Z brief -- risk-on with a tech-to-cyclical rotation (SPY $769.81 -0.42% / QQQ $716.36 -0.63% intraday), CPI print tomorrow AM. No rebuild trigger (VIX not spiking, no brief level broken).",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "Thesis intact, insurance-exempt. Mark $7.33 (-2.14%, recovering intraday with SPY's fade), SPY $769.81 above the 746-748 tripwire, IV 21.0%, OI 19,743. Hold to ~21-DTE review (~2026-10-30)."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "Ownership-gated, manual_hold_override active. Mark $3.525 (+42.71%, delta 0.81). No action."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD",
+          "signal": "$471.12 +0.33% -- green day, the RSI2<10 oversold confirm cannot print today. Stays watchlisted.",
+          "iv_context": "iv_rv_ratio 0.68 (day-1 tracking, ratio only)",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- trigger not confirmed."
+        },
+        {
+          "symbol": "NVDA",
+          "signal": "$216.60 -0.44%, neutral -- no signal",
+          "iv_context": "iv_rv_ratio 0.96",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no signal."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "notes": "Quiet run. Entry throttle 0/3 used today; realized P&L today -$108.04 (CVS, 17:03Z run), $291.96 headroom to the -$400 cap. Agentic premium-at-risk $749 of $1,500. Broker positions (SPY 700P, ACHR LEAP) match the ledger, no drift. Branch-drift check: HEAD==origin/master (adcb95b); fetch showed a forced update vs a stale 2026-08-06 tip -- verified nothing lost, HEAD strictly supersedes (documented 2026-08-07 recovery). Next watchpoints: CPI 2026-08-12 AM; CRWV earnings tonight (watch-only). EOD report due on the first run at/after 19:30Z (14:30 CT)."
+    },
+    {
+      "run_utc": "2026-08-11T18:46:00Z",
+      "regime": "Unchanged from the 16:55Z brief -- risk-on with a tech-to-cyclical rotation (SPY $769.92 -0.40% / QQQ $716.47 -0.61% intraday), CPI print tomorrow AM. No rebuild trigger (no VIX spike, no brief level broken).",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "Thesis intact, insurance-exempt. Mark $7.315 (-2.34%), SPY $769.92 above the 746-748 tripwire, IV 21.0%, OI 19,743. Hold to ~21-DTE review (~2026-10-30)."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "Ownership-gated, manual_hold_override active. Mark $3.55 (+43.72%, delta 0.81). No action."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD",
+          "signal": "$472.09 +0.54% -- green day, the RSI2<10 oversold confirm cannot print today. Stays watchlisted.",
+          "iv_context": "iv_rv_ratio 0.68 (day-1 tracking, ratio only)",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- trigger not confirmed."
+        },
+        {
+          "symbol": "NVDA",
+          "signal": "$216.71 -0.39%, neutral -- no signal",
+          "iv_context": "iv_rv_ratio 0.96",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no signal."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "notes": "Quiet run ~15 min after the 18:31Z one. Entry throttle 0/3 used today; realized P&L today -$108.04 (CVS, 17:03Z run), $291.96 headroom to the -$400 cap. Agentic premium-at-risk $749 of $1,500. Broker positions (SPY 700P, ACHR LEAP) match the ledger, no drift, no flags. Next watchpoints: CPI 2026-08-12 AM; CRWV earnings tonight (watch-only). EOD report due on the first run at/after 19:30Z (14:30 CT)."
+    },
+    {
+      "run_utc": "2026-08-11T19:01:00Z",
+      "regime": "Unchanged from the 16:55Z brief -- risk-on with tactical tech-to-cyclical rotation (SPY $770.07 -0.38%, QQQ $717.09 -0.52% intraday), CPI print tomorrow AM, Iran/oil overhang. No rebuild trigger (no VIX spike, no brief level broken).",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "Thesis intact, insurance-exempt. Mark $7.275 (-2.87%, peak +4.5%). SPY $770.07 well above the 746-748 tripwire. Hold to ~21-DTE review (~2026-10-30)."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "Ownership-gated, manual_hold_override active. Mark $3.55 (+43.72%). No action."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD",
+          "signal": "RSI2 17.6 (through yesterday's close) but spot $473.16 +0.77% GREEN today -- the <10 oversold confirm cannot print on a green day",
+          "iv_context": "iv_rv_ratio 0.68 per today's iv_history.json logging (cheap; single-leg favored if it ever triggers)",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no confirmed trigger; stays watch-only."
+        },
+        {
+          "symbol": "NVDA",
+          "signal": "RSI2 38.3, spot $217.27 -0.13% flat -- neutral, no signal",
+          "iv_context": "iv_rv_ratio 0.96 per today's logging",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no signal."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "notes": "No-action run (19:01Z / 14:01 CT). Broker positions (SPY 700P + ACHR LEAP) match holdings.json exactly, no drift. Realized today: -$108.04 (CVS close at 17:03Z); $291.96 headroom to the -$400 cap. Agentic premium-at-risk $749 of $1,500. Entry-throttle 0/3. EOD report due on the first run at/after 19:30Z (14:30 CT)."
+    },
+    {
+      "run_utc": "2026-08-11T19:16:30Z",
+      "regime": "Unchanged from the 16:55Z brief -- risk-on with tactical tech-to-cyclical rotation (SPY $770.25 -0.36%, QQQ $717.69 -0.44% intraday), CPI print tomorrow AM, Iran/oil overhang. No rebuild trigger.",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "Thesis intact, insurance-exempt. Mark $7.265 (-3.0%, peak +4.5%). SPY $770.25 well above the 746-748 tripwire. Hold to ~21-DTE review (~2026-10-30)."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "Ownership-gated, manual_hold_override active. Mark $3.675 (+48.79%). No action."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD",
+          "signal": "Spot $473.60 +0.86% GREEN day -- the RSI2<10 oversold confirm cannot print on a green day (RSI2 17.6 through yesterday's close)",
+          "iv_context": "iv_rv_ratio 0.68 per today's iv_history.json logging (cheap; single-leg favored if it ever triggers)",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no confirmed trigger; stays watch-only."
+        },
+        {
+          "symbol": "NVDA",
+          "signal": "$217.48 -0.03% flat, RSI2 neutral -- no signal",
+          "iv_context": "iv_rv_ratio 0.96 per today's logging",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no signal."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "notes": "No-action run (19:16Z / 14:16 CT). Broker positions (SPY 700P + ACHR LEAP) match holdings.json exactly, no drift, no flags. Realized today: -$108.04 (CVS close at 17:03Z); $291.96 headroom to the -$400 cap. Agentic premium-at-risk $749 of $1,500. Entry-throttle 0/3. EOD report due on the NEXT run at/after 19:30Z (14:30 CT)."
+    },
+    {
+      "run_utc": "2026-08-11T19:20:30Z",
+      "regime": "Unchanged from the 16:55Z brief -- risk-on with tactical tech-to-cyclical rotation (SPY $770.43 -0.34%, QQQ $717.66 -0.45% intraday), CPI print tomorrow AM, Iran/oil overhang. No rebuild trigger.",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "Thesis intact, insurance-exempt. Mark $7.235 (-3.4%, peak +4.5%). SPY $770.43 well above the 746-748 tripwire. Hold to ~21-DTE review (~2026-10-30)."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "Ownership-gated, manual_hold_override active. Mark $3.675 (+48.79%). No action."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD",
+          "signal": "$473.92 +0.93% GREEN day -- RSI2<10 oversold confirm cannot print on a green day",
+          "iv_context": "iv_rv_ratio 0.68 per today's iv_history.json logging (cheap; single-leg favored if it ever triggers)",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no confirmed trigger; stays watch-only."
+        },
+        {
+          "symbol": "NVDA",
+          "signal": "$217.61 flat (+0.03%), RSI2 neutral -- no signal",
+          "iv_context": "iv_rv_ratio 0.96 per today's logging",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no signal."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "notes": "No-action backstop run (19:19Z / 14:19 CT, 3 min after the 19:16Z run -- scheduler jitter, nothing changed). Realized today: -$108.04 (CVS close at 17:03Z); $291.96 headroom to the -$400 cap. Agentic premium-at-risk $749 of $1,500. Entry-throttle 0/3. EOD-report duty: fired 11 min before the 14:30 CT threshold, so this session holds until ~19:32Z and writes the EOD report itself unless a newer scheduled run lands it on master first."
+    },
+    {
+      "run_utc": "2026-08-11T19:32:00Z",
+      "regime": "Unchanged from the 16:55Z brief -- risk-on with tactical tech-to-cyclical rotation (SPY $770.80 -0.29%, QQQ $718.38 -0.35% intraday), CPI print tomorrow 8:30 ET, Iran/oil overhang. No rebuild trigger. FINAL RUN OF DAY (19:32Z / 14:32 CT) -- daily EOD report duty executed.",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "Thesis intact, insurance-exempt. Mark $7.195 (-3.9%, peak +4.5%). SPY $770.80 well above the 746-748 tripwire; delta -0.15, 101 DTE. Hold to ~21-DTE review (~2026-10-30)."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "Ownership-gated, manual_hold_override active. Mark $3.70 (+49.8%) on a +12.1% stock day ($7.02). Ryan's LEAP -- no action, noted in EOD report."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD",
+          "signal": "$475.60 +1.29% GREEN day -- RSI2<10 oversold confirm cannot print on a green day; also 29 min to close with CPI pre-market tomorrow",
+          "iv_context": "iv_rv_ratio 0.68 per today's iv_history.json logging (cheap; single-leg favored if it ever triggers)",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no confirmed trigger; stays watch-only into the CPI print."
+        },
+        {
+          "symbol": "NVDA",
+          "signal": "$217.93 +0.17% flat, RSI2 neutral -- no signal",
+          "iv_context": "iv_rv_ratio 0.96 per today's logging",
+          "conviction_score": null,
+          "outcome": "SKIPPED -- no signal."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "notes": "EOD run. No new position (no confirmed trigger + CPI event risk pre-market tomorrow -- flat is a position). Realized today: -$108.04 (CVS 100C closed 17:03Z per the 21-45 DTE tier rule); daily cap headroom $291.96, never at risk after that single exit. Agentic premium at risk $749 of $1,500 (SPY hedge only). Broker positions match holdings.json exactly, no drift, no flags. Daily report written to daily_options_report.md + compact ntfy pushed. IV logging complete for all 8 core names + CVS (today's rows present). NOTE: ntfy push FAILED from this environment (proxy 403 policy denial on ntfy.sh \u2014 not on this session allowlist); compact report delivered via the routine push-notification channel instead."
     }
-   ],
-   "entries_considered": [
-    {
-     "symbol": "AMD",
-     "signal": "RSI2 17.6, deep uptrend (spot $466.08 vs 200d MA $319.45, +45.9%)",
-     "iv_context": "atm_iv 56.5%, rv_30d 83.6%, iv_rv_ratio 0.68 (cheap, would favor a single-leg if it triggered)",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- RSI2 has not crossed <10, no confirmed oversold trigger yet. Watchlisted for next run."
-    },
-    {
-     "symbol": "NVDA",
-     "signal": "RSI2 38 (neutral), pulling back with today's tech-rotation tape",
-     "iv_context": "atm_iv 38.2%, rv_30d 39.9%, iv_rv_ratio 0.96",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- routine pullback, not a signal."
-    }
-   ],
-   "entry_placed": null,
-   "exit_placed": null,
-   "notes": "First run under routine prompt v3 (merged to master ~16:43Z today, 3 minutes before this run started). Bootstrapped market_brief.json, iv_history.json, and this journal since none existed yet. IV self-tracking: logged core list (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) + CVS (open position) -- day 1 of tracking, all iv_rv_ratio readings comfortably under the 1.5 rich-premium threshold (range 0.55-1.18), see iv_history.json. No earnings in the next 5 sessions for any core-list or open-position name. Entry-throttle 0/3 used today. Daily loss cap not hit ($0 realized today). Agentic premium-at-risk $949 of $1,500 budget."
-  },
-  {
-   "run_utc": "2026-08-11T17:03:00Z",
-   "regime": "Unchanged from the 16:55Z run (~6min prior, sub-hourly cron cadence) -- risk-on with tactical tech rotation, CPI print tomorrow AM, elevated event risk into the print.",
-   "positions_reviewed": [
-    {
-     "symbol": "SPY 2026-11-20 700P",
-     "placed_agent": "agentic",
-     "verdict": "Thesis intact, insurance-exempt. Mark $7.265 (-3.00%). No action."
-    },
-    {
-     "symbol": "CVS 2026-09-18 100C",
-     "placed_agent": "agentic",
-     "verdict": "Thesis FAILED, position CLOSED. Mark $0.935 (-53.25%) was the second consecutive run crossing the -50% backstop (first crossed 16:55Z). Re-check: no bounce after 5 straight down sessions, closed below the 20d MA, no new catalyst since the 2026-08-05 Caremark/PBM warning -- the RSI2 mean-reversion thesis this trade was built on did not play out. Hard 200d MA invalidation ($84.98) not broken, so this was the mechanical premium-backstop rule firing (2 consecutive runs + failed re-check), not a setup-break exit."
-    },
-    {
-     "symbol": "ACHR 2028-01-21 5C",
-     "placed_agent": "user",
-     "verdict": "Ownership-gated, manual_hold_override active. Mark $3.55 (+43.72%). No action."
-    }
-   ],
-   "entries_considered": [
-    {
-     "symbol": "AMD",
-     "signal": "RSI2 17.6 (yesterday's close, today not yet closed) -- unchanged from 16:55Z, still no confirmed <10 oversold cross",
-     "iv_context": "unchanged, iv_rv_ratio 0.68 (cheap)",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no new trigger since the last run."
-    },
-    {
-     "symbol": "NVDA",
-     "signal": "RSI2 38.3 (yesterday's close) -- unchanged, neutral",
-     "iv_context": "unchanged, iv_rv_ratio 0.96",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no signal."
-    }
-   ],
-   "entry_placed": null,
-   "exit_placed": {
-    "symbol": "CVS",
-    "contract": "CVS 2026-09-18 100C",
-    "order_id": "6a7b55c5-5ece-4e49-87a4-752ac2c4cae4",
-    "fill_price": 0.92,
-    "realized_pnl": -108.04,
-    "pct": -54.02,
-    "plan_followed": "Yes -- 21-45 DTE tier rule: 2 consecutive runs at <=-50% AND failed thesis re-check. Exit priced at the exit-pricing rule (started at $0.94 near midpoint, stepped down to $0.90 near the bid after ~50sec with no fill since this was a time-sensitive confirmed exit; filled with price improvement at $0.92)."
-   },
-   "notes": "Second run of the day, ~8 minutes after the first (sub-hourly cron). CVS close frees $200 of premium-at-risk budget -- now $749 of $1,500 deployed (SPY hedge only), $751 remaining. Daily realized P&L -$108.04, $291.96 of headroom before the -$400 loss cap (which gates new entries only; exits unaffected). Entry-throttle still 0/3 used today (no entries placed). No drift between holdings.json and live broker positions before or after the close."
-  },
-  {
-   "run_utc": "2026-08-11T17:16:00Z",
-   "regime": "Unchanged from the 16:55Z brief -- risk-on with a tactical tech-to-cyclical rotation (SPY -0.34% / QQQ -0.51% / NVDA -0.28% intraday), CPI print tomorrow AM, elevated event risk into the print. No rebuild trigger (no VIX spike, no brief level broken).",
-   "positions_reviewed": [
-    {
-     "symbol": "SPY 2026-11-20 700P",
-     "placed_agent": "agentic",
-     "verdict": "Thesis intact, insurance-exempt. Mark $7.31 (-2.40%), SPY $770.43 above the 746-748 tripwire. Hold to ~21-DTE review (~2026-10-30)."
-    },
-    {
-     "symbol": "ACHR 2028-01-21 5C",
-     "placed_agent": "user",
-     "verdict": "Ownership-gated, manual_hold_override active. Mark $3.525 (+42.71%). No action."
-    }
-   ],
-   "entries_considered": [
-    {
-     "symbol": "AMD",
-     "signal": "RSI2 17.6 through the 8/10 close; today -0.8% intraday ($465.70) -- no confirmed <10 print, and spot is 7% BELOW the 20d MA ($500.20) so the brief's confirm condition (oversold holding/reclaiming the 20d) is not met",
-     "iv_context": "iv_rv_ratio 0.68 (cheap, day-1 tracking -- ratio only, no percentile)",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- trigger not confirmed. Stays watchlisted."
-    },
-    {
-     "symbol": "NVDA",
-     "signal": "RSI2 38 (8/10 close), -0.28% today -- neutral, routine rotation pullback",
-     "iv_context": "iv_rv_ratio 0.96",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no signal."
-    }
-   ],
-   "entry_placed": null,
-   "exit_placed": null,
-   "notes": "Quiet run, ~13 min after the 17:03Z run. Sleeve: $749 of $1,500 deployed (SPY hedge only), $751 available; realized -$108.04 today (CVS close, prior run), $291.96 headroom to the -$400 cap. Entry-throttle 0/3. Positions and ledger match, no drift, no flags. No EOD report duty yet (12:17 CT < 14:30 CT)."
-  },
-  {
-   "run_utc": "2026-08-11T17:21:00Z",
-   "regime": "Unchanged from the 16:55Z brief -- risk-on with a tactical tech-to-cyclical rotation (SPY -0.30% / QQQ -0.46% / NVDA -0.24% intraday), CPI print tomorrow AM, elevated event risk into the print. No rebuild trigger (no VIX spike, no brief level broken).",
-   "positions_reviewed": [
-    {
-     "symbol": "SPY 2026-11-20 700P",
-     "placed_agent": "agentic",
-     "verdict": "Thesis intact, insurance-exempt. Mark $7.25 (-3.20%), SPY $770.70 above the 746-748 tripwire. Hold to ~21-DTE review (~2026-10-30)."
-    },
-    {
-     "symbol": "ACHR 2028-01-21 5C",
-     "placed_agent": "user",
-     "verdict": "Ownership-gated, manual_hold_override active. Mark $3.525 (+42.71%). No action."
-    }
-   ],
-   "entries_considered": [
-    {
-     "symbol": "AMD",
-     "signal": "$466.13 (-0.73% intraday) -- still no confirmed RSI2<10 print, spot ~7% below the 20d MA ($500.20); brief confirm condition unmet",
-     "iv_context": "iv_rv_ratio 0.68 (cheap, day-1 tracking -- ratio only, no percentile)",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- trigger not confirmed. Stays watchlisted."
-    },
-    {
-     "symbol": "NVDA",
-     "signal": "$217.03 (-0.24% intraday), RSI2 neutral -- routine rotation pullback",
-     "iv_context": "iv_rv_ratio 0.96",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no signal."
-    }
-   ],
-   "entry_placed": null,
-   "exit_placed": null,
-   "notes": "Quiet run, ~5 min after the 17:16Z run (overlapping cron triggers). Sleeve: $749 of $1,500 deployed (SPY hedge only), $751 available; realized -$108.04 today, $291.96 headroom to the -$400 cap. Entry-throttle 0/3. get_option_positions matches the ledger (SPY/ACHR only), no drift, no flags. No EOD report duty yet (12:21 CT < 14:30 CT)."
-  },
-  {
-   "run_utc": "2026-08-11T17:31:00Z",
-   "regime": "Unchanged from the 16:55Z brief -- risk-on with a tactical tech-to-cyclical rotation (SPY -0.29% / QQQ -0.46% / AMD -0.79% intraday), CPI print tomorrow AM. No rebuild trigger (no VIX spike, no brief level broken).",
-   "positions_reviewed": [
-    {
-     "symbol": "SPY 2026-11-20 700P",
-     "placed_agent": "agentic",
-     "verdict": "Thesis intact, insurance-exempt. Mark $7.23 (-3.47%), SPY $770.78 above the 746-748 tripwire. Hold to ~21-DTE review (~2026-10-30)."
-    },
-    {
-     "symbol": "ACHR 2028-01-21 5C",
-     "placed_agent": "user",
-     "verdict": "Ownership-gated, manual_hold_override active. Mark $3.525 (+42.71%). No action."
-    }
-   ],
-   "entries_considered": [
-    {
-     "symbol": "AMD",
-     "signal": "$465.85 (-0.79% intraday) -- RSI2 last close 17.6, no confirmed <10 print, and spot 6.9% below the 20d MA ($500.20); brief confirm condition (oversold print holding/reclaiming the 20d) unmet",
-     "iv_context": "iv_rv_ratio 0.68 (cheap, day-1 tracking -- ratio only, no percentile)",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- trigger not confirmed. Stays watchlisted."
-    },
-    {
-     "symbol": "NVDA",
-     "signal": "$217.21 (-0.16% intraday), RSI2 neutral -- routine rotation pullback",
-     "iv_context": "iv_rv_ratio 0.96",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no signal."
-    }
-   ],
-   "entry_placed": null,
-   "exit_placed": null,
-   "notes": "Quiet run, ~9 min after the 17:21Z run (overlapping cron triggers). Sleeve: $749 of $1,500 deployed (SPY hedge only), $751 available; realized -$108.04 today (CVS close, 17:03Z run), $291.96 headroom to the -$400 cap. Entry-throttle 0/3. get_option_positions matches the ledger (SPY/ACHR only), no drift, no flags. No EOD report duty yet (12:30 CT < 14:30 CT)."
-  },
-  {
-   "run_utc": "2026-08-11T17:46:00Z",
-   "regime": "Unchanged from the 16:55Z brief -- risk-on with a tactical tech-to-cyclical rotation (SPY -0.23% / QQQ -0.36% / AMD -0.25% intraday), CPI print tomorrow AM. No rebuild trigger (no VIX spike, no brief level broken).",
-   "positions_reviewed": [
-    {
-     "symbol": "SPY 2026-11-20 700P",
-     "placed_agent": "agentic",
-     "verdict": "Thesis intact, insurance-exempt. Mark $7.155 (-4.47%), SPY $771.26 above the 746-748 tripwire. Hold to ~21-DTE review (~2026-10-30)."
-    },
-    {
-     "symbol": "ACHR 2028-01-21 5C",
-     "placed_agent": "user",
-     "verdict": "Ownership-gated, manual_hold_override active. Mark $3.525 (+42.71%). No action."
-    }
-   ],
-   "entries_considered": [
-    {
-     "symbol": "AMD",
-     "signal": "$468.37 (-0.25% intraday, off the morning lows) -- RSI2 last close 17.6, no confirmed <10 print, and spot ~6.4% below the 20d MA ($500.20); brief confirm condition (oversold print holding/reclaiming the 20d) unmet",
-     "iv_context": "iv_rv_ratio 0.68 (cheap, day-1 tracking -- ratio only, no percentile)",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- trigger not confirmed. Stays watchlisted."
-    },
-    {
-     "symbol": "NVDA",
-     "signal": "$217.58 (+0.01% intraday, recovered flat), RSI2 neutral -- routine rotation pullback, no signal",
-     "iv_context": "iv_rv_ratio 0.96",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no signal."
-    }
-   ],
-   "entry_placed": null,
-   "exit_placed": null,
-   "notes": "Quiet run, ~15 min after the 17:31Z run. Sleeve: $749 of $1,500 deployed (SPY hedge only), $751 available; realized -$108.04 today (CVS close, 17:03Z run), $291.96 headroom to the -$400 cap. Entry-throttle 0/3. get_option_positions matches the ledger (SPY/ACHR only), no drift, no flags. No EOD report duty yet (12:46 CT < 14:30 CT)."
-  },
-  {
-   "run_utc": "2026-08-11T18:00:00Z",
-   "regime": "Unchanged from the 16:55Z brief -- risk-on with a tech-to-cyclical rotation (SPY $771.21 -0.24% / QQQ $718.24 -0.36% intraday), CPI print tomorrow AM. No rebuild trigger.",
-   "positions_reviewed": [
-    {
-     "symbol": "SPY 2026-11-20 700P",
-     "placed_agent": "agentic",
-     "verdict": "Thesis intact, insurance-exempt. Mark $7.135 (-4.74%), SPY $771.21 above the 746-748 tripwire, IV 21.0% steady, OI 19,743. Hold to ~21-DTE review (~2026-10-30)."
-    },
-    {
-     "symbol": "ACHR 2028-01-21 5C",
-     "placed_agent": "user",
-     "verdict": "Ownership-gated, manual_hold_override active. Mark $3.50 (+41.70%). No action."
-    }
-   ],
-   "entries_considered": [
-    {
-     "symbol": "AMD",
-     "signal": "$469.50, flat vs prior close -- RSI2 confirm condition (<10 print holding/reclaiming the 20d MA) still unmet; a flat day cannot produce it",
-     "iv_context": "iv_rv_ratio 0.68 (day-1 tracking, ratio only)",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- trigger not confirmed. Stays watchlisted."
-    },
-    {
-     "symbol": "NVDA",
-     "signal": "$217.75, flat (+0.09%), RSI2 neutral -- no signal",
-     "iv_context": "iv_rv_ratio 0.96",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no signal."
-    }
-   ],
-   "entry_placed": null,
-   "exit_placed": null,
-   "notes": "Quiet run 15 min after the 17:46Z one; nothing changed materially. Entry throttle 0/3 used today; realized P&L today -$108.04 (CVS, earlier run), $291.96 headroom to the -$400 cap. Agentic premium-at-risk $749 of $1,500. Broker positions (SPY 700P, ACHR LEAP) match the ledger, no drift. Next watchpoint: CPI 2026-08-12 AM; CRWV earnings tonight (watch-only). EOD report due on the first run at/after 14:30 CT (19:30Z)."
-  },
-  {
-   "run_utc": "2026-08-11T18:16:00Z",
-   "regime": "Unchanged from the 16:55Z brief -- risk-on with a tech-to-cyclical rotation (SPY $770.81 -0.29% / QQQ $717.68 -0.44% intraday), CPI print tomorrow AM. No rebuild trigger.",
-   "positions_reviewed": [
-    {
-     "symbol": "SPY 2026-11-20 700P",
-     "placed_agent": "agentic",
-     "verdict": "Thesis intact, insurance-exempt. Mark $7.165 (-4.34%), SPY $770.81 above the 746-748 tripwire, IV 21.0% steady, OI 19,743. Hold to ~21-DTE review (~2026-10-30)."
-    },
-    {
-     "symbol": "ACHR 2028-01-21 5C",
-     "placed_agent": "user",
-     "verdict": "Ownership-gated, manual_hold_override active. Mark $3.525 (+42.71%). No action."
-    }
-   ],
-   "entries_considered": [
-    {
-     "symbol": "AMD",
-     "signal": "$471.69 +0.45% -- green day, RSI2 rising not falling; the <10 oversold confirm cannot print today. Stays watchlisted.",
-     "iv_context": "iv_rv_ratio 0.68 (day-1 tracking, ratio only)",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- trigger not confirmed."
-    },
-    {
-     "symbol": "NVDA",
-     "signal": "$216.93 -0.28%, neutral -- no signal",
-     "iv_context": "iv_rv_ratio 0.96",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no signal."
-    }
-   ],
-   "entry_placed": null,
-   "exit_placed": null,
-   "notes": "Quiet run. Entry throttle 0/3 used today; realized P&L today -$108.04 (CVS, earlier run), $291.96 headroom to the -$400 cap. Agentic premium-at-risk $749 of $1,500. Broker positions (SPY 700P, ACHR LEAP) match the ledger, no drift. Next watchpoints: CPI 2026-08-12 AM; CRWV earnings tonight (watch-only). EOD report due on the first run at/after 19:30Z (14:30 CT)."
-  },
-  {
-   "run_utc": "2026-08-11T18:19:00Z",
-   "regime": "Unchanged from the 16:55Z brief -- risk-on with a tech-to-cyclical rotation (SPY $770.75 -0.29% / QQQ $717.63 -0.45% intraday), CPI print tomorrow AM. No rebuild trigger. NOTE: this run fired ~3 min after the 18:16Z run (overlapping/backstop trigger) -- re-verified state, nothing changed.",
-   "positions_reviewed": [
-    {
-     "symbol": "SPY 2026-11-20 700P",
-     "placed_agent": "agentic",
-     "verdict": "Thesis intact, insurance-exempt. Mark $7.175 (-4.21%), SPY $770.75 above the 746-748 tripwire, IV 21.0%, OI 19,743. Hold to ~21-DTE review (~2026-10-30)."
-    },
-    {
-     "symbol": "ACHR 2028-01-21 5C",
-     "placed_agent": "user",
-     "verdict": "Ownership-gated, manual_hold_override active. Mark $3.525 (+42.71%). No action."
-    }
-   ],
-   "entries_considered": [
-    {
-     "symbol": "AMD",
-     "signal": "$471.69 +0.45% -- green day, RSI2 rising; the <10 oversold confirm cannot print today. Stays watchlisted.",
-     "iv_context": "iv_rv_ratio 0.68 (day-1 tracking, ratio only)",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- trigger not confirmed."
-    },
-    {
-     "symbol": "NVDA",
-     "signal": "$216.94 -0.28%, neutral -- no signal",
-     "iv_context": "iv_rv_ratio 0.96",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no signal."
-    }
-   ],
-   "entry_placed": null,
-   "exit_placed": null,
-   "notes": "Near-duplicate backstop run 3 min after 18:16Z; state re-verified, no changes. Entry throttle 0/3 used today; realized P&L today -$108.04 (CVS), $291.96 headroom to the -$400 cap. Agentic premium-at-risk $749 of $1,500. Broker positions match the ledger, no drift. Next watchpoints: CPI 2026-08-12 AM; CRWV earnings tonight (watch-only). EOD report due on the first run at/after 19:30Z (14:30 CT)."
-  },
-  {
-   "run_utc": "2026-08-11T18:31:00Z",
-   "regime": "Unchanged from the 16:55Z brief -- risk-on with a tech-to-cyclical rotation (SPY $769.81 -0.42% / QQQ $716.36 -0.63% intraday), CPI print tomorrow AM. No rebuild trigger (VIX not spiking, no brief level broken).",
-   "positions_reviewed": [
-    {
-     "symbol": "SPY 2026-11-20 700P",
-     "placed_agent": "agentic",
-     "verdict": "Thesis intact, insurance-exempt. Mark $7.33 (-2.14%, recovering intraday with SPY's fade), SPY $769.81 above the 746-748 tripwire, IV 21.0%, OI 19,743. Hold to ~21-DTE review (~2026-10-30)."
-    },
-    {
-     "symbol": "ACHR 2028-01-21 5C",
-     "placed_agent": "user",
-     "verdict": "Ownership-gated, manual_hold_override active. Mark $3.525 (+42.71%, delta 0.81). No action."
-    }
-   ],
-   "entries_considered": [
-    {
-     "symbol": "AMD",
-     "signal": "$471.12 +0.33% -- green day, the RSI2<10 oversold confirm cannot print today. Stays watchlisted.",
-     "iv_context": "iv_rv_ratio 0.68 (day-1 tracking, ratio only)",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- trigger not confirmed."
-    },
-    {
-     "symbol": "NVDA",
-     "signal": "$216.60 -0.44%, neutral -- no signal",
-     "iv_context": "iv_rv_ratio 0.96",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no signal."
-    }
-   ],
-   "entry_placed": null,
-   "exit_placed": null,
-   "notes": "Quiet run. Entry throttle 0/3 used today; realized P&L today -$108.04 (CVS, 17:03Z run), $291.96 headroom to the -$400 cap. Agentic premium-at-risk $749 of $1,500. Broker positions (SPY 700P, ACHR LEAP) match the ledger, no drift. Branch-drift check: HEAD==origin/master (adcb95b); fetch showed a forced update vs a stale 2026-08-06 tip -- verified nothing lost, HEAD strictly supersedes (documented 2026-08-07 recovery). Next watchpoints: CPI 2026-08-12 AM; CRWV earnings tonight (watch-only). EOD report due on the first run at/after 19:30Z (14:30 CT)."
-  },
-  {
-   "run_utc": "2026-08-11T18:46:00Z",
-   "regime": "Unchanged from the 16:55Z brief -- risk-on with a tech-to-cyclical rotation (SPY $769.92 -0.40% / QQQ $716.47 -0.61% intraday), CPI print tomorrow AM. No rebuild trigger (no VIX spike, no brief level broken).",
-   "positions_reviewed": [
-    {
-     "symbol": "SPY 2026-11-20 700P",
-     "placed_agent": "agentic",
-     "verdict": "Thesis intact, insurance-exempt. Mark $7.315 (-2.34%), SPY $769.92 above the 746-748 tripwire, IV 21.0%, OI 19,743. Hold to ~21-DTE review (~2026-10-30)."
-    },
-    {
-     "symbol": "ACHR 2028-01-21 5C",
-     "placed_agent": "user",
-     "verdict": "Ownership-gated, manual_hold_override active. Mark $3.55 (+43.72%, delta 0.81). No action."
-    }
-   ],
-   "entries_considered": [
-    {
-     "symbol": "AMD",
-     "signal": "$472.09 +0.54% -- green day, the RSI2<10 oversold confirm cannot print today. Stays watchlisted.",
-     "iv_context": "iv_rv_ratio 0.68 (day-1 tracking, ratio only)",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- trigger not confirmed."
-    },
-    {
-     "symbol": "NVDA",
-     "signal": "$216.71 -0.39%, neutral -- no signal",
-     "iv_context": "iv_rv_ratio 0.96",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no signal."
-    }
-   ],
-   "entry_placed": null,
-   "exit_placed": null,
-   "notes": "Quiet run ~15 min after the 18:31Z one. Entry throttle 0/3 used today; realized P&L today -$108.04 (CVS, 17:03Z run), $291.96 headroom to the -$400 cap. Agentic premium-at-risk $749 of $1,500. Broker positions (SPY 700P, ACHR LEAP) match the ledger, no drift, no flags. Next watchpoints: CPI 2026-08-12 AM; CRWV earnings tonight (watch-only). EOD report due on the first run at/after 19:30Z (14:30 CT)."
-  },
-  {
-   "run_utc": "2026-08-11T19:01:00Z",
-   "regime": "Unchanged from the 16:55Z brief -- risk-on with tactical tech-to-cyclical rotation (SPY $770.07 -0.38%, QQQ $717.09 -0.52% intraday), CPI print tomorrow AM, Iran/oil overhang. No rebuild trigger (no VIX spike, no brief level broken).",
-   "positions_reviewed": [
-    {
-     "symbol": "SPY 2026-11-20 700P",
-     "placed_agent": "agentic",
-     "verdict": "Thesis intact, insurance-exempt. Mark $7.275 (-2.87%, peak +4.5%). SPY $770.07 well above the 746-748 tripwire. Hold to ~21-DTE review (~2026-10-30)."
-    },
-    {
-     "symbol": "ACHR 2028-01-21 5C",
-     "placed_agent": "user",
-     "verdict": "Ownership-gated, manual_hold_override active. Mark $3.55 (+43.72%). No action."
-    }
-   ],
-   "entries_considered": [
-    {
-     "symbol": "AMD",
-     "signal": "RSI2 17.6 (through yesterday's close) but spot $473.16 +0.77% GREEN today -- the <10 oversold confirm cannot print on a green day",
-     "iv_context": "iv_rv_ratio 0.68 per today's iv_history.json logging (cheap; single-leg favored if it ever triggers)",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no confirmed trigger; stays watch-only."
-    },
-    {
-     "symbol": "NVDA",
-     "signal": "RSI2 38.3, spot $217.27 -0.13% flat -- neutral, no signal",
-     "iv_context": "iv_rv_ratio 0.96 per today's logging",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no signal."
-    }
-   ],
-   "entry_placed": null,
-   "exit_placed": null,
-   "notes": "No-action run (19:01Z / 14:01 CT). Broker positions (SPY 700P + ACHR LEAP) match holdings.json exactly, no drift. Realized today: -$108.04 (CVS close at 17:03Z); $291.96 headroom to the -$400 cap. Agentic premium-at-risk $749 of $1,500. Entry-throttle 0/3. EOD report due on the first run at/after 19:30Z (14:30 CT)."
-  },
-  {
-   "run_utc": "2026-08-11T19:16:30Z",
-   "regime": "Unchanged from the 16:55Z brief -- risk-on with tactical tech-to-cyclical rotation (SPY $770.25 -0.36%, QQQ $717.69 -0.44% intraday), CPI print tomorrow AM, Iran/oil overhang. No rebuild trigger.",
-   "positions_reviewed": [
-    {
-     "symbol": "SPY 2026-11-20 700P",
-     "placed_agent": "agentic",
-     "verdict": "Thesis intact, insurance-exempt. Mark $7.265 (-3.0%, peak +4.5%). SPY $770.25 well above the 746-748 tripwire. Hold to ~21-DTE review (~2026-10-30)."
-    },
-    {
-     "symbol": "ACHR 2028-01-21 5C",
-     "placed_agent": "user",
-     "verdict": "Ownership-gated, manual_hold_override active. Mark $3.675 (+48.79%). No action."
-    }
-   ],
-   "entries_considered": [
-    {
-     "symbol": "AMD",
-     "signal": "Spot $473.60 +0.86% GREEN day -- the RSI2<10 oversold confirm cannot print on a green day (RSI2 17.6 through yesterday's close)",
-     "iv_context": "iv_rv_ratio 0.68 per today's iv_history.json logging (cheap; single-leg favored if it ever triggers)",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no confirmed trigger; stays watch-only."
-    },
-    {
-     "symbol": "NVDA",
-     "signal": "$217.48 -0.03% flat, RSI2 neutral -- no signal",
-     "iv_context": "iv_rv_ratio 0.96 per today's logging",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no signal."
-    }
-   ],
-   "entry_placed": null,
-   "exit_placed": null,
-   "notes": "No-action run (19:16Z / 14:16 CT). Broker positions (SPY 700P + ACHR LEAP) match holdings.json exactly, no drift, no flags. Realized today: -$108.04 (CVS close at 17:03Z); $291.96 headroom to the -$400 cap. Agentic premium-at-risk $749 of $1,500. Entry-throttle 0/3. EOD report due on the NEXT run at/after 19:30Z (14:30 CT)."
-  },
-  {
-   "run_utc": "2026-08-11T19:20:30Z",
-   "regime": "Unchanged from the 16:55Z brief -- risk-on with tactical tech-to-cyclical rotation (SPY $770.43 -0.34%, QQQ $717.66 -0.45% intraday), CPI print tomorrow AM, Iran/oil overhang. No rebuild trigger.",
-   "positions_reviewed": [
-    {
-     "symbol": "SPY 2026-11-20 700P",
-     "placed_agent": "agentic",
-     "verdict": "Thesis intact, insurance-exempt. Mark $7.235 (-3.4%, peak +4.5%). SPY $770.43 well above the 746-748 tripwire. Hold to ~21-DTE review (~2026-10-30)."
-    },
-    {
-     "symbol": "ACHR 2028-01-21 5C",
-     "placed_agent": "user",
-     "verdict": "Ownership-gated, manual_hold_override active. Mark $3.675 (+48.79%). No action."
-    }
-   ],
-   "entries_considered": [
-    {
-     "symbol": "AMD",
-     "signal": "$473.92 +0.93% GREEN day -- RSI2<10 oversold confirm cannot print on a green day",
-     "iv_context": "iv_rv_ratio 0.68 per today's iv_history.json logging (cheap; single-leg favored if it ever triggers)",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no confirmed trigger; stays watch-only."
-    },
-    {
-     "symbol": "NVDA",
-     "signal": "$217.61 flat (+0.03%), RSI2 neutral -- no signal",
-     "iv_context": "iv_rv_ratio 0.96 per today's logging",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no signal."
-    }
-   ],
-   "entry_placed": null,
-   "exit_placed": null,
-   "notes": "No-action backstop run (19:19Z / 14:19 CT, 3 min after the 19:16Z run -- scheduler jitter, nothing changed). Realized today: -$108.04 (CVS close at 17:03Z); $291.96 headroom to the -$400 cap. Agentic premium-at-risk $749 of $1,500. Entry-throttle 0/3. EOD-report duty: fired 11 min before the 14:30 CT threshold, so this session holds until ~19:32Z and writes the EOD report itself unless a newer scheduled run lands it on master first."
-  }
- ]
+  ]
 }
