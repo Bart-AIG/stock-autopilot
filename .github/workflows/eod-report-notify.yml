@@ -36,12 +36,19 @@ jobs:
       - name: Send report (push/manual) or run dead-man check (schedule)
         env:
           EVENT: ${{ github.event_name }}
+          # Optional: an ntfy.sh access token. ntfy.sh returns 400 code 40053
+          # ("anonymous email sending is not allowed") for the Email header on
+          # unauthenticated publishes (root cause of the 2026-08-11 dispatch
+          # failure) — so the email copy only goes out when this secret is set;
+          # without it, delivery is ntfy push only.
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
         run: |
           python3 - << 'PY'
           import os, subprocess, datetime
 
           NTFY = 'https://ntfy.sh/stk-ap-rb-9k4m7q2x'
           EMAIL = 'rbartlett2278@gmail.com'
+          TOKEN = os.environ.get('NTFY_TOKEN', '')
           REPORT = 'daily_options_report.md'
           FULL_URL = 'https://github.com/Bart-AIG/stock-autopilot/blob/master/daily_options_report.md'
           event = os.environ['EVENT']
@@ -57,7 +64,10 @@ jobs:
               # with a bare "HTTP 400" because -o /dev/null discarded the error text.
               hdrs = ['-H', f'Title: {title}', '-H', f'Priority: {priority}',
                       '-H', f'Click: {FULL_URL}']
-              if email:
+              if TOKEN:
+                  hdrs += ['-H', f'Authorization: Bearer {TOKEN}']
+              if email and TOKEN:
+                  # Email header requires an authenticated publish (40053).
                   hdrs += ['-H', f'Email: {email}']
               r = subprocess.run(['curl', '-sS', '-w', '\n__HTTP__%{http_code}',
                                   *hdrs, '-d', body.encode(), NTFY],
