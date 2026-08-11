@@ -1,13 +1,13 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-11T15:16:22Z",
+  "updated_utc": "2026-08-11T15:28:52Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-11",
     "trades": [],
     "total_realized_pnl": 0.0,
     "daily_loss_cap": -400,
     "cap_hit": false,
-    "_note": "New trading day, no closes yet. Agentic-placed premium-at-risk unchanged at SPY $749 + CVS $200 = $949 of the $1,500 budget, $551 remaining."
+    "_note": "No closes today. Agentic-placed premium-at-risk unchanged at SPY $749 + CVS $200 = $949 of the $1,500 budget, $551 remaining."
   },
   "positions": [
     {
@@ -24,11 +24,11 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "mark_price": 7.075,
+        "mark_price": 7.08,
         "peak_premium": 7.825,
-        "pct_from_entry": -5.54,
-        "last_checked_utc": "2026-08-11T15:16:22Z",
-        "status": "-5.54% from entry (peak +4.5%), SPY $772.57 -- above the 746-748 early-warning level (business as usual) and well below ATH-confirmation zone, setup not invalidated -- insurance position exempt from mechanical premium stops, no action"
+        "pct_from_entry": -5.47,
+        "last_checked_utc": "2026-08-11T15:28:52Z",
+        "status": "-5.47% from entry (peak +4.5%), SPY $772.45 -- above the 746-748 early-warning level (business as usual) and well below ATH-confirmation zone, setup not invalidated -- insurance position exempt from mechanical premium stops, no action"
       }
     },
     {
@@ -44,10 +44,10 @@
       "target": null,
       "_note": "placed_agent='user' (Ryan bought this himself 2026-07-20T19:38Z, $2.47/contract, $247 premium). Long-dated LEAP (18mo out) -- not gated by the HARD RULE 8 entry checklist since it wasn't an autonomous entry. manual_hold_override below suspends the -50% mechanical stop; broken-thesis and DTE/earnings exits still apply in principle but this is a Jan-2028 LEAP, far outside any near-term DTE/earnings gate.",
       "_current_state": {
-        "mark_price": 3.7,
-        "pct_from_entry": 49.8,
-        "last_checked_utc": "2026-08-11T15:16:22Z",
-        "status": "+49.80% from entry (ACHR $6.985, delta 0.82), manual_hold_override active regardless, no action"
+        "mark_price": 3.625,
+        "pct_from_entry": 46.76,
+        "last_checked_utc": "2026-08-11T15:28:52Z",
+        "status": "+46.76% from entry (ACHR spot not separately quoted this run, delta 0.81), manual_hold_override active regardless, no action"
       },
       "manual_hold_override": {
         "set_utc": "2026-07-22T14:30:00Z",
@@ -68,11 +68,11 @@
       "setup_invalidation": "RSI2 mean-reversion long call invalidates if CVS closes back below its 20-day MA / rolls over from here, or breaks the rising 200-day MA (84.98 as of 2026-08-07) -- either would mean the oversold bounce failed and the uptrend read was wrong.",
       "_note": "placed_agent='agentic' -- autonomous entry under HARD RULE 8 bounded options autonomy. Entry stack: RSI2=2.0 (deeply oversold) with price $95.85 well above a rising 200d MA ($84.98, +12.9%) -- textbook RSI2 buy-the-dip inside a confirmed uptrend, surfaced in the 2026-08-07 15:01Z intraday report's swing-setup table. HARD RULE 7 thesis: CVS beat Q2 2026 earnings and raised FY26 guidance (Aetna insurance unit recovering); 24/28 analysts rate Buy, 0 Sell; multiple banks (UBS, Barclays, TD Cowen, Bernstein, Mizuho, Morgan Stanley, Wells Fargo) raised price targets into the $106-126 range this week, median target $113 (~18% upside from entry). IV 26.9% (normal, not elevated -- next earnings ~Nov, well past this 42-DTE Sept expiry). Liquidity: OI 4,054, $1.90/$2.07 bid-ask, filled at the $2.00 limit (mid-to-slightly-above). Not an oil/energy name so no sector-steer conflict. Defensive-posture check: SPY spot $772.68, comfortably above the 746-748 early-warning level -- 'business as usual' per the calibration note, A-grade setups still taken. Sizing: $200 premium is 1st of up to 3 entries today (throttle 1/3 used); agentic-placed premium-at-risk now $749 (SPY hedge) + $200 (this) = $949 of the $1,500 total budget, $551 remaining.",
       "_current_state": {
-        "mark_price": 1.215,
+        "mark_price": 1.115,
         "peak_premium": 2.055,
-        "pct_from_entry": -39.25,
-        "last_checked_utc": "2026-08-11T15:16:22Z",
-        "status": "-39.25% from entry (38 DTE, 21-45 DTE tier: -50% would trigger a re-check, backstop -65%), setup not invalidated (CVS $94.08, still above rising 200d MA ~$85.1), no action -- approaching the -50% re-check threshold, watch closely next runs"
+        "pct_from_entry": -44.25,
+        "last_checked_utc": "2026-08-11T15:28:52Z",
+        "status": "-44.25% from entry (38 DTE, 21-45 DTE tier: -50% re-check trigger and -65% backstop not yet hit), setup not invalidated (CVS $93.77, still above rising 200d MA ~$85.1), no action -- close to the -50% re-check threshold, watch closely next runs"
       }
     },
     {
@@ -127,9 +127,9 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-11T15:16:22Z",
-    "decision": "SKIPPED new entry -- new report posted at 15:03Z (after the prior 15:01Z run) and evaluated here for the first time, but the options candidates list is substantively unchanged from the 14:23Z morning report (calls: BE/LITE/MU/AEHR/NBIS mom12-1 +396% to +863%, all >200MA; puts: SMR/COIN/ZTS/QUBT/RBLX mom12-1 -47.6% to -75.9%, ZTS still present -- the same name from the 2026-08-10 late-stage-short incident). Same HARD RULE 8 trend-maturity gate failure applies: every name is drawn from the momentum-ranking extremes by construction, i.e. already at the far end of a long-run move -- late-stage by definition, fails maturity check (a) on every candidate without individual diligence needed. Swing-setup table (CVS/ACGL/UNP) is equity-side RSI2 signal, not an autonomous-options input. No new candidate clears the gate. Entry-throttle remains 0/3 used today.",
-    "exits": "SPY 700P: mark $7.075 (-5.54% from entry, peak $7.825), SPY spot $772.57 -- above the 746-748 early-warning level, insurance-exempt, no action. CVS 100C: mark $1.215 (-39.25% from $2.00 entry, improved from -40.25% last check; 38 DTE, 21-45 DTE tier: -50% re-check trigger and -65% backstop not yet hit), setup not invalidated (CVS $94.08, still above rising 200d MA ~$85.1), no action -- approaching the -50% re-check threshold, watch closely next runs. ACHR LEAP: mark $3.70 (+49.80% from entry), manual_hold_override active + placed_agent=user, no action.",
-    "other": "Realized options P&L today: $0. Daily loss cap (-$400) not hit. Agentic-placed premium-at-risk unchanged at $949 of $1,500 budget, $551 remaining. get_option_positions matches CVS/SPY/ACHR exactly, no drift; get_equity_positions matches AAPL/IREN/ACGL, no drift. No new or unresolved _flag entries. Heartbeat already stamped today (13:30:28Z) -- no re-stamp needed. Branch/master parity confirmed at run start (local branch reset to origin/master HEAD 0ea0029, no drift)."
+    "run_utc": "2026-08-11T15:28:52Z",
+    "decision": "SKIPPED new entry -- no new report since the last run (still the 15:03Z intraday report; 15:28 file mtime is just checkout time, content unchanged). Options candidates unchanged from the prior evaluation and still fail the HARD RULE 8 trend-maturity gate (momentum-ranking extremes are late-stage by construction). Swing-setup table (CVS/ACGL/UNP) is equity-side RSI2 signal, not an autonomous-options input. No new candidate clears the gate. Entry-throttle remains 0/3 used today.",
+    "exits": "SPY 700P: mark $7.08 (-5.47% from entry, peak $7.825), SPY spot $772.45 -- above the 746-748 early-warning level, insurance-exempt, no action. CVS 100C: mark $1.115 (-44.25% from $2.00 entry, down from -39.25% last check; 38 DTE, 21-45 DTE tier: -50% re-check trigger and -65% backstop not yet hit), setup not invalidated (CVS $93.77, still above rising 200d MA ~$85.1), no action -- close to the -50% re-check threshold, watch closely next runs. ACHR LEAP: mark $3.625 (+46.76% from entry), manual_hold_override active + placed_agent=user, no action.",
+    "other": "Realized options P&L today: $0. Daily loss cap (-$400) not hit. Agentic-placed premium-at-risk unchanged at $949 of $1,500 budget, $551 remaining. get_option_positions matches CVS/SPY/ACHR exactly, no drift. No new or unresolved _flag entries. Heartbeat already stamped today (13:30:28Z) -- no re-stamp needed. Branch/master parity confirmed at run start (local branch = origin/master HEAD c2445a6, no drift)."
   }
 }
