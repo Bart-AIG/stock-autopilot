@@ -53,36 +53,56 @@ jobs:
               return out or 'never'
 
           def send(title, body, priority='default', email=None):
+              # Keep ntfy's response BODY on failure — the 2026-08-11 dispatch failed
+              # with a bare "HTTP 400" because -o /dev/null discarded the error text.
               hdrs = ['-H', f'Title: {title}', '-H', f'Priority: {priority}',
                       '-H', f'Click: {FULL_URL}']
               if email:
                   hdrs += ['-H', f'Email: {email}']
-              r = subprocess.run(['curl', '-sS', '-o', '/dev/null', '-w', '%{http_code}',
+              r = subprocess.run(['curl', '-sS', '-w', '\n__HTTP__%{http_code}',
                                   *hdrs, '-d', body.encode(), NTFY],
                                  capture_output=True, text=True)
-              print(f'ntfy HTTP {r.stdout.strip()} ({title})')
-              if r.stdout.strip() != '200':
-                  raise SystemExit(f'ntfy push failed: {r.stdout} {r.stderr}')
+              resp, _, code = r.stdout.rpartition('__HTTP__')
+              code = code.strip()
+              ok = code == '200'
+              detail = '' if ok else f' response: {resp.strip()[:500]} {r.stderr.strip()[:200]}'
+              print(f'ntfy HTTP {code} ({title}){detail}')
+              return ok
 
           if event == 'schedule':
               # Dead-man check: alarm only if today's report never landed.
               last = report_commit_date()
               if last == today:
                   print(f'backstop OK — report already committed today ({last}), nothing to do')
-              else:
-                  send('Options EOD report MISSING',
-                       f'No daily_options_report.md commit landed on master today '
-                       f'(last: {last}). The options automation may be down — check '
-                       f'cron-job.org history and claude.ai/code/routines. '
-                       f'(If today was a market holiday, ignore.)',
-                       priority='high')
+              elif not send('Options EOD report MISSING',
+                            f'No daily_options_report.md commit landed on master today '
+                            f'(last: {last}). The options automation may be down — check '
+                            f'cron-job.org history and claude.ai/code/routines. '
+                            f'(If today was a market holiday, ignore.)',
+                            priority='high'):
+                  raise SystemExit('dead-man alarm push failed')
           else:
               # push / workflow_dispatch: deliver the report (ntfy push + email copy).
+              # Degrade through tiers rather than failing silently — each fallback
+              # also isolates a cause (tier 2 passing = size problem; tier 3 passing
+              # = the Email header is what ntfy rejects).
               with open(REPORT) as f:
-                  body = f.read()
+                  full = f.read()
+              body = full
               # ntfy body limit ~4 KB; truncate with a pointer to the full file.
               if len(body.encode()) > 3800:
                   body = body.encode()[:3800].decode(errors='ignore') \
                          + '\n[truncated — tap to open the full report]'
-              send('Options daily report', body, email=EMAIL)
+              compact = full.encode()[:1200].decode(errors='ignore') \
+                        + f'\n[compact fallback — full report: {FULL_URL}]'
+              if send('Options daily report', body, email=EMAIL):
+                  print('delivered: tier 1 (full report, ntfy + email)')
+              elif send('Options daily report (compact)', compact, email=EMAIL):
+                  print('delivered: tier 2 (compact, ntfy + email) — full-size send '
+                        'was rejected; likely a body-size limit')
+              elif send('Options daily report (compact, push only)', compact):
+                  print('delivered: tier 3 (compact ntfy push, NO email) — the Email '
+                        'header is what ntfy rejects; email copy did not go out')
+              else:
+                  raise SystemExit('all delivery tiers failed — see response bodies above')
           PY
