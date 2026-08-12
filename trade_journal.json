@@ -1558,6 +1558,85 @@
       "risk_limits_check": "Agentic premium at risk $749 / $1,500 (free $751). Open agentic positions: 1, and it is the hedge, which does not count toward the max-3. Realized options P&L today $0 vs the -$400 daily cap. Weekly circuit breaker not tripped. Settled cash $1,447.47, unsettled $0 \u2014 no good-faith risk. Portfolio $3,839.54 (equity $1,418.07 / options $974.00 / cash $1,447.47). All clear.",
       "action": "NO TRADE. Both open positions held on their own gates (hedge exempt-and-working; ACHR user-placed and untriggered). The discipline this run is simply not talking myself into INTC at a price my own pre-written trigger excludes.",
       "eod_report_status": "NOT YET DUE \u2014 run time 13:20 CT; daily_options_report.md is owed by the first run at or after 14:30 CT."
+    },
+    {
+      "run_utc": "2026-08-12T18:31:00Z",
+      "run": "options automation (routine) -- 13:31 CT",
+      "regime": "risk-on, gap fully faded and flat-lining. SPY 773.15 (+0.34%) vs the 774.44 pre-market print -- the entire opening gap is gone and the index has gone sideways for ~30 minutes. QQQ 724.81 (+0.89%), NVDA 224.16 (+3.06%), AMD 486.18 (+2.50%), TSM 431.26 (+2.18%), INTC 102.19 (+4.58%). Every brief level intact (SPY 20d 752.3 / 50d 747.8 / 200d 704.0; defensive tripwire = CLOSING break of 746-748, ~25 pts below). No rebuild trigger: no surprise headline, no VIX spike, no level broken. The 13:35Z brief's 'do not chase the gap-up open' call continues to be the right read.",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "role": "authorized defensive hedge (Ryan's 2026-08-05 Aug-Oct posture)",
+          "dte": 100,
+          "entry_premium": 749.0,
+          "mark": 658.5,
+          "pl_usd": -90.5,
+          "pl_pct": -12.1,
+          "delta": -0.145,
+          "theta": -0.084,
+          "iv": 0.2087,
+          "verdict": "HOLD -- thesis intact, behaving exactly as insurance should. Down $90.50 (-12.1%) because SPY is printing ATHs; that is the premium paid for protection, not a signal. Insurance-EXEMPT from the DTE-scaled premium backstops per HARD RULE 8 / OWNERSHIP GATE, so the -50%/-70% ladder never applies here. peak_premium $7.825 unchanged -- the +50% ratchet has never armed. Kill conditions unchanged and untouched: SPY decisively >800 with no Aug-Oct pullback, or Ryan lifting the posture. Next scheduled decision: ~21-DTE roll/close review WITH Ryan around 2026-10-30. No action."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "gate": "OWNERSHIP GATE (Ryan placed it) + manual_hold_override on file",
+          "dte": 527,
+          "entry_premium": 247.0,
+          "mark": 315.0,
+          "pl_usd": 68.0,
+          "pl_pct": 27.5,
+          "delta": 0.792,
+          "verdict": "HOLD, detect-only. Ticked up from +26.5% to +27.5% since the 18:16Z check. No exit condition fired -- no +80% one-day pop, ratchet unarmed, no backstop in range, and the 21-DTE review is 1.4 years away. Double-gated regardless: even a fired trigger could only be recorded and notified once, never auto-executed. No action, no notification owed."
+        }
+      ],
+      "broker_reconciliation": "get_option_positions returns exactly the two contracts above -- matches holdings.json, no drift. Portfolio $3,836.26 (equity $1,414.79, options $974, cash/settled BP $1,447.47, unsettled $0). Agentic-placed premium-at-risk $749 of the $1,500 budget ($751 free); ACHR's $247 excluded per the 2026-08-03 sub-sleeve amendment. Realized options P&L today $0 -- the -$400 daily cap is untouched. 2 open positions (hedge excluded from the max-3 count, so effectively 0 of 3 used).",
+      "entry_hunt": {
+        "result": "NO NEW POSITION -- 5th consecutive flat run. Nothing has changed since the 18:20Z run: no new intraday report build (latest_intraday.md still the 18:06Z one), no new catalyst, no armed trigger printed.",
+        "candidates": [
+          {
+            "symbol": "INTC",
+            "status": "ARMED, TRIGGER STILL UNHIT",
+            "detail": "$102.19 (+4.58%) -- within 16 cents of the 18:15Z print the last run measured, i.e. literally no new information. The armed trigger needs ONE of: (a) a pullback to ~$97-100 HOLDING above the $95 offering price on a flat-to-green tape, or (b) a decisive close above the $105.45 Jul-21 swing high on real volume. $102.19 is the no-man's-land the trigger was written to exclude. Structure stays parked and unchanged: Sep-18 110C ~0.42 delta ~$595 (OI 44.9k, spread 3.4% of mid), fits the $751 free budget. Deliberately did NOT re-price the chain -- a trigger re-measured every 15 minutes on an unchanged price is just an invitation to soften it."
+          },
+          {
+            "symbol": "AMD",
+            "status": "SKIP -- thesis confirmed, budget-blocked (unchanged)",
+            "detail": "$486.18, still comfortably above the 478 gap-hold confirm the brief wrote. The read was correct; the sleeve cannot express it. A ~0.35-delta Sep-18 call is ~$1,900 against $751 free budget. Reaching for a far-OTM strike purely because it fits the wallet is the explicitly-named anti-pattern -- skip without regret."
+          },
+          {
+            "symbol": "TSM",
+            "status": "SKIP -- thesis confirmed, budget-blocked (unchanged)",
+            "detail": "$431.26, holding the 50d reclaim (425.82). ~0.35-delta Sep-18 ~$1,100 vs $751 free. Same structural fail as AMD."
+          },
+          {
+            "symbol": "NVDA",
+            "status": "WATCH ONLY (unchanged)",
+            "detail": "$224.16 (+3.06%), above all MAs but neither written trigger is close: no RSI2 <10 dip, and the 52wk high 235.74 breakout is 5% away. Earnings approaching late Aug is an additional reason not to open a swing here. Also budget-blocked at the right delta."
+          },
+          {
+            "symbol": "new report-sourced setups",
+            "status": "NONE AVAILABLE",
+            "detail": "latest_intraday.md on master is still the 18:06Z build already screened by the 18:16Z run (KHC skipped 4/10 on a diverging tape + flat 200d; LIN skipped on budget + no confirmation). The equity report runs hourly, so the next build lands ~19:06Z. No new candidate source this run."
+          }
+        ],
+        "process_note": "The binding constraint remains the affordability frontier, not signal quality: with $751 free budget, a correct-delta 21-45 DTE call is only reachable on underlyings roughly under ~$150. The two setups whose theses actually confirmed today (AMD, TSM) are both priced out, and the one in-band liquid name (INTC) is waiting on its own written trigger. That is the sleeve working as designed -- patience and selectivity, not activity -- but four of five skips today were structural (price band) rather than analytical."
+      },
+      "iv_context": "No new IV logging this run -- the core list (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) plus INTC were logged once today with the 13:38Z brief per the once-daily rule, and no name is under active evaluation that would warrant a re-read.",
+      "risk_state": {
+        "premium_at_risk_agentic": 749.0,
+        "budget": 1500.0,
+        "free_budget": 751.0,
+        "realized_pl_today": 0.0,
+        "daily_loss_cap": -400.0,
+        "open_agentic_positions_excl_hedge": 0,
+        "max_open": 3,
+        "weekly_circuit_breaker": "not tripped",
+        "settled_cash": 1447.47,
+        "unsettled": 0.0
+      },
+      "action": "NONE -- no entries, no exits, no notifications owed. Both positions gated and healthy; no flags found or created."
     }
   ]
 }
