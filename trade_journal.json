@@ -813,6 +813,41 @@
    "notes": "Broker reconciliation clean (get_option_positions = exactly the 2 ledger positions, no pending quantities). Sleeve: $749/$1,500 at risk (hedge only), $751 free, realized today $0 vs -$400 cap, throttle 0/3. Next run (>=14:30Z) is the first inside the entry window -- AMD/TSM decision lands there. CSCO earnings tonight (no entry), AMAT tomorrow PM. EOD report due first run >= 19:30Z."
   },
   {
+   "run_utc": "2026-08-12T14:35:00Z",
+   "regime": "Unchanged from the 13:38Z brief -- risk-on relief day (benign in-line July CPI, AI-infra earnings sweep). Live 14:31Z: SPY 772.76 (+0.29%), QQQ 725.12 (+0.93%), NVDA 224.34 (+3.1%), AMD 490.29 (+3.4%), TSM 431.20 (+2.2%). No brief-rebuild trigger.",
+   "positions_reviewed": [
+    {
+     "symbol": "SPY 2026-11-20 700P",
+     "placed_agent": "agentic",
+     "verdict": "Thesis intact (Ryan's Aug-Oct drawdown posture), insurance-exempt. Mark $6.845 (-8.6%, peak $7.825), IV 21.0%, delta -0.149, OI 19.5k, 100 DTE. SPY far above the 746-748 tripwire -- bleeds by design on a relief day. Hold to ~21-DTE review (~2026-10-30)."
+    },
+    {
+     "symbol": "ACHR 2028-01-21 5C",
+     "placed_agent": "user",
+     "verdict": "Ownership-gated, manual_hold_override active. Mark $3.175 (+28.5%, delta 0.79), underlying 6.405 (-5.7% today). Ryan's LEAP -- no action ever."
+    }
+   ],
+   "entries_considered": [
+    {
+     "symbol": "AMD",
+     "signal": "CONFIRMATION MET: 490.29 (+3.4%) at 14:31Z -- a full hour above the ~478 confirm level, tape green, catalyst fresh (CPI + CRWV/NBIS/SMCI AI-infra sweep, same-day). Trend-maturity gate would pass (-15.6% off the 580.91 high, turn-catch not chase; same-day catalyst; tape confirms).",
+     "iv_context": "LIVE ratio 0.68 (call IV 0.5668 at the fwd-ATM Sep-18 500 strike / rv 0.8293) -- cheap, single-leg favored",
+     "conviction_score": 6,
+     "outcome": "SKIPPED on structure/budget, not signal. Free budget $751 ($1,500 minus the $749 hedge). Sep-18 (37 DTE) live quotes: 500C d0.50 $31.63 / 540C d0.34 $18.23 / 560C d0.27 $13.60 -- the cheapest acceptable-delta contract is ~1.8x the free budget. A budget-fitting ~600+ strike would be d~0.12-0.15 -- the cheap-teeny anti-pattern docs/options-strategy.md explicitly calls a bad trade (the old $150-cap failure mode, recreated by the hedge consuming half the budget). Legged debit spread fails too: the long leg alone must clear the budget before the short leg exists, and cheap IV argues against spreads. Setup 8/10, affordable expression 3/10 => effective conviction 6 < 7. Skip without regret; flat is a position."
+    },
+    {
+     "symbol": "TSM",
+     "signal": "CONFIRMATION MET: 431.20 (+2.2%) at 14:31Z, holding the reclaimed 50d (~426) into hour two.",
+     "iv_context": "LIVE ratio 0.77 (call IV 0.3729 at Sep-18 450 / rv 0.4829) -- cheap",
+     "conviction_score": 5,
+     "outcome": "SKIPPED: every reachable strike fails a hard gate. Sep-18 460C d0.32 = $1,030 (over budget; bid/ask 9.70/10.90 = 11.7% of mid, fails the <10% liquidity gate); 470C d0.26 = $778 mid / $820 ask (over the $751 budget both ways; 10.9% spread, volume 12). Also the weaker of the two per the brief (AMD was primary) and same AI-semi theme -- would not take the secondary at max size while the primary is blocked."
+    }
+   ],
+   "entry_placed": null,
+   "exit_placed": null,
+   "notes": "First run inside the entry window and the plan's confirmations DID fire -- the skip is purely budget-structure: the $749 hedge halves the sleeve and both candidates are $430-490 stocks pricing $1,000+ for 0.3+ delta. Discipline held (no delta-shrink, no DTE-shrink, no forced spread). Structural takeaway for the EOD report + tomorrow: while the hedge is on, viable candidates are sub-~$250 underlyings; NVDA (224, watch-only) is the only core name in that band -- its triggers (RSI2<10 dip or >235.74 breakout) remain the honest path to sleeve activity. Throttle 0/3, realized $0 vs -$400 cap, settled cash $1,447.47. CSCO earnings tonight, AMAT tomorrow PM. EOD report due first run >= 19:30Z."
+  },
+  {
    "run_utc": "2026-08-12T14:36:00Z",
    "regime": "Unchanged from the 13:38Z brief -- risk-on relief day (benign in-line July CPI, AI-infra leadership). Live 14:32Z: SPY 772.35 (+0.23%), QQQ 724.45 (+0.83%), NVDA 223.92 (+3.0%). No brief-rebuild trigger.",
    "positions_reviewed": [
@@ -845,7 +880,7 @@
    ],
    "entry_placed": null,
    "exit_placed": null,
-   "notes": "Broker reconciliation clean (2 positions, no pendings). Sleeve: $749/$1,500 at risk (hedge only), $751 free; realized today $0 vs -$400 cap; throttle 0/3. STRUCTURAL FINDING for tonight's EOD report: with the $749 hedge consuming half the budget, no quality options expression exists on $400+ underlyings -- the watchlist should favor sub-$150 spot names (or Ryan can weigh a budget amendment / hedge review) if the AI-semi complex is where the signals keep firing. AMD/TSM confirmation is now CONSUMED (gap-hold was today's catalyst; re-entering the idea tomorrow needs a fresh trigger, not this stale one -- trend-maturity gate (b)). CSCO earnings tonight, AMAT tomorrow PM. EOD report due first run >= 19:30Z."
+   "notes": "Broker reconciliation clean (2 positions, no pendings). Sleeve: $749/$1,500 at risk (hedge only), $751 free; realized today $0 vs -$400 cap; throttle 0/3. STRUCTURAL FINDING for tonight's EOD report: with the $749 hedge consuming half the budget, no quality options expression exists on $400+ underlyings -- the watchlist should favor sub-$150 spot names (or Ryan can weigh a budget amendment / hedge review) if the AI-semi complex is where the signals keep firing. AMD/TSM confirmation is now CONSUMED (gap-hold was today's catalyst; re-entering the idea tomorrow needs a fresh trigger, not this stale one -- trend-maturity gate (b)). CSCO earnings tonight, AMAT tomorrow PM. EOD report due first run >= 19:30Z. PROCESS FINDING (double-fire): a concurrent duplicate run (journal entry 14:35Z, merged as PR #164) executed in parallel with this one -- two scheduler triggers fired the same 15-min slot (likely cron-job.org + the native hourly backstop overlapping, or a double POST). Both runs independently skipped, so no harm today, but two concurrent runs each seeing 'throttle 0/3' could BOTH place the same entry (double position, double premium) -- the repo-state throttle is not concurrency-safe. Worth surfacing in the EOD report; if double-fires recur, Ryan should stagger/disable one trigger at cron-job.org."
   }
  ]
 }
