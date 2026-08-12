@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-12T17:21:00Z",
+  "updated_utc": "2026-08-12T17:32:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-12",
     "trades": [],
@@ -27,8 +27,8 @@
         "mark_price": 6.675,
         "pct_from_entry": -10.88,
         "peak_premium": 7.825,
-        "last_checked_utc": "2026-08-12T17:21:00Z",
-        "status": "-10.9% from entry at the 17:20Z live mark ($6.675, bid/ask 6.66/6.69, IV 20.9%, delta -0.146, OI 19.5k, 100 DTE). SPY 772.81 (+0.29%), far above the 746-748 tripwire -- hedge bleeds by design in a melt-up; insurance-exempt, hold to ~21-DTE review (~2026-10-30)."
+        "last_checked_utc": "2026-08-12T17:32:00Z",
+        "status": "-10.9% from entry at the 17:31Z live mark ($6.675, bid/ask 6.66/6.69, IV 20.9%, delta -0.147, OI 19.5k, 100 DTE). SPY 772.81 (+0.29%), far above the 746-748 tripwire -- hedge bleeds by design in a melt-up; insurance-exempt, hold to ~21-DTE review (~2026-10-30)."
       }
     },
     {
@@ -46,8 +46,8 @@
       "_current_state": {
         "mark_price": 3.15,
         "pct_from_entry": 27.5,
-        "last_checked_utc": "2026-08-12T17:21:00Z",
-        "status": "+27.5% from entry at the live 17:20Z mark ($3.15, bid/ask 3.10/3.20; delta 0.79), placed_agent=user + manual_hold_override active, no action ever"
+        "last_checked_utc": "2026-08-12T17:32:00Z",
+        "status": "+27.5% from entry at the live 17:31Z mark ($3.15, bid/ask 3.10/3.20; delta 0.79), placed_agent=user + manual_hold_override active, no action ever"
       },
       "manual_hold_override": {
         "set_utc": "2026-07-22T14:30:00Z",
@@ -115,9 +115,9 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-12T17:21:00Z",
-    "decision": "SKIPPED new entry -- back-to-back firing 2 min after the 17:17Z run (cron + backstop overlap); no new report (latest_intraday still 17:03Z), no new catalyst, marks unchanged. The 17:17Z screen stands in full: LIN fails affordability + turn trigger; report put candidates fail trend-maturity gate (a); AMD/TSM confirmations still don't fit the $751 free budget. Flat.",
-    "exits": "None this run. SPY 700P: $6.675 (-10.9%), SPY 772.81 far above the 746-748 tripwire -- insurance-exempt, hold to ~21-DTE review (~2026-10-30). ACHR LEAP: $3.15 (+27.5%), placed_agent=user + manual_hold_override, no action.",
-    "other": "Broker book reconciled: exactly SPY 700P + ACHR 5C, matches ledger, no drift, no pending quantities. Realized options P&L today: $0; daily -$400 cap untouched. Agentic premium-at-risk $749 of $1,500. Entry throttle 0/3 used today. EOD report due at the first run at/after 19:30Z (14:30 CT)."
+    "run_utc": "2026-08-12T17:32:00Z",
+    "decision": "SKIPPED new entry -- routine 15-min cycle, nothing new since 17:17Z: intraday report still 17:03Z, tape unchanged (SPY 772.81 +0.29%, QQQ 725.04 +0.92%), option marks identical. The 17:17Z screen stands: LIN fails affordability ($481 underlying vs $751 free) + no turn trigger (red vs green tape); report put candidates fail trend-maturity gate (a); AMD (486.85) / TSM (429.45) confirmations standing but no sane-delta 21-45 DTE contract fits the $751 free budget. Flat.",
+    "exits": "None. SPY 700P: $6.675 (-10.9%), SPY far above the 746-748 tripwire -- insurance-exempt, hold to ~21-DTE review (~2026-10-30). ACHR LEAP: $3.15 (+27.5%), placed_agent=user + manual_hold_override, no action.",
+    "other": "Broker book reconciled 17:31Z: exactly SPY 700P + ACHR 5C, matches ledger, no pending quantities, no drift. Realized options P&L today $0; -$400 cap untouched. Agentic premium-at-risk $749 of $1,500. Entry throttle 0/3 used today. EOD report due at the first run at/after 19:30Z (14:30 CT)."
   }
 }
