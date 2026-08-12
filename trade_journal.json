@@ -1695,6 +1695,87 @@
    "iv_tracking": "Overwrote the SPY 2026-08-12 row in iv_history.json with LIVE values, closing out the caveat the 13:35Z brief itself logged (the morning rows carried 2026-08-11 CLOSE IVs because the quote feed was serving prior-close snapshots minutes after the open). Live 2026-09-11 773-strike ATM straddle at 18:46Z: call IV 0.12331 / put IV 0.12122 -> atm_iv 0.1223 (was 0.1266), spot 773.42, rv_30d 0.1251, ratio 0.98 -- index premium in line with realized. Day 2 of tracking, still <20 readings, so ratio-only (no percentile). The other core rows stay as logged; a later run touching one of those names should overwrite it the same way.",
    "eod_report": "NOT DUE this run -- the EOD report fires on the first run at or after 14:30 CT (19:30Z). This run is 13:46 CT.",
    "actions_taken": "None. Log-only run: journal entry + the live SPY IV correction, merged to master."
+  },
+  {
+   "run_utc": "2026-08-12T19:01:00Z",
+   "run": "options automation (routine) -- 14:01 CT",
+   "regime": "risk-on, unchanged and quiet into the last hour. SPY 773.27 (+0.35%), QQQ 724.78 (+0.88%), AMD 485.36 (+2.33%), TSM 431.39 (+2.21%), INTC 102.72 (+5.13%). Every brief level intact (SPY 20d 752.3 / 50d 747.8 / 200d 704.0; defensive tripwire = CLOSING break of 746-748, ~26 pts below). No brief rebuild: no surprise headline, no VIX spike, no brief level broken, and latest_intraday.md is still the 18:06Z build (no new report signals since the last run).",
+   "positions_reviewed": [
+    {
+     "symbol": "SPY 2026-11-20 700P",
+     "placed_agent": "agentic",
+     "role": "authorized defensive hedge (Ryan's 2026-08-05 Aug-Oct posture)",
+     "dte": 100,
+     "entry_premium": 749.0,
+     "mark": 657.5,
+     "pl_usd": -91.5,
+     "pl_pct": -12.2,
+     "delta": -0.1448,
+     "theta": -0.0839,
+     "iv": 0.2088,
+     "verdict": "HOLD -- thesis intact. Ticked back from -12.5% to -12.2% as SPY eased a few cents off the highs; noise either way. Insurance-EXEMPT from the DTE-scaled premium backstops per HARD RULE 8 / OWNERSHIP GATE, so the -50%/-70% ladder never applies to this contract. peak_premium $7.825 unchanged -- the +50% ratchet has never armed. Kill conditions untouched: SPY decisively >800 with no Aug-Oct pullback, or Ryan lifting the posture. Next decision: ~21-DTE roll/close review WITH Ryan around 2026-10-30. No action."
+    },
+    {
+     "symbol": "ACHR 2028-01-21 5C",
+     "placed_agent": "user",
+     "dte": 527,
+     "entry_premium": 247.0,
+     "mark": 315.0,
+     "pl_usd": 68.0,
+     "pl_pct": 27.5,
+     "verdict": "NO ACTION -- ownership gate. Ryan placed this LEAP himself and set a manual_hold_override ('I'll handle the achr leap. Just leave it be'). Unchanged at +27.5%; no exit condition is close, and none would be actionable by this run if it were. Does not count against the agentic $1,500 premium budget."
+    }
+   ],
+   "entries": [],
+   "entry_decision": "NO ENTRY -- no watchlist trigger printed.",
+   "candidates_screened": [
+    {
+     "symbol": "INTC",
+     "spot": 102.72,
+     "day_pct": 5.13,
+     "gate_failed": "trend-maturity / entry-timing (pre-written trigger UNHIT)",
+     "detail": "The armed trigger requires EITHER a pullback into ~$97-100 that HOLDS above the $95 offering price on a flat-to-green tape, OR a decisive close above the $105.45 Jul-21 swing high on real volume. INTC is at $102.72, +5.1% on the day -- in the no-man's-land between the two, and further into the beta rip than when it was skipped at 18:00Z ($102.26). Buying here is exactly the mid-rip chase the trigger was written to prevent. Structure stays pre-priced and ready (2026-09-18 110C ~$595 / 115C ~$457, both inside the $751 free budget); a later run may act WITHOUT improvising if either level prints. Not adding a third, looser trigger to make a trade fit today."
+    },
+    {
+     "symbol": "AMD",
+     "spot": 485.36,
+     "day_pct": 2.33,
+     "gate_failed": "budget (right-delta contract unaffordable)",
+     "detail": "Brief confirm level (hold >= ~478) IS satisfied -- $485.36, gap held all session. Liquidity and IV both pass (iv_rv 0.68 = cheap). But the measured frontier stands: Sep-18 0.35-delta is ~$1,900 and even the 0.26-delta 560C is $1,287 vs a $751 free budget. Buying the far-OTM strike that happens to fit is the explicit anti-pattern guard in the brief and HARD RULE 8. Flat is correct."
+    },
+    {
+     "symbol": "TSM",
+     "spot": 431.39,
+     "day_pct": 2.21,
+     "gate_failed": "budget (right-delta contract unaffordable)",
+     "detail": "50d reclaim (426) holding into the afternoon -- thesis confirming. Cheapest acceptable-delta contract measured today is the Sep-18 460C at 0.313 delta / $957.50, still above the $751 free budget; the true 0.35-delta is ~$1,100. Same anti-pattern guard applies. Skip."
+    },
+    {
+     "symbol": "NVDA",
+     "gate_failed": "no trigger",
+     "detail": "Watch-only per the brief: in-trend but no RSI2 dip and no breakout over $235.74; late-Aug earnings approaching. Nothing to act on."
+    }
+   ],
+   "iv_context": "Day 2 of self-tracking, <20 readings -- iv_rv_ratio only, no percentile (per the IV rules). No new row written this run: SPY's row was already overwritten with live values at 18:46Z (atm_iv 0.1223, ratio 0.98), and INTC's live 18:02Z row (atm_iv 0.6843, rv 0.8448, ratio 0.81) is still representative -- spot moved only 0.45% ($102.26 -> $102.72) and no contract was priced this run. One row per ticker per day, so nothing to append.",
+   "conviction_score": null,
+   "sleeve_state": {
+    "agentic_premium_at_risk_usd": 749.0,
+    "budget_usd": 1500.0,
+    "free_budget_usd": 751.0,
+    "open_agentic_positions": 1,
+    "max_agentic_positions": 3,
+    "realized_options_pl_today_usd": 0.0,
+    "daily_loss_cap_usd": -400.0,
+    "settled_cash_usd": 1447.47,
+    "unsettled_usd": 0.0,
+    "portfolio_total_value_usd": 3834.27,
+    "weekly_circuit_breaker": "not tripped",
+    "entries_today": 0,
+    "max_entries_per_day": 3
+   },
+   "exits": [],
+   "flags": "No HARD RULE 9 flags in holdings.json. Broker reconciliation clean: get_option_positions returns exactly the two contracts in the ledger (SPY 700P, ACHR 5C) -- no drift.",
+   "notes": "Fourteenth run of the day, still flat on new entries and that is the correct outcome: the two confirming setups (AMD, TSM) are priced out of a $751 budget, and the one affordable, liquid, right-delta candidate (INTC) has not printed either of its pre-written trigger levels. The discipline this run enforced is NOT adding a looser INTC trigger just because the stock is running -- arming the level at 18:05Z existed precisely to stop a later run improvising an entry mid-rip. EOD report is due on the first run at/after 14:30 CT; this run fired at 14:01 CT, so it is not due yet."
   }
  ]
 }
