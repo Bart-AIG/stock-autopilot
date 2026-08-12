@@ -1944,6 +1944,76 @@
       "eod_report": "NOT this run. The EOD trigger is the first run at or after 14:30 CT; this run is 14:20 CT. The 19:31Z run owns it -- daily_options_report.md currently still holds Tuesday 2026-08-11 and must be overwritten with today's report. Deliberately not written early: committing it now would fire eod-report-notify.yml on an incomplete day and then again on the real EOD run, double-notifying Ryan.",
       "conviction_score": null,
       "outcome": "No action. Positions held; ledger and journal synced to master."
+    },
+    {
+      "run_utc": "2026-08-12T19:32:00Z",
+      "run": "Options automation \u2014 FINAL run of the trading day (fired 19:30Z / 14:30 CT). EOD-report run per HARD RULE 8.",
+      "regime": "risk-on, unchanged and quiet into the close. SPY 772.91 (+0.31%), QQQ 723.87 (+0.75%), NVDA 222.70 (+2.39%). The benign-CPI gap-up (SPY 774.4 pre-market) has fully faded back to roughly flat-to-modestly-green \u2014 the relief bid never extended. VIX ~15, no stress. Regime label unchanged from the 13:38Z brief; no catalyst warranting a brief rebuild.",
+      "report_source_check": "latest_intraday.md 19:02Z (fresh, no DATA ERROR). No NEW options-grade setup: the swing table is ACGL + AAPL, both already HELD equity positions, both ~flat, neither an options candidate. No new watchlist additions.",
+      "positions_reviewed": [
+        {
+          "contract": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "HOLD \u2014 thesis intact, working as designed.",
+          "detail": "Mark $6.585 (bid/ask 6.57/6.60), \u221212.1% / \u2212$90.50 from the $7.49 basis. DTE 100, delta \u22120.145, theta \u22120.084, IV 20.8%. Authorized defensive hedge = INSURANCE: explicitly exempt from the DTE-scaled premium backstops, so \u221250%/\u221270% never apply and today's bleed is not a sell signal. SPY at/near ATHs is precisely the tape in which this position is supposed to lose a little. peak_premium $7.825 unchanged; the +50% ratchet has never armed. Next decision is the ~21-DTE roll/close review WITH Ryan around 2026-10-30."
+        },
+        {
+          "contract": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "NO ACTION \u2014 ownership gate + manual_hold_override.",
+          "detail": "Mark $3.075, +24.5% / +$60.50, DTE 527, delta 0.788. Ryan placed it himself and instructed 'leave it be' (2026-07-22). Not actionable by any automated run regardless of price. Excluded from the agentic $1,500 budget."
+        }
+      ],
+      "entries": [],
+      "entry_decision": "NO ENTRY \u2014 the day closes flat by design, not by paralysis. INTC, the one armed setup, spent the entire afternoon in the dead zone between its two pre-written trigger branches and finished the automation's watch at $101.61 (+4.0%). With ~28 minutes left in the session neither branch could resolve. The single most important thing this run did was NOT loosen the trigger to manufacture a trade on the last run of the day \u2014 the trigger was written precisely to prevent buying a mid-day rip in a name whose confirm condition is a pullback-that-holds. AMD and TSM both confirmed technically but remain priced out at the correct delta. Flat is a position.",
+      "candidates_screened": [
+        {
+          "symbol": "INTC",
+          "spot": 101.61,
+          "day_pct": 3.99,
+          "gate_failed": "entry trigger unhit (timing / trend-maturity)",
+          "detail": "Armed trigger requires EITHER a pullback into ~$97-100 that HOLDS above the $95 offering price, OR a decisive close above the $105.45 Jul-21 swing high on real volume. Final print $101.61 \u2014 the dead zone, for the sixth consecutive run, and it FADED from the 19:20Z $102.51 rather than pushing toward the breakout, so the session ends with the pullback branch closer but not reached. Everything else on this name passes: budget (Sep-18 110C ~$595 / 115C ~$457 vs $751 free), liquidity (OI 44,946, spread 3.4% of mid), IV (ratio 0.81 = cheap vs realized). Setup stays ARMED and fully pre-priced into tomorrow; kill level unchanged at a close below $95."
+        },
+        {
+          "symbol": "AMD",
+          "spot": 482.85,
+          "day_pct": 1.8,
+          "gate_failed": "budget (right-delta contract unaffordable)",
+          "detail": "Held above the 474.32 confirm level all day, so the technical branch of the thesis passed. Blocked purely on size: a ~0.35-delta Sep-18 call costs ~$1,900 against $751 free budget. $751 buys only ~0.15-0.18 delta \u2014 the far-OTM lottery ticket the anti-pattern guard explicitly forbids. Measured live prices are recorded in market_brief.budget_affordability_frontier so future runs read rather than re-derive this."
+        },
+        {
+          "symbol": "TSM",
+          "spot": 430.08,
+          "day_pct": 1.9,
+          "gate_failed": "budget (right-delta contract unaffordable)",
+          "detail": "Held its 50d reclaim (426) into the close \u2014 technical branch passed. A ~0.35-delta Sep-18 call is ~$1,100 vs $751 free. Same anti-pattern logic as AMD: sizing into the contract that fits the leftover budget is backwards."
+        },
+        {
+          "symbol": "NVDA",
+          "spot": 222.7,
+          "day_pct": 2.39,
+          "gate_failed": "no trigger (watch-only)",
+          "detail": "Strongest core name on the day but above all MAs with no oversold dip and no fresh single-name catalyst; late-Aug earnings approaching. Neither the RSI2-dip branch nor the 235.74 breakout branch is in play."
+        }
+      ],
+      "iv_context": "Day 2 of self-tracking (<20 readings \u2014 iv_rv_ratio only, no percentiles; stated in the report). Live near-close refresh performed this run for QQQ: 2026-09-11 724-strike ATM straddle, call IV 0.18753 / put IV 0.18589 \u2192 atm_iv 0.1867 vs rv_30d 0.2435 = ratio 0.77 (cheap), overwriting the 13:35Z prior-close placeholder (0.193). SPY/AMD/TSM/INTC rows were already live from earlier runs. NVDA/AVGO/MSFT/TSLA rows remain 2026-08-11-close placeholders: ATM-strike lookups for those names returned no instrument at the guessed strike/expiry, and with <30 minutes to the close the mandatory EOD report took priority over strike-hunting. Their existing caveat notes state this accurately \u2014 no reading is presented as live when it isn't.",
+      "risk_state": {
+        "agentic_premium_at_risk_usd": 749.0,
+        "budget_usd": 1500.0,
+        "free_budget_usd": 751.0,
+        "realized_options_pl_today_usd": 0.0,
+        "daily_loss_cap_usd": -400.0,
+        "open_agentic_positions": 1,
+        "max_open": 3,
+        "settled_cash_usd": 1447.47,
+        "unsettled_funds_usd": 0.0,
+        "account_total_value_usd": 3830.53,
+        "weekly_circuit_breaker": "Non-binding this run \u2014 no entry was proposed, and the sleeve's only agentic position is the insurance hedge whose by-design bleed is expressly exempt from loss-based gating. Nothing to log as a breach.",
+        "flags": "No HARD RULE 9 flags found or created. No unauthorized positions. Broker reconciliation at run start: get_option_positions returns exactly SPY 700P + ACHR 5C \u2014 matches holdings.json, zero drift."
+      },
+      "eod_report": "WRITTEN \u2014 daily_options_report.md rewritten in full for 2026-08-12 (positions with thesis refreshers, the zero-action record, the full skip reasoning for INTC/AMD/TSM/AEHR/CRWV-NBIS-SMCI/NVDA/CSCO, sleeve state vs the $1,500 budget and \u2212$400 cap, and tomorrow's watchpoints incl. the INTC trigger levels and AMAT/CSCO earnings). Committed to master \u2014 that commit IS the delivery via eod-report-notify.yml. No ntfy curl attempted from the session (proxy 403, per the 2026-08-11 fix).",
+      "conviction_score": "N/A \u2014 no entry taken. INTC would have scored ~7-8 on thesis quality (overhang cleared, cheap IV, top-decile momentum, affordable AND liquid \u2014 a rare full stack for this budget) but its ENTRY TIMING scored ~3: mid-rip, trigger unhit. Conviction in a thesis is not conviction in an entry price, and only the second one authorizes a purchase.",
+      "outcome": "No trade. Both positions held on their own gates. IV history improved (QQQ live refresh). Day ends: 1 agentic position (the hedge), $749 of $1,500 deployed, $0 realized P&L, no flags, INTC armed and pre-priced into tomorrow."
     }
   ]
 }
