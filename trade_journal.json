@@ -1865,6 +1865,85 @@
       "exits": [],
       "flags": "No HARD RULE 9 flags in holdings.json (FLAGS list empty). Broker reconciliation clean: get_option_positions returns exactly SPY 2026-11-20 700P (agentic hedge) + ACHR 2028-01-21 5C (user, override) -- matches holdings.json, no drift.",
       "eod_report": "NOT due this run -- 14:16 CT is before the 14:30 CT threshold. The next run (~19:30Z / 14:30 CT) writes daily_options_report.md, matching yesterday's 19:32Z cadence."
+    },
+    {
+      "run_utc": "2026-08-12T19:20:00Z",
+      "run": "options automation (routine) -- 14:20 CT",
+      "regime": "risk-on, unchanged into the final 40 minutes. SPY 773.09 (+0.33%), QQQ 724.57 (+0.85%), AMD 484.96 (+2.24%), TSM 432.15 (+2.39%), INTC 102.51 (+4.91%). All brief levels intact (SPY 20d 752.3 / 50d 747.8 / 200d 704.0; defensive tripwire = CLOSING break of 746-748, ~26 pts below). NO brief rebuild: no surprise headline, no VIX spike, no level broken.",
+      "report_source_check": "latest_intraday.md still the 19:02Z build -- the SAME build the 19:16Z run already diffed against 18:06Z and found carried no new names. No rebuild since, so there is nothing new to screen: same four RSI2 setups (ACGL/AAPL both HELD, LIN, KHC) and the same momentum decile. Per the standing rule a re-print of an already-rejected setup is not a new catalyst; no watchlist addition.",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "role": "authorized defensive hedge (Ryan's 2026-08-05 Aug-Oct posture)",
+          "dte": 100,
+          "entry_premium": 749.0,
+          "mark": 656.0,
+          "pl_usd": -93.0,
+          "pl_pct": -12.4,
+          "delta": -0.145,
+          "theta": -0.0837,
+          "iv": 0.2084,
+          "verdict": "HOLD -- thesis intact. Drifted -0.2pt from 19:16Z (-12.2% -> -12.4%) as SPY held its gains; that is insurance doing what insurance does on an ATH relief day, not a signal. Insurance-EXEMPT from the DTE-scaled premium backstops per HARD RULE 8 / OWNERSHIP GATE, so the -50%/-70% ladder never applies. peak_premium $7.825 unchanged -- the +50% ratchet has never armed. Kill conditions untouched: SPY decisively >800 with no Aug-Oct pullback, or Ryan lifting the posture. Next decision: ~21-DTE roll/close review WITH Ryan around 2026-10-30. No action."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "dte": 527,
+          "entry_premium": 247.0,
+          "mark": 310.0,
+          "pl_usd": 63.0,
+          "pl_pct": 25.5,
+          "verdict": "NO ACTION -- ownership gate. Ryan placed this LEAP himself and set a manual_hold_override ('I'll handle the achr leap. Just leave it be'). Flat at +25.5% vs 19:16Z. No exit condition anywhere near, and none would be actionable by this run if it were. Does not count against the agentic $1,500 budget."
+        }
+      ],
+      "entries": [],
+      "entry_decision": "NO ENTRY -- the one armed trigger did not print, and the two confirming theses remain priced out at the right delta. Flat is the correct position.",
+      "candidates_screened": [
+        {
+          "symbol": "INTC",
+          "spot": 102.505,
+          "day_pct": 4.91,
+          "gate_failed": "entry trigger unhit (timing / trend-maturity)",
+          "detail": "The brief's ARMED trigger requires one of two things and printed NEITHER: (a) a pullback to ~$97-100 that HOLDS above the $95 offering price, or (b) a decisive close above the $105.45 Jul-21 swing high on real volume. INTC sits at $102.51 -- the dead zone between them, and still +4.9% on the day, i.e. the same mid-day beta rip correctly skipped since 18:05Z. Buying here is chasing strength into the close on a name whose confirm level is explicitly a pullback-hold. With ~40 minutes left neither branch can realistically resolve today. The setup stays ARMED and pre-written -- structure ready (2026-09-18 110C ~0.42 delta ~$595, OI 44,946, spread 3.4% of mid) -- which is the point of arming it: no improvising when the level finally prints."
+        },
+        {
+          "symbol": "AMD",
+          "spot": 484.955,
+          "day_pct": 2.24,
+          "gate_failed": "free budget vs right-delta strike",
+          "detail": "Thesis CONFIRMS on the tape -- the brief required the gap to hold >= ~478 and AMD has been above yesterday's 474.32 close all day, now 484.96. Liquidity and IV both pass (iv_rv ratio 0.68 = cheap, spreads 2-4% of mid, real OI). The blocker is money only: measured live at 17:47Z, the Sep-18 ~0.35-delta strike costs ~$1,900 and even the 560C (delta 0.26) is $1,287.50 -- against $751 of free budget ($1,500 cap less the $749 hedge). The only AMD contract that FITS is ~0.15-0.18 delta, which HARD RULE 8's anti-pattern guard names explicitly as the wrong trade ('prefer the liquid, right-delta strike over a cheap illiquid one'). Skipped on size discipline, not on thesis."
+        },
+        {
+          "symbol": "TSM",
+          "spot": 432.15,
+          "day_pct": 2.39,
+          "gate_failed": "free budget vs right-delta strike",
+          "detail": "Also confirms -- held its 50d reclaim (426) all session, now 432.15. IV cheap (ratio 0.78), OI real. Same budget wall: the Sep-18 430C (delta 0.536) is $2,085 and the 460C (delta 0.313) is $957.50, both above the $751 free budget; the nearest affordable strike is ~0.25 delta and falling. Skipped on size, not thesis."
+        },
+        {
+          "symbol": "NVDA",
+          "gate_failed": "no trigger",
+          "detail": "WATCH ONLY per the brief. Above all MAs but no RSI2 oversold dip and no breakout over the 52wk high 235.74. Earnings ~late Aug approaching, which argues against opening new NVDA risk into an event that is not our thesis. No action."
+        }
+      ],
+      "iv_context": "Day 2 of self-tracking (<20 readings -> iv_rv_ratio only, no percentile -- correctly NOT citing an IV rank). Today's rows are logged and, for the names that matter, already refreshed to LIVE marks by earlier runs: SPY 0.98, QQQ 0.79, NVDA 0.98, AMD 0.68 (live 17:47Z), TSM 0.78, AVGO 1.18, MSFT 0.55, TSLA 0.61, INTC 0.81 (live 18:05Z). All below the 1.5 elevated threshold -- premium in-line-to-cheap, single-legs favored wherever a setup confirms. No name touched this run needed an overwrite: INTC has moved only ~$0.25 since its live 18:05Z reading, so the logged row still describes the current chain.",
+      "risk_state": {
+        "agentic_premium_at_risk_usd": 749.0,
+        "budget_usd": 1500.0,
+        "free_budget_usd": 751.0,
+        "open_agentic_positions": 1,
+        "max_positions": 3,
+        "realized_options_pl_today_usd": 0.0,
+        "daily_loss_cap_usd": -400.0,
+        "settled_cash_usd": 1447.47,
+        "unsettled_funds_usd": 0.0,
+        "weekly_circuit_breaker": "not tripped",
+        "note": "ACHR is placed_agent='user' and excluded from the agentic budget per the 2026-08-03 sub-sleeve amendment. Binding constraint remains the $1,500 premium cap (free $751), NOT settled cash ($1,447.47)."
+      },
+      "eod_report": "NOT this run. The EOD trigger is the first run at or after 14:30 CT; this run is 14:20 CT. The 19:31Z run owns it -- daily_options_report.md currently still holds Tuesday 2026-08-11 and must be overwritten with today's report. Deliberately not written early: committing it now would fire eod-report-notify.yml on an incomplete day and then again on the real EOD run, double-notifying Ryan.",
+      "conviction_score": null,
+      "outcome": "No action. Positions held; ledger and journal synced to master."
     }
   ]
 }
