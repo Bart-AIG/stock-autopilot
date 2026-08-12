@@ -1,6 +1,6 @@
 {
  "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
- "updated_utc": "2026-08-12T14:36:00Z",
+ "updated_utc": "2026-08-12T14:47:00Z",
  "_realized_options_pnl_today": {
   "date_utc": "2026-08-12",
   "trades": [],
@@ -24,11 +24,11 @@
    "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
    "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
    "_current_state": {
-    "mark_price": 6.845,
-    "pct_from_entry": -8.61,
+    "mark_price": 6.755,
+    "pct_from_entry": -9.81,
     "peak_premium": 7.825,
-    "last_checked_utc": "2026-08-12T14:33:00Z",
-    "status": "-8.6% from entry at the 14:33Z live mark ($6.845, bid/ask 6.83/6.86, IV 21.0%, delta -0.149, OI 19.5k, 100 DTE). SPY 772.35 (+0.23%) post-benign-CPI, far above the 746-748 tripwire -- hedge bleeds by design in a melt-up; insurance-exempt, hold to ~21-DTE review (~2026-10-30)."
+    "last_checked_utc": "2026-08-12T14:46:00Z",
+    "status": "-9.8% from entry at the 14:46Z live mark ($6.755, bid/ask 6.74/6.77, IV 21.0%, delta -0.147, OI 19.5k, 100 DTE). SPY 773.13 (+0.33%) post-benign-CPI, far above the 746-748 tripwire -- hedge bleeds by design in a melt-up; insurance-exempt, hold to ~21-DTE review (~2026-10-30)."
    }
   },
   {
@@ -46,8 +46,8 @@
    "_current_state": {
     "mark_price": 3.175,
     "pct_from_entry": 28.5,
-    "last_checked_utc": "2026-08-12T14:33:00Z",
-    "status": "+28.5% from entry at the live 14:33Z mark ($3.175; delta 0.79; underlying 6.385, -6.0% today), placed_agent=user + manual_hold_override active, no action ever"
+    "last_checked_utc": "2026-08-12T14:46:00Z",
+    "status": "+28.5% from entry at the live 14:46Z mark ($3.175; delta 0.79; underlying 6.40, -5.7% today), placed_agent=user + manual_hold_override active, no action ever"
    },
    "manual_hold_override": {
     "set_utc": "2026-07-22T14:30:00Z",
@@ -66,7 +66,10 @@
    "thesis_checked": {
     "date": "2026-08-12",
     "verdict": "intact",
-    "covers": ["below_200ma", "out_of_decile"],
+    "covers": [
+     "below_200ma",
+     "out_of_decile"
+    ],
     "note": "$2.8B new multi-year AI contracts (2026-07-20) lifted the 2026 AI-cloud run-rate target above $4B with ~85% already under contract; customers include Microsoft, NVIDIA, Perplexity, Figure AI, Together AI; Mirantis closed 2026-08-04; 9-analyst median PT $80. Below the 200d MA because the stock ran hard and gave back, not because the story broke -- accelerating fundamentals, execution-risk jitters on a volatile AI name. Ryan standing instruction 2026-07-20: 'Don't sell iren.' Researched and confirmed INTACT by interactive sessions on 3 consecutive days (2026-08-10, -11, -12) -- the repeat alerts were the unmerged suppression fix, not new evidence."
    },
    "_current_state": {
@@ -112,9 +115,9 @@
   "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
  },
  "_last_entry_evaluation": {
-  "run_utc": "2026-08-12T14:36:00Z",
-  "decision": "SKIPPED new entry -- the 14:17Z run's AMD/TSM confirmation condition DID trigger (AMD 489.29 +3.2% >> 478 confirm, TSM 430.67 +2.0% > 426, QQQ +0.8%, gap held >1hr), but NO affordable structure passes the quality bar against the $751 free budget ($1,500 cap - $749 hedge). Live Sep-18 (37 DTE) asks: AMD 490C $3,625 / 530C $2,120 -- unaffordable at any sane delta, and a spread's long leg alone exceeds both the interim budget headroom and settled cash ($1,447). TSM ladder: 450C (delta 0.39, the right contract) $1,370; 460C (0.33) $1,070 -- both over $751; what fits is the 480C (delta 0.21, +12.8% OTM, breakeven 485.75 = +12.8% in 37 days) at ~$595, i.e. the exact cheap-far-OTM trade-off docs/options-strategy.md flags as a bad trade, or a sub-0.15-net-delta narrow spread. Conviction on those structures ~4-5/10, below the >=7 gate. Per the discipline (skipped mediocre setup costs nothing), flat. STRUCTURAL NOTE for the EOD report: while the $749 hedge is on, the sleeve cannot express any quality setup on a $400+ underlying -- big-cap AI-semi signals are effectively out of reach until the hedge rolls off or Ryan amends the budget; actionable candidates must come from lower-priced underlyings (<~$150 spot for a 0.35-delta 30-45 DTE single-leg to fit ~$750).",
-  "exits": "None this run. SPY 700P: $6.845 (-8.6%), SPY 772.35 far above the 746-748 tripwire -- insurance-exempt, hold to ~21-DTE review (~2026-10-30). ACHR LEAP: $3.175 (+28.5%), placed_agent=user + manual_hold_override, no action.",
-  "other": "Realized options P&L today: $0. Daily loss cap (-$400) untouched. Agentic premium-at-risk $749 of $1,500. Broker book reconciled clean (2 positions, no pendings). Entry throttle 0/3 used today. IV rows for AMD/TSM overwritten with live 14:33Z readings. PROCESS FINDING: a concurrent duplicate automation run (14:35Z, PR #164) fired ~1 min before this one and independently reached the same skip decision -- see the 14:36Z journal entry's notes."
+  "run_utc": "2026-08-12T14:47:00Z",
+  "decision": "SKIPPED new entry -- unchanged from the 14:36Z evaluation 10 minutes earlier. AMD 491.03 (+3.5%) and TSM 430.80 (+2.1%) still confirm their watchlist levels, but the structural constraint is identical: $751 free budget ($1,500 cap - $749 hedge) buys no sane-delta contract on either name (TSM 450C ~$1,370 / 460C ~$1,070; AMD worse), and the only affordable structures are the cheap-far-OTM punts already rejected on the honesty test at 14:36Z. Nothing new happened in 10 minutes (no fresh intraday report, no brief-rebuild catalyst, VIX calm); re-pricing full chains to re-reach a settled decision would be churn, not diligence. Flat.",
+  "exits": "None this run. SPY 700P: $6.755 (-9.8%), SPY 773.13 far above the 746-748 tripwire -- insurance-exempt, hold to ~21-DTE review (~2026-10-30). ACHR LEAP: $3.175 (+28.5%), placed_agent=user + manual_hold_override, no action.",
+  "other": "Realized options P&L today: $0; daily -$400 cap untouched. Agentic premium-at-risk $749 of $1,500. Broker book reconciled clean at 14:46Z (2 positions, zero pendings, matches ledger). Entry throttle 0/3 used today."
  }
 }
