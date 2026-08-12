@@ -1,0 +1,119 @@
+# Delivers the daily options EOD report to Ryan. Delivery lives HERE, not in the
+# Claude session that writes the report: the managed Claude cloud environments
+# cannot reach ntfy.sh (proxy 403 — root cause of the silent 2026-08-11 delivery
+# failure), while this GitHub runner has open internet and already delivers the
+# report.py ntfy alerts reliably. The automation's only delivery duty is now to
+# get daily_options_report.md committed to master — this workflow does the rest.
+name: EOD options report notify
+
+on:
+  push:
+    branches: [master]
+    paths: [daily_options_report.md]
+  workflow_dispatch: {}   # manual (re)send of the current report
+  schedule:
+    # Dead-man backstop: 20:45 UTC Mon-Fri (= 15:45 CDT / 14:45 CST, both after
+    # the ~14:30 CT EOD-report deadline year-round). Sends an ALARM only if no
+    # report landed today; actual delivery is the push trigger above.
+    - cron: '45 20 * * 1-5'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: eod-report-notify
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Send report (push/manual) or run dead-man check (schedule)
+        env:
+          EVENT: ${{ github.event_name }}
+          # Optional: an ntfy.sh access token. ntfy.sh returns 400 code 40053
+          # ("anonymous email sending is not allowed") for the Email header on
+          # unauthenticated publishes (root cause of the 2026-08-11 dispatch
+          # failure) — so the email copy only goes out when this secret is set;
+          # without it, delivery is ntfy push only.
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+        run: |
+          python3 - << 'PY'
+          import os, subprocess, datetime
+
+          NTFY = 'https://ntfy.sh/stk-ap-rb-9k4m7q2x'
+          EMAIL = 'rbartlett2278@gmail.com'
+          TOKEN = os.environ.get('NTFY_TOKEN', '')
+          REPORT = 'daily_options_report.md'
+          FULL_URL = 'https://github.com/Bart-AIG/stock-autopilot/blob/master/daily_options_report.md'
+          event = os.environ['EVENT']
+          today = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d')
+
+          def report_commit_date():
+              out = subprocess.run(['git', 'log', '-1', '--format=%cs', '--', REPORT],
+                                   capture_output=True, text=True).stdout.strip()
+              return out or 'never'
+
+          def send(title, body, priority='default', email=None):
+              # Keep ntfy's response BODY on failure — the 2026-08-11 dispatch failed
+              # with a bare "HTTP 400" because -o /dev/null discarded the error text.
+              hdrs = ['-H', f'Title: {title}', '-H', f'Priority: {priority}',
+                      '-H', f'Click: {FULL_URL}']
+              if TOKEN:
+                  hdrs += ['-H', f'Authorization: Bearer {TOKEN}']
+              if email and TOKEN:
+                  # Email header requires an authenticated publish (40053).
+                  hdrs += ['-H', f'Email: {email}']
+              r = subprocess.run(['curl', '-sS', '-w', '\n__HTTP__%{http_code}',
+                                  *hdrs, '-d', body.encode(), NTFY],
+                                 capture_output=True, text=True)
+              resp, _, code = r.stdout.rpartition('__HTTP__')
+              code = code.strip()
+              ok = code == '200'
+              detail = '' if ok else f' response: {resp.strip()[:500]} {r.stderr.strip()[:200]}'
+              print(f'ntfy HTTP {code} ({title}){detail}')
+              return ok
+
+          if event == 'schedule':
+              # Dead-man check: alarm only if today's report never landed.
+              last = report_commit_date()
+              if last == today:
+                  print(f'backstop OK — report already committed today ({last}), nothing to do')
+              elif not send('Options EOD report MISSING',
+                            f'No daily_options_report.md commit landed on master today '
+                            f'(last: {last}). The options automation may be down — check '
+                            f'cron-job.org history and claude.ai/code/routines. '
+                            f'(If today was a market holiday, ignore.)',
+                            priority='high'):
+                  raise SystemExit('dead-man alarm push failed')
+          else:
+              # push / workflow_dispatch: deliver the report (ntfy push + email copy).
+              # Degrade through tiers rather than failing silently — each fallback
+              # also isolates a cause (tier 2 passing = size problem; tier 3 passing
+              # = the Email header is what ntfy rejects).
+              with open(REPORT) as f:
+                  full = f.read()
+              body = full
+              # ntfy body limit ~4 KB; truncate with a pointer to the full file.
+              if len(body.encode()) > 3800:
+                  body = body.encode()[:3800].decode(errors='ignore') \
+                         + '\n[truncated — tap to open the full report]'
+              compact = full.encode()[:1200].decode(errors='ignore') \
+                        + f'\n[compact fallback — full report: {FULL_URL}]'
+              if send('Options daily report', body, email=EMAIL):
+                  print('delivered: tier 1 (full report, '
+                        + ('ntfy + email' if TOKEN else 'ntfy push only — no NTFY_TOKEN, so no email copy') + ')')
+              elif send('Options daily report (compact)', compact, email=EMAIL):
+                  print('delivered: tier 2 (compact, ntfy + email) — full-size send '
+                        'was rejected; likely a body-size limit')
+              elif send('Options daily report (compact, push only)', compact):
+                  print('delivered: tier 3 (compact ntfy push, NO email) — the Email '
+                        'header is what ntfy rejects; email copy did not go out')
+              else:
+                  raise SystemExit('all delivery tiers failed — see response bodies above')
+          PY

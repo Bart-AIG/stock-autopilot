@@ -68,14 +68,24 @@ current version below. **Maintenance rule: any future CLAUDE.md amendment that
 adds or changes a run DUTY (not just a threshold) needs this prompt updated too —
 the session making the amendment must remind Ryan with the paste-ready text.**
 
-### Current routine prompt (v3, 2026-08-11 — Ryan's discretionary-trader rewrite, patched in-session)
+### Current routine prompt (v3.1, 2026-08-11 — report-fed watchlist + fixed EOD delivery)
 
-v3 keeps Ryan's structure (role → scope → data routing → market brief → IV
-self-tracking → manage → hunt → risk limits → log) and folds in the fixes agreed
-2026-08-11: spreads legged one order at a time, $1,500 budget / −$400 cap
-restored, ownership gate + hedge exemption + manual_hold_override preserved,
-dynamic DTE-scaled exits instead of a flat −50%/DTE<10, EOD report + heartbeat
-restored, and the CLAUDE.md governance line so future amendments still flow.
+v3.1 makes two changes to v3, both Ryan-approved live 2026-08-11: (1) the
+morning watchlist now draws candidates from the committed equity report
+(`latest_morning.md` / `latest_intraday.md` — the ~220-name comprehensive
+screen), so a strong swing/momentum signal anywhere in that universe can become
+an options candidate instead of only hand-picked names; (2) the EOD-report
+delivery line no longer curls ntfy.sh from the run — the managed environment
+cannot reach it (proxy 403, failed silently 2026-08-11) — committing
+`daily_options_report.md` to master IS the delivery, via the
+`eod-report-notify.yml` GitHub Action (ntfy push + email).
+v3 baseline (Ryan's discretionary-trader rewrite) keeps his structure (role →
+scope → data routing → market brief → IV self-tracking → manage → hunt → risk
+limits → log) and folds in the fixes agreed 2026-08-11: spreads legged one
+order at a time, $1,500 budget / −$400 cap restored, ownership gate + hedge
+exemption + manual_hold_override preserved, dynamic DTE-scaled exits instead of
+a flat −50%/DTE<10, EOD report + heartbeat restored, and the CLAUDE.md
+governance line so future amendments still flow.
 In the committed copy below the FMP key is redacted — paste the real key (same
 `FMP_API_KEY` the report workflow / Morning & Intraday routines use) when
 updating the routine.
@@ -103,7 +113,7 @@ Check market_brief.json on master. Build it on the FIRST run of the day and push
   a) Macro: today's economic calendar (FMP), Fed speakers, rate expectations, any political or geopolitical headlines moving markets. What is the market pricing in?
   b) Regime: SPY/QQQ trend and key levels, VIX level and direction, sector rotation, breadth. Label the regime: risk-on / risk-off / chop. In chop, raise the entry bar sharply.
   c) Catalysts: earnings in the next 5 sessions for liquid names, ex-div dates, event risk.
-  d) Watchlist: 3-6 tickers with a specific directional thesis, the level that confirms it, and the level that kills it.
+  d) Watchlist: 3-6 tickers with a specific directional thesis, the level that confirms it, and the level that kills it. Candidate SOURCES, checked in order: (1) the committed equity report on master (latest_morning.md, or latest_intraday.md if newer) — it comprehensively screens a ~220-name universe every run; treat its fresh RSI2 swing setups and momentum/breakdown signals as options candidates (a BUY-side setup suggests a call, a SELL/breakdown a put); (2) the macro/catalyst work above; (3) the core IV list. A report signal is a CANDIDATE, not an entry — every Phase 2 gate still applies unchanged (liquidity is the usual killer: many report names have thin or no chains — wide markets = skip without regret), and the report's sector steer (de-emphasized oil energy) carries over to options too. On later runs, a NEW setup appearing in a fresh latest_intraday.md counts as a genuine new catalyst and may be added to the watchlist mid-day with a written thesis.
   e) Core IV logging (once daily, with the brief): log IV readings per IV SELF-TRACKING for SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA regardless of trade interest.
 
 IV SELF-TRACKING:
@@ -146,7 +156,7 @@ RISK LIMITS (absolute, never overridden by any thesis):
 
 PHASE 3 — LOG + REPORT (every run, even no-action runs):
 Update trade_journal.json: timestamp, regime label, positions reviewed with one-line verdicts, any entry with its full thesis, IV context, and conviction score, any exit with realized P&L and whether the original exit plan was followed. On fills, update holdings.json (sleeve:"options"). Get changed files onto MASTER (open the PR and merge it — standing instruction); before ending, diff HEAD vs origin/master and merge any piled-up commits (branch-drift check).
-DAILY EOD REPORT (do NOT skip): on the FIRST run at or after 14:30 CT each trading day, write the full plain-language daily report to daily_options_report.md on master (overwrite daily): open positions with P/L and a one-line thesis refresher each; every action taken today with the full reasoning; every candidate considered and SKIPPED with the specific gate it failed; sleeve state vs the $1,500 budget and −$400 cap; tomorrow's watchpoints. Also push the compact ~10-line version via ntfy: curl -s -H 'Title: Options daily report' -d '<compact report>' https://ntfy.sh/stk-ap-rb-9k4m7q2x — on a zero-activity day a one-line push suffices.
+DAILY EOD REPORT (do NOT skip): on the FIRST run at or after 14:30 CT each trading day, write the full plain-language daily report to daily_options_report.md on master (overwrite daily): open positions with P/L and a one-line thesis refresher each; every action taken today with the full reasoning; every candidate considered and SKIPPED with the specific gate it failed; sleeve state vs the $1,500 budget and −$400 cap; tomorrow's watchpoints. Getting that file committed to MASTER **is** the delivery — the eod-report-notify.yml GitHub Action fires on the commit and sends the report to Ryan (ntfy push + email). Do NOT curl ntfy.sh from the run: this environment cannot reach it (proxy 403) and the push fails silently. On a zero-activity day a one-line report file suffices.
 On Fridays, append a weekly review to the journal: hit rate, avg win vs avg loss, IV-tracking coverage (days logged per core name), and the single biggest process error to correct next week.
 ```
 
