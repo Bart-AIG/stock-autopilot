@@ -671,6 +671,41 @@
       "entry_placed": null,
       "exit_placed": null,
       "notes": "No-trade run by design (minute-2-of-open run; both watchlist names are above their confirm levels but a 2-minute gap is not a HELD gap). Reconciliation clean: broker shows exactly SPY 700P + ACHR LEAP, matching holdings.json; no flags. Sleeve: $749/$1,500 at risk (hedge only), $751 free, realized today $0, throttle 0/3. Watchpoints: AMD >= 478 and TSM >= 426 at mid-morning runs, CSCO earnings tonight (no entry), EOD report due first run >= 19:30Z."
+    },
+    {
+      "run_utc": "2026-08-12T13:37:00Z",
+      "regime": "Unchanged from the 13:38Z brief -- risk-on relief day (benign in-line July CPI, ATH-territory gap-up). Live 13:37Z: SPY 773.2 (+0.34%), QQQ 725.2 (+0.94%). No brief-rebuild trigger. NOTE: near-duplicate backstop run ~4 min after the 13:33Z run (scheduler jitter) -- state re-verified, nothing changed.",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "Thesis intact (Ryan's Aug-Oct drawdown posture), insurance-exempt. Mark $6.86 (-8.4%, peak $7.825), IV 21.2%, delta -0.15, OI 19.5k, 100 DTE. SPY 773.2 far above the 746-748 tripwire. Hold to ~21-DTE review (~2026-10-30)."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "Ownership-gated, manual_hold_override active. Mark $3.20 (+29.6%, delta 0.79). Ryan's LEAP -- no action ever."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD",
+          "signal": "482.8 (+1.8%) at 13:37Z, above the ~478 confirm level -- but 6 minutes into the session is not a HELD gap",
+          "iv_context": "ratio 0.70 (cheap, single-leg favored) per today's iv_history row (prior-close reading; refresh live if entering)",
+          "conviction_score": null,
+          "outcome": "DEFERRED -- gap-chase discipline (no entry in the first hour of an ATH gap-up open). Re-evaluate at the ~10:30-11:30 ET runs: enter only if still >= ~478 with a green tape; full fade below 474.32 kills it."
+        },
+        {
+          "symbol": "TSM",
+          "signal": "429.0 (+1.6%) at 13:37Z, above the reclaimed 50d (~426) -- same held-gap requirement",
+          "iv_context": "ratio 0.78 (cheap) -- prior-close reading",
+          "conviction_score": null,
+          "outcome": "DEFERRED -- same first-hour discipline. Confirms holding >= 426 into the afternoon; fade below 426 = no trade."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "notes": "Near-duplicate backstop run 4 min after 13:33Z; marks refreshed, no material change, no action. Sleeve: $749/$1,500 at risk (hedge only), $751 free, realized today $0, throttle 0/3. Ledger reconciled clean at the prior run; no order activity since. Watchpoints unchanged: AMD >= 478 / TSM >= 426 held-gap checks mid-morning, CSCO earnings tonight (no entry), EOD report due first run >= 19:30Z."
     }
   ]
 }
