@@ -1490,6 +1490,74 @@
       "iv_context": "Day 2 of tracking (<20 readings -> iv_rv_ratio only, no percentile). No new IV rows this run: the only name whose chain was touched today is INTC, already logged at 18:05Z (atm_iv 0.684 / rv_30d 0.845 = ratio 0.81, cheap). KHC/LIN were rejected on thesis/budget before any chain fetch, so there is nothing to log for them.",
       "risk_limits_check": "Premium at risk $749 / $1,500 cap. Open agentic positions 1 (the hedge, which does not count toward the max-3). Realized loss today $0 vs -$400 cap. Weekly circuit breaker not tripped. Settled cash $1,447.47, unsettled $0. All clear.",
       "eod_report_status": "NOT YET DUE -- run time 13:16 CT; the daily_options_report.md write is owed by the first run at or after 14:30 CT."
+    },
+    {
+      "timestamp_utc": "2026-08-12T18:20:00Z",
+      "run": "options automation (routine) \u2014 13:20 CT",
+      "regime": "risk-on, but the relief bid is FADING intraday: SPY 773.08 (+0.33%) has given back the whole 774.4 pre-market gap-up and now sits BELOW yesterday's intraday reach; QQQ 724.85 (+0.89%) likewise off its 726.2 pre-market print. Still above every MA (SPY 20d 752.3 / 50d 747.8 / 200d 704.0), so the uptrend and the defensive-posture tripwire (closing break of 746-748) are untouched \u2014 but a fading gap is the textbook reason the 13:35Z brief said do not chase the open. That call is now paying.",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "role": "authorized defensive hedge (Ryan's Aug-Oct posture)",
+          "dte": 100,
+          "entry_premium": 749.0,
+          "mark": 660.5,
+          "pl_usd": -88.5,
+          "pl_pct": -11.8,
+          "delta": -0.145,
+          "theta": -0.084,
+          "iv": 0.209,
+          "verdict": "HOLD \u2014 thesis intact, working as designed. Insurance, EXEMPT from premium backstops per the ownership gate; the -11.8% is exactly the bleed a long put is supposed to show while SPY prints ATHs. Nothing about the posture has changed: the kill condition is SPY decisively >800 with no Aug-Oct pullback, or Ryan lifting the posture. Next scheduled decision is the ~21-DTE roll/close review with Ryan around 2026-10-30. Note the mark actually IMPROVED vs the 7.20 prior close only in the sense of decaying less than a full melt-up would imply \u2014 SPY fading its gap is mildly supportive of the hedge intraday. No action."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "gate": "OWNERSHIP GATE \u2014 Ryan placed this; manual_hold_override on file",
+          "dte": 527,
+          "entry_premium": 247.0,
+          "mark": 312.5,
+          "pl_usd": 65.5,
+          "pl_pct": 26.5,
+          "delta": 0.791,
+          "underlying": 6.325,
+          "verdict": "HOLD, detect-only. ACHR -6.8% today (6.79 -> 6.325) on no single-name news, just giving back beta on a day money rotated into AI-infra. Position is still +26.5%. NO exit condition fired: the +50% ratchet has not armed, no +80% one-day pop, no backstop in range, and at 527 DTE the 21-DTE review is 1.4 years out. Even if a trigger had fired, this is a user-placed position \u2014 I could only record and notify ONCE, never auto-close. No action, no notification owed."
+        }
+      ],
+      "entry_hunt": {
+        "result": "NO NEW POSITION \u2014 4th consecutive run flat. Every candidate is either awaiting its own pre-written trigger or structurally unaffordable at the correct delta.",
+        "candidates": [
+          {
+            "symbol": "INTC",
+            "status": "ARMED, TRIGGER UNHIT \u2014 the only affordable/liquid/right-delta candidate in the sleeve",
+            "detail": "$102.03 (+4.42%), drifting down from the +4.7% print the 18:05Z run measured. The armed trigger needs ONE of: (a) a pullback to ~$97-100 that HOLDS above the $95 offering price on a flat-to-green tape, or (b) a decisive close above the $105.45 Jul-21 swing high on real volume. $102.03 is neither \u2014 it is the middle of the range, which is precisely the no-man's-land the trigger was written to avoid. Structure stays parked: Sep-18 110C ~0.42 delta ~$595 (OI 44.9k, spread 3.4% of mid), fits the $751 free budget. Re-litigating a trigger 13 minutes after writing it \u2014 on a 1.7%-worse print, no less \u2014 would be the definition of a forced trade. Wait."
+          },
+          {
+            "symbol": "AMD",
+            "status": "SKIP \u2014 thesis working, budget-blocked",
+            "detail": "$486.84, still holding well above the 478 gap-hold confirm. The technical call was right; the sleeve simply cannot express it. ~0.35-delta Sep-18 strike ~$1,900 vs $751 free budget. Buying a far-OTM strike that happens to fit is the named anti-pattern \u2014 skip without regret."
+          },
+          {
+            "symbol": "TSM",
+            "status": "SKIP \u2014 thesis working, budget-blocked",
+            "detail": "$430.23, holding the 50d reclaim (426). ~0.35-delta Sep-18 ~$1,100 vs $751 free. Same fail as AMD, closer to reach but still over."
+          },
+          {
+            "symbol": "NVDA",
+            "status": "WATCH ONLY, unchanged",
+            "detail": "No RSI2 dip trigger, no breakout over 235.74, earnings approaching late Aug. Nothing to do."
+          },
+          {
+            "symbol": "new report signals",
+            "status": "NONE",
+            "detail": "latest_intraday.md unchanged since the 18:06Z build already processed at 18:16Z (KHC failed the trend-maturity gate on tape divergence + a flat 200d; LIN failed budget and tape). No fresh screen, so no new candidate source this run."
+          }
+        ]
+      },
+      "iv_context": "Day 2 of tracking (<20 readings -> iv_rv_ratio only; no percentile is computable and none is cited). No new rows: no chain was fetched this run beyond the two open positions' own contracts, and INTC's reading (atm_iv 0.684 / rv_30d 0.845 = ratio 0.81, cheap) was already logged at 18:05Z. Core-name daily logging completed in the Phase 0 build.",
+      "risk_limits_check": "Agentic premium at risk $749 / $1,500 (free $751). Open agentic positions: 1, and it is the hedge, which does not count toward the max-3. Realized options P&L today $0 vs the -$400 daily cap. Weekly circuit breaker not tripped. Settled cash $1,447.47, unsettled $0 \u2014 no good-faith risk. Portfolio $3,839.54 (equity $1,418.07 / options $974.00 / cash $1,447.47). All clear.",
+      "action": "NO TRADE. Both open positions held on their own gates (hedge exempt-and-working; ACHR user-placed and untriggered). The discipline this run is simply not talking myself into INTC at a price my own pre-written trigger excludes.",
+      "eod_report_status": "NOT YET DUE \u2014 run time 13:20 CT; daily_options_report.md is owed by the first run at or after 14:30 CT."
     }
   ]
 }
