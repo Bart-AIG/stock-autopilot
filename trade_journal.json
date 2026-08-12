@@ -881,6 +881,35 @@
    "entry_placed": null,
    "exit_placed": null,
    "notes": "Broker reconciliation clean (2 positions, no pendings). Sleeve: $749/$1,500 at risk (hedge only), $751 free; realized today $0 vs -$400 cap; throttle 0/3. STRUCTURAL FINDING for tonight's EOD report: with the $749 hedge consuming half the budget, no quality options expression exists on $400+ underlyings -- the watchlist should favor sub-$150 spot names (or Ryan can weigh a budget amendment / hedge review) if the AI-semi complex is where the signals keep firing. AMD/TSM confirmation is now CONSUMED (gap-hold was today's catalyst; re-entering the idea tomorrow needs a fresh trigger, not this stale one -- trend-maturity gate (b)). CSCO earnings tonight, AMAT tomorrow PM. EOD report due first run >= 19:30Z. PROCESS FINDING (double-fire): a concurrent duplicate run (journal entry 14:35Z, merged as PR #164) executed in parallel with this one -- two scheduler triggers fired the same 15-min slot (likely cron-job.org + the native hourly backstop overlapping, or a double POST). Both runs independently skipped, so no harm today, but two concurrent runs each seeing 'throttle 0/3' could BOTH place the same entry (double position, double premium) -- the repo-state throttle is not concurrency-safe. Worth surfacing in the EOD report; if double-fires recur, Ryan should stagger/disable one trigger at cron-job.org."
+  },
+  {
+   "run_utc": "2026-08-12T14:47:00Z",
+   "regime": "Unchanged from the 13:38Z brief -- risk-on relief day (benign in-line July CPI, AI-infra leadership). Live 14:46Z: SPY 773.13 (+0.33%), QQQ 725.52 (+0.98%). No brief-rebuild trigger.",
+   "positions_reviewed": [
+    {
+     "symbol": "SPY 2026-11-20 700P",
+     "placed_agent": "agentic",
+     "verdict": "Thesis intact (Aug-Oct drawdown posture), insurance-exempt. Mark $6.755 (-9.8%, peak $7.825), 100 DTE. SPY 773.13 far above the 746-748 tripwire. Hold to ~21-DTE review (~2026-10-30)."
+    },
+    {
+     "symbol": "ACHR 2028-01-21 5C",
+     "placed_agent": "user",
+     "verdict": "Ownership-gated, manual_hold_override active. Mark $3.175 (+28.5%), underlying 6.40 (-5.7% today). Ryan's LEAP -- no action ever."
+    }
+   ],
+   "entries_considered": [
+    {
+     "symbol": "AMD / TSM (watchlist confirmations)",
+     "signal": "Both still confirmed at 14:46Z (AMD 491.03 +3.5% >> 478; TSM 430.80 +2.1% > 426, tape green).",
+     "iv_context": "Live ratios from the 14:33Z readings: AMD 0.68, TSM 0.79 -- cheap premium, but moot given affordability.",
+     "conviction_score": null,
+     "outcome": "SKIPPED without re-pricing -- the 14:36Z evaluation (10 min prior) settled this on a STRUCTURAL constraint that price wiggles don't move: no sane-delta contract fits the $751 free budget on a $430-490 underlying, and the affordable far-OTM punts already failed the honesty test. No new catalyst, no fresh report, nothing to re-litigate."
+    }
+   ],
+   "entry_placed": null,
+   "exit_placed": null,
+   "sleeve_state": "Agentic premium-at-risk $749 of $1,500 (SPY hedge only). Realized P&L today $0 vs -$400 cap. Entry throttle 0/3. Settled BP $1,447.47 per the morning reconciliation; no fills since. Broker book verified clean at 14:46Z.",
+   "notes": "Quiet 15-min check between substantive runs. Standing structural note (for the EOD report): while the $749 hedge is on, big-cap AI-semi signals are unaffordable -- actionable candidates must come from lower-priced underlyings (<~$150 spot)."
   }
  ]
 }
