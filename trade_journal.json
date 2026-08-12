@@ -1350,6 +1350,50 @@
       "exit_placed": null,
       "sleeve_state": "Agentic premium-at-risk $749 of $1,500 (SPY hedge only); $751 free. Realized P&L today $0 vs -$400 cap. 0/3 entries used today. Broker book = ledger, no drift.",
       "iv_context": "No names touched beyond open positions; morning core-list logging stands (all 8 ratios <1.5, day 2 of tracking)."
+    },
+    {
+      "run_utc": "2026-08-12T17:47:00Z",
+      "regime": "Unchanged from the 13:38Z brief -- risk-on relief day (in-line July CPI, AI-infra earnings sweep). Live 17:45Z: SPY 772.87 (+0.30%), QQQ 725.26 (+0.95%), NVDA 224.06 (+3.02%), AMD 488.61 (+3.01%), TSM 429.85 (+1.85%), AVGO 419.08 (+0.72%). VIX calm. No brief-rebuild trigger; intraday report still 17:03Z.",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "HOLD -- thesis intact (Ryan's Aug-Oct drawdown insurance). Mark $6.645 vs $7.49 entry = -11.3%; peak_premium $7.825 unchanged. 100 DTE, IV 20.9%, delta -0.146, OI 19,536. SPY 772.87 is ~25 pts above the 746-748 defensive tripwire, so the hedge is doing exactly what insurance does in a melt-up: bleeding slowly. Insurance-EXEMPT from premium backstops per HARD RULE 8 / OWNERSHIP GATE; next decision point is the ~21-DTE review ~2026-10-30."
+        },
+        {
+          "symbol": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "NO ACTION -- ownership-gated (Ryan placed it) AND carries manual_hold_override. Mark $3.125 vs $2.47 entry = +26.5%, delta 0.791, 527 DTE. Ryan's LEAP; the automation never trades it."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "AMD 2026-09-18 calls",
+          "signal": "Watchlist setup CONFIRMED on the technicals: brief required 'gap holds >= ~478 into the afternoon with the tape green'; AMD is 488.61 (+3.01%), well above yesterday's 474.32 close and holding/extending, tape green. Trend-maturity gate passes all three: (a) not late-stage -- still -15.9% off the 52wk closing high 580.91, this is a turn off a correction, not a chase; (b) catalyst is same-day (CPI + CRWV/NBIS/SMCI AI-infra sweep), not stale; (c) present tape confirms -- green, AI-semi leadership, NVDA +3.0% alongside.",
+          "iv_context": "LIVE 17:47Z ATM (Sep-18 490 strike): call IV 0.5656 / put IV 0.5626, atm_iv 0.5641; rv_30d 0.8293 -> iv_rv_ratio 0.68. Day 2 of tracking (<20 readings, ratio only, no percentile). CHEAP premium -- single-leg favored, no reason to leg a spread.",
+          "conviction_score": 6,
+          "outcome": "SKIPPED on the BUDGET LIMIT alone -- and this run finally priced it with LIVE broker data instead of another estimate. Free budget is $751 ($1,500 agentic cap minus the $749 hedge). Measured Sep-18 (37 DTE) chain: 490C delta 0.538 = $3,532; 520C delta 0.407 = $2,323; 560C delta 0.262 = $1,288. The ~0.35-delta strike interpolates to ~$1,900. $751 reaches only ~delta 0.15-0.18 -- a lottery ticket, not an expression of this thesis. A legged debit spread does NOT rescue it: the LONG leg goes on first and alone would be $1,288+, breaching the cap at the moment of legging. Signal quality was genuinely there (this was the best setup on the board); the sleeve simply cannot fund it. Not a thesis failure -- a capital-structure one."
+        },
+        {
+          "symbol": "TSM 2026-09-18 calls",
+          "signal": "Watchlist setup CONFIRMED: brief required 'holds above the 50d (426) into the afternoon'; TSM 429.85 (+1.85%), 50d reclaim intact. -11.6% off its 52wk high, above a rising 200d.",
+          "iv_context": "LIVE 17:47Z ATM (Sep-18 430 strike): call IV 0.3675 / put IV 0.3766, atm_iv 0.3721; rv_30d 0.4829 -> iv_rv_ratio 0.77. Cheap premium, single-leg favored.",
+          "conviction_score": 5,
+          "outcome": "SKIPPED. Closest thing to affordable all day, and it still fails: measured 460C delta 0.313 = $957.50 vs $751 free -- over by $206. The only strike that fits (~470C, ~delta 0.25) needs roughly +9.3% in 37 days to break even, and buying it would be the exact anti-pattern CLAUDE.md names ('prefer the liquid, right-delta strike over a cheap illiquid one' -- the trade-off the old $150 cap wrongly forced). Two further honesty-test problems even setting budget aside: the catalyst is SECTOR SYMPATHY off other companies' earnings, not a TSM-specific event, and today is a gap-up relief day at SPY all-time highs -- the brief's own regime note says do not chase gap-ups. Conviction 5/10, under the 7 gate. Skipping costs nothing."
+        },
+        {
+          "symbol": "LIN / report options-candidate lists",
+          "signal": "No change -- intraday report still the 17:03Z build already screened at 17:17Z.",
+          "iv_context": "n/a",
+          "conviction_score": null,
+          "outcome": "SKIPPED, prior verdicts stand: LIN is a dip still falling against a green tape with no turn trigger and is unaffordable anyway; report puts are late-stage completed downtrends (trend-maturity gate (a), the ZTS incident rule); report calls are extended chases on a gap-up day."
+        }
+      ],
+      "entry_placed": null,
+      "exit_placed": null,
+      "process_fix_this_run": "ROOT-CAUSE FIX (CLAUDE.md standing principle -- stop re-flagging, start fixing). Today's runs skipped AMD/TSM thirteen times in a row on an ESTIMATED affordability claim that was never once checked against the broker. This run priced the actual chain and wrote the measured frontier into market_brief.json as budget_affordability_frontier, including a durable rule of thumb: at 30-45 DTE a ~0.35-delta call costs roughly 0.045-0.065 x spot at IV 35-55%, so $751 free supports properly-delta'd contracts only on underlyings <= ~$130-150 (IV ~50%) or <= ~$200 (IV ~35%). Later runs should read that block instead of re-deriving it, and should hunt in the affordable price band rather than re-screening $400+ mega-caps the sleeve cannot fund. STRUCTURAL POINT FOR RYAN (to carry in today's EOD report, not a page-worthy alert): the sleeve is hedge-dominated -- the SPY 700P consumes $749 of the $1,500 cap, and the $751 remainder cannot buy a right-delta contract on any name currently on the watchlist. Until the hedge is closed or rolled (~21-DTE review 2026-10-30), realistic new entries have to come from cheaper underlyings. That is a constraint to surface, not a rule to bend.",
+      "sleeve_state": "Agentic premium-at-risk $749 of the $1,500 cap; $751 free. Open agentic positions 1 of 3 (hedge excluded from the count -> effectively 0 of 3 discretionary). Realized options P&L today $0 vs the -$400 daily cap. Entries used today 0 of 3. Settled cash $1,447.47, unsettled $0 -- cash is not the binding constraint, the budget cap is. Weekly circuit breaker not triggered. Broker book reconciled against holdings.json at run start: exactly SPY 700P + ACHR 5C, no drift.",
+      "iv_context": "AMD and TSM rows for 2026-08-12 refreshed in iv_history.json with live 17:47Z ATM readings (superseding the 14:33Z rows; one row per ticker per day): AMD 0.5641/0.8293 = 0.68, TSM 0.3721/0.4829 = 0.77. Both well under the 1.5 elevated threshold -- premium is cheap on both names, confirming IV was never the blocker here."
     }
   ]
 }
