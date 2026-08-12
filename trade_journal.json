@@ -2014,6 +2014,73 @@
       "eod_report": "WRITTEN \u2014 daily_options_report.md rewritten in full for 2026-08-12 (positions with thesis refreshers, the zero-action record, the full skip reasoning for INTC/AMD/TSM/AEHR/CRWV-NBIS-SMCI/NVDA/CSCO, sleeve state vs the $1,500 budget and \u2212$400 cap, and tomorrow's watchpoints incl. the INTC trigger levels and AMAT/CSCO earnings). Committed to master \u2014 that commit IS the delivery via eod-report-notify.yml. No ntfy curl attempted from the session (proxy 403, per the 2026-08-11 fix).",
       "conviction_score": "N/A \u2014 no entry taken. INTC would have scored ~7-8 on thesis quality (overhang cleared, cheap IV, top-decile momentum, affordable AND liquid \u2014 a rare full stack for this budget) but its ENTRY TIMING scored ~3: mid-rip, trigger unhit. Conviction in a thesis is not conviction in an entry price, and only the second one authorizes a purchase.",
       "outcome": "No trade. Both positions held on their own gates. IV history improved (QQQ live refresh). Day ends: 1 agentic position (the hedge), $749 of $1,500 deployed, $0 realized P&L, no flags, INTC armed and pre-priced into tomorrow."
+    },
+    {
+      "run_utc": "2026-08-12T19:46:00Z",
+      "run": "Options automation - post-EOD closing run (fired 19:45Z / 14:45 CT, ~14 min to the bell). The 19:32Z run wrote and delivered the daily report; this run re-verified positions and the one armed trigger into the actual close.",
+      "regime": "risk-on, quiet drift into the close. SPY 772.79 (+0.29%), QQQ 723.59 (+0.72%), NVDA 222.31 (+2.21%). The benign-CPI gap-up faded through the afternoon and the tape is closing modestly green, well short of the morning's 774.4 ATH print. No catalyst warranting a brief rebuild.",
+      "positions_reviewed": [
+        {
+          "contract": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "HOLD - thesis intact, behaving exactly as insurance should.",
+          "detail": "Mark $6.595 (bid/ask 6.59/6.60), -12.0% / -$89.50 from the $7.49 basis. DTE 100, delta -0.146, theta -0.084, IV 20.8%, OI 19,536. Exempt from the DTE-scaled premium backstops per the hedge carve-out, so the drawdown is not a sell signal - a hedge losing a little while SPY sits near ATHs is the position working as designed, not failing. peak_premium $7.825 unchanged, +50% ratchet never armed. Next decision is the ~21-DTE roll/close review WITH Ryan around 2026-10-30."
+        },
+        {
+          "contract": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "NO ACTION - ownership gate + manual_hold_override.",
+          "detail": "Mark $3.075, +24.5% / +$60.50, DTE 527, delta 0.788. Ryan placed it himself and said 'leave it be' (2026-07-22). Never actionable by an automated run. Excluded from the agentic $1,500 budget."
+        }
+      ],
+      "entries": [],
+      "entry_decision": "NO ENTRY - the armed INTC trigger stayed unhit right through the bell, and loosening it in the last 14 minutes of the session would have been the single worst version of this trade. Both branches were written on 2026-08-12T18:05Z precisely to stop the automation from buying a mid-day beta rip: they require EITHER a pullback into ~$97-100 that HOLDS above the $95 offering price, OR a decisive close above the $105.45 Jul-21 swing high on volume. INTC printed $100.77 (+3.13%) at 19:46Z - fading from $102.51 (19:20Z) and $101.61 (19:32Z), i.e. drifting toward the pullback branch but arriving there as a fade IN PROGRESS with no time left to demonstrate the 'holds' half of the condition. A pullback that has not yet held is not the setup; it is the setup's first half. It stays ARMED into tomorrow, fully pre-priced, with the kill level unchanged at a close below $95. Flat is a position.",
+      "candidates_screened": [
+        {
+          "symbol": "INTC",
+          "spot": 100.77,
+          "day_pct": 3.13,
+          "gate_failed": "entry trigger unhit (timing - 'pullback that HOLDS' unverifiable at the bell)",
+          "detail": "Seventh consecutive run in the dead zone between the two branches, and the first to touch the top edge of the $97-100 pullback band ($100.77) - but as an active intraday fade with ~14 minutes left, not as a level that had held. Every other gate on this name still passes cleanly: budget (Sep-18 110C ~$595 / 115C ~$457 vs $751 free), liquidity (OI 44,946, spread 3.4% of mid), IV (ratio 0.81 = cheap vs realized, from iv_history.json). If it opens tomorrow near $97-100 and holds above $95 on a flat-to-green tape, the trade is pre-written and can be taken without improvising."
+        },
+        {
+          "symbol": "AMD",
+          "spot": 481.61,
+          "day_pct": 1.54,
+          "gate_failed": "budget at the correct delta",
+          "detail": "Technically confirmed - held the gap above yesterday's 474.32 close all session and closed green. But a 21-45 DTE ~0.35-delta call on a $481 underlying costs multiples of the $751 of free premium budget, and the affordable alternative is a far-OTM lottery strike that does not express the thesis. Skipped on structure, not on conviction; this is a sleeve-size limit, not a signal failure."
+        },
+        {
+          "symbol": "TSM",
+          "spot": 429.74,
+          "day_pct": 1.82,
+          "gate_failed": "budget at the correct delta",
+          "detail": "Held its 50d MA (425.82) reclaim into the close at $429.74 - the setup confirmed. Same structural problem as AMD: right-delta 21-45 DTE calls on a $430 underlying are well beyond $751 free. Watch continues."
+        },
+        {
+          "symbol": "NVDA",
+          "spot": 222.31,
+          "day_pct": 2.21,
+          "gate_failed": "no trigger (watch-only)",
+          "detail": "Strong close (+2.2%) above all MAs, but the brief's conditions are an RSI2<10 dip or a decisive break of the 52wk high 235.74 - neither is close. Late-Aug earnings also argue against opening fresh NVDA risk now."
+        }
+      ],
+      "iv_context": "No new IV rows this run - the core list (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) plus INTC were logged with the daily brief this morning, and iv_history.json is one row per ticker per day. INTC ratio 0.81 and AMD 0.70 (both cheap vs realized, single-leg favored) carried forward from that logging.",
+      "sleeve_state": {
+        "agentic_premium_at_risk_usd": 749.0,
+        "budget_usd": 1500.0,
+        "free_budget_usd": 751.0,
+        "open_agentic_positions": 1,
+        "max_open_agentic_positions": 3,
+        "realized_options_pl_today_usd": 0.0,
+        "daily_loss_cap_usd": -400.0,
+        "settled_cash_usd": 1447.47,
+        "unsettled_funds_usd": 0.0,
+        "portfolio_total_value_usd": 3822.37,
+        "note": "Hedge counts toward the $1,500 budget but not toward the 3-position limit. Zero realized options P&L today (yesterday: -$108.04 CVS). Weekly circuit breaker not tripped."
+      },
+      "eod_report": "Already written and delivered by the 19:32Z run (daily_options_report.md on master -> eod-report-notify.yml). Deliberately NOT re-committed by this run: nothing material changed (no entry, no exit, both positions held on unchanged reasoning), and touching that file again would fire a second ntfy push at Ryan carrying no new information. Re-notification discipline per the HARD RULE 9 'notify once per incident, not once per run' lesson, applied to the report path.",
+      "tomorrow_watchpoints": "INTC armed trigger unchanged (pullback into ~$97-100 HOLDING above $95, or a decisive close >$105.45 on volume; kill = close <$95); Sep-18 110C pre-priced ~$595. AMD/TSM remain confirmed-but-unaffordable at the right delta - only a pullback that cheapens the correct strike changes that. SPY hedge: no action until the ~21-DTE review with Ryan (~2026-10-30). NVDA earnings late Aug - avoid opening fresh NVDA risk into it."
     }
   ]
 }
