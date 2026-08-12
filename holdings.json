@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-12T17:32:00Z",
+  "updated_utc": "2026-08-12T18:02:00Z",
   "_realized_options_pnl_today": {
     "date_utc": "2026-08-12",
     "trades": [],
@@ -24,11 +24,11 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "mark_price": 6.675,
-        "pct_from_entry": -10.88,
+        "mark_price": 6.635,
+        "pct_from_entry": -11.42,
         "peak_premium": 7.825,
-        "last_checked_utc": "2026-08-12T17:32:00Z",
-        "status": "-10.9% from entry at the 17:31Z live mark ($6.675, bid/ask 6.66/6.69, IV 20.9%, delta -0.147, OI 19.5k, 100 DTE). SPY 772.81 (+0.29%), far above the 746-748 tripwire -- hedge bleeds by design in a melt-up; insurance-exempt, hold to ~21-DTE review (~2026-10-30)."
+        "last_checked_utc": "2026-08-12T18:02:00Z",
+        "status": "-11.4% from entry at the 18:01Z live mark ($6.635, bid/ask 6.62/6.65, IV 20.9%, delta -0.146, theta -0.084, OI 19,536, 100 DTE). SPY 772.83 (+0.29%) -- ~25 pts above the 746-748 defensive tripwire, so the hedge bleeds by design in a melt-up. Insurance-EXEMPT from premium backstops; next decision is the ~21-DTE review ~2026-10-30."
       }
     },
     {
@@ -44,10 +44,10 @@
       "target": null,
       "_note": "placed_agent='user' (Ryan bought this himself 2026-07-20T19:38Z, $2.47/contract, $247 premium). Long-dated LEAP (18mo out) -- not gated by the HARD RULE 8 entry checklist since it wasn't an autonomous entry. manual_hold_override below suspends the -50% mechanical stop; broken-thesis and DTE/earnings exits still apply in principle but this is a Jan-2028 LEAP, far outside any near-term DTE/earnings gate.",
       "_current_state": {
-        "mark_price": 3.15,
-        "pct_from_entry": 27.5,
-        "last_checked_utc": "2026-08-12T17:32:00Z",
-        "status": "+27.5% from entry at the live 17:31Z mark ($3.15, bid/ask 3.10/3.20; delta 0.79), placed_agent=user + manual_hold_override active, no action ever"
+        "mark_price": 3.125,
+        "pct_from_entry": 26.52,
+        "last_checked_utc": "2026-08-12T18:02:00Z",
+        "status": "+26.5% from entry at the live 18:01Z mark ($3.125, bid/ask 3.05/3.20, delta 0.791, 527 DTE). placed_agent=user + manual_hold_override active -- no action ever."
       },
       "manual_hold_override": {
         "set_utc": "2026-07-22T14:30:00Z",
