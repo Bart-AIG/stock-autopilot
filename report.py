@@ -124,6 +124,9 @@ SWING_TIME_STOP_DAYS = 14     # ~10 trading days held without a target -> recycl
 TRAIL_PCT = 0.15              # trailing-stop distance below the high; a winner is "green
                               # enough" to trail once price >= entry/(1-TRAIL_PCT) (~+17.6%),
                               # so a 15%-below-high stop clears breakeven (set 2026-06-17)
+THESIS_CHECK_TTL_DAYS = 30    # how long a recorded INTACT thesis verdict silences a repeat
+                              # REVIEW/THESIS-CHECK on the SAME reasons (~monthly rebalance,
+                              # which is that position's real exit gate). See below.
 
 
 def load_holdings() -> list[dict]:
@@ -165,8 +168,47 @@ def scan_universe() -> list[str]:
     return UNIVERSE + sorted(s for s in (held | joint) if s and s not in UNIVERSE)
 
 
-def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict,
-                       momentum_rank: dict, n_decile: int) -> tuple[list[dict], list[str]]:
+def thesis_confirmation(pos: dict, review_keys: set, today) -> tuple[bool, str]:
+    """Has this position's thesis already been researched and confirmed INTACT for the
+    exact reasons flagged this run, recently enough to skip re-alerting?
+
+    A session that answers a THESIS CHECK records the verdict on the position:
+
+        "thesis_checked": {
+          "date": "2026-08-10",              # UTC date of the research
+          "verdict": "intact",               # only "intact" suppresses; anything else re-fires
+          "covers": ["below_200ma", "out_of_decile"],
+          "note": "$2.8B new AI contracts, ~85% of the >$4B run-rate target under contract"
+        }
+
+    Returns (suppress, note). Suppression requires ALL of: verdict == "intact", the
+    verdict is <= THESIS_CHECK_TTL_DAYS old, and every reason flagged THIS run is one the
+    verdict already covers. A newly-appearing reason re-fires the full check, so the
+    suppression can only ever silence a repeat of the SAME question, never new evidence."""
+    tc = pos.get("thesis_checked")
+    if not isinstance(tc, dict) or str(tc.get("verdict", "")).lower() != "intact":
+        return False, ""
+    try:
+        checked = datetime.strptime(tc["date"], "%Y-%m-%d").date()
+    except (KeyError, TypeError, ValueError):
+        return False, ""  # unparseable date -> fail OPEN and re-alert, never silently hide
+    age = (today - checked).days
+    if age < 0 or age > THESIS_CHECK_TTL_DAYS:
+        return False, ""
+    covers = set(tc.get("covers") or ())
+    new_reasons = review_keys - covers
+    if new_reasons:
+        return False, ""  # something changed since the research — ask the question again
+    expires = checked + timedelta(days=THESIS_CHECK_TTL_DAYS)
+    note = (f"thesis confirmed INTACT {tc['date']} ({age}d ago) on these same reasons — "
+            f"re-checks {expires:%Y-%m-%d} or sooner if a NEW reason appears")
+    if tc.get("note"):
+        note += f"; {tc['note']}"
+    return True, note
+
+
+def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: dict,
+                       n_decile: int, today=None) -> tuple[list[dict], list[str]]:
     """Evaluate EVERY held position and assign a per-name action. No position is parked
     in a 'legacy' bucket — the whole book is judged on each run (BUY/SELL/HOLD style),
     treating the account as an income / grow-the-balance portfolio. Returns (rows, no_data).
@@ -182,7 +224,11 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict,
         decile — a possible thesis break. Research the news; sell only if the thesis is
         dead, otherwise hold to the monthly rebalance.
       • HOLD: in profit but still building a cushion toward a trailing stop; or underwater
-        with an intact thesis — NO price stop (thesis-managed, culled at monthly rebalance)."""
+        with an intact thesis — NO price stop (thesis-managed, culled at monthly rebalance).
+
+    A REVIEW/THESIS-CHECK already answered "intact" is not re-asked for
+    THESIS_CHECK_TTL_DAYS — see thesis_confirmation()."""
+    today = today or datetime.now(timezone.utc).date()
     rows, no_data = [], []
     for pos in holdings:
         sym = pos.get("symbol")
@@ -204,7 +250,7 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict,
         rank = momentum_rank.get(sym)
         pnl = (price - entry) / entry if entry else None
 
-        sell_reasons, review = [], []
+        sell_reasons, review, review_keys = [], [], set()
         underwater = pnl is not None and pnl < 0
         if target and price >= target:
             sell_reasons.append(f"hit target {target} — take profit")
@@ -220,8 +266,20 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict,
                 sell_reasons.append(f"RSI2 {rsi2} overbought — swing bounce done, take profit")
         if ma200 and price < ma200:
             review.append(f"below 200-day MA ({ma200}) — possible trend/thesis break")
+            review_keys.add("below_200ma")
         if sleeve == "momentum" and rank and rank > n_decile:
             review.append(f"out of top decile (rank {rank}/{n_decile}) — rotate candidate")
+            review_keys.add("out_of_decile")
+
+        # A recorded INTACT thesis verdict silences a REPEAT thesis-check on the SAME
+        # reasons for THESIS_CHECK_TTL_DAYS. Without this, a name that is simply below its
+        # 200-day MA re-fires REVIEW/THESIS-CHECK on EVERY run forever — IREN was researched
+        # and confirmed intact on 2026-08-10 and alerted again on 2026-08-11 with no new
+        # information, which is exactly the "same issue every session" pattern CLAUDE.md's
+        # standing principle says to fix at the root. Suppression is deliberately narrow:
+        # it never hides NEW information — a reason the verdict didn't cover, an expired
+        # verdict, a non-"intact" verdict, or any SELL reason all re-fire the full check.
+        confirmed, thesis_note = thesis_confirmation(pos, review_keys, today)
 
         # "Green enough" to trail: the name has run far enough that a TRAIL_PCT-below-high
         # stop clears breakeven (price >= entry / (1-TRAIL_PCT) ≈ +17.6% for 15%). The
@@ -239,6 +297,12 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict,
             action = "HOLD"
             note = [f"native {native}% trailing stop set in-app — auto-locks the gain "
                     f"({pnl:+.0%})"] + review
+        elif review and confirmed:
+            # Same reasons, already researched and answered "intact" — report the state
+            # without re-raising it as an action. Deliberately NOT a "REVIEW" action, so it
+            # drops out of review_signals and off the ntfy THESIS CHECK line.
+            action = "HOLD (thesis confirmed)"
+            note = [thesis_note] + review
         elif review:
             action = "REVIEW / THESIS-CHECK"
             note = review + ["sell only if the thesis is dead; else hold to monthly rebalance"]
