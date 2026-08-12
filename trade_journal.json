@@ -589,55 +589,6 @@
    "notes": "EOD DELIVERY REPAIR. Found today's daily_options_report.md (committed 19:34Z) was never delivered: it landed on master BEFORE eod-report-notify.yml existed (merged 20:15Z), so the push trigger never fired, and the 20:15:28Z manual dispatch failed with a bare ntfy HTTP 400 (curl -o /dev/null discarded the error). Root cause diagnosed via tiered re-dispatch (PR #153): ntfy.sh error 40053 'anonymous email sending is not allowed' -- the Email header requires an authenticated publish; body size was fine. Fix (PR #154): Email + Authorization headers now gated on an NTFY_TOKEN repo secret (email copy resumes automatically if Ryan adds one); full report delivered tonight as a plain ntfy push, verified HTTP 200 tier 1 at 20:26Z (Ryan also got the 1.2KB compact fallback at 20:24Z during diagnosis). Dead-man backstop (20:45Z) correctly stays quiet -- it keys on the report COMMIT date, which was today. CLAUDE.md updated with the lesson. No ledger/position changes; no flags found or touched."
   },
   {
-   "run_utc": "2026-08-12T13:42:00Z",
-   "regime": "risk-on relief day -- July CPI printed IN-LINE (headline +0.1% m/m / 3.4% y/y, core +0.2% / 2.5%), gap-up open with SPY at ATH territory (~774 vs prior 52wk closing high 773.26), QQQ +1.1%, VIX 14.97. AI-infra earnings sweep leading (CRWV +18% / NBIS +12.5% / SMCI +9% pre). Defensive posture unchanged per Ryan. First run of day: built market_brief.json, stamped heartbeat (PR #157), logged IV rows for all 8 core names.",
-   "positions_reviewed": [
-    {
-     "symbol": "SPY 2026-11-20 700P",
-     "placed_agent": "agentic",
-     "verdict": "Thesis = Ryan's standing Aug-Oct drawdown posture; hedge bleeds by design on an ATH relief day. Mark $7.20 (-3.9%, prior-close mark; option feed hadn't refreshed at 13:35Z), peak $7.825, 100 DTE. Insurance-exempt from premium stops; hold to ~21-DTE review ~2026-10-30. Invalidation only 'decisively ~800+' or Ryan lifting the posture -- 774 is not that."
-    },
-    {
-     "symbol": "ACHR 2028-01-21 5C",
-     "placed_agent": "user",
-     "verdict": "Ownership-gated + manual_hold_override. Mark $3.475 (+40.7%). Ryan's LEAP -- no action ever."
-    }
-   ],
-   "entries_considered": [
-    {
-     "symbol": "AMD",
-     "signal": "+2.0% gap to ~484 on benign CPI + AI-infra earnings sweep; -18.3% off its 52wk closing high, below 20d/50d, far above 200d -- a turn-catch candidate, NOT yet confirmed",
-     "iv_context": "atm_iv 0.58 / rv30 0.83 = ratio 0.70 (cheap, single-leg favored) -- prior-close reading, flagged in iv_history.json",
-     "conviction_score": null,
-     "outcome": "SKIPPED at the open -- gap-chase discipline (no confirmed trigger; the RSI2<10 dip-buy never printed) + option feed still serving prior-close marks so the liquidity/IV gates cannot be verified live. ACTIONABLE ON CONFIRMATION at a later run: gap holds >= ~478 mid-morning+ with a green tape (kills: full fade below 474.32)."
-    },
-    {
-     "symbol": "TSM",
-     "signal": "+2.4% pre to 432.2, reclaiming its 50d MA (425.82); -11.6% off high, rising 200d 361.5",
-     "iv_context": "ratio 0.78 (cheap) -- prior-close reading",
-     "conviction_score": null,
-     "outcome": "SKIPPED at the open -- same gap-open + stale-quote discipline. ACTIONABLE ON CONFIRMATION: holds above ~426 into the afternoon (kills: fade below 426)."
-    },
-    {
-     "symbol": "CRWV / NBIS / SMCI",
-     "signal": "AI-infra earnings sweep, +9% to +18% pre-market",
-     "iv_context": "not fetched -- failed the maturity gate before IV mattered",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- trend-maturity gate: catalyst already fully reacted (gapped), chasing a +18% gap is a late-stage entry by definition."
-    },
-    {
-     "symbol": "CSCO",
-     "signal": "earnings tonight (pm)",
-     "iv_context": "n/a",
-     "conviction_score": null,
-     "outcome": "SKIPPED -- no pre-earnings entries unless earnings IS the documented thesis (it is not)."
-    }
-   ],
-   "entry_placed": null,
-   "exit_placed": null,
-   "notes": "No-trade run by design (patience > activity; a skipped mediocre setup costs nothing). Reconciliation clean: broker options (SPY 700P, ACHR LEAP) and equities (AAPL/IREN/ACGL) match holdings.json exactly; no flags. Sleeve: $749/$1,500 premium at risk (hedge only), $751 free, settled BP $1,447.47, realized today $0, throttle 0/3. Watchpoints for later runs: AMD >= 478 hold, TSM >= 426 hold, CSCO earnings pm (no entry), EOD report due first run >= 19:30Z."
-  },
-  {
    "run_utc": "2026-08-12T13:33:00Z",
    "regime": "risk-on relief day, unchanged from the 13:38Z brief -- benign in-line July CPI, ATH-territory gap-up open. Live 13:31Z: SPY 773.2 (+0.34%), QQQ 725.3 (+0.95%). No brief-rebuild trigger. Option quote feed now serving LIVE marks (first run of the day where the liquidity/IV gates are verifiable).",
    "positions_reviewed": [
@@ -706,6 +657,55 @@
    "entry_placed": null,
    "exit_placed": null,
    "notes": "Near-duplicate backstop run 4 min after 13:33Z; marks refreshed, no material change, no action. Sleeve: $749/$1,500 at risk (hedge only), $751 free, realized today $0, throttle 0/3. Ledger reconciled clean at the prior run; no order activity since. Watchpoints unchanged: AMD >= 478 / TSM >= 426 held-gap checks mid-morning, CSCO earnings tonight (no entry), EOD report due first run >= 19:30Z."
+  },
+  {
+   "run_utc": "2026-08-12T13:42:00Z",
+   "regime": "risk-on relief day -- July CPI printed IN-LINE (headline +0.1% m/m / 3.4% y/y, core +0.2% / 2.5%), gap-up open with SPY at ATH territory (~774 vs prior 52wk closing high 773.26), QQQ +1.1%, VIX 14.97. AI-infra earnings sweep leading (CRWV +18% / NBIS +12.5% / SMCI +9% pre). Defensive posture unchanged per Ryan. First run of day: built market_brief.json, stamped heartbeat (PR #157), logged IV rows for all 8 core names.",
+   "positions_reviewed": [
+    {
+     "symbol": "SPY 2026-11-20 700P",
+     "placed_agent": "agentic",
+     "verdict": "Thesis = Ryan's standing Aug-Oct drawdown posture; hedge bleeds by design on an ATH relief day. Mark $7.20 (-3.9%, prior-close mark; option feed hadn't refreshed at 13:35Z), peak $7.825, 100 DTE. Insurance-exempt from premium stops; hold to ~21-DTE review ~2026-10-30. Invalidation only 'decisively ~800+' or Ryan lifting the posture -- 774 is not that."
+    },
+    {
+     "symbol": "ACHR 2028-01-21 5C",
+     "placed_agent": "user",
+     "verdict": "Ownership-gated + manual_hold_override. Mark $3.475 (+40.7%). Ryan's LEAP -- no action ever."
+    }
+   ],
+   "entries_considered": [
+    {
+     "symbol": "AMD",
+     "signal": "+2.0% gap to ~484 on benign CPI + AI-infra earnings sweep; -18.3% off its 52wk closing high, below 20d/50d, far above 200d -- a turn-catch candidate, NOT yet confirmed",
+     "iv_context": "atm_iv 0.58 / rv30 0.83 = ratio 0.70 (cheap, single-leg favored) -- prior-close reading, flagged in iv_history.json",
+     "conviction_score": null,
+     "outcome": "SKIPPED at the open -- gap-chase discipline (no confirmed trigger; the RSI2<10 dip-buy never printed) + option feed still serving prior-close marks so the liquidity/IV gates cannot be verified live. ACTIONABLE ON CONFIRMATION at a later run: gap holds >= ~478 mid-morning+ with a green tape (kills: full fade below 474.32)."
+    },
+    {
+     "symbol": "TSM",
+     "signal": "+2.4% pre to 432.2, reclaiming its 50d MA (425.82); -11.6% off high, rising 200d 361.5",
+     "iv_context": "ratio 0.78 (cheap) -- prior-close reading",
+     "conviction_score": null,
+     "outcome": "SKIPPED at the open -- same gap-open + stale-quote discipline. ACTIONABLE ON CONFIRMATION: holds above ~426 into the afternoon (kills: fade below 426)."
+    },
+    {
+     "symbol": "CRWV / NBIS / SMCI",
+     "signal": "AI-infra earnings sweep, +9% to +18% pre-market",
+     "iv_context": "not fetched -- failed the maturity gate before IV mattered",
+     "conviction_score": null,
+     "outcome": "SKIPPED -- trend-maturity gate: catalyst already fully reacted (gapped), chasing a +18% gap is a late-stage entry by definition."
+    },
+    {
+     "symbol": "CSCO",
+     "signal": "earnings tonight (pm)",
+     "iv_context": "n/a",
+     "conviction_score": null,
+     "outcome": "SKIPPED -- no pre-earnings entries unless earnings IS the documented thesis (it is not)."
+    }
+   ],
+   "entry_placed": null,
+   "exit_placed": null,
+   "notes": "No-trade run by design (patience > activity; a skipped mediocre setup costs nothing). Reconciliation clean: broker options (SPY 700P, ACHR LEAP) and equities (AAPL/IREN/ACGL) match holdings.json exactly; no flags. Sleeve: $749/$1,500 premium at risk (hedge only), $751 free, settled BP $1,447.47, realized today $0, throttle 0/3. Watchpoints for later runs: AMD >= 478 hold, TSM >= 426 hold, CSCO earnings pm (no entry), EOD report due first run >= 19:30Z."
   },
   {
    "run_utc": "2026-08-12T13:47:00Z",
@@ -982,6 +982,56 @@
    "exit_placed": null,
    "sleeve_state": "Agentic premium-at-risk $749 of $1,500 (SPY hedge only). Realized P&L today $0 vs -$400 cap. Entry throttle 0/3. Settled BP $1,447.47 per the morning reconciliation; no fills since. Broker book verified clean at 15:31Z (get_option_positions: SPY 700P + ACHR LEAP, zero pendings, matches ledger).",
    "notes": "Substantive screen this run: the 15:01Z intraday report's KHC line was the first real test of the standing 'need lower-priced underlyings' note -- it failed on fundamentals/maturity, not affordability, which is the right kind of skip. Watch next: a fresh intraday report (~16:00Z), AMAT earnings tomorrow PM (semicap read-through), CSCO tonight (watch-only). EOD report due on the first run at/after 19:30Z (14:30 CT)."
+  },
+  {
+   "run_utc": "2026-08-12T15:35:00Z",
+   "regime": "Unchanged from the 13:38Z brief -- risk-on relief day (benign in-line July CPI, AI-infra leadership). Live 15:34Z: SPY 771.75 (+0.15%), QQQ 723.10 (+0.65%). No brief-rebuild trigger.",
+   "positions_reviewed": [
+    {
+     "symbol": "SPY 2026-11-20 700P",
+     "placed_agent": "agentic",
+     "verdict": "Thesis intact (Aug-Oct drawdown posture), insurance-exempt. Mark $6.875 (-8.2%, peak $7.825), 100 DTE, IV 20.9%, delta -0.150, OI 19.5k. SPY 771.75 far above the 746-748 tripwire -- bleeds by design in a melt-up. Hold to ~21-DTE review (~2026-10-30)."
+    },
+    {
+     "symbol": "ACHR 2028-01-21 5C",
+     "placed_agent": "user",
+     "verdict": "Ownership-gated, manual_hold_override active. Mark $3.075 (+24.5%; ACHR stock -8.0% today at $6.25). Ryan's LEAP -- no action ever."
+    }
+   ],
+   "entries_considered": [
+    {
+     "symbol": "HON",
+     "signal": "NEW RSI2 setup in the fresh 15:01Z latest_intraday.md (RSI2 8.8, price 230.05, flagged as dip in rising-200d uptrend) -- genuine new candidate this run, live 231.48 (+0.6%).",
+     "iv_context": "Not priced -- killed at the news/thesis gate before chain work.",
+     "conviction_score": 4,
+     "outcome": "SKIPPED -- HARD RULE 7 news gate FAILED. Honeywell completed the Aerospace spin-off (HONA) in June 2026 and halved its share count; the current dip is a real fundamental overhang, not a clean pullback: HON fell ~4.7% on disappointing growth guidance/earnings from the spun-off aero unit, HONA itself is -21% in a month on uninspiring sell-side initiations, and analysts are divided on the post-spin valuation (Yahoo Finance / stocktitan, searched this run). Also the technical signal itself is suspect: the 'rising 200d MA' ($229.0) spans mostly PRE-spin prices -- only ~2 months of clean post-spin history exists, so the uptrend claim is contaminated by the corporate action. Mild oversold (8.8, not <5) + negative catalyst + unreliable trend structure = conviction 4/10, below the 7 gate."
+    },
+    {
+     "symbol": "CVS",
+     "signal": "RSI2 0.5 in the fresh 15:01Z report (deepest oversold on the list), live 93.60.",
+     "iv_context": "Not priced -- killed before chain work.",
+     "conviction_score": 2,
+     "outcome": "SKIPPED -- thesis documented WEAKENED 2026-08-10 (2027 Caremark-membership loss + 340B warning) and we realized -$108.04 yesterday on the CVS Sep 100C via the confirmed -50% backstop. Buying calls again one day later on a deeper dip is averaging back into the same broken trade / re-trading old news -- fails the honesty test outright."
+    },
+    {
+     "symbol": "KHC",
+     "signal": "RSI2 7.4 in the fresh 15:01Z report, live 24.42 (-0.9% on a green tape = relative weakness).",
+     "iv_context": "Not priced -- killed before chain work.",
+     "conviction_score": 3,
+     "outcome": "SKIPPED -- no catalyst, secular-decline packaged-food name mid-breakup, red on a risk-on day (present-tape divergence, trend-maturity gate (c)). A $24 low-vol underlying also offers poor option leverage even where liquid. Conviction 3/10."
+    },
+    {
+     "symbol": "AMD / TSM (watchlist confirmations)",
+     "signal": "Still confirmed at 15:34Z (AMD 487.65 > 478; TSM 428.59 > 426).",
+     "iv_context": "Morning live ratios stand: AMD 0.68, TSM 0.79 -- cheap, but moot given affordability.",
+     "conviction_score": null,
+     "outcome": "SKIPPED -- 4th consecutive run at the settled verdict: $751 free budget fits no sane-delta 21-45 DTE contract on a $430-490 underlying; far-OTM punts already failed the honesty test at 14:36Z. Not re-priced."
+    }
+   ],
+   "entry_placed": null,
+   "exit_placed": null,
+   "sleeve_state": "Agentic premium-at-risk $749 of $1,500 (SPY hedge only). Realized P&L today $0 vs -$400 cap. Entry throttle 0/3. Portfolio $3,838.97, settled BP $1,447.47, unsettled $0. Broker book verified clean at 15:34Z (2 positions, zero pendings, matches ledger).",
+   "notes": "The fresh 15:01Z intraday report's three new RSI2 setups (CVS/KHC/HON) were each researched and each failed a gate -- HON was the only one that fit the $751 budget and it died on the spin-off news check. Structural note stands: while the $749 hedge is on, big-cap AI-semi signals are unaffordable; viable candidates must be <~$150 spot AND pass the full stack. IV self-tracking: live-value overwrite of today's close-IV core rows still pending (no ATM chain work done this run; rows remain usable as ratio context)."
   }
  ]
 }
