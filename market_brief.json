@@ -115,8 +115,23 @@
     "free_premium": 751.0,
     "note": "Agentic premium-at-risk $749 of the $1,500 budget (SPY hedge only); ACHR is Ryan's and excluded. $751 free, and settled BP $1,447.47 is not the binding constraint -- the budget is. At $751 the affordable universe of ~0.35-delta 21-45 DTE calls is limited to underlyings roughly <= $120 with normal IV; that is precisely why INTC (~$101) is the only live candidate and why AMD/TSM/NVDA keep failing on structure rather than on signal."
   },
+  "open_duties_for_a_later_run_today": {
+    "_priority": "Read this FIRST. The 13:00Z run fired 30 minutes BEFORE the open, so two first-run-of-the-day duties could not be completed correctly and are handed off here. They are assigned work, not suggestions.",
+    "1_iv_logging": {
+      "status": "NOT DONE -- owed by the first run that executes at or after ~14:00Z (30+ min past the open).",
+      "what": "Log one row per ticker in iv_history.json for the core list: SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA. For each: get_option_chains -> nearest-30-DTE expiry -> get_option_instruments at the ATM strike (closest to live spot) -> get_option_quotes -> average the call and put IV at that strike. Append {date, spot, atm_iv, dte_used, rv_30d, iv_rv_ratio}, one row per ticker per day (overwrite today's row if it already exists).",
+      "rv_30d_already_computed": "Reuse the values in data_notes.rv_30d_source -- SPY 0.124, QQQ 0.239, NVDA 0.400, AMD 0.799, TSM 0.462, AVGO 0.422, MSFT 0.495, TSLA 0.628. No need to refetch historicals.",
+      "why_deferred": "The option quote feed serves PRIOR-CLOSE snapshots in the first minutes of the session. On 2026-08-12 a 13:35Z logging pass left 4 of 8 core rows (NVDA/AVGO/MSFT/TSLA) as prior-close placeholders that later runs had to caveat or overwrite, and SPY/QQQ needed explicit corrections. Logging once, late, beats logging early and correcting. Do NOT log before ~14:00Z.",
+      "verify_live": "Sanity-check that the returned option quote is live rather than a prior-close snapshot before writing the row (e.g. the underlying spot in the quote payload should track the live equity quote, not yesterday's close). If it still looks stale, defer again and say so rather than writing a placeholder."
+    },
+    "2_reread_todays_equity_report": {
+      "status": "NOT DONE -- today's report did not exist when this brief was built.",
+      "what": "latest_morning.md on master was still 2026-08-12 14:22Z at 13:05Z today. Today's report normally lands ~14:22Z. A later run must re-read it and treat any genuinely NEW RSI2 swing setup or momentum/breakdown signal as a candidate (candidate only -- every Phase 2 gate applies unchanged, liquidity is the usual killer, and the de-emphasized-oil sector steer carries over to options).",
+      "watch_for": "COHR was momentum #18 in yesterday's screen and is -6% pre-market on earnings today -- expect the report's momentum table to shift. Do not treat a post-earnings knife as a signal in either direction."
+    }
+  },
   "data_notes": {
-    "iv_logging_deferred": "Core-list IV logging is DELIBERATELY deferred to a post-open point in this run rather than done pre-open. Root cause being fixed: the option quote feed serves PRIOR-CLOSE snapshots in the first minutes of the session, which on 2026-08-12 left 4 of 8 core rows (NVDA/AVGO/MSFT/TSLA) as prior-close placeholders that later runs had to caveat or overwrite. Logging after the feed goes live yields one clean row per ticker per day instead of a placeholder plus a correction.",
+    "iv_logging_deferred": "Core-list IV logging is DELIBERATELY deferred to a post-open run -- see open_duties_for_a_later_run_today.1_iv_logging for the full handoff. Root cause being fixed: the option quote feed serves PRIOR-CLOSE snapshots in the first minutes of the session, which on 2026-08-12 left 4 of 8 core rows (NVDA/AVGO/MSFT/TSLA) as prior-close placeholders that later runs had to caveat or overwrite. Logging after the feed goes live yields one clean row per ticker per day instead of a placeholder plus a correction.",
     "equity_report_freshness": "latest_morning.md on master is 2026-08-12 14:22Z and latest_intraday.md is 2026-08-12 19:02Z -- BOTH are yesterday's. Today's morning report normally lands ~14:22Z, after this run fired. The INTC/AMD/TSM/NVDA candidates above therefore come from yesterday's screen; a later run today should re-read latest_morning.md and treat any genuinely new setup as a mid-day watchlist addition per the routine spec.",
     "rv_30d_source": "Computed this run from Robinhood daily historicals (annualized stdev of log returns, last 30 sessions): SPY 12.4%, QQQ 23.9%, NVDA 40.0%, AMD 79.9%, TSM 46.2%, AVGO 42.2%, MSFT 49.5%, TSLA 62.8%, INTC 83.0%."
   }

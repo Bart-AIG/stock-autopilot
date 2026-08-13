@@ -1,13 +1,13 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-12T19:46:00Z",
+  "updated_utc": "2026-08-13T13:12:00Z",
   "_realized_options_pnl_today": {
-    "date_utc": "2026-08-12",
+    "date_utc": "2026-08-13",
     "trades": [],
     "total_realized_pnl": 0,
     "daily_loss_cap": -400,
     "cap_hit": false,
-    "_note": "New trading day, no realized options P&L yet (prior day 2026-08-11: -$108.04, the CVS 100C confirmed -50% backstop close). Agentic-placed premium-at-risk = SPY hedge $749 only, $751 of the $1,500 budget free."
+    "_note": "New trading day, no realized options P&L yet (prior realized: 2026-08-11 -$108.04, the CVS 100C confirmed -50% backstop close; 2026-08-12 flat, no trades). Agentic-placed premium-at-risk = SPY hedge $749 only, $751 of the $1,500 budget free."
   },
   "positions": [
     {
@@ -28,12 +28,13 @@
         "pct_from_entry": -11.95,
         "pl_usd": -89.5,
         "peak_premium": 7.825,
-        "dte": 100,
+        "dte": 99,
         "delta": -0.1456,
         "theta": -0.0839,
         "iv": 0.2082,
-        "last_checked_utc": "2026-08-12T19:46:00Z",
-        "status": "HOLD -- authorized defensive hedge, insurance-EXEMPT from the DTE-scaled premium backstops (HARD RULE 8 / OWNERSHIP GATE), so -50%/-70% never apply. -12.0% at the 19:46Z mark ($6.595, bid/ask 6.59/6.60) with SPY 772.79 (+0.29%) into the close. peak_premium $7.825 unchanged; the +50% ratchet has never armed. Next decision: ~21-DTE roll/close review WITH Ryan around 2026-10-30. TRUE FINAL CHECK OF 2026-08-12 (19:46Z run, ~14 min to the bell)."
+        "last_checked_utc": "2026-08-13T13:12:00Z",
+        "status": "HOLD -- authorized defensive hedge, insurance-EXEMPT from the DTE-scaled premium backstops (HARD RULE 8 / OWNERSHIP GATE), so -50%/-70% never apply. Reviewed at the 13:00Z run of 2026-08-13, which fired 30 min PRE-OPEN: no fresh mark was taken because the option quote feed serves prior-close snapshots before the open, and writing one as 'current' would be a stale number dressed as live. mark_price/pct/pl below are therefore the last LIVE values, from 2026-08-12T19:46Z -- a later post-open run should overwrite them. Broker reconciliation confirms the position itself (1 long, $749.00 basis, opened 2026-08-06). peak_premium $7.825 unchanged; the +50% ratchet has never armed. Today's narrowing-breadth tape (index at ATHs while CSCO/Cerebras/COHR break on earnings) is mildly supportive of continuing to hold the insurance. Next decision: ~21-DTE roll/close review WITH Ryan around 2026-10-30.",
+        "mark_is_stale": true
       }
     },
     {
@@ -52,9 +53,10 @@
         "mark_price": 3.075,
         "pct_from_entry": 24.49,
         "pl_usd": 60.5,
-        "dte": 527,
-        "last_checked_utc": "2026-08-12T19:46:00Z",
-        "status": "NO ACTION EVER -- placed_agent='user' + manual_hold_override. +24.5% at the 19:46Z mark ($3.075, bid/ask 3.00/3.15, delta 0.788). Not actionable by this run regardless of price. Excluded from the agentic $1,500 premium budget. TRUE FINAL CHECK OF 2026-08-12."
+        "dte": 526,
+        "last_checked_utc": "2026-08-13T13:12:00Z",
+        "status": "NO ACTION EVER -- placed_agent='user' + manual_hold_override. Reviewed at the 13:00Z pre-open run of 2026-08-13; no fresh mark taken (prior-close feed pre-open), so mark_price/pct/pl below are the last LIVE values from 2026-08-12T19:46Z. Broker reconciliation confirms 1 long, $247.00 basis, opened 2026-07-20. Not actionable by any automated run regardless of price. Excluded from the agentic $1,500 premium budget.",
+        "mark_is_stale": true
       },
       "manual_hold_override": {
         "set_utc": "2026-07-22T14:30:00Z",

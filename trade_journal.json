@@ -2081,6 +2081,82 @@
       },
       "eod_report": "Already written and delivered by the 19:32Z run (daily_options_report.md on master -> eod-report-notify.yml). Deliberately NOT re-committed by this run: nothing material changed (no entry, no exit, both positions held on unchanged reasoning), and touching that file again would fire a second ntfy push at Ryan carrying no new information. Re-notification discipline per the HARD RULE 9 'notify once per incident, not once per run' lesson, applied to the report path.",
       "tomorrow_watchpoints": "INTC armed trigger unchanged (pullback into ~$97-100 HOLDING above $95, or a decisive close >$105.45 on volume; kill = close <$95); Sep-18 110C pre-priced ~$595. AMD/TSM remain confirmed-but-unaffordable at the right delta - only a pullback that cheapens the correct strike changes that. SPY hedge: no action until the ~21-DTE review with Ryan (~2026-10-30). NVDA earnings late Aug - avoid opening fresh NVDA risk into it."
+    },
+    {
+      "run_utc": "2026-08-13T13:00:00Z",
+      "run": "Options automation - FIRST RUN of 2026-08-13, fired 13:00Z / 09:00 ET, a full 30 minutes BEFORE the 09:30 ET open. Phase 0 (heartbeat + daily brief) completed pre-open; no entry was possible or attempted, since the routine authorizes action only 9:30 AM-4:00 PM ET.",
+      "regime": "risk-on but NARROWING (one notch below yesterday's clean risk-on). Soft July PPI + jobless claims at 08:30 ET extended the in-line-CPI disinflation read, and the index tape is healthy -- SPY 774.44 pre (+0.25%, within ~0.1% of ATHs, above 20d 753.19 / 50d 748.12 / 200d 703.99), QQQ 724.68 (+0.14%). But leadership narrowed hard: yesterday's AI-infra melt-up (CRWV +18% / NBIS +12.5% / SMCI +9%) was replaced by earnings damage -- CSCO -7%, Cerebras -15%, COHR -6% pre-market. Index up while leaders break is a reason to RAISE the single-name entry bar, not lower it.",
+      "positions_reviewed": [
+        {
+          "contract": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "HOLD - thesis intact, no action available or warranted.",
+          "detail": "Broker confirms 1 long contract, $749.00 basis, opened 2026-08-06. Reviewed pre-open, so no fresh live mark was taken (the option quote feed serves prior-close snapshots before/around the open -- quoting one would have been a stale number dressed as current). Last live mark 2026-08-12T19:46Z: $6.595, -12.0% / -$89.50, DTE now 99, peak_premium $7.825, +50% ratchet never armed. Exempt from the DTE-scaled premium backstops per the hedge carve-out, so the drawdown is not a sell signal -- insurance losing a little while SPY sits at ATHs is the position working as designed. Today's narrowing-breadth pattern is mildly supportive of continuing to hold it. Next decision remains the ~21-DTE roll/close review WITH Ryan around 2026-10-30."
+        },
+        {
+          "contract": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "NO ACTION - ownership gate + manual_hold_override.",
+          "detail": "Broker confirms 1 long contract, $247.00 basis, opened 2026-07-20. Ryan placed it himself and said 'leave it be' (2026-07-22). Never actionable by an automated run, regardless of price. DTE 526. Excluded from the agentic $1,500 budget."
+        }
+      ],
+      "reconciliation": "CLEAN. get_option_positions returns exactly the two contracts in holdings.json -- no phantom positions, no unlogged fills, no drift. No _flag or UNAUTHORIZED marker present anywhere in the ledger; none created this run. HEAD was level with origin/master at run start (no branch drift to clear).",
+      "entries": [],
+      "entry_decision": "NO ENTRY - structurally impossible and correctly so: the run fired at 13:00Z, 30 minutes before the 09:30 ET open, and the routine authorizes action only during regular hours. Separately, even the pre-market tape gave no reason to act. The INTC trigger -- the sleeve's only affordable, liquid, right-delta candidate -- stayed in the dead zone at $101.21 (+0.26%): above the $97-100 pullback band, below the $105.45 breakout level, for an 8th consecutive session. It was NOT loosened. Eight sessions of an unhit trigger is evidence the level is being respected, not evidence the level is wrong; a trigger rewritten because it hasn't paid is no longer a trigger. Flat is a position.",
+      "candidates_screened": [
+        {
+          "symbol": "INTC",
+          "spot": 101.21,
+          "day_pct": 0.26,
+          "gate_failed": "market closed at run time (no action window) + entry trigger unhit (dead zone, 8th session)",
+          "detail": "Thesis unchanged and still intact: the $20B offering (210M shares @ $95) that drove the -42% June-July decline priced 2026-08-10 and CLOSED 2026-08-12, converting a hanging dilution risk into a known done event. Momentum top-decile (#8, mom12-1 340%), spot far above the 200d MA ($69.50), RSI14 50.0 (neutral -- no overbought problem). IV ratio 0.81 = premium cheap vs realized (83.0% rv computed this run vs 68.4% atm_iv logged yesterday), so single-legs stay favored over spreads. Every gate except the trigger still passes: budget (Sep-18 110C ~$595 / 115C ~$457 vs $751 free), liquidity (OI 44,946, spread 3.4% of mid). NEW RISK FLAGGED FOR TODAY: AMAT reports after tonight's close and is a direct semicap read-through to INTC's foundry-capex story. Even if a confirm level prints intraday, entering today means carrying a sector-defining binary overnight that forms no part of the written thesis -- a later run should weigh that explicitly rather than treating a trigger hit as automatically sufficient."
+        },
+        {
+          "symbol": "AMD",
+          "spot": 482.3,
+          "day_pct": -0.13,
+          "gate_failed": "budget at the correct delta + catalyst decay (trend-maturity gate b) + market closed",
+          "detail": "DOWNGRADED from 'actionable on confirmation' to WATCH ONLY. Yesterday's thesis was explicitly built on the CRWV/NBIS/SMCI AI-infra earnings sweep re-rating capex; today CSCO, Cerebras and COHR all reported poorly and AMD is flat-to-red pre-market. The catalyst is now ~2 sessions old AND actively contradicted, which is precisely what maturity gate (b) 'already priced' and gate (c) 'present tape confirms' are meant to catch. The budget block is unchanged on top of that: a 21-45 DTE ~0.35-delta call on a $482 underlying costs multiples of $751 free, and the affordable alternative is a far-OTM lottery strike that does not express the thesis."
+        },
+        {
+          "symbol": "TSM",
+          "spot": 429.01,
+          "day_pct": -0.03,
+          "gate_failed": "budget at the correct delta + AMAT read-through risk + market closed",
+          "detail": "The 50d-MA (425.82) reclaim from yesterday is holding but is no longer being paid for -- flat pre-market. Same structural block as AMD: right-delta 21-45 DTE calls on a $429 underlying are far beyond $751 free. AMAT tonight adds an unpriced binary. Watch continues."
+        },
+        {
+          "symbol": "NVDA",
+          "spot": 224.21,
+          "day_pct": 0.05,
+          "gate_failed": "no trigger (watch-only)",
+          "detail": "Above all MAs, -4.9% off the 52wk high 235.74, flat pre-market. The brief's conditions are an RSI2<10 dip or a decisive break of 235.74 -- neither is close. Earnings ~late Aug is now inside a month, which argues against opening fresh NVDA risk at all."
+        },
+        {
+          "symbol": "COHR",
+          "spot": null,
+          "day_pct": -6.0,
+          "gate_failed": "post-earnings knife (trend-maturity gate a/c) -- no entry either direction",
+          "detail": "Screened because it sits at #18 in our own momentum top decile and is -6% pre-market on earnings. Explicitly NOT traded: an earnings reaction is late-stage by definition on the day, the move is the catalyst rather than an anticipation of one, and the routine's mandate is to catch turns, not to trade prints. Noted mainly as a live example of a report momentum signal being invalidated by fundamentals -- the report's screen is purely technical and lags an earnings break by a full session."
+        }
+      ],
+      "iv_context": "NO IV ROWS WRITTEN THIS RUN -- deliberate, and handed off rather than dropped. The run fired pre-open, when the option quote feed serves prior-close snapshots; logging then is what produced 4 of 8 placeholder rows (NVDA/AVGO/MSFT/TSLA) plus two explicit corrections on 2026-08-12. The full duty is written into market_brief.json under open_duties_for_a_later_run_today.1_iv_logging, assigned to the first run at or after ~14:00Z, including a live-vs-stale verification step and the rv_30d values already computed this run so no refetch is needed. rv_30d (Robinhood daily historicals, annualized stdev of log returns, last 30 sessions): SPY 12.4%, QQQ 23.9%, NVDA 40.0%, AMD 79.9%, TSM 46.2%, AVGO 42.2%, MSFT 49.5%, TSLA 62.8%, INTC 83.0%. INTC's ratio 0.81 (1 reading only -> ratio-based, not percentile) carried forward for the armed trigger.",
+      "sleeve_state": {
+        "agentic_premium_at_risk": 749.0,
+        "budget": 1500.0,
+        "free_premium": 751.0,
+        "open_agentic_positions": 1,
+        "open_agentic_positions_excluding_hedge": 0,
+        "max_positions": 3,
+        "realized_pnl_today": 0.0,
+        "daily_loss_cap": -400.0,
+        "portfolio_total_value": 3857.98,
+        "settled_buying_power": 1447.47,
+        "unsettled_funds": 0.0,
+        "weekly_circuit_breaker": "not tripped -- no agentic entries or exits this week; the only agentic position is the exempt hedge."
+      },
+      "infrastructure_note": "FMP /stable endpoints -- the routine's designated source for the economic calendar, Fed events, macro news and fundamentals -- are BLOCKED from this environment by the egress policy: financialmodelingprep.com:443 returns 403 on CONNECT, confirmed via the agent-proxy status endpoint (3 recorded rejections this run). Per the proxy README a 403 is an organization policy denial and must NOT be retried or routed around. This is the same known network-allowlist limitation CLAUDE.md already documents for report.py (which is why report.py runs in GitHub Actions), so it is a standing condition, not a new outage, and it needs no alert to Ryan. Macro routing falls back to WebSearch -- the same source yesterday's brief used -- and Robinhood still serves all technicals, chains, greeks and historicals, so no trading gate is degraded. Worth folding into the routine prompt's DATA ROUTING line the next time Ryan re-pastes it, since the prompt currently names FMP as the macro source without noting it is unreachable from the run environment.",
+      "process_note": "Two first-run-of-the-day duties (core IV logging, and reading today's equity report) could not be done correctly because the run fired 30 minutes pre-open and today's report does not publish until ~14:22Z. Rather than doing them badly pre-open or letting them lapse, both are written into market_brief.json as explicit assigned duties for a later run, with the method, the reason, and the already-computed inputs attached."
     }
   ]
 }
