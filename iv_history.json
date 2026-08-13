@@ -1,177 +1,279 @@
 {
-  "_comment": "IV self-tracking for the options-automation sleeve (HARD RULE 8 / routine v3). One row per ticker per day: {date, spot, atm_iv, dte_used, rv_30d, iv_rv_ratio}. atm_iv = average of call+put IV at the strike closest to spot, at the expiry nearest 30 DTE (or the position's actual expiry when tracking an open position's own contract). rv_30d = annualized stdev of daily log returns over the trailing 30 sessions, computed from Robinhood daily historicals. iv_rv_ratio = atm_iv / rv_30d. Bootstrapped 2026-08-11 (first run under routine prompt v3 -- this file did not exist before). With <20 readings for a name, gate entries on iv_rv_ratio alone (>1.5 = elevated premium, prefer legged debit spread or skip + size down); at 20+ readings also compute IV percentile (share of readings below current) per the routine spec.",
-  "SPY": [
-    {
-      "date": "2026-08-11",
-      "spot": 771.34,
-      "atm_iv": 0.1307,
-      "dte_used": 31,
-      "rv_30d": 0.1317,
-      "iv_rv_ratio": 0.99
-    },
-    {
-      "date": "2026-08-12",
-      "spot": 773.42,
-      "atm_iv": 0.1223,
-      "dte_used": 30,
-      "rv_30d": 0.1251,
-      "iv_rv_ratio": 0.98,
-      "_note": "OVERWRITTEN with LIVE values at 18:46Z (2026-09-11 773-strike ATM straddle: call IV 0.12331 / put IV 0.12122, avg 0.1223; spot 773.42 live). Replaces the 13:35Z placeholder that carried the 2026-08-11 CLOSE IV (0.1266) because the option quote feed was still serving prior-close snapshots minutes after the open. Ratio 0.98 = index premium essentially in line with realized vol."
-    }
-  ],
-  "QQQ": [
-    {
-      "date": "2026-08-11",
-      "spot": 718.1,
-      "atm_iv": 0.1973,
-      "dte_used": 31,
-      "rv_30d": 0.2536,
-      "iv_rv_ratio": 0.78
-    },
-    {
-      "date": "2026-08-12",
-      "spot": 723.87,
-      "atm_iv": 0.1867,
-      "dte_used": 30,
-      "rv_30d": 0.2435,
-      "iv_rv_ratio": 0.77,
-      "_note": "OVERWRITTEN with LIVE near-close values at 19:32Z (2026-09-11 724-strike ATM straddle: call IV 0.18753 / put IV 0.18589, avg 0.1867; spot 723.87 live). Replaces the 13:35Z placeholder that carried the 2026-08-11 CLOSE IV (0.193) because the option quote feed was still serving prior-close snapshots minutes after the open. Ratio 0.77 = index premium CHEAP vs realized vol. NVDA/AVGO/MSFT/TSLA rows for today remain prior-close placeholders -- an ATM-strike lookup for those names returned no instrument at the guessed strike/expiry and the EOD report took priority over strike-hunting in the last 30 minutes; their caveat notes are accurate as written."
-    }
-  ],
-  "NVDA": [
-    {
-      "date": "2026-08-11",
-      "spot": 218.38,
-      "atm_iv": 0.3815,
-      "dte_used": 31,
-      "rv_30d": 0.3985,
-      "iv_rv_ratio": 0.96
-    },
-    {
-      "date": "2026-08-12",
-      "spot": 220.41,
-      "atm_iv": 0.3915,
-      "dte_used": 30,
-      "rv_30d": 0.3979,
-      "iv_rv_ratio": 0.98,
-      "_note": "ATM IV as of the 2026-08-11 close (option quote feed still serving prior-close snapshots at ~13:35Z, minutes after the open); spot is the live 13:19Z pre-market print. Overwrite with live values if a later run touches this name."
-    }
-  ],
-  "AMD": [
-    {
-      "date": "2026-08-11",
-      "spot": 466.08,
-      "atm_iv": 0.5647,
-      "dte_used": 31,
-      "rv_30d": 0.8356,
-      "iv_rv_ratio": 0.68
-    },
-    {
-      "date": "2026-08-12",
-      "spot": 488.61,
-      "atm_iv": 0.5641,
-      "dte_used": 37,
-      "rv_30d": 0.8293,
-      "iv_rv_ratio": 0.68,
-      "_note": "LIVE 17:47Z reading (refreshes the 14:33Z row; one row per ticker per day): Sep-18 490 strike, call IV 0.5656 / put IV 0.5626. Name touched for entry evaluation this run. Ratio 0.68 = cheap premium, single-legs favored -- affordability, not IV, is what blocks this name (see market_brief.budget_affordability_frontier)."
-    }
-  ],
-  "TSM": [
-    {
-      "date": "2026-08-11",
-      "spot": 421.5,
-      "atm_iv": 0.3778,
-      "dte_used": 31,
-      "rv_30d": 0.5067,
-      "iv_rv_ratio": 0.75
-    },
-    {
-      "date": "2026-08-12",
-      "spot": 429.85,
-      "atm_iv": 0.3721,
-      "dte_used": 37,
-      "rv_30d": 0.4829,
-      "iv_rv_ratio": 0.77,
-      "_note": "LIVE 17:47Z reading (refreshes the 14:33Z row): Sep-18 430 strike, call IV 0.3675 / put IV 0.3766. Name touched for entry evaluation this run. Ratio 0.77 = cheap premium, single-legs favored."
-    }
-  ],
-  "AVGO": [
-    {
-      "date": "2026-08-11",
-      "spot": 418.5,
-      "atm_iv": 0.4971,
-      "dte_used": 31,
-      "rv_30d": 0.4213,
-      "iv_rv_ratio": 1.18
-    },
-    {
-      "date": "2026-08-12",
-      "spot": 425.01,
-      "atm_iv": 0.4993,
-      "dte_used": 30,
-      "rv_30d": 0.4226,
-      "iv_rv_ratio": 1.18,
-      "_note": "ATM IV as of the 2026-08-11 close (option quote feed still serving prior-close snapshots at ~13:35Z, minutes after the open); spot is the live 13:19Z pre-market print. Overwrite with live values if a later run touches this name."
-    }
-  ],
-  "MSFT": [
-    {
-      "date": "2026-08-11",
-      "spot": 501.73,
-      "atm_iv": 0.2667,
-      "dte_used": 31,
-      "rv_30d": 0.4879,
-      "iv_rv_ratio": 0.55
-    },
-    {
-      "date": "2026-08-12",
-      "spot": 500.44,
-      "atm_iv": 0.2649,
-      "dte_used": 30,
-      "rv_30d": 0.4854,
-      "iv_rv_ratio": 0.55,
-      "_note": "ATM IV as of the 2026-08-11 close (option quote feed still serving prior-close snapshots at ~13:35Z, minutes after the open); spot is the live 13:19Z pre-market print. Overwrite with live values if a later run touches this name."
-    }
-  ],
-  "TSLA": [
-    {
-      "date": "2026-08-11",
-      "spot": 331.73,
-      "atm_iv": 0.3877,
-      "dte_used": 31,
-      "rv_30d": 0.6822,
-      "iv_rv_ratio": 0.57
-    },
-    {
-      "date": "2026-08-12",
-      "spot": 334.65,
-      "atm_iv": 0.386,
-      "dte_used": 30,
-      "rv_30d": 0.633,
-      "iv_rv_ratio": 0.61,
-      "_note": "ATM IV as of the 2026-08-11 close (option quote feed still serving prior-close snapshots at ~13:35Z, minutes after the open); spot is the live 13:19Z pre-market print. Overwrite with live values if a later run touches this name."
-    }
-  ],
-  "CVS": [
-    {
-      "date": "2026-08-11",
-      "spot": 93.39,
-      "atm_iv": 0.2519,
-      "dte_used": 24,
-      "rv_30d": 0.2762,
-      "iv_rv_ratio": 0.91,
-      "_note": "open agentic position (2026-09-18 100C); tracked because it's under active management"
-    }
-  ],
-  "INTC": [
-    {
-      "date": "2026-08-12",
-      "spot": 102.26,
-      "atm_iv": 0.6843,
-      "dte_used": 37,
-      "rv_30d": 0.8448,
-      "iv_rv_ratio": 0.81,
-      "_note": "First INTC reading -- logged because INTC was under active evaluation this run (18:00Z). atm_iv = avg of the 2026-09-18 100C (0.6749) / 105C (0.6834) / 110C (0.6852) / 115C (0.6945) band around spot 102.26; 105C is the delta-0.50 strike. LIVE quotes (18:02Z), not a prior-close snapshot. Ratio 0.81 = premium CHEAP vs realized -- INTC's actual daily range (rv 84%) exceeds what the options charge (68%), so single-legs are favored over spreads on this name."
-    }
-  ]
+ "_comment": "IV self-tracking for the options-automation sleeve (HARD RULE 8 / routine v3). One row per ticker per day: {date, spot, atm_iv, dte_used, rv_30d, iv_rv_ratio}. atm_iv = average of call+put IV at the strike closest to spot, at the expiry nearest 30 DTE (or the position's actual expiry when tracking an open position's own contract). rv_30d = annualized stdev of daily log returns over the trailing 30 sessions, computed from Robinhood daily historicals. iv_rv_ratio = atm_iv / rv_30d. Bootstrapped 2026-08-11 (first run under routine prompt v3 -- this file did not exist before). With <20 readings for a name, gate entries on iv_rv_ratio alone (>1.5 = elevated premium, prefer legged debit spread or skip + size down); at 20+ readings also compute IV percentile (share of readings below current) per the routine spec.",
+ "SPY": [
+  {
+   "date": "2026-08-11",
+   "spot": 771.34,
+   "atm_iv": 0.1307,
+   "dte_used": 31,
+   "rv_30d": 0.1317,
+   "iv_rv_ratio": 0.99
+  },
+  {
+   "date": "2026-08-12",
+   "spot": 773.42,
+   "atm_iv": 0.1223,
+   "dte_used": 30,
+   "rv_30d": 0.1251,
+   "iv_rv_ratio": 0.98,
+   "_note": "OVERWRITTEN with LIVE values at 18:46Z (2026-09-11 773-strike ATM straddle: call IV 0.12331 / put IV 0.12122, avg 0.1223; spot 773.42 live). Replaces the 13:35Z placeholder that carried the 2026-08-11 CLOSE IV (0.1266) because the option quote feed was still serving prior-close snapshots minutes after the open. Ratio 0.98 = index premium essentially in line with realized vol."
+  },
+  {
+   "date": "2026-08-13",
+   "spot": 776.19,
+   "atm_iv": 0.1203,
+   "dte_used": 29,
+   "rv_30d": 0.124,
+   "iv_rv_ratio": 0.97,
+   "strike_used": 776,
+   "_note": "LIVE regular-hours reading, quotes stamped 13:38:5xZ (verified fresh via quote.updated_at -- not a prior-close snapshot, which was the defect in the 2026-08-11/-12 13:35Z rows). ATM straddle at the 2026-09-11 expiry (29 DTE), strike = closest listed to spot."
+  }
+ ],
+ "QQQ": [
+  {
+   "date": "2026-08-11",
+   "spot": 718.1,
+   "atm_iv": 0.1973,
+   "dte_used": 31,
+   "rv_30d": 0.2536,
+   "iv_rv_ratio": 0.78
+  },
+  {
+   "date": "2026-08-12",
+   "spot": 723.87,
+   "atm_iv": 0.1867,
+   "dte_used": 30,
+   "rv_30d": 0.2435,
+   "iv_rv_ratio": 0.77,
+   "_note": "OVERWRITTEN with LIVE near-close values at 19:32Z (2026-09-11 724-strike ATM straddle: call IV 0.18753 / put IV 0.18589, avg 0.1867; spot 723.87 live). Replaces the 13:35Z placeholder that carried the 2026-08-11 CLOSE IV (0.193) because the option quote feed was still serving prior-close snapshots minutes after the open. Ratio 0.77 = index premium CHEAP vs realized vol. NVDA/AVGO/MSFT/TSLA rows for today remain prior-close placeholders -- an ATM-strike lookup for those names returned no instrument at the guessed strike/expiry and the EOD report took priority over strike-hunting in the last 30 minutes; their caveat notes are accurate as written."
+  },
+  {
+   "date": "2026-08-13",
+   "spot": 728.11,
+   "atm_iv": 0.186,
+   "dte_used": 29,
+   "rv_30d": 0.239,
+   "iv_rv_ratio": 0.78,
+   "strike_used": 728,
+   "_note": "LIVE regular-hours reading, quotes stamped 13:38:5xZ (verified fresh via quote.updated_at -- not a prior-close snapshot, which was the defect in the 2026-08-11/-12 13:35Z rows). ATM straddle at the 2026-09-11 expiry (29 DTE), strike = closest listed to spot."
+  }
+ ],
+ "NVDA": [
+  {
+   "date": "2026-08-11",
+   "spot": 218.38,
+   "atm_iv": 0.3815,
+   "dte_used": 31,
+   "rv_30d": 0.3985,
+   "iv_rv_ratio": 0.96
+  },
+  {
+   "date": "2026-08-12",
+   "spot": 220.41,
+   "atm_iv": 0.3915,
+   "dte_used": 30,
+   "rv_30d": 0.3979,
+   "iv_rv_ratio": 0.98,
+   "_note": "ATM IV as of the 2026-08-11 close (option quote feed still serving prior-close snapshots at ~13:35Z, minutes after the open); spot is the live 13:19Z pre-market print. Overwrite with live values if a later run touches this name."
+  },
+  {
+   "date": "2026-08-13",
+   "spot": 226.86,
+   "atm_iv": 0.3965,
+   "dte_used": 29,
+   "rv_30d": 0.4,
+   "iv_rv_ratio": 0.99,
+   "strike_used": 225,
+   "_note": "LIVE regular-hours reading, quotes stamped 13:38:5xZ (verified fresh via quote.updated_at -- not a prior-close snapshot, which was the defect in the 2026-08-11/-12 13:35Z rows). ATM straddle at the 2026-09-11 expiry (29 DTE), strike = closest listed to spot."
+  }
+ ],
+ "AMD": [
+  {
+   "date": "2026-08-11",
+   "spot": 466.08,
+   "atm_iv": 0.5647,
+   "dte_used": 31,
+   "rv_30d": 0.8356,
+   "iv_rv_ratio": 0.68
+  },
+  {
+   "date": "2026-08-12",
+   "spot": 488.61,
+   "atm_iv": 0.5641,
+   "dte_used": 37,
+   "rv_30d": 0.8293,
+   "iv_rv_ratio": 0.68,
+   "_note": "LIVE 17:47Z reading (refreshes the 14:33Z row; one row per ticker per day): Sep-18 490 strike, call IV 0.5656 / put IV 0.5626. Name touched for entry evaluation this run. Ratio 0.68 = cheap premium, single-legs favored -- affordability, not IV, is what blocks this name (see market_brief.budget_affordability_frontier)."
+  },
+  {
+   "date": "2026-08-13",
+   "spot": 492.5,
+   "atm_iv": 0.5536,
+   "dte_used": 29,
+   "rv_30d": 0.799,
+   "iv_rv_ratio": 0.69,
+   "strike_used": 490,
+   "_note": "LIVE regular-hours reading, quotes stamped 13:38:5xZ (verified fresh via quote.updated_at -- not a prior-close snapshot, which was the defect in the 2026-08-11/-12 13:35Z rows). ATM straddle at the 2026-09-11 expiry (29 DTE), strike = closest listed to spot."
+  }
+ ],
+ "TSM": [
+  {
+   "date": "2026-08-11",
+   "spot": 421.5,
+   "atm_iv": 0.3778,
+   "dte_used": 31,
+   "rv_30d": 0.5067,
+   "iv_rv_ratio": 0.75
+  },
+  {
+   "date": "2026-08-12",
+   "spot": 429.85,
+   "atm_iv": 0.3721,
+   "dte_used": 37,
+   "rv_30d": 0.4829,
+   "iv_rv_ratio": 0.77,
+   "_note": "LIVE 17:47Z reading (refreshes the 14:33Z row): Sep-18 430 strike, call IV 0.3675 / put IV 0.3766. Name touched for entry evaluation this run. Ratio 0.77 = cheap premium, single-legs favored."
+  },
+  {
+   "date": "2026-08-13",
+   "spot": 432.2,
+   "atm_iv": 0.3609,
+   "dte_used": 29,
+   "rv_30d": 0.462,
+   "iv_rv_ratio": 0.78,
+   "strike_used": 430,
+   "_note": "LIVE regular-hours reading, quotes stamped 13:38:5xZ (verified fresh via quote.updated_at -- not a prior-close snapshot, which was the defect in the 2026-08-11/-12 13:35Z rows). ATM straddle at the 2026-09-11 expiry (29 DTE), strike = closest listed to spot."
+  }
+ ],
+ "AVGO": [
+  {
+   "date": "2026-08-11",
+   "spot": 418.5,
+   "atm_iv": 0.4971,
+   "dte_used": 31,
+   "rv_30d": 0.4213,
+   "iv_rv_ratio": 1.18
+  },
+  {
+   "date": "2026-08-12",
+   "spot": 425.01,
+   "atm_iv": 0.4993,
+   "dte_used": 30,
+   "rv_30d": 0.4226,
+   "iv_rv_ratio": 1.18,
+   "_note": "ATM IV as of the 2026-08-11 close (option quote feed still serving prior-close snapshots at ~13:35Z, minutes after the open); spot is the live 13:19Z pre-market print. Overwrite with live values if a later run touches this name."
+  },
+  {
+   "date": "2026-08-13",
+   "spot": 419.06,
+   "atm_iv": 0.4926,
+   "dte_used": 29,
+   "rv_30d": 0.422,
+   "iv_rv_ratio": 1.17,
+   "strike_used": 420,
+   "_note": "LIVE regular-hours reading, quotes stamped 13:38:5xZ (verified fresh via quote.updated_at -- not a prior-close snapshot, which was the defect in the 2026-08-11/-12 13:35Z rows). ATM straddle at the 2026-09-11 expiry (29 DTE), strike = closest listed to spot."
+  }
+ ],
+ "MSFT": [
+  {
+   "date": "2026-08-11",
+   "spot": 501.73,
+   "atm_iv": 0.2667,
+   "dte_used": 31,
+   "rv_30d": 0.4879,
+   "iv_rv_ratio": 0.55
+  },
+  {
+   "date": "2026-08-12",
+   "spot": 500.44,
+   "atm_iv": 0.2649,
+   "dte_used": 30,
+   "rv_30d": 0.4854,
+   "iv_rv_ratio": 0.55,
+   "_note": "ATM IV as of the 2026-08-11 close (option quote feed still serving prior-close snapshots at ~13:35Z, minutes after the open); spot is the live 13:19Z pre-market print. Overwrite with live values if a later run touches this name."
+  },
+  {
+   "date": "2026-08-13",
+   "spot": 497.93,
+   "atm_iv": 0.258,
+   "dte_used": 29,
+   "rv_30d": 0.495,
+   "iv_rv_ratio": 0.52,
+   "strike_used": 500,
+   "_note": "LIVE regular-hours reading, quotes stamped 13:38:5xZ (verified fresh via quote.updated_at -- not a prior-close snapshot, which was the defect in the 2026-08-11/-12 13:35Z rows). ATM straddle at the 2026-09-11 expiry (29 DTE), strike = closest listed to spot."
+  }
+ ],
+ "TSLA": [
+  {
+   "date": "2026-08-11",
+   "spot": 331.73,
+   "atm_iv": 0.3877,
+   "dte_used": 31,
+   "rv_30d": 0.6822,
+   "iv_rv_ratio": 0.57
+  },
+  {
+   "date": "2026-08-12",
+   "spot": 334.65,
+   "atm_iv": 0.386,
+   "dte_used": 30,
+   "rv_30d": 0.633,
+   "iv_rv_ratio": 0.61,
+   "_note": "ATM IV as of the 2026-08-11 close (option quote feed still serving prior-close snapshots at ~13:35Z, minutes after the open); spot is the live 13:19Z pre-market print. Overwrite with live values if a later run touches this name."
+  },
+  {
+   "date": "2026-08-13",
+   "spot": 329.16,
+   "atm_iv": 0.3725,
+   "dte_used": 29,
+   "rv_30d": 0.628,
+   "iv_rv_ratio": 0.59,
+   "strike_used": 330,
+   "_note": "LIVE regular-hours reading, quotes stamped 13:38:5xZ (verified fresh via quote.updated_at -- not a prior-close snapshot, which was the defect in the 2026-08-11/-12 13:35Z rows). ATM straddle at the 2026-09-11 expiry (29 DTE), strike = closest listed to spot."
+  }
+ ],
+ "CVS": [
+  {
+   "date": "2026-08-11",
+   "spot": 93.39,
+   "atm_iv": 0.2519,
+   "dte_used": 24,
+   "rv_30d": 0.2762,
+   "iv_rv_ratio": 0.91,
+   "_note": "open agentic position (2026-09-18 100C); tracked because it's under active management"
+  }
+ ],
+ "INTC": [
+  {
+   "date": "2026-08-12",
+   "spot": 102.26,
+   "atm_iv": 0.6843,
+   "dte_used": 37,
+   "rv_30d": 0.8448,
+   "iv_rv_ratio": 0.81,
+   "_note": "First INTC reading -- logged because INTC was under active evaluation this run (18:00Z). atm_iv = avg of the 2026-09-18 100C (0.6749) / 105C (0.6834) / 110C (0.6852) / 115C (0.6945) band around spot 102.26; 105C is the delta-0.50 strike. LIVE quotes (18:02Z), not a prior-close snapshot. Ratio 0.81 = premium CHEAP vs realized -- INTC's actual daily range (rv 84%) exceeds what the options charge (68%), so single-legs are favored over spreads on this name."
+  },
+  {
+   "date": "2026-08-13",
+   "spot": 101.01,
+   "atm_iv": 0.6609,
+   "dte_used": 29,
+   "rv_30d": 0.83,
+   "iv_rv_ratio": 0.8,
+   "strike_used": 101,
+   "_note": "LIVE regular-hours reading, quotes stamped 13:38:5xZ (verified fresh via quote.updated_at -- not a prior-close snapshot, which was the defect in the 2026-08-11/-12 13:35Z rows). ATM straddle at the 2026-09-11 expiry (29 DTE), strike = closest listed to spot."
+  }
+ ],
+ "IREN": [
+  {
+   "date": "2026-08-13",
+   "spot": 47.1,
+   "atm_iv": 0.9877,
+   "dte_used": 29,
+   "rv_30d": 1.414,
+   "iv_rv_ratio": 0.7,
+   "strike_used": 47,
+   "_note": "LIVE regular-hours reading, quotes stamped 13:38:5xZ (verified fresh via quote.updated_at -- not a prior-close snapshot, which was the defect in the 2026-08-11/-12 13:35Z rows). ATM straddle at the 2026-09-11 expiry (29 DTE), strike = closest listed to spot."
+  }
+ ]
 }
