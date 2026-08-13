@@ -3161,6 +3161,62 @@
       },
       "decision": "NO TRADE. Flat is a position. The day's one genuinely new candidate was screened properly and failed four independent gates, the standing candidate is below its trigger into an overnight semi binary, and both open positions are correctly untouchable. Nothing was forced.",
       "_concurrency_note": "TWO automation runs fired for the 17:00Z slot (the documented cron-job.org + native-hourly dual trigger). Both are preserved deliberately: they screened DIFFERENT candidates off different report snapshots -- the 17:02Z entry screened ACGL from the then-current report, the 17:05Z entry screened LIN from the fresh 17:02Z intraday report. BOTH concluded NO TRADE, and their independently-fetched position marks agree exactly (SPY 700P mark 6.325 / -15.55%), which is a useful cross-validation rather than a conflict. Neither entry supersedes the other."
+    },
+    {
+      "run_utc": "2026-08-13T17:20:00Z",
+      "run": "Options automation -- EIGHTEENTH post-open run of 2026-08-13 (fired 17:15Z / 13:15 ET). NO TRADE. This was a genuine no-new-information run and is recorded as such rather than padded: no report newer than the 17:02Z intraday has landed (so no new candidate exists), every watchlist item is already resolved with a written standing decision, and both open positions are gated from action by rule. Broker reconciliation clean -- get_option_positions returns exactly SPY 2026-11-20 700P (agentic hedge) + ACHR 2028-01-21 5C (placed_agent='user', manual_hold_override), matching holdings.json with ZERO drift. Phase 0 duties were already discharged today (heartbeat stamped 13:05Z; brief built 13:08Z; all 8 core IV names plus INTC/IREN/ROST/LIN/ACGL logged with a 2026-08-13 row), so this run neither rebuilt nor re-logged them -- one row per ticker per day. Concurrency check per the CLAUDE.md guard: re-fetched origin/master immediately before writing, no sibling run had claimed the 17:15Z slot (HEAD of master still the #212 merge). No flags open; none created.",
+      "regime": "RISK-ON but EXTENDED and COMPLACENT -- label unchanged, no rebuild warranted (no surprise headline, no VIX spike, no index level broken). SPY 777.27 (+0.62%) making another fresh all-time high; QQQ 732.81 (+1.26%) continues to LEAD after fully shaking off the morning CSCO drag -- the brief's opening 'Nasdaq red while Dow green' dispersion has now inverted, which is a genuine improvement in internals but also means the index is grinding higher into an earnings binary. Defensive tripwire (a CLOSING break of SPY 746-748) sits ~30 points below spot, untouched. Entry bar stays ELEVATED for the brief's two stated reasons, both still live: a fresh-ATH tape is the worst moment to initiate long premium, and AMAT's semi-cap print lands inside tonight's overnight window.",
+      "positions_reviewed": [
+        {
+          "contract": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "mark": 6.32,
+          "pct_from_entry": -15.62,
+          "pl_usd": -117.0,
+          "dte": 99,
+          "verdict": "HOLD -- thesis intact, no exit condition can fire. Insurance-exempt from the DTE-scaled premium backstops per the defensive-posture playbook, so -15.6% is not a sell signal; it is what a drawdown put does while SPY prints new highs. Bid/ask 6.30/6.34 on OI 19,974 -- still the most liquid thing in the sleeve, so the mark is trustworthy. setup_invalidation (SPY ~800+ melt-up without the pullback, or Ryan lifting the Aug-Oct posture) is unmet on both limbs. Next decision point is the ~21-DTE roll/close review (~2026-10-30), a Ryan decision, not an automated one."
+        },
+        {
+          "contract": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "mark": 3.4,
+          "pct_from_entry": 37.65,
+          "pl_usd": 93.0,
+          "dte": 526,
+          "verdict": "NO ACTION -- ownership gate. placed_agent='user' plus a manual_hold_override; the automation may observe but never exit, trim, or roll it, and it is excluded from the agentic $1,500 budget. Mark ticked 3.375 -> 3.40 after five runs pinned at 3.375, on a $0.20-wide 3.30/3.50 market with 94 contracts traded -- quote noise on a wide LEAP, not a move worth narrating. Below both the +50% ratchet arm and the +80% pop in any case, so nothing has fired."
+        }
+      ],
+      "entries_taken": [],
+      "exits_taken": [],
+      "candidates_screened": [
+        {
+          "symbol": "INTC",
+          "conviction": "5/10",
+          "verdict": "SKIP -- 17th decline of the day, and deliberately WITHOUT new research: the standing decision recorded at 14:05Z already fixes the exact re-check sequence, and re-litigating a settled question every 15 minutes is the ledger-noise failure CLAUDE.md warns about. State: spot 105.25, +4.26% on the day, BELOW the $105.45 CLOSE trigger by $0.20 for the third consecutive run. It bounced off the 104.86 low back toward the level, so the trigger is contested rather than abandoned -- but the trigger says CLOSE, and no intraday print can satisfy it. Independently, AMAT reports tonight and INTC is a semi, so any entry today carries an unhedged overnight binary the brief pre-committed to refusing. Both objections must clear tomorrow, in the written order: (1) did INTC close above 105.45? (2) did AMAT leave semis intact? (3) is INTC holding the level post-print? Three yes = the sleeve's trade at 8/10. Any no = stand down cleanly."
+        },
+        {
+          "symbol": "(no new candidate)",
+          "conviction": "n/a",
+          "verdict": "Phase 2 produced no new name to work. The candidate pipeline is exhausted by construction, not by inattention: source (1), the committed equity report, is unchanged since 17:02Z and that report's only new line (LIN) was screened and killed on liquidity by the prior run; sources (2) and (3) are covered by the brief's watchlist, every member of which carries a resolved status -- IREN DISARMED on its own trigger_kill, AMAT documented NO-TRADE ahead of tonight's print, CSCO WATCH-ONLY as a trend-maturity trap, IWM WATCH-ONLY with no dated catalyst, ROST and ACGL both closed on earnings and liquidity respectively. The next genuine new information available to this sleeve is the ~18:02Z intraday report. Flat is a position."
+        }
+      ],
+      "iv_context": "No new IV work this run, by design. All eight core names (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) plus INTC, IREN, ROST, LIN and ACGL already carry a 2026-08-13 row in iv_history.json, and the rule is one row per ticker per day -- re-fetching would overwrite good data with a later intraday print for no analytical gain. No name was under active evaluation this run beyond INTC, whose ratio (iv_rv_ratio 0.84 at the 107 strike / 29 DTE, logged 15:31Z) is current. Sample depth is still only 2-3 readings per core name, so the <20-reading rule applies throughout: ratio-only, never a percentile.",
+      "sleeve_state": {
+        "agentic_premium_at_risk_usd": 749.0,
+        "budget_usd": 1500.0,
+        "headroom_usd": 751.0,
+        "open_agentic_positions": 1,
+        "non_hedge_slots_used": "0 of 3 (the SPY hedge does not count toward the max-3)",
+        "user_placed_excluded": "ACHR 2028-01-21 5C ($247 premium) -- Ryan's own, outside the agentic budget",
+        "realized_options_pl_today_usd": 0.0,
+        "daily_loss_cap_usd": -400.0,
+        "weekly_circuit_breaker": "not tripped -- zero realized options P&L this week, so the -12% weekly test cannot fire",
+        "settled_buying_power_usd": 1447.47,
+        "unsettled_funds_usd": 535.05,
+        "cash_note": "Account total $3,852.02 (equity $897.50 / options $972.00 / cash $1,982.52). The $535.05 unsettled is the IREN equity proceeds from RYAN's own GTC stop fill this morning (T+1, spendable 2026-08-14) -- not agentic, and not spendable today. Settled BP $1,447.47 comfortably covers any contract this sleeve would want, so cash is not the binding constraint; the entry gates are."
+      },
+      "decision": "NO ENTRY, NO EXIT. Two positions, both gated from action by rule rather than by judgment (hedge exempt / user-owned). One live watchlist name below its own trigger with an overnight event risk it was already pre-committed to refuse. No new report, therefore no new candidate. The correct output of this run is a timestamp and nothing else -- most runs should end this way, and manufacturing activity out of an unchanged tape is precisely the failure mode the conviction gate exists to prevent.",
+      "_concurrency_note": "origin/master re-fetched at 17:19Z immediately before writing: HEAD unchanged at the #212 merge, no sibling run had claimed the 17:15Z slot. Since this run places no order, the double-placement risk the guard addresses is moot -- but the check is recorded so the habit holds on a run that does want to trade."
     }
   ]
 }
