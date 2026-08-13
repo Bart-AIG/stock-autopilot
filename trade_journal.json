@@ -2954,6 +2954,73 @@
         "flags_open": "none"
       },
       "verdict": "NO ACTION. Flat is a position: with one armed-but-untriggered name, an equity report carrying no new tradable setup, a semi-cap earnings binary tonight, and a fresh-ATH tape, the correct output of this run is nothing. The sleeve's edge is patience and selectivity. Next milestone is the EOD report, due on the first run at or after 19:30Z (14:30 CT)."
+    },
+    {
+      "run_utc": "2026-08-13T16:47:00Z",
+      "run": "Options automation -- SIXTEENTH post-open run of 2026-08-13 (fired 16:45Z / 12:45 ET). No option trade and no option exit, but this run was NOT a no-op: it caught and fixed real ledger drift. Broker reconciliation found the Agentic EQUITY book had changed under us -- equity_value fell $1,436.91 -> $897.68 and unsettled_funds went $0 -> $535.05 since the morning heartbeat. Cause identified from get_equity_orders: RYAN closed the entire IREN position himself (both orders placed_agent='user'). holdings.json still carried IREN 11.810007sh, which would have made report.py emit portfolio lines for a position that no longer exists -- the PSX phantom-signal failure mode CLAUDE.md names explicitly. Ledger reconciled: IREN removed from positions[], full closure record written to _closed_positions. Option positions themselves show ZERO drift (SPY 700P + ACHR 5C match the ledger). No flags open; none created (this is a user trade correctly logged, not a HARD RULE violation).",
+      "regime": "RISK-ON but EXTENDED and COMPLACENT -- label unchanged, no rebuild warranted. SPY 776.46 (+0.51%) holding fresh all-time-high territory; the defensive tripwire (a CLOSING break of SPY 746-748) sits ~29 points below spot, untouched. Entry bar stays ELEVATED for the brief's two stated reasons -- a fresh-ATH tape is the worst moment to initiate long premium, and AMAT's semi-cap binary lands inside tonight's overnight window.",
+      "equity_reconciliation": {
+        "finding": "IREN equity position fully closed by Ryan; ledger was stale.",
+        "orders": "6a7dde15 stop_market GTC stop $45.16 placed 15:09:09Z by user, filled 11sh @ $45.305 at 16:10:37Z; 6a7dec98 market sell 0.810007sh @ $45.29 at 16:11:04Z, also user.",
+        "realized": "+$27.33 / +5.38% (proceeds $535.04 vs $507.71 basis at $42.99 avg). Ties out to unsettled_funds $535.05, settling T+1 on 2026-08-14.",
+        "automation_role": "NONE. Equities are never traded autonomously (HARD RULE 6). This run only observed the fills and synced the ledger.",
+        "supersedes": "Ryan's 2026-07-20 'Don't sell iren' standing instruction and the 2026-08-12 thesis_checked=intact verdict are now moot for position management -- he exited the name himself on his own stop, into a gain. Not a thesis break; not a reason to re-enter either."
+      },
+      "positions_reviewed": [
+        {
+          "position": "SPY 2026-11-20 700P x1 (agentic hedge)",
+          "mark": 6.375,
+          "entry": 7.49,
+          "pl_pct": -14.89,
+          "pl_usd": -111.5,
+          "dte": 99,
+          "verdict": "HOLD -- thesis intact, no exit possible. Insurance-exempt from the DTE-scaled premium backstops. SPY printing fresh ATHs means the hedge decays by design; that is the premium being paid for Aug-Oct protection, not a signal. setup_invalidation (SPY decisively ~800+, or Ryan lifting the posture) unmet. ~21-DTE roll/close decision with Ryan lands around 2026-10-30."
+        },
+        {
+          "position": "ACHR 2028-01-21 5C x1 (placed_agent=user)",
+          "mark": 3.375,
+          "entry": 2.47,
+          "pl_pct": 36.64,
+          "pl_usd": 90.5,
+          "dte": 526,
+          "verdict": "NO ACTION -- ownership gate + manual_hold_override. Mark unchanged a fourth run despite ACHR spot +5.7% to $6.65: a wide/stale LEAP quote on 80 contracts, not a real move. Below the +50% ratchet arm and +80% pop regardless. Observed only."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "INTC",
+          "direction": "long / call",
+          "conviction": "5/10",
+          "gate_failed": "Entry trigger \u2014 now FAILING, not merely unconfirmed.",
+          "detail": "Spot $104.86 is BELOW the $105.45 close-trigger by $0.59; the $0.09-$0.10 cushion of the last three runs resolved downward. Compounding: AMAT reports tonight (INTC is a semi, the position is not closable before the bell) and the trend-maturity gate bars initiating after a +3.9% day into a level that is failing. 15th decline today; standing decision, deliberately not re-researched."
+        },
+        {
+          "symbol": "ROST",
+          "conviction": "3/10",
+          "gate_failed": "Earnings window + liquidity + IV.",
+          "detail": "Closed at 15:18Z and not reopened: earnings in 7 days, dead chain, rich event IV, tape not turning. Still the only fresh RSI(2) name on the 16:01Z intraday report."
+        }
+      ],
+      "no_new_report": "Newest committed equity report remains the 16:01Z intraday, already fully worked. Its only signals are ROST (screened and rejected) and ACGL (already held). No new candidate, so nothing was added to the watchlist.",
+      "iv_context": "No new IV row needed -- all 8 core names plus INTC, IREN and ROST were logged for 2026-08-13 earlier today. INTC stands at iv_rv_ratio 0.84 (IV below realized: cheap premium, single-leg long would be the right structure IF the price trigger ever confirmed).",
+      "sleeve_state": {
+        "agentic_premium_at_risk": 749.0,
+        "budget": 1500.0,
+        "headroom": 751.0,
+        "open_agentic_positions": "1 (the hedge, which does not count toward the max-3) -> 0 of 3 non-hedge slots used",
+        "realized_options_pnl_today": 0.0,
+        "daily_loss_cap": -400.0,
+        "account_total_value": 3855.2,
+        "settled_buying_power": 1447.47,
+        "unsettled_funds": 535.05,
+        "note": "Settled BP unchanged at $1,447.47 -- the $535.05 of IREN proceeds is unsettled until 2026-08-14 and is NOT spendable (cash account, no good-faith violations)."
+      },
+      "actions_taken": [
+        "Reconciled holdings.json: removed the closed IREN equity position and wrote a full closure record to _closed_positions.",
+        "Overwrote _current_state on both open option positions and on the INTC watchlist entry (no appended prose -- per the ledger-notes discipline).",
+        "No option order placed; no option exit triggered."
+      ],
+      "decision": "NO NEW POSITION. Flat is a position. The one thing that needed doing this run was the ledger fix, and it is done."
     }
   ]
 }
