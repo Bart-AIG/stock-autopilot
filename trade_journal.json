@@ -2896,6 +2896,64 @@
         "settled_bp_usd": 1447.47
       },
       "notes": "Fourteenth run of the day, fourteenth no-trade decision, and that is the correct outcome rather than an idle one: the sleeve's single armed setup is gated on a CLOSE that cannot resolve before 16:00 ET, and every other candidate was worked and closed earlier today with written reasons. Patience is the edge here -- a forced entry into a fresh-ATH tape hours before a semi-cap binary is exactly the trade the trend-maturity gate and the honesty test exist to prevent."
+    },
+    {
+      "run_utc": "2026-08-13T16:31:00Z",
+      "run": "Options automation -- FIFTEENTH post-open run of 2026-08-13 (fired 16:30Z / 12:30 ET). No trade, no exit. Master still carries no new equity report (newest remains the 16:01Z intraday, already fully worked two runs ago), no watchlist name produced a new signal, and no macro headline broke that would justify an intraday brief rebuild. Broker reconciliation clean -- get_option_positions returns exactly the two contracts in holdings.json (SPY 2026-11-20 700P agentic hedge, ACHR 2028-01-21 5C user-placed), zero drift. No flags open.",
+      "regime": "RISK-ON but EXTENDED and COMPLACENT -- label unchanged, no rebuild warranted, but note the internals FIRMED again this run: SPY 776.63 (+0.54%, fresh ATH) while QQQ 732.05 (+1.15%) extends its lead and IWM 303.26 (+0.18%) lags. The morning's CSCO-drag story is now fully reversed -- Nasdaq has gone from red futures pre-market to the day's leader. That is constructive tape, NOT an entry signal: it raises rather than lowers the bar for initiating long premium, since it means buying strength into a fresh high. No index near a brief level; the defensive tripwire (a CLOSING break of SPY 746-748) sits ~29 points below spot. Entry bar stays ELEVATED for the brief's two stated reasons: a fresh-ATH tape is the worst moment to open long premium, and AMAT's semi-cap binary is inside tonight's overnight window.",
+      "positions_reviewed": [
+        {
+          "position": "SPY 2026-11-20 700P x1 (agentic hedge)",
+          "entry_premium": 7.49,
+          "mark": 6.345,
+          "pl_pct": -15.29,
+          "pl_usd": -114.5,
+          "dte": 99,
+          "delta": -0.1388,
+          "theta": -0.0841,
+          "iv": 0.2124,
+          "verdict": "HOLD -- thesis intact, no action due. The authorized Aug-Oct defensive hedge is EXEMPT from premium backstops by design and is expected to bleed while the tape melts up; the mark giving back $0.08 from 16:16Z as SPY made a new high is exactly that, ordinary delta/vega bleed, not information. Liquidity pristine (bid 6.33 / ask 6.36, $0.03 wide, OI 19,974, vol 833). Setup_invalidation (SPY decisively ~800+ without a pullback, or Ryan lifting the posture) is NOT hit at 776.63. Next scheduled decision is the ~21-DTE roll/close review with Ryan around 2026-10-30."
+        },
+        {
+          "position": "ACHR 2028-01-21 5C x1 (placed_agent='user')",
+          "entry_premium": 2.47,
+          "mark": 3.375,
+          "pl_pct": 36.64,
+          "pl_usd": 90.5,
+          "dte": 526,
+          "verdict": "NO ACTION -- ownership gate + manual_hold_override. Observed only. Worth one line because the number is misleading: the mark has printed 3.375 for three consecutive runs while ACHR spot climbed to 6.625 (+5.3% on the day), which on a 0.80-delta LEAP is arithmetically impossible -- the 3.25/3.50 quote is simply stale on 64 contracts of volume. Real value is higher than the logged mark. It changes nothing: still below both the +50% ratchet arm and the +80% pop, and the ownership gate would block acting on either."
+        }
+      ],
+      "entries_made": [],
+      "exits_made": [],
+      "candidates_screened": [
+        {
+          "symbol": "INTC",
+          "direction": "long / call",
+          "spot": 105.55,
+          "chg_pct_day": 4.56,
+          "conviction": "6/10",
+          "iv_context": "iv_rv_ratio 0.84 (ATM IV 0.6961 at the 107 strike / 29 DTE vs rv_30d 0.83), logged 15:31Z. Day 3 of self-tracking -- <20 readings, so RATIO ONLY, no percentile or IV rank cited.",
+          "gate_failed": "ENTRY TRIGGER NOT MET (14th decline today). The setup is armed and the thesis is intact -- what is missing is a price. Spot 105.55 sits +$0.10 over the $105.45 trigger. The one genuinely new fact this run is that the four-print fade STOPPED (106.87 -> 105.81 -> 105.62 -> 105.54 -> 105.55): the level is being held rather than lost. That is mildly constructive and is recorded as such, but it does not clear any of the three standing grounds, none of which an intraday print can satisfy: (1) the trigger reads CLOSE above 105.45, not tag-and-hold, and ~3h30m of session remain; (2) AMAT reports after tonight's bell -- a direct semi-cap binary, and the brief pre-committed to not carrying an unhedged semi long through it; (3) trend-maturity gate (a) -- initiating after a +4.6% day is the chase this gate exists to prevent. Conviction 6/10, below the 7 gate. Re-check at the 2026-08-14 first run per the written sequence."
+        },
+        {
+          "symbol": "(new setups)",
+          "direction": "n/a",
+          "gate_failed": "NONE AVAILABLE. Source (1) of the watchlist -- the committed equity report on master -- is unchanged at the 16:01Z intraday, whose only fresh RSI(2) setup was ROST, screened and killed at 15:18Z on four independent gates (earnings 2026-08-20 inside every tradable DTE, chain bid 8.80 x ask 10.00 = 12.8% of mid on ZERO OI, iv_rv_ratio 1.69 on event premium, and a tape still making lows). ACGL is a HELD equity, not an options candidate. Per the closed-item discipline neither was re-researched. IREN remains DISARMED, AMAT/CSCO/IWM remain documented no-trades."
+        }
+      ],
+      "sleeve_state": {
+        "agentic_premium_at_risk": 749.0,
+        "budget": 1500.0,
+        "headroom": 751.0,
+        "open_agentic_positions": 1,
+        "non_hedge_slots_used": "0 of 3",
+        "realized_pl_today": 0.0,
+        "daily_loss_cap": -400.0,
+        "weekly_circuit_breaker": "not tripped",
+        "flags_open": "none"
+      },
+      "verdict": "NO ACTION. Flat is a position: with one armed-but-untriggered name, an equity report carrying no new tradable setup, a semi-cap earnings binary tonight, and a fresh-ATH tape, the correct output of this run is nothing. The sleeve's edge is patience and selectivity. Next milestone is the EOD report, due on the first run at or after 19:30Z (14:30 CT)."
     }
   ]
 }
