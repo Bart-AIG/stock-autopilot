@@ -3914,6 +3914,55 @@
       },
       "_eod_report_note": "This run WROTE the day's EOD report to daily_options_report.md (the committed file IS the delivery -- the eod-report-notify.yml Action fires on the master push). Written at 19:25Z / 14:25 CT rather than waiting for a nominal 14:30 CT slot, deliberately: today's firing times have been irregular (19:00, 19:15, 19:25) and the collision/skew documented on 2026-08-13 means there is no guarantee a later run exists. Missing the delivery entirely -- and tripping the 20:45Z dead-man alarm -- is strictly worse than writing it five minutes early. GUIDANCE FOR ANY LATER RUN TODAY: do NOT rewrite daily_options_report.md merely to refresh closing marks. Every master push touching that file sends Ryan another notification, and a duplicate push carrying the same 'no trades' content is pure noise. Rewrite it ONLY if something MATERIAL happened after this run -- a fill, an exit, a flag, or a trigger firing.",
       "_friday_review_due": "TOMORROW, 2026-08-14. The weekly review (hit rate, avg win vs avg loss, best/worst DECISION judged on process not P&L, and the drift check on standing-preference overrides) belongs on Friday's final run, not today's."
+    },
+    {
+      "run_utc": "2026-08-13T19:35:00Z",
+      "run": "29th post-open run of 2026-08-13 (15:30-15:35 ET). UNSCHEDULED EXTRA RUN: the 19:25Z run reasonably declared itself the day's final scheduled run and wrote the EOD report; this run fired anyway (the trigger design is intentionally redundant -- cron-job.org every 15 min plus a native hourly backstop). Treated as a normal run with ~25 minutes to the bell, NOT as a reason to force a late trade or to rewrite an already-delivered EOD report.",
+      "regime": "Unchanged: RISK-ON but EXTENDED and COMPLACENT. SPY 778.23 (+0.74%) and QQQ 732.80 (+1.26%) both holding fresh all-time highs into the close. The defensive tripwire (a CLOSING break of SPY 746-748) sits ~30 pts below spot and was never approached today. No VIX spike, no brief level broken, no shock -- so per the run spec the brief was NOT rebuilt, only its intraday-review stamp refreshed.",
+      "broker_reconciliation": "get_option_positions returns exactly SPY 2026-11-20 700P (qty 1, avg $749) + ACHR 2028-01-21 5C (qty 1, avg $247) -- matches holdings.json, ZERO drift, no pending_* quantities on either. Portfolio $3,868.41 (equity $901.89 / options $984 / cash $1,982.52), settled BP $1,447.47. NOTE for tomorrow's first run: equity_value fell $1,436.91 -> $901.89 and cash rose $1,447.92 -> $1,982.52 across today; that is ENTIRELY Ryan's own IREN exit (+$535.04 proceeds, already reconciled into _closed_positions at 16:47Z), not new activity. $535.05 of the cash is unsettled until 2026-08-14, which is why BP did not move.",
+      "positions_reviewed": [
+        {
+          "position": "SPY 2026-11-20 700P (agentic, defensive hedge)",
+          "verdict": "WORKING",
+          "detail": "Mark 6.24 vs 7.49 entry, -16.7% / -$125, 99 DTE. Re-read the original thesis and exit plan before judging: this is Ryan's 2026-08-05-authorized Aug-Oct drawdown insurance, explicitly insurance-exempt from the DTE-scaled premium backstops, with a written plan to hold to a ~21-DTE roll/close review WITH Ryan (~2026-10-30). I am NOT deviating from that plan and have no argument to make against it. An insurance leg bleeding while the index prints all-time highs is the instrument working as designed, not a stalled thesis -- the -16.7% is carrying cost. Neither limb of setup_invalidation is met (SPY not decisively >~800; posture not lifted). Theta -$0.084/day is immaterial at 99 DTE. NO ACTION."
+        },
+        {
+          "position": "ACHR 2028-01-21 5C (placed_agent='user', manual_hold_override)",
+          "verdict": "WORKING -- but not ours to judge",
+          "detail": "Mark 3.60, +45.8% from Ryan's $2.47 basis, on ACHR $6.879 (+9.4% today). The HARD RULE 8 ownership gate blocks every exit path regardless of trigger, and the manual_hold_override is independently dispositive. Observed and re-marked only. Closing out the last three runs' recurring note so no future instance re-raises it: the +49.8% print never crossed +50%, has now eased two runs running, and would have been INFORMATIONAL ONLY anyway since the profit ratchet applies exclusively to agentic-placed positions."
+        }
+      ],
+      "candidates_graded": [
+        {
+          "ticker": "INTC",
+          "grade": "C (was B earlier today; downgraded on price action)",
+          "detail": "$104.43 -- now $1.02 BELOW the $105.45 confirming level and $2.44 off the day high, a tenth tag-and-fade, having made a lower low on each of the last three runs. The stock is not merely failing to confirm, it is walking away from the trigger. Two independently sufficient reasons to decline: (1) the trigger is a decisive CLOSE above $105.45 on real volume, and with ~25 min left no pre-bell run can confirm a close in any case; (2) AMAT reports after the bell tonight -- an unhedged overnight binary with direct read-through to Intel foundry capex that no 21-45 DTE call can sidestep. 'Why NOW' has no answer: nothing changed today except that the setup got worse. IV context (computed from iv_history.json, 4 readings, ratio-only -- no percentile until 20): ATM IV 0.685 vs rv_30d 0.83, ratio 0.83, IV below realized for a fourth straight reading, so a long single-leg stays the right structure IF the trigger ever fires. Liquidity actually improved -- 2026-09-11 105C now $7.70 x $8.10, 5.1% of mid on OI 1,671, passing the <10% preference -- which is worth recording precisely because it removes the excuse that the skip was about the chain. It was about the setup."
+        },
+        {
+          "ticker": "IREN / ROST / LIN / ACGL / AMAT / CSCO / IWM",
+          "grade": "closed for the day",
+          "detail": "Each carries a written, dated standing decision from earlier today (IREN disarmed 13:50Z on a fired trigger_kill, ROST resolved 15:18Z on the 2026-08-20 earnings window, LIN closed 17:05Z, ACGL closed 17:02Z, AMAT pre-declared NO-TRADE ahead of its own print, CSCO/IWM watch-only). Deliberately NOT re-litigated -- re-opening a same-day written decision with 25 minutes left and no new information is exactly the boredom-driven churn the desk rules exist to prevent."
+        }
+      ],
+      "action": "NO TRADE. No entry, no exit, no order of any kind placed.",
+      "why_flat": "The only live candidate is moving away from its trigger, that trigger is close-based and unconfirmable before the bell, and a major sector print lands after the close. Being flat into an overnight binary with $751 of unused budget costs nothing; forcing a late entry to make the run feel productive costs real money. Standing down.",
+      "four_laws_check": "No order placed, so no law was engaged. Stated for the record anyway: (1) premium cap -- N/A, agentic premium-at-risk unchanged at $749 of $1,500; (2) daily realized loss cap -- realized options P&L today $0.00 vs the -$200 cap, untouched; (3) adding to a losing position -- NOT DONE and not contemplated. Flagging explicitly for future instances: the SPY hedge is down -$125, and 'average down on the hedge while premium is cheap' is precisely the argument this law forbids without Ryan's prior approval. It was not made and must not be; (4) settled cash -- $1,447.47 settled, with $535.05 of today's IREN proceeds unsettled until 2026-08-14 and correctly excluded from spendable funds. No good-faith violation risk.",
+      "overrides_logged": "NONE. No standing preference was overridden this run. Zero overrides logged for the week to date, which is the answer tomorrow's Friday drift check should inherit.",
+      "sleeve_state": {
+        "agentic_premium_at_risk": 749.0,
+        "budget": 1500.0,
+        "headroom": 751.0,
+        "open_agentic_positions": 1,
+        "non_hedge_slots_used": "0 of 3",
+        "settled_buying_power": 1447.47,
+        "unsettled_funds": 535.05,
+        "realized_options_pl_today": 0.0,
+        "daily_loss_cap": -400.0,
+        "weekly_circuit_breaker": "not tripped"
+      },
+      "_eod_report_note": "daily_options_report.md was written by the 19:25Z run and NOT rewritten here. Nothing material happened since -- no fill, no exit, no new flag, no trigger firing, only routine re-marks (SPY put 6.25 -> 6.24, ACHR 3.625 -> 3.60, INTC $104.66 -> $104.43). CLAUDE.md is explicit that exactly one run per day writes that file, because every master push touching it sends Ryan another notification and a duplicate carrying the same content is pure noise. Refreshing closing marks is named in the rule as an insufficient reason. Deliberate no-op, recorded so no later run reads the omission as a miss.",
+      "_concurrency_note": "No sibling-run collision detected: origin/master was re-fetched at run start and HEAD matched it exactly (zero unmerged commits), and no order was placed, so the pre-place re-read gate was never engaged.",
+      "_friday_review_due": "TOMORROW, 2026-08-14. The weekly review is due on the first run that can write it. Inputs already known: 0 fills and 0 realized P&L for the week to date, so hit rate and avg win/loss are both N/A -- the review should be judged on PROCESS, per the spec. Suggested framing for whichever instance writes it: the week's best decision was refusing INTC 28 separate times on a consistent, written, close-based trigger rather than drifting into it on the 20th look; the drift check should record ZERO preference overrides logged this week, meaning no preference is at risk of quietly becoming doctrine."
     }
   ]
 }
