@@ -2663,6 +2663,69 @@
       "sleeve_state": "Agentic premium-at-risk $749 of the $1,500 budget ($751 headroom). Open agentic positions: 1, and since the hedge does not count toward the max-3, 0 of 3 non-hedge slots are used. Max-2-per-theme not engaged. Realized options P&L today $0.00 against the -$400 daily cap -- untouched. Weekly circuit breaker not triggered. Portfolio $3,843.59 (equity $1,446.12 / options $950.00 / cash $1,447.47); settled buying power $1,447.47, unsettled $0.00 -- no good-faith exposure, no settlement constraint on any decision today.",
       "reconciliation": "CLEAN, zero drift. get_option_positions returns exactly SPY 2026-11-20 700P (agentic hedge) and ACHR 2028-01-21 5C (placed_agent='user', manual_hold_override) -- matching holdings.json exactly. No flags open; none created, none cleared (HARD RULE 9: an unattended run can never clear a flag or claim a Ryan approval, and this run makes no such claim).",
       "process_note": "Two items closed rather than left to recur. (1) The '_report_refresh_still_pending' flag that three earlier runs carried is now DISCHARGED -- the 15:03Z intraday report is on master and watchlist source (1) is current. (2) ROST was written into the brief as a RESOLVED item with its full kill reasoning and a dated re-look plan (2026-08-21, post-earnings), rather than as an open question. This applies the IREN lesson from 13:50Z directly: a finding that does not change the artifact the next run consults will simply be rediscovered, and two runs already burned effort re-deriving the same IREN answer. The ROST liquidity finding is explicitly marked RE-CHECK-not-assume for the post-earnings look, since OI 0 on a far-dated Sep-11 strike is partly a stale-expiry artifact and the Sep-18 monthly may be tradable later."
+    },
+    {
+      "run_utc": "2026-08-13T15:31:00Z",
+      "run": "Options automation -- ELEVENTH post-open run of 2026-08-13 (fired 15:30Z / 11:30 ET). No trade, no exit. Nothing new arrived since the 15:18Z run: master is unchanged at the 15:03Z intraday report (whose one new setup, ROST, was already evaluated and closed), and no watchlist name produced a new signal. The run's only substantive output is a data-hygiene fix: INTC's IV row was re-logged at the true spot, which surfaced a liquidity correction worth carrying forward.",
+      "regime": "RISK-ON but EXTENDED and COMPLACENT -- unchanged, no rebuild warranted. SPY 776.20 (+0.48%), QQQ 731.88 (+1.13%, still leading and fully absorbing the CSCO drag), IWM 303.09 (+0.13%). No index near a brief level; the defensive tripwire (a CLOSING break of SPY 746-748) sits ~28 points below spot. Entry bar stays ELEVATED for the brief's two stated reasons: a fresh-ATH tape is the worst moment to initiate long premium, and AMAT's semi-cap binary is inside tonight's overnight window.",
+      "positions_reviewed": [
+        {
+          "position": "SPY 2026-11-20 700P x1 (agentic hedge)",
+          "entry_premium": 7.49,
+          "mark": 6.375,
+          "pl_pct": -14.9,
+          "pl_usd": -111.5,
+          "dte": 99,
+          "delta": -0.1396,
+          "theta": -0.084,
+          "iv": 0.212,
+          "verdict": "HOLD -- thesis intact and behaving exactly as insurance should. This is the authorized Aug-Oct defensive hedge: it is EXEMPT from premium backstops by design and is expected to decay in a melt-up, which at a fresh SPY ATH is precisely what -14.9% represents. No action is due until the ~21-DTE roll/close decision (~2026-10-30), which is Ryan's call, not the automation's. Nothing about a -15% mark on a hedge is a sell signal."
+        },
+        {
+          "position": "ACHR 2028-01-21 5C x1 (placed_agent=user, manual_hold_override)",
+          "entry_premium": 2.47,
+          "mark": 3.25,
+          "pl_pct": 31.6,
+          "pl_usd": 78.0,
+          "delta": 0.798,
+          "theta": -0.002,
+          "verdict": "HOLD, detect-only -- OWNERSHIP GATE. Ryan placed this himself, so the automation may never close, trim or roll it without his explicit go-ahead. Moot this run in any case: no exit condition has fired. At +31.6% it sits below the +50% ratchet arm and the +80% one-day pop, LEAPS theta is negligible (-0.002/day) and expiry is ~2.4 years out, so there is no time pressure. ACHR 6.52 (+3.7%). Nothing to notify."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "INTC",
+          "decision": "SKIP",
+          "conviction": "6/10 (gate is 7)",
+          "reason": "Eleventh decline today, on unchanged terms -- the standing decision was deliberately NOT re-litigated per the brief's own instruction. Spot 106.87 vs 106.90 at the last check: no new information. All three grounds remain live: (1) the trigger specifies a CLOSE above $105.45 and ~4.5 hours of session remain in which to lose it, and the level has already been lost and reclaimed repeatedly today; (2) AMAT reports after the bell tonight -- a direct semi-cap binary the brief pre-committed to not carrying unhedged; (3) TREND MATURITY gate (a) -- initiating at 106.87 after a +5.9% session is chasing a move that already happened, which is the exact failure the ZTS incident wrote this gate to prevent. The thesis stays attractive; the entry PRICE does not."
+        },
+        {
+          "symbol": "ROST",
+          "decision": "SKIP (already closed 15:18Z)",
+          "reason": "Resolved last run on four gates (earnings 2026-08-20, dead chain, event-rich IV 1.69, tape not turning). Not re-researched; earliest re-look 2026-08-21."
+        },
+        {
+          "symbol": "IREN / AMAT / CSCO / IWM",
+          "decision": "no candidate",
+          "reason": "IREN disarmed (trigger_kill fired, chain 14.5-20.6% of mid = untradeable here); AMAT logged NO-TRADE in advance; CSCO a documented trend-maturity trap; IWM macro-consistent but carries no specific edge."
+        }
+      ],
+      "iv_context": "INTC re-logged this run: ATM 0.6961 at the 107 strike / 29 DTE, rv_30d 0.83, iv_rv_ratio 0.84 -- IV still below realized, so a long single-leg stays the right structure whenever an acceptable price appears. Only 2 readings for INTC, so ratio-only per the IV rules; no percentile is computable. The 13:33Z row it replaces was taken at spot 101.35, five strikes below where the stock now trades. CORRECTION CARRIED FORWARD: the 2026-09-11 weekly is THIN at the money (107C OI 104, 107P OI 7) -- the OI 44,946 / 3.4%-spread figure in the brief's standing assessment belongs to the 2026-09-18 MONTHLY. Any real INTC entry must be priced off the monthly; a future run that reaches for the weekly on the strength of that quoted OI would fail the liquidity gate it thought it passed. Core-list IV logging for all 8 names was completed at 13:33Z.",
+      "sleeve_state": {
+        "agentic_premium_at_risk": 749.0,
+        "budget": 1500,
+        "headroom": 751.0,
+        "open_agentic_positions": 1,
+        "non_hedge_slots_used": "0 of 3",
+        "realized_pl_today": 0.0,
+        "daily_loss_cap": -400,
+        "portfolio_total": 3855.24,
+        "cash": 1447.47,
+        "settled_bp": 1447.47,
+        "unsettled": 0,
+        "note": "Weekly circuit breaker not triggered. No flags open. Broker vs holdings.json reconciliation clean -- exactly the two positions above, zero drift."
+      },
+      "action": "NO TRADE -- no new position, no exit. Flat is a position; nothing today cleared the bar."
     }
   ]
 }
