@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-13T16:47:00Z",
+  "updated_utc": "2026-08-13T17:02:00Z",
   "_realized_options_pnl_today": 0.0,
   "positions": [
     {
@@ -17,18 +17,18 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "mark_price": 6.375,
+        "mark_price": 6.325,
         "entry_premium": 7.49,
-        "pct_from_entry": -14.89,
-        "pl_usd": -111.5,
+        "pct_from_entry": -15.55,
+        "pl_usd": -116.5,
         "dte": 99,
-        "delta": -0.139226,
-        "theta": -0.084223,
-        "iv": 0.212416,
+        "delta": -0.138178,
+        "theta": -0.083938,
+        "iv": 0.212565,
         "open_interest": 19974,
-        "underlying_spot": 776.46,
-        "last_checked_utc": "2026-08-13T16:47:00Z",
-        "status": "HOLD -- no action, and no exit condition can fire on this contract. Insurance-exempt per the defensive-posture playbook: NOT subject to the DTE-scaled premium backstops. SPY 776.46 is a fresh all-time high (+0.51% on the day), so the hedge bleeding to -14.9% is the position WORKING AS DESIGNED, not a thesis break -- a put bought as drawdown insurance is supposed to decay while the tape melts up. setup_invalidation is unmet: SPY is nowhere near the ~800+ confirmed-new-regime level, and Ryan has not lifted the Aug-Oct posture. 99 DTE leaves the ~21-DTE roll/close decision with Ryan around 2026-10-30."
+        "underlying_spot": 776.94,
+        "last_checked_utc": "2026-08-13T17:02:00Z",
+        "status": "HOLD -- no action possible. Insurance-exempt per the defensive-posture playbook: the DTE-scaled premium backstops do NOT apply to this contract, so the -15.6% mark cannot fire an exit. SPY 776.94 is another fresh all-time high (+0.58% on the day) and the hedge is decaying accordingly -- that IS the design: drawdown insurance is supposed to bleed while the tape melts up, and the bleed is the premium being paid for Aug-Oct protection. setup_invalidation unmet on both limbs (SPY nowhere near the ~800+ confirmed-new-regime level; Ryan has not lifted the Aug-Oct posture). 99 DTE, so the ~21-DTE roll/close decision WITH Ryan is still ~2026-10-30."
       }
     },
     {
@@ -44,15 +44,15 @@
       "target": null,
       "_note": "placed_agent='user' (Ryan bought this himself 2026-07-20T19:38Z, $2.47/contract, $247 premium). Long-dated LEAP (18mo out) -- not gated by the HARD RULE 8 entry checklist since it wasn't an autonomous entry. manual_hold_override below suspends the -50% mechanical stop; broken-thesis and DTE/earnings exits still apply in principle but this is a Jan-2028 LEAP, far outside any near-term DTE/earnings gate.",
       "_current_state": {
-        "mark_price": 3.375,
-        "pct_from_entry": 36.64,
-        "pl_usd": 90.5,
+        "mark_price": 3.4,
+        "pct_from_entry": 37.65,
+        "pl_usd": 93.0,
         "dte": 526,
-        "delta": 0.803738,
-        "iv": 0.889227,
-        "underlying_spot": 6.65,
-        "last_checked_utc": "2026-08-13T16:47:00Z",
-        "status": "NO ACTION EVER -- placed_agent='user' + manual_hold_override. Ownership gate blocks any exit regardless of what triggers; excluded from the agentic $1,500 budget. Mark 3.375 unchanged for a fourth consecutive run while ACHR spot ticked to 6.65 (+5.7% on the day) -- the 3.25/3.50 market on 80 contracts of volume is a wide/stale LEAP quote, not a real move in the position. Below both the +50% ratchet arm and the +80% pop, so nothing has fired anyway. Observed only."
+        "delta": 0.804348,
+        "iv": 0.898317,
+        "underlying_spot": null,
+        "last_checked_utc": "2026-08-13T17:02:00Z",
+        "status": "NO ACTION EVER -- placed_agent='user' + manual_hold_override. The ownership gate blocks every exit path regardless of what triggers, and the position is excluded from the agentic $1,500 budget. Mark ticked 3.375 -> 3.400 (+$2.50) on 94 contracts of volume against a 3.35/3.45 market; still below both the +50% ratchet arm and the +80% pop, so nothing has fired anyway. Underlying spot deliberately NOT refetched -- no decision this run depends on it. Observed only."
       },
       "manual_hold_override": {
         "set_utc": "2026-07-22T14:30:00Z",
