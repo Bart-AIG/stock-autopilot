@@ -2726,6 +2726,70 @@
         "note": "Weekly circuit breaker not triggered. No flags open. Broker vs holdings.json reconciliation clean -- exactly the two positions above, zero drift."
       },
       "action": "NO TRADE -- no new position, no exit. Flat is a position; nothing today cleared the bar."
+    },
+    {
+      "run_utc": "2026-08-13T15:45:00Z",
+      "run": "Options automation -- TWELFTH post-open run of 2026-08-13 (fired 15:45Z / 11:45 ET). No trade, no exit. Nothing new arrived since 15:31Z: master unchanged, newest committed report is still the 15:03Z intraday (its one setup, ROST, was evaluated and closed at 15:18Z), and no watchlist name produced a new signal. Broker reconciliation clean -- get_option_positions returns exactly the two contracts in holdings.json, zero drift. IV logging for the day is complete (all 8 core names plus INTC/IREN/ROST carry a 2026-08-13 row), so no re-fetch was warranted.",
+      "regime": "RISK-ON but EXTENDED and COMPLACENT -- unchanged, no rebuild warranted. SPY 775.91 (+0.44%), QQQ 730.87 (+0.99%, still leading and fully absorbing the CSCO drag). No index near a brief level; the defensive tripwire (a CLOSING break of SPY 746-748) sits ~28 points below spot. Entry bar stays ELEVATED for the brief's two stated reasons: a fresh-ATH tape is the worst moment to initiate long premium, and AMAT's semi-cap binary is inside tonight's overnight window.",
+      "positions_reviewed": [
+        {
+          "position": "SPY 2026-11-20 700P x1 (agentic hedge)",
+          "entry_premium": 7.49,
+          "mark": 6.405,
+          "pl_pct": -14.49,
+          "pl_usd": -108.5,
+          "dte": 99,
+          "delta": -0.1401,
+          "theta": -0.0842,
+          "iv": 0.2118,
+          "verdict": "HOLD -- thesis intact, no action due. The authorized Aug-Oct defensive hedge is EXEMPT from premium backstops by design and is expected to decay in a melt-up, so -14.5% at a fresh SPY all-time high is the position working as intended, not a signal. Notable only in that it RECOVERED slightly again (-14.9% -> -14.5%) while SPY rose -- a small vega/IV bid with VIX ticking off its 2026 low. Next scheduled decision is the ~21-DTE roll/close review (~2026-10-30), and that is Ryan's call, not the automation's."
+        },
+        {
+          "position": "ACHR 2028-01-21 5C x1 (placed_agent=user, manual_hold_override)",
+          "entry_premium": 2.47,
+          "mark": 3.35,
+          "pl_pct": 35.63,
+          "pl_usd": 88.0,
+          "dte": 526,
+          "verdict": "NO ACTION EVER -- observed only. Ownership gate: Ryan placed this himself and told a live session to leave it alone, so the automation may not close, trim or roll it under any trigger. Moot today anyway -- +35.6% is below both the +50% ratchet arm and the +80% one-day pop, so nothing has fired. Excluded from the agentic $1,500 budget."
+        }
+      ],
+      "entries_considered": [
+        {
+          "symbol": "INTC",
+          "conviction": "6/10",
+          "decision": "SKIP (12th decline today)",
+          "reason": "Standing decision, deliberately not re-litigated -- but today's tape actively confirmed it rather than merely failing to overturn it. INTC gave back $1.06 in the 14 minutes since the last run (106.87 -> 105.81) and now sits $0.36 above a trigger that requires a CLOSE above 105.45, with ~4.25 hours left in which to lose it. That IS the 'level keeps being lost and reclaimed' indecision the trigger was written to filter. Two other gates unchanged and independently sufficient: AMAT reports tonight (direct semi-cap binary inside the overnight window, and the brief pre-committed to skipping semi longs not closable before the bell), and trend maturity gate (a) -- initiating after a +5-6% day is the chase the gate exists to prevent. IV context: iv_rv_ratio 0.84 (IV below realized) still favors a long single-leg WHEN the entry price is right; cheap premium is not a reason to buy a bad entry. Plan for the 2026-08-14 first run is unchanged and sequenced: (1) did INTC CLOSE above 105.45 today? (2) did AMAT's print leave semis intact? (3) is INTC holding above 105.45 post-AMAT? All three yes = 8/10 and this becomes the sleeve's trade."
+        },
+        {
+          "symbol": "ROST",
+          "conviction": "3/10",
+          "decision": "SKIP -- closed 15:18Z, not re-researched",
+          "reason": "Earnings 2026-08-20 (7 days), dead chain, rich event IV (iv_rv_ratio 1.69), tape not turning. Now 242.69 (-2.24%), still falling -- confirming the 'catching a knife into an earnings binary' read. Question stays closed until after the print."
+        },
+        {
+          "symbol": "IREN / AMAT / CSCO / IWM",
+          "decision": "SKIP -- previously closed, not re-opened",
+          "reason": "IREN disarmed 13:50Z on a fired trigger_kill plus a 14.5-20.6%-of-mid chain (fails the 10% liquidity cap outright); AMAT logged as a pre-committed no-trade (earnings tonight is a coin flip, not an edge); CSCO a textbook trend-maturity trap; IWM macro-consistent but no specific edge. None produced a new dated catalyst this run."
+        }
+      ],
+      "iv_context": "No new rows needed -- 2026-08-13 coverage is already complete for all 8 core names (SPY 0.97, QQQ 0.78, NVDA 0.99, AMD 0.68, TSM 0.79, AVGO 1.18, MSFT 0.53, TSLA 0.59 iv_rv_ratio) plus INTC 0.84, IREN 0.70, ROST 1.69. One row per ticker per day is the spec; re-fetching mid-day would just churn the file. Note the sleeve-wide read: nearly every ratio is BELOW 1.0, i.e. options are pricing less movement than has actually occurred -- a cheap-premium regime that favors long single-legs over spreads, which is why the INTC structure decision is settled and only the entry price is open.",
+      "sleeve_state": {
+        "agentic_premium_at_risk_usd": 749.0,
+        "budget_usd": 1500.0,
+        "headroom_usd": 751.0,
+        "open_agentic_positions": 1,
+        "non_hedge_slots_used": "0 of 3 (the hedge does not count)",
+        "realized_pl_today_usd": 0.0,
+        "daily_loss_cap_usd": -400.0,
+        "weekly_circuit_breaker": "not tripped",
+        "portfolio_total_usd": 3864.09,
+        "cash_usd": 1447.47,
+        "settled_bp_usd": 1447.47,
+        "unsettled_usd": 0.0,
+        "flags_open": "none"
+      },
+      "no_action_rationale": "Twelve post-open runs, twelve no-trades, and that is the correct outcome rather than a failure of the hunt. There is exactly one A-grade-capable setup on the board (INTC), its structure question is settled, and its single unmet condition -- an acceptable entry -- is one no intraday print can satisfy because the trigger is defined on the CLOSE and a hard binary (AMAT) sits inside tonight's window. Forcing it today would be paying up after a +5% day to hold a semi through an earnings event we have no read on. Flat is a position; the setup either arms tomorrow morning at full conviction or it does not, and nothing is lost either way."
     }
   ]
 }
