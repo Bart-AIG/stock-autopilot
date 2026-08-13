@@ -1,153 +1,151 @@
 {
- "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
- "updated_utc": "2026-08-13T18:30:00Z",
- "_realized_options_pnl_today": 0.0,
- "positions": [
-  {
-   "symbol": "SPY",
-   "sleeve": "options",
-   "entry_date": "2026-08-06",
-   "contract": "SPY 2026-11-20 700P",
-   "option_id": "79230921-9bd8-43fd-8b4d-60f76ac03f48",
-   "contracts": 1,
-   "entry_premium": 7.49,
-   "max_loss": 749.0,
-   "stop": null,
-   "target": null,
-   "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
-   "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
-   "_current_state": {
-    "mark_price": 6.325,
-    "pct_from_entry": -15.55,
-    "pl_usd": -116.5,
-    "dte": 99,
-    "delta": -0.138082,
-    "theta": -0.084005,
-    "iv": 0.212714,
-    "bid_ask": "6.31/6.34",
-    "open_interest": 19974,
-    "last_checked_utc": "2026-08-13T18:30:00Z",
-    "status": "HOLD -- authorized Aug-Oct defensive hedge, insurance-exempt from the DTE-scaled premium backstops per the standing plan. SPY 777.03 (+0.59%) at a fresh all-time high, so a -15.6% mark on a 700P is the carrying cost of insurance in a melt-up, not a sell signal. Neither limb of setup_invalidation is met (SPY not decisively above ~800; Ryan has not lifted the Aug-Oct posture). At 99 DTE the next decision is the ~21-DTE roll/close review WITH Ryan (~2026-10-30), never mechanical.",
-    "_collision_note": "Two runs checked this position at 18:30Z (concurrent-slot collision); their independently-fetched marks agree to within a tick. State below is the sibling run's; no action either way."
-   }
-  },
-  {
-   "symbol": "ACHR",
-   "sleeve": "options",
-   "entry_date": "2026-07-20",
-   "contract": "ACHR 2028-01-21 5C",
-   "option_id": "e5ddb521-1043-4342-8551-6363d0354724",
-   "contracts": 1,
-   "entry_premium": 2.47,
-   "max_loss": 247.0,
-   "stop": null,
-   "target": null,
-   "_note": "placed_agent='user' (Ryan bought this himself 2026-07-20T19:38Z, $2.47/contract, $247 premium). Long-dated LEAP (18mo out) -- not gated by the HARD RULE 8 entry checklist since it wasn't an autonomous entry. manual_hold_override below suspends the -50% mechanical stop; broken-thesis and DTE/earnings exits still apply in principle but this is a Jan-2028 LEAP, far outside any near-term DTE/earnings gate.",
-   "_current_state": {
-    "mark_price": 3.525,
-    "pct_from_entry": 42.7,
-    "pl_usd": 105.5,
-    "dte": 526,
-    "delta": 0.810794,
-    "iv": 0.889525,
-    "bid_ask": "3.45/3.60",
-    "last_checked_utc": "2026-08-13T18:30:00Z",
-    "status": "NO ACTION EVER -- placed_agent='user' + manual_hold_override. The ownership gate blocks any exit regardless of trigger; excluded from the agentic $1,500 budget. Mark 3.50 -> 3.525; still below the +50% ratchet arm and the +80% pop, so nothing has fired anyway. Market widened to 3.45/3.60 (4.3% of mid) -- typical LEAP spread. Observed only.",
-    "_collision_note": "Two runs checked this position at 18:30Z (concurrent-slot collision); their independently-fetched marks agree to within a tick. State below is the sibling run's; no action either way."
-   },
-   "manual_hold_override": {
-    "set_utc": "2026-07-22T14:30:00Z",
-    "note": "Ryan, live turn 2026-07-22: 'I'll handle the achr leap. Just leave it be' -- Ryan manages this Jan-2028 LEAP personally. NO mechanical exits of any kind (not the -50% cut, not TP, not DTE) and no re-litigating it in alerts or sessions. Per the 2026-08-03 HARD RULE 8 amendment (agentic sub-sleeve), this placed_agent='user' position does NOT count against the automation's 15%-of-account premium-at-risk cap -- corrected 2026-08-05 (prior note here was stale/pre-amendment and wrongly said it did, which could have caused a future run to skip a valid entry thinking the sleeve was capped). Current agentic-placed premium-at-risk = $0."
-   }
-  },
-  {
-   "symbol": "AAPL",
-   "sleeve": "swing",
-   "entry_date": "2026-08-03",
-   "entry_price": 302.889,
-   "shares": 1.652252,
-   "stop": null,
-   "target": 331.06,
-   "_note": "Aug slot 1 ($500). A-grade: record June quarter (rev +16%, iPhone +22%), dip = soft Q4 guide on SUPPLY shortages not demand; next earnings ~late Oct. Reconciled 2026-08-13T16:05Z (interactive session): broker showed 1.652252sh vs 1.650769 in the ledger, a +0.001483sh drift booked as intraday_quantity today. This is a DIVIDEND REINVESTMENT, not a trade -- 1.650769sh x ~$0.27/sh quarterly dividend = ~$0.45, and $0.45 / ~$302 spot = ~0.0015sh, which matches. No unauthorized buy, no HARD RULE 9 flag warranted; ledger synced to the broker."
-  },
-  {
-   "symbol": "ACGL",
-   "sleeve": "swing",
-   "entry_date": "2026-08-10",
-   "entry_price": 98.29,
-   "shares": 4.069594,
-   "stop": null,
-   "target": 103.89,
-   "_note": "Aug slot 2 (week of 2026-08-10, $400 -- defensive-posture weekly quota, sized at low end to keep equity-book cash ~46% >= 45% floor). A-grade RSI2 swing: RSI2 5.2 above a rising 200d MA ($95.10, +3.1%). HARD RULE 7 thesis INTACT: Q2 2026 beat ($2.56 vs $2.48 est, $1.0B net income, 83.5% combined ratio, 18% annualized ROE), $1.95B H1 buybacks, book value +4.5% H1, P/E 15 / PEG 0.2; the dip = slight revenue miss + Iran-conflict cat losses in the insurance segment, not a broken story. Chosen over CVS (thesis weakened: 2027 Caremark-membership/340B warning + already hold CVS Sept 100C) and WDC (extended +29% above MA, offered as alternate). Ryan approved the one-tap batch 2026-08-10 ~14:52Z. Fill: 4.069594 sh @ $98.29 (order 6a79e5a1, placed_agent=agentic per approved batch). No stop at entry per HARD RULE 5; report ref stop $93.58."
-  }
- ],
- "_resolved_flags": [
-  {
-   "resolved_utc": "2026-07-14T19:20:00Z",
-   "covers": [
-    "UNVERIFIED_EQUITY_SELL CRWD 6a565ca6",
-    "UNVERIFIED_EQUITY_BUY LLY 6a565cb0"
-   ],
-   "resolution": "Cleared per HARD RULE 9(a) by the interactive session that PLACED both orders: Ryan typed 'Approve' (real user turn, 2026-07-14 ~15:55Z) authorizing the presented batch (SELL CRWD 0.4sh / BUY LLY $150 / BUY MRK 1sh), and the fills match that batch exactly (MRK leg was rejected for buying power). The flagging run was correct to flag - it could not see this session. Ledger entries already match the broker."
-  }
- ],
- "_resolved_pending_orders": {
-  "resolved_utc": "2026-07-22T14:55:00Z",
-  "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
- },
- "_last_entry_evaluation": {
-  "run_utc": "2026-08-13T18:15:00Z",
-  "result": "NO ENTRY -- 23rd post-open run of 2026-08-13.",
-  "candidates_considered": "INTC only (all other watchlist items carry written, dated standing decisions and were not re-litigated).",
-  "reason": "INTC faded BACK BELOW the trigger: $105.40 vs the $105.45 level -- the fourth tag-and-fade of the session. Even the 17:45Z/18:00Z tags above the level did not qualify, because the trigger is a decisive CLOSE and no pre-bell run can confirm one. AMAT's after-the-bell semi-cap print remains an unhedged overnight binary on a semi name. Declined on both grounds, per the standing decision.",
-  "sleeve_state": {
-   "agentic_premium_at_risk": 749.0,
-   "budget": 1500.0,
-   "headroom": 751.0,
-   "open_agentic_positions": 1,
-   "non_hedge_slots_used": "0 of 3",
-   "settled_buying_power": 1447.47,
-   "unsettled_funds": 535.05,
-   "realized_options_pl_today": 0.0,
-   "daily_loss_cap": -400.0,
-   "weekly_circuit_breaker": "not tripped"
-  }
- },
- "_closed_positions": [
-  {
-   "symbol": "IREN",
-   "sleeve": "momentum",
-   "closed_utc": "2026-08-13T16:11:04Z",
-   "reconciled_utc": "2026-08-13T16:47:00Z",
-   "placed_agent": "user",
-   "entry_date": "2026-06-24",
-   "entry_price": 42.99,
-   "shares_closed": 11.810007,
-   "exit_fills": [
+  "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
+  "updated_utc": "2026-08-13T18:45:00Z",
+  "_realized_options_pnl_today": 0.0,
+  "positions": [
     {
-     "order_id": "6a7dde15-5280-47f3-912d-5656c8a376e3",
-     "qty": 11.0,
-     "avg_price": 45.305,
-     "type": "stop_market",
-     "stop_price": 45.16,
-     "tif": "gtc",
-     "placed_utc": "2026-08-13T15:09:09Z",
-     "filled_utc": "2026-08-13T16:10:37Z"
+      "symbol": "SPY",
+      "sleeve": "options",
+      "entry_date": "2026-08-06",
+      "contract": "SPY 2026-11-20 700P",
+      "option_id": "79230921-9bd8-43fd-8b4d-60f76ac03f48",
+      "contracts": 1,
+      "entry_premium": 7.49,
+      "max_loss": 749.0,
+      "stop": null,
+      "target": null,
+      "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
+      "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
+      "_current_state": {
+        "mark_price": 6.215,
+        "pct_from_entry": -17.02,
+        "pl_usd": -127.5,
+        "dte": 99,
+        "delta": -0.136123,
+        "theta": -0.083254,
+        "iv": 0.212565,
+        "bid_ask": "6.20/6.23",
+        "open_interest": 19974,
+        "last_checked_utc": "2026-08-13T18:45:00Z",
+        "status": "HOLD -- authorized Aug-Oct defensive hedge, insurance-exempt from the DTE-scaled premium backstops per the standing plan. SPY 777.67 (+0.67%) at a fresh all-time high, so the mark slipping to -17.0% is the carrying cost of insurance in a melt-up, not a sell signal. Neither limb of setup_invalidation is met (SPY not decisively above ~800; Ryan has not lifted the Aug-Oct posture). 99 DTE, theta only -$0.083/day; next decision is the ~21-DTE roll/close review WITH Ryan (~2026-10-30), never mechanical. Liquidity excellent: $0.03 spread (0.48% of mid) on OI 19,974."
+      }
     },
     {
-     "order_id": "6a7dec98-c0b9-4cc2-9ae8-d23c657080f2",
-     "qty": 0.810007,
-     "avg_price": 45.29,
-     "type": "market",
-     "tif": "gfd",
-     "filled_utc": "2026-08-13T16:11:04Z"
+      "symbol": "ACHR",
+      "sleeve": "options",
+      "entry_date": "2026-07-20",
+      "contract": "ACHR 2028-01-21 5C",
+      "option_id": "e5ddb521-1043-4342-8551-6363d0354724",
+      "contracts": 1,
+      "entry_premium": 2.47,
+      "max_loss": 247.0,
+      "stop": null,
+      "target": null,
+      "_note": "placed_agent='user' (Ryan bought this himself 2026-07-20T19:38Z, $2.47/contract, $247 premium). Long-dated LEAP (18mo out) -- not gated by the HARD RULE 8 entry checklist since it wasn't an autonomous entry. manual_hold_override below suspends the -50% mechanical stop; broken-thesis and DTE/earnings exits still apply in principle but this is a Jan-2028 LEAP, far outside any near-term DTE/earnings gate.",
+      "_current_state": {
+        "mark_price": 3.675,
+        "pct_from_entry": 48.79,
+        "pl_usd": 120.5,
+        "dte": 526,
+        "delta": 0.81674,
+        "iv": 0.905767,
+        "bid_ask": "3.65/3.70",
+        "last_checked_utc": "2026-08-13T18:45:00Z",
+        "status": "NO ACTION EVER -- placed_agent='user' + manual_hold_override. Observed only; the ownership gate blocks any exit regardless of trigger, and it is excluded from the agentic $1,500 budget. Mark 3.525 -> 3.675 on the day (+18.5% vs the 3.10 close), lifting it to +48.8% from Ryan's $2.47 basis -- now within ~1.2 points of the +50% level at which the ratchet would ARM on an agentic position. Recorded because the next instance should not mistake a first crossing of +50% for an actionable trigger here: on THIS contract it is informational only. The +80% one-day pop rule is nowhere near (+18.5% today). Spread tightened to 3.65/3.70 (1.4% of mid)."
+      },
+      "manual_hold_override": {
+        "set_utc": "2026-07-22T14:30:00Z",
+        "note": "Ryan, live turn 2026-07-22: 'I'll handle the achr leap. Just leave it be' -- Ryan manages this Jan-2028 LEAP personally. NO mechanical exits of any kind (not the -50% cut, not TP, not DTE) and no re-litigating it in alerts or sessions. Per the 2026-08-03 HARD RULE 8 amendment (agentic sub-sleeve), this placed_agent='user' position does NOT count against the automation's 15%-of-account premium-at-risk cap -- corrected 2026-08-05 (prior note here was stale/pre-amendment and wrongly said it did, which could have caused a future run to skip a valid entry thinking the sleeve was capped). Current agentic-placed premium-at-risk = $0."
+      }
+    },
+    {
+      "symbol": "AAPL",
+      "sleeve": "swing",
+      "entry_date": "2026-08-03",
+      "entry_price": 302.889,
+      "shares": 1.652252,
+      "stop": null,
+      "target": 331.06,
+      "_note": "Aug slot 1 ($500). A-grade: record June quarter (rev +16%, iPhone +22%), dip = soft Q4 guide on SUPPLY shortages not demand; next earnings ~late Oct. Reconciled 2026-08-13T16:05Z (interactive session): broker showed 1.652252sh vs 1.650769 in the ledger, a +0.001483sh drift booked as intraday_quantity today. This is a DIVIDEND REINVESTMENT, not a trade -- 1.650769sh x ~$0.27/sh quarterly dividend = ~$0.45, and $0.45 / ~$302 spot = ~0.0015sh, which matches. No unauthorized buy, no HARD RULE 9 flag warranted; ledger synced to the broker."
+    },
+    {
+      "symbol": "ACGL",
+      "sleeve": "swing",
+      "entry_date": "2026-08-10",
+      "entry_price": 98.29,
+      "shares": 4.069594,
+      "stop": null,
+      "target": 103.89,
+      "_note": "Aug slot 2 (week of 2026-08-10, $400 -- defensive-posture weekly quota, sized at low end to keep equity-book cash ~46% >= 45% floor). A-grade RSI2 swing: RSI2 5.2 above a rising 200d MA ($95.10, +3.1%). HARD RULE 7 thesis INTACT: Q2 2026 beat ($2.56 vs $2.48 est, $1.0B net income, 83.5% combined ratio, 18% annualized ROE), $1.95B H1 buybacks, book value +4.5% H1, P/E 15 / PEG 0.2; the dip = slight revenue miss + Iran-conflict cat losses in the insurance segment, not a broken story. Chosen over CVS (thesis weakened: 2027 Caremark-membership/340B warning + already hold CVS Sept 100C) and WDC (extended +29% above MA, offered as alternate). Ryan approved the one-tap batch 2026-08-10 ~14:52Z. Fill: 4.069594 sh @ $98.29 (order 6a79e5a1, placed_agent=agentic per approved batch). No stop at entry per HARD RULE 5; report ref stop $93.58."
     }
-   ],
-   "proceeds_usd": 535.04,
-   "cost_basis_usd": 507.71,
-   "realized_pnl_usd": 27.33,
-   "realized_pnl_pct": 5.38,
-   "_note": "RECONCILIATION ONLY -- the automation did NOT place, propose, or influence this sale (HARD RULE 6: equities are never traded autonomously). Both exit orders carry placed_agent='user': Ryan set a GTC stop-market at $45.16 himself at 15:09:09Z today, it filled on 11 shares at $45.305 at 16:10:37Z, and he market-sold the residual 0.810007 fractional share at $45.29 27 seconds later -- a deliberate, self-executed full exit, not a surprise. Proceeds $535.04 tie out exactly to the account's unsettled_funds of $535.05 (T+1, settles 2026-08-14). Removed from positions[] because report.py judges every ledger name on every run: leaving a sold position in place is precisely the phantom-signal drift CLAUDE.md warns about (the PSX case). NOTE for future sessions: this SUPERSEDES Ryan's 2026-07-20 standing instruction 'Don't sell iren' and the thesis_checked/intact verdict of 2026-08-12 -- both are now moot for position management because Ryan closed the name himself. Do NOT treat the old standing instruction as a reason to re-enter; a new IREN position needs a fresh Ryan decision. The IREN thesis research itself was never invalidated -- he exited on his own risk-management stop into a +5.4% gain, not on a broken story."
-  }
- ]
+  ],
+  "_resolved_flags": [
+    {
+      "resolved_utc": "2026-07-14T19:20:00Z",
+      "covers": [
+        "UNVERIFIED_EQUITY_SELL CRWD 6a565ca6",
+        "UNVERIFIED_EQUITY_BUY LLY 6a565cb0"
+      ],
+      "resolution": "Cleared per HARD RULE 9(a) by the interactive session that PLACED both orders: Ryan typed 'Approve' (real user turn, 2026-07-14 ~15:55Z) authorizing the presented batch (SELL CRWD 0.4sh / BUY LLY $150 / BUY MRK 1sh), and the fills match that batch exactly (MRK leg was rejected for buying power). The flagging run was correct to flag - it could not see this session. Ledger entries already match the broker."
+    }
+  ],
+  "_resolved_pending_orders": {
+    "resolved_utc": "2026-07-22T14:55:00Z",
+    "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
+  },
+  "_last_entry_evaluation": {
+    "run_utc": "2026-08-13T18:15:00Z",
+    "result": "NO ENTRY -- 23rd post-open run of 2026-08-13.",
+    "candidates_considered": "INTC only (all other watchlist items carry written, dated standing decisions and were not re-litigated).",
+    "reason": "INTC faded BACK BELOW the trigger: $105.40 vs the $105.45 level -- the fourth tag-and-fade of the session. Even the 17:45Z/18:00Z tags above the level did not qualify, because the trigger is a decisive CLOSE and no pre-bell run can confirm one. AMAT's after-the-bell semi-cap print remains an unhedged overnight binary on a semi name. Declined on both grounds, per the standing decision.",
+    "sleeve_state": {
+      "agentic_premium_at_risk": 749.0,
+      "budget": 1500.0,
+      "headroom": 751.0,
+      "open_agentic_positions": 1,
+      "non_hedge_slots_used": "0 of 3",
+      "settled_buying_power": 1447.47,
+      "unsettled_funds": 535.05,
+      "realized_options_pl_today": 0.0,
+      "daily_loss_cap": -400.0,
+      "weekly_circuit_breaker": "not tripped"
+    }
+  },
+  "_closed_positions": [
+    {
+      "symbol": "IREN",
+      "sleeve": "momentum",
+      "closed_utc": "2026-08-13T16:11:04Z",
+      "reconciled_utc": "2026-08-13T16:47:00Z",
+      "placed_agent": "user",
+      "entry_date": "2026-06-24",
+      "entry_price": 42.99,
+      "shares_closed": 11.810007,
+      "exit_fills": [
+        {
+          "order_id": "6a7dde15-5280-47f3-912d-5656c8a376e3",
+          "qty": 11.0,
+          "avg_price": 45.305,
+          "type": "stop_market",
+          "stop_price": 45.16,
+          "tif": "gtc",
+          "placed_utc": "2026-08-13T15:09:09Z",
+          "filled_utc": "2026-08-13T16:10:37Z"
+        },
+        {
+          "order_id": "6a7dec98-c0b9-4cc2-9ae8-d23c657080f2",
+          "qty": 0.810007,
+          "avg_price": 45.29,
+          "type": "market",
+          "tif": "gfd",
+          "filled_utc": "2026-08-13T16:11:04Z"
+        }
+      ],
+      "proceeds_usd": 535.04,
+      "cost_basis_usd": 507.71,
+      "realized_pnl_usd": 27.33,
+      "realized_pnl_pct": 5.38,
+      "_note": "RECONCILIATION ONLY -- the automation did NOT place, propose, or influence this sale (HARD RULE 6: equities are never traded autonomously). Both exit orders carry placed_agent='user': Ryan set a GTC stop-market at $45.16 himself at 15:09:09Z today, it filled on 11 shares at $45.305 at 16:10:37Z, and he market-sold the residual 0.810007 fractional share at $45.29 27 seconds later -- a deliberate, self-executed full exit, not a surprise. Proceeds $535.04 tie out exactly to the account's unsettled_funds of $535.05 (T+1, settles 2026-08-14). Removed from positions[] because report.py judges every ledger name on every run: leaving a sold position in place is precisely the phantom-signal drift CLAUDE.md warns about (the PSX case). NOTE for future sessions: this SUPERSEDES Ryan's 2026-07-20 standing instruction 'Don't sell iren' and the thesis_checked/intact verdict of 2026-08-12 -- both are now moot for position management because Ryan closed the name himself. Do NOT treat the old standing instruction as a reason to re-enter; a new IREN position needs a fresh Ryan decision. The IREN thesis research itself was never invalidated -- he exited on his own risk-management stop into a +5.4% gain, not on a broken story."
+    }
+  ]
 }
