@@ -3021,6 +3021,70 @@
         "No option order placed; no option exit triggered."
       ],
       "decision": "NO NEW POSITION. Flat is a position. The one thing that needed doing this run was the ledger fix, and it is done."
+    },
+    {
+      "run_utc": "2026-08-13T17:05:00Z",
+      "run": "Options automation -- SEVENTEENTH post-open run of 2026-08-13 (fired 17:00Z / 13:00 ET). NO TRADE. Substantive work: screened LIN, the day's second NEW report setup, and rejected it. Broker reconciliation clean -- get_option_positions returns exactly SPY 2026-11-20 700P (agentic hedge) + ACHR 2028-01-21 5C (placed_agent='user', manual_hold_override), matching holdings.json with ZERO drift. Branch was already in sync with origin/master at run start (no piled-up commits). No flags open; none created.",
+      "regime": "RISK-ON but EXTENDED and COMPLACENT -- label unchanged, no rebuild warranted (no surprise headline, no VIX spike, no index level broken). SPY 776.94 (+0.58%) at a fresh all-time high; QQQ 732.53 (+1.22%) has now shaken off the morning CSCO drag and is LEADING, which is a modest improvement in internals versus the brief's 'Nasdaq red while Dow green' opening read. Defensive tripwire (a CLOSING break of SPY 746-748) sits ~30 points below spot, untouched. Entry bar stays ELEVATED for the brief's two stated reasons: a fresh-ATH tape is the worst moment to initiate long premium, and AMAT's semi-cap binary lands inside tonight's overnight window.",
+      "positions_reviewed": [
+        {
+          "contract": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "mark": 6.325,
+          "pct_from_entry": -15.55,
+          "pl_usd": -116.5,
+          "dte": 99,
+          "verdict": "HOLD -- thesis intact, no exit condition can fire. Insurance-exempt from the DTE-scaled premium backstops per the defensive-posture playbook, so the -15.6% mark is not a sell signal; it is the hedge doing exactly what a drawdown put does while SPY prints new highs. setup_invalidation (SPY ~800+ melt-up without the pullback, or Ryan lifting the posture) is unmet. Next decision point is the ~21-DTE roll/close review ~2026-10-30, and that is Ryan's call."
+        },
+        {
+          "contract": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "mark": 3.375,
+          "pct_from_entry": 36.64,
+          "pl_usd": 90.5,
+          "dte": 526,
+          "verdict": "NO ACTION -- ownership gate. Ryan placed this and set a manual_hold_override; the automation may observe but never exits it. Excluded from the agentic budget. Mark unchanged for a fifth consecutive run on a wide 3.30/3.45 LEAP market; below both the +50% ratchet arm and the +80% pop, so nothing has fired regardless."
+        }
+      ],
+      "entries_taken": "NONE.",
+      "candidates_screened": [
+        {
+          "symbol": "LIN",
+          "source": "NEW setup in the fresh 17:02Z intraday report (RSI2 5.8)",
+          "conviction": "2/10",
+          "gate_failed": "LIQUIDITY (primary) + trend-maturity (c) + misread setup + size",
+          "detail": "Liquidity is the automatic skip: monthly-only chain, and on the only usable expiry (2026-09-18, 36 DTE) every strike is 17.4%-48.5% of mid against the <10% cap -- the ~0.35-delta 495C is $5.00x$8.20 (48.5%), zero volume, OI 19. Beyond that the setup is misread by the screen: LIN gapped -6.6% on its 2026-07-31 Q2 print, bounced to 495.96 by 08-11, and has rolled back over to retest the gap lows -- the RSI2 print is measuring a second leg down, not an oversold bounce in an uptrend. The rising 200d at 475.55 is only 0.5% below spot 477.97. Tape gate (c) fails outright: LIN -0.31% while SPY +0.58% at an ATH. And at $820 (0.35-delta ask) it exceeds the $751 of remaining budget headroom anyway. Four independent kills."
+        },
+        {
+          "symbol": "INTC",
+          "source": "standing watchlist -- ARMED but NOT TRIGGERED",
+          "conviction": "5/10",
+          "gate_failed": "entry trigger not met (CLOSE > $105.45) + overnight event risk",
+          "detail": "16th decline today, no new research required -- the standing decision is written and this run only refreshed the numbers. Spot 104.89 is BELOW the trigger for a second consecutive run: the level has been lost, not consolidated on. The trigger specifies a CLOSE, not a tag. AMAT reports tonight and INTC is a semi, so any entry carries an unhedged binary that is not part of the thesis. Re-check at the 2026-08-14 first run per the written three-step sequence."
+        },
+        {
+          "symbol": "ROST",
+          "source": "carried from the 15:03Z report; resolved at 15:18Z",
+          "conviction": "n/a -- closed",
+          "gate_failed": "earnings window (2026-08-20) -- already adjudicated",
+          "detail": "Appears again in the 17:02Z report and was deliberately NOT re-researched. The 15:18Z run closed it on three hard gates (earnings 7 days out, dead chain, rich event IV at ratio 1.69) with a written instruction not to re-open before 2026-08-21. Honoring that is the anti-churn discipline working as intended, not an oversight."
+        }
+      ],
+      "exits_taken": "NONE. No exit condition fired on any agentic-placed position, and the only other position is ownership-gated.",
+      "iv_context": "LIN logged fresh this run: atm_iv 0.2107 (avg of the 2026-09-18 480C 0.19975 / 480P 0.221655), 36 DTE, rv_30d 0.2592 computed from 30 sessions of Robinhood daily bars, ratio 0.81. That ratio reads 'cheap' but is an ARTIFACT: the realized-vol window contains the -6.6% 07-31 earnings gap. Ex-gap rv_30d is 0.1936 and the ratio flips to 1.09 -- fairly priced, not cheap. Recording the caveat so no later run cites 0.81 as an edge. One reading, so ratio-only, no percentile. Core-list IV was logged with the brief at 13:33Z; INTC was refreshed at 15:31Z and is not re-fetched (one row per ticker per day).",
+      "sleeve_state": {
+        "agentic_premium_at_risk_usd": 749.0,
+        "budget_usd": 1500.0,
+        "headroom_usd": 751.0,
+        "open_agentic_positions": 1,
+        "non_hedge_slots_used": "0 of 3 (the hedge does not count)",
+        "realized_options_pnl_today_usd": 0.0,
+        "daily_loss_cap_usd": -400.0,
+        "settled_buying_power_usd": 1447.47,
+        "unsettled_funds_usd": 535.05,
+        "note": "Unsettled $535.05 is the IREN equity sale Ryan closed himself this morning; it settles T+1 on 2026-08-14 and is NOT spendable today. Settled BP $1,447.47 comfortably exceeds the $751 of budget headroom, so cash is not the binding constraint -- the budget is."
+      },
+      "decision": "NO TRADE. Flat is a position. The day's one genuinely new candidate was screened properly and failed four independent gates, the standing candidate is below its trigger into an overnight semi binary, and both open positions are correctly untouchable. Nothing was forced."
     }
   ]
 }
