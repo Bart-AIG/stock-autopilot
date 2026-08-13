@@ -1557,7 +1557,9 @@
    "iv_context": "Day 2 of tracking (<20 readings -> iv_rv_ratio only; no percentile is computable and none is cited). No new rows: no chain was fetched this run beyond the two open positions' own contracts, and INTC's reading (atm_iv 0.684 / rv_30d 0.845 = ratio 0.81, cheap) was already logged at 18:05Z. Core-name daily logging completed in the Phase 0 build.",
    "risk_limits_check": "Agentic premium at risk $749 / $1,500 (free $751). Open agentic positions: 1, and it is the hedge, which does not count toward the max-3. Realized options P&L today $0 vs the -$400 daily cap. Weekly circuit breaker not tripped. Settled cash $1,447.47, unsettled $0 \u2014 no good-faith risk. Portfolio $3,839.54 (equity $1,418.07 / options $974.00 / cash $1,447.47). All clear.",
    "action": "NO TRADE. Both open positions held on their own gates (hedge exempt-and-working; ACHR user-placed and untriggered). The discipline this run is simply not talking myself into INTC at a price my own pre-written trigger excludes.",
-   "eod_report_status": "NOT YET DUE \u2014 run time 13:20 CT; daily_options_report.md is owed by the first run at or after 14:30 CT."
+   "eod_report_status": "NOT YET DUE \u2014 run time 13:20 CT; daily_options_report.md is owed by the first run at or after 14:30 CT.",
+   "run_utc": "2026-08-12T18:20:00Z",
+   "_schema_note": "run_utc backfilled 2026-08-13T23:29Z from timestamp_utc by the 23:29Z post-close run. This entry was written with the non-canonical key and was therefore invisible to every date-filtered scan keyed on run_utc (including weekly-review arithmetic). Original key retained."
   },
   {
    "run_utc": "2026-08-12T18:31:00Z",
@@ -4127,6 +4129,142 @@
     "ACHR: hands off, permanently, absent a live Ryan turn.",
     "No open flags. No unresolved HARD RULE 9 markers. Branch was already fully merged with origin/master at run start (zero unmerged commits) -- the 2026-08-07 branch-drift incident is not recurring."
    ]
+  },
+  {
+   "run_utc": "2026-08-13T23:29:00Z",
+   "record_type": "weekly_review_prep",
+   "prepared_by": "4th post-close run of 2026-08-13 (18:29 ET). Market shut, no trade possible; this run spent itself on the one task that needs no live data -- pre-computing tomorrow's due Friday review from BROKER records so a market-hours run does not burn itself on bookkeeping.",
+   "week": "2026-08-10 (Mon) .. 2026-08-14 (Fri). Review is DUE on the 2026-08-14 runs.",
+   "CRITICAL_DATA_SOURCING_WARNING": {
+    "finding": "trade_journal.json CANNOT compute this week's review by itself. The file was CREATED on 2026-08-12 (commit 6602e4a, PR #181) and backfilled only to 2026-08-11T16:55Z. It has NO entries for Monday 2026-08-10 -- the day the week's FIRST round trip (ZTS 70P) was both opened and closed.",
+    "consequence_if_ignored": "A Friday review derived from this journal alone reports 1 round trip and -$108 realized. The TRUE week is 2 round trips and -$195. That understates the week's realized loss by 45% and reports avg loss -$108 instead of -$97.50.",
+    "rule_going_forward": "Source realized P&L and the trade list for any weekly review from the BROKER -- get_realized_pnl(asset_classes=['option'], start_date, end_date) plus get_option_orders(state='filled', created_at_gte) -- and use the journal only for the REASONING behind each decision. The journal is the thesis record; the broker is the ledger of record. Never let the journal's start date silently define the week.",
+    "verified_how": "Both numbers below were pulled live from the Robinhood connector at 2026-08-13T23:31Z, not carried forward from any prior journal entry."
+   },
+   "broker_verified_pnl": {
+    "window": "2026-08-10..2026-08-13",
+    "asset_class": "option",
+    "account": "718757339 (Agentic, agentic_allowed=true, cash, option_level_2)",
+    "total_realized": -195.0,
+    "total_rate_of_return_pct": -42.86,
+    "closing_trades": 2,
+    "daily_buckets": [
+     {
+      "date": "2026-08-10",
+      "realized": -87.0,
+      "rate_pct": -34.12,
+      "trades": 1
+     },
+     {
+      "date": "2026-08-11",
+      "realized": -108.0,
+      "rate_pct": -54.0,
+      "trades": 1
+     },
+     {
+      "date": "2026-08-12",
+      "realized": 0.0,
+      "rate_pct": null,
+      "trades": 0
+     },
+     {
+      "date": "2026-08-13",
+      "realized": 0.0,
+      "rate_pct": null,
+      "trades": 0
+     }
+    ],
+    "daily_loss_cap_check": "The -$200 daily cap was never breached on any single day; worst single day was -$108 (Aug 11). The week TOTAL of -$195 sits just inside a single-day cap by coincidence only -- the cap is per-day and each day complied."
+   },
+   "round_trips": [
+    {
+     "contract": "ZTS 2026-09-18 70P x1",
+     "opened_utc": "2026-08-10T14:19:14Z",
+     "open_placed_agent": "agentic",
+     "open_debit_premium": 255.0,
+     "open_price": 2.55,
+     "closed_utc": "2026-08-10T17:53:50Z",
+     "close_placed_agent": "user",
+     "close_credit_premium": 168.0,
+     "close_price": 1.68,
+     "realized": -87.0,
+     "pct": -34.12,
+     "hold_time": "~3h35m, same session",
+     "who_exited": "RYAN closed this himself (placed_agent='user' on the closing order) -- the automation did NOT execute this exit. Material for the review: of the two losses this week, the desk only ran ONE of the exits.",
+     "process_verdict": "ENTRY WAS THE PROCESS FAILURE OF THE WEEK. Bought a breakdown in a name already -42% YTD, on news two sessions old and fully priced, into a GREEN tape with heavy Oct-80 call volume and analyst targets still far above spot. Every limb of what is NOW the CLAUDE.md trend-maturity gate was violated -- because that gate did not yet exist; it was written FROM this loss the same day. Codification was correct and fast."
+    },
+    {
+     "contract": "CVS 2026-09-18 100C x1",
+     "opened_utc": "before 2026-08-10 (outside this window and outside the journal's coverage)",
+     "closed_utc": "2026-08-11T17:03:01Z",
+     "close_placed_agent": "agentic",
+     "close_order_id": "6a7b55c5-5ece-4e49-87a4-752ac2c4cae4",
+     "close_credit_premium": 92.0,
+     "close_price": 0.92,
+     "realized": -108.0,
+     "pct": -54.0,
+     "process_verdict": "A LOSING TRADE THAT WAS A PROCESS SUCCESS ON THE EXIT -- keep the two judgments separate. The 21-45 DTE tier rule was applied exactly as written (two consecutive runs at <=-50% AND a failed thesis re-check, not a single -50% print), and the exit-pricing rule was honored: started at $0.94 near the midpoint, stepped toward the bid only after ~50s of no fill on a time-sensitive exit, and took price improvement at $0.92 rather than hitting the bid. The exit machinery works."
+    }
+   ],
+   "stats": {
+    "round_trips_closed": 2,
+    "wins": 0,
+    "losses": 2,
+    "hit_rate_pct": 0.0,
+    "avg_win": null,
+    "avg_loss": -97.5,
+    "largest_loss": -108.0,
+    "smallest_loss": -87.0,
+    "win_loss_ratio": "undefined -- no wins to average",
+    "positions_OPENED_this_week_by_agentic": 1,
+    "note": "Exactly ONE agentic entry all week (ZTS, Mon). Zero entries across Aug 11-13 spanning ~85 logged runs. Open sleeve is the authorized SPY hedge only: $749 of the $1,500 budget, 0 of 3 non-hedge slots used."
+   },
+   "best_decision_process_not_pnl": {
+    "decision": "The INTC non-entry, sustained across ~30 runs on 2026-08-13.",
+    "why": "A pre-written trigger (a DECISIVE CLOSE above the $105.45 Jul-21 swing high) was tagged and faded TEN times while the stock ran +4.5% on the day, and the desk never once converted 'nearly triggered' into 'triggered'. It also treated AMAT-reports-tonight as a reason to SKIP rather than a reason to hurry, and held conviction at 6/10 against a 7 gate instead of massaging the score to clear it. Prior-instance plans were quoted and honored rather than quietly re-litigated. This is the exact behavior the mandate calls the edge of a 15-minute cadence: patience, executed 30 consecutive times."
+   },
+   "worst_decision_process_not_pnl": {
+    "decision": "The ZTS 2026-09-18 70P entry, Mon 2026-08-10.",
+    "why": "See round_trips. Late-stage trend, stale catalyst, diverging same-day tape -- a B setup taken at full attention. Judged on process this is the week's only genuine error, and it is already fixed at the root (trend-maturity gate in CLAUDE.md). The lesson to carry, not just the rule: the signal described the PAST and the trade needed a reason the move would CONTINUE."
+   },
+   "drift_check": {
+    "preference_overrides_logged_this_week": 0,
+    "detail": "Zero. Every 'override' string in trade_journal.json is the standing ACHR manual_hold_override LEDGER FIELD (Ryan-set, active since 2026-07-22), not a run overriding a desk preference. No preference is anywhere near the 3-strikes threshold, so nothing is mandated for escalation and no preference converts to law.",
+    "are_overrides_becoming_doctrine": "NO -- the design is holding exactly as written. Not one standing preference was overridden even once in ~85 runs.",
+    "the_honest_inverse_question_for_RYAN": "The risk this week is not drift, it is the opposite, and the next instance should not pretend otherwise. The stacked gates -- conviction >=7, trend-maturity, IV percentile <75, bid/ask <10%, the Aug-Oct defensive posture, max ~$750 deployed -- have in practice produced a near-total entry freeze: ONE entry in a full week, and nothing at all for three sessions. That is DEFENSIBLE on its merits: the desk is 0-for-2 on round trips, the tape is at all-time highs with the VIX near its 2026 low, and 'most runs the best trade is no trade' is the written mandate. Patience is not malfunction. But Ryan should SEE the practical effect and decide whether it matches his intent, because no unattended run may loosen a gate to fix it. Presented as an observation for him, explicitly NOT a recommendation to loosen anything.",
+    "escalation_status": "No flag is mandated by the Friday-review rule (that trips only at 3+ overrides of one preference). Nothing here is new information either -- the flat weeks are already in the journal and today's EOD report told Ryan there were no trades -- so this was deliberately NOT pushed to him as an alert. It is queued for the Friday review to present in context."
+   },
+   "instruction_to_tomorrows_first_run": "The Friday review is DUE. Use the broker-verified numbers in this block rather than recomputing from journal entries -- and re-read CRITICAL_DATA_SOURCING_WARNING before you do, because the journal cannot see Monday. Add Friday 2026-08-14's own activity to these totals before publishing. Separately: rebuild market_brief.json from scratch (the current one is dated 2026-08-13 and its INTC read is explicitly handed off for RE-GRADING against actual post-AMAT price action -- do NOT inherit the $105.45 level as if the tape were unchanged; ten rejections made it demonstrated resistance)."
+  },
+  {
+   "run_utc": "2026-08-13T23:29:00Z",
+   "run": "FOURTH POST-CLOSE run of 2026-08-13 (18:29 ET). The bell was 2h29m ago; the 20:28Z, 21:30Z and 22:33Z runs already covered the post-close window. The prompt scopes trading to 'Market hours 9:30-4:00 ET only', so no entry and no exit was placeable at any grade -- STRUCTURALLY a no-trade run, and I did not go hunting for a reason to make one. The real question for a fourth redundant run is what it can add that is not churn. Answer: tomorrow is FRIDAY and the weekly review is due, so I pre-computed it from broker records -- work that needs no live market data and would otherwise consume a market-hours run. See the weekly_review_prep record at this same timestamp.",
+   "regime": "No new information, and I deliberately did not manufacture any. SPY settled 777.77 (+0.68%) / QQQ 732.06 (+1.15%) at/near all-time highs; RISK-ON, EXTENDED, COMPLACENT. I did NOT re-poll extended-hours quotes: the 21:30Z run measured the AMAT read-through at 21:29Z and the 22:33Z run correctly declined to re-measure it. A third overnight re-measurement on thin size, 10 hours before anyone can act, is churn dressed as diligence. Defensive tripwire (CLOSING break of SPY 746-748) sits ~30 pts below spot and was never threatened today. No shock -> market_brief.json NOT rebuilt, per the shock-only refresh rule; tomorrow's first run rebuilds it regardless since it is dated 2026-08-13.",
+   "broker_reconciliation": "Verified live, not carried forward. get_accounts: agentic 718757339 confirmed agentic_allowed=true, cash, option_level_2, unsettled_funds $535.05 (unchanged -- Ryan's IREN proceeds, settle 2026-08-14). get_option_positions(nonzero): exactly SPY 2026-11-20 700P qty 1 @ $749 avg and ACHR 2028-01-21 5C qty 1 @ $247 avg -- matches holdings.json, ZERO DRIFT, and every pending_* field zero (no assignment/exercise/expiration exposure). get_portfolio: total $3,874.88 = equity $906.36 + options $986 + cash $1,982.52; settled buying power $1,447.47. Agentic premium at risk $749 of the $1,500 budget ($751 headroom); hedge excluded from max-3, so 0 of 3 non-hedge slots used. Realized options P/L today $0.00 vs the -$200 daily cap. No flags, no unauthorized activity. The ~$535 cash/equity shift was fully run to ground by the 20:28Z run (Ryan's own IREN stop) and I did not re-open a closed question.",
+   "positions_reviewed": [
+    {
+     "position": "SPY 2026-11-20 700P (agentic, authorized defensive hedge)",
+     "verdict": "WORKING",
+     "detail": "99 DTE. I re-read the original written plan before judging, per the standing-plan rule: Ryan's 2026-08-05 Aug-Oct drawdown insurance, explicitly EXEMPT from the DTE-scaled premium backstops, next decision a ~21-DTE roll/close review WITH Ryan (~2026-10-30). I am not deviating from it and have no argument against it. Carried at the 20:28Z settled mark (6.18, -17.5%, -$131); I did NOT overwrite it with a restamped stale number, since no post-close re-pricing is meaningful. An insurance leg bleeding while the index prints all-time highs is the instrument working as designed -- carrying cost, not thesis damage. Neither limb of setup_invalidation is met (SPY not decisively >~800; posture not lifted). Theta -$0.083/day against 99 DTE is immaterial.",
+     "action": "none"
+    },
+    {
+     "position": "ACHR 2028-01-21 5C (placed_agent='user', manual_hold_override on file)",
+     "verdict": "GATED -- not mine to manage",
+     "detail": "Ryan placed it; the HARD RULE 8 ownership gate bars any autonomous exit regardless of what triggers. Up strongly (+48.8% at last mark), which changes nothing about the gate. Excluded from the agentic budget. Observed only; no notification owed since nothing changed.",
+     "action": "none"
+    }
+   ],
+   "candidates_graded": "NONE SCREENED, deliberately. The market is closed -- every quote is an untradeable overnight print and any 'grade' assigned now would have to be re-derived against tomorrow's post-AMAT open anyway. Grading candidates here would manufacture the appearance of work while producing a number no one can act on. INTC remains the one live thesis and is explicitly handed to tomorrow's first run for RE-GRADING from scratch: its trigger (a decisive CLOSE above $105.45) never fired in ~30 runs today after ten tag-and-fades, which makes that level demonstrated RESISTANCE rather than an untested line, and AMAT's after-hours miss means tomorrow gaps the semi complex in some direction. Kill unchanged: a close below $95.",
+   "work_actually_done": {
+    "1_weekly_review_prep": "Pre-computed the due Friday review from BROKER records (get_realized_pnl + get_option_orders), written as a separate weekly_review_prep record at this timestamp. Week of Aug 10-13: 2 round trips, both losers, -$195 realized, 0% hit rate, avg loss -$97.50; one agentic entry all week and none in three sessions.",
+    "2_root_cause_fix_journal_cannot_see_monday": "Found a real defect while doing it: trade_journal.json was CREATED 2026-08-12 (commit 6602e4a / PR #181) and backfilled only to 2026-08-11T16:55Z, so it has NO record of Monday 2026-08-10 -- the session in which the ZTS 70P was both opened and closed for the week's first -$87. A Friday review computed from the journal alone would have reported 1 trade / -$108 instead of 2 trades / -$195, understating the week's realized loss by 45% and reporting the wrong avg loss. Fixed at the root three ways rather than just noted: (a) broker-verified numbers written into the journal for tomorrow to consume, (b) a CRITICAL_DATA_SOURCING_WARNING block in that record, (c) a durable rule added to CLAUDE.md so the next instance sources weekly P&L from the broker and treats the journal as the thesis record, not the ledger of record.",
+    "3_schema_normalization": "One entry (2026-08-12T18:20:00Z) was written with 'timestamp_utc' instead of the canonical 'run_utc', which made it INVISIBLE to every date-filtered scan keyed on run_utc -- including the weekly-review arithmetic that this run was performing. Backfilled run_utc on that entry (original key retained, change annotated). This is the same class of bug as (2): silent omission from a computed total.",
+    "4_eod_report_left_alone": "daily_options_report.md was written and delivered by the 19:25Z run (commit b4a4be7) and is correctly dated today. NOTHING MATERIAL has happened since -- no fill, no exit, no new flag, no trigger firing -- so per the one-report-per-day rule I did not rewrite it. A rewrite would only re-notify Ryan with identical content.",
+    "5_drift_check": "git log origin/master..HEAD after a fresh fetch: clean, zero unmerged commits; master is current through the 22:33Z run (e10059a). This run's commits go to master via PR on the same standing instruction."
+   },
+   "notification_decision": "NO push notification sent, on purpose. Nothing here needs Ryan tonight: zero drift, zero flags, no position action, no trade possible, and the two losses in the weekly numbers are both already known to him (he closed ZTS himself on Aug 10, and the CVS exit plus the trend-maturity gate were already written up). The journal-sourcing defect is a process fix I made rather than a decision he has to make. Waking him at 18:29 ET to say 'the market is still closed and I fixed a bookkeeping bug' would spend his attention for no decision -- the Friday review will present the week in context tomorrow.",
+   "action": "NO TRADE -- market closed, structurally impossible. No ledger position changed. Output of this run is the weekly_review_prep record, the two data-integrity fixes, and the CLAUDE.md rule."
   }
  ]
 }
