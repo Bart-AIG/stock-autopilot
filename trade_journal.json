@@ -2277,6 +2277,65 @@
         "weekly_circuit_breaker": "not tripped",
         "eod_report_due": "Not this run. Due on the first run at/after 14:30 CT (19:30Z); this run fired 08:35 CT."
       }
+    },
+    {
+      "run_utc": "2026-08-13T13:50:00Z",
+      "run": "Options automation -- 13:45Z run (09:45 ET), second post-open run of 2026-08-13. Phase 1 marks refreshed; Phase 2 resolved the brief's one open research question (IREN's catalyst) and disarmed the name. No trade.",
+      "regime": "RISK-ON but EXTENDED and COMPLACENT -- confirmed and firming vs the 13:35Z check. SPY 776.25 (+0.49%, extending the ATH), QQQ 728.82 (+0.71%), IWM 303.88 (+0.39%). The notable change in 15 minutes: QQQ flipped from lagging (red pre-market on CSCO) to LEADING SPY, so the CSCO disappointment is being absorbed by the index rather than spreading through tech. Entry bar stays ELEVATED -- an extending ATH is the worst moment to initiate long premium, and AMAT still prints tonight.",
+      "positions_reviewed": [
+        {
+          "contract": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "HOLD -- hedge carve-out, no action. Thesis intact; the decay is the premium being paid, not a signal.",
+          "detail": "Live 13:47Z: mark 6.245 (bid 6.23 / ask 6.26, $0.03 wide, OI 19,974) vs 7.49 entry = -16.6%, -$124.50. Gave back another ~$14 since the 13:35Z check as SPY extended to a fresh ATH; delta now -0.138, theta -0.083/day, 99 DTE. Insurance-EXEMPT from the -50%/-70% DTE backstops, and the real exit test -- setup_invalidation, SPY decisively above ~800 without the Aug-Oct pullback, or Ryan lifting the posture -- is nowhere near. peak_premium $7.825 unchanged, ratchet never armed. Next decision is the ~21-DTE roll/close review WITH Ryan around 2026-10-30."
+        },
+        {
+          "contract": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "NO ACTION -- ownership gate + manual_hold_override. Detected and recorded only.",
+          "detail": "Live mark 3.15 vs 2.47 entry = +27.5%, +$68.00, 526 DTE. Bid 2.95 / ask 3.35 is wide, so the mark is a midpoint rather than an executable price. No exit condition fired, and none would be actionable if one had."
+        }
+      ],
+      "entries": [],
+      "entry_decision": "NO ENTRY. The watchlist went from five names to four: IREN was DISARMED after its open catalyst question was researched and answered in the negative. That is the substantive work of this run -- not finding a trade, but closing out a candidate so later runs stop re-researching it. Flat is a position.",
+      "candidates_screened": [
+        {
+          "symbol": "INTC",
+          "spot": 103.0,
+          "gate_failed": "entry trigger unhit -- dead zone, 6th consecutive session",
+          "detail": "Drifted UP +2.03% today, which moved it FURTHER from branch (a) (the $97-100 pullback band) while leaving it ~2.4% short of branch (b) (a decisive close above the $105.45 Jul-21 swing high). Every non-trigger gate still passes: IV ratio 0.82 (premium cheap vs realized, single-leg favored), budget fine ($751 headroom vs a ~$595 Sep-18 110C), liquidity excellent. A name drifting toward a breakout while every other box is ticked is exactly when a level gets quietly loosened, so: it was not. AMAT tonight is a second, independent reason not to open a semi-complex long today even if branch (b) prints intraday."
+        },
+        {
+          "symbol": "IREN",
+          "spot": 47.6,
+          "gate_failed": "trigger_kill FIRED (no dated catalyst) + trend-maturity gate (b) + liquidity + first-hour timing",
+          "detail": "Up +9.0% and the biggest mover in our universe two sessions running, so it got the full research pass the brief asked for. Findings: (1) CATALYST -- none dated today or yesterday. Web search returns the 2026-07-20 $2.8B AI-cloud contracts / >$4B ARR raise and the 2026-08-04 Mirantis close, i.e. the SAME facts already recorded in the equity ledger's thesis_checked, 3+ weeks and 9 days old respectively and fully priced. That is the item's own trigger_kill and trend-maturity gate (b): no edge in re-trading old news. (2) TREND -- spot did cross ABOVE the 200d MA, but the MA is FALLING every session (47.579 -> 47.489 -> 47.407 -> 47.346 -> 47.285). CLAUDE.md calls a reclaim of a DECLINING MA the falling-knife case, not the dip-in-an-uptrend the gate requires. (3) TIMING -- condition (3) needs the gap to hold through the first hour, which does not close until 14:30Z. (4) LIQUIDITY, the hard objective killer -- Sep-11 48C bid 5.10 / ask 5.90, a $0.80 spread = 14.5% of the $5.50 mid vs the <10% requirement, OI 88 (60 on the put). Automatic skip. (5) CONCENTRATION -- we already own IREN equity, so a call adds correlated AI-infra exposure to an existing position. Worth recording that PREMIUM was not the problem: newly logged iv_rv_ratio 0.73 (ATM IV 103% vs realized 141%) is genuinely cheap. The name is cheap to own and still wrong to buy -- cheapness is not a thesis."
+        },
+        {
+          "symbol": "AMAT / CSCO / IWM",
+          "spot": null,
+          "gate_failed": "pre-documented no-trades, unchanged",
+          "detail": "AMAT reports tonight and earnings is not our thesis; CSCO's -7% gap is the ZTS-incident chase pattern; IWM is a macro lean without a dated catalyst and would fight our own SPY hedge. Re-affirmed without re-litigation."
+        }
+      ],
+      "iv_context": "Core list was logged at 13:33Z by the prior run and is not re-logged. Added one row this run for IREN as a name under ACTIVE EVALUATION per the IV self-tracking spec: spot 47.60, ATM IV 1.0324 (avg of the Sep-11 48C 1.0443 / 48P 1.0205), 29 DTE, rv_30d 1.414 computed here from 30 sessions of Robinhood daily closes, iv_rv_ratio 0.73. IREN now has 1 logged reading, far below the 20 needed for a percentile, so the ratio is the only usable context -- and at 0.73 it says premium is cheap versus realized movement. INTC's ratio remains 0.82 from the 13:33Z log.",
+      "conviction_score": "n/a -- no entry proposed. IREN would have scored ~3/10 (no catalyst, falling MA, illiquid chain) and INTC is high-conviction on thesis but has no valid entry price, which is a trigger problem rather than a scoring one.",
+      "sleeve_state": {
+        "agentic_premium_at_risk": 749.0,
+        "budget": 1500.0,
+        "headroom": 751.0,
+        "open_agentic_positions": 1,
+        "non_hedge_slots_used": "0 of 3",
+        "entries_today": 0,
+        "entries_remaining_today": 3,
+        "settled_buying_power": 1447.47,
+        "unsettled_funds": 0.0,
+        "realized_pl_today": 0.0,
+        "daily_loss_cap": -400.0,
+        "weekly_circuit_breaker": "not tripped",
+        "portfolio_total_value": 3849.3
+      },
+      "process_note": "This run's value was subtractive, not additive: it closed an open question rather than opening a position. The IREN item had sat as 'NEW -- needs catalyst identification post-open' since the pre-open brief, which invited every subsequent run to re-research the same gap. Resolving it to DISARMED with the evidence written down is the 'fix it at the root, don't just flag it' discipline applied to the watchlist itself."
     }
   ]
 }
