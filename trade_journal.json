@@ -2150,6 +2150,62 @@
       },
       "eod_report": "NOT DUE -- this run is at 08:58 ET, far ahead of the 14:30 CT / 15:30 ET EOD trigger. The first run at or after 14:30 CT owes the full daily_options_report.md rewrite for 2026-08-13.",
       "tomorrow_watchpoints": "Immediate (today, post-open): (1) log the deferred IV rows from regular-hours chains; (2) re-validate the regime on regular-hours prints -- a gap-up open that FADES is a materially different tape than one that holds, and today's first hour decides which; (3) refresh watchlist source (1) once today's latest_morning.md lands from the GitHub Action (~14:00Z), since this brief was necessarily built off yesterday's 19:02Z screen; (4) research the IREN gap for a dated catalyst before it can be armed, and require a 47.29 reclaim regardless; (5) INTC trigger unchanged -- do NOT loosen either branch. Overnight/forward: AMAT tonight is the semi-complex event risk that argues against opening ANY semi long today; HD reports 2026-08-18; NVDA earnings late August; SPY hedge untouched until the ~21-DTE review with Ryan (~2026-10-30)."
+    },
+    {
+      "run_utc": "2026-08-13T13:00:00Z",
+      "run": "Options automation -- SECOND, CONCURRENT run of the same pre-open slot (fired 13:00Z / 09:00 ET). The 12:58Z run had already completed Phase 0 and merged it as PR #191 while this run was working. Recorded as a short process note rather than a duplicate run record: this run's independent Phase 0 reached the SAME conclusions and was discarded in favour of the merged version rather than layered on top of it.",
+      "regime": "Independently assessed as 'risk-on but NARROWING' -- same substance as the merged brief's 'RISK-ON but EXTENDED and COMPLACENT'. Both runs flagged the identical tell: a healthy index (SPY 774.4, above 20d 753.19 / 50d 748.12, near ATHs) masking earnings damage in single-name tech (CSCO -7%, Cerebras -15%, COHR -6%), and both raised the entry bar because of it.",
+      "positions_reviewed": [
+        {
+          "contract": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "HOLD -- hedge carve-out, no action.",
+          "detail": "Broker reconciliation clean (1 long, $749.00 basis). Exempt from premium backstops; the drawdown is insurance working as designed with SPY at ATHs. No fresh mark taken pre-open by design."
+        },
+        {
+          "contract": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "NO ACTION -- ownership gate + manual_hold_override.",
+          "detail": "Broker reconciliation clean (1 long, $247.00 basis). Never actionable by an automated run."
+        }
+      ],
+      "entries": [],
+      "entry_decision": "NO ENTRY -- market was closed at run time (fired 30 min pre-open; the routine authorizes action only 09:30-16:00 ET). Independently reached the same call on INTC: $101.21 pre-market is still in the dead zone between the $97-100 pullback band and the $105.45 breakout level, and the trigger was NOT loosened. Two independent runs declining to loosen an 8-session-old trigger is a reasonable signal that the level is being respected rather than being wrong.",
+      "candidates_screened": [
+        {
+          "symbol": "INTC",
+          "spot": 101.21,
+          "gate_failed": "market closed + trigger unhit (dead zone)",
+          "detail": "Every non-trigger gate still passes: budget (Sep-18 110C ~$595 vs $751 free), liquidity (OI 44,946, spread 3.4% of mid), IV ratio 0.81 = premium cheap vs realized. Flagged the AMAT overnight binary as an additional reason not to enter TODAY even if a branch prints intraday -- the merged brief independently reached the same conclusion in its entry_bar note."
+        },
+        {
+          "symbol": "COHR",
+          "gate_failed": "post-earnings knife -- no entry either direction",
+          "detail": "Screened because it is #18 in our own momentum top decile and -6% pre-market on earnings. A live example of the equity report's purely-technical momentum screen lagging a fundamental break by a full session; worth remembering when the report is used as a candidate source."
+        },
+        {
+          "symbol": "AMD/TSM",
+          "gate_failed": "budget at the correct delta + decaying catalyst",
+          "detail": "Yesterday's theses were explicitly built on the CRWV/NBIS/SMCI AI-infra sweep; today that stack is contradicted rather than extended. Downgraded to watch-only on structure AND on maturity gates (b) already-priced and (c) present-tape-confirms."
+        }
+      ],
+      "iv_context": "No IV rows written -- pre-open feed serves prior-close snapshots. Contributed rv_30d for the whole core list (computed from Robinhood daily historicals this run) into market_brief.rv_30d_precomputed so the post-open logging run needs only the live ATM IV and no historicals refetch. Day 3 of tracking: ratio only, no percentiles.",
+      "process_note": "DUPLICATE CONCURRENT FIRE -- worth tracking. Two automation runs fired for the same pre-open slot ~2 minutes apart (12:58Z and 13:00Z) and did the same Phase 0 work in parallel, colliding at merge time (PR #192 hit a merge conflict against PR #191 and had to be reconciled by hand). This is the expected failure mode of the documented dual-trigger setup in docs/options-automation-setup.md: cron-job.org fires every 15 min AND a native hourly schedule runs as a backstop, so at the top of each hour BOTH fire. Cost is duplicated token spend, duplicate ledger writes and a merge conflict; the risk is two runs independently sizing the same entry. It did NOT cause a bad trade today (both runs correctly declined to enter), and the reconciliation kept the merged brief rather than overwriting it. Only Ryan can change the routine's schedule, so this is logged rather than fixed -- if it recurs at the next top-of-hour it is worth raising with him to either drop the hourly backstop or make runs check for a same-slot commit before doing Phase 0 work.",
+      "reconciliation": "CLEAN. Broker matches holdings.json exactly (SPY 700P + ACHR 5C), no drift, no _flag or UNAUTHORIZED marker present or created.",
+      "sleeve_state": {
+        "agentic_premium_at_risk": 749.0,
+        "budget": 1500.0,
+        "free_premium": 751.0,
+        "open_agentic_positions": 1,
+        "open_agentic_positions_excluding_hedge": 0,
+        "max_positions": 3,
+        "realized_pnl_today": 0.0,
+        "daily_loss_cap": -400.0,
+        "portfolio_total_value": 3857.98,
+        "settled_buying_power": 1447.47,
+        "unsettled_funds": 0.0,
+        "weekly_circuit_breaker": "not tripped -- no agentic entries or exits this week."
+      }
     }
   ]
 }

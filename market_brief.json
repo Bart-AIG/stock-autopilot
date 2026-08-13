@@ -3,7 +3,6 @@
   "built_utc": "2026-08-13T13:08:00Z",
   "built_by": "options-automation first run of the day (12:58Z / 08:58 ET, PRE-OPEN -- Phase 0 only)",
   "_freshness_caveat": "Built BEFORE the 09:30 ET open. All spot prints below are pre-market (non-reg) quotes and the regime read is provisional: a gap-up open that fades is a different tape than one that holds. The first post-open run MUST re-validate the regime and every watchlist trigger against regular-hours prints before acting on anything here. Also: today's equity report (latest_morning.md for 2026-08-13) had NOT yet been produced by the GitHub Action when this brief was built -- the newest committed report is the 2026-08-12 19:02Z intraday. Watchlist source (1) is therefore YESTERDAY's screen; refresh it once today's report lands (~14:00Z).",
-
   "macro": {
     "summary": "Second consecutive benign inflation print. July PPI came in UNCHANGED m/m versus a +0.2% Dow Jones consensus -- a downside surprise -- following yesterday's in-line July CPI (headline +0.1% m/m / 3.4% y/y, core +0.2% / 2.5% y/y). Initial jobless claims consensus 202K vs 199K prior. The market is pricing a cooling-inflation, no-recession glidepath that keeps Fed cuts live into the fall; both prints landed on the dovish side of that, which is why the tape is at all-time highs with the VIX near its 2026 low.",
     "events_today": [
@@ -20,7 +19,6 @@
     "futures_premkt": "Mixed and small: Dow +0.13%, S&P 500 +0.11%, Nasdaq -0.11% (CSCO drag). NOT a broad risk-on gap -- an index-level drift with clear single-stock dispersion underneath.",
     "data_routing_note": "FMP /stable endpoints are UNREACHABLE from this execution environment -- the agent proxy returns a 403 CONNECT denial for financialmodelingprep.com. This is a known, documented network-allowlist constraint (CLAUDE.md says the same host blocks report.py here), NOT a new outage and NOT something to flag as an incident. Macro/calendar context above was sourced via web search; all price, technical, chain and greek data comes from the Robinhood connector as the routing rules require."
   },
-
   "regime": {
     "label": "RISK-ON but EXTENDED and COMPLACENT -- not chop, yet not a clean 'buy anything' tape. Confirmed uptrend (SPY above every major MA, at/near all-time highs) powered by a benign two-print inflation sequence, but breadth is doing the work under a flat index: Nasdaq futures are RED on CSCO while the Dow is green. Volatility is at the year's floor, which cuts both ways -- option premium is cheap (favors long single-legs per the IV rules) while low VIX at ATHs is itself the complacency the Aug-Oct hedge exists for.",
     "entry_bar": "ELEVATED, for two specific reasons rather than a general mood: (1) a gap-up/ATH open is the single worst moment to initiate long premium -- the first hour must confirm, never chase; (2) AMAT reports tonight, so ANY semi-complex long opened today carries an unhedged overnight event risk that is not part of our thesis. Bar for a semi name today is effectively 'skip unless the trade is closable before the bell'.",
@@ -53,7 +51,6 @@
       "note": "Yesterday's 14.40 close was the LOWEST of 2026; ticking back up to ~15.4 today but still deeply complacent. Cheap premium environment -- long single-legs favored over spreads where the ratio confirms."
     }
   },
-
   "catalysts_next_5_sessions": [
     "TONIGHT (2026-08-13 pm): AMAT Q3, est $3.39. Semi-cap/AI-capex read-through to AMD/TSM/NVDA/AEHR/LRCX. Primary reason to avoid opening semi longs today.",
     "TONIGHT: NU (est $0.20), GLOB, BAP, STNE, DLO report pm.",
@@ -61,7 +58,6 @@
     "Fed speakers today and through the week -- the main macro headline risk now that CPI and PPI are both behind us.",
     "NVDA earnings late August -- outside this 5-session window but the dominant scheduled event for the AI complex."
   ],
-
   "watchlist": [
     {
       "symbol": "INTC",
@@ -114,12 +110,10 @@
       "assessment": "Skip -- would also fight our own SPY hedge. Noted for completeness."
     }
   ],
-
   "positions_context": {
     "SPY_2026-11-20_700P": "Agentic defensive hedge, INSURANCE-EXEMPT from all premium backstops. No action until the ~21-DTE roll/close review WITH Ryan (~2026-10-30). A tape at ATHs with a 2026-low VIX is exactly the environment in which this position is expected to bleed -- that decay is the premium being paid for the Aug-Oct protection, not a signal.",
     "ACHR_2028-01-21_5C": "placed_agent='user' + manual_hold_override. NO action of any kind, ever, by this automation. Excluded from the $1,500 agentic budget."
   },
-
   "sleeve_state_at_brief": {
     "agentic_premium_at_risk": 749.0,
     "budget": 1500.0,
@@ -132,6 +126,18 @@
     "daily_loss_cap": -400.0,
     "weekly_circuit_breaker": "not tripped"
   },
-
-  "iv_logging_status": "DEFERRED to the first post-open run, deliberately. Pre-market option quotes are stale and wide, so an ATM-IV row computed at 13:0xZ on a gap-up would write a misleading reading into iv_history.json -- and the file is one row per ticker per day, so a bad row costs a day of history. The core list (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) plus INTC will be logged from regular-hours chains after 09:30 ET. Reminder for whichever run does it: still Day 3 of self-tracking, so <20 readings for every name -- use iv_rv_ratio ONLY and cite NO percentile or IV rank."
+  "iv_logging_status": "DEFERRED to the first post-open run, deliberately. Pre-market option quotes are stale and wide, so an ATM-IV row computed at 13:0xZ on a gap-up would write a misleading reading into iv_history.json -- and the file is one row per ticker per day, so a bad row costs a day of history. The core list (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) plus INTC will be logged from regular-hours chains after 09:30 ET. Reminder for whichever run does it: still Day 3 of self-tracking, so <20 readings for every name -- use iv_rv_ratio ONLY and cite NO percentile or IV rank.",
+  "rv_30d_precomputed": {
+    "_comment": "Annualized stdev of log returns over the last 30 regular sessions, computed 2026-08-13T13:0xZ from Robinhood daily historicals by the concurrent 13:00Z run. Provided so the post-open IV-logging run can fill iv_rv_ratio WITHOUT refetching historicals -- it only needs the live ATM IV. Values are close-based and do not change intraday.",
+    "SPY": 0.124,
+    "QQQ": 0.239,
+    "NVDA": 0.4,
+    "AMD": 0.799,
+    "TSM": 0.462,
+    "AVGO": 0.422,
+    "MSFT": 0.495,
+    "TSLA": 0.628,
+    "INTC": 0.83,
+    "usage": "iv_rv_ratio = atm_iv / rv_30d. Day 3 of self-tracking: every name has <20 readings, so use the RATIO ONLY -- cite no IV percentile or rank."
+  }
 }
