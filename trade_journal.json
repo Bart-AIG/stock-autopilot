@@ -3499,6 +3499,68 @@
     "new_candidates": "NONE -- swing setups ROST (earnings-gated) and LIN (liquidity/trend-gated), both closed earlier today; momentum top decile unchanged, INTC rank 6/22.",
     "merge_note": "master was merged into the run branch cleanly (only latest_intraday.md differed). This was the equity-report cron, NOT a sibling automation run -- no concurrent-run union was required."
    }
+  },
+  {
+   "run_utc": "2026-08-13T18:15:00Z",
+   "run": "Options automation -- TWENTY-THIRD post-open run of 2026-08-13 (fired 18:15Z / 14:15 ET). NO TRADE. CONCURRENT-RUN GUARD: origin/master re-fetched at run start; HEAD == origin/master == 09dfd9b (the #217 merge of the 18:00Z run), zero unmerged drift, and no entry is placed this run so the double-place hazard cannot arise. BROKER RECONCILIATION: get_option_positions returns exactly SPY 2026-11-20 700P (agentic hedge, qty 1, avg $749) and ACHR 2028-01-21 5C (qty 1, avg $247, placed_agent='user', manual_hold_override) -- matches holdings.json with ZERO drift, no pending_* quantities on either. PORTFOLIO: total $3,861.67 = equity $898.15 + options $981.00 + cash $1,982.52; settled BP $1,447.47 with $535.05 still UNSETTLED (Ryan's IREN stop proceeds from 16:11Z, settling T+1 on 2026-08-14, not spendable today) -- consistent with the 17:45Z run's already-cleared investigation of that equity-side move, so nothing new to flag. Phase 0 duties were discharged earlier today (heartbeat stamped 13:05Z; brief built 13:08Z; all 8 core IV names plus INTC/IREN/ROST/LIN/ACGL carry a 2026-08-13 row), so nothing was rebuilt and no IV row re-logged -- one row per ticker per day. No report newer than the 18:02Z intraday has landed on master, so no new candidate exists. No flags open; none created. EOD-REPORT DUTY: not yet due -- the daily report fires on the first run at or after ~14:30 CT (19:30Z); this run is 13:15 CT.",
+   "regime": "RISK-ON but EXTENDED and COMPLACENT -- label unchanged, no rebuild warranted (no shock headline, no VIX spike, no brief level broken). SPY 777.13 (+0.60%) printing a fresh all-time high; QQQ 732.36 (+1.20%) still leading, the morning CSCO drag long since reversed. The defensive tripwire (a CLOSING break of SPY 746-748) sits ~30 points below spot, untouched. Entry bar stays ELEVATED for the brief's two stated reasons, both still binding on the only live candidate: a fresh-ATH tape is the worst moment to initiate long premium, and AMAT's semi-cap print (AMAT $557.70, +1.74% into the print) lands inside tonight's overnight window.",
+   "positions_reviewed": [
+    {
+     "contract": "SPY 2026-11-20 700P",
+     "placed_agent": "agentic",
+     "mark": 6.305,
+     "entry": 7.49,
+     "pct_from_entry": -15.82,
+     "pl_usd": -118.5,
+     "dte": 99,
+     "delta": -0.137768,
+     "theta": -0.083892,
+     "iv": 0.212714,
+     "verdict": "WORKING (as insurance) -- HOLD. This is the authorized Aug-Oct defensive hedge and is EXEMPT from the DTE-scaled premium backstops per the standing plan, so a -15.8% mark while SPY prints new highs is the cost of carry, not a loss signal. I am not deviating from the prior instance's written plan: neither limb of setup_invalidation is met (SPY not decisively above ~800; the posture has not been lifted). Bid/ask 6.29/6.32 (0.48% of mid) on OI 19,974 and 853 contracts traded -- the mark is trustworthy. At 99 DTE the position is far from the 21-DTE review, and that review is a decision to be made WITH Ryan (~2026-10-30), never mechanically."
+    },
+    {
+     "contract": "ACHR 2028-01-21 5C",
+     "placed_agent": "user",
+     "mark": 3.5,
+     "entry": 2.47,
+     "pct_from_entry": 41.7,
+     "pl_usd": 103.0,
+     "dte": 526,
+     "delta": 0.809526,
+     "iv": 0.886992,
+     "verdict": "NO ACTION -- observed only. The OWNERSHIP GATE plus the standing manual_hold_override make this untouchable regardless of what triggers, and it is excluded from the agentic $1,500 budget. Mark 3.45 -> 3.50 on a wide 3.45/3.55 LEAP market; +41.7% is still below both the +50% ratchet arm and the +80% pop, so nothing has fired anyway."
+    }
+   ],
+   "entries_made": [],
+   "candidates_screened": [
+    {
+     "symbol": "INTC",
+     "direction": "long / call",
+     "spot": 105.4,
+     "chg_pct_day": 4.41,
+     "grade": "B",
+     "conviction": 5,
+     "decision": "SKIP (21st decline today)",
+     "iv_context": "iv_rv_ratio 0.84 at the 107 strike / 29 DTE, from the 15:31Z row in iv_history.json -- IV below realized, which is why a long single-leg would be the right structure IF the price were ever right. Not re-fetched: one row per ticker per day, and spot has moved only $0.26 since that row was written.",
+     "reasoning": "The stock FADED BACK BELOW the trigger -- $105.40 against a $105.45 level -- after the 17:45Z and 18:00Z runs each observed it fractionally above. That round trip is the whole argument. The trigger was deliberately written as a decisive CLOSE above $105.45 precisely because this level chops; today has now produced four tag-and-fade sequences and ten-plus crossings, and every one of them would have been a false entry. Honesty test: I looked for a reason to call the 18:00Z tag 'close enough' and there isn't one -- constructing that argument is itself the signal to stand down. Second, independent blocker: AMAT reports after tonight's bell ($557.70, +1.74% into the print), and a 21-45 DTE Intel call is by construction an overnight hold through a semi-cap print with direct read-through to foundry capex -- an unhedged binary that is not part of the thesis. Third: +4.4% on the day is late-stage entry timing regardless. Thesis remains intact (top-decile 12-1 momentum; the $20B upsized offering at $95.00 closed 2026-08-12, clearing the overhang) -- what has never been present is an acceptable ENTRY PRICE.",
+     "forward_plan": "Unchanged and pre-committed: a CLOSE above $105.45 fires the trigger for the first time and makes the setup live for TOMORROW's first runs, evaluated POST-AMAT, entered on a pullback or a confirmed hold of the reclaimed level -- never by chasing a gap-up open. Kill unchanged: a close below $95 (the offering price) breaks the setup outright."
+    }
+   ],
+   "why_flat": "Being flat is the position. One candidate is live and it is a B: its trigger is unmet (and as of this print, not even tagged), and an unhedged earnings binary sits inside tonight's overnight window. Nothing else on the watchlist is open -- the other seven names carry dated, written verdicts from earlier today. No A+ setup exists at 14:15 ET on a fresh-ATH tape with the year's-floor VIX, and manufacturing one out of a chopping level would be exactly the process failure this desk flags.",
+   "sleeve_state": {
+    "agentic_premium_at_risk": 749.0,
+    "budget": 1500.0,
+    "headroom": 751.0,
+    "open_agentic_positions": 1,
+    "non_hedge_slots_used": "0 of 3",
+    "account_total_value": 3861.67,
+    "settled_buying_power": 1447.47,
+    "unsettled_funds": 535.05,
+    "realized_options_pl_today": 0.0,
+    "daily_loss_cap": -400.0,
+    "weekly_circuit_breaker": "not tripped"
+   },
+   "overrides_logged": "None. No standing preference was overridden this run."
   }
  ]
 }
