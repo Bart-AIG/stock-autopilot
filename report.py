@@ -42,7 +42,7 @@ from pathlib import Path
 from analyze import (
     AI_COMPLEX, BASE, LOGS, MIN_PRICE, SPECULATIVE, UNIVERSE,
     analyze as momentum_analyze,
-    compute_rsi, fmp_fundamentals, fmp_history, load_api_key, theme_of,
+    compute_rsi, fmp_earnings_calendar, fmp_fundamentals, fmp_history, load_api_key, theme_of,
 )
 
 CACHE = LOGS / "history_cache.json"
@@ -124,6 +124,10 @@ SWING_TIME_STOP_DAYS = 14     # ~10 trading days held without a target -> recycl
 TRAIL_PCT = 0.15              # trailing-stop distance below the high; a winner is "green
                               # enough" to trail once price >= entry/(1-TRAIL_PCT) (~+17.6%),
                               # so a 15%-below-high stop clears breakeven (set 2026-06-17)
+EARNINGS_BLACKOUT_DAYS = 14   # a swing setup reporting earnings within this many days is
+                              # flagged: the 1-3 week hold would straddle the print and the
+                              # suggested stop cannot protect an overnight gap. Flagged, NOT
+                              # dropped — the setup stays visible so the session can judge it.
 THESIS_CHECK_TTL_DAYS = 30    # how long a recorded INTACT thesis verdict silences a repeat
                               # REVIEW/THESIS-CHECK on the SAME reasons (~monthly rebalance,
                               # which is that position's real exit gate). See below.
@@ -524,8 +528,11 @@ def _first_trading_day_of_month(d):
 
 
 def write_report(momentum: list[dict], swings: list[dict], mode: str,
-                 value_data: dict | None = None) -> Path:
+                 value_data: dict | None = None,
+                 earnings_cal: dict | None = None) -> Path:
     value_data = value_data or {}
+    # {SYMBOL: 'YYYY-MM-DD'} of upcoming reports; {} means UNKNOWN, not "none coming".
+    earnings_cal = earnings_cal or {}
     momentum.sort(key=lambda r: r["mom_12_1_pct"], reverse=True)
     n_decile = max(1, int(len(momentum) * 0.10))
     setups = [s for s in swings if s["is_setup"]]
@@ -627,18 +634,25 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
 
     lines.append("## Connors RSI(2) swing setups (1-3 week holds)")
     if setups:
+        # Earnings gate. A missing date leaves the row unflagged exactly as before this
+        # gate existed — absence of data is never read as absence of earnings.
+        blackout = str(now.date() + timedelta(days=EARNINGS_BLACKOUT_DAYS))
         for s in setups:
             s["theme"] = theme_of(s["symbol"])
             s["speculative"] = s["symbol"] in SPECULATIVE
             s["held"] = s["symbol"] in held_syms
+            s["earnings_date"] = earnings_cal.get(s["symbol"])
+            s["earnings_soon"] = bool(s["earnings_date"] and s["earnings_date"] <= blackout)
         lines.append("Oversold (RSI2<10) inside a rising 200-day uptrend. Entry/stop/target are ESTIMATES.\n")
-        lines.append("| Ticker | Theme | Spec | Held | Price | RSI2 | Entry | Stop | Target | Stop% |")
-        lines.append("|---|---|---|---|---|---|---|---|---|---|")
+        lines.append("| Ticker | Theme | Spec | Held | Earnings | Price | RSI2 | Entry | Stop | Target | Stop% |")
+        lines.append("|---|---|---|---|---|---|---|---|---|---|---|")
         for s in setups:
             spec = "SPEC" if s["speculative"] else ""
             held = "HELD" if s["held"] else ""
             wide = " ⚠" if abs(s["stop_pct"]) > 15 else ""
-            lines.append(f"| {s['symbol']} | {s['theme']} | {spec} | {held} | {s['price']} | {s['rsi2']} | "
+            ern = (f"⚠️ {s['earnings_date']}" if s["earnings_soon"]
+                   else (s["earnings_date"] or ""))
+            lines.append(f"| {s['symbol']} | {s['theme']} | {spec} | {held} | {ern} | {s['price']} | {s['rsi2']} | "
                          f"{s['entry']} | {s['stop']} | {s['target']} | {s['stop_pct']}%{wide} |")
 
         # --- Concentration / correlation / sizing analysis ---
@@ -651,6 +665,14 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
         # call it a correlated cluster.
         clusters = Counter({th: n for th, n in themes.items() if th != "Other"})
         lines.append("\n### How to read this (concentration & sizing)")
+        ern_soon = [s for s in setups if s["earnings_soon"]]
+        if ern_soon:
+            lines.append("- ⚠️ **Reports earnings inside the hold window:** "
+                         + ", ".join(f"{s['symbol']} ({s['earnings_date']})" for s in ern_soon)
+                         + f". A 1-3 week swing straddles the print, and the suggested stop "
+                           f"cannot protect an overnight gap — a name can beat and still gap down "
+                           f"(TPR beat EPS on 2026-08-13 and fell 16% the same day). Treat these as "
+                           f"NO-ENTRY unless the earnings move IS the thesis.")
         held_overlap = [s["symbol"] for s in setups if s["held"]]
         if held_overlap:
             lines.append(f"- 📌 **Already held (marked HELD):** {', '.join(held_overlap)}. A new buy "
@@ -795,7 +817,11 @@ def main() -> None:
     setups = [s for s in swings if s["is_setup"]]
     # Phase 2 value lens: fetch TTM fundamentals for the joint long-term candidates only.
     value_data = build_value_data(momentum, swings, key) if momentum else {}
-    path = write_report(momentum, swings, args.mode, value_data)
+    # Earnings gate for the swing setups: ONE market-wide call, only when there are
+    # setups to gate. {} on any failure -> the screen degrades to earnings-blind.
+    earnings_cal = (fmp_earnings_calendar(key, days=EARNINGS_BLACKOUT_DAYS + 7)
+                    if setups else {})
+    path = write_report(momentum, swings, args.mode, value_data, earnings_cal)
     print(f"\nRanked {len(momentum)} momentum, found {len(setups)} swing setup(s).")
     print(f"Wrote {path}")
     print("NOTE: read-only. No trades placed. No Robinhood access.")

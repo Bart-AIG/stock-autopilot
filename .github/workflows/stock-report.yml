@@ -114,6 +114,10 @@ jobs:
               if setups:
                   def flags(s):
                       f = [x for x, on in (('HELD', s.get('held')), ('SPEC', s.get('speculative'))) if on]
+                      # Earnings inside the hold window: the alert itself must carry this,
+                      # or a session has to re-derive it by hand on every BUY line.
+                      if s.get('earnings_soon'):
+                          f.append('ERN ' + str(s.get('earnings_date') or '?'))
                       return f" [{'/'.join(f)}]" if f else ''
                   lines.append('BUY: ' + ' | '.join(
                       f"{s['symbol']} {s['price']} stop {s['stop']} tgt {s['target']}{flags(s)}"

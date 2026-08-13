@@ -63,6 +63,18 @@ then take ONE approval (see "One-tap batch approval" below):
 For every SELL and BUY line, run the news/thesis check (HARD RULE 7) before listing it.
 All HARD RULES below still apply — the alert is the findings, never the approval.
 
+**`[ERN <date>]` on a BUY line = earnings inside the hold window → treat as NO-ENTRY** (added
+2026-08-13). The RSI(2) screen is purely technical and knew nothing about earnings dates, so it
+proposed TJX on 2026-08-11 with the print 8 days out and ROST on 2026-08-13 with it 7 days out —
+two manual vetoes on consecutive alerts, which is the "same issue every session" trigger. `report.py`
+now annotates each setup from the FMP earnings calendar and tags the alert. A 1-3 week swing
+straddles the print and the suggested stop cannot protect an overnight gap: **a name can beat and
+still gap down** (TPR beat EPS on 2026-08-13 and fell ~16% the same session). Skip these unless the
+earnings move IS the thesis. The flag is advisory, not a filter — the name still appears, so say
+plainly why it's excluded. **Absence of the flag is not proof of no earnings**: the calendar degrades
+to `{}` on any API failure, and an unflagged name is "unknown", so still sanity-check the date on any
+name you're about to actually buy.
+
 ### One-tap batch approval (Ryan's chosen semi-auto mode)
 Robinhood has no trading API and the account can't expose a TOTP seed, so execution
 must happen in a session — but Ryan wants ONE approval, not a per-order Q&A. So:

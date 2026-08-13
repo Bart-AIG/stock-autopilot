@@ -182,6 +182,44 @@ def fmp_history(sym: str, key: str, days: int = 430) -> list[dict] | None:
     return None
 
 
+def fmp_earnings_calendar(key: str, days: int = 21) -> dict[str, str]:
+    """Upcoming earnings dates for the whole market, in ONE call.
+
+    A Connors RSI(2) setup is a 1-3 week mean-reversion hold, and the suggested stop
+    assumes continuous trading — neither survives an earnings gap. The screen is purely
+    technical, so without this it happily proposes entries days before a print (TJX on
+    2026-08-11 with earnings 8 days out, ROST on 2026-08-13 with earnings 7 days out;
+    TPR beat EPS on 2026-08-13 and still fell 16% intraday, which is the risk exactly).
+
+    Returns {SYMBOL: 'YYYY-MM-DD'} for reports between today and today+days, keeping the
+    SOONEST date per symbol. Returns {} on paywall/empty/error, so the screen degrades
+    to its previous earnings-blind behaviour rather than failing the run — the caller
+    must treat an empty map as "unknown", never as "no earnings coming"."""
+    today = datetime.now(timezone.utc).date()
+    url = (f"{BASE}/earnings-calendar?from={today}&to={today + timedelta(days=days)}"
+           f"&apikey={key}")
+    try:
+        with urllib.request.urlopen(url, timeout=20) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+    except (urllib.error.HTTPError, urllib.error.URLError, ValueError):
+        return {}
+    if not isinstance(data, list):
+        return {}
+    out: dict[str, str] = {}
+    for row in data:
+        if not isinstance(row, dict):
+            continue
+        sym, date = row.get("symbol"), row.get("date")
+        if not (isinstance(sym, str) and isinstance(date, str) and len(date) >= 10):
+            continue
+        date = date[:10]
+        if date < str(today):
+            continue  # already reported; only the forward window gates an entry
+        if sym not in out or date < out[sym]:
+            out[sym] = date
+    return out
+
+
 def fmp_fundamentals(sym: str, key: str) -> dict:
     """TTM valuation snapshot for the long-term VALUE lens: P/E, P/FCF, PEG.
 
