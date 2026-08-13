@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-13T17:20:00Z",
+  "updated_utc": "2026-08-13T17:35:00Z",
   "_realized_options_pnl_today": 0.0,
   "positions": [
     {
@@ -94,9 +94,22 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-13T13:50:00Z",
-    "result": "NO ENTRY -- third consecutive post-open run to decline. IREN's trigger_kill FIRED and it is now DISARMED in market_brief.json.",
-    "detail": "INTC $103.00 (+2.03%): 6th consecutive session in the dead zone. Today's drift UP moved it further from branch (a) (the $97-100 pullback band) while leaving it ~2.4% below branch (b) (the $105.45 breakout close). Trigger NOT loosened -- now four consecutive runs refusing to move an 8-session-old level. IREN $47.60 (+9.0%): DISARMED. The 13:42Z run had already found the two decisive facts (no dated catalyst behind the move; the 2026-09-11 chain is far too wide to trade) and this run reproduced both independently -- but the brief item itself was still reading 'NEW -- needs catalyst identification post-open', which is why two separate runs each spent research effort on the same question. Fixed at the root this run: the watchlist item is now DISARMED with the evidence attached, so later runs skip it instead of re-researching it. Sleeve unchanged: $749 at risk of $1,500."
+    "run_utc": "2026-08-13T17:35:00Z",
+    "result": "NO ENTRY -- 19th post-open run of 2026-08-13.",
+    "candidates_considered": "INTC only (all other watchlist items carry written standing decisions and were not re-litigated).",
+    "reason": "INTC printed $105.49, fractionally ABOVE the $105.45 trigger for the first time today -- but the trigger is a CLOSE, not a tag, and AMAT's after-the-bell semi-cap print is an unhedged overnight binary on a semi name. Declined on both grounds, per the standing decision.",
+    "sleeve_state": {
+      "agentic_premium_at_risk": 749.0,
+      "budget": 1500.0,
+      "headroom": 751.0,
+      "open_agentic_positions": 1,
+      "non_hedge_slots_used": "0 of 3",
+      "settled_buying_power": 1447.47,
+      "unsettled_funds": 535.05,
+      "realized_options_pl_today": 0.0,
+      "daily_loss_cap": -400.0,
+      "weekly_circuit_breaker": "not tripped"
+    }
   },
   "_closed_positions": [
     {

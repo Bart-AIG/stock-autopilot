@@ -3217,6 +3217,64 @@
       },
       "decision": "NO ENTRY, NO EXIT. Two positions, both gated from action by rule rather than by judgment (hedge exempt / user-owned). One live watchlist name below its own trigger with an overnight event risk it was already pre-committed to refuse. No new report, therefore no new candidate. The correct output of this run is a timestamp and nothing else -- most runs should end this way, and manufacturing activity out of an unchanged tape is precisely the failure mode the conviction gate exists to prevent.",
       "_concurrency_note": "origin/master re-fetched at 17:19Z immediately before writing: HEAD unchanged at the #212 merge, no sibling run had claimed the 17:15Z slot. Since this run places no order, the double-placement risk the guard addresses is moot -- but the check is recorded so the habit holds on a run that does want to trade."
+    },
+    {
+      "run_utc": "2026-08-13T17:35:00Z",
+      "run": "Options automation -- NINETEENTH post-open run of 2026-08-13 (fired 17:30Z / 13:30 ET). NO TRADE. Broker reconciliation clean: get_option_positions returns exactly SPY 2026-11-20 700P (agentic hedge) + ACHR 2028-01-21 5C (placed_agent='user', manual_hold_override), matching holdings.json with ZERO drift. EQUITY-BOOK CHANGE NOTED (not an automation action): IREN closed out today -- Ryan's own GTC stop_market at $45.16 filled 11.0 sh @ $45.305 at 16:10:37Z and he market-sold the 0.81 fractional remainder @ $45.29 one minute later; both orders placed_agent='user'. Equity value accordingly fell $1,436.91 -> $897.75 and cash rose to $1,982.52 with $535.05 now UNSETTLED (T+1). The 16:47Z run had already reconciled IREN out of holdings.json into _closed_positions, so this run confirmed the ledger rather than re-editing it, and sent no notification: Ryan placed both sells himself and is already aware. The unsettled $535.05 is tracked here because settled-cash-only is a hard entry gate -- spendable BP remains $1,447.47, not the $1,982.52 cash line. Phase 0 duties already discharged today (heartbeat 13:05Z; brief 13:08Z; all 8 core IV names plus INTC/IREN/ROST/LIN/ACGL carry a 2026-08-13 row), so nothing was rebuilt or re-logged -- one row per ticker per day. Concurrency guard per CLAUDE.md: re-fetched origin/master at run start (HEAD = #213 merge, the 17:15Z run) and again before writing; no sibling run claimed this slot. No flags open; none created.",
+      "regime": "RISK-ON but EXTENDED and COMPLACENT -- label unchanged, no rebuild warranted (no surprise headline, no VIX spike, no brief level broken). SPY 777.16 (+0.60%) at another fresh all-time high; QQQ 733.16 (+1.31%) extending its leadership after fully reversing the morning CSCO drag -- internals have improved through the session, but the index is grinding higher straight into an earnings binary. Defensive tripwire (a CLOSING break of SPY 746-748) sits ~30 points below spot, untouched. Entry bar stays ELEVATED for the brief's two stated reasons, both still live: a fresh-ATH tape is the worst moment to initiate long premium, and AMAT's semi-cap print lands inside tonight's overnight window.",
+      "positions_reviewed": [
+        {
+          "contract": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "mark": 6.335,
+          "entry": 7.49,
+          "pct_from_entry": -15.42,
+          "pl_usd": -115.5,
+          "dte": 99,
+          "delta": -0.138,
+          "theta": -0.084,
+          "iv": 0.2132,
+          "verdict": "HOLD -- thesis intact and no exit condition can fire. Insurance-exempt from the DTE-scaled premium backstops per the defensive-posture playbook, so -15.4% is not a sell signal; it is exactly what a drawdown put does while SPY prints new highs on a 2026-low VIX. Bid/ask 6.32/6.35 (0.47% of mid) on OI 19,974 -- the mark is trustworthy. Next scheduled decision is the ~21-DTE roll/close review WITH Ryan (~2026-10-30); nothing between now and then is an action."
+        },
+        {
+          "contract": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "mark": 3.45,
+          "entry": 2.47,
+          "pct_from_entry": 39.68,
+          "pl_usd": 98.0,
+          "verdict": "NO ACTION -- ownership gate. Ryan placed this himself and it carries a manual_hold_override; the automation may observe but never close, trim, or roll it. Observation only: +39.7% today after a 3.10 -> 3.45 move, still below the +50% level at which a ratchet would arm on an agentic position -- so even absent the ownership gate no exit would fire. Excluded from the $1,500 agentic budget."
+        }
+      ],
+      "entries_made": [],
+      "candidates_screened": [
+        {
+          "symbol": "INTC",
+          "direction": "long / call",
+          "spot": 105.4901,
+          "chg_pct_day": 4.5,
+          "conviction": 5,
+          "decision": "SKIP (18th decline today)",
+          "iv_context": "iv_rv_ratio 0.84 at the 107 strike / 29 DTE, logged 15:31Z from iv_history.json -- IV below realized, so a long single-leg would be the correct structure if the entry ever triggered.",
+          "gate_failed": "Entry price / trigger definition, plus event risk. INTC tagged $105.49 -- the first print ABOVE the $105.45 trigger today -- but the standing decision defines the trigger as a CLOSE above that level, and at 17:35Z with ~2h25m left there is no close; today's path has lost and reclaimed this level eight times, which is the definition of contested rather than confirmed. Independently, AMAT reports after the bell tonight: a direct semi-cap binary on a name that IS a semi, and the brief pre-committed to skipping semi entries not closable before the bell. Either reason alone is sufficient. Thesis remains intact (top-decile 12-1 momentum, the $20B offering closed 2026-08-12 clearing the overhang, liquidity passes at OI 44,946 / ~3.4% spread) -- what is absent for the sixth session is an acceptable entry, and a tag is not one. Honesty test: buying this tag would be chasing a +4.5% day into an earnings binary on a trigger I wrote myself and would be loosening in the moment. Clear fail."
+        }
+      ],
+      "exits_made": [],
+      "no_action_rationale": "Flat is a position. The one live candidate reached its level intraday and was declined on the pre-written definition of that level rather than on a fresh judgment made under the pressure of seeing the number -- which is the entire purpose of writing triggers in advance. Nothing was loosened.",
+      "sleeve_state": {
+        "agentic_premium_at_risk": 749.0,
+        "budget": 1500.0,
+        "headroom": 751.0,
+        "open_agentic_positions": 1,
+        "non_hedge_slots_used": "0 of 3",
+        "max_positions": 3,
+        "settled_buying_power": 1447.47,
+        "unsettled_funds": 535.05,
+        "realized_options_pl_today": 0.0,
+        "daily_loss_cap": -400.0,
+        "weekly_circuit_breaker": "not tripped"
+      },
+      "next_run_watchpoints": "(1) The 19:30Z run is the first at/after 14:30 CT and OWES the daily EOD report to daily_options_report.md on master -- that commit is the delivery. (2) INTC's CLOSING print vs $105.45 is the only thing today that changes anything. (3) AMAT after the bell -- the read-through gates INTC and every other semi for tomorrow's first run."
     }
   ]
 }
