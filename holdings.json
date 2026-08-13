@@ -1,14 +1,7 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-13T13:42:00Z",
-  "_realized_options_pnl_today": {
-    "date_utc": "2026-08-13",
-    "trades": [],
-    "total_realized_pnl": 0,
-    "daily_loss_cap": -400,
-    "cap_hit": false,
-    "_note": "Rolled to the new trading day 2026-08-13 by the 13:00Z run (pre-open; the concurrent 12:58Z run deferred Phase 1 entirely, which left this tracker dated 2026-08-12). No realized options P&L today. Prior realized: 2026-08-11 -$108.04 (CVS 100C confirmed -50% backstop close); 2026-08-12 flat. Agentic-placed premium-at-risk = SPY hedge $749 only, $751 of the $1,500 budget free."
-  },
+  "updated_utc": "2026-08-13T13:35:00Z",
+  "_realized_options_pnl_today": 0.0,
   "positions": [
     {
       "symbol": "SPY",
@@ -24,16 +17,16 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "mark_price": 6.255,
-        "pct_from_entry": -16.49,
-        "pl_usd": -123.5,
+        "mark_price": 6.385,
+        "pct_from_entry": -14.75,
+        "pl_usd": -110.5,
         "peak_premium": 7.825,
         "dte": 99,
-        "delta": -0.1386,
-        "theta": -0.0828,
-        "iv": 0.21,
-        "last_checked_utc": "2026-08-13T13:42:00Z",
-        "status": "HOLD -- authorized defensive hedge, insurance-EXEMPT from the DTE-scaled premium backstops (HARD RULE 8 / OWNERSHIP GATE), so -50%/-70% never apply. FIRST POST-OPEN run of 2026-08-13: marks refreshed from LIVE regular-hours quotes (13:36:42Z, verified via quote.updated_at) and the stale-mark flag carried by the two pre-open runs is now cleared. Mark $6.255 vs $7.49 entry = -16.5% / -$123.50; bid/ask $6.24-$6.27 on OI 19,974, still highly liquid. peak_premium $7.825 unchanged -- the +50% ratchet has never armed. Decay is expected and on-thesis: SPY opened at a fresh ATH (776.19, +0.48%) with VIX near its 2026 low, which is precisely the complacency this insurance is bought against, and the 746-748 defensive tripwire sits ~30 points below spot. Next decision: ~21-DTE roll/close review WITH Ryan around 2026-10-30."
+        "delta": -0.14131,
+        "theta": -0.083329,
+        "iv": 0.209287,
+        "last_checked_utc": "2026-08-13T13:35:00Z",
+        "status": "HOLD -- authorized defensive hedge, insurance-EXEMPT from the DTE-scaled premium backstops (HARD RULE 8 / OWNERSHIP GATE), so -50%/-70% never apply. Marks REFRESHED with LIVE regular-hours quotes at 13:35Z (bid 6.37 / ask 6.40, $0.03 wide, OI 19,974) -- this run cleared the stale pre-open snapshot the 12:58Z run deliberately left in place. Down -14.8% with SPY at 774.49 (a new ATH) and VIX ~15: the decay IS the premium being paid for Aug-Oct protection, not a signal. peak_premium $7.825 unchanged; the +50% ratchet has never armed. Next decision: ~21-DTE roll/close review WITH Ryan around 2026-10-30."
       }
     },
     {
@@ -53,8 +46,8 @@
         "pct_from_entry": 30.57,
         "pl_usd": 75.5,
         "dte": 526,
-        "last_checked_utc": "2026-08-13T13:42:00Z",
-        "status": "NO ACTION EVER -- placed_agent='user' + manual_hold_override. Ryan placed it himself and said 'leave it be'; never actionable by an automated run regardless of price, and excluded from the agentic $1,500 budget. Marks refreshed from LIVE quotes (13:36:40Z) purely for the record: $3.225 vs $2.47 entry = +30.6% / +$75.50. Note the market is wide ($2.95 x $3.50) on this long-dated LEAP -- the mark is indicative, not an executable price."
+        "last_checked_utc": "2026-08-13T13:35:00Z",
+        "status": "NO ACTION EVER -- placed_agent='user' + manual_hold_override. Ryan placed it himself and said 'leave it be'. Excluded from the agentic $1,500 budget. Marks REFRESHED with LIVE regular-hours quotes at 13:35Z; note the bid/ask is wide (2.95 / 3.50) so the 3.225 mark is a midpoint, not a fill-able price -- immaterial here since this position is never actioned by the automation."
       },
       "manual_hold_override": {
         "set_utc": "2026-07-22T14:30:00Z",
@@ -122,9 +115,9 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-13T13:42:00Z",
-    "decision": "NO ENTRY -- first POST-OPEN run of 2026-08-13 (13:42Z / 09:42 ET). Both watchlist candidates screened against live regular-hours prints and both failed, each on multiple independent gates. INTC $101.01: still inside the 8-session-old dead zone between the $97-100 pullback branch and the $105.45 breakout branch -- neither trigger hit, and the level was NOT loosened (third consecutive run to decline). AMAT reports tonight, so a semi long today also carries an unhedged overnight binary that is not part of the thesis. IREN $47.10 (+7.9%): failed FOUR gates -- (1) no NEW dated catalyst (web research surfaced only the 2026-07-20 $2.8B contracts, the May NVDA deal and the 2026-08-04 Mirantis close; nothing dated 08-12 or 08-13), so trend-maturity gate (b) says the move is un-attributable rather than freshly driven; (2) still BELOW the 200d MA (47.285 confirmed live) that the brief set as the reclaim condition; (3) the first hour had not elapsed, which the brief required for the gap to count as holding; (4) LIQUIDITY -- Sep-11 47C is $4.80 x $5.90, a 20.6% spread vs the 10%-of-mid cap, on OI 44. Liquidity alone is an automatic skip. IREN is also already an equity holding, so a call would have stacked correlated AI-infra exposure.",
-    "exits": "None. Neither position is actionable: SPY 700P is the insurance-exempt hedge (-16.5%, hold to the ~21-DTE review with Ryan ~2026-10-30); ACHR LEAP is placed_agent='user' + manual_hold_override.",
-    "other": "Broker reconciled 13:37Z: exactly SPY 700P + ACHR 5C, quantities and bases match the ledger, no pending quantities, ZERO drift. Agentic premium-at-risk $749 of the $1,500 budget ($751 free); non-hedge slots 0 of 3; realized options P&L today $0 against the -$400 cap; weekly circuit breaker not tripped. Entry throttle 0 of 3 used today. IV self-tracking duty that the two pre-open runs deferred is now DISCHARGED: 10 live ATM rows logged (8 core + INTC + IREN) from verified regular-hours quotes. Today's equity report had still not landed as of this run -- newest committed remains the 2026-08-12 19:02Z intraday -- so watchlist source (1) is still yesterday's screen; a later run should refresh it. EOD report due at the first run at/after 19:30Z (14:30 CT)."
+    "run_utc": "2026-08-13T13:35:00Z",
+    "result": "NO ENTRY -- no watchlist trigger hit. First post-open run of 2026-08-13.",
+    "detail": "INTC $101.35: 5th consecutive session in the dead zone between the $97-100 pullback band and the $105.45 breakout close; trigger NOT loosened. IREN $46.25 (+5.9%): hard gate is a reclaim of the 200-day MA, verified live at 47.285 and FALLING (47.41 -> 47.35 -> 47.29) -- price is below it, so the gate fails outright, and a reclaim of a declining MA would be the falling-knife case CLAUDE.md warns against. AMAT/CSCO/IWM were pre-documented no-trades in the brief. Sleeve unchanged: $749 at risk of $1,500.",
+    "_concurrent_run_supplement": "Added by the 13:42Z run, which fired concurrently with the 13:30Z run above and independently reached the SAME no-entry verdict on both names (INTC dead zone, IREN gate failure). Recorded rather than duplicated. Two findings this run reached that the 13:30Z screen did not, kept because they save a future run the work: (1) IREN OPTION LIQUIDITY is disqualifying on its own, independent of the trend gate -- the 2026-09-11 47C was $4.80 x $5.90, a $1.10 spread = 20.6% of the $5.35 mid, against the 10%-of-mid cap, on OI of just 44. So even a clean 200d reclaim does not make IREN tradeable in this sleeve until the market tightens materially; check the chain BEFORE spending research time on the thesis. (2) CATALYST RESEARCH came back empty: no news dated 2026-08-12 or -13 could be found behind the move. Everything surfaced was already priced -- the $2.8B AI-cloud contracts (2026-07-20), the $3.4B five-year NVDA partnership (May 2026), the $625M Mirantis close (2026-08-04). An un-attributable gap fails trend-maturity gate (b) on its own terms: there is nothing to underwrite a forward projection."
   }
 }
