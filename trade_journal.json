@@ -2081,6 +2081,75 @@
       },
       "eod_report": "Already written and delivered by the 19:32Z run (daily_options_report.md on master -> eod-report-notify.yml). Deliberately NOT re-committed by this run: nothing material changed (no entry, no exit, both positions held on unchanged reasoning), and touching that file again would fire a second ntfy push at Ryan carrying no new information. Re-notification discipline per the HARD RULE 9 'notify once per incident, not once per run' lesson, applied to the report path.",
       "tomorrow_watchpoints": "INTC armed trigger unchanged (pullback into ~$97-100 HOLDING above $95, or a decisive close >$105.45 on volume; kill = close <$95); Sep-18 110C pre-priced ~$595. AMD/TSM remain confirmed-but-unaffordable at the right delta - only a pullback that cheapens the correct strike changes that. SPY hedge: no action until the ~21-DTE review with Ryan (~2026-10-30). NVDA earnings late Aug - avoid opening fresh NVDA risk into it."
+    },
+    {
+      "run_utc": "2026-08-13T13:10:00Z",
+      "run": "Options automation -- FIRST run of 2026-08-13, fired 12:58Z / 08:58 ET. PRE-OPEN: Phase 0 only (heartbeat + market brief). No Phase 1 exits and no Phase 2 entry evaluation performed.",
+      "regime": "RISK-ON but EXTENDED and COMPLACENT (provisional, pre-market). July PPI printed UNCHANGED m/m vs +0.2% consensus -- a dovish surprise and the second benign inflation print in two days after yesterday's in-line CPI. SPY pre-market 774.31 vs 772.49 close (+0.24%), in new all-time-high territory above every MA (20d 753.19 / 50d 748.12 / rising 200d 704.50). QQQ 724.30 (+0.08%), lagging on a ~-7% CSCO drag; IWM 303.56 (+0.28%) modestly leading on rate-cut odds. VIX 15.37 after closing at 14.40 yesterday -- the LOWEST print of 2026. Futures mixed and small (Dow +0.13% / SPX +0.11% / NDX -0.11%), i.e. index-level drift with real single-stock dispersion underneath, not a broad risk-on gap. Defensive-posture tripwire (CLOSING break of SPY 746-748) sits ~26 points below spot -- untouched.",
+      "market_hours_gate": "THE DECIDING CONSTRAINT THIS RUN. The run prompt scopes action to 09:30-16:00 ET on market days; this run fired at 08:58 ET, ~32 minutes before the open. Phase 1 (position management) and Phase 2 (entry hunt) were therefore NOT executed -- deferred to the first post-open run, which will re-validate the regime and every trigger against regular-hours prints. Phase 0 duties (heartbeat stamp, daily brief) are not market actions and were completed.",
+      "positions_reviewed": [
+        {
+          "symbol": "SPY",
+          "contract": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "NO ACTION -- reconciled against the broker only, not re-marked. Confirmed present at the broker (quantity 1, avg price $749.00, opened 2026-08-06T14:21:56Z) and matching holdings.json exactly. This is the authorized Aug-Oct defensive hedge and is INSURANCE-EXEMPT from every DTE-scaled premium backstop, so no premium level can trigger an exit. Next decision remains the ~21-DTE roll/close review WITH Ryan around 2026-10-30. Worth stating plainly for the record: a tape at all-time highs with the VIX at its 2026 low is precisely the environment where this put is SUPPOSED to bleed -- that decay is the cost of the protection Ryan authorized, not a signal to act on."
+        },
+        {
+          "symbol": "ACHR",
+          "contract": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "NO ACTION -- and none is ever possible. placed_agent='user' plus a manual_hold_override; the OWNERSHIP GATE forbids this automation closing, trimming or rolling it without Ryan's explicit go-ahead. Confirmed present at the broker (quantity 1, avg $247.00). Excluded from the agentic $1,500 budget."
+        }
+      ],
+      "reconciliation": "CLEAN -- ZERO drift. get_option_positions(nonzero=true) on account 718757339 returns exactly two positions, SPY 700P and ACHR 5C, and both match holdings.json on contract, quantity and average price. No unexpected positions, no missing positions, no pending_* quantities. No HARD RULE 9 flags open, and none created.",
+      "entries": [],
+      "entry_decision": "NO ENTRY -- and no entry was even evaluated, which is the correct distinction to draw. The market was closed. Hunting entries against pre-market prints would mean pricing contracts off stale, wide quotes and confirming triggers off non-regular-hours prices, which is exactly how a run talks itself into a bad fill. The armed INTC setup is carried into today untouched at its original levels; nothing about it was loosened to manufacture activity on a quiet pre-open run.",
+      "candidates_screened": [
+        {
+          "symbol": "INTC",
+          "outcome": "CARRIED FORWARD, ARMED, LEVELS UNCHANGED",
+          "detail": "Pre-market $101.16 vs $100.95 close -- still squarely in the dead zone between the two pre-written trigger branches, now for a fifth consecutive session. Branch (a): pullback into ~$97-100 HOLDING above the $95 offering price on a flat-to-green tape. Branch (b): decisive CLOSE above the $105.45 Jul-21 swing high on real volume. Kill: a close below $95. Pre-priced contract Sep-18 110C ~$595. The thesis remains the best on the board (top-decile momentum, offering overhang cleared, iv_rv_ratio 0.81 so IV sits BELOW realized and a single-leg long is the right structure, and it is that rare candidate which is both affordable and liquid at the correct delta for a $1,500 sleeve). What is absent, as it has been all week, is an acceptable entry PRICE -- conviction in a thesis is not conviction in an entry, and only the latter authorizes a purchase. Added consideration for today: AMAT reports tonight, so even a triggered INTC entry would carry semi-complex event risk over the print."
+        },
+        {
+          "symbol": "IREN",
+          "outcome": "FLAGGED FOR POST-OPEN RESEARCH, EXPLICITLY NOT ARMED",
+          "detail": "The largest mover in our tracked universe pre-market, +4.8% at $45.77 vs a $43.67 close. Deliberately NOT armed: the gap has no identified catalyst as of this brief, the stock is BELOW its 200-day MA (~47.29) and OUT of the momentum top decile, and it is already an equity holding in the momentum sleeve -- so a call would stack correlated AI-infra exposure onto a name we own rather than diversify. Buying a 4.8% gap in a below-200d name fails trend-maturity gate (c): a single gap print is not the present tape confirming. Requires a dated catalyst, a reclaim of 47.29, and the gap holding through the first hour before it is even a candidate."
+        },
+        {
+          "symbol": "AMAT",
+          "outcome": "SKIPPED -- pre-declared no-trade",
+          "detail": "Reports tonight after the close (est $3.39). Earnings is not our documented thesis, and both HARD RULE 8 and the run prompt require closing or rolling before earnings unless earnings IS the thesis. Logged in the brief in advance specifically so no later run today re-litigates it into a coin-flip on a print."
+        },
+        {
+          "symbol": "CSCO",
+          "outcome": "SKIPPED -- trend-maturity gate (b)",
+          "detail": "Down ~7% pre-market on a weak print. The catalyst is being fully priced in this single gap, so there is no edge left to capture; buying puts into a -7% gap is the exact late-entry error the ZTS incident was written to prevent. A real setup here would be a failed bounce into resistance several sessions from now, with a fresh full stack."
+        },
+        {
+          "symbol": "IWM",
+          "outcome": "SKIPPED -- macro lean, no dated catalyst, and it fights our own book",
+          "detail": "Soft PPI lifts rate-cut odds which mechanically favors small caps, and IWM leads modestly pre-market. But 'rates might fall' is a lean, not a trigger, and adding index-level long beta while holding a protective SPY put would be paying twice to take both sides of the same view."
+        }
+      ],
+      "iv_context": "NO IV ROWS WRITTEN THIS RUN -- deliberately deferred, not skipped. iv_history.json holds one row per ticker per day, so computing ATM IV from pre-market chains (stale, wide, and distorted by a gap-up) would burn today's slot on a misleading reading. The core list (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) plus INTC will be logged from regular-hours chains by the first post-open run. Standing constraint for that run: this is only Day 3 of self-tracking, so every name has <20 readings -- use iv_rv_ratio ONLY and cite NO IV percentile or rank. Carried forward from yesterday's logging: INTC 0.81 and AMD 0.70, both meaningfully below 1.0 (IV under realized vol), so cheap premium and long single-legs remain the favored structure over debit spreads.",
+      "data_routing_note": "FMP /stable is unreachable from this environment -- the agent proxy returns 403 on CONNECT to financialmodelingprep.com. This is a KNOWN and documented network-allowlist constraint (CLAUDE.md records the same host blocking report.py here), so it is noted rather than escalated as an incident. Macro and the economic calendar were sourced via web search; every price, technical, chain and greek figure came from the Robinhood connector per the data-routing rules.",
+      "sleeve_state": {
+        "agentic_premium_at_risk": 749.0,
+        "budget": 1500.0,
+        "headroom": 751.0,
+        "open_agentic_positions": 1,
+        "non_hedge_slots_used": "0 of 3",
+        "portfolio_total_value": 3859.83,
+        "settled_buying_power": 1447.47,
+        "unsettled_funds": 0.0,
+        "realized_pl_today": 0.0,
+        "daily_loss_cap": -400.0,
+        "entries_today": "0 of 3 allowed",
+        "weekly_circuit_breaker": "not tripped",
+        "flags_open": "none"
+      },
+      "eod_report": "NOT DUE -- this run is at 08:58 ET, far ahead of the 14:30 CT / 15:30 ET EOD trigger. The first run at or after 14:30 CT owes the full daily_options_report.md rewrite for 2026-08-13.",
+      "tomorrow_watchpoints": "Immediate (today, post-open): (1) log the deferred IV rows from regular-hours chains; (2) re-validate the regime on regular-hours prints -- a gap-up open that FADES is a materially different tape than one that holds, and today's first hour decides which; (3) refresh watchlist source (1) once today's latest_morning.md lands from the GitHub Action (~14:00Z), since this brief was necessarily built off yesterday's 19:02Z screen; (4) research the IREN gap for a dated catalyst before it can be armed, and require a 47.29 reclaim regardless; (5) INTC trigger unchanged -- do NOT loosen either branch. Overnight/forward: AMAT tonight is the semi-complex event risk that argues against opening ANY semi long today; HD reports 2026-08-18; NVDA earnings late August; SPY hedge untouched until the ~21-DTE review with Ryan (~2026-10-30)."
     }
   ]
 }
