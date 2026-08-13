@@ -3023,6 +3023,81 @@
       "decision": "NO NEW POSITION. Flat is a position. The one thing that needed doing this run was the ledger fix, and it is done."
     },
     {
+      "run_utc": "2026-08-13T17:02:00Z",
+      "run": "Options automation -- SEVENTEENTH post-open run of 2026-08-13 (fired 17:00Z / 13:00 ET). NO trade, NO exit. Substantive output of this run: the 16:01Z intraday report landed on master carrying one NEW line vs the 15:03Z report -- ACGL as an RSI(2) swing setup -- which the run prompt defines as a genuine new catalyst. It was screened in full and killed on liquidity the same run. Broker reconciliation: get_option_positions returns exactly SPY 2026-11-20 700P + ACHR 2028-01-21 5C, matching holdings.json -- ZERO option drift. Equity book now reads $897.16 with $535.05 unsettled, consistent with the IREN closure the 16:45Z run reconciled; no new equity activity. No flags open, none created.",
+      "regime": "RISK-ON but EXTENDED and COMPLACENT -- label unchanged, no rebuild warranted. SPY 776.94 (+0.58%) pressing further into all-time-high territory, QQQ 732.38 (+1.20%) now clearly LEADING, IWM 303.26 (+0.18%) lagging after leading this morning. The rotation note: the CSCO disappointment has been fully absorbed and money is moving back into large-cap tech, not out of it. Defensive tripwire (a CLOSING break of SPY 746-748) sits ~30 points below spot, untouched. Entry bar stays ELEVATED for the brief's two stated reasons -- a fresh-ATH tape is the worst moment to initiate long premium, and AMAT's semi-cap binary lands inside tonight's overnight window.",
+      "positions_reviewed": [
+        {
+          "contract": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "mark": 6.325,
+          "entry": 7.49,
+          "pl_pct": -15.55,
+          "pl_usd": -116.5,
+          "dte": 99,
+          "verdict": "HOLD -- no exit condition can fire. Insurance-exempt from the DTE-scaled premium backstops per the defensive-posture playbook, so -15.6% is not actionable. SPY at another fresh ATH is precisely the tape in which this hedge is SUPPOSED to bleed; the decay is the cost of the Aug-Oct protection, not a thesis break. setup_invalidation unmet on both limbs (SPY nowhere near ~800+; posture not lifted). Next decision point is the ~21-DTE roll/close review WITH Ryan around 2026-10-30."
+        },
+        {
+          "contract": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "mark": 3.4,
+          "entry": 2.47,
+          "pl_pct": 37.65,
+          "pl_usd": 93.0,
+          "dte": 526,
+          "verdict": "NO ACTION EVER -- ownership gate plus manual_hold_override. Mark ticked 3.375 -> 3.400; still below both the +50% ratchet arm and the +80% pop, so nothing has fired regardless. Excluded from the $1,500 agentic budget. Observed only."
+        }
+      ],
+      "entry_taken": null,
+      "candidates_screened": [
+        {
+          "symbol": "ACGL",
+          "source": "NEW setup in the fresh 16:01Z latest_intraday.md -- the only line that report added vs 15:03Z",
+          "conviction": "3/10",
+          "outcome": "SKIP",
+          "reasoning": "Screened in full because the run prompt treats a new setup in a fresh intraday report as a genuine new catalyst. Setup shape: RSI2 9.5, price 97.34, report target 102.83. Killed on three grounds, the first decisive and structural. (1) LIQUIDITY: the 2026-09-18 chain (36 DTE, right in the 21-45 window) has $5-WIDE strikes, so at a $97.41 spot no true ATM contract exists. 95C = 3.40 x 4.40, a $1.00 spread = 25.6% of the 3.90 mid on OI 52 and volume ZERO; 100C -- the ~0.39-delta contract the default profile wants -- = 1.40 x 2.35 = 50.7% of mid on OI 248, volume 10. Cap is <10% of mid, so both are automatic skips: paying half the premium in spread means ACGL must move ~5% before the trade is even flat. (2) TREND MATURITY (c): the present tape does not confirm a turn -- ACGL is +0.12% at 97.41, unchanged, still at the bottom of a six-session slide from 101.12; a mean-reversion long wants the bounce to have STARTED. RSI2 9.5 is also only marginally through the <10 threshold. (3) CORRELATION: ACGL is ALREADY an open equity swing position (entry 98.29, -1%), so a call stacks correlated single-name risk on a name the book owns -- the same objection that helped disarm IREN this morning. Recorded for the future: unlike ROST, ACGL's problem is NOT a passing earnings window. A $5-wide strike ladder with 25-50% spreads on a low-beta insurer is a STRUCTURAL property of this chain, so ACGL is likely permanently untradeable in this sleeve at this size.",
+          "iv_context": "iv_rv_ratio 0.79 (blended ATM IV 20.9% at the Sep-18 95/100 strikes vs rv_30d 26.5%, computed from Robinhood daily historicals). Premium is CHEAP -- IV was NOT the blocker, liquidity was. Day 3 of self-tracking so the ratio only, no percentile. Logged to iv_history.json."
+        },
+        {
+          "symbol": "INTC",
+          "source": "standing watchlist item, 16th decline today",
+          "conviction": "5/10",
+          "outcome": "SKIP -- no entry",
+          "reasoning": "Standing decision, not re-litigated. Spot $104.875 is BELOW the $105.45 CLOSE trigger by $0.575 -- the second consecutive run beneath the level after it was lost around 16:47Z, and it has not been reclaimed. With ~3h of session left INTC needs +0.55% just to retag, and the trigger requires a CLOSE, not a tag. Independently: AMAT's semi-cap binary is inside tonight's overnight window and INTC is a semi, which the brief pre-committed to skipping; and initiating after a +3.9% day into a level the stock just LOST is exactly the chase that trend-maturity gate (a) exists to prevent. Re-check at the 2026-08-14 first run on the written three-step sequence."
+        },
+        {
+          "symbol": "ROST",
+          "source": "still in the 16:01Z report at RSI2 1.8",
+          "conviction": "3/10",
+          "outcome": "SKIP -- already closed 15:18Z, not re-researched",
+          "reasoning": "Closed earlier today on earnings (2026-08-20 pm, inside every tradable expiry given the DTE-7 floor), a dead chain (12.8% of mid, OI 0), and rich event IV (ratio 1.69). Re-look is 2026-08-21 at the earliest. Noted here only to record that its reappearance in the fresh report was seen and correctly not re-worked."
+        },
+        {
+          "symbol": "AMAT / CSCO / IWM / IREN",
+          "source": "standing watchlist",
+          "outcome": "SKIP -- unchanged no-trades",
+          "reasoning": "AMAT reports tonight and earnings is not our thesis. CSCO's -7% gap is fully priced (trend-maturity gate b). IWM is a macro lean without a dated catalyst and would fight our own SPY hedge. IREN was DISARMED at 13:50Z on five independent gates and stays disarmed; its equity leg was closed by Ryan himself today, which changes nothing about the options view."
+        }
+      ],
+      "no_entry_reason": "Zero of the day's candidates cleared the 7/10 conviction gate. The one genuinely new name (ACGL) failed the hardest and most objective gate in the ruleset -- a 25.6%-to-50.7%-of-mid bid/ask against a <10% cap -- and the standing name (INTC) is now trading BELOW its own trigger with an unhedged semi-cap earnings event tonight. Flat is a position; a skipped mediocre setup costs nothing.",
+      "sleeve_state": {
+        "agentic_premium_at_risk": 749.0,
+        "budget": 1500.0,
+        "headroom": 751.0,
+        "open_agentic_positions": 1,
+        "non_hedge_slots_used": "0 of 3",
+        "settled_buying_power": 1447.47,
+        "unsettled_funds": 535.05,
+        "realized_pl_today": 0.0,
+        "daily_loss_cap": -400.0,
+        "weekly_circuit_breaker": "not tripped",
+        "entries_today": 0,
+        "entries_allowed_today": 3
+      },
+      "eod_report_status": "NOT DUE at 17:00Z. The EOD trigger is the first run at or after 14:30 CT = 19:30Z; this run is 12:00 CT. The 19:30Z-or-later run owns writing daily_options_report.md.",
+      "_concurrency_note": "TWO automation runs fired for the 17:00Z slot (the documented cron-job.org + native-hourly dual trigger). Both are preserved deliberately: they screened DIFFERENT candidates off different report snapshots -- the 17:02Z entry screened ACGL from the then-current report, the 17:05Z entry screened LIN from the fresh 17:02Z intraday report. BOTH concluded NO TRADE, and their independently-fetched position marks agree exactly (SPY 700P mark 6.325 / -15.55%), which is a useful cross-validation rather than a conflict. Neither entry supersedes the other."
+    },
+    {
       "run_utc": "2026-08-13T17:05:00Z",
       "run": "Options automation -- SEVENTEENTH post-open run of 2026-08-13 (fired 17:00Z / 13:00 ET). NO TRADE. Substantive work: screened LIN, the day's second NEW report setup, and rejected it. Broker reconciliation clean -- get_option_positions returns exactly SPY 2026-11-20 700P (agentic hedge) + ACHR 2028-01-21 5C (placed_agent='user', manual_hold_override), matching holdings.json with ZERO drift. Branch was already in sync with origin/master at run start (no piled-up commits). No flags open; none created.",
       "regime": "RISK-ON but EXTENDED and COMPLACENT -- label unchanged, no rebuild warranted (no surprise headline, no VIX spike, no index level broken). SPY 776.94 (+0.58%) at a fresh all-time high; QQQ 732.53 (+1.22%) has now shaken off the morning CSCO drag and is LEADING, which is a modest improvement in internals versus the brief's 'Nasdaq red while Dow green' opening read. Defensive tripwire (a CLOSING break of SPY 746-748) sits ~30 points below spot, untouched. Entry bar stays ELEVATED for the brief's two stated reasons: a fresh-ATH tape is the worst moment to initiate long premium, and AMAT's semi-cap binary lands inside tonight's overnight window.",
@@ -3084,7 +3159,8 @@
         "unsettled_funds_usd": 535.05,
         "note": "Unsettled $535.05 is the IREN equity sale Ryan closed himself this morning; it settles T+1 on 2026-08-14 and is NOT spendable today. Settled BP $1,447.47 comfortably exceeds the $751 of budget headroom, so cash is not the binding constraint -- the budget is."
       },
-      "decision": "NO TRADE. Flat is a position. The day's one genuinely new candidate was screened properly and failed four independent gates, the standing candidate is below its trigger into an overnight semi binary, and both open positions are correctly untouchable. Nothing was forced."
+      "decision": "NO TRADE. Flat is a position. The day's one genuinely new candidate was screened properly and failed four independent gates, the standing candidate is below its trigger into an overnight semi binary, and both open positions are correctly untouchable. Nothing was forced.",
+      "_concurrency_note": "TWO automation runs fired for the 17:00Z slot (the documented cron-job.org + native-hourly dual trigger). Both are preserved deliberately: they screened DIFFERENT candidates off different report snapshots -- the 17:02Z entry screened ACGL from the then-current report, the 17:05Z entry screened LIN from the fresh 17:02Z intraday report. BOTH concluded NO TRADE, and their independently-fetched position marks agree exactly (SPY 700P mark 6.325 / -15.55%), which is a useful cross-validation rather than a conflict. Neither entry supersedes the other."
     }
   ]
 }
