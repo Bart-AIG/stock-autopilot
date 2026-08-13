@@ -3561,6 +3561,64 @@
     "weekly_circuit_breaker": "not tripped"
    },
    "overrides_logged": "None. No standing preference was overridden this run."
+  },
+  {
+   "run_utc": "2026-08-13T18:30:00Z",
+   "run": "Options automation -- TWENTY-FOURTH post-open run of 2026-08-13 (fired 18:30Z / 14:30 ET). NO TRADE. CONCURRENT-RUN GUARD: origin/master re-fetched at run start; HEAD == origin/master == 20f3b32 (the #218 merge of the 18:15Z run), zero unmerged drift, and no entry is placed this run so the double-place hazard cannot arise. BROKER RECONCILIATION: get_option_positions returns exactly SPY 2026-11-20 700P (agentic hedge, qty 1, avg $749) and ACHR 2028-01-21 5C (qty 1, avg $247, placed_agent='user', manual_hold_override) -- matches holdings.json with ZERO drift, no pending_* quantities on either. PORTFOLIO: total $3,867.27 = equity $898.75 + options $986.00 + cash $1,982.52; settled BP $1,447.47 with $535.05 still UNSETTLED (Ryan's own IREN GTC stop proceeds from 16:11Z, settling T+1 on 2026-08-14, not spendable today) -- unchanged from the 17:45Z run's already-completed investigation of that equity-side move, so nothing new to flag and no flag touched. Phase 0 duties were discharged earlier today (heartbeat stamped 13:05Z; brief built 13:08Z; all 8 core IV names plus INTC/IREN/ROST/LIN/ACGL carry a 2026-08-13 row), so nothing was rebuilt and no IV row re-logged -- one row per ticker per day. REPORT CHECK: no report newer than the 18:02Z intraday has landed on master; its swing setups are still ROST (earnings 2026-08-20, closed today as a NO-ENTRY earnings straddle) and LIN (closed today on liquidity + a failed trend gate), and the 12-1 top decile is unchanged with INTC at rank 6/22. No new candidate exists. No flags open; none created. EOD-REPORT DUTY: not yet due -- the daily report fires on the first run at or after ~14:30 CT (19:30Z); this run is 13:30 CT.",
+   "regime": "RISK-ON but EXTENDED and COMPLACENT -- label unchanged, no rebuild warranted (no shock headline, no VIX spike, no brief level broken). SPY 777.03 (+0.59%) at a fresh all-time high; QQQ 732.07 (+1.16%) still leading. The defensive tripwire (a CLOSING break of SPY 746-748) sits ~30 points below spot, untouched. Entry bar stays ELEVATED for the brief's two stated reasons, both still binding on the only live candidate: a fresh-ATH tape is the worst moment to initiate long premium, and AMAT's semi-cap print (AMAT $556.00, +1.43% into the print) lands inside tonight's overnight window.",
+   "positions_reviewed": [
+    {
+     "contract": "SPY 2026-11-20 700P",
+     "placed_agent": "agentic",
+     "mark": 6.325,
+     "entry": 7.49,
+     "pct_from_entry": -15.55,
+     "pl_usd": -116.5,
+     "dte": 99,
+     "delta": -0.138082,
+     "theta": -0.084005,
+     "iv": 0.212714,
+     "verdict": "WORKING (as insurance) -- HOLD. The authorized Aug-Oct defensive hedge, EXEMPT from the premium backstops per the standing plan; a -15.6% mark while SPY prints new highs is the cost of carry, not a loss signal. I am not deviating from the prior instance's written plan: neither limb of setup_invalidation is met (SPY not decisively above ~800; the posture has not been lifted). Bid/ask 6.31/6.34 (0.47% of mid) on OI 19,974 and 853 contracts traded -- the mark is trustworthy. At 99 DTE it is far from the 21-DTE review, and that review is a decision to be made WITH Ryan (~2026-10-30), never mechanically."
+    },
+    {
+     "contract": "ACHR 2028-01-21 5C",
+     "placed_agent": "user",
+     "mark": 3.525,
+     "entry": 2.47,
+     "pct_from_entry": 42.7,
+     "pl_usd": 105.5,
+     "dte": 526,
+     "delta": 0.810794,
+     "iv": 0.889525,
+     "verdict": "NO ACTION -- observed only. placed_agent='user' plus manual_hold_override; the HARD RULE 8 ownership gate bars the automation from exiting it under any trigger, and no trigger has fired anyway (+42.7% is below the +50% ratchet arm and the +80% pop-bank). Excluded from the agentic $1,500 budget."
+    }
+   ],
+   "candidates_graded": [
+    {
+     "symbol": "INTC",
+     "grade": "B",
+     "conviction": "5/10 vs a 7 gate",
+     "spot": 105.465,
+     "chg_pct_day": 4.47,
+     "verdict": "SKIP -- 22nd decline today. The stock is sitting AT the trigger ($105.465 vs $105.45, +$0.015) after a fifth tag-and-fade cycle; this changes nothing, because the trigger as written is a decisive CLOSE above $105.45 on real volume, not a tag, and ~90 minutes of session remain -- no run before the bell can confirm a close. The second blocker is independent and sufficient on its own: AMAT reports tonight, so a 21-45 DTE call is by construction an unhedged overnight hold through a semi-cap print with direct read-through to Intel foundry capex, a binary outside the thesis. Third, the honesty test: entering +4.5% on the day, near the high, after six sessions of waiting is chasing a move, not anticipating one (trend-maturity gate (c)).",
+     "thesis_status": "INTACT -- top-decile 12-1 momentum (rank 6/22); the $20B upsized offering at $95.00 closed 2026-08-12 so the overhang-clearing catalyst is confirmed; iv_rv_ratio 0.84 from our own iv_history.json (IV below realized), which makes a single-leg long the right structure and is rare at this account size. What has never been present is an acceptable ENTRY PRICE.",
+     "forward_plan": "UNCHANGED. A CLOSE above $105.45 today would fire the trigger for the first time and make the setup live for TOMORROW's first runs, evaluated POST-AMAT and entered on a pullback or a confirmed hold of the reclaimed level -- never by chasing a gap-up open. Alternative entry remains a pullback into ~$97-100 that holds above the $95 offering price on a flat-to-green tape. Kill unchanged: a close below $95."
+    }
+   ],
+   "sleeve_state": {
+    "agentic_premium_at_risk_usd": 749,
+    "budget_usd": 1500,
+    "headroom_usd": 751,
+    "open_agentic_positions": 1,
+    "non_hedge_slots_used": "0 of 3",
+    "realized_options_pnl_today_usd": 0.0,
+    "daily_loss_cap_usd": -200,
+    "settled_bp_usd": 1447.47,
+    "unsettled_usd": 535.05,
+    "note": "Deployed premium $749 already sits at the desk's ~$750 soft preference for total premium deployed, so any new entry would itself be an override requiring a written argument -- another reason the bar on INTC is high today, independent of the trigger and AMAT."
+   },
+   "why_flat": "Flat because the single live candidate fails on three independent gates at once (trigger is a close and cannot be confirmed intraday; AMAT prints tonight inside the hold window; entering +4.5% near the high is chasing), and no other name on the report or the brief is close to A-grade. Standing down is the position.",
+   "actions_taken": "None. No orders placed, no orders cancelled, no flags created or cleared."
   }
  ]
 }
