@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-14T16:45:00Z",
+  "updated_utc": "2026-08-14T17:04:00Z",
   "_realized_options_pnl_today": 0.0,
   "positions": [
     {
@@ -17,7 +17,7 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "last_checked_utc": "2026-08-14T16:45:00Z",
+        "last_checked_utc": "2026-08-14T17:04:00Z",
         "mark": 6.3,
         "bid": 6.29,
         "ask": 6.31,
@@ -25,12 +25,14 @@
         "pnl_usd": -119.0,
         "pnl_pct": -15.89,
         "dte": 98,
-        "delta": -0.1388,
+        "delta": -0.1391,
         "theta": -0.0842,
-        "iv": 0.2118,
+        "iv": 0.2115,
         "open_interest": 21030,
         "underlying": "SPY 776.09 (-0.23%)",
-        "verdict": "WORKING AS DESIGNED -- insurance, not a directional loser. EXEMPT from every premium backstop by Ryan's 2026-08-05 authorization; the only decision point is the ~21-DTE roll/close review with Ryan (~2026-10-30), 98 DTE away. Mark ticked UP 6.285 -> 6.30 since 16:30Z as SPY eased to 776.09; loss narrowed to -15.89% from -16.09%. Strike 700 sits 9.8% below spot, still just under the rising 200d (702.0) it was structured to pay off through. No action, and no action is possible or wanted."
+        "verdict": "WORKING AS DESIGNED -- insurance, not a directional loser. EXEMPT from every premium backstop by Ryan's 2026-08-05 authorization; the only decision point is the ~21-DTE roll/close review with Ryan (~2026-10-30), 98 DTE away. Mark ticked UP 6.285 -> 6.30 since 16:30Z as SPY eased to 776.09; loss narrowed to -15.89% from -16.09%. Strike 700 sits 9.8% below spot, still just under the rising 200d (702.0) it was structured to pay off through. No action, and no action is possible or wanted.",
+        "underlying_note": "SPY 775.805 (-0.27%). Mark UNCHANGED to the penny from 16:45Z -- correct behaviour for a 0.14-delta 98-DTE put on a 0.04% index move.",
+        "status": "WORKING AS DESIGNED. NO ACTION. Insurance under Ryan's 2026-08-05 authorization, EXEMPT from all premium backstops; being down while the anticipated Aug-Oct drawdown has not arrived is the hedge doing its job. Sole decision point is the ~21-DTE roll/close review WITH Ryan (~2026-10-30), which an unattended run can never pre-empt."
       }
     },
     {
@@ -46,7 +48,7 @@
       "target": null,
       "_note": "placed_agent='user' (Ryan bought this himself 2026-07-20T19:38Z, $2.47/contract, $247 premium). Long-dated LEAP (18mo out) -- not gated by the HARD RULE 8 entry checklist since it wasn't an autonomous entry. manual_hold_override below suspends the -50% mechanical stop; broken-thesis and DTE/earnings exits still apply in principle but this is a Jan-2028 LEAP, far outside any near-term DTE/earnings gate.",
       "_current_state": {
-        "last_checked_utc": "2026-08-14T16:45:00Z",
+        "last_checked_utc": "2026-08-14T17:04:00Z",
         "mark": 3.35,
         "bid": 3.25,
         "ask": 3.45,
@@ -54,12 +56,12 @@
         "pnl_usd": 88.0,
         "pnl_pct": 35.63,
         "dte": 525,
-        "delta": 0.8019,
+        "delta": 0.8018,
         "theta": -0.0021,
-        "iv": 0.8985,
+        "iv": 0.902,
         "open_interest": 19544,
-        "underlying_note": "mark 3.425 -> 3.35 since 16:30Z (prior session close 3.68); noise on a 525-DTE LEAP with 0.80 delta",
-        "status": "NO ACTION EVER -- structural, not analytic. placed_agent='user' triggers the 2026-07-21 ownership/exit gate and Ryan's 2026-07-22 manual_hold_override ('I'll handle the achr leap. Just leave it be') suspends the premium stops on top of it. Excluded from agentic premium accounting. Recorded for Ryan's running number only."
+        "underlying_note": "Mark unchanged from 16:45Z (prior session close 3.68).",
+        "status": "NO ACTION EVER -- structural, not analytic. placed_agent='user' triggers the 2026-07-21 ownership/exit gate and Ryan's 2026-07-22 manual_hold_override suspends the premium stops on top of it. Excluded from agentic premium accounting. Carried for Ryan's running number only."
       },
       "manual_hold_override": {
         "set_utc": "2026-07-22T14:30:00Z",
@@ -92,16 +94,18 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-14T16:45:00Z",
+    "run_utc": "2026-08-14T17:00:00Z",
     "result": "NO ENTRY",
-    "candidates": "AVGO (B->C on the LONG side, box broke DOWN this run), NVDA (B, written trigger tested live for a 3rd time and moving further away), AVGO-as-a-PUT (C, graded explicitly because the brief names it, fails trend-maturity), AMD (B, still over the per-trade max in the only structure this account can trade), INTC (C, standing no-slot instruction honored, now trading below its killing level)",
+    "candidates": "QQQ (B-/C, newly proven affordable and liquid in both directions -- passed on THESIS, not cost), AMD (B, mid-range in a 3-week 463-530 base; real disqualifiers are the per-trade max and the unavailability of spreads, NOT the voided sleeve headroom), AVGO long (C, base break extended to a new session low), AVGO put (C, trend-maturity limb (a) fails harder at -5.94%), INTC (C, new session low through its killing level; standing no-slot instruction honored), NVDA (B, written trigger failed to fire for a 4th time)",
     "entries_used_today": "0 of 3",
     "non_hedge_slots_used": "0 of 3",
     "settled_buying_power_usd": 1982.52,
+    "unsettled_funds_usd": 401.1,
     "agentic_premium_at_risk_usd": 749.0,
+    "per_trade_max_usd": 1500.0,
     "realized_options_pnl_today_usd": 0.0,
-    "_SIZING_CORRECTION": "THIS FIELD REPLACES THE STALE 'sleeve_headroom_usd: 751.0' THAT SAT HERE FROM THE 15:18Z RUN, and removing it is a deliberate root fix rather than housekeeping. That number encoded the VOID pre-2026-08-14 reading of HARD RULE 8 -- '$1,500 total sleeve budget', from which $749 of hedge was subtracted to leave '$751 of headroom'. Ryan amended the rule on master at 15:42Z: $1,500 is a PER-TRADE maximum, there is NO total-sleeve ceiling, and total deployment is bounded by SETTLED CASH only. The journal absorbed this from 15:45Z onward, but holdings.json did not -- so this ledger has been publishing a superseded constraint for the last five runs. That matters because it is not a harmless label: an entry decision made from THIS file rather than the journal would have measured candidates against $751 instead of $1,500 and skipped affordable trades, which is the exact entry freeze Ryan rewrote the rule to end. THE CORRECT NUMBERS: per-trade max $1,500; settled buying power $1,982.52 (verified at the broker this run, unchanged all day); the hedge's $749 does NOT reduce a new trade's allowance, it only occupies 0 of 3 non-hedge slots (the hedge is excluded from the slot count). NOTE ON CASH: get_portfolio's raw `cash` reads $2,383.62, which OVERSTATES spendable funds -- $401.10 of ACGL proceeds are unsettled until Mon 2026-08-17 (T+1 across the weekend). Use buying_power ($1,982.52), never `cash`, for FOUR LAWS #4.",
-    "_no_trade_reason": "No candidate met its own written entry condition, and for the first afternoon today NOT ONE rejection is a budget rejection. AVGO -- the day's only real setup -- had its 393-396 base break DOWNWARD this run on the heaviest 5-min volume of the hour, which kills the mean-reversion long and confirms the 16:15Z/16:30Z passes were right on their stated reasoning. NVDA's trigger was tested live and is moving away (now RED on the day). AMD's ATM is $3,308 vs a $1,500 per-trade max and its catalyst is spent. INTC is under a standing no-slot instruction and is now BELOW its $103.50 killing level. Friday-afternoon weekend theta raises the bar rather than lowering it."
+    "_SIZING_NOTE": "Sizing rules per the 2026-08-14 amendment (PR #251), carried forward from the 16:45Z correction and unchanged: $1,500 is a PER-TRADE maximum; there is NO total-sleeve cap; total deployment is bounded by SETTLED CASH only. The hedge's $749 does NOT reduce a new trade's allowance -- it occupies 0 of 3 non-hedge slots (the hedge is excluded from the slot count). get_portfolio's raw `cash` of $2,383.62 OVERSTATES spendable funds by the $401.10 of unsettled ACGL proceeds -- use buying_power for FOUR LAWS #4, never `cash`. Those proceeds settle T+1 across the weekend, so Monday 2026-08-17 settled BP should read ~$2,383.62 (verify at the broker).",
+    "_TRADEABLE_UNIVERSE_1700Z": "MEASURED THIS RUN and written to CLAUDE.md so it is inherited rather than re-derived. The core IV list splits into two affordability tiers at the $1,500 per-trade max, because premium scales with spot x IV and the ETFs carry 18-21% IV against 60-90% on the high-priced semis. AFFORDABLE at ~0.35 delta / 30-45 DTE: QQQ (2026-09-18 750C $883.50 at 0.79% of mid, OI 41,640; 710P $950.00 at 0.63% of mid, OI 25,761 -- both measured live 17:03Z), SPY, NVDA (~$225 spot), INTC ($938 measured). UNAFFORDABLE in any real-delta single leg: AMD ($3,308), AVGO ($1,370), TSM, MSFT; TSLA borderline. Spreads would fix the unaffordable tier but are UNAVAILABLE at option_level_2. CONSEQUENCE: the sleeve is not capital-constrained out of the liquid universe -- it had been research-constrained INTO the unaffordable half of it."
   },
   "_closed_positions": [
     {
