@@ -5466,6 +5466,89 @@
         "market_brief.json: stamped today, no genuine shock this run (index stationary), so refreshed only for the NVDA correction rather than rebuilt."
       ],
       "handoff_to_next_run": "Post-close runs today: reconcile, log, STAND DOWN -- do not roll any daily artifact past the 16:00 ET bell (the trading day stays 2026-08-14 until Monday's 09:30 ET open), do not re-stamp the heartbeat, do not rebuild the brief, and do NOT rewrite daily_options_report.md -- it was delivered this run and a duplicate just re-notifies Ryan for no new information. The one check always worth repeating is the broker reconciliation. Adjudicate the CLOSES when they print: AVGO below 394.38 kills the bounce read, INTC below 103.50 strikes the name outright. Monday: $401.10 settles (BP -> ~$2,383.62), RDDT joins the S&P 500 08-18, and both AVGO boards need RE-PRICING rather than inheriting today's numbers."
+    },
+    {
+      "run_utc": "2026-08-14T19:45:00Z",
+      "run_type": "scheduled options automation (cron-job.org sub-hourly fire)",
+      "trading_day_et": "2026-08-14 (Friday)",
+      "run": "FINAL market-hours run of the 2026-08-14 trading day (15:45 ET, 14 minutes to the bell), the genuine 19:45Z slot after 19:30Z. NO TRADE. This run's one useful job was the task the 19:30Z handoff explicitly assigned it -- adjudicate the near-close levels on the two names still nominally live -- and it did that rather than re-deriving the day. Everything else was verified as already done and deliberately NOT redone: heartbeat stamped 2026-08-14 at 13:33Z by the first post-open run; market_brief.json stamped today and no genuine shock occurred (SPY -0.23%, VIX nowhere near a +15% move), so not rebuilt; Friday weekly review written at 13:05Z; iv_history.json verified PER-KEY to already carry a 2026-08-14 row for all eight core names plus INTC, so IV was NOT re-polled (CVS/IREN/ROST/LIN/ACGL are dormant past candidates not evaluated today and correctly have no row); daily_options_report.md WRITTEN AND DELIVERED at 19:30Z and NOT rewritten -- see daily_report below.",
+      "regime": "RISK-ON, EXTENDED, COMPLACENT -- twenty-third consecutive reading, label unchanged and NOT re-derived. SPY 776.11 (-0.23%), QQQ 730.11 (-0.27%) into a Friday close. The defining feature of this session held all the way to the bell: a stationary index over violent single-name dispersion (AMD +5.3%, AVGO -5.8%, INTC -1.7%). That is a tape where being long the wrong name costs you even with the market direction right -- it argues for selectivity, not for activity.",
+      "action": "NO TRADE. 0 of 3 non-hedge agentic slots used, 0 of 3 daily entries used. Zero agentic option entries this week.",
+      "levels_adjudicated": {
+        "_purpose": "Assigned by the 19:30Z handoff. These are 15:46 ET prints, not official closes -- the next post-close run should confirm against the settled close, but at 14 minutes to the bell the readings are decisive.",
+        "INTC": "102.74, DOWN from 102.96 at 19:30Z and -1.74% on the day. This is the SECOND consecutive window below the $103.50 killing level and it is moving AWAY, not stabilising. Per the handoff's standing instruction, the name is STRUCK for 2026-08-14: the long thesis needed $106.87 held 15+ minutes and that trigger is now 4.0% away. Not a candidate again until it reclaims the 103.50 shelf on a close.",
+        "AVGO": "393.46, a marginal bounce off the 392.84 print at 19:30Z but STILL BELOW the 394.38 session-low kill level written into the brief. The bounce read is dead by its own pre-written rule -- the level was set precisely so this decision would not be made by feel at the close. -5.8% on the AMAT read-through. Note the discipline point: a 0.6-point recovery in the last 15 minutes is exactly the kind of print that tempts a run to reopen a thesis its own kill level already closed.",
+        "AMD": "508.44, stalled for a FIFTH consecutive window 4.1% below the written 530.13 breakout trigger. The tape declined to confirm the $5B AI-fund catalyst all afternoon. Moot on vehicle regardless (see candidates_graded).",
+        "NVDA": "225.09, -0.09%. Unchanged all session, no catalyst, no trigger. Still the best-structured liquid chain in the complex and still not a trade."
+      },
+      "positions_reviewed": [
+        {
+          "contract": "SPY 2026-11-20 700P",
+          "owner": "agentic",
+          "verdict": "working (as insurance)",
+          "detail": "Mark 6.185 (bid 6.17 / ask 6.20), vs 6.18 Thursday close -- FLAT on the day and flat versus the 19:30Z check. -$130.50 / -17.4% from the 7.49 entry. That is the expected carry profile of long-dated OTM insurance with the index near highs, not a signal. EXEMPT from all premium backstops under the authorized-hedge carve-out. Setup intact: SPY is 10.9% above the 700 strike and the support stack the hedge bets against (50d ~748 / July shelf 716.6 / rising 200d ~705) is untested. 98 DTE, theta -$0.083/day, delta -0.137, IV 21.1%, OI 21,030. Next decision is the ~21-DTE roll/close review ~2026-10-30 WITH Ryan; no unattended run may pre-empt it."
+        },
+        {
+          "contract": "ACHR 2028-01-21 5C",
+          "owner": "user",
+          "verdict": "working -- and structurally not mine to touch",
+          "detail": "Mark 3.45, +$98 / +39.7% (up from 3.35 at 19:30Z as ACHR recovered into the close). Checked for a fired exit condition as the ownership gate requires: NONE fired. At +39.7% it is still below the +50% level where the profit ratchet would even ARM, so even on a position the desk owned there would be nothing to do. Two independent gates keep the automation off it: placed_agent='user' (2026-07-21 ownership/exit gate) and Ryan's 2026-07-22 manual_hold_override. Excluded from agentic premium accounting. Nothing to detect-and-notify."
+        }
+      ],
+      "candidates_graded": [
+        {
+          "symbol": "INTC",
+          "grade": "C -- STRUCK for today",
+          "reason": "Below its own killing level for a second window and widening. No long thesis survives its trigger being 4% away with 14 minutes left."
+        },
+        {
+          "symbol": "AVGO",
+          "grade": "C -- kill level breached, read closed",
+          "reason": "393.46 is below the 394.38 kill level. Separately and independently unbuyable: the only earnings-clean expiry is 08-21 at 7 DTE (exactly on the DTE floor) with theta -6.8%/day, so a Friday entry burns 20-27% of premium over the weekend with the underlying unchanged; the 08-28 ATM is ~$1,370 = 91% of the per-trade max on OI 109, and Law 1 reserves max size for A++ only."
+        },
+        {
+          "symbol": "AMD",
+          "grade": "B -- real catalyst, unbuyable vehicle",
+          "reason": "Breakout trigger never fired (stalled 4.1% below it for five windows). Even had it fired: 505C $3,308 and 530C $2,280 are both >2x the $1,500 per-trade max, and the debit spread that would fit is unavailable at option_level_2. This is the level-3 argument in its cleanest form -- the setup was not rejected for lack of money."
+        },
+        {
+          "symbol": "NVDA",
+          "grade": "B -- no catalyst",
+          "reason": "Best-in-class structure and liquidity, zero reason to act TODAY. 'Why now' has no answer, and per the entry rules that alone is disqualifying. Carry forward as the first name to check Monday."
+        },
+        {
+          "symbol": "ROST",
+          "grade": "C -- structurally excluded",
+          "reason": "Earnings 2026-08-20 inside any hold window. Unchanged."
+        },
+        {
+          "symbol": "MSFT",
+          "grade": "C -- watch only",
+          "reason": "Cheapest IV/RV in the core list but no catalyst and no trigger. Premium is not the obstacle here; a thesis is."
+        }
+      ],
+      "why_flat": "Three independent reasons, any one sufficient, and NOT ONE of them is budget -- the desk closed the week with $1,982.52 settled and every slot open. (1) NO TRIGGER FIRED ANYWHERE: INTC and AVGO both closed the session through their pre-written kill levels, AMD stalled five windows below its breakout, NVDA and MSFT have no catalyst at all. (2) THE TWO BEST SETUPS REMAIN UNBUYABLE AS STRUCTURED: AMD needs a spread this account cannot trade at option_level_2, AVGO needs an earnings-clean DTE that does not exist before 2026-09-03. (3) TIMING: opening long premium 14 minutes before a Friday bell pays three calendar days of weekend theta before any thesis can begin to work -- a certain cost for zero information, and the single least favourable moment in the week to initiate. Being flat here is a position taken deliberately, not a default arrived at by inaction.",
+      "sleeve_state": {
+        "agentic_premium_at_risk_usd": 749.0,
+        "non_hedge_positions_open": "0 of 3",
+        "entries_used_today": "0 of 3",
+        "settled_buying_power_usd": 1982.52,
+        "unsettled_usd": 401.1,
+        "unsettled_note": "ACGL equity sale proceeds, settle Mon 2026-08-17 (T+1 across the weekend). FOUR LAWS #4 respected: excluded from every sizing check this run.",
+        "realized_options_pnl_today_usd": 0.0,
+        "realized_options_pnl_week_usd": -195.0,
+        "daily_loss_cap_status": "-$200 cap untouched ($0 realized today). Desk applies the STRICTER of the live prompt's -$200 and CLAUDE.md's -$400, per the 2026-08-14 conflict resolution.",
+        "pnl_source": "BROKER figures carried from the 19:30Z run's get_realized_pnl + get_option_orders pull (no option orders have been placed since, so nothing to re-pull intraday). Week of 08-10: 2 round trips, -$195."
+      },
+      "broker_reconciliation": "get_option_positions at 19:46Z returns exactly SPY 2026-11-20 700P (1, agentic hedge) + ACHR 2028-01-21 5C (1, user). Matches holdings.json. All pending_* fields 0.0000. Portfolio $3,850.50 (equity $504.88 / options $962 / cash $2,383.62); buying power $1,982.52, unsettled $401.10. The intraday equity drift (ACGL sale) was investigated and fully explained by the 19:30Z run -- an interactive trading session's reconciled sale, already recorded in _closed_positions[] via PR #211, NOT an incident. Not re-adjudicated here: HARD RULE 9 bars an unattended run from re-opening that record in either direction, and there is no flag open.",
+      "daily_report": "NOT REWRITTEN, deliberately. daily_options_report.md was written and delivered at 19:30Z by the first run at/after 14:25 CT, and correctly carries 2026-08-14. The rule is explicit that only something MATERIAL after that point justifies a rewrite -- a fill, an exit, a new flag, or a trigger firing. NONE occurred: no orders, no exits, no flags, and the only price news is two names moving FURTHER through kill levels the report already described as breached. Refreshing it to restate 'still no trades' with 15-minutes-newer marks would push Ryan a duplicate notification carrying no new information, which the 2026-08-13 fix exists specifically to prevent.",
+      "housekeeping": [
+        "Heartbeat: already stamped for the 2026-08-14 trading day at 13:33Z. Not re-stamped.",
+        "market_brief.json: stamped today, no genuine shock (index stationary into the close). Not rebuilt. Its INTC and AVGO entries are now settled by the kill-level adjudication above; the next run that rebuilds the brief on Monday should re-price BOTH boards from scratch rather than inheriting Friday's numbers.",
+        "iv_history.json: verified per-key to already carry a 2026-08-14 row for all eight core names plus INTC. NOT re-polled -- the method says overwrite today's row if it exists, and re-polling 15 minutes later would add noise, not history.",
+        "Friday weekly review: written at 13:05Z by an earlier run. Not duplicated."
+      ],
+      "handoff_to_next_run": "The bell rings at 20:00Z. Every run after that is a POST-CLOSE run and the protocol is: reconcile, log, STAND DOWN. Specifically -- the trading day stays 2026-08-14 until Monday's 09:30 ET open, so do NOT stamp the heartbeat, do NOT rebuild the brief, do NOT reset the loss cap or entry throttle, and do NOT rewrite daily_options_report.md (delivered 19:30Z). The one check always worth repeating is the broker reconciliation, since it is the only way an assignment or unauthorized fill would surface. The level adjudication this run performed is DONE -- INTC struck, AVGO's bounce read closed; a post-close run should confirm both against the official settled close and then stop, not re-derive them. If several post-close runs have already fired, write one short entry saying so and end. MONDAY 2026-08-17: $401.10 settles (BP -> ~$2,383.62); RDDT joins the S&P 500 on 08-18; ROST reports 08-20 and stays excluded; AVGO's earnings-clean expiry problem resolves only at 2026-09-03; re-price the AMD, AVGO and NVDA boards fresh rather than inheriting Friday's quotes."
     }
   ],
   "updated_utc": "2026-08-14T18:20:00Z"
