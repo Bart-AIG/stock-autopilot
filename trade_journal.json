@@ -4355,6 +4355,38 @@
    "friday_review_status": "DUE Friday 2026-08-14 and already PRE-COMPUTED from BROKER records by the 23:29Z run (per the rule that periodic P&L is sourced from get_realized_pnl / get_option_orders, never from this journal's coverage). No re-derivation attempted here.",
    "drift_check": "Zero. Ledger == broker on both positions. No standing plan deviated from, none silently ignored: both open positions are on written plans that require no decision tonight, and this run took no action against either.",
    "summary": "NO TRADE. Market closed 5h22m ago; nothing placeable. Live reconciliation clean -- zero drift, no pending assignment/exercise/expiration, $0 realized today, $751 of budget headroom. Every useful post-close task for this trading day was already completed by earlier runs, so per the post-close protocol this run's entire correct output is the reconciliation plus this log."
+  },
+  {
+   "run_utc": "2026-08-14T03:21:00Z",
+   "run": "EIGHTH post-close run of the 2026-08-13 trading day (23:21 ET Thu, 7h21m after the bell). Handled per the POST-CLOSE RUN PROTOCOL: read what earlier post-close runs covered, perform the one check worth repeating (live broker reconciliation), find nothing changed, log briefly, stop. NO TRADE -- the prompt scopes trading to 9:30-16:00 ET, so nothing was placeable at any grade. I did not re-poll extended-hours quotes, re-derive the regime, roll any daily artifact, or invent a research task to justify the firing.",
+   "regime": "Unchanged and deliberately NOT re-derived. SPY settled 777.77 (+0.68%) / QQQ 732.06 (+1.15%) at/near all-time highs; RISK-ON, EXTENDED, COMPLACENT. Defensive tripwire (CLOSING break of SPY 746-748) ~30 pts below spot, never threatened.",
+   "daily_artifacts_not_rolled": "Per the UTC-midnight rule: the UTC date is 2026-08-14 but the TRADING day is still 2026-08-13 until the 09:30 ET Friday open. automation_heartbeat.json stays stamped 2026-08-13, market_brief.json stays stamped 2026-08-13, the -$200 realized daily loss cap and the 3-entries-per-day throttle are NOT reset by this run. daily_options_report.md was written once for 2026-08-13 and is NOT rewritten -- nothing material happened since, and a duplicate push would page Ryan for no new information.",
+   "broker_reconciliation": "Verified live at 03:21Z. get_accounts: agentic 718757339 agentic_allowed=true, cash, option_level_2, unsettled_funds $535.05 (unchanged -- Ryan's IREN proceeds, settling 2026-08-14). get_option_positions(nonzero): exactly SPY 2026-11-20 700P qty 1 @ $749 avg and ACHR 2028-01-21 5C qty 1 @ $247 avg -- matches holdings.json, ZERO DRIFT; every pending_* field 0.0000, so no overnight assignment, exercise or expiration exposure. get_equity_positions: AAPL 1.652252 @ $302.89 and ACGL 4.069594 @ $98.29 -- exactly the two swing positions in holdings.json, ZERO DRIFT, and IREN is correctly absent from both broker and ledger (the 20:28Z run's reconciliation of Ryan's stop sale holds). get_portfolio: total $3,874.47 = equity $905.95 + options $986 + cash $1,982.52; settled buying power $1,447.47. Agentic-placed premium at risk $749 of the $1,500 budget ($751 headroom); the hedge is excluded from the max-3 cap, so 0 of 3 non-hedge slots used. Realized options P/L for the trading day $0.00 vs the -$200 cap. No flags, no unauthorized activity.",
+   "positions": [
+    {
+     "contract": "SPY 2026-11-20 700P",
+     "placed_agent": "agentic",
+     "verdict": "working (as insurance)",
+     "note": "Authorized Aug-Oct defensive hedge, explicitly exempt from the mechanical premium backstops. Neither limb of setup_invalidation met (SPY not decisively >~800; Ryan has not lifted the posture). 99 DTE, theta -$0.083/day = immaterial. Next decision is the ~21-DTE roll/close review WITH Ryan (~2026-10-30), never mechanical. No action tonight."
+    },
+    {
+     "contract": "ACHR 2028-01-21 5C",
+     "placed_agent": "user",
+     "verdict": "ownership-gated",
+     "note": "Ryan placed this himself and it carries a manual_hold_override; the automation may flag but never auto-exit it. LEAP expiry 2028 -- no time pressure. No action tonight."
+    }
+   ],
+   "candidates_graded": "None. Grading a setup on post-close data would be process theater: no trigger can fire, no fill can occur, and the next actionable read is Friday's 09:30 ET open. Per the protocol, inventing a candidate to justify the run is itself the error.",
+   "process_note": "One self-caught misread worth passing on: I opened the run by diffing live broker figures against automation_heartbeat.json (13:05Z: equity $1,436.91 / cash $1,447.92 / unsettled $0) and briefly read the $535.05 unsettled + the equity drop as a NEW event. It was not -- it is Ryan's IREN stop sale, run to ground by the 20:28Z run and unchanged through five subsequent runs. The heartbeat is stamped ONCE at the start of the day and is therefore the wrong baseline for a late run. LESSON for the next instance: diff live broker state against the MOST RECENT journal entry's broker_reconciliation block, not against the heartbeat -- the day's intervening events live in the journal, and the reconciliation prose is long enough that a tail-summary skim can miss them. Cost here was two extra tool calls and no wrong action; the checks correctly cleared it before anything was concluded.",
+   "action": "NO TRADE. Market closed 7h21m ago; nothing placeable, nothing pending, zero drift across both the options and equity books, both positions on standing plans that require no decision tonight. Output of this run is the reconciliation plus this log.",
+   "why_flat": "Mechanically dispositive -- the market is closed. On the merits the trading day still stands up: the one live thesis (INTC) never met its written trigger and was declined eleven consecutive times without the level ever being rationalized lower, and four separately-screened setups (IREN, ROST, LIN, ACGL) each died on hard structural gates rather than on mood. Zero trades, zero drawdown, full buying power intact, the -$200 cap untouched.",
+   "next_run_watchpoints": [
+    "Friday 09:30 ET open: FIRST run of the 2026-08-14 trading day stamps automation_heartbeat.json and rebuilds market_brief.json (the 2026-08-13 brief is stale by design -- do not trade off it).",
+    "Friday is a WEEKLY REVIEW day: append the review to the journal. Use the broker-sourced figures pre-computed by the 23:29Z run -- get_realized_pnl + get_option_orders are the ledger of record, NEVER trade_journal.json coverage (the journal starts 2026-08-12 and omits the 2026-08-10 ZTS round trip).",
+    "$535.05 of Ryan's IREN proceeds settle 2026-08-14, taking settled BP from $1,447.47 toward ~$1,982.",
+    "AMAT reported after the 2026-08-13 bell -- re-check at the open whether the read-through is spreading to the semi complex (as of the 21:30Z run it was NOT).",
+    "Budget state carried into Friday: $749 agentic premium at risk, $751 headroom, 0 of 3 non-hedge position slots used."
+   ]
   }
  ]
 }
