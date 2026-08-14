@@ -31,7 +31,8 @@
         "open_interest": 21030,
         "volume": 407,
         "underlying": "SPY 775.915 (-0.25%)",
-        "verdict": "WORKING AS DESIGNED -- insurance, not a directional loser. EXEMPT from every premium backstop by Ryan's 2026-08-05 authorization. Mark eased 6.30 -> 6.265 as SPY drifted 776.09 -> 775.92; a 0.14-delta 98-DTE put barely moving on a 0.02% index tick is correct behaviour, not decay worth acting on. Sole decision point remains the ~21-DTE roll/close review WITH Ryan around 2026-10-30, which an unattended run can never pre-empt. NO ACTION."
+        "verdict": "WORKING AS DESIGNED -- insurance, not a directional loser. EXEMPT from every premium backstop by Ryan's 2026-08-05 authorization. Mark eased 6.30 -> 6.265 as SPY drifted 776.09 -> 775.92; a 0.14-delta 98-DTE put barely moving on a 0.02% index tick is correct behaviour, not decay worth acting on. Sole decision point remains the ~21-DTE roll/close review WITH Ryan around 2026-10-30, which an unattended run can never pre-empt. NO ACTION.",
+        "_collision_note": "17:15Z slot ran twice (see trade_journal). This state is the LATER of the two reads (17:20Z vs the sibling's 17:18Z) per the union rule's 'keep the later _current_state'. The two independent measurements agreed to the penny -- cross-validation, not a conflict."
       }
     },
     {
@@ -59,7 +60,8 @@
         "theta": -0.0021,
         "iv": 0.8803,
         "open_interest": 19544,
-        "status": "NO ACTION EVER -- structural, not analytic. placed_agent='user' triggers the 2026-07-21 ownership/exit gate; Ryan's 2026-07-22 manual_hold_override suspends the premium stops on top of that. Excluded from agentic premium accounting. Carried for Ryan's running number only."
+        "status": "NO ACTION EVER -- structural, not analytic. placed_agent='user' triggers the 2026-07-21 ownership/exit gate; Ryan's 2026-07-22 manual_hold_override suspends the premium stops on top of that. Excluded from agentic premium accounting. Carried for Ryan's running number only.",
+        "_collision_note": "17:15Z slot ran twice (see trade_journal). This state is the LATER of the two reads (17:20Z vs the sibling's 17:18Z) per the union rule's 'keep the later _current_state'. The two independent measurements agreed to the penny -- cross-validation, not a conflict."
       },
       "manual_hold_override": {
         "set_utc": "2026-07-22T14:30:00Z",
@@ -92,9 +94,9 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-14T17:00:00Z",
+    "run_utc": "2026-08-14T17:15:00Z",
     "result": "NO ENTRY",
-    "candidates": "QQQ (B-/C, newly proven affordable and liquid in both directions -- passed on THESIS, not cost), AMD (B, mid-range in a 3-week 463-530 base; real disqualifiers are the per-trade max and the unavailability of spreads, NOT the voided sleeve headroom), AVGO long (C, base break extended to a new session low), AVGO put (C, trend-maturity limb (a) fails harder at -5.94%), INTC (C, new session low through its killing level; standing no-slot instruction honored), NVDA (B, written trigger failed to fire for a 4th time)",
+    "candidates": "None re-worked from scratch -- every name on the list carries a WRITTEN trigger from an earlier run today and this run's only job on the hunt was to test those triggers against the live tape. INTC (C, trigger $106.87 vs spot 102.85 and a NEW session low -- 3.9% away and moving the wrong direction), AMD (B, trigger $530.13 vs spot 502.69, faded off its 503.285 high), NVDA (B, no trigger firing, flat at 225.29 with the complex in dispersion), AVGO (C both sides, -6.08% at a new session low), QQQ (B-/C, affordable and liquid but passed on thesis at 17:00Z and nothing changed the thesis in 15 minutes).",
     "entries_used_today": "0 of 3",
     "non_hedge_slots_used": "0 of 3",
     "settled_buying_power_usd": 1982.52,
@@ -102,8 +104,7 @@
     "agentic_premium_at_risk_usd": 749.0,
     "per_trade_max_usd": 1500.0,
     "realized_options_pnl_today_usd": 0.0,
-    "_SIZING_NOTE": "Sizing rules per the 2026-08-14 amendment (PR #251), carried forward from the 16:45Z correction and unchanged: $1,500 is a PER-TRADE maximum; there is NO total-sleeve cap; total deployment is bounded by SETTLED CASH only. The hedge's $749 does NOT reduce a new trade's allowance -- it occupies 0 of 3 non-hedge slots (the hedge is excluded from the slot count). get_portfolio's raw `cash` of $2,383.62 OVERSTATES spendable funds by the $401.10 of unsettled ACGL proceeds -- use buying_power for FOUR LAWS #4, never `cash`. Those proceeds settle T+1 across the weekend, so Monday 2026-08-17 settled BP should read ~$2,383.62 (verify at the broker).",
-    "_TRADEABLE_UNIVERSE_1700Z": "MEASURED THIS RUN and written to CLAUDE.md so it is inherited rather than re-derived. The core IV list splits into two affordability tiers at the $1,500 per-trade max, because premium scales with spot x IV and the ETFs carry 18-21% IV against 60-90% on the high-priced semis. AFFORDABLE at ~0.35 delta / 30-45 DTE: QQQ (2026-09-18 750C $883.50 at 0.79% of mid, OI 41,640; 710P $950.00 at 0.63% of mid, OI 25,761 -- both measured live 17:03Z), SPY, NVDA (~$225 spot), INTC ($938 measured). UNAFFORDABLE in any real-delta single leg: AMD ($3,308), AVGO ($1,370), TSM, MSFT; TSLA borderline. Spreads would fix the unaffordable tier but are UNAVAILABLE at option_level_2. CONSEQUENCE: the sleeve is not capital-constrained out of the liquid universe -- it had been research-constrained INTO the unaffordable half of it."
+    "_SIZING_NOTE": "Unchanged from 17:00Z. $1,500 is a PER-TRADE maximum; there is NO total-sleeve cap; total deployment is bounded by SETTLED CASH only (2026-08-14 amendment, PR #251). The hedge's $749 does NOT reduce a new trade's allowance and occupies 0 of 3 non-hedge slots. get_portfolio's raw cash of $2,383.62 OVERSTATES spendable funds by the $401.10 of unsettled ACGL proceeds -- use buying_power for FOUR LAWS #4, never cash. Those proceeds settle T+1 across the weekend; Monday 2026-08-17 settled BP should read ~$2,383.62 (verify at the broker)."
   },
   "_closed_positions": [
     {
