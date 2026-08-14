@@ -1,6 +1,6 @@
 {
  "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
- "updated_utc": "2026-08-14T14:05:00Z",
+ "updated_utc": "2026-08-14T14:16:00Z",
  "_realized_options_pnl_today": 0.0,
  "positions": [
   {
@@ -17,18 +17,18 @@
    "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
    "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
    "_current_state": {
-    "mark_price": 6.135,
-    "pct_from_entry": -18.09,
-    "pl_usd": -135.5,
+    "mark_price": 6.175,
+    "pct_from_entry": -17.56,
+    "pl_usd": -131.5,
     "dte": 98,
-    "delta": -0.134619,
-    "theta": -0.083583,
-    "vega": 0.87479,
-    "iv": 0.213608,
-    "bid_ask": "6.12/6.15",
+    "delta": -0.135371,
+    "theta": -0.083784,
+    "vega": 0.877679,
+    "iv": 0.213459,
+    "bid_ask": "6.16/6.19",
     "open_interest": 21030,
-    "last_checked_utc": "2026-08-14T14:01:00Z",
-    "status": "HOLD -- verdict WORKING AS DESIGNED, unchanged. I re-read the standing exit plan before judging it and am following it, not reinterpreting it. Mark 6.135 at 14:01Z (up from 6.10 at 13:46Z and 6.035 at 13:33Z -- the third consecutive uptick even as SPY held 778.4, a small steady vol bid worth noting but not acting on). -18.09% / -$135.50 on the $7.49 entry, 98 DTE. This is Ryan's 2026-08-05 Aug-Oct drawdown insurance struck at 700, just under the July-low shelf (716.6) and the rising 200d (705.0), so it only pays on a genuine trend-break. Decay in a record-high tape is the carrying cost of insurance, not evidence the thesis is wrong, and the position is EXPLICITLY EXEMPT from the DTE-scaled premium backstops per the defensive-posture playbook. Neither limb of setup_invalidation is met: SPY 778.43 is not decisively above ~800, and Ryan has not lifted the posture. Defensive tripwire (a CLOSING break of SPY 746-748, now converged with the rising 50d at 748.48) sits ~30 pts / 3.9% below spot. Next decision remains the ~21-DTE roll/close review WITH Ryan (~2026-10-30), never mechanical. Liquidity excellent: $0.03 spread (0.5% of mid) on OI 21,030."
+    "last_checked_utc": "2026-08-14T14:16:00Z",
+    "status": "HOLD -- verdict WORKING AS DESIGNED, unchanged. Standing exit plan re-read before judging and followed, not reinterpreted. Mark 6.175 at 14:16Z: the FOURTH consecutive uptick (6.035 -> 6.10 -> 6.135 -> 6.175) while SPY has gone essentially nowhere (778.13 -> 778.11), so the small steady vol bid is persisting rather than reverting. Named and deliberately NOT acted on -- at one contract and $0.04 of mark it is immaterial, and a hedge is not managed on its mark. -17.56% / -$131.50 on the $7.49 entry, 98 DTE. This is Ryan's 2026-08-05 Aug-Oct drawdown insurance struck at 700, just under the July-low shelf (716.6) and the rising 200d (705.0), so it only pays on a genuine trend-break. Decay in a record-high tape is the carrying cost of insurance, not thesis damage, and the position is EXPLICITLY EXEMPT from the DTE-scaled premium backstops per the defensive-posture playbook. Neither limb of setup_invalidation is met: SPY 778.11 is not decisively above ~800, and Ryan has not lifted the posture. Defensive tripwire (a CLOSING break of SPY 746-748, converged with the rising 50d at 748.48) sits ~30 pts / 3.9% below spot. Next decision remains the ~21-DTE roll/close review WITH Ryan (~2026-10-30), never mechanical. Liquidity excellent: $0.03 spread (0.5% of mid) on OI 21,030."
    }
   },
   {
@@ -44,16 +44,16 @@
    "target": null,
    "_note": "placed_agent='user' (Ryan bought this himself 2026-07-20T19:38Z, $2.47/contract, $247 premium). Long-dated LEAP (18mo out) -- not gated by the HARD RULE 8 entry checklist since it wasn't an autonomous entry. manual_hold_override below suspends the -50% mechanical stop; broken-thesis and DTE/earnings exits still apply in principle but this is a Jan-2028 LEAP, far outside any near-term DTE/earnings gate.",
    "_current_state": {
-    "mark_price": 3.6,
-    "pct_from_entry": 45.75,
-    "pl_usd": 113.0,
+    "mark_price": 3.625,
+    "pct_from_entry": 46.76,
+    "pl_usd": 115.5,
     "dte": 525,
-    "delta": 0.814355,
-    "iv": 0.881627,
-    "bid_ask": "3.50/3.70",
+    "delta": 0.814507,
+    "iv": 0.908002,
+    "bid_ask": "3.55/3.70",
     "open_interest": 19544,
-    "last_checked_utc": "2026-08-14T14:01:00Z",
-    "status": "NO ACTION EVER -- placed_agent='user' + manual_hold_override. Observed only; the ownership/exit gate blocks every exit path regardless of what any trigger says, and it is excluded from the agentic $1,500 budget. Mark 3.60 at 14:01Z, unchanged from 13:46Z (+45.75% / +$113.00 on Ryan's $2.47 basis). One clean-up on the prior note: the bid/ask has TIGHTENED to 3.50/3.70 ($0.20 = 5.6% of mid, from 11.1% at 13:46Z), so the 13:46Z caution that 'the mark is moving on quote width' has resolved -- the 3.60 print is now a fair mark, not a wide-quote artifact. Recorded purely so Ryan has the running number."
+    "last_checked_utc": "2026-08-14T14:16:00Z",
+    "status": "NO ACTION EVER -- placed_agent='user' + manual_hold_override. Observed only; the ownership/exit gate blocks every exit path regardless of what any trigger says, and it is excluded from the agentic $1,500 budget. Mark 3.625 at 14:16Z (+46.76% / +$115.50 on Ryan's $2.47 basis). Bid/ask 3.55/3.70 = $0.15 = 4.1% of mid, tighter again from 5.6% at 14:01Z and 11.1% at 13:46Z -- the opening-rotation quote-width artifact earlier runs flagged is now fully resolved and the mark is a fair one. Recorded purely so Ryan has an accurate running number."
    },
    "manual_hold_override": {
     "set_utc": "2026-07-22T14:30:00Z",
@@ -96,23 +96,25 @@
   "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
  },
  "_last_entry_evaluation": {
-  "run_utc": "2026-08-13T19:35:00Z",
-  "result": "NO ENTRY -- 29th post-open run of 2026-08-13, an UNSCHEDULED extra run after the 19:25Z run had (reasonably) declared itself the day's last.",
-  "candidates_considered": "INTC only. The other eight watchlist items each carry a written, dated standing decision from earlier today (IREN disarmed 13:50Z, ROST closed 15:18Z, LIN closed 17:05Z, ACGL closed 17:02Z, AMAT pre-declared no-trade, CSCO/IWM watch-only) and were deliberately not re-litigated.",
-  "reason": "INTC failed its trigger harder. $104.43 is now $1.02 BELOW the $105.45 confirming level and $2.44 off the day high, a tenth tag-and-fade, and it has made a lower low on each of the last three runs -- the trigger is not merely unconfirmed, the stock is walking away from it. The trigger is a decisive CLOSE above $105.45 on real volume; with ~25 minutes left no pre-bell run can confirm a close in any case. Independently sufficient on its own: AMAT's after-the-bell semi-cap print is an unhedged overnight binary with direct read-through to Intel foundry capex, which no 21-45 DTE call can sidestep. Declined on both grounds, consistent with all 27 prior declines today.",
+  "run_utc": "2026-08-14T14:15:00Z",
+  "result": "NO ENTRY -- fourth post-open run of 2026-08-14, the slot the three prior runs all deferred to.",
+  "candidates_considered": "INTC (the only live decision), AVGO, AMD. MSFT / ROST / RDDT carry written dated decisions from earlier today and were deliberately not re-litigated.",
+  "reason": "INTC's written confirming level was TESTED IN THIS SLOT AND FAILED. The condition was a 15-30 minute hold above $105.45 after the 14:00Z UMich print; this run measured at minute 16. INTC broke out to a 106.87 session high at 14:07Z (1.35% clear of the shelf), then reversed on the heaviest volume of the post-print sequence (14:08 bar 420,453 shares) and ground back below the shelf -- spot 105.355 at 14:15:50Z, with three of the last four one-minute closes under $105.45. A failed catalyst breakout is worse for the coil than yesterday's nine no-catalyst tag-and-fades. Downgraded B+ -> C, and the trigger has been REWRITTEN in market_brief.json to a harder condition (a decisive close above the $106.87 failure high held 15+ min) so no future run mechanically re-arms a spent test. AVGO remains a C and is deteriorating (-4.39%, below $400, IV/RV 1.23 rising into the decline, ATM OI of 79, earnings 2026-09-03). AMD is strength without a catalyst. No standing preference was overridden this run.",
   "sleeve_state": {
    "agentic_premium_at_risk": 749.0,
    "budget": 1500.0,
    "headroom": 751.0,
    "open_agentic_positions": 1,
    "non_hedge_slots_used": "0 of 3",
-   "settled_buying_power": 1447.47,
-   "unsettled_funds": 535.05,
+   "settled_buying_power": 1982.52,
+   "unsettled_funds": 0.0,
    "realized_options_pl_today": 0.0,
-   "daily_loss_cap": -400.0,
+   "daily_loss_cap": -200.0,
+   "entries_used_today": "0 of 3",
    "weekly_circuit_breaker": "not tripped"
   },
-  "eod_report": "ALREADY WRITTEN by the 19:25Z run. This run did NOT rewrite daily_options_report.md: nothing material happened since (no fill, no exit, no new flag, no trigger fired -- only routine re-marks), and CLAUDE.md is explicit that exactly one run per day writes that file because every master push touching it re-notifies Ryan."
+  "broker_reconciliation": "Live at 14:15-14:16Z: get_option_positions returns exactly SPY 2026-11-20 700P x1 @ $749 and ACHR 2028-01-21 5C x1 @ $247 -- matches this ledger, ZERO DRIFT, all pending_* 0.0000. Portfolio $3,868.96 (equity $905.44 / options $981.00 / cash $1,982.52), buying power $1,982.52 fully settled. No flags, no pending orders, no sibling-run activity since 14:00Z.",
+  "eod_report": "NOT DUE. daily_options_report.md belongs to the FIRST run at or after 19:25Z (14:25 CT) and must be written in that slot rather than deferred. This run did not touch it."
  },
  "_closed_positions": [
   {
