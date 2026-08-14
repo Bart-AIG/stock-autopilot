@@ -4560,6 +4560,47 @@
     "(6) Concurrent-run collision check remains MANDATORY immediately before any place_option_order: re-fetch origin/master and re-read holdings.json + trade_journal.json, and DEFER if a sibling entry has landed."
    ],
    "action": "NO TRADE. Reconcile, verify, write the overdue Friday review, hand off."
+  },
+  {
+   "run_utc": "2026-08-14T13:15:00Z",
+   "run": "FIFTEENTH consecutive post-close/pre-open run of the 2026-08-13 trading day (09:15 ET Fri, 15 minutes BEFORE Friday's 09:30 ET open). Per the UTC-midnight rule the trading day is STILL 2026-08-13 until the bell, so this run rolls no daily artifact. NO TRADE -- the prompt scopes trading to 09:30-16:00 ET; nothing was placeable at any grade. This run fires 10 minutes after the 13:05Z run that wrote the Friday weekly review, so it inherits a fully-discharged work queue: per the post-close protocol its correct output is the live reconciliation plus a short log.",
+   "regime": "Not re-derived. The 13:05Z run measured pre-market at 13:02Z (SPY 778.61 +0.09%, QQQ 734.06 +0.27%, IWM 303.62 +0.04% -- flat-to-fractionally-green, NOT a risk-on gap). Re-polling the same pre-market tape 13 minutes later would produce a fresh timestamp on unchanged information, which the post-close protocol explicitly bans. Prior label RISK-ON / EXTENDED / COMPLACENT stands provisionally for the post-open run to re-derive; the defensive tripwire (a CLOSING break of SPY 746-748) sits ~31 points below spot.",
+   "broker_reconciliation": "Verified live at 13:15Z, not carried forward -- this is the one check always worth repeating, since it is the only way an overnight assignment, expiration or unauthorized fill would surface. get_accounts: agentic 718757339 confirmed agentic_allowed=true, cash, option_level_2, unsettled_funds $0.0000. get_option_positions(nonzero): exactly SPY 2026-11-20 700P qty 1 @ $749 avg (opened 2026-08-06T14:21Z) and ACHR 2028-01-21 5C qty 1 @ $247 avg (opened 2026-07-20T19:38Z) -- matches holdings.json exactly, ZERO DRIFT, every pending_* field 0.0000. get_portfolio: total $3,872.76 = equity $904.24 + options $986.00 + cash $1,982.52, buying_power $1,982.52. No flags, no unauthorized activity, no pending orders.",
+   "daily_artifacts_not_rolled": "UTC date 2026-08-14, but the TRADING day does not begin until the 09:30 ET open, 15 minutes from this run. automation_heartbeat.json STAYS stamped 2026-08-13 (stamping it now would pre-satisfy the dead-man for a trading day that has not started -- only a run at/after 09:30 ET may stamp it). market_brief.json STAYS stamped 2026-08-13. The -$200 realized daily loss cap and the 3-entries-per-day throttle are NOT reset by this run. daily_options_report.md is NOT rewritten -- nothing material has happened since it was written for 2026-08-13, and a duplicate push would page Ryan for no new information.",
+   "why_I_also_did_NOT_rebuild_the_brief": "Same argument the 13:05Z run wrote out, and it holds a fortiori 15 minutes from the bell rather than 25: a brief built pre-open carries only pre-market prints and must be re-validated against regular-hours data anyway, but once STAMPED 2026-08-14 it reads as 'already built today' to the post-open runs -- the precise skip-the-rebuild failure mode the UTC-midnight rule names. Four consecutive instances have now left the rebuild explicitly to the first run at/after 09:30 ET. Not silently ignored: re-read, agreed with, and left in place.",
+   "position_verdicts": {
+    "SPY 2026-11-20 700P x1 (agentic)": "WORKING -- standing plan re-read before judging, no deviation. Ryan's 2026-08-05 Aug-Oct drawdown insurance, struck at 700 just below the July-low shelf (716.6) and the rising 200d (702) so it pays only on a genuine trend break. Explicitly insurance-exempt from every DTE-scaled premium backstop; the -17.5% / -$131 bleed into an ATH tape with a 2026-low VIX is the carrying cost of protection, not thesis damage. Neither limb of setup_invalidation is met (SPY not decisively >~800; Ryan has not lifted the posture). 98 DTE. Next decision is the ~21-DTE roll/close review WITH Ryan (~2026-10-30), never mechanical. Deliberately NOT re-priced pre-open: a stale mark with a fresh timestamp fakes information.",
+    "ACHR 2028-01-21 5C x1 (placed_agent='user')": "NO ACTION EVER -- observed only. Ownership/exit gate plus Ryan's 2026-07-22 manual_hold_override ('I'll handle the achr leap. Just leave it be') block every exit path regardless of trigger. Excluded from the agentic $1,500 budget. 890 DTE."
+   },
+   "grades_considered": "NONE, and that is correct rather than a gap. 15 minutes pre-open there is no regular-hours print against which any technical trigger can fire and no order is placeable. INTC remains the one live thesis and is explicitly handed to the first POST-OPEN run for re-grading from scratch; the 13:05Z pre-market measurement ($105.36, a THIRTEENTH tag $0.09 UNDER the $105.45 level) is a measurement, not a grade, and an extended-hours print can never satisfy a trigger defined as a decisive REGULAR-SESSION CLOSE.",
+   "sleeve_state": {
+    "agentic_premium_at_risk": 749.0,
+    "hard_budget": 1500.0,
+    "hard_headroom": 751.0,
+    "soft_preference_total_deployed": 750.0,
+    "soft_headroom": 1.0,
+    "open_agentic_positions": 1,
+    "non_hedge_slots_used": "0 of 3",
+    "settled_buying_power": 1982.52,
+    "unsettled_funds": 0.0,
+    "realized_options_pl_today": 0.0,
+    "daily_loss_cap": -200.0,
+    "weekly_circuit_breaker": "not tripped",
+    "week_realized_final_unless_friday_trades": -195.0
+   },
+   "overrides_logged": "NONE. No standing preference was overridden this run; no entry was attempted, so the ~$750 total-deployed preference was never reached. The structural finding that the Ryan-authorized $749 hedge alone exhausts that soft preference stands unchanged and is queued for Ryan in the EOD report, per the 13:05Z drift check -- it is a 'does this match your intent' question for him, not something an agent may resolve by picking a reading.",
+   "friday_review_status": "WRITTEN by the 13:05Z run (broker-sourced, independently re-verified: -$195 realized, 2 round trips, 0 wins, avg loss -$97.50, zero preference overrides across 97 runs). Do NOT re-derive it. It still needs DELIVERY -- the EOD-report run must carry it including the DRIFT_CHECK.THE_REAL_FINDING_STRUCTURAL_NOT_DRIFT block. Prep is not delivery.",
+   "branch_vs_master": "Checked at run start: git log origin/master..HEAD and HEAD..origin/master both EMPTY -- the branch and master are identical, no unmerged work piled up. This run's single journal commit goes to master via its own PR, per the standing pattern.",
+   "notification_decision": "NO push sent. Zero drift, zero flags, no position action, no trade possible, $0 realized. Nothing has changed in the 10 minutes since the prior run reached the same conclusion, and paging Ryan pre-open with 'still nothing' is exactly the attention spend the routine guidance says to withhold. The one genuinely new item of the week -- the structural ~$750-vs-$749 finding -- has a designated channel (the EOD report) and is not urgent.",
+   "handoff_to_first_post_open_run": [
+    "(1) STAMP automation_heartbeat.json for 2026-08-14 -- you are the first run at/after 09:30 ET and this is yours. It is still stamped 2026-08-13 by design, not omission.",
+    "(2) REBUILD market_brief.json from scratch for 2026-08-14. Seed it with the DISCHARGED AMAT read-through (13:02Z: AMAT -6.0% at $502.50, essentially unchanged overnight; LRCX -1.1% the only real sympathy, KLAC flat, NVDA/AMD/AVGO green = CONTAINED, company-specific not a sector signal) rather than re-measuring it -- but DO re-validate against regular-hours prints. Containment is a HEADWIND REMOVED, never a setup created.",
+    "(3) INTC: re-establish the trigger against ACTUAL regular-hours post-AMAT price action. Do not inherit $105.45 as untested (eleven regular-hours rejections make it demonstrated RESISTANCE -- a reclaim needs MORE confirmation, not less), do not re-derive it lower, and do not chase a gap through it. Kill unchanged: a close below $95.",
+    "(4) Settled cash $1,982.52 / unsettled $0.00 -- FOUR LAWS #4 is not a blocker today. The binding constraint is the ~$750 soft preference on total deployed premium, which the $749 hedge exhausts. Any entry at any size is an override needing a written two-sentence argument BEFORE acting.",
+    "(5) Concurrent-run collision check remains MANDATORY immediately before any place_option_order: re-fetch origin/master, re-read holdings.json + trade_journal.json, and DEFER if a sibling entry has landed since your run began."
+   ],
+   "why_flat": "Market closed for another 15 minutes -- mechanically dispositive. On the merits nothing is missed: the one live thesis sits $0.09 below a trigger that by definition can only be satisfied by a regular-session close, and the day's dominant overnight question resolved to 'headwind removed', which is explicitly not an entry reason. Being flat pre-open is a position, not a lapse.",
+   "action": "NO TRADE. Reconcile live, verify zero drift, confirm no daily artifact is rolled, log, stand down."
   }
  ]
 }
