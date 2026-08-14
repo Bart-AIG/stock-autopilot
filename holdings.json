@@ -1,6 +1,6 @@
 {
- "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
- "updated_utc": "2026-08-14T15:06:00Z",
+ "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
+ "updated_utc": "2026-08-14T15:07:00Z",
  "_realized_options_pnl_today": 0.0,
  "positions": [
   {
@@ -69,16 +69,6 @@
    "stop": null,
    "target": 331.06,
    "_note": "Aug slot 1 ($500). A-grade: record June quarter (rev +16%, iPhone +22%), dip = soft Q4 guide on SUPPLY shortages not demand; next earnings ~late Oct. Reconciled 2026-08-13T16:05Z (interactive session): broker showed 1.652252sh vs 1.650769 in the ledger, a +0.001483sh drift booked as intraday_quantity today. This is a DIVIDEND REINVESTMENT, not a trade -- 1.650769sh x ~$0.27/sh quarterly dividend = ~$0.45, and $0.45 / ~$302 spot = ~0.0015sh, which matches. No unauthorized buy, no HARD RULE 9 flag warranted; ledger synced to the broker."
-  },
-  {
-   "symbol": "ACGL",
-   "sleeve": "swing",
-   "entry_date": "2026-08-10",
-   "entry_price": 98.29,
-   "shares": 4.069594,
-   "stop": null,
-   "target": 103.89,
-   "_note": "Aug slot 2 (week of 2026-08-10, $400 -- defensive-posture weekly quota, sized at low end to keep equity-book cash ~46% >= 45% floor). A-grade RSI2 swing: RSI2 5.2 above a rising 200d MA ($95.10, +3.1%). HARD RULE 7 thesis INTACT: Q2 2026 beat ($2.56 vs $2.48 est, $1.0B net income, 83.5% combined ratio, 18% annualized ROE), $1.95B H1 buybacks, book value +4.5% H1, P/E 15 / PEG 0.2; the dip = slight revenue miss + Iran-conflict cat losses in the insurance segment, not a broken story. Chosen over CVS (thesis weakened: 2027 Caremark-membership/340B warning + already hold CVS Sept 100C) and WDC (extended +29% above MA, offered as alternate). Ryan approved the one-tap batch 2026-08-10 ~14:52Z. Fill: 4.069594 sh @ $98.29 (order 6a79e5a1, placed_agent=agentic per approved batch). No stop at entry per HARD RULE 5; report ref stop $93.58."
   }
  ],
  "_resolved_flags": [
@@ -100,7 +90,8 @@
   "result": "NO ENTRY",
   "candidates": "AVGO (B, struck on a measured basis -- see journal), NVDA (B, logged as the standout watch), INTC (C, standing no-slot instruction honored), AMD (C, unaffordable per the 14:45Z measurement, not re-derived)",
   "sleeve_headroom_usd": 751.0,
-  "entries_used_today": "0 of 3"
+  "entries_used_today": "0 of 3",
+  "_settlement_note": "SETTLEMENT CONSEQUENCE OF A SIBLING SESSION'S EQUITY SALE, recorded because Law 4 (settled cash only) depends on it and this run's own figures predate it: an EQUITY session sold the ACGL swing position at 15:05:26Z (4.069594 sh @ $98.5602, ~$401 gross, the Ryan-approved RSI(2) take-profit the 15:01Z report flagged) and merged that ledger change to master at ~15:07Z. The $1,982.52 settled / $0.00 unsettled figures in this run's sleeve_state were measured at 15:01Z and were accurate THEN -- i.e. BEFORE that sale. THE NEXT RUN MUST RE-READ get_accounts AND NOT INHERIT THEM: roughly $401 of ACGL proceeds are now UNSETTLED (cash account, T+1), so the raw `cash` field from get_portfolio will overstate spendable buying power until those proceeds settle. This run placed nothing, so no Law 4 exposure was created -- but an entry sized off the post-sale cash number without checking unsettled_funds would risk a good-faith violation. Note also this is an EQUITY-book action, not an options-sleeve one: it does not touch the $1,500 premium budget, the $751 headroom, or the daily loss cap."
  },
  "_closed_positions": [
   {
@@ -137,6 +128,31 @@
    "realized_pnl_usd": 27.33,
    "realized_pnl_pct": 5.38,
    "_note": "RECONCILIATION ONLY -- the automation did NOT place, propose, or influence this sale (HARD RULE 6: equities are never traded autonomously). Both exit orders carry placed_agent='user': Ryan set a GTC stop-market at $45.16 himself at 15:09:09Z today, it filled on 11 shares at $45.305 at 16:10:37Z, and he market-sold the residual 0.810007 fractional share at $45.29 27 seconds later -- a deliberate, self-executed full exit, not a surprise. Proceeds $535.04 tie out exactly to the account's unsettled_funds of $535.05 (T+1, settles 2026-08-14). Removed from positions[] because report.py judges every ledger name on every run: leaving a sold position in place is precisely the phantom-signal drift CLAUDE.md warns about (the PSX case). NOTE for future sessions: this SUPERSEDES Ryan's 2026-07-20 standing instruction 'Don't sell iren' and the thesis_checked/intact verdict of 2026-08-12 -- both are now moot for position management because Ryan closed the name himself. Do NOT treat the old standing instruction as a reason to re-enter; a new IREN position needs a fresh Ryan decision. The IREN thesis research itself was never invalidated -- he exited on his own risk-management stop into a +5.4% gain, not on a broken story."
+  },
+  {
+   "symbol": "ACGL",
+   "sleeve": "swing",
+   "closed_utc": "2026-08-14T15:05:26Z",
+   "placed_agent": "agentic",
+   "entry_date": "2026-08-10",
+   "entry_price": 98.29,
+   "shares_closed": 4.069594,
+   "exit_fills": [
+    {
+     "order_id": "6a7f2eb6-b305-4d63-aad4-9b39216bcc49",
+     "ref_id": "f73ec488-aeb0-4f75-b02e-4579fff838e0",
+     "qty": 4.069594,
+     "avg_price": 98.5602,
+     "type": "market",
+     "tif": "gfd",
+     "placed_utc": "2026-08-14T15:05:26Z"
+    }
+   ],
+   "proceeds_usd": 401.1,
+   "cost_basis_usd": 400.0,
+   "realized_pnl_usd": 1.1,
+   "realized_pnl_pct": 0.27,
+   "_note": "Mechanical RSI(2) swing exit, Ryan-approved. report.py fired SELL / TAKE-PROFIT on the 2026-08-14 morning and 15:01Z intraday runs (RSI2 76.2 then 75.2, both at/above the 70 overbought exit): the mean reversion that justified the 2026-08-10 entry at RSI2 5.2 had completed. Presented as a priced one-line batch with a live quote and Ryan typed 'Approve' (real user turn, 2026-08-14 ~15:05Z); order 6a7f2eb6 filled 4.069594sh @ $98.5602. HONEST OUTCOME: a FLAT trade, +$1.10 / +0.27%, not a win -- RSI2 travelled 5.2 -> 76.2 exactly as designed while the stock itself barely moved. Sold anyway because the swing SIGNAL was finished; holding past a completed mean-reversion exit converts a defined 1-3 week trade into an open-ended position with no exit plan, which is how ledger drift starts. The thesis was never broken (Q2 beat, $1.95B H1 buybacks, P/E 15) -- a signal-completion exit, NOT a thesis exit, so ACGL stays a legitimate future candidate. No stop was ever placed on it, per HARD RULE 5. Proceeds $401.10 unsettled until Mon 2026-08-17 (T+1 across the weekend); settled buying power remains $1,982.52."
   }
  ]
 }
