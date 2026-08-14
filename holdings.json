@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-14T16:30:00Z",
+  "updated_utc": "2026-08-14T16:45:00Z",
   "_realized_options_pnl_today": 0.0,
   "positions": [
     {
@@ -17,20 +17,20 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "last_checked_utc": "2026-08-14T16:30:00Z",
-        "mark": 6.285,
-        "bid": 6.27,
-        "ask": 6.3,
-        "spread_pct_of_mid": 0.48,
-        "pnl_usd": -120.5,
-        "pnl_pct": -16.09,
+        "last_checked_utc": "2026-08-14T16:45:00Z",
+        "mark": 6.3,
+        "bid": 6.29,
+        "ask": 6.31,
+        "spread_pct_of_mid": 0.32,
+        "pnl_usd": -119.0,
+        "pnl_pct": -15.89,
         "dte": 98,
-        "delta": -0.1384,
+        "delta": -0.1388,
         "theta": -0.0842,
-        "iv": 0.2121,
+        "iv": 0.2118,
         "open_interest": 21030,
-        "underlying": "SPY 776.55 (-0.17%)",
-        "verdict": "WORKING AS DESIGNED -- insurance, not a directional loser. Down -16.1% because the anticipated Aug-Oct drawdown has not arrived, which is exactly what a hedge does in a melt-up. EXEMPT from every premium backstop by the standing authorization. 98 DTE; the ~21-DTE roll/close decision with Ryan lands ~2026-10-30. Strike 700 sits 9.9% below spot, still just under the rising 200d (702.0) it was structured to pay off through. No action."
+        "underlying": "SPY 776.09 (-0.23%)",
+        "verdict": "WORKING AS DESIGNED -- insurance, not a directional loser. EXEMPT from every premium backstop by Ryan's 2026-08-05 authorization; the only decision point is the ~21-DTE roll/close review with Ryan (~2026-10-30), 98 DTE away. Mark ticked UP 6.285 -> 6.30 since 16:30Z as SPY eased to 776.09; loss narrowed to -15.89% from -16.09%. Strike 700 sits 9.8% below spot, still just under the rising 200d (702.0) it was structured to pay off through. No action, and no action is possible or wanted."
       }
     },
     {
@@ -46,19 +46,19 @@
       "target": null,
       "_note": "placed_agent='user' (Ryan bought this himself 2026-07-20T19:38Z, $2.47/contract, $247 premium). Long-dated LEAP (18mo out) -- not gated by the HARD RULE 8 entry checklist since it wasn't an autonomous entry. manual_hold_override below suspends the -50% mechanical stop; broken-thesis and DTE/earnings exits still apply in principle but this is a Jan-2028 LEAP, far outside any near-term DTE/earnings gate.",
       "_current_state": {
-        "last_checked_utc": "2026-08-14T16:30:00Z",
-        "mark": 3.425,
-        "bid": 3.3,
-        "ask": 3.55,
-        "spread_pct_of_mid": 7.3,
-        "pnl_usd": 95.5,
-        "pnl_pct": 38.66,
+        "last_checked_utc": "2026-08-14T16:45:00Z",
+        "mark": 3.35,
+        "bid": 3.25,
+        "ask": 3.45,
+        "spread_pct_of_mid": 5.97,
+        "pnl_usd": 88.0,
+        "pnl_pct": 35.63,
         "dte": 525,
-        "delta": 0.805,
+        "delta": 0.8019,
         "theta": -0.0021,
-        "iv": 0.9202,
+        "iv": 0.8985,
         "open_interest": 19544,
-        "underlying_note": "mark 3.475 -> 3.425 since 16:17Z; noise on a 525-DTE LEAP",
+        "underlying_note": "mark 3.425 -> 3.35 since 16:30Z (prior session close 3.68); noise on a 525-DTE LEAP with 0.80 delta",
         "status": "NO ACTION EVER -- structural, not analytic. placed_agent='user' triggers the 2026-07-21 ownership/exit gate and Ryan's 2026-07-22 manual_hold_override ('I'll handle the achr leap. Just leave it be') suspends the premium stops on top of it. Excluded from agentic premium accounting. Recorded for Ryan's running number only."
       },
       "manual_hold_override": {
@@ -92,12 +92,16 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-14T15:18:00Z",
+    "run_utc": "2026-08-14T16:45:00Z",
     "result": "NO ENTRY",
-    "candidates": "NVDA (B, trigger TESTED live against the written condition and NOT firing), AVGO (B, struck through 2026-09-02 -- reversal limb re-checked, still making new lows), INTC (C, standing no-slot instruction honored), AMD (C, measured-unaffordable, not re-derived)",
-    "sleeve_headroom_usd": 751.0,
+    "candidates": "AVGO (B->C on the LONG side, box broke DOWN this run), NVDA (B, written trigger tested live for a 3rd time and moving further away), AVGO-as-a-PUT (C, graded explicitly because the brief names it, fails trend-maturity), AMD (B, still over the per-trade max in the only structure this account can trade), INTC (C, standing no-slot instruction honored, now trading below its killing level)",
     "entries_used_today": "0 of 3",
-    "_settlement_note": "LAW 4 HANDOFF ITEM FROM THE 15:00Z RUN -- NOW VERIFIED AT THE BROKER, and the prior run's warning was exactly right. get_accounts at 15:15Z shows the agentic account (718757339) with unsettled_funds $401.1000, i.e. the ACGL equity sale proceeds are unsettled as predicted (cash account, T+1 across the weekend -> settles Mon 2026-08-17). get_portfolio's raw `cash` field DID rise to $2,383.62 and WOULD have overstated spendable funds, but buying_power correctly reports $1,982.52 -- unchanged from before the sale and fully settled. So the safe number is buying_power, not cash, and it is the SAME $1,982.52 every run today has used. No inheritance error occurred, no Law 4 exposure exists, and this figure needs no further re-derivation before Monday. Equity book separately: equity_value fell $905.17 -> $503.68 on the ACGL exit; total account $3,865.30. Options sleeve untouched -- premium at risk $749, headroom $751, daily loss cap unused."
+    "non_hedge_slots_used": "0 of 3",
+    "settled_buying_power_usd": 1982.52,
+    "agentic_premium_at_risk_usd": 749.0,
+    "realized_options_pnl_today_usd": 0.0,
+    "_SIZING_CORRECTION": "THIS FIELD REPLACES THE STALE 'sleeve_headroom_usd: 751.0' THAT SAT HERE FROM THE 15:18Z RUN, and removing it is a deliberate root fix rather than housekeeping. That number encoded the VOID pre-2026-08-14 reading of HARD RULE 8 -- '$1,500 total sleeve budget', from which $749 of hedge was subtracted to leave '$751 of headroom'. Ryan amended the rule on master at 15:42Z: $1,500 is a PER-TRADE maximum, there is NO total-sleeve ceiling, and total deployment is bounded by SETTLED CASH only. The journal absorbed this from 15:45Z onward, but holdings.json did not -- so this ledger has been publishing a superseded constraint for the last five runs. That matters because it is not a harmless label: an entry decision made from THIS file rather than the journal would have measured candidates against $751 instead of $1,500 and skipped affordable trades, which is the exact entry freeze Ryan rewrote the rule to end. THE CORRECT NUMBERS: per-trade max $1,500; settled buying power $1,982.52 (verified at the broker this run, unchanged all day); the hedge's $749 does NOT reduce a new trade's allowance, it only occupies 0 of 3 non-hedge slots (the hedge is excluded from the slot count). NOTE ON CASH: get_portfolio's raw `cash` reads $2,383.62, which OVERSTATES spendable funds -- $401.10 of ACGL proceeds are unsettled until Mon 2026-08-17 (T+1 across the weekend). Use buying_power ($1,982.52), never `cash`, for FOUR LAWS #4.",
+    "_no_trade_reason": "No candidate met its own written entry condition, and for the first afternoon today NOT ONE rejection is a budget rejection. AVGO -- the day's only real setup -- had its 393-396 base break DOWNWARD this run on the heaviest 5-min volume of the hour, which kills the mean-reversion long and confirms the 16:15Z/16:30Z passes were right on their stated reasoning. NVDA's trigger was tested live and is moving away (now RED on the day). AMD's ATM is $3,308 vs a $1,500 per-trade max and its catalyst is spent. INTC is under a standing no-slot instruction and is now BELOW its $103.50 killing level. Friday-afternoon weekend theta raises the bar rather than lowering it."
   },
   "_closed_positions": [
     {
