@@ -5942,6 +5942,26 @@
    "why_flat": "Nothing is placeable on a Saturday. The one genuine task available to a redundant overnight run is the broker reconciliation, because it is the only way an overnight assignment, expiration or unauthorized fill would ever surface -- that ran, the one anomaly it found was chased to a documented benign cause, and the run stopped.",
    "notification": "None sent. Nothing here needs Ryan's attention on a Saturday: no fill, no exit trigger, no flag, no missed duty, and the reconciliation anomaly resolved to a trade he himself approved on Friday. Paging him to say 'the automation is alive and the book is unchanged' is exactly the noise the once-per-incident rule exists to prevent.",
    "note_to_next_instance": "If you are a Monday pre-open run: the $401.10 ACGL proceeds settle Mon 2026-08-17, so settled BP should step up to ~$2,383.62 once settlement posts -- verify with get_accounts (unsettled_funds back to $0.00) before sizing anything against it; do not assume it from this note. The FIRST run at/after 09:30 ET Monday stamps the heartbeat and rebuilds market_brief.json. Standing constraint from Friday's report: entries keep dying on VEHICLE economics (option_level_2 = no debit spreads) and on the affordability split in the core IV list -- QQQ/SPY/NVDA/INTC are the affordable tier, AMD/AVGO/TSM/MSFT are not. Check the affordable tier first, and remember a cheap liquid contract supplies no thesis."
+  },
+  {
+   "run_utc": "2026-08-15T14:19:00Z",
+   "run_type": "scheduled options automation (native hourly backstop, post-close / weekend)",
+   "trading_day_et": "2026-08-14 (Friday)",
+   "run": "EIGHTEENTH POST-CLOSE run of the 2026-08-14 trading day (10:19 ET Saturday). Market CLOSED, weekend; next session Monday 2026-08-17 09:30 ET. NO TRADE. POST-CLOSE RUN PROTOCOL executed and stopped in a few lines, which is the correct output for a redundant overnight firing.",
+   "regime": "RISK-ON, EXTENDED, COMPLACENT -- carried forward, NOT re-derived. No live tape on a weekend.",
+   "broker_reconciliation": {
+    "verdict": "CLEAN -- zero drift vs holdings.json, and IDENTICAL to the 13:20Z run. No new investigation needed.",
+    "accounts": "718757339 agentic cash, option_level_2, unsettled_funds $401.10 (the ACGL T+1 proceeds, settles Mon 2026-08-17 -- already explained by the 13:20Z run, not re-derived here).",
+    "portfolio": "total $3,847.86 = equity $505.24 + options $959.00 + cash $2,383.62. Buying power $1,982.52 (excludes the $401.10 unsettled).",
+    "option_positions": "Exactly two, unchanged: SPY 2026-11-20 700P (agentic, authorized defensive hedge, insurance-exempt from premium backstops, opened 2026-08-06) and ACHR 2028-01-21 5C (placed_agent=user, manual_hold_override -- ownership gate: detect only, never close). All pending_* quantities 0.0000, so no weekend assignment/expiration/exercise activity.",
+    "delta_vs_prior_run": "NONE. Marks are frozen at Friday's close; options_value differs from the 2026-08-14T13:33Z heartbeat note only because that note predates Friday's closing marks and the ACGL sale."
+   },
+   "artifacts_not_rolled": "Heartbeat NOT stamped (still 2026-08-14) and market_brief.json NOT rebuilt -- correct per the UTC-vs-trading-day rule: only a run at/after 09:30 ET on a trading day may stamp the heartbeat, and Monday's first post-open run rebuilds the brief. Daily loss cap and the 3-entries-per-day throttle likewise NOT reset.",
+   "positions_verdict": "SPY 700P hedge -- HOLD, exempt, ~97 DTE, its ~21-DTE roll/close decision is late October and needs Ryan. ACHR 5C -- Ryan's position, detect-only, no trigger fired. Neither is actionable on a Saturday regardless.",
+   "hunt": "NOT performed. Sourcing, chain-liquidity screening (spread/OI) and grading all require live quotes; Friday's settled chains cannot produce a valid A+/A grade and screening them would be fabricated work. Standing observation carried forward: the affordable-tier candidates (QQQ, SPY, NVDA, INTC) are where Monday's hunt starts, per the 2026-08-14 affordability-tier finding in CLAUDE.md.",
+   "iv_history": "No new rows -- weekend, no live quotes to log. Per the IV method, a row requires a same-day ATM quote.",
+   "eod_report": "Not due. daily_options_report.md for 2026-08-14 was already written and delivered by the in-window run; rewriting it now would only re-notify Ryan with unchanged content.",
+   "summary": "NO TRADE. Weekend no-op. Reconciliation clean and unchanged from the prior run; nothing to report, nothing to notify."
   }
  ],
  "updated_utc": "2026-08-15T02:20:00Z"
