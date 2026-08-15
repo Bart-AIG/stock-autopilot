@@ -5962,6 +5962,25 @@
    "iv_history": "No new rows -- weekend, no live quotes to log. Per the IV method, a row requires a same-day ATM quote.",
    "eod_report": "Not due. daily_options_report.md for 2026-08-14 was already written and delivered by the in-window run; rewriting it now would only re-notify Ryan with unchanged content.",
    "summary": "NO TRADE. Weekend no-op. Reconciliation clean and unchanged from the prior run; nothing to report, nothing to notify."
+  },
+  {
+   "run_utc": "2026-08-15T15:19:00Z",
+   "run_type": "scheduled options automation (native hourly backstop, post-close / weekend)",
+   "trading_day_et": "2026-08-14 (Friday)",
+   "run": "NINETEENTH POST-CLOSE run of the 2026-08-14 trading day (11:19 ET Saturday). Market CLOSED, weekend; next session Monday 2026-08-17 09:30 ET. NO TRADE. POST-CLOSE RUN PROTOCOL executed and stopped in a few lines -- the correct, deliberately cheap output for a redundant overnight firing.",
+   "regime": "RISK-ON, EXTENDED, COMPLACENT -- carried forward, NOT re-derived. No live tape on a weekend.",
+   "broker_reconciliation": {
+    "verdict": "CLEAN -- zero drift vs holdings.json, IDENTICAL to the 13:20Z/14:19Z runs. No new investigation performed or needed.",
+    "accounts": "718757339 agentic cash, option_level_2, unsettled_funds $401.10 (ACGL T+1 proceeds, settle Mon 2026-08-17 -- cause established by the 13:20Z run, not re-derived).",
+    "portfolio": "total $3,847.86 = equity $505.24 + options $959.00 + cash $2,383.62. Buying power $1,982.52 (excludes the unsettled $401.10).",
+    "option_positions": "Exactly two, unchanged: SPY 2026-11-20 700P (agentic, authorized defensive hedge, insurance-exempt from premium backstops) and ACHR 2028-01-21 5C (placed_agent=user, manual_hold_override -- ownership gate: detect only, never close). All pending_buy/sell/exercise/assignment/expiration quantities 0.0000, so nothing is in flight into Monday.",
+    "equity_positions": "AAPL 1.652252sh -- exact match to holdings.json. No open _flag on any position."
+   },
+   "positions_verdict": "SPY 700P hedge -- HOLD/working, ~97 DTE, exempt from backstops; its ~21-DTE roll/close decision is late October and requires Ryan. ACHR 5C -- Ryan's position, detect-only, no exit trigger fired. Neither is actionable on a Saturday regardless.",
+   "artifacts_not_rolled": "Heartbeat NOT stamped (still 2026-08-14) and market_brief.json NOT rebuilt -- correct per the UTC-vs-trading-day rule: only a run at/after 09:30 ET on a trading day may stamp the heartbeat, and Monday's first post-open run rebuilds the brief. Daily loss cap and the 3-entries-per-day throttle likewise NOT reset.",
+   "daily_report": "Already delivered for the 2026-08-14 trading day; NOT rewritten. Nothing material has happened since (no fill, no exit, no new flag, no trigger firing), and a duplicate push would only re-notify Ryan for no new information.",
+   "hunt": "NOT performed. Sourcing, chain-liquidity screening and grading all require live quotes; Friday's settled chains cannot produce a valid grade and screening them would be fabricated work. Carried forward for Monday: affordable-tier candidates are QQQ, SPY, NVDA, INTC (measured 2026-08-14 -- AMD/AVGO/TSM/MSFT are priced out of a real-delta single leg at the $1,500 per-trade max, and the debit spread that would fit is unavailable at option_level_2).",
+   "no_trade_reason": "Market closed (weekend). No entry or exit is placeable. Redundant firing -- reconcile, log, stand down."
   }
  ],
  "updated_utc": "2026-08-15T02:20:00Z"
