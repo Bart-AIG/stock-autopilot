@@ -6087,6 +6087,28 @@
    "sleeve_state": "Agentic premium-at-risk $749 (the hedge only, which does not count against the max-3 position limit) -> 0 of 3 non-hedge slots used. Realized options P&L for the 2026-08-14 trading day: $0.00, versus the stricter -$200 daily cap. Settled cash $1,982.52; $401.10 more settles Monday.",
    "decision": "NO TRADE. Market closed, book unchanged, every useful post-close task for this trading day (final reconciliation, the daily report, the Friday weekly review computed from broker data) was completed by earlier runs. Logged in a few lines and stopped, exactly as the post-close protocol requires. No notification sent to Ryan: nothing changed and a weekend no-op is not worth his attention.",
    "next_run_watchpoints": "Monday 2026-08-17: first run at/after 09:30 ET stamps the heartbeat and rebuilds market_brief.json off live opening data (NOT before). ACGL $401.10 settles, taking settled cash to ~$2,383.62. Hunt the affordable liquid tier first; check the chain spread/OI BEFORE any thesis workup."
+  },
+  {
+   "run_utc": "2026-08-15T21:19:00Z",
+   "run_type": "scheduled options automation (native hourly backstop, post-close / weekend)",
+   "trading_day_et": "2026-08-14 (Friday)",
+   "run": "TWENTY-FIFTH POST-CLOSE run of the 2026-08-14 trading day (17:19 ET Saturday). Market CLOSED, weekend; next session Monday 2026-08-17 09:30 ET. NO TRADE. POST-CLOSE RUN PROTOCOL executed and stopped in a few lines -- the correct, deliberately cheap output for a redundant overnight firing.",
+   "regime": "RISK-ON, EXTENDED, COMPLACENT -- carried forward, NOT re-derived. No live tape on a weekend.",
+   "broker_reconciliation": {
+    "verdict": "CLEAN -- zero drift vs holdings.json. Every figure IDENTICAL to the 13:20Z through 20:19Z runs; no re-investigation performed or needed.",
+    "accounts": "718757339 agentic cash, option_level_2 (still NOT level_3 -- spreads remain unavailable; never leg one). unsettled_funds $401.10 = the ACGL T+1 proceeds, settling Mon 2026-08-17.",
+    "portfolio": "total $3,847.86 | equity $505.24 | options $959.00 | cash $2,383.62 | buying_power (settled) $1,982.52.",
+    "option_positions": "Exactly two, both expected: SPY 2026-11-20 700P qty 1 @ $749.00 (agentic, authorized defensive hedge, insurance-exempt from premium backstops) and ACHR 2028-01-21 5C qty 1 @ $247.00 (placed_agent=user, manual_hold_override -- ownership gate: detect only, never close). All pending_buy/sell/exercise/assignment/expiration fields 0.0000 -- no overnight assignment, exercise or expiration.",
+    "flags": "None open in holdings.json. This run adjudicates nothing and asserts no Ryan approval (HARD RULE 9)."
+   },
+   "position_verdicts": {
+    "SPY 2026-11-20 700P": "HOLD / working as insurance. Hedge exemption: no premium backstop. ~97 DTE; roll/close decision belongs to Ryan at ~21 DTE (late Oct).",
+    "ACHR 2028-01-21 5C": "HOLD -- Ryan's own trade. Ownership gate: detect only, never close autonomously. manual_hold_override in place. 890 DTE, nothing due."
+   },
+   "hunt": "SKIPPED by design. Nothing is placeable on a Saturday; a candidate graded now off frozen Friday marks would have to be re-graded Monday anyway. Structural capacity for Monday is unchanged: 0 of 3 non-hedge slots used, settled BP $1,982.52 ($401.10 more settling Mon), daily loss cap and 3-entry throttle both reset at Monday's open.",
+   "per_day_duties": "All discharged for the 2026-08-14 trading day and NOT repeated: heartbeat stamped 13:33Z by the first post-open run; market_brief.json built for 08-14; FRIDAY_WEEKLY_REVIEW written 13:05Z (broker-sourced); daily_options_report.md committed. Per the UTC-midnight rule, no daily artifact is rolled forward on a weekend run -- the next heartbeat/brief belong to Monday 2026-08-17.",
+   "notification": "None sent. Nothing changed since the prior run; paging Ryan to say 'still nothing' is exactly the noise the once-per-incident rule forbids.",
+   "summary": "NO TRADE. Weekend no-op; reconciliation clean and byte-identical to the eight prior weekend runs."
   }
  ],
  "updated_utc": "2026-08-15T19:19:00Z"
