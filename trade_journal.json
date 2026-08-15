@@ -6132,6 +6132,40 @@
       "notification_decision": "NO notification. The book is provably unchanged across ten consecutive weekend runs and every duty is verifiably done. Paging Ryan to say 'nothing happened, again' is precisely the noise the protocol exists to prevent; silence is the correct output.",
       "action": "NO TRADE. Reconciled, verified all duties complete, logged, stood down.",
       "note_for_mondays_first_run": "Book and duties are clean; start fresh. Monday 2026-08-17 pre-open: do NOT stamp the heartbeat or rebuild the brief until a run at/after 09:30 ET. The $401.10 unsettled from Friday's equity sale should settle Monday -- re-check get_accounts rather than assuming. Sourcing order is liquidity-first: the affordable tier (QQQ, SPY, NVDA, INTC) before the equity report's mid-caps, and re-measure every spread live at the open (opening-auction width is 2-4x settled width and has produced false liquidity kills before)."
+    },
+    {
+      "run_utc": "2026-08-15T23:19:00Z",
+      "run_type": "scheduled options automation (native hourly backstop, post-close / weekend)",
+      "trading_day_et": "2026-08-14 (Friday) \u2014 still the trading day whose bell last rang; next session Monday 2026-08-17 09:30 ET",
+      "run": "ELEVENTH consecutive weekend post-close run (Saturday 2026-08-15 19:19 ET), 26th post-close run of the 2026-08-14 trading day. Market CLOSED \u2014 no entry or exit is placeable. Handled per the POST-CLOSE RUN PROTOCOL: read what prior runs of this stand-down already covered, do the one check always worth repeating (broker reconciliation), log short, stop. No daily artifact rolled: heartbeat NOT stamped, market_brief NOT rebuilt, loss cap and entry throttle NOT reset \u2014 all correct for a pre-09:30-ET run.",
+      "regime": "RISK-ON, EXTENDED, COMPLACENT \u2014 carried forward from the 2026-08-14 brief, NOT re-derived. No live tape on a Saturday.",
+      "broker_reconciliation": {
+        "verdict": "CLEAN \u2014 zero drift vs holdings.json. Every figure IDENTICAL to the 13:20Z through 22:19Z runs; no re-investigation performed or needed.",
+        "accounts": "718757339 agentic cash, option_level_2 (still NOT level_3 \u2014 spreads remain unavailable; never leg one). unsettled_funds $401.10.",
+        "positions": "Exactly SPY 2026-11-20 700P (agentic hedge, qty 1, avg $749.00, opened 2026-08-06) + ACHR 2028-01-21 5C (placed_agent=user, manual_hold_override, qty 1, avg $247.00, opened 2026-07-20). Matches holdings.json exactly.",
+        "pending_fields": "All pending_buy/sell/exercise/assignment/expiration quantities 0.0000 \u2014 no overnight assignment, exercise or expiration.",
+        "portfolio": "total_value $3,847.86 | equity_value $505.24 | options_value $959.00 | cash $2,383.62 | settled buying power $1,982.52 | unsettled $401.10."
+      },
+      "positions_verdict": [
+        {
+          "position": "SPY 2026-11-20 700P",
+          "owner": "agentic (authorized defensive hedge)",
+          "verdict": "HOLD \u2014 insurance, EXEMPT from all premium backstops per the standing hedge exemption. ~97 DTE; the ~21-DTE roll/close decision is made WITH Ryan, far out. No weekend action."
+        },
+        {
+          "position": "ACHR 2028-01-21 5C",
+          "owner": "user (placed_agent=user)",
+          "verdict": "HOLD \u2014 OWNERSHIP GATE: never close, trim or roll without Ryan's explicit go-ahead. manual_hold_override in force suspends premium backstops. No exit condition to even detect on a closed market."
+        }
+      ],
+      "hunt": "SKIPPED \u2014 market closed. No chain is quotable, no trigger can fire, and no entry is placeable. Sourcing work on stale Friday marks would be manufactured activity, which the post-close protocol explicitly forbids.",
+      "iv_logging": "SKIPPED \u2014 no live quotes on a weekend. Logging a stale Friday ATM IV as a new dated row would corrupt the IV/RV history the entry gate depends on.",
+      "entries_today": 0,
+      "realized_pl_today": 0.0,
+      "daily_loss_cap_status": "Not applicable \u2014 no trading day in progress. Cap does NOT reset on a UTC rollover.",
+      "eod_report": "Already delivered for the 2026-08-14 trading day. NOT rewritten \u2014 nothing material has happened since (no fill, no exit, no new flag, no trigger firing); a duplicate push would only re-notify Ryan for no new information.",
+      "flags": "None new. No HARD RULE 9 adjudication attempted or needed.",
+      "next_run_note": "Monday 2026-08-17 first run at/after 09:30 ET: stamp automation_heartbeat.json, rebuild market_brief.json for the new trading day, then MANAGE (both positions are gated holds) before any HUNT. Sourcing order stands: affordable liquid tier FIRST (QQQ/SPY/NVDA/INTC), then the committed equity report, then macro. AMD/AVGO/TSM/MSFT remain unaffordable in a real-delta single leg at option_level_2."
     }
   ],
   "updated_utc": "2026-08-15T19:19:00Z"
