@@ -5874,6 +5874,40 @@
       "four_laws_check": "Not engaged -- no entry attempted. Realized options P&L for the 2026-08-14 trading day was $0.00 against the -$200 cap; 0 of 3 new-entry slots used; 0 of 3 non-hedge position slots occupied. Settled cash $1,982.52 (the $401.10 ACGL proceeds are UNSETTLED until Monday and are not spendable -- FOUR LAWS #4).",
       "decision": "NO TRADE. Market closed on a weekend; the book is provably unchanged; every per-day duty is already discharged and re-doing any of them would be duplicated noise rather than work. Standing down is the correct and complete output of this run.",
       "note_for_next_instance": "Monday 2026-08-17 is the next live session. The first run at/after 13:30Z owns three things this weekend's runs deliberately left alone: stamp automation_heartbeat.json, rebuild market_brief.json fresh (Friday's is stale by design), and reset the daily loss cap / entry throttle for the new trading day. The $401.10 ACGL proceeds should show as SETTLED Monday, taking spendable cash to roughly $2,384 -- confirm with get_accounts rather than assuming. Sourcing order stands: affordable liquid tier FIRST (QQQ, SPY, NVDA, INTC -- AMD/AVGO/TSM/MSFT are priced out of a real-delta single leg at option_level_2), chain spread/OI checked BEFORE any thesis workup."
+    },
+    {
+      "run_utc": "2026-08-15T12:25:00Z",
+      "run_type": "scheduled options automation (native hourly backstop, post-close / weekend)",
+      "trading_day_et": "2026-08-14 (Friday)",
+      "run": "SIXTEENTH POST-CLOSE run of the 2026-08-14 trading day (08:25 ET Saturday, ~16h25m after the bell). Market CLOSED, weekend; next session Monday 2026-08-17. NO TRADE. POST-CLOSE RUN PROTOCOL executed and stopped: read the journal for prior post-close coverage, ran the cheap broker reconciliation, confirmed every per-day duty was already discharged, logged this, ended. Deliberately brief -- the protocol's goal is to make each redundant overnight firing cost almost nothing.",
+      "regime": "RISK-ON, EXTENDED, COMPLACENT -- carried forward, NOT re-derived. No live tape on a weekend.",
+      "broker_reconciliation": {
+        "verdict": "CLEAN -- zero drift vs holdings.json; figures identical to the 07:20Z through 11:19Z runs.",
+        "option_positions": "Exactly two, unchanged: SPY 2026-11-20 700P qty 1 @ $749.00 (agentic hedge, insurance-exempt from premium backstops) and ACHR 2028-01-21 5C qty 1 @ $247.00 (placed_agent=user, manual_hold_override -- ownership-gated, detect-and-notify only). All pending_buy/sell/exercise/assignment/expiration quantities 0.0000, so nothing is in flight into Monday.",
+        "portfolio": "total $3,847.86 = equity $505.24 (AAPL 1.652252sh) + options $959.00 + cash $2,383.62; buying power $1,982.52; unsettled_funds $401.10.",
+        "unsettled_funds": "NOT re-investigated. This run independently noticed the $401.10 / the equity_value drop from Friday's opening $903.83 and checked it against the record BEFORE escalating, per the CLAUDE.md order (read master's holdings.json incl. _closed_positions first). It is the Ryan-approved ACGL swing exit -- order 6a7f2eb6, 4.069594sh @ $98.5602 = $401.10, filled 2026-08-14T15:05:26Z, already in _closed_positions and chased to ground by the 07:20Z run. T+1 -> settles Monday. No flag, no HARD RULE 6 issue. Noting the check explicitly because a fresh instance with no memory SHOULD re-derive suspicion from the raw numbers; the protocol only forbids re-doing the investigation, not re-verifying the conclusion cheaply."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P": "HOLD / working. Insurance against the Aug-Oct drawdown watch; hedge-exempt from all premium backstops -- an unrealized drawdown into a melt-up is the expected cost, not a sell signal. Neither limb of setup_invalidation met. Only decision point is the ~21-DTE roll/close WITH Ryan, 97 DTE away. Marks NOT re-polled (no tradeable quote on a weekend; restamping would fake freshness).",
+        "ACHR 2028-01-21 5C": "HOLD, ownership-gated. placed_agent=user + manual_hold_override -- the automation may detect but never auto-close. 890 DTE, last mark $3.45 (+39.7%). No exit condition fired; nothing to notify."
+      },
+      "duties_check": {
+        "heartbeat": "NOT stamped, correctly. Last stamp 2026-08-14 (Friday's first post-open run). Today is Saturday -- not a trading day at all -- so no stamp is due; stamping now would pre-satisfy the dead-man for Monday and hide a dead cron over the weekend.",
+        "market_brief": "NOT rebuilt, correctly. Stays stamped 2026-08-14, the trading day it describes. Monday's first post-open run rebuilds it.",
+        "daily_report": "DONE for the Friday trading day -- daily_options_report.md written and pushed at 19:30Z (commit 87e94a0), which IS the delivery. Not rewritten: nothing material has happened since (no fill, no exit, no flag, no trigger). A duplicate push would only re-notify Ryan with identical content.",
+        "friday_weekly_review": "DONE -- written 2026-08-14T13:05Z (FRIDAY_WEEKLY_REVIEW), with the arithmetic sourced from the broker (get_realized_pnl + get_option_orders: 2 round trips, -$195 realized for the week of 2026-08-10), not from this journal. Not re-derived.",
+        "iv_history": "No new rows. Market closed -- there is no live ATM IV to log, and a weekend row would be a fabricated reading.",
+        "entry_throttle_and_loss_cap": "Not reset. Both key off the TRADING day; a weekend firing does not hand the desk a fresh cap or entry budget. Monday opens with 0 of 3 daily entries and a clean -$200 cap."
+      },
+      "sleeve_state": {
+        "open_agentic_non_hedge_positions": "0 of 3 slots used (SPY hedge excluded from the count; ACHR is Ryan's, not agentic).",
+        "agentic_premium_at_risk": "$749 (the authorized SPY hedge only).",
+        "settled_cash": "$1,982.52 buying power; $401.10 unsettled until Monday. FOUR LAWS #4 satisfied for any Monday entry up to the settled figure.",
+        "realized_options_pnl_2026_08_14": "$0.00. Week of 2026-08-10: -$195 realized across 2 round trips, broker-verified.",
+        "flags_open": "None."
+      },
+      "action": "NO TRADE -- nothing is placeable on a Saturday. Not a judgment call, a market-hours fact. No hunt performed: sourcing, chain-liquidity screening and grading all require live quotes, and screening Friday's settled chains to 'pre-pick' a Monday trade would produce a thesis anchored to two-day-old prints and a stale tape -- exactly the 'catalyst already priced' error the trend-maturity gate exists to prevent. Monday's first post-open run does the real work: stamp the heartbeat, rebuild the brief on live prints, then hunt.",
+      "notes_for_next_instance": "If you are the SEVENTEENTH+ post-close firing of this same trading day: the book is provably unchanged across ten straight reconciliations, every per-day duty is discharged, and there is no research task worth inventing. Reconcile, write two lines, stop. The redundancy is a trigger-config issue only Ryan can fix (cron-job.org + the routine's native hourly schedule); an agent's only job is to make each extra firing nearly free."
     }
   ],
   "updated_utc": "2026-08-15T02:20:00Z"
