@@ -6651,7 +6651,29 @@
       "daily_report": "Already delivered for the 2026-08-14 trading day. NOT rewritten -- nothing material happened (no fill, no exit, no flag, no trigger). Rewriting would only re-notify Ryan with identical content.",
       "why_flat": "Market closed. Being flat on a Sunday is not a decision; it is the only state available.",
       "next_run_duties": "First run at/after Mon 2026-08-17 09:30 ET: stamp automation_heartbeat.json, rebuild market_brief.json for the new trading day, reset the loss cap and 3-entry throttle, resume IV logging, then MANAGE -> HUNT. Settled cash should rise by $401.10 as the ACGL proceeds settle."
+    },
+    {
+      "run_utc": "2026-08-16T18:19:00Z",
+      "run_type": "WEEKEND NO-OP (Sun 2026-08-16 14:19 ET). Market shut; next open Mon 2026-08-17 09:30 ET.",
+      "trading_day_et": "2026-08-14 (Friday) -- still the last bell that rang. Heartbeat NOT stamped, market_brief NOT rebuilt, loss cap and 3-entry throttle NOT reset. First run at/after Mon 09:30 ET does all four.",
+      "run": "POST-CLOSE RUN PROTOCOL applied in full: read what earlier runs of this stand-down covered, ran the one check always worth repeating (broker reconciliation), logged, stopped. Nothing re-derived, no artifact rolled, no stale weekend quote polled, no research invented.",
+      "regime": "RISK-ON, EXTENDED, COMPLACENT -- carried forward from the 2026-08-14 brief, NOT re-derived. There is no Sunday tape.",
+      "broker_reconciliation": {
+        "checked_utc": "2026-08-16T18:19:00Z",
+        "result": "CLEAN -- zero drift vs holdings.json, numerically identical to the 17:19Z run and to every weekend run since Saturday 13:20Z.",
+        "account": "718757339 agentic cash, option_level_2 -> debit spreads UNAVAILABLE (single-leg only; never leg one, the long leg fills and the short leg rejects, leaving an unintended naked long). Level-3 recommendation still standing with Ryan, unactioned.",
+        "options": "Exactly two, both no-action by structure. SPY 2026-11-20 700P (1ct, avg $749.00, opened 2026-08-06, placed_agent=agentic) -- authorized defensive hedge, EXEMPT from premium backstops, roll/close decision WITH Ryan at ~21 DTE (96 DTE now, window opens ~2026-10-30). ACHR 2028-01-21 5C (1ct, avg $247.00, placed_agent=user) -- Ryan's own trade, ownership gate applies, manual_hold_override present. All pending_* quantities 0.0000: no assignment, expiration or unauthorized fill over the weekend.",
+        "cash": "unsettled_funds $401.10 (ACGL proceeds, T+1 across the weekend) confirmed unchanged at the account level -- settles Mon 2026-08-17, lifting settled buying power from $1,982.52 to ~$2,383.62.",
+        "flags": "None open. The only '_flag' substring in holdings.json is the historical '_resolved_flags' key -- verified, not an open HARD RULE 9 flag."
+      },
+      "positions_verdict": "No verdict changes. Hedge = insurance, working as designed. ACHR = gated, not the desk's to judge.",
+      "hunt": "NOT RUN. Market closed -- no entry is placeable and a shut chain quotes marks nobody can act on. Zero candidates graded. Sourcing order resumes Monday: liquid/affordable tier first (QQQ, SPY, NVDA, INTC), then the committed equity report, then macro/catalyst work.",
+      "iv_logging": "SKIPPED -- weekend, no live ATM quotes. iv_history.json rows are per trading day; a Sunday row would be a stale duplicate of Friday's.",
+      "duties_already_satisfied": "Friday weekly review COMPLETE (logged 2026-08-14T13:05Z, broker-sourced per the get_realized_pnl rule). Daily report for the 2026-08-14 trading day DELIVERED and deliberately NOT rewritten -- nothing material has happened since (no fill, no exit, no flag, no trigger), and a rewrite would only re-notify Ryan with identical content.",
+      "why_flat": "Market closed. Being flat on a Sunday is not a decision; it is the only available state.",
+      "notification": "None sent. Nothing actionable, nothing broken, no change since the last run -- a push here would be noise.",
+      "next_run_duties": "First run at/after Mon 2026-08-17 09:30 ET: stamp automation_heartbeat.json, rebuild market_brief.json, reset the daily loss cap (-$200, the stricter of the two) and the 3-entry throttle, resume IV logging for the core list, then MANAGE -> HUNT. Structural state entering Monday: 0 of 3 non-hedge position slots used; $1,500 per-trade max; deployment bounded by settled cash only."
     }
   ],
-  "updated_utc": "2026-08-16T14:19:00Z"
+  "updated_utc": "2026-08-16T18:19:00Z"
 }
