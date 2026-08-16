@@ -6584,6 +6584,31 @@
    "action": "NO TRADE -- market closed.",
    "why_flat": "The market is shut. There is no decision available on a Sunday and manufacturing one would be exactly the process failure this desk flags. The only work worth doing was the reconciliation, and this run earned its cost there: it refused to inherit a prior run's 'clean' verdict on a balance that had visibly changed since Friday's heartbeat, chased the $401.10 to its source order, and confirmed it as an approved, already-ledgered equity exit rather than drift. Stand down.",
    "notification": "None sent. Nothing new to tell Ryan -- a reconciliation that confirms the expected state is not news, and the weekend firings are a trigger-config artifact, not an event."
+  },
+  {
+   "run_utc": "2026-08-16T15:19:00Z",
+   "run_type": "WEEKEND POST-CLOSE NO-OP (Sun 2026-08-16 11:19 ET). Market shut; next open Mon 2026-08-17 09:30 ET.",
+   "trading_day_et": "2026-08-14 (Friday) -- the last bell that rang. UTC date changes nothing: heartbeat NOT stamped, market_brief NOT rebuilt, loss cap and entry throttle NOT reset.",
+   "run": "30th consecutive weekend firing / 41st post-close run of the 2026-08-14 trading day. POST-CLOSE RUN PROTOCOL applied: read what earlier runs covered, ran the one check worth repeating (broker reconciliation), logged, stopped. Nothing re-derived, no artifact rolled, no research task invented, no stale weekend quotes re-polled.",
+   "regime": "RISK-ON, EXTENDED, COMPLACENT -- carried forward from the 2026-08-14 brief, NOT re-derived. No tape exists on a Sunday.",
+   "reconciliation": {
+    "checked_utc": "2026-08-16T15:19:00Z",
+    "result": "CLEAN -- zero drift vs holdings.json; numerically identical to every post-close run since 13:20Z Saturday.",
+    "accounts": "718757339 agentic cash, option_level_2 -- spreads remain UNAVAILABLE (single-leg only; never leg one). unsettled_funds $401.10 = ACGL proceeds, T+1 across the weekend -> settle Mon 2026-08-17. Level-3 recommendation still standing with Ryan, unactioned.",
+    "option_positions": "Exactly two, both structurally no-action: SPY 2026-11-20 700P (1 ct, avg $749.00, opened 2026-08-06, placed_agent=agentic -- authorized defensive hedge, EXEMPT from premium backstops, next decision is the ~21-DTE roll/close review ~2026-10-30 WITH Ryan) and ACHR 2028-01-21 5C (1 ct, avg $247.00, opened 2026-07-20, placed_agent=user + manual_hold_override -- ownership gate forbids any autonomous exit). All pending_buy / pending_sell / pending_exercise / pending_assignment / pending_expiration quantities 0.0000: no weekend assignment, exercise, expiration or unauthorized fill.",
+    "portfolio": "Total $3,847.86 = equity $505.24 + options $959.00 + cash $2,383.62. Settled buying power $1,982.52 (raw cash overstates spendable by the $401.10 unsettled).",
+    "flags": "None open. Nothing adjudicated (HARD RULE 9)."
+   },
+   "duties_checked": {
+    "heartbeat": "NOT stamped -- correct. Last stamp 2026-08-14 (Friday, 13:33Z). A weekend run may never pre-satisfy the dead-man for a trading day that has not started; Monday's first at/after-09:30-ET run stamps it.",
+    "market_brief": "NOT rebuilt -- correct. Stays stamped with the 2026-08-14 trading day it describes.",
+    "daily_report": "NOT rewritten -- correct. daily_options_report.md carries Friday 2026-08-14 and nothing MATERIAL has happened since (no fill, no exit, no flag, no trigger). Rewriting it would only re-notify Ryan with identical content.",
+    "friday_review": "ALREADY DONE -- the week of 2026-08-10 review was written at 2026-08-14T13:05:00Z (FRIDAY_WEEKLY_REVIEW), broker-sourced per the get_realized_pnl / get_option_orders rule. Verified present rather than assumed; NOT re-run."
+   },
+   "hunt": "NONE. Market closed -- no entry is placeable, and any 'candidate' worked from weekend marks would be reasoning off non-actionable quotes. Entry throttle and daily loss cap belong to the 2026-08-14 trading day and do not reset on a UTC rollover.",
+   "iv_history": "NOT updated -- no live quotes exist on a Sunday. A row logged from weekend marks would corrupt the percentile history the method depends on.",
+   "summary": "NO TRADE. Weekend no-op; reconciliation clean, both positions gated, no duty outstanding.",
+   "next_run_should": "Monday 2026-08-17: the first run at/after 09:30 ET stamps the heartbeat, rebuilds market_brief.json for the new trading day, and re-verifies that the $401.10 ACGL proceeds have settled (expect buying power ~$2,383.62 -- verify at the broker, do not assume). Then HUNT per the sourcing order, affordable tier first (QQQ / SPY / NVDA / INTC)."
   }
  ],
  "updated_utc": "2026-08-16T14:19:00Z"
