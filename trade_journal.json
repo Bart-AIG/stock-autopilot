@@ -6630,6 +6630,27 @@
       "duties_check": "Heartbeat correctly NOT stamped (still dated 2026-08-14; only a run at/after 09:30 ET on a trading day may stamp it). market_brief.json correctly NOT rebuilt. Daily loss cap and entry throttle correctly NOT reset. daily_options_report.md for 2026-08-14 was delivered on that trading day -- no EOD duty outstanding. Friday review for the week of 2026-08-10 completed and broker-sourced.",
       "summary": "NO TRADE. Weekend no-op. Reconciliation clean and unchanged, both positions gated by rules rather than judgment, ledger DTE verified sound, no duty outstanding. No notification sent -- nothing new for Ryan.",
       "notification_sent": false
+    },
+    {
+      "run_utc": "2026-08-16T17:19:00Z",
+      "run_type": "WEEKEND POST-CLOSE NO-OP (Sun 2026-08-16 13:19 ET). Market shut; next open Mon 2026-08-17 09:30 ET.",
+      "trading_day_et": "2026-08-14 (Friday) -- the last bell that rang. UTC date changes nothing: heartbeat NOT stamped, market_brief NOT rebuilt, loss cap and entry throttle NOT reset. Next run permitted to stamp/rebuild is the first at/after Mon 09:30 ET.",
+      "run": "Latest weekend firing of the 2026-08-14 trading day. POST-CLOSE RUN PROTOCOL applied: read what earlier runs covered, ran the one check always worth repeating (broker reconciliation), logged, stopped. Nothing re-derived, no artifact rolled, no stale weekend quote re-polled, no research invented. NOTE: prior weekend entries disagree on the run-count ordinal (one line says 26th/37th, the next says 30th/41st); an unattended run should not adjudicate that, so this entry states the facts and omits a count.",
+      "regime": "RISK-ON, EXTENDED, COMPLACENT -- carried forward from the 2026-08-14 brief, NOT re-derived. No tape exists on a Sunday.",
+      "broker_reconciliation": {
+        "checked_utc": "2026-08-16T17:19:00Z",
+        "result": "CLEAN -- zero drift vs holdings.json across both books; numerically identical to every post-close run since 13:20Z Saturday.",
+        "accounts": "718757339 agentic cash, option_level_2 -> debit spreads UNAVAILABLE (single-leg only; never leg one -- the long leg would fill and the short leg reject, leaving an unintended naked long). Level-3 recommendation still standing with Ryan, unactioned.",
+        "options": "Exactly two, both no-action by structure: SPY 2026-11-20 700P (1ct, avg $749.00, opened 2026-08-06, placed_agent=agentic) -- authorized defensive hedge, EXEMPT from premium backstops, held to its ~21-DTE roll/close decision WITH Ryan (96 DTE, review window opens ~2026-10-30). ACHR 2028-01-21 5C (1ct, avg $247.00, placed_agent=user) -- Ryan's own trade, ownership gate: never close/trim/roll without his go-ahead; manual_hold_override present. All pending_* quantities 0.0000 -- no assignment, expiration or unauthorized fill over the weekend.",
+        "portfolio": "total $3,847.86 | equity $505.24 (AAPL 1.652252sh, matches ledger) | options $959.00 | cash $2,383.62 | settled buying_power $1,982.52 | unsettled $401.10 (ACGL proceeds, T+1 across the weekend -> settle Mon 2026-08-17).",
+        "flags": "None open. No HARD RULE 9 flag in holdings.json."
+      },
+      "positions_verdict": "No verdict changes. Hedge = insurance, working as designed. ACHR = gated, not the desk's to judge.",
+      "hunt": "NOT RUN. Market closed -- no entry is placeable, and quoting a shut chain produces marks nobody can act on. Zero candidates graded. Sourcing order (liquid chains first: QQQ/SPY/NVDA/INTC affordable tier) resumes Monday.",
+      "iv_logging": "SKIPPED -- weekend, no live ATM quotes. iv_history.json rows are per trading day; a Sunday row would be a stale duplicate of Friday's.",
+      "daily_report": "Already delivered for the 2026-08-14 trading day. NOT rewritten -- nothing material happened (no fill, no exit, no flag, no trigger). Rewriting would only re-notify Ryan with identical content.",
+      "why_flat": "Market closed. Being flat on a Sunday is not a decision; it is the only state available.",
+      "next_run_duties": "First run at/after Mon 2026-08-17 09:30 ET: stamp automation_heartbeat.json, rebuild market_brief.json for the new trading day, reset the loss cap and 3-entry throttle, resume IV logging, then MANAGE -> HUNT. Settled cash should rise by $401.10 as the ACGL proceeds settle."
     }
   ],
   "updated_utc": "2026-08-16T14:19:00Z"
