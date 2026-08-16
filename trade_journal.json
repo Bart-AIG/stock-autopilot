@@ -6466,7 +6466,43 @@
       "sleeve_state": "Agentic premium-at-risk $749 (hedge only; excluded from the max-3 count) -> 0 of 3 non-hedge slots used. Realized options P&L for the 2026-08-14 trading day: $0, well inside the stricter -$200 daily cap. Settled cash $1,982.52 bounds Monday's deployment; +$401.10 settles Mon making ~$2,383 available.",
       "action": "NO TRADE. Market closed. Correct output for a redundant weekend firing is a short logged no-op.",
       "monday_watchpoints": "First run at/after 09:30 ET stamps automation_heartbeat.json for 2026-08-17 and rebuilds market_brief.json on live prints. HUNT sources in order: affordable liquid tier (QQQ/SPY/NVDA/INTC -- NOT the unaffordable AMD/AVGO/TSM/MSFT half of the core list), then the committed equity report, then macro. ACGL proceeds settle Monday."
+    },
+    {
+      "run_utc": "2026-08-16T11:19:00Z",
+      "run_type": "WEEKEND POST-CLOSE NO-OP (Sun 2026-08-16 07:19 ET). Market shut; next open Mon 2026-08-17 09:30 ET.",
+      "trading_day_et": "2026-08-14 (Friday) -- the last bell that rang. UTC date changes nothing: heartbeat NOT stamped, market_brief NOT rebuilt, loss cap and entry throttle NOT reset.",
+      "run": "26th consecutive weekend firing / 37th post-close run of the 2026-08-14 trading day. POST-CLOSE RUN PROTOCOL: read what earlier runs covered, ran the one check worth repeating (broker reconciliation), logged, stopped. Nothing re-derived, no artifact rolled, no research invented, no stale quotes re-polled.",
+      "regime": "RISK-ON, EXTENDED, COMPLACENT -- carried forward from the 2026-08-14 brief, NOT re-derived. No tape exists on a Sunday.",
+      "broker_reconciliation": {
+        "checked_utc": "2026-08-16T11:19:00Z",
+        "verdict": "CLEAN -- zero drift vs holdings.json; numerically identical to every post-close run since 13:20Z Saturday.",
+        "accounts": "718757339 agentic cash, option_level_2 (spreads still UNAVAILABLE -- single-leg only, never leg one; level-3 recommendation still standing with Ryan). unsettled_funds $401.10 = the ACGL proceeds, settling Mon 2026-08-17.",
+        "option_positions": "Exactly 2, both expected: SPY 2026-11-20 700P qty 1 @ $749.00 avg (agentic hedge, opened 2026-08-06) and ACHR 2028-01-21 5C qty 1 @ $247.00 avg (placed_agent=user, opened 2026-07-20). All pending_* quantities 0.0000 -- no assignment, exercise or expiration in flight.",
+        "equity_positions": "AAPL 1.652252 sh @ $302.89 avg -- matches the ledger's lone swing position exactly. No unauthorized equity activity.",
+        "portfolio": "total $3,847.86 = equity $505.24 + options $959.00 + cash $2,383.62. Settled buying_power $1,982.52 (raw cash OVERSTATES spendable by the $401.10 unsettled -- use buying_power, per _SIZING_NOTE)."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P": "HOLD -- authorized defensive hedge (Aug-Oct drawdown watch), EXEMPT from all premium backstops by standing authorization; bleeding in a melt-up is the expected cost of insurance, not a sell signal. 96 DTE. Next decision is the ~21-DTE roll/close review ~2026-10-30 made WITH Ryan; no unattended run may pre-empt it.",
+        "ACHR 2028-01-21 5C": "NO ACTION EVER available to this run -- placed_agent=user plus manual_hold_override. Ownership gate bars any exit regardless of mark. 523 DTE. Detect-and-notify only, and nothing has fired."
+      },
+      "hunt": "NOT RUN. Market closed -- no live chain to price, no tape to answer 'why NOW', no order placeable. Manufacturing a candidate off Friday's stale closing prints is exactly the invented research the post-close protocol forbids. Sourcing resumes at Monday's open, liquidity-first.",
+      "iv_logging": "SKIPPED -- weekend. iv_history.json takes one row per name per TRADING day; a Sunday row would re-record Friday's close as a new observation and corrupt the percentile series the entry gates depend on.",
+      "duties_already_satisfied": "Heartbeat stamped 2026-08-14T13:33Z for the 2026-08-14 trading day and left alone. daily_options_report.md for 2026-08-14 delivered (19:36Z commit) -- NOT rewritten; nothing MATERIAL has happened since (no fill, no exit, no flag, no trigger), and a duplicate push would only re-notify Ryan with identical content. Friday weekly review finalized in the 21:20Z entry, broker-sourced per get_realized_pnl / get_option_orders.",
+      "structural_state": {
+        "open_agentic_non_hedge_positions": "0 of 3",
+        "agentic_premium_at_risk": "$749 (the hedge only, which is excluded from the max-3 count)",
+        "per_trade_max": "$1,500 (FOUR LAWS #1); no total-sleeve ceiling since the 2026-08-14 sizing amendment",
+        "settled_cash": "$1,982.52 -- FOUR LAWS #4 not binding; rises to ~$2,383.62 once ACGL settles Monday",
+        "realized_options_pnl_2026-08-14": "$0.00 vs the stricter -$200 daily cap",
+        "entries_used_2026-08-14": "0 of 3"
+      },
+      "flags": "None open. No HARD RULE 9 adjudication attempted or needed.",
+      "why_flat": "Market closed. Nothing is placeable and nothing needs managing: the only two open contracts are an insurance hedge exempt by design and a user-placed position the ownership gate forbids touching. The correct output of the 26th identical weekend firing is a few lines saying so.",
+      "notification": "None sent. Nothing changed; a weekend no-op is not worth pulling Ryan's attention to his phone.",
+      "next_run_should": "If it fires before Mon 09:30 ET: same cheap stand-down, and do NOT stamp the heartbeat. The FIRST run at/after Mon 2026-08-17 09:30 ET owns the real work: stamp automation_heartbeat.json for 2026-08-17, rebuild market_brief.json from a live tape (regime off SPY/QQQ/VIX/breadth, catalysts, 3-6 name watchlist), resume IV logging, confirm settled BP stepped to ~$2,383.62, then HUNT sourcing the AFFORDABLE liquid tier first (QQQ/SPY/NVDA/INTC -- not the priced-out AMD/AVGO/TSM/MSFT half of the core list). NVDA remains the standing watch: 2026-09-18 240C ~$545 ask, ~1.85% spread, OI 56k, delta 0.33.",
+      "open_items_for_ryan": "(1) option_level_3 upgrade recommendation still standing -- spreads unavailable at level 2, costing 4-9x in theta carry vs single legs. (2) The Law 1 / Law 2 tension ($1,500 max position vs -$200 daily realized cap) still awaits his ruling; -$200 stands until then. Neither is new information; neither is re-notified.",
+      "summary": "NO TRADE. Weekend no-op; reconciliation clean and identical to the prior post-close runs."
     }
   ],
-  "updated_utc": "2026-08-16T05:19:00Z"
+  "updated_utc": "2026-08-16T11:19:00Z"
 }
