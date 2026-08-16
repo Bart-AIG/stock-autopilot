@@ -6726,6 +6726,36 @@
       "iv_logging": "SKIPPED -- weekend; a Sunday row would duplicate Friday's.",
       "duties": "Friday weekly review COMPLETE (2026-08-14T13:05Z, broker-sourced). Daily report for 2026-08-14 DELIVERED and NOT rewritten -- nothing material since (no fill, no exit, no flag, no trigger); a rewrite would only re-notify Ryan with identical content.",
       "process_note": "Weekend entries have been growing long while saying the same thing eight times. Trimming deliberately: the standing facts live in holdings.json and the 2026-08-14 brief, so a stand-down entry only needs the reconciliation result and the deltas. Next instance: keep weekend no-ops to this length or shorter."
+    },
+    {
+      "run_utc": "2026-08-16T21:19:00Z",
+      "run_type": "weekend_closed_market_noop",
+      "trading_day_et": "2026-08-14 (Friday) \u2014 the last day whose bell rang; Sunday is not a trading day",
+      "run": "Sun 2026-08-16 17:19 ET. Market closed. Post-close/weekend protocol: read what earlier runs of this stretch already covered, do the cheap broker reconciliation, log once, stand down.",
+      "regime": "RISK-ON, EXTENDED, COMPLACENT \u2014 carried from the 2026-08-14 brief; not re-derived (no new prints since Friday's close).",
+      "broker_reconciliation": {
+        "result": "CLEAN \u2014 broker matches ledger exactly, unchanged from every run since Friday's close.",
+        "accounts": "Agentic 718757339, cash, option_level_2 (spreads still UNAVAILABLE \u2014 level-3 recommendation still standing with Ryan, unactioned).",
+        "positions": "SPY 2026-11-20 700P x1 (agentic hedge) + ACHR 2028-01-21 5C x1 (placed_agent=user).",
+        "portfolio": "total $3,847.86 / cash $2,383.62 / options $959 / equity $505.24 / buying power $1,982.52 / unsettled $401.10.",
+        "flags": "none open in holdings.json."
+      },
+      "positions_verdict": {
+        "SPY 700P": "WORKING as designed \u2014 defensive-posture insurance, ~96 DTE, EXEMPT from premium backstops, roll/close decision with Ryan at ~21 DTE (late Oct). No action available or wanted.",
+        "ACHR 5C": "Ryan's LEAP \u2014 manual_hold_override + ownership gate. Not managed, not re-litigated."
+      },
+      "hunt": "None. Market closed \u2014 no entry is placeable, so no candidate was screened and no chain re-polled. Deliberately did NOT re-derive the regime or re-quote names earlier runs already measured.",
+      "duties_already_satisfied": {
+        "heartbeat": "NOT stamped \u2014 correct. Sunday is not a trading day; only a run at/after 09:30 ET Monday may stamp it.",
+        "market_brief": "NOT rebuilt \u2014 correct. Stays stamped with the trading day it describes; Monday's first run rebuilds.",
+        "daily_report": "Not due \u2014 no trading session today. Friday's was delivered.",
+        "friday_review": "Complete \u2014 written 2026-08-14T13:05Z (FRIDAY_WEEKLY_REVIEW), week finalized 2026-08-14T21:20Z. Not redone.",
+        "iv_history": "Not logged \u2014 no live quotes on a closed market; a weekend row would be a stale duplicate of Friday's."
+      },
+      "four_laws_check": "No entry attempted, so no law engaged. Settled-cash note for Monday: $401.10 sits unsettled, so intended premium must be checked against buying power ($1,982.52), not total cash.",
+      "action": "NO TRADE. Nothing changed since the prior run; both positions are gated by rule rather than judgment. This is the correct output for the Nth redundant weekend firing.",
+      "notification": "None sent \u2014 a flat weekend with an unchanged book is exactly the case where silence is the right call for Ryan.",
+      "next_run": "Monday 2026-08-17 first run at/after 09:30 ET: stamp the heartbeat, rebuild market_brief.json, resume the HUNT with the affordable-tier sourcing order (QQQ/SPY/NVDA/INTC first \u2014 liquidity and chain check BEFORE thesis workup)."
     }
   ],
   "updated_utc": "2026-08-16T18:19:00Z"
