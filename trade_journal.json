@@ -6440,6 +6440,32 @@
       "flags": "None open. No HARD RULE 9 adjudication attempted or needed.",
       "decision": "NO TRADE -- market closed. Correct output for the Nth redundant weekend firing is a short logged no-op, which is what this is.",
       "next_run_should": "If it fires before Mon 09:30 ET: same stand-down, do not stamp the heartbeat. The FIRST run at/after Mon 2026-08-17 09:30 ET stamps automation_heartbeat.json for 2026-08-17, rebuilds market_brief.json (regime from SPY/QQQ/VIX/breadth, catalysts, 3-6 name watchlist), resumes IV logging, and may hunt -- sourcing liquidity-first per the affordability tiers (QQQ/SPY/NVDA/INTC are the buyable half of the core list; AMD/AVGO/TSM/MSFT are not at a $1,500 per-trade max)."
+    },
+    {
+      "run_utc": "2026-08-16T10:19:00Z",
+      "run_type": "WEEKEND POST-CLOSE NO-OP (Sun 2026-08-16 06:19 ET). Market shut; next open Mon 2026-08-17 09:30 ET.",
+      "trading_day_et": "2026-08-14 (Friday) -- the last bell that rang. UTC date changes nothing: heartbeat NOT stamped, market_brief NOT rebuilt, loss cap and entry throttle NOT reset.",
+      "run": "25th consecutive weekend firing / 36th post-close run of the 2026-08-14 trading day. POST-CLOSE RUN PROTOCOL: read what earlier runs covered, ran the one check worth repeating (broker reconciliation), logged, stopped. Nothing re-derived, no artifact rolled, no research invented, no stale quotes re-polled.",
+      "regime": "RISK-ON, EXTENDED, COMPLACENT -- carried forward from the 2026-08-14 brief, NOT re-derived. No tape exists on a Sunday.",
+      "broker_reconciliation": {
+        "checked_utc": "2026-08-16T10:19:00Z",
+        "verdict": "CLEAN -- zero drift vs holdings.json; numerically identical to every post-close run since 13:20Z Saturday.",
+        "accounts": "718757339 agentic cash, option_level_2 (spreads still UNAVAILABLE -- single-leg only, never leg one; level-3 recommendation still standing with Ryan, unactioned). unsettled_funds $401.10.",
+        "option_positions": "Exactly the two ledger names: SPY 2026-11-20 700P (agentic, qty 1 @ $749 avg, opened 2026-08-06 -- authorized hedge, EXEMPT from premium backstops) and ACHR 2028-01-21 5C (placed_agent=user, qty 1 @ $247, manual_hold_override -- detect only, never close). All pending_* quantities 0.0000: no weekend assignment, expiration, or unauthorized fill.",
+        "portfolio": "total $3,847.86 | equity $505.24 (AAPL 1.652252sh, matches ledger) | options $959.00 | cash $2,383.62 | settled buying_power $1,982.52.",
+        "equity_drop_tie_out": "equity_value $505.24 vs $903.83 at Friday's open is FULLY EXPLAINED and already reconciled -- the agentic ACGL sale (4.069594sh @ $98.5602, order 6a7f2eb6, 2026-08-14T15:05:26Z), recorded in holdings.json _closed_positions. The $401.10 unsettled is those T+1 proceeds, settling Mon 2026-08-17. NOT a new drift event; not re-litigated.",
+        "flags": "None open. HARD RULE 9 not engaged."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P": "HOLD -- authorized defensive hedge, exempt from all premium backstops by design. Next decision is the ~21-DTE roll/close review ~2026-10-30 WITH Ryan; no unattended run may pre-empt it.",
+        "ACHR 2028-01-21 5C": "HOLD -- Ryan's own position (ownership gate) plus manual_hold_override. No exit condition fired. Detect-only, as every prior run found."
+      },
+      "duties_checked_already_done": "Friday 2026-08-14 EOD report delivered (commit 19:36Z, daily_options_report.md on master) and the Friday weekly review finalized in the 21:20Z entry. Neither is rewritten -- a duplicate push would only re-notify Ryan with identical content.",
+      "hunt": "NOT RUN. No chain is priceable on a Sunday and no order is placeable. Sourcing work deferred to the first Monday run, which will rebuild market_brief.json on live post-open prints.",
+      "iv_logging": "SKIPPED -- weekend. iv_history.json rows must come from live prints; a weekend row would be a stale Friday close mislabelled as a new observation.",
+      "sleeve_state": "Agentic premium-at-risk $749 (hedge only; excluded from the max-3 count) -> 0 of 3 non-hedge slots used. Realized options P&L for the 2026-08-14 trading day: $0, well inside the stricter -$200 daily cap. Settled cash $1,982.52 bounds Monday's deployment; +$401.10 settles Mon making ~$2,383 available.",
+      "action": "NO TRADE. Market closed. Correct output for a redundant weekend firing is a short logged no-op.",
+      "monday_watchpoints": "First run at/after 09:30 ET stamps automation_heartbeat.json for 2026-08-17 and rebuilds market_brief.json on live prints. HUNT sources in order: affordable liquid tier (QQQ/SPY/NVDA/INTC -- NOT the unaffordable AMD/AVGO/TSM/MSFT half of the core list), then the committed equity report, then macro. ACGL proceeds settle Monday."
     }
   ],
   "updated_utc": "2026-08-16T05:19:00Z"
