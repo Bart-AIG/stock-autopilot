@@ -6260,6 +6260,44 @@
       "handoff_to_monday": "(1) LAW 4: $1,982.52 settled BP is correct and already exceeds the $1,500 per-trade max; $401.10 ACGL proceeds settle Mon 2026-08-17. Do not re-derive. (2) NVDA remains THE watch and the only affordable AI-complex vehicle (2026-09-18 240C ~$545 at ask, ~1.85% spread, OI 56k, delta 0.33). Test the WRITTEN trigger as recorded Friday; do not improvise a new one. Hard deadline: no entry after ~2026-08-24 (08-26 pm earnings print). (3) INTC: check the Friday CLOSE against $103.50 (struck outright if below) vs the $106.87 call trigger; levels already computed, do not re-derive. (4) AVGO struck in both directions through 2026-09-02; AMD/TSM/MSFT measured UNAFFORDABLE in any real-delta single leg. Do not re-open these. (5) The FIRST run at/after 09:30 ET Monday stamps the heartbeat and rebuilds market_brief.json -- both are due then, neither earlier.",
       "why_flat": "Market closed. Nothing is placeable and nothing needs managing: the only two open contracts are an insurance hedge that is exempt by design and a user-placed position the ownership gate forbids touching. A no-op logged in a few lines is the correct output for a redundant overnight firing.",
       "summary": "NO TRADE. Weekend no-op; reconciliation clean and byte-identical to the prior post-close runs."
+    },
+    {
+      "run_utc": "2026-08-16T04:19:00Z",
+      "run_type": "WEEKEND POST-CLOSE NO-OP (Sun 2026-08-16 00:19 ET / Sat 23:19 CT). Market shut; next open Mon 2026-08-17 09:30 ET.",
+      "trading_day_et": "2026-08-14 (Friday) -- the last bell that rang. UTC date 2026-08-16 changes nothing: heartbeat NOT stamped, market_brief NOT rebuilt, loss cap and entry throttle NOT reset.",
+      "run": "19th consecutive weekend firing / 30th post-close run of the 2026-08-14 trading day. POST-CLOSE RUN PROTOCOL followed: read what earlier runs covered, ran the one check worth repeating (broker reconciliation), logged, stopped. No research invented, no stale quotes re-polled, no regime re-derived, no daily artifact rolled.",
+      "regime": "RISK-ON, EXTENDED, COMPLACENT -- carried forward from the 2026-08-14 brief, NOT re-derived. No tape exists on a Saturday night.",
+      "broker_reconciliation": {
+        "checked_utc": "2026-08-16T04:19:00Z",
+        "verdict": "CLEAN -- zero drift vs holdings.json; identical to every post-close run since 13:20Z Friday.",
+        "accounts": "718757339 agentic cash, option_level_2 (still NOT level_3 -- debit spreads remain UNAVAILABLE; never leg one). unsettled_funds $401.10.",
+        "option_positions": "Exactly the two ledger names: SPY 2026-11-20 700P (qty 1, avg $749.00, agentic hedge, opened 2026-08-06) and ACHR 2028-01-21 5C (qty 1, avg $247.00, placed_agent=user, manual_hold_override, opened 2026-07-20). All pending_* fields 0.0000 -- no overnight assignment, expiration, or unauthorized fill.",
+        "portfolio": "total $3,847.86 | equity $505.24 | options $959.00 | cash $2,383.62 | buying_power $1,982.52 (unsettled $401.10 = ACGL T+1 proceeds, settle Monday)."
+      },
+      "positions_verdict": [
+        {
+          "position": "SPY 2026-11-20 700P",
+          "owner": "agentic",
+          "verdict": "HOLD -- authorized defensive hedge, EXEMPT from all premium backstops per the ownership gate. 96 DTE; its ~21-DTE roll/close decision (late Oct) is made WITH Ryan, not autonomously. No action available or appropriate on a weekend."
+        },
+        {
+          "position": "ACHR 2028-01-21 5C",
+          "owner": "user (placed_agent=user)",
+          "verdict": "HOLD -- Ryan's own trade with a manual_hold_override on file. The automation may detect but NEVER close, trim, or roll it without his explicit go-ahead. No exit condition to detect with the market shut."
+        }
+      ],
+      "structural_state": {
+        "open_agentic_non_hedge_positions": "0 of 3",
+        "agentic_premium_at_risk": "$749 (the hedge only)",
+        "per_trade_max": "$1,500 (FOUR LAWS #1); no total-sleeve ceiling since the 2026-08-14 sizing amendment",
+        "settled_cash": "$1,982.52 -- FOUR LAWS #4 not binding",
+        "realized_options_pnl_trading_day_2026-08-14": "$0.00; daily loss cap (-$200, the stricter of the two) untouched",
+        "entries_today": "0 of 3 (throttle does NOT reset on a weekend UTC rollover)"
+      },
+      "hunt": "NOT PERFORMED -- correct. No entry is placeable with the market closed, and screening candidates off Friday's stale closing prints would produce a thesis that Monday's open invalidates before it could be acted on. The next genuine hunt is the Monday 2026-08-17 pre-open/post-open sequence.",
+      "flat_reason": "Market closed (weekend). Being flat is a position; there is nothing to decide until Monday's open.",
+      "monday_watchpoints": "First run at/after 09:30 ET Mon 2026-08-17 stamps automation_heartbeat.json and rebuilds market_brief.json (both currently stamped 2026-08-14 -- correct, do not pre-stamp). ACGL's $401.10 settles T+1 Monday, lifting settled cash toward ~$2,384. Hunt sourcing order stands: affordable liquid tier FIRST (QQQ / SPY / NVDA / INTC -- AMD, AVGO, TSM, MSFT remain priced out of a real-delta single leg at option_level_2), then the committed equity report, then macro/catalyst.",
+      "open_items_for_ryan": "(1) option_level_3 upgrade recommendation still standing -- spreads unavailable at level 2, costing 4-9x in theta carry vs single legs. (2) The Law 1 / Law 2 tension ($1,500 max position vs -$200 daily realized cap) still awaits his ruling; -$200 stands until then. Neither is new information and neither is re-notified this run (HARD RULE 9 notify-once discipline)."
     }
   ],
   "updated_utc": "2026-08-15T19:19:00Z"
