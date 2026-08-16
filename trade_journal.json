@@ -6561,7 +6561,30 @@
    "four_laws_check": "None engaged -- no entry attempted. For Monday: settled cash $1,982.52 today, ~$2,383.62 once the $401.10 ACGL proceeds settle; 0 of 3 non-hedge position slots used; realized options P&L for the 2026-08-14 trading day $0, so the daily loss cap is not binding and resets on Monday's bell regardless.",
    "action": "NO TRADE. Correct and unremarkable: the market is closed.",
    "next_run_note": "Monday 2026-08-17 first post-open run (at/after 09:30 ET / 13:30Z) is the one that legitimately stamps automation_heartbeat.json and rebuilds market_brief.json. Watch the $401.10 ACGL settlement land -- verify at the broker, do not assume."
+  },
+  {
+   "run_utc": "2026-08-16T14:19:00Z",
+   "run_type": "WEEKEND POST-CLOSE NO-OP (Sun 2026-08-16 10:19 ET). Market shut; next open Mon 2026-08-17 09:30 ET.",
+   "trading_day_et": "2026-08-14 (Friday) -- the last bell that rang. UTC date changes nothing: heartbeat NOT stamped, market_brief NOT rebuilt, loss cap and entry throttle NOT reset.",
+   "run": "29th consecutive weekend firing / 40th post-close run of the 2026-08-14 trading day. POST-CLOSE RUN PROTOCOL applied: read what earlier runs covered, ran the one check worth repeating (broker reconciliation), logged, stopped.",
+   "regime": "RISK-ON, EXTENDED, COMPLACENT -- carried forward from the 2026-08-14 brief, NOT re-derived. No tape exists on a Sunday.",
+   "reconciliation": {
+    "checked_utc": "2026-08-16T14:19:00Z",
+    "result": "CLEAN -- zero drift vs holdings.json across BOTH books (options and equity).",
+    "accounts": "718757339 agentic cash, option_level_2 -- spreads remain UNAVAILABLE (single-leg only; never leg one). Level-3 recommendation still standing with Ryan, unactioned.",
+    "option_positions": "Exactly two, both expected and both structurally no-action: SPY 2026-11-20 700P (1 ct, avg $749.00, opened 2026-08-06, placed_agent=agentic -- authorized defensive hedge, EXEMPT from premium backstops, held to its ~21-DTE roll/close decision WITH Ryan) and ACHR 2028-01-21 5C (1 ct, avg $247.00, placed_agent=user + manual_hold_override -- ownership gate forbids any autonomous exit). All pending_* quantities 0.0000; no assignment, exercise or expiration overnight.",
+    "equity_positions": "AAPL 1.652252 sh @ $302.89 avg -- the ledger's only equity line, exact match. No unauthorized equity activity.",
+    "portfolio": "Total $3,847.86 = equity $505.24 + options $959.00 + cash $2,383.62. Settled buying power $1,982.52; unsettled_funds $401.10.",
+    "unsettled_funds_verified": "This run treated the $401.10 unsettled balance as a potential drift signal and chased it down rather than inheriting the prior runs' 'clean' verdict, because Friday's 13:33Z heartbeat recorded unsettled_funds $0.00 and equity_value $903.83 against today's $401.10 / $505.24. FULLY EXPLAINED, no anomaly: it is the ACGL swing exit of 2026-08-14T15:05:26Z (order 6a7f2eb6, 4.069594 sh @ $98.5602, proceeds $401.10, realized +$1.10 / +0.27%), already recorded in holdings.json _closed_positions with its complete order record and a real Ryan 'Approve' turn in an interactive session. Equity delta $903.83 -> $505.24 is exactly that sale; cash delta $1,982.52 -> $2,383.62 is exactly those proceeds; buying power correctly still excludes them. T+1 across the weekend means the $401.10 settles Mon 2026-08-17, lifting Monday's settled buying power to ~$2,383.62. Logged in this detail so no future run re-opens the same question -- HARD RULE 6 (no autonomous equities) was NOT breached."
+   },
+   "positions_managed": "None actionable. Both option positions are gated by structure, not by analysis: the SPY hedge by its insurance exemption, ACHR by the placed_agent='user' ownership gate plus Ryan's manual_hold_override. Neither gate can be opened by an unattended run, and no quote polled on a closed market could change that.",
+   "candidates_graded": "None. Grading a candidate on a Sunday would price it off Friday's stale close and commit the desk to a thesis it could not act on until Monday's open, by which point the tape that justified it no longer exists. The HUNT phase is deliberately skipped, not failed.",
+   "iv_history": "Not updated. The IV method logs one row per DAY from live ATM quotes; a weekend row would either duplicate Friday's or record a stale mark as if it were new information. Next rows land Monday.",
+   "flags_open": "None. No _flag fields in holdings.json.",
+   "action": "NO TRADE -- market closed.",
+   "why_flat": "The market is shut. There is no decision available on a Sunday and manufacturing one would be exactly the process failure this desk flags. The only work worth doing was the reconciliation, and this run earned its cost there: it refused to inherit a prior run's 'clean' verdict on a balance that had visibly changed since Friday's heartbeat, chased the $401.10 to its source order, and confirmed it as an approved, already-ledgered equity exit rather than drift. Stand down.",
+   "notification": "None sent. Nothing new to tell Ryan -- a reconciliation that confirms the expected state is not news, and the weekend firings are a trigger-config artifact, not an event."
   }
  ],
- "updated_utc": "2026-08-16T11:19:00Z"
+ "updated_utc": "2026-08-16T14:19:00Z"
 }
