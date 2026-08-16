@@ -6191,6 +6191,27 @@
       "open_flags": "NONE. No _flag or UNAUTHORIZED marker anywhere in holdings.json. HARD RULE 9 not engaged.",
       "notification_decision": "NOT SENT. Nothing changed, nothing needs Ryan, no duty missed, no flag open. A push notification saying 'reconciliation still clean for the 15th time' spends his attention to tell him nothing -- silence is the correct output of an empty run.",
       "handoff_to_monday": "First run at/after 09:30 ET Mon 2026-08-17: (1) stamp automation_heartbeat.json -- it is still dated 2026-08-14 and only a post-open run may stamp it; (2) rebuild market_brief.json fresh, do not carry Friday's regime label forward once a live tape exists; (3) verify settled BP actually reads ~$2,383.62 at the broker rather than assuming the T+1 arithmetic; (4) hunt the AFFORDABLE liquid tier FIRST (QQQ/SPY/NVDA/INTC), not the $2,280-$3,308 AMD/AVGO strikes that produced four dead write-ups last week. Standing recommendation to Ryan unchanged and unrepeated: apply for option_level_3 so debit spreads become available."
+    },
+    {
+      "run_utc": "2026-08-16T01:19:00Z",
+      "run_type": "WEEKEND POST-CLOSE NO-OP (Sat 2026-08-15 21:19 ET). Market shut; next open Mon 2026-08-17 09:30 ET.",
+      "trading_day_et": "2026-08-14 (Friday) -- the last bell that rang. UTC date is 2026-08-16 but per the CLAUDE.md UTC rule that changes nothing: heartbeat NOT stamped, market_brief NOT rebuilt, loss cap and entry throttle NOT reset.",
+      "run": "16th consecutive weekend firing / 27th post-close run of the 2026-08-14 trading day. POST-CLOSE RUN PROTOCOL: read what earlier runs covered, run the one check worth repeating (broker reconciliation), log briefly, stop. No research task invented; no stale quotes re-polled; regime not re-derived.",
+      "regime": "RISK-ON, EXTENDED, COMPLACENT -- carried forward from the 2026-08-14 brief, NOT re-derived. No tape exists on a Saturday night.",
+      "broker_reconciliation": {
+        "checked_utc": "2026-08-16T01:19:00Z",
+        "result": "CLEAN -- zero drift, identical to every prior weekend run (13:20Z Fri through 00:19Z Sun).",
+        "accounts": "718757339 agentic cash, option_level_2 (still NOT level_3 -- debit spreads remain UNAVAILABLE; never leg one). unsettled_funds $401.10.",
+        "portfolio": "total $3,847.86 | equity $505.24 | options $959.00 | cash $2,383.62 | settled buying_power $1,982.52.",
+        "option_positions": "Exactly the two ledger names: SPY 2026-11-20 700P (qty 1, avg $749.00, agentic authorized hedge, insurance-exempt from premium backstops, ~21-DTE review ~2026-10-30 WITH Ryan) and ACHR 2028-01-21 5C (qty 1, avg $247.00, placed_agent=user, manual_hold_override -- NO ACTION EVER). All pending_* fields 0.0000: no overnight assignment, expiration, or unauthorized fill.",
+        "unsettled_funds_tie_out": "The $401.10 unsettled reconciles EXACTLY to holdings.json _closed_positions ACGL (swing, closed 2026-08-14T15:05:26Z, 4.069594sh @ $98.5602, proceeds $401.10, realized +$1.10 / +0.27%, Ryan-approved mechanical RSI(2) exit). T+1 settles Mon 2026-08-17. Not a surprise fill; cause established by the 13:20Z run and independently tied out here against the ledger.",
+        "flags": "None open (only _resolved_flags). Nothing for this unattended run to adjudicate -- HARD RULE 9 unchanged."
+      },
+      "positions_managed": "None actionable. Both open contracts are structurally exit-gated (hedge exemption / ownership gate + manual_hold_override) and the market is closed, so no exit was placeable or warranted regardless.",
+      "candidates_graded": "None. HUNT skipped deliberately: a weekend firing has no live chain, no spreads to measure, and no 'why NOW' available. Screening dead quotes would manufacture work and risk anchoring Monday's run to Friday's marks.",
+      "why_flat": "Market closed. No entry or exit is placeable on a Saturday night. Being flat of new risk into the weekend is the correct position, not a missed opportunity.",
+      "four_laws_check": "1) no new position, n/a. 2) realized options P&L for the 2026-08-14 trading day $0 -- cap not touched. 3) no adds to any losing position. 4) settled cash $1,982.52 exceeds the $1,500 per-trade max, so Law 4 is not binding for Monday's first run.",
+      "monday_watchpoints": "First run at/after 09:30 ET 2026-08-17 owns three duties the weekend runs correctly did NOT do: stamp automation_heartbeat.json for the new trading day, rebuild market_brief.json off live prints (do not inherit Friday's), and reset the entry throttle / loss cap. ACGL's $401.10 settles that day, lifting settled cash to ~$2,383.62. Sourcing order stands: affordable liquid tier FIRST (QQQ, SPY, NVDA, INTC -- AMD/AVGO/TSM/MSFT priced out of a real-delta single leg at the $1,500 cap), then the committed equity report, then macro."
     }
   ],
   "updated_utc": "2026-08-15T19:19:00Z"
