@@ -6372,6 +6372,29 @@
       },
       "why_flat": "Market closed. Being flat of new risk into the weekend is a position, not a missed opportunity. The correct output of the 21st identical weekend firing is a few lines saying so.",
       "next_run_should": "If still pre-open Monday, repeat this cheap reconciliation and stop. The first run at/after 09:30 ET Monday owns the real work: stamp automation_heartbeat.json, rebuild market_brief.json for the 2026-08-17 trading day, confirm the $401.10 ACGL proceeds settled (buying power should step to ~$2,383.62), then HUNT liquidity-first."
+    },
+    {
+      "run_utc": "2026-08-16T07:19:00Z",
+      "run_type": "WEEKEND POST-CLOSE NO-OP (Sun 2026-08-16 03:19 ET). Market shut; next open Mon 2026-08-17 09:30 ET.",
+      "trading_day_et": "2026-08-14 (Friday) -- the last bell that rang. UTC date 2026-08-16 changes nothing: heartbeat NOT stamped, market_brief NOT rebuilt, loss cap and entry throttle NOT reset.",
+      "run": "22nd consecutive weekend firing / 33rd post-close run of the 2026-08-14 trading day. POST-CLOSE RUN PROTOCOL followed: read what earlier runs covered, ran the one check worth repeating (broker reconciliation), logged, stopped. Nothing re-derived, no artifact rolled, no research invented.",
+      "regime": "RISK-ON, EXTENDED, COMPLACENT -- carried forward from the 2026-08-14 brief, NOT re-derived. No tape exists on a Sunday.",
+      "broker_reconciliation": {
+        "checked_utc": "2026-08-16T07:19:00Z",
+        "verdict": "CLEAN -- zero drift vs holdings.json; numerically identical to every post-close run since 13:20Z Saturday.",
+        "accounts": "718757339 agentic cash, option_level_2 (still NOT level_3 -- debit spreads remain UNAVAILABLE; never leg one). unsettled_funds $401.10 = ACGL T+1 proceeds, settle Mon 2026-08-17.",
+        "option_positions": "Exactly the two ledger names: SPY 2026-11-20 700P (qty 1, avg $749.00, agentic hedge, opened 2026-08-06) and ACHR 2028-01-21 5C (qty 1, avg $247.00, placed_agent=user, manual_hold_override, opened 2026-07-20). All pending_* fields 0.0000 -- no assignment, expiration, or unauthorized fill.",
+        "portfolio": "total $3,847.86 | equity $505.24 (AAPL 1.652252sh, matches ledger) | options $959.00 | cash $2,383.62 | settled buying_power $1,982.52.",
+        "flags": "None open. Nothing to adjudicate; HARD RULE 9 not engaged."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P": "HOLD -- authorized defensive hedge, EXEMPT from all premium backstops. Next decision is the ~21-DTE roll/close review ~2026-10-30 WITH Ryan; no unattended run may pre-empt it.",
+        "ACHR 2028-01-21 5C": "NO ACTION EVER -- placed_agent=user + manual_hold_override. Structural, not analytic."
+      },
+      "hunt": "NONE. Market closed -- no entry is placeable and no live chain exists to screen. 0 of 3 non-hedge slots used; 0 of 3 entries used on the 2026-08-14 trading day; realized options P&L that day $0.00 vs the -$200 cap.",
+      "duties_already_satisfied": "Friday weekly review completed by the 13:05Z run of 2026-08-14 and finalized at 21:20Z (broker-sourced per the get_realized_pnl rule). daily_options_report.md for 2026-08-14 delivered at 19:30Z/19:36Z commit -- NOT rewritten here, nothing material has happened since. Heartbeat correctly stamped 2026-08-14T13:33Z by that day's first post-open run.",
+      "reason_flat": "Sunday 03:19 ET. Nothing is tradeable, nothing has changed, and every useful post-close task for this trading day was completed 21 firings ago. The correct output is a few lines saying so.",
+      "handoff_to_first_monday_run": "Mon 2026-08-17: you are the first run of a NEW trading day. (1) At/after 09:30 ET stamp automation_heartbeat.json for 2026-08-17 -- never before the open. (2) Rebuild market_brief.json from a live tape. (3) Verify settled buying_power has risen to ~$2,383.62 as the $401.10 ACGL proceeds settle; use buying_power, never cash, for FOUR LAWS #4. (4) Loss cap and the 3-entry throttle reset fresh. (5) Standing constraint unchanged: option_level_2 means single-leg only -- the affordable liquid tier at ~0.35 delta / 30-45 DTE is QQQ, SPY, NVDA, INTC; AMD/AVGO/TSM/MSFT are priced out of a $1,500 per-trade max."
     }
   ],
   "updated_utc": "2026-08-16T05:19:00Z"
