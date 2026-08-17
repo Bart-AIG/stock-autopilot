@@ -329,13 +329,13 @@
     },
     {
       "date": "2026-08-17",
-      "spot": 492.16,
-      "atm_iv": 0.2574,
+      "spot": 484.85,
+      "atm_iv": 0.2594,
       "dte_used": 32,
       "rv_30d": 0.4916,
-      "iv_rv_ratio": 0.52,
-      "strike_used": 490,
-      "_note": "LIVE regular-hours quotes 13:33-13:34Z (updated_at freshness verified before writing). ATM = avg of the 2026-09-18 490 call (0.2525) / put (0.262335) IV. EXPIRY SWITCHED to 2026-09-18 = 32 DTE this run: from 2026-08-17 the 2026-09-11 board is 25 DTE and 2026-09-18 is 32, so |32-30|=2 beats |25-30|=5 and 09-18 is now the nearest-30 board per spec (prior rows correctly used 09-11 when it was the nearer one). rv_30d = annualized stdev of 30 daily log returns from Robinhood regular-hours historicals through the 2026-08-14 close. 5 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited."
+      "iv_rv_ratio": 0.53,
+      "strike_used": 485,
+      "_note": "OVERWRITES this run (14:03Z) the row written at 13:33Z, per the spec's overwrite-today rule. Two reasons it is a better reading, not merely a fresher one. (1) SETTLED MARKET: the 13:33Z row was taken in minutes 3-4 of the session and the brief itself flagged its spreads as UPPER BOUNDS pending a re-quote. Re-quoted 33 min into the session, the 2026-09-18 485 call is 14.95x15.40 = 2.97% of mid and the 485 put 14.45x14.85 = 2.73% -- versus the 4.6% logged at the open. The caveat was CORRECT: MSFT's chain tightened ~40% and is comfortably inside the <10%-of-mid preference. (2) ATM STRIKE MOVED: spot fell 492.16 -> 484.85, so the true ATM strike is now 485, not 490. ATM IV = avg of the 485 call (0.253096) / put (0.265762) = 0.2594. rv_30d UNCHANGED at 0.4916 -- same 30-session window through the 2026-08-14 close; no new session has settled, so re-deriving it would be false precision. Ratio 0.53, i.e. the 0.52 read holds at the settled market and is not an opening artifact -- MSFT is genuinely the cheapest relative vol on the core list for a sixth straight reading. STANDING CAVEAT, unchanged and important: that rv_30d is inflated by MSFT's own earnings gap and by the violent 377->513 recovery leg, so 'cheap' overstates the edge. 6 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited. AFFORDABILITY, measured: the ATM 485C mids $15.175 = $1,517.50/contract, which EXCEEDS the FOUR LAWS #1 $1,500 per-trade max outright; the 485P at $14.65 = $1,465 fits. A ~0.35-delta strike would sit further OTM and cost less, so CLAUDE.md's affordability tier calling MSFT 'UNAFFORDABLE in any real-delta single leg' is measurably too strong -- but this run did NOT price a 0.35-delta strike, because there is no thesis to build on and proving a vehicle is cheap supplies no setup whatsoever. Recorded as a measurement, deliberately not as a trade idea."
     }
   ],
   "TSLA": [
