@@ -6804,7 +6804,35 @@
    "why_flat": "NO TRADE. Market closed. Being flat on a Sunday is not a decision; it is the only available state. Reconciliation is clean and unchanged, both open positions are gated by rule rather than by judgment, and no duty is outstanding.",
    "duties_status": "Heartbeat: correctly NOT stamped (Sunday). Brief: correctly NOT rebuilt. Daily report: not due (was written for the 2026-08-14 trading day; the next one is due on the first Mon 2026-08-17 run at/after 14:25 CT). Loss cap / entry throttle: untouched, they reset on Monday's trading day.",
    "next_instance": "Monday 2026-08-17. The first run at/after 09:30 ET owns four things: stamp automation_heartbeat.json, rebuild market_brief.json off a live tape, reset the daily loss cap and entry throttle, and re-reconcile (watch for the $401.10 settling into buying power, which would take settled BP to ~$2,383.62). Then HUNT normally - source liquidity-first per the affordability tiers (QQQ/SPY/NVDA/INTC are the buyable half of the core list; AMD/AVGO/TSM/MSFT are not at a $1,500 per-trade max on a level-2 account)."
+  },
+  {
+   "run_utc": "2026-08-17T00:23:00Z",
+   "run_type": "weekend_closed_market_noop",
+   "trading_day_et": "2026-08-14 (Friday) - still the last bell that rang. Sun 2026-08-16 20:23 ET; the UTC date has rolled to 2026-08-17 but that does NOT start a trading day. Heartbeat NOT stamped (correctly still 2026-08-14), market_brief NOT rebuilt, daily loss cap and 3-entry throttle NOT reset. The first run at/after Mon 2026-08-17 09:30 ET does all four.",
+   "run": "Eleventh stand-down run of this weekend, 63 min after the 23:20Z run. POST-CLOSE RUN PROTOCOL applied in full: read what the earlier runs of this stretch covered, ran the one check always worth repeating (broker reconciliation), logged once, stopped. No artifact rolled, no weekend quote polled, no regime re-derived, no research invented.",
+   "regime": "RISK-ON, EXTENDED, COMPLACENT - carried from the 2026-08-14 brief, not re-derived. There is no Sunday tape.",
+   "broker_reconciliation": {
+    "checked_utc": "2026-08-17T00:23:00Z",
+    "result": "CLEAN - broker matches holdings.json exactly. Zero position drift, no flags open.",
+    "accounts": "Agentic 718757339, cash, option_level_2. Debit spreads remain UNAVAILABLE; the level-3 recommendation stands with Ryan, unactioned. No run may act as though the upgrade exists until get_accounts actually returns option_level_3.",
+    "options": "SPY 2026-11-20 700P x1 @ $749 (agentic, authorized hedge - premium-backstop EXEMPT, ~21-DTE roll/close decision WITH Ryan in late Oct, not due; 95 DTE) + ACHR 2028-01-21 5C x1 @ $247 (placed_agent=user, manual_hold_override - detect-and-notify only, never auto-close). All pending_* 0.0000, so no overnight assignment/exercise/expiration is in flight.",
+    "equities": "AAPL 1.652252sh - matches the ledger.",
+    "portfolio": "total $3,847.40 (equity $504.78 / options $959.00 / cash $2,383.62). Settled buying power $1,982.52; unsettled $401.10 (ACGL proceeds, settle Mon 2026-08-17).",
+    "delta_vs_prior_run": "Total value $3,847.40 vs $3,847.86 at 23:20Z: a $0.46 re-mark on the AAPL fraction ($504.78 vs $505.24). Options marks, cash, BP and unsettled all identical. Immaterial closed-market bookkeeping, not a signal.",
+    "flags": "None open in holdings.json."
+   },
+   "positions_verdict": {
+    "SPY 2026-11-20 700P": "WORKING as designed - defensive-posture insurance under the Aug-Oct drawdown watch. Backstop-exempt by standing authorization; the only scheduled decision is the ~21-DTE roll/close WITH Ryan, which is not due. No action available on a closed market and none wanted.",
+    "ACHR 2028-01-21 5C": "OWNERSHIP-GATED - Ryan placed it and it carries a manual_hold_override. Not the desk's to judge, close, trim or roll. Detect-and-notify only; nothing fired."
+   },
+   "hunt": "NOT RUN. Market closed - no entry is placeable, so no candidate was screened, no chain polled, no thesis workup started. Screening on stale Friday marks would produce a grade nobody can act on and would burn run budget for nothing.",
+   "entries_today": 0,
+   "realized_pnl_today_usd": 0.0,
+   "four_laws_check": "Not engaged - no order contemplated. For the record at Monday's open: settled cash $1,982.52 bounds any entry (Law 4); the $401.10 ACGL residual settles Mon 2026-08-17 and is NOT spendable before then; 0 of 3 non-hedge position slots are in use; daily loss cap resets at Monday's open, not at this UTC rollover.",
+   "why_flat": "Sunday night. The market is shut. Being flat is the correct position and required no decision.",
+   "monday_open_duties": "First run at/after 2026-08-17 09:30 ET must: (1) stamp automation_heartbeat.json for 2026-08-17, (2) rebuild market_brief.json off live prints, (3) reset the daily loss cap and the 3-entry throttle, (4) re-verify that the $401.10 ACGL residual has actually settled before counting it as buying power.",
+   "process_note": "Nothing new to fix. The prior ten weekend runs already recorded the state and the Monday duty list; this run adds only a fresh timestamped reconciliation, which is the one thing that could have changed and did not."
   }
  ],
- "updated_utc": "2026-08-16T22:26:00Z"
+ "updated_utc": "2026-08-17T00:23:00Z"
 }
