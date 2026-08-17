@@ -6860,6 +6860,34 @@
    "four_laws_check": "No order contemplated, so none engaged. Recorded for the record: (1) no new premium; (2) realized $0 vs the -$200 cap; (3) no add to a loser; (4) settled cash $1,982.52 untouched.",
    "duties_outstanding": "None. Heartbeat correctly unstamped for Monday. daily_options_report.md for Friday 2026-08-14 was written and delivered by that day's 14:25 CT run - a weekend run must not rewrite it (duplicate master pushes re-notify Ryan for nothing).",
    "why_flat": "Sunday night. The market is shut. Being flat required no decision and is the only available state."
+  },
+  {
+   "run_utc": "2026-08-17T02:19:00Z",
+   "run_type": "weekend_closed_market_noop",
+   "trading_day_et": "2026-08-14 (Friday) - still the last bell that rang. Sun 2026-08-16 22:19 ET. UTC date 2026-08-17 does NOT start a trading day: heartbeat NOT stamped (correctly still 2026-08-14), brief NOT rebuilt, loss cap and entry throttle NOT reset. The first run at/after Mon 2026-08-17 09:30 ET does all four.",
+   "run": "Thirteenth stand-down run of this weekend, 60 min after the 01:19Z run. POST-CLOSE RUN PROTOCOL: read what earlier runs of this stretch covered, ran the one check always worth repeating (broker reconciliation), logged once, stopped. Kept short by design - the prior twelve entries carry the detail.",
+   "regime": "RISK-ON, EXTENDED, COMPLACENT - carried from the 2026-08-14 brief, not re-derived. No Sunday tape.",
+   "broker_reconciliation": {
+    "checked_utc": "2026-08-17T02:19:00Z",
+    "result": "CLEAN - broker matches holdings.json exactly. No drift, no flags, no pending_* activity.",
+    "options": "SPY 2026-11-20 700P x1 @ $749 (agentic hedge, backstop-EXEMPT, ~21-DTE roll/close WITH Ryan - not due, 95 DTE) + ACHR 2028-01-21 5C x1 @ $247 (placed_agent=user, manual_hold_override - detect-and-notify only). All pending_* 0.0000.",
+    "equities": "AAPL 1.652252sh @ $302.89 avg, all sellable, zero holds - matches the ledger's single swing position.",
+    "portfolio": "total $3,847.35 (equity $504.73 / options $959.00 / cash $2,383.62). Settled BP $1,982.52; unsettled $401.10 (Friday's ACGL proceeds, settle Mon 2026-08-17).",
+    "delta_vs_prior_run": "+$0.28 total on an AAPL re-mark ($504.73 vs $504.45 at 01:19Z). Options marks $959.00, cash, BP and unsettled all byte-identical. Closed-market bookkeeping, not a signal.",
+    "heartbeat_baseline_note": "The Friday 13:33Z heartbeat still reads equity $903.83 / cash $1,982.52 / unsettled $0.00 and does NOT match the broker. This is EXPECTED and was closed by the 22:26Z run: the heartbeat is a start-of-day snapshot taken before Friday's 15:05Z Ryan-approved ACGL exit (4.069594sh @ $98.5602 = $401.10, already in _closed_positions; arithmetic exact). Reconcile against holdings.json, never against the heartbeat. This instance re-noticed the gap, found the standing answer, and did NOT re-open it - logging that so the next instance can skip the same detour."
+   },
+   "positions_verdict": {
+    "SPY 2026-11-20 700P": "WORKING - defensive-posture insurance under the Aug-Oct drawdown watch. Standing authorization exempts it from premium backstops; roll/close decision is WITH Ryan at ~21 DTE, not due.",
+    "ACHR 2028-01-21 5C": "OWNERSHIP-GATED - placed_agent=user. No exit condition fired; detect-and-notify only, nothing to notify."
+   },
+   "hunt": "NOT RUN - market closed. No order is placeable, and no live chain exists to screen liquidity against, which is the first gate. 0 of 3 non-hedge slots used. Monday's first post-open run rebuilds the brief and hunts on live prints.",
+   "iv_logged": false,
+   "iv_note": "No row written - a weekend mark would enter the ATM-IV series as a stale duplicate of Friday's close and corrupt the percentile base.",
+   "entries_today": 0,
+   "realized_pnl_today": 0,
+   "four_laws_check": "No order contemplated, so none engaged. Recorded for the record: per-trade max $1,500 unused; daily realized loss $0 vs the stricter -$200 cap; no add to a loser; settled cash $1,982.52 with $401.10 still unsettled until Mon.",
+   "hard_rule_9": "No flags open, none created, none cleared. This is an unattended run and can never supply a Ryan approval.",
+   "next_instance": "Monday 2026-08-17 first run at/after 09:30 ET owns four things: stamp automation_heartbeat.json for 2026-08-17, rebuild market_brief.json on live prints, reset the daily loss cap and the 3-entry throttle, and run the HUNT with liquidity screened first (affordable tier: QQQ/SPY/NVDA/INTC). ACGL's $401.10 settles that morning, lifting settled BP toward ~$2,383."
   }
  ],
  "updated_utc": "2026-08-17T00:23:00Z"
