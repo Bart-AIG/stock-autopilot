@@ -39,13 +39,13 @@
     },
     {
       "date": "2026-08-17",
-      "spot": 776.48,
-      "atm_iv": 0.1284,
+      "spot": 773.6,
+      "atm_iv": 0.1295,
       "dte_used": 32,
       "rv_30d": 0.1247,
-      "iv_rv_ratio": 1.03,
-      "strike_used": 776,
-      "_note": "LIVE regular-hours quotes 13:33-13:34Z (updated_at freshness verified before writing). ATM = avg of the 2026-09-18 776 call (0.124201) / put (0.132695) IV. EXPIRY SWITCHED to 2026-09-18 = 32 DTE this run: from 2026-08-17 the 2026-09-11 board is 25 DTE and 2026-09-18 is 32, so |32-30|=2 beats |25-30|=5 and 09-18 is now the nearest-30 board per spec (prior rows correctly used 09-11 when it was the nearer one). rv_30d = annualized stdev of 30 daily log returns from Robinhood regular-hours historicals through the 2026-08-14 close. 5 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited."
+      "iv_rv_ratio": 1.04,
+      "strike_used": 774,
+      "_note": "OVERWRITES the 13:33Z row per the overwrite-today rule, and it is a BETTER reading than the one it replaces. Two reasons. (1) STRIKE DRIFT: the 13:33Z row used strike 776 against spot 776.48; spot is now 773.60, so |773.60-774|=0.40 beats |773.60-776|=2.40 and 774 is the nearest listed strike. The IV method says ATM strike, and 776 no longer is one. (2) TIMING: the brief itself flags that the opening reading was taken in minutes 1-4 of the session, 'the worst window' -- this row is a midday 17:32Z print off penny-wide markets (774C 12.63x12.70, 774P 11.14x11.19). MEASURED: 2026-09-18 774C IV 12.5393% / 774P IV 13.3589% -> ATM avg 12.9491%. rv_30d UNCHANGED at 12.47% (same 30-session window of completed daily bars; today's bar is not complete, so re-deriving it would be false precision). IV/RV 1.04 vs 1.03 this morning. WHAT IT MEANS, and it is the one non-obvious fact this run contributes: SPY fell from 776.48 to 773.60 (-0.37%) across four hours and 32-DTE ATM IV rose 0.11 vol points. Index vol did NOT bid on the fade. That is direct, self-computed evidence for the brief's 'COMPLACENT' label rather than an impression of it -- a tape that was genuinely worried would have paid up for September protection on a broadening midday decline. n=5 readings, still <20, so IV/RV only -- no percentile may be cited for SPY."
     }
   ],
   "QQQ": [
