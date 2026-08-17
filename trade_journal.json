@@ -6954,6 +6954,44 @@
    "candidates_considered": "NONE - deliberately. Markets closed; any quote polled now is a stale Friday print, and grading a setup off it would manufacture a decision the Monday tape has not yet justified. The 2026-08-14 brief's watchlist triggers are re-tested by the first post-open run against a live tape, not carried forward as if still armed.",
    "action": "NO TRADE. No artifact rolled, no weekend quote polled, no regime re-derived, no research invented.",
    "next_run_note": "The first run at/after Mon 2026-08-17 09:30 ET (13:30Z) owns the trading-day opening duties: stamp automation_heartbeat.json for 2026-08-17, rebuild market_brief.json (macro calendar, regime from a LIVE SPY/QQQ/VIX/breadth read, catalysts for the next 5 sessions, 3-6 name watchlist with confirming + killing levels), log core-list IV rows to iv_history.json, then MANAGE before HUNT. Sourcing order stands: affordable liquid chains first (QQQ/SPY/NVDA/INTC - NOT AMD/AVGO/TSM/MSFT, priced out at the $1,500 per-trade max), then the committed equity report, then macro. EOD duty: first run at/after 14:25 CT writes daily_options_report.md."
+  },
+  {
+   "run_utc": "2026-08-17T07:05:00Z",
+   "run_context": "Overnight run, Mon 2026-08-17 03:05 ET. Market SHUT (opens 09:30 ET). Per the post-close/UTC rule the trading day is still FRIDAY 2026-08-14, whose bell rang ~59h ago. This is the 8th consecutive closed-market firing of that day.",
+   "regime": "RISK-ON, EXTENDED, COMPLACENT - carried from the 2026-08-14 brief, NOT re-derived. No weekend quote polled; none would be actionable.",
+   "positions_reviewed": [
+    {
+     "contract": "SPY 2026-11-20 700P",
+     "placed_agent": "agentic",
+     "verdict": "working-as-insurance / NO ACTION",
+     "why": "Authorized defensive hedge: exempt from all premium backstops, held to its ~21-DTE roll/close decision WITH Ryan (~2026-10-30). Nothing to decide 95 DTE out, and the market is shut."
+    },
+    {
+     "contract": "ACHR 2028-01-21 5C",
+     "placed_agent": "user",
+     "verdict": "NO ACTION EVER - structural",
+     "why": "Ownership gate (placed_agent=user) plus Ryan's 2026-07-22 manual_hold_override. Not the automation's to touch; carried for his running numbers only."
+    }
+   ],
+   "reconciliation": {
+    "broker_checked_utc": "2026-08-17T07:02:00Z",
+    "result": "CLEAN, zero drift. get_option_positions returns exactly the two contracts in holdings.json; every pending_* field 0.0000 (no overnight assignment, exercise or expiration). get_accounts: agentic 718757339 cash, option_level_2, unsettled_funds $0.0000.",
+    "portfolio": {
+     "total_value": 3850.01,
+     "equity_value": 507.39,
+     "options_value": 959.0,
+     "cash": 2383.62,
+     "buying_power": 2383.62
+    },
+    "portfolio_shift_explained": "Composition differs from the 2026-08-14T13:33Z heartbeat snapshot (equity 903.83 / cash 1982.52) purely because of the Friday 15:05Z ACGL swing exit: 4.069594sh @ $98.5602, proceeds $401.10, realized +$1.10 / +0.27%. Agentic-placed but Ryan-approved, already recorded in holdings._closed_positions. NOT drift and NOT a HARD RULE 6 issue - verified rather than assumed, since a same-size unexplained equity move is exactly what a violation would look like."
+   },
+   "daily_artifacts": "NONE ROLLED, deliberately. Heartbeat stays 2026-08-14 (only a run at/after 09:30 ET Monday may stamp Monday - stamping now would pre-satisfy the dead-man for a trading day that hasn't started). market_brief.json stays 2026-08-14 so the first post-open run rebuilds it on live prints instead of inheriting Friday's. Loss cap and entry throttle NOT reset. daily_options_report.md for 2026-08-14 already delivered; no material event since, so it is not rewritten.",
+   "duties_checked": "Friday weekly review CONFIRMED already written (2026-08-14T13:05Z, FRIDAY_WEEKLY_REVIEW, broker-sourced). No outstanding duty found.",
+   "grades_considered": "NONE. Hunting requires a live tape and a placeable order; both are absent. Screening closed-market chains would produce numbers nobody can act on and that the first post-open run must re-measure anyway.",
+   "decision": "NO TRADE. Market shut - being flat is the only available state, not a judgment call. Both positions gated by rule, reconciliation clean, no artifact due, no duty outstanding.",
+   "notification": "None sent. Nothing here needs Ryan's attention; a ping saying 'the market is still closed and nothing changed' is exactly the noise the routine is meant to spare him.",
+   "note_to_next_instance": "First run at/after 09:30 ET Monday 2026-08-17 owns three things: stamp the heartbeat, rebuild market_brief.json on live prints, and re-measure any liquidity gate (Friday's brief carries an explicit opening-auction-width caveat - never inherit its spreads). Settled cash $2,383.62 with $0 unsettled, so FOUR LAWS #4 is not binding and the full $1,500 per-trade max is fundable. 0 of 3 non-hedge position slots used.",
+   "housekeeping_flag_for_next_interactive_session": "trade_journal.json is now ~1.09 MB / 186 entries, of which ~112 are no-action logs and a growing share are closed-market firings (8 for the 2026-08-14 trading day alone). Every run reads this file at start, so the cost compounds against exactly the runs that produce the least value. Suggested fix, NOT taken here because restructuring the desk's memory substrate is not an unattended run's call: rotate entries older than ~30 days into trade_journal_archive_YYYY-MM.json, keeping all fills, exits and weekly reviews in the live file regardless of age. The real root cause is upstream - the redundant trigger config (cron-job.org every 15 min plus the native hourly backstop) keeps firing all night, and only Ryan can change that."
   }
  ],
  "updated_utc": "2026-08-17T05:30:00Z"
