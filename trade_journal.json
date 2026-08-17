@@ -7081,6 +7081,50 @@
    "duties_checked": "Friday weekly review: already written 2026-08-14T13:05Z (broker-sourced). daily_options_report.md for 2026-08-14: already delivered, nothing material since, so NOT rewritten (a duplicate just re-notifies Ryan). trade_journal.json rotation flag: already corrected at 07:45Z and written into CLAUDE.md \u2014 not re-litigated. No outstanding duty found.",
    "decision": "NO TRADE. Market shut \u2014 flat is the only available state, not a judgment call. Nothing rolled, nothing polled, nothing re-derived.",
    "note_to_next_instance": "The first run at/after Mon 09:30 ET (13:30Z) owns four things this stretch deliberately left undone: stamp automation_heartbeat.json for 2026-08-17, rebuild market_brief.json on live Monday prints (Friday's is stale by a weekend), reset the loss cap / entry throttle for the new trading day, and re-measure any chain before acting on it. Friday's brief flagged the opening-auction window as a poor time to initiate long premium \u2014 that caution carries into Monday's open."
+  },
+  {
+   "run_utc": "2026-08-17T09:23:00Z",
+   "run_type": "overnight_closed_market_noop",
+   "trading_day_et": "2026-08-14 (Friday) \u2014 still the last bell that rang. Now Mon 2026-08-17 05:23 ET, ~4h07m before the open. Heartbeat NOT stamped (correctly still 2026-08-14), market_brief.json NOT rebuilt, daily loss cap and 3-entry throttle NOT reset. Only a run at/after Mon 09:30 ET does those four.",
+   "run": "Eleventh consecutive closed-market firing of the 2026-08-14 trading day, 57 min after the 08:26Z run. POST-CLOSE RUN PROTOCOL applied in full: read what the 07:05Z / 07:45Z / 08:26Z runs of this stretch already covered, ran the one check always worth repeating (broker reconciliation), found nothing new, logged short, stopped. No research invented to justify the firing.",
+   "regime": "RISK-ON, EXTENDED, COMPLACENT \u2014 carried from the 2026-08-14 brief, NOT re-derived. No tape; a 05:23 ET pre-market print would not be actionable and the first post-open run must re-measure anyway.",
+   "positions_verdict": [
+    {
+     "contract": "SPY 2026-11-20 700P",
+     "placed_agent": "agentic",
+     "verdict": "working-as-insurance / NO ACTION",
+     "why": "Authorized defensive hedge, exempt from all premium backstops, held to its ~21-DTE roll/close decision WITH Ryan (~2026-10-30). 95 DTE out, market shut."
+    },
+    {
+     "contract": "ACHR 2028-01-21 5C",
+     "placed_agent": "user",
+     "verdict": "NO ACTION EVER \u2014 structural",
+     "why": "Ownership gate (placed_agent=user) plus Ryan's 2026-07-22 manual_hold_override. Not the automation's to touch."
+    }
+   ],
+   "broker_reconciliation": {
+    "checked_utc": "2026-08-17T09:23:00Z",
+    "result": "CLEAN, zero drift. get_option_positions returns exactly the two contracts in holdings.json; every pending_* field 0.0000 (no overnight assignment, exercise or expiration). get_accounts: agentic 718757339 cash, option_level_2 (still NOT level_3 \u2014 debit spreads remain structurally unavailable; the level-3 recommendation stands with Ryan), unsettled_funds $0.0000.",
+    "portfolio": {
+     "total_value": 3850.16,
+     "equity_value": 507.54,
+     "options_value": 959.0,
+     "cash": 2383.62,
+     "buying_power": 2383.62
+    },
+    "vs_prior_run": "Cash and options_value match the 07:05Z / 07:45Z / 08:26Z snapshots TO THE CENT ($2,383.62 / $959.00). equity_value ticked 507.27 -> 507.54 (+$0.27), an overnight mark on the residual AAPL fraction, not a transaction. The Friday 15:05Z ACGL exit that explains the composition change vs the 13:33Z heartbeat snapshot has now been verified three times and is not re-litigated here.",
+    "agentic_premium_at_risk_usd": 749.0,
+    "non_hedge_slots_used": "0 of 3"
+   },
+   "hunt": "NONE. Hunting needs a live tape and a placeable order; both absent for another ~4h. Screening a shut chain produces numbers nobody can act on.",
+   "grades_considered": "NONE \u2014 market shut.",
+   "entries_today": 0,
+   "realized_pnl_today_usd": 0.0,
+   "four_laws_check": "Not engaged \u2014 no order contemplated. Settled cash $2,383.62 / unsettled $0.00 stands ready for the first post-open run.",
+   "hard_rule_9": "No flags open in holdings.json; none created, none cleared. This is an unattended run and can never supply a Ryan approval.",
+   "duties_checked": "Friday weekly review: already written 2026-08-14T13:05Z (broker-sourced). daily_options_report.md for 2026-08-14: already delivered; nothing material since, so NOT rewritten (a duplicate only re-notifies Ryan). Branch-vs-master drift check: local HEAD == origin/master (85e92f9), no unmerged pile-up.",
+   "decision": "NO TRADE. Market shut \u2014 being flat is the only available state, not a judgment call. Nothing stamped, nothing rolled, nothing re-derived.",
+   "note_to_next_instance": "First run at/after 09:30 ET Monday owns four things in order: stamp automation_heartbeat.json for 2026-08-17, rebuild market_brief.json on live prints (Friday's brief carries an explicit opening-auction warning \u2014 do not inherit its levels), reset the daily loss cap and 3-entry throttle, then hunt. Sleeve is empty of non-hedge positions (0 of 3 slots) with $2,383.62 settled \u2014 the constraint on Monday is setup quality, not capital. Source candidates liquidity-first: QQQ/SPY/NVDA/INTC are the measured-affordable tier at the $1,500 per-trade max; AMD/AVGO/TSM/MSFT are not, and re-quoting them is the research trap logged 2026-08-14."
   }
  ],
  "updated_utc": "2026-08-17T07:45:00Z"
