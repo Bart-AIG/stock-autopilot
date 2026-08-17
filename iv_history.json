@@ -1,489 +1,501 @@
 {
- "_comment": "IV self-tracking for the options-automation sleeve (HARD RULE 8 / routine v3). One row per ticker per day: {date, spot, atm_iv, dte_used, rv_30d, iv_rv_ratio}. atm_iv = average of call+put IV at the strike closest to spot, at the expiry nearest 30 DTE (or the position's actual expiry when tracking an open position's own contract). rv_30d = annualized stdev of daily log returns over the trailing 30 sessions, computed from Robinhood daily historicals. iv_rv_ratio = atm_iv / rv_30d. Bootstrapped 2026-08-11 (first run under routine prompt v3 -- this file did not exist before). With <20 readings for a name, gate entries on iv_rv_ratio alone (>1.5 = elevated premium, prefer legged debit spread or skip + size down); at 20+ readings also compute IV percentile (share of readings below current) per the routine spec.",
- "SPY": [
-  {
-   "date": "2026-08-11",
-   "spot": 771.34,
-   "atm_iv": 0.1307,
-   "dte_used": 31,
-   "rv_30d": 0.1317,
-   "iv_rv_ratio": 0.99
-  },
-  {
-   "date": "2026-08-12",
-   "spot": 773.42,
-   "atm_iv": 0.1223,
-   "dte_used": 30,
-   "rv_30d": 0.1251,
-   "iv_rv_ratio": 0.98,
-   "_note": "OVERWRITTEN with LIVE values at 18:46Z (2026-09-11 773-strike ATM straddle: call IV 0.12331 / put IV 0.12122, avg 0.1223; spot 773.42 live). Replaces the 13:35Z placeholder that carried the 2026-08-11 CLOSE IV (0.1266) because the option quote feed was still serving prior-close snapshots minutes after the open. Ratio 0.98 = index premium essentially in line with realized vol."
-  },
-  {
-   "date": "2026-08-13",
-   "spot": 774.49,
-   "atm_iv": 0.1201,
-   "dte_used": 29,
-   "rv_30d": 0.124,
-   "iv_rv_ratio": 0.97,
-   "_note": "LIVE regular-hours quotes 13:33Z (post-open). ATM = avg of the 2026-09-11 775 call (0.1209) / put (0.1193) IV. Expiry 2026-09-11 = 29 DTE, the expiry nearest 30 per spec. rv_30d from the 13:00Z run's precomputed close-based set."
-  },
-  {
-   "date": "2026-08-14",
-   "spot": 778.13,
-   "atm_iv": 0.1197,
-   "dte_used": 28,
-   "rv_30d": 0.1246,
-   "iv_rv_ratio": 0.96,
-   "strike_used": 778,
-   "_note": "ATM = avg of the 2026-09-11 778 call (0.11988) / put (0.119582) IV. Expiry 2026-09-11 = 28 DTE, nearest 30 per spec. rv_30d computed fresh this run from 30 sessions of Robinhood daily bars (annualized stdev of log returns). Ratio 0.96. Underlies the hedge; logged for continuity."
-  },
-  {
-   "date": "2026-08-17",
-   "spot": 776.48,
-   "atm_iv": 0.1284,
-   "dte_used": 32,
-   "rv_30d": 0.1247,
-   "iv_rv_ratio": 1.03,
-   "strike_used": 776,
-   "_note": "LIVE regular-hours quotes 13:33-13:34Z (updated_at freshness verified before writing). ATM = avg of the 2026-09-18 776 call (0.124201) / put (0.132695) IV. EXPIRY SWITCHED to 2026-09-18 = 32 DTE this run: from 2026-08-17 the 2026-09-11 board is 25 DTE and 2026-09-18 is 32, so |32-30|=2 beats |25-30|=5 and 09-18 is now the nearest-30 board per spec (prior rows correctly used 09-11 when it was the nearer one). rv_30d = annualized stdev of 30 daily log returns from Robinhood regular-hours historicals through the 2026-08-14 close. 5 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited."
-  }
- ],
- "QQQ": [
-  {
-   "date": "2026-08-11",
-   "spot": 718.1,
-   "atm_iv": 0.1973,
-   "dte_used": 31,
-   "rv_30d": 0.2536,
-   "iv_rv_ratio": 0.78
-  },
-  {
-   "date": "2026-08-12",
-   "spot": 723.87,
-   "atm_iv": 0.1867,
-   "dte_used": 30,
-   "rv_30d": 0.2435,
-   "iv_rv_ratio": 0.77,
-   "_note": "OVERWRITTEN with LIVE near-close values at 19:32Z (2026-09-11 724-strike ATM straddle: call IV 0.18753 / put IV 0.18589, avg 0.1867; spot 723.87 live). Replaces the 13:35Z placeholder that carried the 2026-08-11 CLOSE IV (0.193) because the option quote feed was still serving prior-close snapshots minutes after the open. Ratio 0.77 = index premium CHEAP vs realized vol. NVDA/AVGO/MSFT/TSLA rows for today remain prior-close placeholders -- an ATM-strike lookup for those names returned no instrument at the guessed strike/expiry and the EOD report took priority over strike-hunting in the last 30 minutes; their caveat notes are accurate as written."
-  },
-  {
-   "date": "2026-08-13",
-   "spot": 724.83,
-   "atm_iv": 0.1862,
-   "dte_used": 29,
-   "rv_30d": 0.239,
-   "iv_rv_ratio": 0.78,
-   "_note": "LIVE regular-hours quotes 13:33Z (post-open). ATM = avg of the 2026-09-11 725 call (0.1865) / put (0.1859) IV. Expiry 2026-09-11 = 29 DTE, the expiry nearest 30 per spec. rv_30d from the 13:00Z run's precomputed close-based set."
-  },
-  {
-   "date": "2026-08-14",
-   "spot": 733.735,
-   "atm_iv": 0.1873,
-   "dte_used": 28,
-   "rv_30d": 0.2374,
-   "iv_rv_ratio": 0.79,
-   "strike_used": 734,
-   "_note": "ATM = avg of the 2026-09-11 734 call (0.186786) / put (0.187829) IV. Expiry 2026-09-11 = 28 DTE, nearest 30 per spec. rv_30d computed fresh this run from 30 sessions of Robinhood daily bars (annualized stdev of log returns). Core-list daily reading. Live regular-hours quotes 13:32-13:33Z (first post-open run of 2026-08-14)."
-  },
-  {
-   "date": "2026-08-17",
-   "spot": 733.394,
-   "atm_iv": 0.191,
-   "dte_used": 32,
-   "rv_30d": 0.2314,
-   "iv_rv_ratio": 0.83,
-   "strike_used": 733,
-   "_note": "LIVE regular-hours quotes 13:33-13:34Z (updated_at freshness verified before writing). ATM = avg of the 2026-09-18 733 call (0.191256) / put (0.190809) IV. EXPIRY SWITCHED to 2026-09-18 = 32 DTE this run: from 2026-08-17 the 2026-09-11 board is 25 DTE and 2026-09-18 is 32, so |32-30|=2 beats |25-30|=5 and 09-18 is now the nearest-30 board per spec (prior rows correctly used 09-11 when it was the nearer one). rv_30d = annualized stdev of 30 daily log returns from Robinhood regular-hours historicals through the 2026-08-14 close. 5 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited."
-  }
- ],
- "NVDA": [
-  {
-   "date": "2026-08-11",
-   "spot": 218.38,
-   "atm_iv": 0.3815,
-   "dte_used": 31,
-   "rv_30d": 0.3985,
-   "iv_rv_ratio": 0.96
-  },
-  {
-   "date": "2026-08-12",
-   "spot": 220.41,
-   "atm_iv": 0.3915,
-   "dte_used": 30,
-   "rv_30d": 0.3979,
-   "iv_rv_ratio": 0.98,
-   "_note": "ATM IV as of the 2026-08-11 close (option quote feed still serving prior-close snapshots at ~13:35Z, minutes after the open); spot is the live 13:19Z pre-market print. Overwrite with live values if a later run touches this name."
-  },
-  {
-   "date": "2026-08-13",
-   "spot": 224.725,
-   "atm_iv": 0.3948,
-   "dte_used": 29,
-   "rv_30d": 0.4,
-   "iv_rv_ratio": 0.99,
-   "_note": "LIVE regular-hours quotes 13:33Z (post-open). ATM = avg of the 2026-09-11 225 call (0.3924) / put (0.3972) IV. Expiry 2026-09-11 = 29 DTE, the expiry nearest 30 per spec. rv_30d from the 13:00Z run's precomputed close-based set."
-  },
-  {
-   "date": "2026-08-14",
-   "spot": 226.18,
-   "atm_iv": 0.3848,
-   "dte_used": 28,
-   "rv_30d": 0.3969,
-   "iv_rv_ratio": 0.97,
-   "strike_used": 225,
-   "_note": "OVERWRITES this run (15:04Z) the earlier 2026-08-14 row (spot 227.02 / atm_iv 0.3933 / ratio 0.99). ATM = avg of the 2026-09-11 225 call (0.383928) / put (0.385717) IV, 28 DTE, measured live at spot 226.18. rv_30d 0.3969 retained from the earlier fresh 30-session computation (that window does not move materially intraday). Only 5 readings on NVDA so per spec IV/RV is used and NO percentile is cited. THE READING THAT MATTERS, and it is forward-looking rather than descriptive: NVDA reports 2026-08-26 pm (Robinhood earnings calendar, VERIFIED, est EPS $2.07) -- TWELVE days out -- and ATM IV is 38.5% against 39.7% realized, i.e. a ratio of 0.97. The pre-earnings vol bid HAS NOT STARTED. Implied is still slightly BELOW realized twelve days ahead of the single largest scheduled event in the AI complex. That is the condition under which long premium is bought well rather than chased, and it is the opposite of AVGO's 1.23 (see the AVGO note -- that one IS earnings-inflated). AFFORDABILITY -- THE DURABLE FINDING THIS RUN CONTRIBUTES, and it breaks a five-run losing streak of 'the setup is fine but the sleeve cannot pay for it': NVDA is the FIRST liquid, right-delta, budget-fitting contract in the AI complex this desk has found today. 2026-09-18 240C (35 DTE) = 5.35 x 5.45, mid 5.40, spread $0.10 = 1.85% OF MID (the tightest market measured on any candidate today, vs the <10% gate), OI 56,045, volume 1,588, delta 0.3326 (dead on the desk's ~0.35 default), IV 37.32%, theta -$0.142/day. Cost AT THE ASK = $545 against $751 of agentic headroom -> FITS with $206 to spare. The 235C (delta 0.401, 7.00 x 7.10 = 1.42% of mid, OI 24,229) costs $710 at the ask -> technically fits but leaves $41, which is not headroom; strike it on the same ask-side-fill logic that killed the INTC 110C. CONTRAST TO INHERIT: AMD ($3,308 ATM) and AVGO ($1,370 for the only earnings-clean ATM) are priced out of this sleeve entirely; NVDA at a $226 spot is not. When a trigger finally appears in the AI complex, NVDA is the vehicle that can actually be owned. WHY IT WAS NOT TAKEN THIS RUN: no trigger and no 'why now'. NVDA is +0.39% at 226.18 with no catalyst today; twelve days is early for the IV ramp; and the 2026-09-18 expiry STRADDLES the 08-26 print, so any entry carries a hard pre-earnings exit date rather than a clean runway. Graded B, logged, not owned."
-  },
-  {
-   "date": "2026-08-17",
-   "spot": 226.71,
-   "atm_iv": 0.3861,
-   "dte_used": 32,
-   "rv_30d": 0.3934,
-   "iv_rv_ratio": 0.98,
-   "strike_used": 225,
-   "_note": "LIVE regular-hours quotes 13:33-13:34Z (updated_at freshness verified before writing). ATM = avg of the 2026-09-18 225 call (0.383928) / put (0.38825) IV. EXPIRY SWITCHED to 2026-09-18 = 32 DTE this run: from 2026-08-17 the 2026-09-11 board is 25 DTE and 2026-09-18 is 32, so |32-30|=2 beats |25-30|=5 and 09-18 is now the nearest-30 board per spec (prior rows correctly used 09-11 when it was the nearer one). rv_30d = annualized stdev of 30 daily log returns from Robinhood regular-hours historicals through the 2026-08-14 close. 5 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited."
-  }
- ],
- "AMD": [
-  {
-   "date": "2026-08-11",
-   "spot": 466.08,
-   "atm_iv": 0.5647,
-   "dte_used": 31,
-   "rv_30d": 0.8356,
-   "iv_rv_ratio": 0.68
-  },
-  {
-   "date": "2026-08-12",
-   "spot": 488.61,
-   "atm_iv": 0.5641,
-   "dte_used": 37,
-   "rv_30d": 0.8293,
-   "iv_rv_ratio": 0.68,
-   "_note": "LIVE 17:47Z reading (refreshes the 14:33Z row; one row per ticker per day): Sep-18 490 strike, call IV 0.5656 / put IV 0.5626. Name touched for entry evaluation this run. Ratio 0.68 = cheap premium, single-legs favored -- affordability, not IV, is what blocks this name (see market_brief.budget_affordability_frontier)."
-  },
-  {
-   "date": "2026-08-13",
-   "spot": 484.35,
-   "atm_iv": 0.5449,
-   "dte_used": 29,
-   "rv_30d": 0.799,
-   "iv_rv_ratio": 0.68,
-   "_note": "LIVE regular-hours quotes 13:33Z (post-open). ATM = avg of the 2026-09-11 485 call (0.5322) / put (0.5577) IV. Expiry 2026-09-11 = 29 DTE, the expiry nearest 30 per spec. rv_30d from the 13:00Z run's precomputed close-based set."
-  },
-  {
-   "date": "2026-08-14",
-   "spot": 506.3123,
-   "atm_iv": 0.5701,
-   "dte_used": 28,
-   "rv_30d": 0.7744,
-   "iv_rv_ratio": 0.74,
-   "strike_used": 505,
-   "_note": "OVERWRITES this run (14:47-14:48Z) the 13:32Z row, which was measured at spot 490.30 / strike 490. AMD has since run to 506.31 (+4.82% on the day, accelerating through the morning: +3.11% at 14:01Z -> +3.91% at 14:15Z -> +4.82% now), so the ATM strike has migrated to 505 and the old row no longer describes the at-the-money market. ATM = avg of the 2026-09-11 505 call (0.564978) / put (0.575259) IV, 28 DTE. rv_30d 0.7744 retained from the 13:32Z fresh 30-session computation (that window does not move materially intraday). Ratio 0.74, up from 0.71 -- so vol WAS bid into the rip (IV +2.2 vol points on a +3.3% underlying move) but only mildly, and IV at 57.0% remains far BELOW 77.4% realized. Structure implication, same logic as INTC: with realized exceeding implied, the stock tends to travel FURTHER than the options price, so a capped-payoff debit spread is the WRONG vehicle for a breakout thesis here and the short leg would be selling cheap vol. || DECISIVE AFFORDABILITY FINDING, measured not estimated, and the durable fact this run contributes: AMD IS PRICED OUT OF THIS SLEEVE ENTIRELY at a $506 spot with 57% IV. Agentic premium-at-risk is $749 (the SPY hedge) against the $1,500 budget = $751 headroom. 2026-09-11 505C = 32.30 x 33.85, mid 33.075 (4.7% wide, PASSES the spread gate), delta 0.546, theta -$0.584/day -> $3,308 for ONE contract = 4.4x the headroom and 2.2x the ENTIRE budget. 530C = 22.10 x 23.50, mid 22.80 (6.1% wide), delta 0.424 -> $2,280 = 3.0x headroom. Even the desk-preferred DEBIT SPREAD does not fit: 505/530 is $1,028 at mids and $1,175 priced realistically (buy the 505 at the 33.85 ask, sell the 530 at the 22.10 bid) vs $751 available. Only a far-OTM low-delta lottery ticket would fit the budget, and that is not a position. CONCLUSION TO INHERIT: no future run should re-derive this chain. Until either the sleeve frees up the hedge's $749 or AMD trades materially lower, AMD cannot be owned directionally by this sleeve in any structure carrying real delta. Note also the OI tell, same pathology as AVGO's 400C at OI 79: the 505C has OI of only 145 (vol 14) and the 530C OI 87 (vol 20) -- open interest is stranded at the lower strikes AMD traded at before today, so an at-the-money entry here would be into a contract almost nobody owns."
-  },
-  {
-   "date": "2026-08-17",
-   "spot": 508.87,
-   "atm_iv": 0.5744,
-   "dte_used": 32,
-   "rv_30d": 0.7883,
-   "iv_rv_ratio": 0.73,
-   "strike_used": 510,
-   "_note": "LIVE regular-hours quotes 13:33-13:34Z (updated_at freshness verified before writing). ATM = avg of the 2026-09-18 510 call (0.575557) / put (0.573322) IV. EXPIRY SWITCHED to 2026-09-18 = 32 DTE this run: from 2026-08-17 the 2026-09-11 board is 25 DTE and 2026-09-18 is 32, so |32-30|=2 beats |25-30|=5 and 09-18 is now the nearest-30 board per spec (prior rows correctly used 09-11 when it was the nearer one). rv_30d = annualized stdev of 30 daily log returns from Robinhood regular-hours historicals through the 2026-08-14 close. 5 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited."
-  }
- ],
- "TSM": [
-  {
-   "date": "2026-08-11",
-   "spot": 421.5,
-   "atm_iv": 0.3778,
-   "dte_used": 31,
-   "rv_30d": 0.5067,
-   "iv_rv_ratio": 0.75
-  },
-  {
-   "date": "2026-08-12",
-   "spot": 429.85,
-   "atm_iv": 0.3721,
-   "dte_used": 37,
-   "rv_30d": 0.4829,
-   "iv_rv_ratio": 0.77,
-   "_note": "LIVE 17:47Z reading (refreshes the 14:33Z row): Sep-18 430 strike, call IV 0.3675 / put IV 0.3766. Name touched for entry evaluation this run. Ratio 0.77 = cheap premium, single-legs favored."
-  },
-  {
-   "date": "2026-08-13",
-   "spot": 430.221,
-   "atm_iv": 0.3627,
-   "dte_used": 29,
-   "rv_30d": 0.462,
-   "iv_rv_ratio": 0.79,
-   "_note": "LIVE regular-hours quotes 13:33Z (post-open). ATM = avg of the 2026-09-11 430 call (0.3666) / put (0.3587) IV. Expiry 2026-09-11 = 29 DTE, the expiry nearest 30 per spec. rv_30d from the 13:00Z run's precomputed close-based set."
-  },
-  {
-   "date": "2026-08-14",
-   "spot": 426.58,
-   "atm_iv": 0.3633,
-   "dte_used": 28,
-   "rv_30d": 0.414,
-   "iv_rv_ratio": 0.88,
-   "strike_used": 425,
-   "_note": "ATM = avg of the 2026-09-11 425 call (0.366643) / put (0.359938) IV. Expiry 2026-09-11 = 28 DTE, nearest 30 per spec. rv_30d computed fresh this run from 30 sessions of Robinhood daily bars (annualized stdev of log returns). Core-list daily reading. Live regular-hours quotes 13:32-13:33Z (first post-open run of 2026-08-14)."
-  },
-  {
-   "date": "2026-08-17",
-   "spot": 429.97,
-   "atm_iv": 0.3505,
-   "dte_used": 32,
-   "rv_30d": 0.4096,
-   "iv_rv_ratio": 0.86,
-   "strike_used": 430,
-   "_note": "LIVE regular-hours quotes 13:33-13:34Z (updated_at freshness verified before writing). ATM = avg of the 2026-09-18 430 call (0.343993) / put (0.357106) IV. EXPIRY SWITCHED to 2026-09-18 = 32 DTE this run: from 2026-08-17 the 2026-09-11 board is 25 DTE and 2026-09-18 is 32, so |32-30|=2 beats |25-30|=5 and 09-18 is now the nearest-30 board per spec (prior rows correctly used 09-11 when it was the nearer one). rv_30d = annualized stdev of 30 daily log returns from Robinhood regular-hours historicals through the 2026-08-14 close. 5 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited."
-  }
- ],
- "AVGO": [
-  {
-   "date": "2026-08-11",
-   "spot": 418.5,
-   "atm_iv": 0.4971,
-   "dte_used": 31,
-   "rv_30d": 0.4213,
-   "iv_rv_ratio": 1.18
-  },
-  {
-   "date": "2026-08-12",
-   "spot": 425.01,
-   "atm_iv": 0.4993,
-   "dte_used": 30,
-   "rv_30d": 0.4226,
-   "iv_rv_ratio": 1.18,
-   "_note": "ATM IV as of the 2026-08-11 close (option quote feed still serving prior-close snapshots at ~13:35Z, minutes after the open); spot is the live 13:19Z pre-market print. Overwrite with live values if a later run touches this name."
-  },
-  {
-   "date": "2026-08-13",
-   "spot": 412.725,
-   "atm_iv": 0.4997,
-   "dte_used": 29,
-   "rv_30d": 0.422,
-   "iv_rv_ratio": 1.18,
-   "_note": "LIVE regular-hours quotes 13:33Z (post-open). ATM = avg of the 2026-09-11 415 call (0.4975) / put (0.5019) IV. Expiry 2026-09-11 = 29 DTE, the expiry nearest 30 per spec. rv_30d from the 13:00Z run's precomputed close-based set."
-  },
-  {
-   "date": "2026-08-14",
-   "spot": 401.1,
-   "atm_iv": 0.51,
-   "dte_used": 28,
-   "rv_30d": 0.4144,
-   "iv_rv_ratio": 1.23,
-   "strike_used": 400,
-   "_note": "ATM IV 0.51 / ratio 1.23 as MEASURED at 14:04Z (spot 401.10, strike 400, avg of the 2026-09-11 400 call 0.507906 / put 0.512078, 28 DTE); rv_30d 0.4144 from the 13:32Z 30-session computation. NOT re-measured at 15:05Z because the conclusion below is structural, not IV-driven -- but spot has fallen further to 395.59 (-5.32% on the day, a fifth consecutive deepening: -2.2% at the open -> -3.26% -> -4.00% -> -5.32%), so the strike-400 row is now slightly ITM-biased and any run that needs a precise ATM print should re-measure at the 395 strike. THE MISSING 'WHY' BEHIND THIS RATIO, and four separate runs remarked on the anomaly without explaining it: AVGO reports Q3 on 2026-09-02 pm (Robinhood earnings calendar, VERIFIED, est EPS $3.16; the 15:01Z equity report lists it as 09-03, consistent with a pm print). That is 19 days out and it sits INSIDE the 2026-09-11 expiry every AVGO IV row here has been measured on. So AVGO's status as 'the only core name with IV ABOVE realized' is NOT a market signal about the AMAT read-through -- it is the earnings event being priced into the expiry we happened to sample. Do not cite AVGO's 1.23 as evidence of anything else. For scale on why that vol is bid: AVGO's LAST print gapped the stock 479 -> 409, about -14%, on 2026-06-04. STRUCTURAL STRIKE-OFF -- MEASURED THIS RUN, and it disqualifies AVGO for WEEKS rather than for today: the desk prefers closing before earnings, so the only usable expiry is the earnings-clean 2026-08-28 (14 DTE, the 08-21 weekly being at the DTE floor of 7 and strictly worse on the same logic). Priced live at 15:05Z, spot 395.59: 395C (ATM, delta 0.524) = 12.85 x 13.70, mid 13.275, spread $0.85 = 6.4% of mid (passes the gate), OI only 109 -> $1,370 AT THE ASK vs $751 of headroom, a BUDGET BREACH of 82%, dead. 415C (delta 0.300) = 5.75 x 6.45, mid 6.10, spread $0.70 = 11.5% OF MID -> FAILS the <10% liquidity gate outright, and its theta of -$0.421/day is -6.9% OF PREMIUM PER DAY into a weekend. THE ELEGANT PART, worth understanding rather than re-deriving: the expiry that AVOIDS the earnings print is precisely the expiry whose theta makes a multi-day mean-reversion hold uneconomic -- strip out the event supporting the vol and you keep all of the decay -- while every expiry with tolerable theta straddles the print. There is no AVGO structure available to this sleeve in either direction until after 2026-09-02. For the record on the underlying, because the technical setup is genuinely real: the 15:01Z equity report flags AVGO as the day's ONLY Connors RSI(2) setup at RSI2 5.1, and the 200-day SMA is 369.04 and RISING (+~0.32/day), so spot sits 7.2% ABOVE it -- an oversold dip inside an intact long-term uptrend, not a broken name. It is a real B setup that this desk cannot express. || 16:18Z ADDENDUM (12th post-open run) -- CANONICAL FIELDS ABOVE ARE UNCHANGED AND DELIBERATELY NOT OVERWRITTEN: they are the 28-DTE ATM reading the IV method specifies, and replacing them with a 7-DTE number would corrupt the series with a term-structure artifact. What I measured instead, and why it matters: the 2026-08-21 board (7 DTE, the ONLY earnings-clean expiry) prints ATM IV 0.3823 (395C) / 0.3826 (400C), avg 0.3825, against the same rv_30d 0.4144 -> IV/RV = 0.92. The canonical 28-DTE row reads 1.23 because its 2026-09-11 expiry STRADDLES the 2026-09-03 earnings print; the 12.75-vol-point gap between the two boards IS the earnings premium, not fear. CONSEQUENCE, stated plainly because an inherited fact was being used as a disqualifier: 'AVGO IV/RV 1.23, the only core name above 1.0' is TRUE of the 28-DTE series point and FALSE of any expiry this desk could actually trade ex-earnings. Vol is mildly CHEAP vs realized on the tradeable board. AVGO was still passed this run -- on vehicle economics, not on vol. Note the flip side: the ratio is under 1.0 because REALIZED vol is 41%, i.e. the stock is genuinely moving 5% a day, which cuts both directions.",
-   "spot_latest": 393.57,
-   "_spot_trail": "401.10 (14:04Z, canonical strike-400 measurement) -> 395.59 (15:05Z) -> 393.57 (16:46Z, session low 393.20 at 16:40Z). The canonical atm_iv/strike_used fields are NOT overwritten: they are the 28-DTE ATM reading the IV method specifies. Any run needing a precise ATM print at this spot should re-measure at the 395 strike."
-  },
-  {
-   "date": "2026-08-17",
-   "spot": 397.165,
-   "atm_iv": 0.4914,
-   "dte_used": 32,
-   "rv_30d": 0.4488,
-   "iv_rv_ratio": 1.09,
-   "strike_used": 400,
-   "_note": "LIVE regular-hours quotes 13:33-13:34Z (updated_at freshness verified before writing). ATM = avg of the 2026-09-18 400 call (0.494048) / put (0.488684) IV. EXPIRY SWITCHED to 2026-09-18 = 32 DTE this run: from 2026-08-17 the 2026-09-11 board is 25 DTE and 2026-09-18 is 32, so |32-30|=2 beats |25-30|=5 and 09-18 is now the nearest-30 board per spec (prior rows correctly used 09-11 when it was the nearer one). rv_30d = annualized stdev of 30 daily log returns from Robinhood regular-hours historicals through the 2026-08-14 close. 5 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited."
-  }
- ],
- "MSFT": [
-  {
-   "date": "2026-08-11",
-   "spot": 501.73,
-   "atm_iv": 0.2667,
-   "dte_used": 31,
-   "rv_30d": 0.4879,
-   "iv_rv_ratio": 0.55
-  },
-  {
-   "date": "2026-08-12",
-   "spot": 500.44,
-   "atm_iv": 0.2649,
-   "dte_used": 30,
-   "rv_30d": 0.4854,
-   "iv_rv_ratio": 0.55,
-   "_note": "ATM IV as of the 2026-08-11 close (option quote feed still serving prior-close snapshots at ~13:35Z, minutes after the open); spot is the live 13:19Z pre-market print. Overwrite with live values if a later run touches this name."
-  },
-  {
-   "date": "2026-08-13",
-   "spot": 495.855,
-   "atm_iv": 0.262,
-   "dte_used": 29,
-   "rv_30d": 0.495,
-   "iv_rv_ratio": 0.53,
-   "_note": "LIVE regular-hours quotes 13:33Z (post-open). ATM = avg of the 2026-09-11 495 call (0.2532) / put (0.2708) IV. Expiry 2026-09-11 = 29 DTE, the expiry nearest 30 per spec. rv_30d from the 13:00Z run's precomputed close-based set."
-  },
-  {
-   "date": "2026-08-14",
-   "spot": 495.34,
-   "atm_iv": 0.2614,
-   "dte_used": 28,
-   "rv_30d": 0.491,
-   "iv_rv_ratio": 0.53,
-   "strike_used": 495,
-   "_note": "ATM = avg of the 2026-09-11 495 call (0.258461) / put (0.264272) IV. Expiry 2026-09-11 = 28 DTE, nearest 30 per spec. rv_30d computed fresh this run from 30 sessions of Robinhood daily bars (annualized stdev of log returns). Ratio 0.53 -- the cheapest IV/RV in the core list for a fourth straight reading. Worth remembering the caveat prior runs flagged: that rv_30d window is inflated by MSFT's own earnings gap, so 'cheap' overstates the edge."
-  },
-  {
-   "date": "2026-08-17",
-   "spot": 482.34,
-   "atm_iv": 0.2577,
-   "dte_used": 32,
-   "rv_30d": 0.4916,
-   "iv_rv_ratio": 0.52,
-   "strike_used": 480,
-   "_note": "OVERWRITES this run (14:33Z) the 14:03Z row, per the overwrite-today rule, and it is a better reading for a substantive reason rather than mere freshness: spot fell 484.85 -> 482.34, moving the true ATM strike from 485 to 480. ATM IV = avg of the 2026-09-18 480 call (0.252649) / 480 put (0.262782) = 0.2577. rv_30d UNCHANGED at 0.4916 -- same 30-session window through the 2026-08-14 close, no new session has settled, so re-deriving it would be false precision. Ratio 0.52 (was 0.53), fifth daily reading as the cheapest relative vol on the core list. THE FINDING THAT MATTERS: ATM IV BARELY MOVED (0.2594 -> 0.2577, slightly DOWN) even as MSFT broke out of its 45-minute consolidation to a fresh session low on the heaviest non-opening volume of the day. Vol is NOT bidding the breakdown. The 2026-09-18 475P is +57% on the day (7.03 close -> 11.05 mark) and every cent of that is DELTA, not vol expansion -- the options market is pricing this move as flow/noise, not as a regime change. That is an independent argument against buying the break, and it is the kind of read that only exists because this file is kept. STANDING CAVEAT unchanged: rv_30d is inflated by MSFT's own earnings gap and the violent 377->513 recovery leg, so 'cheap' overstates the edge. COUNT CORRECTION for the relay: this file holds FIVE MSFT rows (2026-08-11/12/13/14/17), not the 'sixth/fifth daily reading' prior notes claimed -- those counted intraday overwrites as separate readings. Five is the number; still far <20, so IV/RV ONLY and no percentile may be cited."
-  }
- ],
- "TSLA": [
-  {
-   "date": "2026-08-11",
-   "spot": 331.73,
-   "atm_iv": 0.3877,
-   "dte_used": 31,
-   "rv_30d": 0.6822,
-   "iv_rv_ratio": 0.57
-  },
-  {
-   "date": "2026-08-12",
-   "spot": 334.65,
-   "atm_iv": 0.386,
-   "dte_used": 30,
-   "rv_30d": 0.633,
-   "iv_rv_ratio": 0.61,
-   "_note": "ATM IV as of the 2026-08-11 close (option quote feed still serving prior-close snapshots at ~13:35Z, minutes after the open); spot is the live 13:19Z pre-market print. Overwrite with live values if a later run touches this name."
-  },
-  {
-   "date": "2026-08-13",
-   "spot": 326.335,
-   "atm_iv": 0.3707,
-   "dte_used": 29,
-   "rv_30d": 0.628,
-   "iv_rv_ratio": 0.59,
-   "_note": "LIVE regular-hours quotes 13:33Z (post-open). ATM = avg of the 2026-09-11 325 call (0.3723) / put (0.3692) IV. Expiry 2026-09-11 = 29 DTE, the expiry nearest 30 per spec. rv_30d from the 13:00Z run's precomputed close-based set."
-  },
-  {
-   "date": "2026-08-14",
-   "spot": 344.61,
-   "atm_iv": 0.3868,
-   "dte_used": 28,
-   "rv_30d": 0.6393,
-   "iv_rv_ratio": 0.61,
-   "strike_used": 345,
-   "_note": "ATM = avg of the 2026-09-11 345 call (0.388697) / put (0.384822) IV. Expiry 2026-09-11 = 28 DTE, nearest 30 per spec. rv_30d computed fresh this run from 30 sessions of Robinhood daily bars (annualized stdev of log returns). Core-list daily reading. Live regular-hours quotes 13:32-13:33Z (first post-open run of 2026-08-14)."
-  },
-  {
-   "date": "2026-08-17",
-   "spot": 338.15,
-   "atm_iv": 0.3969,
-   "dte_used": 32,
-   "rv_30d": 0.6044,
-   "iv_rv_ratio": 0.66,
-   "strike_used": 340,
-   "_note": "LIVE regular-hours quotes 13:33-13:34Z (updated_at freshness verified before writing). ATM = avg of the 2026-09-18 340 call (0.395551) / put (0.398234) IV. EXPIRY SWITCHED to 2026-09-18 = 32 DTE this run: from 2026-08-17 the 2026-09-11 board is 25 DTE and 2026-09-18 is 32, so |32-30|=2 beats |25-30|=5 and 09-18 is now the nearest-30 board per spec (prior rows correctly used 09-11 when it was the nearer one). rv_30d = annualized stdev of 30 daily log returns from Robinhood regular-hours historicals through the 2026-08-14 close. 5 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited."
-  }
- ],
- "CVS": [
-  {
-   "date": "2026-08-11",
-   "spot": 93.39,
-   "atm_iv": 0.2519,
-   "dte_used": 24,
-   "rv_30d": 0.2762,
-   "iv_rv_ratio": 0.91,
-   "_note": "open agentic position (2026-09-18 100C); tracked because it's under active management"
-  }
- ],
- "INTC": [
-  {
-   "date": "2026-08-12",
-   "spot": 102.26,
-   "atm_iv": 0.6843,
-   "dte_used": 37,
-   "rv_30d": 0.8448,
-   "iv_rv_ratio": 0.81,
-   "_note": "First INTC reading -- logged because INTC was under active evaluation this run (18:00Z). atm_iv = avg of the 2026-09-18 100C (0.6749) / 105C (0.6834) / 110C (0.6852) / 115C (0.6945) band around spot 102.26; 105C is the delta-0.50 strike. LIVE quotes (18:02Z), not a prior-close snapshot. Ratio 0.81 = premium CHEAP vs realized -- INTC's actual daily range (rv 84%) exceeds what the options charge (68%), so single-legs are favored over spreads on this name."
-  },
-  {
-   "date": "2026-08-13",
-   "spot": 104.43,
-   "atm_iv": 0.6851,
-   "dte_used": 29,
-   "rv_30d": 0.83,
-   "iv_rv_ratio": 0.83,
-   "strike_used": 105,
-   "_note": "OVERWRITES this run (19:30Z) the 19:00Z row, which itself claimed to be the closest-to-close reading at spot $105.395. INTC has since faded to $104.43 with ~28 min to the bell, so THIS is the reading tomorrow's first run should inherit. 105 remains the true ATM strike. ATM = avg of the 2026-09-11 105 call (0.6833) / put (0.6869) IV, 29 DTE. rv_30d 0.83 retained from the 13:00Z precomputed close-based set (a 30-session window does not move materially in one day). Ratio 0.83 -- IV still BELOW realized for the fourth consecutive reading, so a long single-leg remains the correct structure whenever an entry price is finally acceptable. LIQUIDITY, updated and improved again: the 2026-09-11 105C market TIGHTENED to $7.70 x $8.10 = 5.1% of mid (was 7.6% at 19:00Z) on OI 1,671, now passing the <10% preference outright; the 2026-09-18 MONTHLY (OI 44,946) is still the better venue for any real entry. 4 readings -- still ratio-only, no percentile computable until 20."
-  },
-  {
-   "date": "2026-08-14",
-   "spot": 105.62,
-   "atm_iv": 0.6839,
-   "dte_used": 28,
-   "rv_30d": 0.8008,
-   "iv_rv_ratio": 0.85,
-   "strike_used": 105,
-   "_note": "ATM = avg of the 2026-09-11 105 call (0.66705) / put (0.700727) IV. Expiry 2026-09-11 = 28 DTE, nearest 30 per spec. rv_30d computed fresh from 30 sessions of Robinhood daily bars (annualized stdev of log returns). Ratio 0.85, IV BELOW realized for a FIFTH consecutive reading -- structure verdict unchanged: whenever an entry is finally justified, a long single-leg is the right vehicle (you do not want to be SHORT cheap vol in the near leg of a spread). LIQUIDITY -- CORRECTED 13:46Z, and the correction matters: the 13:32Z reading measured only the 2026-09-11 WEEKLY (7.50 x 9.10 = 19.3% of mid) and concluded 'no INTC entry is placeable at an acceptable cost'. That conclusion was drawn from the wrong contract. Re-measured 14 minutes later: the weekly has tightened to 7.60 x 8.70 = 13.5% of mid (still FAILS the <10% gate, OI only 1,664), but the 2026-09-18 MONTHLY is 9.20 x 9.55 = 3.7% of mid on OI 18,538 -- it PASSES the liquidity gate cleanly and has passed it all along. INTC is therefore a liquidity-clean name via the monthly; the reasons not to own it today are the untriggered confirming level, the pre-UMich clock, and the budget arithmetic ($938 for 1 contract vs $751 of agentic headroom) -- NOT the spread. || STRUCTURE QUESTION RESOLVED 14:02Z (this was the explicit handoff item from the 13:45Z run: 'which structure resolves the $938-vs-$751 problem without selling cheap vol'). Full 2026-09-18 monthly board re-measured live at spot 105.62, 35 DTE, against $751 of agentic headroom -- and priced at the ASK, not the mid, because a mid fill is not guaranteed: 105C 9.35x9.70 (mid 9.525, 3.7% wide, OI 18,538, delta 0.566, IV 67.90%) = $952-$970 -> BREACHES the budget, confirmed dead. 110C 7.30x7.60 (mid 7.45, 4.0% wide, OI 54,087, vol 504, delta 0.479, IV 68.70%) = $745 at mid but $760 AT THE ASK -> does NOT reliably fit; $6 of headroom is not headroom. 115C 5.60x5.90 (mid 5.75, 5.2% wide, OI 10,697, delta 0.399, IV 69.27%) = $590 at ask -> FITS. 120C 4.45x4.50 (mid 4.475, 1.1% wide, OI 33,160, VOLUME 6,497 -- by far the heaviest on the board, delta 0.329, IV 70.50%) = $450 at ask -> FITS with $301 to spare, and is both the tightest market on the chain and the closest to the desk's ~0.35-delta default. 105/115 DEBIT SPREAD = 9.525 - 5.75 = ~$378 debit, max value $1,000, max profit ~$622 (~2.6:1). ON THE CHEAP-VOL OBJECTION the prior run raised: it is weaker than it looked. Within this expiry the skew RISES with strike (105C IV 67.90% < 115C IV 69.27% < 120C IV 70.50%), so a call debit spread SELLS a higher IV than it BUYS -- the spread is not simply 'short cheap vol'. The real argument against it is different and still holds: INTC realized vol (80%) exceeds implied (68%), meaning the stock tends to travel FURTHER than the options price, which is exactly the condition under which a capped payoff hurts most on a breakout thesis. HANDOFF RECOMMENDATION (not an authorization -- the confirming level is still unmet): if and when INTC triggers, the 2026-09-18 120C at ~$450 is the structure that satisfies every constraint simultaneously -- budget fit with room, best liquidity on the board, right delta, and long vol. The 115C at ~$590 is the more aggressive alternative. The 110C should be struck from consideration on ask-side fill risk."
-  }
- ],
- "IREN": [
-  {
-   "date": "2026-08-13",
-   "spot": 47.1,
-   "atm_iv": 0.9877,
-   "dte_used": 29,
-   "rv_30d": 1.414,
-   "iv_rv_ratio": 0.7,
-   "strike_used": 47,
-   "_note": "LIVE regular-hours quotes 13:38:5xZ (freshness verified via quote.updated_at before writing). ATM = avg of the 2026-09-11 47 call (0.9517) / put (1.0238) IV, 29 DTE. rv_30d computed fresh by this run from 30 sessions of Robinhood daily bars (IREN was not in the 13:00Z precomputed set): 141% annualized realized vol, which is why a ~99% IV still reads CHEAP at ratio 0.70. Logged because IREN was under active evaluation this run (biggest mover in the universe). Context for any future run: cheap IV here is NOT an invitation -- the 2026-09-11 47C market was $4.80 x $5.90 (20.6% of mid) on OI 44, an automatic liquidity skip."
-  }
- ],
- "ROST": [
-  {
-   "date": "2026-08-13",
-   "spot": 242.53,
-   "atm_iv": 0.3621,
-   "dte_used": 29,
-   "rv_30d": 0.214,
-   "iv_rv_ratio": 1.69,
-   "strike_used": 245,
-   "_note": "LIVE regular-hours quotes 15:17Z. ATM = avg of the 2026-09-11 245 call (0.3723) / put (0.3519) IV, 29 DTE (no 242.5 strike exists on this expiry; 245 is nearest spot 242.53). rv_30d computed fresh by this run from 30 sessions of Robinhood daily bars = 21.4% annualized. Ratio 1.69 is ELEVATED (>1.5 threshold) -- and the reason is mechanical, not opportunity: ROST reports earnings 2026-08-20 pm, so this post-earnings expiry prices the event. Logged because ROST was under active evaluation this run (the day's one NEW report setup). Context for a future run: 2 readings only, so ratio-only per the IV rules -- no percentile is computable yet."
-  }
- ],
- "LIN": [
-  {
-   "date": "2026-08-13",
-   "spot": 477.965,
-   "atm_iv": 0.2107,
-   "dte_used": 36,
-   "rv_30d": 0.2592,
-   "iv_rv_ratio": 0.81,
-   "strike_used": 480,
-   "_note": "LIVE regular-hours quotes 17:04Z. ATM = avg of the 2026-09-18 480 call (0.19975) / put (0.221655) IV. Expiry 2026-09-18 = 36 DTE: LIN has NO weeklies (monthly-only chain), so the choice was 2026-08-21 (8 DTE) vs 2026-09-18 (36 DTE) and 36 is nearest 30. rv_30d 0.2592 computed fresh by this run from 30 sessions of Robinhood daily bars. IMPORTANT read-the-number caveat: that realized-vol window CONTAINS the 2026-07-31 earnings gap (-6.6% in one session), which inflates it -- ex-gap rv_30d is 0.1936 and the ratio flips to 1.09. So the headline 0.81 'cheap IV' reading is an artifact of one event day, not a standing edge; LIN premium is fairly priced, not cheap. Logged because LIN was under active evaluation this run (the day's one NEW report setup). 1 reading only -- ratio-only per the IV rules, no percentile computable."
-  }
- ],
- "ACGL": [
-  {
-   "date": "2026-08-13",
-   "spot": 97.41,
-   "atm_iv": 0.2088,
-   "dte_used": 36,
-   "rv_30d": 0.2649,
-   "iv_rv_ratio": 0.79,
-   "_note": "Logged because ACGL was under ACTIVE EVALUATION this run (it is the day's only NEW report setup). atm_iv is the 95C/100C blend at the 2026-09-18 expiry -- ACGL's chain has $5-wide strikes so there is no true ATM contract at a $97.41 spot, which is itself a thin-chain tell. Premium is CHEAP (ratio 0.79, IV below realized); the name was killed on LIQUIDITY, not IV."
-  }
- ],
- "CL": [
-  {
-   "date": "2026-08-17",
-   "spot": 90.48,
-   "atm_iv": 0.2237,
-   "dte_used": 32,
-   "rv_30d": 0.2351,
-   "iv_rv_ratio": 0.95,
-   "_note": "First CL reading. ATM 2026-09-18 90C (spot 90.48). RV from 30 sessions of daily log returns via Robinhood historicals. n=1 reading -> IV/RV only, no percentile."
-  }
- ]
+  "_comment": "IV self-tracking for the options-automation sleeve (HARD RULE 8 / routine v3). One row per ticker per day: {date, spot, atm_iv, dte_used, rv_30d, iv_rv_ratio}. atm_iv = average of call+put IV at the strike closest to spot, at the expiry nearest 30 DTE (or the position's actual expiry when tracking an open position's own contract). rv_30d = annualized stdev of daily log returns over the trailing 30 sessions, computed from Robinhood daily historicals. iv_rv_ratio = atm_iv / rv_30d. Bootstrapped 2026-08-11 (first run under routine prompt v3 -- this file did not exist before). With <20 readings for a name, gate entries on iv_rv_ratio alone (>1.5 = elevated premium, prefer legged debit spread or skip + size down); at 20+ readings also compute IV percentile (share of readings below current) per the routine spec.",
+  "SPY": [
+    {
+      "date": "2026-08-11",
+      "spot": 771.34,
+      "atm_iv": 0.1307,
+      "dte_used": 31,
+      "rv_30d": 0.1317,
+      "iv_rv_ratio": 0.99
+    },
+    {
+      "date": "2026-08-12",
+      "spot": 773.42,
+      "atm_iv": 0.1223,
+      "dte_used": 30,
+      "rv_30d": 0.1251,
+      "iv_rv_ratio": 0.98,
+      "_note": "OVERWRITTEN with LIVE values at 18:46Z (2026-09-11 773-strike ATM straddle: call IV 0.12331 / put IV 0.12122, avg 0.1223; spot 773.42 live). Replaces the 13:35Z placeholder that carried the 2026-08-11 CLOSE IV (0.1266) because the option quote feed was still serving prior-close snapshots minutes after the open. Ratio 0.98 = index premium essentially in line with realized vol."
+    },
+    {
+      "date": "2026-08-13",
+      "spot": 774.49,
+      "atm_iv": 0.1201,
+      "dte_used": 29,
+      "rv_30d": 0.124,
+      "iv_rv_ratio": 0.97,
+      "_note": "LIVE regular-hours quotes 13:33Z (post-open). ATM = avg of the 2026-09-11 775 call (0.1209) / put (0.1193) IV. Expiry 2026-09-11 = 29 DTE, the expiry nearest 30 per spec. rv_30d from the 13:00Z run's precomputed close-based set."
+    },
+    {
+      "date": "2026-08-14",
+      "spot": 778.13,
+      "atm_iv": 0.1197,
+      "dte_used": 28,
+      "rv_30d": 0.1246,
+      "iv_rv_ratio": 0.96,
+      "strike_used": 778,
+      "_note": "ATM = avg of the 2026-09-11 778 call (0.11988) / put (0.119582) IV. Expiry 2026-09-11 = 28 DTE, nearest 30 per spec. rv_30d computed fresh this run from 30 sessions of Robinhood daily bars (annualized stdev of log returns). Ratio 0.96. Underlies the hedge; logged for continuity."
+    },
+    {
+      "date": "2026-08-17",
+      "spot": 776.48,
+      "atm_iv": 0.1284,
+      "dte_used": 32,
+      "rv_30d": 0.1247,
+      "iv_rv_ratio": 1.03,
+      "strike_used": 776,
+      "_note": "LIVE regular-hours quotes 13:33-13:34Z (updated_at freshness verified before writing). ATM = avg of the 2026-09-18 776 call (0.124201) / put (0.132695) IV. EXPIRY SWITCHED to 2026-09-18 = 32 DTE this run: from 2026-08-17 the 2026-09-11 board is 25 DTE and 2026-09-18 is 32, so |32-30|=2 beats |25-30|=5 and 09-18 is now the nearest-30 board per spec (prior rows correctly used 09-11 when it was the nearer one). rv_30d = annualized stdev of 30 daily log returns from Robinhood regular-hours historicals through the 2026-08-14 close. 5 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited."
+    }
+  ],
+  "QQQ": [
+    {
+      "date": "2026-08-11",
+      "spot": 718.1,
+      "atm_iv": 0.1973,
+      "dte_used": 31,
+      "rv_30d": 0.2536,
+      "iv_rv_ratio": 0.78
+    },
+    {
+      "date": "2026-08-12",
+      "spot": 723.87,
+      "atm_iv": 0.1867,
+      "dte_used": 30,
+      "rv_30d": 0.2435,
+      "iv_rv_ratio": 0.77,
+      "_note": "OVERWRITTEN with LIVE near-close values at 19:32Z (2026-09-11 724-strike ATM straddle: call IV 0.18753 / put IV 0.18589, avg 0.1867; spot 723.87 live). Replaces the 13:35Z placeholder that carried the 2026-08-11 CLOSE IV (0.193) because the option quote feed was still serving prior-close snapshots minutes after the open. Ratio 0.77 = index premium CHEAP vs realized vol. NVDA/AVGO/MSFT/TSLA rows for today remain prior-close placeholders -- an ATM-strike lookup for those names returned no instrument at the guessed strike/expiry and the EOD report took priority over strike-hunting in the last 30 minutes; their caveat notes are accurate as written."
+    },
+    {
+      "date": "2026-08-13",
+      "spot": 724.83,
+      "atm_iv": 0.1862,
+      "dte_used": 29,
+      "rv_30d": 0.239,
+      "iv_rv_ratio": 0.78,
+      "_note": "LIVE regular-hours quotes 13:33Z (post-open). ATM = avg of the 2026-09-11 725 call (0.1865) / put (0.1859) IV. Expiry 2026-09-11 = 29 DTE, the expiry nearest 30 per spec. rv_30d from the 13:00Z run's precomputed close-based set."
+    },
+    {
+      "date": "2026-08-14",
+      "spot": 733.735,
+      "atm_iv": 0.1873,
+      "dte_used": 28,
+      "rv_30d": 0.2374,
+      "iv_rv_ratio": 0.79,
+      "strike_used": 734,
+      "_note": "ATM = avg of the 2026-09-11 734 call (0.186786) / put (0.187829) IV. Expiry 2026-09-11 = 28 DTE, nearest 30 per spec. rv_30d computed fresh this run from 30 sessions of Robinhood daily bars (annualized stdev of log returns). Core-list daily reading. Live regular-hours quotes 13:32-13:33Z (first post-open run of 2026-08-14)."
+    },
+    {
+      "date": "2026-08-17",
+      "spot": 733.394,
+      "atm_iv": 0.191,
+      "dte_used": 32,
+      "rv_30d": 0.2314,
+      "iv_rv_ratio": 0.83,
+      "strike_used": 733,
+      "_note": "LIVE regular-hours quotes 13:33-13:34Z (updated_at freshness verified before writing). ATM = avg of the 2026-09-18 733 call (0.191256) / put (0.190809) IV. EXPIRY SWITCHED to 2026-09-18 = 32 DTE this run: from 2026-08-17 the 2026-09-11 board is 25 DTE and 2026-09-18 is 32, so |32-30|=2 beats |25-30|=5 and 09-18 is now the nearest-30 board per spec (prior rows correctly used 09-11 when it was the nearer one). rv_30d = annualized stdev of 30 daily log returns from Robinhood regular-hours historicals through the 2026-08-14 close. 5 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited."
+    }
+  ],
+  "NVDA": [
+    {
+      "date": "2026-08-11",
+      "spot": 218.38,
+      "atm_iv": 0.3815,
+      "dte_used": 31,
+      "rv_30d": 0.3985,
+      "iv_rv_ratio": 0.96
+    },
+    {
+      "date": "2026-08-12",
+      "spot": 220.41,
+      "atm_iv": 0.3915,
+      "dte_used": 30,
+      "rv_30d": 0.3979,
+      "iv_rv_ratio": 0.98,
+      "_note": "ATM IV as of the 2026-08-11 close (option quote feed still serving prior-close snapshots at ~13:35Z, minutes after the open); spot is the live 13:19Z pre-market print. Overwrite with live values if a later run touches this name."
+    },
+    {
+      "date": "2026-08-13",
+      "spot": 224.725,
+      "atm_iv": 0.3948,
+      "dte_used": 29,
+      "rv_30d": 0.4,
+      "iv_rv_ratio": 0.99,
+      "_note": "LIVE regular-hours quotes 13:33Z (post-open). ATM = avg of the 2026-09-11 225 call (0.3924) / put (0.3972) IV. Expiry 2026-09-11 = 29 DTE, the expiry nearest 30 per spec. rv_30d from the 13:00Z run's precomputed close-based set."
+    },
+    {
+      "date": "2026-08-14",
+      "spot": 226.18,
+      "atm_iv": 0.3848,
+      "dte_used": 28,
+      "rv_30d": 0.3969,
+      "iv_rv_ratio": 0.97,
+      "strike_used": 225,
+      "_note": "OVERWRITES this run (15:04Z) the earlier 2026-08-14 row (spot 227.02 / atm_iv 0.3933 / ratio 0.99). ATM = avg of the 2026-09-11 225 call (0.383928) / put (0.385717) IV, 28 DTE, measured live at spot 226.18. rv_30d 0.3969 retained from the earlier fresh 30-session computation (that window does not move materially intraday). Only 5 readings on NVDA so per spec IV/RV is used and NO percentile is cited. THE READING THAT MATTERS, and it is forward-looking rather than descriptive: NVDA reports 2026-08-26 pm (Robinhood earnings calendar, VERIFIED, est EPS $2.07) -- TWELVE days out -- and ATM IV is 38.5% against 39.7% realized, i.e. a ratio of 0.97. The pre-earnings vol bid HAS NOT STARTED. Implied is still slightly BELOW realized twelve days ahead of the single largest scheduled event in the AI complex. That is the condition under which long premium is bought well rather than chased, and it is the opposite of AVGO's 1.23 (see the AVGO note -- that one IS earnings-inflated). AFFORDABILITY -- THE DURABLE FINDING THIS RUN CONTRIBUTES, and it breaks a five-run losing streak of 'the setup is fine but the sleeve cannot pay for it': NVDA is the FIRST liquid, right-delta, budget-fitting contract in the AI complex this desk has found today. 2026-09-18 240C (35 DTE) = 5.35 x 5.45, mid 5.40, spread $0.10 = 1.85% OF MID (the tightest market measured on any candidate today, vs the <10% gate), OI 56,045, volume 1,588, delta 0.3326 (dead on the desk's ~0.35 default), IV 37.32%, theta -$0.142/day. Cost AT THE ASK = $545 against $751 of agentic headroom -> FITS with $206 to spare. The 235C (delta 0.401, 7.00 x 7.10 = 1.42% of mid, OI 24,229) costs $710 at the ask -> technically fits but leaves $41, which is not headroom; strike it on the same ask-side-fill logic that killed the INTC 110C. CONTRAST TO INHERIT: AMD ($3,308 ATM) and AVGO ($1,370 for the only earnings-clean ATM) are priced out of this sleeve entirely; NVDA at a $226 spot is not. When a trigger finally appears in the AI complex, NVDA is the vehicle that can actually be owned. WHY IT WAS NOT TAKEN THIS RUN: no trigger and no 'why now'. NVDA is +0.39% at 226.18 with no catalyst today; twelve days is early for the IV ramp; and the 2026-09-18 expiry STRADDLES the 08-26 print, so any entry carries a hard pre-earnings exit date rather than a clean runway. Graded B, logged, not owned."
+    },
+    {
+      "date": "2026-08-17",
+      "spot": 226.71,
+      "atm_iv": 0.3861,
+      "dte_used": 32,
+      "rv_30d": 0.3934,
+      "iv_rv_ratio": 0.98,
+      "strike_used": 225,
+      "_note": "LIVE regular-hours quotes 13:33-13:34Z (updated_at freshness verified before writing). ATM = avg of the 2026-09-18 225 call (0.383928) / put (0.38825) IV. EXPIRY SWITCHED to 2026-09-18 = 32 DTE this run: from 2026-08-17 the 2026-09-11 board is 25 DTE and 2026-09-18 is 32, so |32-30|=2 beats |25-30|=5 and 09-18 is now the nearest-30 board per spec (prior rows correctly used 09-11 when it was the nearer one). rv_30d = annualized stdev of 30 daily log returns from Robinhood regular-hours historicals through the 2026-08-14 close. 5 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited."
+    }
+  ],
+  "AMD": [
+    {
+      "date": "2026-08-11",
+      "spot": 466.08,
+      "atm_iv": 0.5647,
+      "dte_used": 31,
+      "rv_30d": 0.8356,
+      "iv_rv_ratio": 0.68
+    },
+    {
+      "date": "2026-08-12",
+      "spot": 488.61,
+      "atm_iv": 0.5641,
+      "dte_used": 37,
+      "rv_30d": 0.8293,
+      "iv_rv_ratio": 0.68,
+      "_note": "LIVE 17:47Z reading (refreshes the 14:33Z row; one row per ticker per day): Sep-18 490 strike, call IV 0.5656 / put IV 0.5626. Name touched for entry evaluation this run. Ratio 0.68 = cheap premium, single-legs favored -- affordability, not IV, is what blocks this name (see market_brief.budget_affordability_frontier)."
+    },
+    {
+      "date": "2026-08-13",
+      "spot": 484.35,
+      "atm_iv": 0.5449,
+      "dte_used": 29,
+      "rv_30d": 0.799,
+      "iv_rv_ratio": 0.68,
+      "_note": "LIVE regular-hours quotes 13:33Z (post-open). ATM = avg of the 2026-09-11 485 call (0.5322) / put (0.5577) IV. Expiry 2026-09-11 = 29 DTE, the expiry nearest 30 per spec. rv_30d from the 13:00Z run's precomputed close-based set."
+    },
+    {
+      "date": "2026-08-14",
+      "spot": 506.3123,
+      "atm_iv": 0.5701,
+      "dte_used": 28,
+      "rv_30d": 0.7744,
+      "iv_rv_ratio": 0.74,
+      "strike_used": 505,
+      "_note": "OVERWRITES this run (14:47-14:48Z) the 13:32Z row, which was measured at spot 490.30 / strike 490. AMD has since run to 506.31 (+4.82% on the day, accelerating through the morning: +3.11% at 14:01Z -> +3.91% at 14:15Z -> +4.82% now), so the ATM strike has migrated to 505 and the old row no longer describes the at-the-money market. ATM = avg of the 2026-09-11 505 call (0.564978) / put (0.575259) IV, 28 DTE. rv_30d 0.7744 retained from the 13:32Z fresh 30-session computation (that window does not move materially intraday). Ratio 0.74, up from 0.71 -- so vol WAS bid into the rip (IV +2.2 vol points on a +3.3% underlying move) but only mildly, and IV at 57.0% remains far BELOW 77.4% realized. Structure implication, same logic as INTC: with realized exceeding implied, the stock tends to travel FURTHER than the options price, so a capped-payoff debit spread is the WRONG vehicle for a breakout thesis here and the short leg would be selling cheap vol. || DECISIVE AFFORDABILITY FINDING, measured not estimated, and the durable fact this run contributes: AMD IS PRICED OUT OF THIS SLEEVE ENTIRELY at a $506 spot with 57% IV. Agentic premium-at-risk is $749 (the SPY hedge) against the $1,500 budget = $751 headroom. 2026-09-11 505C = 32.30 x 33.85, mid 33.075 (4.7% wide, PASSES the spread gate), delta 0.546, theta -$0.584/day -> $3,308 for ONE contract = 4.4x the headroom and 2.2x the ENTIRE budget. 530C = 22.10 x 23.50, mid 22.80 (6.1% wide), delta 0.424 -> $2,280 = 3.0x headroom. Even the desk-preferred DEBIT SPREAD does not fit: 505/530 is $1,028 at mids and $1,175 priced realistically (buy the 505 at the 33.85 ask, sell the 530 at the 22.10 bid) vs $751 available. Only a far-OTM low-delta lottery ticket would fit the budget, and that is not a position. CONCLUSION TO INHERIT: no future run should re-derive this chain. Until either the sleeve frees up the hedge's $749 or AMD trades materially lower, AMD cannot be owned directionally by this sleeve in any structure carrying real delta. Note also the OI tell, same pathology as AVGO's 400C at OI 79: the 505C has OI of only 145 (vol 14) and the 530C OI 87 (vol 20) -- open interest is stranded at the lower strikes AMD traded at before today, so an at-the-money entry here would be into a contract almost nobody owns."
+    },
+    {
+      "date": "2026-08-17",
+      "spot": 508.87,
+      "atm_iv": 0.5744,
+      "dte_used": 32,
+      "rv_30d": 0.7883,
+      "iv_rv_ratio": 0.73,
+      "strike_used": 510,
+      "_note": "LIVE regular-hours quotes 13:33-13:34Z (updated_at freshness verified before writing). ATM = avg of the 2026-09-18 510 call (0.575557) / put (0.573322) IV. EXPIRY SWITCHED to 2026-09-18 = 32 DTE this run: from 2026-08-17 the 2026-09-11 board is 25 DTE and 2026-09-18 is 32, so |32-30|=2 beats |25-30|=5 and 09-18 is now the nearest-30 board per spec (prior rows correctly used 09-11 when it was the nearer one). rv_30d = annualized stdev of 30 daily log returns from Robinhood regular-hours historicals through the 2026-08-14 close. 5 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited."
+    }
+  ],
+  "TSM": [
+    {
+      "date": "2026-08-11",
+      "spot": 421.5,
+      "atm_iv": 0.3778,
+      "dte_used": 31,
+      "rv_30d": 0.5067,
+      "iv_rv_ratio": 0.75
+    },
+    {
+      "date": "2026-08-12",
+      "spot": 429.85,
+      "atm_iv": 0.3721,
+      "dte_used": 37,
+      "rv_30d": 0.4829,
+      "iv_rv_ratio": 0.77,
+      "_note": "LIVE 17:47Z reading (refreshes the 14:33Z row): Sep-18 430 strike, call IV 0.3675 / put IV 0.3766. Name touched for entry evaluation this run. Ratio 0.77 = cheap premium, single-legs favored."
+    },
+    {
+      "date": "2026-08-13",
+      "spot": 430.221,
+      "atm_iv": 0.3627,
+      "dte_used": 29,
+      "rv_30d": 0.462,
+      "iv_rv_ratio": 0.79,
+      "_note": "LIVE regular-hours quotes 13:33Z (post-open). ATM = avg of the 2026-09-11 430 call (0.3666) / put (0.3587) IV. Expiry 2026-09-11 = 29 DTE, the expiry nearest 30 per spec. rv_30d from the 13:00Z run's precomputed close-based set."
+    },
+    {
+      "date": "2026-08-14",
+      "spot": 426.58,
+      "atm_iv": 0.3633,
+      "dte_used": 28,
+      "rv_30d": 0.414,
+      "iv_rv_ratio": 0.88,
+      "strike_used": 425,
+      "_note": "ATM = avg of the 2026-09-11 425 call (0.366643) / put (0.359938) IV. Expiry 2026-09-11 = 28 DTE, nearest 30 per spec. rv_30d computed fresh this run from 30 sessions of Robinhood daily bars (annualized stdev of log returns). Core-list daily reading. Live regular-hours quotes 13:32-13:33Z (first post-open run of 2026-08-14)."
+    },
+    {
+      "date": "2026-08-17",
+      "spot": 429.97,
+      "atm_iv": 0.3505,
+      "dte_used": 32,
+      "rv_30d": 0.4096,
+      "iv_rv_ratio": 0.86,
+      "strike_used": 430,
+      "_note": "LIVE regular-hours quotes 13:33-13:34Z (updated_at freshness verified before writing). ATM = avg of the 2026-09-18 430 call (0.343993) / put (0.357106) IV. EXPIRY SWITCHED to 2026-09-18 = 32 DTE this run: from 2026-08-17 the 2026-09-11 board is 25 DTE and 2026-09-18 is 32, so |32-30|=2 beats |25-30|=5 and 09-18 is now the nearest-30 board per spec (prior rows correctly used 09-11 when it was the nearer one). rv_30d = annualized stdev of 30 daily log returns from Robinhood regular-hours historicals through the 2026-08-14 close. 5 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited."
+    }
+  ],
+  "AVGO": [
+    {
+      "date": "2026-08-11",
+      "spot": 418.5,
+      "atm_iv": 0.4971,
+      "dte_used": 31,
+      "rv_30d": 0.4213,
+      "iv_rv_ratio": 1.18
+    },
+    {
+      "date": "2026-08-12",
+      "spot": 425.01,
+      "atm_iv": 0.4993,
+      "dte_used": 30,
+      "rv_30d": 0.4226,
+      "iv_rv_ratio": 1.18,
+      "_note": "ATM IV as of the 2026-08-11 close (option quote feed still serving prior-close snapshots at ~13:35Z, minutes after the open); spot is the live 13:19Z pre-market print. Overwrite with live values if a later run touches this name."
+    },
+    {
+      "date": "2026-08-13",
+      "spot": 412.725,
+      "atm_iv": 0.4997,
+      "dte_used": 29,
+      "rv_30d": 0.422,
+      "iv_rv_ratio": 1.18,
+      "_note": "LIVE regular-hours quotes 13:33Z (post-open). ATM = avg of the 2026-09-11 415 call (0.4975) / put (0.5019) IV. Expiry 2026-09-11 = 29 DTE, the expiry nearest 30 per spec. rv_30d from the 13:00Z run's precomputed close-based set."
+    },
+    {
+      "date": "2026-08-14",
+      "spot": 401.1,
+      "atm_iv": 0.51,
+      "dte_used": 28,
+      "rv_30d": 0.4144,
+      "iv_rv_ratio": 1.23,
+      "strike_used": 400,
+      "_note": "ATM IV 0.51 / ratio 1.23 as MEASURED at 14:04Z (spot 401.10, strike 400, avg of the 2026-09-11 400 call 0.507906 / put 0.512078, 28 DTE); rv_30d 0.4144 from the 13:32Z 30-session computation. NOT re-measured at 15:05Z because the conclusion below is structural, not IV-driven -- but spot has fallen further to 395.59 (-5.32% on the day, a fifth consecutive deepening: -2.2% at the open -> -3.26% -> -4.00% -> -5.32%), so the strike-400 row is now slightly ITM-biased and any run that needs a precise ATM print should re-measure at the 395 strike. THE MISSING 'WHY' BEHIND THIS RATIO, and four separate runs remarked on the anomaly without explaining it: AVGO reports Q3 on 2026-09-02 pm (Robinhood earnings calendar, VERIFIED, est EPS $3.16; the 15:01Z equity report lists it as 09-03, consistent with a pm print). That is 19 days out and it sits INSIDE the 2026-09-11 expiry every AVGO IV row here has been measured on. So AVGO's status as 'the only core name with IV ABOVE realized' is NOT a market signal about the AMAT read-through -- it is the earnings event being priced into the expiry we happened to sample. Do not cite AVGO's 1.23 as evidence of anything else. For scale on why that vol is bid: AVGO's LAST print gapped the stock 479 -> 409, about -14%, on 2026-06-04. STRUCTURAL STRIKE-OFF -- MEASURED THIS RUN, and it disqualifies AVGO for WEEKS rather than for today: the desk prefers closing before earnings, so the only usable expiry is the earnings-clean 2026-08-28 (14 DTE, the 08-21 weekly being at the DTE floor of 7 and strictly worse on the same logic). Priced live at 15:05Z, spot 395.59: 395C (ATM, delta 0.524) = 12.85 x 13.70, mid 13.275, spread $0.85 = 6.4% of mid (passes the gate), OI only 109 -> $1,370 AT THE ASK vs $751 of headroom, a BUDGET BREACH of 82%, dead. 415C (delta 0.300) = 5.75 x 6.45, mid 6.10, spread $0.70 = 11.5% OF MID -> FAILS the <10% liquidity gate outright, and its theta of -$0.421/day is -6.9% OF PREMIUM PER DAY into a weekend. THE ELEGANT PART, worth understanding rather than re-deriving: the expiry that AVOIDS the earnings print is precisely the expiry whose theta makes a multi-day mean-reversion hold uneconomic -- strip out the event supporting the vol and you keep all of the decay -- while every expiry with tolerable theta straddles the print. There is no AVGO structure available to this sleeve in either direction until after 2026-09-02. For the record on the underlying, because the technical setup is genuinely real: the 15:01Z equity report flags AVGO as the day's ONLY Connors RSI(2) setup at RSI2 5.1, and the 200-day SMA is 369.04 and RISING (+~0.32/day), so spot sits 7.2% ABOVE it -- an oversold dip inside an intact long-term uptrend, not a broken name. It is a real B setup that this desk cannot express. || 16:18Z ADDENDUM (12th post-open run) -- CANONICAL FIELDS ABOVE ARE UNCHANGED AND DELIBERATELY NOT OVERWRITTEN: they are the 28-DTE ATM reading the IV method specifies, and replacing them with a 7-DTE number would corrupt the series with a term-structure artifact. What I measured instead, and why it matters: the 2026-08-21 board (7 DTE, the ONLY earnings-clean expiry) prints ATM IV 0.3823 (395C) / 0.3826 (400C), avg 0.3825, against the same rv_30d 0.4144 -> IV/RV = 0.92. The canonical 28-DTE row reads 1.23 because its 2026-09-11 expiry STRADDLES the 2026-09-03 earnings print; the 12.75-vol-point gap between the two boards IS the earnings premium, not fear. CONSEQUENCE, stated plainly because an inherited fact was being used as a disqualifier: 'AVGO IV/RV 1.23, the only core name above 1.0' is TRUE of the 28-DTE series point and FALSE of any expiry this desk could actually trade ex-earnings. Vol is mildly CHEAP vs realized on the tradeable board. AVGO was still passed this run -- on vehicle economics, not on vol. Note the flip side: the ratio is under 1.0 because REALIZED vol is 41%, i.e. the stock is genuinely moving 5% a day, which cuts both directions.",
+      "spot_latest": 393.57,
+      "_spot_trail": "401.10 (14:04Z, canonical strike-400 measurement) -> 395.59 (15:05Z) -> 393.57 (16:46Z, session low 393.20 at 16:40Z). The canonical atm_iv/strike_used fields are NOT overwritten: they are the 28-DTE ATM reading the IV method specifies. Any run needing a precise ATM print at this spot should re-measure at the 395 strike."
+    },
+    {
+      "date": "2026-08-17",
+      "spot": 397.165,
+      "atm_iv": 0.4914,
+      "dte_used": 32,
+      "rv_30d": 0.4488,
+      "iv_rv_ratio": 1.09,
+      "strike_used": 400,
+      "_note": "LIVE regular-hours quotes 13:33-13:34Z (updated_at freshness verified before writing). ATM = avg of the 2026-09-18 400 call (0.494048) / put (0.488684) IV. EXPIRY SWITCHED to 2026-09-18 = 32 DTE this run: from 2026-08-17 the 2026-09-11 board is 25 DTE and 2026-09-18 is 32, so |32-30|=2 beats |25-30|=5 and 09-18 is now the nearest-30 board per spec (prior rows correctly used 09-11 when it was the nearer one). rv_30d = annualized stdev of 30 daily log returns from Robinhood regular-hours historicals through the 2026-08-14 close. 5 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited."
+    }
+  ],
+  "MSFT": [
+    {
+      "date": "2026-08-11",
+      "spot": 501.73,
+      "atm_iv": 0.2667,
+      "dte_used": 31,
+      "rv_30d": 0.4879,
+      "iv_rv_ratio": 0.55
+    },
+    {
+      "date": "2026-08-12",
+      "spot": 500.44,
+      "atm_iv": 0.2649,
+      "dte_used": 30,
+      "rv_30d": 0.4854,
+      "iv_rv_ratio": 0.55,
+      "_note": "ATM IV as of the 2026-08-11 close (option quote feed still serving prior-close snapshots at ~13:35Z, minutes after the open); spot is the live 13:19Z pre-market print. Overwrite with live values if a later run touches this name."
+    },
+    {
+      "date": "2026-08-13",
+      "spot": 495.855,
+      "atm_iv": 0.262,
+      "dte_used": 29,
+      "rv_30d": 0.495,
+      "iv_rv_ratio": 0.53,
+      "_note": "LIVE regular-hours quotes 13:33Z (post-open). ATM = avg of the 2026-09-11 495 call (0.2532) / put (0.2708) IV. Expiry 2026-09-11 = 29 DTE, the expiry nearest 30 per spec. rv_30d from the 13:00Z run's precomputed close-based set."
+    },
+    {
+      "date": "2026-08-14",
+      "spot": 495.34,
+      "atm_iv": 0.2614,
+      "dte_used": 28,
+      "rv_30d": 0.491,
+      "iv_rv_ratio": 0.53,
+      "strike_used": 495,
+      "_note": "ATM = avg of the 2026-09-11 495 call (0.258461) / put (0.264272) IV. Expiry 2026-09-11 = 28 DTE, nearest 30 per spec. rv_30d computed fresh this run from 30 sessions of Robinhood daily bars (annualized stdev of log returns). Ratio 0.53 -- the cheapest IV/RV in the core list for a fourth straight reading. Worth remembering the caveat prior runs flagged: that rv_30d window is inflated by MSFT's own earnings gap, so 'cheap' overstates the edge."
+    },
+    {
+      "date": "2026-08-17",
+      "spot": 482.34,
+      "atm_iv": 0.2577,
+      "dte_used": 32,
+      "rv_30d": 0.4916,
+      "iv_rv_ratio": 0.52,
+      "strike_used": 480,
+      "_note": "OVERWRITES this run (14:33Z) the 14:03Z row, per the overwrite-today rule, and it is a better reading for a substantive reason rather than mere freshness: spot fell 484.85 -> 482.34, moving the true ATM strike from 485 to 480. ATM IV = avg of the 2026-09-18 480 call (0.252649) / 480 put (0.262782) = 0.2577. rv_30d UNCHANGED at 0.4916 -- same 30-session window through the 2026-08-14 close, no new session has settled, so re-deriving it would be false precision. Ratio 0.52 (was 0.53), fifth daily reading as the cheapest relative vol on the core list. THE FINDING THAT MATTERS: ATM IV BARELY MOVED (0.2594 -> 0.2577, slightly DOWN) even as MSFT broke out of its 45-minute consolidation to a fresh session low on the heaviest non-opening volume of the day. Vol is NOT bidding the breakdown. The 2026-09-18 475P is +57% on the day (7.03 close -> 11.05 mark) and every cent of that is DELTA, not vol expansion -- the options market is pricing this move as flow/noise, not as a regime change. That is an independent argument against buying the break, and it is the kind of read that only exists because this file is kept. STANDING CAVEAT unchanged: rv_30d is inflated by MSFT's own earnings gap and the violent 377->513 recovery leg, so 'cheap' overstates the edge. COUNT CORRECTION for the relay: this file holds FIVE MSFT rows (2026-08-11/12/13/14/17), not the 'sixth/fifth daily reading' prior notes claimed -- those counted intraday overwrites as separate readings. Five is the number; still far <20, so IV/RV ONLY and no percentile may be cited."
+    }
+  ],
+  "TSLA": [
+    {
+      "date": "2026-08-11",
+      "spot": 331.73,
+      "atm_iv": 0.3877,
+      "dte_used": 31,
+      "rv_30d": 0.6822,
+      "iv_rv_ratio": 0.57
+    },
+    {
+      "date": "2026-08-12",
+      "spot": 334.65,
+      "atm_iv": 0.386,
+      "dte_used": 30,
+      "rv_30d": 0.633,
+      "iv_rv_ratio": 0.61,
+      "_note": "ATM IV as of the 2026-08-11 close (option quote feed still serving prior-close snapshots at ~13:35Z, minutes after the open); spot is the live 13:19Z pre-market print. Overwrite with live values if a later run touches this name."
+    },
+    {
+      "date": "2026-08-13",
+      "spot": 326.335,
+      "atm_iv": 0.3707,
+      "dte_used": 29,
+      "rv_30d": 0.628,
+      "iv_rv_ratio": 0.59,
+      "_note": "LIVE regular-hours quotes 13:33Z (post-open). ATM = avg of the 2026-09-11 325 call (0.3723) / put (0.3692) IV. Expiry 2026-09-11 = 29 DTE, the expiry nearest 30 per spec. rv_30d from the 13:00Z run's precomputed close-based set."
+    },
+    {
+      "date": "2026-08-14",
+      "spot": 344.61,
+      "atm_iv": 0.3868,
+      "dte_used": 28,
+      "rv_30d": 0.6393,
+      "iv_rv_ratio": 0.61,
+      "strike_used": 345,
+      "_note": "ATM = avg of the 2026-09-11 345 call (0.388697) / put (0.384822) IV. Expiry 2026-09-11 = 28 DTE, nearest 30 per spec. rv_30d computed fresh this run from 30 sessions of Robinhood daily bars (annualized stdev of log returns). Core-list daily reading. Live regular-hours quotes 13:32-13:33Z (first post-open run of 2026-08-14)."
+    },
+    {
+      "date": "2026-08-17",
+      "spot": 338.15,
+      "atm_iv": 0.3969,
+      "dte_used": 32,
+      "rv_30d": 0.6044,
+      "iv_rv_ratio": 0.66,
+      "strike_used": 340,
+      "_note": "LIVE regular-hours quotes 13:33-13:34Z (updated_at freshness verified before writing). ATM = avg of the 2026-09-18 340 call (0.395551) / put (0.398234) IV. EXPIRY SWITCHED to 2026-09-18 = 32 DTE this run: from 2026-08-17 the 2026-09-11 board is 25 DTE and 2026-09-18 is 32, so |32-30|=2 beats |25-30|=5 and 09-18 is now the nearest-30 board per spec (prior rows correctly used 09-11 when it was the nearer one). rv_30d = annualized stdev of 30 daily log returns from Robinhood regular-hours historicals through the 2026-08-14 close. 5 readings on this name -- still <20, so IV/RV ONLY, no percentile may be cited."
+    }
+  ],
+  "CVS": [
+    {
+      "date": "2026-08-11",
+      "spot": 93.39,
+      "atm_iv": 0.2519,
+      "dte_used": 24,
+      "rv_30d": 0.2762,
+      "iv_rv_ratio": 0.91,
+      "_note": "open agentic position (2026-09-18 100C); tracked because it's under active management"
+    }
+  ],
+  "INTC": [
+    {
+      "date": "2026-08-12",
+      "spot": 102.26,
+      "atm_iv": 0.6843,
+      "dte_used": 37,
+      "rv_30d": 0.8448,
+      "iv_rv_ratio": 0.81,
+      "_note": "First INTC reading -- logged because INTC was under active evaluation this run (18:00Z). atm_iv = avg of the 2026-09-18 100C (0.6749) / 105C (0.6834) / 110C (0.6852) / 115C (0.6945) band around spot 102.26; 105C is the delta-0.50 strike. LIVE quotes (18:02Z), not a prior-close snapshot. Ratio 0.81 = premium CHEAP vs realized -- INTC's actual daily range (rv 84%) exceeds what the options charge (68%), so single-legs are favored over spreads on this name."
+    },
+    {
+      "date": "2026-08-13",
+      "spot": 104.43,
+      "atm_iv": 0.6851,
+      "dte_used": 29,
+      "rv_30d": 0.83,
+      "iv_rv_ratio": 0.83,
+      "strike_used": 105,
+      "_note": "OVERWRITES this run (19:30Z) the 19:00Z row, which itself claimed to be the closest-to-close reading at spot $105.395. INTC has since faded to $104.43 with ~28 min to the bell, so THIS is the reading tomorrow's first run should inherit. 105 remains the true ATM strike. ATM = avg of the 2026-09-11 105 call (0.6833) / put (0.6869) IV, 29 DTE. rv_30d 0.83 retained from the 13:00Z precomputed close-based set (a 30-session window does not move materially in one day). Ratio 0.83 -- IV still BELOW realized for the fourth consecutive reading, so a long single-leg remains the correct structure whenever an entry price is finally acceptable. LIQUIDITY, updated and improved again: the 2026-09-11 105C market TIGHTENED to $7.70 x $8.10 = 5.1% of mid (was 7.6% at 19:00Z) on OI 1,671, now passing the <10% preference outright; the 2026-09-18 MONTHLY (OI 44,946) is still the better venue for any real entry. 4 readings -- still ratio-only, no percentile computable until 20."
+    },
+    {
+      "date": "2026-08-14",
+      "spot": 105.62,
+      "atm_iv": 0.6839,
+      "dte_used": 28,
+      "rv_30d": 0.8008,
+      "iv_rv_ratio": 0.85,
+      "strike_used": 105,
+      "_note": "ATM = avg of the 2026-09-11 105 call (0.66705) / put (0.700727) IV. Expiry 2026-09-11 = 28 DTE, nearest 30 per spec. rv_30d computed fresh from 30 sessions of Robinhood daily bars (annualized stdev of log returns). Ratio 0.85, IV BELOW realized for a FIFTH consecutive reading -- structure verdict unchanged: whenever an entry is finally justified, a long single-leg is the right vehicle (you do not want to be SHORT cheap vol in the near leg of a spread). LIQUIDITY -- CORRECTED 13:46Z, and the correction matters: the 13:32Z reading measured only the 2026-09-11 WEEKLY (7.50 x 9.10 = 19.3% of mid) and concluded 'no INTC entry is placeable at an acceptable cost'. That conclusion was drawn from the wrong contract. Re-measured 14 minutes later: the weekly has tightened to 7.60 x 8.70 = 13.5% of mid (still FAILS the <10% gate, OI only 1,664), but the 2026-09-18 MONTHLY is 9.20 x 9.55 = 3.7% of mid on OI 18,538 -- it PASSES the liquidity gate cleanly and has passed it all along. INTC is therefore a liquidity-clean name via the monthly; the reasons not to own it today are the untriggered confirming level, the pre-UMich clock, and the budget arithmetic ($938 for 1 contract vs $751 of agentic headroom) -- NOT the spread. || STRUCTURE QUESTION RESOLVED 14:02Z (this was the explicit handoff item from the 13:45Z run: 'which structure resolves the $938-vs-$751 problem without selling cheap vol'). Full 2026-09-18 monthly board re-measured live at spot 105.62, 35 DTE, against $751 of agentic headroom -- and priced at the ASK, not the mid, because a mid fill is not guaranteed: 105C 9.35x9.70 (mid 9.525, 3.7% wide, OI 18,538, delta 0.566, IV 67.90%) = $952-$970 -> BREACHES the budget, confirmed dead. 110C 7.30x7.60 (mid 7.45, 4.0% wide, OI 54,087, vol 504, delta 0.479, IV 68.70%) = $745 at mid but $760 AT THE ASK -> does NOT reliably fit; $6 of headroom is not headroom. 115C 5.60x5.90 (mid 5.75, 5.2% wide, OI 10,697, delta 0.399, IV 69.27%) = $590 at ask -> FITS. 120C 4.45x4.50 (mid 4.475, 1.1% wide, OI 33,160, VOLUME 6,497 -- by far the heaviest on the board, delta 0.329, IV 70.50%) = $450 at ask -> FITS with $301 to spare, and is both the tightest market on the chain and the closest to the desk's ~0.35-delta default. 105/115 DEBIT SPREAD = 9.525 - 5.75 = ~$378 debit, max value $1,000, max profit ~$622 (~2.6:1). ON THE CHEAP-VOL OBJECTION the prior run raised: it is weaker than it looked. Within this expiry the skew RISES with strike (105C IV 67.90% < 115C IV 69.27% < 120C IV 70.50%), so a call debit spread SELLS a higher IV than it BUYS -- the spread is not simply 'short cheap vol'. The real argument against it is different and still holds: INTC realized vol (80%) exceeds implied (68%), meaning the stock tends to travel FURTHER than the options price, which is exactly the condition under which a capped payoff hurts most on a breakout thesis. HANDOFF RECOMMENDATION (not an authorization -- the confirming level is still unmet): if and when INTC triggers, the 2026-09-18 120C at ~$450 is the structure that satisfies every constraint simultaneously -- budget fit with room, best liquidity on the board, right delta, and long vol. The 115C at ~$590 is the more aggressive alternative. The 110C should be struck from consideration on ask-side fill risk."
+    }
+  ],
+  "IREN": [
+    {
+      "date": "2026-08-13",
+      "spot": 47.1,
+      "atm_iv": 0.9877,
+      "dte_used": 29,
+      "rv_30d": 1.414,
+      "iv_rv_ratio": 0.7,
+      "strike_used": 47,
+      "_note": "LIVE regular-hours quotes 13:38:5xZ (freshness verified via quote.updated_at before writing). ATM = avg of the 2026-09-11 47 call (0.9517) / put (1.0238) IV, 29 DTE. rv_30d computed fresh by this run from 30 sessions of Robinhood daily bars (IREN was not in the 13:00Z precomputed set): 141% annualized realized vol, which is why a ~99% IV still reads CHEAP at ratio 0.70. Logged because IREN was under active evaluation this run (biggest mover in the universe). Context for any future run: cheap IV here is NOT an invitation -- the 2026-09-11 47C market was $4.80 x $5.90 (20.6% of mid) on OI 44, an automatic liquidity skip."
+    }
+  ],
+  "ROST": [
+    {
+      "date": "2026-08-13",
+      "spot": 242.53,
+      "atm_iv": 0.3621,
+      "dte_used": 29,
+      "rv_30d": 0.214,
+      "iv_rv_ratio": 1.69,
+      "strike_used": 245,
+      "_note": "LIVE regular-hours quotes 15:17Z. ATM = avg of the 2026-09-11 245 call (0.3723) / put (0.3519) IV, 29 DTE (no 242.5 strike exists on this expiry; 245 is nearest spot 242.53). rv_30d computed fresh by this run from 30 sessions of Robinhood daily bars = 21.4% annualized. Ratio 1.69 is ELEVATED (>1.5 threshold) -- and the reason is mechanical, not opportunity: ROST reports earnings 2026-08-20 pm, so this post-earnings expiry prices the event. Logged because ROST was under active evaluation this run (the day's one NEW report setup). Context for a future run: 2 readings only, so ratio-only per the IV rules -- no percentile is computable yet."
+    }
+  ],
+  "LIN": [
+    {
+      "date": "2026-08-13",
+      "spot": 477.965,
+      "atm_iv": 0.2107,
+      "dte_used": 36,
+      "rv_30d": 0.2592,
+      "iv_rv_ratio": 0.81,
+      "strike_used": 480,
+      "_note": "LIVE regular-hours quotes 17:04Z. ATM = avg of the 2026-09-18 480 call (0.19975) / put (0.221655) IV. Expiry 2026-09-18 = 36 DTE: LIN has NO weeklies (monthly-only chain), so the choice was 2026-08-21 (8 DTE) vs 2026-09-18 (36 DTE) and 36 is nearest 30. rv_30d 0.2592 computed fresh by this run from 30 sessions of Robinhood daily bars. IMPORTANT read-the-number caveat: that realized-vol window CONTAINS the 2026-07-31 earnings gap (-6.6% in one session), which inflates it -- ex-gap rv_30d is 0.1936 and the ratio flips to 1.09. So the headline 0.81 'cheap IV' reading is an artifact of one event day, not a standing edge; LIN premium is fairly priced, not cheap. Logged because LIN was under active evaluation this run (the day's one NEW report setup). 1 reading only -- ratio-only per the IV rules, no percentile computable."
+    }
+  ],
+  "ACGL": [
+    {
+      "date": "2026-08-13",
+      "spot": 97.41,
+      "atm_iv": 0.2088,
+      "dte_used": 36,
+      "rv_30d": 0.2649,
+      "iv_rv_ratio": 0.79,
+      "_note": "Logged because ACGL was under ACTIVE EVALUATION this run (it is the day's only NEW report setup). atm_iv is the 95C/100C blend at the 2026-09-18 expiry -- ACGL's chain has $5-wide strikes so there is no true ATM contract at a $97.41 spot, which is itself a thin-chain tell. Premium is CHEAP (ratio 0.79, IV below realized); the name was killed on LIQUIDITY, not IV."
+    }
+  ],
+  "CL": [
+    {
+      "date": "2026-08-17",
+      "spot": 90.48,
+      "atm_iv": 0.2237,
+      "dte_used": 32,
+      "rv_30d": 0.2351,
+      "iv_rv_ratio": 0.95,
+      "_note": "First CL reading. ATM 2026-09-18 90C (spot 90.48). RV from 30 sessions of daily log returns via Robinhood historicals. n=1 reading -> IV/RV only, no percentile."
+    }
+  ],
+  "HD": [
+    {
+      "date": "2026-08-17",
+      "spot": 337.12,
+      "atm_iv": 0.29325,
+      "dte_used": 32,
+      "rv_30d": 0.2765,
+      "iv_rv_ratio": 1.06,
+      "strike_used": 335,
+      "_note": "FIRST HD READING -- logged deliberately as a PRE-PRINT BASELINE ahead of HD earnings Tue 2026-08-18 am, so tomorrow's run can judge a post-print reaction setup against a real before-number instead of guessing whether IV crush made the option cheap. LIVE regular-hours quotes 15:03:40-15:03:44Z (updated_at verified). ATM = avg of the 2026-09-18 335 call IV (0.267997) / put IV (0.318512); 335 is ATM at spot 337.12 (2.12 away vs 2.88 to 340). Expiry 2026-09-18 = 32 DTE, nearest to 30 (2026-09-11 is 25). RV from 30 sessions of daily log returns via Robinhood historicals. IV/RV 1.06 = HD is pricing MORE vol than it has realized, normal into a print but it means premium is bought at the elevated number with a crush pending. LIQUIDITY IS THE BINDING PROBLEM AND IT IS WORSE THAN A MEGA-CAP SUGGESTS: ATM call OI 72, spread 11.90/13.00 = 8.84% of mid; ATM put OI 217, spread 10.80/11.30 = 4.52% of mid with bid_size 2 / ask_size 3 -- essentially no depth, on a $5-wide strike ladder. Theta on the 335P is -$18.0/day against a $1,105 premium = 1.6%/day carry. Consequence for the relay: the tradeable POST-PRINT version of the consumer thesis will face this same thin ladder, so screen the vehicle BEFORE the thesis workup (CLAUDE.md 'screen liquidity EARLY'), and consider whether a more liquid proxy expresses the same read better than HD itself."
+    }
+  ]
 }
