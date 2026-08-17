@@ -1,6 +1,6 @@
 {
-  "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-17T15:03:00Z",
+  "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' — every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) — settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
+  "updated_utc": "2026-08-17T15:10:00Z",
   "_realized_options_pnl_today": 0.0,
   "positions": [
     {
@@ -78,6 +78,16 @@
       "stop": null,
       "target": 331.06,
       "_note": "Aug slot 1 ($500). A-grade: record June quarter (rev +16%, iPhone +22%), dip = soft Q4 guide on SUPPLY shortages not demand; next earnings ~late Oct. Reconciled 2026-08-13T16:05Z (interactive session): broker showed 1.652252sh vs 1.650769 in the ledger, a +0.001483sh drift booked as intraday_quantity today. This is a DIVIDEND REINVESTMENT, not a trade -- 1.650769sh x ~$0.27/sh quarterly dividend = ~$0.45, and $0.45 / ~$302 spot = ~0.0015sh, which matches. No unauthorized buy, no HARD RULE 9 flag warranted; ledger synced to the broker."
+    },
+    {
+      "symbol": "CL",
+      "sleeve": "swing",
+      "entry_date": "2026-08-17",
+      "entry_price": 89.97,
+      "shares": 5.0,
+      "stop": null,
+      "target": 93.49,
+      "_note": "Aug slot 3 (week of 2026-08-17, $449.85 -- the defensive-posture weekly quota, first entry of this week; ACGL consumed the week of Aug 10 and was closed 2026-08-14). Ryan approved the one-tap batch 2026-08-17 ~15:08Z; order 6a8323f8 filled 5sh @ $89.97 (placed_agent=agentic). WHOLE shares deliberately, so the position can carry a resting stop if it ever goes green enough (trailing trigger = entry/0.85 = $105.85, +17.6%). No stop at entry per HARD RULE 5; report ref stop $87.47. EARNINGS VERIFIED CLEAR against the broker, not just the report's blank tag: Q2 reported 2026-07-31 (adj EPS $0.99 vs $0.95 est, a beat), next report 2026-10-30 (verified) = 74 days out, well outside the hold window. HARD RULE 7 thesis INTACT and improving: Q2 sales $5.36B / net income $693M; RAISED full-year Base Business EPS growth guidance to mid-single-digit and upgraded the gross-margin outlook; reaffirmed 2-6% net sales growth and double-digit GAAP EPS growth. July target raises JPM $104 (Overweight) / UBS $106 (Buy) / Citi $110 (Buy); consensus $97.82 vs $89.97 entry (+8.7%). WHY THIS DIP WAS BUYABLE (the distinction that mattered this week): CL fell -1.9% mid-pack inside a SECTOR-WIDE staples rotation -- KDP -3.3%, BTI -1.8%, MO -1.8%, UL -1.7%, PG -1.2% -- against SPY -0.13%, i.e. money leaving defensives, not a problem at Colgate. That is the opposite of AVGO, which was declined three times the prior week for falling -5.5% IDIOSYNCRATICALLY while AMD rose +3.4% (cause later identified: OpenAI custom-chip $18B financing roadblock + Erste and BofA downgrades). RISKS ACCEPTED AND STATED TO RYAN BEFORE APPROVAL: (1) modest R/R ~1.2:1 (target +3.9%, ref stop -2.8%) as expected on a low-beta staple; (2) Q2 carried a margin squeeze even with guidance held; (3) the entry fights an active multi-week rotation OUT of staples, so the dip may deepen first; (4) the oversold read is NOT unanimous -- CL was absent from the live Robinhood dip scan (its RSI2 >= 10) while report.py printed 7.1, the same calculation divergence seen on AVGO. Graded B+/A-, not a slam dunk, and appropriate for the Aug-Oct defensive posture as a low-beta defensive name."
     }
   ],
   "_resolved_flags": [
