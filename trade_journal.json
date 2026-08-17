@@ -7125,6 +7125,50 @@
    "duties_checked": "Friday weekly review: already written 2026-08-14T13:05Z (broker-sourced). daily_options_report.md for 2026-08-14: already delivered; nothing material since, so NOT rewritten (a duplicate only re-notifies Ryan). Branch-vs-master drift check: local HEAD == origin/master (85e92f9), no unmerged pile-up.",
    "decision": "NO TRADE. Market shut \u2014 being flat is the only available state, not a judgment call. Nothing stamped, nothing rolled, nothing re-derived.",
    "note_to_next_instance": "First run at/after 09:30 ET Monday owns four things in order: stamp automation_heartbeat.json for 2026-08-17, rebuild market_brief.json on live prints (Friday's brief carries an explicit opening-auction warning \u2014 do not inherit its levels), reset the daily loss cap and 3-entry throttle, then hunt. Sleeve is empty of non-hedge positions (0 of 3 slots) with $2,383.62 settled \u2014 the constraint on Monday is setup quality, not capital. Source candidates liquidity-first: QQQ/SPY/NVDA/INTC are the measured-affordable tier at the $1,500 per-trade max; AMD/AVGO/TSM/MSFT are not, and re-quoting them is the research trap logged 2026-08-14."
+  },
+  {
+   "run_utc": "2026-08-17T10:22:00Z",
+   "run_type": "overnight_closed_market_noop",
+   "trading_day_et": "2026-08-14 (Friday) \u2014 still the last bell that rang. Now Mon 2026-08-17 06:22 ET, ~3h08m before the open. Heartbeat NOT stamped (correctly still 2026-08-14), market_brief.json NOT rebuilt, daily loss cap and 3-entry throttle NOT reset. Only a run at/after Mon 09:30 ET does those four.",
+   "run": "Twelfth consecutive closed-market firing of the 2026-08-14 trading day, 59 min after the 09:23Z run. POST-CLOSE RUN PROTOCOL applied in full: read what the 07:05Z / 07:45Z / 08:26Z / 09:23Z runs already covered, ran the one check always worth repeating (broker reconciliation), found nothing new, logged short, stopped. No research invented to justify the firing; no duplicate of work an earlier run already did.",
+   "regime": "RISK-ON, EXTENDED, COMPLACENT \u2014 carried from the 2026-08-14 brief, NOT re-derived. No tape; a 06:22 ET pre-market print is not actionable and the first post-open run must re-measure anyway.",
+   "positions_verdict": [
+    {
+     "contract": "SPY 2026-11-20 700P",
+     "placed_agent": "agentic",
+     "verdict": "working-as-insurance / NO ACTION",
+     "why": "Authorized defensive hedge, EXEMPT from all premium backstops, held to its ~21-DTE roll/close decision WITH Ryan (~2026-10-30). 95 DTE out, market shut \u2014 nothing to decide."
+    },
+    {
+     "contract": "ACHR 2028-01-21 5C",
+     "placed_agent": "user",
+     "verdict": "NO ACTION EVER \u2014 structural",
+     "why": "Ownership gate (placed_agent='user') plus Ryan's 2026-07-22 manual_hold_override. Not the automation's to touch; carried for his running numbers only."
+    }
+   ],
+   "broker_reconciliation": {
+    "checked_utc": "2026-08-17T10:23:00Z",
+    "result": "CLEAN, zero drift. get_option_positions returns exactly the two contracts in holdings.json; every pending_* field 0.0000 \u2014 no overnight assignment, exercise or expiration.",
+    "accounts": "Agentic 718757339, cash, option_level_2, unsettled_funds $0.0000. Debit spreads remain UNAVAILABLE at level 2; the option_level_3 recommendation still stands with Ryan, unactioned. No run may act as though the upgrade exists until get_accounts actually returns option_level_3.",
+    "portfolio": {
+     "total_value": 3849.28,
+     "equity_value": 506.66,
+     "options_value": 959.0,
+     "cash": 2383.62,
+     "buying_power": 2383.62
+    },
+    "vs_prior_runs": "Cash $2,383.62, buying power $2,383.62 and options_value $959 match the 07:05Z / 07:45Z / 08:26Z / 09:23Z snapshots to the cent. equity_value ticks in an ~$0.90 band ($505.24\u2013$507.82) across the weekend runs purely as stale-mark noise on a closed market, not position change. The equity/cash composition difference vs the 2026-08-14T13:33Z heartbeat snapshot was already run down and explained by the 07:05Z run (Friday 15:05Z ACGL swing exit, 4.069594sh @ $98.5602, proceeds $401.10, realized +$1.10 / +0.27%, agentic-placed but Ryan-approved, already in holdings._closed_positions). NOT drift, NOT a HARD RULE 6 issue \u2014 not re-litigated here.",
+    "settlement_note": "unsettled_funds has now gone $401.10 (Sat 2026-08-16 19:19Z) -> $0.0000. The ACGL proceeds have fully settled, so the entire $2,383.62 is settled cash at Monday's open and FOUR LAWS #4 will not bind a full $1,500 per-trade entry."
+   },
+   "hunt": "NONE \u2014 market shut. No entry is placeable, and a pre-market quote at 06:22 ET would be re-measured by the first post-open run anyway.",
+   "grades_considered": "NONE \u2014 market shut.",
+   "entries_today": 0,
+   "realized_pnl_today_usd": 0.0,
+   "four_laws_check": "Not engaged \u2014 no order contemplated. Sleeve carries 0 of 3 non-hedge positions; agentic premium-at-risk $749 (the hedge, excluded from the position count); settled cash $2,383.62.",
+   "hard_rule_9": "No _flag / UNAUTHORIZED marker open anywhere in holdings.json. Nothing claimed, quoted or cleared on Ryan's behalf \u2014 this is an unattended run and structurally cannot supply a Ryan turn.",
+   "duties_checked": "Friday weekly review: already written 2026-08-14T13:05Z (broker-sourced). daily_options_report.md for 2026-08-14: already delivered; nothing material has happened since, so NOT rewritten \u2014 a duplicate only re-notifies Ryan for no new information. Heartbeat: correctly left at 2026-08-14. Branch-vs-master drift check: local HEAD == origin/master (4726055) at run start, no unmerged pile-up.",
+   "decision": "NO TRADE. Market shut \u2014 flat is the only available state, not a judgment call. Nothing stamped, nothing rolled, nothing re-derived, no notification sent (an unchanged book is not news and Ryan's attention is not free).",
+   "note_to_next_instance": "Unchanged from the 09:23Z handoff and still the operative plan. The first run at/after 09:30 ET Monday owns four things in order: (1) stamp automation_heartbeat.json for 2026-08-17; (2) rebuild market_brief.json on LIVE prints \u2014 Friday's brief carries an explicit opening-auction warning, do not inherit its levels; (3) reset the daily loss cap and the 3-entry throttle; (4) then hunt. Sleeve is empty of non-hedge positions (0 of 3 slots) with $2,383.62 fully settled \u2014 Monday's constraint is setup QUALITY, not capital, and an empty sleeve is not a reason to take a B. Source liquidity-first: QQQ/SPY/NVDA/INTC are the measured-affordable tier at the $1,500 per-trade max; AMD/AVGO/TSM/MSFT are not, and re-quoting them is the research trap logged 2026-08-14."
   }
  ],
  "updated_utc": "2026-08-17T07:45:00Z"
