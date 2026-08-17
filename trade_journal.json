@@ -7592,6 +7592,54 @@
     "daily_loss_cap": -200.0,
     "note": "$1,500 is PER TRADE (2026-08-14 sizing amendment); there is no total-sleeve ceiling. Total deployment bounded by settled cash only."
    }
+  },
+  {
+   "run_utc": "2026-08-17T14:24:00Z",
+   "run_type": "options-automation routine, fifth post-open run of the 2026-08-17 trading day (09:24 ET)",
+   "regime": "RISK-ON, EXTENDED, COMPLACENT -- unchanged from the 13:37Z brief. SPY 775.24 (-0.14%), QQQ 732.08 (+0.14%), NVDA 226.11 (+0.42%), AVGO 394.99 (+0.51%), TSM 429.30 (+0.69%), AMD 511.04 (-0.65%), MSFT 484.82 (-2.13%), TSLA 338.96 (-0.97%). No shock trigger met (no VIX spike, no brief level broken), so the brief was NOT rebuilt.",
+   "action_taken": null,
+   "reconciliation": "ZERO DRIFT. get_option_positions(nonzero) returns exactly the two ledger positions -- SPY 2026-11-20 700P (agentic hedge) and ACHR 2028-01-21 5C (placed_agent='user') -- with every pending_* field 0.0000, so no assignment/exercise/expiration. get_portfolio: total $3,832.16 (equity $503.54 / options $945.00 / cash $2,383.62); get_accounts shows unsettled_funds $0.00, so all cash is SETTLED and FOUR LAWS #4 is not binding. Agentic premium-at-risk $749 (the hedge alone). 0 of 3 non-hedge slots used, 0 of 3 daily entries used, realized options P&L today $0.00 against the -$200 cap. Heartbeat already stamped 13:37Z by the first post-open run -- correctly NOT re-stamped. Daily report not yet due (fires at the first run at/after 19:25Z).",
+   "positions_verdict": [
+    {
+     "position": "SPY 2026-11-20 700P",
+     "verdict": "WORKING AS DESIGNED -- no action",
+     "detail": "Mark 6.27 vs 7.49 entry = -$122.00 / -16.29%, DTE 95, delta -0.140, theta -$8.64/day, IV 21.30%, spread 0.32% of mid on OI 21,441. This is the authorized defensive hedge and is EXEMPT from every premium backstop -- a drawdown on insurance during a melt-up is the premium being paid, not a signal. Its written setup_invalidation (SPY decisively above ~800 on confirmed new highs without the Aug-Oct pullback) is UNMET at 775.24. Next decision point is the ~21-DTE roll/close review WITH Ryan around 2026-10-30; nothing between now and then is mine to act on."
+    },
+    {
+     "position": "ACHR 2028-01-21 5C",
+     "verdict": "NO ACTION -- structurally gated",
+     "detail": "Mark 3.175, +28.54%, DTE 522. Two independent gates either of which is sufficient: placed_agent='user' (ownership gate) and Ryan's 2026-07-22 manual_hold_override. No threshold fired anyway -- +28.54% is below the +50% ratchet arm and theta is -$0.21/day. Mark is unchanged from the 14:16Z reading."
+    }
+   ],
+   "grades_considered": [
+    {
+     "symbol": "CL (Colgate-Palmolive)",
+     "grade": "C -- NEW CANDIDATE, evaluated for the first time by any run, and killed on the vehicle",
+     "reasoning": "This is the one piece of genuinely new work in the run. The equity report was regenerated at 14:02Z (commit fb8e714) AFTER the 13:37Z brief was built, and it carries a Connors RSI(2) print of 7.9 on CL -- a name that appears NOWHERE in the trade journal's 198 prior entries. Source (b) of the HUNT order, never before screened, so it deserved the check. It fails, on two independent grounds, and the liquidity ground was checked FIRST per the sourcing rule. (1) LIQUIDITY -- DECISIVE. The 2026-09-18 board (32 DTE), quoted at 14:24Z in a SETTLED mid-morning market so the brief's opening-auction caveat does NOT apply: 90C bid 2.65 / ask 2.95, mid 2.80 -> spread 10.7% of mid on a session volume of ONE contract; 92.5C bid 0.75 / ask 0.95, mid 0.85 -> 23.5% of mid, volume 3; 87.5C bid 4.10 / ask 5.10, mid 4.60 -> 21.7% of mid, volume 0. Every strike with a delta profile worth owning sits at or beyond the <10%-of-mid gate, and the chain's own min_ticks are nickel/dime, not penny. Textbook example of the documented failure mode: the equity screen is tuned for STOCK setups and most of its names are mid-caps whose chains cannot be traded at this size. (2) THE ARITHMETIC, which is the part worth writing down. CL's 30-session range is 89.88-95.13 -- a ~5.9%-wide, range-bound staple. A perfect mean-reversion to the range midpoint (~92.5) is a ~2.2% underlying move, worth roughly +$115 gross on the 90C at delta 0.565. Paying a 10.7% spread on BOTH entry and exit costs ~$60 round-trip on a $280 position. Better than half the theoretical edge is handed to the market maker before theta is even counted. That is precisely why the spread preference must not be loosened to find trades. (3) NO TRIGGER FIRING ANYWAY, so this is not a case of a good thesis defeated by a bad vehicle. CL is 90.48, DOWN 1.60% today and making a fresh low -- the oversold print has not reversed. An RSI2 mean-reversion entry requires the TURN, not merely the oversold read; buying the falling knife is the mistake the trend-maturity gate exists to prevent. (4) VOL, logged for the relay: ATM IV 22.37% vs 30-session realized 23.51% -> IV/RV 0.95. Vol is fairly priced -- notably NOT the reason this fails. First CL row written to iv_history.json (n=1, so IV/RV only, no percentile). WHAT WOULD CHANGE IT: nothing about the thesis; the chain would have to become tradeable, which it will not. Treat CL as a stock-only signal for Ryan's equity book, never an options candidate."
+    },
+    {
+     "symbol": "ROST",
+     "grade": "DEAD -- no re-measurement warranted",
+     "reasoning": "Second RSI2 name on the fresh 14:02Z report (242.15, RSI2 4.8) and the report itself tags it NO-ENTRY: earnings Thursday 2026-08-20, three days out. The desk's standing preference is to close before earnings, not open into them. Independently already dead on vehicle: measured 2026-08-13 at IV/RV 1.69 (richest relative vol ever logged on this list) with ZERO open interest. Now 242.92, -0.99%. No reason to spend a quote on it."
+    },
+    {
+     "symbol": "MSFT",
+     "grade": "C -- UNCHANGED, and now confirmed a fourth consecutive time",
+     "reasoning": "484.82, -2.13%. Against 484.99 at 14:16Z, 484.85 at 14:05Z and 486.32 at 13:51Z: the name has gone NOWHERE for ~45 minutes. The 14:05Z run's read -- that the entire decline was one high-volume bar at 13:40Z followed by chop on declining volume, i.e. consolidation rather than a developing trend -- is now confirmed by three subsequent independent readings. The written invalidation (a catalyst-bearing close below the ~445 Donchian midline) sits ~8% below spot and is UNMET, so there is no standing plan to argue against. Cheapest relative vol on the core list for a seventh reading (IV/RV 0.53) and CHEAP PREMIUM IS STILL NOT A THESIS."
+    },
+    {
+     "symbol": "INTC",
+     "grade": "DEAD BY RULE -- not revived, third consecutive run recording the temptation",
+     "reasoning": "103.66 (+1.13%), now a third consecutive tick higher and further above the $103.50 level whose breach killed it. The rule was a CLOSE below 103.50; INTC CLOSED 102.50 on Friday; the rule executed. An intraday reclaim of a broken level is not a signal. The 14:16Z run explicitly declined to pre-write a re-entry trigger for it and that decision stands -- a name declined eleven consecutive times does not get quietly re-armed the moment it ticks green. Any future INTC trade must be a NEW setup built from scratch and labelled as such."
+    },
+    {
+     "symbol": "AVGO / NVDA / HD / CONSUMER cluster",
+     "grade": "NOT RE-GRADED -- prior grades stand",
+     "reasoning": "Drift discipline. AVGO 394.99 (+0.51%) remains structurally untradeable (400C $2,188 exceeds the FOUR LAWS #1 $1,500 hard max, IV/RV 1.09 the only core name above 1.0, September expiry straddles its print). NVDA 226.11 (+0.42%) is still the best vehicle on the list with no trigger firing and a verified 2026-08-26 earnings date the September board straddles. HD 335.87 (-0.88%) drifts into tomorrow morning's print; pre-positioning a put ahead of it IS an earnings bet, which the standing preference forbids -- the tradeable version is the post-print reaction with a real level. None of these moved materially enough in eight minutes to justify a fresh grade."
+    }
+   ],
+   "why_flat": "No A-grade setup exists. The one NEW candidate the fresh 14:02Z report supplied (CL) was killed inside a minute on a settled-market liquidity read -- 10.7% to 23.5% of mid across the whole 32-DTE board on 0-3 contracts of volume -- and would have failed the entry trigger anyway, since it is down 1.60% and making a new low rather than reversing. Everything else on the board was graded within the last 45 minutes and nothing material has changed. The structural bar is also elevated for reasons independent of any single name: FOMC minutes Wednesday and the HD/LOW/TGT/TJX retail wave Tuesday-Wednesday mean a 32-DTE position opened today gets held through two separate re-pricing events without being paid for either. Being flat with $2,383.62 of settled cash and 0 of 3 slots used is a position, and it is the right one. Re-fetched origin/master before deciding; no sibling entry landed since this run began.",
+   "process_note": "The durable value of this run is the CL kill, and specifically the ORDER in which it was done: the chain was quoted BEFORE the thesis workup, so a candidate died in about sixty seconds instead of consuming a full research cycle. That is the 2026-08-14 sourcing fix working as intended. The second durable item is the arithmetic written into the CL grade -- at a 10.7% round-trip spread on a name whose entire 30-day range is 5.9% wide, over half the theoretical mean-reversion edge goes to the market maker before theta. Next instance: CL is a stock-only signal, do not re-screen its chain."
   }
  ],
  "updated_utc": "2026-08-17T13:45:00Z"
