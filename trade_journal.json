@@ -6832,6 +6832,34 @@
    "why_flat": "Sunday night. The market is shut. Being flat is the correct position and required no decision.",
    "monday_open_duties": "First run at/after 2026-08-17 09:30 ET must: (1) stamp automation_heartbeat.json for 2026-08-17, (2) rebuild market_brief.json off live prints, (3) reset the daily loss cap and the 3-entry throttle, (4) re-verify that the $401.10 ACGL residual has actually settled before counting it as buying power.",
    "process_note": "Nothing new to fix. The prior ten weekend runs already recorded the state and the Monday duty list; this run adds only a fresh timestamped reconciliation, which is the one thing that could have changed and did not."
+  },
+  {
+   "run_utc": "2026-08-17T01:19:00Z",
+   "run_type": "weekend_closed_market_noop",
+   "trading_day_et": "2026-08-14 (Friday) - still the last bell that rang. Sun 2026-08-16 21:19 ET. UTC date is 2026-08-17 but that does NOT start a trading day: heartbeat NOT stamped (correctly still 2026-08-14), brief NOT rebuilt, loss cap and entry throttle NOT reset. The first run at/after Mon 2026-08-17 09:30 ET does all four.",
+   "run": "Twelfth stand-down run of this weekend, 56 min after the 00:23Z run. POST-CLOSE RUN PROTOCOL: read what earlier runs of this stretch covered, ran the one check always worth repeating (broker reconciliation), logged once, stopped. Deliberately short - the protocol asks for a few lines on the Nth redundant firing, and the prior eleven entries already carry the detail.",
+   "regime": "RISK-ON, EXTENDED, COMPLACENT - carried from the 2026-08-14 brief, not re-derived. No Sunday tape.",
+   "broker_reconciliation": {
+    "checked_utc": "2026-08-17T01:19:00Z",
+    "result": "CLEAN - broker matches holdings.json exactly. No drift, no flags, no pending_* activity.",
+    "options": "SPY 2026-11-20 700P x1 @ $749 (agentic hedge, backstop-EXEMPT, ~21-DTE roll/close WITH Ryan, not due - 95 DTE) + ACHR 2028-01-21 5C x1 @ $247 (placed_agent=user, manual_hold_override - detect-and-notify only). All pending_* 0.0000.",
+    "equities": "AAPL 1.652252sh - matches the ledger.",
+    "portfolio": "total $3,847.07 (equity $504.45 / options $959.00 / cash $2,383.62). Settled BP $1,982.52; unsettled $401.10 (Friday's ACGL proceeds, settle Mon 2026-08-17).",
+    "delta_vs_prior_run": "$0.33 AAPL re-mark vs 00:23Z ($504.45 vs $504.78). Options marks, cash, BP, unsettled all identical. Closed-market bookkeeping, not a signal.",
+    "note_for_next_instance": "This run independently re-noticed the equity/cash/unsettled difference against the Friday 13:33Z heartbeat and re-checked it before writing anything. It is NOT drift - the 22:26Z run closed this: the heartbeat predates Friday's 15:05Z Ryan-approved ACGL exit (4.069594sh @ $98.5602, $401.10), already in _closed_positions, arithmetic exact. The heartbeat is the stale side. Do not re-open it a third time; the durable fix is that the heartbeat file is a start-of-day snapshot and must never be used as the reconciliation baseline - use holdings.json."
+   },
+   "positions_verdict": {
+    "SPY 2026-11-20 700P": "WORKING - defensive-posture insurance. Exempt by standing authorization; no decision due.",
+    "ACHR 2028-01-21 5C": "OWNERSHIP-GATED - Ryan's. Nothing fired."
+   },
+   "hunt": "NOT RUN - market closed, no entry placeable, no live chain to price liquidity against. 0 of 3 non-hedge slots used. Monday's first post-open run rebuilds the brief and hunts on live prints.",
+   "iv_logged": false,
+   "iv_note": "No row written - weekend marks would pollute the ATM-IV series with a stale duplicate of Friday's close.",
+   "entries_today": 0,
+   "realized_pnl_today": 0,
+   "four_laws_check": "No order contemplated, so none engaged. Recorded for the record: (1) no new premium; (2) realized $0 vs the -$200 cap; (3) no add to a loser; (4) settled cash $1,982.52 untouched.",
+   "duties_outstanding": "None. Heartbeat correctly unstamped for Monday. daily_options_report.md for Friday 2026-08-14 was written and delivered by that day's 14:25 CT run - a weekend run must not rewrite it (duplicate master pushes re-notify Ryan for nothing).",
+   "why_flat": "Sunday night. The market is shut. Being flat required no decision and is the only available state."
   }
  ],
  "updated_utc": "2026-08-17T00:23:00Z"
