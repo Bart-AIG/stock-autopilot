@@ -6934,7 +6934,27 @@
    "realized_pnl_today_usd": 0,
    "decision": "NO TRADE. Market shut, ~9h to the open. Being flat is the only available state, not a judgment call. Reconciliation clean and unchanged, both open positions gated by rule, no duty outstanding, no daily artifact due. Nothing here needs Ryan's attention, so no notification.",
    "next_run_focus": "The first run at/after Mon 2026-08-17 09:30 ET is the one that matters: stamp automation_heartbeat.json for 2026-08-17, rebuild market_brief.json (macro calendar, regime from SPY/QQQ/VIX/breadth, catalysts next 5 sessions, 3-6 name watchlist with confirming + killing levels), log the core-list IV rows to iv_history.json, then MANAGE before HUNT. Settled cash should rise to ~$2,383.62 once the $401.10 ACGL proceeds settle that day. Also note the EOD report duty: first run at/after 14:25 CT writes daily_options_report.md."
+  },
+  {
+   "run_utc": "2026-08-17T05:30:00Z",
+   "run_type": "weekend_closed_market_noop",
+   "trading_day_et": "2026-08-14 (Friday) - still the last bell that rang. Now Mon 2026-08-17 01:30 ET, ~8h before the open. Neither the UTC date nor the Monday ET calendar flip starts a trading day: heartbeat NOT stamped (correctly still 2026-08-14), brief NOT rebuilt, daily loss cap and 3-entry throttle NOT reset. Only a run at/after Mon 09:30 ET does those four.",
+   "run": "Sixteenth stand-down run of this weekend, 71 min after the 04:19Z run. POST-CLOSE RUN PROTOCOL applied: read what earlier runs of this stretch covered, ran the one check always worth repeating (broker reconciliation), logged once, stopped. Kept short by design - the prior fifteen entries carry the detail.",
+   "regime": "RISK-ON, EXTENDED, COMPLACENT - carried from the 2026-08-14 brief, not re-derived. No tape to read.",
+   "broker_reconciliation": {
+    "checked_utc": "2026-08-17T05:29:00Z",
+    "result": "CLEAN - broker matches holdings.json exactly. No drift, no flags, no pending_* activity.",
+    "accounts": "Agentic 718757339, cash, option_level_2. Debit spreads remain UNAVAILABLE; the level-3 recommendation stands with Ryan, unactioned. No run may act as though the upgrade exists until get_accounts actually returns option_level_3.",
+    "options": "SPY 2026-11-20 700P x1 @ $749 (agentic hedge, premium-backstop EXEMPT, ~21-DTE roll/close decision WITH Ryan - not due, 95 DTE) + ACHR 2028-01-21 5C x1 @ $247 (placed_agent=user, manual_hold_override - detect-and-notify only, never auto-close). All pending_buy/sell/exercise/assignment/expiration quantities 0.0000 on both.",
+    "equities": "AAPL 1.652252sh - matches the ledger's single swing position.",
+    "portfolio": "total $3,848.11 (equity $505.49 / options $959 / cash $2,383.62). The equity line sits ~$398 below the 2026-08-14T13:31Z snapshot ($903.83) with cash up ~$401 - that is the ACGL swing exit filled 2026-08-14T15:05:26Z (4.069594sh @ $98.5602, agentic, already recorded in _closed_positions), NOT unexplained drift. Checked explicitly this run so the next instance does not re-flag it.",
+    "settlement": "get_accounts now reports unsettled_funds 0.0000 and buying_power $2,383.62, so the $401.10 ACGL proceeds the 00:23Z entry was waiting on HAVE settled. FOUR LAWS #4 will not be binding at Monday's open: full $2,383.62 settled cash available, which comfortably covers the $1,500 per-trade max."
+   },
+   "positions_verdict": "SPY 700P hedge: HOLD - structurally exempt, no decision due. ACHR 5C: NO ACTION EVER - ownership gate + manual_hold_override. Neither is actionable on a closed market regardless.",
+   "candidates_considered": "NONE - deliberately. Markets closed; any quote polled now is a stale Friday print, and grading a setup off it would manufacture a decision the Monday tape has not yet justified. The 2026-08-14 brief's watchlist triggers are re-tested by the first post-open run against a live tape, not carried forward as if still armed.",
+   "action": "NO TRADE. No artifact rolled, no weekend quote polled, no regime re-derived, no research invented.",
+   "next_run_note": "The first run at/after Mon 2026-08-17 09:30 ET (13:30Z) owns the trading-day opening duties: stamp automation_heartbeat.json for 2026-08-17, rebuild market_brief.json (macro calendar, regime from a LIVE SPY/QQQ/VIX/breadth read, catalysts for the next 5 sessions, 3-6 name watchlist with confirming + killing levels), log core-list IV rows to iv_history.json, then MANAGE before HUNT. Sourcing order stands: affordable liquid chains first (QQQ/SPY/NVDA/INTC - NOT AMD/AVGO/TSM/MSFT, priced out at the $1,500 per-trade max), then the committed equity report, then macro. EOD duty: first run at/after 14:25 CT writes daily_options_report.md."
   }
  ],
- "updated_utc": "2026-08-17T00:23:00Z"
+ "updated_utc": "2026-08-17T05:30:00Z"
 }
