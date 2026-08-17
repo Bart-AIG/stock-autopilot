@@ -2085,6 +2085,62 @@
       "tomorrow_watchpoints": "INTC armed trigger unchanged (pullback into ~$97-100 HOLDING above $95, or a decisive close >$105.45 on volume; kill = close <$95); Sep-18 110C pre-priced ~$595. AMD/TSM remain confirmed-but-unaffordable at the right delta - only a pullback that cheapens the correct strike changes that. SPY hedge: no action until the ~21-DTE review with Ryan (~2026-10-30). NVDA earnings late Aug - avoid opening fresh NVDA risk into it."
     },
     {
+      "run_utc": "2026-08-13T13:00:00Z",
+      "run": "Options automation -- SECOND, CONCURRENT run of the same pre-open slot (fired 13:00Z / 09:00 ET). The 12:58Z run had already completed Phase 0 and merged it as PR #191 while this run was working. Recorded as a short process note rather than a duplicate run record: this run's independent Phase 0 reached the SAME conclusions and was discarded in favour of the merged version rather than layered on top of it.",
+      "regime": "Independently assessed as 'risk-on but NARROWING' -- same substance as the merged brief's 'RISK-ON but EXTENDED and COMPLACENT'. Both runs flagged the identical tell: a healthy index (SPY 774.4, above 20d 753.19 / 50d 748.12, near ATHs) masking earnings damage in single-name tech (CSCO -7%, Cerebras -15%, COHR -6%), and both raised the entry bar because of it.",
+      "positions_reviewed": [
+        {
+          "contract": "SPY 2026-11-20 700P",
+          "placed_agent": "agentic",
+          "verdict": "HOLD -- hedge carve-out, no action.",
+          "detail": "Broker reconciliation clean (1 long, $749.00 basis). Exempt from premium backstops; the drawdown is insurance working as designed with SPY at ATHs. No fresh mark taken pre-open by design."
+        },
+        {
+          "contract": "ACHR 2028-01-21 5C",
+          "placed_agent": "user",
+          "verdict": "NO ACTION -- ownership gate + manual_hold_override.",
+          "detail": "Broker reconciliation clean (1 long, $247.00 basis). Never actionable by an automated run."
+        }
+      ],
+      "entries": [],
+      "entry_decision": "NO ENTRY -- market was closed at run time (fired 30 min pre-open; the routine authorizes action only 09:30-16:00 ET). Independently reached the same call on INTC: $101.21 pre-market is still in the dead zone between the $97-100 pullback band and the $105.45 breakout level, and the trigger was NOT loosened. Two independent runs declining to loosen an 8-session-old trigger is a reasonable signal that the level is being respected rather than being wrong.",
+      "candidates_screened": [
+        {
+          "symbol": "INTC",
+          "spot": 101.21,
+          "gate_failed": "market closed + trigger unhit (dead zone)",
+          "detail": "Every non-trigger gate still passes: budget (Sep-18 110C ~$595 vs $751 free), liquidity (OI 44,946, spread 3.4% of mid), IV ratio 0.81 = premium cheap vs realized. Flagged the AMAT overnight binary as an additional reason not to enter TODAY even if a branch prints intraday -- the merged brief independently reached the same conclusion in its entry_bar note."
+        },
+        {
+          "symbol": "COHR",
+          "gate_failed": "post-earnings knife -- no entry either direction",
+          "detail": "Screened because it is #18 in our own momentum top decile and -6% pre-market on earnings. A live example of the equity report's purely-technical momentum screen lagging a fundamental break by a full session; worth remembering when the report is used as a candidate source."
+        },
+        {
+          "symbol": "AMD/TSM",
+          "gate_failed": "budget at the correct delta + decaying catalyst",
+          "detail": "Yesterday's theses were explicitly built on the CRWV/NBIS/SMCI AI-infra sweep; today that stack is contradicted rather than extended. Downgraded to watch-only on structure AND on maturity gates (b) already-priced and (c) present-tape-confirms."
+        }
+      ],
+      "iv_context": "No IV rows written -- pre-open feed serves prior-close snapshots. Contributed rv_30d for the whole core list (computed from Robinhood daily historicals this run) into market_brief.rv_30d_precomputed so the post-open logging run needs only the live ATM IV and no historicals refetch. Day 3 of tracking: ratio only, no percentiles.",
+      "process_note": "DUPLICATE CONCURRENT FIRE -- worth tracking. Two automation runs fired for the same pre-open slot ~2 minutes apart (12:58Z and 13:00Z) and did the same Phase 0 work in parallel, colliding at merge time (PR #192 hit a merge conflict against PR #191 and had to be reconciled by hand). This is the expected failure mode of the documented dual-trigger setup in docs/options-automation-setup.md: cron-job.org fires every 15 min AND a native hourly schedule runs as a backstop, so at the top of each hour BOTH fire. Cost is duplicated token spend, duplicate ledger writes and a merge conflict; the risk is two runs independently sizing the same entry. It did NOT cause a bad trade today (both runs correctly declined to enter), and the reconciliation kept the merged brief rather than overwriting it. Only Ryan can change the routine's schedule, so this is logged rather than fixed -- if it recurs at the next top-of-hour it is worth raising with him to either drop the hourly backstop or make runs check for a same-slot commit before doing Phase 0 work.",
+      "reconciliation": "CLEAN. Broker matches holdings.json exactly (SPY 700P + ACHR 5C), no drift, no _flag or UNAUTHORIZED marker present or created.",
+      "sleeve_state": {
+        "agentic_premium_at_risk": 749.0,
+        "budget": 1500.0,
+        "free_premium": 751.0,
+        "open_agentic_positions": 1,
+        "open_agentic_positions_excluding_hedge": 0,
+        "max_positions": 3,
+        "realized_pnl_today": 0.0,
+        "daily_loss_cap": -400.0,
+        "portfolio_total_value": 3857.98,
+        "settled_buying_power": 1447.47,
+        "unsettled_funds": 0.0,
+        "weekly_circuit_breaker": "not tripped -- no agentic entries or exits this week."
+      }
+    },
+    {
       "run_utc": "2026-08-13T13:10:00Z",
       "run": "Options automation -- FIRST run of 2026-08-13, fired 12:58Z / 08:58 ET. PRE-OPEN: Phase 0 only (heartbeat + market brief). No Phase 1 exits and no Phase 2 entry evaluation performed.",
       "regime": "RISK-ON but EXTENDED and COMPLACENT (provisional, pre-market). July PPI printed UNCHANGED m/m vs +0.2% consensus -- a dovish surprise and the second benign inflation print in two days after yesterday's in-line CPI. SPY pre-market 774.31 vs 772.49 close (+0.24%), in new all-time-high territory above every MA (20d 753.19 / 50d 748.12 / rising 200d 704.50). QQQ 724.30 (+0.08%), lagging on a ~-7% CSCO drag; IWM 303.56 (+0.28%) modestly leading on rate-cut odds. VIX 15.37 after closing at 14.40 yesterday -- the LOWEST print of 2026. Futures mixed and small (Dow +0.13% / SPX +0.11% / NDX -0.11%), i.e. index-level drift with real single-stock dispersion underneath, not a broad risk-on gap. Defensive-posture tripwire (CLOSING break of SPY 746-748) sits ~26 points below spot -- untouched.",
@@ -2152,62 +2208,6 @@
       },
       "eod_report": "NOT DUE -- this run is at 08:58 ET, far ahead of the 14:30 CT / 15:30 ET EOD trigger. The first run at or after 14:30 CT owes the full daily_options_report.md rewrite for 2026-08-13.",
       "tomorrow_watchpoints": "Immediate (today, post-open): (1) log the deferred IV rows from regular-hours chains; (2) re-validate the regime on regular-hours prints -- a gap-up open that FADES is a materially different tape than one that holds, and today's first hour decides which; (3) refresh watchlist source (1) once today's latest_morning.md lands from the GitHub Action (~14:00Z), since this brief was necessarily built off yesterday's 19:02Z screen; (4) research the IREN gap for a dated catalyst before it can be armed, and require a 47.29 reclaim regardless; (5) INTC trigger unchanged -- do NOT loosen either branch. Overnight/forward: AMAT tonight is the semi-complex event risk that argues against opening ANY semi long today; HD reports 2026-08-18; NVDA earnings late August; SPY hedge untouched until the ~21-DTE review with Ryan (~2026-10-30)."
-    },
-    {
-      "run_utc": "2026-08-13T13:00:00Z",
-      "run": "Options automation -- SECOND, CONCURRENT run of the same pre-open slot (fired 13:00Z / 09:00 ET). The 12:58Z run had already completed Phase 0 and merged it as PR #191 while this run was working. Recorded as a short process note rather than a duplicate run record: this run's independent Phase 0 reached the SAME conclusions and was discarded in favour of the merged version rather than layered on top of it.",
-      "regime": "Independently assessed as 'risk-on but NARROWING' -- same substance as the merged brief's 'RISK-ON but EXTENDED and COMPLACENT'. Both runs flagged the identical tell: a healthy index (SPY 774.4, above 20d 753.19 / 50d 748.12, near ATHs) masking earnings damage in single-name tech (CSCO -7%, Cerebras -15%, COHR -6%), and both raised the entry bar because of it.",
-      "positions_reviewed": [
-        {
-          "contract": "SPY 2026-11-20 700P",
-          "placed_agent": "agentic",
-          "verdict": "HOLD -- hedge carve-out, no action.",
-          "detail": "Broker reconciliation clean (1 long, $749.00 basis). Exempt from premium backstops; the drawdown is insurance working as designed with SPY at ATHs. No fresh mark taken pre-open by design."
-        },
-        {
-          "contract": "ACHR 2028-01-21 5C",
-          "placed_agent": "user",
-          "verdict": "NO ACTION -- ownership gate + manual_hold_override.",
-          "detail": "Broker reconciliation clean (1 long, $247.00 basis). Never actionable by an automated run."
-        }
-      ],
-      "entries": [],
-      "entry_decision": "NO ENTRY -- market was closed at run time (fired 30 min pre-open; the routine authorizes action only 09:30-16:00 ET). Independently reached the same call on INTC: $101.21 pre-market is still in the dead zone between the $97-100 pullback band and the $105.45 breakout level, and the trigger was NOT loosened. Two independent runs declining to loosen an 8-session-old trigger is a reasonable signal that the level is being respected rather than being wrong.",
-      "candidates_screened": [
-        {
-          "symbol": "INTC",
-          "spot": 101.21,
-          "gate_failed": "market closed + trigger unhit (dead zone)",
-          "detail": "Every non-trigger gate still passes: budget (Sep-18 110C ~$595 vs $751 free), liquidity (OI 44,946, spread 3.4% of mid), IV ratio 0.81 = premium cheap vs realized. Flagged the AMAT overnight binary as an additional reason not to enter TODAY even if a branch prints intraday -- the merged brief independently reached the same conclusion in its entry_bar note."
-        },
-        {
-          "symbol": "COHR",
-          "gate_failed": "post-earnings knife -- no entry either direction",
-          "detail": "Screened because it is #18 in our own momentum top decile and -6% pre-market on earnings. A live example of the equity report's purely-technical momentum screen lagging a fundamental break by a full session; worth remembering when the report is used as a candidate source."
-        },
-        {
-          "symbol": "AMD/TSM",
-          "gate_failed": "budget at the correct delta + decaying catalyst",
-          "detail": "Yesterday's theses were explicitly built on the CRWV/NBIS/SMCI AI-infra sweep; today that stack is contradicted rather than extended. Downgraded to watch-only on structure AND on maturity gates (b) already-priced and (c) present-tape-confirms."
-        }
-      ],
-      "iv_context": "No IV rows written -- pre-open feed serves prior-close snapshots. Contributed rv_30d for the whole core list (computed from Robinhood daily historicals this run) into market_brief.rv_30d_precomputed so the post-open logging run needs only the live ATM IV and no historicals refetch. Day 3 of tracking: ratio only, no percentiles.",
-      "process_note": "DUPLICATE CONCURRENT FIRE -- worth tracking. Two automation runs fired for the same pre-open slot ~2 minutes apart (12:58Z and 13:00Z) and did the same Phase 0 work in parallel, colliding at merge time (PR #192 hit a merge conflict against PR #191 and had to be reconciled by hand). This is the expected failure mode of the documented dual-trigger setup in docs/options-automation-setup.md: cron-job.org fires every 15 min AND a native hourly schedule runs as a backstop, so at the top of each hour BOTH fire. Cost is duplicated token spend, duplicate ledger writes and a merge conflict; the risk is two runs independently sizing the same entry. It did NOT cause a bad trade today (both runs correctly declined to enter), and the reconciliation kept the merged brief rather than overwriting it. Only Ryan can change the routine's schedule, so this is logged rather than fixed -- if it recurs at the next top-of-hour it is worth raising with him to either drop the hourly backstop or make runs check for a same-slot commit before doing Phase 0 work.",
-      "reconciliation": "CLEAN. Broker matches holdings.json exactly (SPY 700P + ACHR 5C), no drift, no _flag or UNAUTHORIZED marker present or created.",
-      "sleeve_state": {
-        "agentic_premium_at_risk": 749.0,
-        "budget": 1500.0,
-        "free_premium": 751.0,
-        "open_agentic_positions": 1,
-        "open_agentic_positions_excluding_hedge": 0,
-        "max_positions": 3,
-        "realized_pnl_today": 0.0,
-        "daily_loss_cap": -400.0,
-        "portfolio_total_value": 3857.98,
-        "settled_buying_power": 1447.47,
-        "unsettled_funds": 0.0,
-        "weekly_circuit_breaker": "not tripped -- no agentic entries or exits this week."
-      }
     },
     {
       "run_utc": "2026-08-13T13:35:00Z",
@@ -8747,6 +8747,59 @@
       "duties_completed": "Heartbeat already stamped 13:37Z for this trading day -- correctly NOT re-stamped (one per trading day). Brief already built today; no shock condition, not rebuilt. Broker reconciliation FRESH this run (19:15-19:18Z), extended to get_option_positions + get_equity_positions + get_equity_orders + get_option_orders + get_portfolio: option positions are exactly SPY 2026-11-20 700P and ACHR 2028-01-21 5C with every pending_* field 0.0000; equity is AAPL 1.652252sh + CL 5sh; ZERO drift on all four. holdings.json _current_state overwritten IN PLACE for both option positions with live 19:16Z marks; _realized_options_pnl_today re-sourced from the broker ($0.00, get_option_orders empty -- which doubles as the mandatory concurrent-run sibling check). iv_history.json NOT rewritten -- all 11 core rows already logged today and no name was evaluated at a new ATM strike this run. DAILY EOD REPORT WRITTEN THIS RUN -- see below.",
       "daily_report_note": "daily_options_report.md WRITTEN THIS RUN at 19:16Z = 14:16 CT, i.e. NINE MINUTES BEFORE the 14:25 CT rule slot, and the deviation is deliberate and logged rather than silent. Reasoning: (1) the playbook states plainly that missing the delivery is strictly worse than writing it early, and that rule exists precisely because irregular firing times have made a deferring run the last run of the day; (2) the usual cost of writing early -- that a later run enters a position and makes the report wrong -- is near-zero TODAY specifically, because the only live trigger (MSFT) requires a daily close observable only after the placement window shuts, and every other candidate is dead by a written rule; (3) the last report on file was Friday 2026-08-14, so nothing had been delivered for today. A LATER RUN MUST NOT REWRITE THIS FILE unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing) -- a refresh of closing marks is not material and only re-notifies Ryan.",
       "why_flat": "Flat by CHOICE, not by limitation, and the distinction is the point. Nothing is binding: 0 of 3 non-hedge slots used, 0 of 3 daily entries used, $1,933.77 settled cash with $0 unsettled, realized options P&L $0.00 against the -$200 cap. Every candidate on the board is dead by a rule written BEFORE the price action that would have tempted a revival -- NVDA killed at 17:10Z and green in five straight runs since, INTC killed Friday and above its kill line in six straight runs since, AVGO blocked by a hard law it cannot reach, MSFT structurally unfireable until tomorrow. The honest summary of today is not 'no opportunities' but 'three kill levels were honored on the exact days they looked wrong', which is the only condition under which a kill level is worth writing at all."
+    },
+    {
+      "run_utc": "2026-08-17T19:28:00Z",
+      "run_type": "options-automation routine (cron-job.org sub-hourly), 15:28 ET -- TWENTY-SEVENTH firing of the 2026-08-17 session and the FIRST run at/after 14:25 CT, so this is the run that owes Ryan the daily EOD report. Two pieces of real work beyond the reconciliation: (1) the account changed mid-session and had to be explained; (2) the equity report regenerated at 19:01Z, which the 19:03Z run explicitly believed had not happened.",
+      "regime": "RISK-ON, EXTENDED, COMPLACENT -- brief label unchanged, no shock trigger met (no VIX spike, no brief level broken), so the brief was NOT rebuilt. SPY 773.40 (-0.38%), QQQ 729.87 (-0.16%), NVDA 225.61 (+0.20%), TSM 430.59 (+0.99%), AVGO 393.16 (+0.04%), AMD 505.58 (-1.71%), MSFT 481.42 (-2.82%), TSLA 340.86 (-0.41%), INTC 103.17 (+0.65%). Net vs 19:03Z: nil at the index; AMD extended its give-back, MSFT firmed slightly OFF its lows (482.14 -> 481.42 is noise around the same shelf). The midday drift is still sideways into the final half hour.",
+      "action_taken": null,
+      "account_change_investigated": {
+        "what_changed": "get_portfolio at 19:20Z showed equity_value $957.88 / cash $1,933.77 against the 13:37Z heartbeat's $507.01 / $2,383.62 -- a ~$450 mid-session swap of cash into equity. An unexplained equity position appearing in an unattended run is the exact shape of a HARD RULE 6 violation, so it was run to ground BEFORE any other work.",
+        "finding": "NOT a violation, and NOT a new flag. get_equity_positions returns AAPL 1.652252 plus a NEW CL 5.000000 @ $89.97; get_equity_orders(created_at_gte=2026-08-17) returns exactly one order -- 6a8323f8, CL buy market 5sh, filled 2026-08-17T15:08:40Z @ $89.97, placed_agent='agentic'. holdings.json on master ALREADY carries CL as a swing position with a full entry note recording an interactive one-tap batch approval, the earnings verification, the HARD RULE 7 thesis work and the stated risks. The ledger and the broker agree exactly: ZERO DRIFT.",
+        "why_no_flag": "HARD RULE 9 forbids an unattended run from adjudicating in EITHER direction. I am not clearing anything (nothing is flagged) and I am not manufacturing a flag over a position that an interactive session already logged with its approval record before this run began. placed_agent='agentic' means 'placed through the MCP connector', which covers an approved interactive batch as much as an autonomous one -- it is NOT by itself evidence of autonomy. The correct output is to record the tie-out and move on. Note for the relay: the ~$450 cash drop is fully explained by this fill, so no later run should re-open it.",
+        "notification": "None sent. HARD RULE 9's once-per-incident rule plus the fact that this is Ryan's OWN approved trade means paging him would be pure noise; it appears in the EOD report as context instead."
+      },
+      "correction_to_prior_run": {
+        "claim": "The 19:03Z run wrote: 'no newer report has been committed since [18:01Z]' and stood down partly on that basis.",
+        "finding": "That was wrong. Commit 3de9a4e, 'report: intraday 2026-08-17T19:01Z', landed at 19:01Z -- almost certainly in the same minute that run was reading, so it is an understandable miss rather than sloppiness. I re-screened the 19:01Z snapshot rather than inherit the claim.",
+        "outcome": "The correction changes NOTHING about the trade decision: the fresh RSI(2) list is ROST / CL / DE / AVGO, and every one is already dead by a written rule (see grades). Recorded anyway, because 'measure before you trust an inherited flag' is this desk's own rule and it applies to inherited all-clears exactly as much as to inherited warnings."
+      },
+      "positions": {
+        "SPY 2026-11-20 700P (agentic hedge)": "WORKING. Mark 6.595, -11.95% from entry but +$38.50 on the day as SPY fell 0.38%. Insurance is doing its job; exempt from all premium backstops; next decision is the ~21-DTE roll/close WITH Ryan ~2026-10-30. No action.",
+        "ACHR 2028-01-21 5C (user)": "WORKING, and not mine to touch. +29.55% ($73), below the +50% ratchet arm, theta -$0.21/day on 522 DTE. Ownership gate + manual_hold_override both apply. No exit condition fired, so there is nothing even to notify. No action."
+      },
+      "grades_considered": {
+        "ROST (fresh 19:01Z RSI2 list, RSI2 2.3)": {
+          "grade": "C -- dead by an absolute gate, not graded on merit.",
+          "reasoning": "Earnings Thursday 2026-08-20, TWO sessions out, and the report tags it NO-ENTRY itself. With a DTE floor of 7 there is no contract this desk may buy that does not hold straight through the print, and 'a name can beat and still gap down' (TPR, -16% on a beat, 2026-08-13). Earnings is not the thesis; an oversold bounce is. Independently, a prior run killed ROST on a 12.8%-of-mid spread against ZERO open interest. No IV row logged for it today: the earnings gate is absolute, so quoting its chain would be spending calls to build history on a name that cannot be traded in this window."
+        },
+        "DE (fresh 19:01Z RSI2 list, RSI2 8.1)": {
+          "grade": "C -- dead, and explicitly marked do-not-re-screen by the 18:47Z run that first evaluated it.",
+          "reasoning": "Same earnings gate as ROST (2026-08-20, two sessions out), plus live 18:46Z widths in a settled mid-afternoon market: 2026-09-18 600C 27.20 x 31.50, spread 14.7% of mid on OI 197; 600P 21.10 x 23.80, 12.0% of mid on OI 419. Both blow the <10% preference, and that preference is explicitly not to be loosened to find trades. I did not re-derive this -- I read it and honored it."
+        },
+        "AVGO (fresh 19:01Z RSI2 list, RSI2 9.0)": {
+          "grade": "C -- unchanged from this morning's read; the vehicle kills it, not the thesis.",
+          "reasoning": "The 13:37Z run graded this C for three reasons and none has changed by the close: (1) the 2026-09-18 400C mids ~$21.88 = $2,188/contract, which BREACHES FOUR LAWS #1's $1,500 per-trade max -- an absolute law no thesis reaches around, and the debit spread that would fix the size problem is unavailable at option_level_2; (2) AVGO is the ONLY core name with IV/RV > 1.0 -- today's own row reads spot 397.165, ATM IV 49.14%, RV30 44.88%, ratio 1.09 (n=5 readings, so ratio only, no percentile cited); (3) the 09-18 board straddles its 2026-09-02 print. Today AVGO is +0.04% -- flat. There is no trigger firing NOW, which fails the 'why NOW' test on its own even if the vehicle worked."
+        },
+        "CL": {
+          "grade": "Not an options candidate.",
+          "reasoning": "On the RSI2 list but marked HELD -- Ryan's approved equity swing filled at 15:08Z. Buying CL premium would double an existing equity exposure through a second vehicle on a low-beta staple whose chain is thin at this account size. Its IV row was logged today (spot 90.48, ATM IV 22.37%, RV30 23.51%, ratio 0.95) for history only."
+        },
+        "MSFT": {
+          "grade": "B -- HELD at B. The written trigger was checked and it FAILED. Not taken.",
+          "reasoning": "This is the only name with a live standing trigger, so it got a real check rather than a restatement. The 14:30Z run upgraded MSFT to B on a genuine volume-expansion break and wrote a two-condition entry trigger: '(a) MSFT closes below ~480 (decisive loss of the 480 shelf, not an intraday poke), AND (b) an identifiable DRIVER exists.' Condition (a) FAILS: MSFT is 481.42 with ~30 minutes to the bell, above the shelf, after the 14:47Z run had already documented the break stalling and reversing on collapsing volume (329,678 -> 237,709 -> 154,798). It never printed sub-480, let alone closed there. Condition (b) FAILS: no MSFT-specific catalyst dated 2026-08-17 across three separate checks today; the only dated item is Thursday's $0.91 ex-dividend (~0.19%), mechanical and non-directional. A -2.82% day on the cheapest-vol name in the book (IV/RV 0.52) is tempting precisely because the vehicle is cheap and liquid -- and this desk's own written corollary is that proving a vehicle is cheap and liquid supplies NO thesis whatsoever. Trigger unmet means no trade; the trigger does not get moved to meet the price."
+        },
+        "INTC": {
+          "grade": "DEAD BY RULE -- not re-graded, and deliberately not re-armed.",
+          "reasoning": "The standing plan said 'a close back below $103.50 ends the coil and takes the name off the list.' INTC closed Friday at 102.50; the kill level fired and the 13:37Z run retired the name after eleven consecutive declines without ever rationalizing the level down. It is 103.17 today, back above the old trigger -- which is exactly the circumstance in which a weak relay quietly un-retires a name. Any future INTC trade must be built and labeled as a NEW setup."
+        }
+      },
+      "why_flat": "No A+ setup, and with ~30 minutes left in the session no candidate could become one. Every name on the freshest screen is dead by a rule written before I arrived: two on an absolute earnings gate (ROST, DE), one on the $1,500 per-trade law plus the only rich-vol reading on the core list (AVGO), one already owned as equity (CL), one on an unmet written trigger (MSFT), one retired by its own kill level (INTC). The honest summary of the day is that the desk's process is functioning and the opportunity set is genuinely poor -- not that the gates are too tight. Opening long premium in the last half hour, into Wednesday's FOMC minutes and a Tue-Thu retail-earnings wave, with no trigger firing, would be paying two re-pricing events for a setup nobody graded above B.",
+      "duties_completed": "Heartbeat already stamped 13:37Z for this trading day -- correctly NOT re-stamped. Brief already built today; no shock condition met, not rebuilt. Broker reconciliation FRESH this run (19:19-19:21Z) across get_accounts / get_option_positions / get_portfolio / get_equity_positions / get_equity_orders / get_option_orders -- and it EARNED its keep this run by surfacing and explaining the CL equity fill. holdings.json _current_state overwritten IN PLACE for both option positions with live 19:20Z marks; _realized_options_pnl_today re-sourced from the broker ($0.00, empty order list). iv_history.json NOT rewritten -- all eight core-list rows plus CL, HD and DE already carry 2026-08-17 rows, and no name I evaluated today lacks one except ROST, whose skip is justified in its grade. EOD REPORT WRITTEN THIS RUN: at 19:28Z this is the first firing at/after 19:25Z (14:25 CT), so the duty is due here and was discharged rather than deferred -- daily_options_report.md rewritten for 2026-08-17 and pushed to master, which IS the delivery via eod-report-notify.yml. No push notification sent from the session: the run found nothing Ryan needs to act on, the managed cloud environment cannot reach ntfy anyway, and the GitHub Action is the working delivery path.",
+      "sleeve_state": "Portfolio $3,869.65 = equity $957.88 (AAPL 1.652252 + CL 5) / options $978 / cash $1,933.77. get_accounts unsettled_funds $0.0000, so settled cash is the full $1,933.77 and FOUR LAWS #4 is not binding. Agentic premium-at-risk $749 (the SPY hedge alone); ACHR is Ryan's and is excluded. Non-hedge agentic option slots used 0 of 3; new entries today 0 of 3; realized options P&L today $0.00 against the -$200 cap. Equity-book cash ratio = 1933.77 / (1933.77 + 957.88) = 66.9%, comfortably above the 45% defensive floor even after the CL buy.",
+      "tomorrow": "Tue 2026-08-18: HD earnings before the open -- the first read on the consumer in a week whose real information content is the retail wave (LOW/TGT/TJX Wed, WMT/ROST/DE Thu). HD's IV row was logged today (ratio 1.06). Wed 2026-08-19 FOMC MINUTES is the week's main macro event and the reason a 30-45 DTE position opened now would carry two re-pricing events for free. MSFT's trigger stands unchanged and unmoved: a decisive CLOSE below ~480 AND an identifiable driver -- both, or nothing.",
+      "_concurrent_run_note": "CONCURRENT-RUN COLLISION, resolved as a UNION per CLAUDE.md (precedent PR #210). A sibling run fired at 19:19Z while this one was working and merged first as PR #367; this entry (19:28Z) is kept ALONGSIDE it, not instead of it, because both did genuine independent work. Where the two overlap they CROSS-VALIDATE rather than conflict: both independently marked SPY 6.595 / -11.95% / +$38.50 on the day, both read realized options P&L today as $0.00 from an empty broker order list, and both independently reconciled the CL equity fill to Ryan's approved batch with no flag. The sibling additionally covered NVDA and RDDT candidates from earlier in the day that this run did not re-screen. daily_options_report.md was NOT rewritten by this run -- the sibling wrote and delivered it at 19:16Z, and rewriting it would have sent Ryan a duplicate notification for zero new information, which the EOD rule explicitly forbids. Its version is also the better document (fuller candidate coverage), so keeping it is the correct call on the merits and not merely a tie-break. holdings.json _current_state kept from THIS run only because its marks are 12 minutes fresher (19:28Z vs 19:16Z); the numbers agree.",
+      "_msft_trigger_reconciliation": "DISCREPANCY FOUND AND RESOLVED -- the next instance must not inherit two different MSFT levels. This run quoted the 14:30Z run's trigger ('MSFT closes below ~480, decisive loss of the 480 shelf') because that is what the 14:47Z journal entry recorded. The sibling 19:19Z run cites a LATER and more precisely specified version: a DAILY close below $475.00, the post-earnings shelf, plus the structural observation (first made at 17:47Z) that a daily close is only observable at/after 20:00Z, by which time the placement window is shut -- so MSFT could not have produced a trade today no matter what it printed. THE $475 DAILY-CLOSE VERSION IS THE OPERATIVE TRIGGER; the ~480 figure is superseded and should not be re-quoted. Both readings return the same answer today (MSFT 481.42 is above both), so no decision turned on the difference -- but a live trigger with two numbers in the record is exactly how a level gets quietly loosened later, which is why it is being pinned here rather than left to the next run to notice."
     }
   ],
   "updated_utc": "2026-08-17T19:03:00Z"
