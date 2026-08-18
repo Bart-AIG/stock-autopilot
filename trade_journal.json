@@ -9176,6 +9176,33 @@
       "grades_considered": "None. No entry is placeable with the market closed; per the post-close protocol this run does not invent a research task to justify itself.",
       "why_flat": "Market closed and the book is provably unchanged since the prior eleven post-close reconciliations. The only check worth repeating -- the broker reconciliation -- was run and came back clean.",
       "notes_for_next_instance": "Twelfth post-close firing of one trading day. The redundant trigger config (cron-job.org every 15 min + the native hourly backstop) is Ryan's to change; an agent can only keep each extra firing cheap. Next real work: the first run at/after 09:30 ET 2026-08-18 stamps the heartbeat, rebuilds market_brief.json, and resets the daily throttles."
+    },
+    {
+      "run_utc": "2026-08-18T08:20:00Z",
+      "trading_day_et": "2026-08-17",
+      "run_type": "post-close redundant firing (13th of the 2026-08-17 trading day; 04:20 ET Tue, ~5h before the 09:30 ET open). Market closed, nothing placeable. POST-CLOSE RUN PROTOCOL followed: read what the 20:20Z-07:19Z runs already covered, repeated only the one check always worth repeating (broker reconciliation, BOTH books), logged it briefly, stopped. No research task invented, no daily artifact rolled.",
+      "regime": "RISK-ON, EXTENDED, COMPLACENT -- unchanged and deliberately NOT re-derived (the protocol forbids re-deriving the regime on a redundant post-close firing).",
+      "action_taken": null,
+      "reconciliation": {
+        "checked_utc": "2026-08-18T08:20:00Z",
+        "method": "get_accounts + get_option_positions(nonzero) + get_portfolio + get_equity_positions, diffed against holdings.json on origin/master. Equity leg checked BEFORE the phrase 'zero drift' was used, per the 04:19Z method_gap_note.",
+        "result": "ZERO DRIFT across BOTH books. Options: exactly the two ledger positions -- SPY 2026-11-20 700P qty 1 avg 7.49 (agentic, authorized defensive hedge, exempt from premium backstops) and ACHR 2028-01-21 5C qty 1 avg 2.47 (placed_agent='user', manual_hold_override, DETECT-ONLY under the ownership gate). Every pending_* field 0.0000 on both, so no overnight assignment/exercise/expiration. Equities: AAPL 1.652252 @ $302.89 and CL 5.0 @ $89.97, both shares_available_for_sells in full, both in holdings.json. No unrecorded name; holdings.json carries 4 positions and ZERO open _flag / UNAUTHORIZED markers.",
+        "portfolio": {
+          "total_value": 3875.86,
+          "equity_value": 957.09,
+          "options_value": 985.0,
+          "cash": 1933.77,
+          "settled_buying_power": 1933.77,
+          "unsettled_funds": 0.0
+        },
+        "sleeve_state": "Agentic premium-at-risk $749 (the SPY hedge alone). Hedge excluded from the max-3 count, so 0 of 3 non-hedge slots used. Realized options P&L for the 2026-08-17 trading day: $0 -- the -$200 daily cap is untouched and does NOT reset until a run at/after 09:30 ET today.",
+        "account_permissions": "718757339 still option_level_2 -- debit spreads remain UNAVAILABLE at this account. The level-3 recommendation continues to stand with Ryan, unacted. Do not send a spread's long leg here; on level 2 it fills and the short leg rejects, leaving an unintended naked single-leg (see CLAUDE.md HARD RULE 8)."
+      },
+      "delta_vs_prior_run": "Against the 07:19Z reading the ONLY change is total_value $3,874.17 -> $3,875.86 and equity_value $955.40 -> $957.09, a +$1.69 overnight mark tick on the AAPL/CL marks. Cash, options value, share counts and contract counts are byte-identical. Nothing happened.",
+      "daily_artifacts": "Heartbeat NOT re-stamped (the 2026-08-17 13:37Z stamp stands; only a run at/after 09:30 ET may stamp, and 04:20 ET is pre-open). market_brief.json NOT rebuilt/re-dated. daily_options_report.md NOT rewritten -- nothing MATERIAL has happened since it was written, and a duplicate push only re-notifies Ryan for no new information. -$200 realized-loss cap and the 3-entry/day throttle NOT reset. UTC date is 2026-08-18 but the TRADING day is still 2026-08-17.",
+      "grades_considered": "None. No entry is placeable with the market closed, and the post-close protocol explicitly forbids inventing a research task to justify a redundant firing.",
+      "why_flat": "Market closed, ~5h pre-open. The book is provably unchanged across thirteen consecutive reconciliations. The one check worth repeating -- the broker diff, the only way an overnight assignment/expiration/unauthorized fill would ever surface -- was run on both books and came back clean.",
+      "notes_for_next_instance": "THIRTEENTH post-close firing of a single trading day; the overnight burn continues and remains Ryan's trigger config to fix (cron-job.org every 15 min + the native hourly backstop), not something an agent can stop -- an agent can only make each extra firing cheap, which is what this entry is. FOR THE FIRST RUN AT/AFTER 09:30 ET TODAY (2026-08-18), the real work is queued and none of it has been done: (1) stamp automation_heartbeat.json for 2026-08-18 -- it is the dead-man Ryan relies on; (2) rebuild market_brief.json for the new trading day (macro calendar, regime from SPY/QQQ/VIX/breadth, catalysts next 5 sessions, 3-6 name watchlist each with a confirming and a killing level); (3) reset the -$200 cap and the 3-entry throttle; (4) log the core-list IV rows to iv_history.json. Settled cash $1,933.77 with unsettled_funds $0.00 means FOUR LAWS #4 is not binding -- the full $1,500 per-trade max is genuinely available if an A++ setup appears. HUNT ORDER IS LIQUIDITY-FIRST: the affordable tier at ~0.35 delta / 30-45 DTE is QQQ, SPY, NVDA, INTC, MSFT (MSFT re-tiered 2026-08-17 on a measured 0.35-delta quote); AMD/AVGO/TSM stay unaffordable in any real-delta single leg. Read the journal TAIL, never the whole file (~1.09MB / 239 entries; rotation is premature -- the file spans under 8 days)."
     }
   ],
   "updated_utc": "2026-08-17T21:20:00Z"
