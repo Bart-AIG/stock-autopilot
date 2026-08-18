@@ -10417,6 +10417,75 @@
     "iv_history": "QQQ's own 30-day ATM IV was already re-measured today at 15:17Z (0.197366 at spot 716.78, vs 0.19647 at spot 721.11 at 13:34Z). No name was newly evaluated this run, so no new row is owed; re-polling the same chain 30 minutes later would be exactly the invented work the redundant-run discipline forbids.",
     "daily_report": "NOT DUE. The duty fires on the first run at/after 14:25 CT (19:25Z); it is 10:47 CT / 15:47Z. A later run owns it."
    }
+  },
+  {
+   "run_utc": "2026-08-18T16:03:00Z",
+   "run_local_et": "2026-08-18 12:03 ET",
+   "trading_day_et": "2026-08-18",
+   "session_state": "OPEN -- minute ~153 of the cash session. SIXTEENTH firing of the 2026-08-18 trading day (13:00Z, 13:20Z, 13:26Z pre-open; 13:35Z, 13:47Z, 14:02Z, 14:18Z, 14:23Z, 14:33Z, 14:47Z, 15:02Z, 15:17Z, 15:22Z, 15:31Z, 15:47Z, this one post-open). THIRTEENTH post-open run.",
+   "run_type": "TRIGGER-CHECK RUN. Measured the one standing candidate on both branches, re-marked both positions off live quotes, reconciled the broker, and made ONE new measurement that is directly decision-relevant (below). No research task invented to justify the firing.",
+   "regime": "RISK-OFF ROTATION, UPTREND INTACT, NO VOL BID -- carried from the 13:35Z brief, NOT re-derived. No refresh-bar event: VIX 15.7 at the brief -> 15.71 now, i.e. the vol complex has fully ROUND-TRIPPED to its opening level after peaking at 15.90.",
+   "action_taken": "NO NEW ENTRY. NO EXIT. Positions re-marked, trigger re-measured on both branches, stand down.",
+   "reconciliation": {
+    "measured_utc": "2026-08-18T16:01Z",
+    "option_positions": "get_option_positions(nonzero=true) returns exactly SPY 2026-11-20 700P (agentic hedge) + ACHR 2028-01-21 5C (placed_agent='user', manual_hold_override). Matches holdings.json. ZERO DRIFT. Every pending_* field 0.0000 on both -- no assignment, no expiration, no unauthorized fill.",
+    "portfolio": "total $3,917.06 (equity $967.29 / options $1,016.00 / cash $1,933.77). Cash UNCHANGED from the 13:35Z heartbeat stamp ($1,933.77) for the sixteenth consecutive reading today -- conclusive evidence of no fill of any kind. unsettled_funds $0.00 via get_accounts, so FOUR LAWS #4 is not binding.",
+    "agentic_premium_at_risk": "$749 (SPY hedge alone). Hedge is excluded from the max-3 count, so 0 of 3 non-hedge slots are used.",
+    "realized_options_pnl_today": "$0.00 -- the -$200 daily cap is untouched and gates nothing.",
+    "entries_used_today": "0 of 3."
+   },
+   "position_verdicts": [
+    {
+     "position": "SPY 2026-11-20 700P (agentic, authorized hedge, 94 DTE)",
+     "verdict": "WORKING",
+     "detail": "Mark 7.08 vs entry 7.49 = -$41 / -5.5% on the position, but +$43 on the SESSION (prior close 6.65 -> 7.08) while SPY fell -0.54% to 768.48. Delta -0.156, theta -0.092/day, IV 0.2118, OI 23,507. Insurance doing its job on a risk-off day. Exempt from all premium backstops; the standing plan is hold to the ~21-DTE roll/close decision (~2026-10-30) WITH Ryan. No deviation from that plan, and none argued for."
+    },
+    {
+     "position": "ACHR 2028-01-21 5C (placed_agent='user', manual_hold_override, 521 DTE)",
+     "verdict": "WORKING / NOT ACTIONABLE",
+     "detail": "Mark 3.075 vs entry 2.47 = +$60 / +24.5%; underlying 6.33 (-0.94%, up from the 6.269 measured at 15:47Z). Ownership gate: Ryan's trade, Ryan's LEAP. Detect only, never act."
+    }
+   ],
+   "trigger_check": {
+    "candidate": "QQQ 2026-09-18 700P (A-, deferred since 13:35Z)",
+    "written_trigger": "QQQ below its 20-day MA of 705.82, OR below 715 intraday WITH VIX above 17.",
+    "measured_utc": "2026-08-18T16:02:13Z",
+    "qqq_spot": 719.03,
+    "qqq_pct_day": -1.49,
+    "qqq_vs_20dma": "+1.87% ABOVE 705.82 (13.21 points of room) -- branch 1 FAILS, and by MORE room than at any prior run today (prior widest was 12.27 at 15:31Z).",
+    "vix": 15.71,
+    "branch_2": "FAILS on BOTH legs -- QQQ 719.03 is 4.03 points ABOVE 715, and VIX 15.71 is 1.29 points below 17.",
+    "killing_level_728_730": "NOT reached (719.03, ~9-11 points away). Candidate stays ALIVE and deferred.",
+    "verdict": "TRIGGER NOT FIRED. Thirteenth consecutive post-open run to reach the same conclusion. This is the THIRD consecutive run in which the setup moved FARTHER from firing on both axes: price 716.63 -> 718.09 -> 719.03 off the 15:01Z session low of 716.55, while VIX went 15.90 -> 15.87 -> 15.71 and is now back to exactly its opening level.",
+    "prior_run_warning_upheld": "The 15:02Z run's warning -- that branch 2 requires BOTH legs and that arguing otherwise is the signal to stop trading -- is upheld in full. It has not needed to bind today because the price leg has been retreating, not approaching."
+   },
+   "the_one_new_measurement_this_run": {
+    "what": "The DEFERRED CONTRACT'S OWN PRICE, marked against the quote taken when it was first graded, plus a fresh ATM-IV reading on QQQ.",
+    "numbers": "QQQ 2026-09-18 700P at 13:35Z: mid 9.18 ($918), delta -0.305, spread 0.98% of mid. At 16:02Z: bid 9.04 / ask 9.11, mid 9.075 ($907.50), delta -0.3055, spread 0.77% of mid, IV 0.2147, OI 78,193, volume 15,537, theta -0.2307 (-$23/day, -2.5% of premium/day). QQQ ATM IV (719 strike, 31 DTE, call 0.196025 and put 0.194237 averaged) = 0.195131 vs 0.19647 at the open. IV/RV 0.856.",
+    "why_this_matters_more_than_another_trigger_restatement": "It converts the abstract 'no vol bid' regime call into a P&L fact about the exact trade this desk was considering. Between 13:35Z and now QQQ fell 2.08 points and was RIGHT for the put's thesis -- and the put got CHEAPER anyway, from $918 to $907.50. An instance that had overridden the trigger and bought at the open would be down ~$10 while being correct on direction, because theta plus a fading IV are together outrunning the delta leg. That is the strongest available argument that the deferral was not timidity but the right read of the vehicle: at 31 DTE this put needs a DIRECTIONAL BREAK, not a drift, and the trigger levels are precisely the definition of a break.",
+    "cost_of_being_early_quantified": "-$23/day of theta on a $908 contract. Every run that defers costs nothing; a run that front-runs the trigger pays 2.5% of premium per day to wait for a break that has now moved 13.2 points away."
+   },
+   "grades_considered": [
+    {
+     "candidate": "QQQ 2026-09-18 700P",
+     "grade": "A-",
+     "status": "DEFERRED, alive",
+     "why_not_now": "Technical trigger not firing on either branch, and the day's tape is moving away from it on BOTH axes. Freshly quantified above: the contract itself is cheaper than at the open despite the index being lower, so there is no cost to continued patience and a measurable -2.5%/day cost to impatience."
+    },
+    {
+     "candidate": "No other name screened this run",
+     "grade": "n/a",
+     "status": "deliberate",
+     "why_not_now": "Redundant-firing discipline (CLAUDE.md: make each extra firing cost almost nothing). The 13:35Z brief's watchlist was built this morning and nothing in the tape has invalidated it; re-screening the same names at 15-minute intervals manufactures work rather than edge."
+    }
+   ],
+   "why_flat_one_line": "The one A- candidate's written trigger has not fired and is now farther from firing than at any point today, while a direct mark of the contract proves waiting is free and haste is expensive -- so the desk stays flat with 0 of 3 entries used and $0 realized.",
+   "duties_status": {
+    "heartbeat": "Already stamped for the 2026-08-18 trading day by the 13:35Z run. Not re-stamped.",
+    "brief": "market_brief.json stamped 2026-08-18. No refresh-bar shock (VIX +1.1% at its peak today, no brief level broken, no new headline). Not rebuilt.",
+    "iv_logging": "iv_history.json QQQ row for 2026-08-18 OVERWRITTEN with the 16:02Z reading; the full intraday path is preserved in that row's note.",
+    "daily_report": "NOT DUE YET. Due on the first run at or after 14:25 CT (19:25Z); it is 11:03 CT. If a later firing is the last of the day it must write daily_options_report.md -- missing it is strictly worse than writing it early."
+   }
   }
  ],
  "updated_utc": "2026-08-18T15:17:00Z"
