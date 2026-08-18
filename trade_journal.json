@@ -9268,6 +9268,37 @@
    "daily_artifacts": "Heartbeat NOT re-stamped (the 2026-08-17T13:37:00Z stamp stands -- stamping it now would pre-satisfy the dead-man for a trading day that has not started). market_brief.json NOT rebuilt/re-dated (it describes 2026-08-17 and stays stamped with the day it describes). -$200 realized-loss cap and the 3-entry throttle NOT reset. daily_options_report.md NOT rewritten -- nothing MATERIAL happened, and a duplicate push only re-notifies Ryan for no new information.",
    "why_flat": "Market is closed, book provably unchanged, nothing placeable. Stand down.",
    "handoff_note": "For the first run at/after 09:30 ET today (2026-08-18): you own (1) the heartbeat stamp, (2) the market_brief.json rebuild for the 2026-08-18 trading day, (3) the loss-cap/throttle reset, and (4) the first real HUNT since Friday. Settled cash $1,933.77, 0 of 3 non-hedge slots used, so FOUR LAWS #1 ($1,500/trade) is the binding sizing constraint, not funds. Sourcing is liquidity-first: affordable tier at ~0.35 delta is QQQ / SPY / NVDA / INTC / MSFT (MSFT re-tiered 2026-08-17 on the 2026-09-18 475P at $1,105); AMD / AVGO / TSM remain unaffordable in a real-delta single leg and the debit spread that would fit is unavailable at option_level_2. Event geometry: FOMC minutes Wednesday and a retail-earnings wave Tue-Thu, so a 30-45 DTE entry opened today is held through both -- a reason for a higher entry bar, not a reason to skip a genuine A+ setup. Do NOT re-open the CL provenance question; it is settled in this entry."
+  },
+  {
+   "run_utc": "2026-08-18T12:30:00Z",
+   "trading_day_et": "2026-08-17",
+   "run_type": "pre-open redundant firing (17th firing since the 2026-08-17 bell; 08:26-08:30 ET Tue, ~1h00m before the 09:30 ET open of the 2026-08-18 session). Market closed, nothing placeable. POST-CLOSE RUN PROTOCOL followed: read what the 20:20Z-11:19Z runs already covered, repeated only the check always worth repeating (broker reconciliation, BOTH books), logged it briefly, stopped. No research task invented, no daily artifact rolled, no regime re-derivation.",
+   "regime": "RISK-ON, EXTENDED, COMPLACENT -- unchanged and deliberately NOT re-derived (the protocol forbids re-deriving the regime on a redundant pre-open firing).",
+   "action_taken": "None",
+   "reconciliation": {
+    "checked_utc": "2026-08-18T12:28:00Z",
+    "method": "get_accounts + get_option_positions(nonzero) + get_portfolio + get_equity_positions, diffed against holdings.json on origin/master. Equity leg checked BEFORE the phrase 'zero drift' was used.",
+    "result": "ZERO DRIFT across BOTH books. Options: exactly the two ledger positions -- SPY 2026-11-20 700P qty 1 avg $749 (agentic, authorized defensive hedge, premium-backstop EXEMPT) and ACHR 2028-01-21 5C qty 1 avg $247 (placed_agent='user', manual_hold_override, DETECT-ONLY under the ownership gate). Every pending_* field 0.0000 on both, so no overnight assignment/exercise/expiration. Equities: AAPL 1.652252 @ $302.89 and CL 5.0 @ $89.97, both fully available for sells -- both present in holdings.json, no unrecorded name. holdings.json carries 4 positions and ZERO open _flag / UNAUTHORIZED markers (_resolved_flags only). CL provenance was verified documentarily by the 11:19Z run (order 6a8323f8, commit 3311e0c) and is NOT re-opened here.",
+    "agentic_account": "718757339, cash, agentic_allowed=true, option_level_2 -- STILL level 2 on a fresh get_accounts, so debit spreads remain UNAVAILABLE and the routine prompt's spread authorization is not executable here. The level-3 recommendation continues to stand with Ryan, unacted. No run may act as though the upgrade exists.",
+    "portfolio": {
+     "total_value": 3878.22,
+     "equity_value": 959.45,
+     "options_value": 985.0,
+     "cash": 1933.77,
+     "settled_buying_power": 1933.77,
+     "unsettled_funds": 0.0
+    },
+    "sleeve_state": "Agentic premium-at-risk $749 (the SPY hedge alone). Hedge excluded from the max-3 count, so 0 of 3 non-hedge agentic slots are used. ACHR is Ryan's book and excluded from agentic accounting. FOUR LAWS #4 not binding -- unsettled_funds $0.00, so the full $1,933.77 is settled and spendable for the first entry of the new session."
+   },
+   "positions_verdict": [
+    "SPY 2026-11-20 700P -- WORKING as designed. Insurance under the Aug-Oct defensive posture, not a directional bet; basis $749, mark unchanged overnight, 94 DTE, well clear of its ~21-DTE roll/close decision (~2026-10-30) which is Ryan's call, not the automation's. Exempt from all premium backstops. No action.",
+    "ACHR 2028-01-21 5C -- HOLD, gated twice over. Ryan placed it (placed_agent='user'), so the ownership gate forbids an autonomous exit, and manual_hold_override suspends the premium backstops regardless. 521 DTE. No action."
+   ],
+   "grades_considered": [],
+   "why_flat": "Market closed -- no order of any kind is placeable at 08:30 ET, so there is no decision to make. The book has been provably unchanged across all seventeen firings since Monday's bell. Per the POST-CLOSE RUN PROTOCOL the correct output of the Nth redundant firing is the cheap broker diff (the only way an overnight assignment, expiration or unauthorized fill would ever surface) plus one short entry saying so.",
+   "daily_artifacts_NOT_rolled": "Heartbeat NOT stamped -- automation_heartbeat.json still reads 2026-08-17T13:37Z and that is CORRECT: only a run at/after 09:30 ET on the 2026-08-18 trading day may stamp it, and stamping now would pre-satisfy the dead-man for a session that has not opened. market_brief.json NOT rebuilt/re-dated (still 2026-08-17); the first post-open run rebuilds it for the new session. The -$200 realized-loss cap and the 3-entry throttle are NOT reset here -- they reset on the trading day, at the bell.",
+   "handoff_to_first_post_open_run": "You are the run that (a) stamps the heartbeat, (b) rebuilds market_brief.json for 2026-08-18, and (c) resets the cap/throttle. Inherited state: BOTH live watchlist candidates are dead by their own written rules -- INTC killed on the 2026-08-14 $103.50 close rule, NVDA killed 2026-08-17T17:10Z on the 226.30 close rule (cross-validated by a concurrent sibling). Reviving either without a NEW setup written from scratch is a drift violation. AVGO is structurally untradeable at this size (2026-09-18 400C ~$2,188 > the $1,500 per-trade law; only core name with IV/RV >1.0; earnings straddle). MSFT is cheap vol with no direction -- cheap premium is not a thesis. Live catalysts TODAY: HD Q2 am (first hard read on whether Friday's soft retail sales + UMich 51.0 show up in actual consumer spend) and RDDT joining the S&P 500 at the open (pop already spent). FOMC MINUTES Wednesday. The consumer thesis is a REACTION trade, not an anticipation trade -- do not pre-position into HD. Note also that a 2026-09-18 board straddles NVDA's 08-26 pm print. Full settled cash $1,933.77 and 3 of 3 non-hedge slots free, so the constraint today is setup quality, not capital.",
+   "structural_note": "Seventeen firings for one trading day's worth of decisions. The redundancy is trigger-config (cron-job.org every 15 min + the native hourly backstop) and only Ryan can change it; an agent can only make each extra firing cost almost nothing, which this entry does."
   }
  ],
  "updated_utc": "2026-08-17T21:20:00Z"
