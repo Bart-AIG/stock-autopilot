@@ -10239,6 +10239,47 @@
     "reconciliation": "DONE 15:15-15:17Z. get_option_positions(nonzero) returns exactly the SPY 2026-11-20 700P and the ACHR 2028-01-21 5C -- matches holdings.json, ZERO DRIFT, every pending_* field 0.0000. get_portfolio ties: cash 1933.77 unchanged from the 13:35Z stamp, no equity or option fills since.",
     "iv_history": "QQQ row for today OVERWRITTEN with the 15:17Z reading per the IV method, with the 13:34Z open reading preserved in the row's _note because the intraday path is the decision-relevant fact."
    }
+  },
+  {
+   "run_utc": "2026-08-18T15:22:00Z",
+   "run_local_et": "2026-08-18 11:22 ET",
+   "trading_day_et": "2026-08-18",
+   "session_state": "OPEN -- minute ~112 of the cash session. THIRTEENTH firing of the 2026-08-18 trading day (13:00Z, 13:20Z, 13:26Z pre-open; 13:35Z, 13:47Z, 14:02Z, 14:18Z, 14:23Z, 14:33Z, 14:47Z, 15:02Z, 15:17Z, this one post-open). TENTH post-open run, and it lands only 5 minutes after the 15:17Z run -- a redundant-trigger collision slot, not a new decision point.",
+   "run_type": "TRIGGER-CHECK RUN, deliberately minimal. The 15:17Z run measured this same candidate on the same two branches 5 minutes ago and nothing has moved. Per the post-close/redundant-run discipline in CLAUDE.md (make each extra firing cost almost nothing), this run did the cheap reconciliation, re-measured the trigger, re-marked both positions, and invented NO research task to justify the firing.",
+   "regime": "RISK-OFF ROTATION, UPTREND INTACT, NO VOL BID -- carried from the 13:35Z brief, NOT re-derived. No refresh-bar event (VIX +15% intraday / index breaks a brief level / major headline): VIX 15.7 at the brief -> 15.90 now is +1.3% on the session.",
+   "action_taken": "NO NEW ENTRY. NO EXIT. Positions re-marked, trigger re-measured on both branches, stand down.",
+   "reconciliation": {
+    "measured_utc": "2026-08-18T15:21Z",
+    "option_positions": "get_option_positions(nonzero=true) returns exactly SPY 2026-11-20 700P (agentic hedge) + ACHR 2028-01-21 5C (placed_agent='user', manual_hold_override). Matches holdings.json. ZERO DRIFT. Every pending_* field 0.0000 on both -- no assignment, no expiration, no unauthorized fill.",
+    "portfolio": "total $3,931.07 (equity $971.30 / options $1,026.00 / cash $1,933.77). Cash UNCHANGED from the 13:35Z heartbeat stamp ($1,933.77) -- no fill of any kind today. unsettled_funds $0.00 via get_accounts, so FOUR LAWS #4 is not binding.",
+    "agentic_premium_at_risk": "$749 (SPY hedge alone). Hedge is excluded from the max-3 count, so 0 of 3 non-hedge slots are used.",
+    "realized_options_pnl_today": "$0.00 -- the -$200 daily cap is untouched and gates nothing.",
+    "entries_used_today": "0 of 3."
+   },
+   "trigger_check": {
+    "candidate": "QQQ 2026-09-18 700P (A-, deferred since 13:35Z)",
+    "written_trigger": "QQQ below its 20-day MA of 705.82, OR below 715 intraday WITH VIX above 17.",
+    "measured_utc": "2026-08-18T15:21:00Z",
+    "qqq_spot": 716.63,
+    "qqq_pct_day": -1.82,
+    "qqq_vs_20dma": "+1.53% ABOVE 705.82 (10.81 points of room) -- branch 1 FAILS.",
+    "vix": 15.9,
+    "branch_2": "FAILS on BOTH legs -- QQQ 716.63 is 1.63 points above 715 AND VIX 15.90 is 1.10 points below 17.",
+    "killing_level_728_730": "NOT reached (716.63, ~11.4 points away). Candidate stays ALIVE and deferred.",
+    "verdict": "TRIGGER NOT FIRED. Tenth consecutive post-open run to reach the same conclusion.",
+    "delta_vs_prior_run": "Nothing moved in 5 minutes: QQQ 716.78 -> 716.63 (-0.15), VIX 15.87 -> 15.90 (+0.03). Both legs remain exactly where the 15:17Z run left them. This is the definition of a firing that is not a decision point.",
+    "two_standing_warnings_upheld": "The 15:02Z run's warning stands and is inherited unchanged: if QQQ breaks 715 with VIX still in the 15s, branch 2 has NOT fired -- it requires BOTH legs, and arguing that '15.9 is close enough' is the signal to stop trading for the run. The 14:47Z run's mirror-image warning also stands: this desk does not kill the candidate early on narrative either, because the written killing level is 728-730 and price is 11 points below it. The level is the level in both directions."
+   },
+   "position_verdicts": {
+    "SPY 2026-11-20 700P": "WORKING (hedge). Mark 7.215 (bid 7.20 / ask 7.23, 0.42% of mid), -$27.50 / -3.67% vs the 7.49 entry, +$56.50 on the day vs the 6.65 close. 94 DTE, delta -0.159, theta -$0.093/day, IV 0.2117, OI 23,507. EXEMPT from premium backstops -- insurance, not a directional trade, and it is doing exactly its job today. No action; next decision is the ~21-DTE roll/close review WITH Ryan (~2026-10-30).",
+    "ACHR 2028-01-21 5C": "NO ACTION -- structurally gated (placed_agent='user' + manual_hold_override, HARD RULE 8 ownership gate). Mark 3.00, +$53.00 / +21.46% vs the 2.47 entry, -$20.00 today vs the 3.20 close. 521 DTE, delta 0.784, theta -$0.002/day. Below the +50% ratchet arm; no exit condition fired. Detection only -- this desk may not close, trim, or roll it without Ryan's explicit go-ahead."
+   },
+   "grades_considered": {
+    "QQQ 2026-09-18 700P": "A- / DEFERRED. Trigger unfired on both branches for the tenth consecutive post-open run. Alive; killing level 728-730 not reached.",
+    "everything_else": "NOT RE-SCREENED THIS RUN, and that is the correct output rather than a gap. The 15:17Z run (5 minutes ago) graded SPY puts C/excluded-by-positioning (a second SPY put is the closest thing to adding to a loser, FOUR LAWS #3), the semi complex B-/pass on all three legs of the trend-maturity gate, and MSFT C/pass. Nothing in 5 minutes of tape can have changed any of those verdicts, and re-deriving them would be exactly the invented research task the redundant-run protocol forbids."
+   },
+   "why_flat": "The one live candidate's written trigger has not fired on either branch, and the tape has not moved measurably since the previous run 5 minutes ago. There is no A+ setup on the board. Being flat is a position and this is the correct one.",
+   "note_for_the_next_instance": "The EOD report (daily_options_report.md) is due on the FIRST run at or after 19:25Z / 14:25 CT. It has NOT been written yet as of this run. Whichever instance fires first past that mark must write it and push -- do not defer to a 'better' slot, because firing times collide and the deferring run can easily be the last one of the day."
   }
  ],
  "updated_utc": "2026-08-18T15:17:00Z"
