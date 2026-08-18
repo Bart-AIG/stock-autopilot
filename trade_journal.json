@@ -10735,6 +10735,55 @@
    "grades_considered": "None new. Watchlist unchanged from the 13:35Z brief (QQQ A- deferred / SPY C excluded-by-positioning / NVDA B watch / MSFT C vehicle-only). No new catalyst since 17:19Z.",
    "why_flat": "No trigger fired, book already correctly positioned for the bearish tail via the SPY hedge, and FOMC minutes tomorrow argue against opening a fresh directional put with <24h of seasoning. Being flat is the position.",
    "action": "NO TRADE"
+  },
+  {
+   "run_utc": "2026-08-18T17:45:00Z",
+   "run_local_et": "2026-08-18 13:45 ET",
+   "trading_day_et": "2026-08-18",
+   "session_state": "OPEN -- minute ~255 of the cash session. TWENTY-THIRD firing of the 2026-08-18 trading day.",
+   "run_type": "DRIFT-DISCOVERY RUN. This is the first firing today that was NOT a no-op: the broker reconciliation surfaced TWO agentic option entries that no committed file knows about, opened in the 14-minute gap since the 17:31Z run logged 'no trade'.",
+   "regime": "RISK-OFF ROTATION, UPTREND INTACT, NO VOL BID -- carried from the 13:35Z brief, NOT re-derived. QQQ 717.98 (-1.63%), SPY 768.08 (-0.59%), NVDA 220.40 (-2.05%). No refresh-bar event.",
+   "action_taken": "NO NEW ENTRY (mandatory defer). NO EXIT. Both new positions recorded in holdings.json with reconstructed exit plans, inherited deadlines, and a provenance flag. Escalated to Ryan ONCE.",
+   "reconciliation": {
+    "measured_utc": "2026-08-18T17:45-17:46Z",
+    "DRIFT_FOUND": true,
+    "detail": "get_option_positions(nonzero=true) returned FOUR positions where every run today through 17:31Z returned exactly two. New since the 17:31Z run: QQQ 2026-09-11 680P (order 6a8499fa, placed_agent='agentic', filled 17:44:39Z, $405) and RBRK 2026-09-18 90P (order 6a8499dd, placed_agent='agentic', filled 17:43:58Z, $390). Cash ties exactly and confirms both fills: 1933.77 - 405 - 390 = 1138.77 vs reported 1138.69 (the $0.08 delta is regulatory fees). Neither position appears in holdings.json, trade_journal.json or market_brief.json on master; origin/master's head is still 22205ea, the 17:31Z no-action commit, so the placing run had pushed nothing at discovery time.",
+    "third_order_ACHR": "A THIRD order is live and is NOT ours to touch: ACHR 2028-01-21 5C sell-to-close, limit 3.25 credit, GFD, state 'confirmed', order 6a849a2e, placed_agent='USER', created 17:45:18Z. Ryan is selling his own LEAP himself. That is entirely his prerogative under the ownership gate; this run took NO action on it and must not. It also shows pending_sell_quantity 1.0 on the position, which is expected and not an anomaly.",
+    "portfolio": "total $3,915.31 (equity $970.62 / options $1,806.00 / cash $1,138.69). buying_power $1,138.69, unsettled_funds $0.00.",
+    "agentic_premium_at_risk": "$1,544 total ($749 SPY hedge + $405 QQQ + $390 RBRK). Non-hedge agentic deployment $795. Per the 2026-08-14 sizing amendment there is NO total-sleeve ceiling -- $1,500 is per trade, and each of these is far inside it -- so total premium is bounded by settled cash only and is NOT a breach.",
+    "slots": "2 of 3 non-hedge positions used; 2 of 3 daily entries used; short-tech correlated theme at its 2-of-2 cap.",
+    "realized_options_pnl_today": "$0.00 -- no closes. The -$200 daily cap is untouched and gates nothing.",
+    "heartbeat_and_brief": "Both already stamped for the 2026-08-18 trading day at 13:35Z. iv_history.json already carries a 2026-08-18 row for all 8 core names. Nothing to re-stamp."
+   },
+   "provenance_assessment": {
+    "finding": "UNRESOLVED, and deliberately left unresolved by this run.",
+    "why_it_cannot_be_settled_here": "placed_agent='agentic' is stamped both by an unattended automation run AND by an interactive session in which Ryan approves an order, so the field alone cannot separate an authorized batch from a rogue sibling. Ryan was demonstrably at the account in the same minute -- his own ACHR sell (placed_agent='user') is timestamped 17:45:18Z, 39 seconds after the QQQ fill -- which is real corroborating context but is NOT approval and is NOT recorded as approval. HARD RULE 9 forbids an unattended run from claiming, quoting, or inferring a Ryan turn, and equally forbids adjudicating a flag in either direction. So: recorded, escalated once, left for a genuinely interactive session or Ryan.",
+    "process_concerns_independent_of_provenance": [
+     "TWO entries 29 seconds apart. Either one run took two entries, breaching 'Max ONE new entry per run', or this is the documented concurrent-run collision with the second run failing to DEFER. Both are the failure CLAUDE.md predicted would eventually cost real money.",
+     "The QQQ entry contradicts a standing written plan without arguing against it. Every run from 13:35Z to 17:31Z carried QQQ 2026-09-18 700P as an A- DEFERRED candidate with an explicit two-branch trigger (Branch A: QQQ < 20d MA 705.82; Branch B: QQQ < 715 AND VIX > 17). At the fill QQQ was ~718, so NEITHER branch had fired -- and the contract actually bought was a different one (2026-09-11 680P).",
+     "The RBRK entry fails four standing gates on measurement (liquidity 13.0% of mid on OI 66; earnings 2026-08-27 inside the window; IV 78.4%; and a diverging tape, RBRK +1.26% while QQQ is -1.63%). It also has no documented source -- absent from the equity report and from the brief's watchlist."
+    ]
+   },
+   "positions_verdict": {
+    "SPY_2026-11-20_700P": "WORKING -- insurance-exempt hedge. Mark 7.09 (bid 7.08 / ask 7.10, 0.28% of mid), -$40.00 / -5.34% vs the 7.49 entry but +$44.00 on the session, doing its job on a risk-off day. Delta -0.157, theta -0.092, IV 0.2114, OI 23,507, 94 DTE. Held to the ~21-DTE (~2026-10-30) roll/close decision WITH Ryan. No action.",
+    "ACHR_2028-01-21_5C": "NO ACTION EVER without Ryan (placed_agent='user' + manual_hold_override). Ryan now has his own sell-to-close working at 3.25. Detect only. Do not touch, do not cancel, do not re-price.",
+    "QQQ_2026-09-11_680P": "HELD, NOT ACTIONED -- inherited, no thesis on file. Mark 4.055, flat (+$0.50). Vehicle is sound: 1.23% spread, OI 1504. Delta -0.169, 24 DTE. The real constraint is theta at -0.2166/day = -5.34% of premium PER DAY, and its 21-DTE management review lands Friday 2026-08-21, three sessions out.",
+    "RBRK_2026-09-18_90P": "HELD, NOT ACTIONED -- inherited, no thesis on file, and the weaker of the two by a wide margin. Mark 3.85, -$5.00 / -1.28%. Binding deadline is the 2026-08-27 pm earnings print: decide by the close of 2026-08-26."
+   },
+   "exit_decision_reasoning": "This run did NOT close either inherited position, and the reasoning is the substance of the run. Both are agentic-placed, so the ownership gate does NOT bar an exit and full mechanical autonomy formally applies. The case AGAINST closing won on four counts. (1) No mechanical trigger is close to firing -- QQQ is +0.12% and RBRK -1.28%, nowhere near any DTE-scaled premium level. There is no rule compelling an exit; closing would be a discretionary act. (2) Closing RBRK into a 13% spread realizes roughly -$30 instantly, spending real money to resolve what is presently a process question, not a loss. (3) The provenance is genuinely ambiguous and Ryan was live in the account 39 seconds after the fill. If he approved these, an automation flattening them minutes later reproduces the 2026-07-21 RBRK incident exactly -- the automation overriding a position the human chose -- which is the incident that created the ownership gate. (4) This run is the LEAST informed party: it does not hold the placing run's thesis. Destroying a position on incomplete information is the sloppier of the two available errors, and a sloppy action is a process failure here even when it happens to be right. What this run DID do instead is the durable fix: write both positions into the ledger with reconstructed invalidations, attach the two hard deadlines nobody else had computed (QQQ's 21-DTE review on 2026-08-21 and RBRK's pre-earnings decision by 2026-08-26), and escalate once. RBRK's earnings deadline is 6 sessions away, so nothing is foreclosed by waiting for an informed decision.",
+   "grades_considered": {
+    "any new entry": "NOT GRADED -- barred before evaluation. The pre-placement rule mandates DEFER when a sibling entry has landed since the run began, and two did. Reinforced by: 2 of 3 daily entries used, the short-tech theme at its 2-of-2 cap, and settled cash down to $1,138.69 with both debits settling 2026-08-19."
+   },
+   "why_flat": "No new entry, by rule rather than by judgement -- two sibling entries landed in the 100 seconds before this run started, which is a mandatory defer. No exit, because no trigger fired and the informed decision belongs to a session that holds the missing thesis. The run's real output is reconciliation, documentation, deadlines, and one escalation.",
+   "eod_report": "NOT DUE. The trigger is the first run at or after 14:25 CT; this run is 12:45 CT. The run that crosses 14:25 CT writes daily_options_report.md, and it must cover these two entries and the provenance flag.",
+   "handoff_to_next_instance": [
+    "DO NOT re-notify Ryan about this flag -- HARD RULE 9 requires exactly ONE notification per incident, and this run sent it. Finding the same flag again is not new information.",
+    "DO NOT clear the provenance flag. Only a genuinely interactive session with a real live Ryan turn, or Ryan himself, can resolve it.",
+    "QQQ 2026-09-11 680P hits its 21-DTE management review on FRIDAY 2026-08-21. Flat or losing at that review means close or roll -- do not let it drift into the theta/gamma window at -5.34% of premium per day.",
+    "RBRK 2026-09-18 90P must be decided by the close of WEDNESDAY 2026-08-26, ahead of the 2026-08-27 pm earnings print. It is the weaker position on every measured gate; the default should be to close it, and holding through the print needs a written case.",
+    "The short-tech theme is at its 2-of-2 cap. No further bearish tech entry is available regardless of setup quality until one of these closes.",
+    "Do NOT touch Ryan's working ACHR sell order (6a849a2e, placed_agent='user')."
+   ]
   }
  ],
  "updated_utc": "2026-08-18T15:17:00Z"

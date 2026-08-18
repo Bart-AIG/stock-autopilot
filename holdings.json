@@ -1,12 +1,7 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-18T17:31:00Z",
-  "_realized_options_pnl_today": {
-    "trading_day_et": "2026-08-18",
-    "usd": 0.0,
-    "cap_usd": -200.0,
-    "note": "No options closes today. Cap not binding; entries not gated by it."
-  },
+  "updated_utc": "2026-08-18T17:46:00Z",
+  "_realized_options_pnl_today": 0.0,
   "positions": [
     {
       "symbol": "SPY",
@@ -91,6 +86,84 @@
       "stop": null,
       "target": 93.49,
       "_note": "Aug slot 3 (week of 2026-08-17, $449.85 -- the defensive-posture weekly quota, first entry of this week; ACGL consumed the week of Aug 10 and was closed 2026-08-14). Ryan approved the one-tap batch 2026-08-17 ~15:08Z; order 6a8323f8 filled 5sh @ $89.97 (placed_agent=agentic). WHOLE shares deliberately, so the position can carry a resting stop if it ever goes green enough (trailing trigger = entry/0.85 = $105.85, +17.6%). No stop at entry per HARD RULE 5; report ref stop $87.47. EARNINGS VERIFIED CLEAR against the broker, not just the report's blank tag: Q2 reported 2026-07-31 (adj EPS $0.99 vs $0.95 est, a beat), next report 2026-10-30 (verified) = 74 days out, well outside the hold window. HARD RULE 7 thesis INTACT and improving: Q2 sales $5.36B / net income $693M; RAISED full-year Base Business EPS growth guidance to mid-single-digit and upgraded the gross-margin outlook; reaffirmed 2-6% net sales growth and double-digit GAAP EPS growth. July target raises JPM $104 (Overweight) / UBS $106 (Buy) / Citi $110 (Buy); consensus $97.82 vs $89.97 entry (+8.7%). WHY THIS DIP WAS BUYABLE (the distinction that mattered this week): CL fell -1.9% mid-pack inside a SECTOR-WIDE staples rotation -- KDP -3.3%, BTI -1.8%, MO -1.8%, UL -1.7%, PG -1.2% -- against SPY -0.13%, i.e. money leaving defensives, not a problem at Colgate. That is the opposite of AVGO, which was declined three times the prior week for falling -5.5% IDIOSYNCRATICALLY while AMD rose +3.4% (cause later identified: OpenAI custom-chip $18B financing roadblock + Erste and BofA downgrades). RISKS ACCEPTED AND STATED TO RYAN BEFORE APPROVAL: (1) modest R/R ~1.2:1 (target +3.9%, ref stop -2.8%) as expected on a low-beta staple; (2) Q2 carried a margin squeeze even with guidance held; (3) the entry fights an active multi-week rotation OUT of staples, so the dip may deepen first; (4) the oversold read is NOT unanimous -- CL was absent from the live Robinhood dip scan (its RSI2 >= 10) while report.py printed 7.1, the same calculation divergence seen on AVGO. Graded B+/A-, not a slam dunk, and appropriate for the Aug-Oct defensive posture as a low-beta defensive name."
+    },
+    {
+      "symbol": "QQQ",
+      "sleeve": "options",
+      "entry_date": "2026-08-18",
+      "contract": "QQQ 2026-09-11 680P",
+      "option_id": "56c9b134-f111-41c9-8037-1da4a5af2af6",
+      "order_id": "6a8499fa-8028-4ffd-9395-9a949467dc30",
+      "contracts": 1,
+      "entry_premium": 4.05,
+      "max_loss": 405.0,
+      "stop": null,
+      "target": null,
+      "placed_agent": "agentic",
+      "filled_utc": "2026-08-18T17:44:39Z",
+      "setup_invalidation": "RECONSTRUCTED BY THE 17:45Z RUN -- the placing run left NO written thesis, invalidation, or exit plan in any committed file, which the routine prompt requires before an entry ('No written invalidation = no trade, no exceptions'). This run did NOT place the trade and cannot invent the original thesis, so the following is an INHERITANCE PLAN, not the entry's stated one, and any run with the real thesis should replace it: bearish QQQ tail. Invalidate on QQQ closing back above ~730 (prior close 729.87 -- a full round-trip of today's -1.6% drop removes the bearish premise entirely). Break-even at expiry is QQQ 675.94, i.e. it needs a further ~5.9% decline from 717.98 in 24 days.",
+      "_flag": "PROVENANCE UNRESOLVED -- opened 2026-08-18T17:44:39Z, roughly 47 seconds before the 17:45Z automation run began, and NOT recorded in holdings.json, trade_journal.json, or market_brief.json on master at the time of discovery. placed_agent='agentic' is ambiguous by construction: it is stamped BOTH by an unattended automation run AND by an interactive session in which Ryan approves an order, so it cannot by itself distinguish an authorized batch from a rogue sibling run. Corroborating context, stated as fact and NOT as approval: Ryan was demonstrably active in the account at that moment -- he placed a sell-to-close limit on his own ACHR LEAP (order 6a849a2e, placed_agent='user') at 17:45:18Z, 39 seconds after this fill. Per HARD RULE 9 this run can NEITHER claim a Ryan approval NOR adjudicate the flag in either direction; it is recorded and escalated once, and left for a genuinely interactive session or Ryan himself to resolve. TWO PROCESS CONCERNS, independent of provenance: (1) this fill and the RBRK fill landed 29 seconds apart, which is either one run taking TWO entries (breaching 'Max ONE new entry per run') or the documented concurrent-run collision with the second run failing to DEFER; (2) the entry does not match the standing written plan -- every run from 13:35Z to 17:31Z carried QQQ 2026-09-18 700P as an A- DEFERRED candidate whose trigger had NOT fired (Branch A: QQQ < 20d MA 705.82; Branch B: QQQ < 715 AND VIX > 17). At the 17:31Z check QQQ was 718.14 and at this fill it was ~718, so NEITHER branch had fired, and what was actually bought is a DIFFERENT contract (2026-09-11 680P, not 2026-09-18 700P). Deviating from a standing written plan without quoting and arguing against it is the failure mode the routine prompt calls the cardinal sin of this desk.",
+      "_current_state": {
+        "last_checked_utc": "2026-08-18T17:46:00Z",
+        "mark": 4.055,
+        "bid": 4.03,
+        "ask": 4.08,
+        "spread_pct_of_mid": 1.23,
+        "pnl_usd": 0.5,
+        "pnl_pct": 0.12,
+        "underlying_spot": 717.98,
+        "dte": 24,
+        "delta": -0.1687,
+        "theta": -0.2166,
+        "theta_pct_of_premium_per_day": -5.34,
+        "iv": 0.238,
+        "open_interest": 1504,
+        "volume": 304,
+        "status": "HELD, NOT ACTIONED. Vehicle quality is fine -- 1.23% spread and OI 1504 clear the liquidity gate comfortably. Flat on the day. NO mechanical exit trigger is anywhere near firing, so there is nothing to execute; the open question is provenance and plan, not price."
+      },
+      "_inherited_deadlines": {
+        "21_dte_management_review": "2026-08-21 (Fri) -- 2026-09-11 minus 21 days. This is THREE SESSIONS AWAY. Per the 2026-08-05 exit-method amendment the 21-DTE review is unconditional: a position flat or losing at 21 DTE is closed or rolled, never held into the accelerating theta/gamma window. At -5.34% of premium per day in theta this is the binding constraint on the position, not the strike.",
+        "nvda_earnings": "2026-08-26 pm (verified) -- a top QQQ weight reporting 16 days before this contract expires and INSIDE the hold window. It is the single largest scheduled variance event for this position and cuts both ways."
+      }
+    },
+    {
+      "symbol": "RBRK",
+      "sleeve": "options",
+      "entry_date": "2026-08-18",
+      "contract": "RBRK 2026-09-18 90P",
+      "option_id": "b5c8fe61-1960-4d0c-b6dd-eca56b404e97",
+      "order_id": "6a8499dd-a384-4bd1-83ab-abbb99b22d88",
+      "contracts": 1,
+      "entry_premium": 3.9,
+      "max_loss": 390.0,
+      "stop": null,
+      "target": null,
+      "placed_agent": "agentic",
+      "filled_utc": "2026-08-18T17:43:58Z",
+      "setup_invalidation": "RECONSTRUCTED BY THE 17:45Z RUN -- same caveat as the QQQ position: no written thesis, invalidation, or exit plan was committed by the placing run, so this is an INHERITANCE PLAN and not the entry's stated one. Bearish RBRK. Invalidate on RBRK closing above ~105 (it is 102.30 now and printing relative STRENGTH, so this is close). Break-even at expiry is RBRK 86.15, i.e. it needs a ~15.8% decline in 31 days.",
+      "_flag": "PROVENANCE UNRESOLVED -- same discovery and same HARD RULE 9 handling as the QQQ 2026-09-11 680P above (opened 17:43:58Z, 88 seconds before the 17:45Z run began, absent from every committed file, placed_agent='agentic' which does not distinguish an approved interactive batch from a rogue run). Not adjudicated in either direction; escalated once. SEPARATELY, and regardless of who placed it, this entry fails FOUR of the desk's standing gates on measurements taken at 17:46Z, and the next informed session should decide it deliberately rather than inherit it by default: (1) LIQUIDITY -- bid 3.60 / ask 4.10 is a 13.0% of mid spread on OI of just 66 and volume 9. The standing preference is <10% of mid with healthy OI, and CLAUDE.md's sourcing fix names this exact profile as the thing to kill in 30 seconds, citing ROST at 12.8% on zero OI. At a 13% spread the underlying must move roughly 5-6% just to break even on the round trip. (2) EARNINGS INSIDE THE WINDOW -- RBRK reports 2026-08-27 pm (verified via the earnings calendar), 9 days out and 22 days before this 2026-09-18 expiry. The standing preference is to close before earnings unless earnings IS the thesis, and no thesis was written to establish that it is. (3) IV -- 78.4%, elevated and consistent with pre-earnings vol. Buying a put at 78% IV nine days ahead of a print means paying inflated vol and eating the post-earnings IV crush even if the direction is right. (4) TREND-MATURITY CHECK (c), PRESENT TAPE -- RBRK is +1.26% on the session while QQQ is -1.63%, roughly 2.9% of relative STRENGTH. A bearish entry into a name outperforming a risk-off tape is the divergence the trend-maturity gate names as an automatic SKIP; it is the ZTS 2026-08-10 pattern. Note also that RBRK appears NOWHERE in the committed equity report (latest_intraday.md / latest_morning.md) and is not on the 13:35Z brief's watchlist (QQQ / SPY / NVDA / MSFT), so it has no documented source under any of the three sanctioned candidate channels.",
+      "_current_state": {
+        "last_checked_utc": "2026-08-18T17:46:00Z",
+        "mark": 3.85,
+        "bid": 3.6,
+        "ask": 4.1,
+        "spread_pct_of_mid": 12.99,
+        "pnl_usd": -5.0,
+        "pnl_pct": -1.28,
+        "underlying_spot": 102.295,
+        "underlying_day_pct": 1.26,
+        "dte": 31,
+        "delta": -0.246,
+        "theta": -0.1157,
+        "iv": 0.7843,
+        "open_interest": 66,
+        "volume": 9,
+        "status": "HELD, NOT ACTIONED. No mechanical exit trigger has fired (-1.28%), and selling into a 13% spread right now would realize roughly -$30 (about -7.7%) immediately -- destroying real money to correct what is currently a process question rather than a loss. The earnings deadline below is 6 sessions away, which leaves ample room for a properly-informed decision."
+      },
+      "_inherited_deadlines": {
+        "pre_earnings_decision": "HARD: decide by the close of 2026-08-26 (Wed), the session before the 2026-08-27 pm print. Under the standing 'prefer closing before earnings' preference this position should be closed or explicitly re-justified in writing before that print. This is the binding deadline on the position.",
+        "21_dte_management_review": "2026-08-28 -- falls the day AFTER earnings, so the pre-earnings decision above binds first and supersedes it."
+      }
     }
   ],
   "_resolved_flags": [
@@ -108,9 +181,9 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-18T17:31:00Z",
-    "result": "NO ENTRY -- standing QQQ 2026-09-18 700P candidate's written trigger has not fired; both branches require QQQ BELOW current 718.14.",
-    "detail": "QQQ 718.14 (-1.61%). Branch A needs QQQ < 20d MA 705.82 -- still +12.32pts / +1.74% ABOVE it. Branch B needs QQQ < 715 WITH VIX > 17 -- QQQ is +3.14 above 715 (VIX ~15.7, sub-17), so Branch B cannot fire regardless of VIX. Killing level 728-730 not reached, candidate stays alive and deferred. Independent positioning bar unchanged: a QQQ put would be a SECOND position on the same downside theme the SPY hedge already covers."
+    "run_utc": "2026-08-18T17:45:00Z",
+    "decision": "NO NEW ENTRY -- MANDATORY DEFER.",
+    "reason": "The routine prompt's pre-placement rule is explicit: re-read master immediately before placing, and if a sibling entry has landed since this run began, DEFER. Two agentic entries landed 47 and 88 seconds before this run started. Deferring is not a judgement call here, it is the rule. Independently, three other gates also bar an entry this run: 2 of 3 daily entries are now used; the short-tech correlated theme is at its 2-position cap (QQQ 680P + RBRK 90P, hedge excluded); and settled cash fell to $1,138.69 with both new debits settling 2026-08-19."
   },
   "_closed_positions": [
     {
