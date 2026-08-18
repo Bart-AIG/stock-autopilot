@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-18T15:31:00Z",
+  "updated_utc": "2026-08-18T15:47:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-18",
     "usd": 0.0,
@@ -22,24 +22,23 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "last_checked_utc": "2026-08-18T15:31:00Z",
-        "mark": 7.155,
-        "bid": 7.14,
-        "ask": 7.17,
-        "spread_pct_of_mid": 0.42,
-        "pnl_usd": -33.5,
-        "pnl_pct": -4.47,
-        "day_change_usd": 50.5,
-        "underlying_spot": 768.08,
-        "underlying_pct_day": -0.59,
+        "last_checked_utc": "2026-08-18T15:47:00Z",
+        "mark": 7.12,
+        "bid": 7.1,
+        "ask": 7.14,
+        "spread_pct_of_mid": 0.56,
+        "pnl_usd": -37.0,
+        "pnl_pct": -4.94,
+        "day_change_usd": 47.0,
+        "underlying_spot": 768.33,
+        "underlying_pct_day": -0.56,
         "dte": 94,
-        "delta": -0.1577,
-        "theta": -0.0927,
-        "vega": 0.94,
+        "delta": -0.157,
+        "theta": -0.0925,
+        "vega": 0.9374,
         "iv": 0.212118,
         "open_interest": 23507,
-        "volume": 414,
-        "verdict": "WORKING (hedge). EXEMPT from premium backstops -- insurance, not a directional trade. SPY -0.59% today and the put is +$50.50 on the session; still -4.47% from entry because SPY has not broken the support stack it is written against (768.08 vs the 716.6 July-low shelf / 702.0 rising 200d). No action; next decision is the ~21-DTE roll/close review WITH Ryan (~2026-10-30)."
+        "verdict": "WORKING AS DESIGNED -- HOLD. Authorized defensive hedge, EXEMPT from all premium backstops (insurance). +$47 on the session as SPY fell -0.56%, i.e. it is doing exactly the job it was bought for. Still -4.94% from the 2026-08-06 entry because SPY is only 0.5% below where the hedge was struck against. Setup intact: SPY 768.33 has NOT confirmed new highs (invalidation ~800+) and Ryan has not lifted the Aug-Oct posture. Next decision point is the ~21-DTE roll/close review (~2026-10-30) WITH Ryan -- no automated exit before then."
       }
     },
     {
@@ -55,7 +54,7 @@
       "target": null,
       "_note": "placed_agent='user' (Ryan bought this himself 2026-07-20T19:38Z, $2.47/contract, $247 premium). Long-dated LEAP (18mo out) -- not gated by the HARD RULE 8 entry checklist since it wasn't an autonomous entry. manual_hold_override below suspends the -50% mechanical stop; broken-thesis and DTE/earnings exits still apply in principle but this is a Jan-2028 LEAP, far outside any near-term DTE/earnings gate.",
       "_current_state": {
-        "last_checked_utc": "2026-08-18T15:31:00Z",
+        "last_checked_utc": "2026-08-18T15:47:00Z",
         "mark": 3.05,
         "bid": 3.0,
         "ask": 3.1,
@@ -63,13 +62,13 @@
         "pnl_usd": 58.0,
         "pnl_pct": 23.48,
         "day_change_usd": -15.0,
-        "underlying_spot": 6.24,
-        "underlying_pct_day": -2.34,
+        "underlying_spot": 6.269,
+        "underlying_pct_day": -1.89,
         "dte": 521,
-        "delta": 0.7868,
-        "theta": -0.002,
-        "iv": 0.878647,
-        "verdict": "NO ACTION -- structurally gated. placed_agent='user' + manual_hold_override. The automation may detect but never execute an exit here. Green (+23.5%) and 521 DTE, so no exit condition is anywhere near firing regardless."
+        "delta": 0.7866,
+        "theta": -0.00205,
+        "iv": 0.884011,
+        "verdict": "NO ACTION -- structurally gated. placed_agent='user' + manual_hold_override; the automation may detect but never execute an exit here. Green (+23.5%) with 521 DTE, so no exit condition is remotely close regardless."
       },
       "manual_hold_override": {
         "set_utc": "2026-07-22T14:30:00Z",
