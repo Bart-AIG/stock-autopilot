@@ -10861,6 +10861,66 @@
     "consistency_with_this_run_s_conclusion": "The mandate does not change this run's no-action verdict; it sharpens the reasoning behind it. The mandate's own default recommendation on RBRK -- close before the 2026-08-27 pm print, by the close of Wed 2026-08-26 -- points the same direction as this run's 'STALLED, diverging tape' verdict, and the two were reached independently. Note also that the mandate's ask-first posture on these two positions is STRICTER than mechanical autonomy, so nothing this run declined to do would have been permitted anyway.",
     "peak_premium_updated": "QQQ _notify_state.peak_premium raised 4.05 -> 4.175 on this run's mark, per the ratchet-tracking duty. RBRK unchanged at 3.90. Neither ratchet is armed (both require +50%)."
    }
+  },
+  {
+   "run_utc": "2026-08-18T18:20:00Z",
+   "run_local_et": "2026-08-18 14:20 ET",
+   "trading_day_et": "2026-08-18",
+   "session_state": "OPEN -- minute ~290 of the cash session, ~1h40m to the bell. TWENTY-FIFTH firing of the 2026-08-18 trading day. Redundant-trigger overlap (cron-job.org + native hourly backstop) continues; handled per the redundancy discipline -- reconcile, re-measure, do the ONE piece of genuinely new work the prior run asked for, log short, stand down.",
+   "regime": "RISK-OFF ROTATION, UPTREND INTACT, NO VOL BID -- carried from the 13:35Z brief, not re-derived, and now re-confirmed on a third independent vol measurement. QQQ 717.44 (-1.70%), SPY 768.13 (-0.59%). No refresh-bar event (no VIX +15% intraday, no index break of a brief level, no new headline). Trend qualifier unchanged and still decisive: QQQ 717.44 is 11.6 pts ABOVE its 20d MA of 705.82. A dip inside an intact uptrend, not a breakdown. What DID deepen since the open is the semi complex: AMD 477.13 (-5.71%, vs -3.16% at 13:35Z), TSM 411.78 (-4.45%), AVGO 381.00 (-2.91%), NVDA 219.71 (-2.36%) -- against MSFT 481.99 (+0.34%). The defensive-over-growth rotation is intensifying, not reversing.",
+   "action_taken": "NO NEW ENTRY. NO EXIT. NO NOTIFICATION (silence rule). Positions re-marked on live 18:16Z quotes; the inherited RBRK 'diverging tape' read corrected on multi-day evidence; QQQ IV re-measured and today's row overwritten.",
+   "reconciliation": {
+    "measured_utc": "2026-08-18T18:15-18:17Z",
+    "option_positions": "get_option_positions(nonzero=true) returns FOUR: SPY 2026-11-20 700P (agentic hedge), ACHR 2028-01-21 5C (user + manual_hold_override), QQQ 2026-09-11 680P (agentic), RBRK 2026-09-18 90P (agentic). Matches holdings.json exactly. ZERO DRIFT.",
+    "pending_flag": "ACHR pending_sell_quantity 1.0000 -- Ryan's own GFD sell-to-close limit at $3.25 (order 6a849a2e, placed_agent='user'), still resting and still unfilled with mark 3.125 / bid 3.05. NOT drift, NOT an automation action, NOT to be touched. It expires at today's close if unfilled.",
+    "portfolio": "total $3,938.51 (equity $972.82 / options $1,827.00 / cash $1,138.69). buying_power $1,138.69 == cash and unsettled_funds $0.00, so FOUR LAWS #4 (settled cash only) is satisfied but the cash figure itself is now the binding size constraint, not the $1,500 per-trade max.",
+    "account_level": "Agentic 718757339 confirmed option_level_2 -- single-leg only; debit spreads structurally unavailable, so the standing 'prefer spreads' preference is not executable here."
+   },
+   "positions_verdict": {
+    "SPY_2026-11-20_700P": "WORKING. mark 7.085 (bid 7.07 / ask 7.10, 0.42% spread), -$40.50 / -5.41% from the 7.49 entry but +$43.50 on the SESSION. Insurance-exempt hedge; no mechanical exit applies. Held to the ~21-DTE (~2026-10-30) roll/close decision WITH Ryan.",
+    "ACHR_2028-01-21_5C": "NO ACTION EVER without Ryan (placed_agent='user' + manual_hold_override). Detect only. Mark 3.125, +$65.50 / +26.5%.",
+    "QQQ_2026-09-11_680P": "WORKING, marginally. mark 4.135 (1.21% spread, OI 1504), +$8.50 / +2.10%. QQQ has FLATTENED in the session-low area (717.44 now vs 717.18 at 18:00Z) rather than extending lower. Invalidation (close >~730) 1.8% away and untouched. Binding constraint remains TIME: theta -0.2186/day = -5.29% of premium per day, and the unconditional 21-DTE review is FRIDAY 2026-08-21, three sessions out.",
+    "RBRK_2026-09-18_90P": "HOLDING -- inherited 'STALLED / diverging tape' read DOWNGRADED on evidence, see the correction below. mark 3.90, flat at $0.00. No trigger fired; invalidation ~105 is 3.3% above spot."
+   },
+   "correction_to_prior_run": {
+    "what_the_18_00Z_run_asked_for": "It flagged RBRK's same-session relative strength as the trend-maturity gate's 'diverging tape' condition and wrote: 'It is recorded so the next instance reads a trend, not a snapshot: if RBRK keeps out-performing a falling index, the thesis is being falsified by price well before the premium admits it.' This run did that work.",
+    "measured": "Session-by-session RBRK vs QQQ relative return: 2026-08-13 +7.49%, 08-14 -2.58%, 08-17 -1.02%, 08-18 +2.37%. Net over the three sessions since the 8/13 spike close: RBRK 105.09 -> 101.69 = -3.24% against QQQ 732.07 -> 717.44 = -2.00%, i.e. RBRK has UNDERPERFORMED the index by 1.24% on the multi-day window.",
+    "conclusion": "The one-session divergence is real but NOT representative. The actual shape is a single +8.6% spike day on 4.4M shares (2026-08-13) that has faded for three consecutive sessions, with today a modest green bounce inside that fade. The bearish premise is not being falsified by price, so the trend-maturity gate's 'diverging tape' SKIP condition does not apply to the multi-day tape. It also validates the inherited invalidation level: ~105 sits exactly at the 8/13 spike close (105.09) and just under the 8/14 high (106.50), so a close above it would genuinely mean the fade had failed.",
+    "what_did_NOT_change": "The two real problems with this position are unchanged and are vehicle/calendar problems, not thesis problems: a 15.4%-of-mid spread on OI 66 (crossing to exit surrenders ~7.7% instantly), and 2026-08-27 pm earnings inside the window. Those are exactly what the 2026-08-26 pre-earnings decision is about.",
+    "lesson": "A prior instance's flag is evidence, not a verdict -- the same discipline CLAUDE.md records for the trade_journal rotation flag. The 18:00Z read was honest and correctly hedged; it just had one session of data. Measure before inheriting a narrative."
+   },
+   "iv_method": {
+    "QQQ": "Re-measured on the 2026-09-18 717 strike (31 DTE): call IV 0.198111 / put 0.196174 -> ATM 0.19714, spot 717.44. Today's row OVERWRITTEN per the IV method. Third reading of the session: 0.19729 (13:35Z) -> 0.19729 (18:00Z) -> 0.19714 (18:16Z). IV/RV 0.865 against rv_30d 0.228.",
+    "the_decision_relevant_fact": "Volatility is STILL NOT BID after a full session of QQQ -1.70% and semis -3% to -6%. Three measurements across five hours are flat to marginally lower. This is the single most important read for the open QQQ put: a long put whose underlying falls while implied vol does not rise earns only the delta and pays theta the entire way -- which is precisely what the position's +2.10% on a -1.70% index day shows. It also means index puts remain CHEAP rather than crowded, so nothing about the vol surface argues for banking this position early.",
+    "core_list_note": "Full core-list IV rows were logged at 13:35Z and completed at 18:00Z; only QQQ was re-measured here because it is the one name with an open position whose vol read drives a live decision. No re-poll of names nobody can act on."
+   },
+   "hunt": {
+    "outcome": "NO ENTRY. This is a STRUCTURAL block, not a judgment call, and it should be stated as such rather than dressed up as a market view.",
+    "slots": "2 of 3 agentic position slots used (QQQ 680P, RBRK 90P; the SPY hedge is excluded from the count). One slot is nominally free.",
+    "binding_constraint": "CORRELATED-THEME CAP: max 2 positions per correlated theme. QQQ 2026-09-11 680P and RBRK 2026-09-18 90P are BOTH short bearish tech/index bets -- the theme is at 2 of 2. Every candidate this tape is actually offering (QQQ 2026-09-18 700P, the standing deferred A- candidate; semi puts on AMD/TSM/AVGO after today's -3% to -6%; an MSFT put) is short-tech and therefore BLOCKED. There is no version of the obvious trade available today.",
+    "grades_considered": {
+     "QQQ 2026-09-18 700P": "BLOCKED -- theme cap 2/2. Was the standing A- deferred candidate all day; separately, the desk already owns a QQQ put, so this would be doubling the same expression rather than diversifying it. Not graded further.",
+     "AMD / TSM / AVGO puts": "BLOCKED (theme cap) and independently a C on the trend-maturity gate: AMD -5.71%, TSM -4.45% intraday. Entering a short AFTER the move has already run five-plus percent in one session is check (a) of the gate failing -- late-stage by default, needing extraordinary justification. There is none. AMD's 2026-09-18 chain also returned no instruments at the 475/477.5 strikes queried, and AMD sits in CLAUDE.md's UNAFFORDABLE tier at real delta regardless.",
+     "MSFT bullish call (defensive-rotation long)": "C. MSFT +0.34% on a -1.70% QQQ day is genuinely the strongest thing on the core list, and CLAUDE.md's 2026-08-17 correction established the ~0.35-delta strike is affordable (~$1,105). But there is no catalyst and no trigger firing NOW -- 'defensive rotation' is a description of a move already several sessions old, which is exactly what the 'why NOW' test exists to reject. And at ~$1,105 it would consume 97% of the $1,138.69 settled cash, leaving nothing for the 2026-08-26 RBRK pre-earnings decision. Proving a vehicle is cheap and liquid supplies no thesis whatsoever.",
+     "Any bullish index/dip-buy": "C. The index is above its 20d MA and this is a dip inside an uptrend, which is the setup a dip-buy wants -- but with FOMC minutes tomorrow, vol NOT bid (so nothing is being paid to be long premium into an event), two bearish positions already open, and 1h40m left in the session, this is a coin-flip on an event, not an A+ setup."
+    },
+    "why_flat_in_one_line": "The only trades this tape offers are blocked by the correlated-theme cap, and the unblocked ones have no catalyst -- so the desk is flat by design, not by indecision.",
+    "honesty_check": "The temptation here is to reach for a non-tech name purely to use the free third slot. That would be sizing into a position for the reason the routine prompt names explicitly -- boredom -- and the cap is doing its job precisely by making the obvious trade unavailable. Noted and declined."
+   },
+   "notifications": "NONE SENT. Per the 2026-08-18 monitoring mandate's silence rule, checked both _notify_state objects before deciding: no trigger fired or un-fired on either position, and neither recommendation CHANGED in a way that needs Ryan. The RBRK read moved from 'stalled, watch the divergence' to 'holding, divergence overstated' -- that strengthens the existing hold rather than putting a new decision in front of him, so it belongs in the ledger and the EOD report, not in a push. Marks and timestamps updated in place.",
+   "duties_status": {
+    "heartbeat": "Already stamped for the 2026-08-18 trading day at 13:35Z by the first post-open run. Not re-stamped.",
+    "brief": "market_brief.json stamped 2026-08-18T13:35Z. No refresh-bar event today, so carried forward, not rebuilt.",
+    "daily_eod_report": "NOT DUE YET. The trigger is the first run at or after 14:25 CT = 19:25Z; this run is 18:20Z, roughly 65 minutes early. Writing it now would be the duplicate-notification failure CLAUDE.md warns about. FLAGGED FOR THE NEXT RUNS: the first firing at/after 19:25Z MUST write daily_options_report.md and must not defer on the assumption a later slot will do it -- firing times are irregular and a deferring run can turn out to be the last of the day, which is what trips the 20:45Z dead-man alarm."
+   },
+   "next_run_watchpoints": [
+    "FRIDAY 2026-08-21 -- QQQ 2026-09-11 680P hits the unconditional 21-DTE management review. Flat or losing at 21 DTE means close or roll, never hold into accelerating theta/gamma. At -5.29% of premium per day this is the position's real deadline. Bring Ryan the roll-vs-close decision on that run.",
+    "WEDNESDAY 2026-08-26 close -- RBRK pre-earnings decision (2026-08-27 pm print). BINDING. Default recommendation is CLOSE before the print absent a thesis that earnings IS the trade. Re-measure IV/RV that day (1.20 on 2026-08-18); a rising ratio argues for selling the premium before the crush. Work any exit at the MIDPOINT -- a 15.4% spread on OI 66 means the mark is not what an exit nets.",
+    "2026-08-19 (Wed) -- FOMC MINUTES, the week's main scheduled catalyst and the biggest event inside both open hold windows.",
+    "2026-08-26 pm -- NVDA earnings, a top QQQ weight reporting 16 days before the QQQ put expires. Largest scheduled variance event for that position; cuts both ways.",
+    "Vol: if IV finally bids on a further leg down, the QQQ put's payoff profile improves sharply. Three flat readings today say it has not yet. Keep measuring.",
+    "ACHR: Ryan's $3.25 GFD sell limit either fills by the close or expires. If quantity goes to 0, record the close as RYAN'S, never as an agentic exit."
+   ]
   }
  ],
  "updated_utc": "2026-08-18T15:17:00Z"
