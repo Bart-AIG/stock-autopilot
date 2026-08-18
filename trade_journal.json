@@ -11060,6 +11060,51 @@
         "SPY hedge ~21-DTE review with Ryan -- ~2026-10-30.",
         "EOD report -- due from the FIRST firing at or after 19:25Z. NOT this run. Whichever run gets there writes it immediately and does not wait for a 'better' slot; it must carry the equity liquidation, since that is the day's one genuinely material account event."
       ]
+    },
+    {
+      "run_utc": "2026-08-18T19:01:00Z",
+      "run_type": "scheduled options-automation run (cron-job.org sub-hourly fire), 15:01 ET, ~59 min to the bell",
+      "action": "NO TRADE",
+      "regime": "RISK-OFF ROTATION, UPTREND INTACT, VOL STILL UNBID -- unchanged from the 13:35Z brief and now confirmed across a full session. QQQ 717.25 -1.73%, SPY 767.75 -0.64%, NVDA 219.76 -2.33%: growth is being sold roughly 3:1 against the broad index. But the QQQ 680P's own contract IV printed 23.70% at 19:01Z vs 23.64% at 18:50Z and QQQ 30d ATM IV was 19.71% at 18:16Z -- FLAT, on a -1.73% day. Nine hours of tape have now failed to produce a vol bid. That is the single most important fact in the book: it means price, not volatility, has to pay for every long-premium position the desk owns, against theta that never stops.",
+      "position_verdicts": {
+        "QQQ 2026-09-11 680P": "WORKING (agentic, monitor-mandate). Mark 4.125, +$7.50 / +1.85%. Back GREEN after reading -1.60% at 18:31Z and -0.86% at 18:50Z -- the round trip completed on QQQ grinding 718.14 -> 717.25. No trigger fired; setup break needs a close >730. Binding item is the 21-DTE review FRIDAY 2026-08-21.",
+        "RBRK 2026-09-18 90P": "HOLDING (agentic, monitor-mandate). Mark 3.90 = entry, $0.00, fifth consecutive flat run. RBRK 101.42 (+0.40%) fading from 101.81. No trigger fired. Net-of-spread an exit today realizes ~-$30 (-7.7%) crossing a 15.38%-of-mid market on OI 66. Binding item is the pre-earnings decision by the close of WED 2026-08-26.",
+        "SPY 2026-11-20 700P": "WORKING (agentic hedge, insurance-exempt). Mark 7.075, -$41.50 / -5.54% lifetime, +$42.50 on the session. 94 DTE. No mechanical exit applies; ~21-DTE review with Ryan ~2026-10-30.",
+        "ACHR 2028-01-21 5C": "DETECT ONLY (placed_agent='user' + manual_hold_override). Mark 3.10, +$63.00 / +25.51%. Ryan's OWN GFD sell-to-close limit at $3.25 (order 6a849a2e) still resting, still unfilled, pending_sell_quantity 1.0000 re-confirmed. Untouched, as required."
+      },
+      "grades_considered": {
+        "_no_hunt_conducted": "NO new candidate was worked this run, and that is a deliberate decision rather than an omission -- writing it down so the next instance does not read the gap as laziness. A hunt this run could not have produced a placeable trade under the STRUCTURAL LIMITS, so researching one would have been budget spent to reach a foregone conclusion. The arithmetic below is the reason.",
+        "theme_cap": "BLOCKING. Max 2 positions per correlated theme. The two open agentic positions -- QQQ 680P and RBRK 90P -- are both long puts on high-beta tech; that theme is 2/2 and full. The single remaining position slot (2 of 3 used, hedge excluded) can therefore only be filled by something genuinely uncorrelated to short-tech.",
+        "the_uncorrelated_alternatives": "A BULLISH entry is the obvious uncorrelated candidate and it is incoherent here: the desk is structurally short tech beta three ways, the tape is -1.73% on QQQ, and buying calls into that solely to dodge a theme cap is fitting a trade to a constraint. That is the cherry-picking the playbook forbids. The genuine non-tech haven candidate, GLD, was fully worked at 18:47Z THIS SESSION and killed on trend maturity and the present tape -- its chain measured clean (2.1-2.2% spreads, IV/RV 0.96, ~$1,100 for a 0.54-delta call), so re-working it would only re-derive the same skip. Energy is de-emphasized by Ryan's standing sector steer.",
+        "the_clock": "Independent of all of the above: 15:01 ET with 59 minutes to the bell. A new long-premium position opened now pays a full night of theta before this desk next sees a quote, and the 15-minute cadence covers none of the overnight gap. An entry needs to be A+ on its merits AND worth that gap; nothing on offer was either.",
+        "_verdict": "No trade. Grade: not applicable -- no candidate reached evaluation, by design."
+      },
+      "one_line_why_flat": "Theme cap is 2/2 on short-tech-beta, the only genuinely uncorrelated candidate (GLD) was already worked and killed an hour earlier, and there is under an hour to the bell -- so the correct output is management, not a manufactured hunt.",
+      "iv_note": "No new iv_history row written. QQQ's row was already measured three times today (13:35Z 0.19729, 18:00Z 0.19729, 18:16Z 0.19714) and a fourth overwrite of the same date would add no information; the position's own contract IV (23.70% vs 23.64% at 18:50Z) already answers the only live question -- is vol getting bid into the close? -- and the answer is no. RBRK (1.20) and GLD (0.96) were logged earlier today by the runs that evaluated them.",
+      "notifications": "NONE. No trigger fired and none un-fired on either monitored position; the recommendation on both is unchanged. Under the monitoring mandate's SILENCE RULE that means update the marks and stay quiet.",
+      "sleeve_state": {
+        "portfolio_total": 3930.65,
+        "cash": 2110.65,
+        "settled_buying_power": 1138.69,
+        "unsettled_funds": 971.96,
+        "options_value": 1820.0,
+        "equity_value": 0.0,
+        "agentic_premium_at_risk": 1544.0,
+        "_premium_note": "$749 SPY hedge + $405 QQQ + $390 RBRK. There is NO total-sleeve ceiling since the 2026-08-14 sizing amendment -- $1,500 is PER TRADE and deployment is bounded by settled cash. ACHR ($247, placed_agent='user') is excluded from agentic accounting.",
+        "realized_options_pnl_today": 0.0,
+        "daily_loss_cap": "-$200 (the stricter of the live prompt's -$200 and CLAUDE.md's -$400). Not approached: zero realized P&L today, no position closed.",
+        "entries_today": "2 of 3 (QQQ 680P and RBRK 90P, both from Ryan's concurrent interactive batch at 17:43-17:44Z)",
+        "open_agentic_positions": "2 of 3 (hedge excluded)",
+        "equity_book": "ZERO -- Ryan liquidated it himself at ~18:40Z; reconciled and recorded by the 18:50Z run. $971.96 of those proceeds are unsettled (T+1) and are NOT spendable today."
+      },
+      "deadlines_carried_forward": {
+        "FRI_2026-08-21": "QQQ 680P hits 21 DTE -- unconditional roll/close review, brought to Ryan with numbers.",
+        "WED_2026-08-26": "RBRK 90P pre-earnings decision, by the close. BINDING. Default recommendation is to close before the 08-27 pm print; holding through requires a written case from Ryan. Re-measure IV/RV that day (1.20 on 08-18) -- a rising ratio strengthens the case for selling premium before the crush.",
+        "WED_2026-08-26_pm": "NVDA earnings -- a top QQQ weight reporting inside the 680P's hold window; largest scheduled variance event, cuts both ways.",
+        "~2026-10-30": "SPY 700P hedge ~21-DTE roll/close review WITH Ryan.",
+        "daily_report": "Due on the first run at or after 19:25Z (14:25 CT). This run at 19:01Z is 24 minutes early and did NOT write it. Runs have fired roughly every 10-20 minutes all afternoon, so a qualifying slot is near-certain -- but if firing stops, the NEXT run to see this line after 19:25Z must write daily_options_report.md immediately and not defer for a 'better' slot."
+      },
+      "process_note": "Three consecutive runs (18:31Z, 18:50Z, 19:01Z) have each written up the QQQ put's few-cent oscillation around breakeven as though it were news -- underwater, recovering, green. It is not news: a 0.17-delta index put moving 3-4 cents on a 0.4-point QQQ move is the instrument working exactly as designed, and none of those readings came within 45% of the -50% re-check. The relay is spending its attention on the noisiest variable in the book while the two facts that will actually decide these positions are calendar items (Aug 21, Aug 26) and a carry rate (-5.28%/day) that no run can influence. Flagging it so the pattern stops rather than compounds."
     }
   ],
   "updated_utc": "2026-08-18T15:17:00Z"
