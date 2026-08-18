@@ -10486,6 +10486,35 @@
     "iv_logging": "iv_history.json QQQ row for 2026-08-18 OVERWRITTEN with the 16:02Z reading; the full intraday path is preserved in that row's note.",
     "daily_report": "NOT DUE YET. Due on the first run at or after 14:25 CT (19:25Z); it is 11:03 CT. If a later firing is the last of the day it must write daily_options_report.md -- missing it is strictly worse than writing it early."
    }
+  },
+  {
+   "run_utc": "2026-08-18T16:16:00Z",
+   "run_local_et": "2026-08-18 12:16 ET",
+   "trading_day_et": "2026-08-18",
+   "session_state": "OPEN -- minute ~166 of the cash session. SEVENTEENTH firing of the 2026-08-18 trading day; FOURTEENTH post-open run.",
+   "run_type": "TRIGGER-CHECK RUN, minimal. One standing candidate with one written trigger: measured it on both branches, re-marked both positions off live quotes, reconciled the broker. No research task invented.",
+   "regime": "RISK-OFF ROTATION, UPTREND INTACT, NO VOL BID -- carried from the 13:35Z brief, NOT re-derived. VIX 15.67 (below the opening 15.7; ticked DOWN from 15.71 last run). No refresh-bar event.",
+   "action_taken": "NO NEW ENTRY. NO EXIT. Positions re-marked, trigger re-measured, stand down.",
+   "reconciliation": {
+    "measured_utc": "2026-08-18T16:16Z",
+    "option_positions": "get_option_positions(nonzero=true) = exactly SPY 2026-11-20 700P (agentic hedge) + ACHR 2028-01-21 5C (placed_agent='user', manual_hold_override). Matches holdings.json. ZERO DRIFT. All pending_* 0.0000.",
+    "portfolio": "total $3,917.01 (equity $970.24 / options $1,013 / cash $1,933.77). Cash UNCHANGED for the 17th consecutive reading today -- conclusive: no fill of any kind. unsettled_funds $0.00, FOUR LAWS #4 not binding.",
+    "agentic_premium_at_risk": "$749 (SPY hedge alone). Hedge excluded from max-3 count -> 0 of 3 non-hedge slots used.",
+    "realized_options_pnl_today": "$0.00 -- -$200 daily cap untouched, gates nothing."
+   },
+   "trigger_check": {
+    "candidate": "QQQ 2026-09-18 700P (DEFERRED, A-)",
+    "qqq_spot": 718.99,
+    "qqq_pct_day": -1.49,
+    "qqq_20d_ma": 705.82,
+    "vix": 15.67,
+    "confirm_branch_a": "QQQ < 705.82 (20d MA) -> NOT MET, QQQ +13.2pts above.",
+    "confirm_branch_b": "QQQ < 715 AND VIX > 17 -> NOT MET on either leg (QQQ +3.99 above 715; VIX 15.67 falling).",
+    "kill_branch": "QQQ reclaims 728-730 -> NOT MET (QQQ 718.99).",
+    "contract_mark": "700P bid 9.07 / ask 9.14 / mid 9.105, ~0.77% spread, OI 78,193, delta -0.307, IV 0.2143, $910.50/contract. Essentially FLAT vs the 13:34Z open ($917.50) despite QQQ falling a further ~2pts -- direct confirmation of the vol-bleed read: puts are not being bid as price falls.",
+    "verdict": "HOLD THE DEFER. Trigger neither fired nor killed. Candidate has drifted ~2pts toward the 715 line but remains above both confirm branches with vol falling. Watch the same trigger next run."
+   },
+   "notes": "EOD report NOT due (first run at/after 14:25 CT / 19:25Z writes it; now 11:16 CT). IV rows current from 16:03Z (QQQ spot then 719.03 vs 718.99 now -- immaterial, not rewritten). Heartbeat already stamped 13:35Z."
   }
  ],
  "updated_utc": "2026-08-18T15:17:00Z"
