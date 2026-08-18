@@ -10649,6 +10649,41 @@
       "action": "NO TRADE",
       "why_flat": "The one standing candidate's written trigger has not fired on either branch, and QQQ actually recovered slightly this run -- the tape is not confirming the entry. Being flat is the correct position: the sleeve is already long the bearish tail via the SPY hedge, so a QQQ put would double the theme rather than add edge. 0 of 3 non-hedge position slots used, 0 of 3 daily entries used, $1,933.77 settled cash, realized options P&L today $0 (cap not touched). Standing down.",
       "slots": "0/3 positions, 0/3 daily entries; realized P&L today $0 vs -$200 cap"
+    },
+    {
+      "run_utc": "2026-08-18T17:17:00Z",
+      "run_local_et": "2026-08-18 13:17 ET",
+      "trading_day_et": "2026-08-18",
+      "session_state": "OPEN -- minute ~227 of the cash session. TWENTIETH firing of the 2026-08-18 trading day; SEVENTEENTH post-open run.",
+      "run_type": "TRIGGER-CHECK RUN, minimal. One standing candidate with one written trigger: measured all three branches, re-marked both positions off live quotes, reconciled the broker. ONE new decision-relevant measurement (the semi capitulation vs. flat VIX, below). No research task invented to justify the firing.",
+      "regime": "RISK-OFF ROTATION, UPTREND INTACT, NO VOL BID -- carried from the 13:35Z brief, NOT re-derived. VIX 15.69, i.e. essentially unchanged from the 15.7 open and BELOW last run's reading, on a day QQQ is -1.55%. No refresh-bar event (no VIX +15% intraday, no index break of a brief level, no new headline).",
+      "action_taken": "NO NEW ENTRY. NO EXIT. Positions re-marked, trigger re-measured on all three branches, stand down.",
+      "reconciliation": {
+        "measured_utc": "2026-08-18T17:16Z",
+        "option_positions": "get_option_positions(nonzero=true) = exactly SPY 2026-11-20 700P (agentic hedge) + ACHR 2028-01-21 5C (placed_agent='user', manual_hold_override). Matches holdings.json. ZERO DRIFT. All pending_* fields 0.0000 -- no assignment, no expiration, no unauthorized fill.",
+        "portfolio": "total $3,923.35 (equity $971.58 / options $1,018.00 / cash $1,933.77). Cash UNCHANGED for the 20th consecutive reading today -- conclusive: no fill of any kind. unsettled_funds $0.00, so FOUR LAWS #4 is not binding.",
+        "agentic_premium_at_risk": "$749 (SPY hedge alone). Hedge excluded from the max-3 count -> 0 of 3 non-hedge slots used.",
+        "realized_options_pnl_today": "$0.00 -- daily loss cap (-$200, the stricter of the two texts) not engaged.",
+        "heartbeat_and_brief": "Both already stamped for the 2026-08-18 trading day (13:35Z). iv_history.json already carries a 2026-08-18 row for all 8 core names. Nothing to re-stamp."
+      },
+      "positions": {
+        "SPY 2026-11-20 700P": "WORKING. Mark 7.055 (bid 7.04 / ask 7.07), -$43.50 / -5.81% vs the 7.49 entry but +$40.50 on the day -- the hedge is doing precisely the job it was bought for. Delta -0.156, theta -0.092, IV 0.2115, 94 DTE. Insurance-exempt from premium backstops; hold to the ~21-DTE (~2026-10-30) roll/close decision WITH Ryan. NO ACTION.",
+        "ACHR 2028-01-21 5C": "NO ACTION -- placed_agent='user' + manual_hold_override. Mark 3.15, +$68.00 / +27.53%, 521 DTE. Detect only, never act."
+      },
+      "grades_considered": {
+        "QQQ 2026-09-18 700P (the standing candidate, graded A- at 13:35Z)": "DEFER -- trigger UNFIRED on every branch. Branch A (QQQ closes/trades below its 20d MA 705.82): QQQ 718.545, still +12.73 pts / +1.80% ABOVE it. Branch B (QQQ<715 AND VIX>17): fails on BOTH legs -- QQQ 718.545 and VIX 15.69. Kill branch (QQQ reclaims 728-730): also not hit, so the candidate stays alive rather than being dropped. It would additionally be a second position on the same correlated theme the SPY hedge already expresses.",
+        "SPY puts": "STILL EXCLUDED BY POSITIONING, unchanged. The sleeve already holds the SPY 700P and that hedge is at -5.81%; a second SPY put is the nearest thing to adding to a loser, which FOUR LAWS #3 puts behind Ryan's explicit approval. Not proposed.",
+        "Semi-complex puts (AMD / TSM / AVGO / NVDA)": "NOT TAKEN, and this is the one judgement call worth recording this run. The semis capitulated FURTHER since the brief: AMD 479.33 -5.27% (was -3.16% at 13:35Z, and it has now lost the $500 handle), TSM 412.83 -4.21% (was -3.04%), AVGO 381.05 -2.90% (was -1.95%), NVDA 220.08 -2.19%. That is a real deterioration, not noise. Three reasons it is still not an entry: (1) NO WRITTEN TRIGGER -- none of these was carried as a candidate with a pre-written invalidation level, and the prompt is explicit that no written invalidation = no trade, no exceptions; improvising one at 13:17 ET on a name already down 5% is chasing; (2) TREND MATURITY -- entering short AFTER a -5.3% session is late by the desk's own gate (how far has the move already run / is the catalyst priced), and Friday's identical semi selloff MEAN-REVERTED on Monday, which is the directly-applicable precedent; (3) AFFORDABILITY -- AMD and TSM are both in this playbook's UNAFFORDABLE tier at a real ~0.35 delta inside the $1,500 per-trade max, and the debit spread that would fix that is structurally unavailable at option_level_2. Logged as a WATCH: if the semis are still bleeding into tomorrow's FOMC minutes, the right expression is the liquid, affordable index put that already has a written trigger (QQQ), not a late chase in a $480 single name."
+      },
+      "action": "NO TRADE",
+      "why_flat": "The one standing candidate's written trigger has not fired on any branch, and the market is still refusing to pay for fear -- VIX 15.69 is BELOW where it opened on a day the Nasdaq proxy is -1.55% and its largest components are -3% to -5%. That divergence is the single most interesting fact on the tape, but it cuts both ways (cheap insurance vs. complacency) and the desk has already written down that a cheap vehicle supplies no thesis. Meanwhile the book is ALREADY long the bearish tail via the SPY hedge, which is up $40.50 today. Being flat here is not passivity -- it is the correct position given the trigger discipline, and it preserves all $1,933.77 of settled cash for the entry the written trigger would actually authorize.",
+      "next_run_watchpoints": [
+        "QQQ 705.82 (20d MA) -- Branch A of the standing trigger, 12.7 pts below spot.",
+        "QQQ 715 WITH VIX >17 -- Branch B; VIX is the binding leg at 15.69.",
+        "QQQ 728-730 -- kill level; a reclaim retires the candidate rather than triggering it.",
+        "FOMC minutes tomorrow (2026-08-19) -- the catalyst that could finally bid vol.",
+        "DAILY REPORT: due on the first run at/after 19:25Z (14:25 CT). This run at 17:17Z is too early; do not defer it past the first eligible slot."
+      ]
     }
   ],
   "updated_utc": "2026-08-18T15:17:00Z"
