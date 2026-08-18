@@ -9382,6 +9382,40 @@
    "grades_considered": [],
    "why_flat": "Market closed -- no entry or exit is placeable at 09:20 ET, so there is nothing to grade. The one check worth repeating on a redundant pre-open firing is the broker diff (the only way an overnight assignment, expiration or unauthorized fill would ever surface); it came back clean on both books. Per the POST-CLOSE RUN PROTOCOL the correct output here is exactly this: the cheap reconciliation, one short entry, stop. No research task invented, no daily artifact rolled forward, no quote re-polling that an earlier firing already did.",
    "next_run_duties": "The first firing at/after 13:30Z (09:30 ET) owns three things this run deliberately did not do: (1) stamp automation_heartbeat.json for 2026-08-18; (2) rebuild market_brief.json for the new trading day -- macro/regime/catalysts/watchlist plus today's iv_history.json rows for SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA; (3) reset the daily loss cap and entry throttle. Note the standing FOMC-minutes catalyst on Wednesday and the retail-earnings wave Tue-Thu when setting today's entry bar -- a 30-45 DTE entry opened today is held through both."
+  },
+  {
+   "run_utc": "2026-08-18T13:26:00Z",
+   "run_local_et": "2026-08-18 09:26 ET",
+   "trading_day_et": "2026-08-18",
+   "session_state": "PRE-OPEN (4 minutes before the 09:30 ET bell) -- THIRD firing of the 2026-08-18 trading day (13:00Z, 13:20Z, 13:26Z), twentieth since Monday's bell. Nothing is placeable.",
+   "regime": "RISK-ON, EXTENDED, COMPLACENT -- carried from the 2026-08-17 brief, deliberately NOT re-derived. Three minutes of pre-open tape adds nothing the 13:20Z run did not already have.",
+   "run_type": "Redundant pre-open firing. POST-CLOSE/PRE-OPEN RUN PROTOCOL followed: read what the 13:00Z and 13:20Z runs already covered, repeated only the check always worth repeating (broker reconciliation, BOTH books), logged it in a few lines, stopped. No research task invented, no daily artifact rolled, no regime re-derivation, no re-polling of quotes an earlier run already measured.",
+   "action_taken": "NO ACTION. Broker reconciliation only, then stand down.",
+   "heartbeat": "NOT stamped -- correct, and this is the last run that will be able to say so. automation_heartbeat.json still carries 2026-08-17T13:37:00Z. Only a run at/after 09:30 ET on 2026-08-18 may stamp today; at 09:26 ET stamping would pre-satisfy the dead-man for a session that has not opened. The NEXT firing (at/after 13:30Z) owns the heartbeat stamp AND the market_brief rebuild -- both duties are now 4 minutes away and unclaimed.",
+   "brief": "NOT rebuilt -- market_brief.json stays stamped 2026-08-17 (the day it describes). First post-open run rebuilds it, including today's IV rows for the core list (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA).",
+   "daily_caps": "NOT reset. The -$200 realized-loss cap (stricter of the live prompt's -$200 vs CLAUDE.md's -$400) and the 3-entry/day throttle reset at the bell. Realized options P&L for 2026-08-18 is $0 by definition -- no order has been placeable.",
+   "reconciliation": {
+    "checked_utc": "2026-08-18T13:24:00Z",
+    "method": "get_accounts + get_option_positions(nonzero) + get_portfolio + get_equity_positions, diffed against holdings.json on origin/master. Equity leg checked BEFORE the phrase 'zero drift' was used.",
+    "result": "ZERO DRIFT across BOTH books.",
+    "options": "Exactly the two ledger contracts: SPY 2026-11-20 700P qty 1 avg $749.00 (agentic, authorized defensive hedge -- premium-backstop EXEMPT, ~21-DTE roll/close decision ~2026-10-30 is Ryan's call) and ACHR 2028-01-21 5C qty 1 avg $247.00 (placed_agent='user' + manual_hold_override -- detect-and-notify only, never auto-close). Every pending_* field 0.0000 on both, so no overnight assignment, exercise or expiration.",
+    "equities": "AAPL 1.652252 @ $302.89 and CL 5.000000 @ $89.97, both fully available for sells, both present in holdings.json, intraday_quantity 0 on both. CL provenance was settled documentarily by the 11:19Z run (order 6a8323f8, Ryan's interactive HARD RULE 2 one-tap approval 2026-08-17 ~15:08Z) and is NOT re-opened here.",
+    "flags": "holdings.json carries ZERO open _flag / UNAUTHORIZED markers (_resolved_flags only). Nothing for HARD RULE 9 to act on.",
+    "agentic_account": "718757339, cash, agentic_allowed=true, option_level_2 on a FRESH get_accounts -- still level 2, so debit spreads remain UNAVAILABLE and the routine prompt's spread authorization is not executable here. The level-3 recommendation continues to stand with Ryan, unacted. No run may act as though the upgrade exists.",
+    "portfolio": {
+     "total_value": 3877.02,
+     "equity_value": 958.25,
+     "options_value": 985.0,
+     "cash": 1933.77,
+     "unsettled_funds": 0.0,
+     "settled_cash_available": 1933.77,
+     "note": "Equity value ticked $959.45 -> $958.25 vs the 13:20Z read on pre-market marks; cash and options unchanged. FOUR LAWS #4 not binding -- the full $1,933.77 is settled."
+    },
+    "sleeve_capacity": "Agentic premium-at-risk $749 (the SPY hedge alone). Hedge excluded from the max-3 count, so 0 of 3 non-hedge slots used. Per-trade max $1,500; settled cash $1,933.77 is the real bound."
+   },
+   "grades_considered": "None. HUNT was deliberately not run: with 4 minutes to the bell there are no live regular-hours quotes, so any chain screen would price off stale/thin pre-market marks and any grade assigned from them would be fiction. The correct owner of today's first hunt is the first post-open run, which will have the rebuilt brief and real spreads.",
+   "why_flat": "Market closed. Nothing placeable, nothing to manage (one exempt hedge, one owner-gated LEAP), zero drift to fix. A no-op logged in a few lines is the correct output for the Nth redundant firing of a slot.",
+   "standing_note": "Trigger redundancy (cron-job.org every 15 min + the native hourly backstop) is what produces 20 firings between two bells. Only Ryan can change the trigger config; an agent can only make each extra firing cost almost nothing, which is what this entry does."
   }
  ],
  "updated_utc": "2026-08-17T21:20:00Z"
