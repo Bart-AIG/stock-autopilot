@@ -10179,7 +10179,67 @@
    },
    "why_flat": "The one live candidate has an explicit written two-branch trigger and neither branch has fired. Price is 1.55 points from branch 2's price leg; VIX is 1.14 points from its vol leg and has spent the whole session moving the wrong way. Being flat here is a position: the sleeve is already long the bearish tail through the authorized SPY hedge, which is up $54.50 today doing exactly that job.",
    "_next_run_guidance": "Measure the same trigger and nothing else. QQQ below 705.82 (branch 1, alone) = take the 2026-09-18 700P at ~$918 (A-grade sizing, ~61% of max, NOT full size). QQQ below 715 AND VIX above 17 (branch 2, BOTH legs -- read the WARNING above before relaxing either) = same take. QQQ back above 728-730 = mark DEAD and stop watching. Anything else = re-mark, log, stand down. Note also that FOMC minutes land tomorrow (2026-08-19): an entry taken late TODAY carries that event inside a position less than 24h old, which argues for the trigger being honoured early in the session or not at all."
+  },
+  {
+   "run_utc": "2026-08-18T15:17:00Z",
+   "run_local_et": "2026-08-18 11:17 ET",
+   "trading_day_et": "2026-08-18",
+   "session_state": "OPEN -- minute ~107 of the cash session. TWELFTH firing of the 2026-08-18 trading day (13:00Z, 13:20Z, 13:26Z pre-open; 13:35Z, 13:47Z, 14:02Z, 14:18Z, 14:23Z, 14:33Z, 14:47Z, 15:02Z, this one post-open). NINTH post-open run.",
+   "run_type": "TRIGGER-CHECK RUN. Measured the one standing candidate's written trigger, re-marked both positions, reconciled the broker. Added exactly ONE new measurement (below) and invented no other research task to justify the firing.",
+   "regime": "RISK-OFF ROTATION, UPTREND INTACT, NO VOL BID -- carried from the 13:35Z brief, NOT re-derived. No refresh-bar event (VIX +15% intraday / index breaks a brief level / major headline): VIX 15.7 at the brief -> 15.87 now is +1.1% on the session.",
+   "action_taken": "NO NEW ENTRY. NO EXIT. Positions re-marked, trigger re-measured on both branches, stand down.",
+   "trigger_check": {
+    "candidate": "QQQ 2026-09-18 700P (A-, deferred since 13:35Z)",
+    "written_trigger": "QQQ below its 20-day MA of 705.82, OR below 715 intraday WITH VIX above 17.",
+    "measured_utc": "2026-08-18T15:16:00Z",
+    "qqq_spot": 716.78,
+    "qqq_pct_day": -1.79,
+    "qqq_vs_20dma": "+1.55% ABOVE 705.82 (10.96 points of room) -- branch 1 FAILS.",
+    "vix": 15.87,
+    "branch_2": "FAILS on BOTH legs -- QQQ 716.78 is above 715 AND VIX 15.87 is below 17.",
+    "killing_level_728_730": "NOT reached (716.78, ~11.2 points away). Candidate stays ALIVE and deferred.",
+    "verdict": "TRIGGER NOT FIRED. Ninth consecutive post-open run to reach the same conclusion. Price ticked marginally UP from the 15:01Z session low (716.55 -> 716.78) while VIX was unchanged (15.86 -> 15.87). Nothing moved.",
+    "prior_run_warning_upheld": "The 15:02Z run left an explicit warning that if QQQ breaks 715 with VIX in the 15s, branch 2 has NOT fired because it requires BOTH legs, and that arguing otherwise is the signal to stop trading. That warning is upheld in full here and is now REINFORCED by this run's new measurement, not merely inherited."
+   },
+   "the_one_new_measurement_this_run": {
+    "what": "QQQ's OWN 30-day ATM implied volatility, re-measured on the candidate's own underlying rather than inferred from VIX.",
+    "numbers": "13:34Z: QQQ spot 721.11, ATM IV (721 strike, 31 DTE) 0.19647. 15:17Z: QQQ spot 716.78, ATM IV (717 strike, 31 DTE) 0.197366. So the index fell 4.33 points (-0.60%) to a NEW SESSION LOW and its own 30-day ATM IV rose +0.0009, i.e. +0.5% relative -- flat. IV/RV 0.87.",
+    "why_this_is_stronger_evidence_than_VIX": "Every prior run today tracked the vol leg through VIX, which is an SPX-derived index and therefore a PROXY for the vehicle this desk is actually considering. This is the direct reading: the option market on the exact underlying of the deferred contract declined to raise the price of insurance while that underlying printed the low of the day. A market pricing contagion does not do that.",
+    "effect_on_the_candidate": "Materially strengthens the brief's 'benign orderly rotation' reading over its 'underpriced tail risk' reading, for the second consecutive run and now on direct rather than proxy evidence. It does NOT change the written trigger -- see the note below on why this run declines to rewrite it.",
+    "honest_counterpoint_recorded_deliberately": "The deferred trade would currently be a WINNER. QQQ 2026-09-18 700P mid was 9.175 at 13:35Z when it was declined; it is 9.815 now -- +$64/contract, +7.0%. Recording this because this desk is judged on reasoning at decision time, not outcomes, and that standard is worthless if only the vindicating runs get written down. The decline was correct on process (trigger unfired, second position on the same theme as the existing SPY hedge, entry 4 minutes after an 8.76-point gap) and it has so far cost $64 of foregone gain. Both halves are true and the next instance should see both."
+   },
+   "why_the_trigger_was_not_rewritten": "The accumulating vol evidence argues that branch 1 (QQQ below 705.82, which fires on price ALONE) could put the desk into a put in a non-confirming vega tape. The temptation is to tighten branch 1 by bolting a VIX condition onto it. This run declines, for a reason worth inheriting: branch 1 requires a further -1.5% index decline from here, and a move of that size would very likely bid VIX on its own, so the two branches are far less contradictory in practice than they look on paper. Tightening a standing entry trigger on narrative -- with no position at risk and no level breached -- is the same error as loosening one, just wearing a prudent face. The level is the level. Evidence recorded; plan unchanged.",
+   "position_verdicts": {
+    "SPY 2026-11-20 700P": "WORKING (hedge). Mark 7.18 (bid 7.17 / ask 7.19, 0.28% of mid), -$31.00 / -4.14% vs the 7.49 entry, +$53.00 on the day. 94 DTE, delta -0.158, theta -$0.093/day, IV 0.2117. EXEMPT from premium backstops -- insurance, not a directional trade. It is doing exactly its job today: the book is already long the bearish tail without adding anything. No action; next decision is the ~21-DTE roll/close review WITH Ryan (~2026-10-30).",
+    "ACHR 2028-01-21 5C": "NO ACTION -- structurally gated (placed_agent='user' + manual_hold_override, HARD RULE 8 ownership gate). Mark 3.025, +$55.50 / +22.47% vs the 2.47 entry, -$17.50 today on ACHR 6.255 (-2.11%). 521 DTE. Below the +50% ratchet arm; no exit condition fired. Detection only -- this desk may not close, trim, or roll it without Ryan's explicit go-ahead."
+   },
+   "grades_considered": {
+    "QQQ 2026-09-18 700P": "A- / DEFERRED. Trigger unfired on both branches for the ninth consecutive post-open run. Alive; killing level 728-730 not reached.",
+    "SPY puts": "C / EXCLUDED BY POSITIONING. The sleeve already holds the SPY 2026-11-20 700P at -4.14%; a second SPY put is the closest thing to adding to a losing position, which FOUR LAWS #3 forbids without Ryan's prior approval. Not taken, not proposed.",
+    "NVDA / AMD / TSM / AVGO puts": "B- / PASS, and the reason has HARDENED into the cleanest read of the day. The semi complex is the epicentre -- AMD 477.02 (-5.73%), TSM 412.30 (-4.33%), AVGO 378.02 (-3.67%), NVDA 219.39 (-2.50%) -- but the damage is CONCENTRATING there rather than generalising: MSFT +0.31%, TSLA -0.66%, IWM -1.05% all outperform QQQ -1.79%. Chasing a single-sector de-rating that is already 4-6% into its move, on day one, with vol flat, fails the trend-maturity gate on all three legs (move already run, catalyst priced, tape not confirming a broadening).",
+    "MSFT": "C / PASS. +0.31% and a defensive winner in this tape, which contradicts a put; no bullish catalyst for a call. The 2026-08-17 tier correction proved its ~0.35-delta strikes are affordable -- and that supplies no thesis whatsoever. Cheap and liquid is not a trade."
+   },
+   "why_flat": "The single live candidate's written trigger has not fired on either branch, and the one new measurement taken this run argues against the setup rather than for it. Nothing else on the board clears the entry stack. Being flat is a position; the sleeve is already correctly exposed to the bearish tail through the authorized hedge.",
+   "sleeve_state": {
+    "portfolio_total": 3927.4,
+    "equity_value": 971.63,
+    "options_value": 1022.0,
+    "settled_cash": 1933.77,
+    "unsettled_funds": 0.0,
+    "agentic_premium_at_risk": 749.0,
+    "_premium_note": "SPY hedge alone. The hedge is excluded from the max-3 count, so 0 of 3 non-hedge agentic slots are used. $1,500 is PER TRADE; total deployment is bounded by settled cash, which is ample at $1,933.77.",
+    "realized_options_pnl_today": 0.0,
+    "daily_loss_cap_status": "-$200 cap (the stricter of the two figures) NOT approached. Zero realized P&L today.",
+    "new_entries_today": "0 of 3 permitted."
+   },
+   "duties_status": {
+    "heartbeat": "Already stamped for the 2026-08-18 trading day at 13:35Z by the first post-open run. Not re-stamped.",
+    "brief": "Stamped 2026-08-18. No refresh-bar event met. Not rebuilt.",
+    "daily_report": "NOT YET DUE -- required on the first run at/after 14:25 CT (19:25Z). It is 10:17 CT. A later run must write daily_options_report.md and must not defer it waiting for a 'better' slot.",
+    "reconciliation": "DONE 15:15-15:17Z. get_option_positions(nonzero) returns exactly the SPY 2026-11-20 700P and the ACHR 2028-01-21 5C -- matches holdings.json, ZERO DRIFT, every pending_* field 0.0000. get_portfolio ties: cash 1933.77 unchanged from the 13:35Z stamp, no equity or option fills since.",
+    "iv_history": "QQQ row for today OVERWRITTEN with the 15:17Z reading per the IV method, with the 13:34Z open reading preserved in the row's _note because the intraday path is the decision-relevant fact."
+   }
   }
  ],
- "updated_utc": "2026-08-17T21:20:00Z"
+ "updated_utc": "2026-08-18T15:17:00Z"
 }
