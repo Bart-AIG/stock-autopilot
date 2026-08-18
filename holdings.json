@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-18T17:19:00Z",
+  "updated_utc": "2026-08-18T17:31:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-18",
     "usd": 0.0,
@@ -108,9 +108,9 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-18T17:02:00Z",
-    "result": "NO ENTRY -- standing QQQ 2026-09-18 700P candidate's written trigger has not fired; both branches require QQQ BELOW current 719.06.",
-    "detail": "QQQ 719.06 (-1.48%) recovered slightly vs the 16:47Z run (718.75). Branch A needs QQQ < 20d MA 705.82 -- still +13.24pts / +1.87% ABOVE it. Branch B needs QQQ < 715 WITH VIX > 17 -- QQQ is +4.06 above 715 (VIX still ~15.7, sub-17). Killing level 728-730 not reached, so the candidate stays alive and deferred. Independently, the brief's positioning note stands: a QQQ put is a SECOND position on the same downside theme the SPY hedge already covers -- it would convert a hedged book into an outright directional short, so even a marginal trigger touch would not clear the bar."
+    "run_utc": "2026-08-18T17:31:00Z",
+    "result": "NO ENTRY -- standing QQQ 2026-09-18 700P candidate's written trigger has not fired; both branches require QQQ BELOW current 718.14.",
+    "detail": "QQQ 718.14 (-1.61%). Branch A needs QQQ < 20d MA 705.82 -- still +12.32pts / +1.74% ABOVE it. Branch B needs QQQ < 715 WITH VIX > 17 -- QQQ is +3.14 above 715 (VIX ~15.7, sub-17), so Branch B cannot fire regardless of VIX. Killing level 728-730 not reached, candidate stays alive and deferred. Independent positioning bar unchanged: a QQQ put would be a SECOND position on the same downside theme the SPY hedge already covers."
   },
   "_closed_positions": [
     {
