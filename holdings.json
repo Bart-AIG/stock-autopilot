@@ -1,6 +1,6 @@
 {
  "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
- "updated_utc": "2026-08-19T19:22:00Z",
+ "updated_utc": "2026-08-19T19:29:00Z",
  "_realized_options_pnl_today": {
   "trading_day_et": "2026-08-19",
   "realized_usd": 0.0,
@@ -213,6 +213,28 @@
     "ratchet_armed": false,
     "status": "MONITORING -- NO TRIGGER FIRED OR UN-FIRED at 19:22Z on either monitored position, so no separate ping was sent (SILENCE RULE). QQQ 680P mark 3.58 (-11.60%): pop 7.29 / arm 6.08 / recheck 2.03 / backstop 1.42 all unreached. RBRK 90P mark 4.00 (+2.56% mark, -2.56% net of the 3.80 bid): pop 7.02 / arm 5.85 / recheck 1.95 / backstop 1.37 all unreached. WHAT DID CHANGE and where it went: today's closing evidence (VIX 14.95 at its low, IWM green) materially weakens the QQQ bearish premise, so a RECOMMENDATION TO CONSIDER CLOSING QQQ 680P at/near mid ahead of or at Friday's review is carried in daily_options_report.md, which is the channel that actually reaches Ryan -- not as a duplicate notification. The two dates that decide these positions are unchanged: QQQ 21-DTE roll/close review FRIDAY 2026-08-21, RBRK pre-earnings call by the close of WEDNESDAY 2026-08-26."
    }
+  },
+  {
+   "symbol": "PNC",
+   "sleeve": "swing",
+   "entry_date": "2026-08-19",
+   "entry_price": 246.4729,
+   "shares": 1.825758,
+   "stop": null,
+   "target": 255.50,
+   "native_trail_pct": null,
+   "_note": "placed_agent='agentic' -- RSI2(2) oversold swing entry, quota-removal batch (Ryan approved 2026-08-19 after the 'Remove swing quota' policy change, PR #441). Thesis: earnings beat, dividend raised +18%, active 300-branch expansion; JPMorgan raised PT to $269.50 (Deutsche Bank at Hold, not a red flag). No fixed loss-stop per HARD RULE 5 -- thesis-managed until green enough for a native trailing stop (~+17.6%, ~$289.60)."
+  },
+  {
+   "symbol": "BA",
+   "sleeve": "swing",
+   "entry_date": "2026-08-19",
+   "entry_price": 222.5107,
+   "shares": 2.022374,
+   "stop": null,
+   "target": 240.19,
+   "native_trail_pct": null,
+   "_note": "placed_agent='agentic' -- RSI2(2) oversold swing entry, quota-removal batch (Ryan approved 2026-08-19 after the 'Remove swing quota' policy change, PR #441). Thesis: resilient price action, no fresh bad news; BNP upgraded to Outperform, JPMorgan PT $290, Goldman $260, RBC $265, all above spot; Archer Aviation stake deal, steady July deliveries. No fixed loss-stop per HARD RULE 5 -- thesis-managed until green enough for a native trailing stop (~+17.6%, ~$261.55)."
   }
  ],
  "_resolved_flags": [
