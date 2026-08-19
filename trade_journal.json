@@ -12155,6 +12155,105 @@
     "iv_history": "Core list already logged for 2026-08-19 at 14:26Z (one row per day, overwrite-if-exists). Not re-measured -- re-polling an already-logged row every 15 minutes adds no information and churns the file.",
     "eod_report": "NOT DUE at this run. The trigger is the first run at or after 14:25 CT; this run is 13:18 CT, 67 minutes early, with 1h42m of session left -- a report written now would omit the entire afternoon. NEXT RUN MUST CHECK THIS CAREFULLY: on today's ~hourly-at-:22 cadence the following run lands ~19:22Z = 14:22 CT, THREE MINUTES SHORT of the trigger. Per the 2026-08-13 root fix, missing the delivery is strictly worse than writing it early -- so if the ~19:22Z run has any reason to doubt that a later run will fire before the 20:00Z bell, it should WRITE THE REPORT rather than defer on a 3-minute technicality. A post-close ~20:2xZ run is also a valid and arguably better writer (closing marks), but it must not be ASSUMED to happen."
    }
+  },
+  {
+   "run_utc": "2026-08-19T19:22:00Z",
+   "run_local_et": "2026-08-19 15:22 ET",
+   "trading_day_et": "2026-08-19",
+   "run_type": "SIXTH post-open run of the 2026-08-19 trading day (13:33Z build, 14:26Z amend, 15:24Z, 16:22Z, 17:22Z, 18:22Z, now 19:22Z). Market OPEN, ~38 minutes to the bell. All quotes verified live by updated_at 19:19:42-19:21:16Z. THIS RUN WROTE THE EOD REPORT.",
+   "market_state": "OPEN, 15:22 ET / 14:22 CT.",
+   "regime": "ROTATION, NOT RISK-OFF -- AND TODAY'S CLOSING DATA CORRECTS THIS DESK'S OWN 17:22Z/18:22Z READ. The prior two runs labelled the tape 'breadth deterioration / narrowing participation' and read it as the late-cycle setup the Aug-Oct posture anticipates. Into the close that framing does not survive contact with two facts neither run checked: (1) IWM 301.61 is GREEN +0.46% -- small caps, the single best breadth proxy available, are UP on the day; (2) VIX printed 14.95 at 15:21 ET, its LOW of the day and BELOW both this morning's 15.28 and yesterday's 15.7. Genuinely narrowing participation does not come with green small caps and a six-session-low VIX. What is actually happening is a two-group liquidation inside a firm market: AI-semis (AVGO 364.92 -3.97%, AMD 467.30 -3.53%, both at/near session lows) and BANKS (C 132.945 -3.42%, PNC 246.23 -3.17%, USB 62.76 -3.13%, WFC 85.75 -1.89%, MS 213.85 -1.70% -- all DEEPER than at 17:22Z, so the group is still being sold into the close), with the proceeds visibly going to small caps, MSFT 484.40 (+0.58%) and TSLA 348.77 (+3.53%). Index: SPY 770.00 (+0.33%), QQQ 717.19 (-0.04%). NVDA 219.76 (+0.01%) and TSM 413.22 (-0.05%) are flat, so even the semis move is AVGO/AMD-specific rather than AI-wide. Sixth consecutive session with no vol bid. Correcting the label matters because the whole bearish-tech book is priced off it: a rotation is a far worse tape for long index puts than a breadth breakdown would be.",
+   "regime_label": "rotation / no vol bid (CORRECTED from 'breadth deterioration' -- see regime)",
+   "reconciliation": "ZERO DRIFT, thirteenth consecutive clean snapshot. get_option_positions(nonzero) = exactly FOUR contracts, matching holdings.json one-for-one, every pending_* field 0.0000. get_option_orders(created_at_gte=2026-08-19T00:00:00Z) = EMPTY: no sibling-run entry, no assignment, no expiration, no unauthorized fill, nothing to reconcile. Portfolio $3,820.65 (equity $0 / options $1,710.00 / cash $2,110.65); buying_power $2,110.65 with unsettled_funds $0.00, so FOUR LAWS #4 is not binding. Agentic premium-at-risk $1,544. Realized options P&L today $0.00 vs the -$200 cap. Entry throttle 0 of 3 used.",
+   "positions": [
+    {
+     "contract": "SPY 2026-11-20 700P",
+     "owner": "agentic (authorized hedge)",
+     "verdict": "WORKING AS DESIGNED",
+     "mark": 6.37,
+     "bid_ask": "6.36 x 6.38 (0.31% of mid)",
+     "pnl_usd": -112.0,
+     "pnl_pct": -14.95,
+     "dte": 93,
+     "greeks": "delta -0.147, theta -0.0873 ($8.73/day), IV 20.76%, OI 23,584",
+     "note": "Insurance-EXEMPT from every premium backstop; a -14.95% mark on a hedge while SPY sits 0.33% from a session high is the design working, not a loss to manage. Nowhere near the defensive-posture tranche triggers (718/680/633) or the 746-748 early-warning shelf. Only decision remains the ~21-DTE roll/close WITH Ryan, ~2026-10-30."
+    },
+    {
+     "contract": "QQQ 2026-09-11 680P",
+     "owner": "agentic (under Ryan's 2026-08-18 monitoring mandate)",
+     "verdict": "STALLED -- AND TODAY'S EVIDENCE CUT AGAINST IT",
+     "mark": 3.58,
+     "bid_ask": "3.56 x 3.60 (1.12% of mid)",
+     "pnl_mark_usd": -47.0,
+     "pnl_mark_pct": -11.6,
+     "pnl_net_at_bid_usd": -49.0,
+     "pnl_net_at_bid_pct": -12.1,
+     "dte": 23,
+     "greeks": "delta -0.1603, theta -0.2064 ($20.64/day = 5.77% of REMAINING premium per day), IV 22.94%",
+     "note": "Fourth round trip of the day: -11.7% (13:33Z) -> +9.5% (14:26Z) -> -17.8% (16:22Z) -> -9.75% (17:22Z) -> -11.60% now. NOTHING FIRED: -50% recheck 2.025, -65% backstop 1.4175, setup break needs a QQQ CLOSE above ~730. Breakeven 676.42 = QQQ -5.68% in 23 sessions-days while it holds above its 706.24 20d MA. The honest read got WORSE today, not better: the position needs a vol event and the VIX just printed its low of the day at 14.95 on the sixth straight session without a bid, with small caps green. BINDING: 21-DTE review Friday 2026-08-21, after which -50% becomes a standing cut. RECOMMENDATION CARRIED TO RYAN IN TODAY'S EOD REPORT (the delivery channel that actually reaches him) rather than as a separate ping -- no trigger fired, so no duplicate notification."
+    },
+    {
+     "contract": "RBRK 2026-09-18 90P",
+     "owner": "agentic (under Ryan's 2026-08-18 monitoring mandate)",
+     "verdict": "STALLED",
+     "mark": 4.0,
+     "bid_ask": "3.80 x 4.20 (10.0% of mid)",
+     "pnl_mark_usd": 10.0,
+     "pnl_mark_pct": 2.56,
+     "pnl_net_at_bid_usd": -10.0,
+     "pnl_net_at_bid_pct": -2.56,
+     "dte": 30,
+     "greeks": "delta -0.2643, theta -0.1177 ($11.77/day = 2.94%/day), IV 76.84%, OI 71, volume 4",
+     "note": "RBRK 100.63 (+0.08%) went nowhere today. Flat at the mark, slightly negative net of the spread -- and the spread IS the story: 10.0% of mid on 71 OI and 4 contracts traded means the quoted +$10 gain is not realizable; a market exit nets -$10. Breakeven 86.00 = RBRK -14.5% in 30 days. Nothing fired: recheck 1.95, backstop 1.365. Cheaper theta than QQQ and more time, so it is the more patient of the two. RECOMMEND-AND-ASK; silent this run (no trigger fired or un-fired, recommendation unchanged)."
+    },
+    {
+     "contract": "ACHR 2028-01-21 5C",
+     "owner": "USER (Ryan, in-app) + manual_hold_override",
+     "verdict": "UNTOUCHED BY POLICY",
+     "mark": 3.125,
+     "bid_ask": "3.05 x 3.20 (4.8% of mid)",
+     "pnl_usd": 65.5,
+     "pnl_pct": 26.52,
+     "dte": 521,
+     "note": "Ryan's own position. Ownership gate: the desk may detect but NEVER close, trim or roll it. ACHR 6.3866 (+1.05%). No action, no recommendation solicited."
+    }
+   ],
+   "exits_evaluated": "FOUR positions checked against the 2026-08-05 exit engine. ZERO triggers fired in either direction. Both agentic puts sit in the 21-45 DTE tier (recheck -50%, hard backstop -65%); QQQ is -11.60% against a -50% recheck and RBRK is +2.56%, so neither is within half the distance to its first threshold. No setup break: QQQ has not CLOSED above 730, RBRK has not closed above its invalidation. The SPY hedge is insurance-exempt by authorization and ACHR is gated by the ownership rule. No exit was available to take and none was warranted.",
+   "entry_decision": "NO TRADE. One non-hedge slot is open (2 of 3 used) and $2,110.65 of settled cash is available, so this was a genuine choice, not a constraint.",
+   "grades_considered": [
+    {
+     "candidate": "Financials mean-reversion LONG (XLF / C / USB / PNC / WFC calls)",
+     "grade": "B",
+     "liquidity": "PASS -- checked FIRST per the sourcing rule. XLF 57.51 and the four banks all quote penny-wide at the underlying; these are the most liquid non-tech chains available to this desk.",
+     "why_considered": "Genuinely UNCORRELATED with the book, which is the one thing the desk currently cannot buy in tech: the bearish-tech theme is capped at 2 of 2, so a bank trade is the only way the free slot could be used at all. Four majors printed RSI2 under 7 on the committed 19:03Z report (C 3.8, USB 2.9, PNC 3.3, WFC 6.1) inside intact 200-day uptrends -- a textbook Connors setup on paper.",
+     "why_rejected": "NO REVERSAL TRIGGER, and the tape got WORSE during the run. Connors mean-reversion needs the RSI2 turn or an MA5 reclaim; instead the group extended its decline into the close -- C went -2.75% (17:22Z) to -3.42% (19:21Z), PNC to -3.17%, USB to -3.13%. Buying calls into a group making new session lows with no catalyst is catching a knife, and 'it is very oversold' is a condition, not a trigger. The trend-maturity gate fails part (c) outright: today's tape contradicts the position.",
+     "watch_for": "TOMORROW'S TRIGGER, pre-written so the next instance does not have to re-derive it: XLF or C opening green and holding it, with RSI2 turning up off the low. That converts this from B to A-. Absent that, it stays a watch."
+    },
+    {
+     "candidate": "Any further bearish-tech put (QQQ / AVGO / AMD / SOXX)",
+     "grade": "NOT GRADED -- STRUCTURALLY BLOCKED",
+     "why_rejected": "Max 2 positions per correlated theme, and bearish tech is at 2 of 2 (QQQ 680P + RBRK 90P). AVGO -3.97% and AMD -3.53% at session lows is the most eye-catching move on the board and is exactly the trade the desk is barred from adding. The limit is a hard structural rule, not a preference, so no thesis work was done and none should be -- writing a thesis for a trade you cannot place is how a cap gets rationalized away."
+    },
+    {
+     "candidate": "DE calls into tomorrow's 2026-08-20 earnings print",
+     "grade": "C",
+     "why_rejected": "Fails on three independent counts. (1) The desk's standing preference is to CLOSE before earnings, not open into one, unless the earnings move IS the thesis -- and here it would be a pure coin flip on a print, not a thesis. (2) DE 585.69 makes any right-delta contract expensive against the $1,500 per-trade max, with the entire premium exposed to a single overnight gap. (3) The RSI2 1.9 print is purely technical and the report itself flags DE NO-ENTRY for exactly this reason. A gap is not a risk this desk's 15-minute cadence can manage."
+    },
+    {
+     "candidate": "IWM / small-cap LONG on the green divergence",
+     "grade": "C",
+     "why_rejected": "The divergence is real and it is the day's most interesting fact, but it is ONE session at +0.46% with no catalyst behind it -- momentum after a single green day is not a 'why now'. Worse, it would be a net-LONG index leg in a book already carrying SPY and QQQ puts: the desk would be paying premium to partially neutralize premium it already owns. If the bearish index view is wrong, the answer is to exit the puts, not to buy an offsetting long."
+    },
+    {
+     "candidate": "Long volatility (SPY/QQQ straddle-equivalent, VIX-linked)",
+     "grade": "C",
+     "why_rejected": "Six consecutive sessions of no vol bid, and today VIX made its LOW into the close (14.95) on a day eighteen names printed RSI2<10. Betting on a vol bid now is the trend-maturity error running in reverse -- entering because a move has repeatedly FAILED to happen is the same as chasing one that already did. It also has no defined catalyst, and the sleeve is already long vol twice over via the two puts and the hedge."
+    }
+   ],
+   "why_flat": "One open slot, $2,110.65 settled, and nothing on the board clears the bar. The only uncorrelated candidate with a tradeable chain (banks) has the setup but not the trigger, and it moved further AGAINST a long entry during this run; everything with a firing trigger is in the theme the desk is capped out of. Opening a directional position 38 minutes before the bell with no catalyst, purely because a slot exists, is the definition of a B trade taken for want of an A -- being flat in the free slot is the correct position.",
+   "iv_note": "iv_history.json rows for all eight core names were measured and written at 14:26Z today and are NOT re-measured here: the method is one row per trading day, and re-polling eight chains near the bell would change no decision this run took. Recorded for the record from live quotes instead: VIX 14.95 at 15:21 ET (day's low; 15.28 this morning, 15.7 yesterday), and position-level IVs QQQ 680P 22.94%, SPY 700P 20.76%, RBRK 90P 76.84%. The six-session flat-to-lower ATM IV track across the core list is now the single most consequential fact in the sleeve -- it is what makes both long puts a fight against theta with no vol tailwind.",
+   "eod_report": "WRITTEN THIS RUN. daily_options_report.md rewritten for trading day 2026-08-19 at 15:22 ET / 14:22 CT -- three minutes before the 14:25 CT trigger, deliberately and for the documented reason: today's firings have been HOURLY (13:33, 14:26, 15:24, 16:22, 17:22, 18:22, 19:22Z), so the next one lands ~20:22Z = 15:22 CT, AFTER the 16:00 ET bell. This is the last market-hours run of the day and therefore the last one that can deliver the report. Missing the delivery is strictly worse than writing it three minutes early (CLAUDE.md, and the same call the 2026-08-18 run made at 14:18 CT).",
+   "master_sync": "Committed and pushed to master this run; HEAD diffed against origin/master before ending."
   }
  ],
  "updated_utc": "2026-08-19T09:19:00Z"
