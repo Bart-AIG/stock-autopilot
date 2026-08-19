@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-19T06:22:00Z",
+  "updated_utc": "2026-08-19T07:19:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-18",
     "realized_usd": 0.0,
@@ -394,9 +394,10 @@
     "note": "daily_options_report.md written by the 19:15Z run at 14:18 CT, 7 minutes before the 14:25 CT trigger, per the CLAUDE.md rule that early beats missing. DO NOT REWRITE IT unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing) -- every master push touching that file re-notifies Ryan."
   },
   "_last_reconciliation": {
-    "checked_utc": "2026-08-19T06:22:00Z",
-    "trading_day_et": "2026-08-18 (post-close; run is 02:22 ET Wed, before the Wed open)",
-    "result": "ZERO DRIFT. Broker shows exactly the 4 ledger positions, all quantity 1.0000, all pending_* quantities 0. cash $2,110.65 == buying_power, unsettled_funds $0.00, total_value $4,014.65, options_value $1,904.00.",
-    "note": "10th consecutive post-close stand-down. No daily artifact rolled: heartbeat stays 2026-08-18, brief stays stamped, loss cap and entry throttle not reset."
+    "utc": "2026-08-19T07:19:00Z",
+    "trading_day_et": "2026-08-18",
+    "run": "11th post-close stand-down",
+    "result": "ZERO DRIFT -- broker 4 contracts == ledger 4 contracts; equity_value $0; all pending_* 0.0000",
+    "portfolio": "total $4,014.65 | options $1,904.00 | cash/BP $2,110.65 | unsettled $0.00"
   }
 }
