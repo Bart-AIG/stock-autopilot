@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-19T10:19:00Z",
+  "updated_utc": "2026-08-19T11:22:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-18",
     "realized_usd": 0.0,
@@ -394,14 +394,14 @@
     "note": "daily_options_report.md written by the 19:15Z run at 14:18 CT, 7 minutes before the 14:25 CT trigger, per the CLAUDE.md rule that early beats missing. DO NOT REWRITE IT unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing) -- every master push touching that file re-notifies Ryan."
   },
   "_last_reconciliation": {
-    "utc": "2026-08-19T10:19:00Z",
+    "utc": "2026-08-19T11:22:00Z",
     "trading_day_et": "2026-08-18",
-    "run": "14th consecutive post-close firing; market CLOSED (06:19 ET Wed, 3h11m before the 09:30 ET open). Stand-down per POST-CLOSE RUN PROTOCOL.",
+    "run": "15th consecutive post-close firing; market CLOSED (07:22 ET Wed, 2h08m before the 09:30 ET open). Stand-down per POST-CLOSE RUN PROTOCOL.",
     "result": "ZERO DRIFT -- broker returns exactly the 4 ledger contracts; equity_value $0; all pending_* quantities 0.0000",
-    "portfolio": "total $4,014.65 | options $1,904 | cash $2,110.65 | settled BP $2,110.65 | unsettled $0.00 -- IDENTICAL to the cent to the 09:19Z, 08:19Z, 07:19Z and 06:22Z snapshots",
+    "portfolio": "total $4,014.65 | options $1,904 | cash $2,110.65 | settled BP $2,110.65 | unsettled $0.00 -- IDENTICAL to the cent to the 10:19Z, 09:19Z, 08:19Z, 07:19Z and 06:22Z snapshots",
     "premium_at_risk_agentic": 1544.0,
     "non_hedge_slots_used": "2 of 3",
     "realized_options_pnl_trading_day": 0.0,
-    "note": "Position _current_state marks deliberately NOT refreshed -- they remain the 19:46Z pre-close readings. Re-polling dead overnight quotes is the invented-research failure the post-close protocol names."
+    "note": "Position _current_state marks deliberately NOT refreshed -- they remain the 19:46Z pre-close readings. Re-polling dead overnight quotes is the invented-research failure the post-close protocol names. The first post-open run of 2026-08-19 refreshes them off live quotes and owns the heartbeat, brief, cap reset and throttle reset."
   }
 }
