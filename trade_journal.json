@@ -11426,6 +11426,34 @@
       "why_flat": "Market closed. Nothing is placeable, both monitored positions sit inside their written plans with binding items days out, and every useful post-close task for this trading day was completed by the 18:50Z / 20:19Z / 21:19Z runs. The correct output of the seventh redundant firing is a few lines saying so.",
       "next_run_instruction": "If you fire before 09:30 ET on 2026-08-19: still the 2026-08-18 trading day -- cheap reconcile, one line, stop; roll NOTHING. The first run at/after 09:30 ET Wednesday owns the heartbeat stamp, the market_brief.json rebuild, the loss-cap reset and the entry-throttle reset, and should re-check both monitored positions against their written plans (QQQ 21-DTE review Friday 2026-08-21; RBRK pre-earnings decision due to Ryan by Wed 2026-08-26). Re-read the settlement note above before sizing anything.",
       "root_cause_note": "The redundant trigger config (cron-job.org every 15 min + the native hourly backstop) produces these overnight firings; only Ryan can change it. An agent's job is to make each extra firing cost almost nothing, which this entry does."
+    },
+    {
+      "run_utc": "2026-08-19T04:19:00Z",
+      "trading_day_et": "2026-08-18",
+      "run_type": "post-close stand-down (8th redundant firing of this trading day)",
+      "regime": "RISK-OFF ROTATION, UPTREND INTACT, NO VOL BID -- carried from the stamped 2026-08-18 brief, NOT re-derived. Market closed; re-deriving a regime off dead quotes is the invented-research failure the protocol names.",
+      "market_state": "CLOSED. 00:19 ET Wednesday. The 2026-08-18 bell rang 8h ago; the next open is 09:30 ET 2026-08-19. Per the UTC rule, TODAY is still the trading day 2026-08-18 -- heartbeat NOT stamped, brief NOT rebuilt, loss cap and entry throttle NOT reset.",
+      "reconciliation": {
+        "source": "get_accounts / get_option_positions / get_portfolio, fetched this run",
+        "result": "ZERO DRIFT. Broker shows exactly the 4 contracts the ledger carries: SPY 2026-11-20 700P (hedge, avg $749), ACHR 2028-01-21 (avg $247), QQQ 2026-09-11 680P (avg $405, agentic), RBRK 2026-09-18 90P (avg $390, agentic). equity_value $0 -- no equity position exists, so no unauthorized equity fill occurred overnight. No assignment, no expiration, no pending_* quantity on any leg.",
+        "cash": "total_value $4,014.65 | options_value $1,904 | cash $2,110.65 | buying_power (SETTLED) $1,138.69 | unsettled_funds $971.96. Cash and BP differ by exactly the unsettled figure, consistent with the attribution the 00:19Z run recorded: the unsettled balance is Ryan's own EQUITY sale proceeds (CL, AAPL) settling T+1 into 2026-08-19. FOUR LAWS #4 binds on the $1,138.69, not the $2,110.65.",
+        "slots": "3 of 3 agentic position slots FULL (ACHR, QQQ, RBRK); the SPY hedge is excluded and occupies none. No entry is structurally possible regardless of setup quality."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P": "AUTHORIZED HEDGE -- exempt from all premium backstops, held to its ~21-DTE roll/close decision WITH Ryan. 94 DTE. No action.",
+        "ACHR 2028-01-21": "Ryan's book. His own sell-to-close limit expired unfilled at Tuesday's bell and is confirmed CANCELLED at the broker. Ownership gate: no automated exit, ever, without his go-ahead. No action.",
+        "QQQ 2026-09-11 680P": "WORKING, inside its written plan. 24 DTE. Binding item is the 21-DTE management review on FRI 2026-08-21 -- two sessions out. Under the monitoring mandate, discretionary exits are recommended to Ryan and wait for him; only the hard backstops execute unasked, and none is near.",
+        "RBRK 2026-09-18 90P": "WORKING, inside its written plan. Binding item is the pre-earnings decision ahead of the 2026-08-27 pm print, deadline the close of WED 2026-08-26. Still awaiting Ryan's call -- an unattended run cannot make it and must not let the position drift into the print by default."
+      },
+      "grades_considered": "NONE, and deliberately so. Nothing is placeable with the market closed, and all 3 agentic slots are full, so hunting would produce a candidate that could not be acted on tomorrow either without first closing something. Re-polling thin overnight quotes an earlier run already measured, or re-deriving the regime, would spend budget to produce numbers nobody can act on.",
+      "why_flat": "Market closed, slots full, and every useful post-close task for this trading day was finished by the 19:18Z (daily report), 20:19Z and 21:19Z runs. The correct output of the eighth redundant firing is a few lines confirming the book is unchanged.",
+      "action": "NO TRADE (market closed -- nothing placeable). NO EXIT. Cheap reconciliation only. Ryan NOT notified: nothing fired or un-fired, no recommendation changed on either monitored position, and the daily report reached him at 19:18Z covering every event of the day.",
+      "carry_forward": [
+        "QQQ 680P: 21-DTE management review FRI 2026-08-21.",
+        "RBRK 90P: pre-earnings close/hold decision to Ryan by the close of WED 2026-08-26 (2026-08-27 pm print).",
+        "First run at/after 09:30 ET 2026-08-19 stamps the heartbeat and rebuilds market_brief.json; loss cap and entry throttle reset then, not before."
+      ],
+      "process_note": "Eight post-close firings for one trading day (20:19Z through 04:19Z). Root cause remains the redundant trigger config (cron-job.org every 15 min + the native hourly backstop), which only Ryan can change. An agent's job is to make each extra firing cost almost nothing -- hence this entry is short by design."
     }
   ],
   "updated_utc": "2026-08-18T20:19:00Z"
