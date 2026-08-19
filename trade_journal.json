@@ -11668,6 +11668,81 @@
    "why_flat": "Market closed, 61 minutes pre-open. The 16th redundant firing of a single trading day has no work left beyond proving the book is unchanged -- and it is, to the cent.",
    "next_run_guidance": "Unchanged from the 11:22Z entry and still owed: the FIRST run at/after 09:30 ET 2026-08-19 owns four duties at once -- (1) stamp automation_heartbeat.json for 2026-08-19, (2) rebuild market_brief.json for the new trading day, (3) reset the -$200 realized cap and the 3-entry throttle, (4) refresh both monitored positions' _current_state off LIVE quotes. Carry the 2026-08-18 brief's opening-auction caveat: single-name spreads run 2-5x their settled width in the first minutes (RBRK's chain especially -- do not read its opening spread as a new fact), while the index ETF chains are tradeable from minute one. The 2026-08-21 QQQ 21-DTE review is 2 sessions out; the 2026-08-26 RBRK pre-earnings decision is 5.",
    "structural_note": "Sixteen firings for one closed trading day, at ~1 per hour overnight from the native hourly backstop stacked on cron-job.org's 15-min schedule. The redundancy is Ryan's to fix in the trigger config; an agent can only make each extra firing cost almost nothing, which is what this entry is. No duty was skipped: heartbeat, brief, cap and throttle all correctly belong to the post-open run, not to this one."
+  },
+  {
+   "run_utc": "2026-08-19T13:33:00Z",
+   "run_local_et": "2026-08-19 09:33 ET",
+   "trading_day_et": "2026-08-19",
+   "run_type": "FIRST POST-OPEN RUN of the 2026-08-19 trading day. The routine fired at 13:27Z (09:27 ET), three minutes PRE-open. Rather than stand down a seventeenth time or stamp early, the run did its non-quote prep first (state files, broker reconciliation, order history, MA/RV computation), re-verified the clock at 13:32:58Z / 09:32:58 ET, and only then stamped the heartbeat, rebuilt the brief, and reset the daily cap + entry throttle. Seventeen consecutive firings had correctly stood down since the 2026-08-18 bell.",
+   "market_state": "OPEN. Live regular-hours quotes verified by updated_at (13:30:32-13:31:55Z).",
+   "regime": "RISK-ON BOUNCE INSIDE AN INTACT UPTREND -- STILL NO VOL BID. SPY 770.50 +0.40%, QQQ 720.15 +0.37%, NVDA +1.17%, TSM +0.92%, TSLA +0.82% recovering most of yesterday's risk-off session. But the bounce is narrow: AVGO -2.06%, AMD -0.76%, MSFT -0.30%. Structure is intact and unstretched -- QQQ sits 13.9 pts above its 20d MA (706.24) and above the 50d (712.98). The defining fact is vol: 30-day ATM IV fell or was flat on 5 of 8 core names TODAY, one session after refusing to bid on a -1.7% QQQ decline. Two-sided non-participation.",
+   "reconciliation": "ZERO DRIFT. 4 contracts at broker = 4 in ledger, all pending_* 0.0000. No overnight orders. Ryan's ACHR sell-to-close (6a849a2e) confirmed CANCELLED. QQQ + RBRK fills settled today. Equity book is now EMPTY (equity_value 962.81 -> 0, cash 1933.77 -> 2110.65) and fully explained by Ryan's own CL/AAPL sells plus the $795 of premium deployed 2026-08-18; the ledger already carried zero equity positions and the cash math ties exactly, so NO HARD RULE 9 flag is warranted.",
+   "positions": [
+    {
+     "contract": "QQQ 2026-09-11 680P",
+     "verdict": "STALLED",
+     "detail": "Mark 3.575 (bid 3.53/ask 3.62, 2.5% spread), -$47.50 / -11.7% from the 4.05 entry, giving back $64.50 of yesterday's $137 gain as the tape bounced. Nothing fired: -65% backstop is mark 1.4175; written setup break needs a QQQ close >730 vs 720.15 now. The honest structural read: a 0.15-delta put burning $20.93/day (5.9% of remaining premium per day) needs QQQ -6.07% in 23 days to break even, while QQQ trades 13.9 pts ABOVE its 20d MA and index IV goes LOWER on the bounce. Time and vol are both against it.",
+     "binding": "21-DTE review due FRIDAY 2026-08-21; the tier also hardens then (-50% = mark 2.025 becomes a standing cut). RECOMMEND-AND-ASK under the mandate."
+    },
+    {
+     "contract": "RBRK 2026-09-18 90P",
+     "verdict": "HOLDING (weaker of the two)",
+     "detail": "Mark 4.05 reads +$15 / +3.85% but that is not real money -- the market is 3.50 x 4.60, a 27.2%-of-mid spread on 71 OI, so an exit NETS -$40 (-10.3%). Quote the net, never the mark, on this chain. Underlying unimproved: RBRK 100.63 (+0.08%) sits 18.6% ABOVE its 20d MA (84.87) after a +47% run off the 2026-07-30 low; the put needs -14.6% in 30 days to break even. 77% IV props the premium and is also what makes the spread untradeable.",
+     "binding": "Pre-earnings decision by close of WED 2026-08-26 (2026-08-27 pm print). Awaiting Ryan (open question q2)."
+    },
+    {
+     "contract": "SPY 2026-11-20 700P",
+     "verdict": "WORKING AS DESIGNED",
+     "detail": "Mark 6.555, -$93.50 / -12.5%. Authorized hedge, insurance-exempt from all backstops; it is supposed to bleed while SPY rises. No action.",
+     "binding": "~21-DTE roll/close decision WITH Ryan ~2026-10-30."
+    },
+    {
+     "contract": "ACHR 2028-01-21 5C",
+     "verdict": "DETECT ONLY",
+     "detail": "placed_agent='user' PLUS a manual_hold_override -- two independent gates. Ryan's cancelled sell order re-verified as fully cleared. Marks not re-polled (chain had no fresh print in the first 3 minutes); irrelevant to a position the desk may not act on.",
+     "binding": "None."
+    }
+   ],
+   "action_taken": "NO TRADE. NO EXIT. No notification to Ryan.",
+   "grades_considered": [
+    {
+     "symbol": "QQQ",
+     "grade": "C",
+     "reason": "No trigger. Trades above both its 20d and 50d MA, IV flat, and the desk already owns the bearish side of this exact underlying. Nothing to add in either direction."
+    },
+    {
+     "symbol": "AVGO",
+     "grade": "B",
+     "reason": "The only genuine divergence on the board and the one candidate that deserved real work: price -2.06% to 372.19 (-12.9% from the 2026-08-07 high 427.76) while its 30-day IV ROSE to 0.5037 with iv/rv 1.13 -- vol being BID into weakness, opposite the rest of the core list. Killed on three independent grounds, any one sufficient. (1) VEHICLE: the 2026-09-18 370P is $1,948/contract at mid, above the $1,500 per-trade max on its own -- AVGO is in the CLAUDE.md UNAFFORDABLE tier and the debit spread that would fit is structurally unavailable at option_level_2. (2) IV: buying the RICHEST vol on the board (iv/rv 1.13) is paying up for the exact thing that makes it expensive. (3) EARNINGS: the 2026-09-02 print sits inside any sensible hold window. Logged to the brief watchlist so the divergence is not lost, but there is no tradeable expression of it at this account size."
+    },
+    {
+     "symbol": "NVDA",
+     "grade": "C",
+     "reason": "Leading the bounce (+1.17%) and the most affordable liquid single name (~$222 spot), but one green day inside a two-day chop range is not a catalyst and iv/rv 0.98 offers no vol edge. 'Why NOW' has no answer."
+    },
+    {
+     "symbol": "MSFT",
+     "grade": "C",
+     "reason": "Cheapest vol on the core list relative to its own realized (iv/rv 0.52), liquid and affordable at the ~0.35 delta. But the standing corollary applies verbatim: proving a vehicle is cheap and liquid supplies NO thesis whatsoever. No directional trigger, no trade."
+    }
+   ],
+   "why_flat": "Three independent reasons, and the first alone is dispositive. (1) THEME CAP: bearish tech is FULL at 2 of 2 (QQQ 680P + RBRK 90P), so the one free position slot can only be used on the BULLISH side -- and nothing bullish grades above C on a one-day bounce off a one-day drop. (2) NO CATALYST: yesterday -1.7%, today +0.37% is chop, not a trigger; 'the tape went up this morning' fails the why-NOW test the same way 'the tape went down yesterday' would. (3) NO VOL EDGE: with 30-day IV flat-to-lower on 5 of 8 core names, a long single leg pays full theta to wait for a move the options market is not pricing. Being flat is a position, and the free slot is not an obligation to fill it.",
+   "notification_decision": "SILENT, deliberately. Under the 2026-08-18 monitoring mandate the desk notifies only when a trigger FIRES or UN-FIRES or the recommendation itself CHANGES. Neither monitored position moved a threshold: QQQ is -11.7% against a -65% backstop, RBRK is flat-on-mark against the same, and both recommendations are unchanged from yesterday. The Friday 21-DTE review and the 2026-08-26 RBRK pre-earnings deadline were both already communicated. At ~26 runs/day, notifying on 'still holding, nothing fired' is exactly what makes Ryan stop reading the alerts.",
+   "duties": {
+    "heartbeat": "STAMPED for 2026-08-19 at 13:33Z, after re-verifying the clock was past 09:30 ET.",
+    "market_brief": "REBUILT for 2026-08-19 (regime, levels, catalysts, 4-name watchlist, constraints).",
+    "iv_history": "7th reading logged for all 8 core names (SPY/QQQ/NVDA/AMD/TSM/AVGO/MSFT/TSLA) at 30 DTE off the 2026-09-18 board. Still under 20 readings, so IV/RV remains the only usable gauge -- no percentile cited.",
+    "daily_report": "NOT DUE. Due on the first run at/after 14:25 CT (19:25Z); this run is 13:33Z. The 2026-08-18 report stands and must not be rewritten.",
+    "caps_reset": "Daily realized loss cap reset to -$200 (the stricter of the live prompt and CLAUDE.md) and the entry throttle to 0 of 3, both owned by this first post-open run."
+   },
+   "sleeve_state": {
+    "settled_cash_usd": 2110.65,
+    "agentic_premium_at_risk_usd": 1544.0,
+    "open_agentic_positions": "2 of 3 (hedge excluded)",
+    "theme_capacity": "bearish tech FULL 2 of 2",
+    "realized_today_usd": 0.0,
+    "entries_used_today": "0 of 3"
+   }
   }
  ],
  "updated_utc": "2026-08-19T09:19:00Z"
