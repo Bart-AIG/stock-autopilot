@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-19T02:19:00Z",
+  "updated_utc": "2026-08-19T03:19:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-18",
     "realized_usd": 0.0,
@@ -91,7 +91,7 @@
       "filled_utc": "2026-08-18T17:44:39Z",
       "setup_invalidation": "RECONSTRUCTED BY THE 17:45Z RUN -- the placing run left NO written thesis, invalidation, or exit plan in any committed file, which the routine prompt requires before an entry ('No written invalidation = no trade, no exceptions'). This run did NOT place the trade and cannot invent the original thesis, so the following is an INHERITANCE PLAN, not the entry's stated one, and any run with the real thesis should replace it: bearish QQQ tail. Invalidate on QQQ closing back above ~730 (prior close 729.87 -- a full round-trip of today's -1.6% drop removes the bearish premise entirely). Break-even at expiry is QQQ 675.94, i.e. it needs a further ~5.9% decline from 717.98 in 24 days.",
       "_current_state": {
-        "last_checked_utc": "2026-08-19T02:19:00Z",
+        "last_checked_utc": "2026-08-19T03:19:00Z",
         "mark": 4.08,
         "bid": 4.06,
         "ask": 4.1,
@@ -113,8 +113,8 @@
         "pct_move_needed_to_breakeven": -5.78,
         "verdict": "WORKING, essentially FLAT to entry into the bell (+$3). +$137 on the DAY (prior close 2.71). Nothing fired: backstop -65% = mark 1.42, setup break needs a QQQ close >730 vs 717.4. Honest frame for tonight: a 0.17-delta put carrying -$21.78/day of theta needs an ACCELERATING decline, not a drift, and it holds overnight gap risk in both directions.",
         "binding_item": "21-DTE management review FRIDAY 2026-08-21 (3 sessions). No discretionary exit without Ryan.",
-        "_post_close_note": "SIXTH post-close reconciliation of the 2026-08-18 trading day (02:19Z / 22:19 ET). Position present at broker, matches ledger, zero drift. Marks/greeks above are still the 19:46Z pre-close readings and were deliberately NOT re-polled -- post-close quotes are stale and wide, and replacing good data with worse is the failure the post-close protocol names.",
-        "post_close_status": "Unchanged since the 2026-08-18 bell; 4th post-close reconcile, zero drift, all pending_* 0.0000. Trading day is still 2026-08-18 (00:20Z = 20:20 ET Tue) so no daily artifact rolled."
+        "_post_close_note": "SEVENTH post-close reconciliation of the 2026-08-18 trading day (03:19Z / 23:19 ET). Position present at broker, matches ledger, zero drift, all pending_* 0.0000. Marks/greeks above are still the 19:46Z pre-close readings and were deliberately NOT re-polled -- post-close quotes are stale and wide, and replacing good data with worse is the failure the post-close protocol names.",
+        "post_close_status": "Unchanged since the 2026-08-18 bell; 7th post-close reconcile. Trading day is still 2026-08-18 (03:19Z = 23:19 ET Tue) so no daily artifact was rolled: no heartbeat stamp, no brief rebuild, no loss-cap or entry-throttle reset."
       },
       "_inherited_deadlines": {
         "21_dte_management_review": "2026-08-21 (Fri) -- 2026-09-11 minus 21 days. This is THREE SESSIONS AWAY. Per the 2026-08-05 exit-method amendment the 21-DTE review is unconditional: a position flat or losing at 21 DTE is closed or rolled, never held into the accelerating theta/gamma window. At -5.34% of premium per day in theta this is the binding constraint on the position, not the strike.",
@@ -167,7 +167,7 @@
       "setup_invalidation": "RECONSTRUCTED BY THE 17:45Z RUN -- same caveat as the QQQ position: no written thesis, invalidation, or exit plan was committed by the placing run, so this is an INHERITANCE PLAN and not the entry's stated one. Bearish RBRK. Invalidate on RBRK closing above ~105 (it is 102.30 now and printing relative STRENGTH, so this is close). Break-even at expiry is RBRK 86.15, i.e. it needs a ~15.8% decline in 31 days.",
       "_current_state": {
         "_earnings_gate": "2026-08-27 pm earnings sits INSIDE the 2026-09-18 hold window. Standing preference: close before earnings unless earnings IS the thesis. RAISED WITH RYAN 2026-08-18; still awaiting his call. DECISION DEADLINE: close of WED 2026-08-26. No automated action taken.",
-        "last_checked_utc": "2026-08-19T02:19:00Z",
+        "last_checked_utc": "2026-08-19T03:19:00Z",
         "mark": 3.9,
         "bid": 3.6,
         "ask": 4.2,
@@ -189,8 +189,8 @@
         "pct_move_needed_to_breakeven": -15.17,
         "verdict": "HOLDING, unchanged and still the weaker of the two. Mark 3.90 = entry for an EIGHTH consecutive run; 76.2% IV props the premium while the underlying drifts the wrong way (+0.45% on a red tape). A 15.4%-of-mid market means an exit today nets about -$30 (-7.7%) before the thesis has been tested -- that spread is exactly why this position gets decided on its deadline, not on a flinch.",
         "binding_item": "Pre-earnings decision by the close of WED 2026-08-26 (2026-08-27 pm print). Awaiting Ryan's call; the 21-DTE review ~2026-08-28 lands AFTER the print, so earnings binds first.",
-        "_post_close_note": "SIXTH post-close reconciliation of the 2026-08-18 trading day (02:19Z / 22:19 ET). Position present at broker, matches ledger, zero drift. Marks/greeks above are still the 19:46Z pre-close readings and were deliberately NOT re-polled -- post-close quotes are stale and wide, and replacing good data with worse is the failure the post-close protocol names.",
-        "post_close_status": "Unchanged since the 2026-08-18 bell; 4th post-close reconcile, zero drift, all pending_* 0.0000. Trading day is still 2026-08-18 (00:20Z = 20:20 ET Tue) so no daily artifact rolled."
+        "_post_close_note": "SEVENTH post-close reconciliation of the 2026-08-18 trading day (03:19Z / 23:19 ET). Position present at broker, matches ledger, zero drift, all pending_* 0.0000. Marks/greeks above are still the 19:46Z pre-close readings and were deliberately NOT re-polled -- post-close quotes are stale and wide, and replacing good data with worse is the failure the post-close protocol names.",
+        "post_close_status": "Unchanged since the 2026-08-18 bell; 7th post-close reconcile. Trading day is still 2026-08-18 (03:19Z = 23:19 ET Tue) so no daily artifact was rolled: no heartbeat stamp, no brief rebuild, no loss-cap or entry-throttle reset."
       },
       "_inherited_deadlines": {
         "pre_earnings_decision": "HARD: decide by the close of 2026-08-26 (Wed), the session before the 2026-08-27 pm print. Under the standing 'prefer closing before earnings' preference this position should be closed or explicitly re-justified in writing before that print. This is the binding deadline on the position.",
