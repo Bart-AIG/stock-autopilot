@@ -11743,6 +11743,96 @@
     "realized_today_usd": 0.0,
     "entries_used_today": "0 of 3"
    }
+  },
+  {
+   "run_utc": "2026-08-19T14:26:00Z",
+   "run_local_et": "2026-08-19 10:26 ET",
+   "trading_day_et": "2026-08-19",
+   "run_type": "SECOND post-open run of the 2026-08-19 trading day (13:33Z, now 14:26Z). Market OPEN, live regular-hours quotes verified by updated_at 14:23-14:25Z.",
+   "market_state": "OPEN, 10:26 ET.",
+   "regime": "SEMIS/AI LIQUIDATION INSIDE A FLAT INDEX -- STILL NO VOL BID. The 13:33Z brief's 'RISK-ON BOUNCE' read inverted within 50 minutes: AVGO -5.62%, AMD -4.11%, NVDA -1.17%, TSM -0.80%, QQQ -0.54%, while SPY holds +0.31% and MSFT +0.41%. VIX 15.28, BELOW yesterday's 15.7. Brief amended in place (correction of the record, not a shock rebuild -- no stated shock trigger was actually met).",
+   "reconciliation": "ZERO DRIFT, ninth consecutive clean snapshot. 4 contracts at broker = 4 in ledger, all pending_* 0.0000. Portfolio $4,027.65 (equity $0 / options $1,917.00 / cash $2,110.65), buying power $2,110.65 fully settled, unsettled_funds $0.00 -- Law 4 not binding.",
+   "positions": [
+    {
+     "contract": "SPY 2026-11-20 700P",
+     "owner": "agentic (authorized hedge)",
+     "verdict": "WORKING AS DESIGNED",
+     "mark": 6.63,
+     "pnl": "-$86.00 / -11.48%",
+     "dte": 93,
+     "note": "Insurance-exempt from all premium backstops. Losing money on a day SPY is +0.31% is exactly what index insurance does in a tape that absorbs a sector liquidation. Next decision is the ~21-DTE roll/close WITH Ryan, ~2026-10-30."
+    },
+    {
+     "contract": "QQQ 2026-09-11 680P",
+     "owner": "agentic (monitoring mandate)",
+     "verdict": "WORKING",
+     "mark": 4.435,
+     "bid_ask": "4.41 x 4.46 (1.1% of mid)",
+     "pnl_mark": "+$38.50 / +9.51%",
+     "pnl_net_of_spread": "+$36.00 / +8.89%",
+     "dte": 23,
+     "note": "Swung from -11.7% at the 13:33Z check to +9.5% now, and on this chain the gain is real money. Nothing fired. Theta $22.96/day = 5.2% of remaining premium per day; needs a further -5.33% in 23 days to break even. Today helped delta, NOT vega -- QQQ 30d IV 0.1966 vs 0.1968 at the open. BINDING: 21-DTE review Friday 2026-08-21, after which the -50% level becomes a standing cut rather than a re-check. That review is the next required notification to Ryan."
+    },
+    {
+     "contract": "RBRK 2026-09-18 90P",
+     "owner": "agentic (monitoring mandate)",
+     "verdict": "THESIS MOVING, EXIT UNTRADEABLE",
+     "mark": 4.95,
+     "bid_ask": "3.50 x 6.40 (58.6% of mid -- WORSE than this morning's 27.2%)",
+     "pnl_mark": "+$105.00 / +26.92%",
+     "pnl_net_of_spread": "-$40.00 / -10.26%",
+     "dte": 30,
+     "note": "RBRK -3.95% to 96.58 is the first real down move since entry and closes the 20d-MA gap from 18.6% to 13.8%. But on 71 OI and 4 contracts traded all day, the mark is fiction: exiting at the bid nets -$40. Quote the NET, never the mark, on this chain. Still needs -11.94% in 30 days to break even. BINDING: pre-earnings decision by the close of 2026-08-26 (2026-08-27 pm print), awaiting Ryan."
+    }
+   ],
+   "grades_considered": [
+    {
+     "symbol": "AVGO",
+     "grade": "B",
+     "verdict": "SKIP -- four independent kills, any one sufficient",
+     "detail": "The one name with a genuine catalyst today: -5.62% to 358.63, now -16.2% off the 2026-08-07 high of 427.76, on the running AI-debt/AI-capex derating (BofA's $370B AI-debt flag, 2026-08-14). KILLS: (1) 2-of-2 SHORT-TECH THEME CAP -- structurally barred before merits are even weighed; (2) LAW 1 -- the 2026-09-18 360P is $20.83 mid = $2,083/contract, above the $1,500 per-trade max OUTRIGHT, and the debit spread that would fix it is unavailable at option_level_2; (3) EARNINGS 2026-09-02 inside any sensible hold window; (4) IV/RV 1.110, the RICHEST vol on the board -- the single name where a long put overpays most, on the one day everything else's vol is falling."
+    },
+    {
+     "symbol": "AMD",
+     "grade": "C",
+     "verdict": "SKIP",
+     "detail": "-4.11% to 464.50. Theme-capped. IV/RV 0.719 is genuinely cheap vs its own realized, but the 2026-09-18 460P at $25.90 mid = $2,590 is far above the per-trade max, and the market is 25.50 x 26.30 on a 5-wide strike ladder. No affordable expression."
+    },
+    {
+     "symbol": "QQQ",
+     "grade": "C",
+     "verdict": "SKIP",
+     "detail": "A second QQQ put would breach both the theme cap and the spirit of Law 3. The desk already owns this expression; today it worked."
+    },
+    {
+     "symbol": "NVDA / TSM",
+     "grade": "C",
+     "verdict": "SKIP",
+     "detail": "Theme-capped bearish. Bullish is worse: buying calls into an active AI-complex liquidation with IV falling is the trend-maturity gate's diverging-tape case, inverted."
+    },
+    {
+     "symbol": "GOOGL / INTC (from latest_morning.md RSI2 screen)",
+     "grade": "C",
+     "verdict": "SKIP",
+     "detail": "GOOGL RSI2 9.8 at 342.14 and INTC RSI2 7.2 at 92.79 are the affordable, liquid-chain longs on the report. Both fail 'why NOW': a marginal oversold print is not a catalyst, and both would mean buying tech calls on the day the AI complex is being liquidated."
+    },
+    {
+     "symbol": "HON / BA (non-tech RSI2 setups)",
+     "grade": "C",
+     "verdict": "SKIP",
+     "detail": "HON RSI2 4.0 at 225.51, BA 4.4 at 221.85 -- genuinely uncorrelated with the open book, which is their only virtue. Bare mean-reversion prints with no catalyst and no news driver; nothing answers 'what changed today'."
+    },
+    {
+     "symbol": "CRWD / DELL",
+     "grade": "C",
+     "verdict": "SKIP",
+     "detail": "Earnings-window skips: CRWD 2026-08-26, DELL 2026-09-03, both inside any 30-45 DTE hold."
+    }
+   ],
+   "action_taken": "NO TRADE. NO EXIT. Files updated (iv_history 8 names re-measured and overwritten, brief regime amended, holdings _current_state overwritten, this entry).",
+   "why_flat": "The vol read decides it before the theme cap even has to. IV FELL on six of eight core names on a day the semis complex dropped 4-6%, and VIX fell with it -- the fourth consecutive session of price moving with no vol response. Buying a directional single leg into that pays full theta for zero vega assist. And every expression of today's actual move is barred anyway by the 2-of-2 short-tech cap, which is doing its job on precisely the day it is most tempting to breach. Best grade on the board was B. B is a pass.",
+   "ryan_notified": "NO -- deliberately, per the monitoring mandate's dedup rule. Neither monitored position had a trigger fire or un-fire and neither recommendation changed; both simply moved favorably. Notifying on favorable drift is the 26-messages-a-day failure the mandate exists to prevent. Two specific temptations were declined: (a) QQQ swinging -11.7% -> +9.5% intraday is a swing, not a trigger; (b) RBRK's mark printing +26.9% is not a gain Ryan could realise -- net of a 58.6% spread it is -10.3%, so paging him on it would misinform. Next required notifications: the QQQ 21-DTE review Friday 2026-08-21, and the RBRK pre-earnings decision by the close of 2026-08-26.",
+   "duties": "Heartbeat already stamped for 2026-08-19 by the 13:33Z run -- not re-stamped. Brief owned by 13:33Z -- amended in place, not rebuilt. Daily EOD report is due on the first run at/after 19:25Z (14:25 CT); this run at 14:26Z is ~3 hours early and does NOT own it. Realized P&L today $0.00 vs the -$200 cap; 0 of 3 daily entries used."
   }
  ],
  "updated_utc": "2026-08-19T09:19:00Z"
