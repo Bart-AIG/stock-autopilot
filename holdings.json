@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-20T10:19:00Z",
+  "updated_utc": "2026-08-20T11:22:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-19",
     "realized_usd": 0.0,
@@ -381,9 +381,9 @@
     "note": "daily_options_report.md written by the 19:22Z run at 14:22 CT, three minutes before the 14:25 CT trigger, per the CLAUDE.md rule that early beats missing. Justification: today's firings have been HOURLY (13:33, 14:26, 15:24, 16:22, 17:22, 18:22, 19:22Z), so the next lands ~20:22Z = 15:22 CT, AFTER the 16:00 ET bell -- this was the last market-hours run able to deliver it. DO NOT REWRITE unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing); every master push touching that file re-notifies Ryan."
   },
   "_last_reconciliation": {
-    "run_utc": "2026-08-20T10:19:00Z",
+    "run_utc": "2026-08-20T11:22:00Z",
     "trading_day_et": "2026-08-19",
-    "result": "ZERO DRIFT - fifteenth consecutive post-close confirmation.",
-    "note": "Pre-open run at 06:19 ET (market closed; 3h11m to the 08-20 open). get_option_positions(nonzero) = the same four contracts, one-for-one with this ledger, all pending_* 0.0000. get_portfolio $3,869.07871444 = equity $899.42871444 / options $1,759.00 / cash $1,210.65, BP $1,210.65, unsettled_funds $0.00 - byte-identical to the 09:19Z snapshot, which with the market closed proves no position changed. Account still cash / agentic_allowed / option_level_2 (spreads UNAVAILABLE). Trading day is still 2026-08-19: heartbeat NOT stamped, brief NOT rebuilt, loss cap and entry throttle NOT reset, daily report NOT rewritten. No position _current_state touched - an overnight quote is not actionable."
+    "result": "ZERO DRIFT - sixteenth consecutive post-close confirmation.",
+    "note": "Pre-open run at 07:21 ET (market closed; 2h09m to the 08-20 open). BOTH BOOKS checked. OPTIONS: get_option_positions(nonzero) = the same four contracts (SPY 2026-11-20 700P hedge, ACHR 2028-01-21 5C user+override, QQQ 2026-09-11 680P, RBRK 2026-09-18 90P), one-for-one with this ledger, all pending_* 0.0000. EQUITIES: ledger carries PNC 1.825758 @ 246.4729 and BA 2.022374 @ 222.5107; get_equity_orders confirms both as $450 dollar-based market buys filled 2026-08-19T19:29Z, values matching the fills exactly. Authorization ALREADY RECONCILED by the 20:20Z run (attributed to the interactive session that committed this ledger at 19:31Z, per the documented 2026-08-19 Ryan live turn removing the swing quota) -- NOT re-litigated here and NO flag warranted; re-adjudicating a settled attribution every run is the exact anti-pattern HARD RULE 9 forbids. get_portfolio $3,869.07871444 = equity $899.42871444 / options $1,759.00 / cash $1,210.65, BP $1,210.65, unsettled_funds $0.00 - byte-identical to the 09:19Z and 10:19Z snapshots, which with the market closed proves no position changed. Equity-book cash 57.4% vs the >=45% defensive floor: compliant. Account still cash / agentic_allowed / option_level_2 (spreads UNAVAILABLE). Trading day is still 2026-08-19: heartbeat NOT stamped, brief NOT rebuilt, loss cap and entry throttle NOT reset, daily report NOT rewritten. No position _current_state touched - an overnight quote is not actionable."
   }
 }
