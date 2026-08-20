@@ -12880,6 +12880,26 @@
         "QQQ closed 710.95, BELOW its 50d 712.98 on a closing basis -- 20d 706.78 is the next confirming level for the put thesis.",
         "First run at/after 09:30 ET 08-21 stamps the heartbeat and rebuilds market_brief.json."
       ]
+    },
+    {
+      "run_utc": "2026-08-20T22:19:00Z",
+      "run_local_et": "2026-08-20 18:19 ET (Thu)",
+      "trading_day_et": "2026-08-20",
+      "run_type": "POST-CLOSE run #3 of this trading day (bell 20:00Z). Per the POST-CLOSE RUN PROTOCOL, the valuable post-close work is already done: the 20:20Z run did final reconciliation, wrote closing marks and WROTE/DELIVERED daily_options_report.md for 2026-08-20; the 21:19Z run re-reconciled and found zero drift. This run performs ONLY the one check always worth repeating -- broker reconciliation -- and stands down. No research task was invented to justify the run.",
+      "action": "NO TRADE, NO EXIT, NO ARTIFACT ROLL, NO NOTIFICATION. Reconciliation only; zero drift.",
+      "reconciliation": {
+        "get_accounts": "Agentic 718757339 confirmed: type=cash, agentic_allowed=true, option_level_2 (spreads remain UNAVAILABLE; the standing level-3 recommendation to Ryan is unchanged and deliberately NOT re-raised -- notify-once discipline), unsettled_funds $0.00.",
+        "get_option_positions": "4 open, unchanged from 21:19Z and matching holdings.json -- SPY 2026-11-20 700P (hedge, avg 7.49), ACHR 2028-01-21 5C (user-placed + manual_hold_override, avg 2.47), QQQ 2026-09-11 680P (agentic, avg 4.05), RBRK 2026-09-18 90P (agentic, avg 3.90). No overnight assignment, no expiration, no unauthorized fill, all pending_* quantities zero.",
+        "get_portfolio": "total $4,072.56 / equity $877.91 / options $1,984.00 / cash $1,210.65, buying_power $1,210.65 all settled. Unchanged from the prior post-close run."
+      },
+      "utc_rollover_guard": "Run is at 22:19Z, still 2026-08-20 by UTC AND by ET, so no rollover question arises tonight. Restating the rule for the next instance anyway: any run after the 16:00 ET bell belongs to the trading day whose bell just rang -- do NOT stamp automation_heartbeat.json, rebuild market_brief.json, or reset the -$200 daily loss cap / 3-entry throttle from a post-close run.",
+      "positions_standing_plans_unchanged": {
+        "QQQ 2026-09-11 680P (agentic)": "Working; closed the day at +24% area. UNCONDITIONAL 21-DTE management review lands TOMORROW 2026-08-21 -- the first market-hours run of Friday owns it. Bank-vs-ride recommendation has been with Ryan since 18:24Z; unchanged, so still SILENT under the per-position monitoring mandate.",
+        "RBRK 2026-09-18 90P (agentic)": "Working slowly. Binding deadline is the pre-earnings close/roll decision by the close of 2026-08-26.",
+        "SPY 2026-11-20 700P (hedge)": "Insurance -- exempt from all premium backstops. ~21-DTE roll/close decision WITH Ryan around 10-30.",
+        "ACHR 2028-01-21 5C (user)": "Ownership-gated (placed_agent=user) + manual_hold_override. Detect only; never act."
+      },
+      "tomorrow": "FRIDAY 2026-08-21: (1) weekly review is due -- source ALL P&L from the broker (get_realized_pnl + get_option_orders), never from this journal, and include the standing-preference DRIFT CHECK; (2) QQQ 680P 21-DTE review fires; (3) NVDA earnings 2026-08-26 sits inside the QQQ window and is the reason the ride case is not free."
     }
   ],
   "updated_utc": "2026-08-20T02:19:00Z"
