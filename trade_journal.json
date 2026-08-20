@@ -12561,6 +12561,55 @@
    "why_flat": "Market closed and the trading day already fully accounted for. Beyond that the structural picture is unchanged: 2 of 3 non-hedge slots used, the bearish-tech theme at its 2-of-2 cap, and long premium paying full theta while IV refuses to bid in either direction. The correct output of the Nth redundant pre-open firing is a cheap reconciliation and a short record.",
    "iv_note": "No IV rows logged - the market is closed and an ATM IV reading off a stale/pre-market chain would corrupt iv_history.json, which every future percentile calculation is computed from. The first post-open run logs the core list.",
    "next_run_owes": "The first firing at/after 09:30 ET Thursday 2026-08-20 owns, in order: (1) stamp automation_heartbeat.json for 2026-08-20 - but a pre-open firing must NOT stamp on arrival, re-verify the clock is at/after 09:30 ET first, exactly as the 13:33Z run on 08-19 did; (2) rebuild market_brief.json off live opening prints; (3) reset the realized-loss cap and the 3-entry throttle to the new trading day; (4) re-measure the RBRK 90P spread at the open, since the 23%-of-mid closing market exaggerates it and the exit math depends on the real spread; (5) log the core-list IV rows. TWO LIVE DEADLINES: the QQQ 680P 21-DTE management review lands FRIDAY 2026-08-21 (22 DTE today, 21 tomorrow), and the RBRK pre-earnings close/roll decision is HARD by the close of Wednesday 2026-08-26 ahead of the 08-27 pm print - that one must be BROUGHT to Ryan, not allowed to lapse into the print by default."
+  },
+  {
+   "run_utc": "2026-08-20T13:33:00Z",
+   "run_local_et": "2026-08-20 09:33 ET (Thu)",
+   "trading_day_et": "2026-08-20",
+   "run_type": "FIRST POST-OPEN run of the 2026-08-20 trading day. Owns the heartbeat stamp, the market_brief rebuild, the reset of the daily loss cap and the 3-entry throttle. Fired 13:26Z (09:26 ET, 4 min pre-open); did the non-quote prep first and stamped only once quotes carried updated_at 13:30:01Z+.",
+   "market_state": "OPEN. Live regular-hours quotes throughout.",
+   "regime": "MODEST RISK-OFF OPEN INSIDE AN INTACT UPTREND -- and, for the first time in five sessions, VOL IS BIDDING. SPY 766.15 (-0.38%), QQQ 712.89 (-0.45%), VIX 15.87 vs 15.28. 30d ATM IV rose on 8 of 9 tracked names. QQQ is sitting EXACTLY on its 50d (712.98) with its 20d at 706.78 beneath.",
+   "reconciliation": "ZERO DRIFT, BOTH BOOKS. Four option contracts matching holdings.json one-for-one, all pending_* 0.0000. Two equity positions (PNC 1.825758 @ 246.47, BA 2.022374 @ 222.51) matching to the share. get_option_orders since 2026-08-19: EMPTY. get_realized_pnl(option, 08-17..08-20): zero closing trades, $0 realized. get_portfolio $3,864.01 = equity $894.36 / options $1,759.00 / cash $1,210.65; BP $1,210.65, unsettled $0.00.",
+   "position_verdicts": {
+    "SPY 2026-11-20 700P (hedge, agentic, insurance-exempt)": "WORKING. 6.92 mark (6.90x6.94, 0.58% of mid), -$57.00 / -7.61%, from -14.82% at yesterday's close -- a $54 recovery as SPY opened lower and SPY 30d IV rose 0.1276->0.1315. DTE 92, theta -$9.15/day. No backstop applies. No tranche trigger, no test of the 746-748 shelf. Roll/close decision with Ryan ~2026-10-30.",
+    "QQQ 2026-09-11 680P (agentic, monitoring mandate)": "WORKING -- GREEN FOR THE FIRST TIME. 4.645 mark (4.52x4.77, 5.4% of mid), +$59.50 / +14.69%, flipped from -7.28% at the close. Both delta and vega paid. DTE 22, theta -$24.46/day = -6.04% of premium per day. Nothing fired (pop 7.29 / arm 6.08 / recheck 2.03 / backstop 1.42); written setup break still needs a QQQ CLOSE above ~730. peak_premium updated 4.435 -> 4.645.",
+    "RBRK 2026-09-18 90P (agentic, monitoring mandate)": "STALLED AND UNTRADEABLE. Mark 4.50 = +15.38% on paper, but the market is 3.90 x 5.10 (26.7% of mid, OI 75, zero volume today) so an exit at the bid returns exactly the 3.90 entry -- NET $0.00, not +$60. Nothing fired. Underlying 99.17 (-0.62%) vs a written invalidation at ~105 and a break-even of 85.70.",
+    "ACHR 2028-01-21 5C (user, manual_hold_override)": "UNTOUCHED BY POLICY. Ownership gate bars any action. The 1.79 x 4.35 opening market is auction noise, not a quote to read a P/L from."
+   },
+   "actions_taken": "NONE. No entry, no exit, no order of any kind.",
+   "why_flat": "Two independent reasons, either sufficient. (1) STRUCTURAL: the bearish-tech theme is at its 2-of-2 cap, so the one free position slot cannot be filled by the only directional view the desk currently holds. (2) JUDGEMENT: the single genuinely new fact this morning -- vol bidding after four sessions of refusing to -- is ONE OPENING PRINT taken 90 seconds into the session, and opening IV is routinely inflated by wide auction markets. Acting on it would be buying premium on a tick. It is enough to stop asserting vol is dead; it is not enough to trade.",
+   "grades_considered": {
+    "TSLA (weakest core name, -1.62%)": "C. No catalyst -- 'down 1.6% at the open' is not a thesis. And the apparent edge was an artifact: headline IV/RV 0.72 looked cheap, but 57.2% realized is driven by a single -15.69% earnings gap on 2026-07-23; ex-gap realized is 33.2% and the ratio flips to 1.24, i.e. RICH. The mechanical number was inviting exactly the wrong side of the trade.",
+    "MSFT (most extreme 'cheap vol' print on the board, IV/RV 0.52)": "C. Same artifact, worse. MSFT's 49.8% realized is almost entirely one +14.42% gap on 2026-07-30; ex-gap realized is 25.9% vs 26.1% implied, so premium is priced essentially FAIR (ratio ~1.01). Separately, the standing GLD lesson applies unchanged: proving a vehicle is cheap and liquid supplies no thesis whatsoever, and this run had none for MSFT.",
+    "NVDA (into the 2026-08-26 print)": "C. Standing preference is to close before earnings, not open into them, and 'earnings IS the thesis' does not apply -- the desk has no differentiated view on the quarter. The relevant NVDA exposure is already owned indirectly through the QQQ put.",
+    "Additional QQQ/SPY put (adding to the bearish index view)": "NOT GRADED ON MERIT -- barred outright by the 2-of-2 correlated-theme cap. Recorded so no future run mistakes silence here for the idea having been rejected on its quality.",
+    "Any bullish index call": "C. Would be paying premium to flatten a book the desk deliberately positioned bearish, five sessions ahead of Jackson Hole, into a hawkish-minutes tape. That is hedging a hedge, not a trade."
+   },
+   "notifications": "NONE SENT, and that is a deliberate call, not an omission. Under the 2026-08-18 monitoring mandate the silence rule fires only when a trigger fires or un-fires or the recommendation changes. On both monitored puts every level (pop / ratchet-arm / recheck / backstop) is unreached and the recommendation is still HOLD. The QQQ leg's -7.28% -> +14.69% swing is a large move but it is measured on a 90-second-old opening auction mark that can round-trip by 10:00, and paging Ryan on that is exactly the noise the rule prevents. If the gain holds into the afternoon, the 21-DTE review tomorrow is the natural moment to bring him the decision.",
+   "process_finding_worth_keeping": {
+    "title": "The iv_rv_ratio systematically lies for ~30 sessions after an earnings print, and it lies in the direction that invites bad trades.",
+    "measurement": "Dropping the two largest absolute daily moves from each 30-session window: SPY 1.06->1.23, QQQ 0.89->1.10, NVDA 1.03->1.14, AMD 0.71->0.84, TSM 0.89->1.26, AVGO 1.12->1.34, MSFT 0.52->1.01, TSLA 0.72->1.24, RBRK 1.20->1.40. Six of nine flipped from 'cheap' to 'fair-to-rich'; only AMD stayed below 1.0.",
+    "why_it_matters": "rv_30d is a 30-SAMPLE stdev, so one gap dominates it. Every core name printed earnings inside the current window. The desk's standing preference is to prefer IV/RV below 1.5 where history is thin -- which means the mechanical number has been quietly green-lighting premium that is not cheap.",
+    "honest_caveat": "Trimming the top two moves is itself crude and UNDERSTATES fat-tail risk; a future earnings gap is a real cost the option buyer bears. Neither figure is 'the' answer. Rule adopted: log both, and pick by whether the contract expires BEFORE the next print (use ex-gap) or SPANS it (use raw).",
+    "actions": "iv_history.json now carries rv_30d_ex_top2, iv_rv_ratio_ex_top2 and largest_1d_move_in_window_pct on every row. CLAUDE.md HARD RULE 8 gained a bullet stating the rule at file level.",
+    "meta_lesson": "The 2026-08-13 LIN row caught this exact artifact on ONE name and nobody generalized it, so five later runs kept citing raw ratios. A lesson recorded only against a single ticker does not survive the relay -- promote it to CLAUDE.md or it dies in the file it was written in."
+   },
+   "sleeve_state": {
+    "agentic_premium_at_risk_usd": 1544,
+    "open_agentic_positions": "2 of 3 (hedge excluded)",
+    "theme": "bearish tech 2 of 2 -- CAPPED",
+    "settled_cash_usd": 1210.65,
+    "entries_today": "0 of 3",
+    "realized_pnl_today_usd": 0.0,
+    "daily_loss_cap_usd": -200,
+    "option_level": "option_level_2 -- debit spreads UNAVAILABLE, never leg one"
+   },
+   "deadlines_carried_forward": {
+    "QQQ 21-DTE management review": "2026-08-21 (TOMORROW). Unconditional. Note the framing has improved: the rule closes or rolls a position FLAT OR LOSING at 21 DTE, and this one is now winning -- so tomorrow is bank-or-hold, not a forced exit. Against holding: -6.04%/day theta. For holding: NVDA earnings (08-26 pm) and Jackson Hole (08-27) both land inside the contract's remaining life, which is the entire reason to own it.",
+    "RBRK pre-earnings decision": "HARD, by the close of 2026-08-26. Earnings 2026-08-27 pm re-confirmed by independent web search this run. Frame it honestly for Ryan: this contract has never been sellable at its mark, so 'take the +15%' is not a real option -- the actual choice is a roughly FLAT exit versus carrying a 78%-IV put through a print.",
+    "SPY hedge roll/close with Ryan": "~2026-10-30 (21 DTE on the 2026-11-20 expiry)."
+   },
+   "next_run_should": "Re-measure the core-list IV in the afternoon and OVERWRITE today's iv_history rows per the IV method. If the vol bid does NOT hold, say so plainly rather than letting this morning's headline stand. Do not rebuild market_brief.json absent a genuine shock. The EOD report belongs to the first run at or after 14:25 CT (19:25Z) -- write it then, do not defer for a 'better' slot."
   }
  ],
  "updated_utc": "2026-08-20T02:19:00Z"
