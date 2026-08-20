@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-20T20:20:00Z",
+  "updated_utc": "2026-08-20T23:19:00Z",
   "_realized_options_pnl_today": 0.0,
   "positions": [
     {
@@ -408,8 +408,10 @@
     "note": "daily_options_report.md written by the 20:18Z POST-CLOSE run at 15:20 CT. The 19:21Z run landed four minutes before the 14:25 CT window and correctly deferred; this is the first eligible run. Contents: closing marks on all four contracts, the +$224.50 book MTM day, the morning 'vol is bidding' call being proven wrong by the afternoon re-measure, nine skipped candidate groups with reasons, and the QQQ bank-vs-ride decision for Ryan in Section 5 ahead of TOMORROW's unconditional 21-DTE review. DO NOT REWRITE unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing) -- every master push touching this file re-notifies Ryan."
   },
   "_last_reconciliation": {
-    "utc": "2026-08-20T20:20:00Z",
-    "result": "ZERO DRIFT, BOTH BOOKS. Post-close final reconciliation for the 2026-08-20 trading day.",
-    "detail": "get_option_positions(nonzero)=4 (SPY 700P hedge, ACHR 5C user-LEAP, QQQ 680P, RBRK 90P) matching holdings.json one-for-one, all pending_* 0.0000 -- no assignment, exercise, expiration or unauthorized fill. get_option_orders(created_at_gte=2026-08-20T00:00Z)=EMPTY for the whole trading day: zero orders placed, $0.00 realized, so the -$200 daily cap never bound and the entry throttle closed the day at 0 of 3. get_portfolio total $4,071.17 = equity $876.52 / options $1,984.00 / cash $1,210.65; buying_power $1,210.65, unsettled_funds $0.00 -> FOUR LAWS #4 not binding. Agentic premium-at-risk $1,544 ($749 insurance-exempt hedge + $405 QQQ + $390 RBRK), unrealized +$154 at mark. Hedge excluded -> 2 of 3 non-hedge slots used, bearish-tech at its 2-of-2 theme cap. Options book gained $224.50 in mark-to-market on the day (QQQ put +$113, SPY hedge +$91, RBRK put +$50, ACHR -$29.50) with zero orders placed."
+    "run_utc": "2026-08-20T23:19:00Z",
+    "trading_day_et": "2026-08-20",
+    "result": "ZERO DRIFT. 4 open option positions match the broker exactly (SPY 700P hedge, ACHR 5C user-placed, QQQ 680P agentic, RBRK 90P agentic). No assignment, expiration, or unauthorized fill. All pending_* quantities zero.",
+    "portfolio": "total $4,072.72 / equity $878.07 / options $1,984.00 / cash $1,210.65 (all settled)",
+    "note": "Post-close run #4 of this trading day; reconciliation only per the POST-CLOSE RUN PROTOCOL. No daily artifact rolled, no report rewrite, no notification."
   }
 }
