@@ -1,6 +1,6 @@
 {
  "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
- "updated_utc": "2026-08-20T07:21:00Z",
+ "updated_utc": "2026-08-20T08:19:00Z",
  "_realized_options_pnl_today": {
   "trading_day_et": "2026-08-19",
   "realized_usd": 0.0,
@@ -381,9 +381,9 @@
   "note": "daily_options_report.md written by the 19:22Z run at 14:22 CT, three minutes before the 14:25 CT trigger, per the CLAUDE.md rule that early beats missing. Justification: today's firings have been HOURLY (13:33, 14:26, 15:24, 16:22, 17:22, 18:22, 19:22Z), so the next lands ~20:22Z = 15:22 CT, AFTER the 16:00 ET bell -- this was the last market-hours run able to deliver it. DO NOT REWRITE unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing); every master push touching that file re-notifies Ryan."
  },
  "_last_reconciliation": {
-  "run_utc": "2026-08-20T07:21:00Z",
+  "run_utc": "2026-08-20T08:19:00Z",
   "trading_day_et": "2026-08-19",
-  "result": "ZERO DRIFT (12th consecutive post-close confirmation). 4 option positions match the ledger one-for-one; all pending_* = 0.0000; unsettled_funds $0.00. Portfolio $3,869.22 = equity $899.57 / options $1,759.00 / cash $1,210.65; BP $1,210.65. The -$0.38 vs 06:22Z is PNC/BA extended-hours mark drift only.",
+  "result": "ZERO DRIFT (13th consecutive post-close confirmation). 4 option positions match the ledger one-for-one; PNC/BA equity positions match; all pending_* = 0.0000; unsettled_funds $0.00. Portfolio $3,869.08 = equity $899.43 / options $1,759.00 / cash $1,210.65; BP $1,210.65. The -$0.14 vs 07:21Z is PNC/BA extended-hours mark drift only; cash and options_value identical to the cent.",
   "note": "Post-close stand-down. No _current_state overwritten - the 20:20Z closing marks remain the authoritative snapshot; overnight quotes are not actionable and were not polled."
  }
 }
