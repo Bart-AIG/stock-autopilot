@@ -1,6 +1,6 @@
 {
  "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
- "updated_utc": "2026-08-20T00:19:00Z",
+ "updated_utc": "2026-08-20T03:19:00Z",
  "_realized_options_pnl_today": {
   "trading_day_et": "2026-08-19",
   "realized_usd": 0.0,
@@ -381,7 +381,7 @@
   "note": "daily_options_report.md written by the 19:22Z run at 14:22 CT, three minutes before the 14:25 CT trigger, per the CLAUDE.md rule that early beats missing. Justification: today's firings have been HOURLY (13:33, 14:26, 15:24, 16:22, 17:22, 18:22, 19:22Z), so the next lands ~20:22Z = 15:22 CT, AFTER the 16:00 ET bell -- this was the last market-hours run able to deliver it. DO NOT REWRITE unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing); every master push touching that file re-notifies Ryan."
  },
  "_last_reconciliation": {
-  "run_utc": "2026-08-20T00:19:00Z",
-  "result": "ZERO DRIFT on both books; identical to the 20:20Z/21:18Z/22:18Z/23:19Z snapshots. 4 option contracts match one-for-one, all pending_* 0.0000. Equity book PNC + BA matches the ledger (interactive-session batch, Ryan-approved, committed 19:31Z \u2014 not this automation, no flag). get_portfolio total $3,869.54 (equity $899.89 / options $1,759.00 / cash $1,210.65), buying power $1,210.65, unsettled_funds $0.00 \u2014 the $0.06 delta vs 23:19Z is an equity mark tick. Realized options P&L today FINAL $0.00 vs the -$200 cap; entry throttle 0 of 3. FIFTH post-close run of the 2026-08-19 trading day; UTC date rolled to 08-20 but the trading day did not \u2014 no daily artifact rolled, heartbeat deliberately left at 2026-08-19."
+  "run_utc": "2026-08-20T03:19:00Z",
+  "result": "ZERO DRIFT on both books; identical to the 20:20Z/21:18Z/22:18Z/23:19Z/00:19Z snapshots. 4 option contracts match one-for-one, all pending_* 0.0000. get_option_orders since 2026-08-19T00:00Z returns ZERO orders in any state - no overnight assignment, expiration or unauthorized fill. Equity book PNC + BA matches the ledger (interactive-session batch, Ryan-approved, committed 19:31Z - not this automation, no flag). get_portfolio total $3,869.44 (equity $899.79 / options $1,759.00 / cash $1,210.65), buying power $1,210.65, unsettled_funds $0.00 - the $0.10 delta vs 00:19Z is an equity mark tick. Realized options P&L today FINAL $0.00 vs the -$200 cap; entry throttle 0 of 3. EIGHTH post-close run of the 2026-08-19 trading day; UTC date is 2026-08-20 but the trading day did not roll - no daily artifact rolled, heartbeat deliberately left at 2026-08-19."
  }
 }
