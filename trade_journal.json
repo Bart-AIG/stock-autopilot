@@ -12724,6 +12724,65 @@
    "ledger_updates": "Overwrote _current_state on all four option positions with the 16:20Z quote snapshot; updated updated_utc and _notify_state.last_checked_utc on QQQ and RBRK. Peaks unchanged (QQQ 4.795, RBRK 4.55).",
    "eod_report_status": "Not yet due. First run at/after 14:25 CT (19:25 UTC) writes the daily_options_report.md; this run is 11:24 CT (16:24 UTC), ~3h too early. Do NOT rewrite the file this run -- the last write from earlier today already committed and any duplicate commit sends Ryan another notification for the same content.",
    "one_liner": "Silent hold, ~3h into session. QQQ 680P +16.67% net (peak 4.795 stays, gave back 1.5% of premium as QQQ stabilised at the lower level); RBRK 90P mark +14.1% but net finally walked to +7.7% as the bid moved 4.00->4.20; SPY hedge -6.68% and closing the loss. Nothing on any ladder fired; theme cap and QQQ's 21-DTE review tomorrow both argue against opening a fresh position today."
+  },
+  {
+   "run_utc": "2026-08-20T17:24:00Z",
+   "run_local_et": "2026-08-20 13:24 ET (Thu)",
+   "trading_day_et": "2026-08-20",
+   "run_type": "market_hours_check (5th hour, ~3h54m into session). NOT the EOD-report run -- that duty belongs to the first run at/after 15:25 ET (14:25 CT) and this run is ~2h early; it did not pre-empt it.",
+   "market_state": {
+    "SPY": "764.88 (-0.54%), softening through the session (766.15 open -> 766.11 at 15:24Z -> 765.49 at 16:24Z -> 764.88 now). Still +0.67% over the 20d 759.77 and +1.9% over the 50d 750.43. No tranche trigger (718/680/633); the 746-748 defensive early-warning shelf is 2.4% below and untested.",
+    "QQQ": "711.01 (-0.71%). Now clearly BELOW the 50d 712.98 it was sitting exactly on at the open -- the brief called that 'the single most actionable level on the board today' and the tape has resolved it downward. 20d 706.78 is the next confirming level. Setup break (~730 CLOSE) untouched.",
+    "IWM": "297.41 (-1.43%) -- the weakest board and DETERIORATING (was -1.10% at 15:24Z). Small caps leading down is a genuine broadening of the risk-off, not the selective rotation yesterday's tape showed.",
+    "semis_still_split": "TSM 414.68 (+0.63%) and AVGO 362.98 (+0.14%) GREEN; NVDA 216.30 (-0.58%), AMD 462.54 (-0.83%), INTC 92.13 (-0.72%), MSFT 482.11 (-0.45%), TSLA 342.80 (-2.37%). This still is NOT the semis-wide breakdown that would un-fire the standing QQQ close recommendation's 'unless' clause.",
+    "other": "XLF 57.30 (-0.31%) -- yesterday's 'XLF opening green and holding' trigger for a bank setup has NOT fired. GLD 413.46 (-0.09%) flat. XLE 64.03 (+0.70%) green but energy is the de-emphasized sector and one green day is not a catalyst.",
+    "vix_context": "Last read 15.87 at the 13:33Z stamp. No shock (no index broke a brief level to the downside beyond the anticipated QQQ 50d loss, no VIX +15% move), so NO brief refresh warranted."
+   },
+   "reconciliation": "ZERO DRIFT. get_option_positions(nonzero)=4 matching the ledger one-for-one, all pending_* 0.0000. get_option_orders since 2026-08-20T00:00Z=EMPTY -- this doubles as the mandatory CONCURRENT-RUN check (no sibling run placed an entry this slot) and confirms $0 realized today. get_portfolio $3,994.51 = equity $882.86 / options $1,901.00 / cash $1,210.65; BP $1,210.65, unsettled $0.",
+   "action": "NO TRADE, NO EXIT. Silent monitoring per the 2026-08-18 mandate.",
+   "position_verdicts": {
+    "QQQ_680P_agentic": "WORKING, +15.43% at mark 4.675 (bid 4.65 x ask 4.70, 1.07% spread) = +$60 net at the bid, a real exit price. Peak 4.795 held; give-back only 2.5% of peak, ratchet unarmed (6.08). NOTHING FIRED. QQQ lost the 50d this session, which CONFIRMS the bearish premise. Binding item is TOMORROW's unconditional 21-DTE review, not a ladder level.",
+    "RBRK_90P_agentic": "STALLED. Mark 4.45 flat for three hours; market 4.20 x 4.70 (11.2%, zero volume, OI 75) so the honest figure is +$30 net-at-bid, not +$55 at mark. Underlying 98.50 (-1.28%). NOTHING FIRED. Binding deadline: pre-earnings decision by the close of 2026-08-26.",
+    "SPY_700P_hedge": "WORKING. Mark 7.01, -$48 / -6.41% -- best mark since entry. Insurance-exempt from all backstops. Roll/close decision WITH Ryan ~2026-10-30.",
+    "ACHR_5C_user": "Ownership-gated + manual_hold_override. Monitored only, no action possible."
+   },
+   "deviation_from_standing_plan": "NONE. The standing plan on QQQ (2026-08-19 EOD Section 5: 'close on Thursday or Friday unless semis extend to NVDA/index') is followed, not overridden. Its 'unless' clause has not fired -- semis are split with TSM and AVGO green. The plan permits Thursday OR Friday, and the position is under a MONITOR + RECOMMEND + ASK mandate, so this run cannot execute the close on its own authority regardless; the correct action is to carry the recommendation to Ryan via today's EOD report and tomorrow's 21-DTE review run, which is what is happening.",
+   "hunt": {
+    "verdict": "PASS -- no A+ setup. No candidate graded above B.",
+    "slots": "1 of 3 non-hedge slots free, but it is theme-constrained: bearish-tech is at its 2-of-2 cap (QQQ + RBRK), so any new position must be a genuinely different theme.",
+    "candidates_considered": {
+     "IWM puts (bearish small-cap, the weakest board at -1.43%)": "GRADE B, PASS. The technical read is the most honest bearish signal on the tape today, but it fails the theme test in substance even though it passes it in name: the book already carries SPY 700P + QQQ 680P, so a third short-beta index leg is stacking the same macro bet under a different ticker, not diversifying it. Sizing a 4th correlated short into $1,210 settled cash days before NVDA (08-26 pm) and Jackson Hole (08-27) is not what the slot is for.",
+     "Committed equity report 17:03Z intraday -- RSI2 oversold list (CRWD 1.2, EMR 1.8, ALAB 2.1, USB 2.5, PANW 2.7, SBUX, C, NUE, MS, ARM, ETN, NET, UNH, DELL, ROST, BE, COF, GEV, TKR, TSEM)": "GRADE B/C, PASS as a group. These are BULLISH mean-reversion setups and buying calls on them would fight both today's broadening risk-off and the desk's own bearish book. Several carry earnings inside any plausible hold window (CRWD 08-26, PANW 09-01, DELL 09-01, ROST today) which is a standing no-entry. The rest are mid-caps whose chains are too thin to trade at this size -- the exact sourcing trap CLAUDE.md's 2026-08-14 liquidity fix was written to stop, so they were killed on tape+chain before any thesis workup.",
+     "Bullish index/mega-cap calls (the affordable tier: QQQ, SPY, NVDA, INTC, MSFT)": "GRADE C, PASS. No trigger firing NOW -- these are drifting lower, not reversing, and 'the tape is down so buy the dip' is not a catalyst. Buying calls would also directly hedge away the two puts the desk is being paid on today.",
+     "XLE / energy (only green sector, +0.70%)": "GRADE C, PASS. One green session is not a catalyst, there is no fresh news driver, and the standing sector steer de-emphasizes oil energy.",
+     "GLD (flat, -0.09%)": "GRADE C, PASS. No trigger; vol unremarkable; nothing changed today."
+    },
+    "why_flat": "Two independent reasons, either sufficient. (1) STRUCTURAL: the only free slot is barred to bearish-tech, and the honest bearish expressions available today (IWM, index puts) are the same macro bet the book already owns twice over. (2) NO 'WHY NOW': nothing on the board has a trigger firing today that isn't already owned. The desk is ALREADY positioned for exactly the tape that is printing -- QQQ losing its 50d is the bearish thesis working, and the right response to a thesis working is to manage the winner into tomorrow's review, not to add a fourth correlated leg with the week's two biggest catalysts (NVDA 08-26, Jackson Hole 08-27) still ahead."
+   },
+   "iv_note": "Core-list IV rows for 2026-08-20 were logged by the 13:33Z run and are unchanged (no re-measure needed; the file already carries both raw and ex-top2 ratios per the CLAUDE.md correction). Worth carrying forward for the 08-26 RBRK decision: RBRK ATM IV 77.88%, IV/RV 1.20 raw but 1.40 EX-TOP-2 -- i.e. the raw ratio is flattered by a -9.11% single-day gap inside the window, and on the honest read RBRK premium is already RICH before the usual pre-print vol bid. That strengthens the sell-into-the-bid case on 08-26.",
+   "sleeve_state": {
+    "open_agentic_positions": 2,
+    "max": 3,
+    "theme": "bearish-tech 2/2 (capped)",
+    "premium_at_risk_agentic_usd": 795,
+    "hedge_premium_usd": 749,
+    "settled_cash_usd": 1210.65,
+    "unsettled_usd": 0,
+    "realized_pnl_today_usd": 0,
+    "daily_loss_cap_usd": -200,
+    "entries_today": 0,
+    "max_entries_per_day": 3,
+    "open_pnl_agentic_at_mark_usd": 117.5,
+    "open_pnl_agentic_net_at_bid_usd": 90.0
+   },
+   "duties": {
+    "heartbeat": "Already stamped 2026-08-20T13:33:00Z by the first post-open run. Not re-stamped.",
+    "brief": "Built 13:33:00Z today. No shock trigger; not refreshed.",
+    "iv_logging": "Core list + RBRK logged today by the 13:33Z run; rows verified present, not rewritten.",
+    "eod_report": "NOT DUE THIS RUN (due first run at/after 15:25 ET). daily_options_report.md deliberately left untouched -- rewriting it re-notifies Ryan for nothing."
+   },
+   "notified": false,
+   "notify_reason": "Silence rule (2026-08-18 mandate). No trigger fired or un-fired on either monitored position, no recommendation changed, and nothing material moved. At ~26 runs/day an un-deduped watch destroys the mandate's purpose; the EOD report and tomorrow's 21-DTE review are the scheduled places this reaches Ryan."
   }
  ],
  "updated_utc": "2026-08-20T02:19:00Z"
