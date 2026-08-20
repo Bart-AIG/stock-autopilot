@@ -12858,6 +12858,28 @@
         "WED 2026-08-26 close: RBRK pre-earnings decision binds before the 08-27 pm print. Re-measure IV/RV at that point -- vol bids into a print, so a rising ratio argues for selling premium before the crush.",
         "WED 2026-08-26 pm: NVDA earnings sit INSIDE the QQQ 680P window and are the largest scheduled variance event for it."
       ]
+    },
+    {
+      "run_utc": "2026-08-20T21:19:00Z",
+      "run_local_et": "2026-08-20 17:19 ET (Thu)",
+      "trading_day_et": "2026-08-20",
+      "run_type": "POST-CLOSE run #2 of this trading day (bell rang 20:00Z). Per the POST-CLOSE RUN PROTOCOL in CLAUDE.md, the FIRST post-close run is the valuable one and it already ran at 20:20Z: it did final reconciliation, wrote closing marks, and WROTE AND DELIVERED daily_options_report.md for 2026-08-20. This run therefore performs only the one check always worth repeating -- broker reconciliation -- and stands down.",
+      "action": "NO TRADE, NO EXIT, NO ARTIFACT ROLL. Reconciliation only; zero drift found.",
+      "reconciliation": {
+        "get_accounts": "Agentic 718757339 confirmed: type=cash, agentic_allowed=true, option_level_2 (spreads still UNAVAILABLE -- level-3 recommendation still standing with Ryan, unchanged, not re-raised), unsettled_funds $0.00.",
+        "get_option_positions": "4 open, EXACTLY matching holdings.json -- SPY 2026-11-20 700P (hedge, avg 7.49), ACHR 2028-01-21 5C (user-placed + manual_hold_override, avg 2.47), QQQ 2026-09-11 680P (agentic, avg 4.05), RBRK 2026-09-18 90P (agentic, avg 3.90). No overnight assignment, no expiration, no unauthorized fill, no pending_* quantities.",
+        "get_portfolio": "total $4,072.48 | equity $877.83 | options $1,984.00 | cash $1,210.65 | buying_power $1,210.65, all settled (unsettled $0).",
+        "drift": "NONE. Ledger and broker agree on every contract and every entry premium."
+      },
+      "daily_artifacts": "NOT rolled, correctly. automation_heartbeat.json is stamped 2026-08-20 (13:33Z) for the trading day that just ended; market_brief.json stays dated to the day it describes; the -$200 realized-loss cap and the 3-entry throttle stay on the 2026-08-20 trading day. Per the UTC rule, 'today' remains 2026-08-20 until the 09:30 ET open on 08-21 -- and the UTC date has not even rolled yet, so there was no ambiguity to resolve this run.",
+      "positions_status": "Unchanged from the 20:20Z close snapshot; market is closed so no mark can move and no exit is placeable. QQQ 680P and RBRK 90P both working; SPY 700P hedge insurance-exempt; ACHR barred by the ownership gate.",
+      "notifications": "NONE SENT. Nothing fired, nothing un-fired, no recommendation changed since the QQQ bank-vs-ride note already standing with Ryan since 18:24Z, and the EOD report was delivered an hour ago. Per the monitoring mandate's silence discipline, a quiet post-close no-op is exactly the case where a push would be pure noise.",
+      "next_run_watchpoints": [
+        "2026-08-21: QQQ 2026-09-11 680P hits its 21-DTE management review -- roll/close decision required, and per the monitoring mandate it is RECOMMENDED to Ryan, not executed (hard backstops remain the only self-executing exit).",
+        "2026-08-26 close: RBRK 2026-09-18 90P pre-earnings decision deadline.",
+        "QQQ closed 710.95, BELOW its 50d 712.98 on a closing basis -- 20d 706.78 is the next confirming level for the put thesis.",
+        "First run at/after 09:30 ET 08-21 stamps the heartbeat and rebuilds market_brief.json."
+      ]
     }
   ],
   "updated_utc": "2026-08-20T02:19:00Z"
