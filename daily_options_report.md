@@ -1,99 +1,114 @@
-# Daily Options Report — Wednesday, 2026-08-19
+# Daily Options Report — Thursday, 2026-08-20
 
-*Agentic account (cash, ••••7339). Written at 14:22 CT / 19:22 UTC — three minutes before the usual 14:25 CT slot, deliberately. Today's automation fired hourly (13:33, 14:26, 15:24, 16:22, 17:22, 18:22, 19:22 UTC), so the next run lands after the 4:00 PM ET bell. This is the last run of the day that can deliver this, and the playbook says early beats missing.*
+*Agentic account (cash, ••••7339). Written after the 4:00 PM ET bell, at 15:20 CT / 20:20 UTC. Today's automation fired at 13:26, 13:33, 15:24, 16:24, 17:24, 18:24, 19:21 and 20:18 UTC. The 19:21Z run landed four minutes before the 14:25 CT report window, so this post-close run is the first one eligible — and it writes it rather than waiting for a tidier slot.*
 
-**One-line summary: no trades today — the fourth straight flat day — and the day's most useful finding is that this desk was reading the tape wrong until the last hour. There is one decision that needs you, on the QQQ put, and it's in Section 5. Realized P/L today: $0.00.**
+**One-line summary: no trades again today — the fifth straight flat day — but the book made money doing nothing: the options sleeve gained $224.50 in mark-to-market on the day, and QQQ finally closed below the line the desk has been watching all week. Realized P/L today: $0.00. There is one decision that needs you, on the QQQ put, and it binds at tomorrow's open.**
 
 ---
 
 ## 1. What we own
 
-| Contract | Placed by | Entry | Mark now | P/L (mark) | Realistic exit | DTE | Status |
+| Contract | Placed by | Entry | Close mark | P/L at mark | Realistic exit (at bid) | DTE | Status |
 |---|---|---|---|---|---|---|---|
-| QQQ 2026-09-11 680P | you (via a live agent session) | $4.05 | $3.58 | −$47.00 / −11.60% | −$49 at the bid | 23 | Stalled — see §5 |
-| RBRK 2026-09-18 90P | you (via a live agent session) | $3.90 | $4.00 | +$10.00 / +2.56% | **−$10** at the bid | 30 | Stalled |
-| SPY 2026-11-20 700P | agentic (authorized hedge) | $7.49 | $6.37 | −$112.00 / −14.95% | −$113 at the bid | 93 | Working as designed |
-| ACHR 2028-01-21 5C | **you, in-app** | $2.47 | $3.125 | **+$65.50 / +26.52%** | +$58 at the bid | 521 | Untouched — yours |
+| QQQ 2026-09-11 680P | agentic | $4.05 | **$4.89** | **+$84.00 / +20.74%** | **+$78.00** | 22 | Working — **decision due, see §5** |
+| RBRK 2026-09-18 90P | agentic | $3.90 | **$4.80** | **+$90.00 / +23.08%** | **+$80.00** | 29 | Working |
+| SPY 2026-11-20 700P | agentic (authorized hedge) | $7.49 | $7.29 | −$20.00 / −2.67% | −$22.00 | 92 | Insurance, best mark since entry |
+| ACHR 2028-01-21 5C | **you, in-app** | $2.47 | $2.855 | +$38.50 / +15.59% | +$34.00 | 519 | Untouched — yours |
 
 **Why we own each one, in plain terms:**
 
-- **QQQ 680P** — a bet the Nasdaq falls. It only pays if QQQ is below **676.42** on Sept 11, which is **5.68% below** today's 717.19. It costs **$20.64 a day** in time decay — that's 5.8% of what's left in it, every single day.
-- **RBRK 90P** — the same bet on Rubrik. Needs RBRK below **86.00**, a **14.5%** drop, within 30 days. It decays slower ($11.77/day) and has a week more time, which makes it the more patient of the two.
-- **SPY 700P** — your authorized portfolio insurance. It is *supposed* to lose money while the market is calm. A −14.95% mark on a hedge in a firm market is the policy working, not a position going wrong. It is exempt from every automatic stop and the only decision on it is a roll-or-close conversation with you around **October 30**.
-- **ACHR 5C** — your own trade, placed in the app. The desk is barred from touching it. It's your best position, up 26.5%.
+- **QQQ 680P** — a bet the Nasdaq falls. It pays only if QQQ is below **675.11** on Sept 11, which is **5.04% below** today's 710.95 close. It costs **$25.24 a day** in time decay — **5.2% of everything left in it, every single day.** That decay number is the whole argument in Section 5.
+- **RBRK 90P** — the same bet on Rubrik, which reports earnings **next Thursday, 8/27**. It needs RBRK below **85.20** (a 12.6% drop) by Sept 18. It decays at $12.58/day — half the QQQ burn — and has a week more time, which is why it is the more patient of the two.
+- **SPY 700P** — your authorized portfolio insurance from the Aug–Oct drawdown watch. It is *supposed* to bleed while the market is calm, and today it did the opposite: it gained $91 as SPY fell. A −2.67% mark on a hedge two weeks in is the policy doing its job cheaply. Exempt from every automatic stop; the only decision on it is a roll-or-close conversation with you around **October 30**.
+- **ACHR 5C** — your own trade, placed in the app, with a hold override on it. The desk is barred from touching it and does not re-litigate it. Down $29.50 today, still up 15.6% overall.
 
-**One number worth internalizing on RBRK:** the mark says +$10, but the market is 3.80 bid / 4.20 ask — a **10%-wide spread on 71 open contracts, with 4 traded all day.** If we sold right now we'd get the bid and *lose* $10. On a thin chain the "profit" on your screen isn't money until someone pays for it. That gap is why this desk screens liquidity before it screens ideas.
+**The day's mark-to-market, position by position:** QQQ put **+$113**, SPY hedge **+$91**, RBRK put **+$50**, ACHR **−$29.50**. Net **+$224.50** on a day the desk placed zero orders. This is what it looks like when a book is already positioned for the tape that shows up — and it is the reason Section 4's "why we stayed flat" is not an apology.
 
 ---
 
 ## 2. Actions taken today
 
-**None.** No order was placed, modified, or cancelled. Broker confirms zero option orders of any state on 2026-08-19. Realized P/L $0.00 against the −$200 daily cap; 0 of 3 daily entries used.
+**None. No orders were placed, modified, or cancelled.** `get_option_orders` for the trading day returns empty, realized P/L is **$0.00**, and the broker's position list matches the ledger one-for-one on all four contracts with every pending field at zero — so no assignment, exercise, expiration, or unauthorized fill occurred.
 
-Every position was checked against the exit engine at all six runs. **Not one trigger fired, in either direction** — no profit level, no loss level, no setup break. Here's how far each one is from anything happening:
-
-| Position | Sell-for-profit level | Re-check level | Hard auto-sell floor | Mark now |
-|---|---|---|---|---|
-| QQQ 680P | 7.29 | 2.03 | 1.42 | **3.58** |
-| RBRK 90P | 7.02 | 1.95 | 1.37 | **4.00** |
-
-Both sit comfortably in the dead zone between. There was genuinely nothing to do.
+One **notification** was issued, at 18:24 UTC (1:24 PM ET), when the QQQ put spiked to +27.8% intraday: a bank-versus-ride recommendation handed to you for decision. It was deliberately **not** re-sent on the 19:21Z or 20:18Z runs — the recommendation had not changed, and re-pinging you every 15 minutes about an unchanged situation is how a monitoring mandate turns into noise you stop reading.
 
 ---
 
-## 3. What I got wrong today, and the correction
+## 3. What the market actually did — and where the desk was wrong this morning
 
-This is the most useful thing in today's report, so I'm putting it before the candidate list.
+| | Close | Day |
+|---|---|---|
+| SPY | 762.65 | −0.83% |
+| QQQ | 710.95 | −0.72% |
+| IWM (small caps) | 297.68 | −1.34% |
+| RBRK | 97.49 | −2.29% |
 
-At 17:22 and 18:22 UTC this desk labelled the tape **"breadth deterioration — narrowing participation beneath a flat index"** and called it the late-cycle setup the August–October defensive posture was written to anticipate. The evidence looked strong: eighteen names printing RSI(2) under 10 across four unrelated sectors while the S&P was *up*.
+**The one level that mattered resolved.** QQQ opened sitting *exactly* on its 50-day average (712.98) — the brief called that "the single most actionable level on the board today." It **closed below it, at 710.95.** The next line down is the 20-day at 706.78, 0.6% away. That is the bearish premise on the QQQ put working, not a random red day.
 
-**Into the close, that reading doesn't hold up**, because of two facts neither run checked:
+**Small caps led down.** IWM at −1.34% was the weakest board and got weaker through the session. Risk-off broadening from a couple of megacaps into the small-cap complex is a more genuine signal than the selective rotation earlier in the week.
 
-1. **Small caps are GREEN.** IWM finished the session +0.46%. The Russell is the best breadth proxy available, and genuine narrowing participation does not come with small caps rising.
-2. **The VIX made its LOW of the day into the close — 14.95**, below this morning's 15.28 and yesterday's 15.70. That's the sixth consecutive session with no bid for volatility.
+**But the semis did not break, and that matters.** TSM **+0.97%**, AVGO **+0.49%**, AMD **+0.67%** all closed *green*; NVDA was nearly flat at −0.26%. A Nasdaq decline with the semiconductor complex holding up is a rotation, not a top. This is the "unless" clause on the standing QQQ plan, and it did **not** fire.
 
-What's actually happening is a **two-group liquidation inside a firm market**: AI-semis (AVGO −3.97%, AMD −3.53%, both at session lows) and banks (C −3.42%, PNC −3.17%, USB −3.13%, WFC −1.89%) are being sold, and the money is visibly going into small caps, MSFT (+0.58%) and TSLA (+3.53%). NVDA and TSM were flat, so even the semis move is an AVGO/AMD story rather than an AI-wide one.
-
-**Why the label matters and isn't just semantics:** a rotation is a much worse environment for the long index puts we own than a breadth breakdown would be. In a breakdown, volatility bids and puts gain even before the index falls much. In a rotation, the index holds, volatility keeps falling, and the puts just bleed. Two runs today held the QQQ put partly on a reading that the closing data doesn't support. That correction is what drives Section 5.
-
----
-
-## 4. What I looked at and passed on
-
-The desk had **one free position slot and $2,110.65 of settled cash**, so being flat was a choice, not a constraint. Five candidates:
-
-**① Buying the beaten-up banks (XLF / C / USB / PNC / WFC calls) — Grade B. The closest call of the day.**
-Four major banks printed RSI(2) under 7 inside intact long-term uptrends — a textbook oversold-bounce setup. Best of all, it's the one thing the desk *can't* buy in tech: uncorrelated with everything we own, and these are the most liquid non-tech chains available to us (checked first, per the sourcing rule). **Rejected because the setup has no trigger yet, and the group got worse while I watched it.** Citigroup went from −2.75% at 13:22 ET to −3.42% at 15:21 ET; PNC and USB likewise made new session lows. A mean-reversion trade needs the turn to actually start — "very oversold" is a condition, not a signal. Buying calls into a group still being sold is catching a falling knife.
-→ **Tomorrow's trigger, written down so it isn't re-derived:** XLF or C opening green *and holding it*, with RSI(2) turning up off the low. That upgrades this to A− and makes it takeable.
-
-**② More bearish tech (AVGO, AMD, SOXX puts) — structurally blocked, not graded.**
-AVGO and AMD at session lows was the loudest move on the board, and it's precisely the trade we're barred from. The book already holds two bearish-tech positions (QQQ + RBRK) and the cap is two per theme. I deliberately did *not* write a thesis for it — building a case for a trade you can't place is how a risk cap quietly gets talked out of existence.
-
-**③ DE calls into tomorrow morning's earnings — Grade C.** Fails three ways: the desk's rule is to close *before* earnings, not open into them; DE at $585 makes any sensible contract expensive against the $1,500 per-trade cap with the whole premium exposed to one overnight gap; and a 15-minute check cadence cannot manage a gap. The equity report flags DE no-entry for the same reason.
-
-**④ Buying small caps on the green divergence (IWM calls) — Grade C.** The divergence is real and it's the day's best observation, but it's *one session* at +0.46% with no catalyst. Worse, it would be a long index position in a book already holding SPY and QQQ puts — paying premium to cancel out premium we already own. If the bearish view is wrong, the fix is to exit the puts, not to buy something that fights them.
-
-**⑤ Buying volatility — Grade C.** Six straight sessions with no vol bid, and today the VIX hit its *low* into the close on a day eighteen names were deeply oversold. Buying vol now is the mirror image of chasing a finished trend: entering because a move keeps *failing* to happen is no better than entering because one already happened.
+**Where this desk read it wrong this morning — worth writing down.** The 9:30 open showed 30-day implied volatility up on 8 of 9 tracked names and the brief declared "for the first time in five sessions, vol is bidding," while explicitly warning not to buy premium on an opening tick because opening IV is inflated by wide auction markets. **The afternoon re-measure proved the warning right and the headline wrong:** QQQ 30-day IV finished at ~0.201 versus 0.203 at the open, SPY ~0.130 versus 0.132 — flat-to-*lower* on a day the index fell three-quarters of a percent. Vol did not bid. The lesson is the general one: **an opening IV print is not a regime change, and the discipline of waiting cost nothing while acting would have cost real money.**
 
 ---
 
-## 5. 🔔 The decision that needs you: the QQQ 680P
+## 4. Actions considered and SKIPPED
 
-Nothing has *fired* on this position — I want to be precise about that. But the mandate is to bring you a decision at the right moment with the numbers attached, and the numbers moved against this one today.
+*This is the section worth reading. Nine candidate groups were worked today; all nine were killed, and the reasons split cleanly into "structurally barred" and "no reason to act."*
 
-**Where it stands:** paid $4.05, now $3.58 (−$47, −11.6%). Selling at the bid nets −$49. The chain is excellent — 1.1% spread, 33,336 contracts traded — so we can exit cheaply any time we want.
+**Barred by structure, regardless of how good they looked:**
 
-**The honest case against holding:**
-- It costs **$20.64 every day** — 5.8% of the remaining premium, daily. Waiting the two sessions to Friday's scheduled review costs roughly **$41** of the $358 still in it.
-- It needs QQQ to fall **5.68% in 23 days**, while QQQ sits comfortably above its 20-day average (706).
-- It needs a volatility event, and volatility just made a six-session low.
-- The tape read that supported holding it turned out to be wrong (Section 3).
+1. **More bearish tech — QQQ, AVGO, AMD, TSM, NVDA puts.** This is the expression that fit today's tape *best*, and it was unavailable. The book already holds two bearish-tech positions (QQQ 680P + RBRK 90P), which is the hard **2-per-correlated-theme cap**. The cap did its job on precisely the day it was most tempting to ignore — which is the only day a cap ever matters.
 
-**The case for holding:** Friday, August 21 is the pre-written 21-day review date — the point where this position gets a formal roll-or-close decision. Two sessions is short, one adverse day is not a thesis, and a scheduled decision point exists precisely so a position isn't abandoned on a bad afternoon. There's also a real chance the AVGO/AMD liquidation broadens; if it does, this put is exactly what you'd want to own.
+2. **IWM puts (small caps, the weakest board).** Graded **B**, passed. This one deserves explanation because it *appears* to pass the theme test: IWM is not tech. But in substance it fails — with SPY 700P and QQQ 680P already on the books, a third short-index leg is the same macro bet wearing a different ticker, not diversification. Stacking a fourth correlated short into $1,210 of settled cash, with NVDA earnings (8/26) and Jackson Hole (8/27) both ahead, is not what a free slot is for.
 
-**My recommendation: close it at or near the mid (~$3.58) on Thursday or at Friday's review, unless the semis selling visibly spreads to NVDA and the index.** The trade needs a vol event that six sessions of tape have refused to deliver, and the daily carry is high enough that patience here isn't free. I'm not acting on this — under your monitoring mandate it's your call. Say the word and it's done in one order at the midpoint.
+**Killed on the merits:**
 
-**RBRK needs no decision yet.** Its next hard date is a pre-earnings close-or-roll call by **Wednesday, August 26**.
+3. **The equity report's RSI2 oversold list** — CRWD (RSI2 1.2), EMR 1.8, ALAB 2.1, USB 2.5, PANW 2.7, plus SBUX, C, NUE, MS, ARM, ETN, NET, UNH, DELL, ROST, BE, COF, GEV, TKR, TSEM. Graded **B/C** as a group. These are *bullish* mean-reversion setups; buying calls on them would fight both today's broadening risk-off and the desk's own bearish book. Several carry earnings inside any plausible hold window (CRWD 8/26, PANW 9/1, DELL 9/1, ROST today) — a standing no-entry. The rest are mid-caps with chains too thin to trade at this size. **All were killed on tape-and-chain before any thesis workup** — that ordering is deliberate and it is what the sourcing fix was written to enforce.
+
+4. **Bullish index/megacap calls** (QQQ, SPY, NVDA, INTC, MSFT — the affordable tier). Grade **C**. No trigger firing *now*; these are drifting lower, not reversing. "The tape is down so buy the dip" is not a catalyst. Buying calls would also have directly hedged away the two puts the book was being paid on today.
+
+5. **TSLA** (weakest core name, −1.66%). Grade **C**, and it is a trap worth naming. Its headline IV/RV of **0.72** screams "cheap premium." It is an artifact: TSLA's 57.2% realized vol is driven by a single **−15.69% earnings gap on 7/23**. Strip that one day and realized vol is 33.2%, which flips the ratio to **1.24 — rich, not cheap.** The mechanical number was inviting exactly the wrong trade.
+
+6. **MSFT.** Grade **C**, same trap, more extreme: headline IV/RV **0.52**, the most extreme "half-price vol" reading on the desk's board. It is almost entirely one **+14.42% gap on 7/30**; ex-gap, realized is 25.9% against 26.1% implied — premium priced almost exactly *fair*. Also worth repeating: proving a vehicle is cheap and liquid supplies **no thesis whatsoever.**
+
+7. **NVDA.** Grade **C**, watch-only into the 8/26 print. The standing preference is to *close* before earnings, not open into them, and "earnings is the thesis" does not apply — this desk has no differentiated view on NVDA's quarter. The relevant NVDA exposure is already owned indirectly through the QQQ put.
+
+8. **XLE / energy** (the only green sector earlier in the day). Grade **C**. One green session is not a catalyst, there was no fresh driver, and the standing sector steer de-emphasizes oil energy.
+
+9. **XLF / banks.** Yesterday's setup required XLF to open green and hold. It closed **−0.92%**. The trigger simply did not fire — logged so it isn't re-derived from scratch tomorrow.
+
+**The honest summary of why we were flat:** two independent reasons, either sufficient. Structurally, the only free slot is barred to bearish tech, and every honest bearish expression available today is a bet the book already owns twice. Substantively, nothing had a trigger firing today that isn't already owned. **The desk was already positioned for exactly the tape that printed** — and the right response to a thesis working is to manage the winner, not to bolt on a fourth correlated leg with the week's two biggest catalysts still ahead.
+
+---
+
+## 5. ⚠️ The decision that needs you — QQQ 680P, and it binds tomorrow
+
+This is the same question sent at 1:24 PM ET, now with the closing numbers attached. **The desk will not act on it without you** — under the monitoring mandate you set on 8/18, discretionary exits on this position are recommended and wait for your go-ahead.
+
+**Where it stands at the close:**
+
+| | |
+|---|---|
+| Entry / close mark | $4.05 → **$4.89** |
+| P/L | **+$84 at mark, +$78 net if sold at the bid** |
+| Market | 4.83 × 4.95 — **2.45% spread**, OI 33,897, 486 traded. This is a *real*, liquid exit price, not a paper number. |
+| Intraday peak | **$5.21** at 1:24 PM (+$116). It has given back **27.6%** of that peak gain into the close. |
+| Time decay | **−$25.24/day = 5.2% of the remaining premium, every day** |
+| Delta | −0.204 — it takes a *large* QQQ move to move this much further |
+| Needs to win | QQQ below **675.11** by 9/11 — another **5.04%** down in 22 days |
+| DTE | **22 — the unconditional 21-DTE review lands tomorrow, 8/21** |
+
+**The case for banking it (my recommendation, unchanged):** you have a genuine +$78 in hand on a tight, liquid market. The 21-DTE management rule exists because the theta-and-gamma window past this point is where option buyers get hurt — and at 5.2% of premium per day, simply carrying this position across the weekend costs roughly $75 in decay if QQQ doesn't move. NVDA reports 8/26 *inside* the hold window, which is a large two-way variance event this desk has no edge on. And index-put spikes of the kind that printed at 1:24 today characteristically bleed back out — which is exactly what happened over the following two hours.
+
+**The honest case against — the reason this is your call, not a mechanical one:** the thesis is *working*, not stalling. QQQ closed below its 50-day for the first time, small caps are leading down, and the written invalidation (a close above ~730) is nowhere near. Mechanically, nothing on the exit ladder has fired: the pop-bank level is $7.29, the profit-ratchet arms at $6.08, and the mark is $4.89 — so the rulebook's own answer is "let it ride." Selling a working position because a *calendar* date arrived is the argument you'd want to push back on.
+
+**What tips me to banking anyway:** delta −0.20 and a 5.04% required move mean this position now needs the Nasdaq to *accelerate* downward, not merely to keep drifting. Meanwhile the semis closed green — the specific "unless" condition on this trade's standing plan did **not** fire, so the broadening that would justify holding is not in evidence. Paying 5.2% a day to wait for a break that the strongest sector in the index is currently refusing to confirm is a poor use of $489 of premium.
+
+**Three ways to play it, if you'd rather not choose between all-or-nothing:** (a) **sell it at tomorrow's open** and bank ~$78; (b) **hold through the 21-DTE review** with an explicit written re-justification and a hard exit if QQQ reclaims 713 (the 50-day it just lost); (c) **roll down-and-out** to a later expiry, which resets the decay clock but costs new premium and re-opens a position rather than closing one. I recommend **(a)**, and absent a reply the position simply carries into tomorrow's review run — nothing is sold on autopilot.
+
+**RBRK, for contrast, needs nothing from you today.** It is +$80 net at the bid on a market that tightened all day (11.2% of mid this morning → **4.17%** at the close), the underlying fell 2.29%, and its binding deadline is the **pre-earnings decision by the close of Wednesday 8/26**, ahead of the 8/27 print. That question comes to you Wednesday, not now.
 
 ---
 
@@ -101,25 +116,27 @@ Nothing has *fired* on this position — I want to be precise about that. But th
 
 | | |
 |---|---|
-| Account value | **$3,820.65** (equity $0 / options $1,710.00 / cash $2,110.65) |
-| Settled cash / buying power | **$2,110.65**, all settled — unsettled $0.00, so nothing is blocked |
+| Account value | **$4,071.17** (equity $876.52 / options $1,984.00 / cash $1,210.65) |
+| Settled cash | **$1,210.65**, unsettled $0.00 — the settled-cash law is not binding |
 | Agentic premium at risk | **$1,544** ($749 hedge + $405 QQQ + $390 RBRK) |
-| Realized P/L today | **$0.00** vs the −$200 daily cap |
-| Entries used today | **0 of 3** |
-| Position slots | **2 of 3** used (the hedge doesn't count) |
-| Theme capacity | Bearish tech **2 of 2 — full**. Any new trade must come from elsewhere. |
-| Broker reconciliation | **Zero drift**, thirteenth consecutive clean check. Four contracts at the broker, four in the ledger, nothing pending, no orders today. |
+| Unrealized on agentic positions | **+$154 at mark** |
+| Realized P/L today | **$0.00** vs the −$200 daily cap — not binding |
+| New entries used today | **0 of 3** |
+| Position slots | **2 of 3** non-hedge used (hedge excluded) |
+| Theme capacity | **bearish tech 2 of 2 — FULL** |
+
+The theme cap, not money, is what kept the desk flat today. There is $1,210 of settled cash and a free position slot; what there isn't is a non-correlated idea worth owning.
 
 ---
 
 ## 7. Tomorrow's watchpoints
 
-1. **The bank-bounce trigger** — XLF or C opening green and holding, with RSI(2) turning up. That's the only graded candidate with a path to A− and the only one uncorrelated with what we own.
-2. **QQQ 680P** — Friday's 21-day review is binding. From that point a −50% loss becomes a standing automatic cut rather than a re-check. See §5.
-3. **Does the semis liquidation broaden?** If NVDA and TSM join AVGO and AMD on the downside and the VIX finally bids, the QQQ put becomes worth keeping. If they don't, §5's recommendation gets stronger.
-4. **DE reports before the open** — not a position, but a read on how industrials are being treated.
-5. **RBRK** — pre-earnings decision due by the close of Wednesday, August 26.
+- **QQQ 680P 21-DTE management review — Friday 8/21, unconditional.** The decision in Section 5 lands at the open. This is the single binding item.
+- **QQQ 706.78 (the 20-day).** 0.6% below today's close. Losing it confirms the breakdown and strengthens the case to hold; reclaiming **713** (the 50-day) is the first evidence the bearish premise is failing.
+- **The semis are the tell.** TSM, AVGO and AMD closed green while the index fell. If they roll over Friday, the QQQ hold case gets much stronger; if they keep holding, banking the put is right.
+- **Friday weekly review** is due — hit rate, average win versus average loss, best and worst *process* decisions of the week, and the drift check on standing preferences. It will be sourced from broker P&L, not from the journal.
+- **Next week's two catalysts:** **NVDA earnings Wednesday 8/26 (pm)** — inside the QQQ put's window — and **Jackson Hole 8/27**, alongside the **RBRK pre-earnings decision due at Wednesday's close** before its 8/27 print.
 
 ---
 
-*Honest limit, restated: this is a 15-minute scheduled check during market hours only. A spike can round-trip entirely between two runs, and overnight and weekend gaps aren't covered at all. Nothing here is continuous monitoring.*
+*Written by the 20:18 UTC post-close automation run. Reconciliation: zero drift on both books — four option positions matching the ledger exactly, all pending fields zero, no orders placed today. Heartbeat stamped for the 2026-08-20 trading day at 13:33Z. Nothing in this report is an executed action; the QQQ recommendation awaits your go-ahead.*
