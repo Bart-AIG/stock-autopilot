@@ -12900,6 +12900,28 @@
         "ACHR 2028-01-21 5C (user)": "Ownership-gated (placed_agent=user) + manual_hold_override. Detect only; never act."
       },
       "tomorrow": "FRIDAY 2026-08-21: (1) weekly review is due -- source ALL P&L from the broker (get_realized_pnl + get_option_orders), never from this journal, and include the standing-preference DRIFT CHECK; (2) QQQ 680P 21-DTE review fires; (3) NVDA earnings 2026-08-26 sits inside the QQQ window and is the reason the ride case is not free."
+    },
+    {
+      "run_utc": "2026-08-20T23:19:00Z",
+      "run_local_et": "2026-08-20 19:19 ET (Thu)",
+      "trading_day_et": "2026-08-20",
+      "run_type": "POST-CLOSE run #4 of this trading day (bell 20:00Z). POST-CLOSE RUN PROTOCOL applies in full: the 20:20Z run did final reconciliation, wrote closing marks and DELIVERED daily_options_report.md for 2026-08-20; the 21:19Z and 22:19Z runs each re-reconciled and found zero drift. Every useful post-close task for this trading day is provably done. This run performs ONLY the one check always worth repeating -- broker reconciliation -- and stands down. No research task was invented to justify the run; no overnight quote an earlier run already measured was re-polled.",
+      "action": "NO TRADE, NO EXIT, NO ARTIFACT ROLL, NO REPORT REWRITE, NO NOTIFICATION. Reconciliation only; zero drift.",
+      "reconciliation": {
+        "get_accounts": "Agentic 718757339 confirmed: type=cash, agentic_allowed=true, option_level_2, unsettled_funds $0.00. Spreads remain UNAVAILABLE at level 2; the standing level-3 recommendation to Ryan is unchanged and deliberately NOT re-raised (notify-once discipline).",
+        "get_option_positions": "4 open, unchanged from 22:19Z and matching holdings.json -- SPY 2026-11-20 700P (hedge, avg 7.49), ACHR 2028-01-21 5C (user-placed + manual_hold_override, avg 2.47), QQQ 2026-09-11 680P (agentic, avg 4.05), RBRK 2026-09-18 90P (agentic, avg 3.90). No overnight assignment, no expiration, no unauthorized fill; all pending_* quantities zero.",
+        "get_portfolio": "total $4,072.72 / equity $878.07 / options $1,984.00 / cash $1,210.65, buying_power $1,210.65 all settled. Materially unchanged from 22:19Z (equity mark moved $0.15 on a stale after-hours quote -- not drift)."
+      },
+      "utc_rollover_guard": "Run is at 23:19Z, still 2026-08-20 by UTC AND by ET, so no rollover question arises. Restated for the next instance: any run after the 16:00 ET bell belongs to the trading day whose bell just rang -- do NOT stamp automation_heartbeat.json, rebuild market_brief.json, or reset the -$200 daily loss cap / 3-entry throttle from a post-close run. The next run to cross 00:00Z tonight will be 2026-08-21 by UTC while the trading day is STILL 2026-08-20 until Friday's 09:30 ET open.",
+      "positions_standing_plans_unchanged": {
+        "QQQ 2026-09-11 680P (agentic)": "Working; closed the day around +24%. The UNCONDITIONAL 21-DTE management review lands TOMORROW 2026-08-21 -- Friday's first market-hours run owns that decision and must not defer it. Bank-vs-ride recommendation has been with Ryan since 18:24Z; unchanged, so still SILENT under the per-position monitoring mandate.",
+        "RBRK 2026-09-18 90P (agentic)": "Working slowly. Binding deadline is the pre-earnings close/roll decision by the close of 2026-08-26.",
+        "SPY 2026-11-20 700P (hedge)": "Insurance -- exempt from all premium backstops. ~21-DTE roll/close decision belongs to Ryan, not to an unattended run.",
+        "ACHR 2028-01-21 5C (user-placed)": "placed_agent=user + manual_hold_override. Ownership gate: detect and record only, never auto-exit."
+      },
+      "friday_note_for_next_instance": "Tomorrow 2026-08-21 is a FRIDAY: the weekly review is due and must be appended to this journal. Source ALL P&L from the broker (get_realized_pnl asset_classes=['option'] + get_option_orders state='filled'), never from this file -- the journal is the thesis record, the broker is the ledger of record. Include the DRIFT CHECK on the standing preferences.",
+      "grades_considered": "None. Market is closed; no entry is placeable, so screening candidates would produce numbers nobody can act on and would consume run budget for nothing.",
+      "one_line_why_flat": "Market closed, book provably unchanged for the fourth consecutive post-close reconciliation, every post-close duty for 2026-08-20 already discharged -- the correct output is a short no-op log."
     }
   ],
   "updated_utc": "2026-08-20T02:19:00Z"
