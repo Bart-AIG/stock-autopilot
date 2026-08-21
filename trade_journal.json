@@ -13736,6 +13736,65 @@
         "rules_written_to_CLAUDE_md": "(1) Every journal entry carries run_type, no exceptions -- a missing one is a defect to repair, not to skip past. (2) Any cadence, health or rate computation counts ONLY scheduler-fired types (market_hours_regular, scheduled_automation_run, first_post_open_of_trading_day, post_close_overnight) and NEVER live-turn types. (3) An entry count is not a fire count."
       },
       "book_unchanged": "No position touched by this run. All three contracts were re-marked by the 17:01Z run minutes earlier and nothing fired on any ladder. Carry-forward: QQQ crosses inside 21 DTE on Monday, where the -50% cut at 1.90 becomes unconditional; RBRK's pre-earnings decision binds by the close of Wed 2026-08-26 with $820 at risk."
+    },
+    {
+      "run_utc": "2026-08-21T17:19:00Z",
+      "run_local_et": "13:19 ET Friday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "scheduled_automation_run",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org)",
+      "decision": "NO TRADE, NO EXIT, NO ENTRY, BOTH TRACKS. Reconciled to zero drift and CLOSED OUT the one open reconciliation question by reading the order record; re-quoted all three positions on a settled market; hunted both tracks against measured 10-minute bars and declined. 0 of 2 entries used this run, 0 of 8 today.",
+      "regime": "RISK-ON GRIND, FOURTH GREEN SESSION, LOSING THRUST INTO THE AFTERNOON. SPY 766.26 (+0.48%), QQQ 713.71 (+0.39%), MSFT 484.36 (+0.67%), AVGO 366.50 (+0.68%), TSM 417.78 (+0.43%); NVDA 215.16 (-0.78%) the lone laggard. Measured from 10-minute bars: SPY's whole session range is 764.17-767.85, i.e. 0.48%, and it has spent the last hour pinned between 766.0 and 766.6. QQQ's HIGH was the 13:30Z opening bar (715.40) and it has not revisited it in 3.5 hours -- it sits at 713.83, still welded to its 50d (~713.05) for a third session. NVDA put its low in at 14:30Z (214.50), recovered, and has gone flat at 215.3-215.7. Volume is draining: SPY's 16:40Z bar printed 43,620 shares against 893,465 in the opening bar. Friday-afternoon drift at resistance -- the single worst tape in which to pay a bid/ask twice.",
+      "position_verdicts": {
+        "SPY 2026-11-20 700P x1": "WORKING AS DESIGNED. -$99.50 / -13.28% at mark 6.495 (bid 6.48 / ask 6.51, 0.46% of mid), 91 DTE, delta -0.153, theta -$8.87/day. Authorized hedge: EXEMPT from every premium backstop by standing rule. Insurance is supposed to bleed in a melt-up. No action.",
+        "QQQ 2026-09-11 680P x2": "STALLED, AND THE ONE POSITION WITH A LIVE DECISION ON IT. -$34.00 / -4.47% at mark 3.635 on the blended 3.805 basis; net -$39.00 at the 3.61 bid (spread 1.38% of mid, so the mark is honest here). DTE is EXACTLY 21 -- the unconditional management-review line. Setup is INTACT (invalidation is a QQQ close above ~730; spot 713.71 leaves 2.3%), so no mechanical exit is due and none was taken. Under Ryan's 2026-08-18 monitoring mandate this is RECOMMEND-AND-ASK, and he was already notified once at 13:39Z with the full number set. The recommendation has not changed, so this run is SILENT by design. Live cost of waiting: theta -$44.19/day against a $761 basis = -5.8% per day.",
+        "RBRK 2026-09-18 90P x2": "STALLED, moving against us today. RBRK +1.66% to 99.135 on the green tape. Mark 4.35 = +$50.00 / +6.10% on the blended 4.10 basis -- BUT the bid is 4.00 and the ask 4.70, a 16.09%-of-mid spread on OI 75 / volume 8, so the true net on an exit is -$20.00. A $70 swing that exists only in the quote. No ladder level fired (pop-bank 7.38, ratchet arm 6.15 with peak 4.90, -50% recheck 2.05, hard backstop 1.44, setup break a 105 close). 28 DTE. Silent."
+      },
+      "reconciliation": {
+        "result": "ZERO DRIFT, both books.",
+        "the_one_thing_worth_flagging": "THIS RUN RESOLVED AN APPARENT DISCREPANCY RATHER THAN INHERITING IT. equity_value had fallen from $881.39 at the 13:33Z heartbeat to $442.23, and get_accounts showed unsettled_funds of $732.30 -- the signature of same-day sales. Two prior runs recorded 'equity book unchanged', which was true of the LEDGER but left the change in the PORTFOLIO number unexplained. Read the order record instead of assuming: get_equity_orders(created_at_gte=2026-08-21) returns exactly one order -- BA, sell, market, FILLED 14:31:12Z, 2.022374sh @ $213.7883 = $432.36, placed_agent='user'. Ryan's own trade. That is the entire $439 gap. HARD RULE 6 is clean, no unauthorized fill, and BA was already in _closed_positions. Cheap call, and it is the only way an unauthorized equity fill would ever surface."
+      },
+      "hunt": {
+        "tracks_hunted": "BOTH, as required. Sourced liquidity-first: SPY/QQQ/NVDA measured on 10-minute bars, plus MSFT/TSM/AVGO/RBRK quotes.",
+        "TRACK_A_tactical": {
+          "slots": "0 of 2 open.",
+          "verdict": "NO ENTRY. Graded C.",
+          "why": "Track A requires an intraday level ACTUALLY BREAKING NOW with the tape agreeing. Nothing is breaking. SPY is mid-range in a 0.48% session and has been inside a 0.6-point box for an hour; QQQ never reclaimed its opening-bar high and is pinned to its 50d for a third day; NVDA held its 14:30Z low and went flat. Declining volume into a Friday afternoon is the opposite of a trigger. Grading any of these higher to justify using an empty slot is precisely the 'boredom is not a catalyst' failure the mandate names.",
+          "second_independent_reason": "Even a GOOD trigger would be marginal here on structure alone: it is Friday, so the track's hard time stop -- flat by the close of the NEXT session -- means carrying weekend gap risk on a single-leg high-delta contract for two calendar days of zero trading. A scalp whose time stop spans a weekend is not the vehicle the rule describes."
+        },
+        "TRACK_B_core": {
+          "slots": "2 of 3 open (QQQ, RBRK). Bearish-tech theme at 2 of its 3 cap.",
+          "verdict": "NO ENTRY. No candidate graded above B.",
+          "bearish_tech_third_position": "REJECTED. The theme cap technically permits a third, but the two positions already on this theme are both underwater into a fourth consecutive green session. Opening a third bearish-tech position is economically the same act as adding to a loser, which FOUR LAWS #3 puts behind Ryan's explicit approval. Not taking it, and not asking for it either -- the setup does not merit the ask.",
+          "bullish_hedge_of_the_book": "REJECTED on the TREND-MATURITY GATE, which it fails on check (c). The move has run four sessions (a), the relief-rally catalyst is priced (b), and today's tape DIVERGES from it (c): both indexes set their session highs EARLY and have drifted below them all afternoon on draining volume. Buying strength into a fading fourth up-day is the late-stage entry the ZTS incident wrote this gate for. Wanting to balance the book's direction is a portfolio wish, not a signal.",
+          "capital_reality": "Deployable is $906.87 (unleveraged_buying_power $1,156.87 minus the $250 reserve). A core swing at the $500-1,000 typical band would consume most of it -- while TWO positions have decisions inside the next four sessions (QQQ at 21 DTE now, RBRK pre-earnings by the close of Wed 08-26). Spending the reserve down ahead of a roll Ryan may authorize is how a desk gets blocked by being fully invested, which is the exact scenario FOUR LAWS #4's reserve exists to prevent."
+        }
+      },
+      "iv_method": "NOT RE-MEASURED, DELIBERATELY. Today's rows already exist for all eight core names plus RBRK, written 16:23Z with the raw/ex-gap PAIR as the rule requires. Re-quoting nine chains 55 minutes later to overwrite a same-session row is run budget spent for no new information. Standing read from those rows: MSFT raw 0.5252 vs ex-gap 1.0078 and TSLA 0.7296 vs 1.2805 -- both are the post-earnings-gap artifact this file documents, and neither is cheap vol. QQQ 0.8704 raw / 1.1048 ex-gap. AVGO is rich on both (1.1678 / 1.4115).",
+      "duties_checked": {
+        "heartbeat": "Already stamped for 2026-08-21 at 13:33Z by the first post-open run. Not re-stamped.",
+        "market_brief": "Stamped 2026-08-21. No shock to justify an intraday rebuild.",
+        "friday_review": "ALREADY DONE for the week of 2026-08-21 (written 13:40Z, re-confirmed 16:47Z). Not duplicated.",
+        "daily_eod_report": "NOT DUE THIS RUN. It is 12:19 CT; the window opens at 14:15 CT / 19:15Z under the 2026-08-21 threshold fix. Flagging for whichever run lands next in that window: with the sub-hourly trigger repaired, a :25 or :55 CT fire should now land inside the window comfortably, so the duty should NOT fall to a post-close run today as it did on 08-19 and 08-20."
+      },
+      "cadence_note": "This run was fired at ~17:15Z carrying the cron-job.org payload. That matches NEITHER the native hourly backstop signature (:18-:26) NOR the previously documented cron slots (:25/:55 CT = :25/:55 past the hour), so the job's schedule appears to have been changed to a genuinely sub-hourly cadence, not merely re-enabled. Recording the observation only -- the outage was already resolved and verified at 17:08Z, and this is not re-litigating it. Per the run_type rule, today's SCHEDULER-fired count is 16 of 24 total entries; the other 8 are live-user turns and must never be counted as cadence.",
+      "sleeve_state": {
+        "agentic_premium_at_risk_usd": 2330,
+        "breakdown": "$749 SPY hedge (excluded from slot count) + $761 QQQ (2 x 3.805) + $820 RBRK (2 x 4.10).",
+        "unleveraged_buying_power_usd": 1156.87,
+        "margin_borrowed": "NONE. buying_power == unleveraged_buying_power exactly.",
+        "deployable_after_250_reserve_usd": 906.87,
+        "slots": "CORE 2 of 3, TACTICAL 0 of 2, hedge excluded. Correlated theme (bearish tech) 2 of 3.",
+        "entries_used_today": "0 of 8.",
+        "realized_options_pnl_today_broker": "+$53.00 on 1 closing trade (+21.46%) -- Ryan's ACHR 5C close, not agentic. Agentic realized today: $0.00. The -$400 cap gates nothing.",
+        "account_equity_vs_2000_minimum": "$3,848.10, ~1.9x the $2,000 margin-equity minimum."
+      },
+      "tomorrow_and_next_watchpoints": [
+        "QQQ 2026-09-11 680P: now BELOW 21 DTE from Monday. Crossing that line moves it into the tier where the -50% premium cut becomes a standing rule rather than a re-check. Ryan's answer on close-or-roll is still outstanding.",
+        "RBRK 2026-09-18 90P: HARD DEADLINE -- pre-earnings decision by the CLOSE of Wed 2026-08-26, ahead of the 2026-08-27 pm print. Two sessions after this one. Must be brought to Ryan, not allowed to drift into the print.",
+        "RBRK's 16% spread means any exit recommendation must quote the NET at the bid, not the mark.",
+        "SPY 767.85 is today's high and the near-term line; QQQ's 50d ~713.05 has held three sessions and is the level that decides whether the bearish book gets paid."
+      ]
     }
   ],
   "updated_utc": "2026-08-20T02:19:00Z"
