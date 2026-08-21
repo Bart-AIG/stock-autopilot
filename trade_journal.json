@@ -14168,6 +14168,91 @@
         "PUT_THIS_AT_THE_TOP_OF_SECTION_5": "The QQQ decision with its cost-of-waiting attached -- $131.60 weekend carry on the naked structure vs $41 to close outright -- and all four branches (A full vertical / B half vertical / C close / D roll barred). The EOD report commit is the delivery channel that reliably reaches Ryan; the push notification may not.",
         "ALSO_STILL_OPEN": "RBRK pre-earnings decision by the close of Wed 2026-08-26 (verified 08-27 pm print). SPY hedge roll/close review ~2026-10-30 with Ryan."
       }
+    },
+    {
+      "run_utc": "2026-08-21T19:05:00Z",
+      "run_local_et": "15:05 ET Friday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "scheduled_automation_run",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org)",
+      "action": "NO TRADE, NO EXIT, NO ENTRY, BOTH TRACKS. 0 of 2 entries this run, 0 of 8 today. SILENT under the monitoring mandate -- no trigger fired or un-fired and the QQQ recommendation is UNCHANGED, so Ryan was deliberately NOT paged a third time in 45 minutes. This run spent its budget on the two things seventeen runs had never done: it measured the BOOK'S AGGREGATE DIRECTIONAL CONCENTRATION, and it SOURCED today's realized P/L from the broker instead of asserting it.",
+      "cadence": "Fired ~19:00Z -- the repaired sub-hourly :55 slot, not the :18-:26 hourly-backstop signature. Counting SCHEDULER-FIRED run_types only per the 17:08Z correction, today's market-hours scheduled runs are 13:40, 14:26, 15:23, 16:24, 16:47, 16:52, 17:01, 17:19, 17:24, 17:31, 17:45, 18:05, 18:20, 18:22, 18:32, 18:50 and this one = 17 by 15:05 ET. Recovery from the 2026-08-18 token failure continues to hold.",
+      "reconciliation": "ZERO POSITION DRIFT. get_option_positions(nonzero) returns exactly three contracts -- SPY 2026-11-20 700P x1, QQQ 2026-09-11 680P x2, RBRK 2026-09-18 90P x2 -- matching holdings.json one-for-one, every pending_* field 0.0000. Equity book PNC only ($444.10). get_portfolio $3,842.97; unleveraged_buying_power $1,156.87 EQUALS buying_power, so no margin is extended and the no-borrowing law is satisfied by construction. Account equity is well clear of the $2,000 margin minimum. Deployable after the $250 reserve: $906.87. ONE LEDGER FIELD WAS WRONG -- see the realized-P/L correction below.",
+      "regime": "RISK-ON, AND THE PIN FINALLY GAVE -- BARELY. SPY 766.32 (+0.49%), a fresh session high. QQQ 713.81 (+0.40%) has crossed 0.11% ABOVE the falling 50d (713.05) after spending the entire session welded to or below it. THIS RUN DECLINES TO CALL THAT A BREAK: 0.11% on monthly OpEx Friday is inside the pin, and treating it as a level would be the 'check that passes for the wrong reason' failure this file keeps naming. NVDA 215.44 (-0.65%) recovered slightly off its 18:50Z low but is still red into its own 2026-08-26 print. TSLA +5.78% (365.08) continues to carry the index nearly alone on robotaxi news. AVGO +0.88%, AMD +0.68%, TSM +0.91%, MSFT +0.36%.",
+      "THE_WORK_OF_THIS_RUN_1_the_book_is_one_trade": {
+        "why": "Seventeen runs have graded candidates one at a time and reported P/L position by position. Not one has asked what the BOOK is. The 18:50Z run got close -- it declined a third bearish-tech CORE expression on 'coherence' grounds, which was the right instinct -- but it never computed the aggregate, so the instinct had no number behind it and the next instance would have to re-derive it from feel.",
+        "method": "Live 19:01Z per-contract deltas x quantity x 100 x underlying spot, summed across all three positions; account value from get_portfolio marked to the same quotes.",
+        "the_number": "NET SHORT NOTIONAL DELTA = -$41,229. SPY 700P -$11,662, QQQ 680P x2 -$23,855, RBRK 90P x2 -$5,712. Against an account of $3,838 that is 10.74x account value in one-directional short exposure. ALL THREE POSITIONS ARE BEARISH. There is no long, no hedge against the hedge, and no uncorrelated sleeve.",
+        "sensitivity": "A 1% adverse (up) move across the book costs roughly $412 in delta terms -- 17.7% of the $2,330 premium at risk, in a single 1% session. That is the honest measure of how concentrated this book is, and it is why the desk keeps watching individual positions bleed on days the index barely moves.",
+        "what_this_does_NOT_mean": "Stated plainly so no future run overreads it. Max loss is still premium: $2,330, fully paid, no margin, no assignment risk on long options. Delta notional is a CONCENTRATION measure, not leverage in the loss sense -- the account cannot lose $41,229. Nor is one-directional automatically wrong: the Aug-Oct defensive posture is an explicitly bearish standing plan, and Ryan added to two of these three positions himself today. The finding is that the book has ONE bet, so every future hunt grade should be read as 'does this diversify or double down', not just 'is this setup good'.",
+        "consequence_for_hunting": "Every candidate graded C today was ALSO bearish -- the NVDA tactical put, and the 'third bearish-tech CORE expression' the 18:50Z run declined. Those declines now have arithmetic behind them rather than instinct. Standing guidance for the relay: with the book at 10.7x one-way, a fourth bearish expression needs to clear a HIGHER bar than a neutral or long one, not the same bar."
+      },
+      "THE_WORK_OF_THIS_RUN_2_realized_pnl_was_asserted_not_sourced": {
+        "why": "Every journal entry today, and holdings.json's _realized_options_pnl_today, states 'realized options P/L today $0.00 vs the -$400 cap'. CLAUDE.md is explicit that periodic P&L must be SOURCED FROM THE BROKER and never from the journal, and that when they disagree the broker wins. Nobody had actually called the broker today.",
+        "method": "get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21), then get_option_orders(created_at_gte=2026-08-21) to identify the trade.",
+        "finding": "BROKER REALIZED OPTIONS P/L TODAY = +$53.00 on 1 closing trade, not $0.00. Identified: Ryan's own ACHR 2028-01-21 5C LEAP, sold to close at $3.00 at 13:55:50Z, placed_agent='user'.",
+        "resolution": "The -$400 cap is UNAFFECTED and was never at risk. Per the 2026-08-03 amendment the cap and the premium accounting count ONLY agentic-placed positions, and agentic-placed realized P/L today is genuinely $0.00. So every run's CONCLUSION was right -- but it was right for an unsourced reason, which is the exact failure mode this file names. Correct phrasing, now adopted in the ledger: 'broker realized options P/L today +$53.00, all of it Ryan's own ACHR LEAP close; AGENTIC-placed realized $0.00 vs the -$400 cap.'",
+        "lesson_for_the_relay": "A number that has been correct for three days is not thereby sourced. Call get_realized_pnl once per day and cite it, rather than copying the prior run's figure forward -- copying is how the journal's own start date once truncated a weekly total by 45%."
+      },
+      "THE_WORK_OF_THIS_RUN_3_who_placed_todays_adds": {
+        "finding": "get_option_orders confirms both of today's adds were placed_agent='user' -- QQQ 2026-09-11 680P 1 lot @ 3.56 filled 15:50:28Z, RBRK 2026-09-18 90P 1 lot @ 4.30 filled 16:00:11Z. Both were already in the blended bases; this run VERIFIED the provenance rather than inheriting it.",
+        "why_it_matters_for_the_notification_decision": "Ryan ADDED to both of these positions roughly three hours ago, with the same information the desk has. The desk has since paged him twice (18:20Z, 18:50Z) recommending he REDUCE carry on the QQQ leg. That is worth stating for the relay: his silence is not obviously inattention -- he may simply have answered with his order tickets. This is an OBSERVATION OF EXECUTED ORDERS, which is fact; it is emphatically NOT a claimed or implied approval, and no run may treat an add as authorization for anything. HARD RULE 9 stands in full: only a real, live typed Ryan turn decides the open QQQ recommendation.",
+        "law_3_note": "Law 3 ('ask Ryan before EVER adding to a losing position') binds THE DESK, not Ryan. His own adds are his call and require nothing from the automation."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P x1": "WORKING AS DESIGNED. Mark 6.465 (bid 6.45 / ask 6.48, 0.46% of mid), -$102.50 / -13.69% on the 7.49 basis, 91 DTE, delta -0.152, IV 20.47%, theta $8.86/day, OI 25,407. Authorized defensive hedge -- EXEMPT from every premium backstop; the only decision is the ~21-DTE roll/close review WITH Ryan (~2026-10-30). Written invalidation (SPY decisively above ~800 on confirmed new highs) UNMET: SPY 766.32 is 1.5% below the 2026-08-13 high of 777.88. No action, and none available.",
+        "QQQ 2026-09-11 680P x2": "STALLED, SETUP INTACT, NO TRIGGER, SILENT. Mark 3.505 (bid 3.48 / ask 3.53, 1.43% of mid) -- the worst print of the day, down from 3.625 at 18:50Z and 3.69 at 18:32Z. On the blended $761 basis: -$60.00 / -7.88% at mark, -$65.00 / -8.54% net at the bid. DTE 21, delta -0.167, IV 22.48%, theta $43.28/day. Ladder: 21-DTE tier -50% cut at 1.90, hard backstop 1.33 -- mark 3.505, NOTHING FIRES. Setup intact: invalidation is a QQQ CLOSE above ~730, spot 713.81. NOTABLE: contract volume went 415 -> 2,417 in the eleven minutes to 19:01Z, a 6x surge on OpEx; direction unknowable from the tape, recorded not interpreted. RECOMMENDATION UNCHANGED (convert to the 680/660 vertical, or close), therefore NOT re-sent.",
+        "RBRK 2026-09-18 90P x2": "STALLED, LEANING WRONG, NO TRIGGER, SILENT. Mark 4.45 unchanged for a fourth consecutive run; bid 4.20 / ask 4.70 = 11.24% of mid. +$70 at mark but the collectable number is the bid: +$20 net on the blended $820 basis. RBRK 99.105 (+1.62%) keeps grinding against the puts. Chain STILL untraded since 17:19Z -- 8 contracts all session on OI 75. DTE 28, delta -0.288, IV 79.76%. Ladder: -50% re-check at 2.05, hard backstop 1.435 -- nothing fires. Binding gate unchanged and already with Ryan: pre-earnings decision by the close of Wed 2026-08-26, ahead of the verified 08-27 pm print."
+      },
+      "book_pnl_sourced_and_corrected": {
+        "cumulative_unrealized": "Premium at risk $2,330; mark value $2,237.50; -$92.50 / -3.97% book-wide.",
+        "day_pnl_correct_method": "-$246.50. SPY -$82.50, QQQ -$144.00, RBRK -$20.00.",
+        "day_pnl_naive_method_REJECTED": "-$429.50. The naive close-to-mark calculation overstates the day's loss by $183.00 because it charges the two lots ADDED TODAY (QQQ @ 3.56 at 15:50Z, RBRK @ 4.30 at 16:00Z) with the full move from Thursday's close, which they never experienced. Computed per-lot instead. WORTH FLAGGING BECAUSE THE WRONG NUMBER IS ALARMING AND THE RIGHT ONE IS NOT: -$429.50 would have read as though the -$400 daily cap had been breached. It has not been, on either method -- the cap gates REALIZED losses and gates NEW ENTRIES ONLY, never an exit, and realized agentic P/L today is $0.00.",
+        "lesson": "On any day the book was added to, close-to-mark day P/L is wrong by construction. Compute per lot."
+      },
+      "hunt": {
+        "slots_and_budget": "TACTICAL 0 of 2 open, CORE 2 of 3 open, hedge excluded. Deployable $906.87 after the $250 reserve. 0 of 8 daily entries used. Agentic realized P/L $0.00 vs the -$400 cap. Nothing is BLOCKED -- there is simply no setup that clears the bar, and now one additional reason to be choosy.",
+        "grades_considered": [
+          {
+            "candidate": "QQQ tactical long call on the 50d reclaim",
+            "track": "tactical",
+            "grade": "C",
+            "why": "This is the only genuinely NEW trigger shape on the tape -- QQQ crossed above its falling 50d in the last ten minutes. It fails on three counts. (1) 0.11% above a level it has been pinned to all session on monthly OpEx is not a break, and the desk has correctly called this a pin in five consecutive runs; reversing that read on a 0.11% print because it is finally in the wanted direction would be motivated reasoning. (2) The Track A time stop is 'flat by the close of the NEXT session', which from Friday afternoon means paying three calendar days of carry to own one session of delta -- the structural Friday-afternoon penalty the 18:50Z run already established. (3) Nearest DTE-compliant expiry is 2026-08-28 (exactly at the floor of 7), which is 4 DTE by the Monday time stop -- permissible but thin at an hourly-to-sub-hourly cadence."
+          },
+          {
+            "candidate": "NVDA tactical put (intraday relative weakness)",
+            "track": "tactical",
+            "grade": "C",
+            "why": "Unchanged and structurally unfixable, restated for completeness rather than re-derived: NVDA reports 2026-08-26 pm and the DTE-7 floor makes 2026-08-28 the earliest permissible expiry, so EVERY tradeable contract spans the print. Pre-positioning into earnings when earnings is not the thesis is banned. Also: NVDA improved to -0.65% from -0.81%, so the divergence is weaker than when it was last graded, not stronger."
+          },
+          {
+            "candidate": "Any fourth bearish expression, either track",
+            "track": "both",
+            "grade": "PASS -- and now on arithmetic, not instinct",
+            "why": "The book is already 10.74x account value in one-way short notional delta with all three positions bearish. The theme cap would permit a third bearish-tech name, but a fourth expression of the same view concentrates a book that is already a single trade, while the desk has an unanswered ask with Ryan to REDUCE one leg of it. Declined."
+          },
+          {
+            "candidate": "A long/neutral position to offset the concentration",
+            "track": "core",
+            "grade": "C -- declined on principle",
+            "why": "Recorded because it is the tempting wrong answer to this run's own finding. Discovering the book is one-directional is NOT a thesis for buying the other side; that would be trading to fix a number rather than because a setup cleared. There is no long setup on the board that passes the entry stack today, and manufacturing one to look balanced is exactly the 'boredom is not a catalyst' failure. The concentration finding raises the bar for MORE bearish risk; it does not lower the bar for long risk."
+          },
+          {
+            "candidate": "INTC RSI2 3.6 (equity report)",
+            "track": "core",
+            "grade": "C -- unchanged",
+            "why": "Killed at 18:32Z by the $20B secondary offering; INTC 90.425 is -1.85% today, confirming that read. No re-derivation attempted."
+          }
+        ],
+        "why_flat_one_line": "No candidate cleared the entry stack; the only new trigger on the tape is a 0.11% cross of a level the desk has correctly called a pin all session, and Friday's last hour is Track A's structurally worst entry window."
+      },
+      "iv_method": "Today's rows for all ten evaluated names (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA, INTC, RBRK) were logged to iv_history.json by the 18:32Z run and are 30 minutes old. NOT re-measured: the duty is one row per day per name and re-polling ten ATM chains for a half-hour-old reading would consume this run's budget for no decision-relevant change. Raw-vs-ex-gap pairs stand as logged, and per the standing rule they are read as a PAIR -- MSFT 0.5252 raw / 1.0078 ex-gap and TSLA 0.7422 / 1.3026 remain the two names whose headline ratios most invite buying vol that is not actually cheap.",
+      "notification_decision": {
+        "outcome": "SILENT. Ryan was NOT paged.",
+        "reasoning": "The monitoring mandate's trigger is a trigger firing or un-firing, or the RECOMMENDATION changing. Neither happened: no ladder level is near, both setups are intact, and the standing QQQ recommendation (convert to the 680/660 vertical, or close, before the bell) is word-for-word what he already received at 18:50Z. The QQQ leg is $24 worse than at that page and the book is down $246.50 on the day -- real, but a third notification in 45 minutes carrying the SAME ask with slightly worse numbers is precisely the noise the silence rule exists to prevent, and it would cost the mandate more than the update is worth. He also added to both positions himself three hours ago, so the book's direction is a choice he made today with current information.",
+        "where_the_new_finding_goes_instead": "The concentration measurement and the realized-P/L correction belong in daily_options_report.md, which is due at the first run at or after 19:15Z and whose commit to master IS a delivered notification via eod-report-notify.yml. That is the channel built for exactly this kind of educational, non-urgent finding."
+      },
+      "eod_report_status": "NOT WRITTEN BY THIS RUN, DELIBERATELY. This run fired ~19:00Z and logged at 19:05Z -- BELOW the 19:15Z (14:15 CT) threshold set on 2026-08-21, and below the routine prompt's 19:25Z. Exactly one run per day writes this file. HANDOFF: the next run at or after 19:15Z MUST write it -- both live triggers land in that window (the repaired sub-hourly at :25, the hourly backstop at :18-:26), so it should be satisfied on the next firing. If the 16:00 ET bell rings and no report exists for 2026-08-21, the FIRST post-close run writes it immediately with no further deferral. Material for it is pre-assembled in this entry: the concentration finding, the realized-P/L correction, today's per-lot P/L, and five graded skips."
     }
   ],
   "updated_utc": "2026-08-21T18:22:00Z"
