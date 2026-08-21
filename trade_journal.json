@@ -13594,6 +13594,66 @@
       "cadence_status_until_fixed": "Still hourly, not 15-minute. Every run must keep describing the cadence honestly, and the DTE-7 blind-spot corollary stands: at 60 minutes the expiry-day gamma gap is 4x wider than the rule was written for, so short-DTE contracts warrant MORE caution until Ryan confirms the :25/:55 fires have resumed."
     },
     {
+      "run_utc": "2026-08-21T16:47:00Z",
+      "run_type": "scheduled_automation_run",
+      "trading_day_et": "2026-08-21",
+      "action": "NO TRADE. Full run: reconciled, managed all three positions, hunted both tracks, graded one real candidate and declined it. 0 of 2 entries used.",
+      "cadence_observation": {
+        "what": "THIS RUN WAS FIRED BY cron-job.org AT 16:45Z -- the first automation fire since 2026-08-18 that is NOT the routine's native hourly backstop. The fire payload identifies the caller as 'scheduled sub-hourly options check (cron-job.org)'.",
+        "why_it_matters": "The sub-hourly trigger has been dead for three trading days (diagnosed 16:30Z, cause confirmed 16:40Z as a 401 on the bearer token). Every run from 08-19 onward landed at :18-:26 past the hour, the signature of the hourly backstop alone. 16:45Z falls outside that window, so the API endpoint accepted an authenticated call again.",
+        "what_this_does_NOT_prove": "That the SCHEDULE is restored. The previously documented cron-job.org window was 8:25-14:55 CT, i.e. fires at :25 and :55; 16:45Z is 11:45 CT, which matches NEITHER. So this is equally consistent with a manual test-run of the job as with a repaired schedule, and cron-job.org auto-disabling remains the step most likely to have been missed. Recovery is confirmed only once runs land at :25/:55 across a full hour unattended. No run may assert more than the endpoint accepted one authenticated call.",
+        "evidentiary_note": "This is an observation about THIS run's own invocation, in the same category as the 2026-08-21T16:24Z confirmation of the v4 prompt. It claims no Ryan turn, quotes no approval, and clears no flag -- HARD RULE 9 is untouched."
+      },
+      "reconciliation": "ZERO DRIFT, independently verified rather than inherited. Three option lines (SPY 700P x1, QQQ 680P x2 @ 380.50, RBRK 90P x2 @ 410.00) and PNC 1.825758 on the equity side, all matching the ledger; every pending_* field 0.0000. No new orders since the 16:24Z run. Portfolio $3,823.65; buying_power $1,156.87 EQUALS unleveraged_buying_power, so no margin extended.",
+      "regime": "RELIEF RALLY, GRINDING NOT SURGING. SPY 766.17 (+0.47%), QQQ 713.64 (+0.38%). The morning brief's read holds: vol is not bidding (own-measured 28-DTE ATM IV fell on both indexes vs yesterday) and leadership is the same semis that led the selloff. THE LIVE DETAIL WORTH RECORDING: QQQ dipped to 709.21 at 14:20Z -- back BELOW the 50d MA at 713.05, briefly re-confirming the desk's bearish premise -- then reclaimed it and has been pinned at 713.4-714.8 for two hours. It sits ON the 50d right now. Contested, not resolved.",
+      "position_verdicts": {
+        "SPY 2026-11-20 700P (hedge, agentic, exempt)": "WORKING AS DESIGNED. Mark 6.535, -$95.50 / -12.75%, 91 DTE, theta only 1.36%/day. A decaying hedge in a relief rally is the expected outcome, not a problem. Invalidation (SPY ~800+) is 4.2% away. NO ACTION.",
+        "QQQ 2026-09-11 680P x2 (blended 3.805)": "LOSING AT THE 21-DTE GATE. Mark 3.59, -$43 / -5.65% at mark, -$47 / -6.18% at bid. Theta now 5.72% of position value PER DAY. The exit engine's 21-DTE review says close-or-roll; the monitoring mandate says recommend-and-ask, and the package has been with Ryan since 13:39Z. Setup NOT broken (kill is a close above ~730; spot 713.64). SILENT -- see below.",
+        "RBRK 2026-09-18 90P x2 (blended 4.10)": "STALLED, THESIS INTACT BUT WEAKENING. Mark 4.25 (+$30) but BID 4.00 (-$20) -- the 11.76%-of-mid spread is worth $50 of the $100 paper gain, so every exit discussion must quote the bid. Spot 99.00, kill at ~105. Binding gate is the pre-earnings decision by the close of WED 2026-08-26 ahead of the verified 08-27 pm print. SILENT."
+      },
+      "why_no_notification_on_positions": "DELIBERATE, and the reasoning is the point. QQQ drifted from -$27/-3.55% at 16:24Z to -$43/-5.65% now; the 14:26Z check had drifted the other way, to +$48. Neither direction is a notification. The mandate's test is whether the RECOMMENDATION changes, not whether the number moved -- 'bank it / close at or near mid' was the 13:39Z call and a slightly worse mark only reinforces it. No ladder level fired or un-fired on either position, and no setup broke. Notifying on drift in either direction is precisely how a monitoring mandate becomes 26 messages a day and Ryan stops reading them.",
+      "hunt": {
+        "tactical_slots": "0 of 2 used, $906.87 deployable after the $250 reserve -- capacity was NOT the constraint.",
+        "core_slots": "2 of 3 used; bearish-tech theme 2 of 3.",
+        "candidates_graded": [
+          {
+            "ticker": "TSLA",
+            "track": "TACTICAL",
+            "grade": "B -- PASS",
+            "catalyst_verified": "REAL and dated TODAY: Nevada's Transportation Authority unanimously approved a commercial robotaxi permit for up to 5,000 Cybercabs in Clark County (Las Vegas), extending the robotaxi footprint beyond Austin. TSLA 363.57, +5.28% on the day.",
+            "trend_maturity_gate": "(a) HOW FAR HAS IT RUN -- FAILS ON THE MARGIN: +5.28% is already banked, 345.13 -> 364.48 high. A long after a move that size is late-stage by default. (b) IS THE CATALYST PRICED -- PASSES CLEANLY: the news is hours old, not a stale re-trade. (c) DOES TODAY'S TAPE CONFIRM -- PASSES: steady uptrend all session, holding near highs, index tape green, no divergence.",
+            "why_declined": "TWO elements imperfect, which by the rubric is a B, not an A. FIRST, NO TRIGGER IS FIRING RIGHT NOW: the scalp track wants a level breaking, and TSLA is consolidating at 362.9-363.9 BELOW its 364.48 session high. Buying mid-consolidation after a 5% run is a chase, not a break. SECOND, THE PREMIUM IS RICH ON THE HONEST MEASURE: today's own-logged row reads IV/RV 0.73 raw, which invites 'vol is cheap' -- but per the desk's own standing correction the raw ratio is distorted by a -15.69% gap sitting in the realized window, and ex-gap the ratio is 1.28, i.e. RICH. A scalp expiring before the next print is exactly the case where the ex-gap number is the correct gauge, and it says pay up. Rich vol plus no live trigger plus a completed move is a pass.",
+            "what_would_change_it": "A break and hold above 364.48 with the tape still green restores the trigger element. The IV objection would survive it, so even then this is an A-minus taken small, never a full-size entry.",
+            "iv_data_caveat": "Today's TSLA row was logged at 13:35Z with spot 350.19; spot is now 363.57, +3.8% above the reading, so the row is stale relative to the tape. NOT overwritten this run: the eight core rows are a same-timestamp daily series and re-stamping one of them mid-session at a different ATM strike would break comparability across the set. Flagged here so no run grades TSLA off that row without noticing."
+          },
+          {
+            "ticker": "NVDA",
+            "track": "TACTICAL",
+            "grade": "C -- PASS",
+            "why_declined": "NO LIVE TRIGGER, and an earnings wall. NVDA opened +0.83%, faded ~1.8% to 214.50 by 14:30Z, and has chopped in a 215.4-216.5 band for the last ~two hours; it is -0.57% while QQQ is +0.38%. That relative weakness is a genuine divergence and worth watching, but a stabilisation after a fade is not a level breaking NOW. Compounding it: the 08-26 pm print is three sessions out, own-measured IV/RV 1.04 raw / 1.15 ex-gap is fairly-to-richly priced with no discount to harvest, and a directional entry into it is an earnings bet the standing preference bars unless earnings IS the thesis. It is not."
+          },
+          {
+            "ticker": "QQQ",
+            "track": "TACTICAL",
+            "grade": "C -- PASS",
+            "why_declined": "PINNED ON THE PIVOT -- the worst possible scalp entry. Spot 713.64 against a 50d MA of 713.05, after testing 709.21 and reclaiming. Chop around a contested level offers no directional edge in either direction, and a bearish add would push the bearish-tech theme to its 3-of-3 cap while concentrating further into a relief rally against an already-losing book."
+          },
+          {
+            "ticker": "-- CORE track --",
+            "track": "CORE",
+            "grade": "no candidate reached grading",
+            "why_declined": "SEQUENCING, stated explicitly because it is a real reason and not an absence of ideas. A third bearish-tech name would hit the theme cap and double down into the rally; no A-grade BULLISH 1-4 week thesis presented itself. Independently, the desk has two decisions landing inside three sessions -- the QQQ 21-DTE call awaiting Ryan, and RBRK's hard pre-earnings gate on WED 08-26. Committing $500-1,000 of the $906.87 headroom today into a merely-adequate setup would cost the flexibility those decisions may need. Preserving capital ahead of a known decision date is a position, not passivity."
+          }
+        ]
+      },
+      "why_flat": "No setup cleared the bar. The one candidate with a real, same-day catalyst (TSLA) has already made its move, is consolidating rather than breaking, and carries rich premium on the ex-gap measure the desk itself insists is the honest one. Capacity, cash and slots were all available -- this was a judgement not to trade, not an inability to. Boredom is not a catalyst and a 5% move that already happened is not a trigger.",
+      "iv_logging": "All eight core rows (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) are already stamped for 2026-08-21 by the 13:35Z run, each at 28 DTE with raw and ex-gap ratios. Nine readings per ticker, still under the 20 needed for a percentile, so IV/RV only -- no percentile was cited anywhere this run. TSLA's staleness is flagged above.",
+      "eod_report": "NOT written by this run and correctly so: 16:47Z is 11:47 CT, well before the 14:15 CT (19:15Z) gate set earlier today. Under the revised rule the ~19:1x-19:2xZ run owns it, and if no run fires before the bell the FIRST post-close run must write it immediately rather than deferring.",
+      "friday_review": "NOT due from this run -- the weekly review was already completed by the first post-open run of today (2026-08-21T13:33Z), which owned it along with the heartbeat and the brief. Not repeated here.",
+      "_concurrency_note": "CONCURRENT-RUN COLLISION, resolved as a UNION per the standing rule -- do not read this as a duplicate. The 16:45Z cron-job.org fire was executed by TWO runs at once: this one (16:47Z) and a sibling (16:52Z), which reached master first as PR #498. Both independently reconciled both books to ZERO DRIFT off ~16:46Z quotes and both independently declined to trade -- that agreement is CROSS-VALIDATION, not redundancy. Resolution applied: the sibling's later _current_state and _last_reconciliation win in holdings.json and were taken wholesale; both journal entries are kept, ordered by run_utc. WHAT EACH RUN UNIQUELY CONTRIBUTED, since that is the reason the union rule exists: the SIBLING is stronger on the cadence finding (it establishes that today's scheduled fires landed at 13:27/14:26/15:23/16:24, that a :45 fire cannot come from the hourly backstop, and therefore that the cron-job.org job is still ENABLED -- an inference this run left open) and it worked the core track and the SPY/NVDA intraday levels more fully. THIS run uniquely graded TSLA, which the sibling did not mention at all despite it being the day's largest mover at +5.28% on a verified same-day catalyst. Neither run alone covers the session; together they do.",
+      "_sibling_insight_adopted": "The sibling's 'STANDING NOTE FOR FRIDAYS' independently strengthens this run's TSLA skip and is adopted here: the tactical track's time stop is 'flat by the close of the next session', so a FRIDAY entry's stop tolerates a full weekend gap -- two calendar days of headline risk on a structure sized for an intraday hold. That means a Friday tactical entry must clear a materially HIGHER trigger bar than a midweek one. TSLA was already declined on two counts (no live trigger, rich ex-gap premium); the weekend-gap asymmetry is a third, and it applies with particular force to a robotaxi-headline name where weekend regulatory and incident news is a live risk."
+    },
+    {
       "run_utc": "2026-08-21T16:52:00Z",
       "run_local_et": "12:52 ET Friday",
       "trading_day_et": "2026-08-21",
