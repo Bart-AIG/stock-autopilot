@@ -91,17 +91,17 @@
   },
   {
    "date": "2026-08-21",
-   "spot": 765.4,
-   "atm_iv": 0.128523,
+   "spot": 766.49,
+   "atm_iv": 0.127033,
    "dte_used": 28,
    "rv_30d": 0.1253,
-   "iv_rv_ratio": 1.0257,
+   "iv_rv_ratio": 1.0138,
    "rv_30d_ex_top2": 0.1059,
-   "iv_rv_ratio_ex_top2": 1.2136,
+   "iv_rv_ratio_ex_top2": 1.1996,
    "largest_1d_move_in_window_pct": 1.79,
-   "strike_used": 765,
-   "measured_utc": "2026-08-21T13:32:14Z",
-   "_note": "Measured 13:32:14Z, ~2 min after the open, on the 2026-09-18 board (28 DTE). Per the file-level earnings-gap rule both realized-vol numbers are logged: rv_30d is the mechanical 30-sample stdev and rv_30d_ex_top2 drops the two largest absolute daily moves in the window. Read them as a PAIR -- ex-gap is the more honest gauge for a contract expiring BEFORE the next print, raw for one that spans a print. Opening prints inflate ATM IV via wide auction markets; these are open-of-session readings, not settled ones."
+   "strike_used": 766,
+   "measured_utc": "2026-08-21T16:23:21Z",
+   "_note": "RE-MEASURED 16:23:21Z on a SETTLED market, OVERWRITING the 13:32:14Z reading that this row originally carried. Reason: CLAUDE.md warns that opening auction markets inflate ATM IV, and the original row was taken ~2 minutes after the bell -- squarely inside that window. The artifact was real and measurable: QQQ ATM IV printed 0.198484 at 13:32Z versus 0.193567 now (-0.49 vol pts), SPY 0.128523 versus 0.127033 (-0.15 vol pts). Same 2026-09-18 board (28 DTE), same call/put-average method, so the two are directly comparable. rv_30d is unchanged by construction -- it is a window of daily CLOSES and today has not closed. READ THE PAIR, AND NOTE A LIMIT OF THE EX-GAP RULE ON INDEXES: the file-level rule that trims the two largest daily moves was written for SINGLE NAMES, where the outlier is an idiosyncratic earnings gap that will not recur inside the contract's life. An ETF never reports earnings -- QQQ's 3.34% outlier was a genuine market-wide move of exactly the kind a 21-28 DTE index put is bought to capture. So on SPY/QQQ the RAW ratio deserves MORE weight than it does on a single name, and the ex-gap number is the sanity check rather than the answer. Trimming real market risk out of realized vol makes implied vol look rich precisely when the tail is live."
   }
  ],
  "QQQ": [
@@ -194,17 +194,17 @@
   },
   {
    "date": "2026-08-21",
-   "spot": 714.07,
-   "atm_iv": 0.198484,
+   "spot": 713.98,
+   "atm_iv": 0.193567,
    "dte_used": 28,
    "rv_30d": 0.2224,
-   "iv_rv_ratio": 0.8925,
+   "iv_rv_ratio": 0.8704,
    "rv_30d_ex_top2": 0.1752,
-   "iv_rv_ratio_ex_top2": 1.1329,
+   "iv_rv_ratio_ex_top2": 1.1048,
    "largest_1d_move_in_window_pct": 3.34,
    "strike_used": 714,
-   "measured_utc": "2026-08-21T13:32:14Z",
-   "_note": "Measured 13:32:14Z, ~2 min after the open, on the 2026-09-18 board (28 DTE). Per the file-level earnings-gap rule both realized-vol numbers are logged: rv_30d is the mechanical 30-sample stdev and rv_30d_ex_top2 drops the two largest absolute daily moves in the window. Read them as a PAIR -- ex-gap is the more honest gauge for a contract expiring BEFORE the next print, raw for one that spans a print. Opening prints inflate ATM IV via wide auction markets; these are open-of-session readings, not settled ones."
+   "measured_utc": "2026-08-21T16:23:21Z",
+   "_note": "RE-MEASURED 16:23:21Z on a SETTLED market, OVERWRITING the 13:32:14Z reading that this row originally carried. Reason: CLAUDE.md warns that opening auction markets inflate ATM IV, and the original row was taken ~2 minutes after the bell -- squarely inside that window. The artifact was real and measurable: QQQ ATM IV printed 0.198484 at 13:32Z versus 0.193567 now (-0.49 vol pts), SPY 0.128523 versus 0.127033 (-0.15 vol pts). Same 2026-09-18 board (28 DTE), same call/put-average method, so the two are directly comparable. rv_30d is unchanged by construction -- it is a window of daily CLOSES and today has not closed. READ THE PAIR, AND NOTE A LIMIT OF THE EX-GAP RULE ON INDEXES: the file-level rule that trims the two largest daily moves was written for SINGLE NAMES, where the outlier is an idiosyncratic earnings gap that will not recur inside the contract's life. An ETF never reports earnings -- QQQ's 3.34% outlier was a genuine market-wide move of exactly the kind a 21-28 DTE index put is bought to capture. So on SPY/QQQ the RAW ratio deserves MORE weight than it does on a single name, and the ex-gap number is the sanity check rather than the answer. Trimming real market risk out of realized vol makes implied vol look rich precisely when the tail is live."
   }
  ],
  "NVDA": [

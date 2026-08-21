@@ -13471,6 +13471,71 @@
         "daily_entries_used": "0 of 3"
       },
       "duties": "Heartbeat already stamped 13:33Z (not first run of day) -- not re-stamped. market_brief stamped today -- not rebuilt (no shock; QQQ churn, vol soft). IV core-list rows already logged today by the brief-build run -- no new name evaluated, none added. EOD report NOT due (15:23Z = 10:23 CT, before the 14:25 CT first-eligible slot)."
+    },
+    {
+      "run_utc": "2026-08-21T16:24:00Z",
+      "run_local_et": "12:24 ET Friday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "market_hours_regular",
+      "regime": "DIRECTIONLESS CHOP AROUND THE QQQ 50d, TECH-CENTERED, LOW CONVICTION IN BOTH DIRECTIONS. Measured off 10-minute bars, not asserted: QQQ opened 715.22, was sold to 711.56 inside ten minutes, then ranged 709.21-712.85 for two hours, pushed to 714.60 on the 15:30Z bar (417,923 shares, the day's one real directional impulse), and gave most of it back by 16:00Z. Day range 709.21-715.40 = 0.87%, with price crossing the 50d (713.05) FOUR times. Last 713.98 (+0.43%). SPY 766.49 (+0.51%) again holding better than QQQ, so weakness stays tech-concentrated rather than broad. NVDA 215.65 (-0.55%) is a drag. Vol did not bid: re-measured 30d ATM IV on a settled market reads SPY 0.1270 / QQQ 0.1936, BOTH BELOW the 13:32Z opening prints (0.1285 / 0.1985). A tape that chops in a 0.87% range with vol drifting lower offers no level-break trigger in either direction.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY, BOTH TRACKS. Reconciled two of Ryan's own adds, recomputed both exit ladders onto blended cost bases, re-measured SPY/QQQ IV off the opening-auction window, confirmed routine prompt v4 is live, and notified Ryan once.",
+      "the_event_of_this_run": {
+        "what": "The book DOUBLED on both agentic option positions between the 15:23Z run and this one. get_option_positions returned QQQ 2026-09-11 680P at qty 2.0 / avg 380.50 where the ledger carried 1 @ 4.05, and RBRK 2026-09-18 90P at qty 2.0 / avg 410.00 where the ledger carried 1 @ 3.90. Both new lots showed intraday_quantity 1.0000.",
+        "who": "RYAN, on both, verified on the order records and never inferred. get_option_orders(created_at_gte=2026-08-21) returns exactly three filled orders, ALL placed_agent='user': QQQ 680P buy-to-open limit 3.56 debit, placed 15:44:05Z / filled 15:50:28.960Z (order 6a887245); RBRK 90P buy-to-open limit 4.40, filled 4.30 at 16:00:11.275Z (order 6a88760a); plus the ACHR 5C sell-to-close already reconciled by the 14:26Z run.",
+        "why_no_flag": "Nothing here is an unauthorized agentic trade, so no _flag was written. placed_agent='user' means Ryan acted in his own app. HARD RULE 6's autonomy ban and FOUR LAWS #3 (ask before adding to a loser) constrain THE DESK, not the account owner. The symmetry matters and is worth writing down for the relay: the ownership gate cuts both ways -- it stops the desk touching his positions, and it equally stops the desk treating his actions as desk actions.",
+        "the_governance_point_that_actually_matters": "The QQQ add landed ~11 minutes after the 15:23Z run reaffirmed a 21-DTE close/roll recommendation that had been sitting with Ryan since 13:39Z. He responded by BUYING MORE at a lower price. A run must NOT convert that into 'Ryan approved holding' -- HARD RULE 9 forbids an unattended run from inferring, claiming or quoting a Ryan decision, and this run infers none. What IS recordable is the broker fact: he increased rather than exited. The practical consequence is narrow and specific -- the standing close/roll recommendation is SUPERSEDED and must not be re-sent as though it were still unanswered. Re-sending it would be exactly the notification spam the monitoring mandate's silence clause exists to prevent."
+      },
+      "routine_prompt_v4_confirmed_live": {
+        "finding": "The stored prompt this run was invoked with IS the v4 dual-track text -- 'OPTIONS AUTOMATION RUN - JUDGMENT-FIRST, DUAL-TRACK', the TWO TRACKS section, max 5 open (2 tactical / 3 core), 3 per correlated theme, 2 entries/run and 8/day, the -$400 cap, and the SURVEY ALL STRUCTURES duty -- matching docs/routine-prompt-v4.md below its divider.",
+        "why_this_clears_the_bar": "CLAUDE.md's pending-paste bullet named exactly one way an unattended run may confirm v4: 'observing the routine's own prompt'. That is observation of this run's own invocation context, not an assertion about anything Ryan said. HARD RULE 9 bars claiming or quoting a Ryan TURN; it does not bar reading the prompt one was invoked with. No flag was cleared and no approval was quoted. CLAUDE.md updated accordingly.",
+        "what_changes": "v3.1's 1-entry/run, 3/day, max-3-positions and the -$200 cap are retired. The -$200/-$400 conflict logged 2026-08-14 resolves to -$400 now that both documents agree.",
+        "what_does_not": "Ownership gate, HARD RULE 9, equity autonomy ban, DTE-7 floor, trend-maturity gate, the 2026-08-05 exit engine, the news/thesis gate, the hedge exemption, and no-margin-borrowing. A looser prompt repeals no gate that decides WHETHER a setup is worth taking.",
+        "the_honest_caveat": "New limits do not create cash. unleveraged_buying_power is $1,156.87 against $2,330 already deployed; after the $250 reserve there is ~$907 of headroom. The five-slot book v4 permits is arithmetically unreachable until something closes."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P": "WORKING AS INSURANCE, NO ACTION. 6.565 (0.46% of mid), -$92.50/-12.35%, 91 DTE, theta -$8.93/day. Exempt from all backstops. SPY 766.49 is ~2.5% above the 746-748 early-warning shelf, so the hedge being out-of-the-money is the book being fine. Roll/close decision with Ryan at ~21 DTE (~2026-10-30).",
+        "QQQ 2026-09-11 680P (2ct, MIXED ownership)": "STALLED, NOT BROKEN. Blended 3.805, mark 3.67 = -$27/-3.55%, -$31/-4.07% net at the 3.65 bid. Nothing fired (cut 1.90, backstop 1.33) and the QQQ<730 invalidation holds with 2.2% of room. THE ISSUE IS CARRY AND THE ADD DOUBLED IT: theta -$44.29/DAY on $761, or 6.03%/day, with the weekend billing ~3 days. At DTE 21 the contract sits exactly on the tier boundary; from Monday the -50% cut at 1.90 becomes the standing unconditional rule.",
+        "RBRK 2026-09-18 90P (2ct, MIXED ownership)": "STALLED, THESIS WEAKENING. Blended 4.10, mark 4.10 = flat at mark, -$40/-4.88% net at the 3.90 bid -- the whole gap is the 9.76% spread. RBRK 99.54 is +2.07% on a flat tape, OUTPERFORMING, which erodes the relative-weakness leg the short rests on. Break-even 85.90 needs a further -13.7% in 28 days. BINDING: pre-earnings decision by the close of WED 2026-08-26 ahead of the 08-27 pm print -- now with $820 riding on it rather than $390."
+      },
+      "hunt": {
+        "tracks_hunted": "BOTH, per v4. Neither produced an entry. This is a 'no trigger cleared' outcome, not a risk-aversion one -- the distinction matters because the desk is explicitly told aggression means taking every setup that genuinely clears the bar.",
+        "grades_considered": [
+          {
+            "track": "TACTICAL",
+            "candidate": "QQQ 2026-08-28 ~0.50-delta single leg (7 DTE, the nearest expiry at the floor)",
+            "grade": "C",
+            "what_was_missing": "THE TRIGGER. v4 requires 'an intraday level actually breaking NOW with the index tape agreeing'. QQQ crossed its 50d (713.05) FOUR times inside a 0.87% day range and the one directional impulse (15:30Z push to 714.60 on heavy volume) had already faded by 16:00Z. That is chop, and chop is the single worst tape for a level-break scalp because both directions stop you out. Liquidity was never the binding constraint here -- QQQ's chain is penny-wide -- the SETUP was."
+          },
+          {
+            "track": "TACTICAL",
+            "candidate": "Any Friday-afternoon scalp, structurally",
+            "grade": "C",
+            "what_was_missing": "CALENDAR MATH, independent of any thesis. A tactical entry's time stop is 'flat by the close of the next session', which from Friday midday means carrying a weekend. A 7-DTE contract bills ~3 of its remaining 7 days of time value across two NON-TRADING days -- roughly 43% of remaining life surrendered for zero opportunity to be right. A Friday scalp therefore needs a materially BETTER setup than a Tuesday one to clear the same bar, and today's is worse, not better. Writing this down for the relay: the DTE floor of 7 and a Friday entry interact badly and the run should check that interaction before pricing anything."
+          },
+          {
+            "track": "CORE",
+            "candidate": "A third bearish-tech swing (QQQ or semis put spread)",
+            "grade": "C",
+            "what_was_missing": "CONCENTRATION MASQUERADING AS CONVICTION. v4 permits 3 per correlated theme and the theme sits at 2, so a slot is technically open. But both existing bearish-tech positions are STALLED and fighting a bounce, and the honest reading of adding a third is that it doubles down on a view the tape has not confirmed for three sessions. The trend-maturity gate also bites: today's tape (QQQ +0.43%, SPY +0.51%) DIVERGES from a fresh bearish entry, which is the exact ZTS divergence pattern the gate was written after."
+          },
+          {
+            "track": "CORE",
+            "candidate": "A bullish core swing (SPY/QQQ call spread) as a counterweight",
+            "grade": "C",
+            "what_was_missing": "NO THESIS, and a bad reason dressed as a good one. The only argument for it is that it would offset the book's negative delta -- but 'my existing positions are uncomfortable' is portfolio construction, not a catalyst. v4 names this explicitly: boredom is not a catalyst and a marginal setup does not improve because the desk wants activity. There is no reclaim, no breadth thrust and no vol capitulation to point at; QQQ has failed at its 50d repeatedly today."
+          }
+        ],
+        "structures_surveyed": "Per the v4 SURVEY ALL STRUCTURES duty, this was reasoned but not priced out, and the reason is worth stating so it does not read as a skipped duty: the duty attaches to 'any thesis worth taking', and no candidate cleared the thesis gate. Pricing three structures for a setup already graded C would be the wasted-research pattern the 2026-08-14 SOURCING fix was written to stop -- work the chain only after the setup earns it."
+      },
+      "iv_method": {
+        "what_was_done": "OVERWROTE today's SPY and QQQ rows, which is the method's own instruction when a name is re-evaluated. The originals were measured at 13:32:14Z, ~2 minutes after the bell, inside the window CLAUDE.md flags for auction-inflated ATM IV.",
+        "the_artifact_was_real": "QQQ 0.198484 at 13:32Z -> 0.193567 at 16:23Z (-0.49 vol pts). SPY 0.128523 -> 0.127033 (-0.15 vol pts). Same 2026-09-18 board (28 DTE), same call/put-average method, so directly comparable. rv_30d is unchanged by construction: it is a window of daily CLOSES and today has not closed.",
+        "readings": "SPY spot 766.49, atm_iv 0.127033 (766 strike), raw ratio 1.0138, ex-top2 ratio 1.1996. QQQ spot 713.98, atm_iv 0.193567 (714 strike), raw 0.8704, ex-top2 1.1048.",
+        "A_LIMIT_OF_THE_EX_GAP_RULE_ON_INDEXES_worth_inheriting": "The file-level rule that trims the two largest daily moves was written for SINGLE NAMES, where the outlier is an idiosyncratic earnings gap that will not recur inside the contract's life. An ETF never reports earnings. QQQ's 3.34% outlier was a genuine market-wide move -- exactly the kind of move a 21-28 DTE index put is bought to capture. So on SPY/QQQ the RAW ratio deserves MORE weight than it does on a single name, and the ex-gap figure is a sanity check rather than the answer. Trimming real market risk out of realized vol makes implied vol look rich precisely when the tail is live, which would have argued against holding the very hedge the defensive posture requires. Recorded in iv_history.json's row notes as well."
+      },
+      "notification": "SENT, ONCE. Justified under the monitoring mandate's silence clause because the RECOMMENDATION SET ITSELF CHANGED, not because the marks moved: both exit ladders were recomputed onto new blended bases (every trigger level moved), the standing QQQ 21-DTE close/roll recommendation is superseded by his own add, and the RBRK pre-earnings deadline now governs $820 rather than $390. The two facts he most plausibly does not have in front of him are the post-add carry (QQQ theta -$44.29/day, ~$130 billed over the weekend) and that his RBRK lot filled at the ask on a 9.76%-wide chain, leaving the pair -$40 net on the spread alone.",
+      "why_flat": "Both tracks hunted, four candidates graded, none above C. The tape is a 0.87% chop range with four 50d crossings and no clean level; a Friday tactical entry surrenders ~43% of a 7-DTE contract's remaining life to the weekend; a third bearish-tech core position is concentration into an unconfirmed view and diverges from today's tape; a bullish counterweight has no catalyst behind it. Entries used 0 of 8. The -$400 cap is not in play (desk-attributable realized today $0.00; broker shows +$53.00, all of it Ryan's ACHR close).",
+      "next_run_should": "(1) The 19:25Z-or-later run OWNS daily_options_report.md -- write it at the FIRST run at/after 14:25 CT and do not defer for a better slot. (2) Do NOT re-send the QQQ 21-DTE close/roll recommendation; it is superseded (see the_event_of_this_run). (3) Both exit ladders now sit on BLENDED bases -- recommend off holdings.json's _exit_ladder, do not re-derive from the old single-lot entries. (4) From Monday the QQQ contract is inside 21 DTE, where the -50% cut at 1.90 becomes the standing unconditional rule. (5) The RBRK pre-earnings decision is due by the CLOSE of WED 2026-08-26 and is the book's next hard deadline."
     }
   ],
   "updated_utc": "2026-08-20T02:19:00Z"
