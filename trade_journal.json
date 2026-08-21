@@ -14253,6 +14253,90 @@
         "where_the_new_finding_goes_instead": "The concentration measurement and the realized-P/L correction belong in daily_options_report.md, which is due at the first run at or after 19:15Z and whose commit to master IS a delivered notification via eod-report-notify.yml. That is the channel built for exactly this kind of educational, non-urgent finding."
       },
       "eod_report_status": "NOT WRITTEN BY THIS RUN, DELIBERATELY. This run fired ~19:00Z and logged at 19:05Z -- BELOW the 19:15Z (14:15 CT) threshold set on 2026-08-21, and below the routine prompt's 19:25Z. Exactly one run per day writes this file. HANDOFF: the next run at or after 19:15Z MUST write it -- both live triggers land in that window (the repaired sub-hourly at :25, the hourly backstop at :18-:26), so it should be satisfied on the next firing. If the 16:00 ET bell rings and no report exists for 2026-08-21, the FIRST post-close run writes it immediately with no further deferral. Material for it is pre-assembled in this entry: the concentration finding, the realized-P/L correction, today's per-lot P/L, and five graded skips."
+    },
+    {
+      "run_utc": "2026-08-21T19:20:00Z",
+      "run_local_et": "15:20 ET Friday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "scheduled_automation_run",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org)",
+      "action": "NO TRADE, NO EXIT, NO ENTRY, BOTH TRACKS. 0 of 2 entries this run, 0 of 8 today. THE WORK OF THIS RUN IS THE DAILY REPORT: this is the first run at or past the 14:15 CT (19:15Z) window and daily_options_report.md for 2026-08-21 had not been written, so it was written and delivered rather than deferred. Positions re-quoted live at 19:16:13Z, zero drift, no trigger fired or un-fired, SILENT under the monitoring mandate.",
+      "regime": "RISK-ON HEADLINE, FLAT TAPE, DETERIORATING INTERNALS. SPY 765.89 (+0.43%), QQQ 713.11 (+0.31%) -- but QQQ is pinned within 0.1% of its falling 50d (713.05) for a third session, and NVDA is -0.96% at 214.78 while the index is green. TSLA +5.37% (363.66) on robotaxi news carries the index nearly alone. PHLX semis -5% on the week into NVDA's 08-26 pm print. Between 17:24Z and 19:16Z every liquid name moved less than 0.1% -- there was no level to trade.",
+      "reconciliation": "ZERO DRIFT, BOTH BOOKS. Three option contracts, all pending_* 0.0000; equity PNC only. get_portfolio $3,847.89 = equity $444.02 / options $2,247.00 / cash $1,156.87. unleveraged_buying_power $1,156.87 == buying_power, no margin extended. Deployable after the $250 reserve: $906.87.",
+      "position_verdicts": {
+        "SPY 2026-11-20 700P": "WORKING AS DESIGNED. Mark 6.515, -$97.50 / -13.02%. Authorized hedge, exempt from all backstops; only decision is the ~2026-10-30 roll/close review with Ryan. 91 DTE.",
+        "QQQ 2026-09-11 680P": "STALLED, SETUP INTACT, NO TRIGGER, SILENT. Mark 3.575, -$46 at mark / -$51 net at the bid. DTE 21; Monday it is 20, inside the accelerating-theta window. Standing recommendation to Ryan UNCHANGED since 13:33Z and therefore NOT re-sent -- but carried to him in the daily report's Section 5 with the weekend-carry number, because today was the last session before the bleed is paid.",
+        "RBRK 2026-09-18 90P": "STALLED, LEANING WRONG, NO TRIGGER, SILENT. Mark 4.40 (+$60) but the collectable number is $0.00 net at the bid on a 13.64%-of-mid spread -- exactly flat. Underlying up a fifth straight session. Binding gate unchanged: pre-earnings decision by the close of Wed 2026-08-26."
+      },
+      "grades_considered": [
+        {
+          "track": "A",
+          "candidate": "SPY / QQQ tactical, either direction",
+          "grade": "C",
+          "why": "Track A requires an intraday level actually breaking NOW. QQQ pinned within 0.1% of its falling 50d for a third session is a pin, not a break. Sub-0.1% moves across every liquid name over the prior ~2 hours."
+        },
+        {
+          "track": "A",
+          "candidate": "NVDA bearish scalp",
+          "grade": "C",
+          "why": "The day's one real divergence (-0.96% vs QQQ +0.31%, semis -5% on the week) and still not a setup. NVDA reports 2026-08-26 pm, inside any short-DTE hold window -- an earnings bet, barred unless earnings IS the thesis."
+        },
+        {
+          "track": "A",
+          "candidate": "TSLA long calls",
+          "grade": "C",
+          "why": "Trend-maturity gate. A +5.37% day stalling under a FALLING 50d (366.23) is a move that already happened. Inherited from 17:24Z and re-checked, not re-derived: spot 363.66 vs 363.70 two hours ago."
+        },
+        {
+          "track": "A",
+          "candidate": "ANY tactical entry in the final 40 minutes of a Friday",
+          "grade": "STRUCTURAL DECLINE",
+          "why": "NEW REASONING THIS RUN, not inherited. A Track A scalp carries a hard time stop of flat-by-next-session's-close. Opened at 14:20 CT Friday that means paying THREE days of weekend carry on a position whose entire edge is intraday delta -- the vehicle and the calendar are mismatched by construction. This is a reason not to trade, never a reason to widen the DTE floor or relax the time stop."
+        },
+        {
+          "track": "B",
+          "candidate": "INTC 2026-09-18 (the day's one real core candidate)",
+          "grade": "B -- INHERITED from 18:32Z, not re-derived",
+          "why": "Liquidity and structure both passed (90/100 vertical $345.50 debit, net theta -$1.18/day, 9.5x carry reduction vs the single leg). Killed on thesis: the RSI2 3.6 print was manufactured by a $20B secondary -- a supply event, not mean reversion -- and the screen's 'rising 200d' gate passed for the wrong reason on a name -36.6% off its June high. Nothing in the intervening 48 minutes changes that."
+        },
+        {
+          "track": "B",
+          "candidate": "MSFT / AVGO / CRWD / KLAC / TXN / TSEM / BE / BAC / GD / DDOG",
+          "grade": "C -- INHERITED",
+          "why": "MSFT is an IV trap (headline IV/RV 0.525 is the +14.42% 07-30 gap; ex-gap 1.008, fair). AVGO chases a -15%/nine-session move into a green tape. The rest have no tradeable chain at this account size or no 'why now'. Re-grading them would be waste."
+        },
+        {
+          "track": "B",
+          "candidate": "A third bearish-tech expression",
+          "grade": "BARRED",
+          "why": "Short-tech theme 2 of 3, and the book was measured at 10.7x the account in one-way short delta notional (-$41,229). A fourth bearish position must clear a materially higher bar. Note the symmetric constraint: that measurement is NOT a thesis for buying the other side -- trading to fix a concentration number is the same error as trading out of boredom."
+        },
+        {
+          "track": "B",
+          "candidate": "Adding to QQQ or RBRK",
+          "grade": "BARRED",
+          "why": "FOUR LAWS #3 -- adding to a losing position needs Ryan's explicit approval and a very good reason. Neither exists."
+        }
+      ],
+      "why_flat": "A dead-flat Friday tape offered no Track A trigger, the one Track B candidate worth the work (INTC) was a supply event dressed as a mean-reversion print, and the book already expresses the bearish view twice at 10.7x one-way short delta. With $906.87 deployable, 40 minutes to the bell and an unanswered decision sitting with Ryan, adding nothing was the honest move.",
+      "the_daily_report": {
+        "written": "daily_options_report.md, 2026-08-21, at 19:20Z / 14:20 CT.",
+        "why_this_run": "First run at or past the 14:15 CT window CLAUDE.md set at 16:35Z today. Marker _eod_report_written is stamped so a 19:25Z/19:55Z sibling does not duplicate the notification.",
+        "threshold_note_for_the_relay": "The 14:15 CT threshold was calibrated on 2026-08-21T16:35Z for the HOURLY-ONLY cadence (last pre-bell run landing 19:21-19:24Z, three to four minutes short of the old 19:25Z gate). The sub-hourly trigger was repaired at 17:05Z the same day, so :25/:55 runs now land pre-bell again and the original premise no longer holds. 14:15 CT remains correct and strictly safer -- it guarantees a pre-bell delivery under EITHER cadence, which is exactly the cadence-independence CLAUDE.md asked for. Do not move it back."
+      },
+      "notification_decision": {
+        "sent": false,
+        "why": "No trigger fired or un-fired on any position and no recommendation changed, so the monitoring mandate's dedup rule says stay silent -- the same reading the 18:32Z run applied. The QQQ 21-DTE recommendation has been with Ryan since 13:33Z unanswered; re-sending the identical recommendation is exactly the 26-notifications-a-day failure the mandate warns against. It IS delivered to him through the correct channel: the daily report's Section 5, where the master push fires eod-report-notify.yml. Weighed and rejected the argument that 'last session before a three-day weekend' makes it new information -- the ACTION recommended is unchanged, and the weekend-carry number rides along in the report anyway."
+      },
+      "sleeve_state": {
+        "open_positions": "3 (SPY hedge excluded) -> 2 of 3 CORE, 0 of 2 TACTICAL. Bearish-tech theme 2 of 3.",
+        "premium_at_risk": "$2,330: $749 hedge (exempt) + $761 QQQ + $820 RBRK.",
+        "unleveraged_buying_power": "$1,156.87; $906.87 after the $250 reserve. No margin extended.",
+        "realized_pnl_today_agentic": "$0.00 against the -$400 cap. Broker-sourced: get_realized_pnl(option, 08-17..08-21) = +$53 / 1 trade, ALL of it Ryan's ACHR close. Zero agentic round trips this week.",
+        "entries_used": "0 of 8 today.",
+        "unhedged_weekend_carry": "~$236 over three days ($131 QQQ + $78 RBRK + $27 SPY). The book is 100% one-way short with nothing long to offset it."
+      },
+      "next_run_should": "Nothing is pending before the 20:00Z bell. If a run lands post-close: the daily report for 2026-08-21 is ALREADY DELIVERED -- do not rewrite it absent a material event (fill, exit, new flag, trigger). The Friday weekly review was completed by the 13:40Z and 16:47Z runs; do not redo it. Post-close runs should reconcile, log one short entry, and stand down per the POST-CLOSE RUN PROTOCOL, and must NOT roll any daily artifact past the 00:00Z UTC rollover -- the trading day stays 2026-08-21 until Monday's 09:30 ET open. Monday's first post-open run owns: the heartbeat stamp, the market_brief rebuild, and the QQQ 680P at 20 DTE."
     }
   ],
   "updated_utc": "2026-08-21T18:22:00Z"
