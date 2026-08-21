@@ -14253,6 +14253,44 @@
         "where_the_new_finding_goes_instead": "The concentration measurement and the realized-P/L correction belong in daily_options_report.md, which is due at the first run at or after 19:15Z and whose commit to master IS a delivered notification via eod-report-notify.yml. That is the channel built for exactly this kind of educational, non-urgent finding."
       },
       "eod_report_status": "NOT WRITTEN BY THIS RUN, DELIBERATELY. This run fired ~19:00Z and logged at 19:05Z -- BELOW the 19:15Z (14:15 CT) threshold set on 2026-08-21, and below the routine prompt's 19:25Z. Exactly one run per day writes this file. HANDOFF: the next run at or after 19:15Z MUST write it -- both live triggers land in that window (the repaired sub-hourly at :25, the hourly backstop at :18-:26), so it should be satisfied on the next firing. If the 16:00 ET bell rings and no report exists for 2026-08-21, the FIRST post-close run writes it immediately with no further deferral. Material for it is pre-assembled in this entry: the concentration finding, the realized-P/L correction, today's per-lot P/L, and five graded skips."
+    },
+    {
+      "run_utc": "2026-08-21T19:22:00Z",
+      "run_local_et": "15:22 ET Friday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "scheduled_automation_run",
+      "fire_payload": "scheduled sub-hourly options check; fired ~19:18Z",
+      "action": "NO TRADE, NO EXIT, NO ENTRY, BOTH TRACKS. 0 of 2 entries this run, 0 of 8 today. THIS RUN OWNED AND DISCHARGED THE DAILY EOD REPORT -- the first run past the 14:15 CT / 19:15Z threshold, written pre-bell at 14:22 CT rather than deferred to a post-close run. Ryan notified via the report commit (eod-report-notify.yml).",
+      "cadence": "Fired ~19:18Z. Counting SCHEDULER-FIRED run_types only per the 17:08Z correction, today's market-hours scheduled runs number 27 by 15:22 ET. Recovery from the 2026-08-18 token failure continues to hold.",
+      "duties_check": "Heartbeat: already stamped 13:33Z for 2026-08-21. Market brief: already built today. Friday weekly review: already completed by the 13:40Z run (broker-sourced, $0.00 realized Mon-Thu, zero round trips, drift check clean with the honest caveat that a zero-trade week is weak evidence of discipline). IV history: all eight core names already carry a 2026-08-21 row. THE ONLY OUTSTANDING DUTY WAS THE DAILY REPORT, and this run wrote it.",
+      "reconciliation": "ZERO DRIFT. Three option contracts (SPY 700P x1, QQQ 680P x2, RBRK 90P x2) match holdings.json one-for-one, all pending_* 0.0000. Equity book PNC only ($443.88). get_portfolio $3,837.75; unleveraged_buying_power $1,156.87 EQUALS buying_power, so no margin is extended and the no-borrowing law is satisfied by construction. Deployable after the $250 reserve $906.87.",
+      "THE_EVENT_OF_THE_DAY": "RYAN ANSWERED THE QQQ DECISION WITH HIS WALLET. Seven runs worked the 21-DTE bank-vs-ride question and paged him three times. He did not close: at 15:50:28Z he BOUGHT A SECOND QQQ 680P at $3.56, and at 16:00:11Z a SECOND RBRK 90P at $4.30 (both placed_agent='user', verified via get_option_orders, not inferred). He also closed his own ACHR 2028-01-21 5C at $3.00 for +$53.00 realized. Three consequences recorded for the relay: (1) the QQQ bank-vs-ride decision is SETTLED -- future runs must stop re-litigating it and must not page him about it absent a real trigger move; (2) the blended QQQ basis fell $4.05 -> $3.805 but the carry DOUBLED to -$43.40/day and a 1% adverse move now costs twice what it did; (3) this is NOT a FOUR LAWS #3 breach -- that law bars the DESK from adding to a loser without asking Ryan, and Ryan adding to his own position is his call. Both positions are now MIXED-OWNERSHIP (lot 1 agentic, lot 2 user), which changes nothing operationally because the monitoring mandate already made them ask-first.",
+      "position_verdicts": {
+        "QQQ 2026-09-11 680P x2": "WORKING, at a loss. Mark 3.535 (bid 3.51 x ask 3.56, 1.4% of mid -- excellent). -$54.00 / -7.10%, -$59 net at bid. 21 DTE, theta -$43.40/day = 6.1% of remaining value per day. Needs -5.16% in QQQ to break even. Nowhere near any backstop. No trigger fired or un-fired -> SILENT under the mandate.",
+        "RBRK 2026-09-18 90P x2": "THE LIVE DECISION, and the mark lies. +$60 / +7.32% at the mark is NOT collectible: 4.10 bid x 4.70 ask = 13.6% of mid on 75 OI and 8 contracts of volume, so selling the bid nets exactly $820 against an $820 basis = $0.00. Underlying +1.98% to 99.45, moving AGAINST the put, breakeven 85.60 needs -13.9%. EARNINGS 2026-08-27 pm: decision due by close of 2026-08-26. Monday's run must bring this to Ryan with fresh BID/ASK, never the mark.",
+        "SPY 2026-11-20 700P x1": "AUTHORIZED HEDGE. -$100 / -13.35%, 91 DTE, exempt from all premium backstops. Roll/close decision WITH Ryan at ~21 DTE (late October). No action."
+      },
+      "realized_pnl_broker_sourced": "get_realized_pnl(asset_classes=['option'], 2026-08-17..2026-08-21) returns +$53.00 on 1 closing trade, all of it in the 2026-08-21 bucket. Identified via get_option_orders as Ryan's ACHR LEAP close. AGENTIC-placed realized P/L, which is what the -$400 cap gates, is $0.00. The cap was never near.",
+      "grades_considered": [
+        {
+          "candidate": "Any tactical entry, either index",
+          "grade": "C -- PASS",
+          "why": "38 minutes to the bell on monthly OpEx. QQQ 713.265 sits 0.03% above its FALLING 50d (713.05) for a third straight session -- that is expiry pinning, not a level, so no invalidation could be written. 'No written invalidation = no trade' bites honestly, not technically. A tactical entry at 15:22 ET Friday is also structurally a weekend-gap bet, not the intraday-level trade Track A is defined as."
+        },
+        {
+          "candidate": "NVDA bearish scalp",
+          "grade": "B -- PASS, inherited from 18:32Z and re-checked, not re-derived",
+          "why": "NVDA 214.95, now -0.88% while SPY is +0.44% -- still the day's cleanest divergence and still not takeable. Unchanged reasons: $925 breaks the $300-600 tactical band; the affordable short-DTE alternative SPANS NVDA's 2026-08-26 pm print; and it would take the bearish-tech theme to 3 of 3 while doubling a bet the book already owns."
+        },
+        {
+          "candidate": "Any fourth bearish expression",
+          "grade": "C -- PASS",
+          "why": "The book is 100% one-way short at -$41,424 delta notional = 10.8x account value. A 1% up move costs ~$412, 17.7% of premium at risk, in one session. The theme cap ALLOWS a third slot; judgment declines it. Equally noted: this concentration is not itself a thesis for buying the other side -- trading to fix a number is the same error as trading out of boredom."
+        }
+      ],
+      "book_concentration": "Re-measured at 19:20Z: net short delta notional -$41,424 (SPY 700P -$11,703, QQQ 680P x2 -$24,080, RBRK 90P x2 -$5,641) against account value $3,837.75 = 10.8x, 100% one-way. Max loss remains the $2,330 premium already paid -- no margin, no assignment risk on long options. Combined theta -$78.32/day, and the weekend carries it with no offsetting long.",
+      "why_flat": "Nothing was blocked by a cap, a budget, or a rule. $906.87 was deployable, both tactical slots were open, one core slot was open, 0 of 8 entries were used and the loss cap was untouched. The desk was flat because no setup cleared the bar on the last 38 minutes of a pinned monthly-expiry Friday -- which is the correct reason to be flat.",
+      "handoff_to_monday": "(1) RBRK is the binding decision -- earnings 2026-08-27 pm, decision due by close of 2026-08-26, bring it to Ryan Monday with fresh BID/ASK and the NET, not the mark. Three options priced in the report: close working the limit toward mid, hold through the print only if the earnings move IS the thesis, or close one lot. (2) The QQQ bank-vs-ride question is CLOSED by Ryan's add -- do not re-page. (3) NVDA reports 2026-08-26 pm and sits inside the QQQ put's window; it is the single biggest event for that position. (4) Watch QQQ 713.05, the falling 50d, pinned three sessions -- a decisive break below is the first real confirmation the QQQ thesis is working."
     }
   ],
   "updated_utc": "2026-08-21T18:22:00Z"
