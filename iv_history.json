@@ -91,17 +91,17 @@
   },
   {
    "date": "2026-08-21",
-   "spot": 766.49,
-   "atm_iv": 0.127033,
+   "spot": 765.19,
+   "atm_iv": 0.127182,
    "dte_used": 28,
    "rv_30d": 0.1253,
-   "iv_rv_ratio": 1.0138,
+   "iv_rv_ratio": 1.015,
    "rv_30d_ex_top2": 0.1059,
-   "iv_rv_ratio_ex_top2": 1.1996,
+   "iv_rv_ratio_ex_top2": 1.201,
    "largest_1d_move_in_window_pct": 1.79,
-   "strike_used": 766,
-   "measured_utc": "2026-08-21T16:23:21Z",
-   "_note": "RE-MEASURED 16:23:21Z on a SETTLED market, OVERWRITING the 13:32:14Z reading that this row originally carried. Reason: CLAUDE.md warns that opening auction markets inflate ATM IV, and the original row was taken ~2 minutes after the bell -- squarely inside that window. The artifact was real and measurable: QQQ ATM IV printed 0.198484 at 13:32Z versus 0.193567 now (-0.49 vol pts), SPY 0.128523 versus 0.127033 (-0.15 vol pts). Same 2026-09-18 board (28 DTE), same call/put-average method, so the two are directly comparable. rv_30d is unchanged by construction -- it is a window of daily CLOSES and today has not closed. READ THE PAIR, AND NOTE A LIMIT OF THE EX-GAP RULE ON INDEXES: the file-level rule that trims the two largest daily moves was written for SINGLE NAMES, where the outlier is an idiosyncratic earnings gap that will not recur inside the contract's life. An ETF never reports earnings -- QQQ's 3.34% outlier was a genuine market-wide move of exactly the kind a 21-28 DTE index put is bought to capture. So on SPY/QQQ the RAW ratio deserves MORE weight than it does on a single name, and the ex-gap number is the sanity check rather than the answer. Trimming real market risk out of realized vol makes implied vol look rich precisely when the tail is live."
+   "strike_used": 765,
+   "measured_utc": "2026-08-21T18:32:00Z",
+   "_note": "RE-MEASURED ON A SETTLED MARKET at 18:32Z (14:32 ET), OVERWRITING this morning's 13:3xZ open-auction reading, per the run duty to overwrite today's row. ATM = avg of the 2026-09-18 765 call (0.121370) / put (0.132993), 28 DTE, spot 765.19; strike re-centred from 766. THE FINDING, and it is a NEGATIVE result worth inheriting: the open-print bias CLAUDE.md warns about DOES NOT MATERIALLY AFFECT ATM IV on penny-wide chains. Open 0.127033 -> settled 0.127182, a +0.1% difference. See the QQQ and NVDA rows for the same test."
   }
  ],
  "QQQ": [
@@ -194,17 +194,17 @@
   },
   {
    "date": "2026-08-21",
-   "spot": 713.98,
-   "atm_iv": 0.193567,
+   "spot": 712.53,
+   "atm_iv": 0.192896,
    "dte_used": 28,
    "rv_30d": 0.2224,
-   "iv_rv_ratio": 0.8704,
+   "iv_rv_ratio": 0.8673,
    "rv_30d_ex_top2": 0.1752,
-   "iv_rv_ratio_ex_top2": 1.1048,
+   "iv_rv_ratio_ex_top2": 1.101,
    "largest_1d_move_in_window_pct": 3.34,
-   "strike_used": 714,
-   "measured_utc": "2026-08-21T16:23:21Z",
-   "_note": "RE-MEASURED 16:23:21Z on a SETTLED market, OVERWRITING the 13:32:14Z reading that this row originally carried. Reason: CLAUDE.md warns that opening auction markets inflate ATM IV, and the original row was taken ~2 minutes after the bell -- squarely inside that window. The artifact was real and measurable: QQQ ATM IV printed 0.198484 at 13:32Z versus 0.193567 now (-0.49 vol pts), SPY 0.128523 versus 0.127033 (-0.15 vol pts). Same 2026-09-18 board (28 DTE), same call/put-average method, so the two are directly comparable. rv_30d is unchanged by construction -- it is a window of daily CLOSES and today has not closed. READ THE PAIR, AND NOTE A LIMIT OF THE EX-GAP RULE ON INDEXES: the file-level rule that trims the two largest daily moves was written for SINGLE NAMES, where the outlier is an idiosyncratic earnings gap that will not recur inside the contract's life. An ETF never reports earnings -- QQQ's 3.34% outlier was a genuine market-wide move of exactly the kind a 21-28 DTE index put is bought to capture. So on SPY/QQQ the RAW ratio deserves MORE weight than it does on a single name, and the ex-gap number is the sanity check rather than the answer. Trimming real market risk out of realized vol makes implied vol look rich precisely when the tail is live."
+   "strike_used": 713,
+   "measured_utc": "2026-08-21T18:32:00Z",
+   "_note": "RE-MEASURED ON A SETTLED MARKET at 18:32Z, overwriting the 13:3xZ open reading. ATM = avg of the 2026-09-18 713 call (0.193343) / put (0.192449), 28 DTE, spot 712.53; strike re-centred from 714. Open 0.193567 -> settled 0.192896 = -0.3%. Pair-read unchanged in substance: raw 0.87 says premium is cheap, ex-gap 1.10 says it is fairly-to-richly priced; the ex-gap number is the honest one for a contract expiring before the next big print and the raw one for a contract spanning it."
   }
  ],
  "NVDA": [
@@ -294,17 +294,17 @@
   },
   {
    "date": "2026-08-21",
-   "spot": 218.64,
-   "atm_iv": 0.406579,
+   "spot": 215.31,
+   "atm_iv": 0.404194,
    "dte_used": 28,
    "rv_30d": 0.3915,
-   "iv_rv_ratio": 1.0385,
+   "iv_rv_ratio": 1.0324,
    "rv_30d_ex_top2": 0.3531,
-   "iv_rv_ratio_ex_top2": 1.1515,
+   "iv_rv_ratio_ex_top2": 1.1447,
    "largest_1d_move_in_window_pct": 5.12,
-   "strike_used": 220,
-   "measured_utc": "2026-08-21T13:32:14Z",
-   "_note": "Measured 13:32:14Z, ~2 min after the open, on the 2026-09-18 board (28 DTE). Per the file-level earnings-gap rule both realized-vol numbers are logged: rv_30d is the mechanical 30-sample stdev and rv_30d_ex_top2 drops the two largest absolute daily moves in the window. Read them as a PAIR -- ex-gap is the more honest gauge for a contract expiring BEFORE the next print, raw for one that spans a print. Opening prints inflate ATM IV via wide auction markets; these are open-of-session readings, not settled ones."
+   "strike_used": 215,
+   "measured_utc": "2026-08-21T18:32:00Z",
+   "_note": "RE-MEASURED ON A SETTLED MARKET at 18:32Z, overwriting the 13:3xZ open reading. ATM = avg of the 2026-09-18 215 call (0.399873) / put (0.408515), 28 DTE, spot 215.31; strike re-centred from 220 after NVDA fell 1.5% intraday -- the morning row's 'ATM' strike was 2% OTM by the afternoon, which is the SECOND way an open reading goes stale and the one nobody had flagged. Open 0.406579 -> settled 0.404194 = -0.6%, i.e. still negligible. NOTE for the 2026-08-26 pm print: 40.4% implied vs 39.2% realized raw / 35.3% ex-gap -- premium is NOT cheap into the event."
   }
  ],
  "AMD": [
@@ -860,6 +860,20 @@
    "strike_used": 95,
    "measured_utc": "2026-08-19T16:22:00Z",
    "_note": "FOURTH INTC reading (n=4; still IV/RV-only, no percentile until 20). Measured off the 2026-09-18 95-strike straddle (call IV 0.6325 / put IV 0.6173, averaged). CHAIN IS GENUINELY TRADEABLE: 6.05x6.30 on the call = 4.0% of mid with 10,424 OI and 2,152 contracts traded; the put is 7.20x7.45 = 3.4% of mid on 25,867 OI. That is the liquidity the CLAUDE.md sourcing fix asks for and it is why INTC keeps earning a full workup. VOL IS CHEAP RELATIVE TO REALIZED: iv/rv 0.82 (62.5% implied vs 75.8% realized over 30 sessions) -- an option buyer is NOT overpaying here. The trade was still declined, and the reason is direction, not vehicle: see the trade journal for the grade-C write-up."
+  },
+  {
+   "date": "2026-08-21",
+   "spot": 90.2242,
+   "atm_iv": 0.60685,
+   "dte_used": 28,
+   "rv_30d": 0.7611,
+   "iv_rv_ratio": 0.7973,
+   "rv_30d_ex_top2": 0.6107,
+   "iv_rv_ratio_ex_top2": 0.9937,
+   "largest_1d_move_in_window_pct": 10.7,
+   "strike_used": 90,
+   "measured_utc": "2026-08-21T18:33:00Z",
+   "_note": "FIFTH INTC reading (n=5; IV/RV only, no percentile until 20). atm_iv is the 2026-09-18 90-strike CALL alone (0.606850) -- the put was not quoted this run, so this is NOT the call/put average the spec asks for and must not be compared strike-for-strike with the earlier straddle-based rows. Chain is liquid: 90C 6.20x6.35 = 2.4% of mid, OI 6,235, vol 1,676; 100C 2.80x2.84 = 1.4% of mid, OI 43,359, vol 7,280. THE CORRECTION THIS ROW CARRIES: every prior INTC row concluded 'vol is CHEAP vs realized, so a long single-leg is the right vehicle' from a RAW ratio of 0.81-0.85. Read as the pair CLAUDE.md requires, that call is much weaker -- raw 0.80 vs EX-GAP 0.99. The raw number is dominated by a single +11.3% session on 2026-07-30; strip it and implied vol is priced almost exactly FAIR. The standing 'INTC vol is cheap, buy single legs' handoff should not be inherited as written."
   }
  ],
  "IREN": [
