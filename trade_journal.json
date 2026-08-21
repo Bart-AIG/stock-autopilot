@@ -13559,6 +13559,24 @@
       "what_it_cost": "Ryan set the per-position monitoring mandate on 2026-08-18, the same day the trigger died, so the monitoring he asked for has run at a quarter of its intended cadence ever since. Exit enforcement (-50% cuts, hard backstops) has been checking ~7x/day instead of ~31x. Binding corollary until fixed: the DTE-7 floor exists BECAUSE a 15-minute cadence cannot manage expiry-day gamma; at 60 minutes that blind spot is 4x wider, so short-DTE contracts warrant MORE caution and no run should describe the cadence as 15-minute -- it is hourly.",
       "diagnosis_handed_to_ryan": "Only he can fix it; the trigger config lives on his cron-job.org account. A clean stop at a day boundary rather than a gradual fade points at, in order: (1) expired/revoked bearer token -- docs/options-automation-setup.md says '401/403 = token problem (regenerate in the routine editor, update cron-job.org)'; (2) cron-job.org auto-disabled the job after repeated failures, in which case a new token alone will NOT resume it and the job must also be re-enabled; (3) the beta header experimental-cc-routine-2026-04-01 went stale after a platform change. The execution history for the job 'Options autopilot fire' distinguishes all three by HTTP status in one look.",
       "what_this_run_did_NOT_do": "Did not arm an in-session CronCreate automation to compensate. That is the retired pattern that died silently three times in one day and would put two automations on the same book. An agent can measure the cadence and report it; it cannot repair an external scheduler from inside a run, and should not imply otherwise."
+    },
+    {
+      "run_utc": "2026-08-21T16:36:00Z",
+      "run_type": "root_cause_fix",
+      "trading_day_et": "2026-08-21",
+      "action": "NO TRADE. Root-caused and FIXED a second, downstream consequence of the dead sub-hourly trigger: the EOD report threshold has been silently unreachable before the bell since 2026-08-18.",
+      "finding": {
+        "what": "The 14:25 CT (19:25Z) EOD-report gate was calibrated for ~15-minute firing, when some run always landed inside the 14:25-15:00 CT window. With the trigger dead the routine fires hourly at :18-:26, so the last market-hours run lands at 19:21-19:24Z -- three to four minutes SHORT of the gate, every day. The gate is never satisfied pre-bell and the duty falls to a post-close run.",
+        "measured": "The 2026-08-20 report was written by the 20:20Z POST-CLOSE run and says so in its own header: 'The 19:21Z run landed four minutes before the 14:25 CT report window, so this post-close run is the first one eligible.' The 2026-08-19 report was not written until 04:19Z on 08-20 -- about 11:19 PM ET, roughly seven hours after the bell.",
+        "why_nothing_errored": "The report still got written every day, so no alarm fired and no run reported a failure. It was simply written late, after the market it described had closed. This is the SAME SHAPE as the heartbeat failure found earlier this run: a check that passes for the wrong reason."
+      },
+      "fix_applied": {
+        "primary": "Threshold moved 14:25 CT -> 14:15 CT (19:15Z), comfortably below the observed 19:21-19:24Z landing zone, so the last pre-bell run qualifies again. Committed to master, so today's ~19:2xZ run should pick it up and deliver before the bell rather than after.",
+        "cadence_independent_backstop": "Added the clause that actually matters: if the bell rings and no report exists for that trading day, the FIRST post-close run writes it immediately. No fixed threshold survives an unknown cadence; this clause does not depend on one and is the part to keep if the numbers drift again.",
+        "principle_written_back": "When a scheduling constant encodes an assumption about firing rate, write the fallback that does not depend on the rate. Both of this week's failures -- the dead-man reading green through a 75% outage, and this gate -- were checks that passed for the wrong reason."
+      },
+      "eod_report_today": "NOT written by this run and correctly so: it is 16:36Z (11:36 CT), well before the new 14:15 CT gate. Under the revised rule the ~19:2xZ run owns it, and if that run does not fire, the first post-close run must write it immediately.",
+      "notifications_handled": "Four queued GitHub events read: subscribe/merged pairs for PR #494 and #495, both merged by this run itself. No CI failures, no review comments, nothing actionable. Noted only because reading them prompted the check that surfaced this threshold bug."
     }
   ],
   "updated_utc": "2026-08-20T02:19:00Z"
