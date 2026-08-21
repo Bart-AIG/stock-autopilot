@@ -13406,6 +13406,71 @@
       },
       "iv_method": "No re-log. All eight core names (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) already carry a 2026-08-21 row written by the 13:40Z run off post-open quotes, n=9 readings each. Under 20 readings, so IV/RV only and NO percentile may be cited. Re-measuring the full core list every 15 minutes would burn eight chain lookups to move the fourth decimal of a number no decision this run turned on; the spec says overwrite today's row if it exists, not re-measure it on every firing.",
       "duties": "Heartbeat already stamped 13:33Z for the 2026-08-21 trading day -- not re-stamped. market_brief.json AMENDED (not rebuilt) on a sanctioned intraday trigger: an index broke a level the brief itself cited. EOD report NOT due -- it is written by the first run at/after 14:25 CT (19:25Z) and it is 14:26Z, i.e. 09:26 CT. Friday weekly review already completed by the 13:40Z run from BROKER data; not duplicated."
+    },
+    {
+      "run_utc": "2026-08-21T15:23:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-08-21",
+      "regime": "CHOPPY WHIPSAW, TECH-CENTERED. The relief-rally open (QQQ +0.44%) faded to a failed bounce by 14:26Z (QQQ -0.13%, back under the 50d), then partially recovered to 712.43 (+0.21%, right at the 50d 713.05) by 15:22Z. SPY 765.82 (+0.42%) holding far better than QQQ -- weakness stays concentrated in tech, not the broad tape. Vol did NOT bid: own-measured 30d ATM IV fell on both indexes today. This is directionless churn around the 50d, not a trend.",
+      "action": "NO TRADE, NO EXIT, NO NOTIFICATION. Reconciled Ryan's own BA equity sale, re-marked all three option contracts on live quotes, and stood down on the hunt.",
+      "the_event_of_this_run": {
+        "what": "BA left the equity book between the 13:33Z heartbeat (which recorded it) and this run. get_portfolio equity_value fell $877 -> $442.90, i.e. PNC alone.",
+        "who": "RYAN. get_equity_orders(created_at_gte=2026-08-21) returned order 6a886130, BA sell market 2.022374sh @ $213.7883, **placed_agent='user'**, filled 14:31:12.302Z. Verified on the order record, not inferred.",
+        "economics": "Entry $222.51 (avg cost) -> exit $213.79. Realized -$17.64 / -3.92%, HIS loss, in his equity book. Proceeds $432.34 settle limited-margin.",
+        "why_not_a_flag": "The ownership gate bars the DESK from trading equities autonomously (HARD RULE 6) and from closing user positions; it does not bar Ryan from selling his own stock. The order record affirmatively shows placed_agent='user', so this is the gate working, not failing -- no HARD RULE 9 flag, no adjudication. Ledger: BA moved to _closed_positions, equity book now PNC only.",
+        "capacity_effect": "NONE on the options sleeve. BA was an equity position and never counted against agentic options premium-at-risk or the max-3 options slots. Frees no options capacity."
+      },
+      "position_verdicts": [
+        {
+          "contract": "SPY 2026-11-20 700P",
+          "owner": "agentic (authorized hedge)",
+          "verdict": "INSURANCE, EXEMPT, NO ACTION. 6.56 mark, -$93/-12.42%, DTE 91. Deep-OTM tail bleeding ~$8.91/day as designed. No tranche trigger near; ~21-DTE roll/close with Ryan ~2026-10-30."
+        },
+        {
+          "contract": "QQQ 2026-09-11 680P",
+          "owner": "agentic (monitoring mandate)",
+          "verdict": "WORKING -> now FLAT/small loss; recommendation UNCHANGED, deliberately SILENT. The morning +$51 evaporated as QQQ recovered to the 50d; now -$13.50/-3.3% mark, -$16 net at bid, burning 5.8% of mark/day at DTE 21. The 21-DTE decision package was delivered to Ryan at 13:39Z and he has not replied; the recommended action (close/roll the poor 21-DTE vehicle) is unchanged and the P&L swing does not change it, so no re-notify. Re-notify ladder (ratchet 6.08/pop 7.29/setup-break >730/-50% 2.03/backstop 1.42) -- none fired."
+        },
+        {
+          "contract": "RBRK 2026-09-18 90P",
+          "owner": "agentic (monitoring mandate)",
+          "verdict": "WORKING, SILENT. +$50/+12.8% mark, +$30/+7.7% net at bid, spread tightened to 9.09% of mid. peak_premium holds 4.90 (ratchet arm 5.85 untouched). RBRK 98.70 (+1.21%) participating in the bounce, weakening not breaking the relative-weakness leg (105 close-invalidation 6.4% above spot). BINDING: pre-earnings close-or-re-justify by close of WED 2026-08-26 ahead of the 08-27 pm print."
+        }
+      ],
+      "grades_considered": [
+        {
+          "ticker": "any bearish tech (QQQ/AVGO/AMD/NVDA/TSM put)",
+          "grade": "BARRED",
+          "why": "short-tech theme AT 2-of-2 cap (QQQ 680P + RBRK 90P). Structurally unavailable regardless of tape."
+        },
+        {
+          "ticker": "NVDA",
+          "grade": "C",
+          "why": "most liquid chain on the board but no thesis -- a directional entry before the 08-26 pm print is an earnings bet, barred unless earnings IS the thesis. IV/RV 1.04 raw / 1.15 ex-gap, not cheap."
+        },
+        {
+          "ticker": "MSFT",
+          "grade": "C",
+          "why": "IV trap -- headline IV/RV 0.525 reads half-price but is the +14.42% 07-30 gap in the realized window; ex-gap ~1.008, priced fair. Cheap-looking premium is not a setup."
+        },
+        {
+          "ticker": "AVGO",
+          "grade": "C",
+          "why": "richest premium on the core list (IV/RV 1.17 raw / 1.41 ex-gap) and -15% in nine sessions -- a put here chases a move that already ran, into a +2% green tape. The ZTS trend-maturity mistake. Revisit only on a failed bounce AND if the theme cap clears."
+        }
+      ],
+      "why_flat": "One open slot, but the only directional edge (bearish tech) is barred by the 2-of-2 theme cap, vol is not bidding so a long single leg gets no vega assist, and the liquid long side has no catalyst -- buying calls into a bounce that reverses the desk's own book is a rationalization, not a thesis. Best trade is no trade.",
+      "sleeve_state": {
+        "open_agentic_options": 3,
+        "premium_at_risk_agentic_usd": 1544,
+        "non_hedge_slots_used": "2 of 3",
+        "short_tech_theme": "2 of 2 (capped)",
+        "settled_cash_usd": 1942.95,
+        "daily_realized_pnl_usd": 0.0,
+        "daily_loss_cap_usd": -200,
+        "daily_entries_used": "0 of 3"
+      },
+      "duties": "Heartbeat already stamped 13:33Z (not first run of day) -- not re-stamped. market_brief stamped today -- not rebuilt (no shock; QQQ churn, vol soft). IV core-list rows already logged today by the brief-build run -- no new name evaluated, none added. EOD report NOT due (15:23Z = 10:23 CT, before the 14:25 CT first-eligible slot)."
     }
   ],
   "updated_utc": "2026-08-20T02:19:00Z"

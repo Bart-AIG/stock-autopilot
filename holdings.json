@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-21T13:40:00Z",
+  "updated_utc": "2026-08-21T15:23:00Z",
   "_realized_options_pnl_today": 0.0,
   "positions": [
     {
@@ -17,26 +17,25 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "last_checked_utc": "2026-08-21T14:26:00Z",
-        "quote_basis": "LIVE regular-hours quote, option updated_at 2026-08-21T14:24:37.490Z; SPY spot 14:24:37Z.",
-        "mark": 6.725,
-        "bid": 6.71,
-        "ask": 6.74,
-        "spread_pct_of_mid": 0.45,
-        "pnl_usd_at_mark": -76.5,
-        "pnl_pct_at_mark": -10.21,
-        "net_if_exited_at_bid_usd": -78.0,
-        "net_pct_at_bid": -10.41,
+        "last_checked_utc": "2026-08-21T15:23:00Z",
+        "quote_basis": "LIVE regular-hours quote, option updated_at 2026-08-21T15:22:44.594Z; SPY spot 15:22:44Z.",
+        "mark": 6.56,
+        "bid": 6.55,
+        "ask": 6.57,
+        "spread_pct_of_mid": 0.3,
+        "pnl_usd_at_mark": -93.0,
+        "pnl_pct_at_mark": -12.42,
+        "net_if_exited_at_bid_usd": -94.0,
+        "net_pct_at_bid": -12.55,
         "dte": 91,
-        "delta": -0.157258,
+        "delta": -0.153899,
         "iv": 0.204667,
-        "theta_per_day_usd": -9.01,
-        "theta_pct_of_mark_per_day": 1.34,
+        "theta_per_day_usd": -8.91,
         "open_interest": 25407,
-        "volume_today": 254,
-        "underlying_last": 764.74,
-        "underlying_day_pct": 0.28,
-        "verdict": "INSURANCE, UNCHANGED, NO ACTION. 6.725 (6.71 x 6.74, 0.45% of mid), -$76.50/-10.21%. EXEMPT from every premium backstop per the 2026-08-05 defensive posture; the $9.01/day decay is the policy cost of carrying the tail. No tranche trigger (718/680/633) and the 746-748 early-warning shelf sits 2.4% below spot, untested. ~21-DTE roll/close decision WITH Ryan around 2026-10-30."
+        "volume_today": 270,
+        "underlying_last": 765.82,
+        "underlying_day_pct": 0.42,
+        "verdict": "INSURANCE, UNCHANGED, NO ACTION. 6.56 (6.55 x 6.57, 0.30% of mid), -$93.00/-12.42%. EXEMPT from every premium backstop per the 2026-08-05 defensive posture; ~$8.91/day decay is the policy cost of carrying the tail. SPY 765.82 (+0.42%) is well above the 746-748 early-warning shelf and every tranche trigger (718/680/633) -- the hedge is deep OTM and quietly bleeding as designed. ~21-DTE roll/close decision WITH Ryan around 2026-10-30."
       }
     },
     {
@@ -55,29 +54,29 @@
       "filled_utc": "2026-08-18T17:44:39Z",
       "setup_invalidation": "RECONSTRUCTED BY THE 17:45Z RUN -- the placing run left NO written thesis, invalidation, or exit plan in any committed file, which the routine prompt requires before an entry ('No written invalidation = no trade, no exceptions'). This run did NOT place the trade and cannot invent the original thesis, so the following is an INHERITANCE PLAN, not the entry's stated one, and any run with the real thesis should replace it: bearish QQQ tail. Invalidate on QQQ closing back above ~730 (prior close 729.87 -- a full round-trip of today's -1.6% drop removes the bearish premise entirely). Break-even at expiry is QQQ 675.94, i.e. it needs a further ~5.9% decline from 717.98 in 24 days.",
       "_current_state": {
-        "last_checked_utc": "2026-08-21T14:26:00Z",
-        "quote_basis": "LIVE regular-hours quote, option updated_at 2026-08-21T14:24:37.996Z; QQQ spot 14:24:38Z. Nearly an hour past the open, so not exposed to the auction-print artifact that produced the 13:32Z correction.",
-        "mark": 4.56,
-        "bid": 4.53,
-        "ask": 4.59,
-        "spread_pct_of_mid": 1.32,
-        "pnl_usd_at_mark": 51.0,
-        "pnl_pct_at_mark": 12.59,
-        "net_if_exited_at_bid_usd": 48.0,
-        "net_pct_at_bid": 11.85,
+        "last_checked_utc": "2026-08-21T15:23:00Z",
+        "quote_basis": "LIVE regular-hours quote, option updated_at 2026-08-21T15:22:44.555Z; QQQ spot 15:22:44Z. ~1h53m past the open, no auction-print artifact.",
+        "mark": 3.915,
+        "bid": 3.89,
+        "ask": 3.94,
+        "spread_pct_of_mid": 1.28,
+        "pnl_usd_at_mark": -13.5,
+        "pnl_pct_at_mark": -3.33,
+        "net_if_exited_at_bid_usd": -16.0,
+        "net_pct_at_bid": -3.95,
         "dte": 21,
-        "delta": -0.200613,
-        "iv": 0.231341,
-        "theta_per_day_usd": -24.65,
-        "theta_pct_of_mark_per_day": 5.41,
+        "delta": -0.180266,
+        "iv": 0.227764,
+        "theta_per_day_usd": -22.86,
+        "theta_pct_of_mark_per_day": 5.84,
         "open_interest": 34088,
-        "volume_today": 44,
-        "underlying_last": 709.98,
-        "underlying_day_pct": -0.13,
+        "volume_today": 70,
+        "underlying_last": 712.43,
+        "underlying_day_pct": 0.21,
         "peak_premium": 5.21,
-        "chance_of_profit_long": 0.1827,
-        "break_even_underlying": 675.44,
-        "verdict": "IMPROVED MATERIALLY, RECOMMENDATION UNCHANGED, DELIBERATELY SILENT. The relief rally FAILED: QQQ opened 714.07 (+0.44%) back above its 50d, and is 709.98 (-0.13%) at 14:24Z -- back BELOW the 50d (713.05) and below yesterday's close, with semis fully reversed (AMD +1.71% -> -0.90%, NVDA +0.83% -> -0.96%). That is the brief's own confirming level re-asserting, and the position went +$22.50/+5.6% -> +$51/+12.6% at mark, +$18 -> +$48 net at bid, on a market that TIGHTENED to 1.32% of mid. WHY NO NEW NOTIFICATION: the 13:39Z decision package set an explicit re-notify contract (ratchet 6.08, pop 7.29, setup break QQQ close >730, -50% at 2.03, backstop 1.42) and NONE fired at 4.56. The mandate's test is whether the RECOMMENDATION changes, not whether the number improved, and re-derived fresh this run it does not: a 21-DTE, -0.20-delta index put burning 5.4% of its mark PER DAY is a poor vehicle for a bearish view even when the view is RIGHT -- which is precisely why the 21-DTE rule exists. The view improving does not fix the vehicle. A better price makes 'bank it' MORE right, never wrong, so the improvement cannot flip his decision and a second message would only spend the attention the silence rule is protecting. If he replies 'close it', he simply gets a better fill than quoted."
+        "chance_of_profit_long": 0.167114,
+        "break_even_underlying": 676.08,
+        "verdict": "MONITORING MANDATE, ASK-FIRST -- 21-DTE DECISION ALREADY WITH RYAN (13:39Z package), STAY SILENT. The whole morning +$51 (14:26Z) has evaporated: QQQ recovered 709.98 -> 712.43 (back at the 50d 713.05), so the -0.18-delta put is now -$13.50/-3.3% at mark, -$16 net at the 3.89 bid, burning 5.8% of mark PER DAY at DTE 21. This CONFIRMS rather than changes the standing recommendation (a 21-DTE index put is a poor vehicle even when the view is right -- exactly why the 21-DTE rule exists); recommended ACTION is unchanged (close/roll), so no re-notify. Re-notify contract from 13:39Z: ratchet 6.08 / pop 7.29 / setup-break QQQ close >730 / -50% at 2.03 / backstop 1.42 -- NONE fired at 3.915. Written invalidation (QQQ close >~730) not hit. Awaiting Ryan's reply to the 13:39Z 21-DTE decision package."
       },
       "_inherited_deadlines": {
         "21_dte_management_review": "2026-08-21 (Fri) -- 2026-09-11 minus 21 days. This is THREE SESSIONS AWAY. Per the 2026-08-05 exit-method amendment the 21-DTE review is unconditional: a position flat or losing at 21 DTE is closed or rolled, never held into the accelerating theta/gamma window. At -5.34% of premium per day in theta this is the binding constraint on the position, not the strike.",
@@ -129,29 +128,29 @@
       "filled_utc": "2026-08-18T17:43:58Z",
       "setup_invalidation": "RECONSTRUCTED BY THE 17:45Z RUN -- same caveat as the QQQ position: no written thesis, invalidation, or exit plan was committed by the placing run, so this is an INHERITANCE PLAN and not the entry's stated one. Bearish RBRK. Invalidate on RBRK closing above ~105 (it is 102.30 now and printing relative STRENGTH, so this is close). Break-even at expiry is RBRK 86.15, i.e. it needs a ~15.8% decline in 31 days.",
       "_current_state": {
-        "last_checked_utc": "2026-08-21T14:26:00Z",
-        "quote_basis": "LIVE regular-hours quote, option updated_at 2026-08-21T14:24:37.665Z; RBRK spot 14:24:36Z.",
-        "mark": 4.8,
-        "bid": 4.5,
-        "ask": 5.1,
-        "spread_pct_of_mid": 12.5,
-        "pnl_usd_at_mark": 90.0,
-        "pnl_pct_at_mark": 23.08,
-        "net_if_exited_at_bid_usd": 60.0,
-        "net_pct_at_bid": 15.38,
+        "last_checked_utc": "2026-08-21T15:23:00Z",
+        "quote_basis": "LIVE regular-hours quote, option updated_at 2026-08-21T15:22:35.108Z; RBRK spot 15:22:44Z.",
+        "mark": 4.4,
+        "bid": 4.2,
+        "ask": 4.6,
+        "spread_pct_of_mid": 9.09,
+        "pnl_usd_at_mark": 50.0,
+        "pnl_pct_at_mark": 12.82,
+        "net_if_exited_at_bid_usd": 30.0,
+        "net_pct_at_bid": 7.69,
         "dte": 28,
-        "delta": -0.306148,
-        "iv": 0.796989,
-        "theta_per_day_usd": -13.15,
-        "theta_pct_of_mark_per_day": 2.74,
+        "delta": -0.29199,
+        "iv": 0.777766,
+        "theta_per_day_usd": -12.66,
+        "theta_pct_of_mark_per_day": 2.88,
         "open_interest": 75,
-        "volume_today": 5,
-        "underlying_last": 97.99,
-        "underlying_day_pct": 0.48,
+        "volume_today": 7,
+        "underlying_last": 98.7,
+        "underlying_day_pct": 1.21,
         "peak_premium": 4.9,
-        "chance_of_profit_long": 0.2969,
-        "break_even_underlying": 85.2,
-        "verdict": "NO ACTION, NOTHING FIRED, SILENT. Mark 4.80 (+$90/+23.1%) but only +$60/+15.4% net at the 4.50 bid -- $30 of the paper gain is still spread, though the market HALVED from 24.5% to 12.5% of mid since the open, so the exitable number improved even as the mark stood still. Peak_premium HOLDS at 4.90; today's 4.80 does not set a new one, so the ratchet arm at 5.85 is untouched. Ladder pop 7.02 / arm 5.85 / recheck 1.95 / backstop 1.37 -- none fired. One honest wrinkle versus this morning: RBRK 97.99 is now +0.48% and participating in the bounce, where the 13:40Z run noted it as the one core-adjacent name NOT participating (-0.13%). That weakens -- does not break -- the relative-weakness leg of the premise; the ~105 close-invalidation is 7.2% above spot. BINDING ITEM unchanged: pre-earnings close-or-re-justify decision due by the close of WED 2026-08-26, ahead of the broker-verified 08-27 pm print."
+        "chance_of_profit_long": 0.286295,
+        "break_even_underlying": 85.6,
+        "verdict": "MONITORING MANDATE, ASK-FIRST. NOTHING FIRED, SILENT. Mark 4.40 (+$50/+12.8%) but only +$30/+7.7% net at the 4.20 bid; spread tightened to 9.09% of mid (under the 10% preference for once). peak_premium HOLDS at 4.90 (today's 4.40 sets no new peak), so the ratchet arm at 5.85 is untouched. Ladder pop 7.02 / arm 5.85 / recheck 1.95 / backstop 1.37 -- none fired. RBRK 98.70 (+1.21%) is participating in the bounce, weakening -- not breaking -- the relative-weakness leg; the ~105 close-invalidation is 6.4% above spot. BINDING ITEM unchanged: pre-earnings close-or-re-justify decision due by the close of WED 2026-08-26, ahead of the broker-verified 08-27 pm print."
       },
       "_inherited_deadlines": {
         "pre_earnings_decision": "HARD: decide by the close of 2026-08-26 (Wed), the session before the 2026-08-27 pm print. Under the standing 'prefer closing before earnings' preference this position should be closed or explicitly re-justified in writing before that print. This is the binding deadline on the position.",
@@ -197,17 +196,6 @@
       "target": 255.5,
       "native_trail_pct": null,
       "_note": "placed_agent='agentic' -- RSI2(2) oversold swing entry, quota-removal batch (Ryan approved 2026-08-19 after the 'Remove swing quota' policy change, PR #441). Thesis: earnings beat, dividend raised +18%, active 300-branch expansion; JPMorgan raised PT to $269.50 (Deutsche Bank at Hold, not a red flag). No fixed loss-stop per HARD RULE 5 -- thesis-managed until green enough for a native trailing stop (~+17.6%, ~$289.60)."
-    },
-    {
-      "symbol": "BA",
-      "sleeve": "swing",
-      "entry_date": "2026-08-19",
-      "entry_price": 222.5107,
-      "shares": 2.022374,
-      "stop": null,
-      "target": 240.19,
-      "native_trail_pct": null,
-      "_note": "placed_agent='agentic' -- RSI2(2) oversold swing entry, quota-removal batch (Ryan approved 2026-08-19 after the 'Remove swing quota' policy change, PR #441). Thesis: resilient price action, no fresh bad news; BNP upgraded to Outperform, JPMorgan PT $290, Goldman $260, RBC $265, all above spot; Archer Aviation stake deal, steady July deliveries. No fixed loss-stop per HARD RULE 5 -- thesis-managed until green enough for a native trailing stop (~+17.6%, ~$261.55)."
     }
   ],
   "_resolved_flags": [
@@ -225,11 +213,38 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-19T14:26:00Z",
+    "run_utc": "2026-08-21T15:23:00Z",
     "decision": "NO NEW ENTRY.",
-    "reason": "A real hunt -- one slot and all three daily entries were open -- that produced no candidate worth taking, for reasons that compound rather than merely coincide. (1) THE VOL READ IS THE WHOLE STORY AND IT SAYS DO NOT BUY PREMIUM. Today AVGO fell 5.62% and its 30-day ATM IV went from 0.4983 to 0.4964 (FLAT); AMD fell 4.11% and its IV went 0.5502 -> 0.5399 (LOWER); QQQ fell 6.5 points and its IV moved 0.1968 -> 0.1966 (unchanged); VIX 15.28 is BELOW yesterday's 15.7. IV fell on SIX of the EIGHT core names on a day the semis complex was liquidated. That is the fourth consecutive session of price falling with no vol bid. A directional single leg bought into this pays full theta and receives zero vega assist -- the one structural edge a long-premium desk needs is absent. (2) EVERY expression of today's actual move is BARRED ANYWAY: the move is a bearish semis/AI liquidation, and the SHORT-TECH theme is AT ITS 2-of-2 CAP (QQQ 680P + RBRK 90P), which structurally forbids AVGO, AMD, TSM, NVDA or a second QQQ put no matter how good the tape looks. This is the cap doing exactly its job on the exact day it would be most tempting to breach. (3) AVGO specifically, the one name with a genuine catalyst, fails on three further independent grounds: the 2026-09-18 360P is $2,083 at mid, ABOVE the $1,500 per-trade maximum outright (Law 1); earnings 2026-09-02 sit inside any sensible hold window; and at iv/rv 1.110 it carries the RICHEST vol on the board, so a long put there overpays into the one name where vol is not cheap. The debit spread that would fix the cost problem is unavailable at option_level_2. (4) The committed equity report (latest_morning.md, 14:02Z) offered 13 RSI2 setups; the non-tech ones with tradeable chains -- HON (RSI2 4.0), BA (4.4), GOOGL (9.8) -- are all bare mean-reversion prints with NO catalyst answering 'why NOW', and GOOGL/INTC would mean buying tech calls into an active AI-complex derating, which is the trend-maturity gate's diverging-tape case inverted. CRWD (earnings 2026-08-26) and DELL (2026-09-03) are earnings-window skips. Best grade on the board today was B. B is a pass."
+    "reason": "One open slot but no candidate clears the gates, for reasons that stack. (1) THE THEME CAP BARS TODAY'S ONLY DIRECTIONAL EDGE. The tape is a bearish-tech whipsaw (relief-rally open faded to a failed bounce, QQQ churning at its 50d); any put expression -- QQQ/AVGO/AMD/NVDA/TSM -- is barred because the short-tech theme is AT its 2-of-2 cap (QQQ 680P + RBRK 90P). (2) VOL IS NOT BIDDING, so a long single leg pays full theta with no vega assist -- own-measured 30d ATM IV fell on both indexes today (SPY 0.1315->0.1285, QQQ 0.2027->0.1985) even as price chopped; iv_rv sub-1 on QQQ/AMD/TSM/TSLA/MSFT. (3) THE LIQUID LONG SIDE HAS NO THESIS: buying calls into a one-day bounce that happens to reverse the desk's own book is a rationalization, not a catalyst (the brief's own read). NVDA/MSFT/AVGO all graded C -- NVDA an earnings bet before the 08-26 print, MSFT the IV trap, AVGO a chase after a -15% run into a green tape (the ZTS mistake). Best trade is no trade; one line and stand down.",
+    "slots": "2 of 3 non-hedge agentic slots used; short-tech theme 2 of 2 (capped). Daily entries: 0 of 3 used. Daily realized loss: $0.00 of -$200 cap.",
+    "settled_cash": "$1,942.95 spendable -- not the binding constraint; the theme cap and the absence of an A-grade setup are."
   },
   "_closed_positions": [
+    {
+      "symbol": "BA",
+      "sleeve": "swing",
+      "closed_utc": "2026-08-21T14:31:12Z",
+      "reconciled_utc": "2026-08-21T15:23:00Z",
+      "placed_agent": "user",
+      "entry_date": "2026-08-19",
+      "entry_price": 222.5107,
+      "shares_closed": 2.022374,
+      "exit_fills": [
+        {
+          "order_id": "6a886130-939a-4ebd-9b41-1ffabdde96b9",
+          "qty": 2.022374,
+          "avg_price": 213.7883,
+          "type": "market",
+          "tif": "gfd",
+          "filled_utc": "2026-08-21T14:31:12.302Z"
+        }
+      ],
+      "proceeds_usd": 432.36,
+      "cost_basis_usd": 450.0,
+      "realized_pnl_usd": -17.64,
+      "realized_pnl_pct": -3.92,
+      "_note": "RECONCILIATION ONLY -- the automation did NOT place, propose, or influence this sale (HARD RULE 6: equities are never traded autonomously). Order 6a886130 carries placed_agent='user': Ryan market-sold his full BA (2.022374sh) at $213.7883, filled 2026-08-21T14:31:12Z, settling limited-margin/instant. This is the ownership gate working exactly as designed -- a user-placed order affirmatively on the record -- so NO HARD RULE 9 flag and no adjudication. Proceeds ($432.34) tie out against unsettled_funds moving to $732.30 (= this $432.34 + ACHR $299.94, both Ryan's). Equity book is now PNC only."
+    },
     {
       "symbol": "IREN",
       "sleeve": "momentum",
@@ -405,10 +420,9 @@
     "note": "daily_options_report.md written by the 20:18Z POST-CLOSE run at 15:20 CT. The 19:21Z run landed four minutes before the 14:25 CT window and correctly deferred; this is the first eligible run. Contents: closing marks on all four contracts, the +$224.50 book MTM day, the morning 'vol is bidding' call being proven wrong by the afternoon re-measure, nine skipped candidate groups with reasons, and the QQQ bank-vs-ride decision for Ryan in Section 5 ahead of TOMORROW's unconditional 21-DTE review. DO NOT REWRITE unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing) -- every master push touching this file re-notifies Ryan."
   },
   "_last_reconciliation": {
-    "run_utc": "2026-08-21T14:26:00Z",
-    "result": "DRIFT FOUND AND FULLY EXPLAINED -- the first non-zero drift in nineteen checks, and it was Ryan's own trade, not a fault. get_option_positions(nonzero) returned THREE contracts where the 13:33Z heartbeat recorded FOUR: ACHR 2028-01-21 5C is gone. get_accounts unsettled_funds moved 0.0000 -> 299.9400 and cash 1210.65 -> 1510.59, both matching to the cent. get_option_orders(created_at_gte=2026-08-21) returned ONE order: 6a8858e6, ACHR sell-to-close, limit 3.00, direction=credit, state=filled, **placed_agent='user'**, filled 13:55:50.881Z, settling 2026-08-24. Ledger updated: ACHR moved to _closed_positions (+$52.94 / +21.43% realized, Ryan's), its manual_hold_override retired with it. Remaining three contracts match holdings.json one-for-one by option_id with every pending_* quantity 0.0000 -- no assignment, exercise, expiration or unauthorized fill. NO HARD RULE 9 FLAG: the record affirmatively shows a user-placed order, which is the ownership gate working, not failing.",
-    "portfolio": "get_portfolio 14:23Z: total $3,986.68 = equity $877.09 / options $1,599.00 / cash $1,510.59. buying_power $1,210.65 (SETTLED); unsettled_funds $299.94 from the ACHR sale is NOT spendable until MON 2026-08-24 -- FOUR LAWS #4 binds on that portion and any entry this run must fit inside $1,210.65, not $1,510.59.",
-    "capacity": "Agentic premium-at-risk UNCHANGED at $1,544 ($749 hedge + $405 QQQ + $390 RBRK). ACHR was placed_agent='user' and never counted against agentic accounting (2026-08-03 sub-sleeve amendment), so its exit frees NO capacity and opens NO slot. Hedge excluded from the max-3 count: 2 of 3 non-hedge slots used, and the bearish-tech theme remains AT its 2-of-2 cap.",
-    "throttles": "Daily agentic realized options P/L $0.00 vs the -$200 cap (the stricter live-prompt figure; ACHR's +$52.94 is Ryan's and does not enter this). Entry throttle 0 of 3 for the 2026-08-21 trading day; this run placed nothing, so it stays 0 of 3."
+    "run_utc": "2026-08-21T15:23:00Z",
+    "result": "DRIFT FOUND AND FULLY EXPLAINED -- Ryan's own equity trade, not a fault. get_option_positions(nonzero) returns exactly THREE contracts matching holdings.json one-for-one by option_id (SPY 700P hedge, QQQ 680P, RBRK 90P), every pending_* quantity 0.0000 -- no assignment/exercise/expiration/unauthorized fill. The equity book fell from 2 names to 1: BA is gone. get_equity_orders(created_at_gte=2026-08-21) shows order 6a886130, BA sell market 2.022374sh @ $213.7883, **placed_agent='user'**, filled 14:31:12Z. Verified on the order record, not inferred. Ledger updated: BA moved to _closed_positions (realized -$17.63 / -3.93%, HIS trade), equity book now PNC only. NO HARD RULE 9 FLAG -- a user-placed order on the record is the ownership gate working.",
+    "portfolio": "get_portfolio 15:22Z: total $3,875.85 = equity $442.90 (PNC only) / options $1,490.00 / cash $1,942.95. buying_power $1,942.95 == unleveraged_buying_power $1,942.95 (no borrowed funds extended). unsettled_funds $732.30 (= ACHR $299.94 + BA $432.34, both Ryan's, settling limited-margin). FOUR LAWS #4: settled/spendable BP $1,942.95, not binding.",
+    "premium_at_risk_agentic": "$1,544 ($749 SPY hedge + $405 QQQ + $390 RBRK). Hedge excluded from max-3 count: 2 of 3 non-hedge slots used; bearish-tech theme AT its 2-of-2 cap."
   }
 }
