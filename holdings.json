@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-21T10:19:00Z",
+  "updated_utc": "2026-08-21T11:26:00Z",
   "_realized_options_pnl_today": 0.0,
   "positions": [
     {
@@ -408,7 +408,7 @@
     "note": "daily_options_report.md written by the 20:18Z POST-CLOSE run at 15:20 CT. The 19:21Z run landed four minutes before the 14:25 CT window and correctly deferred; this is the first eligible run. Contents: closing marks on all four contracts, the +$224.50 book MTM day, the morning 'vol is bidding' call being proven wrong by the afternoon re-measure, nine skipped candidate groups with reasons, and the QQQ bank-vs-ride decision for Ryan in Section 5 ahead of TOMORROW's unconditional 21-DTE review. DO NOT REWRITE unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing) -- every master push touching this file re-notifies Ryan."
   },
   "_last_reconciliation": {
-    "run_utc": "2026-08-21T10:19:00Z",
-    "result": "ZERO DRIFT on both books. 4 option contracts and 2 equity positions match the broker exactly; all pending_* quantities 0.0000. Cash $1,210.65 settled, unsettled $0.00. Pre-open run (06:19 ET) - trading day is still 2026-08-20; heartbeat, brief, loss cap and entry throttle all left untouched."
+    "run_utc": "2026-08-21T11:26:00Z",
+    "result": "ZERO DRIFT on both books (sixteenth consecutive post-close check of the 2026-08-20 trading day). 4 option contracts and 2 equity positions match the broker exactly; all pending_* quantities 0.0000. Portfolio $4,075.99 = equity $881.34 / options $1,984.00 / cash $1,210.65 settled, unsettled $0.00. Pre-open run (07:26 ET) - trading day is still 2026-08-20; heartbeat, brief, loss cap and entry throttle all left untouched for the first run at/after 09:30 ET. This run also PRE-COMPUTED the broker-sourced half of today's due Friday weekly review (get_realized_pnl + get_option_orders for 08-17..08-21): $0.00 realized, ZERO closing trades, 3 orders (2 agentic opening fills 08-18, 1 user ACHR sell-to-close cancelled unfilled) - full detail in trade_journal.json under new_work_this_run."
   }
 }
