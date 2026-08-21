@@ -13577,6 +13577,21 @@
       },
       "eod_report_today": "NOT written by this run and correctly so: it is 16:36Z (11:36 CT), well before the new 14:15 CT gate. Under the revised rule the ~19:2xZ run owns it, and if that run does not fire, the first post-close run must write it immediately.",
       "notifications_handled": "Four queued GitHub events read: subscribe/merged pairs for PR #494 and #495, both merged by this run itself. No CI failures, no review comments, nothing actionable. Noted only because reading them prompted the check that surfaced this threshold bug."
+    },
+    {
+      "run_utc": "2026-08-21T16:40:00Z",
+      "run_type": "live_user_followup_midrun",
+      "trading_day_et": "2026-08-21",
+      "action": "NO TRADE. Ryan test-ran the cron-job.org job and reported the HTTP status; cause of the three-trading-day cadence outage is now CONFIRMED rather than inferred.",
+      "confirmed_cause": {
+        "evidence": "Ryan's manual test-run of the cron-job.org job returned '401 Unauthorized -- the endpoint requires authentication. Add the necessary credentials or an authorization header.' Reported by him in a live turn.",
+        "verdict": "THE BEARER TOKEN, i.e. candidate (1) of the three the 16:30Z diagnosis listed. docs/options-automation-setup.md's success criteria say it outright: '401/403 = token problem (regenerate in the routine editor, update cron-job.org).'",
+        "what_this_RULES_OUT": "The stale-beta-header theory. 401 is AUTHENTICATION specifically; a stale anthropic-beta: experimental-cc-routine-2026-04-01 header would fail with a different status. The other three headers need no change.",
+        "what_it_does_NOT_rule_out": "cron-job.org having ALSO auto-disabled the job. That site disables after repeated failures and this job has ~40+ consecutive failures (~14 fires/day x 3 trading days), so a new token alone may not resume it. A successful manual test-run does NOT prove the schedule is enabled -- the enabled flag is separate and must be checked directly. This is the step most likely to be missed."
+      },
+      "fix_handed_to_ryan": "(a) Regenerate the API trigger token at claude.ai/code/routines -> Options autopilot -> Triggers -> API; it is shown ONCE. (b) Replace the Authorization: Bearer <TOKEN> header on the cron-job.org job, leaving anthropic-beta / anthropic-version / Content-Type untouched. (c) Verify the job is still ENABLED. (d) Re-test, expecting HTTP 200 with a JSON body carrying a new session id/URL. (e) Confirm recovery by watching for runs landing at :25/:55 rather than only the hourly :2x.",
+      "open_question_recorded_not_guessed": "Nothing explains WHY the token died on 2026-08-18. It was NOT the v4 prompt paste, which happened 2026-08-21, three days later. A fixed token lifetime or a routine-settings edit rotating the credential both fit the evidence and neither is confirmed. Recorded rather than resolved: if it dies again on a similar interval, that timing is the clue. No run should assert a cause here.",
+      "cadence_status_until_fixed": "Still hourly, not 15-minute. Every run must keep describing the cadence honestly, and the DTE-7 blind-spot corollary stands: at 60 minutes the expiry-day gamma gap is 4x wider than the rule was written for, so short-DTE contracts warrant MORE caution until Ryan confirms the :25/:55 fires have resumed."
     }
   ],
   "updated_utc": "2026-08-20T02:19:00Z"
