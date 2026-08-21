@@ -14376,6 +14376,55 @@
       "why_flat": "Nothing was blocked by a cap, a budget, or a rule. $906.87 was deployable, both tactical slots were open, one core slot was open, 0 of 8 entries were used and the loss cap was untouched. The desk was flat because no setup cleared the bar on the last 38 minutes of a pinned monthly-expiry Friday -- which is the correct reason to be flat.",
       "handoff_to_monday": "(1) RBRK is the binding decision -- earnings 2026-08-27 pm, decision due by close of 2026-08-26, bring it to Ryan Monday with fresh BID/ASK and the NET, not the mark. Three options priced in the report: close working the limit toward mid, hold through the print only if the earnings move IS the thesis, or close one lot. (2) The QQQ bank-vs-ride question is CLOSED by Ryan's add -- do not re-page. (3) NVDA reports 2026-08-26 pm and sits inside the QQQ put's window; it is the single biggest event for that position. (4) Watch QQQ 713.05, the falling 50d, pinned three sessions -- a decisive break below is the first real confirmation the QQQ thesis is working.",
       "_merge_note": "CONCURRENT SAME-SLOT COLLISION with the 19:15Z run, resolved as a UNION per CLAUDE.md. Both journal entries kept (this one and the sibling's). daily_options_report.md: the SIBLING'S delivered version stands -- it was written first at 19:20Z and its master push already notified Ryan; overwriting it would have sent a duplicate notification for the same trading day, which the one-report-per-day rule explicitly forbids. holdings.json: taken WHOLESALE from the sibling, which was more complete than this run's version (its marks are 3 minutes earlier and immaterially different, and it already carried the mixed-lot ownership and FOUR-LAWS-#3 clarifications). This run's independent quotes CROSS-VALIDATE the sibling's: RBRK mark 4.40 / bid 4.10 / 13.6% spread / $0.00 net at bid, identical on both fetches."
+    },
+    {
+      "run_utc": "2026-08-21T19:35:00Z",
+      "run_local_et": "15:35 ET Friday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "scheduled_automation_run",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org); fired ~19:30Z",
+      "action": "NO TRADE, NO EXIT, NO ENTRY, BOTH TRACKS. 0 of 2 entries this run, 0 of 8 today. SILENT under the monitoring mandate. This is in all likelihood the LAST ACTIONABLE RUN of the week -- 25 minutes to the bell, with only the 19:55Z slot behind it -- so the run's budget went to the one thing no prior run had produced: a pre-computed MONDAY-OPEN briefing written into holdings.json._monday_open, so the ~65-hour dark window does not cost the relay a re-derivation.",
+      "cadence": "Fired ~19:30Z. Counting SCHEDULER-FIRED run_types only per the 17:08Z correction, this is roughly the 28th market-hours scheduled run of the day. Recovery from the 2026-08-18 token failure held all session.",
+      "reconciliation": "ZERO DRIFT, BOTH BOOKS, re-verified against the broker. get_option_positions(nonzero) returns exactly three contracts -- SPY 2026-11-20 700P x1 (avg 749.00), QQQ 2026-09-11 680P x2 (avg 380.50), RBRK 2026-09-18 90P x2 (avg 410.00) -- matching holdings.json one-for-one with every pending_* field 0.0000. Equity book PNC only. get_portfolio $3,815.69 = equity $443.82 / options $2,215.00 / cash $1,156.87. unleveraged_buying_power $1,156.87 EQUALS buying_power, so no margin is extended and FOUR LAWS #4 is satisfied by construction. Account equity is well clear of the $2,000 margin minimum. NOTE FOR THE RELAY: get_accounts now shows unsettled_funds $732.30 on 718757339 (it was $0.00 at 13:33Z) -- that is the settlement tail of Ryan's three OWN trades today (ACHR 5C sold +$300, QQQ 680P bought -$356, RBRK 90P bought -$430, all settling 2026-08-24). It is NOT a constraint: the account is limited_margin, so settlement is instant and buying_power already reflects it. A future run should not mistake it for frozen cash.",
+      "duties_check": "All discharged before this run. Heartbeat stamped 13:33Z for 2026-08-21. Market brief built today. Friday weekly review completed by the 13:40Z run (broker-sourced: $0.00 realized Mon-Thu, zero round trips, drift check clean with the honest caveat that a zero-trade week is weak evidence of discipline). IV history carries a 2026-08-21 row for all eight core names plus RBRK and INTC. Daily EOD report written and delivered by the 19:22Z run -- NOT rewritten here, because nothing material happened since (a $25 mark move on the QQQ 2-lot is not material) and every master push touching that file re-pages Ryan.",
+      "regime": "RISK-ON HEADLINE, ONE-NAME BREADTH, INTERNALS STILL POOR. SPY 766.23 (+0.48%, session high), QQQ 713.74 (+0.40%) -- a third session welded to its FALLING 50d at 713.05, now 0.10% above it. This run again DECLINES to call that a break: 0.10% on monthly OpEx Friday is inside the pin, and calling it a level would be the 'check that passes for the wrong reason' failure this file keeps naming. NVDA 215.05 (-0.83%) is red for a second session while the index is green, into its own 08-26 pm print. TSLA +5.5% (364.14) on robotaxi news did nearly all of the index's work. Green tape, hollow leadership.",
+      "position_verdicts": {
+        "SPY 2026-11-20 700P": "WORKING AS DESIGNED. Mark 6.445, -$104.50 / -13.95%. Exempt hedge; insurance is supposed to decay in a melt-up. 91 DTE, next decision ~2026-10-30 with Ryan.",
+        "QQQ 2026-09-11 680P": "STALLED, SETUP INTACT, NO TRIGGER, SILENT. Mark 3.45 on the blended 3.805 basis = -$71 at mark / -$75 net at the bid. Ladder untouched (-50% at 1.90, backstop 1.33). Invalidation is a QQQ CLOSE above ~730; spot 713.74. The 21-DTE recommendation is UNCHANGED and formally UNANSWERED, so holding into the weekend happens BY SILENCE -- the outcome the 18:22Z decision package graded worst of four. Recorded, not re-paged.",
+        "RBRK 2026-09-18 90P": "STALLED, LEANING WRONG, NO TRIGGER, SILENT. Mark 4.35 (+$50) but the spread WIDENED to 16.09% of mid from 13.64% at 19:16Z, so the collectable number is -$20 net at the bid -- the position is worse than flat, not +$50. Underlying closed its fifth straight up session at 99.74 (+2.28%), now only 5.3% below the ~105 written invalidation. Chain traded 8 contracts all day on OI 75. Binding gate: pre-earnings decision by the close of Wed 2026-08-26."
+      },
+      "grades_considered": [
+        {
+          "track": "A",
+          "candidate": "SPY / QQQ / NVDA tactical, either direction",
+          "grade": "C",
+          "why": "Two independent disqualifiers, either one sufficient. (1) NO LEVEL: QQQ has been inside a 0.1% band around its 50d for three sessions and moved 0.09% in the 15 minutes before this run -- Track A needs an intraday level actually breaking NOW, and a pin is the opposite of a break. (2) THE CLOCK: Track A's hard time stop is flat by the close of the NEXT session. Opening at 15:35 ET Friday means carrying a delta-0.5 contract through a 3-day weekend to satisfy a time stop that lands Monday -- paying weekend theta and full gap risk for a setup premised on an intraday level that will not exist Monday. That is a scalp in name and a gap bet in substance. Entering here would be sizing to be busy, which this desk's own rules call the failure mode, not the mandate."
+        },
+        {
+          "track": "B",
+          "candidate": "Any new core swing entry",
+          "grade": "C",
+          "why": "Three gates, all failing independently. THEME: the book is already one trade -- SPY 700P, QQQ 680P and RBRK 90P are all short beta, so the bearish-tech theme is at its cap and another bearish name is concentration, not diversification. CAPITAL: deployable is $906.87 after the $250 reserve, which does not fund a conviction-sized core entry alongside a QQQ decision that may itself need capital Monday. TIMING: 25 minutes before an OpEx close is the worst liquidity of the week for opening a 21-45 DTE structure, and the vertical the desk prefers legs worst into a closing book. No candidate cleared the trend-maturity gate on a green tape carried by one name."
+        },
+        {
+          "track": "B",
+          "candidate": "QQQ 680/660 vertical conversion (the standing recommendation)",
+          "grade": "A- but BLOCKED",
+          "why": "Still the desk's preferred structure on the merits -- 73% carry cut, 49% less capital at risk, break-even improves 1.85 QQQ points, and it RELEASES $371 rather than consuming budget. NOT EXECUTABLE: the QQQ position is mixed-ownership (1 agentic lot, 1 Ryan lot) and therefore ask-first under the 2026-08-18 monitoring mandate. No approval exists. HARD RULE 9 forbids this unattended run from claiming or inferring one, and Ryan's 15:50Z add is an ACTION, not an answer. Skipped correctly, not reluctantly."
+        }
+      ],
+      "THE_WORK_OF_THIS_RUN_the_monday_handoff": "Every run today re-derived the same four numbers because nothing carried forward in a form a fresh instance could pick up cold. With a 65-hour dark window opening at the bell, that cost is about to be at its highest. So this run wrote holdings.json._monday_open: the weekend carry ($233.30 across three positions, 6.1% of the account paid to be flat), the levels to watch, the capital state at the bell, and -- the item that actually matters -- WHAT CHANGES MONDAY. The QQQ 680P goes DTE 21 -> 18, which is not merely a clock change but a GOVERNANCE change: inside 21 DTE the -50% cut at 1.9025 becomes the standing unconditional rule, and under the monitoring mandate that particular cut is one of the named exceptions that EXECUTES WITHOUT WAITING for Ryan. A mixed-ownership position that has been ask-first all week acquires, on Monday, a level the desk will act on unasked. Nothing about that is new policy -- it is the intersection of two existing rules -- but no run had stated it in one place, and an instance meeting this book cold on Monday morning could easily read 'ask-first' off the ownership field and miss that the tier flip overrides it. It is now written where the first Monday run will read it.",
+      "notify_decision": "SILENT, DELIBERATELY. No trigger fired or un-fired on any of the three positions, and the QQQ recommendation is verbatim unchanged since 13:39Z. Ryan was paged three times today and received the full EOD report 13 minutes ago carrying the weekend-carry economics in Section 5. The mandate's dedup rule exists precisely so a 15-minute cadence does not produce 26 notifications a day; a fourth identical page before the bell would spend his attention on nothing new. The honest cost of that choice is stated plainly: the QQQ decision will now go unanswered through the weekend by default. That is the correct trade against re-paging noise, and the reasoning is here rather than in his phone.",
+      "capital": {
+        "unleveraged_buying_power": 1156.87,
+        "reserve": 250.0,
+        "deployable": 906.87,
+        "premium_at_risk": 2330.0,
+        "realized_options_pnl_today": 0.0,
+        "daily_cap": -400.0,
+        "entries_used_today": 0,
+        "entries_allowed_today": 8
+      }
     }
   ],
   "updated_utc": "2026-08-21T18:22:00Z"
