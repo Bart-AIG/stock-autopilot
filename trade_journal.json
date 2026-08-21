@@ -14095,6 +14095,79 @@
         "READ THE IV PAIR BEFORE INHERITING A VEHICLE PREFERENCE. Four consecutive INTC rows handed forward 'vol is cheap, buy single legs' from raw ratios alone; the ex-gap read is 0.99, i.e. fair. A conclusion repeated across four rows is not corroboration when all four made the same measurement error.",
         "get_option_instruments WITHOUT a strike_price filter dumps an entire chain (INTC returned ~70 contracts) and costs a large slice of the run's context for no benefit. Always pass strike_price, or query the two or three strikes you actually intend to price."
       ]
+    },
+    {
+      "run_utc": "2026-08-21T18:50:00Z",
+      "run_local_et": "14:50 ET Friday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "scheduled_automation_run",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org)",
+      "action": "NO TRADE, NO EXIT, NO ENTRY, BOTH TRACKS. 0 of 2 entries this run, 0 of 8 today. Reconciled to zero drift, re-quoted all three positions plus the 660P on a settled market, and spent this run's budget on the one thing seven runs of QQQ analysis had never computed: THE COST OF NOT DECIDING. RYAN PAGED -- the recommendation MENU changed (a third structure) and the decision acquired a hard economic deadline (the 16:00 ET bell).",
+      "cadence": "Fired ~18:45Z -- the repaired sub-hourly :25/:55 slot, not the :18-:26 hourly-backstop signature. Counting SCHEDULER-FIRED run_types only per the 17:08Z correction, today's market-hours scheduled runs are 13:40, 14:26, 15:23, 16:24, 16:47, 16:52, 17:01, 17:19, 17:24, 17:31, 17:45, 18:05, 18:20, 18:22, 18:32 and this one = 16 by 14:50 ET. Recovery from the 2026-08-18 token failure continues to hold.",
+      "reconciliation": "ZERO DRIFT, BOTH BOOKS. Three option contracts (SPY 700P x1, QQQ 680P x2, RBRK 90P x2), all pending_* 0.0000; equity book PNC only. get_portfolio $3,878.97 = equity $444.10 / options $2,278.00 / cash $1,156.87. unleveraged_buying_power $1,156.87 EQUALS buying_power -- no margin extended, no-borrowing law satisfied by construction. Deployable after the $250 reserve $906.87. Premium at risk $2,330. Realized options P/L today $0.00 vs the -$400 cap.",
+      "regime": "RISK-ON HEADLINE, LEADERSHIP STILL HOLLOWING. SPY 765.46 (+0.37%), QQQ 712.83 (+0.27%) -- QQQ has now spent the whole session welded to its falling 50d (713.05), currently 0.03% BELOW it. NVDA 215.10 is -0.81%, its worst read of the day (it was +0.83% at the bell, -0.47% at 18:20Z, -0.71% at 18:32Z) -- a monotone intraday slide into its own 2026-08-26 print. TSLA +5.52% (364.17) is still doing essentially all the index's work on robotaxi news. AVGO +0.57%, AMD +0.39%, TSM +0.74%, MSFT +0.24%. Monthly OpEx Friday: treat the 50d pin as pinning, not as a level.",
+      "THE_WORK_OF_THIS_RUN_the_cost_of_not_deciding": {
+        "why": "The QQQ 21-DTE decision has been open with Ryan since 13:39Z. The 18:22Z run did the right thing and PRICED the branches -- close, roll, vertical -- which is what made the recommendation actionable. But every branch was priced as a STOCK question (what does each end state look like?) and none as a FLOW question (what does waiting cost?). Seven runs described the QQQ put as 'bleeding carry' without once multiplying the carry by the time until the next opportunity to act. Today that number is not incremental: the next chance to execute any branch is Monday's open, three calendar days away.",
+        "method": "Live settled quotes at 18:47-18:48Z on the held 2026-09-11 680P and on the 2026-09-11 660P; all P/L on the blended $761 basis; theta x 3 calendar days for each candidate structure.",
+        "the_number": "MODEL WEEKEND CARRY ON THE NAKED 2-LOT STRUCTURE IS $131.60 (3 x $43.87/day). CLOSING THE ENTIRE POSITION RIGHT NOW AT THE 3.60 BID REALIZES -$41.00. The cost of holding the current structure across the weekend is 3.2x the cost of exiting it outright. That single comparison reframes the whole decision and nobody had made it.",
+        "honest_caveat_stated_because_the_number_is_persuasive": "Model theta OVERSTATES realized weekend decay -- dealers pre-discount weekends into Friday's marks, so some of that $131.60 is arguably already inside today's 3.625. Treat it as an upper bound, not a guaranteed loss. It survives the haircut anyway: at half, ~$66, still above the $41 cost of closing. Quoting the raw theta as if it were a certain loss would be exactly the kind of check that passes for the wrong reason this file keeps warning about.",
+        "book_wide_for_context": "Whole-book model weekend carry $236.22 on $2,330 of premium (SPY hedge $26.75 + QQQ $131.60 + RBRK $77.87) = 10.1%. The hedge's share is the price of insurance and is not a problem; the QQQ share is 56% of it on 33% of the premium, which is precisely why QQQ is the position with an open decision and the other two are not."
+      },
+      "THE_SECOND_FINDING_ryans_own_orders_sharpen_the_tail_objection": {
+        "fact_from_the_broker_not_a_claimed_turn": "get_option_orders + get_equity_orders, all placed_agent='user': 13:55Z closed his ACHR 2028-01-21 5C for a $299.94 credit; 14:31Z sold 2.022374 BA at $213.7883 ($432.34); 15:50Z bought 1 QQQ 2026-09-11 680P at 3.56 ($356); 16:00Z bought 1 RBRK 2026-09-18 90P at 4.30 ($430). He liquidated $732 of long exposure and put $786 of it into these two bearish tails, four days before NVDA's verified 2026-08-26 pm print.",
+        "why_it_matters_to_the_recommendation": "The 18:22Z recommendation was 'convert to the FULL vertical, else close', with an honest caveat that the vertical sells the fat tail and a defence that the SPY 700P already carries the deep-tail exposure. That defence is sound for the desk's own book. It is weaker against an owner who, hours earlier, spent liquidation proceeds specifically to INCREASE this tail ahead of the quarter's biggest Nasdaq vol event. Capping the payoff at QQQ 660 is the one attribute of branch A that runs against the direction of his own same-day orders.",
+        "what_this_run_did_about_it": "Priced a structure that was never on the menu -- BRANCH B, the HALF vertical: sell ONE 660P against one of the two held 680Ps. Capital at risk $761 -> $575.50, theta $43.87 -> $27.82/day (-36.6%), weekend carry $131.60 -> $83.45, delta -0.3451 -> -0.2547, and ONE lot stays uncapped for an NVDA-driven gap. It is the compromise branch: two thirds of the tail-capping objection avoided for a third of the carry relief.",
+        "HARD_RULE_9_GUARD": "None of the above is read as an instruction, an approval, or a Ryan turn. They are order records pulled from the broker by an unattended run. No flag is cleared and no approval is claimed or implied. The orders tell us what he DID; they do not tell us what he wants done next, which is exactly why the decision still sits with him."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P x1": "WORKING AS DESIGNED. Mark 6.565 (0.46% of mid), -$92.50 / -12.35%; -$94 net at the bid. 91 DTE, delta -0.1545, theta $8.92/day = 1.36% of position value. Authorized hedge, EXEMPT from all premium backstops; only decision is the ~2026-10-30 roll/close review WITH Ryan. Invalidation (SPY decisively above ~800 on confirmed new highs) unmet -- 765.46 is 1.6% under the 08-13 high. No action, silent.",
+        "QQQ 2026-09-11 680P x2": "STALLED, SETUP INTACT, NO LADDER TRIGGER, RECOMMENDATION MENU CHANGED -> PAGED. Mark 3.625 (1.38% of mid), -$36 at mark / -$41 net at the bid on the blended 3.805 basis. Slipped from 3.69 at 18:32Z. 21 DTE. Nothing on the ladder fires (cut 1.90, backstop 1.33) and the setup is INTACT -- invalidation is a QQQ CLOSE above ~730 against spot 712.83. The problem is carry, not the thesis, and today is the last session to change the structure before $131.60 of weekend carry is incurred.",
+        "RBRK 2026-09-18 90P x2": "STALLED, LEANING WRONG, NO TRIGGER, SILENT. Mark 4.45 but the collectable number is the $4.20 bid = +$20 net on the blended $820 basis, flat for a third consecutive run; the '+$70 at mark' is uncollectable at an 11.24%-of-mid spread. RBRK 99.06 (+1.58%) printed a new session high -- the underlying keeps grinding against the puts. Chain traded 8 contracts all day on OI 75. Binding gate unchanged and already with Ryan: pre-earnings decision by the close of Wed 2026-08-26 ahead of the verified 08-27 pm print. Ladder clear (re-check 2.05, backstop 1.435)."
+      },
+      "notifications_sent": [
+        {
+          "to": "Ryan",
+          "trigger": "Monitoring-mandate 'the recommendation itself changes', plus a newly-quantified hard deadline.",
+          "dedup_check_done_first": "Per the 18:22Z transferable lesson (check for a sibling's page before sending your own), the only page today was 18:20Z, ~30 minutes ago, and it carried branch A alone with no cost-of-waiting attached. This page is not a restatement: it adds a structure that did not exist on his menu and the first number that says what doing nothing costs.",
+          "content": "Weekend carry on the naked QQQ structure is $131.60 vs $41 to close outright; branch B (half vertical) as a new middle option; 70 minutes to the bell."
+        }
+      ],
+      "hunt": {
+        "slots_and_budget": "TACTICAL 0 of 2 open, CORE 2 of 3 open, hedge excluded. Deployable $906.87. 0 of 8 daily entries used, realized P/L $0.00 vs the -$400 cap. NOTHING BLOCKED THIS RUN EXCEPT THE ABSENCE OF A SETUP -- and one structural fact about the hour, below.",
+        "grades_considered": [
+          {
+            "candidate": "NVDA tactical put (the monotone intraday slide)",
+            "track": "tactical",
+            "grade": "C",
+            "why": "The divergence is real and got cleaner: NVDA -0.81% is its worst print of the session against QQQ +0.27%, a monotone slide from +0.83% at the bell. Disqualifier is structural and unchanged -- NVDA reports 2026-08-26 pm, and the DTE-7 floor puts the earliest permissible expiry at 2026-08-28, so EVERY tradeable contract spans the print. Pre-positioning into earnings when earnings is not the thesis is banned. No amount of setup quality fixes this."
+          },
+          {
+            "candidate": "QQQ / SPY tactical, either direction",
+            "track": "tactical",
+            "grade": "C",
+            "why": "No level, therefore no writable invalidation, therefore no trade. QQQ has sat within 0.1% of its falling 50d all session on monthly OpEx -- that is a pin, not a break, and a pin is the one tape where an intraday level means least."
+          },
+          {
+            "candidate": "TSLA long calls",
+            "track": "both",
+            "grade": "C",
+            "why": "+5.52% and still making session highs at 364.17. Trend maturity (a) says hour six of a one-day move is late to join, and the desk's own IV file says the vol is rich, not cheap: raw ratio 0.7422 is the documented earnings-gap artifact (the -15.69% gap of 2026-07-23 is still in the 30-sample window) and ex-gap it is 1.3026. Buying rich vol on a matured one-day move into a weekend is chasing on all three counts."
+          },
+          {
+            "candidate": "A third bearish-tech CORE expression",
+            "track": "core",
+            "grade": "PASS on coherence, not on view",
+            "why": "The theme cap would technically allow a third (max 3 per theme, currently 2). It is still wrong: the desk is at this moment asking Ryan to REDUCE the carry on the bearish-tech exposure it already owns. Adding a third expression while that ask is unanswered would commit capital that branch A or B might release, and would pre-empt a decision that is his to make. Declined on coherence."
+          }
+        ],
+        "STRUCTURAL_NOTE_worth_carrying_forward": "Track A's own rule makes Friday afternoon its weakest hour, and this deserves to be stated as a pattern rather than re-derived every Friday. The mandatory time stop is 'flat by the close of the NEXT session'. A scalp opened at 14:50 ET Friday therefore has a compulsory hold spanning a full weekend gap on a 0.40-0.60 delta single leg -- the highest-gamma vehicle the desk trades, held across the one window the 15-minute cadence explicitly does not cover. That is not a reason to never scalp on a Friday, but it does mean a Friday-afternoon Track A entry needs to clear a visibly HIGHER bar than the same setup on a Tuesday, because the risk it must carry is strictly larger for the same edge. Three separate runs today have declined tactical entries partly on this ground; naming it once is cheaper than re-deriving it."
+      },
+      "iv_logging": "No new row written. All nine core names plus RBRK already carry a 2026-08-21 row re-measured on the settled market by an earlier run (SPY raw 1.015 / ex-gap 1.201; QQQ 0.8673 / 1.101; NVDA 1.0324 / 1.1447; AMD 0.7313 / 0.8831; TSM 0.8858 / 1.2501; AVGO 1.1678 / 1.4115; MSFT 0.5252 / 1.0078; TSLA 0.7422 / 1.3026; RBRK 1.1848 / 1.3925). This run evaluated no name lacking a row, and the duty says overwrite today's row only if you measured it -- re-writing identical values would be churn. Read as a PAIR per the 2026-08-20 lesson: seven of the ten sit at or above 1.0 ex-gap, i.e. premium is fair-to-rich almost everywhere, which is one more reason today favours SELLING a leg (branch A/B) over buying one.",
+      "handoff_MUST_READ_for_the_next_run": {
+        "EOD_REPORT_IS_OWED_AND_THIS_RUN_DID_NOT_QUALIFY": "daily_options_report.md still carries 2026-08-20. The CLAUDE.md threshold is the first run at or after 19:15Z (14:15 CT); this run fired 18:45Z and is 30 minutes short, so it correctly did NOT write it. THE NEXT RUN AT OR AFTER 19:15Z MUST WRITE IT -- do not defer to a tidier slot, and remember the cadence-independent fallback: if the bell rings with no report written, the first post-close run writes it immediately.",
+        "PUT_THIS_AT_THE_TOP_OF_SECTION_5": "The QQQ decision with its cost-of-waiting attached -- $131.60 weekend carry on the naked structure vs $41 to close outright -- and all four branches (A full vertical / B half vertical / C close / D roll barred). The EOD report commit is the delivery channel that reliably reaches Ryan; the push notification may not.",
+        "ALSO_STILL_OPEN": "RBRK pre-earnings decision by the close of Wed 2026-08-26 (verified 08-27 pm print). SPY hedge roll/close review ~2026-10-30 with Ryan."
+      }
     }
   ],
   "updated_utc": "2026-08-21T18:22:00Z"
