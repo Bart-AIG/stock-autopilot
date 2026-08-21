@@ -13536,6 +13536,29 @@
       "notification": "SENT, ONCE. Justified under the monitoring mandate's silence clause because the RECOMMENDATION SET ITSELF CHANGED, not because the marks moved: both exit ladders were recomputed onto new blended bases (every trigger level moved), the standing QQQ 21-DTE close/roll recommendation is superseded by his own add, and the RBRK pre-earnings deadline now governs $820 rather than $390. The two facts he most plausibly does not have in front of him are the post-add carry (QQQ theta -$44.29/day, ~$130 billed over the weekend) and that his RBRK lot filled at the ask on a 9.76%-wide chain, leaving the pair -$40 net on the spread alone.",
       "why_flat": "Both tracks hunted, four candidates graded, none above C. The tape is a 0.87% chop range with four 50d crossings and no clean level; a Friday tactical entry surrenders ~43% of a 7-DTE contract's remaining life to the weekend; a third bearish-tech core position is concentration into an unconfirmed view and diverges from today's tape; a bullish counterweight has no catalyst behind it. Entries used 0 of 8. The -$400 cap is not in play (desk-attributable realized today $0.00; broker shows +$53.00, all of it Ryan's ACHR close).",
       "next_run_should": "(1) The 19:25Z-or-later run OWNS daily_options_report.md -- write it at the FIRST run at/after 14:25 CT and do not defer for a better slot. (2) Do NOT re-send the QQQ 21-DTE close/roll recommendation; it is superseded (see the_event_of_this_run). (3) Both exit ladders now sit on BLENDED bases -- recommend off holdings.json's _exit_ladder, do not re-derive from the old single-lot entries. (4) From Monday the QQQ contract is inside 21 DTE, where the -50% cut at 1.90 becomes the standing unconditional rule. (5) The RBRK pre-earnings decision is due by the CLOSE of WED 2026-08-26 and is the book's next hard deadline."
+    },
+    {
+      "run_utc": "2026-08-21T16:32:00Z",
+      "run_type": "live_user_query_midrun",
+      "trading_day_et": "2026-08-21",
+      "action": "DIAGNOSTIC ONLY, NO TRADE. Ryan reported mid-run that only the hourly runs are firing and the 15-minute API runs are missing. Confirmed from journal timestamps; cause is external to the repo and is his to fix.",
+      "finding": {
+        "verdict": "CONFIRMED. The sub-hourly cron-job.org trigger has been dead for three trading days.",
+        "last_sub_hourly_fire": "2026-08-18T19:46Z (14:46 CT) -- the tail of that day's configured 8:25-14:55 CT window. The job completed its normal Tuesday, then never fired again.",
+        "market_hours_runs_per_trading_day_1330_2000Z": {
+          "2026-08-17": 33,
+          "2026-08-18": 31,
+          "2026-08-19": 7,
+          "2026-08-20": 7,
+          "2026-08-21": 4
+        },
+        "evidence": "Every run from 2026-08-19 onward lands at :18-:26 past the hour at a flat 24/day, which is exactly 24 hours x 1 -- the signature of the routine's NATIVE HOURLY backstop running alone. The 2026-08-15/16 weekend dip to 24/day is NOT part of the outage: the cron job is configured Mon-Fri, so a quiet weekend is correct behaviour and must not be read as a fourth broken day.",
+        "magnitude": "~78% reduction in market-hours cadence, from ~15-minute to ~60-minute."
+      },
+      "why_the_dead_man_never_caught_it": "THE IMPORTANT PART. automation_heartbeat.json is stamped by the first run of each trading day and the 20:45Z alarm fires only if NO report landed. The hourly backstop kept firing and kept stamping, so the heartbeat read healthy for three trading days while three quarters of coverage was missing. A dead-man that tests LIVENESS cannot detect DEGRADATION. Recommended durable fix, recorded in CLAUDE.md: assert a RATE, not an existence -- have the first post-open run count the prior trading day's market-hours journal entries and alarm below ~20.",
+      "what_it_cost": "Ryan set the per-position monitoring mandate on 2026-08-18, the same day the trigger died, so the monitoring he asked for has run at a quarter of its intended cadence ever since. Exit enforcement (-50% cuts, hard backstops) has been checking ~7x/day instead of ~31x. Binding corollary until fixed: the DTE-7 floor exists BECAUSE a 15-minute cadence cannot manage expiry-day gamma; at 60 minutes that blind spot is 4x wider, so short-DTE contracts warrant MORE caution and no run should describe the cadence as 15-minute -- it is hourly.",
+      "diagnosis_handed_to_ryan": "Only he can fix it; the trigger config lives on his cron-job.org account. A clean stop at a day boundary rather than a gradual fade points at, in order: (1) expired/revoked bearer token -- docs/options-automation-setup.md says '401/403 = token problem (regenerate in the routine editor, update cron-job.org)'; (2) cron-job.org auto-disabled the job after repeated failures, in which case a new token alone will NOT resume it and the job must also be re-enabled; (3) the beta header experimental-cc-routine-2026-04-01 went stale after a platform change. The execution history for the job 'Options autopilot fire' distinguishes all three by HTTP status in one look.",
+      "what_this_run_did_NOT_do": "Did not arm an in-session CronCreate automation to compensate. That is the retired pattern that died silently three times in one day and would put two automations on the same book. An agent can measure the cadence and report it; it cannot repair an external scheduler from inside a run, and should not imply otherwise."
     }
   ],
   "updated_utc": "2026-08-20T02:19:00Z"
