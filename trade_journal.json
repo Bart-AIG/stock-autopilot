@@ -13314,6 +13314,98 @@
         "6_JACKSON_HOLE_DATE_CONFLICT": "The 08-20 brief put Warsh's keynote on 08-27; a press check this run puts it on 08-28 with the symposium running 08-27 to 08-29. UNRESOLVED -- verify against a primary source before sizing anything around it."
       },
       "notes": "JSON written with indent matched PER FILE (holdings/journal/heartbeat indent=2, iv_history/market_brief indent=1) and default ensure_ascii; git diff --stat checked on every file before commit."
+    },
+    {
+      "run_utc": "2026-08-21T14:26:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-08-21",
+      "regime": "FAILED BOUNCE / RISK-OFF REASSERTING. The morning's relief rally was sold inside the first hour: QQQ 714.07 (+0.44%) at the open -> 709.98 (-0.13%) at 14:24Z, back UNDER the 50d (713.05) that it had reclaimed. Semis round-tripped hardest (AMD +1.71% -> -0.90%, NVDA +0.83% -> -0.96%, AVGO +2.02% -> +1.02%). SPY 764.74 (+0.28%) is holding far better than QQQ, so the weakness is concentrated in TECH rather than the broad tape. TSLA +3.50% is the lone outlier carrying what is left of the Nasdaq bid. Vol did not bid (own-measured SPY 0.1285 / QQQ 0.1985, both down on the day), so this is a failed bounce, not a fear spike. market_brief.json regime label amended accordingly -- the 13:35Z 'relief rally' label was falsified and would otherwise have been inherited.",
+      "action": "NO TRADE, NO EXIT, NO NOTIFICATION. Ledger reconciliation of Ryan's own ACHR close, live re-marks on all three remaining contracts, and an intraday brief correction.",
+      "the_event_of_this_run": {
+        "what": "ACHR 2028-01-21 5C left the book between 13:33Z and 14:23Z. get_accounts unsettled_funds 0.0000 -> 299.9400, cash 1210.65 -> 1510.59, and get_option_positions returned THREE contracts where the heartbeat recorded FOUR.",
+        "who": "RYAN. get_option_orders(created_at_gte=2026-08-21) returned exactly one order -- 6a8858e6, ACHR sell-to-close, limit 3.00, credit, filled 13:55:50.881Z, **placed_agent='user'**. Verified on the order record rather than inferred, per the standing rule that a session must never guess who placed a trade.",
+        "economics": "Entry 2.47 ($247, 2026-07-20) -> exit 3.00 ($300 gross / $299.94 net). Realized +$52.94 / +21.43%. HIS gain, in a cash account: proceeds settle T+1 on MON 2026-08-24 and are NOT spendable today.",
+        "why_this_is_NOT_a_flag": "The ownership gate bars the DESK from closing a placed_agent='user' position. It does not bar RYAN from closing his own. The order record affirmatively shows a user-placed sell, so this is the gate working exactly as designed -- no HARD RULE 9 flag, and no adjudication needed. The manual_hold_override ('I'll handle the achr leap. Just leave it be') retires with the position; it was always his to act on.",
+        "capacity_effect": "NONE, and this is the trap worth naming. ACHR was placed_agent='user' and therefore never counted against agentic premium-at-risk (2026-08-03 sub-sleeve amendment). Its exit frees NO agentic capacity and opens NO position slot. Agentic premium-at-risk stays $1,544; non-hedge slots stay 2 of 3; the bearish-tech theme stays AT its 2-of-2 cap. A run seeing cash jump $300 and reading it as new ammunition would be wrong twice over -- the money is unsettled AND the slot was never ours."
+      },
+      "reconciliation": {
+        "options": "THREE contracts after the ACHR close, matching the updated holdings.json one-for-one by option_id: SPY 2026-11-20 700P (agentic hedge, insurance-exempt), QQQ 2026-09-11 680P and RBRK 2026-09-18 90P (both agentic, both under the 2026-08-18 monitoring mandate). All pending_* quantities 0.0000.",
+        "portfolio": "$3,986.68 = equity $877.09 / options $1,599.00 / cash $1,510.59. buying_power $1,210.65 SETTLED; $299.94 unsettled until 2026-08-24.",
+        "equities": "Untouched. HARD RULE 6 autonomous-equity ban intact; no equity order placed or contemplated.",
+        "drift": "FOUND, EXPLAINED, RESOLVED -- first non-zero drift in nineteen checks, and it was Ryan's own trade."
+      },
+      "position_verdicts": [
+        {
+          "contract": "QQQ 2026-09-11 680P",
+          "owner": "agentic (monitoring mandate)",
+          "verdict": "WORKING, AND MATERIALLY BETTER. 4.56 mark (4.53 x 4.59, 1.32% of mid), +$51/+12.6% at mark and +$48/+11.9% net at bid -- up from +$22.50/+$18 at 13:40Z, because the bounce failed and QQQ went back under the 50d. DTE 21, delta -0.201, theta -$24.65/day.",
+          "action": "NONE, AND DELIBERATELY NO SECOND NOTIFICATION."
+        },
+        {
+          "contract": "RBRK 2026-09-18 90P",
+          "owner": "agentic (monitoring mandate)",
+          "verdict": "WORKING. Mark flat at 4.80 (+$90/+23.1%) but the market HALVED from 24.5% to 12.5% of mid, so the exitable number rose to +$60/+15.4% net at the 4.50 bid while the mark stood still. Peak_premium HOLDS at 4.90 -- not a new peak -- so the 5.85 ratchet arm is untouched. Honest wrinkle: RBRK 97.99 (+0.48%) is now participating in the bounce, where this morning it notably was not; that WEAKENS but does not break the relative-weakness leg. Nothing on the ladder fired.",
+          "action": "NONE. Binding item is the pre-earnings decision due by the close of WED 2026-08-26 (print 08-27 pm)."
+        },
+        {
+          "contract": "SPY 2026-11-20 700P",
+          "owner": "agentic (authorized hedge)",
+          "verdict": "INSURANCE, WORKING AS DESIGNED. 6.725, -$76.50/-10.21%, 0.45% of mid, DTE 91. Backstop-exempt; $9.01/day is the policy cost.",
+          "action": "NONE. Roll/close review WITH Ryan ~2026-10-30."
+        }
+      ],
+      "the_silence_decision": {
+        "question": "The 13:39Z decision package asked Ryan to choose on the QQQ 21-DTE review at +$22.50/+5.6% (+$18 net). Forty-five minutes later it is +$51/+12.6% (+$48 net). Does he get a second message?",
+        "answer": "NO.",
+        "reasoning": "The monitoring mandate's test is whether a trigger FIRES/UN-FIRES or the RECOMMENDATION changes -- not whether the number improved. The 13:39Z run wrote an explicit re-notify contract (ratchet 6.08, pop 7.29, setup break QQQ close >730, -50% at 2.03, backstop 1.42) and NONE fired at 4.56. I re-derived the recommendation from scratch rather than deferring to the prior run: a 21-DTE, -0.20-delta index put burning 5.4% of its mark PER DAY is a poor vehicle for a bearish view even when the view is RIGHT, which is the entire reason the 21-DTE rule exists. The tape improving fixes the VIEW; it does not fix the VEHICLE. So 'bank it' stands.",
+        "the_asymmetry_that_settles_it": "A better price can only make 'bank it' MORE right, never wrong. There is no branch on which the improved number flips his decision, so a second message buys him nothing and spends the attention the silence rule exists to protect. If he replies 'close it', he simply gets a better fill than quoted.",
+        "self_check": "I tested this against the opposite reading and I want it on the record, because the pull was real. There IS a genuinely new FACT here beyond price -- the brief's confirming level re-asserted -- and that fact cuts toward the HOLD alternative, which is the one branch where new information could matter. I still judged it insufficient: theta at 21 DTE dominates a delta of -0.20, and the honest risk was that I was assembling a reason to make a quiet run feel eventful. Naming that pull is the safeguard; a run that notifies every time its book ticks favourably is how 26 messages a day get ignored and the mandate dies."
+      },
+      "hunt": {
+        "outcome": "NO ENTRY. Stood down.",
+        "capacity": "One non-hedge slot free (2 of 3 used), entry throttle 0 of 3, loss cap $0.00 vs -$200 -- none of the throttles is what stopped this run.",
+        "what_stopped_it": "The THEME CAP plus the absence of any A-grade setup. Every bearish-tech expression of today's failed bounce -- QQQ, AMD, NVDA, AVGO, TSM -- is barred by the hard 2-of-2 correlated-theme cap the book already sits at. The free slot is real but it can only be filled by something OUTSIDE bearish tech, and nothing outside bearish tech graded above C.",
+        "grades_considered": [
+          {
+            "ticker": "QQQ",
+            "grade": "n/a - held",
+            "note": "Own it. Theme-capped against adding."
+          },
+          {
+            "ticker": "RBRK",
+            "grade": "n/a - held",
+            "note": "Own it. Pre-earnings decision due 08-26."
+          },
+          {
+            "ticker": "NVDA",
+            "grade": "C",
+            "note": "214.77 (-0.96%), leading the reversal lower and the most liquid chain on the board. Barred twice: the 08-26 pm print makes any directional entry an earnings bet, which the standing preference bars unless earnings IS the thesis (it is not), AND it is bearish-tech into a capped theme. Own-measured IV/RV 1.04 raw / 1.15 ex-gap -- no discount to harvest either."
+          },
+          {
+            "ticker": "AVGO",
+            "grade": "C",
+            "note": "367.74 (+1.02%), fading from +2.02% at the open. The brief's confirming condition for a put here was 'a failed bounce and a close back under the 08-20 close of 364.03' -- the bounce is indeed failing, but 367.74 is still ABOVE 364.03, so the condition is NOT met intraday and a close is hours away. Theme-capped regardless. Richest premium on the core list (IV/RV 1.17 raw / 1.41 ex-gap) -- paying up for a late-stage short is the ZTS trend-maturity mistake."
+          },
+          {
+            "ticker": "TSLA",
+            "grade": "C",
+            "note": "357.20 (+3.50%), the day's strongest core name by a wide margin. A put into a name ripping +3.5% is precisely the diverging-tape entry the trend-maturity gate forbids, and there is no bullish thesis to justify a call after the move. Headline IV/RV 0.73 is the known GAP ARTIFACT (the -15.69% print of 2026-07-23); ex-gap it is 1.24, i.e. RICH, not cheap. No trade either way."
+          },
+          {
+            "ticker": "MSFT",
+            "grade": "C",
+            "note": "483.43 (+0.47%), quietly green while semis reversed. Still the standing IV trap: headline IV/RV 0.525 reads as half-price vol but is almost entirely the +14.42% gap of 2026-07-30; ex-gap 1.008, i.e. priced FAIR. Cheap-looking premium is not a setup, and a liquid affordable chain supplies no thesis."
+          },
+          {
+            "ticker": "AMD / TSM",
+            "grade": "C",
+            "note": "465.24 (-0.90%) and 418.36 (+0.57%). Both are the same bearish-tech expression already at its 2-of-2 cap; AMD is additionally unaffordable in any right-delta single leg at this account size, and level-2 bars the debit spread that would fit."
+          }
+        ],
+        "one_line_on_why_flat": "The one tape-driven idea available today -- short the failed bounce in tech -- is a trade this book ALREADY owns twice and is capped from owning a third time. Correctly positioned is not the same as needing to add, and the free slot is not an obligation to fill it."
+      },
+      "iv_method": "No re-log. All eight core names (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) already carry a 2026-08-21 row written by the 13:40Z run off post-open quotes, n=9 readings each. Under 20 readings, so IV/RV only and NO percentile may be cited. Re-measuring the full core list every 15 minutes would burn eight chain lookups to move the fourth decimal of a number no decision this run turned on; the spec says overwrite today's row if it exists, not re-measure it on every firing.",
+      "duties": "Heartbeat already stamped 13:33Z for the 2026-08-21 trading day -- not re-stamped. market_brief.json AMENDED (not rebuilt) on a sanctioned intraday trigger: an index broke a level the brief itself cited. EOD report NOT due -- it is written by the first run at/after 14:25 CT (19:25Z) and it is 14:26Z, i.e. 09:26 CT. Friday weekly review already completed by the 13:40Z run from BROKER data; not duplicated."
     }
   ],
   "updated_utc": "2026-08-20T02:19:00Z"
