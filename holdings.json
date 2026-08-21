@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-21T20:19:00Z",
+  "updated_utc": "2026-08-21T21:22:00Z",
   "_realized_options_pnl_today": 0.0,
   "positions": [
     {
@@ -573,12 +573,11 @@
     "note": "daily_options_report.md written by the 19:15Z run at 14:20 CT -- the FIRST run at or past the 14:15 CT (19:15Z) window CLAUDE.md set on 2026-08-21T16:35Z, and written in-session rather than deferred. Note the threshold's premise has since changed: the 14:15 move was calibrated for the hourly-only cadence, and the sub-hourly trigger was repaired at 17:05Z today, so 19:25Z/19:55Z runs will now also land pre-bell. Writing at 19:20Z is still correct under CLAUDE.md and guarantees delivery; this marker is what stops a sibling from duplicating it. Contents: live 19:16Z marks on all three contracts, the -$237.50 per-lot MTM day (vs the WRONG -$429.50 naive close-to-mark figure, which falsely resembles a -$400 cap breach), the ~$236 unhedged three-day weekend carry, ten skipped candidate groups incl. the INTC secondary-offering trap, and the QQQ 21-DTE decision for Ryan in Section 5 ahead of Monday's open at 20 DTE. DO NOT REWRITE unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing) -- every master push touching this file re-notifies Ryan."
   },
   "_last_reconciliation": {
-    "utc": "2026-08-21T20:19:00Z",
-    "run": "first POST-CLOSE run of the 2026-08-21 trading day (bell 20:00Z)",
-    "result": "ZERO DRIFT on both books. get_option_positions(nonzero) returns exactly THREE contracts -- SPY 2026-11-20 700P x1 (agentic hedge, exempt), QQQ 2026-09-11 680P x3 (avg 368.6667), RBRK 2026-09-18 90P x2 (avg 410.00) -- matching holdings.json one-for-one, every pending_* field 0.0000, so no assignment, exercise or expiration. Equities are PNC 1.825758 only. ACHR 2028-01-21 5C is correctly absent (Ryan closed it 13:55Z) and BA is correctly in _closed_positions (Ryan sold it 14:31Z).",
-    "authorship": "ALL FOUR of today's trades were placed_agent='user' -- broker-verified via get_equity_orders + get_option_orders. ZERO agentic orders were placed today. HARD RULE 6 (no autonomous equities) intact; no HARD RULE 9 flag is warranted and none was created.",
-    "portfolio": "get_portfolio total $3,829.73 = equity $443.90 / options $2,574.00 / cash $811.83. unleveraged_buying_power $811.83 EQUALS buying_power, so no margin is being extended -- the no-margin-borrowing law is satisfied. get_accounts shows unsettled_funds $732.30 (= $300 ACHR credit + $432.36 BA proceeds, T+1 to 2026-08-24); on a limited_margin account these are tradeable, but they are proceeds from Ryan's own sales.",
-    "agentic_premium_at_risk": "Unchanged at $1,544 = $749 hedge + $405 QQQ (1 lot) + $390 RBRK (1 lot). Ryan's own adds today ($356 + $345 + $430 = $1,131) are HIS book and do not count against the automation's accounting, per the 2026-08-03 amendment."
+    "utc": "2026-08-21T21:19:00Z",
+    "run_type": "post_close_overnight (2nd post-close run of the 2026-08-21 trading day)",
+    "result": "ZERO DRIFT, BOTH BOOKS. get_option_positions(nonzero): SPY 2026-11-20 700P x1, QQQ 2026-09-11 680P x3 @ avg 368.6667, RBRK 2026-09-18 90P x2 @ avg 410.00 -- matches holdings.json one-for-one, every pending_* field 0.0000, so no overnight assignment, exercise, expiration or unauthorized fill. Equities: PNC 1.825758 only; ACHR correctly absent, BA correctly in _closed_positions.",
+    "portfolio": "total $3,829.51 = equity $443.68 / options $2,574.00 / cash $811.83. unleveraged_buying_power $811.83 == buying_power, no margin extended. unsettled_funds $732.30 = BA $432.29 + ACHR $300.00, both settling 2026-08-24 and already tradeable on this limited_margin account.",
+    "authorship": "get_equity_orders + get_option_orders since 2026-08-21T00:00Z return FOUR filled orders, ALL placed_agent='user': ACHR 5C sell-to-close 13:55Z (+$300), BA sell 14:31Z (+$432.29), QQQ 680P buy 15:50Z ($356), RBRK 90P buy 16:00Z ($430), QQQ 680P buy 19:37Z ($345). ZERO agentic orders today. HARD RULE 6 intact, no flag warranted, none created."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
@@ -605,7 +604,7 @@
     "book_carry_over_the_weekend_usd": 295.26,
     "book_carry_note": "SPY 8.84 + QQQ 63.43 + RBRK 26.15 = $98.42/day of theta on three positions, ~$295 across the 3-day decay window. That is 7.8% of the $3,776 account paid to be flat over a weekend. Ryan's third QQQ lot added ~$63 of that bill by itself.",
     "WHAT_CHANGES_MONDAY": {
-      "QQQ 2026-09-11 680P": "DTE 21 -> 18. THE POSITION'S GOVERNANCE CHANGES, not just its clock. Inside 21 DTE the -50% cut at 1.9025 becomes the STANDING unconditional rule, superseding the -65% backstop at 1.33 -- and under the 2026-08-18 monitoring mandate the inside-21-DTE -50% cut is one of the named EXCEPTIONS that EXECUTES WITHOUT WAITING for Ryan. So from Monday this mixed-ownership position carries a mechanical level that the desk will act on unasked. Distance to it from Friday's 3.45 mark: a 45% premium decline, which needs a sizeable QQQ rally. Monday's first run should re-verify the level against the blended 3.805 basis before relying on it.",
+      "QQQ 2026-09-11 680P": "DTE 21 -> 18. THE POSITION'S GOVERNANCE CHANGES, not just its clock. Inside 21 DTE the -50% cut becomes the STANDING unconditional rule, superseding the -65% backstop -- and under the 2026-08-18 monitoring mandate the inside-21-DTE -50% cut is one of the named EXCEPTIONS that EXECUTES WITHOUT WAITING for Ryan. So from Monday this mixed-ownership position carries a mechanical level the desk acts on unasked. CORRECTED LEVELS (use these, not the 19:50Z text this replaces): blended basis 3.6867 across THREE lots, -50% cut 1.8433, superseded backstop 1.2903. Do NOT 're-verify against 3.805' -- that two-lot basis died at 19:37Z. Distance from Friday's 3.38 mark to the cut is a ~45% premium decline, needing a sizeable QQQ rally. QUANTITY CAP, BINDING: this is 1 agentic lot (4.05) + 2 lots Ryan placed himself (3.56, 3.45, both placed_agent='user', broker-verified). Contracts are fungible with no lot selection on a sell-to-close, so any mechanical, unasked exit here is CAPPED AT QUANTITY 1 -- the agentic lot only. Selling 2 or 3 needs Ryan's explicit approval. See the QQQ _exit_ladder MIXED_LOT_SELL_CONSTRAINT and _open_questions_for_ryan.q3 (which basis governs a mechanical cut is a methodology question left open for Ryan; both sets are recorded and no run may silently pick one).",
       "RBRK 2026-09-18 90P": "DTE 28 -> 25. No tier change. The binding gate is the pre-earnings decision by the close of Wed 2026-08-26 (print 08-27 pm, broker-verified). Two sessions of runway. Re-measure IV/RV at that decision: IV closed Friday at 0.8065 and rising, so vol bidding up into the print argues for selling the premium before the crush rather than holding through it.",
       "SPY 2026-11-20 700P": "DTE 91 -> 88. Nothing changes; exempt hedge, next decision ~2026-10-30."
     },
@@ -616,15 +615,26 @@
       "SPY": "Closed 766.23, +0.48%. Defensive-posture early-warning is a CLOSING loss of 746-748; not remotely threatened."
     },
     "capital_state_at_the_bell": {
-      "unleveraged_buying_power": 1156.87,
+      "_source": "get_portfolio re-read 2026-08-21T21:19Z (second post-close run). SUPERSEDES the stale 18:xx figures that stood here and contradicted cash_state_at_the_bell.",
+      "total_value": 3829.51,
+      "equity_value": 443.68,
+      "options_value": 2574.0,
+      "cash": 811.83,
+      "unleveraged_buying_power": 811.83,
+      "buying_power": 811.83,
+      "margin_check": "unleveraged_buying_power EQUALS buying_power -- no margin extended. FOUR LAWS #4: 811.83 is the budget.",
+      "unsettled_funds": 732.3,
+      "unsettled_note": "= BA equity sale $432.29 (14:31Z) + ACHR 5C close $300.00 (13:55Z), both placed_agent='user', settling 2026-08-24. On this limited_margin account unsettled proceeds are already tradeable and are inside the 811.83 above -- do not add them again.",
       "reserve": 250.0,
-      "deployable": 906.87,
-      "premium_at_risk": 2330.0,
-      "open_positions": "2 core + 1 exempt hedge. 1 of 3 core slots free, 0 of 2 tactical used. Bearish-tech theme sits at its cap.",
-      "note": "A five-slot book remains arithmetically unreachable until something closes. Say that plainly rather than implying capacity the account does not have."
+      "deployable": 561.83,
+      "premium_at_risk": 2675.0,
+      "open_positions": "2 core + 1 exempt hedge. 1 of 3 core slots free, 0 of 2 tactical used. Bearish-tech theme at its cap.",
+      "note": "Deployable $561.83 puts a $500-1,000 core-swing entry at the very bottom of its band; a $300-600 tactical still fits. A five-slot book remains arithmetically unreachable until something closes -- say that plainly rather than implying capacity the account does not have."
     },
     "_supersedes": "The 19:35Z version of this block, which was written BEFORE Ryan's 19:37Z third QQQ lot and therefore describes a 2-contract QQQ position and a $233 weekend carry. Both numbers are now wrong; use the ones below.",
     "position_state_at_the_bell": "SPY 700P x1 mark 6.435 (-$105.50). QQQ 680P x3 blended 3.686667, mark 3.38 (-$92.00 at mark / -$98.00 net at bid), DTE 21. RBRK 90P x2 blended 4.10, mark 4.30 (+$40 at mark but -$40 net at an 18.6% spread), DTE 28. Book basis $2,675 -> mark value $2,517.50, unrealized -$157.50 / -5.89%.",
-    "cash_state_at_the_bell": "get_portfolio 19:47Z: total $3,775.52 = equity $443.69 / options $2,520.00 / cash $811.83. unleveraged_buying_power $811.83 EQUALS buying_power -- no margin extended. Deployable after the $250 reserve: $561.83, DOWN from $906.87 an hour earlier because Ryan spent $345 on the third QQQ lot. A $500-1,000 core-swing entry is now at the very bottom of its band; a $300-600 tactical still fits."
+    "cash_state_at_the_bell": "get_portfolio 19:47Z: total $3,775.52 = equity $443.69 / options $2,520.00 / cash $811.83. unleveraged_buying_power $811.83 EQUALS buying_power -- no margin extended. Deployable after the $250 reserve: $561.83, DOWN from $906.87 an hour earlier because Ryan spent $345 on the third QQQ lot. A $500-1,000 core-swing entry is now at the very bottom of its band; a $300-600 tactical still fits.",
+    "_amended_utc": "2026-08-21T21:22:00Z",
+    "_amendment_note": "AMENDED by the SECOND post-close run. The 19:50Z block below was written 13 minutes after Ryan's third QQQ lot and correctly rewrote the position and cash lines, but it left TWO stale items that the 20:19Z run identified and fixed in the QQQ _exit_ladder WITHOUT propagating the fix here -- and _monday_open, not the ladder, is what a first-run-of-the-day actually reads as its handoff. (a) WHAT_CHANGES_MONDAY quoted the -50% cut as 1.9025 and instructed Monday's run to 're-verify the level against the blended 3.805 basis', i.e. it named the STALE figure as the thing to verify against, which would have propagated the error rather than catching it. Corrected to 1.8433 on the true 3-contract blend of 3.6867. (b) capital_state_at_the_bell still held the 18:xx figures (BP 1156.87 / deployable 906.87 / premium 2330) and therefore CONTRADICTED cash_state_at_the_bell four lines below it (BP 811.83 / deployable 561.83 / basis 2675). A handoff block that disagrees with itself about how much money exists is worse than no handoff. Corrected to the broker's 21:19Z read. Also lifted the MIXED_LOT_SELL_CONSTRAINT up into WHAT_CHANGES_MONDAY, because the quantity cap lived only in the ladder while the trigger that needs it is described here."
   }
 }
