@@ -14558,7 +14558,40 @@
       "realized_pnl_today": "$0.00 agentic-realized. Sourced from the broker per the standing rule, not from this journal. Daily -$400 cap untouched.",
       "cadence_note": "Scheduler-fired types only: this is the hourly native backstop. The sub-hourly cron-job.org trigger was repaired at ~17:05Z today and confirmed firing on the :25/:55 slots; post-close the hourly backstop is the only expected firing, so this run's timing is normal and not evidence of regression.",
       "next_run_expectation": "Further post-close firings tonight and across the weekend should reconcile and stand down in a few lines each -- the book is provably unchanged and every duty for this trading day is discharged. The next run with real work is Monday's first post-open run, which stamps the heartbeat, rebuilds the brief, and inherits _monday_open (now independently verified)."
+    },
+    {
+      "run_utc": "2026-08-21T23:25:00Z",
+      "run_local_et": "19:25 ET Friday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~23:18Z, 198 minutes after the 20:00Z bell. Hourly native backstop.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. FOURTH post-close run of the 2026-08-21 trading day, and the first of the WEEKEND -- the market is shut until Monday 2026-08-24 13:30Z. Per the POST-CLOSE RUN PROTOCOL this run read what the 20:19Z / 21:22Z / 22:18Z runs already covered, repeated the cheap broker reconciliation, made ONE small root-cause correction it found while doing so, and stood down. No quote an earlier run already measured was re-polled and no research task was invented. SILENT under the monitoring mandate -- no trigger fired or un-fired, no recommendation changed.",
+      "reconciliation": "ZERO DRIFT, broker-verified 23:20Z. Options: SPY 2026-11-20 700P x1 (hedge, exempt), QQQ 2026-09-11 680P x3 @ avg 368.6667, RBRK 2026-09-18 90P x2 @ avg 410.00 -- all pending_* fields 0.0000, so no overnight assignment, expiration or unauthorized fill. Equities: PNC 1.825758 @ 246.47, unchanged and the sole equity holding. Portfolio $3,829.51 = equity $443.68 / options $2,574.00 / cash $811.83; unleveraged_buying_power $811.83 == buying_power, so NO margin extended (FOUR LAWS #4 intact). Account equity is above the $2,000 margin-equity minimum. Every figure matches the 22:18Z read TO THE CENT -- the book is provably unchanged.",
+      "authorship_check": "No orders placed this run or since 19:50Z. ZERO agentic orders placed today; all of today's fills remain placed_agent='user'. HARD RULE 6 intact. No flag created or cleared, and no Ryan approval is claimed, quoted or implied anywhere in this run (HARD RULE 9).",
+      "THE_WORK_OF_THIS_RUN": {
+        "what": "Corrected a STALE v3.1 CAP that was sitting in the Monday handoff path. _open_questions_for_ryan.note_on_throttles (written 2026-08-18) concludes 'the short-tech theme is at 2 of 2 and no further bearish tech entry is available'. Those are routine-prompt v3.1 numbers (max 3 open / max 2 per theme). v4 went live and was confirmed 2026-08-21T16:24Z by direct observation of the routine's own stored prompt: max 5 open (hedge excluded, 2 TACTICAL + 3 CORE, tracks do not share slots) and MAX 3 PER CORRELATED THEME. Under v4 the true count is 2 of 5 open and 2 of 3 on the short-tech theme -- or 3 of 3 if the hedge counts toward the THEME cap, which v4 does not say.",
+        "how_it_was_fixed": "Amendment appended to _open_questions_for_ryan rather than a rewrite of the historical text, matching this ledger's existing correction pattern. The ambiguous hedge-vs-theme reading was LEFT OPEN and flagged conservative (read 3 of 3) rather than resolved unilaterally by an unattended run.",
+        "why_it_mattered_even_though_the_answer_is_unchanged": "This is the point, and it is the failure mode CLAUDE.md keeps naming: A CHECK THAT PASSES FOR THE WRONG REASON. Monday's correct action is NO further short-tech entry either way -- but for two reasons that are real, not for the stale one. (1) CONCENTRATION: the book is 100% one-way short at -$52,208 net short delta = 13.8x account value; a fourth bearish position is a judgment call, not a cap call, and the judgment is no. (2) CAPITAL: unleveraged_buying_power $811.83 less the $250 FOUR LAWS reserve leaves ~$562, which funds one TACTICAL scalp ($300-600) and nothing else. Had the desk kept reasoning off '2 of 2', the wrong number would have survived to a day when it DID bind -- e.g. once the RBRK put closes ahead of its 2026-08-27 print and a slot genuinely opens.",
+        "verdict": "Ledger corrected, one field, 3 insertions / 1 deletion verified via git diff --stat before commit. No other change made; the immaterial book_carry_note denominator nit the 22:18Z run logged was again left alone as churn."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P x1": "WORKING / hedge. Ryan's authorized Aug-Oct insurance, EXEMPT from all premium backstops, held to its ~21-DTE roll/close decision WITH him. No action, no re-quote post-close.",
+        "QQQ 2026-09-11 680P x3": "WORKING. Mixed lots (1 agentic 4.05 + 2 Ryan 3.56/3.45, blended 3.6867). Crosses INSIDE 21 DTE Monday, where the -50% cut executes without waiting. Ladder independently verified by the 22:18Z run: cut 1.8433, backstop 1.2903. Mechanical sale capped at qty 1 (the agentic lot) pending Ryan's answer to q3.",
+        "RBRK 2026-09-18 90P x2": "WORKING, but ON A CLOCK. Earnings 2026-08-27 pm; q2 requires the run reaching 2026-08-26 to bring the close-before-the-print decision to Ryan rather than letting it drift into the print by default."
+      },
+      "grades_considered": "NONE. Market closed -- no candidate is placeable and no live quote is actionable. Grading names off stale Friday marks that cannot be traded until Monday would be manufactured work, which the POST-CLOSE RUN PROTOCOL explicitly forbids. Monday's first post-open run hunts both tracks against fresh tape.",
+      "duties_status_2026_08_21": {
+        "heartbeat": "Stamped by the 13:33Z first-post-open run. NOT touched -- post-close runs never stamp; next stamp due Monday at/after 13:30Z.",
+        "market_brief": "Built 13:33Z. NOT rebuilt -- the trading day is still 2026-08-21 until Monday's open (UTC-rollover rule).",
+        "daily_report": "daily_options_report.md written and delivered pre-bell by the 19:22Z run. NOT rewritten -- nothing material since; this run's change is ledger-internal and does not meet the MATERIAL bar.",
+        "friday_weekly_review": "Discharged by the 13:33Z run. NOT repeated.",
+        "daily_artifacts_rollover": "NOT rolled. Correct: 23:25Z is still the 2026-08-21 ET trading day; loss cap and entry throttle do not reset until Monday's open."
+      },
+      "entries_used": "0 of 2 this run, 0 of 8 today.",
+      "realized_pnl_today": "$0.00 agentic-realized, broker-sourced per the standing rule. Daily -$400 cap untouched.",
+      "cadence_note": "Scheduler-fired hourly native backstop. The sub-hourly cron-job.org trigger was repaired ~17:05Z today and confirmed on the :25/:55 slots; post-close the hourly backstop is the only expected firing, so this timing is normal and NOT evidence of regression.",
+      "next_run_expectation": "Weekend firings should reconcile and stand down in a few lines each -- the book cannot change until Monday. The next run with real work is Monday's first post-open run: stamp the heartbeat, rebuild the brief, inherit _monday_open (independently verified) and the corrected cap arithmetic, and note that QQQ is then inside 21 DTE."
     }
   ],
-  "updated_utc": "2026-08-21T18:22:00Z"
+  "updated_utc": "2026-08-21T23:25:00Z"
 }
