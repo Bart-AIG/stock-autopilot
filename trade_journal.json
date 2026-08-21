@@ -14425,6 +14425,56 @@
         "entries_used_today": 0,
         "entries_allowed_today": 8
       }
+    },
+    {
+      "run_utc": "2026-08-21T19:50:00Z",
+      "run_local_et": "15:50 ET Friday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "scheduled_automation_run",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org); fired ~19:45Z",
+      "action": "NO TRADE, NO EXIT, NO ENTRY, BOTH TRACKS. 0 of 2 entries this run, 0 of 8 today. THIS RUN FOUND THE ONLY POSITION DRIFT OF THE DAY and corrected the ledger for it with ~10 minutes left in the week. Ryan was notified ONCE -- not about a trigger (none fired) but about the concentration and weekend-carry change his own add created after the daily report had already been delivered.",
+      "cadence": "Fired ~19:45Z, the repaired sub-hourly :45 slot. Counting SCHEDULER-FIRED run_types only per the 17:08Z correction, roughly the 29th market-hours scheduled run of the day. Recovery from the 2026-08-18 token failure held all session.",
+      "THE_EVENT_OF_THIS_RUN": {
+        "what": "RYAN ADDED A THIRD QQQ 2026-09-11 680P AT 19:37:54Z FOR $345.00 -- his SECOND add of the day to that position, 15 minutes after the daily EOD report was delivered describing it as a 2-contract book.",
+        "how_it_was_caught": "Routine broker reconciliation, not a hunch. get_option_positions(nonzero) returned QQQ quantity 3.0000 (avg 368.6667, intraday_quantity 2.0000 @ intraday_average_open_price 350.50) against a ledger carrying 2, and get_portfolio showed cash down $345.04 to $811.83. get_option_orders(created_at_gte 19:00Z) named it: order 6a88a90f-60cc-49cc-bed6-54b6148a56cf, placed_agent='user', filled 19:37:54Z.",
+        "why_it_matters_that_it_was_VERIFIED": "A position appearing mid-session is exactly the shape of an unauthorized agentic fill, which would be a HARD RULE 6 violation. The order record settles it as Ryan's own trade from the broker's own placed_agent field -- inferred from nothing. This is the CLAUDE.md 'read the order record before escalating' rule working as designed.",
+        "what_it_does_NOT_settle": "NOT an answer to the standing 21-DTE recommendation. Two adds are strong evidence Ryan wants to ride the position, but per the 19:22Z run's own correction, reading intent from a trade is the same error HARD RULE 9 bars when reading it from a quoted message. The recommendation remains formally unanswered and no run may record it as accepted or withdrawn."
+      },
+      "reconciliation": "DRIFT FOUND AND RESOLVED (see above). Post-correction: SPY 2026-11-20 700P x1 (avg 749.00), QQQ 2026-09-11 680P x3 (avg 368.6667), RBRK 2026-09-18 90P x2 (avg 410.00), every pending_* field 0.0000. Equity book PNC only ($443.69). get_portfolio 19:47Z $3,775.52 = equity $443.69 / options $2,520.00 / cash $811.83. unleveraged_buying_power $811.83 EQUALS buying_power, so no margin is extended and FOUR LAWS #4 is satisfied by construction. Account equity well clear of the $2,000 margin minimum. Deployable after the $250 reserve: $561.83.",
+      "regime": "RISK-ON INTO THE BELL. SPY 766.56 (+0.52%) at session highs, QQQ 713.995 (+0.43%) holding just above its falling 50d (713.05) on monthly OpEx Friday, RBRK 100.15 (+2.70%) up a fifth straight session. The tape closed the week leaning against every position this desk owns.",
+      "position_verdicts": {
+        "SPY 2026-11-20 700P": "WORKING AS DESIGNED. Mark 6.435, -$105.50 / -14.09%. Authorized hedge, exempt from all premium backstops. 91 DTE. Only decision is the ~2026-10-30 roll/close review with Ryan.",
+        "QQQ 2026-09-11 680P": "STALLED, SETUP INTACT, NO MECHANICAL TRIGGER. Now 3 contracts, blended 3.686667, $1,106 basis. Mark 3.38 -> -$92.00 at mark / -$98.00 net at the 1.18% bid. The AGENTIC lot alone is -16.5%, nowhere near the -65% backstop for the 21-45 DTE tier. DTE 21; Monday it is 18 and the tier changes. Theta is now -$63.43/day on this position alone.",
+        "RBRK 2026-09-18 90P": "STALLED, LEANING WRONG, NO TRIGGER. Mark 4.30 (+$40) but the spread WIDENED into the close to 18.60% of mid on OI 75 / volume 8, so an exit at the bid nets -$40.00 -- the mark gain is not collectable. Underlying 100.15 vs an ~86.15 break-even. Binding gate unchanged: pre-earnings decision by the close of Wed 2026-08-26."
+      },
+      "grades_considered": [
+        {
+          "track": "A",
+          "candidate": "SPY / QQQ tactical, either direction",
+          "grade": "C",
+          "why": "Two disqualifiers, either sufficient. (1) No level is breaking NOW -- QQQ has sat within ~0.15% of its falling 50d all session on monthly OpEx, which is a pin, not a break. (2) STRUCTURAL: a Track A scalp entered with 10 minutes left carries a hard time stop of 'flat by the close of the next session' -- i.e. Monday -- while paying three calendar days of weekend theta up front. That is a negative-expectancy trade before any view is expressed. Entering here would be the 'boredom is not a catalyst' failure with a timer attached."
+        },
+        {
+          "track": "B",
+          "candidate": "Any core swing entry",
+          "grade": "C",
+          "why": "No thesis cleared, and the budget has moved against it: deployable cash fell from $906.87 to $561.83 when Ryan spent $345 on the third QQQ lot, which is the very bottom of the $500-1,000 core band. Separately the bearish-tech theme is at its cap and the book is already 13.8x account in one-way short delta -- adding to that view is concentration, not conviction."
+        },
+        {
+          "track": "B",
+          "candidate": "Adding to QQQ alongside Ryan",
+          "grade": "REJECTED ON LAW, NOT GRADED",
+          "why": "FOUR LAWS #3: never add to a losing position without Ryan's explicit approval, and wait for it. He adding to it himself is not that approval. Logged so the relay sees the temptation was considered and refused rather than never noticed."
+        }
+      ],
+      "notification_decision": {
+        "sent": true,
+        "why": "Deliberate departure from the run-by-run silence the monitoring mandate requires, and the reasoning is recorded so it does not become a habit. No trigger fired or un-fired and the QQQ recommendation is UNCHANGED -- on those grounds alone this run would have stayed silent, as the 19:05Z and 19:35Z runs correctly did. What justified the page is that the state MATERIALLY CHANGED AFTER THE DAILY REPORT WAS DELIVERED: the report Ryan will read describes a 2-contract QQQ position and a ~$236 weekend theta bill, and both are now wrong ($1,106 basis, ~$295 bill). The change landed minutes before a ~65-hour window in which the desk cannot act, and the concentration math (13.8x account, one-way short, $522 per 1% adverse move) is something he plausibly has not computed. A stale report plus a dark weekend is 'would want to know now', not routine progress.",
+        "what_was_NOT_claimed": "No approval, no instruction, and no interpretation of his adds was asserted to him or recorded anywhere as settled. HARD RULE 9 intact."
+      },
+      "duties_check": "All discharged. Heartbeat stamped 13:33Z for 2026-08-21. Market brief built today. Friday weekly review completed by the 13:40Z run (broker-sourced: $0.00 realized Mon-Thu, zero round trips). IV history carries a 2026-08-21 row for all eight core names plus RBRK and INTC. Daily EOD report written and delivered by the 19:22Z run -- and DELIBERATELY NOT REWRITTEN here despite now being stale on the QQQ contract count, because every master push touching that file re-pages Ryan and he is being paged once already with the corrected numbers. The correction lives in the notification, holdings.json._monday_open and this entry.",
+      "realized_pnl_today": "$0.00 agentic realized against the -$400 cap (the desk placed no closing trade today). Broker-sourced per the standing rule; the journal is not the ledger of record.",
+      "handoff": "holdings.json._monday_open was REWRITTEN this run and supersedes the 19:35Z version, which was written before the third lot and understates both the position and the carry. Monday's first post-open run inherits: corrected levels, the QQQ DTE-21->18 tier change (the -50% cut becomes the standing unconditional rule and is one of the mandate's execute-without-waiting exceptions -- re-verify the level against the NEW blended 3.686667 basis, not the old 3.805), the RBRK pre-earnings gate of Wed 2026-08-26, and $561.83 deployable after the reserve."
     }
   ],
   "updated_utc": "2026-08-21T18:22:00Z"
