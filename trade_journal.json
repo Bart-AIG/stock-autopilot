@@ -12986,6 +12986,30 @@
    "entries_considered": "NONE. Market is closed; no order is placeable. Hunting post-close would produce candidates priced off thin after-hours quotes that nobody can act on.",
    "why_flat": "Post-close redundant firing. The correct output is a short no-op log, and this is it.",
    "next_run_should": "If it is the first run at/after 09:30 ET Friday 2026-08-21: stamp automation_heartbeat.json for trading day 2026-08-21, rebuild market_brief.json, reset the daily loss cap and entry throttle, then run the normal MANAGE -> HUNT cycle. Friday also means the WEEKLY REVIEW is due -- source all P&L from the broker (get_realized_pnl + get_option_orders), never from this journal."
+  },
+  {
+   "run_utc": "2026-08-21T03:19:00Z",
+   "run_local_et": "2026-08-20 23:19 ET (Thu)",
+   "trading_day_et": "2026-08-20",
+   "run_type": "POST-CLOSE run #8 of this trading day (bell 20:00Z). Fourth run past the 00:00Z UTC rollover; the ET trading day is STILL 2026-08-20 until Friday's 09:30 ET open. POST-CLOSE RUN PROTOCOL applies in full: the 20:20Z run delivered daily_options_report.md for 2026-08-20 and wrote the closing marks; the 21:19Z, 22:19Z, 23:19Z, 00:19Z, 01:19Z and 02:19Z runs each re-reconciled with zero drift. Every useful post-close task for this trading day is provably discharged. This run performs ONLY broker reconciliation -- the one check always worth repeating, because it is the sole path by which an overnight assignment, expiration or unauthorized fill would surface -- and stands down. No research task invented; no quote an earlier run already measured re-polled.",
+   "action": "NO TRADE, NO EXIT, NO ARTIFACT ROLL, NO REPORT REWRITE, NO NOTIFICATION. Reconciliation only; zero drift.",
+   "reconciliation": {
+    "get_accounts": "Agentic 718757339 confirmed: type=cash, agentic_allowed=true, option_level_2, unsettled_funds $0.00. Spreads remain UNAVAILABLE at level 2; the standing level-3 recommendation to Ryan is unchanged and was deliberately NOT re-raised (HARD RULE 9 notify-once discipline).",
+    "get_option_positions": "4 open positions, matching holdings.json exactly -- SPY 2026-11-20 700P (avg 749.00, opened 2026-08-06, authorized hedge), ACHR 2028-01-21 5C (avg 247.00, opened 2026-07-20, placed_agent='user' + manual_hold_override), QQQ 2026-09-11 680P (avg 405.00, opened 2026-08-18, agentic), RBRK 2026-09-18 90P (avg 390.00, opened 2026-08-18, agentic). Every pending_* quantity zero: no assignment, no exercise, no expiration, no unauthorized fill.",
+    "get_portfolio": "total $4,074.37 / equity $879.72 / options $1,984.00 / cash $1,210.65 (all settled, unsettled $0). Options value identical to the 23:19Z snapshot -- option marks are frozen post-close. The $1.65 change in total vs run #4 is entirely the equity leg ($879.72 vs $878.07), an extended-hours mark, not a transaction.",
+    "verdict": "ZERO DRIFT vs holdings.json and vs every prior post-close snapshot of this trading day."
+   },
+   "positions_verdict": {
+    "SPY 2026-11-20 700P": "INSURANCE, WORKING. Closing mark 7.29, -$20/-2.67%, 92 DTE. EXEMPT from all premium backstops per the 2026-08-05 defensive posture. ~21-DTE roll/close decision WITH Ryan ~2026-10-30. Untouched.",
+    "ACHR 2028-01-21 5C": "UNTOUCHED BY POLICY. placed_agent='user' + manual_hold_override -- the ownership gate bars any close/trim/roll by the desk. Jan-2028 LEAP, no DTE or earnings gate in range. Monitored only.",
+    "QQQ 2026-09-11 680P": "LET IT RIDE, unchanged. Closing mark 4.89, +$84/+20.74% at mark (+$78/+19.26% net at bid), 22 DTE. Ladder pop 7.29 / ARM 6.08 / recheck 2.03 / backstop 1.42 -- none fired, ratchet NOT armed. Bearish premise confirmed on the close: QQQ 710.95 closed BELOW its 50d (712.98) for the first time. Under the monitoring mandate any discretionary exit is RECOMMEND-AND-ASK, and nothing new fired, so silence is correct.",
+    "RBRK 2026-09-18 90P": "LET IT RIDE, unchanged. Closing mark 4.80 (new peak), +$90/+23.08% at mark (+$80/+20.51% net at bid), 29 DTE. Ladder pop 7.02 / arm 5.85 / recheck 1.95 / backstop 1.37 -- none fired. RBRK closed 97.49 (-2.29%); the ~105 close-invalidation sits 7.7% above spot, untouched."
+   },
+   "grades_considered": "NONE. The market is closed -- no entry is placeable, so screening candidates would produce a grade nobody can act on and would consume run budget the protocol explicitly says not to spend. The 2026-08-21 hunt begins with Friday's brief rebuild at/after 09:30 ET.",
+   "why_flat": "Market closed. Neither an entry nor an exit can be placed. Three of four positions are gated (hedge exemption, ownership gate, monitoring mandate) and the fourth is a working winner with no trigger fired.",
+   "daily_state_unrolled": "Heartbeat NOT stamped (still shows 2026-08-20; only a run at/after 09:30 ET Friday may stamp it -- stamping now would pre-satisfy the dead-man for a trading day that has not started). market_brief.json left stamped 2026-08-20. Realized options P/L today $0.00 against the -$200 cap. Entry throttle 0/3 used; neither resets until Friday's open.",
+   "notification": "NONE SENT. Nothing changed and nothing needs Ryan -- an unattended run that pages him to say 'still zero drift' is exactly the notification-cadence bug HARD RULE 9 was amended to stop.",
+   "friday_review_note": "The weekly review is due on Friday 2026-08-21. Per the 2026-08-13 lesson it MUST be sourced from the broker (get_realized_pnl + get_option_orders), never from this journal -- the journal's start date has silently truncated a weekly total before. Post-close runs are the right place to pre-compute it, but the four earlier post-close runs of this day already had that opportunity and the review belongs to the Friday session that can also see Friday's fills; this run does not pre-empt it."
   }
  ],
  "updated_utc": "2026-08-20T02:19:00Z"
