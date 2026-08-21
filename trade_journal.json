@@ -13202,6 +13202,118 @@
         "4_EOD_REPORT": "First run at or after 14:25 CT (19:25Z) writes daily_options_report.md for the 2026-08-21 trading day."
       },
       "flat_because": "Market is closed. No entry is placeable, no exit is executable, and every mark on the board is a stale Thursday close. The correct output of the Nth redundant overnight firing is a short log line and a stand-down, which is what this is."
+    },
+    {
+      "run_utc": "2026-08-21T13:40:00Z",
+      "run_type": "first_post_open_of_trading_day",
+      "trading_day_et": "2026-08-21",
+      "regime": "RELIEF RALLY / RISK-ON OPEN THAT IS ALREADY FADING. QQQ opened 714.07 (+0.44%) -- back above its 50d (713.05) after yesterday's first close below it -- then faded to 712.11 (+0.17%) within six minutes, back UNDER the 50d. SPY 765.40 (+0.37%). Semis led the bounce (AVGO +2.02%, AMD +1.71%, TSM +1.56%, TSLA +1.47%, NVDA +0.83%). Vol did NOT bid: own-measured 30d ATM IV fell on both indexes (SPY 0.1315->0.1285, QQQ 0.2027->0.1985), retiring yesterday's one-day 'vol has started to bid' reading. Press drivers: long-bond yields stabilizing, BTC ~$77k on its best week in nearly three years, Nasdaq 100 snapping a five-session slump.",
+      "duties_owned_by_this_run": "First run at/after 09:30 ET, so it owned ALL of: the heartbeat stamp (done, 13:33Z, only after live quotes carried 13:30:04Z+), the market_brief rebuild (done), the daily loss-cap and 3-entry-throttle reset (done, $0.00 realized / 0 of 3), the QQQ 21-DTE management review (done, delivered to Ryan), and the Friday weekly review (below). Eighteen consecutive firings had stood down since the 2026-08-20 bell.",
+      "reconciliation": {
+        "options": "FOUR contracts, matching holdings.json one-for-one by option_id; every pending_* quantity 0.0000. No overnight assignment, exercise, expiration or unauthorized fill.",
+        "portfolio": "$3,947.04 = equity $881.39 / options $1,855.00 / cash $1,210.65. buying_power $1,210.65, unsettled $0.00 -- FOUR LAWS #4 not binding.",
+        "premium_at_risk": "$1,544 agentic ($749 hedge + $405 QQQ + $390 RBRK). Hedge excluded from the max-3 count: 2 of 3 non-hedge slots used, bearish-tech theme AT its 2-of-2 cap.",
+        "drift": "NONE (eighteenth consecutive check)."
+      },
+      "position_verdicts": [
+        {
+          "contract": "QQQ 2026-09-11 680P",
+          "owner": "agentic",
+          "verdict": "WORKING, BARELY -- and its unconditional 21-DTE review came due TODAY. See the decision package below. NOT executed; recommended to Ryan and awaiting his reply."
+        },
+        {
+          "contract": "RBRK 2026-09-18 90P",
+          "owner": "agentic",
+          "verdict": "WORKING. +$100 at mark but only +$40 net at the 4.30 bid on a market that re-widened to 24.5% of mid at the open with zero volume. RBRK 97.40 (-0.13%) is notably NOT participating in the relief rally, which quietly supports the premise. Nothing fired. Binding item is the pre-earnings decision by the close of 2026-08-26 (print verified 08-27 pm on the broker calendar this run)."
+        },
+        {
+          "contract": "SPY 2026-11-20 700P",
+          "owner": "agentic (authorized hedge)",
+          "verdict": "INSURANCE, WORKING AS DESIGNED. 6.80, -$69/-9.21%, gave back $49 on a green day. Backstop-exempt; roll/close review with Ryan ~2026-10-30."
+        },
+        {
+          "contract": "ACHR 2028-01-21 5C",
+          "owner": "user (Ryan)",
+          "verdict": "NO ACTION -- structural. 2.98, +$51/+20.65%. Ownership gate plus manual_hold_override; monitored only."
+        }
+      ],
+      "the_21_DTE_decision_package": {
+        "why_today": "2026-09-11 minus 21 days. The exit engine's clause is unconditional as a REVIEW: a position flat or losing at 21 DTE is closed or rolled, never held into the accelerating theta/gamma window.",
+        "numbers_delivered": "mark 4.275, bid 4.23 x ask 4.32 (2.1% of mid), +$22.50/+5.6% at mark, +$18/+4.4% net at bid, DTE 21, theta -$24.20/day = 5.66% of mark PER DAY, delta -0.188, broker chance-of-profit 17%, break-even QQQ 675.72 = a 5.1% fall in 21 days. Underlying 712.11 vs the written invalidation of a close above ~730 (NOT hit).",
+        "recommendation": "BANK IT at/near mid. Theta is the binding constraint, not price; the SPY 700P still carries the downside tail so closing this does not leave the book unhedged.",
+        "alternative_offered": "Hold through the NVDA 2026-08-26 pm print as a WRITTEN 'one catalyst, then out' plan with a hard exit by 08-27. Offered explicitly so that if Ryan prefers it, it becomes a plan on the record rather than a drift into holding.",
+        "why_not_executed": "The 2026-08-18 monitoring mandate makes discretionary exits RECOMMEND-AND-ASK on this position; only the hard premium backstops (-65%/-70%, and the -50% cut inside 21 DTE) execute unasked, and none is remotely near. A time stop is discretionary, and the mandate names a pre-earnings close -- its closest analogue -- as ask-first.",
+        "tier_change_effective_monday": "From DTE<21 this contract sits in the 7-21 DTE band where the -50% level (2.03) becomes a standing CUT confirmed by one re-check, not a re-check. Re-read the tier before acting after today."
+      },
+      "notifications_sent": {
+        "count": 2,
+        "first": "13:32Z -- the 21-DTE decision package, priced off the 13:30:08Z opening tick.",
+        "second": "13:39Z -- a CORRECTION.",
+        "what_went_wrong": "The first message priced the decision off an OPENING AUCTION PRINT: mark 3.96 on 2 contracts of volume, 5.05% of mid, which reported the position as -$9/-$19 and said the whole +$84 overnight gain had evaporated. Six minutes later the settled market was 4.23 x 4.32 and the position was +$22.50/+$18. THE SIGN WAS WRONG on a number Ryan was being asked to make a decision from. Sending the correction promptly was right; needing it was not.",
+        "the_transferable_lesson": "This file already carries the rule that opening prints inflate ATM IV via wide auction markets. Nobody had applied that same caution to a POSITION MARK. Written into CLAUDE.md this run: do not build a decision package for Ryan off any option quote stamped within ~5 minutes of the 13:30Z open -- re-quote first. This is the class of bug, not just this instance of it: a run that fires pre-open is structurally tempted to grab the first live quote it can get, because it has been waiting."
+      },
+      "grades_considered": [
+        {
+          "symbol": "QQQ / SPY calls (fade the fade)",
+          "grade": "C",
+          "reason": "A one-day bounce off a five-session slide is not a catalyst, and buying calls that happen to reverse the desk's own open bearish book is a rationalization dressed as a hedge. Also the bounce was already failing by 13:36 (QQQ 714.07 -> 712.11, back under the 50d)."
+        },
+        {
+          "symbol": "NVDA",
+          "grade": "C -- no entry",
+          "reason": "Most liquid chain on the board, but the only thing in the window is the 08-26 pm print. A directional entry before it IS an earnings bet, which the standing preference bars unless earnings is the thesis, and it is not. IV/RV 1.04 raw / 1.15 ex-gap -- no premium discount to harvest either."
+        },
+        {
+          "symbol": "MSFT",
+          "grade": "C",
+          "reason": "Logged specifically as the standing IV trap: headline IV/RV 0.525 reads as half-price vol but is almost entirely the +14.42% gap of 2026-07-30 sitting in the realized window; ex-gap the ratio is 1.008, i.e. fair. Cheap-looking premium supplies no thesis."
+        },
+        {
+          "symbol": "AVGO",
+          "grade": "C -- watch only",
+          "reason": "Richest premium on the core list (IV/RV 1.17 raw / 1.41 ex-gap) and the deepest drawdown (-15% in nine sessions), but it is +2.0% today. A put here is a short after the move has run, into a green tape -- the exact ZTS trend-maturity mistake. Revisit only on a failed bounce closing back under 364.03, and only if the theme cap frees up."
+        },
+        {
+          "symbol": "equity report RSI2 names (CRWD, PANW, NET, ARM, KLAC, EMR, USB, C, MS)",
+          "grade": "B/C -- not worked up",
+          "reason": "Source (b) per the sourcing rule. CRWD (RSI2 1.0, the cleanest print) reports 08-26 pm and PANW 09-01, both inside any tradeable window -- earnings-window skips. The remainder are mid-caps whose chains are too thin at this size, and the liquidity-first rule says kill those in 30 seconds rather than writing theses. No chain was worked up."
+        }
+      ],
+      "action": "NO TRADE, NO EXIT. Entry throttle 0 of 3 used; the bearish-tech theme is at its 2-of-2 cap so no third bearish position was available anyway, and nothing on the bullish side cleared a C. The one real decision of the day was the QQQ 21-DTE review, and under the monitoring mandate that decision is Ryan's, not the desk's.",
+      "weekly_review_friday_2026_08_21": {
+        "note": "Week of 2026-08-17. Broker figures Mon-Thu were pre-computed by the 11:26Z run; Friday's session is in progress, so the P&L half is final ONLY if nothing trades today. If Ryan replies and the QQQ put is closed, the EOD run must restate these from the broker.",
+        "source": "BROKER, per the 2026-08-13 rule: get_realized_pnl(option, 08-17..08-21) + get_option_orders(created_at_gte=2026-08-17), reconciled. The journal supplied reasoning only.",
+        "realized_pnl": "$0.00. All five daily buckets realized_gain=null, number_of_trades=0. Zero closing trades Mon-Thu.",
+        "round_trips": 0,
+        "hit_rate": "n/a - no closed trades",
+        "avg_win_vs_avg_loss": "n/a",
+        "orders": "THREE, all 2026-08-18: QQQ 680P buy-to-open (agentic, $405, filled 17:44:39Z), RBRK 90P buy-to-open (agentic, $390, filled 17:43:58Z), and an ACHR 5C sell-to-close placed by RYAN that CANCELLED unfilled at 20:20:29Z.",
+        "cap_and_throttle": "The -$200 daily cap was never approached on any day and never gated an entry. 2 entries against a 3/day limit on 08-18; the throttle never bound.",
+        "best_decision_on_process": "The repeated, documented REFUSALS to override a written trigger when the tape got exciting -- 08-17 15:15Z (declining an entry because spot stopped 12 minutes short of a trigger written that morning) and 08-18 14:02Z/14:18Z (declining to override a plan written by an instance with the same facts and no position at stake). The 08-18 16:03Z entry then MEASURED the counterfactual and found the put had gotten cheaper anyway, so the discipline was not merely principled, it paid. That is the desk working as designed.",
+        "worst_decision_on_process": "The 2026-08-18 17:43-17:44Z entries themselves. Both the QQQ 680P and the RBRK 90P were placed with NO written thesis, invalidation, or exit plan committed to any file, against a rule that reads 'No written invalidation = no trade, no exceptions.' The 17:45Z run had to RECONSTRUCT both, and every subsequent run -- including today's 21-DTE review -- has been managing an inherited guess at what the placing instance intended. This is the cardinal sin the prompt names, committed at the moment of entry rather than the moment of exit. It has not recurred; no entry has been placed since.",
+        "drift_check": {
+          "method": "Scanned the 162 journal entries dated 2026-08-17 onward for override language, excluding manual_hold_override boilerplate. 31 matches inspected.",
+          "finding": "ZERO standing-preference overrides were logged this week. Every single match is the desk explicitly DECLINING to override a written plan or preference, and saying so. There is nothing to flag as becoming doctrine.",
+          "the_honest_caveat": "A clean drift check is easy when the desk placed no trades. Zero overrides across a week with zero entries and zero exits is weak evidence of discipline -- it mostly measures inactivity. The real test comes on the week the desk trades. Do not read this row as a pass.",
+          "the_thing_that_IS_drifting": "Not a preference override -- a DUTY gap. Two positions were opened without written invalidations (above) and the desk has been carrying reconstructions ever since. That is a bigger process failure than any override logged, and it would not have surfaced from an override scan at all."
+        }
+      },
+      "process_fix_this_run": {
+        "what": "Corrected a factually wrong serialization rule in CLAUDE.md.",
+        "found": "CLAUDE.md instructs writing the JSON artifacts with indent=2, calling it 'the repo convention'. It is not. Measured this run: holdings.json, trade_journal.json and automation_heartbeat.json are indent=2, but iv_history.json and market_brief.json are indent=1. Following the rule as written produced a 1,896-line diff (1,014 insertions / 888 deletions) on iv_history.json for what was 9 new rows.",
+        "caught_by": "git diff --stat before committing -- the detector the rule itself prescribes, which worked exactly as intended.",
+        "fixed": "Rewrote with indent=1 to match; the diff became 126 insertions / 0 deletions. CLAUDE.md now states the rule as MATCH EACH FILE and lists the per-file indents.",
+        "why_it_matters": "This is the third variant of the same incident (indent on 08-21 05:19Z, ensure_ascii on 06:25Z, and now a rule that names the wrong value). Each earlier fix named a specific parameter; this one names the per-file fact and keeps the detector as the thing to trust."
+      },
+      "carry_forward": {
+        "1_AWAITING_RYAN": "A reply on the QQQ 680P: 'close it' (recommended) or 'hold to NVDA' (write it into the ledger as a plan with a hard 08-27 exit). Until he answers, do not re-notify unless a ladder level actually fires. Do NOT execute either way -- the mandate is ask-first.",
+        "2_RBRK": "Pre-earnings close/re-justify decision due by the close of WED 2026-08-26; print verified 2026-08-27 pm. Re-measure IV/RV that day -- a rising ratio strengthens the case for selling premium before the crush.",
+        "3_QQQ_TIER": "From Monday the 680P is inside 21 DTE: the -50% level (2.03) becomes a standing cut, not a re-check.",
+        "4_EOD_REPORT": "Due on the first run at/after 14:25 CT (19:25Z). Write it then; do not defer for a better slot. If Ryan replies and a trade happens, restate the weekly P&L from the broker in it.",
+        "5_NVDA": "2026-08-26 pm, a top QQQ weight reporting inside the 680P's window. Largest scheduled variance event of the week; cuts both ways.",
+        "6_JACKSON_HOLE_DATE_CONFLICT": "The 08-20 brief put Warsh's keynote on 08-27; a press check this run puts it on 08-28 with the symposium running 08-27 to 08-29. UNRESOLVED -- verify against a primary source before sizing anything around it."
+      },
+      "notes": "JSON written with indent matched PER FILE (holdings/journal/heartbeat indent=2, iv_history/market_brief indent=1) and default ensure_ascii; git diff --stat checked on every file before commit."
     }
   ],
   "updated_utc": "2026-08-20T02:19:00Z"
