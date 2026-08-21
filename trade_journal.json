@@ -14524,6 +14524,40 @@
       "entries_used": "0 of 8 for the 2026-08-21 trading day. 0 of 2 for this run.",
       "realized_options_pnl_today_agentic": "$0.00 against the -$400 cap. Sixth consecutive flat agentic day.",
       "post_close_protocol": "Discharged. Earlier post-close coverage read before acting (20:19Z: reconciliation + ladder recomputation + mixed-lot finding). No quote an earlier run already measured was re-polled, no regime re-derived, no daily artifact rolled, no research task invented. The one repeated check -- broker reconciliation -- was performed and is the sole path by which an overnight assignment, expiration or unauthorized fill would surface."
+    },
+    {
+      "run_utc": "2026-08-21T22:18:00Z",
+      "run_local_et": "18:18 ET Friday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~22:18Z, 138 minutes after the 20:00Z bell",
+      "action": "NO TRADE, NO EXIT, NO ENTRY -- nothing is placeable post-close and the market is now shut until Monday 13:30Z. THIRD post-close run of the 2026-08-21 trading day. Per the POST-CLOSE RUN PROTOCOL this run read what the 20:19Z and 21:22Z runs already covered, repeated the cheap broker reconciliation, VERIFIED the numeric corrections those two runs made rather than trusting them, and stood down. No research task was invented and no quote an earlier run already measured was re-polled. SILENT under the monitoring mandate -- no trigger fired or un-fired, no recommendation changed.",
+      "reconciliation": "ZERO DRIFT, broker-verified at 22:18Z. SPY 2026-11-20 700P x1 (hedge, exempt), QQQ 2026-09-11 680P x3 @ avg 368.6667, RBRK 2026-09-18 90P x2 @ avg 410.00; all pending_* fields 0.0000, so no overnight assignment, expiration or unauthorized fill. Ledger positions[] matches the broker on all three. Portfolio $3,829.51 = equity $443.68 / options $2,574.00 / cash $811.83; unleveraged_buying_power $811.83 == buying_power, no margin extended (FOUR LAWS #4 intact). Account equity $3,829.51 is above the $2,000 margin-equity minimum.",
+      "authorship_check": "No orders placed this run or since 19:50Z. All of today's fills remain placed_agent='user'. ZERO agentic orders placed today. HARD RULE 6 intact. No flag created or cleared, and no Ryan approval is claimed, quoted or implied anywhere in this run (HARD RULE 9).",
+      "THE_WORK_OF_THIS_RUN": {
+        "what": "VERIFICATION of the two inherited corrections, not a third fix. The 20:19Z run recomputed the QQQ _exit_ladder onto the true 3-contract basis and the 21:22Z run propagated it into _monday_open and re-read capital_state from the broker. Both are numeric changes to a trigger that, from Monday, EXECUTES WITHOUT WAITING for Ryan -- so the arithmetic was re-derived independently here rather than inherited on faith.",
+        "why": "CLAUDE.md's own standing lesson: 'a prior instance's flag is evidence, not a verdict -- measure before you remediate an inherited flag.' The same discipline applies to an inherited FIX. A wrong -50% level in _monday_open would fire a mechanical, unasked sell on a mixed-ownership position with nobody watching.",
+        "checks_performed": {
+          "blended_basis": "(4.05 + 3.56 + 3.45) / 3 = 3.6867. Matches the broker's average_price 368.6667 exactly. CONFIRMED.",
+          "minus_50_cut": "3.6867 x 0.50 = 1.84335 -> 1.8433 as written. CONFIRMED.",
+          "minus_65_backstop": "3.6867 x 0.35 = 1.29033 -> 1.2903 as written. CONFIRMED.",
+          "rbrk_basis": "2 lots averaging 4.10 vs broker average_price 410.00. CONFIRMED.",
+          "capital_state": "capital_state_at_the_bell (total 3829.51 / equity 443.68 / options 2574.00 / cash 811.83 / ulbp 811.83) matches this run's independent 22:18Z get_portfolio read TO THE CENT, and no longer contradicts cash_state_at_the_bell. The 21:22Z fix landed correctly. CONFIRMED."
+        },
+        "verdict": "The Monday handoff is arithmetically sound and internally consistent. No correction required. This is a clean verification, and it is recorded so Monday's first run knows the levels were independently checked by a second instance rather than written once and never re-read.",
+        "one_immaterial_nit_left_deliberately": "book_carry_note prices weekend theta against a '$3,776 account' while the account closed at $3,829.51, making the carry read 7.8% instead of 7.7%. The substantive figures (theta $98.42/day, ~$295 across the 3-day window) are correct and the authoritative capital_state block four lines below is broker-exact. Rewriting the ledger for a 0.1pp denominator drift in a descriptive note is churn, not a fix -- logged rather than committed."
+      },
+      "duties_status_2026_08_21": {
+        "heartbeat": "Stamped by the 13:33Z first-post-open run. NOT touched here -- post-close runs never stamp, and the next stamp is due Monday at/after 13:30Z.",
+        "market_brief": "Built 13:33Z. NOT rebuilt -- the trading day is still 2026-08-21 until Monday's open.",
+        "daily_report": "daily_options_report.md written and delivered pre-bell by the 19:22Z run. NOT rewritten -- nothing material has happened since (the 19:50Z third-lot discovery was already covered by its own notification and the two ladder fixes are ledger-internal).",
+        "friday_weekly_review": "Discharged by the 13:33Z run (weekly_review_friday_2026_08_21) and explicitly acknowledged as not-due-again by the 16:47Z run. NOT repeated.",
+        "daily_artifacts_rollover": "NOT rolled. Correct per the UTC rule -- 22:18Z is still the 2026-08-21 ET trading day; the loss cap and entry throttle do not reset until Monday's open."
+      },
+      "entries_used": "0 of 2 this run, 0 of 8 today.",
+      "realized_pnl_today": "$0.00 agentic-realized. Sourced from the broker per the standing rule, not from this journal. Daily -$400 cap untouched.",
+      "cadence_note": "Scheduler-fired types only: this is the hourly native backstop. The sub-hourly cron-job.org trigger was repaired at ~17:05Z today and confirmed firing on the :25/:55 slots; post-close the hourly backstop is the only expected firing, so this run's timing is normal and not evidence of regression.",
+      "next_run_expectation": "Further post-close firings tonight and across the weekend should reconcile and stand down in a few lines each -- the book is provably unchanged and every duty for this trading day is discharged. The next run with real work is Monday's first post-open run, which stamps the heartbeat, rebuilds the brief, and inherits _monday_open (now independently verified)."
     }
   ],
   "updated_utc": "2026-08-21T18:22:00Z"
