@@ -14591,6 +14591,42 @@
       "realized_pnl_today": "$0.00 agentic-realized, broker-sourced per the standing rule. Daily -$400 cap untouched.",
       "cadence_note": "Scheduler-fired hourly native backstop. The sub-hourly cron-job.org trigger was repaired ~17:05Z today and confirmed on the :25/:55 slots; post-close the hourly backstop is the only expected firing, so this timing is normal and NOT evidence of regression.",
       "next_run_expectation": "Weekend firings should reconcile and stand down in a few lines each -- the book cannot change until Monday. The next run with real work is Monday's first post-open run: stamp the heartbeat, rebuild the brief, inherit _monday_open (independently verified) and the corrected cap arithmetic, and note that QQQ is then inside 21 DTE."
+    },
+    {
+      "run_utc": "2026-08-22T00:22:00Z",
+      "run_local_et": "20:22 ET Friday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~00:18Z, 262 minutes after the 20:00Z bell. Hourly native backstop.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. FIFTH post-close run of the 2026-08-21 trading day and the SECOND of the weekend; the first to cross 00:00 UTC. Market shut until Monday 2026-08-24 13:30Z. Per the POST-CLOSE RUN PROTOCOL this run read what the 20:19Z / 21:22Z / 22:18Z / 23:25Z runs already covered, repeated the cheap broker reconciliation, INDEPENDENTLY VERIFIED the ownership facts those runs asserted rather than inheriting them, and stood down. No research task invented, no quote an earlier run already measured re-polled, no daily artifact rolled. SILENT under the monitoring mandate: no trigger fired or un-fired and no recommendation changed.",
+      "utc_rollover_note": "It is 2026-08-22 by UTC date, but the trading day is STILL 2026-08-21 (Friday) until Monday's 09:30 ET open. Per the CLAUDE.md trading-day rule this run did NOT stamp automation_heartbeat.json, did NOT rebuild market_brief.json, and did NOT reset the daily realized-loss cap or the entry throttle. Monday's first post-open run owns all three.",
+      "reconciliation": "ZERO DRIFT, BOTH BOOKS, broker-verified 00:19-00:21Z. get_option_positions(nonzero) returns exactly THREE contracts -- SPY 2026-11-20 700P x1 (agentic, insurance-exempt hedge), QQQ 2026-09-11 680P x3 @ avg 3.686667, RBRK 2026-09-18 90P x2 @ avg 4.10 -- matching holdings.json one-for-one with every pending_* field 0.0000, so no assignment, exercise, expiration or unauthorized fill. get_equity_positions returns only PNC 1.825758 sh @ 246.47, matching the ledger. get_portfolio 3829.51 = equity 443.68 / options 2574.00 / cash 811.83; buying_power 811.83 EQUALS unleveraged_buying_power 811.83, so no borrowed funds are being extended and FOUR LAWS #4 is satisfied. unsettled_funds 732.30 (settles 2026-08-24) -- irrelevant to deployment on a limited_margin account but noted because it is the residue of Ryan's own 08-21 sales, not of any agentic activity.",
+      "ownership_verification_this_run": {
+        "why": "The 19:50Z run discovered Ryan's adds; the 22:18Z run re-verified authorship from the broker and the 20:19Z / 21:22Z / 23:25Z runs propagated the consequences. This run re-pulled the primary order records AGAIN rather than inheriting the conclusion, because the mechanical-cut quantity cap that binds from Monday depends entirely on that fact being right. This is therefore a SECOND independent confirmation, not the first: two runs querying the broker separately and agreeing is cross-validation, and the honest framing is confirmation rather than discovery.",
+        "option_orders_2026_08_21_all_filled": [
+          "ACHR 2028-01-21 5C sell-to-close 1 @ 3.00 limit, 13:55:50Z, placed_agent='user' (Ryan's own position closed by Ryan; entry 2.47 -> +$53 gross)",
+          "QQQ 2026-09-11 680P buy-to-open 1 @ 3.56, 15:50:28Z, placed_agent='user'",
+          "RBRK 2026-09-18 90P buy-to-open 1 @ 4.30, 16:00:11Z, placed_agent='user'",
+          "QQQ 2026-09-11 680P buy-to-open 1 @ 3.45, 19:37:54Z, placed_agent='user'"
+        ],
+        "equity_orders_2026_08_21_all_filled": [
+          "BA sell 2.022374 sh @ 213.7883 market, 14:31:12Z, placed_agent='user' -- recorded in _closed_positions"
+        ],
+        "verdict": "CONFIRMED. Every one of the five 08-21 fills is placed_agent='user'. ZERO agentic orders were placed on 2026-08-21 in either asset class. HARD RULE 6 (no autonomous equity trading) is intact -- the BA sale was Ryan's. FOUR LAWS #3 is NOT implicated: the adds to the losing QQQ and RBRK positions were made by Ryan himself, not by the desk adding to a loser without approval. The inherited MIXED_LOT_SELL_CONSTRAINT is therefore correct as written and binds Monday: QQQ is 1 agentic lot + 2 user lots, so any unasked mechanical exit is CAPPED AT QUANTITY 1; RBRK is 1 agentic + 1 user, capped at quantity 1."
+      },
+      "duty_audit_this_run": {
+        "daily_report": "DONE and NOT rewritten. daily_options_report.md was delivered at 19:20Z for 2026-08-21 by the first run past the 14:15 CT window. Ryan's post-report adds are material, but the 19:50Z run already paged him once with the concentration/carry consequences and four subsequent runs have declined to rewrite. Re-pushing the file would fire another ntfy notification carrying a decision he has already received. Left alone deliberately.",
+        "friday_weekly_review": "DONE. Written by the 13:40Z first-post-open run (weekly_review_friday_2026_08_21) and revisited at 16:47Z. Broker-sourced per the standing rule. Not re-derived here.",
+        "heartbeat": "Stamped 2026-08-21T13:33:00Z for the correct trading day. Not touched -- see utc_rollover_note.",
+        "iv_history": "No new readings. Post-close marks are stale and no name was evaluated for entry this run; logging a row off a shut market would pollute the series."
+      },
+      "positions_verdict": {
+        "SPY 2026-11-20 700P": "HOLD. Authorized defensive hedge, insurance-exempt from all premium backstops. DTE 91 -> 88 Monday. Next decision ~2026-10-30 with Ryan.",
+        "QQQ 2026-09-11 680P x3": "STALLED, SETUP INTACT. Closed Friday 3.38 mark vs 3.6867 blended basis (-8.3%), nowhere near any trigger. Monday the DTE tier changes 21 -> 18, which makes the -50% cut (1.8433 on the blended basis) the standing unconditional rule and one of the monitoring mandate's named auto-execute exceptions -- subject to the quantity-1 cap verified above. Invalidation remains a CLOSE above ~730.",
+        "RBRK 2026-09-18 90P x2": "STALLED, LEANING WRONG. Underlying closed 100.15 after a fifth straight up session, only ~5% under the ~105 written invalidation and far above the 86.15 break-even. The +$40 mark gain stays uncollectable at an 18.6%-of-mid spread on OI 75. BINDING GATE: pre-earnings decision by the close of Wed 2026-08-26 (print 08-27 pm). Two sessions of runway."
+      },
+      "notification_decision": "NONE SENT. Nothing fired, nothing un-fired, no recommendation changed, and the book is provably identical to the 23:25Z reading. The monitoring mandate's SILENCE clause is explicit that a position quietly working is not news, and Ryan was already paged once at 19:50Z about the only genuinely new fact of the session. A weekend 'all quiet' push is the exact noise that makes the mandate's real alerts stop being read.",
+      "handoff_to_monday": "Read holdings.json._monday_open FIRST -- it carries the corrected QQQ ladder on the true 3-lot basis, the RBRK earnings gate, and the levels to watch. Do not re-derive them. Open questions for Ryan remain open in _open_questions_for_ryan (notably q3: which basis governs a mechanical cut on a mixed-ownership position -- both sets are recorded and no run may silently pick one). Weekend carry already booked: ~$295 of theta across the three positions."
     }
   ],
   "updated_utc": "2026-08-21T23:25:00Z"
