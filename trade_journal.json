@@ -14801,6 +14801,22 @@
       "entries_used": "0 of 8 for the 2026-08-21 trading day (market closed; the throttle does not reset until Monday's open).",
       "realized_pnl_today": "$0.00 realized for 2026-08-21. Daily -$400 cap untouched.",
       "handoff_to_monday": "Unchanged from the 19:50Z _monday_open block -- read it rather than re-deriving. Headline items: QQQ moves inside the 21-DTE governance boundary; ~$295 of weekend theta is already sunk across the three positions; deployable capital after reserve is ~$562."
+    },
+    {
+      "run_utc": "2026-08-22T10:20:00Z",
+      "run_local_et": "06:20 ET Saturday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~10:19Z, 862 minutes after the 20:00Z Friday bell. Hourly native backstop (cron-job.org fires Mon-Fri only, so an hourly-only weekend cadence is EXPECTED and is not evidence of the 08-18 trigger fault recurring).",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. FIFTEENTH post-close run of the 2026-08-21 trading day, TWELFTH of the weekend. Market shut until Monday 2026-08-24 13:30Z. Per the POST-CLOSE RUN PROTOCOL: read what the 20:19Z through 09:19Z runs already covered, repeated the cheap broker reconciliation -- the one check always worth repeating, since it is the only way an overnight assignment, expiration or unauthorized fill would surface -- found the book provably unchanged, and stood down in a few lines. No research task invented, no already-measured quote re-polled, no daily artifact rolled, no notification sent (a quiet weekend book is not news).",
+      "reconciliation": "ZERO DRIFT, BOTH BOOKS, broker-verified 10:19Z. get_accounts: 718757339 Agentic -- limited_margin, option_level_3, agentic_allowed=true, unchanged. Options (get_option_positions nonzero): SPY 2026-11-20 700P x1 @ 749.00 (authorized hedge, exempt from premium backstops); QQQ 2026-09-11 680P x3 @ avg 368.6667; RBRK 2026-09-18 90P x2 @ avg 410.00 -- every pending_* field 0.0000. Equities (get_equity_positions): PNC 1.825758 sh @ 246.47, the only equity line, shares_held_for_options_events 0.000000. All match holdings.json one-for-one.",
+      "portfolio": "get_portfolio 10:19Z: total_value $3,829.51 / options_value $2,574.00 / equity_value $443.68 / cash $811.83 -- identical to the 04:19Z through 09:19Z readings, as expected with the market shut. buying_power $811.83 == unleveraged_buying_power $811.83, so NO borrowed funds are extended (FOUR LAWS #4 intact). Account equity $3,829.51 is well above the $2,000 margin-equity minimum. unsettled_funds $732.30 is irrelevant to the budget on a limited_margin account (instant settlement) and is NOT additive to the $811.83.",
+      "capital": "After the $250 unencumbered reserve, ~$561.83 is deployable. Below the $500-1,000 CORE SWING comfortable range and only mid-band for a $300-600 TACTICAL scalp. The five-slot dual-track book remains arithmetically unreachable until an existing position closes -- stated plainly rather than implying the desk can run five positions.",
+      "positions_verdict": "Not re-graded this run -- no quotes exist to grade against on a Saturday, and Friday's closing verdicts stand unchanged in the 20:19Z entry. Monday's first post-open run re-reads each original thesis and exit plan against live marks, and must NOT price any decision off the opening auction print (re-quote >=5 min after 13:30Z).",
+      "hunt": "NOT PERFORMED -- market closed, no live chains, no intraday levels to break. Hunting both tracks resumes Monday 2026-08-24 after the brief is rebuilt.",
+      "duties_check": "Heartbeat: NOT stamped -- correct. 'Today' means the US TRADING day (ET); between the Friday bell and the Monday 09:30 ET open the trading day is still 2026-08-21, whose heartbeat and daily report were already discharged. market_brief.json NOT rebuilt (same reason). Daily loss cap and the 8-entry throttle NOT reset -- a UTC rollover hands the desk no fresh budget. daily_options_report.md NOT rewritten: nothing material happened after it was written at 2026-08-21T19:20:00Z, and a rewrite would push Ryan a duplicate notification for no new information.",
+      "grades_considered": [],
+      "flat_reason": "Market closed (Saturday). No entry is placeable; no exit is placeable. Standing down is the only correct output."
     }
   ],
   "updated_utc": "2026-08-22T08:20:00Z"
