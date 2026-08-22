@@ -14817,6 +14817,41 @@
       "duties_check": "Heartbeat: NOT stamped -- correct. 'Today' means the US TRADING day (ET); between the Friday bell and the Monday 09:30 ET open the trading day is still 2026-08-21, whose heartbeat and daily report were already discharged. market_brief.json NOT rebuilt (same reason). Daily loss cap and the 8-entry throttle NOT reset -- a UTC rollover hands the desk no fresh budget. daily_options_report.md NOT rewritten: nothing material happened after it was written at 2026-08-21T19:20:00Z, and a rewrite would push Ryan a duplicate notification for no new information.",
       "grades_considered": [],
       "flat_reason": "Market closed (Saturday). No entry is placeable; no exit is placeable. Standing down is the only correct output."
+    },
+    {
+      "run_utc": "2026-08-22T11:20:00Z",
+      "run_local_et": "07:20 ET Saturday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~11:19Z, 922 minutes after the 20:00Z Friday bell. Hourly native backstop (cron-job.org fires Mon-Fri only, so an hourly-only weekend cadence is EXPECTED and is not the 08-18 trigger fault recurring).",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. SIXTEENTH post-close run of the 2026-08-21 trading day, THIRTEENTH of the weekend. Market shut until 2026-08-24 13:30Z. Per the POST-CLOSE RUN PROTOCOL this run did the one check always worth repeating -- broker reconciliation -- logged it, and stood down. No daily artifact rolled: the trading day is still 2026-08-21, so the heartbeat was NOT stamped, market_brief.json was NOT rebuilt, and the loss cap / entry throttle were NOT reset.",
+      "reconciliation": {
+        "utc": "2026-08-22T11:19:00Z",
+        "result": "ZERO DRIFT, BOTH BOOKS.",
+        "accounts": "718757339 confirmed limited_margin / option_level_3 / agentic_allowed. unsettled_funds $732.30 (tradeable on limited margin; not a cash-account freeze).",
+        "option_positions_nonzero": "SPY 2026-11-20 700P x1 @ 749.00 | QQQ 2026-09-11 680P x3 @ avg 368.6667 | RBRK 2026-09-18 90P x2 @ avg 410.00. All pending_* 0.0000. Matches holdings.json one-for-one -- no overnight assignment, exercise, expiration or unauthorized fill.",
+        "equity_positions": "PNC 1.825758 sh @ 246.47 -- the only equity, matching the ledger.",
+        "portfolio": "total $3,829.51 = options $2,574.00 + equity $443.68 + cash $811.83. buying_power $811.83 == unleveraged_buying_power $811.83, so NO margin is being extended and FOUR LAWS #4 reads off the same number either way.",
+        "achr_note": "ACHR 2028-01-21 5C (placed_agent=user) is correctly ABSENT from the broker and sits in _closed_positions, closed by Ryan 2026-08-21T13:55:50Z. The 13:33Z heartbeat note still describes a four-contract book because it was written before that close -- that is a stale narrative in a historical field, not drift."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P": "HOLD -- authorized defensive hedge, insurance, EXEMPT from premium backstops. 90 DTE. Nothing to decide over a weekend.",
+        "QQQ 2026-09-11 680P x3": "HOLD/WATCH -- unchanged since Friday's close. Monday it crosses to DTE 18, at which point the -50% cut becomes the STANDING unconditional rule and, under the 2026-08-18 monitoring mandate, is one of the named exceptions that EXECUTES WITHOUT WAITING. Blended basis 3.6867; the pre-computed _monday_open block carries the corrected ladder. No action available today.",
+        "RBRK 2026-09-18 90P x2": "HOLD/WATCH -- unchanged. 27 DTE Monday. Under the monitoring mandate: recommend-and-ask, no discretionary exit without Ryan."
+      },
+      "grades_considered": "NONE. Both tracks require a live tape: TACTICAL needs an intraday level breaking NOW and a <=3%-of-mid quote, CORE needs a confirming level and an IV/liquidity read. Neither exists on a Saturday, and any quote pulled now is a stale Friday-close print that would be actionable on Monday only by coincidence. Grading candidates off dead quotes would be manufacturing work to justify the firing -- the protocol explicitly forbids it.",
+      "why_flat": "Market closed. No entry or exit is placeable. The book is provably unchanged from the 10:20Z reconciliation two hours ago, and every useful post-close task for this trading day (final reconciliation, Friday weekly review, EOD report, the Monday-open pre-compute) was completed by earlier runs.",
+      "sleeve_state": {
+        "premium_at_risk_agentic_usd": 2675.0,
+        "breakdown": "SPY hedge $749 (excluded from the max-position count) + QQQ $1,106 + RBRK $820.",
+        "open_positions_vs_cap": "2 of 3 CORE slots used (hedge excluded); 0 of 2 TACTICAL. Bearish-tech theme at 2, under the 3-per-theme cap.",
+        "unleveraged_buying_power_usd": 811.83,
+        "deployable_after_250_reserve_usd": 561.83,
+        "realized_options_pnl_today_usd": 0.0,
+        "daily_loss_cap_usd": -400.0,
+        "entries_used_today": 0
+      },
+      "notes": "The honest cadence statement: cron-job.org is configured Mon-Fri, so weekend firings are the routine's native hourly backstop alone. That is the designed weekend behaviour and should not be read as the trigger fault that ran 2026-08-18 to 2026-08-21."
     }
   ],
   "updated_utc": "2026-08-22T08:20:00Z"
