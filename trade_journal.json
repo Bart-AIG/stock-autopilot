@@ -14671,6 +14671,33 @@
       "entries_used": "0 of 2 this run, 0 of 8 for the 2026-08-21 trading day.",
       "realized_pnl_today": "$0.00 realized by the desk on 2026-08-21. Daily -$400 cap untouched.",
       "handoff_to_monday": "Unchanged. Read holdings.json._monday_open FIRST: the corrected QQQ ladder (3-lot blended basis 3.6867, -50% cut 1.8433, -65% backstop 1.2903), the DTE 21->18 governance change, the RBRK earnings gate, and the MIXED_LOT_SELL_CONSTRAINT capping any unasked mechanical exit at quantity 1 on both QQQ and RBRK. _open_questions_for_ryan q3 stays OPEN -- an unattended run cannot resolve it."
+    },
+    {
+      "run_utc": "2026-08-22T03:20:00Z",
+      "run_local_et": "23:20 ET Friday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~03:18Z, 442 minutes after the 20:00Z bell. Hourly native backstop.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. EIGHTH post-close run of the 2026-08-21 trading day, FIFTH of the weekend. Market shut until Monday 2026-08-24 13:30Z. Per the POST-CLOSE RUN PROTOCOL this run read what the 20:19Z / 21:22Z / 22:18Z / 23:25Z / 00:22Z / 01:20Z / 02:20Z runs already covered, repeated the cheap broker reconciliation -- the one check always worth repeating, since it is the only way an overnight assignment, expiration or unauthorized fill would surface -- found the book provably unchanged, and stood down in a few lines. No research task was invented, no overnight quote re-polled, no daily artifact rolled.",
+      "trading_day_rule_applied": "'Today' means the US TRADING day (ET). It is 23:20 ET Friday; the trading day is still 2026-08-21, whose bell rang at 20:00Z. Therefore: heartbeat NOT stamped (only a run at/after 09:30 ET Monday may stamp 2026-08-24), market_brief.json NOT rebuilt, -$400 daily realized loss cap NOT reset, 8-entry daily throttle NOT reset, daily_options_report.md NOT rewritten (written 19:20Z by the 19:15Z run; nothing material has happened since, and a rewrite would only re-page Ryan with identical content).",
+      "reconciliation": {
+        "source": "get_accounts + get_option_positions(nonzero) + get_portfolio, fetched live this run",
+        "account": "718757339 Agentic -- limited_margin, option_level_3, agentic_allowed=true. Confirmed, unchanged.",
+        "drift": "ZERO. Broker shows exactly the three ledger positions and no others: SPY 2026-11-20 700P qty 1 @ 749.00/contract; QQQ 2026-09-11 680P qty 3 @ blended 368.6667 (= 3.686667/share); RBRK 2026-09-18 90P qty 2 @ blended 410.00 (= 4.10/share). Both blended figures match holdings.json basis_used exactly (QQQ 3.686667, RBRK 4.10). No new fills, no assignment, no expiration, no unauthorized equity trade.",
+        "basis_caveat_verified_not_inherited": "The top-level entry_premium fields (QQQ 4.05, RBRK 3.90) intentionally record the ORIGINAL agentic lot, not the blend -- they are NOT drift. The blends live in _current_state.basis_used and are what reconcile against the broker. This run checked that independently rather than trusting the prior runs' 'zero drift' claim.",
+        "portfolio": "total_value 3829.51 (equity 443.68 + options 2574.00 + cash 811.83). unleveraged_buying_power 811.83 = buying_power 811.83, i.e. NO borrowed funds extended -- the no-margin law is satisfied with no action needed. unsettled_funds 732.30 is reported but does not bind on a limited_margin account.",
+        "equity_vs_prior_run": "Options value and cash are carried from Friday's close and cannot move until Monday's open; nothing here is a new measurement."
+      },
+      "positions_verdict": {
+        "SPY 2026-11-20 700P": "WORKING AS DESIGNED, SILENT. Authorized defensive hedge, EXEMPT from all premium backstops. 91 DTE. Its only decision is the ~2026-10-30 21-DTE roll/close review WITH Ryan. Nothing to do for nine weeks.",
+        "QQQ 2026-09-11 680P": "STALLED, SETUP INTACT, NO TRIGGER, SILENT. Friday mark 3.38 vs blended 3.6867. The -50% cut sits at 1.8433 and the position is nowhere near it. Governance changes Monday (DTE 21 -> 18: the -50% cut becomes the standing unconditional rule and, under the monitoring mandate, one of the named exceptions that executes unasked -- CAPPED AT QUANTITY 1, the agentic lot only). The 21-DTE review recommendation has been open with Ryan since 13:39Z Friday and is his call; an unattended run cannot supply that approval.",
+        "RBRK 2026-09-18 90P": "STALLED, LEANING WRONG, NO TRIGGER, SILENT. Friday mark 4.30 on an 18.6%-of-mid spread (OI 75) -- the +$40 'gain' at mark is uncollectable; the honest number is -$40 at the bid. Binding gate unchanged and it is the week's real deadline: pre-earnings decision by the close of Wed 2026-08-26."
+      },
+      "monitoring_mandate_silence": "Correct and deliberate. No trigger fired or un-fired and no recommendation changed since the 19:50Z page. Re-notifying on an unchanged state at 23:20 ET Saturday morning is exactly the 26-notifications-a-day failure the mandate's silence clause exists to prevent.",
+      "grades_considered": "NONE, and this is not a skipped duty. The HUNT phase requires live chains and an executable order; both are unavailable until Monday 13:30Z. Screening frozen Friday quotes would produce grades nobody can act on and would be the invented research task the post-close protocol forbids.",
+      "monday_handoff": "holdings.json._monday_open (written 19:50Z) already carries the pre-computed levels, the governance change on QQQ, the quantity cap on any mechanical QQQ exit, and the ~$295 three-day book carry. This run adds nothing to it -- it is complete and no run should re-derive it.",
+      "cadence_note": "This entry is run_type='post_close_overnight' and must NOT be counted in any cadence/health rate computation, which counts scheduler-fired market-hours types only. Weekend hourly-backstop firings are expected redundancy, not evidence of a healthy trigger.",
+      "outcome": "Reconciled, logged, stood down. A no-op in a few lines is the protocol's stated correct output for the Nth redundant overnight run."
     }
   ],
   "updated_utc": "2026-08-21T23:25:00Z"
