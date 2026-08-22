@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-22T11:20:00Z",
+  "updated_utc": "2026-08-22T12:20:00Z",
   "_realized_options_pnl_today": 0.0,
   "positions": [
     {
@@ -110,7 +110,7 @@
       },
       "entry_premium_blended": 3.805,
       "total_cost_basis_usd": 761.0,
-      "ownership": "MIXED -- 1 contract agentic, 1 contract Ryan's own. Treat the WHOLE position as ask-first.",
+      "ownership": "MIXED -- 1 contract agentic (2026-08-18 @ 4.05), 2 contracts Ryan's own (placed_agent='user': 2026-08-21 15:50Z @ 3.56 and 19:37Z @ 3.45). Treat the WHOLE position as ask-first. CORRECTED 2026-08-22T12:20Z: this field still read '1 contract agentic, 1 contract Ryan's own' after the 19:37Z third lot -- _current_state, _exit_ladder and the contract count were all updated to three lots at 19:50Z/20:19Z but this string was missed, so a run reading only this field would have understated the position by a contract and misstated the agentic share as 1-of-2 rather than 1-of-3. The CONCLUSION is unchanged (mixed -> ask-first), which is exactly why it survived three reconciliations: a stale field whose verdict still happens to be right is invisible to a check that only reads the verdict.",
       "lots": [
         {
           "qty": 1,
@@ -229,7 +229,8 @@
         "detail": "1 lot placed_agent='agentic' @ 4.05 (2026-08-18, order 6a8499fa); 1 lot placed_agent='user' @ 3.56 (2026-08-21T15:50:28Z); 1 lot placed_agent='user' @ 3.45 (2026-08-21T19:37:54Z, order 6a88a90f-60cc-49cc-bed6-54b6148a56cf, verified via get_option_orders -- NOT inferred).",
         "gate": "TWO OF THREE LOTS ARE RYAN'S. The ownership gate therefore binds harder than before: the desk may detect and recommend, but must NOT close, trim or roll this position without his explicit go-ahead. Agentic premium at risk here is $405 of the $1,106 total; only that $405 counts against the desk's own per-trade sizing law."
       },
-      "_note_ryan_adds": "Ryan added to this position TWICE on 2026-08-21 (15:50Z @3.56, 19:37Z @3.45), on the same day the desk's standing 21-DTE recommendation to close was outstanding. RECORDED AS FACT, NOT READ AS AN INSTRUCTION -- per the 19:22Z run's own correction, inferring intent from a trade is the same error HARD RULE 9 bars when inferring it from a quoted message. A future run may weigh two adds as strong evidence he wants to ride the position, but must NOT treat it as an answer to the recommendation, and must NOT treat it as authorization for the desk to add."
+      "_note_ryan_adds": "Ryan added to this position TWICE on 2026-08-21 (15:50Z @3.56, 19:37Z @3.45), on the same day the desk's standing 21-DTE recommendation to close was outstanding. RECORDED AS FACT, NOT READ AS AN INSTRUCTION -- per the 19:22Z run's own correction, inferring intent from a trade is the same error HARD RULE 9 bars when inferring it from a quoted message. A future run may weigh two adds as strong evidence he wants to ride the position, but must NOT treat it as an answer to the recommendation, and must NOT treat it as authorization for the desk to add.",
+      "_ownership_correction_note": "Prior text, preserved: MIXED -- 1 contract agentic, 1 contract Ryan's own. Treat the WHOLE position as ask-first."
     },
     {
       "symbol": "RBRK",
