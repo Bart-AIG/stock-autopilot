@@ -14698,6 +14698,27 @@
       "monday_handoff": "holdings.json._monday_open (written 19:50Z) already carries the pre-computed levels, the governance change on QQQ, the quantity cap on any mechanical QQQ exit, and the ~$295 three-day book carry. This run adds nothing to it -- it is complete and no run should re-derive it.",
       "cadence_note": "This entry is run_type='post_close_overnight' and must NOT be counted in any cadence/health rate computation, which counts scheduler-fired market-hours types only. Weekend hourly-backstop firings are expected redundancy, not evidence of a healthy trigger.",
       "outcome": "Reconciled, logged, stood down. A no-op in a few lines is the protocol's stated correct output for the Nth redundant overnight run."
+    },
+    {
+      "run_utc": "2026-08-22T04:20:00Z",
+      "run_local_et": "00:20 ET Saturday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~04:19Z, 502 minutes after the 20:00Z Friday bell. Hourly native backstop.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. NINTH post-close run of the 2026-08-21 trading day, SIXTH of the weekend. Market shut until Monday 2026-08-24 13:30Z. Per the POST-CLOSE RUN PROTOCOL this run read what the 20:19Z / 21:22Z / 22:18Z / 23:25Z / 00:22Z / 01:20Z / 02:20Z / 03:20Z runs already covered, repeated the cheap broker reconciliation -- the one check always worth repeating, since it is the only way an overnight assignment, expiration or unauthorized fill would surface -- found the book provably unchanged, and stood down in a few lines. No research task was invented, no already-measured quote re-polled, no daily artifact rolled.",
+      "reconciliation": "ZERO DRIFT, BOTH BOOKS, broker-verified 04:19Z. get_option_positions(nonzero): SPY 2026-11-20 700P x1 @ 749.00 (agentic, insurance-exempt hedge), QQQ 2026-09-11 680P x3 @ avg 368.6667 (mixed: 2 agentic lots + Ryan's Friday 19:xx add), RBRK 2026-09-18 90P x2 @ avg 410.00 (mixed: 1 agentic + 1 Ryan lot) -- matches holdings.json one-for-one, every pending_* field 0.0000. get_equity_positions: PNC 1.825758 sh @ 246.47 only, matching the ledger. ACHR 2028-01-21 5C remains correctly absent from both broker and ledger (Ryan closed it 2026-08-21T13:55:50Z; it sits in _closed_positions).",
+      "portfolio": "total $3,829.51 = equity $443.68 / options $2,574.00 / cash $811.83. buying_power $811.83 == unleveraged_buying_power $811.83, so no borrowed funds are being extended and FOUR LAWS #4 is satisfied. Account equity is comfortably above the $2,000 margin-equity minimum. Identical to the 03:20Z read -- weekend marks do not move.",
+      "duties_already_discharged_this_trading_day": {
+        "heartbeat": "automation_heartbeat.json stamped 2026-08-21T13:33:00Z by the first post-open run. NOT re-stamped: between the Friday bell and Monday's 13:30Z open the trading day is still 2026-08-21, so no daily artifact rolls.",
+        "daily_report": "daily_options_report.md written 19:20Z (14:20 CT) by the first run past the 14:15 CT window. Nothing MATERIAL has happened since, so it is not rewritten -- a duplicate push would only send Ryan another notification carrying the same content.",
+        "friday_weekly_review": "logged 2026-08-21T13:40:00Z under weekly_review_friday_2026_08_21, broker-sourced.",
+        "monday_open_block": "holdings.json._monday_open pre-computed 19:50Z; Monday's first post-open run inherits the levels rather than re-deriving them.",
+        "loss_cap_and_throttle": "realized options P/L for the 2026-08-21 trading day $0.00 against the -$400 cap; entries used 0 of 8. Neither resets until Monday."
+      },
+      "monitoring_mandate": "SILENT, correctly. No trigger fired or un-fired and no recommendation changed since the Friday-morning QQQ 21-DTE package Ryan was notified about once and has not yet answered. Re-sending it would be exactly the un-deduped 26-notifications-a-day failure the mandate names. The standing recommendation carries forward untouched into Monday.",
+      "known_forward_risk_no_action_available": "The QQQ 2026-09-11 680P goes DTE 21 -> 18 on Monday, at which point the -50% cut becomes the standing unconditional rule and is one of the named exceptions that EXECUTES without waiting for Ryan. Levels are already written into _monday_open; nothing is placeable before 13:30Z Monday, so this is carried, not acted on.",
+      "cadence_note": "Scheduler-fired types only: this weekend is running on the routine's native hourly backstop at :18-:26 past the hour, as expected while the market is shut. No live-user entries in this window, so nothing here inflates a cadence count.",
+      "outcome": "No-op logged in a few lines -- the protocol's stated correct output for the Nth redundant overnight run."
     }
   ],
   "updated_utc": "2026-08-21T23:25:00Z"
