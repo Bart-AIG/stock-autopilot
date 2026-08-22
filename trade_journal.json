@@ -14887,6 +14887,25 @@
         "entries_used_today": "0 of 8 -- and the trading day is over; the throttle resets Monday, not at the UTC rollover."
       },
       "notes": "Weekend stand-down #14. Duties correctly NOT performed: heartbeat stamp (trading day is still 2026-08-21), market_brief rebuild, loss-cap/throttle reset, daily report (2026-08-21's was delivered at 19:20Z), Friday review (completed on 08-21). Cadence: hourly native backstop only, which is the EXPECTED weekend pattern since cron-job.org is configured Mon-Fri -- not a recurrence of the 08-18 token fault, which Ryan fixed 08-21T17:05Z and which was verified by a run landing in the :55 slot. Reminder for the first Monday run: it owns the heartbeat stamp (only at/after 13:30Z), the market_brief rebuild, the cap/throttle reset, and the QQQ DTE-18 transition described above -- and per the opening-print rule it must re-quote at least ~5 minutes after 13:30Z before acting on or alerting anything."
+    },
+    {
+      "run_utc": "2026-08-22T13:20:00Z",
+      "run_local_et": "09:20 ET Saturday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~13:19Z, 1042 minutes after the 20:00Z Friday bell. Hourly native backstop (cron-job.org fires Mon-Fri only, so an hourly-only weekend cadence is EXPECTED and is not the 08-18 trigger fault recurring).",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. EIGHTEENTH post-close run of the 2026-08-21 trading day, FIFTEENTH of the weekend. Market shut until 2026-08-24 13:30Z. Per the POST-CLOSE RUN PROTOCOL this run read what the 20:19Z through 12:18Z runs already covered, did the one check always worth repeating -- broker reconciliation -- found the book provably unchanged, and stood down in a few lines. No research task invented, no already-measured quote re-polled, no daily artifact rolled.",
+      "reconciliation": {
+        "utc": "2026-08-22T13:19:00Z",
+        "result": "ZERO DRIFT, BOTH BOOKS. get_option_positions(nonzero): SPY 2026-11-20 700P x1 @ 749.00, QQQ 2026-09-11 680P x3 @ avg 368.6667, RBRK 2026-09-18 90P x2 @ avg 410.00, all pending_* 0.0000. get_equity_positions: PNC 1.825758 sh @ 246.47. All match holdings.json one-for-one. get_portfolio: total $3,829.51 / options $2,574.00 / equity $443.68 / cash $811.83; buying_power == unleveraged_buying_power $811.83, so NO margin extended (FOUR LAWS #4 satisfied). get_accounts: 718757339 still limited_margin / option_level_3 / agentic_allowed=true, unsettled_funds $732.30.",
+        "unchanged_since": "2026-08-21T19:37Z, the last fill of the trading week."
+      },
+      "daily_artifacts": "NOT ROLLED. The trading day is still 2026-08-21 (US ET, per the UTC-rollover rule): heartbeat NOT stamped, market_brief.json NOT rebuilt, -$400 realized loss cap and the 8-entry throttle NOT reset. Monday's first post-open run at/after 13:30Z owns all three.",
+      "monday_handoff": "No new work needed -- holdings.json._monday_open already carries the pre-computed levels the next instance inherits: QQQ 2026-09-11 680P rolls DTE 21 -> 18, so the -50% cut (1.8433 off the blended 3.6867 three-lot basis) becomes the standing unconditional rule and, per the 2026-08-18 monitoring mandate, is one of the named exceptions that EXECUTES WITHOUT WAITING for Ryan. Quantity cap on that position is BINDING: 1 agentic lot vs 2 lots Ryan placed himself; the ownership gate limits any autonomous close to the agentic lot only. Weekend theta carry ~$295 across the 3-day window was measured Friday and is not re-derived here.",
+      "positions_verdict": "All three positions: no verdict change possible with the market shut. SPY 2026-11-20 700P = authorized hedge, EXEMPT from premium backstops, held to its ~21-DTE roll/close decision WITH Ryan. QQQ 680P and RBRK 90P = working/unchanged at Friday's marks; no quote re-polled because a weekend mark is not actionable and an earlier run already recorded it.",
+      "grades_considered": "NONE. Hunting is not possible with the market shut -- no live chain, no intraday level to trigger a TACTICAL scalp, no tape to confirm a CORE thesis. Manufacturing a candidate list off stale Friday quotes would be exactly the invented research task the POST-CLOSE RUN PROTOCOL forbids.",
+      "why_flat": "Market closed. Both tracks require a live tape; neither can be hunted on a Saturday.",
+      "notification": "None sent. Nothing changed, nothing needs Ryan. A weekend stand-down that pages him is noise, and the notify-once-per-incident discipline applies."
     }
   ],
   "updated_utc": "2026-08-22T08:20:00Z"
