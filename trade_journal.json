@@ -15066,6 +15066,22 @@
       "iv_logging": "SKIPPED -- deliberately. iv_history.json takes one row per day per name evaluated; a weekend row would duplicate Friday's close under a Saturday date and corrupt the rv/percentile series the method depends on. No name was evaluated, so no row is owed.",
       "daily_artifacts": "NONE ROLLED. Per the UTC-vs-trading-day rule the trading day is still 2026-08-21 (the day whose bell rang) even though the UTC date is 2026-08-22: heartbeat NOT stamped (last stamp 2026-08-21T13:33:00Z, correct -- only a run at/after 09:30 ET on a trading day may stamp it), market_brief NOT rebuilt, daily loss cap and entry throttle NOT reset. daily_options_report.md for 2026-08-21 was already written and delivered; not rewritten, since nothing material happened.",
       "next_run_expectation": "Weekend hourly backstop continues through Sunday. The next run that does real work is the first firing at/after 2026-08-24 13:30Z: it owns the heartbeat stamp for the 08-24 trading day, the market_brief rebuild, the loss-cap and throttle reset, and the first live re-quote of QQQ (16 DTE by then -- inside the 21-DTE tier, so the standing -50% cut applies rather than a re-check) and RBRK. Re-quote at least ~5 minutes after 13:30Z before acting or alerting; never price a decision off the opening auction print."
+    },
+    {
+      "run_utc": "2026-08-22T23:19:00Z",
+      "run_local_et": "19:19 ET Saturday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~23:19Z, 1639 minutes after the 20:00Z Friday bell. Hourly native backstop only -- cron-job.org fires Mon-Fri, so the hourly weekend cadence is EXPECTED and is not the 08-18 trigger fault recurring.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. TWENTY-EIGHTH post-close run of the 2026-08-21 trading day, TWENTY-FIFTH of the weekend. Market shut until 2026-08-24 13:30Z. Per the POST-CLOSE RUN PROTOCOL: read what the 13:19Z through 22:19Z runs already covered, ran the one check always worth repeating (broker reconciliation), found the book unchanged, stood down. No research task invented, no already-measured quote re-polled, no daily artifact rolled, no notification sent.",
+      "reconciliation": {
+        "utc": "2026-08-22T23:19:00Z",
+        "result": "ZERO DRIFT, BOTH BOOKS. get_option_positions(nonzero): SPY 2026-11-20 700P x1 @ 749.00, QQQ 2026-09-11 680P x3 @ avg 368.6667, RBRK 2026-09-18 90P x2 @ avg 410.00, every pending_* 0.0000 -- matches holdings.json one-for-one, so no overnight assignment, exercise, expiration or unauthorized fill. get_portfolio: total $3,829.51 / options $2,574.00 / equity $443.68 / cash $811.83; buying_power == unleveraged_buying_power $811.83, so NO margin extended (FOUR LAWS #4 satisfied). get_accounts: 718757339 still limited_margin / option_level_3 / agentic_allowed=true, unsettled_funds $732.30.",
+        "note": "Figures identical to the 13:19Z through 22:19Z reconciliations -- frozen Friday-close marks that cannot move until Monday's open, so the repetition confirms a static book rather than a stale read. No flag adjudicated in either direction (HARD RULE 9)."
+      },
+      "daily_artifacts": "NOT rolled. 'Today' means the US TRADING day (ET): between Friday's 20:00Z bell and Monday's 13:30Z open the trading day is still 2026-08-21. Heartbeat NOT stamped (weekend, and only a run at/after 09:30 ET on a trading day may stamp it). market_brief.json left stamped 2026-08-21. Loss cap and entry throttle NOT reset.",
+      "monitoring_mandate": "Silent by design. QQQ 680P x3 and RBRK 90P x2 are under Ryan's 2026-08-18 monitor-and-recommend mandate; no trigger can fire or un-fire while the market is shut, and _notify_state is unchanged from Friday's close, so no notification is owed. Notifying on a frozen book is exactly the 26-a-day noise the mandate forbids.",
+      "next_run_note": "Monday 2026-08-24. First run at/after 13:30Z stamps the heartbeat and rebuilds market_brief.json. Then MANAGE FIRST: QQQ 680P (21-DTE review window approaching, expiry 09-11) and RBRK 90P re-quoted at least ~5 minutes after 13:30Z -- never price a decision off the opening auction print. SPY 700P hedge remains backstop-exempt."
     }
   ],
   "updated_utc": "2026-08-22T16:20:00Z"
