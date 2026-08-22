@@ -14924,6 +14924,22 @@
       "notification": "NONE SENT, and that is the rule working rather than an omission. The QQQ 21-DTE recommendation was already delivered ONCE on 2026-08-21 per the monitoring mandate's notify-once discipline; the trigger has neither un-fired nor changed, and the market has been shut throughout, so there is no new information. Re-paging Ryan on a quiet weekend book is exactly the noise that destroys the mandate's purpose.",
       "no_hunt_rationale": "HUNT phase correctly skipped: entries are impossible with the market closed, and grading candidates off Friday's closing tape would produce a thesis that must be re-verified against Monday's open anyway. The 15-minute cadence claim remains false on weekends -- this is the hourly native backstop only.",
       "governance": "HARD RULE 9 intact: no flag cleared, no Ryan turn claimed or quoted. FOUR LAWS: #1 n/a (no entry), #2 realized agentic P/L $0.00 vs the -$400 cap, #3 n/a (no add to a loser), #4 satisfied (no margin, $811.83 unencumbered vs the $250 floor)."
+    },
+    {
+      "run_utc": "2026-08-22T15:20:00Z",
+      "run_local_et": "11:20 ET Saturday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~15:18Z, 1162 minutes after the 20:00Z Friday bell. Hourly native backstop (cron-job.org fires Mon-Fri only, so an hourly-only weekend cadence is EXPECTED and is not the 08-18 trigger fault recurring).",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. TWENTIETH post-close run of the 2026-08-21 trading day, SEVENTEENTH of the weekend. Market shut until 2026-08-24 13:30Z. Per the POST-CLOSE RUN PROTOCOL this run read what the 20:19Z through 14:19Z runs already covered, did the one check always worth repeating -- broker reconciliation -- found the book provably unchanged, and stood down in a few lines. No research task invented, no already-measured quote re-polled, no daily artifact rolled, no notification sent.",
+      "reconciliation": {
+        "utc": "2026-08-22T15:19:00Z",
+        "result": "ZERO DRIFT. get_option_positions(nonzero): SPY 2026-11-20 700P x1 @ 749.00, QQQ 2026-09-11 680P x3 @ avg 368.6667, RBRK 2026-09-18 90P x2 @ avg 410.00, all pending_* 0.0000 -- matches holdings.json one-for-one, so no overnight assignment, exercise, expiration or unauthorized fill. get_portfolio: total $3,829.51 / options $2,574.00 / equity $443.68 / cash $811.83; buying_power == unleveraged_buying_power $811.83, so NO margin extended (FOUR LAWS #4 satisfied). get_accounts: 718757339 still limited_margin / option_level_3 / agentic_allowed=true, unsettled_funds $732.30 (already inside the $811.83 -- do not double-count). Every figure identical to the 14:19Z reading."
+      },
+      "artifacts_not_rolled": "Trading day is still 2026-08-21 (between the Friday bell and the Monday 13:30Z open the trading day is the one whose bell just rang). Heartbeat NOT stamped (correctly reads date_utc 2026-08-21), market_brief.json NOT rebuilt, daily loss cap and entry throttle NOT reset. daily_options_report.md for 2026-08-21 stands as written by the 19:20Z run -- nothing material has happened since the bell.",
+      "positions_verdict": "SPY 2026-11-20 700P -- authorized hedge, insurance, EXEMPT from premium backstops, ~90 DTE, no action. QQQ 2026-09-11 680P x3 -- monitoring mandate, RECOMMEND-AND-ASK; the 21-DTE review recommendation raised 2026-08-21 is still awaiting Ryan and CANNOT be actioned by an unattended run. RBRK 2026-09-18 90P x2 -- monitoring mandate, working, no trigger fired. All three unquotable until Monday; a weekend mark is stale-by-construction and was deliberately not polled.",
+      "notification": "NONE SENT. The QQQ 21-DTE recommendation was delivered ONCE on 2026-08-21 per the monitoring mandate notify-once discipline; the trigger has neither un-fired nor changed, and a closed-market restatement would be exactly the noise that discipline exists to prevent. Nothing else fired.",
+      "hard_rule_9": "No flag adjudicated, no Ryan turn claimed or quoted. This is an unattended scheduled run and cannot supply an approval."
     }
   ],
   "updated_utc": "2026-08-22T08:20:00Z"
