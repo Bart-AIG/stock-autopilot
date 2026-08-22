@@ -14852,6 +14852,41 @@
         "entries_used_today": 0
       },
       "notes": "The honest cadence statement: cron-job.org is configured Mon-Fri, so weekend firings are the routine's native hourly backstop alone. That is the designed weekend behaviour and should not be read as the trigger fault that ran 2026-08-18 to 2026-08-21."
+    },
+    {
+      "run_utc": "2026-08-22T12:20:00Z",
+      "run_local_et": "08:20 ET Saturday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~12:18Z, 982 minutes after the 20:00Z Friday bell. Hourly native backstop (cron-job.org fires Mon-Fri only, so an hourly-only weekend cadence is EXPECTED and is not the 08-18 trigger fault recurring).",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. SEVENTEENTH post-close run of the 2026-08-21 trading day, FOURTEENTH of the weekend. Market shut until 2026-08-24 13:30Z. Per the POST-CLOSE RUN PROTOCOL this run did the one check always worth repeating -- broker reconciliation -- found and FIXED one stale ledger field (below), logged it, and stood down. No daily artifact rolled: the trading day is still 2026-08-21, so the heartbeat was NOT stamped, market_brief.json was NOT rebuilt, and the loss cap / entry throttle were NOT reset.",
+      "reconciliation": {
+        "utc": "2026-08-22T12:19:00Z",
+        "result": "ZERO POSITION DRIFT, BOTH BOOKS. One LEDGER-TEXT defect found and corrected.",
+        "accounts": "718757339 confirmed limited_margin / option_level_3 / agentic_allowed. unsettled_funds $732.30 (tradeable on limited margin; not a cash-account freeze).",
+        "option_positions_nonzero": "SPY 2026-11-20 700P x1 @ 749.00 | QQQ 2026-09-11 680P x3 @ avg 368.6667 | RBRK 2026-09-18 90P x2 @ avg 410.00. All pending_* 0.0000. Matches holdings.json one-for-one -- no overnight assignment, exercise, expiration or unauthorized fill.",
+        "portfolio": "total $3,829.51 = options $2,574.00 + equity $443.68 + cash $811.83. buying_power $811.83 == unleveraged_buying_power $811.83, so NO margin is being extended and FOUR LAWS #4 reads off the same number either way. Unchanged from the 11:19Z read to the cent.",
+        "broker_order_record": "get_option_orders(created_at_gte=2026-08-21) returns four fills, ALL placed_agent='user': ACHR 5C sell-to-close 3.00 @ 13:55:50Z, QQQ 680P buy 3.56 @ 15:50:28Z, RBRK 90P buy 4.30 @ 16:00:11Z, QQQ 680P buy 3.45 @ 19:37:54Z. Zero agentic-placed orders on 08-21. Blended bases tie out exactly against the broker's own average_price: QQQ (4.05+3.56+3.45)/3 = 3.6867 = 368.6667; RBRK (3.90+4.30)/2 = 4.10 = 410.00.",
+        "defect_found_and_fixed": "holdings.json QQQ position: the `ownership` field still read \"MIXED -- 1 contract agentic, 1 contract Ryan's own\" after Ryan's THIRD lot filled at 19:37Z. The contract count (3), _current_state and _exit_ladder were all correctly rebuilt on the three-lot blend at 19:50Z/20:19Z, but this one string was missed. Corrected in place this run to 1 agentic + 2 user, with the prior text preserved in _ownership_correction_note. IMPACT: no decision changes -- MIXED still means ask-first either way -- but the field understated the position by a contract and misstated the agentic share as 1-of-2 rather than 1-of-3, which is the number that feeds agentic premium-at-risk. LESSON, and the reason it is written here rather than only in the field: this survived three prior weekend reconciliations because every one of them checked the VERDICT ('mixed -> ask-first', still true) and never the COUNT behind it. A stale field whose conclusion still happens to be right is invisible to a check that reads only the conclusion. When a position's lot structure changes, re-read every field that names a lot count, not just the ones that drive the arithmetic."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P": "HOLD -- authorized defensive hedge, insurance, EXEMPT from premium backstops. 90 DTE. Nothing to decide over a weekend.",
+        "QQQ 2026-09-11 680P x3": "HOLD/WATCH -- unchanged since Friday's close (mark 3.38, -$92 / -8.32% on the blended 3.6867). Monday it crosses to DTE 18, at which point the -50% cut becomes the STANDING unconditional rule and, under the 2026-08-18 monitoring mandate, is one of the named exceptions that EXECUTES WITHOUT WAITING. The -50% level on the blended basis is 1.843. Weekend carry is dead time: ~$63/day theta on the 3-lot position. The 21-DTE recommendation made to Ryan at 13:39Z Friday is still OPEN and unanswered; do not re-page him for it.",
+        "RBRK 2026-09-18 90P x2": "HOLD/WATCH -- mark 4.30, +$40 at mark but -$40 net at the bid on an 18.6%-of-mid spread, which is the number that matters on any real exit. 28 DTE. BINDING ITEM: the pre-earnings decision is due by the CLOSE of WED 2026-08-26 ahead of the broker-verified 2026-08-27 pm print -- three sessions away after Monday. Already open with Ryan as _open_questions_for_ryan.q2; not re-paged."
+      },
+      "grades_considered": "NONE. Market closed -- no live quote is actionable and no entry is placeable, so screening candidates on Friday's stale marks would produce a grade nobody can trade on and would burn run budget re-deriving what the 2026-08-21 19:35Z Monday briefing already wrote down. The HUNT phase is correctly deferred to the first Monday run.",
+      "why_flat": "Market shut (Saturday). No entry or exit is executable until 2026-08-24 13:30Z. Both non-hedge positions are ask-first under the mixed-ownership / monitoring-mandate posture and both already have their open questions sitting with Ryan; no trigger fired or un-fired, so per the mandate's silence discipline nothing was re-notified.",
+      "sleeve_state": {
+        "agentic_premium_at_risk_usd": 1544.0,
+        "agentic_premium_note": "$749 SPY hedge + $405 QQQ (the ONE agentic lot) + $390 RBRK (the ONE agentic lot). Ryan's three user-placed lots ($356 + $430 + $345 = $1,131) do NOT count against agentic accounting per the 2026-08-03 sub-sleeve amendment.",
+        "open_positions_vs_cap": "2 non-hedge agentic positions of max 3 CORE (hedge excluded). Bearish-tech theme at 2, cap 3 under v4.",
+        "unleveraged_buying_power_usd": 811.83,
+        "deployable_after_250_reserve_usd": 561.83,
+        "realized_options_pnl_today_usd": 0.0,
+        "realized_pnl_note": "Trading day 2026-08-21 broker-sourced total was +$53.00 on 1 closing trade, ALL of it Ryan's own ACHR LEAP (placed_agent='user'). Agentic realized P/L is $0.00, which is what the -$400 cap gates. Cap never at risk.",
+        "entries_used_today": "0 of 8 -- and the trading day is over; the throttle resets Monday, not at the UTC rollover."
+      },
+      "notes": "Weekend stand-down #14. Duties correctly NOT performed: heartbeat stamp (trading day is still 2026-08-21), market_brief rebuild, loss-cap/throttle reset, daily report (2026-08-21's was delivered at 19:20Z), Friday review (completed on 08-21). Cadence: hourly native backstop only, which is the EXPECTED weekend pattern since cron-job.org is configured Mon-Fri -- not a recurrence of the 08-18 token fault, which Ryan fixed 08-21T17:05Z and which was verified by a run landing in the :55 slot. Reminder for the first Monday run: it owns the heartbeat stamp (only at/after 13:30Z), the market_brief rebuild, the cap/throttle reset, and the QQQ DTE-18 transition described above -- and per the opening-print rule it must re-quote at least ~5 minutes after 13:30Z before acting on or alerting anything."
     }
   ],
   "updated_utc": "2026-08-22T08:20:00Z"
