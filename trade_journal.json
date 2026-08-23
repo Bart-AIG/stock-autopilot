@@ -15268,6 +15268,26 @@
         "entries_used_today": 0
       },
       "notification": "NONE SENT, deliberately. Nothing fired, un-fired, or changed since the last notification; under the monitoring mandate's silence clause a quietly-unchanged book is not news, and a 4am Sunday page would be exactly the noise that makes the mandate's real alerts get ignored."
+    },
+    {
+      "run_utc": "2026-08-23T05:19:00Z",
+      "run_local_et": "01:19 ET Sunday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~05:19Z, 1999 minutes after the 20:00Z Friday bell. Hourly native backstop only -- cron-job.org fires Mon-Fri, so the weekend hourly-only cadence is EXPECTED and is not the 08-18 trigger fault recurring.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. THIRTY-FOURTH post-close run of the 2026-08-21 trading day, THIRTY-FIRST of the weekend. Market shut until 2026-08-24 13:30Z. Per the POST-CLOSE RUN PROTOCOL: read what the 13:19Z through 04:19Z runs already covered, ran the one check always worth repeating (broker reconciliation), found the book unchanged, stood down. No research task invented, no already-measured quote re-polled, no daily artifact rolled, no notification sent.",
+      "reconciliation": {
+        "utc": "2026-08-23T05:20:00Z",
+        "result": "ZERO DRIFT, BOTH BOOKS. get_option_positions(nonzero): SPY 2026-11-20 700P x1 @ 749.00, QQQ 2026-09-11 680P x3 @ avg 368.6667, RBRK 2026-09-18 90P x2 @ avg 410.00, every pending_* 0.0000. get_equity_positions: PNC 1.825758 sh @ 246.47, the only equity line. get_portfolio: total $3,829.51 / options $2,574.00 / equity $443.68 / cash $811.83; buying_power $811.83 == unleveraged_buying_power $811.83, so NO margin is being extended (FOUR LAWS #4 satisfied). get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed=true, unsettled_funds $732.30. Matches holdings.json one-for-one and is byte-identical to the 00:25Z through 04:19Z readings."
+      },
+      "note": "Sixth run of this weekend past the midnight-UTC rollover. Trading day is STILL 2026-08-21 per the UTC-rollover rule: heartbeat stays stamped 2026-08-21, market_brief.json stays stamped for the day it describes, and neither the -$400 realized loss cap nor the 8-per-day entry throttle resets. Reconciled against the LIVE holdings.json, not against automation_heartbeat.json, whose prose is frozen at its 13:33Z stamp and still describes four option lines -- a stale-baseline trap two prior runs already documented and this one did not need to re-derive.",
+      "positions_verdict": {
+        "SPY 2026-11-20 700P x1": "AUTHORIZED HEDGE, placed_agent=user -- exempt from premium backstops, held to its ~21-DTE roll/close decision WITH Ryan (that decision is far off: 89 DTE). No action possible or needed with the market shut. Last settled mark 6.435 (19:46Z Fri), -$105.50 / -14.09%.",
+        "QQQ 2026-09-11 680P x3": "MONITORING MANDATE position. Last settled mark 3.38 (19:46Z Fri) vs blended entry, spread 1.18% of mid. Crosses 21 DTE on Monday 2026-08-24 at 20 DTE -- the management review is a MONDAY item and the 19:15Z Friday report already put that decision in front of Ryan in Section 5. Nothing to re-decide at 05:19Z Sunday.",
+        "RBRK 2026-09-18 90P x2": "MONITORING MANDATE position. Last settled mark 4.30 (19:46Z Fri), but spread 18.6% of mid -- any exit must be quoted net, not at the mark. 26 DTE, no ladder level fired at the Friday close. Hold."
+      },
+      "grades_considered": "NONE. Hunting both tracks requires live quotes and a live tape; both are unavailable until 2026-08-24 13:30Z. Screening a dead weekend chain would produce stale numbers that Monday's open invalidates, which the POST-CLOSE RUN PROTOCOL explicitly forbids as an invented research task.",
+      "why_flat": "Market closed (Sunday). No order is placeable. The book is fully reconciled and unchanged; the correct output of a redundant overnight run is a short no-op log."
     }
   ],
   "updated_utc": "2026-08-22T16:20:00Z"
