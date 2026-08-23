@@ -15231,6 +15231,43 @@
         "daily_options_report": "NOT rewritten. Written 2026-08-21T19:20:00Z for the 08-21 trading day; nothing MATERIAL has happened since (no fill, no exit, no new flag, no trigger firing), and a rewrite would re-notify Ryan with identical content.",
         "loss_cap_and_throttle": "NOT reset. Realized options P/L for the 2026-08-21 trading day stays $0.00; entry throttle stays as the trading day left it."
       }
+    },
+    {
+      "run_utc": "2026-08-23T04:19:00Z",
+      "run_local_et": "00:19 ET Sunday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~04:19Z, 1939 minutes after the 20:00Z Friday bell. Hourly native backstop only -- cron-job.org fires Mon-Fri, so the hourly weekend cadence is EXPECTED and is not the 08-18 trigger fault recurring.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. THIRTY-THIRD post-close run of the 2026-08-21 trading day, THIRTIETH of the weekend. Market shut until 2026-08-24 13:30Z. Per the POST-CLOSE RUN PROTOCOL: read what the 13:19Z through 03:19Z runs already covered, ran the one check always worth repeating (broker reconciliation), found the book unchanged, stood down. No research task invented, no already-measured quote re-polled, no daily artifact rolled, no notification sent.",
+      "reconciliation": {
+        "utc": "2026-08-23T04:20:00Z",
+        "result": "ZERO DRIFT, BOTH BOOKS. get_option_positions(nonzero): SPY 2026-11-20 700P x1 @ 749.00, QQQ 2026-09-11 680P x3 @ avg 368.6667, RBRK 2026-09-18 90P x2 @ avg 410.00, every pending_* 0.0000. get_equity_positions: PNC 1.825758 sh @ 246.47, the only equity line. get_portfolio: total $3,829.51 / options $2,574.00 / equity $443.68 / cash $811.83; buying_power $811.83 == unleveraged_buying_power $811.83, so NO margin is being extended (FOUR LAWS #4 satisfied). get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed=true, unsettled_funds $732.30. Matches holdings.json one-for-one.",
+        "note": "Fifth run of this weekend past the midnight-UTC rollover. Trading day is STILL 2026-08-21 per the UTC-rollover rule: heartbeat stays stamped 2026-08-21, market_brief.json stays stamped for the day it describes, and neither the -$400 realized loss cap nor the entry throttle resets. Figures byte-identical to the 00:25Z / 01:19Z / 02:19Z / 03:19Z readings.",
+        "baseline_discipline": "Reconciled against the LIVE holdings.json, per the 03:19Z run's reconciliation_method_note -- NOT against automation_heartbeat.json, whose prose is frozen at its 13:33Z stamp and predates Ryan's 13:55Z ACHR close and his 19:37Z third QQQ lot. This run independently re-derived that trap (the heartbeat narrative still describes four option lines) and confirmed the earlier run's finding: the apparent drift is a stale-baseline artifact, not a position change. The lesson held on its second encounter, which is the test of a lesson written back well."
+      },
+      "positions_verdict": {
+        "SPY 2026-11-20 700P x1": "HOLD. Authorized defensive hedge, insurance-exempt from all premium backstops per HARD RULE 8 and the routine prompt. 89 DTE, far from its ~21-DTE roll/close decision, which is Ryan's call. Untouched.",
+        "QQQ 2026-09-11 680P x3": "HOLD. Unchanged since Friday's close and the position whose GOVERNANCE changes at Monday's open: DTE goes 21 -> 18, moving it into the tier where the -50% cut (1.8433 on the 3.6867 blended basis) becomes the standing unconditional rule rather than a re-check. Friday's 3.45 mark sits ~6.4% below basis and ~87% above that cut level. Under Ryan's 2026-08-18 MONITORING MANDATE: recommend-and-ask on discretionary exits, never auto-execute. No action possible with the market shut.",
+        "RBRK 2026-09-18 90P x2": "HOLD. Unchanged. Same monitoring mandate, same ask-first posture. Its real gate is the PRE-EARNINGS decision owed by the close of WED 2026-08-26 (broker-verified 08-27 pm print) -- three trading sessions out, $820 riding on it. Already in the ladder and in Friday's daily report; not re-notified, since a deadline moving closer on a Sunday is not new information."
+      },
+      "grades_considered": "NONE. Markets are closed -- no chain is quotable, no intraday level can break, and every quote available now is a stale Friday close 1,939 minutes old. TRACK A requires an intraday level breaking NOW with the index tape agreeing; TRACK B requires a confirming level on today's tape. Neither can exist on a Sunday. Grading candidates off dead quotes would be manufacturing work to justify the firing, which the POST-CLOSE RUN PROTOCOL names explicitly as the thing not to do. Both tracks resume hunting at the 2026-08-24 open, off the pre-computed levels in holdings._monday_open.",
+      "why_flat": "Market closed (Sunday, 04:19Z). No order is placeable. Book verified unchanged against the broker.",
+      "duties_checked": {
+        "heartbeat": "NOT stamped -- correctly. Still stamped 2026-08-21 and the next trading day has not begun; only a run at/after 09:30 ET Monday may stamp it.",
+        "market_brief": "NOT rebuilt -- correctly. Stays stamped for the trading day it describes.",
+        "daily_report": "ALREADY WRITTEN for 2026-08-21 (at 19:20Z by the 14:20 CT run). Nothing MATERIAL has happened since, so it is not rewritten -- a duplicate push would send Ryan another notification carrying the same content.",
+        "friday_review": "ALREADY COMPLETED for the week ending 2026-08-21. Not re-run.",
+        "loss_cap_and_throttle": "NOT reset. Trading day is still 2026-08-21."
+      },
+      "sleeve_state": {
+        "agentic_premium_at_risk_usd": 2675.0,
+        "premium_note": "$749 SPY hedge (excluded from the max-3 non-hedge count) + $1,106 QQQ x3 + $820 RBRK x2. Two of three CORE slots used; zero of two TACTICAL. Bearish-tech theme at its cap.",
+        "unleveraged_buying_power_usd": 811.83,
+        "headroom_after_250_reserve_usd": 561.83,
+        "realized_options_pnl_today_usd": 0.0,
+        "entries_used_today": 0
+      },
+      "notification": "NONE SENT, deliberately. Nothing fired, un-fired, or changed since the last notification; under the monitoring mandate's silence clause a quietly-unchanged book is not news, and a 4am Sunday page would be exactly the noise that makes the mandate's real alerts get ignored."
     }
   ],
   "updated_utc": "2026-08-22T16:20:00Z"
