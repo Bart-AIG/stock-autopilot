@@ -15425,6 +15425,24 @@
       "why_flat": "Market closed. Nothing placeable, nothing exitable, nothing changed since 12:19Z.",
       "notification": "NONE SENT. Nothing material surfaced; an un-deduped weekend watch is exactly the noise the monitoring mandate's silence clause forbids.",
       "eod_report": "Already written for the 2026-08-21 trading day at 19:20Z by the 19:15Z run (see holdings._eod_report_written). NOT rewritten -- no fill, exit, flag or trigger since, and every master push touching that file re-notifies Ryan."
+    },
+    {
+      "run_utc": "2026-08-23T14:19:00Z",
+      "run_local_et": "10:19 ET Sunday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~14:19Z. Native hourly backstop only -- cron-job.org fires Mon-Fri, so hourly-only weekend cadence is EXPECTED and is not the 08-18 trigger fault recurring.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. Forty-third post-close run of the 2026-08-21 trading day, fortieth of the weekend. Market shut until 2026-08-24T13:30Z. POST-CLOSE RUN PROTOCOL applied and kept short: journal tail read, broker reconciliation run, logged, stopped. No closed-market quote polling, no regime re-derivation, no daily-artifact roll, no invented research task.",
+      "reconciliation": "ZERO DRIFT, IDENTICAL TO THE 13:19Z READING. get_option_positions(nonzero) returns exactly THREE contracts -- SPY 2026-11-20 700P x1 @ 7.49 (agentic, insurance-exempt hedge), QQQ 2026-09-11 680P x3 @ blended 3.6867, RBRK 2026-09-18 90P x2 @ blended 4.10; every pending_buy/sell/exercise/assignment/expiration quantity 0.0000. Equity: PNC 1.825758 sh @ 246.47. get_portfolio $3,829.51 total / $443.68 equity / $2,574.00 options / $811.83 cash; buying_power == unleveraged_buying_power == $811.83, so NO margin is extended and FOUR LAWS #4 holds. get_accounts confirms 718757339 limited_margin / option_level_3 / agentic_allowed=true; unsettled_funds $732.30, tradeable on limited_margin and not a constraint.",
+      "heartbeat": "NOT STAMPED, DELIBERATELY. automation_heartbeat.json stays dated 2026-08-21. 'Today' is the US TRADING day: between the Friday bell and Monday's 13:30Z open the trading day is still 2026-08-21. Monday's first post-open run owns the stamp, the market_brief rebuild, and the loss-cap / entry-throttle resets.",
+      "position_verdicts": {
+        "SPY 2026-11-20 700P x1": "hedge, insurance-exempt from all premium backstops; 89 DTE; no action, roll/close decision with Ryan near 21 DTE.",
+        "QQQ 2026-09-11 680P x3": "unchanged pending Monday's tape; DTE 19 today, 18 at Monday's open -- INSIDE the 21-DTE tier, so the -50% cut (1.8433 off the blended 3.6867 basis) is the standing unconditional level and supersedes the -65% backstop. Mixed ownership: the inside-21-DTE cut is a named monitoring-mandate exception that executes without waiting. Levels pre-computed in holdings._monday_open; no re-derivation needed.",
+        "RBRK 2026-09-18 90P x2": "unchanged; 26 DTE today, 25 at Monday's open -- still in the 21-45 DTE tier (-65% backstop, -50% is re-check only). Monitoring mandate applies: recommend and ask, do not auto-close discretionary exits."
+      },
+      "grades_considered": "NONE. Market closed -- no entry is placeable, so no candidate was graded. Hunting a closed tape would produce stale quotes nobody can act on, which is exactly what the POST-CLOSE RUN PROTOCOL forbids.",
+      "why_flat": "Weekend. Entries are impossible and every discretionary exit waits on Ryan; the two mechanical levels that could fire are pre-computed for Monday's open.",
+      "notification": "None sent. Nothing changed since the 13:19Z run and nothing needs Ryan; a per-run weekend ping would be exactly the notification spam the monitoring mandate's silence clause forbids."
     }
   ],
   "updated_utc": "2026-08-23T08:19:00Z"
