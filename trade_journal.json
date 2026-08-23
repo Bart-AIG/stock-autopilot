@@ -15568,6 +15568,22 @@
       "notification_sent": false,
       "notify_rationale": "Nothing surfaced. Per the monitoring mandate's silence clause, an unchanged weekend reading is not news -- notifying on each of 46 identical weekend runs is exactly what destroys the mandate's purpose.",
       "flags": "None new. No _flag markers found in holdings.json; none created, none adjudicated (HARD RULE 9)."
+    },
+    {
+      "run_utc": "2026-08-23T21:19:00Z",
+      "run_type": "post_close_overnight",
+      "regime": "N/A -- market closed (Sunday). No regime re-derivation; the last live read stands from the 2026-08-21 close.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. Fiftieth post-close run of the 2026-08-21 trading day, forty-seventh of the weekend. Market shut until 2026-08-24T13:30Z. POST-CLOSE RUN PROTOCOL applied: journal tail read, broker reconciliation run, ONE stale-field defect found and fixed, logged, stopped. No closed-market quote polling, no regime re-derivation, no daily-artifact roll, no invented research task.",
+      "reconciliation": "ZERO POSITION DRIFT. Broker: SPY 2026-11-20 700P x1 @ 7.49; QQQ 2026-09-11 680P x3 @ avg 3.686667; RBRK 2026-09-18 90P x2 @ avg 4.10; equity PNC 1.825758 @ 246.47 -- all match holdings.json. get_option_orders since 2026-08-21T20:00Z returns EMPTY, so no overnight assignment, expiration or unauthorized fill. Account 718757339 confirmed limited_margin / option_level_3 / agentic_allowed. buying_power $811.83 == unleveraged_buying_power $811.83: NO MARGIN EXTENDED.",
+      "ledger_defect_found_and_fixed": {
+        "what": "QQQ position carried entry_premium_blended 3.805 and total_cost_basis_usd 761.0 -- the retired TWO-lot arithmetic -- after Ryan's third lot filled 2026-08-21T19:37Z at 3.45. Corrected to 3.686667 / 1106.0, verified against the broker's average_price 368.6667 x 3.",
+        "why_it_survived": "Three prior runs each corrected the field their own incident surfaced: 19:50Z the quantity, 20:19Z the _exit_ladder levels, 2026-08-22T12:20Z the `ownership` prose string. None swept the other fields derived from the same changed input. The correct value was already present TWICE elsewhere in the same record (max_loss 1106.0 and _current_state.basis_used), so this was internal inconsistency, not missing information.",
+        "why_it_mattered": "Understating cost basis by $345 makes a run pricing P&L off 3.805 report the position ~3.2% more underwater than it is -- on the one contract whose -50% cut becomes the STANDING UNCONDITIONAL rule from Monday (DTE 18) and which is a named monitoring-mandate exception that EXECUTES WITHOUT WAITING for Ryan. Not urgent in distance terms (Friday's 3.38 mark sits ~83% above the 1.8433 cut), so fixed calmly rather than paged.",
+        "lesson": "A LOT-COUNT CHANGE INVALIDATES EVERY DERIVED NUMBER ON THE POSITION AT ONCE -- blended basis, total cost, ladder levels, ownership prose. Repair them as a SET, not one per incident. This is the third consecutive weekend correction to the same position from the same root cause, which is the file's own 'same issue every session means the fix was never made' trigger."
+      },
+      "positions_verdict": "All three WORKING / STALLED, setup intact, no mechanical trigger and none can fire with the market shut. QQQ: ask-first (2 of 3 lots are Ryan's), 21-DTE decision package STILL OPEN with him, and any unasked mechanical exit is capped at quantity 1 (the agentic lot). RBRK: ask-first (mixed), binding deadline is the pre-earnings decision by the close of 2026-08-26 ahead of the verified 2026-08-27 pm print. SPY 700P: authorized hedge, exempt from premium backstops.",
+      "duties_check": "2026-08-21 duties all provably discharged: Friday weekly review written (13:40Z, expanded 16:47Z), daily_options_report.md delivered 19:20Z, exit ladder recomputed 20:19Z. Heartbeat NOT stamped -- correct, it is Sunday and no trading day has opened. market_brief.json NOT rebuilt -- correct, weekend. Daily loss cap and entry throttle NOT reset -- correct, the trading day rolls at Monday's 09:30 ET open, not at UTC midnight.",
+      "why_flat": "Market closed. Forty-seventh consecutive weekend stand-down; the book is provably unchanged across all of them. The correct output of a redundant post-close run is a short no-op plus whatever free, market-independent hygiene it can actually finish -- here, one stale-field repair."
     }
   ],
   "updated_utc": "2026-08-23T19:19:00Z"
