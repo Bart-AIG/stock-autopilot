@@ -15388,6 +15388,24 @@
       "why_flat": "Market closed (Sunday). No entry is placeable and no discretionary exit is executable. Separately, the desk is at its 2-of-2 correlated-theme cap on bearish tech and would be theme-gated on most candidates even in a live session.",
       "notification": "NONE SENT, deliberately. Nothing fired, un-fired, or changed since the last reading; the 2026-08-18 monitoring mandate's silence clause exists exactly so a 24x/day weekend cadence does not page Ryan with 'still unchanged'.",
       "next_meaningful_run": "2026-08-24T13:30Z+ (Monday post-open). It inherits the pre-computed _monday_open block -- corrected QQQ levels on the three-lot 3.6867 basis, the RBRK earnings deadline, and the weekend theta bill of ~$295 already paid."
+    },
+    {
+      "run_utc": "2026-08-23T12:19:00Z",
+      "run_local_et": "08:19 ET Sunday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~12:19Z, 2419 minutes after the 20:00Z Friday bell. Native hourly backstop only -- cron-job.org fires Mon-Fri, so weekend hourly-only cadence is EXPECTED and is not the 08-18 trigger fault recurring.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. FORTY-FIRST post-close run of the 2026-08-21 trading day, THIRTY-EIGHTH of the weekend. Market shut until 2026-08-24T13:30Z. POST-CLOSE RUN PROTOCOL applied and deliberately kept SHORT: read the journal tail, ran the one check always worth repeating (broker reconciliation), logged, stopped. No closed-market quote polling, no regime re-derivation, no daily-artifact roll, no invented research task.",
+      "reconciliation": "ZERO DRIFT, IDENTICAL TO THE 11:19Z READING. get_option_positions(nonzero) returns exactly THREE contracts -- SPY 2026-11-20 700P x1 @ 7.49 (agentic, insurance-exempt hedge), QQQ 2026-09-11 680P x3 @ blended 3.6867 (1 agentic lot + 2 Ryan lots), RBRK 2026-09-18 90P x2 @ blended 4.10 (1 agentic + 1 Ryan); every pending_buy/sell/exercise/assignment/expiration quantity 0.0000. Equity: PNC 1.825758 sh. get_portfolio $3,829.51 total / $443.68 equity / $2,574.00 options / $811.83 cash; buying_power == unleveraged_buying_power == $811.83, so NO margin is extended and FOUR LAWS #4 holds. get_accounts confirms 718757339 limited_margin / option_level_3 / agentic_allowed=true; unsettled_funds $732.30 is tradeable on limited_margin and is not a constraint.",
+      "heartbeat": "NOT STAMPED, DELIBERATELY. automation_heartbeat.json stays dated 2026-08-21. 'Today' is the US TRADING day: between the Friday bell and Monday's 13:30Z open the trading day is still 2026-08-21, and stamping from a weekend run would pre-satisfy Monday's dead-man for a session that has not begun. Monday's first post-open run owns the stamp, the market_brief rebuild, and the loss-cap / entry-throttle resets.",
+      "position_verdicts": {
+        "SPY 2026-11-20 700P x1": "hedge, insurance-exempt from all premium backstops; 89 DTE; no action, roll/close decision with Ryan near 21 DTE.",
+        "QQQ 2026-09-11 680P x3": "working/held; 19 DTE at Monday's open, so from Monday the standing -50% cut supersedes the -65% backstop and, per the 2026-08-18 monitoring mandate, that inside-21-DTE cut EXECUTES without waiting. Levels pre-computed in holdings._monday_open.",
+        "RBRK 2026-09-18 90P x2": "working/held; 26 DTE, still in the 21-45 DTE tier (-65% backstop, -50% = re-check). Mixed ownership -- discretionary exits are recommend-and-ask."
+      },
+      "grades_considered": "NONE. Hunting a closed market produces candidates that cannot be priced against a live tape and would be stale by Monday's open. Both tracks stand down. Separately the desk is at 2-of-2 on the bearish-tech correlated theme, which would gate most candidates even in a live session.",
+      "why_flat": "Market closed (Sunday 2026-08-23). No entry is placeable and no discretionary exit is executable. The correct output of an Nth redundant weekend run is a cheap reconciliation plus a short log, and that is what this is.",
+      "notes": "Nothing material has changed across 38 weekend runs. Next state change is Monday 2026-08-24T13:30Z."
     }
   ],
   "updated_utc": "2026-08-23T08:19:00Z"
