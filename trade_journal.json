@@ -15082,6 +15082,46 @@
       "daily_artifacts": "NOT rolled. 'Today' means the US TRADING day (ET): between Friday's 20:00Z bell and Monday's 13:30Z open the trading day is still 2026-08-21. Heartbeat NOT stamped (weekend, and only a run at/after 09:30 ET on a trading day may stamp it). market_brief.json left stamped 2026-08-21. Loss cap and entry throttle NOT reset.",
       "monitoring_mandate": "Silent by design. QQQ 680P x3 and RBRK 90P x2 are under Ryan's 2026-08-18 monitor-and-recommend mandate; no trigger can fire or un-fire while the market is shut, and _notify_state is unchanged from Friday's close, so no notification is owed. Notifying on a frozen book is exactly the 26-a-day noise the mandate forbids.",
       "next_run_note": "Monday 2026-08-24. First run at/after 13:30Z stamps the heartbeat and rebuilds market_brief.json. Then MANAGE FIRST: QQQ 680P (21-DTE review window approaching, expiry 09-11) and RBRK 90P re-quoted at least ~5 minutes after 13:30Z -- never price a decision off the opening auction print. SPY 700P hedge remains backstop-exempt."
+    },
+    {
+      "run_utc": "2026-08-23T00:25:00Z",
+      "run_local_et": "20:25 ET Saturday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~00:19Z, 1699 minutes after the 20:00Z Friday bell. Hourly native backstop only -- cron-job.org fires Mon-Fri, so the hourly weekend cadence is EXPECTED and is not the 08-18 trigger fault recurring.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. TWENTY-NINTH post-close run of the 2026-08-21 trading day, TWENTY-SIXTH of the weekend. Market shut until 2026-08-24 13:30Z. Per the POST-CLOSE RUN PROTOCOL: read what the 13:19Z through 23:19Z runs already covered, ran the one check always worth repeating (broker reconciliation), found the book unchanged, stood down. No research task invented, no already-measured quote re-polled, no daily artifact rolled, no notification sent.",
+      "reconciliation": {
+        "utc": "2026-08-23T00:20:00Z",
+        "result": "ZERO DRIFT, BOTH BOOKS. get_option_positions(nonzero): SPY 2026-11-20 700P x1 @ 749.00, QQQ 2026-09-11 680P x3 @ avg 368.6667, RBRK 2026-09-18 90P x2 @ avg 410.00, every pending_* 0.0000 -- matches holdings.json one-for-one, so no overnight assignment, exercise, expiration or unauthorized fill. get_equity_positions: PNC 1.825758 sh @ 246.47, the only equity line and unchanged. get_portfolio: total $3,829.51 / options $2,574.00 / equity $443.68 / cash $811.83; buying_power $811.83 == unleveraged_buying_power $811.83, so NO margin is being extended (FOUR LAWS #4 satisfied). get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed=true, unsettled_funds $732.30.",
+        "note": "First run of this weekend to cross midnight UTC into 2026-08-23. Per the CLAUDE.md UTC-rollover rule the trading day is STILL 2026-08-21 (the day whose bell rang): the heartbeat stays stamped 2026-08-21, market_brief.json stays stamped for the day it describes, and neither the -$400 realized loss cap nor the 8-entry throttle resets. A UTC date change is not a new trading day."
+      },
+      "positions_verdict": {
+        "SPY 2026-11-20 700P x1": "HEDGE, insurance-exempt. No premium backstop applies; its ~21-DTE roll/close decision is late October and is Ryan's call. Untouched.",
+        "QQQ 2026-09-11 680P x3": "Working/stalled -- unchanged since Friday's close. Under Ryan's 2026-08-18 MONITORING MANDATE: recommend-and-ask, never auto-execute a discretionary exit. Monday its DTE goes 21 -> 18, moving it inside the tier where the -50% cut becomes the standing unconditional rule (see holdings._monday_open). No action possible with the market shut.",
+        "RBRK 2026-09-18 90P x2": "Working/stalled -- unchanged. Same monitoring mandate, same ask-first posture. No action possible with the market shut."
+      },
+      "grades_considered": "NONE, and deliberately so. Both tracks require a LIVE trigger -- TRACK A needs an intraday level breaking NOW with the index tape agreeing, TRACK B needs a confirming level on today's tape. Neither exists on a Saturday night: the last print is 1,699 minutes stale and every chain is closed. Grading candidates off frozen Friday marks would be manufacturing work to justify the firing, which the POST-CLOSE RUN PROTOCOL names explicitly as the thing not to do. Monday's first post-open run inherits the pre-computed levels in holdings._monday_open.",
+      "why_flat": "Market closed; no order is placeable. Book verified unchanged against the broker.",
+      "sleeve_state": {
+        "agentic_premium_at_risk_usd": 2675.0,
+        "premium_note": "$749 SPY hedge (excluded from the max-3 non-hedge count) + $1,106 QQQ (3 x 368.6667) + $820 RBRK (2 x 410.00). Two of three CORE slots used; the bearish-tech theme sits at its cap. Tactical track empty.",
+        "unleveraged_buying_power_usd": 811.83,
+        "headroom_after_250_reserve_usd": 561.83,
+        "realized_options_pnl_trading_day_usd": 0.0,
+        "daily_loss_cap_usd": -400.0,
+        "entries_used_of_8": 0
+      },
+      "duties_checked": {
+        "heartbeat": "NOT stamped -- correct. Stamped 2026-08-21T13:33:00Z for the current trading day; the next stamp is owed to the first run at/after 09:30 ET Monday 2026-08-24.",
+        "market_brief": "NOT rebuilt -- correct, same rule.",
+        "daily_report": "Already written for 2026-08-21 at 19:20Z. Not rewritten: nothing MATERIAL has happened since, and each rewrite pushes Ryan a duplicate notification.",
+        "friday_review": "Completed by the 2026-08-21 first-post-open run per the heartbeat note. Not re-run.",
+        "iv_history": "No new row. IV readings require live quotes; a weekend row would record frozen Friday marks as a fresh observation and corrupt the series the percentile is computed from.",
+        "branch_vs_master": "Checked at run start: HEAD and origin/master were level at b8756fa, 0 ahead / 0 behind. This run's own commit is merged to master before ending.",
+        "hard_rule_9": "No flag found in holdings.json; none created, none cleared. No Ryan turn claimed or quoted -- this run is scheduler-fired and structurally cannot supply one."
+      },
+      "notification_sent": false,
+      "notification_reason": "Nothing changed and nothing needs Ryan. The monitoring mandate's own dedup discipline says a still-live trigger with no material move gets a timestamp update and silence, not another push. A weekend 'all quiet' notification is exactly the noise that makes him stop reading the ones that matter."
     }
   ],
   "updated_utc": "2026-08-22T16:20:00Z"
