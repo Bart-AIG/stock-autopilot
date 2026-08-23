@@ -15162,6 +15162,47 @@
       },
       "notification_sent": false,
       "notification_reason": "Nothing changed and nothing needs Ryan. The monitoring mandate's own dedup discipline says a still-live trigger with no material move gets a timestamp update and silence, not another push. A weekend 'all quiet' notification is exactly the noise that makes him stop reading the ones that matter."
+    },
+    {
+      "run_utc": "2026-08-23T02:19:00Z",
+      "run_local_et": "22:19 ET Saturday",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~02:18Z, 1819 minutes after the 20:00Z Friday bell. Hourly native backstop only -- cron-job.org fires Mon-Fri, so the hourly weekend cadence is EXPECTED and is not the 08-18 trigger fault recurring.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. THIRTY-FIRST post-close run of the 2026-08-21 trading day, TWENTY-EIGHTH of the weekend. Market shut until 2026-08-24 13:30Z. Per the POST-CLOSE RUN PROTOCOL: read what the 13:19Z through 01:19Z runs already covered, ran the one check always worth repeating (broker reconciliation), found the book unchanged, stood down. No research task invented, no already-measured quote re-polled, no daily artifact rolled, no notification sent.",
+      "reconciliation": {
+        "utc": "2026-08-23T02:20:00Z",
+        "result": "ZERO DRIFT, BOTH BOOKS. get_option_positions(nonzero): SPY 2026-11-20 700P x1 @ 749.00, QQQ 2026-09-11 680P x3 @ avg 368.6667, RBRK 2026-09-18 90P x2 @ avg 410.00, every pending_* 0.0000 -- matches holdings.json one-for-one, so no overnight assignment, exercise, expiration or unauthorized fill. get_equity_positions: PNC 1.825758 sh @ 246.47, the only equity line and unchanged. get_portfolio: total $3,829.51 / options $2,574.00 / equity $443.68 / cash $811.83; buying_power $811.83 == unleveraged_buying_power $811.83, so NO margin is being extended (FOUR LAWS #4 satisfied). get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed=true, unsettled_funds $732.30.",
+        "note": "Third run of this weekend past the midnight-UTC rollover. Per the CLAUDE.md UTC-rollover rule the trading day is STILL 2026-08-21 (the day whose bell rang): heartbeat stays stamped 2026-08-21, market_brief.json stays stamped for the day it describes, and neither the -$400 realized loss cap nor the 8-entry throttle resets. Portfolio figures are byte-identical to the 00:25Z and 01:19Z readings, which is the expected result with every market shut."
+      },
+      "positions_verdict": {
+        "SPY 2026-11-20 700P x1": "HEDGE, insurance-exempt. No premium backstop applies; its ~21-DTE roll/close decision is late October and is Ryan's call. Untouched.",
+        "QQQ 2026-09-11 680P x3": "Working/stalled -- unchanged since Friday's close. Under Ryan's 2026-08-18 MONITORING MANDATE: recommend-and-ask, never auto-execute a discretionary exit. Monday its DTE goes 21 -> 18, moving it inside the tier where the -50% cut (1.8433 on the blended basis) becomes the standing unconditional rule. Friday's 3.45 mark sits ~47% above that. No action possible with the market shut.",
+        "RBRK 2026-09-18 90P x2": "Working/stalled -- unchanged. Same monitoring mandate, same ask-first posture. Its real gate is the PRE-EARNINGS decision owed by the close of WED 2026-08-26 (broker-verified 08-27 pm print) -- now THREE trading sessions out, with $820 riding on it. Already recorded in the ladder and in Friday's daily report; not re-notified, since the deadline moving one day closer on a Saturday is not new information."
+      },
+      "grades_considered": "NONE. Markets are closed -- no chain is quotable, no intraday level can break, and every quote available now is a stale Friday close. Grading candidates off dead quotes would be manufacturing work, which the POST-CLOSE RUN PROTOCOL explicitly forbids. Both tracks resume hunting at the 2026-08-24 open.",
+      "why_flat": "Market closed (Saturday night ET). No entry or exit is placeable. The three open positions are inside their written plans and none is at a hard backstop; the QQQ and RBRK puts carry the 2026-08-18 per-position MONITORING MANDATE (recommend-and-ask, hard backstops excepted) and the SPY 700P is the authorized hedge, exempt from premium backstops. Nothing to notify: no trigger fired or un-fired and no recommendation changed since the last notification state, so per the mandate's silence clause the desk stays quiet.",
+      "sleeve_state": {
+        "open_agentic_positions": 2,
+        "hedge_excluded": "SPY 2026-11-20 700P",
+        "premium_at_risk_core": "QQQ 680P x3 + RBRK 90P x2 (both track:core, entered 2026-08-18)",
+        "premium_at_risk_tactical": "none -- 0 of 2 tactical slots used",
+        "unleveraged_buying_power": 811.83,
+        "headroom_after_250_reserve": 561.83,
+        "realized_pnl_today_vs_cap": "$0.00 realized on 2026-08-21 vs the -$400 daily cap; cap not approached",
+        "entries_used_today": "0 of 8",
+        "margin_borrowed": "none -- buying_power == unleveraged_buying_power"
+      },
+      "duties_checked": {
+        "heartbeat": "NOT stamped -- correct. UTC date is 2026-08-23 but the trading day is still 2026-08-21; only a run at/after 09:30 ET on the next trading day may stamp it.",
+        "market_brief": "NOT rebuilt -- correct, same UTC-rollover rule. Stays stamped for the day it describes.",
+        "iv_history": "NOT written -- markets closed, no live ATM quote exists to log. Resumes at the open.",
+        "daily_eod_report": "Already written for the 2026-08-21 trading day; not rewritten -- nothing material happened since (no fill, no exit, no new flag, no trigger firing). A rewrite would only re-notify Ryan with identical content.",
+        "flags": "No HARD RULE 9 flag open. None created, none cleared -- an unattended run can never clear one regardless.",
+        "branch_vs_master": "checked before ending the run"
+      },
+      "notification_sent": false,
+      "notification_reason": "Nothing actionable. A healthy, unchanged book on a closed market is exactly the case where silence is the correct output -- paging Ryan for the twenty-eighth identical weekend reconciliation would train him to ignore the alerts that matter."
     }
   ],
   "updated_utc": "2026-08-22T16:20:00Z"
