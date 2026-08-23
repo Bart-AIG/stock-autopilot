@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-23T21:19:00Z",
+  "updated_utc": "2026-08-23T22:19:00Z",
   "_realized_options_pnl_today": 0.0,
   "positions": [
     {
@@ -128,6 +128,15 @@
           "filled_utc": "2026-08-21T15:50:28.960Z",
           "order_id": "6a887245-f855-4154-be8f-30fff6172871",
           "_note": "RYAN'S OWN ADD, verified on the order record (placed_agent='user', limit 3.56 debit, gfd, regular_hours, placed 15:44:05Z / filled 15:50:29Z). Bought into intraday STRENGTH -- QQQ was ~714.6-715.0, near the session high, having just pushed up off the 15:30Z bar. Not an agentic entry: it consumed none of the desk's 8-per-day throttle and is not the desk adding to a loser under FOUR LAWS #3 (that law binds the desk, not Ryan)."
+        },
+        {
+          "qty": 1,
+          "entry_premium": 3.45,
+          "cost_usd": 345.0,
+          "placed_agent": "user",
+          "filled_utc": "2026-08-21T19:37:54.773Z",
+          "order_id": "6a88a90f-60cc-49cc-bed6-54b6148a56cf",
+          "_note": "RYAN'S SECOND ADD (third lot overall), broker-verified on the order record: limit 3.45 debit, gfd, regular_hours, placed 19:37:51.236Z / filled 19:37:54.773Z, settlement 2026-08-24. MISSING FROM THIS ARRAY UNTIL 2026-08-23T22:19Z -- the fourth consecutive weekend repair of a field left stale by this same 19:37Z lot-count change (19:50Z fixed `contracts`, 20:19Z fixed `_exit_ladder`, 2026-08-22T12:20Z fixed the `ownership` prose, 2026-08-23T21:19Z fixed entry_premium_blended/total_cost_basis_usd). Every OTHER field on the position already carried three lots correctly, so `lots[]` summed to qty 2 / $761.00 against a broker-verified 3 contracts / $1,106.00 -- a run computing the ownership split from this array alone would have read the agentic share as 1-of-2 (50%) rather than 1-of-3 (33%), overstating how much of the position the desk may close without Ryan."
         }
       ],
       "_decision_package_21dte": {
