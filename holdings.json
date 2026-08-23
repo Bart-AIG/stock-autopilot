@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-23T16:19:00Z",
+  "updated_utc": "2026-08-23T19:19:00Z",
   "_realized_options_pnl_today": 0.0,
   "positions": [
     {
@@ -576,8 +576,8 @@
     "note": "daily_options_report.md written by the 19:15Z run at 14:20 CT -- the FIRST run at or past the 14:15 CT (19:15Z) window CLAUDE.md set on 2026-08-21T16:35Z, and written in-session rather than deferred. Note the threshold's premise has since changed: the 14:15 move was calibrated for the hourly-only cadence, and the sub-hourly trigger was repaired at 17:05Z today, so 19:25Z/19:55Z runs will now also land pre-bell. Writing at 19:20Z is still correct under CLAUDE.md and guarantees delivery; this marker is what stops a sibling from duplicating it. Contents: live 19:16Z marks on all three contracts, the -$237.50 per-lot MTM day (vs the WRONG -$429.50 naive close-to-mark figure, which falsely resembles a -$400 cap breach), the ~$236 unhedged three-day weekend carry, ten skipped candidate groups incl. the INTC secondary-offering trap, and the QQQ 21-DTE decision for Ryan in Section 5 ahead of Monday's open at 20 DTE. DO NOT REWRITE unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing) -- every master push touching this file re-notifies Ryan."
   },
   "_last_reconciliation": {
-    "utc": "2026-08-23T18:19:00Z",
-    "by": "scheduled options automation run (post-close #47 of the 2026-08-21 trading day, #44 of the weekend)",
+    "utc": "2026-08-23T19:19:00Z",
+    "by": "scheduled options automation run (post-close #48 of the 2026-08-21 trading day, #45 of the weekend)",
     "result": "zero drift -- 3 option positions (SPY 700P x1, QQQ 680P x3, RBRK 90P x2) match broker exactly; no pending quantities; buying_power == unleveraged_buying_power $811.83, no margin extended.",
     "next_live_session": "2026-08-24T13:30Z. Monday's first post-open run stamps the heartbeat, rebuilds market_brief.json, and re-evaluates the QQQ ladder at its new DTE-18 tier."
   },
