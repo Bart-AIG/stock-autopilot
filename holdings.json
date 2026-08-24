@@ -1,13 +1,13 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-24T14:20:00Z",
+  "updated_utc": "2026-08-24T14:35:00Z",
   "_realized_options_pnl_today": {
-    "date_et": "2026-08-24",
+    "trading_day_et": "2026-08-24",
     "realized_usd": 0.0,
-    "trades": 0,
-    "source": "get_realized_pnl(asset_classes=['option'], 2026-08-24..2026-08-24) at 14:17Z -- broker, not the journal.",
-    "cap": -400.0,
-    "status": "Cap untouched; new entries are not gated by it."
+    "closing_trades": 0,
+    "source": "broker get_realized_pnl(asset_classes=['option'], 2026-08-24..2026-08-24) at 14:23:40Z -- NOT the journal, per the CLAUDE.md sourcing rule.",
+    "cap_usd": -400.0,
+    "headroom_usd": 400.0
   },
   "positions": [
     {
@@ -25,27 +25,28 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "last_checked_utc": "2026-08-24T14:20:00Z",
-        "quote_basis": "LIVE, option updated_at 2026-08-24T14:15:53Z, equity 14:15:54Z.",
-        "mark": 6.8,
-        "bid": 6.78,
-        "ask": 6.82,
-        "spread_pct_of_mid": 0.59,
-        "pnl_usd_at_mark": -69.0,
-        "pnl_pct_at_mark": -9.21,
-        "net_if_exited_at_bid_usd": -71.0,
+        "last_checked_utc": "2026-08-24T14:35:00Z",
+        "quote_basis": "LIVE, option updated_at 2026-08-24T14:23:03Z, equity 14:23:01Z. Fifty-three minutes past the open -- a settled market, well clear of the opening-auction window the CLAUDE.md rule guards.",
+        "mark": 6.695,
+        "bid": 6.68,
+        "ask": 6.71,
+        "spread_pct_of_mid": 0.45,
+        "pnl_usd_at_mark": -79.5,
+        "pnl_pct_at_mark": -10.61,
+        "net_if_exited_at_bid_usd": -81.0,
         "dte": 88,
-        "delta_per_contract": -0.16078,
+        "delta_per_contract": -0.158753,
         "iv": 0.204965,
-        "theta_per_day_usd": 9.3,
+        "theta_per_day_usd": 9.24,
         "open_interest": 25846,
-        "underlying_spot": 762.8,
-        "underlying_day_pct": -0.38,
+        "volume_today": 572,
+        "underlying_spot": 763.405,
+        "underlying_day_pct": -0.3,
         "ladder_check": "N/A -- authorized defensive hedge, EXEMPT from all premium backstops. No mechanical exit exists.",
-        "status": "WORKING AS DESIGNED. Recovered from -$83.50 to -$69.00 as SPY eased 763.66 -> 762.80. THE DISPERSION REMAINS THE READ and it has held all session: SPY -0.38% against QQQ -1.37%, a 99bp gap, so the desk's bearish exposure is correctly concentrated in QQQ while this leg carries the tail. Carry contrast unchanged: $9.30/day here against $83.14/day on QQQ. Only decision remains the ~2026-10-30 roll/close review WITH Ryan."
+        "status": "WORKING AS DESIGNED, and slightly worse than the prior run (-$69.00 -> -$79.50) because SPY firmed 762.80 -> 763.405 while QQQ did not. THAT DIVERGENCE IS THE POINT, not a problem: the dispersion is 93bp (SPY -0.30% vs QQQ -1.23%) and has now held for the full session, so the hedge leg giving a little back while the QQQ leg carries the gain is exactly the intended division of labour. Carry contrast unchanged in character: $9.24/day here against $81.25/day on QQQ. Only decision remains the ~2026-10-30 roll/close review WITH Ryan."
       },
       "_notify_state": {
-        "last_checked_utc": "2026-08-24T14:20:00Z",
+        "last_checked_utc": "2026-08-24T14:35:00Z",
         "status": "MONITORING -- SILENT. Exempt hedge, no trigger exists to fire or un-fire."
       }
     },
@@ -66,29 +67,28 @@
       "filled_utc": "2026-08-18T17:44:39Z",
       "setup_invalidation": "RECONSTRUCTED BY THE 17:45Z RUN -- the placing run left NO written thesis, invalidation, or exit plan in any committed file, which the routine prompt requires before an entry ('No written invalidation = no trade, no exceptions'). This run did NOT place the trade and cannot invent the original thesis, so the following is an INHERITANCE PLAN, not the entry's stated one, and any run with the real thesis should replace it: bearish QQQ tail. Invalidate on QQQ closing back above ~730 (prior close 729.87 -- a full round-trip of today's -1.6% drop removes the bearish premise entirely). Break-even at expiry is QQQ 675.94, i.e. it needs a further ~5.9% decline from 717.98 in 24 days.",
       "_current_state": {
-        "last_checked_utc": "2026-08-24T14:20:00Z",
-        "quote_basis": "LIVE, option updated_at 2026-08-24T14:17:30Z, equity 14:15:53Z. Forty-seven minutes past the open and past the 13:35-13:46Z fast move -- a settled market, and confirmed on a SECOND quote 100 seconds after the first (4.835 then 4.830) precisely because the 13:46Z print was not.",
-        "mark": 4.83,
-        "bid": 4.81,
-        "ask": 4.85,
-        "spread_pct_of_mid": 0.83,
-        "underlying_spot": 703.65,
-        "underlying_day_pct": -1.37,
-        "basis_used": "entry_premium_blended 3.686667 across THREE lots ($1,106.00 total), confirmed against broker average_price 368.6667 this run.",
-        "pnl_usd_at_mark": 343.0,
-        "pnl_pct_at_mark": 31.01,
-        "net_if_exited_at_bid_usd": 337.0,
-        "net_pct_at_bid": 30.47,
-        "agentic_lot_only_pnl_usd": 114.33,
+        "last_checked_utc": "2026-08-24T14:35:00Z",
+        "quote_basis": "LIVE, option updated_at 2026-08-24T14:23:03Z, equity 14:23:03Z. Settled market, 53 minutes past the open.",
+        "mark": 4.58,
+        "bid": 4.55,
+        "ask": 4.61,
+        "spread_pct_of_mid": 1.31,
+        "underlying_spot": 704.64,
+        "underlying_day_pct": -1.23,
+        "basis_used": "entry_premium_blended 3.686667 across THREE lots ($1,106.00 total), re-confirmed against broker average_price 368.6667 this run.",
+        "pnl_usd_at_mark": 268.0,
+        "pnl_pct_at_mark": 24.23,
+        "net_if_exited_at_bid_usd": 259.0,
+        "net_pct_at_bid": 23.42,
         "dte": 18,
-        "delta_per_contract": -0.229317,
-        "position_delta": -0.688,
-        "iv": 0.225082,
-        "theta_per_day_usd": 83.14,
+        "delta_per_contract": -0.220329,
+        "position_delta": -0.661,
+        "iv": 0.224486,
+        "theta_per_day_usd": 81.25,
         "peak_premium": 5.21,
         "open_interest": 34708,
-        "volume_today": 124,
-        "status": "WORKING, AND THE 14:05Z CORRECTION IS VINDICATED BY THE TAPE. That run called the 13:46Z 5.175 print a fast-market dislocation rather than an exitable level; QQQ has since gone 703.03 -> 704.23 -> 703.65, i.e. it is BACK at the level that produced the 5.175 print, and the mark is 4.83, not 5.175. The 0.345 gap at identical spot is the dislocation, measured. Collectable now: bid 4.81 on a 0.83% spread = +$337 net (+30.5%). NOTHING MECHANICAL FIRES: pop-bank 6.636, ratchet arm 5.53, -50% cut 1.8433, setup break QQQ CLOSE > 730. peak_premium stays 5.21 (2026-08-19) -- never armed."
+        "volume_today": 125,
+        "status": "WORKING, GIVING BACK. The gain has stepped down through the session -- +$436 (13:48Z, since shown to be a fast-market print), +$307 (14:05Z), +$343 (14:20Z), +$268 now -- as QQQ based between 703.03 and 704.64 rather than extending. Nothing mechanical fires: pop-bank needs a +80% ONE-DAY move and today is +28.3% off Friday's 3.57 close; ratchet arm 5.53 (never armed, peak_premium still 5.21 from 2026-08-19); -50% cut 1.8433; setup break is a QQQ CLOSE above 730. THE REAL PRESSURE IS CARRY, NOT THE STRIKE: $81.25/day of theta against a $268 unrealized gain means the position surrenders its entire remaining edge in ~3.3 sessions of a flat tape, and 18 DTE puts the accelerating-gamma window close. That is a reason for Ryan to decide, which he already has in front of him -- it is NOT a new reason to page him again."
       },
       "_inherited_deadlines": {
         "21_dte_management_review": "2026-08-21 (Fri) -- 2026-09-11 minus 21 days. This is THREE SESSIONS AWAY. Per the 2026-08-05 exit-method amendment the 21-DTE review is unconditional: a position flat or losing at 21 DTE is closed or rolled, never held into the accelerating theta/gamma window. At -5.34% of premium per day in theta this is the binding constraint on the position, not the strike.",
@@ -113,10 +113,10 @@
         "MIXED_LOT_SELL_CONSTRAINT": "BINDING MONDAY. This position is 3 contracts: ONE placed by the automation (4.05) and TWO placed by RYAN himself (3.56 on 15:50Z, 3.45 on 19:37Z, both placed_agent='user', broker-verified). The OWNERSHIP GATE is unambiguous -- the desk may NEVER close, trim or roll a position Ryan opened without his explicit go-ahead. Contracts are fungible at the broker and there is no lot selection on a sell-to-close, so if a mechanical trigger fires and a run sells 'the position', it closes TWO of Ryan's contracts without approval. THEREFORE: any mechanical, unasked exit on this contract is CAPPED AT QUANTITY 1 -- the agentic lot only. Selling 2 or 3 requires Ryan's explicit approval, full stop. This is not new policy; it is the existing ownership gate applied to a position that only became mixed today."
       },
       "_notify_state": {
-        "last_checked_utc": "2026-08-24T14:20:00Z",
-        "status": "MONITORING -- SILENT ON QQQ. Mark 4.83 sits between the two numeric page levels the 14:05Z run set (4.42 and 5.53) and QQQ 703.65 is well below the 20d at 709.19, so by the dedup rule this is drift, not news. The rule worked exactly as designed: it converted what would have been a fourth judgment call into an arithmetic check.",
-        "note_on_the_page_sent_this_run": "Ryan WAS paged at ~14:20Z, but about RBRK, not this position. The QQQ line in that page is one sentence of context explicitly labelled NO CHANGE / NO ACTION NEEDED, so it does not restart the QQQ page cadence and the ceiling of two QQQ pages for this session still stands.",
-        "dedup_rule": "PAGE Ryan with a revised BANK recommendation the moment ANY of these is true, and stay silent otherwise: (1) mark <= 4.42 -- half the 13:48Z peak gain given back; (2) QQQ trades back above its 20-day MA at 709.19, killing the level-break premise; (3) the ratchet ARMS at mark >= 5.53; (4) setup break -- QQQ CLOSE above 730; (5) the Wed 2026-08-26 pre-NVDA-print deadline arrives. Routine drift between 4.42 and 5.53 is NOT news."
+        "last_checked_utc": "2026-08-24T14:35:00Z",
+        "status": "MONITORING -- SILENT. Mark 4.58 sits inside the numeric no-page band (4.42 to 5.53) and QQQ 704.64 is below the 20d at 709.19, so the dedup rule resolves this arithmetically with no judgment call. Two pages remains the ceiling for this session.",
+        "note_on_the_anchor": "Recorded, not acted on: the 4.42 page level was derived as 'half the 13:48Z peak gain given back', and the 14:05Z run subsequently established that the 13:48Z reading (5.175) was a fast-market dislocation rather than an exitable level. So 4.42 is anchored to a number the desk has since disowned. Re-anchored to the settled 14:20Z reading of 4.83 the equivalent level would be ~4.26. The level is deliberately LEFT ALONE: the stale anchor is the STRICTER of the two (it pages earlier), and a run that quietly loosens its own notification threshold is drifting toward silence, which is the worse failure. Flagged here so the next instance knows the number is conservative by accident rather than by design.",
+        "dedup_rule": "UNCHANGED. PAGE Ryan with a revised BANK recommendation the moment ANY of these is true, and stay silent otherwise: (1) mark <= 4.42; (2) QQQ trades back above its 20-day MA at 709.19, killing the level-break premise; (3) the ratchet ARMS at mark >= 5.53; (4) setup break -- QQQ CLOSE above 730; (5) the Wed 2026-08-26 pre-NVDA-print deadline arrives. Routine drift between 4.42 and 5.53 is NOT news."
       },
       "entry_premium_blended": 3.686667,
       "total_cost_basis_usd": 1106.0,
@@ -269,29 +269,29 @@
       "filled_utc": "2026-08-18T17:43:58Z",
       "setup_invalidation": "RECONSTRUCTED BY THE 17:45Z RUN -- same caveat as the QQQ position: no written thesis, invalidation, or exit plan was committed by the placing run, so this is an INHERITANCE PLAN and not the entry's stated one. Bearish RBRK. Invalidate on RBRK closing above ~105 (it is 102.30 now and printing relative STRENGTH, so this is close). Break-even at expiry is RBRK 86.15, i.e. it needs a ~15.8% decline in 31 days.",
       "_current_state": {
-        "last_checked_utc": "2026-08-24T14:20:00Z",
-        "quote_basis": "LIVE, option updated_at 2026-08-24T14:17:26Z, equity 14:15:45Z. Taken TWICE 97 seconds apart (14:15:49Z and 14:17:26Z) and identical on bid/ask both times -- deliberate, because this run is paging Ryan off these numbers and the chain trades zero volume.",
+        "last_checked_utc": "2026-08-24T14:35:00Z",
+        "quote_basis": "LIVE, option updated_at 2026-08-24T14:23:03Z, equity 14:22:53Z.",
         "mark": 4.8,
         "bid": 4.4,
         "ask": 5.2,
         "spread_pct_of_mid": 16.67,
-        "basis_used": "entry_premium_blended 4.10 (1 agentic lot @ 3.90 2026-08-18 + 1 Ryan lot @ 4.30 2026-08-21, placed_agent='user'), confirmed against broker average_price 410.00 this run.",
+        "basis_used": "entry_premium_blended 4.10 (1 agentic lot @ 3.90 2026-08-18 + 1 Ryan lot @ 4.30 2026-08-21, placed_agent='user'), re-confirmed against broker average_price 410.00 this run.",
         "pnl_usd_at_mark": 140.0,
         "pnl_pct_at_mark": 17.07,
         "net_if_exited_at_bid_usd": 60.0,
         "net_pct_at_bid": 7.32,
         "dte": 25,
-        "delta_per_contract": -0.310894,
-        "position_delta": -0.622,
-        "iv": 0.829473,
-        "theta_per_day_usd": 29.1,
+        "delta_per_contract": -0.305341,
+        "position_delta": -0.611,
+        "iv": 0.844821,
+        "theta_per_day_usd": 29.56,
         "open_interest": 77,
         "volume_today": 0,
-        "underlying_spot": 97.35,
-        "underlying_day_pct": -2.74,
-        "ladder_check": "Nothing fires. 21-45 DTE tier: -50% re-check 2.05, hard backstop 1.44. Mark 4.80. Setup break ~105, spot 97.35.",
-        "status": "THE EXIT WINDOW HAS OPENED -- this is the substantive change of the run and it REVERSES the stalled reading three prior runs recorded. Two inputs moved together in the same direction: (1) THE SPREAD HALVED, 36.36% -> 16.67% of mid, as the bid rose 3.60 -> 4.40 while the ask held 5.20; (2) IV IS NOW BIDDING UP INTO THE PRINT, 0.7700 (13:47Z) -> 0.7985 (14:02Z) -> 0.8198 (14:15Z) -> 0.8295 (14:17Z), which is exactly the condition the INHERITED PLAN named as its trigger to sell premium before the crush. The honest exit number therefore flips SIGN: -$100 net at the bid an hour ago, +$60 now, and +$94 to +$172 on the broker's own worked-limit band. Underlying confirms too: RBRK -2.74% to 97.35, the largest single-name decline on the panel. What has NOT changed: the thesis still needs RBRK at 86.15 by 09-18 (a further -11.5%), earnings is NOT the thesis, and carrying to the Wednesday deadline costs ~$58 of theta -- roughly the entire current bid-side gain.",
-        "rh_fill_rate_sell_band": "high_fill_rate_sell 4.569 / low_fill_rate_sell 4.957 -- the broker's own estimate that a worked limit fills between those, i.e. +$94 to +$172 net rather than the +$60 the raw bid implies."
+        "underlying_spot": 98.08,
+        "underlying_day_pct": -2.01,
+        "ladder_check": "Nothing fires. 21-45 DTE tier: -50% re-check 2.05, hard backstop 1.44. Mark 4.80. Setup break ~105, spot 98.08.",
+        "status": "EXIT WINDOW STILL OPEN, AND THE VOL HALF OF IT STRENGTHENED. The quoted market is UNCHANGED from the 14:20Z page -- bid 4.40 / ask 5.20, 16.67% of mid, still zero contracts traded today -- so the exact offer Ryan was given at 14:20Z is still on the screen, which is the fact that matters most for a page he is still answering. IV continued to bid up into the 08-27 pm print: 0.7700 -> 0.7985 -> 0.8198 -> 0.8295 -> 0.8448 now, a fifth consecutive higher reading. The one input that eased: RBRK bounced off the 97.35 session low to 98.08 (-2.01%, from -2.74%), so delta gave a little back while vega added -- the two offset and the mark did not move. Broker worked-limit band 4.572 / 4.960 = +$94 to +$172 net.",
+        "rh_fill_rate_sell_band": "high_fill_rate_sell 4.572 / low_fill_rate_sell 4.960 -- unchanged from the 14:20Z page, i.e. +$94 to +$172 net on a worked limit rather than the +$60 the raw bid implies."
       },
       "_inherited_deadlines": {
         "pre_earnings_decision": "HARD: decide by the close of 2026-08-26 (Wed), the session before the 2026-08-27 pm print. EARNINGS DATE NOW VERIFIED (18:20Z sibling run, get_earnings_calendar: report date 2026-08-27, timing pm, verified=true). The date had been asserted once on 2026-08-18 and quoted by ~20 runs without ever being checked; it CONFIRMS, so this deadline stands exactly as written and is now sourced rather than inherited. Under the standing 'prefer closing before earnings' preference the position is closed or explicitly re-justified in writing before that print. This is the binding deadline on the position.",
@@ -310,11 +310,10 @@
         "BINDING_DEADLINE": "PRE-EARNINGS decision by the CLOSE of WED 2026-08-26, ahead of the broker-verified 2026-08-27 pm print. This is the real gate on this position and it is now four sessions away. Under the standing 'close before earnings unless earnings IS the thesis' preference the position is closed or explicitly re-justified in writing. Ryan's add did NOT change this deadline -- if anything it raises the stakes, since $820 rather than $390 now rides on that decision."
       },
       "_notify_state": {
-        "last_checked_utc": "2026-08-24T14:20:00Z",
-        "status": "PAGED ONCE at ~14:20Z. Awaiting Ryan. This is a RECOMMENDATION, not an action: the position is MIXED-ownership (1 of 2 lots is his, placed_agent='user') and no mechanical trigger fires, so under the 2026-08-18 monitoring mandate it is recommend-and-ask.",
-        "recommendation_sent": "CLOSE the 2 contracts before the 2026-08-27 pm print, working a sell limit at/near the 4.80 mid and stepping toward 4.60 if it will not fill. Expected net +$94 to +$172 on the broker's fill-rate band (+$60 at the raw bid, +$140 at mid). Rationale given: the chain's spread halved and IV is bidding up into the print -- the exact pair of conditions the inherited plan wrote down as its cue to sell premium before the crush -- while carrying to Wednesday burns ~$58 of theta against a $60 bid-side gain, and this chain's bid is unreliable enough (OI 77, zero volume today) that a good bid is an event to use, not a level to assume will still be there.",
-        "deviation_from_the_prior_written_plan_argued_explicitly": "The 14:05Z run wrote: 'MONITORING -- SILENT. No trigger fired or un-fired and the standing recommendation (resolve by the Wed 2026-08-26 close, pre-print) is unchanged... The Wednesday deadline is the next scheduled page.' This run deviates on TIMING and says why rather than ignoring it. That plan rested on a measured premise the same run stated: 'at a 36.36% spread on OI 77 with ZERO contracts traded today the +$60 at mark is uncollectable fiction and the honest exit is -$100 net at the bid... the decision rests entirely on whether crossing a 36% spread costs less than carrying the print, and on those numbers it very likely does not.' BOTH numbers in that sentence have since changed -- the spread is 16.67%, not 36.36%, and the exit is +$60, not -$100. A plan whose stated inputs have inverted is not a plan being overridden; it is a plan whose own trigger has fired. The DEADLINE is untouched: Wednesday's close remains the hard decision point if Ryan does not act sooner.",
-        "dedup_rule": "SILENT from here unless ANY of: (1) net-at-bid falls back below $0, i.e. bid <= 4.10 -- the window closed again and he should know the option he was offered has lapsed; (2) net-at-bid reaches +$250, i.e. bid >= 5.35 -- materially better than the number he was quoted; (3) RBRK CLOSES above 105 -- setup break; (4) the Wed 2026-08-26 close arrives with no answer -- the hard deadline page. Drift of the bid between 4.10 and 5.35 is NOT news and must not be re-paged."
+        "last_checked_utc": "2026-08-24T14:35:00Z",
+        "status": "PAGED ONCE at ~14:20Z. STILL AWAITING RYAN -- silent this run. The dedup rule resolves cleanly: bid 4.40 sits inside the 4.10-to-5.35 no-page band, RBRK 98.08 is nowhere near the 105 setup break, and the Wednesday deadline has not arrived. Re-sending an unchanged quote would be the notification fatigue the mandate exists to prevent.",
+        "recommendation_sent": "UNCHANGED and still live: CLOSE the 2 contracts before the 2026-08-27 pm print, working a sell limit at/near the 4.80 mid and stepping toward 4.60 if it will not fill. Expected net +$94 to +$172 on the broker's fill-rate band (+$60 at the raw bid, +$140 at mid). This is a RECOMMENDATION, not an action: the position is MIXED-ownership (1 of 2 lots is Ryan's, placed_agent='user') and no mechanical trigger fires, so under the 2026-08-18 monitoring mandate it is recommend-and-ask.",
+        "dedup_rule": "UNCHANGED. SILENT unless ANY of: (1) net-at-bid falls back below $0, i.e. bid <= 4.10 -- the window closed and he should know the offer lapsed; (2) net-at-bid reaches +$250, i.e. bid >= 5.35 -- materially better than the number he was quoted; (3) RBRK CLOSES above 105 -- setup break; (4) the Wed 2026-08-26 close arrives with no answer -- the hard deadline page."
       },
       "entry_premium_blended": 4.1,
       "total_cost_basis_usd": 820.0,
@@ -589,12 +588,10 @@
     "note": "daily_options_report.md written by the 19:15Z run at 14:20 CT -- the FIRST run at or past the 14:15 CT (19:15Z) window CLAUDE.md set on 2026-08-21T16:35Z, and written in-session rather than deferred. Note the threshold's premise has since changed: the 14:15 move was calibrated for the hourly-only cadence, and the sub-hourly trigger was repaired at 17:05Z today, so 19:25Z/19:55Z runs will now also land pre-bell. Writing at 19:20Z is still correct under CLAUDE.md and guarantees delivery; this marker is what stops a sibling from duplicating it. Contents: live 19:16Z marks on all three contracts, the -$237.50 per-lot MTM day (vs the WRONG -$429.50 naive close-to-mark figure, which falsely resembles a -$400 cap breach), the ~$236 unhedged three-day weekend carry, ten skipped candidate groups incl. the INTC secondary-offering trap, and the QQQ 21-DTE decision for Ryan in Section 5 ahead of Monday's open at 20 DTE. DO NOT REWRITE unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing) -- every master push touching this file re-notifies Ryan."
   },
   "_last_reconciliation": {
-    "run_utc": "2026-08-24T14:20:00Z",
-    "method": "get_accounts + get_option_positions(nonzero) + get_portfolio + get_realized_pnl, all live this run.",
-    "result": "CLEAN, NO DRIFT. Broker: SPY 2026-11-20 700P qty 1 @ 749.00; QQQ 2026-09-11 680P qty 3 @ 368.6667; RBRK 2026-09-18 90P qty 2 @ 410.00. Ledger agrees on all three; every pending_* field 0.0000.",
-    "invariants": "PASS -- sum(lots.qty)==contracts and sum(lots.cost)==total_cost_basis_usd==max_loss on both multi-lot positions (QQQ 3/$1,106.00, RBRK 2/$820.00).",
-    "capital": "get_portfolio total $4,349.93 = equity $450.10 / options $3,088.00 / cash $811.83. unleveraged_buying_power $811.83 EQUALS buying_power -- no margin extended. Budget $811.83; deployable $561.83 after the $250 reserve. Options value rose $2,789 -> $3,088 since 13:38Z purely on marks, no trades.",
-    "account": "718757339 -- limited_margin, option_level_3, agentic_allowed=true, confirmed live."
+    "run_utc": "2026-08-24T14:35:00Z",
+    "result": "ZERO DRIFT. get_option_positions(nonzero) returns exactly THREE contracts matching holdings.json one-for-one: SPY 2026-11-20 700P qty 1 @ 749.00, QQQ 2026-09-11 680P qty 3 @ 368.6667, RBRK 2026-09-18 90P qty 2 @ 410.00. Every pending_* field 0.0000 -- no assignment, exercise, expiration or unauthorized fill. Lot invariants asserted programmatically (sum(qty)==contracts, sum(cost)==total_cost_basis_usd) and PASS on both multi-lot positions.",
+    "capital": "get_portfolio total $4,279.38 = equity $449.55 / options $3,018.00 / cash $811.83. unleveraged_buying_power $811.83 EQUALS buying_power, so NO margin is extended. FOUR LAWS #4 budget = $811.83; less the $250 unencumbered reserve, deployable = $561.83.",
+    "slots": "Open: 2 core + 1 exempt hedge. Free: 1 of 3 core, 2 of 2 tactical. Entries used 0 of 8 today, 0 of 2 this run."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
