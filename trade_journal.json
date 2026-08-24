@@ -15736,6 +15736,32 @@
         "margin_borrowed": "none -- buying_power == unleveraged_buying_power ($811.83)"
       },
       "monday_handoff": "First run at/after 09:30 ET Monday 2026-08-24 owns: (1) stamp automation_heartbeat.json for the new trading day; (2) rebuild market_brief.json with both track watchlists; (3) reset the loss cap and the 8-entry throttle; (4) re-quote at least ~5 min after 13:30Z before pricing any decision -- never off the opening auction print; (5) carry the RBRK pre-earnings decision to Ryan with live mark, spread as % of mid, net-of-exit P/L, and the concrete alternatives. Headroom is $561.83 after the $250 reserve, which fits ONE tactical scalp ($300-600) and nothing more until a position closes -- say that plainly rather than implying five slots are reachable."
+    },
+    {
+      "run_utc": "2026-08-24T03:19:00Z",
+      "run_local_et": "23:19 ET Sunday 2026-08-23",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~03:19Z. Native hourly backstop only -- cron-job.org fires Mon-Fri, so hourly-only weekend cadence is EXPECTED, not the 08-18 trigger fault recurring.",
+      "regime": "N/A -- market closed (Sunday night ET). No regime re-derivation. Market reopens 2026-08-24T13:30Z, ~10h11m out.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. Fifty-sixth post-close run of the 2026-08-21 trading day, fifty-third of the weekend. POST-CLOSE RUN PROTOCOL applied in full: journal tail read, broker reconciliation run, lot-count invariants ASSERTED (not eyeballed), nothing else re-derived. No daily artifact rolled -- between the Friday bell and Monday's 13:30Z open the trading day is still 2026-08-21, so the heartbeat is NOT stamped, market_brief.json is NOT rebuilt, and the loss cap / entry throttle do NOT reset.",
+      "reconciliation": {
+        "account": "718757339 -- limited_margin, option_level_3, agentic_allowed=true (re-confirmed via get_accounts this run).",
+        "option_positions": "ZERO DRIFT. SPY 2026-11-20 700P x1 @ 749.00 (hedge), QQQ 2026-09-11 680P x3 @ 368.6667 blended, RBRK 2026-09-18 90P x2 @ 410.00 blended -- broker quantity x average_price reproduces the ledger basis exactly on all three.",
+        "invariants": "PASS on every options position: sum(lot qty)==contracts (QQQ 3==3, RBRK 2==2); sum(lot cost)==total_cost_basis_usd==max_loss (QQQ 405+356+345==1106, RBRK 390+430==820); basis/contracts/100==entry_premium_blended (QQQ 3.686667, RBRK 4.10). The four-run repair chain that followed Ryan's third QQQ lot stays closed.",
+        "portfolio": "total $3,829.51 = equity $443.68 + options $2,574.00 + cash $811.83. buying_power == unleveraged_buying_power == $811.83, so NO margin extended -- the no-borrowing law holds with $811.83 unencumbered, above the $250 reserve. Account equity is well clear of the $2,000 margin-equity minimum.",
+        "unsettled": "unsettled_funds $732.30 -- expected residue of Ryan's own 08-21 sale, not drift, and non-binding on a limited_margin account.",
+        "pending": "no pending buy/sell/exercise/assignment/expiration quantities on any leg; no option orders since the Friday bell."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P (hedge, user-authorized)": "HOLD. Insurance -- EXEMPT from premium backstops by standing rule; its decision point is the ~21-DTE roll/close WITH Ryan, far out at 88 DTE. No weekend action possible or wanted.",
+        "QQQ 2026-09-11 680P (core, MIXED ownership, ask-first)": "HOLD, no action available. Governance CHANGES at Monday's open per the pre-computed _monday_open block: DTE 21 -> 18 moves it inside the 21-DTE tier, where the -50% cut becomes the standing unconditional rule superseding the -65% backstop. Monday's first post-open run inherits that, and must re-quote >=5 min after 13:30Z before pricing any decision off it.",
+        "RBRK 2026-09-18 90P (core, MIXED ownership, ask-first)": "HOLD. The live clock is the OPEN QUESTION q2: the 2026-08-27 pm earnings print needs a Ryan decision by the 2026-08-26 close. An unattended run cannot answer it (HARD RULE 9) -- it stays recorded and unresolved."
+      },
+      "grades_considered": "NONE -- market closed. No candidate can be graded on a stale Friday tape, and manufacturing a hunt to justify a redundant overnight firing is exactly what the post-close protocol forbids. Both tracks resume at Monday's open.",
+      "why_flat": "Market shut. Every open position is ask-first or hedge-exempt, so no exit was executable even had a trigger fired; no entry is placeable outside regular hours.",
+      "notification": "NONE SENT. Nothing changed, nothing is actionable, and no flag or trigger fired -- an alert here would be pure noise against a book that has been provably static since the Friday bell.",
+      "next_meaningful_run": "2026-08-24T13:30Z Monday open. First post-open run: stamp the heartbeat, rebuild market_brief.json, re-quote all three legs at least ~5 min after 13:30Z, and pick up the QQQ 18-DTE governance change plus the RBRK earnings clock."
     }
   ],
   "updated_utc": "2026-08-23T19:19:00Z"
