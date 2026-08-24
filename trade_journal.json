@@ -15875,6 +15875,38 @@
       "notifications_sent": "NONE. Nothing fired or un-fired; per the monitoring mandate's silence discipline a position quietly working is not news, and both open questions with Ryan were already paged once.",
       "hard_rule_9": "No flag adjudicated, no Ryan turn claimed or quoted. This is an unattended scheduled run and structurally cannot supply one.",
       "next_run_expectation": "Cadence should return to ~:25/:55 plus the hourly backstop once the cron-job.org CT window opens at 8:25 CT (13:25Z). The first run at/after 13:30Z stamps the heartbeat, rebuilds market_brief.json for the 2026-08-24 trading day, and re-quotes the book at least ~5 minutes after the open before pricing any decision -- never off the opening auction print."
+    },
+    {
+      "run_utc": "2026-08-24T09:19:00Z",
+      "run_local_et": "05:19 ET Monday 2026-08-24",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~09:19Z. Native hourly backstop only -- the cron-job.org window (8:25-14:55 CT) does not cover the overnight, so hourly-only cadence here is EXPECTED and is NOT a recurrence of the 2026-08-18 token outage (resolved 2026-08-21T17:05Z).",
+      "regime": "N/A -- market closed (05:19 ET Monday, ~4h11m before the 13:30Z open). No regime re-derivation; the last live read stands from the 2026-08-21 close.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. Sixty-second post-close run of the 2026-08-21 trading day, fifty-ninth since the Friday bell. POST-CLOSE RUN PROTOCOL applied in full: journal tail read (runs #58-#61 already completed final reconciliation, the weekly review, and the pre-computed _monday_open block), broker reconciliation re-run, lot invariants ASSERTED arithmetically, one short entry written, stop. No daily artifact rolled: per the CLAUDE.md trading-day rule the trading day is still 2026-08-21 until the 13:30Z open, so the heartbeat was NOT stamped, market_brief.json was NOT rebuilt, and the -$400 loss cap / entry throttle were NOT reset. The 13:30Z run owns all four.",
+      "reconciliation": {
+        "utc": "2026-08-24T09:19:00Z",
+        "options": "ZERO DRIFT. get_option_positions(nonzero) returns exactly THREE contracts and each matches holdings.json one-for-one: SPY 2026-11-20 700P qty 1 @ 749.00 (agentic, insurance-exempt hedge), QQQ 2026-09-11 680P qty 3 @ 368.6667 (MIXED ownership), RBRK 2026-09-18 90P qty 2 @ 410.00 (MIXED ownership). Every pending_* field 0.0000 -- no overnight assignment, exercise, expiration or unauthorized fill.",
+        "equity": "ZERO DRIFT. PNC 1.825758 sh @ 246.4729 matches the ledger; shares_available_for_sells equals quantity, nothing held.",
+        "portfolio": "total_value $3,829.49 = equity $443.66 / options $2,574.00 / cash $811.83. buying_power $811.83 == unleveraged_buying_power $811.83, so NO margin is being extended and FOUR LAWS #4 is satisfied on the correct field.",
+        "invariants_asserted": "PASS on all three positions, arithmetically not by reading: sum(lots.qty)==contracts, sum(lots.cost_usd)==total_cost_basis_usd==max_loss, and total_cost_basis_usd/contracts/100==entry_premium_blended. QQQ 3 lots -> 3 / $1,106.00 / 3.686667; RBRK 2 lots -> 2 / $820.00 / 4.10; SPY 1 x 749.00. Each also reproduces the broker's quantity x average_price exactly, which is the arbiter.",
+        "ledger_fix_made": "NONE NEEDED.",
+        "one_change_since_04:19Z": "unsettled_funds went $732.30 -> $0.00 on get_accounts. This is the EXPECTED settlement of Ryan's own 2026-08-21 sales (the ACHR 5C close carried settlement_date 2026-08-24, i.e. today). IMMATERIAL to capacity: the account is limited_margin so settlement never gated spending, and buying_power is unchanged at $811.83 across the change. Noted so the next run does not read the delta as a surprise cash movement."
+      },
+      "positions_verdict": {
+        "SPY 2026-11-20 700P": "WORKING AS DESIGNED, SILENT. Authorized defensive hedge, EXEMPT from every premium backstop. DTE 91 -> 88 at Monday's open. Only decision it ever gets is the ~2026-10-30 (~21 DTE) roll/close review WITH Ryan. No mechanical trigger exists to fire.",
+        "QQQ 2026-09-11 680P": "STALLED, SETUP INTACT, NO TRIGGER, SILENT. Last live mark 3.38 (2026-08-21T19:46Z), -$92 / -8.32% on the blended 3.6867 basis. GOVERNANCE CHANGES AT MONDAY'S OPEN, per the _monday_open block: DTE 21 -> 18 moves it inside the 21-DTE tier, where the -50% cut (1.8433) becomes the standing unconditional rule and is one of the named monitoring-mandate EXCEPTIONS that executes WITHOUT waiting for Ryan. Friday's 3.38 is ~45% above that cut, so nothing is close to firing. QUANTITY CAP STANDS AND IS BINDING: 1 agentic lot + 2 Ryan lots, so any unasked mechanical exit is capped at quantity 1.",
+        "RBRK 2026-09-18 90P": "STALLED, LEANING WRONG, NO TRIGGER, SILENT. DTE 28 -> 25. Underlying closed its fifth straight up session at 99.74 (+2.28%), now only ~5.3% below the written ~105 invalidation. IV 0.8065 and rising into the 2026-08-27 pm print. BINDING GATE UNCHANGED: the pre-earnings close/roll decision is due by the close of Wed 2026-08-26 -- two sessions of runway. The '+$40 at mark' remains uncollectable at an 18.6%-of-mid spread; the honest number is -$40 net at the bid.",
+        "_no_action_reason": "Market closed. No exit is placeable, no quote is actionable, and the monitoring mandate is explicit that a position quietly working is not news -- notifying on an unchanged state at hourly cadence is what destroys the mandate's purpose."
+      },
+      "grades_considered": {
+        "tactical": "NONE SCREENED. A tactical scalp requires an intraday level breaking NOW with the index tape agreeing; there is no tape at 05:19 ET. Screening one here would price it off stale Friday closes or thin overnight prints, which is exactly the artifact CLAUDE.md forbids.",
+        "core": "NONE SCREENED. Same reason. The _monday_open block already carries the levels the 13:30Z run needs (QQQ pinned at its falling 50d 713.05 with the OpEx gamma pin now rolled off; NVDA 215.05 red into its 2026-08-26 pm print as the largest QQQ weight), so re-deriving them from closed-market data would add cost and no information.",
+        "capacity_note": "Even a genuine A+ setup would be tightly bounded: unleveraged_buying_power $811.83 minus the $250 unencumbered reserve leaves ~$562 of true headroom, which fits a tactical scalp ($300-600) but not a typical core swing ($500-1,000). Slots: 2 of 3 core used (hedge excluded), 0 of 2 tactical. Bearish-tech theme sits at 2 of 3."
+      },
+      "iv_logged": "NO ROW WRITTEN. iv_history.json takes one row per name EVALUATED, and no name was evaluated -- ATM IV off a closed book would be a stale or auction-artifact reading, and the file's integrity depends on only carrying numbers computed from live quotes.",
+      "flags": "NONE OPENED, NONE CLEARED. No HARD RULE 9 adjudication of any kind: no Ryan turn is claimed, quoted or implied by this run, and no approval was manufactured. _open_questions_for_ryan (incl. q3, which basis governs a mechanical QQQ cut) is left exactly as inherited for a live session to answer.",
+      "next_run_owns": "The first run at/after 2026-08-24T13:30Z owns: the heartbeat stamp (only valid at/after 09:30 ET), the market_brief.json rebuild, the loss-cap and entry-throttle reset, the QQQ DTE-tier transition into the standing -50% cut, and the re-quote discipline -- do NOT price any decision off the opening auction print; re-quote at least ~5 minutes past 13:30Z before acting or alerting."
     }
   ],
   "updated_utc": "2026-08-24T05:19:00Z"
