@@ -18085,6 +18085,23 @@
         "A concurrent-run collision occurred at 19:20Z/19:25Z on the daily-report duty and was resolved as a union (holdings._union_merge_note_19_25Z has the full accounting). The report was written ONCE. Do not read two journal entries for adjacent minutes as evidence of a duplicated duty."
       ],
       "_collision_protocol_note": "Both runs' entries are retained in run_utc order (19:20Z then 19:25Z) rather than one being dropped. Neither run could see the other's work: each reads the ledger once at start, which is exactly the failure mode the protocol anticipates. Nothing was placed by either run, so the dangerous version of this collision -- two runs independently opening the same entry and doubling the intended premium -- did not arise. The mitigation that prevents it remains mandatory: re-fetch origin/master and re-read holdings.json + trade_journal.json IMMEDIATELY BEFORE any place_option_order, not just at run start."
+    },
+    {
+      "run_utc": "2026-08-24T19:32:00Z",
+      "run_local_et": "15:32 ET Monday 2026-08-24",
+      "trading_day_et": "2026-08-24",
+      "run_type": "live_user_followup_midrun",
+      "_cadence_note": "NOT a scheduler firing. This entry originates from a REAL typed Ryan turn inside an interactive session and MUST NOT be counted in any cadence, health or rate computation -- those count only scheduler-fired run_types.",
+      "event": "RYAN RESOLVED THE TACTICAL BAND CONFLICT AND WIDENED THE SPREAD UNIVERSE.",
+      "his_words_verbatim": "So what could we do this works next time widen the band to 300-1000. It can look at any name for spreads.",
+      "changes_made": {
+        "1_tactical_band": "$300-600 -> $300-1,000. He chose the top of the recommended $300-950 range and rounded up. Written into CLAUDE.md at the v4 dual-track block, replacing the standing-recommendation bullet, and into holdings._TACTICAL_BAND_CONFLICT (now status RESOLVED).",
+        "2_spread_sourcing": "Unrestricted by name -- any name may be surveyed for a vertical. Written into CLAUDE.md and holdings._SPREAD_SOURCING_UNRESTRICTED."
+      },
+      "what_was_deliberately_NOT_changed": "Every other tactical gate (delta 0.40-0.60, chains <=3% of mid, DTE-7 floor, +20-40%/-30%, hard time stop flat by next session's close, max 2 open) and the CORE liquidity gate (<=10% of mid, real OI, monthly board at target delta). He widened WHAT THE DESK MAY SPEND and WHICH NAMES IT MAY LOOK AT; he did not lower what a setup must clear. Recording that distinction explicitly so no later run reads the amendment as a general loosening.",
+      "the_risk_flagged_back_to_him": "The v4 STORED ROUTINE PROMPT still carries $300-600 inside THE FOUR LAWS. CLAUDE.md's stricter-of-the-two tie-breaker would resolve back to $300-600 and silently revert his decision on the next scheduled run. His live turn outranks both documents so the amendment governs, but the durable fix is for him to re-paste the routine prompt -- agents cannot edit it. Told him at 19:32Z.",
+      "no_trade_taken": "NO ENTRY on the widened band today. The QQQ trigger that motivated the change had already retreated from 2-of-3 to 1-of-3 by 19:16Z with its volume condition failing, and ~28 minutes remained in the session. Taking a scalp into the bell on a trigger going the wrong way, purely because new headroom existed, is the 'fit the trade to the constraint' error the amendment itself warns against. The band change is for NEXT time, which is exactly how he framed it.",
+      "entries_used": "0 of 2 this run, 0 of 8 today. Unchanged."
     }
   ],
   "updated_utc": "2026-08-24T19:25:00Z"
