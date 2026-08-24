@@ -17766,7 +17766,114 @@
       "duties": "Heartbeat stamped 13:40Z for trading day 2026-08-24 -- not re-stamped. market_brief.json stamped 2026-08-24T13:40:00Z -- current, no rebuild, no shock to justify an intraday refresh. iv_history.json carries today's rows for all eight core names (SPY 0.1300, QQQ 0.2006, NVDA 0.4093, AMD 0.5374, TSM 0.3481, AVGO 0.5149, MSFT 0.2620, TSLA 0.4152) -- duty already discharged, not duplicated. DAILY EOD REPORT: due on the first run at or after 19:15Z per CLAUDE.md's amended threshold; this run is 18:21Z and does NOT qualify. Not written, not deferred to a 'better' slot -- simply not yet due.",
       "process_note": "The measurement this run adds that no prior run had is the CALL-side tactical price on the 09-04 board. Twenty-one runs have now declined, and the temptation on a resolving tape is to find the one expression that fits. Quoting it first -- rather than modelling it -- showed there isn't one on QQQ. That is the fourth-instance lesson from CLAUDE.md applied prospectively for once: measure the vehicle before building the argument around it, not after.",
       "concurrent_run_note": "CONCURRENT-RUN COLLISION, resolved as a UNION per CLAUDE.md. The 18:17Z sibling run landed on master while this 18:21Z run was working, producing a merge conflict in holdings.json and trade_journal.json. Neither run placed anything, so there was no double-entry risk. Both entries are kept in run_utc order; the sibling independently measured the same upward coil resolution ('the afternoon break has failed'), which is cross-validation rather than a conflict. holdings.json took this run's later 18:21Z _current_state / _notify_state; nothing else in the ledger differed."
+    },
+    {
+      "run_utc": "2026-08-24T18:36:00Z",
+      "run_local_et": "14:36 ET Monday 2026-08-24",
+      "trading_day_et": "2026-08-24",
+      "run_type": "market_hours_regular",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org); fired ~18:31Z. CADENCE HONESTY: the payload string is the job's stored label and never identifies which trigger produced the run, so none is asserted. Twenty-second market-hours run of the day.",
+      "regime": "THE ADVANCE EXTENDED AND BROADENED -- AND STILL DID NOT REACH THE WRITTEN TRIGGER. Panel at 18:32:23Z: QQQ 709.150 (-0.60%), SPY 764.780 (-0.12%), NVDA 210.260 (-2.08%), AMD 458.690 (-3.08%), TSM 410.590 (-1.99%), AVGO 361.595 (-1.86%), TSLA 353.410 (-2.60%), MSFT 488.440 (+1.08%). Every panel name except TSLA is better than at 18:19:55Z; NVDA has improved most (+0.22pp) and QQQ +0.13pp. This is the fifth consecutive run on this level and the closest approach yet, so it is measured against the prior instance's OWN written test rather than re-narrated.",
+      "measured_contribution": {
+        "1_the_prior_runs_volume_objection_is_now_largely_ANSWERED": "The 18:21Z run declined the up-leg on one stated ground: 'the volume condition the prior run wrote was NOT met', measuring QQQ's advance at ~19k/minute mean, roughly 14% of the morning selloff's participation. Re-measured across 18:20Z-18:31Z: QQQ 19,707 / 25,736 / 29,921 / 17,576 / 25,645 / 18,424 / 41,277 / 13,956 / 17,919 / 15,676 / 31,739 / 36,279 -- mean ~24.5k, a 29% step up on the prior leg and ~5x the 5,073 coil floor. SPY is the more striking half: 22,655 / 26,606 / 43,025 / 27,043 / 56,662 / 29,544 / 58,600 / 29,944 / 26,089 / 24,986 / 60,532 / 30,912 against a ~15-20k baseline through 17:55-18:12Z -- roughly TRIPLE, with three bars above 55k. NVDA printed 122,926 at 18:30Z, its heaviest minute of the afternoon. Participation returned on the up side, on all three names, sustained twelve minutes.",
+        "2_but_the_LEVEL_still_was_not_reached_and_that_is_the_operative_fact": "The written upside trigger, unchanged since the 17:32Z run, is QQQ > 709.79 / SPY > 765.22 (session highs). QQQ's high this leg was 709.530 at 18:30Z -- 0.26 short. SPY's was 765.110 at 18:30Z -- 0.11 short. Both fell in the SAME minute and both missed. A move that stops 0.1-0.3 points beneath the level it needed on the heaviest bar of its own advance has not fired the trigger; it has been rejected at it.",
+        "3_and_the_most_recent_bar_is_a_give_back_on_real_volume": "18:31Z closes: QQQ 709.060 (off 709.530), SPY 764.760 (off 765.110), NVDA 210.235 (off 210.480) -- all three lower, on 36,279 / 30,912 / 70,654. That is not a light drift off the high; it is participation on the rejection. The honest statement is that the session high was tested with genuine conviction and held, TWICE now (16:20Z and 18:30Z).",
+        "4_what_changed_that_is_worth_inheriting": "Nothing about the trigger. What changed is that the desk now knows the volume test can be met -- so if the level does go, the prior runs' primary objection will already be satisfied and the next instance should not re-litigate it. The remaining question is purely whether price clears 709.79 / 765.22."
+      },
+      "vehicle_prepricing": {
+        "why_this_run_did_it": "Five consecutive runs have watched this level and none has priced the instrument an upside break would actually be expressed in. That has cost nothing so far only because the trigger never fired; if it fires, a run that must discover its vehicle from scratch will miss the move. This run pre-priced it so the next instance can act on a fired trigger immediately. Pricing is a preparation, NOT a decision, and supplies no thesis -- the trade is still gated entirely on the level.",
+        "board": "2026-09-04, 11 DTE (clears the DTE-7 floor with room; the nearest board that does). Quotes 18:34:18Z, ~64 minutes past the open-auction window.",
+        "spy_768C": {
+          "instrument_id": "263ff382-db79-482a-962d-6a4ff7d85245",
+          "bid": 5.24,
+          "ask": 5.27,
+          "mid": 5.255,
+          "spread_pct_of_mid": 0.57,
+          "delta": 0.445,
+          "iv": 0.1199,
+          "theta_per_day_usd": -31.98,
+          "oi": 732,
+          "volume": 426,
+          "cost_usd": 526.0,
+          "verdict": "THE ONLY FULLY COMPLIANT TACTICAL VEHICLE ON THE BOARD. $526 sits inside the $300-600 band, delta 0.445 inside the 0.40-0.60 window, spread 0.57% far inside the <=3% tactical gate, OI 732 with 426 traded today."
+        },
+        "spy_766C": {
+          "instrument_id": "2845bcd7-4739-47f1-bd8d-7aabd3bb9e09",
+          "mid": 6.335,
+          "spread_pct_of_mid": 0.47,
+          "delta": 0.495,
+          "cost_usd": 634.0,
+          "verdict": "EXCLUDED -- $634 breaches the $300-600 tactical ceiling by 5.7%. The band sits inside THE FOUR LAWS; a 6% overage is still an overage and no run may size into it or re-label the trade CORE to escape it (CORE needs DTE 21-45 and this board is 11)."
+        },
+        "spy_764C": {
+          "instrument_id": "41ad1ec5-66a5-46ba-a87f-03e6d0532668",
+          "mid": 7.52,
+          "spread_pct_of_mid": 1.86,
+          "delta": 0.543,
+          "cost_usd": 752.0,
+          "verdict": "EXCLUDED -- $752, 25% over the ceiling. Note it is also the WIDEST of the three at 1.86% of mid despite being nearest the money."
+        },
+        "qqq_712C": {
+          "instrument_id": "400fc61b-e0dd-46f8-89a4-a5bfa36b04fd",
+          "mid": 8.48,
+          "spread_pct_of_mid": 0.94,
+          "delta": 0.473,
+          "iv": 0.1913,
+          "cost_usd": 848.0,
+          "verdict": "EXCLUDED -- $848, 41% over the ceiling."
+        },
+        "this_INDEPENDENTLY_CONFIRMS_the_1703Z_finding_from_the_other_side": "The 17:03Z run established that the v4 TACTICAL track is SPY-only at this account size, measuring it entirely on PUTS (SPY 762P $535.50 fits; QQQ 705P $788, QQQ 708P $911.50, NVDA 210P $740 all breach). This run reproduces the identical result on CALLS: SPY 768C $526 fits, QQQ 712C $848 breaches by 41%. The constraint is structural and direction-independent -- it is QQQ's ~19% IV against SPY's ~12% on a comparable-delta strike, not a quirk of one side of the book. Ryan's standing recommendation to widen the tactical band to ~$300-950 now has evidence from both directions.",
+        "AND_THE_VEHICLE_MISMATCH_OBJECTION_INVERTS_ON_THIS_SIDE_which_is_worth_stating_plainly": "The 17:03Z run correctly warned that buying the affordable SPY put on a Nasdaq-specific de-rating was fitting the trade to the constraint -- SPY was cheap BECAUSE it was the leg holding up, i.e. the wrong leg to be short. On the UPSIDE that objection largely reverses. SPY at 764.78 is only -0.12% on the day and 0.11 from its session high; QQQ at 709.15 is -0.60% and still 4.29 points under its 713.44 prior close. A session-high reclaim in SPY is simultaneously a reclaim of FLAT-ON-THE-DAY, which is a materially more meaningful level than QQQ's. So here the affordable vehicle is also the defensible one -- SPY would be the leader, not the laggard. That is a reason the trade is coherent IF it triggers; it is emphatically not a reason to pre-empt the trigger."
+      },
+      "pre_written_plan_IF_the_trigger_fires": {
+        "status": "NOT ARMED, NOT PLACED. Conditional plan only, for the next instance to execute or discard on its own reading.",
+        "entry_condition": "SPY trades and HOLDS above 765.22 (session high) for two consecutive 1-minute closes, with QQQ confirming above 709.79 and NVDA not diverging. Both index legs, not one.",
+        "vehicle": "SPY 2026-09-04 768C, 1 contract, ~$526 debit, limit at or near mid.",
+        "profit_target": "+20-40% premium (tactical band), i.e. ~$631-736 mark.",
+        "invalidation_on_the_UNDERLYING": "SPY closes back below 764.00 (the top of the 18:13-18:20Z acceptance shelf the advance was built on) -- exit regardless of premium.",
+        "premium_stop": "-30% (~$368).",
+        "time_stop": "Flat by the close of the NEXT session (2026-08-25), mechanically, no exceptions.",
+        "PRACTICAL_ENTRY_CUTOFF_new_guidance_no_prior_run_has_written": "Honor this trigger only up to ~19:30Z. After that there are under 30 minutes of runway, which is not enough to bank a +20-40% intraday move, so the trade stops being a scalp and becomes an overnight hold on a squeeze thesis -- which is not what the TACTICAL track exists for and is not what its time stop assumes. If the level clears after 19:30Z, do NOT enter; carry the setup to tomorrow's open and re-derive the level from tomorrow's tape rather than inheriting today's."
+      },
+      "position_verdicts": [
+        {
+          "contract": "SPY 2026-11-20 700P (authorized defensive hedge, placed_agent=agentic, hedge track)",
+          "verdict": "WORKING AS INSURANCE -- hold, no action, no notification.",
+          "detail": "Mark 6.49 (bid 6.48 / ask 6.50, 0.31% of mid), quote 18:34:18Z. P/L -$100.00 / -13.35% on the $749.00 basis; -$4.00 on the day against the 6.53 official close. DTE 88, delta -0.155, theta -$9.13/day, OI 25,846, 1,024 traded. EXEMPT from all premium backstops per the standing hedge exemption -- the next decision point is the ~21-DTE roll/close review with Ryan around 2026-10-30. The mark drifting down as the index bounces is the hedge doing exactly what insurance does on a green half-hour; it is not a signal."
+        }
+      ],
+      "grades_considered": [
+        {
+          "candidate": "SPY 2026-09-04 768C (upside session-high reclaim)",
+          "track": "tactical",
+          "grade": "B+",
+          "decision": "PASS this run -- wait for the trigger.",
+          "reason": "Everything clears except the one element that cannot be substituted for: the trigger is not firing. Liquidity superb (0.57% of mid), delta 0.445 in-window, size $526 in-band, IV ~12% and today's logged SPY iv_rv_ratio 1.038 is roughly fair, exit plan writable in full. But SPY's high was 765.11 against the 765.22 required and the last bar gave it back on 30,912. The grading rubric says 'A = one element imperfect; take it small or wait for the trigger' -- here the missing element IS the trigger, so waiting is the whole of the answer. Entering now would be paying for a level that has been rejected twice today."
+        },
+        {
+          "candidate": "QQQ 2026-09-04 712C",
+          "track": "tactical",
+          "grade": "C",
+          "decision": "PASS -- structurally excluded.",
+          "reason": "$848 against a $600 ceiling. Untradeable on this track at this account size regardless of thesis."
+        },
+        {
+          "candidate": "Any CORE swing entry",
+          "track": "core",
+          "grade": "C",
+          "decision": "PASS.",
+          "reason": "No CORE thesis has acquired a confirming level today. The session is an intraday range fight inside a red day; the semi de-rating (NVDA -2.08%, AMD -3.08%, TSM -1.99%, AVGO -1.86%) is the only real directional development and it is four sessions old and already well travelled, which the trend-maturity gate reads as late-stage without a fresh catalyst. Nothing worth a 21-45 DTE commitment. Also note spreads -- CORE's preferred vehicle -- remain UNEXECUTABLE on this account per the 2026-08-24 measurement, so any CORE entry would face the higher single-leg bar."
+        }
+      ],
+      "why_flat": "The written upside trigger did not fire. QQQ reached 709.53 against 709.79 and SPY 765.11 against 765.22, both on the same 18:30Z bar, and both were given back on the next. The volume objection that killed the prior leg is now answered, so the honest position is that ONE condition remains outstanding and it is the price condition. Twenty-two runs flat today is exactly the circumstance in which a desk talks itself into a marginal entry; the level is 0.11 away and it is still 0.11 away.",
+      "governance": {
+        "four_laws": "Compliant. No position opened. Deployment $749 (hedge only) against unleveraged_buying_power $3,023.56 -- no margin borrowed, $2,773.56 unencumbered, far above the $250 reserve. Realized options P/L today is a +$286.00 CREDIT (broker-sourced), so the -$400 cap has full headroom and gates nothing.",
+        "structural_limits": "0 of 5 agentic slots used (hedge excluded): 0/2 tactical, 0/3 core. 0 of 2 entries used this run, 0 of 8 today.",
+        "hard_rule_9": "No Ryan turn is claimed, quoted, or implied. No flag cleared. Unattended run.",
+        "duties": "Heartbeat stamped 13:40:00Z for 2026-08-24 -- not re-stamped. market_brief.json stamped 2026-08-24 -- not rebuilt, no shock. iv_history.json already carries today's rows for all eight core names; the 09-04 board priced here is 11 DTE and is NOT the IV method's ~30-DTE board, so per the standing rule it was deliberately NOT written back as an IV reading. Daily report not due -- threshold is the first run at/after 19:15Z and this run fired at 18:31Z; _eod_report_written still shows 2026-08-21, so the 19:15Z or later run owns it today.",
+        "concurrent_run_check": "No entry placed, so the pre-place re-fetch gate was not reached. HEAD was level with origin/master at run start (0 ahead / 0 behind)."
+      }
     }
   ],
-  "updated_utc": "2026-08-24T14:50:00Z"
+  "updated_utc": "2026-08-24T18:36:00Z"
 }
