@@ -15621,6 +15621,39 @@
       "monday_watchpoints": "Pre-computed in holdings.json._monday_open and deliberately NOT re-derived here. Two items bind at the open: (1) QQQ 2026-09-11 680P goes DTE 21 -> 18, which CHANGES ITS GOVERNANCE -- inside 21 DTE the -50% cut becomes the standing unconditional rule and is one of the named monitoring-mandate exceptions that EXECUTES WITHOUT WAITING for Ryan; the corrected three-lot levels are blended basis 3.6867, cut 1.8433 (a ~45% further premium decline from Friday's 3.38 mark), and the QUANTITY CAP binds -- only the 1 agentic lot may be closed unasked, the 2 lots Ryan placed himself are ask-first. (2) RBRK earnings print 2026-08-27 pm means the pre-earnings close/roll decision is due by the Wed 2026-08-26 bell.",
       "notification": "NONE SENT, DELIBERATELY. Nothing fired, nothing drifted, nothing changed since the Friday bell. Under the monitoring mandate's silence clause a position quietly working is not news, and a weekend of hourly 'still nothing' pings is exactly what destroys the mandate's usefulness.",
       "next_live_session": "2026-08-24T13:30Z."
+    },
+    {
+      "run_utc": "2026-08-24T00:19:00Z",
+      "run_local_et": "20:19 ET Sunday 2026-08-23",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~00:19Z. Native hourly backstop only -- cron-job.org fires Mon-Fri, so the hourly-only weekend cadence is EXPECTED and is not the 08-18 trigger fault recurring.",
+      "regime": "N/A -- market closed (Sunday evening ET). No regime re-derivation; the last live read stands from the 2026-08-21 close.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. Fifty-third post-close run of the 2026-08-21 trading day, fiftieth of the weekend. Market shut until 2026-08-24T13:30Z (Monday open, ~13h11m away). POST-CLOSE RUN PROTOCOL applied and kept short: journal tail read, broker reconciliation run, lot-count invariant asserted, logged, stopped. No closed-market quote polling, no regime re-derivation, no daily-artifact roll, no invented research task.",
+      "utc_rollover_note": "This run crossed midnight UTC (00:19Z on 2026-08-24) but it is Sunday 20:19 ET. Per CLAUDE.md, 'today' is the US TRADING day: the next trading day has not started, so the heartbeat was NOT stamped, market_brief.json was NOT rebuilt, and neither the -$400 daily realized loss cap nor the 8-entry throttle was reset. The first run at/after 09:30 ET Monday owns all three.",
+      "reconciliation": "ZERO POSITION DRIFT. Broker get_option_positions: SPY 2026-11-20 700P x1 @ 7.4900 (opened 08-06T14:21Z); QQQ 2026-09-11 680P x3 @ 3.686667 (opened 08-18T17:44Z); RBRK 2026-09-18 90P x2 @ 4.1000 (opened 08-18T17:43Z). All three match holdings.json exactly. No overnight assignment, expiration, or unauthorized fill. No _flag anywhere in the ledger.",
+      "lot_count_invariant": "ASSERTED PASS on every options position, per the 2026-08-23 rule. QQQ: sum(lots.qty)=3==contracts=3; sum(lots.cost_usd)=1106.00==total_cost_basis_usd==max_loss; 1106.00/3/100=3.686667==entry_premium_blended, and that equals the broker's average_price to six places. RBRK: 2==2; 820.00==820.00==820.00; 820.00/2/100=4.10==entry_premium_blended==broker average_price. SPY hedge: 1 contract, max_loss 749.00 == 1 x 7.49 x 100. Arithmetic run, not eyeballed.",
+      "positions_verdict": {
+        "SPY 2026-11-20 700P": "HOLD -- authorized defensive hedge, EXEMPT from all premium backstops. 88 DTE. Roll/close decision belongs to Ryan at ~21 DTE (~2026-10-30). Nothing due.",
+        "QQQ 2026-09-11 680P": "HOLD -- ask-first. MIXED ownership (1 agentic lot, 2 Ryan lots), so the whole position is under the MONITORING MANDATE: recommend, never auto-close. Only the unconditional hard backstops execute without waiting. 18 DTE at Monday's open, i.e. already inside the 21-DTE tier, so the standing -50% cut governs. No level can fire while the market is shut.",
+        "RBRK 2026-09-18 90P": "HOLD -- ask-first. MIXED ownership (1 agentic, 1 Ryan). 25 DTE at Monday's open; crosses into the 21-DTE tier around 2026-08-28, at which point the exit ladder needs recomputing from the -65% backstop to the -50% cut."
+      },
+      "grades_considered": "NONE. Hunting is not possible with the market closed -- no live chain, no intraday level to trigger on, and any quote pulled now is a stale Friday-close print that no run could act on. Grading candidates off dead quotes would be manufacturing work to justify a firing, which the POST-CLOSE RUN PROTOCOL explicitly forbids. Both tracks resume at Monday's open.",
+      "sleeve_state": {
+        "premium_at_risk_total_usd": 2675.0,
+        "premium_at_risk_agentic_only_usd": 1544.0,
+        "hedge_usd": 749.0,
+        "buying_power": 811.83,
+        "unleveraged_buying_power": 811.83,
+        "margin_extended": "NONE -- buying_power equals unleveraged_buying_power exactly, so the broker is extending no borrowed funds. Deployment budget is $811.83 minus the $250 unencumbered reserve = ~$562 of genuine headroom.",
+        "total_value": 3829.51,
+        "margin_equity_floor_check": "Account equity $3,829.51 vs the $2,000 minimum margin equity -- clear, but only ~1.9x. Worth watching, not acting on.",
+        "open_positions": "3 of 5 (hedge excluded from the cap, so 2 of 5 count: QQQ core, RBRK core). Tactical track: 0 of 2 open.",
+        "realized_pnl_today_usd": 0.0,
+        "entries_used_today": "0 of 8 (2026-08-21 trading day; resets Monday)"
+      },
+      "monday_watchpoints": "First run at/after 13:30Z owns: stamp automation_heartbeat.json, rebuild market_brief.json, reset the loss cap and entry throttle. Do NOT price anything off the 13:30Z auction print -- re-quote ~5 minutes in before acting or alerting (the 2026-08-21T13:32Z QQQ incident got the SIGN wrong on a decision package). QQQ at 18 DTE is inside the 21-DTE tier: the standing -50% cut applies, and the _exit_ladder should be confirmed to reflect that tier rather than the re-check tier. RBRK crosses 21 DTE ~2026-08-28. Cadence check: confirm runs land at :25/:55 as well as the hourly :2x -- if only the hourly backstop fires, the cron-job.org token has died again (the 08-18 failure mode), and any cadence count must filter on run_type to exclude live-user entries.",
+      "notes": "Nothing material changed since the 23:19Z run. daily_options_report.md NOT rewritten -- the 2026-08-21 report stands and a refresh with identical content is pure notification noise. No PR needed beyond this entry's own; HEAD was level with origin/master at run start (0 ahead / 0 behind)."
     }
   ],
   "updated_utc": "2026-08-23T19:19:00Z"
