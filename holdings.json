@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-24T16:40:00Z",
+  "updated_utc": "2026-08-24T17:05:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-24",
     "realized_usd": 286.0,
@@ -26,25 +26,25 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "last_checked_utc": "2026-08-24T16:35:00Z",
-        "quote_basis": "LIVE, option updated_at 2026-08-24T16:32:54Z, equity 16:31:25Z. Three hours past the open -- far clear of the opening-auction window.",
-        "mark": 6.475,
-        "bid": 6.46,
-        "ask": 6.49,
+        "last_checked_utc": "2026-08-24T17:05:00Z",
+        "quote_basis": "LIVE, option updated_at 2026-08-24T17:02:34Z, equity 17:00:56Z. Ninety-two minutes past the open -- far clear of the opening-auction window.",
+        "mark": 6.545,
+        "bid": 6.53,
+        "ask": 6.56,
         "spread_pct_of_mid": 0.46,
-        "pnl_usd_at_mark": -101.5,
-        "pnl_pct_at_mark": -13.55,
-        "net_if_exited_at_bid_usd": -103.0,
+        "pnl_usd_at_mark": -94.5,
+        "pnl_pct_at_mark": -12.62,
+        "net_if_exited_at_bid_usd": -96.0,
         "dte": 88,
-        "delta_per_contract": -0.154775,
-        "iv": 0.204667,
-        "theta_per_day_usd": 9.1,
+        "delta_per_contract": -0.156348,
+        "iv": 0.204518,
+        "theta_per_day_usd": 9.14,
         "open_interest": 25846,
-        "volume_today": 839,
-        "underlying_spot": 764.62,
-        "underlying_day_pct": -0.14,
+        "volume_today": 844,
+        "underlying_spot": 764.07,
+        "underlying_day_pct": -0.216,
         "ladder_check": "N/A -- authorized defensive hedge, EXEMPT from all premium backstops. No mechanical exit exists.",
-        "status": "WORKING AS DESIGNED. Fourth consecutive interval of decline (-69.50 -> -86.00 -> -96.50 -> -101.50) as the risk-off open kept mending: SPY 764.62 (-0.14%) and QQQ has now printed a marginal new recovery high of 709.336. Insurance losing value while the risk it covers recedes is the instrument behaving correctly, not a signal, and the -13.55% drawdown is not actionable -- the hedge is exempt from every premium backstop by Ryan's 2026-08-05 authorization. Theta -$9.10/day on 88 DTE is the honest running cost of carrying it. Only decision remains the ~2026-10-30 roll/close review WITH Ryan."
+        "status": "WORKING AS DESIGNED, and the four-interval slide has REVERSED: -69.50 -> -86.00 -> -96.50 -> -101.50 -> -94.50 as SPY eased back to 764.07 (-0.216%) while the QQQ bounce failed. Against the official 08-21 close of 6.53 the hedge is +$1.50 on the DAY. Note what that means honestly: the damage today is Nasdaq-specific (QQQ -0.775% vs SPY -0.216%), so SPY insurance barely responds -- that is the standing cost of hedging the broad index during a semi-led de-rating, not a fault in the position. Theta -$9.14/day on 88 DTE is the running cost. Only decision remains the ~2026-10-30 roll/close review WITH Ryan."
       },
       "_notify_state": {
         "last_checked_utc": "2026-08-24T16:35:00Z",
@@ -78,13 +78,14 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "utc": "2026-08-24T16:05:00Z",
-    "result": "NO ENTRY -- AND FOR THE FIRST TIME TODAY THE REASON IS NOT THE TAPE. The armed MSFT vertical's trigger FIRED on all three conditions, the order was priced, reviewed and SENT, and the broker rejected it: multi-leg orders are not supported in agentic accounts. 0 of 2 this run, 0 of 8 today.",
-    "slots_available": "CORE 3 of 3 free, TACTICAL 2 of 2 free. Deployable $2,773.56 ($3,023.56 unleveraged BP less the $250 reserve) against a $795 ticket. Neither slots nor capital was the constraint at any point today.",
-    "binding_reason": "PLATFORM CAPABILITY. place_option_order returned API error 400: \"Multi-leg options orders aren't supported in Robinhood agentic accounts yet.\" The account is confirmed limited_margin / option_level_3 by get_accounts this run -- level 3 is real, but the AGENTIC ORDER ENDPOINT will not accept a multi-leg order at any level. See _BLOCKED_SETUP and trade_journal.json 2026-08-24T16:05:00Z THE_EVENT.",
-    "trigger_did_fire_for_the_record": "MSFT last 489.81 >= 489.00 (PASS by 0.81); completed 5-min closes 489.42 (15:50Z) and 489.39 (15:55Z), two consecutive >= 489.30 (PASS); QQQ 708.165 >= 703.00 (PASS by 5.17). Three of three, with margin -- not the 12.5c and 9.5c near-misses of the two prior runs. The void clause did NOT fire: 488.43 held (15:45Z bar low 488.47, then 488.96, then 489.21, stepping up).",
-    "ceiling_was_honoured": "Priced $795 net at 16:02:16Z (inside the $800 ceiling by $5); by the 16:03:34Z review the mid had moved to $807.50, ABOVE it, with both legs' spreads 50-75% wider. The order actually sent was a GFD limit at net debit 7.95 = $795 -- BELOW the prevailing mid. A resting compliant limit, not a chase. The ceiling was never breached by anything the desk sent.",
-    "no_resting_order": "The rejection means nothing reached the book. get_option_positions and get_option_orders both confirm no open agentic order. There is nothing for a later run to cancel."
+    "utc": "2026-08-24T17:05:00Z",
+    "result": "NO ENTRY -- AND THE REASON CHANGED AGAIN. The tactical trigger the desk has been waiting for all day FIRED at 17:00Z (QQQ lost a 45-minute floor at 707.85 on expanding volume after four rejections of 709.336, with NVDA having broken first at 16:51Z and held). It was declined on FOUR LAWS #1, a sizing ceiling no thesis may override. 0 of 2 this run, 0 of 8 today.",
+    "slots_available": "CORE 3 of 3 free, TACTICAL 2 of 2 free. Deployable $2,773.56 ($3,023.56 unleveraged BP less the $250 reserve). Loss cap sits at a +$286.00 CREDIT. Neither slots, capital, cap headroom nor liquidity was the constraint.",
+    "binding_reason": "FOUR LAWS #1 -- TACTICAL SCALPS ARE SIZED $300-600. At the prescribed 0.40-0.60 delta on the 2026-09-04 board (11 DTE, the nearest clearing the DTE-7 floor with room), the thesis-correct vehicles all breach it: QQQ 705P $788.00 (+31% over), QQQ 708P $911.50 (+52%), NVDA 210P $740.00 (+23%). The ONLY contract that fits is SPY 762P at $535.50 -- and SPY is the leg that is HOLDING today (-0.216% vs QQQ -0.775%, above both its 20d 762.33 and 50d 751.75), so it carries no trigger. Buying it purely because it fits the band would be fitting the trade to the constraint.",
+    "trigger_did_fire_for_the_record": "QQQ 17:00Z minute bar: open 708.030, LOW 707.850, close 707.925 on 42,428 shares -- a fresh 45-minute low breaking the 708.03-708.13 shelf held since 16:40Z, with 5-minute volume re-expanding 40,909 -> 65,621 -> 60,449 -> 95,895 -> 101,373. Preceded by four rejections of the 16:20Z recovery high 709.336 (709.025 / 708.945 / 708.800 / 708.560). NVDA broke its 210.10-210.80 shelf at 16:51Z on 148,054 shares, the hour's heaviest minute, and closed every minute since between 209.625 and 209.719. Trend-maturity gate: PASS on (a) one-session-old move and (b) catalyst still in progress; MARGINAL on (c) -- QQQ is only 0.025% through its floor and mid-range in a 702.70-709.34 day. Graded A-minus on setup.",
+    "core_reroute_considered_and_refused": "The $788 that breaches the TACTICAL ceiling sits inside CORE's $500-1,000 band, so re-labelling was the obvious dodge. Refused on its own merits, not merely on principle: CORE requires DTE 21-45 and both 09-04 (11) and 09-11 (18) fall short; the only qualifying board, 09-25 at 32 DTE, prices ~$1,605 for the 706P (A++ money for an A-minus setup) and SPANS the 2026-08-26 pm NVDA print, which the exit engine says to close before, not open into. Re-labelling a trade to escape a limit would have been a governance failure even had the numbers worked.",
+    "no_resting_order": "Nothing armed, nothing sent, no resting order placed. The confirmation levels are recorded in trade_journal.json 2026-08-24T17:05:00Z for_the_next_instance -- as a measurement, NOT as an arming. Under Law 1 as written, a QQQ tactical entry is impermissible at ANY confirmation strength, because contract price is the binding constraint and a deeper break does not make it cheaper.",
+    "flagged_for_ryan": "The tactical track names QQQ as a primary hunting ground AND sizes it $300-600; at ~$4.1k of equity those two rules cannot both be satisfied on QQQ, making tactical a SPY-only track in practice. Recommendation recorded (widen the band to ~$300-950) in trade_journal.json THE_FINDING_THAT_MATTERS_MOST_THIS_RUN. HARD RULE 9: no approval claimed or implied; nothing changed pending his decision."
   },
   "_closed_positions": [
     {
