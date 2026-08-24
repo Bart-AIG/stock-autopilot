@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-24T01:19:00Z",
+  "updated_utc": "2026-08-24T04:19:00Z",
   "_realized_options_pnl_today": 0.0,
   "positions": [
     {
@@ -589,11 +589,11 @@
     "note": "daily_options_report.md written by the 19:15Z run at 14:20 CT -- the FIRST run at or past the 14:15 CT (19:15Z) window CLAUDE.md set on 2026-08-21T16:35Z, and written in-session rather than deferred. Note the threshold's premise has since changed: the 14:15 move was calibrated for the hourly-only cadence, and the sub-hourly trigger was repaired at 17:05Z today, so 19:25Z/19:55Z runs will now also land pre-bell. Writing at 19:20Z is still correct under CLAUDE.md and guarantees delivery; this marker is what stops a sibling from duplicating it. Contents: live 19:16Z marks on all three contracts, the -$237.50 per-lot MTM day (vs the WRONG -$429.50 naive close-to-mark figure, which falsely resembles a -$400 cap breach), the ~$236 unhedged three-day weekend carry, ten skipped candidate groups incl. the INTC secondary-offering trap, and the QQQ 21-DTE decision for Ryan in Section 5 ahead of Monday's open at 20 DTE. DO NOT REWRITE unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing) -- every master push touching this file re-notifies Ryan."
   },
   "_last_reconciliation": {
-    "utc": "2026-08-24T03:19:00Z",
-    "by": "scheduled options automation run (post-close #56 of the 2026-08-21 trading day, #53 of the weekend)",
-    "result": "zero position drift -- SPY 700P x1, QQQ 680P x3, RBRK 90P x2 match the broker exactly (quantity x average_price reproduces the ledger basis on all three); no pending quantities; no option orders since the Friday bell; buying_power == unleveraged_buying_power $811.83, no margin extended. unsettled_funds $732.30 is expected residue of Ryan's own 08-21 sale, not drift.",
-    "ledger_fix_made": "NONE NEEDED. Lot-count invariants ASSERTED arithmetically (qty sum, cost sum, blended premium) and PASS on every options position.",
-    "next_live_session": "2026-08-24T13:30Z."
+    "utc": "2026-08-24T04:19:00Z",
+    "by": "scheduled options automation run (post-close #57 of the 2026-08-21 trading day, #54 since the Friday bell)",
+    "result": "zero position drift -- SPY 700P x1, QQQ 680P x3, RBRK 90P x2 match the broker exactly (quantity x average_price reproduces the ledger basis on all three); PNC 1.825758 sh matches the equity book; no pending quantities; buying_power == unleveraged_buying_power $811.83, no margin extended. unsettled_funds $732.30 remains the expected residue of Ryan's own 08-21 sales, already booked in _closed_positions.",
+    "ledger_fix_made": "NONE NEEDED. Lot-count invariants ASSERTED arithmetically (qty sum, cost sum, blended premium) and PASS on both multi-lot positions.",
+    "next_live_session": "2026-08-24T13:30Z -- that run owns the heartbeat stamp, the brief rebuild, and the loss-cap/throttle reset."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
