@@ -1,18 +1,38 @@
 # Options sleeve — technical + thesis-gated directional longs
 
-Status: **design landed; ready once we trade it.** The Agentic account now has options
-enabled (Level 2). This sleeve uses **only data we already have for free** — the
-Robinhood broker MCP for live chains/greeks/IV — and is **separate** from the equity
-swing/momentum book with its own caps.
+Status: **live and trading.** The Agentic account is `limited_margin` /
+`option_level_3` (since 2026-08-21; the "cash account / Level 2" framing in older
+sections of this doc predates the upgrade). This sleeve uses **only data we already
+have for free** — the Robinhood broker MCP for live chains/greeks/IV — and is
+**separate** from the equity swing/momentum book with its own caps.
+**Where this doc and CLAUDE.md HARD RULE 8 disagree, HARD RULE 8 wins** — it
+carries the dated amendments; this doc is the strategy rationale.
 
 It keeps our existing technical edge and expresses the view with a single, defined-risk
 long option. (An order-flow confirmation layer — e.g. Unusual Whales — is an OPTIONAL
 future upgrade, deliberately left out to avoid a paid feed; see "Optional upgrade".)
 
-## Why long single-leg only
-The Agentic account is a **cash** account and the broker tools place **single-leg**
-options only (no spreads). So the playable Level-2 structure is long calls/puts, where
-the loss is capped at the premium paid — the right risk shape for experimenting.
+## Why long single-leg only (updated 2026-08-24 — the reason changed, the rule did not)
+The agentic API places **single-leg long options only**. This is no longer a
+level-2 limitation (the account is level 3): it is the **order endpoint itself** —
+`place_option_order` rejects any multi-leg order with a 400 ("Multi-leg options
+orders aren't supported in Robinhood agentic accounts yet"), measured 2026-08-24
+by actually sending a reviewed vertical. Two traps discovered the same day:
+- **`review_option_order` false-greens multi-leg** — it accepts a spread payload
+  and returns a complete, healthy preview. A clean review proves nothing; only a
+  fill does.
+- **Legging a spread as two orders is arithmetically impossible here.** A short
+  leg sent alone is margined standalone — full cash-secured collateral on a put
+  (the entire strike value), or a banned naked call. Leg two always fails, and
+  leg one is left as an orphaned full-premium single leg at 4–9× the vertical's
+  theta. Never leg.
+
+**Spreads remain in the playbook as a DELIVERABLE:** when a thesis genuinely wants
+a vertical, the desk specs it completely (both legs quoted live, net debit, max
+profit, breakevens, invalidation, hold period) and **Ryan places it in the app**,
+where multi-leg works normally. Any name may be surveyed for a spread spec
+(Ryan, 2026-08-24); the ≤10%-of-mid / real-OI gate on both legs is unchanged.
+Full detail: CLAUDE.md HARD RULE 8.
 
 ## Data source (free, already connected)
 The Robinhood broker MCP provides everything needed to find, price, and risk-check a
@@ -41,20 +61,26 @@ No FMP or paid options feed required (FMP has no options data).
   `get_option_chains` → filter expiration/strike/type → price + greeks via
   `get_option_quotes`.
 
-## Risk & sizing (its own sleeve)
-- **Total AGENTIC-placed premium-at-risk ≤ $1,500** (2026-08-05 sizing amendment, Ryan
-  live turn — replaces both the old ≤$150/trade cap and the old 15%-of-account sleeve
-  cap). Deployable as ONE contract or spread across multiple positions; no per-trade
-  limit, but premium must scale with conviction — "quality, thought-out" trades only,
-  full pre-trade checklist every time. Max loss = premium paid (defined).
-- Ryan's manually-placed options (`placed_agent: "user"`) do NOT count against the
-  $1,500 budget (2026-08-03 agentic sub-sleeve amendment). Separate from the equity
-  per-name/spec caps.
-- **Daily realized-loss cap −$400** (raised 2026-08-05 from −$150): when hit, no NEW
-  entries until the next day; exits still run.
-- Cash account: premium paid from settled cash; respect buying power + the buffer
-  (the full $1,500 ≈ all settled cash at amendment time — stagger entries unless one
-  setup is truly exceptional).
+## Risk & sizing (its own sleeve) — corrected 2026-08-24 to the readings that actually govern
+- **$1,500 is a PER-TRADE maximum, NOT a total-sleeve budget** (2026-08-14 sizing
+  amendment, Ryan live turn — supersedes the 2026-08-05 "total ≤ $1,500" reading an
+  earlier version of this bullet carried). $1,500 is reserved for A++ CORE setups;
+  TACTICAL scalps are sized $300–1,000 (Ryan widened the band from $300–600 on
+  2026-08-24). Premium scales with conviction — full pre-trade checklist every
+  time. Max loss = premium paid (defined).
+- **Total deployment is bounded by `unleveraged_buying_power`** from
+  `get_portfolio`, never `buying_power` — **NO MARGIN BORROWING, EVER** (Ryan,
+  2026-08-21), and keep ≥$250 unencumbered. The old "settled cash / T+1 /
+  good-faith violation" mechanics are obsolete on the `limited_margin` account
+  (settlement is instant); the intent — never deploy money that does not exist —
+  is unchanged.
+- Ryan's manually-placed options (`placed_agent: "user"`) do NOT count against
+  agentic premium accounting (2026-08-03 agentic sub-sleeve amendment). Separate
+  from the equity per-name/spec caps.
+- **Daily realized-loss cap −$400** (settled by the v4 prompt paste 2026-08-21):
+  when hit, no NEW entries until the next trading day; exits still run.
+- Structural limits: max 5 open agentic positions (2 tactical / 3 core, hedge
+  excluded), max 3 per correlated theme, max 2 entries/run and 8/day, DTE floor 7.
 
 ## Exits (2026-08-05 exit-method amendment — replaces the flat −50% cut / fixed +50–100% TP)
 Modeled on how experienced options traders manage long premium: stops on the

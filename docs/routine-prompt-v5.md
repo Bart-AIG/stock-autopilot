@@ -1,4 +1,12 @@
-# Routine prompt v5 — paste-ready (2026-08-14)
+# Routine prompt v5 — ⚠️ OBSOLETE, NEVER PASTED — do not use
+
+> **This 2026-08-14 proposal was never pasted and is superseded twice over.**
+> Ryan instead pasted the DUAL-TRACK prompt on 2026-08-21 (recorded in
+> `docs/routine-prompt-v5.md`'s sibling `routine-prompt-v4.md`), and the current
+> paste-ready text is **`docs/routine-prompt-v6.md`** (2026-08-24). This file is
+> kept only so the version history stays explainable. Its numbers (max 3
+> positions, 1 entry/run, −$200 cap, "prefer debit spreads", settled-cash/T+1
+> mechanics) are all stale.
 
 Replaces v4 (the JUDGMENT-FIRST rewrite) at
 claude.ai/code/routines → **"Options autopilot"** → replace the prompt.
