@@ -16063,6 +16063,76 @@
       "grades_considered": "NONE. No candidate was graded, for either track, because the market is closed: the TACTICAL trigger requires an intraday level breaking NOW with the tape agreeing, and CORE requires a confirming level on today's tape. Neither exists pre-open. Screening a chain at 09:18 ET would produce quotes from a wide pre-market book that nobody can trade -- research budget spent to manufacture the appearance of work. The hunt belongs to the runs after 13:30Z.",
       "why_flat": "Market closed. Nothing is placeable, so the correct output of this run is a few lines saying so.",
       "notes_for_next_instance": "The first run at/after 13:30Z owns FOUR duties this morning and should not assume an earlier run did any of them: stamp automation_heartbeat.json for trading day 2026-08-24, rebuild market_brief.json (macro calendar, regime from SPY/QQQ/VIX/breadth, catalysts, and a watchlist SPLIT into TACTICAL and CORE candidates), reset the loss cap and entry throttle, and log the day's IV rows. Two cautions carried forward: (a) do NOT price anything off the 13:30Z auction print -- re-quote at least ~5 minutes after the open before acting or alerting, which is exactly how the 2026-08-21 QQQ decision package got its sign wrong; (b) headroom is $561.83 after the reserve, so a CORE swing at the $500-1,000 typical band only just fits at its floor and the honest read is that this book has room for roughly ONE new position, not the five the structural limits permit."
+    },
+    {
+      "run_utc": "2026-08-24T13:42:00Z",
+      "run_local_et": "09:42 ET Monday 2026-08-24",
+      "trading_day_et": "2026-08-24",
+      "run_type": "first_post_open_of_trading_day",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org); fired ~13:30Z. This one IS plausibly the sub-hourly job -- it landed at the bell rather than the native backstop's :18-:26 window. Cadence remains repaired since 2026-08-21T17:05Z.",
+      "regime": "RISK-OFF / NASDAQ-SPECIFIC BREAKDOWN into NVDA earnings week. QQQ 706.955 (-0.91%) BELOW both its 20d (709.19) and 50d (713.44); SPY 763.535 (-0.29%) still ABOVE both its 20d (762.33) and 50d (751.75). Semis lead down (AMD -2.69%, TSM -1.88%, TSLA -2.26%); MSFT +0.07% the lone green core name. Drivers: 30y yields ~19-year highs, US-Canada talks breakdown, Iran tensions, overnight Asia memory/Alibaba selloff.",
+      "action": "NO TRADE, NO ENTRY, NO EXIT. One NOTIFICATION sent (see notification_sent). This run owned and completed all four first-post-open duties: heartbeat stamped, market_brief rebuilt, daily realized-loss cap reset, entry throttle reset.",
+      "duties_owned_and_completed": {
+        "heartbeat": "STAMPED 2026-08-24T13:33Z, only after live quotes carried updated_at 2026-08-24T13:32Z+ (i.e. after the bell). Never stamped early. 68 firings had stood down since the Friday bell.",
+        "market_brief": "REBUILT for 2026-08-24. Also CORRECTED the block's governance numbers, which were still carrying v3.1 values on Friday (option_level_2, theme cap 2, 3 entries/day, -$200 cap) despite v4 being confirmed live on 2026-08-21T16:24Z. Now reads option_level_3, max 5 open (2 tactical/3 core), 3 per theme, 2/run, 8/day, -$400.",
+        "loss_cap_reset": "Reset to $0.00 realized against -$400.",
+        "entry_throttle_reset": "Reset to 0 of 8 for the day, 0 of 2 for this run."
+      },
+      "reconciliation": {
+        "utc": "2026-08-24T13:31:00Z",
+        "result": "ZERO DRIFT on both books; exactly three contracts matching the ledger one-for-one, all pending_* 0.0000.",
+        "invariants": "ASSERTED arithmetically: sum(lots.qty)==contracts, sum(lots.cost_usd)==total_cost_basis_usd==max_loss==broker(quantity x average_price), total_cost_basis_usd/contracts/100==entry_premium_blended. All pass.",
+        "capital": "total $4,041.93 = equity $446.10 / options $2,784.00 / cash $811.83. buying_power == unleveraged_buying_power == $811.83 (no margin extended). Deployable after $250 reserve: $561.83."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P": "WORKING AS DESIGNED (hedge). -$84 / -11.2%, 88 DTE, exempt from all backstops. SPY above both MAs means the trend-break it insures against has not begun -- a hedge at -11% in that state is doing its job, not failing. Silent.",
+        "QQQ 2026-09-11 680P": "WORKING -- and the RECOMMENDATION CHANGED, the event of this run. +$169 at mark / +$160 net at bid / +15.3%, up from -$92 on Friday. DTE 18. No mechanical trigger fires. TIER CHANGED: now inside 21 DTE, so the -50% cut at 1.8433 becomes the standing unconditional rule that executes unasked -- capped at qty 1 per the unanswered q3. Mark is ~130% above that cut, so it is not close.",
+        "RBRK 2026-09-18 90P": "STALLED, LEANING WRONG, NO TRIGGER. +$10 at mark but -$100 net at the bid on a 26.5%-of-mid chain (OI 77, zero volume). Underlying 99.76, still 16% above the 85.85 break-even. BINDING: pre-earnings decision due by the close of Wed 2026-08-26; print 08-27 pm re-verified this run."
+      },
+      "notification_sent": {
+        "utc": "2026-08-24T13:39:00Z",
+        "trigger": "RECOMMENDATION CHANGED (not a trigger fire) on the QQQ 680P, plus the RBRK deadline reminder folded into the same message.",
+        "why_this_was_not_noise": "Ryan has been holding a CLOSE recommendation on the QQQ position since Friday 13:39Z, issued because it was flat-to-losing at its unconditional 21-DTE review. It is now a winner. Letting a stale 'close it' recommendation stand on a position that has since turned would be the actual failure -- the monitoring mandate names a changed recommendation as its own notify condition precisely for this case.",
+        "recommendation": "Bank PART near mid (4.25): take 1-2 contracts to lock the gain and cut the theta bill, let the rest ride into NVDA. Reasons given: the 21-DTE close-or-roll already triggered; theta is -$79.47/day = 7.2% of basis per day (~$159 to reach the print, and ~$1,430 over the full 18 days, which exceeds the $1,106 basis); and holding all three through the quarter's biggest AI catalyst is a coin flip, not an edge.",
+        "not_executed_because": "Mixed ownership (1 agentic lot + 2 Ryan lots) plus the 2026-08-18 monitoring mandate = ask-first on the whole position. Nothing short of a hard backstop executes unasked, and none is near."
+      },
+      "grades_considered": {
+        "_source_order": "Liquidity checked FIRST per the 2026-08-14 sourcing fix, before any thesis workup. No candidate received a full write-up on an untradeable chain this run.",
+        "QQQ/SPY short-dated continuation puts (tactical)": "C - PASSED. Trend-maturity gate fails at (a) and (b): the move happened AT THE OPEN, so entering now buys the gap rather than anticipating it. Compounded by a rising vol bid -- premium is dearer precisely because the move occurred -- and by concentration. 'The tape is going my way' is not a catalyst.",
+        "NVDA (tactical)": "C - PASSED. Chain is excellent: 2026-09-18 215 quotes 8.40x8.55 = 1.8% of mid on OI 33,845, clearing even the strict 3% scalp gate. But a liquid vehicle supplies NO thesis. Entry 2 sessions before a verified print is an earnings bet, barred unless earnings IS the thesis. IV independently kills it: 0.4227 with raw 1.12 AND ex-gap 1.26 -- the rare case where both ratios agree premium is RICH.",
+        "MSFT (tactical)": "C - PASSED. Fails the 3% tactical liquidity gate outright: 485 strike 12.90x13.60 = 5.2% of mid, needing a ~2.6% underlying move just to break even on the round trip. And +0.07% is noise, not relative strength worth paying a spread for.",
+        "AMD / TSM / AVGO (core)": "C - PASSED. These ARE the QQQ position expressed with more basis risk and worse chains: AMD 460 = 4.2% of mid, TSM 410P = 6.9%, AVGO 365 shows OPEN INTEREST ZERO on both legs with no genuine prior close. Buying a semi put alongside a QQQ put is one bet in two wrappers.",
+        "equity-report RSI2 group (core)": "C - PASSED as a group. 16 oversold LONG mean-reversion setups on the committed 2026-08-21 report -- structurally opposite to this book, on the mid-cap chains the sourcing fix documents as the trap. CRWD additionally carries a verified 08-26 print; KMI is de-emphasized-sector (oil)."
+      },
+      "why_flat": "Slots were NOT the constraint -- 1 core and 2 tactical were free, and $561.83 was deployable. The binding reason is BOOK CONCENTRATION: net short notional delta -$61,049 = 15.1x the account, 100% one-way short, having GROWN from Friday's 13.8x without a single trade (pure gamma as the puts moved toward the money). The book self-levers as it wins. Adding bearish exposure into that is doubling down on one bet, not taking a second one. Secondary: the move already happened at the open, vol is bidding, and NVDA prints in two sessions with premium unambiguously rich.",
+      "iv_readings": "8 core names logged to iv_history.json on the 2026-09-18 board (25 DTE), measured 13:38:57Z. Vol BID on 6 of 8 vs Friday's SETTLED readings: SPY +2.5%, QQQ +3.4%, NVDA +4.6%, AVGO +3.8%. Pair-read: RICH on both ratios for SPY/NVDA/AVGO; CHEAP on both only for AMD; SPLIT (raw cheap, ex-gap rich) for QQQ/TSM/MSFT/TSLA -- the earnings-gap artifact, where the raw number is the honest one only for a contract that SPANS the next print. BOARD CHOICE documented in-row: stayed on the 09-18 monthly rather than switching to the 09-25 weekly, which is arithmetically nearer 30 DTE, to avoid injecting a board/liquidity discontinuity into a series being built for a percentile computation.",
+      "open_print_discipline": "APPLIED, AND IT MATTERED THIS RUN -- the clearest confirmation of the rule since it was written. The run fired at 13:30:27Z, one minute before the bell. First quotes at 13:32Z showed the QQQ put at 4.21; at 13:33Z it printed 4.42; the SETTLED 13:36:14Z quote was 4.25. Pricing the decision package off the 13:33Z tick would have told Ryan the position was +$220 when it was +$169 -- a $51 (30%) overstatement on the exact number he is being asked to decide from. The run deliberately waited, doing non-quote work (heartbeat, earnings-calendar verification, realized-vol computation) until the settled window, then quoted once and alerted. Precedent: the 2026-08-21T13:32Z incident, where the sign itself was wrong.",
+      "corrections_made_this_run": [
+        "market_brief.constraints_today was still carrying v3.1 governance numbers (option_level_2, theme cap 2, 3 entries/day, -$200 loss cap) three sessions after v4 went live on 2026-08-21T16:24Z. Rewritten to the v4 values. A stale constraints block is dangerous in the same way the stale _exit_ladder was: it reads as authoritative and nothing errors.",
+        "A 50-day MA computed mid-run from a 41-bar series produced garbage (QQQ ma50 582.69) by dividing a 41-day sum by 50. Caught before it reached the brief, recomputed from a verified 50-bar window (QQQ 713.44, SPY 751.75), and the failure signature written into key_levels.method so a future run recognises it: if a 50d MA sits implausibly far below spot, that is the bug."
+      ],
+      "sleeve_state": {
+        "premium_at_risk_usd": 2675,
+        "by_track": {
+          "hedge": 749,
+          "core": 1926,
+          "tactical": 0
+        },
+        "book_pl_at_mark_usd": 95.0,
+        "open_positions": "2 of 5 (hedge excluded): CORE 2 of 3, TACTICAL 0 of 2",
+        "unleveraged_buying_power_usd": 811.83,
+        "deployable_after_reserve_usd": 561.83,
+        "realized_pnl_today_usd": 0.0,
+        "daily_loss_cap_usd": -400,
+        "entries_used_today": "0 of 8"
+      },
+      "tomorrow_watchpoints": [
+        "RBRK pre-earnings decision DUE by the close of Wed 2026-08-26 (print 08-27 pm) -- two sessions. Expect ~10% round-trip cost on a 26.5%-wide chain; quote Ryan the NET, never the mark.",
+        "NVDA earnings Wed 08-26 pm -- the QQQ 680P spans it. Premium rich into it (both ratios >1.0).",
+        "QQQ 713.44 (50d) and 709.19 (20d) are the levels that confirm or undo the bearish premise; ~730 remains the written invalidation.",
+        "QQQ theta -$79.47/day is the real clock on that position, not the strike.",
+        "The EOD report is due from the FIRST run at or after 19:15Z; if the bell rings with none written, the first post-close run writes it immediately."
+      ]
     }
   ],
   "updated_utc": "2026-08-24T05:19:00Z"
