@@ -17163,6 +17163,149 @@
       ],
       "action": "NO ENTRY, NO EXIT, NO NOTIFICATION. 0 of 2 entries this run, 0 of 8 today. All three candidates graded C and were declined on the trigger/maturity/vehicle gates -- NOT on capital, slots, liquidity or the loss cap, all of which are wide open. The book is one exempt hedge. IV duty verified COMPLETE for the day: all eight core names (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) already carry a 2026-08-24 row, so no row was rewritten. Heartbeat already stamped 13:40Z. Daily report NOT yet due (19:15Z threshold; this run is 16:46Z) -- deliberately not written early. Friday review N/A (Monday).",
       "notification_decision": "NONE SENT, deliberately. Nothing fired, no flag exists, no recommendation changed, and Ryan placed today's two closes himself so he already knows the book is flat. Under the 2026-08-18 monitoring mandate silence is the correct output when no trigger fires or un-fires -- an un-deduped watch is how the desk trains him to stop reading alerts. The capital-posture change and the flat-by-decision reasoning belong in the 19:15Z daily report, not a push."
+    },
+    {
+      "run_utc": "2026-08-24T17:05:00Z",
+      "run_local_et": "13:05 ET Monday 2026-08-24",
+      "trading_day_et": "2026-08-24",
+      "run_type": "market_hours_regular",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org); fired ~17:00Z. CADENCE HONESTY: 17:00Z matches NEITHER the cron-job.org slots (:25/:55) NOR the native hourly backstop's observed :18-:26 landing zone, so this run asserts no trigger attribution. The payload label is the job's stored string and never identifies the producer. Fifteenth market-hours run of the day.",
+      "regime": "RISK-OFF, AND THE FOUR-HOUR RECOVERY GRIND HAS NOW FAILED -- THAT IS THIS RUN'S MEASURED CONTRIBUTION AND IT IS A CHANGE OF STATE, NOT A RESTATEMENT. QQQ 707.925 at 17:00:57Z (-0.775% vs the 713.44 close). The 709.336 recovery high set at 16:20Z has now stood 40 minutes and been rejected FOUR times (709.025 / 708.945 / 708.800 / 708.560). Then the floor went: the 16:40-16:59Z bars held a 708.03-708.13 shelf, and the 17:00Z minute bar opened 708.030, printed a low of 707.850 and closed 707.925 on 42,428 shares -- the heaviest minute since 16:57Z and a fresh 45-minute low. Volume re-expanded into the break (5-min: 40,909 -> 65,621 -> 60,449 -> 95,895 -> 101,373) after decaying to 40k in the coil. SEMIS LED IT AND LED IT FIRST: NVDA broke its own 210.10-210.80 shelf at 16:51Z on 148,054 shares -- the heaviest minute of the hour -- and has HELD the break rather than spiking back, closing every minute since between 209.625 and 209.719 (last 209.660, -2.35%). AMD 459.19 (-2.97%), TSM 408.68 (-2.45%), AVGO 360.62 (-2.13%), TSLA 355.095 (-2.14%). DISPERSION IS STILL THE DAY'S REAL STORY: SPY 764.07 (-0.216%) against QQQ -0.775%, with MSFT 488.845 (+1.16%) green. A semi-specific de-rating with mega-cap software bid, not broad risk-off.",
+      "action": "NO ENTRY, NO EXIT, NO NOTIFICATION. 0 of 2 entries this run, 0 of 8 today. Declined on FOUR LAWS #1 -- a structural sizing limit that no thesis may override -- after the trigger the desk has been waiting for actually fired. Every other gate was WIDE OPEN: $2,773.56 deployable, all 5 slots free, 4 chains measured between 0.56% and 1.35% of mid, loss cap sitting at a +$286 CREDIT. This is the first run in days where the decline was NOT about capital, slots, liquidity or thesis.",
+      "reconciliation": {
+        "utc": "2026-08-24T17:01Z",
+        "result": "ZERO DRIFT. get_option_positions(nonzero) returns exactly ONE contract -- SPY 2026-11-20 700P qty 1 @ 749.00, opened 2026-08-06T14:21:56Z, every pending_* field 0.0000 -- matching holdings.json one-for-one. get_accounts confirms 718757339 at limited_margin / option_level_3 / agentic_allowed=true, unsettled_funds $2,211.73 (immediately tradeable on limited_margin and already inside buying_power). No new flag, no escalation, nothing to adjudicate. The RBRK and QQQ contracts remain absent because Ryan closed them himself on 08-24; already ledgered by the 14:46Z run and re-confirmed by the 16:31Z run."
+      },
+      "capital_and_limits": {
+        "portfolio": "total $4,118.51 = equity $442.95 / options $652.00 / cash $3,023.56.",
+        "budget": "unleveraged_buying_power $3,023.56 EQUALS buying_power -- no margin extended, FOUR LAWS #4 satisfied on the smaller-of test. Less the $250 unencumbered reserve, deployable is $2,773.56.",
+        "margin_equity_floor": "Account equity $4,118.51 is comfortably clear of the $2,000 limited-margin minimum.",
+        "realized_pnl_today": "+$286.00, broker-sourced 14:46:50Z (get_realized_pnl, 2 closing trades, +14.85%) -- a CREDIT against the -$400 cap, so full cap headroom stands. Not re-polled this run: no closing trade has occurred since, and the broker figure cannot have moved.",
+        "entries": "0 of 2 this run, 0 of 8 today.",
+        "slots": "CORE 0 of 3 used, TACTICAL 0 of 2 used. Hedge (SPY 700P) excluded from the count. The book is FLAT apart from insurance."
+      },
+      "manage_positions": {
+        "SPY 2026-11-20 700P x1 (agentic hedge, track=hedge)": {
+          "verdict": "WORKING AS DESIGNED -- no action, and none is possible under the standing plan.",
+          "quote_1703Z": "bid 6.53 / ask 6.56, mid 6.545, spread 0.03 = 0.46% of mid. Mark $654.50 against $749.00 basis = -$94.50 / -12.62%. An exit at the bid nets $653.00 (-$96.00). Delta -0.156, theta -0.0914/day, vega 0.899, IV 0.2045, OI 25,846, 88 DTE.",
+          "day_move": "Official 08-21 close 6.53 -> 6.545 mark, i.e. +$1.50 on the day. Precisely what insurance should do on a session where SPY is only -0.216% and the damage is all in the Nasdaq -- the hedge is indexed to the leg that is HOLDING, which is the honest cost of owning SPY protection during a semi-specific de-rating.",
+          "gate": "INSURANCE-EXEMPT from every premium backstop per the standing authorization. Held to its ~21-DTE roll/close decision WITH Ryan, ~2026-10-30. No run may cut it mechanically, and this run did not consider doing so."
+        }
+      },
+      "hunt": {
+        "the_trigger_fired_and_it_should_be_recorded_as_such": "Prior runs at 16:20Z / 16:35Z / 16:46Z each measured a coiling range and correctly concluded 'no level is breaking NOW, so the TACTICAL trigger is absent by measurement rather than opinion.' At 17:00Z that stopped being true. The sequence is textbook and worth writing down because the next instance should recognise it: (1) counter-trend bounce runs four hours off the 702.70 session low; (2) it fails the same high FOUR times on decaying volume, compressing to a 0.51-point range; (3) the LEADER breaks first -- NVDA loses its shelf at 16:51Z on the hour's heaviest minute and holds below it; (4) the index follows nine minutes later, losing a 45-minute floor on expanding volume. That is a failed-bounce trigger, not noise, and the desk had been waiting for exactly it.",
+        "trend_maturity_gate": {
+          "a_how_far_has_the_move_run": "PASS. The down-leg is ONE session old. QQQ broke its 50-day (713.44 recomputed) today after three sessions pinned to it; this is the start of a move, not the tail of one. Entering short here is early-stage, not a chase.",
+          "b_is_the_catalyst_priced": "PASS. The semi de-rating is TODAY's action and is still in progress -- NVDA, AMD, TSM and AVGO were all making fresh session-recovery lows as of 17:00Z. Selling that is still happening is by definition not finished.",
+          "c_does_the_present_tape_confirm": "PASS for the semi complex and MARGINAL for the index. NVDA/AMD/TSM/AVGO all confirm. QQQ itself is only 0.18 points (0.025%) through its floor and sits MID-RANGE in a 702.70-709.34 day, which is the single weakest element of the setup and the reason this graded A-minus rather than A+."
+        },
+        "structures_surveyed": "Four contracts priced at the prescribed 0.40-0.60 tactical delta on the 2026-09-04 board (11 DTE -- the nearest expiry clearing the DTE-7 floor with room, chosen over 08-31 at exactly 7 DTE because CLAUDE.md warns that the CURRENT hourly cadence widens the expiry-gamma blind spot fourfold and argues for MORE DTE, not less). All quotes 17:02:34-17:03:42Z, i.e. 92+ minutes after the open, so the opening-auction rule is satisfied.",
+        "measured_table": [
+          {
+            "contract": "SPY 2026-09-04 762P",
+            "mid": 5.355,
+            "bid_ask": "5.34 x 5.37",
+            "spread_pct_of_mid": 0.56,
+            "delta": -0.43,
+            "theta_per_day": -0.2628,
+            "iv": 0.1257,
+            "oi": 2354,
+            "volume": 717,
+            "cost_usd": 535.5,
+            "fits_tactical_300_600": true
+          },
+          {
+            "contract": "QQQ 2026-09-04 705P",
+            "mid": 7.88,
+            "bid_ask": "7.85 x 7.91",
+            "spread_pct_of_mid": 0.76,
+            "delta": -0.435,
+            "theta_per_day": -0.3929,
+            "iv": 0.1942,
+            "oi": 1412,
+            "volume": 920,
+            "cost_usd": 788.0,
+            "fits_tactical_300_600": false
+          },
+          {
+            "contract": "QQQ 2026-09-04 708P",
+            "mid": 9.115,
+            "bid_ask": "9.08 x 9.15",
+            "spread_pct_of_mid": 0.77,
+            "delta": -0.485,
+            "theta_per_day": -0.3868,
+            "iv": 0.1905,
+            "oi": 220,
+            "volume": 684,
+            "cost_usd": 911.5,
+            "fits_tactical_300_600": false
+          },
+          {
+            "contract": "NVDA 2026-09-04 210P",
+            "mid": 7.4,
+            "bid_ask": "7.35 x 7.45",
+            "spread_pct_of_mid": 1.35,
+            "delta": -0.481,
+            "theta_per_day": -0.3233,
+            "iv": 0.5091,
+            "oi": 4145,
+            "volume": 1608,
+            "cost_usd": 740.0,
+            "fits_tactical_300_600": false
+          },
+          {
+            "contract": "QQQ 2026-09-11 705P (18 DTE, for comparison)",
+            "mid": 10.01,
+            "spread_pct_of_mid": 0.6,
+            "delta": -0.439,
+            "theta_per_day": -0.294,
+            "oi": 34080,
+            "cost_usd": 1001.0,
+            "note": "25% less theta than the 09-04 and 24x the open interest for $213 more; would have been the better vehicle had any QQQ contract been permissible."
+          },
+          {
+            "contract": "QQQ 2026-09-11 708P (18 DTE, for comparison)",
+            "mid": 11.22,
+            "spread_pct_of_mid": 0.71,
+            "delta": -0.48,
+            "theta_per_day": -0.2889,
+            "oi": 189,
+            "cost_usd": 1122.0
+          }
+        ],
+        "grades": {
+          "QQQ 2026-09-04 705P -- TACTICAL": "A-minus on the setup, DECLINED ON FOUR LAWS #1. Correct side, correct index (the de-rating is Nasdaq-specific, so QQQ not SPY), superb chain at 0.76% of mid -- four times better than the 3% tactical gate -- and a beautifully shaped risk profile: the STRUCTURAL invalidation (a reclaim of 709.34, 1.4 points up) costs only ~8% of premium, far inside the -30% tactical stop, so the trade would be exited on the level long before the premium rule ever bound. Profit path: the 706.51 shelf pays ~+8%, a retest of the 702.70 session low pays ~+31%, squarely in the +20-40% band. None of that matters: $788.00 exceeds the $300-600 tactical ceiling by 31%, and Law 1 is absolute.",
+          "QQQ 2026-09-04 708P -- TACTICAL": "Same thesis, better delta (-0.485), $911.50 = 52% over the ceiling. Declined identically.",
+          "NVDA 2026-09-04 210P -- TACTICAL": "B. The purest expression of the thesis -- NVDA is the leader and broke first -- and the most actively traded contract measured (volume 1,608). Declined on THREE independent grounds, any one sufficient: $740.00 is 23% over the Law 1 ceiling; IV 0.5091 is scheduled-event premium ahead of the 2026-08-26 pm print; and a short into the two-session run-up to the largest QQQ weight's earnings is a positioning window that frequently supports rather than sells.",
+          "SPY 2026-09-04 762P -- TACTICAL": "C, and the most instructive decline of the run. It is the ONLY contract measured that fits the $300-600 band ($535.50), the tightest chain on the board (0.56% of mid), and at -0.430 delta it sits perfectly in the tactical window. It was still declined, because SPY IS THE LEG THAT IS HOLDING: -0.216% against QQQ -0.775%, above both its 20-day (762.33) and 50-day (751.75), with NO level breaking. There is no SPY trigger to trade. Buying it because it is the one thing that fits the sizing rule is fitting the trade to the constraint -- the exact cherry-picking CLAUDE.md forbids under 'a cheap, liquid vehicle supplies NO thesis'. The desk had the money, the slot and the appetite, and the only affordable vehicle was the wrong one. Declined.",
+          "QQQ as a CORE SWING instead -- considered and declined": "The $788 that breaches the TACTICAL ceiling sits comfortably inside CORE's $500-1,000 band, so the obvious move was to re-label the trade. It fails on its own terms, twice over, and re-labelling to dodge a limit would have been a governance failure regardless: (1) CORE requires DTE 21-45, and both 09-04 (11 DTE) and 09-11 (18 DTE) fall short -- the only qualifying board is 09-25 at 32 DTE, which a prior run measured at ~$1,605 for the 706P, i.e. A++ money for an A-minus setup; (2) any 09-25 contract SPANS the 08-26 pm NVDA print, and the exit engine says close before earnings unless earnings IS the thesis. It is not. (3) CORE prefers a debit spread, which this account measured as unexecutable earlier today. Declined."
+        },
+        "why_no_entry_in_one_sentence": "The thesis pointed at QQQ and NVDA; both cost more than Law 1 permits a tactical scalp to spend. The only contract Law 1 permitted was SPY, which had no trigger. Nothing else was binding."
+      },
+      "THE_FINDING_THAT_MATTERS_MOST_THIS_RUN": {
+        "headline": "THE TACTICAL TRACK, AS WRITTEN, CANNOT TRADE QQQ AT THIS ACCOUNT SIZE -- AND QQQ IS ONE OF THE THREE NAMES THE TRACK NAMES AS ITS PRIMARY HUNTING GROUND. TWO RULES IN THE SAME PARAGRAPH CANNOT BOTH BE SATISFIED.",
+        "the_arithmetic": "v4 TACTICAL specifies delta 0.40-0.60, chains <=3% of mid, and size $300-600, and says 'in practice this means SPY, QQQ, NVDA and a handful of mega-caps'. Measured today at the nearest DTE-7-compliant board: a 0.43-0.49 delta put costs $535.50 on SPY, $788.00-911.50 on QQQ, and $740.00 on NVDA. Only SPY clears $600. So the tactical track is, at ~$4.1k of equity, a SPY-ONLY track -- which quietly removes the desk's ability to scalp the index it actually forms theses about. Today the desk had a live, four-times-rejected, volume-confirmed failed-bounce trigger on QQQ, $2,773.56 of deployable cash, all five slots free and a loss cap in credit, and could not act on any of it.",
+        "the_mechanism_and_the_mistake_I_MADE_GETTING_HERE": "Premium scales with spot x IV x sqrt(time), so affordability splits on the IV term, not the share price -- CLAUDE.md already documents this. I nonetheless PREDICTED from spot before measuring, and got it backwards: I estimated SPY at ~$690 (dearest, highest spot $764) and NVDA at ~$595 (cheapest, lowest spot $210). Measured, it is exactly inverted -- SPY is the CHEAPEST at $535.50 because its IV is 0.1257, while NVDA at a third the share price costs $740 because its IV is 0.5091, four times SPY's. This is the FOURTH occurrence of the same failure shape this file records (spot price 08-14, ATM strike 08-17, wrong expiry board 08-24 morning, and now a modelled estimate instead of a quote). The estimate cost nothing only because I measured before acting. NEVER let a computed guess stand in for a quote when the number decides a trade.",
+        "recommendation_for_ryan_NOT_A_DECISION_TAKEN": "Flagged for Ryan's judgment; HARD RULE 9 -- no approval is claimed, quoted or implied, and this run changed nothing. The $300-600 band sits inside THE FOUR LAWS ('no thesis, no reasoning, no exception ever overrides these'), so no run may relax it and none should try. Three coherent resolutions, his call: (a) widen the tactical band to roughly $300-950 so a 0.40-0.60 delta QQQ contract becomes reachable, keeping every other tactical gate intact; (b) accept a SPY-only tactical track and route all QQQ theses to CORE -- clean, but CORE's 21-45 DTE window makes it a poor fit for hour-scale trades; or (c) permit a lower-delta QQQ strike for tactical, which is the worst of the three because it discards the delta rationale the track exists for. Recommendation: (a). It is the smallest change that restores the track's stated purpose, and it leaves the ceiling far below the $1,500 per-position maximum.",
+        "what_this_run_did_NOT_do": "Did not size a $788 tactical. Did not re-label it CORE to dodge the ceiling. Did not drop to a cheap 0.25-delta QQQ strike to fit the band. Did not buy the SPY put that fit the band but had no trigger. Each of those was available and each would have been a rule bent to manufacture activity on a day the desk badly wanted to trade."
+      },
+      "iv_logging": {
+        "action": "NO NEW ROWS WRITTEN, DELIBERATELY.",
+        "reason": "The IV method requires one row per day per name evaluated, on the expiry nearest 30 DTE, overwriting today's row if it exists. Every name this run evaluated -- QQQ, SPY, NVDA -- already has a 2026-08-24 row logged by the 13:40Z brief run on the 2026-09-25 board (32 DTE, the correct board per the method): SPY 0.1300, QQQ 0.2006, NVDA 0.4093. Re-writing identical rows from the same board would add nothing and would churn the file.",
+        "note_on_the_quotes_above": "The IVs in the measured_table (SPY 0.1257, QQQ 0.1942/0.1905, NVDA 0.5091) are from the 2026-09-04 trading board at 11 DTE, NOT the 30-DTE IV board. Per the 2026-08-24 lesson these are TRADING quotes and must never be entered as IV-method readings or used to revise them -- different question, different board."
+      },
+      "duties": {
+        "heartbeat": "Already stamped for the 2026-08-24 trading day at 13:40:00Z by the first post-open run. Not re-stamped.",
+        "market_brief": "Already built for 2026-08-24 at 13:40:00Z. No genuine shock this run -- the failed bounce is a continuation of the regime the brief already labels, not a new one -- so not rebuilt. Its constraints_today block is now STALE by design (it records buying power $811.83 and 2 of 3 CORE slots used, both from before Ryan's two closes); the live figures are in capital_and_limits above and the 14:46Z run already flagged the staleness.",
+        "daily_report": "NOT DUE THIS RUN and not written. The threshold is the first run at or after 19:15Z (14:15 CT); this run is 17:05Z, over two hours early. daily_options_report.md on disk is still Friday 2026-08-21's, and holdings._eod_report_written confirms trading_day_et 2026-08-21 -- so today's is genuinely outstanding and belongs to a later run. Flagged here so the 19:15Z+ run does not assume a sibling covered it. The belt-and-braces clause stands: if the bell rings with no report written, the FIRST post-close run writes it immediately.",
+        "friday_review": "Not due -- Monday."
+      },
+      "for_the_next_instance": {
+        "the_level_to_watch_and_it_is_pre_computed_so_you_need_not_re_derive_it": "QQQ floor 707.85 (the 17:00Z minute low). BEARISH CONFIRMATION = a completed 5-minute CLOSE below 707.85 with volume above ~100k, then the 706.51 shelf (the 15:30Z bar low), then the 702.70 session low. FAILURE = a reclaim of 709.34, which kills the whole failed-bounce read. NVDA's own break level is 209.61; it has held below its 210.10 shelf since 16:51Z.",
+        "but_read_this_before_acting_on_it": "The level is written down so a future run can act INSTANTLY if the sizing rule changes -- not so it can talk itself into the trade under the current one. Under Law 1 as it stands today, a QQQ tactical entry remains impermissible at ANY confirmation strength, because the contract price is the binding constraint and confirmation does not make it cheaper. If you find yourself arguing that a deeper break justifies $788, re-read FOUR LAWS #1 and stop.",
+        "what_would_actually_change_the_answer": "Ryan amending the tactical band (see the recommendation above), or QQQ falling far enough that a 0.40-0.60 delta put costs under $600 -- which at ~19% IV and 11 DTE would require a materially lower spot, by which point the move this trigger anticipates would already have happened.",
+        "earnings_wall": "NVDA 2026-08-26 pm gates the entire semi complex and any index contract spanning it. RBRK 2026-08-27 pm. Both inside any core swing window opened this week."
+      }
     }
   ],
   "updated_utc": "2026-08-24T14:50:00Z"
