@@ -17021,6 +17021,99 @@
       "_concurrent_run_note": "CONCURRENT SAME-SLOT PAIR with the 16:20Z entry, resolved as a UNION per CLAUDE.md -- both runs did genuine, largely non-overlapping work and neither was discarded. The 16:20Z run established NVDA's 2026-08-26 earnings print and gated the semi cluster on it; this 16:33Z run reconciled Ryan's two closes against the broker, recorded that the MSFT trigger fired at the exact session high, and priced the QQQ 700P. Their independently-fetched marks agree, which is cross-validation. Both runs also independently reached the SAME two conclusions -- empty the stale mandate roster, and specify the QQQ downside idea without arming it -- which is a genuine convergence rather than a duplication. Their _CORE_WATCH was kept as the single canonical block for that idea (it carries a void clause, a written exit plan and sizing that this run's _next_setup_spec lacked) and this run's 700P measurement plus the NVDA earnings gate were folded INTO it; the duplicate _next_setup_spec was deliberately dropped rather than left to compete with it."
     },
     {
+      "run_utc": "2026-08-24T16:35:00Z",
+      "run_local_et": "12:35 ET Monday 2026-08-24",
+      "trading_day_et": "2026-08-24",
+      "run_type": "market_hours_regular",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org); fired ~16:30Z. CADENCE HONESTY: the payload string is the job's stored label and never identifies which trigger produced the run, so none is asserted. This run STARTED at 16:30Z, before the 16:33Z sibling's work existed on master, and finished after it -- see _concurrent_run_note.",
+      "regime": "RISK-OFF DAY, RECOVERY GRINDING ON THINNING PARTICIPATION. QQQ 708.48 (-0.70% vs the 713.44 close) at 16:31:25Z. The 16:20Z bar printed a marginal new recovery high of 709.336 -- the best level since the 15:25Z shelf break -- but the follow-through bar collapsed to 46,201 shares, the lowest of the session, against the break bar's 344,566. The last six completed 5-minute closes span 707.76-708.87, a 1.1-point range. SPY 764.62 (-0.11%), dispersion 56bp. Semis still red and still mending: NVDA 210.355 (-2.03%, 2.8 pts above the rising 50-day at 207.58), AMD 459.88 (-2.83%), TSM 410.67 (-1.98%), AVGO 362.02 (-1.75%), TSLA 356.50 (-1.75%). MSFT 489.10 (+1.21%) has crept back above the 489.00 level it lost, but has not retaken the 490.605 session high whose failure the 16:20Z run documented.",
+      "action": "NO ENTRY, NO EXIT, NO NOTIFICATION. 0 of 2 entries this run, 0 of 8 today. This run's distinct contribution was to hunt the ELEVEN NON-SEMI setups on the equity report that no prior run had graded individually, and to price the two with genuinely tight underlying markets -- GD and RTX. Both were declined, on three INDEPENDENT grounds each, and every number is recorded below and in iv_history.json so no future run re-derives them. Realized options P/L today +$286.00 (broker-sourced 14:46:50Z, Ryan's two closes) against the -$400 cap -- a CREDIT, so full cap headroom stands.",
+      "reconciliation": {
+        "utc": "2026-08-24T16:31Z",
+        "result": "ZERO DRIFT, RE-VERIFIED INDEPENDENTLY OF THE SIBLING RUN. get_option_positions(nonzero) returns exactly ONE contract -- SPY 2026-11-20 700P qty 1 @ 749.00, opened 2026-08-06, every pending_* field 0.0000 -- matching holdings.json one-for-one. get_equity_positions returns PNC 1.825758 sh @ 246.47, unchanged. The QQQ 680P and RBRK 90P that were on the book this morning are gone because RYAN CLOSED THEM HIMSELF (placed_agent='user'), already reconciled by the 14:46Z run; this run confirms the broker still agrees and adds nothing to adjudicate. NOTE the accounts field for the record: unsettled_funds $2,211.73, which on a limited_margin account is immediately tradeable and is already inside buying_power."
+      },
+      "capital_and_limits": {
+        "portfolio": "total $4,111.99 = equity $443.43 / options $645.00 / cash $3,023.56.",
+        "budget": "unleveraged_buying_power $3,023.56 EQUALS buying_power, so NO margin is being extended and FOUR LAWS #4 is satisfied on the smaller-of test trivially. Less the $250 unencumbered reserve, deployable is $2,773.56.",
+        "slots": "1 open position, the exempt hedge. 3 of 3 CORE and 2 of 2 TACTICAL slots free.",
+        "entries": "0 of 2 this run, 0 of 8 today.",
+        "loss_cap": "+$286.00 realized today, a credit; full -$400 headroom stands.",
+        "margin_equity_floor": "account $4,111.99, comfortably above the $2,000 margin-equity minimum."
+      },
+      "position_verdicts": [
+        {
+          "position": "SPY 2026-11-20 700P (qty 1, agentic, AUTHORIZED DEFENSIVE HEDGE)",
+          "verdict": "WORKING",
+          "detail": "Mark 6.475 (6.46 x 6.49, 0.46% of mid), -$101.50 / -13.55% at mark, -$103.00 net at the bid. 88 DTE, delta -0.1548, IV 0.2047, theta -$9.10/day, OI 25,846, volume 839. Fourth consecutive interval of decline as the tape mends -- which is what insurance DOES while the risk it covers recedes, and is not a signal. EXEMPT from every premium backstop by Ryan's 2026-08-05 authorization, so no mechanical exit exists and none was considered. Next and only decision is the ~2026-10-30 roll/close review WITH Ryan. No deviation from any standing exit plan: the plan says hold, and it is held."
+        }
+      ],
+      "grades_considered": {
+        "_method": "Both tracks hunted. The DELIBERATE CHOICE of this run was to go where prior runs had not: 8 of the report's 19 setups are semis and every one is gated by NVDA's 2026-08-26 print, and the index/MSFT ideas were worked exhaustively by the 15:20-16:20Z runs. That left ELEVEN non-semi setups ungraded. Liquidity screened FIRST per the sourcing rule, using the UNDERLYING bid/ask as a free pre-filter before spending any option calls.",
+        "TACTICAL": [
+          {
+            "candidate": "QQQ long call scalp on the marginal new recovery high (709.336, 16:20Z bar)",
+            "grade": "C",
+            "verdict": "PASS. The track requires 'an intraday level actually breaking NOW'. A new high made on 117,970 shares and immediately followed by the session's LOWEST-volume bar (46,201) is not a break, it is a drift running out of buyers. The 15:25Z shelf break itself printed 344,566 -- participation is now 13% of that. Buying into a volume vacuum with a -30% stop pays the spread twice for noise."
+          },
+          {
+            "candidate": "MSFT long call scalp on the 489.00 reclaim",
+            "grade": "C",
+            "verdict": "PASS, and the 16:20Z postmortem is the reason. MSFT lost 489.00, and has now crept back above it at 489.10 -- but it has NOT retaken the 490.605 session high whose failure defined the break. Reclaiming the level you just lost, without reclaiming the high, is chop. The honest entry for a bullish MSFT scalp is a decisive move through 490.61, not a 10-cent reclaim of a level that has now been crossed in both directions four times today."
+          },
+          {
+            "candidate": "NVDA long call scalp above the rising 50-day",
+            "grade": "C",
+            "verdict": "PASS, unchanged from 16:20Z and re-checked rather than assumed. NVDA 210.355 is 2.8 points above the rising 50-day (207.58) and the range is still roughly half a point. Earnings 2026-08-26 is two sessions out; a tactical time stop lands before the print, so the risk is survivable -- but a half-point range offers no edge worth taking it for."
+          }
+        ],
+        "CORE": [
+          {
+            "candidate": "GD 2026-09-18 calls -- RSI2 5.7 oversold inside a rising 200-day uptrend, defense relative strength on a semi-led risk-off tape (spot 383.30, -0.26% vs QQQ -0.70%)",
+            "grade": "C",
+            "verdict": "PASS, DEAD ON LIQUIDITY AT EVERY STRIKE, and this is the first time GD's chain has ever been measured by this desk. Quoted on the 2026-09-18 MONTHLY at 16:32Z -- deliberately the monthly and deliberately at the target delta, because CLAUDE.md records three separate incidents of a name being wrongly excluded from the wrong quote. 385C (delta 0.495) 6.40 x 7.90, mid 7.15 = 21.0% of mid, OI 0. 390C (delta 0.391) 4.40 x 5.60, mid 5.00 = 24.0%, OI 580. 392.5C (delta 0.345, THE TARGET) 3.70 x 4.90, mid 4.30 = 27.9%, OI 0. 395C (delta 0.306) 3.00 x 4.50, mid 3.75 = 40.0%, OI 0. The CORE gate is <=10% of mid with real OI; GD fails it by 2-4x everywhere. At a 28% spread the underlying must move ~5.6% just to break even on the round trip -- widening the gate to fit this manufactures a loser, which is the exact trap the sourcing rule names. SECOND independent disqualifier: IV. Measured atm_iv 0.1933 against rv_30d 0.1753 = 1.103 raw and 1.416 ex-gap -- both columns say premium is fairly-to-richly priced, so there is no cheap-vol case either. THIRD: trend maturity (c). GD is DOWN today and has fallen 395.97 (8/10) -> 384.29 (8/21) -> 383.30 now; the mean-reversion has not turned, so the entry would be into a still-falling pullback."
+          },
+          {
+            "candidate": "RTX 2026-09-18 calls -- RSI2 5.9 oversold inside a rising 200-day uptrend (spot 208.82, -0.52%)",
+            "grade": "B",
+            "verdict": "PASS -- the closest thing to a real candidate today, and it still fails on three counts. LIQUIDITY, on the 2026-09-18 monthly at 16:32Z: ONLY the 210C clears the gate -- 4.65 x 5.00, mid 4.825 = 7.25% of mid, OI 1,447, 96 traded. The target ~0.35-delta 215C is 2.61 x 3.20, mid 2.905 = 20.3% of mid on ZERO open interest; 212.5C is 21.6% and 217.5C is 30.0%. On these defense names the open interest lives ONLY at round-number strikes and the 2.5-point rungs are dead -- worth knowing, and worth stating plainly: RTX is executable only as the ATM leg. That is the SECOND disqualifier, because since the 16:03Z spread rejection the ATM single leg is the max-carry structure available: theta -$11.21/day on a $483 premium is -2.32% PER DAY, and breakeven 214.83 requires a 2.88% rise just to get flat. THIRD, and decisive on its own -- TREND MATURITY. RTX gapped +7.3% on 2026-07-23 (earnings), ran to 225.49 by 8/18, and has since fallen four straight sessions to 208.82: -7.4%, with today red and no turn printed. Buying an oversold reading while the knife is still falling is not mean reversion, it is anticipation without a trigger. The honest entry is a reclaim, and there isn't one. FOOTNOTE ON IV, because it inverts the naive read: RTX's raw iv_rv_ratio is 0.807 and looks CHEAP -- but rv_30d 0.2919 is dominated by that same 7.07% earnings gap, and ex-gap the ratio is 1.296, RICH. A 21-45 DTE vehicle expires after the gap leaves the window and before the next print, so ex-gap is the honest gauge. This is the post-earnings-gap artifact CLAUDE.md documents, reproduced on a name outside the core list."
+          },
+          {
+            "candidate": "The other nine non-semi report setups -- GLW, EME, TKR, ALAB, NBIS, COHR, CRDO, GEV, WMB",
+            "grade": "C",
+            "verdict": "PASS as a group, on a cheap pre-filter that cost no option calls: the UNDERLYING bid/ask. EME quotes 764.97 x 766.68 -- $1.71 wide on the stock itself -- and TKR, ALAB, NBIS and COHR are all mid-caps whose chains historically die on the spread gate; a stock that wide cannot have a <=10%-of-mid option market. Named disqualifiers on the rest: CRDO reports 2026-09-01, inside any CORE hold window; GEV is flagged SPEC and the report's own stop is -8.2% on a $942 stock; WMB is oil-adjacent energy and falls under Ryan's standing de-emphasis steer. GLW is the only one that might reward a look, and it is -3.10% today with no turn -- the same still-falling condition that killed GD and RTX."
+          },
+          {
+            "candidate": "QQQ 2026-09-18 695P -- the bearish-index CORE watch carried from 16:20Z",
+            "grade": "WATCH, NOT FIRED",
+            "verdict": "Checked explicitly against its own written trigger rather than re-litigated. Condition (a), a FAILED RETEST of the 50-day at 713.05: QQQ's session-recovery high is 709.336, so it has not even reached the 712-713 zone -- cannot fire. Condition (b), a decisive loss of the session low with the 702.70-706.55 shelf recaptured downward on expanding volume: QQQ is six points ABOVE that shelf and drifting up -- cannot fire. The void clause (a session CLOSE back above 713.05) has not triggered either, so the watch SURVIVES intact into the next run. The 16:20Z run's warning stands and this run endorses it: grinding sideways under the 50-day is neither condition and must not be read as a fire."
+          }
+        ]
+      },
+      "iv_duty": {
+        "core_list": "SATISFIED, NOT RE-RUN. All eight core names carry a 2026-08-24 row measured 13:39:00Z on the 2026-09-25 board (32 DTE, the expiry nearest 30), nine minutes past the open and clear of the auction window. Re-measuring would churn the file without new information.",
+        "names_added_this_run": "GD and RTX -- the two names this run actually evaluated -- now carry their FIRST EVER rows, measured 16:34Z on the same 2026-09-25 / 32-DTE board the core list uses, so they are comparable by construction. GD atm_iv 0.193343 (385 strike, call 0.194684 / put 0.192001), rv_30d 0.1753, ex-top2 0.1365, ratios 1.103 / 1.416. RTX atm_iv 0.235438 (210 strike, call 0.241473 / put 0.229403), rv_30d 0.2919, ex-top2 0.1816, ratios 0.807 / 1.296.",
+        "pair_reading": "Read as a pair as required, and RTX is the instructive one: raw 0.807 invites a 'vol is on sale' thesis that the ex-gap 1.296 flatly contradicts, because one 7.07% earnings gap dominates a 30-sample window. GD agrees with itself (1.103 / 1.416, rich either way). ONE READING EACH, so no percentile is computed or cited for either name.",
+        "method_discipline": "The IV rows were measured on the 32-DTE board and the LIQUIDITY verdicts on the 25-DTE monthly, deliberately and separately, per the CLAUDE.md rule that an IV-sweep spread must never stand as a liquidity verdict on a name. Worth recording that the two boards disagreed sharply and in the direction the rule predicts: GD's 385C is 34.7% of mid on the 09-25 board versus 21.0% on the 09-18 monthly, and RTX's 210C is 21.8% versus 7.25%. Had this run quoted liquidity off the IV board, RTX would have been written off as untradeable at 3x its real spread."
+      },
+      "notification_decision": "NONE SENT, and the bar was applied deliberately. Ryan's 2026-08-18 monitoring mandate notifies only when a trigger fires or un-fires or when a recommendation changes. The only open position is the exempt hedge, which has no trigger; the QQQ watch did not fire; nothing was entered or exited. At an hourly-to-15-minute cadence a run that pings him to say it declined three more candidates is exactly the noise the mandate's silence clause exists to prevent.",
+      "what_the_next_run_must_know": {
+        "1_dont_re_derive_gd_or_rtx": "Both are measured and written down here and in iv_history.json. GD fails the CORE liquidity gate at EVERY strike on the monthly (21-40% of mid) and is not worth re-quoting. RTX is tradeable ONLY at the 210 strike (7.25%, OI 1,447) and only as an ATM leg; its 0.35-delta strike has zero OI. If RTX is revived it needs a RECLAIM -- a completed close back above ~212.30, the 8/21 close area -- not a lower price.",
+        "2_the_defense_liquidity_pattern": "New, general, and worth carrying forward: on GD and RTX the open interest sits ONLY at round-number strikes (GD 390: OI 580; RTX 210: OI 1,447) while every 2.5-point rung quotes 20-40% of mid on zero OI. For non-core-list names, quote the ROUND strike nearest the target delta before concluding the chain is untradeable -- the delta you want may simply not have a market while the strike next door does.",
+        "3_the_qqq_watch_survives": "Not fired, not void. Trigger and void clause both re-checked against live prices this run. The 16:20Z entry holds the full spec and the pre-written exit plan; do not re-derive it, and do not read a sideways grind under the 50-day as a fire.",
+        "4_eod_report": "Not yet due. The threshold is the first run at or after 19:15Z (14:15 CT); this run is 16:35Z. The fallback clause still binds: if the bell rings with no report written, the FIRST post-close run writes it immediately."
+      },
+      "duties_checked": {
+        "heartbeat": "Already stamped for 2026-08-24 at 13:40Z by the first post-open run. Not re-stamped.",
+        "brief": "Stamped 2026-08-24, regime SEMI-LED RISK-OFF. No genuine shock since; not rebuilt.",
+        "manage_first": "Done before hunting. One position, one verdict, no deviation from its standing plan.",
+        "pre_place_recheck": "N/A -- nothing was placed. origin/master was re-fetched anyway and a sibling run WAS found; see below.",
+        "eod_report": "Not due until 19:15Z.",
+        "friday_review": "N/A, Monday."
+      },
+      "_concurrent_run_note": "A SIBLING RUN LANDED ON MASTER MID-FLIGHT AND THIS ENTRY IS A UNION, NOT A REPLACEMENT. This run began at 16:30Z against master at 06a35a0; on the pre-write re-fetch, PR #597 (run 16:33:00Z) had merged. Per the collision rule the resolution is a union: the 16:33Z entry is kept in full and this one appended after it, ordered by run_utc. The overlap is real but small and the work is genuinely complementary -- the sibling re-reconciled the book, repaired a stale monitoring roster and graded the index/tactical ideas; this run graded the eleven non-semi report setups nobody had touched and produced the first GD and RTX chain and IV measurements the desk has ever taken. Both runs independently reconciled to the same broker state and both independently declined to trade, which is cross-validation rather than conflict. No entry was at risk of duplication because neither run placed anything; had either been about to, the rule requires the later one to DEFER. SECOND SIBLING, FOUND ON THE MERGE ITSELF: while this entry was being committed, PR #598 (run 16:40:00Z) also merged, recording that LEGGING a spread is impossible on this account because leg two always fails on collateral. That is a further capability finding on top of the 16:03Z multi-leg rejection and it is the 16:40Z entry's to tell -- noted here only so the record shows THREE runs occupied this half-hour slot (16:33Z, 16:35Z, 16:40Z) and that the union was performed twice. It reinforces rather than changes this run's reasoning: the CORE track is single-leg-only, which is precisely why RTX being executable solely as a -2.32%/day ATM leg was treated as a disqualifier rather than a detail.",
+      "why_flat_one_line": "Flat by DECISION for the fifth consecutive run, with 5 of 5 slots free, $2,773.56 deployable and 8 of 8 entries unused: today's tape offers no level actually breaking on either track, the entire semi complex is gated by NVDA's 2026-08-26 print, and the two genuinely new candidates this run found were each killed three times over -- on liquidity, on rich ex-gap premium, and on being oversold prints that have not yet turned."
+    },
+    {
       "run_utc": "2026-08-24T16:40:00Z",
       "run_local_et": "12:40 ET Monday 2026-08-24",
       "trading_day_et": "2026-08-24",
