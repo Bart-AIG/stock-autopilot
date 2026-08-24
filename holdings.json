@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-24T16:05:00Z",
+  "updated_utc": "2026-08-24T16:33:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-24",
     "realized_usd": 286.0,
@@ -353,7 +353,12 @@
       "how_the_mandate_performed": "As designed. Both were MIXED-ownership positions, the desk recommended and asked rather than executing, and Ryan made the call -- which is exactly the decision right the mandate reserves to him. No mechanical backstop ever had to fire.",
       "note": "The mandate itself STANDS and its posture is unchanged; applies_to simply has no open positions right now. Re-apply it to any future position Ryan chooses in a live session and hands to the automation to watch."
     },
-    "applies_to_status": "EMPTY AS OF 2026-08-24T16:33Z -- BOTH NAMED POSITIONS ARE CLOSED, so the mandate currently governs nothing. Ryan closed QQQ 2026-09-11 680P (3 @ 4.44, 14:33:25Z) and RBRK 2026-09-18 90P (2 @ 4.40, 14:32:58Z) himself; both orders carry placed_agent='user' and both are recorded in _closed_positions. This is the roster being corrected to match the broker, NOT the mandate being retired -- the POSTURE below stands and re-attaches automatically to any future position Ryan chooses in a live session (CLAUDE.md calls this mandate the template for exactly that case). The SPY 2026-11-20 700P hedge is NOT added here: it is governed by its own insurance exemption, not by monitor-and-ask.",
+    "_applies_to_status": {
+      "updated_utc": "2026-08-24T16:20:00Z",
+      "note": "BOTH original subjects are CLOSED and the mandate currently has NO live position under it. QQQ 2026-09-11 680P (3 contracts) and RBRK 2026-09-18 90P (2 contracts) were both closed BY RYAN HIMSELF on 2026-08-24 at 14:33:25Z and 14:32:58Z respectively (placed_agent='user' verified on the order records; +$226.00 and +$60.00, both in _closed_positions). The empty applies_to is therefore CORRECT and current, not a field someone forgot to populate -- it is being stamped explicitly so the next run does not spend a cycle checking marks on two contracts that no longer exist, which is what the stale list would have caused.",
+      "the_mandate_itself_is_NOT_retired": "The posture text below stands unchanged and is the SHAPE TO REUSE: any position Ryan opens in a live session and hands to the automation to watch, and any agent-placed position he substantively chose, goes under MONITOR + RECOMMEND + ASK with the hard-backstop exception intact. Only an interactive session with a real Ryan turn may amend the mandate itself; this edit records an observable fact about its subjects and nothing more.",
+      "outcome_worth_recording": "The mandate worked exactly as designed end to end: the desk brought Ryan the numbers, Ryan made the call, the desk placed nothing and the ownership gate was never tested. Both positions closed green."
+    },
     "_notify_state": {
       "last_notification_utc": "2026-08-24T13:40:00Z",
       "what_was_sent": "The 21-DTE recommendation REVERSAL on the QQQ 680P (flat-to-losing on Friday -> +$202 at mark on Monday's risk-off open), sent once under the 'recommendation itself changes' condition.",
@@ -367,8 +372,13 @@
     "note": "daily_options_report.md written by the 19:15Z run at 14:20 CT -- the FIRST run at or past the 14:15 CT (19:15Z) window CLAUDE.md set on 2026-08-21T16:35Z, and written in-session rather than deferred. Note the threshold's premise has since changed: the 14:15 move was calibrated for the hourly-only cadence, and the sub-hourly trigger was repaired at 17:05Z today, so 19:25Z/19:55Z runs will now also land pre-bell. Writing at 19:20Z is still correct under CLAUDE.md and guarantees delivery; this marker is what stops a sibling from duplicating it. Contents: live 19:16Z marks on all three contracts, the -$237.50 per-lot MTM day (vs the WRONG -$429.50 naive close-to-mark figure, which falsely resembles a -$400 cap breach), the ~$236 unhedged three-day weekend carry, ten skipped candidate groups incl. the INTC secondary-offering trap, and the QQQ 21-DTE decision for Ryan in Section 5 ahead of Monday's open at 20 DTE. DO NOT REWRITE unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing) -- every master push touching this file re-notifies Ryan."
   },
   "_last_reconciliation": {
-    "utc": "2026-08-24T15:25:00Z",
-    "result": "ZERO DRIFT. get_option_positions(nonzero) returns exactly ONE contract -- SPY 2026-11-20 700P qty 1.0000 @ 749.00, opened 2026-08-06T14:21:56Z -- matching holdings.json one-for-one, every pending_* field 0.0000. No assignment, exercise, expiration or unauthorized fill. get_portfolio: total $4,150.33 = equity $445.77 / options $681.00 / cash $3,023.56, with buying_power EQUAL to unleveraged_buying_power ($3,023.56), so no margin is extended. Equity book PNC 1.825758 sh unchanged and untouched (HARD RULE 6)."
+    "utc": "2026-08-24T16:33:00Z",
+    "result": "ZERO DRIFT. get_option_positions(nonzero) returns exactly ONE contract -- SPY 2026-11-20 700P qty 1.0000 @ 749.00, opened 2026-08-06T14:21:56Z -- matching holdings.json one-for-one, every pending_* field 0.0000. No assignment, exercise, expiration or unauthorized fill. Equity book PNC 1.825758 sh, unchanged.",
+    "capital": "get_portfolio at 16:16Z: total $4,112.46 = equity $443.90 / options $645.00 / cash $3,023.56. unleveraged_buying_power $3,023.56 EQUALS buying_power -- no margin extended. FOUR LAWS #4 budget $3,023.56; less the $250 reserve, deployable $2,773.56.",
+    "unsettled_funds_note": "get_accounts shows unsettled_funds $2,211.73 -- the proceeds of Ryan's two 14:33Z closes, settling 2026-08-25. NOT a spending constraint: the account is `limited_margin`, so settlement is instant and the funds are already inside buying_power. Recorded so no future run mistakes a large unsettled_funds figure for a block, which is a `cash`-account concept only.",
+    "slots": "1 open position, and it is the EXEMPT hedge. 3 of 3 CORE slots free, 2 of 2 TACTICAL slots free. Entries used 0 of 8 today. Realized options P/L today +$286.00 (a credit) against the -$400 cap, so full headroom.",
+    "hedge_mark": "SPY 2026-11-20 700P marks $6.45 vs the $7.49 entry: -$104 / -13.9%, ~88 DTE. Exempt from all premium backstops as authorized insurance; the ~21-DTE roll/close decision is made WITH Ryan and is far off. No action.",
+    "_1633Z_reverify": "RE-VERIFIED INDEPENDENTLY by the 16:33Z run against its own broker calls (16:21-16:25Z): get_option_positions(nonzero) returns the single exempt SPY 2026-11-20 700P @ 749.00; get_portfolio total $4,109.51 = equity $443.95 / options $642.00 / cash $3,023.56 with unleveraged_buying_power EQUAL to buying_power. Two independently-fetched reconciliations agreeing to within the drift of a moving mark is CROSS-VALIDATION, not a conflict. get_realized_pnl re-confirmed +$286.00 on 2 trades."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
@@ -442,53 +452,29 @@
     "why_no_single_leg_substitute_was_taken": "Measured at 16:05:17Z. 500C (0.41 delta) mid 9.35, 3.21% of mid, OI 19,721, theta -$27.41/day, cost $935, breakeven 509.35. 490C (0.53 delta) mid 14.025, 3.92% of mid, theta -$29.10/day, cost $1,402.50. Both executable, both affordable, both inside the CORE liquidity gate -- and both declined on BREAKEVEN, not cost: the 500C breaks even at 509.35, essentially AT the vertical's 510 short strike, so the single leg pays ~zero at exactly the price where the graded thesis said to bank $1,205. Different trade, materially worse, and the arm did not authorise it.",
     "revival_condition": "A successful multi-leg fill on this account. Until then every debit-spread instruction in CLAUDE.md and the v4 routine prompt is unexecutable and must not be armed."
   },
-  "_next_setup_spec": {
-    "set_utc": "2026-08-24T16:33Z",
-    "status": "SPECIFICATION ONLY -- NOT ARMED, NOT AUTHORIZED TO PLACE ON SIGHT. No trigger is live.",
-    "why_this_exists": "The desk is flat apart from the exempt hedge, with ~$2,773 deployable and all 5 slots free. That combination is exactly when a run is most tempted to manufacture a trade, so the bearish index idea is written down PRICED and LEVELLED instead of being taken at a bad price. A future run still owes it the full entry stack; this block only removes the re-derivation cost.",
-    "underlying_levels_measured_1622Z": {
-      "QQQ_last": 709.1,
-      "QQQ_50day": 713.05,
-      "QQQ_session_low_shelf": 702.7,
-      "QQQ_shelf_top_broken_1525Z": 706.55,
-      "note": "QQQ lost the 50-day decisively at the open, bottomed 702.70, and has ground back to 709.10 on four-plus higher 5-min closes with expanding volume. It now sits BETWEEN the broken shelf and the 50-day -- mid-range, the worst place to initiate either direction."
+  "_CORE_WATCH": {
+    "_comment": "A WATCH, NOT AN ARM. Set 2026-08-24T16:20:00Z. It specifies levels and a pre-measured vehicle so the next instance does not re-derive them; it does NOT authorise an entry by itself and it does not fire on its own. Deliberately not an arm: the desk spent this morning arming and re-speccing one trigger three times and it fired at the session high into a vehicle that does not exist. Arming is not trading.",
+    "idea": "QQQ index downside -- the desk's house view under Ryan's Aug-Oct defensive posture, currently confirmed by QQQ sitting decisively below its 50-day MA (713.05) after today's semi-led break.",
+    "why_it_was_NOT_taken_on_2026-08-24": [
+      "NO TRIGGER. QQQ is ~6 points off the session low and grinding UP on collapsing volume (the last two 5-minute bars were the lowest-volume of the session). Buying puts into a bounce is the mirror image of the entry mistake documented in the same run's MSFT postmortem.",
+      "RYAN BANKED THIS EXACT EXPOSURE FOUR HOURS EARLIER (+$226 on 3x QQQ 2026-09-11 680P at 14:33Z). Re-establishing the same position the same session, on a bounce, second-guesses a decision he made himself. A re-entry requires a NEW trigger -- the mere persistence of the thesis is not one."
+    ],
+    "trigger_that_would_make_it_live": "EITHER (a) a FAILED RETEST of the 50-day MA at 713.05 from below -- QQQ trades up into 712-713 and is rejected, printing a completed 5-minute close back under 710; OR (b) a decisive loss of the session low with the 702.70-706.55 shelf recaptured to the downside on EXPANDING volume. Grinding sideways beneath the 50-day is NEITHER and must not be read as a fire.",
+    "void_clause": "VOID if QQQ closes a session back above the 50-day MA (713.05). That removes the technical confirmation the entire bearish index premise rests on -- exactly what Friday's relief rally had done before today's break restored it.",
+    "vehicle_measured_2026-08-24T16:18Z": {
+      "board": "QQQ 2026-09-18, 25 DTE -- the MONTHLY board, chosen per the standing rule that mega-cap monthlies carry the open interest while adjacent weeklies quote far wider.",
+      "695P": "instrument 0a562899-07c9-4ea5-b468-d986d20700a5. bid 8.78 / ask 8.85, mid 8.815, spread 0.79% OF MID, delta -0.3349, OI 19,036, volume 3,065, IV 20.84%, theta -0.2559. Cost $881.50/contract. Breakeven 686.18.",
+      "690P": "instrument 6987aefc-b17d-431a-a7ba-fa2008d52b78. bid 7.51 / ask 7.58, mid 7.545, spread 0.93% of mid, delta -0.2928, OI 34,579, IV 21.44%, theta -0.2507. Cost $754.50/contract. Breakeven 682.45.",
+      "liquidity_verdict": "Both are 12x inside the CORE 10%-of-mid gate and comfortably inside even the 3% TACTICAL gate. Liquidity is emphatically NOT the constraint here.",
+      "700P_added_by_the_16:33Z_run": "instrument 11be9899-c21a-4b19-a392-9700641cb39c, quoted 16:24:52Z. bid 10.19 / ask 10.28, mid 10.235, spread 0.88% of mid, delta -0.3790, OI 103,157 (FIVE TIMES the 695P's 19,036), volume 10,710, IV 20.33%, theta -0.2584/day. Cost $1,023.50/contract, breakeven 689.76. Added because it is the closest strike to the 0.35-0.40 delta target AND by far the deepest open interest on the board -- worth preferring over the 695P on exit liquidity if this is ever taken."
     },
-    "the_two_objective_levels_that_would_make_it_valid": {
-      "bearish_failed_retest": "QQQ tags 712.50-713.50 (the 50-day) and then a completed 5-minute bar CLOSES back below 711.00. Rejection must be PROVEN, not anticipated -- proximity to the level is not the trigger.",
-      "bearish_continuation": "A completed 5-minute close below 702.70 (today's session low), which would negate the entire afternoon recovery.",
-      "bullish_invalidation_of_the_whole_bearish_premise": "A completed 5-minute close above 713.05 that HOLDS on the following bar. That reclaims the 50-day and retires the bearish index thesis rather than triggering a put; it is written here so the next run does not treat a reclaim as merely 'not yet a short'."
+    "THE_WARNING_THAT_MATTERS_MORE_THAN_THE_MEASUREMENT": "Theta on the 695P is -$25.59 PER DAY against an $881.50 premium -- ~2.9% of the position bleeding every calendar day, and the whole premium over the contract's 25-day life. This is the measured price of CORE being single-leg-only now that the agentic API refuses spreads: the vertical doctrine existed precisely to cut this carry 4-9x. Consequence, stated plainly rather than papered over: a QQQ downside thesis must pay inside roughly one to two weeks or it does not pay at all. That RAISES the bar this setup must clear; it does not lower it. And a chain at 0.79% of mid supplies NO thesis whatsoever -- do not let a cheap, liquid, affordable vehicle argue itself into a trade.",
+    "if_taken_the_exit_plan_is_ALREADY_WRITTEN": {
+      "profit": "2026-08-05 engine -- pop-bank a one-day gain >= +80%; ratchet arms at +50% and exits on giving back ~40% of peak; no fixed ceiling while the stack holds.",
+      "invalidation_on_the_UNDERLYING": "A session close back above the 50-day MA at 713.05.",
+      "time_stop": "The 21-DTE management review lands 2026-08-28 -- only four sessions out at 25 DTE. That is itself an argument for a later board: PRICE 2026-10-16 (monthly, 53 DTE) before defaulting to 2026-09-18.",
+      "sizing": "1 contract, $881.50 -- inside the CORE $500-1,000 typical band and well under the $1,500 A++ reservation. This setup is not A++."
     },
-    "vehicle_priced_live_162452Z": {
-      "board": "2026-09-18 monthly, 25 DTE -- the monthly, per the CLAUDE.md rule that mega-cap/ETF monthlies carry the open interest.",
-      "QQQ_695P": {
-        "instrument_id": "0a562899-07c9-4ea5-b468-d986d20700a5",
-        "bid": 8.72,
-        "ask": 8.79,
-        "mid": 8.755,
-        "spread_pct_of_mid": 0.8,
-        "delta": -0.3325,
-        "iv": 0.208989,
-        "theta_per_day_usd": -25.62,
-        "open_interest": 19036,
-        "volume": 3071,
-        "cost_usd": 875.5
-      },
-      "QQQ_700P": {
-        "instrument_id": "11be9899-c21a-4b19-a392-9700641cb39c",
-        "bid": 10.19,
-        "ask": 10.28,
-        "mid": 10.235,
-        "spread_pct_of_mid": 0.88,
-        "delta": -0.379,
-        "iv": 0.203326,
-        "theta_per_day_usd": -25.84,
-        "open_interest": 103157,
-        "volume": 10710,
-        "cost_usd": 1023.5
-      },
-      "liquidity_verdict": "Both pass the CORE 10%-of-mid gate with enormous margin and would even pass the stricter 3% TACTICAL gate. Liquidity is NOT the constraint on this idea -- carry is."
-    },
-    "THE_CARRY_PROBLEM_STATE_IT_PLAINLY": "A CORE single-leg QQQ put costs about -$25.62/day to carry on an $875 position -- roughly -2.9% PER DAY. The 695/675 style vertical that would cut that by 4-9x is UNEXECUTABLE on this account (multi-leg orders are rejected by the agentic API; proven by a real rejection at 16:05Z today). So the honest consequence is structural, not incidental: with spreads gone, the desk's natural bearish-index expression bleeds ~2.9%/day, which means it is really a days-long trade wearing a 25-DTE contract, NOT a 1-4 week CORE hold. Any future run taking this must either (a) treat it as tactical with a tight time stop and accept the theta, or (b) not be in the trade. Do not price it as a CORE swing and then hold it like one -- that is how -2.9%/day quietly eats a correct directional call.",
-    "exit_plan_required_before_any_entry": "Unwritten. Whichever run takes this owes a profit target, an invalidation level on QQQ itself, and a time stop BEFORE placing -- no written invalidation, no trade."
+    "EARNINGS_GATE_ADDED_BY_THE_16:33Z_RUN_CROSS_RUN_SYNTHESIS": "NVDA REPORTS 2026-08-26 -- TWO SESSIONS OUT -- AND THAT GATES THIS QQQ IDEA TOO, WHICH NEITHER RUN CAUGHT ALONE. The 16:20Z run established the print and correctly applied it to the semi cluster and to single-name semi CORE candidates. The 16:33Z run independently priced this QQQ put without knowing about the print. Merging the two makes the consequence obvious: NVDA is one of the heaviest weights in QQQ, so ANY 2026-09-18 (25 DTE) QQQ contract SPANS the print, and the 2026-10-16 board the exit plan already recommends spans it too. The exit engine's rule is to close before earnings unless earnings IS the thesis -- and here it is not: the thesis is a technical failed-retest of the 50-day. PRACTICAL EFFECT: this is NOT an additional disqualifier that kills the idea, because a QQQ index put is diversified across ~100 names and one constituent's print is not the same event risk it is for the single name. But it IS a material, un-hedged binary inside the holding window of a position that already bleeds ~2.9%/day, and the two compound: a correct directional call can be erased overnight on 08-26 with no time left to recover the carry. Any run taking this before 2026-08-26 must state explicitly that it is accepting NVDA event risk and why, or wait until the print has passed -- which is the cleaner path and costs only two sessions."
   }
 }
