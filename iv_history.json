@@ -1,5 +1,5 @@
 {
- "_comment": "IV self-tracking for the options-automation sleeve (HARD RULE 8 / routine v3). One row per ticker per day: {date, spot, atm_iv, dte_used, rv_30d, iv_rv_ratio}. atm_iv = average of call+put IV at the strike closest to spot, at the expiry nearest 30 DTE (or the position's actual expiry when tracking an open position's own contract). rv_30d = annualized stdev of daily log returns over the trailing 30 sessions, computed from Robinhood daily historicals. iv_rv_ratio = atm_iv / rv_30d. Bootstrapped 2026-08-11 (first run under routine prompt v3 -- this file did not exist before). With <20 readings for a name, gate entries on iv_rv_ratio alone (>1.5 = elevated premium, prefer legged debit spread or skip + size down); at 20+ readings also compute IV percentile (share of readings below current) per the routine spec.",
+ "_comment": "IV self-tracking for the options-automation sleeve (HARD RULE 8 / routine v3). One row per ticker per day: {date, spot, atm_iv, dte_used, rv_30d, iv_rv_ratio}. atm_iv = average of call+put IV at the strike closest to spot, at the expiry nearest 30 DTE (or the position's actual expiry when tracking an open position's own contract). rv_30d = annualized stdev of daily log returns over the trailing 30 sessions, computed from Robinhood daily historicals. iv_rv_ratio = atm_iv / rv_30d. Bootstrapped 2026-08-11 (first run under routine prompt v3 -- this file did not exist before). With <20 readings for a name, gate entries on iv_rv_ratio alone (>1.5 = elevated premium, prefer legged debit spread or skip + size down); at 20+ readings also compute IV percentile (share of readings below current) per the routine spec. || BOARD DISCONTINUITY, 2026-08-24: readings through 2026-08-21 were taken on the 2026-09-18 MONTHLY board; the 2026-08-24 rows were taken by a concurrent run on the 2026-09-25 weekly (32 DTE), which is the literal 'nearest 30 DTE'. Both are defensible, but the series is no longer board-homogeneous, and vol varies by expiry, so a percentile computed at 20+ readings across mixed boards would measure the board switch as much as the vol. Pick ONE convention and state it in the row. Flagged rather than silently corrected, because rewriting another run's measured rows is worse than recording the seam.",
  "SPY": [
   {
    "date": "2026-08-11",
@@ -105,17 +105,18 @@
   },
   {
    "date": "2026-08-24",
-   "spot": 763.535,
-   "atm_iv": 0.130385,
-   "dte_used": 25,
+   "spot": 763.24,
+   "atm_iv": 0.130013,
+   "dte_used": 32,
    "rv_30d": 0.1252,
-   "iv_rv_ratio": 1.0414,
    "rv_30d_ex_top2": 0.1058,
-   "iv_rv_ratio_ex_top2": 1.2324,
+   "iv_rv_ratio": 1.038,
+   "iv_rv_ratio_ex_top2": 1.229,
    "largest_1d_move_in_window_pct": 1.8,
-   "strike_used": 764,
-   "measured_utc": "2026-08-24T13:38:57Z",
-   "_note": "Measured 13:38:57Z on the 2026-09-18 board (25 DTE), ATM = average of the call and put IV at the listed strike. BOARD CHOICE, stated because it deviates from the literal 'nearest 30 DTE': 2026-09-25 is 32 DTE and therefore arithmetically nearer to 30 than 09-18's 25, but the series' nine prior readings all sit on the 09-18 MONTHLY board, and the monthly carries far deeper OI than the weekly. Switching boards to gain 2 days of DTE accuracy would inject a liquidity/board discontinuity into a series being built for a percentile computation at 20+ readings. Staying on 09-18 and saying so is the more honest choice; revisit when 09-18 drops under ~21 DTE. Both realized-vol numbers are logged per the file-level earnings-gap rule: rv_30d is the mechanical 30-sample stdev, rv_30d_ex_top2 drops the two largest absolute daily moves. Read them as a PAIR -- ex-gap is the more honest gauge for a contract expiring BEFORE the next print, raw for one that spans a print."
+   "strike_used": 763,
+   "expiry_used": "2026-09-25",
+   "measured_utc": "2026-08-24T13:39:00Z",
+   "_note": "Risk-off open but SPY is the RESILIENT leg: -0.32% against QQQ -0.98%. ATM IV 0.1300 on the 2026-09-25 board (32 DTE, nearest 30). Ratio 1.04 raw / 1.23 ex-gap -- premium fair-to-slightly-rich once the single 1.80% day is stripped. Note the pronounced put skew (call 0.1217 vs put 0.1384): downside protection is what is being bid, consistent with a defensive tape rather than a broad vol repricing."
   }
  ],
  "QQQ": [
@@ -222,17 +223,18 @@
   },
   {
    "date": "2026-08-24",
-   "spot": 706.955,
-   "atm_iv": 0.199377,
-   "dte_used": 25,
+   "spot": 706.47,
+   "atm_iv": 0.200644,
+   "dte_used": 32,
    "rv_30d": 0.2225,
-   "iv_rv_ratio": 0.8961,
    "rv_30d_ex_top2": 0.1753,
-   "iv_rv_ratio_ex_top2": 1.1373,
+   "iv_rv_ratio": 0.902,
+   "iv_rv_ratio_ex_top2": 1.145,
    "largest_1d_move_in_window_pct": 3.4,
-   "strike_used": 707,
-   "measured_utc": "2026-08-24T13:38:57Z",
-   "_note": "Measured 13:38:57Z on the 2026-09-18 board (25 DTE), ATM = average of the call and put IV at the listed strike. BOARD CHOICE, stated because it deviates from the literal 'nearest 30 DTE': 2026-09-25 is 32 DTE and therefore arithmetically nearer to 30 than 09-18's 25, but the series' nine prior readings all sit on the 09-18 MONTHLY board, and the monthly carries far deeper OI than the weekly. Switching boards to gain 2 days of DTE accuracy would inject a liquidity/board discontinuity into a series being built for a percentile computation at 20+ readings. Staying on 09-18 and saying so is the more honest choice; revisit when 09-18 drops under ~21 DTE. Both realized-vol numbers are logged per the file-level earnings-gap rule: rv_30d is the mechanical 30-sample stdev, rv_30d_ex_top2 drops the two largest absolute daily moves. Read them as a PAIR -- ex-gap is the more honest gauge for a contract expiring BEFORE the next print, raw for one that spans a print."
+   "strike_used": 706,
+   "expiry_used": "2026-09-25",
+   "measured_utc": "2026-08-24T13:39:00Z",
+   "_note": "THE INDEX THAT MOVED. 706.47, -0.98%, decisively BELOW the 50d (713.05) that had pinned it for three sessions -- the monthly OpEx gamma rolled off Friday and the range resolved DOWN, which is the direction _monday_open flagged as unknown. ATM IV 0.2006. Ratio 0.90 raw / 1.14 ex-gap: the raw number says cheap, the ex-gap number says slightly rich, and the ex-gap read is the honest one for a contract not spanning a print. Do NOT read 0.90 as a green light to buy index premium."
   }
  ],
  "NVDA": [
@@ -336,18 +338,18 @@
   },
   {
    "date": "2026-08-24",
-   "spot": 213.09,
-   "atm_iv": 0.422746,
-   "dte_used": 25,
+   "spot": 213.13,
+   "atm_iv": 0.409335,
+   "dte_used": 32,
    "rv_30d": 0.3765,
-   "iv_rv_ratio": 1.1228,
    "rv_30d_ex_top2": 0.3358,
-   "iv_rv_ratio_ex_top2": 1.2589,
+   "iv_rv_ratio": 1.087,
+   "iv_rv_ratio_ex_top2": 1.219,
    "largest_1d_move_in_window_pct": -4.99,
    "strike_used": 215,
-   "measured_utc": "2026-08-24T13:38:57Z",
-   "_note": "Measured 13:38:57Z on the 2026-09-18 board (25 DTE), ATM = average of the call and put IV at the listed strike. BOARD CHOICE, stated because it deviates from the literal 'nearest 30 DTE': 2026-09-25 is 32 DTE and therefore arithmetically nearer to 30 than 09-18's 25, but the series' nine prior readings all sit on the 09-18 MONTHLY board, and the monthly carries far deeper OI than the weekly. Switching boards to gain 2 days of DTE accuracy would inject a liquidity/board discontinuity into a series being built for a percentile computation at 20+ readings. Staying on 09-18 and saying so is the more honest choice; revisit when 09-18 drops under ~21 DTE. Both realized-vol numbers are logged per the file-level earnings-gap rule: rv_30d is the mechanical 30-sample stdev, rv_30d_ex_top2 drops the two largest absolute daily moves. Read them as a PAIR -- ex-gap is the more honest gauge for a contract expiring BEFORE the next print, raw for one that spans a print.",
-   "_event_note": "EARNINGS 2026-08-26 pm, broker-verified, TWO SESSIONS AWAY. IV rose 0.4042 -> 0.4227 (+4.6%) versus Friday's settled reading -- vol is bidding into the print, as expected. Premium is NOT cheap into the event: 42.3% implied against 37.7% realized raw / 33.6% ex-gap. Both ratios are above 1.0, so this is the rare case where raw and ex-gap AGREE that premium is rich -- no artifact ambiguity to resolve."
+   "expiry_used": "2026-09-25",
+   "measured_utc": "2026-08-24T13:39:00Z",
+   "_note": "IV 0.4093 with EARNINGS 2026-08-26 pm INSIDE this 2026-09-25 window -- the elevation is a scheduled event premium, not a mispricing, and the raw ratio 1.09 / ex-gap 1.22 both say rich. Buying premium here means paying for the print and then eating the crush. Chain is genuinely tradeable (0.25 wide = 2.65% of mid, OI 2,896, volume 1,120 -- the most active contract measured today), so the vehicle passes and the SETUP is what fails. Largest QQQ weight; this print is the biggest scheduled variance event for the desk's QQQ position."
   }
  ],
  "AMD": [
@@ -451,17 +453,18 @@
   },
   {
    "date": "2026-08-24",
-   "spot": 460.52,
-   "atm_iv": 0.54121,
-   "dte_used": 25,
+   "spot": 459.25,
+   "atm_iv": 0.537411,
+   "dte_used": 32,
    "rv_30d": 0.7354,
-   "iv_rv_ratio": 0.7359,
    "rv_30d_ex_top2": 0.6074,
-   "iv_rv_ratio_ex_top2": 0.891,
+   "iv_rv_ratio": 0.731,
+   "iv_rv_ratio_ex_top2": 0.885,
    "largest_1d_move_in_window_pct": 13.0,
    "strike_used": 460,
-   "measured_utc": "2026-08-24T13:38:57Z",
-   "_note": "Measured 13:38:57Z on the 2026-09-18 board (25 DTE), ATM = average of the call and put IV at the listed strike. BOARD CHOICE, stated because it deviates from the literal 'nearest 30 DTE': 2026-09-25 is 32 DTE and therefore arithmetically nearer to 30 than 09-18's 25, but the series' nine prior readings all sit on the 09-18 MONTHLY board, and the monthly carries far deeper OI than the weekly. Switching boards to gain 2 days of DTE accuracy would inject a liquidity/board discontinuity into a series being built for a percentile computation at 20+ readings. Staying on 09-18 and saying so is the more honest choice; revisit when 09-18 drops under ~21 DTE. Both realized-vol numbers are logged per the file-level earnings-gap rule: rv_30d is the mechanical 30-sample stdev, rv_30d_ex_top2 drops the two largest absolute daily moves. Read them as a PAIR -- ex-gap is the more honest gauge for a contract expiring BEFORE the next print, raw for one that spans a print."
+   "expiry_used": "2026-09-25",
+   "measured_utc": "2026-08-24T13:39:00Z",
+   "_note": "Hardest-hit core name: 459.25, -2.96%. IV 0.5374 vs rv 0.7354 -> ratio 0.73 raw, but ex-gap 0.885 after stripping a +13.00% day -- still under 1, the ONLY name on the panel where premium survives the ex-gap test as arguably cheap. Vehicle nonetheless fails the TACTICAL gate: 2.45 wide on 28.98 mid = 8.5% of mid, fine for a core swing (<=10%) and far outside the <=3% scalp gate."
   }
  ],
  "TSM": [
@@ -565,17 +568,18 @@
   },
   {
    "date": "2026-08-24",
-   "spot": 411.08,
-   "atm_iv": 0.34161,
-   "dte_used": 25,
+   "spot": 410.2,
+   "atm_iv": 0.348091,
+   "dte_used": 32,
    "rv_30d": 0.3917,
-   "iv_rv_ratio": 0.8721,
    "rv_30d_ex_top2": 0.2801,
-   "iv_rv_ratio_ex_top2": 1.2196,
+   "iv_rv_ratio": 0.889,
+   "iv_rv_ratio_ex_top2": 1.243,
    "largest_1d_move_in_window_pct": 7.64,
    "strike_used": 410,
-   "measured_utc": "2026-08-24T13:38:57Z",
-   "_note": "Measured 13:38:57Z on the 2026-09-18 board (25 DTE), ATM = average of the call and put IV at the listed strike. BOARD CHOICE, stated because it deviates from the literal 'nearest 30 DTE': 2026-09-25 is 32 DTE and therefore arithmetically nearer to 30 than 09-18's 25, but the series' nine prior readings all sit on the 09-18 MONTHLY board, and the monthly carries far deeper OI than the weekly. Switching boards to gain 2 days of DTE accuracy would inject a liquidity/board discontinuity into a series being built for a percentile computation at 20+ readings. Staying on 09-18 and saying so is the more honest choice; revisit when 09-18 drops under ~21 DTE. Both realized-vol numbers are logged per the file-level earnings-gap rule: rv_30d is the mechanical 30-sample stdev, rv_30d_ex_top2 drops the two largest absolute daily moves. Read them as a PAIR -- ex-gap is the more honest gauge for a contract expiring BEFORE the next print, raw for one that spans a print."
+   "expiry_used": "2026-09-25",
+   "measured_utc": "2026-08-24T13:39:00Z",
+   "_note": "410.20, -2.09%. IV 0.3481. Ratio 0.89 raw / 1.24 ex-gap after a 7.64% day -- another cheap-looking headline that inverts once the gap is stripped. LIQUIDITY DISQUALIFIES IT ANYWAY: 2.75 wide on 16.58 mid = 16.6% of mid, failing both the 3% tactical and 10% core gates. Worth logging as the recurring pattern -- TSM keeps screening interesting and keeps being untradeable at this size."
   }
  ],
  "AVGO": [
@@ -681,18 +685,18 @@
   },
   {
    "date": "2026-08-24",
-   "spot": 364.845,
-   "atm_iv": 0.527427,
-   "dte_used": 25,
+   "spot": 363.52,
+   "atm_iv": 0.51491,
+   "dte_used": 32,
    "rv_30d": 0.4372,
-   "iv_rv_ratio": 1.2064,
    "rv_30d_ex_top2": 0.3629,
-   "iv_rv_ratio_ex_top2": 1.4534,
+   "iv_rv_ratio": 1.178,
+   "iv_rv_ratio_ex_top2": 1.419,
    "largest_1d_move_in_window_pct": 6.61,
    "strike_used": 365,
-   "measured_utc": "2026-08-24T13:38:57Z",
-   "_note": "Measured 13:38:57Z on the 2026-09-18 board (25 DTE), ATM = average of the call and put IV at the listed strike. BOARD CHOICE, stated because it deviates from the literal 'nearest 30 DTE': 2026-09-25 is 32 DTE and therefore arithmetically nearer to 30 than 09-18's 25, but the series' nine prior readings all sit on the 09-18 MONTHLY board, and the monthly carries far deeper OI than the weekly. Switching boards to gain 2 days of DTE accuracy would inject a liquidity/board discontinuity into a series being built for a percentile computation at 20+ readings. Staying on 09-18 and saying so is the more honest choice; revisit when 09-18 drops under ~21 DTE. Both realized-vol numbers are logged per the file-level earnings-gap rule: rv_30d is the mechanical 30-sample stdev, rv_30d_ex_top2 drops the two largest absolute daily moves. Read them as a PAIR -- ex-gap is the more honest gauge for a contract expiring BEFORE the next print, raw for one that spans a print.",
-   "_data_quality_flag": "OPEN INTEREST IS ZERO on BOTH legs of the 365 strike, and results[].close came back 0.01 with source=null (no genuine prior close). These are freshly-listed strikes. The IV reading is usable but thinner-sourced than the rest of the list -- do NOT treat this row as a liquidity endorsement of the 365 strike."
+   "expiry_used": "2026-09-25",
+   "measured_utc": "2026-08-24T13:39:00Z",
+   "_note": "363.52, -1.34%. IV 0.5149, the RICHEST reading on the panel on both measures: ratio 1.18 raw / 1.42 ex-gap. Spread 2.05 on 22.83 mid = 9.0% -- core-eligible, tactical-disqualified. Rich vol plus a wide chain is the worst combination for a premium BUYER; if anything AVGO argues for a spread rather than a single leg."
   }
  ],
  "MSFT": [
@@ -796,17 +800,18 @@
   },
   {
    "date": "2026-08-24",
-   "spot": 483.57,
-   "atm_iv": 0.262484,
-   "dte_used": 25,
+   "spot": 483.475,
+   "atm_iv": 0.261962,
+   "dte_used": 32,
    "rv_30d": 0.4994,
-   "iv_rv_ratio": 0.5256,
    "rv_30d_ex_top2": 0.2605,
-   "iv_rv_ratio_ex_top2": 1.0076,
+   "iv_rv_ratio": 0.525,
+   "iv_rv_ratio_ex_top2": 1.006,
    "largest_1d_move_in_window_pct": 15.51,
    "strike_used": 485,
-   "measured_utc": "2026-08-24T13:38:57Z",
-   "_note": "Measured 13:38:57Z on the 2026-09-18 board (25 DTE), ATM = average of the call and put IV at the listed strike. BOARD CHOICE, stated because it deviates from the literal 'nearest 30 DTE': 2026-09-25 is 32 DTE and therefore arithmetically nearer to 30 than 09-18's 25, but the series' nine prior readings all sit on the 09-18 MONTHLY board, and the monthly carries far deeper OI than the weekly. Switching boards to gain 2 days of DTE accuracy would inject a liquidity/board discontinuity into a series being built for a percentile computation at 20+ readings. Staying on 09-18 and saying so is the more honest choice; revisit when 09-18 drops under ~21 DTE. Both realized-vol numbers are logged per the file-level earnings-gap rule: rv_30d is the mechanical 30-sample stdev, rv_30d_ex_top2 drops the two largest absolute daily moves. Read them as a PAIR -- ex-gap is the more honest gauge for a contract expiring BEFORE the next print, raw for one that spans a print."
+   "expiry_used": "2026-09-25",
+   "measured_utc": "2026-08-24T13:39:00Z",
+   "_note": "THE TEXTBOOK ARTIFACT, REPRODUCED. Ratio 0.52 raw is the 'half-price vol' print CLAUDE.md warns about by name -- and it is almost entirely one +15.51% day in the window. Ex-gap the ratio is 1.006, i.e. premium is priced almost exactly FAIR. Also the lone GREEN name today (+0.05%), diverging from the risk-off tape. Spread 1.80 on 15.00 mid = 12.0%, failing both liquidity gates at the ATM strike. Cite 1.01, never 0.52."
   }
  ],
  "TSLA": [
@@ -910,17 +915,18 @@
   },
   {
    "date": "2026-08-24",
-   "spot": 354.64,
-   "atm_iv": 0.412986,
-   "dte_used": 25,
+   "spot": 354.96,
+   "atm_iv": 0.41522,
+   "dte_used": 32,
    "rv_30d": 0.5861,
-   "iv_rv_ratio": 0.7046,
    "rv_30d_ex_top2": 0.3463,
-   "iv_rv_ratio_ex_top2": 1.1926,
+   "iv_rv_ratio": 0.708,
+   "iv_rv_ratio_ex_top2": 1.199,
    "largest_1d_move_in_window_pct": -14.52,
    "strike_used": 355,
-   "measured_utc": "2026-08-24T13:38:57Z",
-   "_note": "Measured 13:38:57Z on the 2026-09-18 board (25 DTE), ATM = average of the call and put IV at the listed strike. BOARD CHOICE, stated because it deviates from the literal 'nearest 30 DTE': 2026-09-25 is 32 DTE and therefore arithmetically nearer to 30 than 09-18's 25, but the series' nine prior readings all sit on the 09-18 MONTHLY board, and the monthly carries far deeper OI than the weekly. Switching boards to gain 2 days of DTE accuracy would inject a liquidity/board discontinuity into a series being built for a percentile computation at 20+ readings. Staying on 09-18 and saying so is the more honest choice; revisit when 09-18 drops under ~21 DTE. Both realized-vol numbers are logged per the file-level earnings-gap rule: rv_30d is the mechanical 30-sample stdev, rv_30d_ex_top2 drops the two largest absolute daily moves. Read them as a PAIR -- ex-gap is the more honest gauge for a contract expiring BEFORE the next print, raw for one that spans a print."
+   "expiry_used": "2026-09-25",
+   "measured_utc": "2026-08-24T13:39:00Z",
+   "_note": "Same artifact, same direction: ratio 0.71 raw inverts to 1.20 ex-gap once the -14.52% day is stripped -- premium is RICH, not cheap. Tape: 354.96, -2.18%, giving back a chunk of Friday's +5.5% robotaxi pop, which is a failed one-day news move rather than a trend. TIGHTEST non-index chain measured today (0.25 on 17.575 mid = 1.42% of mid, OI 159, volume 42) -- the only single name that clears the 3% TACTICAL gate alongside NVDA. Vehicle passes; see the journal for why the setup still did not."
   }
  ],
  "CVS": [
