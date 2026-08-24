@@ -15973,6 +15973,44 @@
       "why_flat": "Market closed. Entries and exits are both unplaceable, the book reconciles exactly, and every useful post-close task for the 2026-08-21 trading day was completed by runs #55-#63. The correct output of the Nth redundant overnight firing is a cheap reconciliation and a short log -- which is what this is.",
       "notification": "NONE SENT, deliberately. The QQQ 21-DTE recommendation was delivered to Ryan once on 2026-08-21 and nothing has moved since; re-sending it would violate the notify-once-per-incident discipline that the monitoring mandate depends on. No new flag, no drift, no fired trigger -- nothing that warrants pulling him back to a closed market.",
       "next_run_owns": "The first run at/after 13:30Z owns: stamping automation_heartbeat.json for 2026-08-24, rebuilding market_brief.json, resetting the loss cap and entry throttle, re-quoting BOTH mixed positions at least ~5 minutes after the open (never off the auction print), and applying the QQQ DTE-18 governance change recorded in _monday_open."
+    },
+    {
+      "run_utc": "2026-08-24T12:43:00Z",
+      "run_local_et": "08:43 ET Monday 2026-08-24",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~12:43Z. Native hourly backstop only -- the cron-job.org window (8:25-14:55 CT = 13:25-19:55Z) does not cover the pre-open, so hourly-only cadence here is EXPECTED and is NOT a recurrence of the 2026-08-18 token outage (resolved 2026-08-21T17:05Z). Note for the record: the 11:30Z entry called itself 'the LAST hourly-backstop slot before Monday's open' -- it was not; the backstop fires ~:18-:30 every hour and produced this 12:43Z slot too. Do not assert which slot is last.",
+      "regime": "N/A -- market closed (08:43 ET Monday, ~47 min before the 13:30Z open). No regime re-derivation and no quote polling; the last live read stands from the 2026-08-21 close.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. Sixty-fifth post-close run of the 2026-08-21 trading day, sixty-second since the Friday bell. POST-CLOSE RUN PROTOCOL applied in full and kept cheap: (1) journal tail read -- runs #59-#64 already completed the final reconciliation, the Friday weekly review and the pre-computed _monday_open block, so none of it was re-derived; (2) the one check always worth repeating was re-run (get_accounts + get_option_positions(nonzero) + get_equity_positions + get_portfolio); (3) lot-count invariants ASSERTED arithmetically, all pass; (4) ONE stale field repaired -- _monday_open.capital_state_at_the_bell.unsettled_funds, see settlement_note; (5) one short entry written; stop.",
+      "utc_rollover_note": "UTC date is 2026-08-24 but the TRADING day is still 2026-08-21 -- Monday's bell has not rung. Per the CLAUDE.md trading-day rule this run did NOT stamp automation_heartbeat.json, did NOT rebuild market_brief.json, and did NOT reset the -$400 daily realized-loss cap or the entry throttle. The first run at/after 13:30Z owns all four.",
+      "reconciliation": {
+        "utc": "2026-08-24T12:45:00Z",
+        "options": "ZERO DRIFT. get_option_positions(nonzero) returns exactly THREE contracts, each matching holdings.json one-for-one: SPY 2026-11-20 700P qty 1 @ 749.00 (agentic, insurance-exempt hedge), QQQ 2026-09-11 680P qty 3 @ 368.6667 (MIXED ownership: 1 agentic + 2 user), RBRK 2026-09-18 90P qty 2 @ 410.00 (MIXED: 1 agentic + 1 user). Every pending_* field 0.0000 -- no overnight assignment, exercise, expiration or unauthorized fill.",
+        "equity": "ZERO DRIFT. PNC 1.825758 sh @ 246.470 matches the ledger; shares_available_for_sells equals quantity, nothing held for options events.",
+        "invariants_asserted": "sum(lots.qty)==contracts, sum(lots.cost_usd)==total_cost_basis_usd==max_loss==broker(quantity x average_price), and total_cost_basis_usd/contracts/100==entry_premium_blended -- ALL PASS on all three positions. SPY carries no lots[] (single agentic lot, nothing to reconcile).",
+        "accounts": "718757339 'Agentic' still type=limited_margin, option_level_3, agentic_allowed=true. No account-level change."
+      },
+      "settlement_note": "CORRECTION TO THIS RUN'S OWN FIRST DRAFT, kept because the error is the instructive part: this run initially wrote that the unsettled_funds change was 'a state change no earlier run could have seen.' That is FALSE -- the 09:19Z run (#62) already recorded it in _last_reconciliation ('CHANGE SINCE 04:19Z: unsettled_funds $732.30 -> $0.00'). The claim was manufactured novelty to justify a redundant firing, which is exactly what the POST-CLOSE RUN PROTOCOL warns against. THE ACTUAL FACTS: get_accounts reports unsettled_funds 0.0000 on 718757339, down from $732.30 at Friday's bell (BA equity sale $432.29 at 14:31Z + ACHR 5C close $300.00 at 13:55Z, both placed_agent='user'). Cash and unleveraged_buying_power are UNCHANGED at $811.83 -- on this limited_margin account those proceeds were already spendable, so settlement cleared a flag rather than moving money. WHAT THIS RUN GENUINELY ADDED: run #62 recorded the change in its reconciliation note but did NOT propagate it into holdings.json._monday_open.capital_state_at_the_bell, which still carried unsettled_funds 732.30 -- the block explicitly written so Monday's first post-open run inherits levels instead of re-deriving them. That stale field is now repaired. The transferable lesson: recording a fact in a run's own log is not the same as propagating it to the artifact the next instance actually reads.",
+      "capital_state": {
+        "source": "get_portfolio 2026-08-24T12:45Z",
+        "total_value": 3829.51,
+        "equity_value": 443.68,
+        "options_value": 2574.0,
+        "cash": 811.83,
+        "unleveraged_buying_power": 811.83,
+        "buying_power": 811.83,
+        "margin_check": "unleveraged_buying_power EQUALS buying_power -- no margin extended. FOUR LAWS #4: $811.83 is the budget; less the $250 unencumbered reserve leaves ~$561.83 of genuine headroom, which fits ONE tactical scalp ($300-600) or nothing else.",
+        "margin_equity_floor": "Account equity $3,829.51 vs the $2,000 limited-margin minimum -- clear, but only ~1.9x. Worth watching, not acting on.",
+        "premium_at_risk": "$2,675 agentic-and-user combined ($749 hedge + $1,106 QQQ + $820 RBRK). Non-hedge CORE slots: 2 of 3 used, and both are bearish-tech, so that theme is at 2 of 3. TACTICAL: 0 of 2 used."
+      },
+      "positions_verdict": {
+        "SPY 2026-11-20 700P": "NO CHANGE, SILENT. Exempt hedge, DTE 88 Monday. Next and only decision is the ~2026-10-30 roll/close review WITH Ryan.",
+        "QQQ 2026-09-11 680P": "NO ACTION PRE-OPEN. DTE becomes 18 at Monday's bell, which is the governance change _monday_open flagged: inside 21 DTE the -50% cut becomes the standing unconditional rule and is one of the monitoring mandate's named EXECUTE-WITHOUT-WAITING exceptions. Cut level 1.8433 off the three-lot blended basis 3.6867; Friday's mark was 3.38, a ~45% further premium decline away. QUANTITY CAP BINDING: any unasked mechanical exit is capped at qty 1 (the agentic lot); selling 2 or 3 needs Ryan. Open methodology question q3 (which basis governs a mechanical cut) remains open and no run may silently pick one.",
+        "RBRK 2026-09-18 90P": "NO ACTION PRE-OPEN. DTE becomes 25. Binding gate is the pre-earnings decision by the close of Wed 2026-08-26 (print 08-27 pm, broker-verified) -- TWO sessions of runway starting Monday. IV closed 0.8065 and rising into the print, which argues for selling premium before the crush rather than holding through it. The recurring honesty point stands: on OI 75 with an 18.6%-of-mid spread the 'gain at mark' is not collectable, so quote the NET at the bid on any recommendation."
+      },
+      "grades_considered": "NONE SCREENED. Pre-open with no live quotes; grading a candidate off Friday's stale closes would be manufacturing work, and the CLAUDE.md rule against pricing anything off the opening auction print applies a fortiori 47 minutes BEFORE the auction. The HUNT belongs to the first post-open run, which must also re-quote at least ~5 minutes after 13:30Z before acting or alerting.",
+      "why_flat": "Market is closed. No entry or exit is placeable, both tracks are un-huntable without live quotes, and every useful post-close task for the 2026-08-21 trading day was completed by runs #57-#60. The correct output of the Nth redundant overnight firing is a cheap reconciliation and a short log -- which is what this is.",
+      "notification": "NONE SENT. Nothing needs Ryan: zero drift, no trigger fired, no flag open, no decision pending before the open. The settlement flag clearing is bookkeeping, not news. Notifying on a no-op would erode the signal value of the monitoring-mandate alerts he actually needs to read."
     }
   ],
   "updated_utc": "2026-08-24T05:19:00Z"
