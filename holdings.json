@@ -1,11 +1,12 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-23T23:19:00Z",
+  "updated_utc": "2026-08-24T01:19:00Z",
   "_realized_options_pnl_today": 0.0,
   "positions": [
     {
       "symbol": "SPY",
       "sleeve": "options",
+      "track": "hedge",
       "entry_date": "2026-08-06",
       "contract": "SPY 2026-11-20 700P",
       "option_id": "79230921-9bd8-43fd-8b4d-60f76ac03f48",
@@ -46,6 +47,7 @@
     {
       "symbol": "QQQ",
       "sleeve": "options",
+      "track": "core",
       "entry_date": "2026-08-18",
       "contract": "QQQ 2026-09-11 680P",
       "option_id": "56c9b134-f111-41c9-8037-1da4a5af2af6",
@@ -245,6 +247,7 @@
     {
       "symbol": "RBRK",
       "sleeve": "options",
+      "track": "core",
       "entry_date": "2026-08-18",
       "contract": "RBRK 2026-09-18 90P",
       "option_id": "b5c8fe61-1960-4d0c-b6dd-eca56b404e97",
@@ -649,5 +652,6 @@
     "cash_state_at_the_bell": "get_portfolio 19:47Z: total $3,775.52 = equity $443.69 / options $2,520.00 / cash $811.83. unleveraged_buying_power $811.83 EQUALS buying_power -- no margin extended. Deployable after the $250 reserve: $561.83, DOWN from $906.87 an hour earlier because Ryan spent $345 on the third QQQ lot. A $500-1,000 core-swing entry is now at the very bottom of its band; a $300-600 tactical still fits.",
     "_amended_utc": "2026-08-21T21:22:00Z",
     "_amendment_note": "AMENDED by the SECOND post-close run. The 19:50Z block below was written 13 minutes after Ryan's third QQQ lot and correctly rewrote the position and cash lines, but it left TWO stale items that the 20:19Z run identified and fixed in the QQQ _exit_ladder WITHOUT propagating the fix here -- and _monday_open, not the ladder, is what a first-run-of-the-day actually reads as its handoff. (a) WHAT_CHANGES_MONDAY quoted the -50% cut as 1.9025 and instructed Monday's run to 're-verify the level against the blended 3.805 basis', i.e. it named the STALE figure as the thing to verify against, which would have propagated the error rather than catching it. Corrected to 1.8433 on the true 3-contract blend of 3.6867. (b) capital_state_at_the_bell still held the 18:xx figures (BP 1156.87 / deployable 906.87 / premium 2330) and therefore CONTRADICTED cash_state_at_the_bell four lines below it (BP 811.83 / deployable 561.83 / basis 2675). A handoff block that disagrees with itself about how much money exists is worse than no handoff. Corrected to the broker's 21:19Z read. Also lifted the MIXED_LOT_SELL_CONSTRAINT up into WHAT_CHANGES_MONDAY, because the quantity cap lived only in the ladder while the trigger that needs it is described here."
-  }
+  },
+  "_track_tag_note": "Added 2026-08-24T01:19Z: the v4 dual-track routine prompt requires every options position to carry track:'tactical' or track:'core' so the max-2-tactical / max-3-core slot accounting can be read from the ledger instead of re-derived from journal prose. QQQ 680P and RBRK 90P are both CORE SWING (entered 2026-08-18, 1-4 week horizon, 21-45 DTE at entry) -- every weekend run had already been calling them track:core in its sleeve_state prose while the field itself stayed absent, which is the 'same issue every session' pattern CLAUDE.md says to fix at the root rather than restate. The SPY 2026-11-20 700P is tagged track:'hedge': it is the authorized defensive hedge, EXCLUDED from the 5-slot cap and exempt from premium backstops, so tagging it 'core' would wrongly consume a swing slot. Slot count as of this tag: 2 of 3 core used, 0 of 2 tactical."
 }
