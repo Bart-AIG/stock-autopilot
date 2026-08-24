@@ -49,6 +49,26 @@ schedule kept as a backstop** in case the cron-job.org token/job fails.
 - **Success:** HTTP 200 with a JSON body containing the new session id/URL.
   401/403 = token problem (regenerate in the routine editor, update cron-job.org).
 
+## 📌 CURRENT PROMPT STATUS (updated 2026-08-24) — read this before anything below
+
+The version history in this file is tangled (two different prompts have been
+called "v4"), so here is the settled chain:
+
+1. **v3.1** (2026-08-11, recorded at the bottom of this file) — retired.
+2. **"JUDGMENT-FIRST"** (Ryan's rewrite, pasted ~2026-08-12; recorded verbatim
+   below under the heading "v4") — retired 2026-08-21.
+3. **"JUDGMENT-FIRST, DUAL-TRACK"** (pasted 2026-08-21; recorded verbatim in
+   **`docs/routine-prompt-v4.md`**) — **THIS IS WHAT THE ROUTINE STORES AND
+   FIRES TODAY.** It is stale on three points measured 2026-08-24: the
+   $300–600 tactical band (Ryan widened to $300–1,000), the spread-legging
+   authorization (multi-leg orders 400 on the agentic API; legging fails on
+   collateral with certainty), and the CORE "prefer a debit spread" doctrine.
+   CLAUDE.md's 2026-08-24 amendments override those lines run by run.
+4. **v6** (`docs/routine-prompt-v6.md`, 2026-08-24) — **the PASTE-READY
+   corrected text awaiting Ryan.** (A `routine-prompt-v5.md` proposal from
+   2026-08-14 was never pasted; v6 skips it to keep the numbering unambiguous.)
+   v6 line 1 carries a version stamp so any run can confirm which prompt fired.
+
 ## ⚠️ Routine prompt drift — the stored prompt must be updated by RYAN when run DUTIES change (found 2026-08-11)
 
 Each fire clones the repo fresh and obeys the CURRENT `CLAUDE.md` on `master` for
@@ -103,7 +123,7 @@ next session must paste the new text here.** An agent cannot read the routine
 config — the only time the live prompt is visible is when it fires, as the task
 prompt of a run.
 
-### v4 (live) — "OPTIONS AUTOMATION RUN — JUDGMENT-FIRST", recorded verbatim 2026-08-14
+### "OPTIONS AUTOMATION RUN — JUDGMENT-FIRST", recorded verbatim 2026-08-14 — ⚠️ NO LONGER LIVE (replaced 2026-08-21 by the DUAL-TRACK prompt; see CURRENT PROMPT STATUS above)
 
 ```
 OPTIONS AUTOMATION RUN — JUDGMENT-FIRST
