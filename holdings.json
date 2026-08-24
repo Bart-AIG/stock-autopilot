@@ -356,33 +356,24 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-08-21T17:31:00Z",
-    "decision": "NO NEW ENTRY, BOTH TRACKS.",
-    "slots_and_budget": "TACTICAL 0 of 2 open, CORE 2 of 3 open, $906.87 deployable after the reserve -- enough for a $300-600 scalp or a small core swing. 0 of 8 daily entries used; realized P/L $0.00 against the -$400 cap. NOTHING BLOCKED THIS RUN EXCEPT THE ABSENCE OF A SETUP.",
-    "reason": "SEVEN MINUTES OF NEW TAPE, AND IT SAYS THE SAME THING. This run fired ~7 min after the 17:24Z sibling and every liquid name moved less than 0.1%: SPY 766.21 -> 765.775, QQQ 713.66 -> 713.47, NVDA 215.23 -> 215.025, TSLA 363.75 -> 363.70. Track A requires an intraday level actually breaking NOW; QQQ is 0.06% above its 50d for a third session, which is a pin, not a break. Re-deriving the levels the 17:01Z and 17:24Z runs already measured would be waste, so this run did NOT re-grade their candidates -- it inherited those grades and spent its budget on the one thing none of them had checked.",
-    "grades_considered": [
-      {
-        "candidate": "TSLA long calls (both tracks)",
-        "grade": "C -- INHERITED from 17:24Z, re-checked not re-derived",
-        "why": "Spot 363.70 vs 363.75 seven minutes ago. The 17:24Z decline turned on trend-maturity: a +5.4% day stalling under a FALLING 50d (366.23) with spot $5.30 above VWAP. Nothing in seven minutes touches that reasoning, so the decline stands unchanged."
-      },
-      {
-        "candidate": "NVDA tactical short (the day's one real divergence)",
-        "grade": "C -- INHERITED from 17:01Z",
-        "why": "NVDA -0.84% at 215.025 while QQQ is +0.36% -- still the most interesting thing on the board and still not a setup. Also note NVDA reports 2026-08-26 pm, inside any short-DTE hold window, which is an independent reason not to pre-position."
-      },
-      {
-        "candidate": "QQQ / SPY tactical, either direction",
-        "grade": "C",
-        "why": "No level and therefore no writable invalidation. QQQ 713.47 is 0.06% above the 50d (713.05) for a third session; SPY 765.775 sits below a session high (767.85) that was made and rejected two hours ago. 'No written invalidation = no trade' bites here honestly rather than technically."
-      },
-      {
-        "candidate": "Any new CORE swing (debit spread)",
-        "grade": "C",
-        "why": "The book is already 2 of 3 core slots and both are bearish-tech. Adding a third expression of the same view into a pinned tape on the last day of a monthly expiry is concentration without a catalyst -- the theme cap allows it, which is precisely why judgment rather than the cap has to decline it."
-      }
+    "utc": "2026-08-24T13:40:00Z",
+    "result": "NO ENTRY. 0 of 2 allowed this run, 0 of 8 today.",
+    "slots_available": "CORE 1 of 3 free, TACTICAL 2 of 2 free -- so slots were NOT the constraint.",
+    "binding_reason": "BOOK CONCENTRATION, not the theme cap and not the budget. Net short notional delta is -$61,049 = 15.1x the $4,041.93 account, 100% one-way short, and it GREW from Friday's 13.8x without a single trade -- purely gamma as the puts moved toward the money. Adding bearish exposure into that is doubling down on one bet, not taking a second one.",
+    "secondary_reasons": [
+      "TREND MATURITY: the move happened AT THE OPEN. An entry now buys the gap instead of anticipating it -- gate (a)/(b) fail. 'The tape is going my way' is not a catalyst.",
+      "IV SANITY: vol is bidding (SPY +2.5%, QQQ +3.4%, NVDA +4.6% vs Friday's settled readings), so premium is more expensive precisely BECAUSE the move already occurred.",
+      "EVENT RISK: NVDA prints in two sessions with BOTH IV/RV ratios above 1.0 (raw 1.12 / ex-gap 1.26) -- the rare unambiguous 'premium is rich' read. A directional entry before it is an earnings bet, which the standing preference bars.",
+      "CAPITAL: $561.83 deployable after the reserve funds one tactical scalp and nothing more."
     ],
-    "opex_note": "THE ONE GENUINELY NEW FACT THIS RUN, and it is context rather than a trigger: TODAY IS MONTHLY OPEX (2026-08-21 is the third Friday of August; verified by calendar arithmetic, not assumed). No run this week has logged it -- 'opex' appears zero times in trade_journal.json and market_brief.json. It is the standard mechanical explanation for the three-session pin to the 50d that the desk has documented daily without naming a cause: dealer gamma concentrated at expiring strikes suppresses intraday range, which is exactly the tape in which a scalp pays the spread twice for nothing. HONEST LIMIT ON THIS CLAIM: this run did NOT measure the open-interest profile on the expiring chain (the instruments endpoint paginates strike-by-strike and the near-the-money strikes were not on the first page; the budget was not worth spending on a contextual observation). So the OpEx DATE is verified fact and the pin MECHANISM is the standard inference, NOT a measurement made here -- do not cite it as measured. FORWARD IMPLICATION worth carrying into Monday: that expiring gamma rolls off after today's close, so the suppression that has held QQQ at 713 for three sessions is removed next week. This cuts BOTH ways and is not a directional edge; it argues the range resolves, not which way. It is directly relevant to a book holding two bearish-tech puts with 18 and 25 DTE remaining on Monday."
+    "candidates_graded": "QQQ/SPY continuation scalp C; NVDA C (liquid chain, 1.8% of mid, but no thesis and rich IV into a binary); MSFT C (5.2%-of-mid fails the 3% tactical gate); AMD/TSM/AVGO C (same bet as QQQ with worse chains, AVGO OI zero on both legs); equity-report RSI2 group C (long mean-reversion setups, structurally opposite to this book, mid-cap chain trap). Full per-candidate detail is in the 2026-08-24T13:42Z trade_journal entry under grades_considered.",
+    "_provenance": "Written by the 13:42Z run and preserved through the union merge with the concurrent 13:43Z sibling (PR #583), which recorded no equivalent block. The sibling also declined to enter, on the same concentration reasoning.",
+    "_prior_call_that_came_true": {
+      "from": "the 2026-08-21T17:31Z evaluation this block replaces, preserved deliberately rather than overwritten because today's tape VINDICATED it.",
+      "what_it_said": "2026-08-21 was monthly OpEx (verified by calendar arithmetic). It argued that dealer gamma concentrated at expiring strikes was the standard mechanical explanation for the three-session pin holding QQQ at ~713, and that this expiring gamma would roll off after the Friday close -- so the suppression would be REMOVED this week. It was explicit that this cut both ways: it argued the range would RESOLVE, not which way, and it flagged the point as directly relevant to a book holding two bearish-tech puts with 18 and 25 DTE remaining on Monday.",
+      "what_happened": "The range resolved DOWN on the first session after that roll-off. QQQ opened -0.91% and lost both its 20d (709.19) and 50d (713.44), having been pinned within 0.06% of the 50d for three sessions. The QQQ 680P went from -$92 to +$169.",
+      "why_this_is_recorded": "The prior run was careful to label the mechanism an INFERENCE it had not measured, and to refuse to call it directional. That discipline is why the call is worth keeping: it was right about the structure without pretending to know the direction. Do NOT read this as evidence the desk can time OpEx roll-offs -- one resolution in the favourable direction is a sample of one, and the run itself said so."
+    }
   },
   "_closed_positions": [
     {
