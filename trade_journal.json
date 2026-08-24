@@ -15702,6 +15702,40 @@
       "notification_sent": false,
       "notification_reason": "Nothing actionable. A healthy, unchanged book on a closed market is the case where silence is correct -- paging Ryan for the fifty-first identical weekend reconciliation would train him to ignore the alerts that matter. The two items genuinely open with him (the QQQ 21-DTE recommendation and the RBRK 08-26 pre-earnings decision) were already sent once each and neither has changed state.",
       "monday_handoff": "Open at 13:30Z. First run at/after 09:30 ET owns: stamp the heartbeat, rebuild market_brief.json, reset the loss cap and entry throttle, resume iv_history logging. Do NOT price anything off the opening auction print -- re-quote ~5 minutes after 13:30Z. Priority item: RBRK's pre-earnings decision is due by the WED 08-26 close, two sessions out."
+    },
+    {
+      "run_utc": "2026-08-24T02:19:00Z",
+      "run_local_et": "22:19 ET Sunday 2026-08-23",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~02:19Z. Native hourly backstop only -- cron-job.org fires Mon-Fri, so hourly-only weekend cadence is EXPECTED, not the 08-18 trigger fault recurring.",
+      "regime": "N/A -- market closed (Sunday night ET). No regime re-derivation. Market reopens 2026-08-24T13:30Z, ~11h11m out.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. Fifty-fifth post-close run of the 2026-08-21 trading day, fifty-second of the weekend. POST-CLOSE RUN PROTOCOL applied in full: journal tail read, broker reconciliation run, lot-count invariant asserted arithmetically, nothing found to fix, logged, stopped. No closed-market quote polling, no regime re-derivation, no daily-artifact roll, no invented research task.",
+      "utc_rollover_note": "02:19Z on 2026-08-24 UTC is Sunday 22:19 ET. Per CLAUDE.md 'today' is the US TRADING day: the next trading day has not started, so the heartbeat was NOT stamped, market_brief.json was NOT rebuilt, and neither the -$400 realized loss cap nor the 8-entry throttle was reset. The first run at/after 09:30 ET Monday owns all three.",
+      "reconciliation": "ZERO POSITION DRIFT. get_option_positions: SPY 2026-11-20 700P x1 @ 7.4900 (opened 08-06T14:21Z); QQQ 2026-09-11 680P x3 @ 3.686667 (opened 08-18T17:44Z); RBRK 2026-09-18 90P x2 @ 4.1000 (opened 08-18T17:43Z). All three match holdings.json exactly. get_portfolio: total $3,829.51 = equity $443.68 / options $2,574.00 / cash $811.83; unleveraged_buying_power $811.83 EQUALS buying_power, so NO margin is extended. get_accounts: 718757339 still limited_margin / option_level_3 / agentic_allowed=true. No overnight assignment, expiration, or unauthorized fill. No _flag anywhere in the ledger.",
+      "lot_count_invariant": "ASSERTED PASS by arithmetic, not by reading. QQQ: sum(lots.qty)=3==contracts; sum(lots.cost_usd)=1106.00==total_cost_basis_usd==max_loss; 1106.00/3/100=3.686667==entry_premium_blended==broker average_price. RBRK: 2==2; 820.00==820.00==820.00; 820.00/2/100=4.10==entry_premium_blended==broker average_price. SPY hedge is single-lot with no lots[] array by design: max_loss 749.00 == 1 x 7.49 x 100.",
+      "assertion_script_lesson": "The first pass of this run's invariant script CRASHED on the SPY hedge -- it assumed every options position carries a lots[] array, and SPY (a single-lot hedge) does not, so it reported a spurious 'lots qty sum 0 vs contracts 1 MISMATCH' before dying on a None division. The LEDGER was correct; the CHECKER was wrong. Worth writing down because CLAUDE.md tells every run to 'trust the check, not the enumerated field list' -- that only holds if the check itself handles the shapes actually present. A checker that false-alarms is nearly as corrosive as one that misses, since the next run learns to discount it. Correct form: treat a missing lots[] as the single-lot case and assert max_loss == entry_premium * 100 * contracts instead of summing an array that isn't there.",
+      "ledger_fix_made": "NONE NEEDED. The 2026-08-23T21:19Z run repaired entry_premium_blended/total_cost_basis_usd and the 22:19Z run restored the third QQQ lot to lots[]; the 01:19Z run added the v4 `track` tags (QQQ core, RBRK core, SPY hedge). All three fixes verified intact this run by the arithmetic above. Nothing further was touched -- the protocol forbids manufacturing work, and a clean assertion is a reason to stop, not to keep looking.",
+      "positions_verdict": {
+        "SPY 2026-11-20 700P": "HOLD -- authorized defensive hedge, EXEMPT from all premium backstops. 88 DTE. Roll/close decision belongs to Ryan at ~21 DTE (~2026-10-30). Nothing due.",
+        "QQQ 2026-09-11 680P": "HOLD -- ask-first. MIXED ownership (1 agentic lot, 2 Ryan lots), so the whole position is treated as user-owned per the ownership gate. Inside its written plan; no hard backstop near. The 21-DTE recommendation remains OPEN with Ryan since 2026-08-21T13:39Z -- not re-paged, per the monitoring mandate's silence clause (no trigger fired or un-fired, nothing material moved on a closed market).",
+        "RBRK 2026-09-18 90P x2": "HOLD -- ask-first, MIXED ownership. The binding item is the PRE-EARNINGS decision owed by the close of WED 2026-08-26 (broker-verified 08-27 pm print), with $820 riding on it. Once Monday opens that is TWO trading sessions away. Already recorded in _exit_ladder, in _open_questions_for_ryan.q2, and in Friday's daily report; deliberately NOT re-notified, because a deadline moving closer on a Sunday is not new information. Monday's first market-hours run should carry it forward prominently and put the decision to Ryan with live numbers attached."
+      },
+      "grades_considered": "NONE. Markets are closed -- no chain is quotable, no intraday level can break, and every quote available now is a stale Friday close. Grading candidates off dead quotes would be manufacturing work, which the POST-CLOSE RUN PROTOCOL forbids. Both tracks resume hunting at the 2026-08-24 open.",
+      "why_flat": "Market closed (Sunday night ET). No entry or exit is placeable. All three positions are inside their written plans and none is at a hard backstop.",
+      "sleeve_state": {
+        "open_agentic_positions": 2,
+        "hedge_excluded": "SPY 2026-11-20 700P (track:'hedge')",
+        "core_slots": "2 of 3 used -- QQQ 680P x3 ($1,106) + RBRK 90P x2 ($820)",
+        "tactical_slots": "0 of 2 used",
+        "premium_at_risk_total_usd": 2675.0,
+        "unleveraged_buying_power": 811.83,
+        "headroom_after_250_reserve": 561.83,
+        "realized_pnl_today_vs_cap": "$0.00 realized on 2026-08-21 vs the -$400 daily cap; cap not approached",
+        "entries_used_today": "0 of 8",
+        "margin_borrowed": "none -- buying_power == unleveraged_buying_power ($811.83)"
+      },
+      "monday_handoff": "First run at/after 09:30 ET Monday 2026-08-24 owns: (1) stamp automation_heartbeat.json for the new trading day; (2) rebuild market_brief.json with both track watchlists; (3) reset the loss cap and the 8-entry throttle; (4) re-quote at least ~5 min after 13:30Z before pricing any decision -- never off the opening auction print; (5) carry the RBRK pre-earnings decision to Ryan with live mark, spread as % of mid, net-of-exit P/L, and the concrete alternatives. Headroom is $561.83 after the $250 reserve, which fits ONE tactical scalp ($300-600) and nothing more until a position closes -- say that plainly rather than implying five slots are reachable."
     }
   ],
   "updated_utc": "2026-08-23T19:19:00Z"
