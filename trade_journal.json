@@ -17565,6 +17565,78 @@
       "relay_note": "TO THE NEXT INSTANCE -- do not restart the break/no-break debate from the last twenty minutes of tape. The session-scale levels are settled and unchanged since 17:32Z: DOWNSIDE SPY < 762.08 / QQQ < 702.70, UPSIDE SPY > 765.22 / QQQ > 709.79. Test THOSE. This run's addition is that the decline is decelerating on three independent measures (37% vs 66% retracement, a quarter of the morning's volume, NVDA reclaiming 209.60), so the bar for a downside entry is HIGHER than it was an hour ago, not lower. The _CORE_WATCH is intact and unfired; its void clause has not tripped. Next duty: the daily report is due on the first run at or after 19:15Z and has NOT yet been written for 2026-08-24 (_eod_report_written still reads trading_day_et 2026-08-21).",
       "governance": "HARD RULE 9 observed in full: this is an unattended scheduled run, it claims no Ryan turn, quotes no approval, and clears no flag. No equity action of any kind (HARD RULE 6). No margin borrowing -- deployment measured against unleveraged_buying_power $3,023.56, which equals buying_power, so no margin is being extended. Reconciliation at 17:45Z: get_option_positions(nonzero) returns exactly ONE contract, SPY 2026-11-20 700P qty 1.0000 @ 749.00, matching holdings.json one-for-one with every pending_* field 0.0000 -- zero drift, no overnight assignment, expiration or unauthorized fill.",
       "iv_note": "No new iv_history.json rows written. All ten core-list readings for 2026-08-24 were logged earlier today and the method specifies one row per name per day; re-measuring mid-session would overwrite a correctly-taken reading with a noisier one and change no decision this run."
+    },
+    {
+      "run_utc": "2026-08-24T18:03:00Z",
+      "run_local_et": "14:03 ET Monday 2026-08-24",
+      "trading_day_et": "2026-08-24",
+      "run_type": "market_hours_regular",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org); fired ~18:00Z. CADENCE HONESTY: the payload string is the job's stored label and never identifies which trigger produced the run, so none is asserted. Twentieth market-hours run of the day.",
+      "regime": "THE AFTERNOON IS NO LONGER DECLINING -- IT HAS COILED, AND THE FIRST RESOLUTION ATTEMPT IS UPWARD. Panel at 18:01:1XZ: QQQ 707.290 (-0.86%), SPY 763.510 (-0.29%), NVDA 209.655 (-2.36%), AMD 457.521 (-3.32%), TSM 408.165 (-2.57%), AVGO 360.110 (-2.26%), TSLA 353.795 (-2.50%), MSFT 488.155 (+1.02%) still the lone green core name. TSLA is the only panel name materially weaker than at 17:45Z (354.615 -> 353.795); every other name is flat-to-better.",
+      "measured_contribution": {
+        "1_the_decline_has_become_a_coil_and_this_is_the_run_that_can_say_so": "The 17:47Z run called the decline 'measurably decelerating' and was right; forty minutes of 1-minute bars now show it has stopped being a decline at all. QQQ's entire 17:20Z-18:00Z range is 706.740 to 707.990 -- 1.25 points, 0.18% -- and the last ten bars sit inside a 0.69-point band (706.740-707.430). SPY's same-window range is 763.05-764.15 (1.10 points, 0.14%). This is not a trend to fade or follow in either direction; it is a coil, and the correct read of a coil is that the information is not in it yet.",
+        "2_volume_did_not_merely_decline_it_went_to_the_session_floor": "QQQ 1-minute volumes into the coil: 12,168 (17:54Z) / 15,290 / 19,467 / 8,668 / 5,073 (17:58Z) / 9,227. The 5,073 bar is the lightest regular-session minute measured today, against 688,602 on the 5-minute bar that made the 702.70 low this morning. The 17:47Z run measured the give-back at ~25% of the selloff's participation; on the last six minutes it is nearer 2%. Sellers are not present, and neither is anyone else.",
+        "3_the_first_synchronised_up_bar_since_1726Z_is_the_1800Z_bar_and_it_came_on_expanded_volume": "QQQ 18:00Z: open 706.910 close 707.430 high 707.480 on 32,200 -- 6.3x the 17:58Z bar and the highest QQQ close since 17:26Z. SPY 18:00Z: close 763.550, high 763.620, 18,885 (2x the prior two bars). NVDA 18:00Z: close 209.730, high 209.750, on 76,887 -- the heaviest NVDA minute in twenty and a full reclaim of the 209.60 shelf that four earlier runs cited as the leading edge of the break. Three names, one minute, same direction, expanding volume -- the identical signature the 17:22Z run used to call a downside break, now pointing up. ONE BAR IS NOT A TRIGGER and no trade is taken on it. It is logged because the four-run bearish construction now has its confirmation running against it, and the next instance should not inherit the break narrative as though it were still live.",
+        "4_what_would_actually_be_tradeable": "A resolution of the 706.74-707.99 coil on volume comparable to the morning's, holding for more than two bars. Nothing in the last forty minutes meets that."
+      },
+      "position_verdicts": [
+        {
+          "contract": "SPY 2026-11-20 700P (authorized defensive hedge, placed_agent=agentic, hedge track)",
+          "verdict": "WORKING -- hold, no action, no notification.",
+          "detail": "Mark 6.62 (bid 6.61 / ask 6.63, 0.30% of mid -- the tightest reading of the day), P/L -$87.00 / -11.62% on the $749.00 basis, +$9.00 on the day against the 6.53 official close. DTE 88, delta -0.157553, theta -$9.19/day, IV 0.204667, OI 25,846, volume 1,023. EXEMPT from every premium backstop per the standing hedge exemption; the next decision point is the ~21-DTE roll/close review with Ryan around 2026-10-30. Quote timestamp 18:02:30Z -- two and a half hours past the open, far clear of the auction window.",
+          "deviation_from_prior_plan": "None. The prior instance's written plan is hold-to-21-DTE and it is followed."
+        }
+      ],
+      "grades_considered": [
+        {
+          "candidate": "TACTICAL long -- SPY 2026-09-04 calls (~0.45 delta) on the 18:00Z synchronised up-bar",
+          "grade": "C",
+          "verdict": "PASS",
+          "reason": "Fails the trigger test on its own terms. The v4 tactical trigger is 'an intraday level actually breaking NOW'; a 1.25-point coil contains no level, so the only thing to buy is the guess that a single up-bar continues. It also inverts today's own read: SPY is the resilient leg (-0.29% vs QQQ -0.86%), so a long there is the least-informative expression of a bounce, and the affordable-vehicle trap CLAUDE.md names by name -- SPY is the only tactical-affordable index precisely because its IV and realised move are lowest, which is the same fact as 'nothing is happening in it'. No entry."
+        },
+        {
+          "candidate": "TACTICAL short -- QQQ 2026-09-04 ~705P on the afternoon give-back",
+          "grade": "C",
+          "verdict": "PASS -- and it is unexecutable regardless, which is worth stating in the same breath.",
+          "reason": "Merits first: the give-back is running on 2% of the morning's participation and its named leader (NVDA) has just reclaimed. That is the wrong side to be pressing. Independently, the structural block measured at 17:03Z stands -- a ~0.45-delta QQQ put on the 09-04 board priced $788-911 against the FOUR LAWS tactical band of $300-600, so no compliant size exists. Both reasons are sufficient alone; neither is a reason to relax the other."
+        },
+        {
+          "candidate": "CORE -- AMD 2026-09-25 460P (the brief's standing core candidate, the only panel name cheap ex-gap at 0.885)",
+          "grade": "B",
+          "verdict": "PASS, and see the standing-window note below -- this should stop being re-derived every run.",
+          "reason": "AMD -3.32% is the sharpest expression of a genuine semi de-rating and the vol is honestly cheap. But NVDA reports Wednesday 2026-08-26 pm, two sessions out, and a CORE entry must carry 21-45 DTE -- so any core semi position opened today NECESSARILY holds through the largest single catalyst in the QQQ complex. The 2026-08-05 exit engine says close before earnings unless earnings IS the thesis; it is not, and 'AMD de-rates on an NVDA print' is a coin-flip dressed as a thesis. Sizing into it two days early is buying the coin-flip at full price."
+        },
+        {
+          "candidate": "CORE -- AVGO 2026-09-25 365P / TSM",
+          "grade": "C",
+          "verdict": "PASS",
+          "reason": "AVGO is the richest premium on the panel (1.18 raw / 1.42 ex-gap) and the brief already records that it should only ever be a debit spread -- which is unexecutable on this account as of today's measured test. TSM fails both liquidity gates at 16.6% of mid. Neither is re-worked; per the brief's own instruction, stop re-working TSM until the chain changes."
+        }
+      ],
+      "standing_window_note_to_the_next_instance": {
+        "finding": "THE CORE TECH BOOK IS EFFECTIVELY CLOSED UNTIL THURSDAY 2026-08-27, AND THIS IS A WINDOW, NOT A PER-RUN JUDGEMENT. Runs have now declined AMD/AVGO/NVDA-adjacent core entries repeatedly, each time re-deriving the earnings reasoning from scratch. State it once: NVDA prints Wed 2026-08-26 pm and is the largest QQQ weight; CORE requires DTE 21-45, so every core entry opened Mon/Tue in the semi/QQQ complex is structurally forced to hold through that print, which the 2026-08-05 exit engine forbids unless the print IS the thesis.",
+        "consequence": "Between now and Wednesday's close, a semi/tech CORE candidate needs no fresh earnings analysis to be declined -- cite this note. What is NOT closed: TACTICAL entries (the hard time stop flattens them by the next session's close, ahead of the print), non-tech CORE candidates, and any post-print core entry from Thursday.",
+        "do_not_over-read": "This closes the window on a STRUCTURAL ground only. It is not a view that the semi de-rating is wrong, and a genuine A+ tactical trigger before Wednesday is still takeable on its own merits."
+      },
+      "action": "NO ENTRY, NO EXIT, NO NOTIFICATION. 0 of 2 entries this run, 0 of 8 today. Twentieth consecutive market-hours decline. Full ammunition ($2,773.56 deployable after the $250 reserve), all five slots free (0 of 2 tactical, 0 of 3 core), loss cap sitting at a +$286 realised CREDIT. The binding constraint this run is the tape -- a 0.18% forty-minute coil on session-floor volume -- not the ruleset and not capital.",
+      "honesty_note": "Twenty declines is a number that should be interrogated rather than defended, so: the reasons have NOT been uniform, which is the check that matters. Today's declines have been variously trigger-absence, the tactical band excluding QQQ arithmetically, spreads proving unexecutable on a live test, and now an earnings window. Three of those four are structural facts about the platform or the calendar that no amount of willingness would change. The one that is genuinely the desk's own restriction -- the $300-600 tactical band that makes QQQ untradeable -- is already logged as a standing recommendation to Ryan and is NOT self-relaxed. What would be a process failure is manufacturing an entry from a single up-bar in a coil to end the streak; that is precisely 'boredom is not a catalyst'.",
+      "reconciliation": {
+        "utc": "2026-08-24T18:01Z",
+        "result": "ZERO DRIFT. get_option_positions(nonzero) returns exactly ONE contract -- SPY 2026-11-20 700P, qty 1.0000 @ 749.0000, opened 2026-08-06T14:21:56.548676Z, all pending_* fields 0.0000 -- matching holdings.json one-for-one. get_accounts confirms 718757339 at limited_margin / option_level_3 / agentic_allowed=true. The RBRK 90P and QQQ 680P remain absent (Ryan closed both himself on 08-24; ledgered at 14:46Z and re-confirmed every run since). No flag present, nothing to adjudicate."
+      },
+      "capital_and_limits": {
+        "portfolio": "total $4,130.56 = equity $443.99 / options $663.00 / cash $3,023.56. unleveraged_buying_power $3,023.56 EQUALS buying_power, so no margin is being extended -- the no-margin-borrowing law is satisfied by construction.",
+        "deployable_after_reserve_usd": 2773.56,
+        "unsettled_funds_usd": 2211.73,
+        "unsettled_note": "limited_margin account -- unsettled proceeds are immediately tradeable and are already inside buying_power. Not a constraint.",
+        "slots": "0 of 2 TACTICAL, 0 of 3 CORE open (hedge excluded). Tracks do not share slots.",
+        "entries": "0 of 2 this run, 0 of 8 today.",
+        "daily_loss_cap": "-$400. Today realised is +$286.00 (broker-sourced, 2 closing trades), a credit -- full headroom.",
+        "margin_equity_floor": "Account equity $4,130.56 vs the $2,000 minimum-margin-equity threshold. Comfortable."
+      },
+      "iv_log": "No new rows written. All eight core names (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) already carry a 2026-08-24 row from the 13:39Z sweep on the 2026-09-25 board (32 DTE, nearest 30). The IV method is one row per name per day, overwritten only on a genuine re-measure; nothing today warrants re-measuring, and re-writing identical rows would churn the file for no information.",
+      "eod_report": "NOT DUE. The threshold is the first run at or after 19:15Z (14:15 CT); this run is 18:03Z, 72 minutes early. Not yet written for the 2026-08-24 trading day.",
+      "heartbeat": "Already stamped for 2026-08-24 at 13:40:00Z by the first post-open run. Not re-stamped."
     }
   ],
   "updated_utc": "2026-08-24T14:50:00Z"
