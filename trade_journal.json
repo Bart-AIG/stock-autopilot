@@ -18211,6 +18211,44 @@
       "why_flat": "Post-bell. The book is a single exempt hedge, fully reconciled, with $3,023.56 cash and every slot free. Tomorrow's first post-open run inherits durable daily-bar structure in _CLOSING_STRUCTURE_FOR_2026-08-25 and NO armed setup, which is deliberate.",
       "no_notification_sent": "Correct per the notify-once-per-incident rule. The EOD report was delivered at 19:20Z via the master push and its ntfy Action; nothing material has happened since. The one item still genuinely outstanding for Ryan -- the stale routine prompt carrying the superseded $300-600 tactical band, which he widened to $300-1,000 in a live turn at 19:32Z -- was already flagged to him in today's report and in docs/routine-prompt-v6.md. Re-paging him about it tonight would add no information.",
       "tomorrow": "2026-08-25. Watchpoints: (1) whether the narrow, Nasdaq-specific risk-off of 2026-08-24 (SPY -0.28% vs QQQ -0.92%, AMD -3.65%, TSLA -3.91%, MSFT +1.07% the lone green) broadens or reverses -- it was a rotation WITHIN large-cap tech, not an index-wide liquidation, and must not be traded as one; (2) QQQ's relationship to its verified 50-day SMA of 713.4416, with the _CORE_WATCH failed-retest trigger unchanged and still requiring EXPANDING volume; (3) the $300-1,000 tactical band now governs on the strength of Ryan's live turn even though the stored routine prompt still says $300-600 -- a run finding that conflict applies $300-1,000 and says the prompt is stale, it does NOT default to the stricter number."
+    },
+    {
+      "run_utc": "2026-08-24T21:18:00Z",
+      "run_local_et": "17:18 ET Monday 2026-08-24 -- 78 minutes AFTER the bell. The SECOND post-close run of the 2026-08-24 trading day.",
+      "trading_day_et": "2026-08-24",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check. CADENCE HONESTY: the payload never identifies which trigger produced the run, so none is asserted. Scheduler-fired; counts toward cadence but is NOT a market-hours run.",
+      "market_state": "CLOSED since 20:00Z. Nothing placeable -- no entry, no exit, no roll.",
+      "THE_POINT_OF_THIS_ENTRY": "A DELIBERATE NO-OP, WRITTEN SHORT ON PURPOSE. Per the POST-CLOSE RUN PROTOCOL the Nth redundant overnight run is a stand-down, not a research assignment. The 20:19Z run was the first post-close run and already did every useful post-close task; this run re-read what it covered, repeated the ONE check always worth repeating (broker reconciliation -- the only way an overnight assignment, expiration or unauthorized fill would surface), found nothing changed, and stopped. It did NOT re-poll extended-hours quotes, re-derive the regime, re-measure the tape, or invent a task to justify the firing.",
+      "duties_checked_before_doing_anything": {
+        "heartbeat": "ALREADY STAMPED for 2026-08-24 at 13:40:00Z by the first post-open run. NOT touched. Re-stamping from a post-close run would pre-satisfy the dead-man for a trading day that has not started.",
+        "eod_report": "ALREADY WRITTEN at 19:20:00Z by the 19:15Z run (14:20 CT, inside the stricter CLAUDE.md 14:15 CT window). NOT rewritten -- nothing material has happened since: no fill, no exit, no new flag, no trigger firing. Every master push touching that file re-notifies Ryan, and a duplicate carrying the same content is pure noise.",
+        "market_brief": "Stamped for 2026-08-24. Left alone; the first run of the next session rebuilds it. Rebuilding now would date tomorrow's brief off tonight's post-bell prints.",
+        "friday_review": "NOT DUE -- today is Monday.",
+        "loss_cap_and_entry_throttle": "NOT reset. 'Today' means the US TRADING day (ET); between the bell and the next 09:30 ET open the trading day is still the one whose bell just rang."
+      },
+      "reconciliation_21_19Z": {
+        "verdict": "ZERO DRIFT ON BOTH BOOKS. Second consecutive clean post-close read.",
+        "account": "718757339 re-confirmed limited_margin / option_level_3 / agentic_allowed=true.",
+        "options": "get_option_positions(nonzero) returns exactly ONE contract -- SPY 2026-11-20 700P qty 1 @ 749.00, opened 2026-08-06T14:21:56Z, the authorized agentic hedge. Every pending_* field 0.0000, so no assignment, exercise, expiration or unauthorized fill in the 78 minutes since the bell. Matches holdings.json one-for-one.",
+        "equity": "PNC 1.825758 sh @ 246.47 avg, shares_available_for_sells 1.825758, all hold fields zero. Unchanged. No autonomous equity activity, as HARD RULE 6 requires.",
+        "capital": "get_portfolio total $4,129.46 = equity $444.90 / options $661.00 / cash $3,023.56. unleveraged_buying_power $3,023.56 EQUALS buying_power, so NO margin is extended and FOUR LAWS #4 is satisfied. Less the $250 reserve, deployable tomorrow is $2,773.56. Account equity is ~2x the $2,000 limited-margin minimum. unsettled_funds $2,211.73 from today's two closes are already spendable on this limited_margin account and are included in buying_power.",
+        "the_one_number_that_moved_and_why_it_is_not_drift": "options_value read $653 at the 19:33Z run (mark 6.53) and reads $661 now (6.61). That is the hedge's OFFICIAL CLOSING mark replacing an intraday quote on an unchanged position of one contract -- a revaluation, not a position change. Quantity, average_price and opened_at are all identical. Flagging it explicitly so no later run mistakes an $8 revaluation for an unreconciled fill."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P x1 (authorized hedge, placed_agent=agentic, premium-backstop EXEMPT)": "WORKING -- hold, no action, and none was placeable anyway. Closing mark 6.61 against 7.49 basis = -$88.00 / -11.75%, DTE 88. It is insurance against a trend-break at a strike ~8.4% below spot, NOT a participation vehicle for a 0.28% SPY down-day; a small print on a narrow risk-off session is the correct behaviour and must not be read as the hedge failing. Its only scheduled decision remains the ~21-DTE roll/close review WITH Ryan (~2026-10-30). No deviation from the standing exit plan."
+      },
+      "book_state_going_into_2026-08-25": {
+        "open_positions": "1 of 5, and that one is the excluded hedge. 3 of 3 CORE and 2 of 2 TACTICAL slots free.",
+        "correlated_theme_short_tech": "0 of 3 -- was 2 of 3 all week until Ryan's two closes this morning.",
+        "entry_throttle": "Finished the day 0 of 8 used by the automation.",
+        "realized_pnl_today": "+$286.00, broker-sourced (get_realized_pnl, 2 closing trades, +14.85%), verified three times during the session and unchanged post-bell. Both closes were placed_agent='user' -- Ryan's own, not the automation's. Against the -$400 cap this is a CREDIT, nowhere near binding.",
+        "monitoring_mandate": "applies_to is now EMPTY -- both monitored positions (QQQ 680P x3, RBRK 90P x2) were closed by Ryan today. No per-position watch is outstanding, so no notification is owed under the mandate's notify-on-change condition.",
+        "open_questions_for_ryan": "None live. q1 answered 2026-08-18; q2 (RBRK earnings) closed as MOOT at 20:19Z because the position no longer exists. Neither is to be re-raised.",
+        "flags": "No _flag / UNAUTHORIZED marker anywhere in the ledger. Nothing for HARD RULE 9 to adjudicate."
+      },
+      "no_notification_sent_and_why": "The EOD report was delivered at 19:20Z and carries the day's full reasoning. This run surfaced nothing new -- no drift, no fired trigger, no changed recommendation, no flag, and no position under an active watch. Under the monitoring mandate's own silence clause, a book that is quietly unchanged is not news, and paging Ryan again 78 minutes after the report would be exactly the notification-fatigue failure that clause exists to prevent.",
+      "carried_forward": "Structural levels for tomorrow are already pre-computed in holdings._CLOSING_STRUCTURE_FOR_2026-08-25 (durable daily-bar structure and the verified QQQ 50d 713.4416 only -- explicitly NOT an inheritable intraday trigger; today's expired unfired and tomorrow's must be re-derived from tomorrow's tape). The first post-open run of 2026-08-25 owns the heartbeat, the market_brief rebuild, and the cap/throttle reset."
     }
   ],
   "updated_utc": "2026-08-24T19:25:00Z"
