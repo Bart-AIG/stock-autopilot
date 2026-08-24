@@ -1,78 +1,89 @@
 # Daily Options Report — Monday, 2026-08-24
 
-*Agentic account (••••7339, `limited_margin` / `option_level_3`). Written at 14:25 CT / 19:25 UTC by the first run at or past the 14:15 CT window, from live quotes timestamped 19:19:40Z. Broker-reconciled; not deferred to a tidier slot.*
+*Agentic account (••••7339, `limited_margin` / `option_level_3`). Written at 14:20 CT / 19:20 UTC by the first run at or past the 14:15 CT window, from live quotes timestamped 19:16Z. Not deferred to a tidier slot.*
 
-**One-line summary: you banked +$286 this morning and the desk placed nothing — but today was not another quiet flat day. The desk got a real A-minus setup, its trigger fired, it sent the order, and Robinhood refused it: agentic accounts cannot place multi-leg options orders at all. Three days of "prefer debit spreads" doctrine turned out to rest on a capability nobody had tested. That is the finding of the day and it changes what the CORE track can do.**
+**One-line summary: you took the money off the table this morning and you were right to — your two closes booked +$286 realized (+14.8%), the desk's first green day in seven sessions, and everything the tape did afterward vindicated the exit. The desk itself placed nothing, for two reasons worth your attention: one setup was refused outright by the platform (agentic accounts cannot place spreads — discovered by actually sending one), and the one live trigger that fired all afternoon was for a trade the rulebook prices out of its own size band. Book is now a single hedge and $3,023.56 of cash.**
 
 ---
 
 ## 1. What we own
 
-| Contract | Placed by | Basis | Mark 19:19Z | P/L at mark | Exit nets (at bid) | DTE | Status |
+| Contract | Placed by | Basis | Mark 19:16Z | P/L at mark | What an exit nets (at bid) | DTE | Status |
 |---|---|---|---|---|---|---|---|
-| SPY 2026-11-20 700P ×1 | agentic (hedge) | 7.49 | 6.555 | −$93.50 / −12.48% | −$95.00 (bid 6.54, 0.46% spread) | 88 | Working as designed |
+| SPY 2026-11-20 700P ×1 | agentic (hedge) | 7.49 | 6.58 | −$91.00 / −12.15% | −$92.00 (bid 6.57, **0.30%** spread) | 88 | Working as designed |
 
-**Book: basis $749 → mark value $655.50. Unrealized −$93.50. Day: +$2.50** (Friday's official close 6.53 → 6.555) — the hedge gained while SPY fell, which is exactly its job.
+**Book: basis $749 → mark value $658. Unrealized −$91.00.**
 
-**Why we own it:** this is the insurance leg of your Aug–Oct defensive posture, bought 2026-08-06 with SPY at 771.73. The 700 strike sits just below both the July-low shelf (716.6) and the rising 200-day (702.0), so it pays on a genuine trend break rather than a garden-variety dip. It is EXEMPT from every mechanical premium backstop — it is supposed to bleed in a melt-up. Next decision point is the ~21-DTE roll-or-close review with you around 2026-10-30. Delta −0.156, theta −$9.17/day, IV 20.50%, OI 25,846.
-
-**After your two closes this is the only option position on the book.** The sleeve carries zero directional risk beyond the hedge. Equity side unchanged and untouched: PNC 1.825758 sh (~$445) — the desk never trades equities autonomously.
+**Why we own it:** this is the authorized defensive hedge under your Aug–Oct drawdown posture — insurance, not a directional bet. It is *expected* to bleed in a flat-to-up tape and it is explicitly exempt from every premium backstop. Its decision point is the ~21-DTE roll/close conversation with you, which is still ~67 days out. Today it did its job in miniature: a −0.84% QQQ day moved it +$5 against a −$9.18/day theta burn, which is roughly what a 0.157-delta, 88-DTE put should do. No action.
 
 ---
 
-## 2. What happened today
+## 2. Actions taken today
 
-### You closed both mixed-ownership positions at 14:32–14:33Z, for +$286
+**By the desk: none.** Zero entries, zero exits. Twenty-fifth consecutive market-hours run declining to trade.
 
-| | Contract | Qty | Fill | Proceeds | Basis | Realized |
-|---|---|---|---|---|---|---|
-| 14:32:58Z | RBRK 2026-09-18 90P | 2 | $4.40 | $880 | 4.10 blended | **+$60.00** |
-| 14:33:25Z | QQQ 2026-09-11 680P | 3 | $4.44 | $1,332 | 3.686667 blended | **+$226.00** |
+**By you, at 14:32–14:33Z — and this is the day's real event:**
 
-Both `placed_agent: "user"` — your trades, correctly so under the ownership gate. Broker-sourced: `get_realized_pnl` returns **+$286.00 on 2 closing trades, +14.85%**, reconciling to the cent against the order records. Nothing here consumes the −$400 daily loss cap; it is a credit.
+| Contract | Qty | Basis | Exit | Realized |
+|---|---|---|---|---|
+| RBRK 2026-09-18 90P | 2 | 4.10 blended | 4.40 | **+$60.00 / +7.3%** |
+| QQQ 2026-09-11 680P | 3 | 3.6867 blended | 4.44 | **+$226.00 / +20.4%** |
 
-Worth saying plainly, because it is the process point: the 14:20Z run paged you with a CLOSE recommendation on RBRK carrying the full number set, and you acted twelve minutes later. The monitoring mandate you set on 2026-08-18 ran its complete arc — monitor, stay silent through the routine drift, bring one page with the numbers attached, you make the call. That mandate is now dormant; the posture survives for any future position you choose in a live session.
+**Broker-confirmed total: +$286.00 realized on 2 closing trades, +14.85% on capital deployed.** (Sourced from `get_realized_pnl`, not from the journal — the journal is the thesis record, the broker is the ledger of record.)
 
-### The desk placed zero trades — but it did send one order, and it was rejected
+**The honest read on your timing, because it's the most useful thing in this report:** you sold the QQQ puts at 4.44 into the morning's semi-led break. QQQ was ~706.5 then; it is 707.46 now, six hours later, having spent the entire afternoon chopping in a 1.3-point range that went nowhere. Had you held, the position would be worth roughly what it was worth when you sold, minus a day of theta. **You did not leave money on the table — you converted a working thesis into cash at the moment it stopped paying you to wait.** That is the pop-bank discipline this playbook keeps trying to codify, executed by hand.
 
-At 16:03Z the MSFT 2026-09-18 **490/510 call vertical** cleared everything. All three written trigger conditions fired (MSFT ≥ 489.00 at 489.81; two consecutive 5-minute closes ≥ 489.30 at 489.42 and 489.39; QQQ ≥ 703.00). News/thesis intact (Azure +43%, 52 buy / 0 sell, $569 average target vs $490 spot). IV fair on the ex-gap pair (0.525 raw / 1.006 ex-gap — the documented MSFT earnings-gap artifact). Trend maturity passed. Net debit $795 against a written $800 ceiling. Graded A-minus, armed since 15:05Z, and taken the moment it triggered.
-
-`place_option_order` returned **HTTP 400: "Multi-leg options orders aren't supported in Robinhood agentic accounts yet."**
-
-Three things about this matter more than the missed trade:
-
-1. **It is an agentic-API limit, not an account limit.** `get_accounts` confirms 718757339 at `option_level_3` in the same run. Level 3 is real. The order endpoint simply will not take a multi-leg order at any level.
-2. **`review_option_order` is a false green.** It accepted the identical payload and returned a complete, healthy preview — both legs, live quotes, greeks, an itemised fee block, a collateral block, and only a routine wide-spread note. Nothing hinted the order was unplaceable. A clean multi-leg review proves nothing; only a filled multi-leg order does.
-3. **Legging around it is arithmetically impossible here, and the desk measured that rather than assuming it.** At 16:35Z it reviewed a standalone sell-to-open of a QQQ 675P — the natural short leg of a vertical — and got `OPTION_NOT_ENOUGH_BP_FOR_COLLATERAL` demanding **$67,500 cash** (the full strike value) against an account holding $3,023.56. A spread's risk offset exists only *inside* a multi-leg order; sent alone, leg two is margined as a cash-secured put. So legging would reliably fill leg one, get leg two rejected, and leave the sleeve holding a full-premium orphan single leg it never decided to own — at 4–9× the vertical's theta.
-
-**The honest cost:** the "prefer debit spreads" doctrine was adopted 2026-08-21 from the `option_level_3` flag plus a theta measurement, and the executability underneath it was never tested. Every order on this account since 2026-08-19 has been single-leg. **A capability inferred from a permission flag is a hypothesis; the only proof a venue accepts an order type is a filled order of that type.** Three trading days of arming setups the desk could not place.
-
-**What it means going forward:** CORE is single-leg-only, so CORE candidates must clear a *higher* bar than the spread doctrine assumed — every one now carries 4–9× the theta at roughly double the capital. A thesis that grades A-minus as a vertical is not automatically A-minus as a single leg. The MSFT case demonstrates it exactly: the 500C was cheap, liquid and affordable ($935, 0.41 delta, 3.21% of mid) and was still declined — not on cost, but on **breakeven 509.35, essentially at the vertical's 510 short strike**, so the single leg pays ~zero at precisely the price where the graded thesis said to bank $1,205. Substituting the only executable vehicle is fitting the trade to the platform.
-
-**The spec is preserved verbatim** in `holdings.json._BLOCKED_SETUP`. If you want that trade, it is placeable by you in the app, where multi-leg works normally. The permanent fix is agentic multi-leg support.
+It also closed out an open question. Both positions were MIXED ownership (one agentic lot, one yours), and my standing recommendation since Friday had been close-or-roll on the QQQ put at its 21-DTE review. You answered it by acting. The ledger, the exit ladder, and the monitoring mandate are all reconciled to the closes.
 
 ---
 
-## 3. What was considered and skipped — 28 market-hours runs, 25 consecutive declines
+## 3. Candidates considered and SKIPPED — the educational section
 
-The most educational section. Grouped by what actually did the killing.
+Five things got real work today. None were placed. Here is exactly why, because four of the five failed for *structural* reasons rather than because the setups were bad — and that distinction is the thing to take away.
 
-**Killed by the trigger never firing (the dominant reason, and the right one).** The tactical track requires an intraday level *actually breaking now*. Today produced four full reversals of read in two hours and never gave one:
-- **SPY 2026-09-04 768C (upside)** — graded **B+** at 18:36Z and everything cleared but the trigger: liquidity 0.57% of mid, delta 0.445, $526 in-band, IV ~12% against a logged `iv_rv_ratio` of 1.038 (fair), exit plan writable in full. SPY's high was **765.11 against the 765.22 required** and QQQ's 709.53 against 709.79 — both missed in the *same minute*, by 0.11 and 0.26. The level was then rejected a third time and the whole advance retraced. A level that rejects a tape three times on its heaviest bars is resistance, not a breakout waiting to happen.
-- **SPY 2026-09-04 762P (downside)** — graded **B**, the closest the desk came to a trade. At 19:03Z two of three legs had fired (SPY by a single cent) but QQQ was 0.90 above its 706.74 level, and the trigger's *volume* condition failed outright: the decline ran ~18.5k/min against the ~24.5k/min of the advance it was retracing. As of this writing it has gone backwards — SPY has reclaimed 764.00 (last closes 764.07, 764.22), so the trigger is now **1 of 3**, not 2.
-- **QQQ continuation shorts, five separate attempts** (17:00Z, 17:16Z, 17:22Z, 17:47Z, 18:03Z) — each failed the same measured test: QQQ sat 4–5 points *above* the 702.70 session low, mid-range, with the leader (NVDA) reclaiming. Selling mid-range into a decelerating move is not a level break.
+### (a) MSFT 2026-09-18 490/510 call vertical — **the platform refused it**
+This was the best-structured candidate the desk has produced in weeks: MSFT was the only green name on the core board all day (+1.12% into a red tape), the trigger fired, the chain was clean (490C at 2.45% of mid, OI 7,013), and the vertical priced to a $800 ceiling with $1,205 max profit.
 
-**Killed by the $300–600 tactical size band.** This is the constraint worth flagging to you, because today it bound on a day the trigger *did* fire. Priced at ~0.43–0.49 delta on the 2026-09-04 board: **SPY 762P $535.50 — the only one that fits**; QQQ 705P $788.00 (+31% over), QQQ 708P $911.50 (+52%), NVDA 210P $740.00 (+23%). Every chain was superb (0.56–1.35% of mid), capital was ample, all five slots free. **The tactical track is effectively a SPY-only track at this account size**, even though v4 names QQQ as a primary hunting ground. Rerouting to CORE fails on its own terms (CORE needs 21–45 DTE; the only qualifying board prices ~$1,605 — A++ money for an A-minus setup), and re-labelling to dodge a ceiling is a governance failure even when the numbers work. **Recommendation for you: widen the tactical band to roughly $300–950**, keeping every other tactical gate intact and leaving the ceiling well below the $1,500 per-position max. The alternatives are worse — accept SPY-only tactical, or buy a lower-delta QQQ strike, which discards the delta rationale the track exists for.
+It was armed, triggered, priced, reviewed — and **sent**. `place_option_order` returned **HTTP 400: "Multi-leg options orders aren't supported in Robinhood agentic accounts yet."**
 
-There is a trap inside this that is worth naming: on a Nasdaq-specific de-rating (QQQ −0.98% vs SPY −0.32% at the open), SPY is affordable *because* it is the leg that is holding. Low IV and low realized move are the same fact. Buying it because it fits the band is fitting the trade to the constraint.
+Two things about this you should know:
+- **This is an agentic-API limit, not an account limit.** The account genuinely is `option_level_3`; the order endpoint just won't take a multi-leg order at any level.
+- **`review_option_order` accepted the identical payload and returned a clean, healthy preview** — both legs, live quotes, greeks, an itemized fee block, no warning of any kind. The review endpoint does not run the multi-leg check that the place endpoint runs. A clean review is not proof an order is placeable; only a fill is.
 
-**Killed by NVDA's Wednesday 2026-08-26 print.** The DTE-7 floor puts the earliest permissible expiry at ~2026-09-04, so **every** semi candidate spans the largest scheduled variance event on the board. That covered NVDA (215P/215C at 1.8% of mid on OI 33,845 — an excellent chain and still a no), AMD, TSM, AVGO, and 8 of the 19 setups on the committed equity report. IV independently killed NVDA anyway: 0.4093 with raw ratio 1.087 *and* ex-gap 1.219 — rich on both readings, which is the rare unambiguous case.
+The full spec is preserved in the ledger and can be revived intact if agentic multi-leg is ever enabled.
 
-**Killed by coherence.** At 13:43Z the desk considered fresh QQQ puts and refused: it cannot in the same run tell you "sell your QQQ puts, theta is eating them" and simultaneously open new ones. That is a contradiction, not a judgement call.
+### (b) Legging that spread manually — **tested, and it is arithmetically impossible here**
+The obvious workaround is to send the two legs as separate orders. The desk tested it rather than assuming, and the result is worth recording: `review_option_order` on a standalone short leg returns **`OPTION_NOT_ENOUGH_BP_FOR_COLLATERAL` demanding $67,500 in cash** — the full strike value.
 
-**Killed by trend maturity — the ZTS failure mode, twice.** At 13:42Z, buying continuation puts eight minutes after a 1% gap down is buying the top of the intraday fear. At 16:33Z, the QQQ 2026-09-18 695P/700P bearish core idea had a genuinely superb case — 50-day lost decisively, narrow-down breadth, chains at 0.80% of mid, affordable — and was declined because **today's tape diverged**: QQQ had printed higher closes for an hour on expanding volume and was at its recovery high. Initiating a short into a mending tape with a catalyst three hours old and half-retraced is the exact error CLAUDE.md documents by name.
+The mechanism: **a spread's risk offset exists only inside a multi-leg order.** Sent alone, the short leg isn't "the short leg of a spread" — the broker has no way to know a long leg is meant to cover it, so it's margined as a fully cash-secured position. Legging destroys the exact property that makes a vertical capital-efficient. And the failure mode isn't a clean rejection: leg one fills, leg two is refused, and the sleeve is left holding an orphaned full-premium single leg at 4–9× the vertical's theta that it never decided to own.
 
-**Killed on the chain.** TSM and MSFT died on liquidity at the ATM strike in ~30 seconds each — before any thesis work — under the sourcing rule that screens liquidity first. Worth noting: the MSFT reading was later found to be a *measurement* artifact. The 13:39Z IV sweep recorded MSFT at 12.0% of mid on the **2026-09-25** board; the **2026-09-18 monthly** the same morning quoted 2.45% of mid on OI 7,013 — roughly 5× tighter, and the difference between "untradeable" and the best-structured candidate on the desk. Mega-cap monthlies carry the open interest; adjacent weeklies do not. An IV sweep measures IV, not liquidity — never let a spread observed during one disqualify a name.
+**Practical consequence for you:** when a thesis genuinely wants a vertical, the desk will fully spec it — both legs, net debit, max profit, breakevens, invalidation — and hand it to you to place in the app, where multi-leg works normally. That preserves the carry advantage; it just moves the button-press to you.
+
+### (c) MSFT 500C single leg (the substitute) — **declined on breakeven, not on cost**
+With the spread unavailable, the natural move is to express the same view with a single call. The 500C was affordable ($935) and perfectly liquid. It was still declined: its **breakeven is 509.35 — essentially at the vertical's 510 short strike.** The single leg pays roughly nothing at exactly the price where the graded thesis said to bank $1,205.
+
+Substituting the only vehicle that's left is fitting the trade to the platform. A cheap, liquid contract supplies no thesis.
+
+### (d) QQQ tactical put on the failed-bounce trigger — **priced out of its own rulebook**
+At 17:03Z a live, volume-confirmed downside trigger actually fired on QQQ. Everything was in place: five free slots, $2,773 deployable, chains superb (0.56–1.35% of mid), loss cap sitting at a +$286 *credit*. Priced at ~0.43–0.49 delta on the 11-DTE board:
+
+| Vehicle | Cost | vs. $300–600 tactical band |
+|---|---|---|
+| **SPY 762P** | $535.50 | ✅ the only fit |
+| QQQ 705P | $788.00 | ✗ +31% over |
+| QQQ 708P | $911.50 | ✗ +52% over |
+| NVDA 210P | $740.00 | ✗ +23% over |
+
+The $300–600 tactical band sits inside the Four Laws, so no run may relax it, and re-labeling the trade "core" to escape the ceiling would be a governance failure even where the numbers work (they don't — the only qualifying core board prices at ~$1,605, A++ money for an A-minus setup).
+
+**The trap worth naming:** SPY was the only affordable vehicle *because it was the leg holding up.* On a Nasdaq-specific de-rating (QQQ −0.84% vs SPY −0.22%), SPY's low premium and low realized move are the same fact. Buying it because it fits the band is buying the wrong index. Declining was correct — but be clear that **the ruleset, not the tape, was binding here.**
+
+→ **This is the one thing on the list that's yours to decide** — see §5.
+
+### (e) QQQ core re-entry — **no trigger, and it would have second-guessed you**
+The house view (QQQ downside, below its 50-day at 713.44) is intact. But you banked exactly this exposure four hours earlier. Re-establishing the same position the same session, on a bounce, requires a *new* trigger — the mere persistence of a thesis is not one. The trigger written for it (a failed retest of the 50-day, or a decisive loss of the session low on expanding volume) never fired.
+
+**Late-session note:** the downside trigger got to 2-of-3 at 19:03Z and has since *weakened* to 1-of-3 — SPY reclaimed 764.00, QQQ sits 0.72 above its 706.74 level, and the volume condition failed throughout (declines ran ~18.5k/min against the advance's ~24.5k). Sellers never arrived in size. No entry into the close.
 
 ---
 
@@ -80,28 +91,27 @@ There is a trap inside this that is worth naming: on a Nasdaq-specific de-rating
 
 | | |
 |---|---|
-| Premium at risk | **$749** — the exempt hedge only. Zero agentic directional exposure. |
-| Open positions | 1 (hedge, excluded from slot count). **0 of 2 TACTICAL, 0 of 3 CORE — all five slots free.** |
-| Realized P/L today | **+$286.00** vs the −$400 cap → full **$400 headroom**, untouched |
-| Entries used | **0 of 8** |
-| Unleveraged buying power | **$3,023.56** (= `buying_power`, so **no margin extended**) |
-| Deployable after the $250 reserve | **$2,773.56** |
-| Account value | $4,123.69 (equity $445.13 / options $655 / cash $3,023.56) |
+| **Premium at risk — tactical** | $0 (0 of 2 slots used) |
+| **Premium at risk — core** | $0 (0 of 3 slots used) |
+| **Hedge (excluded from caps)** | $749 basis / $658 mark |
+| **Cash / `unleveraged_buying_power`** | **$3,023.56** (equal — no margin extended) |
+| **Deployable after $250 reserve** | **$2,773.56** |
+| **Realized P/L today** | **+$286.00** vs the −$400 cap — a credit, cap untouched |
+| **Entries used today** | 0 of 8 |
+| **Account equity** | $4,126.93 — above the $2,000 margin minimum |
 
-`unsettled_funds` shows $2,211.73 — the T+1 proceeds of your two sells — but the account is `limited_margin`, so settlement does not gate deployment and the broker's buying power already reflects it.
-
-**Capital and slots were not the constraint today, and the desk says so plainly rather than hiding behind them.** Everything was available. What was missing was a setup that cleared its own written bar, and inventing one at 3pm on a tape that reversed four times is how the desk would have given back your +$286.
+For the first time in weeks the sleeve is **not** capital-constrained. Every prior flat day had a real budget excuse; today did not. Both slots and all the cash were free, and the desk still didn't trade — because the two setups that cleared the bar were blocked by the platform and the rulebook respectively, not because nothing looked good.
 
 ---
 
 ## 5. Tomorrow's watchpoints
 
-1. **NVDA reports Wednesday 2026-08-26 after the close.** It gates every semi-adjacent candidate through Thursday, because the DTE-7 floor forces any permissible expiry to span it. Expect the desk to keep declining semis; that is the rule working, not a stall.
-2. **QQQ 50-day MA — 713.44 as of Friday's bar, rising ~0.4/day (~713.8 Tuesday).** QQQ closed Friday exactly on it and opened below it today. A session close back above voids the bearish index premise entirely. Below it, the premise holds.
-3. **The levels that actually matter for a downside entry:** QQQ session low **702.70**, SPY **762.08**. Today's trigger levels were intraday structure and expire with the session — they must not be inherited into Tuesday.
-4. **The hedge needs nothing.** 88 DTE, exempt, next decision ~2026-10-30 at 21 DTE, and that one is yours.
-5. **Two things for you, neither urgent:** the tactical size band recommendation in Section 3, and — if you want the MSFT 490/510 vertical — it is fully specced and placeable by you in the app. The desk cannot place it at any options level.
+1. **A decision for you: the tactical size band.** The $300–600 band and the "hunt SPY, QQQ, NVDA" instruction cannot both be satisfied on QQQ at current prices — QQQ tactical entries price $740–911. Today that combination vetoed a live, volume-confirmed trigger on a day with five free slots and $2,773 free. My recommendation: **widen the band to roughly $300–950**, keeping every other tactical gate (delta, ≤3% chains, time stop, −30% stop) intact and the ceiling still far below the $1,500 per-position max. The alternatives are to accept a SPY-only tactical track (clean, but SPY is often the wrong index) or to buy lower-delta QQQ strikes (worst — it discards the delta rationale the track exists for). *No approval is claimed or implied here; this needs a real turn from you.*
+2. **Agentic multi-leg support.** Until it exists, the desk is single-leg-only, which means every core candidate carries 4–9× the theta the "prefer spreads" doctrine assumed when it set the bar. Verticals will be specced and handed to you rather than placed.
+3. **QQQ 50-day MA at 713.44.** Friday closed exactly on it; today opened and stayed below. A failed retest into 712–713.44 is the cleanest core re-entry trigger on the board.
+4. **Semi complex.** AMD −3.51%, TSLA −3.66%, NVDA −2.48%, TSM −2.15%, AVGO −2.08% against MSFT +1.12%. This is a two-day rotation *out of semis*, not a broad risk-off — SPY is down only 0.22% and holding above both its 20- and 50-day. Watch whether MSFT's divergence persists; a lone green mega-cap is either the tell or the trap.
+5. **Hedge:** no action until ~21 DTE (late October). It is exempt from backstops by design.
 
 ---
 
-*Reconciliation 19:18–19:20Z: `get_option_positions(nonzero)` returns exactly one contract, matching `holdings.json` one-for-one, every `pending_*` field 0.0000 — no assignment, exercise, expiration or unauthorized fill. No HARD RULE 9 flags open. No Ryan approval is claimed or implied anywhere in this report; the two closes above are broker order records with `placed_agent: "user"`.*
+*Book: 1 open contract (hedge). Realized today +$286.00, broker-sourced. No agentic entries or exits. Next run: Tuesday's open.*
