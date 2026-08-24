@@ -15785,7 +15785,28 @@
       "notification_decision": "None sent. A quiet overnight reconciliation with zero drift is not news, and paging Ryan once an hour through the night would destroy the signal value of the monitoring mandate's alerts.",
       "grades_considered": "NONE. The market is closed; no entry is placeable and no candidate can be graded on a live tape. Hunting on stale Friday quotes would manufacture a thesis nobody could act on.",
       "cadence_note": "Overnight/weekend firing is the routine's NATIVE HOURLY backstop only (landing ~:19 past the hour). cron-job.org's 8:25-14:55 CT Mon-Fri window is closed overnight, so the absence of :25/:55 fires right now is EXPECTED. Per CLAUDE.md, any cadence or health computation must filter on run_type and count only scheduler-fired entries."
+    },
+    {
+      "run_utc": "2026-08-24T05:19:00Z",
+      "run_local_et": "01:19 ET Monday 2026-08-24",
+      "trading_day_et": "2026-08-21",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check; fired ~05:19Z. Native hourly backstop only -- cron-job.org fires Mon-Fri on a CT window, so the hourly-only overnight cadence is EXPECTED, not the 08-18 trigger fault recurring.",
+      "regime": "N/A -- market closed (01:19 ET Monday, ~8h11m before the 13:30Z open). No regime re-derivation; last live read stands from the 2026-08-21 close.",
+      "action": "NO TRADE, NO EXIT, NO ENTRY. Fifty-eighth post-close run of the 2026-08-21 trading day, fifty-fifth since the Friday bell. POST-CLOSE RUN PROTOCOL applied in full: journal tail read to confirm runs #53-#57 already covered final reconciliation, broker reconciliation re-run (options + equity + portfolio), lot-count invariants ASSERTED arithmetically, nothing to fix, logged, stopped. No closed-market quote polling, no regime re-derivation, no daily-artifact roll, no invented research task.",
+      "utc_rollover_note": "UTC date 2026-08-24 but the TRADING day is still 2026-08-21 -- Monday has not opened. Per CLAUDE.md the heartbeat was NOT stamped, market_brief.json was NOT rebuilt, and the daily loss cap / entry throttle were NOT reset. Only a run at or after 13:30Z today may do any of those.",
+      "reconciliation": {
+        "broker_option_positions": "THREE contracts, matching holdings.json one-for-one: SPY 2026-11-20 700P x1 @ 749.00 (agentic hedge, premium-backstop exempt), QQQ 2026-09-11 680P x3 @ 368.6667 blended, RBRK 2026-09-18 90P x2 @ 410.00 blended. Every pending_* quantity 0.0000 -- no weekend assignment, exercise, expiration or unauthorized fill.",
+        "broker_equity_positions": "PNC 1.825758 sh @ 246.47 -- sole remaining agentic equity position, matching the ledger exactly. intraday_quantity 0, no overnight equity fill.",
+        "portfolio": "total $3,829.51 = equity $443.68 / options $2,574.00 / cash $811.83. buying_power $811.83 == unleveraged_buying_power $811.83, so NO margin extended (FOUR LAWS #4 satisfied). Account equity $3,829.51 is 1.9x the $2,000 minimum-margin-equity threshold -- clear, not approaching.",
+        "invariants_asserted": "PASS on both multi-lot positions. QQQ: sum(lot qty)=3=contracts, sum(cost)=1106.0=total_cost_basis_usd=max_loss, 1106/3/100=3.6867=entry_premium_blended, broker qty3 x avg368.6667 = 1106.00. RBRK: sum(qty)=2=contracts, sum(cost)=820.0=tcb=max_loss, 820/2/100=4.10=blended, broker qty2 x avg410.00 = 820.00. Broker is the arbiter; both agree."
+      },
+      "ownership_note": "QQQ (1 agentic + 2 Ryan lots) and RBRK (1 agentic + 1 Ryan lot) are MIXED -- ask-first on any exit under both the ownership gate and the 2026-08-18 monitoring mandate. SPY is the authorized hedge (premium-backstop exempt). No exit trigger is live; nothing to recommend or notify.",
+      "notification_decision": "SILENT. Nothing fired or un-fired, no trigger crossed, book unchanged since the Friday close. Per the monitoring-mandate dedup discipline and the routine-notify-once rule, a quiet weekend hold is not news.",
+      "grades_considered": "None -- market closed, no entries or exits placeable. Hunt resumes at the Monday 13:30Z open.",
+      "monday_open_watchpoints": "First run at/after 13:30Z owns: heartbeat stamp, market_brief rebuild, loss-cap + throttle reset, and the QQQ/RBRK monitoring re-quote (re-quote >=5 min after 13:30Z, never off the opening auction print). QQQ 680P is at 18 DTE (past the 21-DTE review line) and RBRK 90P at 25 DTE; both mixed-ownership, so any exit trigger is recommend-and-ask.",
+      "cadence_note": "Hourly-only overnight firing is the expected native backstop, not a trigger fault. An entry count is not a fire count; this is a scheduler-fired post_close_overnight run."
     }
   ],
-  "updated_utc": "2026-08-23T19:19:00Z"
+  "updated_utc": "2026-08-24T05:19:00Z"
 }
