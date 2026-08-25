@@ -18641,6 +18641,34 @@
       "why_flat": "The market is closed and has been for 14.3 hours. Fifteen post-close runs have now reconciled the same unchanged book. The correct output of the Nth redundant overnight run is a cheap broker read and a short entry -- not an invented research task to justify the firing. The redundancy is a trigger-config matter (Ryan's to change); an agent's only job is to make each extra firing cost almost nothing.",
       "notification": "NONE SENT. Nothing actionable, nothing broken, no flag raised. A 'ran and all is well' page at 06:19 ET is exactly the notification that trains Ryan to stop reading them.",
       "hard_rule_9": "No Ryan turn is claimed, quoted, or implied. No flag cleared. No approval manufactured."
+    },
+    {
+      "run_utc": "2026-08-25T11:30:00Z",
+      "run_local_et": "07:30 ET Tuesday 2026-08-25 -- 930 minutes AFTER the bell. The SIXTEENTH post-close run of the 2026-08-24 trading day. The UTC date reads 2026-08-25 but the TRADING DAY IS STILL 2026-08-24; the next session opens at 13:30Z, ~2.0 hours out.",
+      "trading_day_et": "2026-08-24",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check. The payload does not identify which trigger produced the run, so none is asserted. Scheduler-fired; counts toward cadence but is NOT a market-hours run.",
+      "market_state": "CLOSED since 20:00Z. Nothing placeable -- no entry, no exit, no modification is possible from this run.",
+      "action": "STAND DOWN per the POST-CLOSE RUN PROTOCOL. Reconciliation only, one short entry, stop.",
+      "reconciliation": {
+        "source": "Independently fetched this run -- get_accounts / get_option_positions / get_portfolio / get_equity_positions. Not copied forward from the prior entry.",
+        "accounts": "718757339 'Agentic' confirmed type=limited_margin, option_level=option_level_3, agentic_allowed=true.",
+        "options": "SPY 2026-11-20 700P x1, average_price 749.00, opened 2026-08-06T14:21:56Z -- the authorized defensive hedge and the ONLY open option. Every pending_* field 0.0000. Matches holdings.json exactly. Lot-count invariant asserted: 1 contract / $749.00 basis / $7.49 blended -- consistent.",
+        "equities": "PNC 1.825758 sh @ 246.47 avg, all available for sells, no option-event holds. Unchanged.",
+        "portfolio": "total 4129.52 | cash 3023.56 | options_value 661.00 | equity_value 444.96 | buying_power 3023.56 == unleveraged_buying_power 3023.56 (no margin extended). Deployable after the $250 reserve: ~$2,773.56. Well clear of the $2,000 margin-equity minimum.",
+        "result": "ZERO DRIFT ON BOTH BOOKS. Sixteenth consecutive clean post-close read. No overnight assignment, expiration, or unauthorized fill."
+      },
+      "daily_artifacts": "NOT ROLLED. Heartbeat NOT stamped (pre-open on 2026-08-25; only a run at/after 13:30Z may stamp it -- it still reads date_utc 2026-08-24, which is CORRECT, not stale). market_brief.json NOT rebuilt. Loss cap and entry throttle NOT reset -- the trading day is still 2026-08-24, whose realized figure stands at +$286.00, a CREDIT against the -$400 cap.",
+      "positions_verdict": "SPY 2026-11-20 700P hedge: HOLD, unchanged, WORKING as insurance. 87 DTE. EXEMPT from all premium backstops per the ownership gate; its ~21-DTE roll/close decision (~2026-10-30) is a WITH-RYAN decision and is nowhere near. Nothing to manage at 07:30 ET. The book is otherwise FLAT -- 0 of 2 tactical and 0 of 3 core slots used, hedge excluded.",
+      "hunt": "NOT PERFORMED. Market closed -- any level derived now would come from stale 20:00Z prints and would expire before the open. _TACTICAL_TRIGGER_WATCH expired UNFIRED at the 2026-08-24 bell and must NOT be inherited. _CLOSING_STRUCTURE_FOR_2026-08-25 holds the durable daily-bar levels and independently verified MAs (QQQ 50d 713.4416 as of the 2026-08-21 bar) for the first post-open run -- deliberately levels, not a trigger.",
+      "iv": "NOT LOGGED. ATM IV read off a closed book is not a measurement; the 13:30Z open produces the real one. Per the opening-auction rule the first post-open run must also re-quote ~5 minutes after 13:30Z rather than pricing anything off the auction print.",
+      "cadence_health_check": {
+        "_why": "CLAUDE.md's standing finding after the 2026-08-18 trigger outage: a dead-man that only asks 'did ANY run happen today?' cannot detect DEGRADATION, so a health check must assert a RATE. This is that check, run on the last completed trading day, and it counts ONLY scheduler-fired run_types -- live-user entries inflate the count and would make a dead trigger look healthy.",
+        "measured": "2026-08-24 market-hours (13:30-20:00Z) scheduler-fired entries: 32 total -- {'first_post_open_of_trading_day': 2, 'market_hours_regular': 30}. Two live-user entries in the same window were EXCLUDED, per the run_type filtering rule.",
+        "verdict": "HEALTHY. 32 runs across a 6.5-hour session is ~one every 12 minutes, consistent with the cron-job.org sub-hourly trigger plus the native hourly backstop both firing. This confirms the 2026-08-21T17:05Z token fix is still holding four sessions later -- the ~7/day hourly-only collapse of 2026-08-19/20/21 has not recurred. No alarm; Ryan was not notified."
+      },
+      "why_flat": "The market is closed and has been for 15.5 hours. Sixteen post-close runs have now reconciled the same unchanged book. The correct output of the Nth redundant overnight run is a cheap broker read and a short entry -- not an invented research task to justify the firing. The one piece of NEW work this run added is the cadence health check above, which is genuinely cheap (it reads the journal already in context) and answers a question no earlier post-close run of this trading day had asked. The redundancy itself is a trigger-config matter and Ryan's to change; an agent's only job is to make each extra firing cost almost nothing.",
+      "notification_decision": "NONE SENT. Nothing needs Ryan: zero drift, no fired trigger, no flag, no open recommendation whose state changed, and the cadence check came back healthy. Under the monitoring mandate's SILENCE RULE, a book quietly working is not news."
     }
   ],
   "updated_utc": "2026-08-24T19:25:00Z"
