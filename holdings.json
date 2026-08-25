@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-25T14:03:00Z",
+  "updated_utc": "2026-08-25T14:31:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-25",
     "realized_usd": 0.0,
@@ -24,21 +24,22 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "last_checked_utc": "2026-08-25T14:16:00Z",
-        "quote_basis": "LIVE, option quote updated_at 2026-08-25T14:16:34Z. Well clear of the opening auction.",
-        "mark": 6.365,
-        "bid": 6.35,
-        "ask": 6.38,
+        "last_checked_utc": "2026-08-25T14:31:00Z",
+        "quote_basis": "LIVE, option quote updated_at 2026-08-25T14:29:52Z. Well clear of the opening auction.",
+        "mark": 6.435,
+        "bid": 6.42,
+        "ask": 6.45,
         "spread_pct_of_mid": 0.47,
-        "pl_at_mark_usd": -112.5,
-        "pl_at_mark_pct": -15.02,
-        "net_if_exited_at_bid_usd": -114.0,
+        "pl_at_mark_usd": -105.5,
+        "pl_at_mark_pct": -14.09,
+        "net_if_exited_at_bid_usd": -107.0,
         "dte": 87,
-        "delta": -0.152524,
-        "theta_per_day_usd": -9.14,
-        "iv": 0.20586,
+        "delta": -0.154178,
+        "theta_per_day_usd": -9.18,
+        "iv": 0.205562,
         "open_interest": 26164,
-        "status": "WORKING AS DESIGNED -- hold, no action, no notification. RECOVERED $12.00 since the 13:37Z check (mark 6.245 -> 6.365) as SPY faded from +0.40% to +0.245%. That is the hedge doing precisely its job: it loses on strength and regains on fade, and today it has done both inside one hour. Insurance per the 2026-08-05 defensive-posture authorization: EXEMPT from every mechanical premium backstop. The only scheduled decision is the ~21-DTE roll/close review (~2026-10-30) taken WITH Ryan, 87 days out. Nothing about today's tape touches the setup_invalidation, which needs SPY decisively above ~800 (it is 765.34) or Ryan lifting the posture."
+        "basis_used": "entry_premium 7.49 x 1 contract x 100 = $749.00 cost basis. Lot invariant asserted in code this run.",
+        "status": "WORKING AS DESIGNED -- hold, no action, no notification. RECOVERED a further $7.00 since the 14:16Z check (mark 6.365 -> 6.435) and $15.50 off the session's worst mark, tracking SPY's fade from +0.40% to +0.19%. The hedge loses on strength and regains on fade; today it has done both inside one hour, which is the payoff profile it was bought for. Insurance per the 2026-08-05 defensive-posture authorization: EXEMPT from every mechanical premium backstop. The only scheduled decision is the ~21-DTE roll/close review (~2026-10-30) and that decision is Ryan's. HARD RULE 9: no approval is claimed or implied."
       },
       "_notify_state": {
         "last_checked_utc": "2026-08-25T13:37:00Z",
@@ -524,6 +525,16 @@
         "TSLA": "351.775 vs 348.95 = +0.81% (was +0.10% -- the only non-NVDA name adding)"
       },
       "the_breadth_read_worth_inheriting": "The 14:03Z run's call that the bid is NARROWING INTO NVDA ALONE has now been confirmed twice more and has hardened into the day's defining fact. NVDA has added to its gain at every single check (+1.58 -> +2.27 -> +2.46%) while AVGO has surrendered 82% of its opening gap, SMH two thirds of its, and the indices have faded with the complex rather than with NVDA. Practical consequence, unchanged and strengthened: a QQQ tactical is a poor vehicle for what is measurably a one-stock flow, and NVDA itself is un-enterable into a print the exit engine says to close before, not open into. The honest read of this session is that the ONE tradeable idea on the tape is the one instrument the rules correctly forbid."
+    },
+    "RETIRED_2026-08-25T14:31Z": {
+      "verdict": "BOTH SIDES DEAD. This watch is RETIRED for the 2026-08-25 session. Do NOT re-arm either level; do NOT inherit these numbers tomorrow.",
+      "UPSIDE_715C": "Died at 14:03Z on its two-bar hold. QQQ closed the 14:25 bar at 709.30, some 3.93 below the 713.2256 50-day, making lower lows. Not revivable today.",
+      "DOWNSIDE_710P": "RETIRED AS EXPIRED-UNCONFIRMED. The price condition fired on THREE consecutive completed 5-minute closes -- 709.9219, 709.62, 709.30 -- and the volume clause (>~257,000) failed all three at 86,554 / 200,251 / 189,938. Fifteen minutes of satisfied price with the confirmation never arriving is an answer, not a near-miss.",
+      "why_retired_rather_than_left_armed": "QQQ now trades BELOW the 710.00 entry line, so a later firing would buy roughly 2 points worse than the level the desk chose -- chasing a move that already happened without conviction. A trigger whose entry price sits behind the market is not a plan, it is a fuse. This is RETIREMENT, the opposite motion from the documented 're-spec the level toward the tape' failure mode; the next instance must not conflate the two.",
+      "the_recomputation_that_was_refused": "The ~257,000 threshold was the non-opening session average as of 14:16Z; it has since fallen to 234,424 as the tape thinned, which would have made the 14:20 bar 85% of average and the clause a near miss. Lowering a volume threshold because volume is drying up would confirm every drift by construction. Refused deliberately.",
+      "the_independent_killing_argument": "Trend-maturity test (c) fails regardless of volume. NVDA is +1.77% and HOLDING while the complex de-gaps around it (AMD +4.36% -> +3.69%, SMH +2.24% -> +1.26%, AVGO +1.12% -> -0.09% RED). NVDA is QQQ's largest weight and reports 2026-08-26 after the close. A tactical QQQ put would be shorting the index whose heaviest component carries the tape's only strengthening flow, on a hard time stop that expires in the same session the catalyst lands.",
+      "the_structure_worth_watching_instead": "A FAILED RETEST, which is a genuinely better setup than the drift-break that just died: QQQ rallying back into 710.50-711.50 and being REJECTED there on a completed 5-minute close with volume above the session's non-opening average. That gives a tight, honest invalidation (a close back above 713.2256) instead of a 2-point chase. Grade it fresh on its own merits if it appears -- it is NOT pre-approved and NOT pre-armed.",
+      "status": "NOT ARMED, NOT PLACED, NOT APPROVED. HARD RULE 9: no Ryan turn is claimed or implied anywhere in this object."
     }
   },
   "_TACTICAL_BAND_CONFLICT": {
@@ -571,5 +582,19 @@
     },
     "what_would_actually_matter_tomorrow": "Whether the MSFT-up / semis-down divergence persists or resolves. If it persists, the QQQ downside thesis is really a SEMIS thesis wearing an index costume, and the honest vehicle is a semi name or SMH rather than QQQ -- worth pricing before defaulting to the index. If MSFT gives back its +1.14% and joins the tape, the index thesis is the right one and the _CORE_WATCH triggers stand as written."
   },
-  "_union_merge_note_2026-08-25T13:45Z": "CONCURRENT-RUN COLLISION, resolved as a UNION per CLAUDE.md -- never by picking a side. Two runs executed the same post-open slot of 2026-08-25 independently: 13:42Z (this branch) and 13:45Z (merged to master as PR #637). The redundant trigger design (cron-job.org sub-hourly + the native hourly backstop) makes this intermittent and expected. BOTH runs did genuine, non-overlapping work and BOTH reached the SAME conclusion -- no entry, hedge held, artifacts rolled -- so this is cross-validation, not duplication. Critically, the latent danger the collision rule exists to prevent (two runs each believing they may open one entry, and both taking the same setup) did NOT materialise: neither run placed anything."
+  "_union_merge_note_2026-08-25T13:45Z": "CONCURRENT-RUN COLLISION, resolved as a UNION per CLAUDE.md -- never by picking a side. Two runs executed the same post-open slot of 2026-08-25 independently: 13:42Z (this branch) and 13:45Z (merged to master as PR #637). The redundant trigger design (cron-job.org sub-hourly + the native hourly backstop) makes this intermittent and expected. BOTH runs did genuine, non-overlapping work and BOTH reached the SAME conclusion -- no entry, hedge held, artifacts rolled -- so this is cross-validation, not duplication. Critically, the latent danger the collision rule exists to prevent (two runs each believing they may open one entry, and both taking the same setup) did NOT materialise: neither run placed anything.",
+  "_CORE_SCREEN_2026-08-25": {
+    "set_utc": "2026-08-25T14:31:00Z",
+    "what": "Liquidity screen of the 2026-08-25 morning report's RSI2 candidate list, run BEFORE any thesis workup per the 2026-08-14 SOURCING fix. Quoted on the 2026-09-18 MONTHLY board (24 DTE) at target delta -- the measurement this file's three-instance wrong-quote bug demands.",
+    "measured": {
+      "RTX 212.5C": "mid 3.90, spread 12.8% of mid, delta 0.432, OI 2. FAIL",
+      "RTX 215C": "mid 3.03, spread 17.8% of mid, delta 0.359, OI 113. FAIL",
+      "RTX 217.5C": "mid 2.275, spread 18.0% of mid, delta 0.292, OI 64. FAIL",
+      "GD 385C": "mid 5.15, spread 52.4% of mid, delta 0.367, OI 29, volume 0. CATASTROPHIC FAIL",
+      "GD 390C": "mid 3.10, spread 45.2% of mid, delta 0.267, OI 583. FAIL"
+    },
+    "verdict": "All five fail the CORE <=10%-of-mid gate by 1.3x to 5.2x. GD's chain also carries a 0.05 minimum tick below $3.00 vs RTX's 0.01 -- an independent tell of a thin market. Reproduces the 2026-08-14 SOURCING finding: the equity report's mid-cap universe has largely untradeable chains at this account size.",
+    "and_the_underlyings_failed_on_merit_too": "GD 376.185 (-1.98% today, making new lows INTO its own oversold print), LMT 560.91 (-0.57%), RTX 209.38 (+0.08%, flat, no trigger), TXN 257.80 (-0.44% -- RED on a semi-led risk-on day with SMH +1.26%, which is relative-strength failure, not mean reversion). An RSI2 print is a condition; the catalyst is the turn, and none of these has turned.",
+    "shelf_life": "The liquidity readings are structural and worth inheriting for days. The price/tape readings are same-session only -- re-measure before acting on any of these names."
+  }
 }
