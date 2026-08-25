@@ -18944,6 +18944,48 @@
       "breadth_observation_for_the_relay": "The risk-on bid is narrowing into NVDA alone. Between 13:35Z and 14:01Z: NVDA +1.58% -> +2.27% (the only name adding), AMD +4.36% -> +3.80%, SMH +2.24% -> +1.66%, TSM +1.83% -> +1.57%, QQQ +0.93% -> +0.70%, SPY +0.40% -> +0.29%, while MSFT climbed off its low (-0.58% -> +0.07%). The complex is giving back and the indices are fading with the complex, not with NVDA. This is single-name pre-print flow, and it CONFIRMS the morning brief's call that today's inversion is positioning rather than a change in trend. It also argues that QQQ is a progressively worse vehicle for expressing what is really a one-stock event.",
       "governance": "HARD RULE 9 observed in full: this is an unattended scheduler-fired run, no Ryan turn is claimed, quoted or implied, and no flag was cleared or created. No margin used or contemplated -- deployment measured against unleveraged_buying_power. The ownership gate was not engaged: the only open position is the exempt hedge and no exit condition fired on it. No entry was placed, so the pre-placement re-fetch gate was not reached.",
       "eod_report": "NOT DUE. The threshold is the first run at or after 19:15Z (14:15 CT); this run is at 14:03Z. No report written and none should be."
+    },
+    {
+      "run_utc": "2026-08-25T14:16:00Z",
+      "run_local_et": "10:16 ET Tuesday 2026-08-25 -- 46 minutes after the bell. FOURTH post-open run of the trading day.",
+      "trading_day_et": "2026-08-25",
+      "run_type": "market_hours_regular",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org). Scheduler-fired; counts toward cadence.",
+      "market_state": "OPEN. Entries and exits both placeable.",
+      "action": "NO ENTRY, NO EXIT. The armed DOWNSIDE trigger grazed its price line and failed its volume clause. Standing pat on the written plan for the fourth consecutive run today -- and for the second time today that is the plan actively rejecting a trade, not the plan idling.",
+      "daily_artifacts": "NOT re-rolled, correctly. The 13:45Z run owns the 2026-08-25 heartbeat stamp, the market_brief rebuild, the eight-name IV sweep and the loss-cap / entry-throttle reset; this run inherited all of it after fast-forwarding origin/master. No IV row rewritten (one row per day, already written). Brief NOT rebuilt -- a continued fade off the opening highs on thinning volume is not a genuine shock. EOD report NOT due: 14:16Z is three hours short of the 19:15Z (14:15 CT) window.",
+      "reconciliation": {
+        "source": "Independently fetched this run -- get_accounts / get_option_positions(nonzero) / get_portfolio / get_option_quotes.",
+        "accounts": "718757339 'Agentic' confirmed: type=limited_margin, option_level=option_level_3, agentic_allowed=true.",
+        "options": "ONE contract: SPY 2026-11-20 700P x1 @ 749.00, opened 2026-08-06T14:21:56Z. Every pending_* field 0.0000 -- no assignment, exercise, expiration or unauthorized fill. Matches holdings.json one-for-one.",
+        "lot_invariant": "ASSERTED IN CODE, not eyeballed: 1 contract x 7.49 x 100 == 749.00 == max_loss. Passed.",
+        "capital": "get_portfolio total $4,105.90 = equity $444.34 / options $638.00 / cash $3,023.56. unleveraged_buying_power $3,023.56 EQUALS buying_power, so NO margin is extended. Less the mandatory $250 reserve, deployable is $2,773.56.",
+        "result": "ZERO DRIFT. Consistent with the 13:45Z, 13:50Z and 14:03Z reads."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P (hedge, agentic, insurance-exempt)": "WORKING. Mark 6.365 (bid 6.35 / ask 6.38, 0.47% of mid), P/L -$112.50 / -15.02%, DTE 87, delta -0.1525, theta -$9.14/day. RECOVERED $12.00 since the 13:37Z check as SPY faded from +0.40% to +0.245% -- the hedge losing on strength and regaining on fade inside a single hour, which is exactly the payoff profile it was bought for. Exempt from all premium backstops per the 2026-08-05 authorization; the only scheduled decision is the ~21-DTE roll/close review with Ryan around 2026-10-30. HOLD, no notification."
+      },
+      "trigger_evaluation": {
+        "downside": "TESTED, DECLINED. The 14:10Z bar closed 710.000 EXACTLY against a written condition of 'a completed 5-minute close back BELOW 710.00 ... on expanding volume'. Price clause: missed by a hair (at the level, not through it). Volume clause: missed decisively -- 148,164 shares against a 257,179 non-opening session average, i.e. 58% of average, with the prior bar at 63%. These are the two lightest bars of the session. The prior instance graded this side 'B ... needs the rejection to be decisive and volume-confirmed, not a drift'; a three-bar slide on the day's thinnest tape into a round number is precisely that drift.",
+        "upside": "REMOTE. QQQ 710.30 is now 2.93 below the 713.2256 50-day, having failed the two-bar hold at 14:03Z. No longer a live consideration this session absent a genuine reversal.",
+        "levels_not_moved": "Both lines stand exactly as written at 13:45Z. Re-speccing a level toward a tape that declined to reach it is the documented 2026-08-24 failure mode (one trigger re-spec'd three times before firing at the session high). A level is not wrong because it was not hit.",
+        "what_would_change_the_answer": "A completed 5-minute close below 710.00 on volume genuinely above ~257,000 arms the pre-priced QQQ 2026-09-04 710P ($806.50, 1.12% of mid, delta -0.445) under the written exit plan: +20-40% profit, -30% stop, invalidation on a 5-minute close back above 713.2256, hard time stop flat by the 2026-08-26 close (which also keeps it clear of NVDA's after-the-bell print that evening)."
+      },
+      "grades_considered": {
+        "QQQ 2026-09-04 710P (TACTICAL, downside trigger)": "B, NOT TAKEN. Trigger not fired -- volume clause fails by 42%. Taking it now is front-running the desk's own written trigger, which is the cardinal sin this prompt names.",
+        "QQQ 2026-09-04 715C (TACTICAL, upside trigger)": "B+/A-, NOT TAKEN. Trigger failed its two-bar hold at 14:03Z and QQQ is now 2.93 below the level. Dead for the session.",
+        "NVDA single leg, either direction (TACTICAL)": "PASS ON RULE, not on merit -- and this is the honest tension of the day. NVDA is the ONLY name on the tape with a strengthening, one-directional flow (+1.58 -> +2.27 -> +2.46% across three checks while every other semi faded). It is also reporting 2026-08-26 after the close, and the 2026-08-05 exit engine says to close before a print, not open into one. A tactical entered today carries a hard time stop of flat-by-the-2026-08-26-close, which would technically clear the print -- but the position would spend its entire life absorbing pre-print IV ramp and gamma risk on a single name, with no exit if it gaps on a leak or a pre-announcement. Not worth it, and the rule is right.",
+        "CORE swing, any name": "PASS. Two independent reasons. (1) Structure: multi-leg is unexecutable through the agentic API (confirmed by a rejected order 2026-08-24), so CORE is single-leg-only and must clear a HIGHER theta bar than the 'prefer spreads' doctrine assumed -- nothing on today's tape clears it. (2) Timing: a 21-45 DTE entry necessarily spans tomorrow's NVDA print, which is a market-wide AI-complex event, and the measured IV says index premium is not cheap once the earnings gap is stripped (QQQ ratio 0.899 raw but 1.154 ex-gap). Paying above-fair premium to hold through a binary event is the opposite of the entry stack.",
+        "AVGO / SMH / AMD (TACTICAL, fade the gap)": "C, PASS. The fade is real and measurable -- AVGO has given back 82% of its opening gap, SMH two thirds -- but a fade INTO a scheduled sector catalyst 30 hours away is not a thesis, it is a bet on the timing of positioning flows. No level is breaking; the names are simply de-gapping. No 'why now' beyond 'it went up and is now going down less up'."
+      },
+      "why_flat": "Four post-open runs, zero entries, and the reason is the same each time and it is not inactivity: the desk armed a two-sided trigger at 13:45Z and the tape has tested BOTH sides and satisfied NEITHER. The upside failed its two-bar hold (14:03Z); the downside failed its volume clause (this run). Nothing is scarce -- five free slots, $2,773.56 deployable, 0 of 8 entries used, the loss cap untouched at $0.00 of -$400. Only the setup is missing. The one genuinely tradeable flow on the tape is NVDA into its own print, which the rules correctly forbid, and saying that plainly is more useful to the next instance than manufacturing a substitute trade in a vehicle the flow is not actually in.",
+      "sleeve_state": {
+        "open_agentic_positions": "1 (the insurance-exempt SPY hedge). Slots: 0 of 2 TACTICAL, 0 of 3 CORE used.",
+        "premium_at_risk": "$749.00, all of it the exempt hedge. $0.00 in tactical or core risk.",
+        "entries_used_today": "0 of 8. 0 of 2 this run.",
+        "realized_pnl_today": "$0.00 against the -$400 daily cap. NOT binding.",
+        "deployable": "$2,773.56 ($3,023.56 unleveraged_buying_power less the $250 reserve). No margin extended."
+      }
     }
   ],
   "updated_utc": "2026-08-24T19:25:00Z"
