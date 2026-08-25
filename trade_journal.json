@@ -18731,6 +18731,45 @@
       "why_flat": "Market closed. Beyond that, nothing to act on even had it been open: the sole position is the backstop-exempt hedge, and the only live idea (_CORE_WATCH) is unfired by its own written trigger.",
       "notifications": "NONE. Nothing fired, nothing un-fired, no recommendation changed -- the SILENCE_RULE of the monitoring mandate applies. The 50-day correction is a ledger fact for the next instance, not news for Ryan.",
       "hard_rule_9": "No Ryan turn is claimed, quoted, or implied anywhere in this entry. No flag was cleared. This is an unattended scheduler-fired run."
+    },
+    {
+      "run_utc": "2026-08-25T13:15:00Z",
+      "run_local_et": "09:15 ET Tuesday 2026-08-25 -- 15 minutes BEFORE the 13:30Z open. The NINETEENTH consecutive post-close/pre-open run since the 2026-08-24 bell.",
+      "trading_day_et": "2026-08-24",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org). The payload names cron-job.org, so the sub-hourly trigger repaired on 2026-08-21 is confirmed still alive. Scheduler-fired; counts toward cadence but is NOT a market-hours run.",
+      "market_state": "CLOSED (pre-open, 15 min to the bell). Nothing placeable -- no entry, no exit, no modification is possible from this run.",
+      "action": "STAND DOWN per the POST-CLOSE RUN PROTOCOL, plus ONE root-cause ledger repair (below) that is valid pre-open because it depends only on closed daily bars.",
+      "daily_artifacts": "NOT ROLLED. Heartbeat NOT stamped -- it still reads date_utc 2026-08-24 and MUST stay there until a run at/after 13:30Z; that is CORRECT, not stale. market_brief.json NOT rebuilt (still 2026-08-24). Loss cap and entry throttle NOT reset. Per the CLAUDE.md UTC rule the trading day is still 2026-08-24 until the bell.",
+      "reconciliation": {
+        "source": "Independently fetched this run -- get_accounts / get_option_positions / get_portfolio. Not copied forward from the prior entry.",
+        "accounts": "718757339 'Agentic' confirmed type=limited_margin, option_level=option_level_3, agentic_allowed=true.",
+        "options": "SPY 2026-11-20 700P x1, average_price 749.00, opened 2026-08-06T14:21:56Z -- the authorized defensive hedge and the ONLY open option position. Every pending_* field 0.0000, so no overnight assignment, exercise, expiration or unauthorized fill. Matches holdings.json one-for-one. Lot invariant asserted: sum(lots.qty)=1=contracts, sum(lots.cost)=749.00=total_cost_basis_usd=max_loss, 749.00/1/100=7.49=entry_premium -- consistent.",
+        "portfolio": "total 4129.52 | cash 3023.56 | options_value 661.00 | equity_value 444.96 | buying_power 3023.56 == unleveraged_buying_power 3023.56, so NO margin is extended and FOUR LAWS #4 gives a budget of 3023.56; less the $250 reserve, deployable at the open is $2,773.56. Well clear of the $2,000 margin-equity minimum.",
+        "result": "ZERO DRIFT. Nineteenth consecutive clean read. Identical to the 12:45Z and 13:05Z reads to the cent."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P": "HOLDING -- and no verdict is owed beyond that. It is the authorized defensive hedge, EXEMPT from all premium backstops by standing policy, with its roll/close decision due WITH Ryan at ~21 DTE (late October). 87 DTE remains. No mechanical trigger can fire on it and none is checked."
+      },
+      "the_one_substantive_finding": {
+        "what": "_CORE_WATCH was carrying THREE DIFFERENT VALUES for the same 50-day MA level across five fields, and which one a post-open run would have acted on depended on which field it happened to read first.",
+        "the_fork": "`idea` said 713.05 (the 8/20 value). `if_taken...invalidation_on_the_UNDERLYING` also said 713.05. `void_clause` and `trigger_that_would_make_it_live` said 713.4416 (the 8/21 value). Only the appended `_LEVEL_REFRESH_2026-08-25T13:05Z` carried the live 713.2256. Spread: 0.39 points across fields that are supposed to name the SAME level.",
+        "why_it_mattered_operationally": "This is not cosmetic. That one level does TRIPLE duty in this watch: it is the void clause (a session close above it kills the whole bearish premise), the upper bound of the failed-retest zone in trigger leg (a), and the written invalidation in the pre-committed exit plan. A post-open run reading `trigger` first would have set the retest zone to 713.44 and could have called a rejection off a tag that never reached the real level; a run reading the exit plan first would have written 713.05 as its invalidation and been ~0.18 too LOW in the other direction.",
+        "root_cause": "The 13:05Z run's MEASUREMENT was correct and its lesson was correct -- it caught that the inherited '+0.4/day' drift instruction was wrong in both magnitude and sign once the MA rolled over. Its DELIVERY was the defect: it appended the correction as a new sibling field instead of applying it to the four fields that carry the level. A correction placed alongside an error does not fix the error, it FORKS it.",
+        "fix_applied": "Verified 713.2256 INDEPENDENTLY this run rather than inheriting it (get_equity_technical_indicators sma/50/day: 8/18 712.9844 -> 8/19 712.9846 -> 8/20 713.0466 -> 8/21 713.4416 -> 8/24 713.2256; the 13:05Z series reproduces exactly). Then rewrote ALL FOUR level-bearing fields to that one number, stripped the wrong drift instruction and replaced it with 'RE-MEASURE DAILY off the last closed bar, do NOT extrapolate', demoted the stale proximity field with its level flagged as superseded and its day-old read labelled as such, and added a `_LEVEL_DISCIPLINE` field naming all four locations so any future re-measure updates them together.",
+        "the_transferable_lesson": "This is CLAUDE.md's standing principle -- fix the root, don't just flag it -- applied to the ledger itself, and it is the SAME SHAPE as the lot-count invariant already written into HARD RULE 8: when one measurement changes, every derived field carrying it goes stale AT ONCE, and repairing them one incident at a time leaves the record internally inconsistent in exactly the way that is invisible to a reader checking only the field their own task touches. The detector is the same too: after any level re-measure, assert that every field naming that level reads the same number. Leave exactly ONE live value.",
+        "honest_scope": "This changed no trade, no position and no decision -- the watch is still unfired and the market is still closed. It removes a real trap from the path of the first post-open run, nothing more."
+      },
+      "standing_plans_status": {
+        "_CORE_WATCH": "STILL LIVE, STILL UNFIRED. Void clause NOT met -- it requires a session CLOSE back above 713.2256 and 8/24 closed ~708, roughly 5 points below. Levels now internally consistent. It remains a WATCH, not an arm: it does not authorise an entry by itself. NOTE the gate that still binds it -- NVDA reports 2026-08-26, ONE session out now, and every board this idea has been priced on spans that print. The cleaner path stated by the 16:33Z run is to wait until the print has passed, which now costs only one session.",
+        "_TACTICAL_TRIGGER_WATCH": "EXPIRED BY ITS OWN TERMS at the 2026-08-24 close and NOT inherited. Every level in it is yesterday's intraday structure. Today's tactical trigger must be re-derived from today's tape by a post-open run.",
+        "_CLOSING_STRUCTURE_FOR_2026-08-25": "Durable daily-bar levels, valid for today's session. Its own header correctly warns these are structure, not a trigger."
+      },
+      "grades_considered": "NONE, and no candidate was screened. Grading a setup pre-open would be theatre: no trigger can fire on a closed tape, and any level derived from the overnight/pre-market print is exactly the artifact the opening-auction rule exists to reject. The hunt belongs to the post-open runs.",
+      "why_flat": "Market closed. Beyond that, nothing to act on even had it been open: the sole position is the backstop-exempt hedge, and the only live idea (_CORE_WATCH) is unfired by its own written trigger and additionally gated by tomorrow's NVDA print.",
+      "notifications": "NONE. Nothing fired, nothing un-fired, no recommendation changed -- the SILENCE_RULE of the monitoring mandate applies. The _CORE_WATCH repair is a ledger fact for the next instance, not news for Ryan.",
+      "for_the_first_post_open_run": "You own the heartbeat stamp (only at/after 13:30Z), the market_brief.json rebuild, the loss-cap and entry-throttle reset, and the first live tape read since the 08-24 bell. Do NOT price anything off the 13:30Z auction print -- re-quote ~5 minutes after the open. Capital: $3,023.56 unleveraged, $2,773.56 deployable after the $250 reserve. All 5 slots free (2 tactical / 3 core); the hedge is excluded. _CORE_WATCH's 50-day is 713.2256 and every field now agrees on it.",
+      "hard_rule_9": "No Ryan turn is claimed, quoted, or implied anywhere in this entry. No flag was cleared. This is an unattended scheduler-fired run."
     }
   ],
   "updated_utc": "2026-08-24T19:25:00Z"
