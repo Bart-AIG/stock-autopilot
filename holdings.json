@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-25T13:45:00Z",
+  "updated_utc": "2026-08-25T14:03:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-25",
     "realized_usd": 0.0,
@@ -493,20 +493,31 @@
     "WHY_NEITHER_WAS_TAKEN_AT_13_45Z": "The level has not resolved. QQQ is 0.35 under its 50-day having touched within 0.10 of it -- the textbook definition of an unresolved test. Taking either side now is front-running the desk's own written trigger, which is the specific failure the 2026-08-24 runs recorded when they armed and re-specced one trigger three times before it fired at the session high into a vehicle that did not exist. Nothing is scarce here: 5 free slots, $2,773.56 deployable, 0 of 8 entries used, loss cap untouched. Only the setup is missing.",
     "_the_band_note_worth_inheriting": "BOTH vehicles are in-band today. On 2026-08-24 the equivalent QQQ contracts ($788 / $911.50) were excluded on the old $300-600 ceiling and TACTICAL was, in that run's words, a SPY-only track expressing the wrong view. Ryan's widening to $300-1,000 fixed exactly that, and today is the first session where it demonstrably matters. Note the routine's stored prompt still carries $300-600 inside THE FOUR LAWS; per the CLAUDE.md amendment his live turn governs until he re-pastes the prompt (docs/routine-prompt-v6.md is the paste-ready fix).",
     "_current_state": {
-      "last_checked_utc": "2026-08-25T13:50:00Z",
-      "status": "BOTH SIDES UNFIRED. Still armed, unchanged, still expiring at today's bell.",
-      "qqq_spot": 712.51,
-      "level": 713.2256,
-      "completed_5min_closes_since_open": [
-        713.125,
-        711.665,
-        712.46
-      ],
-      "session_low": 710.8,
-      "upside": "UNFIRED -- no completed 5-min close above 713.2256. Best was 713.125 (13:30 bar) with a 713.13 wick, inside the level, which the written condition explicitly does not count as a reclaim.",
-      "downside": "UNFIRED -- session low 710.80 never reached the 710.00 trigger.",
-      "volume_clause": "FAILS FOR BOTH SIDES. Session average 68,556/min (1,028,347 over 15 min); latest 5-min bar 44,008/min = 64% of that, the third consecutive decline. The level is being tested on shrinking volume.",
-      "verdict": "Do not front-run. Re-check the completed-bar closes and the volume rate next run; the vehicles below stay pre-priced and do NOT need re-quoting unless the trigger actually fires, in which case re-quote before placing."
+      "last_checked_utc": "2026-08-25T14:03:00Z",
+      "status": "UPSIDE TRIGGER TESTED AND FAILED ITS OWN CONFIRMATION CLAUSE. DOWNSIDE PRECONDITION NOW SATISFIED, DOWNSIDE CONDITION NOT MET. STILL NO ENTRY. Watch remains armed to today's bell.",
+      "qqq_spot": 711.24,
+      "level_50dma": 713.2256,
+      "completed_5min_closes": {
+        "13:30Z": 713.1,
+        "13:35Z": 711.71,
+        "13:40Z": 712.46,
+        "13:45Z": 713.525,
+        "13:50Z": 712.36,
+        "13:55Z": 711.485
+      },
+      "what_actually_happened": "The 13:45Z bar closed 713.525 -- ABOVE the 713.2256 level -- on 305,655 shares, with a 714.04 high. That satisfied the FIRST half of the upside condition. The very next bar (13:50Z) closed 712.36, back BELOW the level, and the 13:55Z bar closed 711.485 at the session low. The written condition required a completed close above the level AND holding above it on the FOLLOWING bar. The following bar failed. THE TRIGGER DID NOT FIRE.",
+      "why_this_matters_more_than_a_no-op": "This is the two-bar confirmation clause doing exactly the job it was written for. A one-bar rule would have bought the 713.525 close at ~$839.50 and been immediately underwater as QQQ printed 711.10 ten minutes later. The prior instance wrote 'a wick through the level is not a reclaim' and added the hold-above-the-next-bar requirement specifically because the 2026-08-24 runs armed and re-specced a trigger three times before it fired at the session high. The discipline paid today, in the only way process discipline ever visibly pays: a loss that did not happen.",
+      "downside_status": "The DOWNSIDE trigger's stated precondition -- 'after the failed retest' -- is NOW SATISFIED for the first time: the retest happened (714.04 high) and failed. Its actual CONDITION is not met: the lowest completed 5-minute close is 711.485, above the 710.00 line, and volume expansion is modest (rejection bars 335,533 and 289,630 against a ~288,600 non-opening average -- at the average, not decisively above it). A close below 710.00 on expanding volume remains required. Do NOT front-run it.",
+      "tape_at_14_01Z": {
+        "QQQ": "711.24 vs 706.32 = +0.70% (was +0.93% at 13:35Z -- fading)",
+        "SPY": "765.675 vs 763.47 = +0.29% (was +0.40% -- fading)",
+        "NVDA": "213.21 vs 208.48 = +2.27% (was +1.58% -- STRENGTHENING, the only one)",
+        "AMD": "474.11 vs 456.745 = +3.80% (was +4.36% -- fading)",
+        "SMH": "555.87 vs 546.80 = +1.66% (was +2.24% -- fading)",
+        "TSM": "416.55 vs 410.12 = +1.57% (was +1.83% -- fading)",
+        "MSFT": "487.66 vs 487.31 = +0.07% (was -0.58% -- flipped off the lows)"
+      },
+      "the_breadth_read_worth_inheriting": "The risk-on bid is NARROWING INTO NVDA ALONE. Every other semi on the core list has given back a meaningful slice of its opening gain while NVDA has added to it, and the indices have faded with the complex rather than with NVDA. That is the signature of single-name pre-print positioning, not a sector re-rating -- and it strengthens, rather than weakens, the 13:45Z brief's judgment that today's inversion is POSITIONING and must not be read as either thesis being confirmed. Practical consequence for the next run: a QQQ tactical is an increasingly poor expression of what is actually a one-stock flow, and NVDA itself is un-enterable into a print the exit engine says to close before, not open into."
     }
   },
   "_TACTICAL_BAND_CONFLICT": {
