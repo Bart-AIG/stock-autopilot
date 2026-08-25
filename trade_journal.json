@@ -18694,6 +18694,43 @@
       "not_re_derived_this_run": "Regime label, IV rows, cadence health, the weekly review, and the EOD report were all covered by earlier runs of this trading day and are NOT recomputed here. No daily artifact rolled forward.",
       "notification": "NONE SENT. Nothing changed and nothing is due: zero drift, no fired trigger, no new flag, no recommendation change. The one open standing item -- the routine's stored prompt still carrying the superseded $300-600 tactical band, with docs/routine-prompt-v6.md written and awaiting Ryan's paste -- was already flagged to him on 2026-08-24 and, per HARD RULE 9's notify-ONCE-per-incident discipline, is not re-raised by this run.",
       "hard_rule_9": "No Ryan turn is claimed, quoted, paraphrased or implied by this run. No flag cleared, no approval manufactured. This is an unattended scheduled run and is structurally incapable of supplying one."
+    },
+    {
+      "run_utc": "2026-08-25T13:05:00Z",
+      "run_local_et": "09:05 ET Tuesday 2026-08-25 -- 25 minutes BEFORE the 13:30Z open. The EIGHTEENTH consecutive post-close/pre-open run since the 2026-08-24 bell.",
+      "trading_day_et": "2026-08-24",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org). The payload names cron-job.org, so the sub-hourly trigger repaired on 2026-08-21 is confirmed still alive. Scheduler-fired; counts toward cadence but is NOT a market-hours run.",
+      "market_state": "CLOSED (pre-open). Nothing placeable -- no entry, no exit, no modification is possible from this run.",
+      "action": "STAND DOWN per the POST-CLOSE RUN PROTOCOL, plus ONE piece of non-duplicative work (the 50-day refresh below) that is valid pre-open because it uses only closed daily bars.",
+      "daily_artifacts": "NOT ROLLED. Heartbeat NOT stamped -- it still reads 2026-08-24 and MUST stay there until a run at/after 13:30Z. market_brief.json NOT rebuilt (still 2026-08-24). Loss cap and entry throttle NOT reset. Per the CLAUDE.md UTC rule the trading day is still 2026-08-24 until the bell, even though the UTC date reads 2026-08-25.",
+      "reconciliation": {
+        "source": "Independently fetched this run -- get_accounts / get_option_positions / get_portfolio. Not copied forward.",
+        "accounts": "718757339 'Agentic' confirmed type=limited_margin, option_level=option_level_3, agentic_allowed=true.",
+        "options": "SPY 2026-11-20 700P x1, average_price 749.00, opened 2026-08-06T14:21:56Z -- the authorized defensive hedge and the ONLY open option. Every pending_* field 0.0000, so no overnight assignment, exercise, expiration or unauthorized fill. Matches holdings.json one-for-one. Lot invariant asserted: sum(lots.qty)=1=contracts, sum(lots.cost)=749.00=total_cost_basis_usd=max_loss, 749.00/1/100=7.49=entry_premium -- consistent.",
+        "portfolio": "total 4129.52 | cash 3023.56 | options_value 661.00 | equity_value 444.96 | buying_power 3023.56 == unleveraged_buying_power 3023.56, so NO margin is extended and FOUR LAWS #4 gives a budget of 3023.56; less the $250 reserve, deployable is $2,773.56. Well clear of the $2,000 margin-equity minimum.",
+        "result": "ZERO DRIFT. Eighteenth consecutive clean read."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P": "HOLDING -- and no verdict is owed beyond that. It is the authorized defensive hedge, EXEMPT from all premium backstops by standing policy, with its roll/close decision due WITH Ryan at ~21 DTE (late October). 87 DTE remains. No mechanical trigger can fire on it and none is checked."
+      },
+      "the_one_substantive_finding": {
+        "what": "QQQ 50-day SMA refreshed off the now-closed 2026-08-24 daily bar: 713.2256, NOT the 713.4416 the ledger carried, and NOT the ~713.84 that the inherited '+0.4/day' rule of thumb would have produced.",
+        "series_measured": "8/19 712.9846 -> 8/20 713.0466 -> 8/21 713.4416 -> 8/24 713.2256 (get_equity_technical_indicators, sma/50/day).",
+        "why_this_was_worth_a_pre-open_run": "It is the ONLY useful work available before the bell: it depends solely on closed daily bars, so it is unaffected by the pre-open blackout and by the opening-auction artifact rule. It also spares the first post-open run a fetch at the exact moment it is busiest.",
+        "why_it_MATTERS": "This level does double duty in _CORE_WATCH -- it is both the void clause (a session close back above it kills the bearish premise) and the anchor of the failed-retest trigger. A first post-open run extrapolating the stale drift would have set the retest zone ~0.6 too high and could have called a rejection that never happened.",
+        "the_read": "The 50-day has stopped rising and TICKED DOWN. That mildly CONFIRMS the watch's premise -- QQQ is now below a MA that has begun to roll, not merely below a rising one. Honest caveat recorded so the next instance does not over-read it: one bar is not a trend change; a single strong session turns it back up.",
+        "the_transferable_lesson": "A stored rate-of-change is a stale measurement, not a rule. The ledger did not merely carry an old NUMBER (which the desk is already disciplined about re-measuring) -- it carried an old DERIVATIVE, phrased as an instruction ('it is rising ~0.4/day'), which is far more durable-sounding and quietly wrong the moment the series turns. This is the same shape as the cadence constant that broke when the firing rate changed: a constant encoding an assumption about change fails silently. When writing a level into the ledger, write how to RE-MEASURE it, never how to EXTRAPOLATE it."
+      },
+      "standing_plans_status": {
+        "_TACTICAL_TRIGGER_WATCH": "EXPIRED BY ITS OWN TERMS at the 2026-08-24 close and explicitly NOT inherited. Every level in it is yesterday's intraday structure. Today's tactical trigger must be re-derived from today's tape by a post-open run.",
+        "_CORE_WATCH": "STILL LIVE, STILL UNFIRED, void clause NOT met (8/24 closed ~708 vs the corrected 713.2256). It remains a WATCH, not an arm -- it does not authorise an entry by itself.",
+        "_CLOSING_STRUCTURE_FOR_2026-08-25": "Durable daily-bar levels, valid for today's session. Its own header correctly warns these are structure, not a trigger."
+      },
+      "grades_considered": "NONE, and no candidate was screened. Grading a setup pre-open would be theatre: no trigger can fire on a closed tape, and any level derived from the overnight/pre-market print is exactly the artifact the opening-auction rule exists to reject. The hunt belongs to the post-open runs.",
+      "why_flat": "Market closed. Beyond that, nothing to act on even had it been open: the sole position is the backstop-exempt hedge, and the only live idea (_CORE_WATCH) is unfired by its own written trigger.",
+      "notifications": "NONE. Nothing fired, nothing un-fired, no recommendation changed -- the SILENCE_RULE of the monitoring mandate applies. The 50-day correction is a ledger fact for the next instance, not news for Ryan.",
+      "hard_rule_9": "No Ryan turn is claimed, quoted, or implied anywhere in this entry. No flag was cleared. This is an unattended scheduler-fired run."
     }
   ],
   "updated_utc": "2026-08-24T19:25:00Z"
