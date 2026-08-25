@@ -1,66 +1,74 @@
 {
  "_comment": "Daily market brief for the options automation. Built by the first post-open run of each TRADING day (ET), never by a post-close/pre-open firing. Refresh intraday only on a genuine shock (VIX +15%, an index breaking a listed level, a major headline).",
- "date": "2026-08-24",
- "built_utc": "2026-08-24T13:40:00Z",
- "built_by": "options-automation routine, FIRST post-open run of the 2026-08-24 trading day (fired ~13:31Z; quotes taken 13:35-13:39Z, deliberately AFTER the 5-minute post-open settle rather than off the auction print)",
+ "date": "2026-08-25",
+ "built_utc": "2026-08-25T13:42:00Z",
+ "built_by": "First post-open run of the 2026-08-25 trading day (routine-triggered, cron-job.org sub-hourly payload). Rebuilt from scratch -- NOT carried forward. All equity quotes stamped 13:36:40Z and all option quotes 13:39:50Z, i.e. deliberately AFTER the opening-auction window that CLAUDE.md warns inflates both marks and ATM IV.",
  "regime": {
-  "label": "SEMI-LED RISK-OFF -- THE QQQ 50-DAY PIN RESOLVED DOWNWARD, AND IT RESOLVED IN THE DESK'S FAVOUR",
+  "label": "SEMI-LED RISK-ON REVERSAL -- MONDAY RAN BACKWARDS, AND QQQ GAPPED STRAIGHT INTO ITS 50-DAY AND WAS REJECTED TWICE",
   "evidence": [
-   "QQQ 706.47 (-0.98% vs the 713.44 close), SPY 763.24 (-0.32% vs 765.72). Both live at 13:35:13Z.",
-   "THE LEVEL THAT MATTERS: QQQ is decisively BELOW its 50-day MA (713.05) after three consecutive sessions pinned within ~0.1% of it. _monday_open predicted the pin would break once Friday's monthly OpEx gamma rolled off and explicitly called the direction unknown; it broke DOWN. This restores the technical confirmation the desk's bearish index premise rests on -- the same confirmation Friday's relief rally had undone.",
-   "BREADTH IS GENUINELY NARROW-DOWN, NOT ONE NAME: AMD 459.25 (-2.96%), TSLA 354.96 (-2.18%), TSM 410.20 (-2.09%), AVGO 363.52 (-1.34%), NVDA 213.13 (-0.74%). MSFT 483.48 (+0.05%) is the lone green core name. Semis are leading lower, which is the mirror image of Friday's semi-led bounce.",
-   "QQQ -0.98% against SPY -0.32% is a 66bp dispersion in one session -- this is a TECH-specific de-rating, not a broad market decline. The desk's bearish exposure is correctly located in QQQ rather than SPY.",
-   "VOL: own-measured 30d ATM IV on the 2026-09-25 board (32 DTE) -- SPY 0.1300, QQQ 0.2006, NVDA 0.4093, AMD 0.5374, TSM 0.3481, AVGO 0.5149, MSFT 0.2620, TSLA 0.4152. SPY shows a pronounced put skew (call 0.1217 vs put 0.1384): the tape is bidding downside protection specifically, not vol generally.",
-   "IV/RV MUST BE READ AS A PAIR TODAY -- SIX OF EIGHT NAMES FLIP SIGN. Raw ratios say cheap (MSFT 0.53, TSLA 0.71, AMD 0.73, TSM 0.89, QQQ 0.90); ex-gap ratios say fair-to-rich (MSFT 1.01, TSLA 1.20, TSM 1.24, QQQ 1.14, SPY 1.23, AVGO 1.42). Only AMD survives ex-gap under 1.0 (0.885). This is exactly the post-earnings-gap artifact CLAUDE.md documents by name, reproduced across the whole panel -- do NOT source a 'premium is cheap' thesis from the raw column."
+   "THE MIRROR: every leg of Monday's semi-led decline reversed overnight. AMD 473.625 (+3.70% vs 456.745), SMH 558.13 (+2.07%), TSM 418.609 (+2.07%), NVDA 212.25 (+1.81%), AVGO 362.78 (+1.12%), QQQ 712.43 (+0.87%), SPY 766.495 (+0.40%), TSLA 350.11 (+0.33%). MSFT 485.71 (-0.33%) is the LONE RED core name -- an exact inversion of Monday, when MSFT was the lone green one. All live 13:36:40Z.",
+   "MONDAY'S OPEN QUESTION IS ANSWERED, AND IT ANSWERED AGAINST THE BEARS -- BUT NOT THE WAY EITHER BRANCH PREDICTED. The 08-24 close block asked whether the MSFT-up / semis-down divergence would persist (making the QQQ short really a semis short in an index costume) or resolve with MSFT joining a falling tape (validating the index thesis). Neither happened: MSFT gave back its +1.14% AND the semis rejoined a RISING tape. This is a rotation back INTO semis, not a broad de-rating -- which is evidence against the bearish index premise rather than for it.",
+   "THE LEVEL IS THE WHOLE STORY. QQQ opened 711.23, ran to 713.13 in the first five minutes and to 713.11 in the second -- BOTH highs a tenth of a point under the 50-day MA at 713.2256 -- and closed the 13:35Z bar at 711.665. Two touches, two rejections, on FALLING volume (515,800 then 292,505). The 50-day that was support for three sessions and resistance since Monday is being tested from below in real time.",
+   "DISPERSION HAS COLLAPSED AND FLIPPED SIGN. Monday: QQQ -0.98% vs SPY -0.32%, a 66bp Nasdaq-specific de-rating. Today: QQQ +0.87% vs SPY +0.40%, a 47bp Nasdaq-specific RE-rating. The tape is trading the semiconductor complex in both directions, not the market.",
+   "VOL, own-measured this run on the 2026-09-25 board (31 DTE), call/put averaged: SPY 0.1293, QQQ 0.1962, NVDA 0.4071, AMD 0.5427, TSM 0.3467, AVGO 0.4974, MSFT 0.2605, TSLA 0.4105. SPY's put skew persists and is if anything wider (call 0.1205 vs put 0.1381) -- downside protection is still specifically bid even on a green open.",
+   "READ THE IV/RV PAIR, NOT THE HEADLINE -- SEVEN OF EIGHT NAMES FLIP. Raw ratios say cheap for MSFT 0.52, TSLA 0.70, AMD 0.74, TSM 0.90, QQQ 0.90; ex-gap they read 1.01, 1.16, 0.90, 1.26, 1.16. Only AMD is still under 1.0 ex-gap (0.899). This is the post-earnings-gap artifact CLAUDE.md documents by name, reproduced across the panel for a second consecutive session -- there is NO vol edge in buying core-list premium today, and no run may source a \"premium is cheap\" thesis from the raw column."
   ],
-  "implication": "The tape is finally paying the desk's book. That creates the OPPOSITE temptation to Friday's: not capitulation, but pressing a winning direction at the point of maximum intraday fear, eight minutes after a gap that has already happened. The QQQ 680P's gain is real and collectable (1.38% spread); the case for ADDING more bearish-tech exposure is much weaker than the case for banking some, and the two cannot both be argued in the same run."
+  "implication": "The tape has taken back Monday's move without resolving anything. QQQ is coiled between a 50-day it cannot clear (713.2256) and a shelf it has not lost (~708.5/706.3), with the largest scheduled variance event of the quarter -- NVDA -- 30 hours away. The correct posture is to hold the pre-measured levels and let the market pick a side. Both the bullish and the bearish trade today would be buying an index direction into a binary event in its heaviest weight, which is not a setup, it is a coin toss with theta attached."
  },
  "key_levels": {
-  "QQQ": "706.47. 50d 713.05 -- now RESISTANCE having been support for three sessions; a reclaim and close above it is the first sign this break failed. Written invalidation on the 680P is a CLOSE above ~730 (3.3% away, further than Friday's 2.2%). Break-even at 09-11 expiry is 675.94, another -4.3%.",
-  "SPY": "763.24. Defensive-posture early-warning is a CLOSING loss of 746-748; still ~2.0% below, not threatened. 200d ~702 per the 2026-08-05 stack.",
-  "NVDA": "213.13, -0.74%, third down session. EARNINGS WED 2026-08-26 pm -- largest QQQ weight, inside the 09-11 contract's life, two sessions away. The single biggest scheduled variance event on the book.",
-  "AMD": "459.25, -2.96%, the session's worst core name and the clearest expression of the semi de-rating.",
-  "RBRK": "99.50, -0.59%. Written invalidation ~105 (5.5% of headroom). Break-even 86.15. EARNINGS THU 2026-08-27 pm, broker-verified.",
-  "_ma_recompute_2026_08_24": "RECOMPUTED from 50 verified regular-hours closes through 2026-08-21 by the 13:42Z run: QQQ ma20 709.19 / ma50 713.44; SPY ma20 762.33 / ma50 751.75. The QQQ 50d figure of 713.05 quoted elsewhere in this brief is Friday's carried-forward value, now one session stale. QQQ at 706.955 is BELOW BOTH its 20d and 50d; SPY at 763.535 is ABOVE both -- the break is Nasdaq-specific, not broad. WATCH FOR THIS BUG: an intermediate attempt computed ma50 from a 41-bar series (a 41-day sum divided by 50) and returned QQQ 582.69. If a 50d MA ever sits implausibly far below spot, that is the cause."
+  "QQQ": "712.43 live. 50-DAY MA 713.2256 -- re-verified this run off the closed 2026-08-24 daily bar via get_equity_technical_indicators (series 8/19 712.9846 -> 8/20 713.0466 -> 8/21 713.4416 -> 8/24 713.2256); do NOT extrapolate a drift, the MA has rolled over and the sign of the drift is not stable. Opening range so far 710.80-713.13. Below: Monday low 702.70, the 702.70-706.55 shelf, 8/20 low 708.52. Above: 20-day ~709 area then the 8/21 high 715.67.",
+  "SPY": "766.495 live, above both its 20d and 50d. The defensive-posture early-warning is a CLOSING loss of 746-748 -- ~2.5% below and not remotely threatened. 200d ~702.",
+  "NVDA": "212.25, +1.81%, first up session in four after a -3.20% Monday. EARNINGS WEDNESDAY 2026-08-26 pm, broker-verified (get_earnings_calendar, verified=true, Q2 FY2027, est EPS 2.09). Largest QQQ weight and the dominant driver of index direction for the next 48 hours.",
+  "AMD": "473.625, +3.70%, the session's best core name and the clearest expression of the semi re-rating -- the exact mirror of its -2.96% on Monday.",
+  "MSFT": "485.71, -0.33%, the lone red core name. Worth watching as the divergence tell, not as a setup: it has no trigger and its 2026-09-25 chain quotes wide this early (485P 12.35 x 14.50), which per the standing rule is an IV-sweep artifact on a non-monthly board and is NOT a liquidity verdict on MSFT."
  },
  "catalysts_next_5_sessions": [
-  "2026-08-26 (Wed) pm -- NVDA earnings. Largest QQQ weight. Inside the QQQ 680P hold window. Cuts both ways and is the reason to resolve that position before Wednesday's close rather than after.",
-  "2026-08-26 (Wed) close -- HARD internal deadline: the RBRK 90P pre-earnings decision, ahead of its 08-27 pm print.",
-  "2026-08-27 (Thu) pm -- RBRK earnings, broker-verified.",
-  "2026-09-11 -- QQQ 680P expiry (18 DTE).",
-  "2026-09-18 -- RBRK 90P expiry (25 DTE)."
+  "TONIGHT 2026-08-25 pm: INTU, ZM, BOX, HEI, SMTC. Software-heavy, second-order for the index.",
+  "WEDNESDAY 2026-08-26 pm: **NVDA** (Q2 FY2027, est EPS 2.09, verified) -- plus CRM, CRWD, SNPS, HPQ, OKTA, VEEV, NTNX, ADI-adjacent names. This is the single largest scheduled variance event on the calendar and it lands inside the life of every CORE contract the desk would consider today.",
+  "THURSDAY 2026-08-27 pm: MRVL, ADSK, WDAY, RBRK, IREN, ESTC, S; DG/DLTR/BBY am on the consumer side. A second consecutive night of mega-cap software/semi prints.",
+  "THE CLUSTER IS THE POINT: three straight evenings of large-cap tech reports headlined by NVDA. Index direction between now and Friday is event-driven, not technical, and any directional index premium bought today pays event vol and carries through both nights."
  ],
  "watchlist": {
   "TACTICAL_candidates": [
-   "QQQ 2026-09-25 706P -- chain is excellent (0.26 on 16.05 mid = 1.6% of mid, OI 134). Level break is live and real. KILLED on coherence and maturity, not vehicle: see journal grades.",
-   "NVDA 2026-09-25 215P -- clears the 3% tactical gate (0.25 on 9.425 = 2.65%, OI 2,896, volume 1,120, the most active contract measured today). KILLED on the 08-26 print: IV 0.4093 is scheduled-event premium and both ratios say rich.",
-   "TSLA 2026-09-25 355P -- TIGHTEST non-index chain on the panel (0.25 on 17.575 = 1.42%). Failed one-day news pop giving back Friday's +5.5% robotaxi move. KILLED on theme concentration + vol that is rich once the gap is stripped (0.71 raw is an artifact; 1.20 ex-gap is the truth).",
-   "SPY 2026-09-25 763P -- 0.03 wide, the most liquid thing available. No independent trigger: SPY is the RESILIENT leg today, so a bearish SPY scalp fights the one index that is holding."
+   {
+    "name": "QQQ",
+    "why": "Tight chain (0.79-0.96% of mid on the 09-18 monthly), and the only genuinely live intraday level on the board: the 50-day at 713.2256.",
+    "the_level": "A completed 5-minute close ABOVE 713.2256 with volume expanding = bullish reclaim. A completed 5-minute close back UNDER 710 = the failed retest.",
+    "status_13_40Z": "NEITHER. Two rejections at 713.11/713.13 but price is mid-range at 712.43 on FALLING volume. A wick rejection in the first ten minutes of a gap-up session is not a trigger, it is an opening range.",
+    "the_honest_problem": "Even if a level breaks, a TACTICAL time stop is flat by Wednesday's close -- which is hours before the NVDA print. That is compliant, but it means paying rising event premium for a two-session hold that must exit right as the event approaches. The carry works against the trade in a way the ordinary scalp math does not capture."
+   },
+   {
+    "name": "SPY",
+    "why": "Cheapest, tightest chain on the desk and the only name whose ~0.45-delta contracts sit inside the $300-1,000 TACTICAL band without strain.",
+    "status_13_40Z": "NO TRIGGER. SPY is simply up 0.40% and above both MAs, with nothing breaking. And the standing trap applies with force: SPY is affordable precisely BECAUSE it is the leg not moving -- low IV and low realized range are the same fact. A cheap, liquid vehicle supplies no thesis."
+   },
+   {
+    "name": "NVDA",
+    "why": "Tight chain, huge OI, and the day's narrative.",
+    "status_13_40Z": "EXCLUDED ON THE CALENDAR, not on the chart. Earnings tomorrow pm. IV/RV ex-gap 1.235 says the premium is already rich, which is exactly what a pre-print chain should look like. Buying it a day early is paying event vol for a move you must exit before the event -- no-entry unless the earnings move IS the thesis, and it is not."
+   }
   ],
   "CORE_candidates": [
-   "AMD 2026-09-25 460P -- thesis: the semi de-rating has real breadth and AMD is its sharpest expression; it is also the ONLY name whose premium survives the ex-gap test as cheap (0.885). Confirming level: a close below ~455. Killing level: a reclaim of ~480. Spread 8.5% of mid is core-eligible (<=10%) but tactical-disqualified. NOT TAKEN THIS RUN -- it would be a THIRD bearish-tech position while the desk is recommending Ryan reduce the first.",
-   "AVGO 2026-09-25 365P -- richest vol on the panel (1.18 raw / 1.42 ex-gap) and a 9.0% chain. If ever taken, a debit SPREAD not a single leg; buying the richest premium on the board outright is the wrong structure.",
-   "TSM -- keeps screening interesting and keeps being untradeable at this size: 16.6% of mid fails BOTH gates. Stop re-working it until the chain changes."
-  ],
-  "_sourcing_note": "Liquidity was screened BEFORE thesis on every name above, per the 2026-08-14 sourcing fix. Two of the eight core names (TSM, MSFT) were disqualified on chain alone at the ATM strike, which cost ~30 seconds each instead of a full write-up."
+   {
+    "name": "QQQ 2026-09-18 700P -- the _CORE_WATCH vehicle",
+    "thesis": "Index downside under Ryan's Aug-Oct defensive posture, technically confirmed while QQQ holds below its 50-day.",
+    "confirming_level": "A completed 5-minute close back under 710 after a rejection at 712.00-713.2256 (the failed retest), or a decisive loss of the session low on expanding volume.",
+    "killing_level": "A session CLOSE above the 50-day MA, 713.2256. Not fired -- but today is the first session since 08-21 in which it is genuinely in reach, and the run should be re-measured off the closed daily bar every session.",
+    "vehicle_13_39_50Z": "bid 9.30 / ask 9.39, mid 9.345, spread 0.96% of mid, OI 106,642, volume 429, delta -0.3530, IV 20.81%, theta -0.2662 -> $935.00/contract, breakeven 690.65. Also quoted: the 695P at 7.91 x 8.01, mid 7.96, 1.26% of mid, OI 22,193, delta -0.3085 -> $796.00.",
+    "status_13_40Z": "WATCH, NOT ARM, and NOT TAKEN. No trigger. Two further reasons beyond the missing trigger, and they are the ones that matter: (1) theta is -$26.62/day on a $935 contract -- 2.85% of the position bleeding daily, the measured price of CORE being single-leg-only since the agentic API refused multi-leg on 08-24, so this thesis must pay inside one to two weeks or not at all; (2) it would establish bearish index exposure into a green tape 30 hours before NVDA reports. A chain at 0.96% of mid supplies no thesis whatsoever."
+   },
+   {
+    "name": "AMD",
+    "why": "The ONLY core name whose ex-gap IV/RV is still under 1.0 (0.899) -- i.e. the only place a genuine vol edge might exist.",
+    "status_13_40Z": "UNTRADEABLE AS A SINGLE LEG AND NO THESIS ANYWAY. The 2026-09-25 475C quotes 28.60 x 30.40 = $2,950/contract, which breaches the $1,500 per-position FOUR LAWS maximum outright, and its 6.1%-of-mid spread passes CORE's 10% gate but fails TACTICAL's 3%. A vertical would fit the budget and is now unrestricted by name for SPEC-and-hand-to-Ryan purposes -- but there is no thesis today beyond \"vol is slightly cheap,\" and cheap vol is not a reason to own direction."
+   }
+  ]
  },
  "constraints_today": {
-  "unleveraged_buying_power": 811.83,
-  "buying_power": 811.83,
-  "margin_note": "unleveraged_buying_power EQUALS buying_power -- no margin extended. FOUR LAWS #4: $811.83 is the budget, never the larger field.",
-  "reserve": 250.0,
-  "deployable": 561.83,
-  "premium_at_risk": 2675.0,
-  "realized_pnl_today": 0.0,
-  "daily_loss_cap": -400.0,
-  "entries_used_today": "0 of 8",
-  "slots": "CORE 2 of 3 used (QQQ, RBRK). TACTICAL 0 of 2 used. Hedge (SPY 700P) excluded from the count.",
-  "theme_concentration": "BEARISH-TECH sits at 2 of the 3-per-theme cap, and carries $1,926 of the $2,675 premium at risk on a $4,049 account. The cap permits a third; the concentration argues against it.",
-  "honest_capacity": "Deployable $561.83 funds ONE $300-600 tactical, or a core swing at the very bottom of its $500-1,000 band. A five-slot book is arithmetically unreachable until something closes -- say so plainly rather than implying capacity the account does not have."
+  "capital": "get_portfolio 13:33Z: total $4,091.46 = equity $444.90 / options $623.00 / cash $3,023.56. buying_power $3,023.56 EQUALS unleveraged_buying_power -- no margin extended. FOUR LAWS #4 budget = $3,023.56; less the $250 reserve, deployable $2,773.56. Well above the $2,000 margin-equity minimum.",
+  "slots": "0 of 2 TACTICAL and 0 of 3 CORE used; the SPY hedge is excluded from the count. Both tracks fully open.",
+  "throttle_and_cap": "Entries 0 of 2 this run, 0 of 8 today. Realized options P/L today $0.00, broker-verified (get_realized_pnl 2026-08-25..2026-08-25 returns 0 closing trades) against the -$400 cap. Nothing is scarce -- the setup is the only missing ingredient, and that should be said plainly rather than dressed up as a constraint.",
+  "structural": "Spreads remain UNPLACEABLE through the agentic API (measured 08-24: place_option_order returns \"Multi-leg options orders aren't supported in Robinhood agentic accounts yet\", and a clean multi-leg review is a FALSE GREEN). Legging is arithmetically impossible -- a standalone short leg is margined as if naked and demands the full strike in collateral. CORE is therefore single-leg-only and must clear a HIGHER bar on breakeven and carry; verticals are specced and handed to Ryan to place in the app."
  },
- "posture_carryover": {
-  "aug_oct_defensive_watch": "STANDS. SPY 763.24 is ~2.0% above the 746-748 closing early-warning band. Equity-book cash floor >=45% is unaffected by options activity.",
-  "hedge": "SPY 2026-11-20 700P, 88 DTE, exempt from all premium backstops. Next and only decision ~2026-10-30 WITH Ryan.",
-  "monitoring_mandate": "QQQ 680P and RBRK 90P are MONITOR + RECOMMEND + ASK. Discretionary exits are recommended, never executed. Only the hard backstops execute unasked -- and for QQQ, now inside 21 DTE, that is the -50% cut at 1.8433 blended, capped at quantity 1 (the agentic lot)."
- }
+ "posture_carryover": "Ryan's Aug-Oct defensive posture stands: equity cash floor >=45% on the equity book only, no margin borrowing ever, hedge exempt from premium backstops with its roll/close decision due WITH Ryan at ~21 DTE (late October, 87 DTE remaining). The de-emphasised-oil sector steer carries over to any equity-report-sourced candidate. HARD RULE 9 in full: this is an unattended run and may not claim or quote any Ryan approval."
 }
