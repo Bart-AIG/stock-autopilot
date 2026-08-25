@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-25T11:30:00Z",
+  "updated_utc": "2026-08-25T12:45:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-24",
     "realized_usd": 286.0,
@@ -373,16 +373,14 @@
     "_collision_note_19_25Z": "A concurrent 19:25Z run independently reached the same duty conclusion and drafted its own full report before discovering this one had already merged (PR #612). Resolved per the collision protocol WITHOUT rewriting the file: the 19:20Z report stands as the delivery, and the 19:25Z draft was DISCARDED rather than merged, because a second master push touching daily_options_report.md would re-notify Ryan with duplicate content -- exactly what the one-run-per-day rule exists to prevent. The two reports agreed on every number they shared (+86.00 realized, the MSFT multi-leg rejection, the legging collateral finding, the 00-600 tactical band conflict), which is cross-validation of both. The 19:25Z run's non-duplicative work -- fresher hedge marks, the 19:00-19:18Z volume window, and the trigger calibration defect -- was merged into the ledger instead."
   },
   "_last_reconciliation": {
-    "run_utc": "2026-08-25T11:30:00Z",
-    "run_type": "post_close_sixteenth_of_trading_day",
+    "run_utc": "2026-08-25T12:45:00Z",
+    "run_type": "pre_open_seventeenth_of_trading_day",
     "trading_day_et": "2026-08-24",
-    "result": "ZERO DRIFT ON BOTH BOOKS. Sixteenth consecutive clean post-close read; independently fetched, not copied forward. Lot-count invariant asserted on the hedge: 1 contract / $749.00 basis / $7.49 blended -- consistent.",
-    "accounts": "718757339 'Agentic' confirmed type=limited_margin, option_level=option_level_3, agentic_allowed=true.",
-    "options": "SPY 2026-11-20 700P x1 @ 749.00 avg (the authorized hedge, 87 DTE) -- the only open option. All pending_* fields 0.0000. Matches the ledger.",
-    "equities": "PNC 1.825758 sh @ 246.47 avg, all sellable, no option-event holds. Unchanged.",
-    "portfolio": "total 4129.52 | cash 3023.56 | unleveraged_buying_power 3023.56 (== buying_power; no margin extended) | options_value 661.00 | equity_value 444.96. Clear of the $2,000 margin-equity minimum. Deployable after the $250 reserve: ~$2,773.56.",
-    "artifacts": "Heartbeat NOT stamped and brief NOT rebuilt -- pre-open on 2026-08-25, trading day is still 2026-08-24. Heartbeat correctly still reads date_utc 2026-08-24.",
-    "cadence_health": "HEALTHY. 2026-08-24 market-hours scheduler-fired runs: 32 (30 market_hours_regular + 2 first_post_open), live-user entries excluded per the run_type filtering rule. ~one run/12min confirms the 2026-08-21 token fix still holds; no recurrence of the hourly-only collapse."
+    "result": "ZERO DRIFT ON BOTH BOOKS. Seventeenth consecutive clean read; independently fetched from the broker, not copied forward. Options: SPY 2026-11-20 700P x1 @ 749.00 avg, all pending_* fields 0.0000 -- the authorized hedge and the only open contract. Equities: PNC 1.825758 sh @ 246.470. Lot-count invariant asserted on the hedge: 1 contract / $749.00 basis / $7.49 blended -- consistent.",
+    "capital": "total $4,129.52 | cash $3,023.56 | options_value $661.00 | equity_value $444.96. unleveraged_buying_power $3,023.56 EQUALS buying_power, so no margin is extended; less the $250 reserve, $2,773.56 is deployable at the next open.",
+    "slots": "0 of 5 open agentic positions (hedge excluded): 0 of 2 TACTICAL, 0 of 3 CORE. Both tracks fully open.",
+    "note": "PRE-OPEN run, 45 minutes before the 13:30Z bell. Per the CLAUDE.md UTC rule the trading day is still 2026-08-24, so this run did NOT stamp automation_heartbeat.json, rebuild market_brief.json, or reset the daily loss cap / entry throttle. The first run at or after 13:30Z owns all four of those duties.",
+    "cadence_health_carried_forward": "NOT re-measured this run (pre-open; a market-hours rate cannot be computed before the bell). Carried forward verbatim from the 11:30Z block so it is not silently lost: 2026-08-24 market-hours scheduler-fired runs = 32 (30 market_hours_regular + 2 first_post_open), live-user entries excluded per the run_type filtering rule -- ~one run/12min, confirming the 2026-08-21 token fix still holds with no recurrence of the hourly-only collapse. The first post-open run of 2026-08-25 should re-measure rather than inherit this."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
