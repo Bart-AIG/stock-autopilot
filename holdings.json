@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-25T16:22:00Z",
+  "updated_utc": "2026-08-25T16:37:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-25",
     "realized_usd": 0.0,
@@ -24,23 +24,23 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "last_checked_utc": "2026-08-25T16:22:00Z",
-        "quote_basis": "Carried from the 16:19Z option quote (updated_at 2026-08-25T16:15:57Z), re-verified against an unchanged broker position this run. 172 minutes after the bell -- no opening-auction artifact.",
-        "mark": 6.205,
-        "bid": 6.19,
-        "ask": 6.22,
-        "spread_pct_of_mid": 0.48,
-        "pl_at_mark_usd": -128.5,
-        "pl_at_mark_pct": -17.16,
-        "net_if_exited_at_bid_usd": -130.0,
+        "last_checked_utc": "2026-08-25T16:37:00Z",
+        "quote_basis": "Live option quote, updated_at 2026-08-25T16:32:53Z. 183 minutes after the bell -- no opening-auction artifact.",
+        "mark": 6.155,
+        "bid": 6.14,
+        "ask": 6.17,
+        "spread_pct_of_mid": 0.49,
+        "pl_at_mark_usd": -133.5,
+        "pl_at_mark_pct": -17.83,
+        "net_if_exited_at_bid_usd": -135.0,
         "dte": 87,
-        "delta": -0.150269,
-        "theta_per_day_usd": -8.98,
+        "delta": -0.149366,
+        "theta_per_day_usd": -8.95,
         "iv": 0.20422,
         "open_interest": 26164,
         "volume": 320,
-        "basis_used": "entry_premium 7.49 x 1 contract x 100 = $749.00. Lot invariant asserted IN CODE this run: 1 x 7.49 x 100 == 749.00 == max_loss. Passed.",
-        "status": "WORKING AS DESIGNED -- hold, no action, no notification. Unchanged from 16:19Z: mark 6.205, -$128.50 / -17.16%, 87 DTE, delta -0.150, theta -$8.98/day, 0.48% of mid. SPY 765.44 (+0.26%). Routine mark drift on an 87-DTE insurance leg is not a signal in either direction. Exempt from every premium backstop per Ryan's 2026-08-05 authorization; next decision point is the ~21-DTE roll/close review WITH Ryan (~2026-10-30). HARD RULE 9: no approval is claimed or implied."
+        "basis_used": "entry_premium 7.49 x 1 contract x 100 = $749.00. Lot invariant asserted IN CODE this run: contracts 1 == broker quantity 1.0; 1 x 7.49 x 100 == 749.00 == max_loss. Broker average_price 749.0000 agrees. Passed.",
+        "status": "WORKING AS DESIGNED -- hold, no action, no notification. Drifted -$5.00 from the 16:22Z mark of 6.205 as SPY firmed to 765.76. Ownership: placed_agent='agentic' executing Ryan's 2026-08-05 authorization. EXEMPT from all premium backstops as insurance; the only scheduled decision is the ~21-DTE roll/close review with Ryan around 2026-10-30. Nothing here is a trigger and nothing warrants a notification."
       },
       "_notify_state": {
         "last_checked_utc": "2026-08-25T16:22:00Z",
@@ -75,12 +75,12 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "utc": "2026-08-25T16:05:00Z",
-    "result": "NO ENTRY. 0 of 2 this run, 0 of 8 today. TWELFTH consecutive no-action run of the 2026-08-25 session.",
-    "core_track": "STILL BLOCKED BY RULE -- _CORE_TRACK_BLOCKED_2026-08-25. Every 21-45 DTE board spans the 2026-08-26 NVDA print. Not re-litigated.",
-    "tactical_track": "OPEN, NO SETUP. QQQ 710.485 is sitting ON the 710.55 box ceiling after the 15:25Z breakout failed and fully retraced; a second attempt at a level that just failed is a lower-quality setup, not a higher one, and the last four bars average 82,211 = 66% of the pre-breakout local rate. Grade C. The 50-day at 713.2256 is 2.74 overhead, untouched since the opening bar.",
-    "what_this_run_added": "A CALIBRATION MEASUREMENT of the desk's own volume-confirmation clause, which has now vetoed four level-fires in one session. Measured on today's 30-bar QQQ 5-minute series: first-hour mean 254,448/bar vs post-first-hour mean 118,481/bar (a 53% decay), session mean 172,868. A clause that names the SESSION AVERAGE therefore requires a midday bar to trade ~1.5x the prevailing local rate just to qualify -- it is acting as a time-of-day filter, not a participation filter. Honest half: correcting it changes NO decision today. Against the local baseline (123,868) the breakout bar was 77.6% and still fails; the only bar that clears a corrected threshold (the 15:30Z extension at 140% of local) retraced completely within three bars.",
-    "why_this_is_not_under_trading": "Five free slots, $2,773.56 deployable, penny-wide chains, both pre-priced vehicles in-band, throttle and loss cap untouched. One track is closed by a written earnings rule; the other has produced four level-fires and zero follow-through in one session on decaying participation, the day before the catalyst the entire market is positioned for. Reasons, not inertia."
+    "utc": "2026-08-25T16:37:00Z",
+    "result": "NO ENTRY. 0 of 2 this run, 0 of 8 today. FIFTEENTH consecutive no-action run of the 2026-08-25 session.",
+    "tactical_track": "OPEN, NO SETUP. Grade C. QQQ resolved the 708.77-710.55 box UPWARD since 16:00Z -- four straight closes above the ceiling (710.80 / 710.99 / 711.01 / 711.16), a real change from the 16:05Z reading of price sitting ON it. But the 16:25Z bar traded 77,633 vs a trailing-30-min mean of 80,051 (97%) and a trailing-60-min mean of 93,650 (83%), so it fails even on the CORRECTED local baseline adopted today. The 50-day at 713.2256 is 2.06 overhead, untouched since 13:50Z.",
+    "core_track": "RE-EXAMINED AND NARROWED, then declined on the merits. The blocking rule stands for index and mega-cap tech (every 21-45 DTE board spans tomorrow's NVDA print), but the claim that the uncorrelated non-tech sidestep is closed was only ever tested against the equity report's five illiquid mid-caps. Hunted liquid sector/asset ETFs instead -- a source this run's own prompt names and no run today had quoted. Found a genuinely tradeable candidate and declined it.",
+    "what_this_run_added": "TWO things. (1) A full CORE workup on TLT 2026-09-18 84C -- outstanding chain (1.68% of mid, delta 0.415, OI 51,155, depth 546x784), real two-point structure change today, uncorrelated with the NVDA print -- declined C+/B- on a five-point stack whose decisive item is that the 84.60 breakeven sits ABOVE the 50-day SMA at 84.0497, i.e. the position pays ~nothing at exactly the level the thesis must break. Supporting: ex-gap IV/RV 1.122 (not cheap; the raw 0.886 is inflated by the 8/19 catalyst day itself), and the Treasury-buyback catalyst is six sessions old and already moved the instrument 1.67% on 2x volume. (2) A structural finding that OPENS a universe rather than closing one -- see _MULTICONTRACT_SIZING_FINDING.",
+    "why_this_is_not_under_trading": "Five free slots, $2,773.56 deployable, throttle and loss cap untouched. Both tracks were hunted to a conclusion. The CORE candidate was rejected by the gates, not by the absence of candidates -- which is a materially better position than the day started in, since three prior runs had recorded CORE as having no available sidestep at all."
   },
   "_closed_positions": [
     {
@@ -648,5 +648,24 @@
     },
     "LMT_also_failed_why_now_independently": "Recorded so a future run does not revive LMT the moment its chain looks better. The report printed LMT at 561.73 / RSI2 9.2 at 14:02Z; it was 558.60 at 16:21Z, making fresh session lows. The defense primes were RED on a broadly risk-ON day -- LMT -0.98%, GD -1.96%, NOC -1.13% -- while ITA, the defense ETF, was +0.26% and SPY +0.26%. The primes are being distributed while the sector index holds: rotation out, not an oversold bounce forming. Trend-maturity clause (c), today's tape must confirm rather than contradict, FAILS. An RSI2 mean-reversion long into a name printing new lows against a rising tape is the falling knife the gate exists to refuse.",
     "expires": "The liquidity measurements are same-session; re-quote before acting on any of these names. The STRUCTURAL findings -- that the report's RSI2 universe is systematically untradeable for options, and that min_ticks is a valid one-way pre-screen -- carry forward."
+  },
+  "_MULTICONTRACT_SIZING_FINDING": {
+    "set_utc": "2026-08-25T16:37:00Z",
+    "status": "MEASUREMENT AND METHOD FINDING. NOT A TRADE, NOT ARMED, NOT APPROVED. HARD RULE 9: no Ryan turn is claimed or implied.",
+    "headline": "A CHEAP UNDERLYING IS NOT AN UNAFFORDABLE ONE. Multi-contract sizing fills the size bands on low-priced liquid ETFs without degrading a single ratio any gate measures -- and the desk has never used it.",
+    "the_false_constraint_caught_before_it_was_written": "TLT's 84C costs $59.50. XLP, XLF, XLU and XLE trade at $43-86 spot. The natural inference -- and the one this run was on the point of recording as a structural exclusion -- is that these names cannot produce a $300-1,000 TACTICAL or $500-1,000 CORE position and are therefore out of reach, a tidy mirror of the documented 'AMD is priced out' tier finding.",
+    "why_it_is_wrong_measured_not_modelled": "Spread as a percentage of mid is a PER-CONTRACT property, entirely independent of quantity. TEN TLT 2026-09-18 84C = $595.00, dead centre of the CORE band, at 1.68% of mid, delta 0.415, OI 51,155, with a 546 x 784 book that absorbs the size without strain. Every ratio the gates actually test -- spread %, delta, OI, DTE, premium at risk -- is identical or better than a single-contract position on a pricier name.",
+    "what_it_opens": "The liquid low-priced ETF universe (TLT, XLP, XLF, XLU, XLE and peers) is available to BOTH tracks and has never been hunted. It matters most on exactly the days that keep stalling this desk: when index and mega-cap boards are blocked by one single-name earnings print, these instruments are uncorrelated with it and quote far tighter than the equity report's mid-cap screen -- 1.68% of mid today against that screen's 12.6-52%.",
+    "the_honest_limits": "Three, so no future run over-reads this. (1) It supplies NO thesis -- this run measured the chain and still declined the trade. (2) Per-contract commissions scale with quantity where they apply, so a 10-lot pays ten times any per-contract fee even though the spread ratio is unchanged; check the fee line in review_option_order before sizing large lots. (3) Depth must be verified at the intended size, not assumed from OI -- 51,155 OI with a 546 x 784 top-of-book is fine for a 10-lot and would not be for a 500-lot.",
+    "the_transferable_lesson": "This is the FOURTH instance of this file's oldest bug and the FIRST caught before being written down rather than after. Spot price (2026-08-14), ATM strike (2026-08-17), wrong expiry board (2026-08-24), and now quantity-of-one. Each time a name was declared untradeable from a quote that was never the test. The fix never changes: QUOTE IT. And note the asymmetry that makes this one worth keeping -- the previous three instances wrongly EXCLUDED tradeable names, and so did this one; the bug has never once erred toward taking a bad trade, which is precisely why it survives so long unnoticed."
+  },
+  "_CORE_SIDESTEP_EXISTS_2026-08-25T16:37Z": {
+    "set_utc": "2026-08-25T16:37:00Z",
+    "status": "SCOPE CORRECTION to _CORE_TRACK_BLOCKED_2026-08-25. The blocking rule STANDS; its stated scope was too broad.",
+    "what_stands": "Every 21-45 DTE board on an index or mega-cap tech name spans the 2026-08-26 NVDA after-the-close print, and the exit engine says close BEFORE earnings, not open into them. Unchanged and not re-litigated.",
+    "what_was_too_broad": "That key states the uncorrelated non-tech sidestep is closed, on the strength of all five equity-report RSI2 names failing the liquidity gate (12.6-52% of mid). That is a sound finding about those five names. It is NOT a finding about the sidestep, because the equity report is not the only source of non-tech CORE candidates -- and since Ryan's 2026-08-24 turn the spread-sourcing universe is explicitly unrestricted by name.",
+    "measured_this_run": "TLT 2026-09-18 (24 DTE, inside the CORE window, uncorrelated with the NVDA print): 83C 0.96% of mid / OI 73,249; 84C 1.68% of mid / delta 0.415 / OI 51,155; 85C 3.17% of mid / OI 102,051. A CORE-eligible, tightly-quoted, print-immune chain demonstrably exists.",
+    "the_correct_statement_going_forward": "CORE is NOT structurally unavailable today. It is unavailable on index and mega-cap tech, and the specific uncorrelated candidate worked up this run (TLT) was declined on its own merits -- stale catalyst, ex-gap IV 1.122, and a breakeven above the 50-day. A future run must not cite the blocking key as a reason to skip the CORE hunt entirely; hunt the liquid non-tech ETFs and decline on the gates if they fail.",
+    "why_this_correction_matters_beyond_today": "This is the second time in one session that a conclusion held for the right reason but on evidence that did not support it -- the 16:22Z run corrected a five-name claim built on a two-name sample, and this run corrects a universe-level claim built on that same five-name list. Same defect, one level up: a check that passes for the wrong reason. The scope of a finding must match the scope of what was actually measured."
   }
 }
