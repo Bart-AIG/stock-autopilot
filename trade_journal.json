@@ -19273,6 +19273,77 @@
       "daily_artifacts": "NOT re-rolled, correctly. The 13:45Z run owns the 2026-08-25 heartbeat stamp (verified 2026-08-25T13:40:00Z), the market_brief rebuild, the eight-name IV sweep and the loss-cap / entry-throttle reset. No IV row rewritten -- one row per day, and a box top taken out on half-average volume is not the 'genuine shock' that would justify an intraday refresh. Brief NOT rebuilt. EOD report NOT due: 15:33Z is 3h42m short of the 19:15Z (14:15 CT) CLAUDE.md window, which is stricter than the routine prompt's 14:25 CT and therefore governs; _eod_report_written still carries 2026-08-24.",
       "governance": "HARD RULE 9 observed in full: this is an unattended scheduler-fired run, no Ryan turn is claimed, quoted or implied, and no flag was cleared or created. No approval is manufactured anywhere in this entry. The FOUR LAWS were not approached -- nothing was placed. No margin: deployment measured against unleveraged_buying_power, which equals buying_power at $3,023.56.",
       "outcome": "FLAT. Hedge held. Zero orders placed or modified."
+    },
+    {
+      "run_utc": "2026-08-25T15:46:00Z",
+      "run_local_et": "11:46 ET Tuesday 2026-08-25 -- 136 minutes after the bell. ELEVENTH post-open run of the trading day.",
+      "trading_day_et": "2026-08-25",
+      "run_type": "market_hours_regular",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org). Scheduler-fired; counts toward cadence.",
+      "market_state": "OPEN. Entries and exits both placeable.",
+      "action": "NO ENTRY, NO EXIT. Eleventh consecutive no-action run today. This run's contribution is the RESOLUTION of the state change the 15:33Z run recorded: the breakout it caught firing has FAILED, and the failure was measured rather than assumed.",
+      "regime": "Risk-on, semi-led, but the index leg has stalled. AMD 476.17 (+4.25%), SMH 554.01 (+1.32%), TSM 415.01 (+1.19%), NVDA 211.13 (+1.27%), QQQ 710.14 (+0.54%), MSFT 489.52 (+0.45%), SPY 765.00 (+0.20%). Semis still lead; the indices no longer follow them tick for tick.",
+      "reconciliation": {
+        "source": "Independently fetched this run -- get_accounts, get_option_positions(nonzero), get_portfolio, get_option_quotes, get_equity_quotes, get_equity_historicals.",
+        "result": "ZERO DRIFT. One option contract (SPY 2026-11-20 700P x1 @ 749.00) matching the ledger one-for-one; every pending_* field 0.0000, so no overnight assignment, exercise, expiration or unauthorized fill.",
+        "accounts": "718757339 re-fetched, not remembered: limited_margin, option_level_3, agentic_allowed=true.",
+        "lot_invariant": "ASSERTED IN CODE this run, not read: 1 x 7.49 x 100 == 749.00 == max_loss. Passed.",
+        "capital": "Total $4,097.59 = equity $445.03 / options $629.00 / cash $3,023.56. unleveraged_buying_power $3,023.56 EQUALS buying_power -- no margin extended. Deployable after the $250 reserve: $2,773.56. Well clear of the $2,000 margin-equity minimum.",
+        "throttle": "Realized P/L today $0.00 vs the -$400 cap. Entries 0 of 8 today, 0 of 2 this run. All five slots free -- the hedge is insurance-exempt and consumes none."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P x1 (hedge, agentic, insurance-exempt)": "WORKING AS DESIGNED -- hold, no action, no notification. Mark 6.29 (bid 6.28 / ask 6.30, 0.32% of mid -- the tightest read of the day), P/L -$120.00 / -16.02% on the $749.00 basis, net -$121.00 if exited at the bid. 87 DTE, delta -0.1521, theta -$9.03/day, IV 20.41%, OI 26,164, vol 313. RECOVERED $3.50 from the 15:33Z mark (-$123.50) as QQQ gave back its breakout and SPY eased off 765.39 -- the same delta arithmetic running the other way, and no more a signal now than it was then. Exempt from every premium backstop per Ryan's 2026-08-05 authorization; next decision point is the ~21-DTE roll/close review WITH Ryan (~2026-10-30). HARD RULE 9: no approval is claimed or implied."
+      },
+      "THE_EVENT_THIS_RUN_the_breakout_failed": {
+        "what_the_prior_run_recorded": "The 15:33Z run caught the box top (710.55) taken out by a completed five-minute close -- 15:25 bar closed 710.85 -- and vetoed the entry because that bar traded 96,113 shares against a ~174,457 ex-open session average, 55% of it. It logged the honest counter-evidence too: the final minute of the break was the largest one-minute print in sixteen.",
+        "what_happened_next_measured_not_assumed": "The move extended to 711.52 on the 15:30 bar and then rolled over. Closes since the breakout bar: 710.51 / 710.66 / 710.53, and QQQ is quoted 710.14 at 15:45:50Z. THREE OF THE FOUR POST-BREAKOUT CLOSES ARE AT OR BELOW THE 710.55 CEILING, and spot is now 0.41 beneath it. The extension was 0.97 points (710.55 -> 711.52); the retrace is 1.38. The entire breakout is given back.",
+        "why_this_is_the_strongest_reading_of_the_veto_yet_and_the_honest_qualifier": "The extension bar (15:30) traded 173,453 against the 174,457 ex-open average -- 99.4%, i.e. essentially EXACTLY average participation, not the half-average the breakout bar showed. So the market did eventually supply near-average volume behind the move, and it STILL failed. That is a cleaner vindication than the morning's two downside fires, because this time the volume clause came close to satisfied and the price outcome was unchanged. State it precisely: near-average is not the 'materially above average' the standing plan requires, so the veto was never actually overridden -- but the failure at near-average volume is independent evidence the threshold is calibrated in the right place rather than merely being defended.",
+        "the_symmetry_completed": "The volume veto has now turned down BOTH SIDES of this tape on the same trading day, and the market has graded all three refusals: the downside price clause fired three times this morning and was fully reclaimed; the upside price clause fired at 15:25Z and has now been fully retraced within twenty minutes. Three fires, zero follow-through, zero premium at risk."
+      },
+      "no_re_spec_discipline": "The obvious temptation this run is to convert the failed breakout into a SHORT trigger -- a failed retest is a textbook scalp setup. Declined, and on the rules rather than on taste. (a) The standing 15:01Z downside clause requires a completed close below 708.77 on materially-above-average volume; QQQ at 710.14 is 1.37 ABOVE that line and back INSIDE the box, so nothing has fired. (b) It requires SPY confirming; SPY is 765.00, twenty cents off its session high, diverging from the QQQ fade rather than confirming it. (c) Writing a NEW level to fit what just happened is precisely the re-speccing error this file records from 2026-08-24, when a trigger was armed and re-specced three times before firing at the session high into a vehicle that no longer existed. A trigger that gets redrawn to match the last twenty minutes is not a trigger.",
+      "hunt_both_tracks": {
+        "CORE": "STILL BLOCKED BY RULE -- see _CORE_TRACK_BLOCKED_2026-08-25 (set 14:45Z). Every 21-45 DTE board spans NVDA's 2026-08-26 after-the-close print and the exit engine says close before earnings, not open into them; the equity report's RSI2 alternatives (RTX 12.8-18.0% of mid, GD 45.2-52.4%) failed the <=10% liquidity gate on measurement. Not re-litigated this run.",
+        "TACTICAL_index": "OPEN, NO SETUP. QQQ has failed its only break of the day and sits 3.09 under the 50-day (713.2256) that is the level actually worth trading -- untouched since the 713.13 opening bar. SPY is grinding a 1.5-point range at session highs with no level in play. Grade C both.",
+        "TACTICAL_uncorrelated_NEW_WORK_THIS_RUN": "The standing objection to today's book is that every candidate is tied to tomorrow's NVDA print, so this run went looking OUTSIDE that complex for a scalp -- the one structural gap no prior run had tested. Measured: IWM 298.925 (+0.32%), GLD 426.99 (+0.07%), XLF 58.085 (-0.23%). All three are genuinely uncorrelated to the print and ALL THREE ARE INERT -- sub-0.35% moves with no level breaking. They were killed at the equity-quote stage on 'no live trigger', BEFORE any chain was pulled, per the screen-liquidity-early rule; no IV rows are logged for them because no option evaluation took place, and inventing rows for names never quoted would corrupt the file the IV method depends on.",
+        "why_this_finding_matters": "It converts a suspicion into a measurement. The desk is NOT flat because its hunt is structurally trapped inside the NVDA complex -- when deliberately pointed at uncorrelated names, the tape has nothing there either. The market is quiet ahead of its largest scheduled catalyst, which is the same conclusion the 15:01Z run reached from participation data, now confirmed from breadth.",
+        "extended_names_rejected_on_trend_maturity": "AMD +4.25% (a two-session move already made) and NVDA +1.27% (a print the desk has no edge on) both fail the trend-maturity gate for a fresh directional entry, unchanged from prior runs."
+      },
+      "grades_considered": [
+        {
+          "candidate": "QQQ 2026-09-04 715C (upside scalp on the 50-day reclaim)",
+          "grade": "C",
+          "why": "The reclaim never happened -- QQQ topped 3.09 short of the 50-day and the lesser box-top break has now fully failed. No trigger, no trade."
+        },
+        {
+          "candidate": "QQQ 2026-09-04 710P (downside scalp on the failed breakout)",
+          "grade": "C",
+          "why": "Price is back INSIDE the box, not below it; the 708.77 clause has not fired; SPY diverges by holding session highs; and arming it would be re-speccing a level to fit the last twenty minutes."
+        },
+        {
+          "candidate": "IWM / GLD / XLF tactical scalp (uncorrelated to the NVDA print)",
+          "grade": "C",
+          "why": "New survey this run. All three inert -- +0.32% / +0.07% / -0.23%, no level breaking. Killed before pulling a chain."
+        },
+        {
+          "candidate": "AMD / NVDA / SMH / TSM directional",
+          "grade": "C",
+          "why": "Trend-maturity gate: an extended move already made, or a catalyst the desk has no edge on."
+        },
+        {
+          "candidate": "Any CORE 21-45 DTE structure",
+          "grade": "PASS BY RULE",
+          "why": "Spans the 2026-08-26 NVDA print. Blocked, not graded."
+        }
+      ],
+      "why_flat": "Nothing is scarce: five free slots, $2,773.56 deployable, penny-wide chains, both tactical vehicles in-band under Ryan's widened $300-1,000 band, entry throttle untouched, loss cap untouched. One track is closed by a written earnings rule. The other has now produced three level-fires with zero follow-through in one session, and a deliberate search outside the correlated complex found nothing moving. Every one of those is a reason; none of them is inertia.",
+      "duties": {
+        "heartbeat": "Already stamped 2026-08-25T13:40:00Z by the first post-open run. Not re-stamped.",
+        "market_brief": "Stamped 2026-08-25. No genuine shock -- a failed intraday breakout is not one -- so no intraday rebuild.",
+        "iv_history": "Today's rows for the full core list (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) were measured at 13:38Z on the nearest-30-DTE board and stand. No name was newly EVALUATED as an options candidate this run -- the three uncorrelated names were rejected on tape before any chain was pulled -- so no rows are added or overwritten.",
+        "eod_report": "NOT DUE. Threshold is the first run at or after 19:15Z (14:15 CT); this run is 15:46Z. Last written for the 2026-08-24 trading day.",
+        "friday_review": "Not Friday."
+      },
+      "HARD_RULE_9": "This is an unattended scheduler-fired run. No Ryan turn is claimed, quoted, or implied anywhere in this entry. No flag is cleared. No approval is manufactured."
     }
   ],
   "updated_utc": "2026-08-24T19:25:00Z"
