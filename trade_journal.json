@@ -18336,6 +18336,49 @@
       "no_action_reason": "Market closed. Zero open TACTICAL positions, zero open CORE positions, one exempt hedge. Nothing to manage, nothing placeable, nothing to notify (the per-position monitoring mandate's silence discipline: no trigger fired or un-fired, no recommendation changed).",
       "standing_flags_untouched": "The open items -- the TACTICAL $300-1,000 band vs the stale routine prompt's $300-600, the agentic multi-leg block, and the docs/routine-prompt-v6.md paste request -- were all raised with Ryan on 2026-08-24 and are unchanged. Per the HARD RULE 9 notify-once discipline this run did NOT re-notify, re-litigate or touch any of them.",
       "for_the_next_instance": "If you are the next post-close run of 2026-08-24: the book is confirmed static across five independent reads, so read this entry, do the reconciliation, and stand down in a few lines. If you are the first run at or after 13:30Z on 2026-08-25: you own the heartbeat stamp, the market_brief.json rebuild, the loss-cap/throttle reset and the daily IV sweep, and holdings.json._CLOSING_STRUCTURE_FOR_2026-08-25 carries the prior instance's written plan for the open -- read it before hunting."
+    },
+    {
+      "run_utc": "2026-08-25T01:18:00Z",
+      "run_local_et": "21:18 ET Monday 2026-08-24 -- 318 minutes AFTER the bell. The SIXTH post-close run of the 2026-08-24 trading day. The UTC date reads 2026-08-25 but the TRADING DAY IS STILL 2026-08-24.",
+      "trading_day_et": "2026-08-24",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check. CADENCE HONESTY: the payload never identifies which trigger produced the run, so none is asserted. Scheduler-fired; counts toward cadence but is NOT a market-hours run.",
+      "market_state": "CLOSED since 20:00Z. Nothing placeable -- no entry, no exit, no roll.",
+      "THE_POINT_OF_THIS_ENTRY": "A DELIBERATE NO-OP, WRITTEN SHORT ON PURPOSE -- the SIXTH consecutive one. Per the POST-CLOSE RUN PROTOCOL the Nth redundant overnight run is a stand-down, not a research assignment. This run read what the 20:19Z, 21:18Z, 22:19Z, 23:19Z and 00:19Z runs already covered, repeated the ONE check always worth repeating (broker reconciliation -- the only way an overnight assignment, expiration or unauthorized fill would surface), found zero drift, and stopped. It did NOT re-poll extended-hours quotes, re-derive the regime, re-run the IV sweep, rebuild market_brief.json, re-stamp the heartbeat, rewrite daily_options_report.md, reset the loss cap or entry throttle, or invent a research task to justify the firing.",
+      "UTC_ROLLOVER_GUARD": "Second run of the 2026-08-25 UTC calendar date, and like the 00:19Z run before it this is NOT the first run of a new trading day. Between the 20:00Z bell and the next 13:30Z open the trading day is the one whose bell just rang. No daily artifact rolled forward: heartbeat stays stamped 2026-08-24T13:40:00Z, market_brief.json stays stamped for 2026-08-24, the -$400 realized loss cap and the 8-entries/day throttle do NOT reset until the 2026-08-25 open.",
+      "duties_checked_before_doing_anything": {
+        "heartbeat": "ALREADY STAMPED for 2026-08-24 at 13:40:00Z by the first post-open run. NOT touched.",
+        "eod_report": "ALREADY WRITTEN at 19:20:00Z by the 19:15Z run, inside the 14:15 CT window. NOT rewritten -- nothing MATERIAL happened after it was written (no fill, no exit, no new flag, no trigger firing), and a rewrite would send Ryan a duplicate notification carrying identical content.",
+        "market_brief": "Stamped for 2026-08-24. NOT rebuilt -- the first run of the 2026-08-25 session rebuilds it from that session's tape.",
+        "friday_review": "Not due. Today is Monday.",
+        "iv_history": "Today's rows already logged by the market-hours runs. NOT re-swept -- overnight quotes are unactionable and an extended-hours ATM reading would corrupt the series."
+      },
+      "reconciliation": {
+        "method": "get_accounts + get_option_positions(nonzero=true) + get_equity_positions + get_portfolio, diffed against holdings.json on origin/master (d54f8e5).",
+        "account": "718757339 confirmed limited_margin / option_level_3 / agentic_allowed=true. Unchanged.",
+        "options": "get_option_positions(nonzero) returns exactly ONE contract -- SPY 2026-11-20 700P qty 1 @ average_price 749.00, opened 2026-08-06T14:21:56Z: the authorized defensive hedge, and the ONLY open options position. Ledger agrees exactly (contracts 1, entry_premium 7.49, max_loss 749.00). No assignment, no expiration, no unauthorized fill, no pending_* quantity.",
+        "equities": "get_equity_positions returns exactly ONE position -- PNC 1.825758 sh @ 246.47. Ledger agrees exactly (shares 1.825758, entry_price 246.4729). No unauthorized equity activity; the HARD RULE 6 autonomy ban was not touched.",
+        "portfolio": "total_value 4129.46 = equity 444.90 + options 661.00 + cash 3023.56. buying_power 3023.56 EQUALS unleveraged_buying_power 3023.56, i.e. NO margin is being extended -- compliant with the no-margin-borrowing law. unsettled_funds 2211.73 is tradeable on a limited_margin account and is already inside that figure.",
+        "hedge_mark": "Options book marks at $661 against a $749 cost basis = -$88 / -11.7%. Taken from the get_portfolio call already made for the reconciliation -- NOT a fresh extended-hours quote poll. Irrelevant to any action regardless: the authorized hedge is EXEMPT from all premium backstops and is held to its ~21-DTE roll/close decision WITH Ryan (2026-11-20 expiry is ~87 DTE, so that decision is far away).",
+        "verdict": "ZERO DRIFT. Sixth consecutive clean post-close reconciliation of this trading day."
+      },
+      "positions_verdict": {
+        "SPY 2026-11-20 700P (hedge, placed_agent=agentic)": "WORKING as insurance, and untouchable tonight in any case. Exempt from backstops; no ladder level applies; no action.",
+        "PNC (equity, swing)": "Not an options-sleeve position and NEVER autonomously tradeable (HARD RULE 6). Carried for reconciliation only."
+      },
+      "grades_considered": "NONE. The market is closed -- there is no tape to grade, no trigger can fire, and no order can be placed. Grading candidates here would be manufacturing work to justify a redundant firing, which the POST-CLOSE RUN PROTOCOL explicitly forbids. Both tracks resume at the 2026-08-25 open: TACTICAL needs an intraday level breaking on tomorrow's tape (today's trigger expired unfired -- see _TACTICAL_TRIGGER_WATCH), CORE inherits the durable structure in holdings.json._CLOSING_STRUCTURE_FOR_2026-08-25, which is levels only and deliberately NOT an inheritable setup.",
+      "why_flat": "Market closed; nothing placeable. Independently: 2 of 5 slots' worth of capital is uncommitted and unleveraged_buying_power is $3,023.56, so the sleeve is NOT capital-constrained tomorrow -- it is waiting on a trigger, which is the correct reason to be flat.",
+      "sleeve_state": {
+        "open_agentic_positions_excluding_hedge": 0,
+        "tactical_open": "0 of 2",
+        "core_open": "0 of 3",
+        "premium_at_risk": "$749.00, entirely the exempt authorized hedge.",
+        "unleveraged_buying_power": 3023.56,
+        "deployable_after_250_reserve": 2773.56,
+        "realized_options_pnl_today_vs_cap": "See holdings.json._realized_options_pnl_today; no options round trip occurred after the bell, so the figure the market-hours runs recorded stands. The cap does not reset until the 2026-08-25 open.",
+        "entries_used_today": "0 of 8"
+      },
+      "next_run_guidance": "If the next firing is also pre-open, stand down the same way -- read this entry, reconcile, log one short no-op, stop. The FIRST run at/after 13:30Z on 2026-08-25 owns the real work: stamp the heartbeat for the new trading day, rebuild market_brief.json from that session's tape, re-derive a fresh TACTICAL trigger (do NOT inherit today's expired one), and NEVER price a decision off the opening auction print -- re-quote at least ~5 minutes after 13:30Z before acting or alerting."
     }
   ],
   "updated_utc": "2026-08-24T19:25:00Z"
