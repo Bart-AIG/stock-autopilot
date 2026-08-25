@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-25T16:19:00Z",
+  "updated_utc": "2026-08-25T16:22:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-25",
     "realized_usd": 0.0,
@@ -24,8 +24,8 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "last_checked_utc": "2026-08-25T16:19:00Z",
-        "quote_basis": "LIVE, option quote updated_at 2026-08-25T16:15:57Z. 166 minutes after the bell -- no opening-auction artifact.",
+        "last_checked_utc": "2026-08-25T16:22:00Z",
+        "quote_basis": "Carried from the 16:19Z option quote (updated_at 2026-08-25T16:15:57Z), re-verified against an unchanged broker position this run. 172 minutes after the bell -- no opening-auction artifact.",
         "mark": 6.205,
         "bid": 6.19,
         "ask": 6.22,
@@ -40,10 +40,10 @@
         "open_interest": 26164,
         "volume": 320,
         "basis_used": "entry_premium 7.49 x 1 contract x 100 = $749.00. Lot invariant asserted IN CODE this run: 1 x 7.49 x 100 == 749.00 == max_loss. Passed.",
-        "status": "WORKING AS DESIGNED -- hold, no action, no notification. -$120.00 (15:46Z) -> -$128.50 as SPY firmed to 765.52 and QQQ held its range. Delta -0.150; routine mark drift on a 87-DTE insurance leg is not a signal in either direction. Exempt from every premium backstop per Ryan's 2026-08-05 authorization; next decision point is the ~21-DTE roll/close review WITH Ryan (~2026-10-30). HARD RULE 9: no approval is claimed or implied."
+        "status": "WORKING AS DESIGNED -- hold, no action, no notification. Unchanged from 16:19Z: mark 6.205, -$128.50 / -17.16%, 87 DTE, delta -0.150, theta -$8.98/day, 0.48% of mid. SPY 765.44 (+0.26%). Routine mark drift on an 87-DTE insurance leg is not a signal in either direction. Exempt from every premium backstop per Ryan's 2026-08-05 authorization; next decision point is the ~21-DTE roll/close review WITH Ryan (~2026-10-30). HARD RULE 9: no approval is claimed or implied."
       },
       "_notify_state": {
-        "last_checked_utc": "2026-08-25T16:19:00Z",
+        "last_checked_utc": "2026-08-25T16:22:00Z",
         "status": "MONITORING -- SILENT. No trigger fired or un-fired. The hedge carries no premium backstop by design, so routine mark moves are never notifiable; only the ~21-DTE roll/close review or a genuine posture change reaches Ryan.",
         "last_notified_utc": null
       }
@@ -370,12 +370,11 @@
     "_collision_note_19_25Z": "A concurrent 19:25Z run independently reached the same duty conclusion and drafted its own full report before discovering this one had already merged (PR #612). Resolved per the collision protocol WITHOUT rewriting the file: the 19:20Z report stands as the delivery, and the 19:25Z draft was DISCARDED rather than merged, because a second master push touching daily_options_report.md would re-notify Ryan with duplicate content -- exactly what the one-run-per-day rule exists to prevent. The two reports agreed on every number they shared (+86.00 realized, the MSFT multi-leg rejection, the legging collateral finding, the 00-600 tactical band conflict), which is cross-validation of both. The 19:25Z run's non-duplicative work -- fresher hedge marks, the 19:00-19:18Z volume window, and the trigger calibration defect -- was merged into the ledger instead."
   },
   "_last_reconciliation": {
-    "run_utc": "2026-08-25T15:33:00Z",
-    "source": "Independently fetched this run -- get_accounts, get_option_positions(nonzero), get_portfolio, get_option_quotes, get_equity_quotes, get_equity_historicals.",
-    "result": "ZERO DRIFT. get_option_positions(nonzero) returns exactly ONE contract -- SPY 2026-11-20 700P x1 @ 749.0000, opened 2026-08-06T14:21:56Z -- matching holdings.json one-for-one. Every pending_* field 0.0000: no overnight assignment, exercise, expiration or unauthorized fill. Equity PNC 1.825758 sh unchanged.",
-    "accounts": "718757339 'Agentic' re-fetched, not remembered: type=limited_margin, option_level=option_level_3, agentic_allowed=true.",
-    "capital": "get_portfolio total $4,094.68 = equity $445.12 / options $626.00 / cash $3,023.56. unleveraged_buying_power $3,023.56 EQUALS buying_power, so NO margin is extended; less the $250 reserve, deployable is $2,773.56. Account equity is well clear of the $2,000 margin minimum.",
-    "throttle": "Realized options P/L today $0.00 against the -$400 cap. Entries 0 of 8 for the trading day, 0 of 2 for this run. Open agentic positions: 1, the insurance-exempt hedge, which does not consume a slot -- all 5 slots free (2 tactical, 3 core)."
+    "utc": "2026-08-25T16:22:00Z",
+    "result": "ZERO DRIFT. get_option_positions(nonzero) returns exactly ONE contract -- SPY 2026-11-20 700P qty 1.0000 @ 749.0000 -- matching holdings.json one-for-one. All pending_* fields 0.0000: no assignment, exercise, expiration or unauthorized fill. get_accounts confirms 718757339 limited_margin / option_level_3 / agentic_allowed=true.",
+    "capital": "get_portfolio total $4,090.01 = equity $445.45 / options $621.00 / cash $3,023.56. unleveraged_buying_power $3,023.56 EQUALS buying_power -- no margin extended. Less the $250 reserve, deployable $2,773.56.",
+    "throttles": "Realized options P/L today $0.00 vs the -$400 cap. Entries used 0 of 8. Open agentic positions: 1 exempt hedge; all five slots free (2 tactical, 3 core).",
+    "lot_invariant": "sum(lots.qty)==contracts==1; sum(cost)==total_cost_basis==max_loss==749.00; 749.00/1/100==entry_premium 7.49. Asserted in code, passed."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
@@ -583,7 +582,7 @@
     "set_utc": "2026-08-25T14:45:00Z",
     "finding": "The CORE track is structurally unavailable for the rest of the 2026-08-25 session, and this is worth stating ONCE rather than re-deriving every run.",
     "mechanism": "CORE requires DTE 21-45. The nearest qualifying board is 2026-09-18 (24 DTE). Every such contract on an index or mega-cap tech name spans NVDA's 2026-08-26 after-the-close print, and the 2026-08-05 exit engine says close BEFORE earnings, not open into them. The exception -- 'unless the earnings move IS the thesis' -- does not apply: the desk has no edge on a print the entire market is positioned for.",
-    "the_usual_escape_hatch_is_also_closed": "An uncorrelated non-tech CORE name would sidestep this, but the 14:31Z liquidity screen killed the whole equity-report RSI2 list on measurement (RTX 12.8-18.0% of mid, GD 45.2-52.4%, both far outside the <=10% CORE gate).",
+    "the_usual_escape_hatch_is_also_closed": "CORRECTED 2026-08-25T16:22Z -- the CONCLUSION stands but the EVIDENCE cited here did not support it when written. The original text read: 'An uncorrelated non-tech CORE name would sidestep this, but the 14:31Z liquidity screen killed the whole equity-report RSI2 list (RTX 12.8-18.0% of mid, GD 45.2-52.4%, both far outside the <=10% CORE gate).' The 14:31Z screen measured TWO of the report's FIVE RSI2 names. LMT, TKR and TXN had never been quoted, and LMT is precisely the uncorrelated non-tech sidestep this bullet claimed did not exist. The 16:22Z run measured all three on the 2026-09-18 MONTHLY board at ~0.35 delta: LMT 575C 14.1% of mid, TKR 130C 38.0%, TXN 270C 14.3% -- all failing the <=10% gate. So the escape hatch IS closed, on a complete five-of-five measurement: RTX 12.8-18.0%, GD 45.2-52.4%, LMT 14.1%, TKR 38.0%, TXN 14.3%. Tightest 12.8%, median ~14%. The correction matters because the two claims are not the same claim: a screen of 40% of a list is not a screen of the list, and this file's recurring defect is a check that passes for the wrong reason.",
     "expires": "After the 2026-08-26 print is digested. TACTICAL is unaffected -- its hard time stop (flat by the close of the next session) lands BEFORE an after-the-close print, so scalps remain permissible if a level actually breaks."
   },
   "_TACTICAL_NO_REARM_2026-08-25T15:01Z": {
@@ -596,11 +595,11 @@
     "what_would_change_this": "A genuine expansion -- a completed 5-minute close outside the 708.77-710.55 box on volume materially ABOVE the session average (not above the quietest bar), with SPY confirming rather than diverging, and with the semis complex not simply extending its pre-print bid. Absent that, the correct posture into tomorrow's print is flat on the tactical book. Re-derive every level from the 2026-08-26 tape; do NOT inherit these numbers.",
     "expires": "END OF THE 2026-08-25 SESSION.",
     "_current_state": {
-      "last_checked_utc": "2026-08-25T16:19:00Z",
+      "last_checked_utc": "2026-08-25T16:22:00Z",
       "status": "UPHELD. Still NOT ARMED, NOT PLACED, NOT APPROVED. HARD RULE 9: no Ryan turn is claimed or implied.",
-      "tape": "QQQ 710.94. Range since the 15:25Z failed breakout: 709.47-711.52, a 2.05-point box held for 50 minutes. The 50-day SMA at 713.2256 is 2.29 overhead and has not been touched since the opening bar.",
-      "participation_still_decaying": "Trailing-30-minute mean 78,103/bar (the corrected LOCAL baseline the 16:05Z run established) against a 253,833 first-hour mean -- a 69% decay. The last two bars, 62,308 and 62,855, are the quietest sustained pair of the session excluding the 14:50Z 4,782-share anomaly. The tape is not coiling, it is emptying out.",
-      "verdict": "The 'what would change this' clause is not close to satisfied on EITHER the original session-average threshold or the corrected local one. No re-arm."
+      "tape": "QQQ 710.89. Still inside the 709.47-711.52 box, now held for 55 minutes. The 50-day SMA at 713.2256 is 2.34 overhead and has not been touched since the opening bar.",
+      "participation_still_decaying": "Trailing-30-minute mean 73,976/bar against a 253,833 first-hour mean -- a 71% decay, worse than the 69% measured at 16:19Z. The last three bars ran 62,308 / 62,855 / 60,020, the quietest sustained run of the session.",
+      "verdict": "The 'what would change this' clause requires a completed close outside the box on volume materially ABOVE average. Volume is at roughly a QUARTER of the first hour's rate and still falling. Not close on either the original session-average threshold or the corrected local one. No re-arm."
     }
   },
   "_EVENT_PREMIUM_MEASURED_2026-08-25T16:19Z": {
@@ -628,5 +627,26 @@
       "do_not_fade_the_print": "Long premium on the 08-28 board needs more than a 5.73% move to pay. That is a coin flip against a heavily-taxed vehicle and the desk has no edge on it. Not a candidate, at any grade."
     },
     "shelf_life": "The straddle and IV readings are same-session. RE-MEASURE on the 2026-08-26 tape before acting; do NOT inherit these numbers. The structural finding -- that the index term structure is flat while the single name carries the whole event premium -- is the part worth carrying forward."
+  },
+  "_CORE_SCREEN_COMPLETE_2026-08-25T16:22Z": {
+    "set_utc": "2026-08-25T16:22:00Z",
+    "status": "MEASUREMENT ONLY. NOT A TRADE, NOT ARMED, NOT APPROVED. HARD RULE 9: no Ryan turn is claimed or implied.",
+    "finding": "ALL FIVE 2026-08-25 equity-report RSI2 names fail the CORE <=10%-of-mid liquidity gate, measured on the 2026-09-18 MONTHLY board (24 DTE, the only board inside CORE's 21-45 window) at the ~0.35 TARGET DELTA.",
+    "measurements_16_21Z": {
+      "RTX": "12.8-18.0% of mid (14:31Z run). Tightest of the five and still ~28% outside the gate.",
+      "TXN": "spot 259.495. 270C delta 0.367 -- 5.50 x 6.35, mid 5.925, spread 14.3% of mid, OI 826, vol 0. 265C delta 0.442 -- 7.20 x 8.35, 14.8% of mid, OI 80, vol 14.",
+      "LMT": "spot 558.60. 575C delta 0.337 -- 6.60 x 7.60, mid 7.10, spread 14.1% of mid, OI 146, vol 12, IV 22.82%. Chain-wide, not strike-specific: 560C 21.6% on zero volume, 570C 12.6%, 580C 15.7%, 585C 19.4%.",
+      "TKR": "spot ~122.65. 130C delta 0.289 -- 1.60 x 2.35, mid 1.975, spread 38.0% of mid, OI 152, vol 1. 125C delta 0.458 -- 3.40 x 5.30, 43.7% of mid, OI 19, vol 0. Chain carries only FIVE expirations, monthlies only, no weeklies.",
+      "GD": "45.2-52.4% of mid (14:31Z run)."
+    },
+    "why_it_matters_beyond_today": "These names are not blocked by tomorrow's NVDA print -- they are untradeable for options at this account size at ANY time. TXN especially: it was the one name the earnings-correlation argument covered, so it would otherwise have been a live candidate once the print clears. It is not. Do NOT carry any of the five forward as 'blocked pending the print'.",
+    "this_is_the_2026-08-14_SOURCING_LESSON_CONFIRMED_ON_A_FRESH_SAMPLE": "The 2026-08-14 post-mortem found 4 of 5 candidates dying on bid/ask at 12-50% of mid and concluded the equity report's ~220-name mid-cap universe has a demonstrably poor hit rate into a tradeable options chain. Eleven days later, an independent sample: 5 of 5, spanning 12.6-52%. Same range, same conclusion. The report remains the desk's only comprehensive screen and stays a real CORE source -- but its options-tradeability rate on RSI2 names is now measured twice at roughly zero, and a run should expect to screen and discard the whole list rather than expecting a survivor.",
+    "the_free_pre-screen_worth_adopting": {
+      "detector": "get_option_chains returns min_ticks per chain, in ONE cheap call before any instrument lookup or quote. LMT and TKR -- the two worst chains today -- both carry above_tick 0.10 / below_tick 0.05. TXN and the index ETFs carry 0.05 / 0.01 (the finer penny-pilot tier). A 0.10 minimum tick caps how tight a market can be by construction.",
+      "ONE_WAY_ONLY_and_this_qualifier_is_the_important_half": "A COARSE tick is strong evidence a chain cannot be tight -- kill the candidate there and save the workup. A FINE tick is NOT evidence that it is: TXN sits in the fine tier and still quoted 14.3% of mid, while QQQ in the same tier quotes 1.07%. NEVER skip the actual target-delta quote because the tick regime looked good. Reading this filter in the permissive direction would manufacture precisely the false-confidence failure this file has already recorded four times (spot price, ATM strike, wrong expiry board, and modelled estimate vs quote).",
+      "why_it_matters_more_now": "Ryan's 2026-08-24 turn unrestricted spread sourcing to ANY name. A wider universe multiplies the cost of researching untradeable chains, so pushing the liquidity screen one step earlier than the 2026-08-14 fix already demands is a direct saving on every future hunt."
+    },
+    "LMT_also_failed_why_now_independently": "Recorded so a future run does not revive LMT the moment its chain looks better. The report printed LMT at 561.73 / RSI2 9.2 at 14:02Z; it was 558.60 at 16:21Z, making fresh session lows. The defense primes were RED on a broadly risk-ON day -- LMT -0.98%, GD -1.96%, NOC -1.13% -- while ITA, the defense ETF, was +0.26% and SPY +0.26%. The primes are being distributed while the sector index holds: rotation out, not an oversold bounce forming. Trend-maturity clause (c), today's tape must confirm rather than contradict, FAILS. An RSI2 mean-reversion long into a name printing new lows against a rising tape is the falling knife the gate exists to refuse.",
+    "expires": "The liquidity measurements are same-session; re-quote before acting on any of these names. The STRUCTURAL findings -- that the report's RSI2 universe is systematically untradeable for options, and that min_ticks is a valid one-way pre-screen -- carry forward."
   }
 }
