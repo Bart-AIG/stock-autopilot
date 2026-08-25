@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-25T16:05:00Z",
+  "updated_utc": "2026-08-25T16:19:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-25",
     "realized_usd": 0.0,
@@ -24,26 +24,26 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "last_checked_utc": "2026-08-25T15:46:00Z",
-        "quote_basis": "LIVE, option quote updated_at 2026-08-25T15:46:23Z. 136 minutes after the bell -- no opening-auction artifact.",
-        "mark": 6.29,
-        "bid": 6.28,
-        "ask": 6.3,
-        "spread_pct_of_mid": 0.32,
-        "pl_at_mark_usd": -120.0,
-        "pl_at_mark_pct": -16.02,
-        "net_if_exited_at_bid_usd": -121.0,
+        "last_checked_utc": "2026-08-25T16:19:00Z",
+        "quote_basis": "LIVE, option quote updated_at 2026-08-25T16:15:57Z. 166 minutes after the bell -- no opening-auction artifact.",
+        "mark": 6.205,
+        "bid": 6.19,
+        "ask": 6.22,
+        "spread_pct_of_mid": 0.48,
+        "pl_at_mark_usd": -128.5,
+        "pl_at_mark_pct": -17.16,
+        "net_if_exited_at_bid_usd": -130.0,
         "dte": 87,
-        "delta": -0.152124,
-        "theta_per_day_usd": -9.03,
-        "iv": 0.204071,
+        "delta": -0.150269,
+        "theta_per_day_usd": -8.98,
+        "iv": 0.20422,
         "open_interest": 26164,
-        "volume": 313,
+        "volume": 320,
         "basis_used": "entry_premium 7.49 x 1 contract x 100 = $749.00. Lot invariant asserted IN CODE this run: 1 x 7.49 x 100 == 749.00 == max_loss. Passed.",
-        "status": "WORKING AS DESIGNED -- hold, no action, no notification. -$123.50 (15:33Z) -> -$120.00 as QQQ gave back its breakout and SPY eased 0.39 off its 765.39 session high. Delta -0.152 doing the same arithmetic that cost it $7.00 on the way up; recovering it on the way down is no more a signal than losing it was. Exempt from every premium backstop per Ryan's 2026-08-05 authorization; next decision point is the ~21-DTE roll/close review WITH Ryan (~2026-10-30). HARD RULE 9: no approval is claimed or implied."
+        "status": "WORKING AS DESIGNED -- hold, no action, no notification. -$120.00 (15:46Z) -> -$128.50 as SPY firmed to 765.52 and QQQ held its range. Delta -0.150; routine mark drift on a 87-DTE insurance leg is not a signal in either direction. Exempt from every premium backstop per Ryan's 2026-08-05 authorization; next decision point is the ~21-DTE roll/close review WITH Ryan (~2026-10-30). HARD RULE 9: no approval is claimed or implied."
       },
       "_notify_state": {
-        "last_checked_utc": "2026-08-25T13:37:00Z",
+        "last_checked_utc": "2026-08-25T16:19:00Z",
         "status": "MONITORING -- SILENT. No trigger fired or un-fired. The hedge carries no premium backstop by design, so routine mark moves are never notifiable; only the ~21-DTE roll/close review or a genuine posture change reaches Ryan.",
         "last_notified_utc": null
       }
@@ -596,16 +596,37 @@
     "what_would_change_this": "A genuine expansion -- a completed 5-minute close outside the 708.77-710.55 box on volume materially ABOVE the session average (not above the quietest bar), with SPY confirming rather than diverging, and with the semis complex not simply extending its pre-print bid. Absent that, the correct posture into tomorrow's print is flat on the tactical book. Re-derive every level from the 2026-08-26 tape; do NOT inherit these numbers.",
     "expires": "END OF THE 2026-08-25 SESSION.",
     "_current_state": {
-      "last_checked_utc": "2026-08-25T16:05:00Z",
+      "last_checked_utc": "2026-08-25T16:19:00Z",
       "status": "UPHELD. Still NOT ARMED, NOT PLACED, NOT APPROVED. HARD RULE 9: no Ryan turn is claimed or implied.",
-      "THE_EVENT_the_15_25Z_breakout_has_FAILED": "The 15:33Z run recorded the box top (710.55) taken out by a completed five-minute close at 710.85 and vetoed it on volume. The move extended to 711.52 on the 15:30 bar and rolled over. Closes since: 710.51 / 710.66 / 710.53, with QQQ quoted 710.14 at 15:45:50Z -- three of four post-breakout closes at or below the ceiling, spot 0.41 beneath it, and the full 0.97-point extension retraced 1.38. The breakout is dead.",
-      "the_volume_reading_stated_precisely_including_what_cuts_against_it": "The extension bar traded 173,453 against a 174,457 ex-open session average -- 99.4%, essentially EXACTLY average, not the 55% the breakout bar showed. So participation did arrive, and the move failed anyway. Honest qualifier: near-average is not the 'materially above average' the standing plan demands, so the veto was never overridden and cannot claim to have been tested to destruction. What it CAN claim is independent evidence that the threshold sits in the right place -- a break that cannot hold on average volume is exactly what the clause exists to refuse.",
-      "no_short_trigger_is_being_written_and_why": "A failed retest is a textbook scalp short and this run declines it on the rules, not on taste. (a) The 15:01Z downside clause requires a completed close below 708.77; QQQ is 1.37 ABOVE it and back INSIDE the box -- nothing fired. (b) It requires SPY confirming; SPY sits 765.00, twenty cents off its session high, diverging. (c) Redrawing a level to fit the last twenty minutes is the re-speccing error recorded from 2026-08-24, where a trigger was re-specced three times before firing at the session high into a vehicle that no longer existed.",
-      "the_uncorrelated_survey_new_this_run": "The one structural gap in today's hunt -- everything tied to tomorrow's NVDA print -- was tested directly. IWM 298.925 (+0.32%), GLD 426.99 (+0.07%), XLF 58.085 (-0.23%): genuinely uncorrelated to the print and all three inert, no level breaking, killed before any chain was pulled. The flat book is therefore NOT an artifact of a trapped hunt; the tape is quiet everywhere ahead of its largest scheduled catalyst.",
-      "what_still_would_change_this": "Unchanged: a completed five-minute close outside 708.77-710.55 on volume MATERIALLY above the session average, with SPY confirming rather than diverging. The 50-day at 713.2256 remains the only level genuinely worth trading and has not been touched since the 713.13 opening bar.",
-      "expires": "END OF THE 2026-08-25 SESSION. Re-derive every level from the 2026-08-26 tape; do NOT inherit these numbers.",
-      "state_at_16_05Z": "QQQ has climbed back to the ceiling it failed at rather than resolving down: closes 710.53 / 709.61 / 710.30 / 710.46, spot 710.485. The failed breakout has NOT produced a downside resolution either -- the level is holding as rough support. That is a coil at a ceiling with decaying participation, which the standing plan explicitly declines to trade into a scheduled catalyst.",
-      "volume_calibration_finding_this_run": "The clause the last four vetoes rest on compares a bar to the SESSION AVERAGE, and today's own series shows why that is the wrong denominator after the first hour: first-hour mean 254,448/bar vs post-first-hour mean 118,481/bar. RECOMMENDATION written back to CLAUDE.md -- measure confirmation volume against the TRAILING 30-60 MINUTES, paired with the price clause staying strict (completed close beyond the level AND holding on the next bar), because a locally-calibrated threshold is easier to clear and must not become a way to trade midday noise. It would have changed nothing today: the breakout bar fails at 77.6% of local rate, and the one bar clearing a corrected bar (140% of local) retraced fully in three bars."
+      "tape": "QQQ 710.94. Range since the 15:25Z failed breakout: 709.47-711.52, a 2.05-point box held for 50 minutes. The 50-day SMA at 713.2256 is 2.29 overhead and has not been touched since the opening bar.",
+      "participation_still_decaying": "Trailing-30-minute mean 78,103/bar (the corrected LOCAL baseline the 16:05Z run established) against a 253,833 first-hour mean -- a 69% decay. The last two bars, 62,308 and 62,855, are the quietest sustained pair of the session excluding the 14:50Z 4,782-share anomaly. The tape is not coiling, it is emptying out.",
+      "verdict": "The 'what would change this' clause is not close to satisfied on EITHER the original session-average threshold or the corrected local one. No re-arm."
     }
+  },
+  "_EVENT_PREMIUM_MEASURED_2026-08-25T16:19Z": {
+    "set_utc": "2026-08-25T16:19:00Z",
+    "status": "MEASUREMENT ONLY. NOT A TRADE, NOT ARMED, NOT APPROVED. HARD RULE 9: no Ryan turn is claimed or implied.",
+    "why_this_was_worth_a_run": "Five runs today have asserted that the market 'is positioned for' tomorrow's NVDA print and used that as the reason both tracks are standing down. Nobody had QUANTIFIED it. 'The catalyst is priced' is the trend-maturity gate's second question, and it deserves a number rather than a narrative -- this file's recurring failure is a check that passes for the wrong reason.",
+    "NVDA_implied_move": {
+      "board": "2026-08-28, 3 DTE -- the first expiry spanning the 2026-08-26 after-the-close print.",
+      "spot": 212.07,
+      "straddle": "212.5C mid 5.925 (bid 5.90 / ask 5.95, IV 77.42%, OI 6,370, vol 40,758) + 212.5P mid 6.225 (bid 6.20 / ask 6.25, IV 77.02%, OI 6,449, vol 7,923) = 12.150",
+      "implied_move_pct": 5.73,
+      "implied_range": "199.92 to 224.22"
+    },
+    "NVDA_term_structure": {
+      "front_2026-08-28_iv": 0.772,
+      "dte24_2026-09-18_iv": 0.4192,
+      "kink_ratio": 1.84,
+      "dte24_straddle": "212.5C mid 9.10 + 212.5P mid 9.15 = 18.25 = 8.61% of spot",
+      "reading": "The event premium is almost entirely concentrated in the 3-DTE board. The 24-DTE board at 41.92% sits barely above this morning's own logged 31-DTE ATM reading of 41.08% -- i.e. the September board carries only ~1 vol point of event premium, so post-print crush risk on a 21-45 DTE NVDA structure is far smaller than the front-board number suggests."
+    },
+    "QQQ_term_structure_is_FLAT_and_this_is_the_actionable_half": "QQQ 2026-09-04 (10 DTE) ATM IV 19.65% from the 13:37Z pre-priced tactical vehicle, against 19.55% at 31 DTE logged in iv_history this morning. A 0.10-point kink is no kink at all. THE INDEX IS NOT PRICING THIS AS AN INDEX EVENT. Mechanically that checks out: NVDA is roughly 7% of QQQ, so a 5.73% single-name move contributes about 0.40% to the index -- less than half of QQQ's own 0.93% move TODAY.",
+    "consequences_for_tomorrow": {
+      "tactical": "A QQQ scalp tomorrow would NOT be overpaying for event premium -- that objection is now measured and dismissed, not assumed. The DTE-7 floor bans the 08-28 board outright, so the desk cannot accidentally buy the 77% vol even if it wanted to. What still governs is the hard time stop: flat by the close of the next session, which lands BEFORE the after-the-close print. That remains the whole reason tactical is permissible into an earnings day.",
+      "core": "STILL BLOCKED, and correctly so -- the 2026-08-05 exit engine says close before earnings, and a written rule is not repealed by a favorable measurement. But record the honest nuance: the crush argument for that block is WEAKER than assumed (about 1 vol point on the 09-18 board, not 35), so if the block is ever revisited it should be argued on the exit engine's terms, not on a crush that the numbers do not support.",
+      "do_not_fade_the_print": "Long premium on the 08-28 board needs more than a 5.73% move to pay. That is a coin flip against a heavily-taxed vehicle and the desk has no edge on it. Not a candidate, at any grade."
+    },
+    "shelf_life": "The straddle and IV readings are same-session. RE-MEASURE on the 2026-08-26 tape before acting; do NOT inherit these numbers. The structural finding -- that the index term structure is flat while the single name carries the whole event premium -- is the part worth carrying forward."
   }
 }
