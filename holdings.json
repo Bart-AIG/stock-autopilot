@@ -5,8 +5,8 @@
     "trading_day_et": "2026-08-25",
     "realized_usd": 0.0,
     "closing_trades": 0,
-    "source": "RESET by the first post-open run of the 2026-08-25 trading day. No closing trades today as of 13:45Z. The prior value (+$286.00 on 2026-08-24, from Ryan's own two closes) belonged to a closed trading day and does NOT carry forward.",
-    "cap_status": "NOT BINDING. $0.00 realized against the -$400 daily cap. The cap gates NEW ENTRIES only and never delays or blocks an exit."
+    "source": "BROKER-CONFIRMED at 19:18Z via get_realized_pnl(account 718757339, asset_classes=['option'], 2026-08-25..2026-08-25, America/New_York): 0 closing trades, total_returns 0. Sourced from the ledger of record, not from trade_journal.json, per the 2026-08-13 rule.",
+    "cap_status": "NOT BINDING. $0.00 realized against the -$400 daily cap."
   },
   "positions": [
     {
@@ -24,23 +24,23 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "last_checked_utc": "2026-08-25T17:33:00Z",
-        "quote_basis": "Live option quote, updated_at 2026-08-25T17:32:46Z. 243 minutes after the bell -- no opening-auction artifact.",
-        "mark": 6.265,
-        "bid": 6.25,
-        "ask": 6.28,
+        "last_checked_utc": "2026-08-25T19:20:00Z",
+        "quote_basis": "Live option quote, updated_at 2026-08-25T19:16:41Z. 346 minutes after the bell -- no opening-auction artifact.",
+        "mark": 6.215,
+        "bid": 6.2,
+        "ask": 6.23,
         "spread_pct_of_mid": 0.48,
-        "pl_at_mark_usd": -122.5,
-        "pl_at_mark_pct": -16.36,
-        "net_if_exited_at_bid_usd": -124.0,
+        "pl_at_mark_usd": -127.5,
+        "pl_at_mark_pct": -17.02,
+        "net_if_exited_at_bid_usd": -129.0,
         "dte": 87,
-        "delta": -0.151893,
-        "theta_per_day_usd": -9.03,
-        "iv": 0.204071,
+        "delta": -0.151007,
+        "theta_per_day_usd": -8.99,
+        "iv": 0.203922,
         "open_interest": 26164,
-        "volume": 356,
+        "volume": 426,
         "basis_used": "entry_premium 7.49 x 1 contract x 100 = $749.00. Lot invariant asserted IN CODE this run: contracts 1 == broker quantity 1.0000; 1 x 7.49 x 100 == 749.00 == max_loss. Broker average_price 749.0000 agrees. Passed.",
-        "status": "WORKING AS DESIGNED -- hold, no action, no notification. Mark 6.265 vs 6.255 at 17:22Z; P/L -$122.50 / -16.36% as SPY eased 765.40 -> 764.78. Ownership: placed_agent='agentic' executing Ryan's 2026-08-05 authorization. EXEMPT from all premium backstops as insurance; the only scheduled decision is the ~21-DTE roll/close review with Ryan around 2026-10-30. Nothing here is a trigger and nothing warrants a notification."
+        "status": "WORKING AS DESIGNED. Insurance, hedge-exempt from every premium backstop; decision point is the ~21-DTE roll/close conversation with Ryan (~2026-10-30, ~66 days out). The -17.02% mark is carry plus a green tape, not thesis deterioration: theta alone is -$8.99/day. NO ACTION."
       },
       "_notify_state": {
         "last_checked_utc": "2026-08-25T17:33:00Z",
@@ -363,15 +363,15 @@
     }
   },
   "_eod_report_written": {
-    "trading_day_et": "2026-08-24",
-    "written_utc": "2026-08-24T19:20:00Z",
-    "note": "daily_options_report.md written by the 19:15Z run at 14:20 CT -- the FIRST run at or past the 14:15 CT (19:15Z) CLAUDE.md window, which is stricter than the routine prompt's 14:25 CT and therefore governs. Verified before writing that the file still carried the Friday 2026-08-21 header, i.e. no earlier run today had claimed the duty. Quotes timestamped 19:16Z, comfortably clear of the opening-auction artifact. Headline: Ryan's own 14:32-14:33Z closes booked +$286.00 realized (broker-confirmed via get_realized_pnl, 2 closing trades, +14.85%) -- the first green day in seven sessions -- while the desk placed nothing. DO NOT REWRITE unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing); a refresh of closing marks is pure notification noise.",
-    "_collision_note_19_25Z": "A concurrent 19:25Z run independently reached the same duty conclusion and drafted its own full report before discovering this one had already merged (PR #612). Resolved per the collision protocol WITHOUT rewriting the file: the 19:20Z report stands as the delivery, and the 19:25Z draft was DISCARDED rather than merged, because a second master push touching daily_options_report.md would re-notify Ryan with duplicate content -- exactly what the one-run-per-day rule exists to prevent. The two reports agreed on every number they shared (+86.00 realized, the MSFT multi-leg rejection, the legging collateral finding, the 00-600 tactical band conflict), which is cross-validation of both. The 19:25Z run's non-duplicative work -- fresher hedge marks, the 19:00-19:18Z volume window, and the trigger calibration defect -- was merged into the ledger instead."
+    "trading_day_et": "2026-08-25",
+    "written_utc": "2026-08-25T19:20:00Z",
+    "note": "daily_options_report.md written by the 19:15Z run at 14:20 CT -- the FIRST run at or past the 14:15 CT (19:15Z) window. Verified before writing that the file still carried the Monday 2026-08-24 header, i.e. no earlier run today had claimed the duty (the 19:00Z run landed 15 minutes short of the window and recorded that it could not). Quotes timestamped 19:16Z, 346 minutes after the bell -- no opening-auction artifact. Headline: flat by decision across 27 runs; the tactical trigger FIRED at 18:45Z and failed its hold clause by 0.0585 points, then round-tripped in full; realized $0.00 on 0 closing trades (broker-confirmed).",
+    "do_not_rewrite": "Exactly ONE run per day writes this file. A later run must NOT rewrite it merely to refresh closing marks or restate 'still no trades' -- every master push touching it sends Ryan another notification. Rewrite only on something MATERIAL after 19:20Z: a fill, an exit, a new flag, or a trigger firing AND holding."
   },
   "_last_reconciliation": {
-    "checked_utc": "2026-08-25T19:02:00Z",
-    "result": "ZERO DRIFT. One open option contract (SPY 2026-11-20 700P x1 @ 749.00, agentic hedge), all pending_* 0.0000. Equity PNC 1.825758 sh unchanged. Account 718757339 limited_margin / option_level_3 / agentic_allowed=true, unsettled_funds 0.0000. Portfolio total $4,082.90; buying_power == unleveraged_buying_power == $3,023.56 (no margin extended).",
-    "eod_report_status_2026-08-25": "NOT YET WRITTEN. daily_options_report.md still carries the Monday 2026-08-24 header. This run fired at 19:00Z = 14:00 CT, fourteen minutes SHORT of the 14:15 CT (19:15Z) window, so it does not own the duty and did not write early. Cadence today has been a reliable :00/:15/:30/:45, so the 19:15Z run owns it. FALLBACK STANDS: if the bell rings with no 2026-08-25 report on master, the FIRST post-close run writes it immediately. It must include today's ONE material event -- the 18:45Z upside trigger fire and its failed hold."
+    "checked_utc": "2026-08-25T19:20:00Z",
+    "result": "ZERO DRIFT. One open option contract (SPY 2026-11-20 700P x1 @ 749.00, agentic hedge), all pending_* 0.0000, no overnight assignment/exercise/expiration/unauthorized fill. Account 718757339 limited_margin / option_level_3 / agentic_allowed=true, unsettled_funds 0.0000. Portfolio total $4,091.20; buying_power == unleveraged_buying_power == $3,023.56 (no margin extended). Broker get_realized_pnl(option, 2026-08-25..2026-08-25) returns 0 closing trades / $0.00 -- confirms the ledger's realized figure from the ledger of record, not from the journal.",
+    "eod_report_status_2026-08-25": "WRITTEN BY THIS RUN. See _eod_report_written."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
@@ -494,15 +494,14 @@
   "_SESSION_2026-08-25": {
     "_comment": "ONE session-scoped key for the whole 2026-08-25 trading day, created 17:05Z by the seventeenth consecutive no-action run. It REPLACES eleven separate dated top-level keys that eleven consecutive runs each appended -- 25.3 KB, 24% of the entire ledger, all of it answering the same two questions (is TACTICAL armed? is CORE available?) and expiring at today's bell. Nothing was discarded: every measurement below is carried verbatim or tightened, and the durable_findings block holds what outlives today. HOW TO USE IT: overwrite _current_state in place every run; add to tactical/core ONLY when you measured something new; never append a paragraph of 'unchanged, no action'. AT THE FIRST RUN AFTER THE BELL: promote durable_findings to their own top-level keys, then DELETE this key.",
     "_current_state": {
-      "last_checked_utc": "2026-08-25T19:05:00Z",
-      "run": "19:00Z, 15:00 ET -- 330 minutes after the bell, 60 minutes to the close. TWENTY-SIXTH logged run of the trading day.",
-      "action": "NO ENTRY, NO EXIT. Three contributions, none a restatement of the twenty-five runs before it: (1) THE UPSIDE TRIGGER ACTUALLY FIRED -- on the very bar the 18:45Z run was pricing when it called the break '0.1135 away' -- and then FAILED THE HOLD CLAUSE by 0.0585 points; (2) the 5-minute feed defect is now ROOT-CAUSED rather than merely detected, and the mechanism corrupts OHLC as well as volume, which retroactively explains the 18:01Z session-low error; (3) THE 20-DAY SMA THIS DESK HAS TESTED FOR SEVEN RUNS IS MECHANICALLY RUNNING AWAY FROM PRICE -- its roll-off schedule was computed for the first time and it RETIRES the level rather than re-deriving it.",
-      "book": "ONE open contract: SPY 2026-11-20 700P qty 1 @ 749.00, agentic, insurance-exempt hedge. Mark $614.00, 87 DTE. All five agentic slots free (2 tactical, 3 core).",
-      "capital": "get_portfolio total $4,082.90 = equity $445.34 / options $614.00 / cash $3,023.56. buying_power $3,023.56 EQUALS unleveraged_buying_power -- no borrowed funds extended. Deployable after the $250 reserve: $2,773.56. Entries 0 of 2 this run, 0 of 8 today. Realized $0.00 against the -$400 cap.",
-      "reconciliation": "ZERO DRIFT. get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed=true, unsettled_funds 0.0000. get_option_positions(nonzero): exactly ONE contract, SPY 2026-11-20 700P qty 1.0000 @ average_price 749.00 opened 2026-08-06T14:21:56Z, every pending_* field 0.0000 -- matches holdings.json one-for-one, so no overnight assignment, exercise, expiration or unauthorized fill. Lot invariant asserted: 1 x 7.49 x 100 == 749.00 == max_loss == broker average_price.",
-      "tape": "RISK-ON, holding the late-session firming. QQQ 710.45 (+0.58%), SPY 765.80 (+0.31%), NVDA 213.405 (+2.36%, session best), AMD 480.66 (+5.24%, day's leader), SMH 555.80 (+1.65%), TSM 417.21 (+1.73%), MSFT 490.565 (+0.67%), TSLA 353.555 (+1.32%), AVGO 357.085 (-0.47%, still the only red core name), TLT 83.29 (+0.88%). NVDA is making session highs into its own after-the-close print tomorrow.",
-      "verdict": "FLAT is correct and this run can finally say the trigger was TESTED rather than merely unfired. Price clause: the 18:45Z 5-minute bar closed 710.570, +0.1715 ABOVE the 20-day 710.3985 -- the first completed upside break of the session. Volume clause: 117,971 reconciled = 168.8% of the reconciled trailing-30 baseline (69,902/bar), a clean clear. HOLD clause: 18:50Z closed 710.340, -0.0585 BELOW; 18:55Z 710.260, -0.1385 below. So the break fired both entry clauses and failed the hold -- the SIXTH failed level test of the session and the FIRST on the upside. QQQ is now oscillating ON the level (19:00Z 1-minute bars 710.255-710.480 straddle 710.3985), which is chop at a moving average, not a break of one.",
-      "merits_correction_a_prior_reason_was_WRONG": "Runs since 17:52Z have declined the tactical long partly on the ground that the TACTICAL time stop 'structurally bars the desk from holding through' the 2026-08-26 NVDA print. That reasoning is backwards and is corrected here. The time stop is flat by the close of the NEXT session = Wednesday's close; NVDA reports AFTER Wednesday's close. So a scalp opened now would be liquidated BEFORE the catalyst, not held through it -- the print is not a hold-through risk at all. The decline stands on the ACTUAL merits, which are different and worse: an entry with 60 minutes left in today's session would spend essentially its entire life inside Wednesday's pre-print drift, where a coiling index has every reason to go sideways and none to trend, and it must be closed before the one event that would move it. Paying spread and a day of theta to be forced flat immediately before the catalyst is the worst version of this trade, not a protected one. GRADE C. No entry."
+      "last_checked_utc": "2026-08-25T19:20:00Z",
+      "run": "19:15Z, 15:15 ET -- 345 minutes after the bell, 45 minutes to the close. TWENTY-SEVENTH logged run of the trading day, and the EOD-REPORT run.",
+      "action": "NO ENTRY, NO EXIT. Two contributions: (1) THE DAILY REPORT DUTY WAS CLAIMED AND DISCHARGED -- this is the first run at or past the 14:15 CT window and daily_options_report.md still carried Monday's header, so it was written immediately rather than deferred; (2) THE 50-DAY ROLL-OFF WAS COMPUTED, finishing the job the 19:00Z run explicitly left open when it retired the 20-day, and it produces a finding no run had: the two averages CROSS tomorrow on a FLAT index, purely as a lookback-window artifact.",
+      "book": "ONE open contract: SPY 2026-11-20 700P qty 1 @ 749.00, agentic, insurance-exempt hedge. Mark $621.50, 87 DTE. All five agentic slots free (2 tactical, 3 core).",
+      "capital": "get_portfolio total $4,091.20 = equity $445.65 / options $622.00 / cash $3,023.56. buying_power $3,023.56 EQUALS unleveraged_buying_power -- no borrowed funds extended. Deployable after the $250 reserve: $2,773.56. Entries 0 of 2 this run, 0 of 8 today. Realized $0.00 against the -$400 cap, BROKER-CONFIRMED.",
+      "reconciliation": "ZERO DRIFT. Lot invariant asserted in code: 1 x 7.49 x 100 == 749.00 == max_loss == broker average_price 749.0000, contracts 1 == broker quantity 1.0000.",
+      "tape": "RISK-ON, semis-led, but the index gave back its late push. 19:16Z: QQQ 709.74 (+0.48%), SPY 765.15 (+0.22%), NVDA 212.26 (+1.81%, into its own after-the-close print tomorrow), AMD 480.52 (+5.21%, day's leader), SMH 554.54 (+1.42%), TSM 416.59 (+1.58%), MSFT 490.235 (+0.60%), TSLA 352.065 (+0.89%), AVGO 355.735 (-0.84%, still the only red core name), TLT 83.375 (+0.99%). Session range: high 714.04 (opening bar), low ~708.8.",
+      "verdict": "FLAT is correct and the trigger is now conclusively dead for today. The 18:45Z upside break has ROUND-TRIPPED IN FULL: price 709.74 is back BELOW the 20-day 710.3985 and back at the 18:00-18:15Z shelf it broke from. Trailing-30 volume baseline (18:45-19:10Z six bars) = 93,112/bar; the live 19:10Z bar traded 91,678 = 98% of it, i.e. no participation behind the give-back either. Seventh failed level test of the session. No tactical trigger is firing at 45 minutes to the close; CORE on index/mega-cap tech remains blocked by the 08-26 NVDA print; the non-tech sidestep was worked nine names deep earlier today and TLT has moved five cents since its 17:05Z re-check, so there is NO new information and the decline was NOT re-litigated."
     },
     "tactical": {
       "status": "RETIRED FOR 2026-08-26, NOT MERELY UNFIRED -- and it FIRED ONCE TODAY BEFORE BEING RETIRED. As of 2026-08-25T19:05Z. HARD RULE 9: no Ryan turn is claimed or implied. NOT ARMED, NOT PLACED, NOT APPROVED. Two separate facts, and the second is the one that matters for tomorrow. (1) THE UPSIDE BREAK FIRED AND FAILED ITS HOLD. The 18:45Z completed 5-minute close of 710.570 cleared the 20-day 710.3985 by +0.1715 on 168.8% of the reconciled trailing-30 baseline -- both entry clauses, for the first time all session on the upside, on the very bar the 18:45Z run was mid-forming when it recorded the break as '0.1135 away'. The hold clause then failed by 0.0585 points at 18:50Z (710.340) and widened to 0.1385 at 18:55Z. Sixth failed level test of the day. (2) THE LEVEL ITSELF EXPIRES OVERNIGHT. The 20-day SMA's roll-off was computed for the first time in twenty-six runs and it is climbing steeply because the late-July crash closes are leaving the window: 07-28's 675.49 drops out tonight, 07-29's 661.73 tomorrow night, 07-30's 683.55 the night after. With QQQ FLAT at 710.40 the 20-day goes 710.40 -> 712.14 -> 714.58 -> 715.92 -> 717.04, i.e. a motionless index is -1.74 below it tomorrow, -4.18 Wednesday, -6.64 by Friday. QQQ must rally ~1.74 points overnight merely to stand still against this level. CONSEQUENCE: do NOT carry a 710.3985 two-sided trigger into 2026-08-26. It will not be a level being tested; it will be a level departing, and a run that re-derives only its VALUE each morning will keep scoring a widening gap as a near-miss. The live structural references for 08-26 are the session high/low and the 50-day (713.2256 as of the 08-24 close, which needs the same roll-off treatment before it is quoted). Re-derive everything from that day's tape; inherit NOTHING but this retirement.",
@@ -632,7 +631,48 @@
     "consumed_2026-08-24_closing_structure": {
       "status": "CONSUMED. This key was written at Monday's bell to frame today; the 13:42Z brief answered its forward question and it has no remaining forward content. Kept only for the answer.",
       "its_question_and_the_answer": "It asked \"whether the MSFT-up / semis-down divergence persists or resolves.\" It did NEITHER -- it INVERTED. Every semi that led Monday's decline led today's advance (AMD -3.40% -> +4.42%, TSM -1.94% -> +1.35%, NVDA -2.48% -> +1.77%) and MSFT, Monday's sole green name, opened as today's sole red one before recovering to +0.45%. A divergence that flips sign in one session on a scheduled-catalyst setup is POSITIONING, not a change in trend."
-    }
+    },
+    "fifty_day_rolloff_COMPUTED_19_20Z": {
+      "why_this_run_did_it": "The 19:00Z run retired the 20-day on its roll-off schedule and explicitly named the 50-day (713.2256 as of the 08-24 close) as 'needing the same roll-off treatment before it is quoted'. That was an unfinished piece of concrete work, so this run finished it rather than re-deriving something twenty-six runs had already covered.",
+      "method": "66 daily regular-hours closes pulled fresh from get_equity_historicals (2026-05-20..2026-08-24) and both SMAs recomputed from raw closes, NOT inherited. Cross-check: the recomputed 20-day through 08-24 is 710.3985, matching the 19:00Z run's independently-derived figure to four decimals -- so the series is sound.",
+      "schedule_assuming_QQQ_FLAT_at_709.74": {
+        "2026-08-24_actual": {
+          "sma20": 710.3985,
+          "sma50": 713.2256,
+          "gap": "20d is 2.827 BELOW 50d"
+        },
+        "after_2026-08-25": {
+          "sma20": 712.111,
+          "sma50": 712.9936,
+          "gap": "0.883 below"
+        },
+        "after_2026-08-26": {
+          "sma20": 714.5115,
+          "sma50": 712.3084,
+          "gap": "20d is 2.203 ABOVE -- THE CROSS"
+        },
+        "after_2026-08-27": {
+          "sma20": 715.821,
+          "sma50": 711.906,
+          "gap": "3.915 above"
+        },
+        "after_2026-08-28": {
+          "sma20": 716.9085,
+          "sma50": 711.6506,
+          "gap": "5.258 above"
+        },
+        "after_2026-08-31": {
+          "sma20": 717.392,
+          "sma50": 711.033,
+          "gap": "6.359 above"
+        }
+      },
+      "the_mechanism": "The two averages walk toward each other from OPPOSITE sides for reasons that have nothing to do with the market. The 20-day climbs +6.99 points over five sessions on a MOTIONLESS index because the late-July crash closes leave the window one per night (675.49, 661.73, 683.55, 687.99, 700.07). The 50-day drifts DOWN -2.19 points because it sheds far richer mid-June closes (721.34, 744.00, 729.86, 722.51, 740.62).",
+      "THE_TRAP_TO_FLAG_FORWARD": "A '20-day crosses above the 50-day' print lands on 2026-08-26 and IS AN ARTIFACT, NOT A MOMENTUM SIGNAL -- it occurs on a flat index. A run that reads it as golden-cross-style bullish confirmation would be reading the July crash falling out of a lookback window as evidence about August. This is the same class as the 20-day retirement: a level whose VALUE is correct and whose MEANING is not.",
+      "what_to_actually_use_on_2026-08-26": "The 50-day (~712.99 after tonight's close) is the live structural reference because it is falling TOWARD price rather than running away from it, plus the session high/low. Re-derive both halves of any trigger -- price AND volume -- off the same fresh window on that day's tape. Inherit nothing but the retirement and this warning.",
+      "honest_scope": "This changed NO decision today -- the desk was flat before computing it and is flat after. It is recorded because it changes what TOMORROW's runs should measure against, and because a finding that only shows up as a chart artifact is exactly the kind a 15-minute relay re-derives wrongly."
+    },
+    "feed_disagreement_on_the_session_low_19_20Z": "The session low reads 708.77 on the 5-minute feed and 708.88 on the 30-minute -- an 0.11-point disagreement between two series of the SAME session, and a third independent instance of the truncation defect the 18:45Z and 19:00Z runs root-caused today in both feeds. Quote the low as ~708.8; do NOT quote either feed to three decimals, and do not build a trigger clause on a number the feeds cannot agree on."
   },
   "_MULTICONTRACT_SIZING_FINDING": {
     "set_utc": "2026-08-25T16:37:00Z",
