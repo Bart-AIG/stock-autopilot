@@ -19344,6 +19344,46 @@
         "friday_review": "Not Friday."
       },
       "HARD_RULE_9": "This is an unattended scheduler-fired run. No Ryan turn is claimed, quoted, or implied anywhere in this entry. No flag is cleared. No approval is manufactured."
+    },
+    {
+      "run_utc": "2026-08-25T16:05:00Z",
+      "run_local_et": "12:05 ET Tuesday 2026-08-25 -- 155 minutes after the bell. TWELFTH post-open run of the trading day.",
+      "trading_day_et": "2026-08-25",
+      "run_type": "market_hours_regular",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org). Scheduler-fired; counts toward cadence.",
+      "market_state": "OPEN. Entries and exits both placeable.",
+      "action": "NO ENTRY, NO EXIT. Twelfth consecutive no-action run today. This run's contribution is a CALIBRATION FINDING on the desk's own volume-confirmation clause -- the filter that has now vetoed four level-fires in one session -- measured against the intraday volume curve rather than restated.",
+      "regime": "Risk-on, semi-led, stalled. QQQ 710.485 (+0.59%), SPY 765.49 (+0.26%), NVDA 211.50 (+1.45%), AMD 477.27 (+4.49%), SMH 554.15 (+1.34%), TSM 415.17 (+1.23%), TSLA 354.09 (+1.47%), AVGO 360.60 (+0.51%), MSFT 489.34 (+0.42%). Semis still lead; both indices remain BELOW their opening-bar highs (QQQ 714.04, SPY 766.78) set in the first five minutes, i.e. the entire day has been a fade of the gap that has held most of its gain. Waiting, not trending.",
+      "reconciliation": {
+        "source": "Independently fetched this run -- get_accounts, get_portfolio, get_option_positions(nonzero), get_option_quotes, get_equity_quotes, get_equity_historicals.",
+        "result": "ZERO DRIFT. One option contract (SPY 2026-11-20 700P x1 @ 749.00, opened 2026-08-06T14:21:56Z) matching holdings.json one-for-one; every pending_* field 0.0000, so no overnight assignment, exercise, expiration or unauthorized fill.",
+        "accounts": "718757339 re-fetched, not remembered: limited_margin, option_level_3, agentic_allowed=true. unsettled_funds now 0.0000 (Monday's T+1 proceeds have settled).",
+        "lot_invariant": "ASSERTED IN CODE, not read: 1 x 7.49 x 100 == 749.00 == max_loss. Passed.",
+        "capital": "Total $4,090.21 = equity $445.65 / options $621.00 / cash $3,023.56. unleveraged_buying_power $3,023.56 EQUALS buying_power -- no margin extended, FOUR LAWS #4 satisfied by construction. Deployable after the $250 reserve: $2,773.56. Account equity is 2.0x the $2,000 margin-equity minimum.",
+        "throttle_and_cap": "0 of 2 entries this run, 0 of 8 today. Realized options P/L today $0.00 against the -$400 cap -- not binding. Open agentic positions: 1, and it is the insurance-exempt hedge, so all five non-hedge slots (2 tactical / 3 core) are free."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P x1 (hedge, agentic, insurance-exempt)": "WORKING AS DESIGNED. Mark 6.20 (bid 6.18 / ask 6.22, 0.65% of mid), P/L -$129.00 / -17.22% on a $749.00 basis, 87 DTE, delta -0.150, theta -$8.98/day, IV 20.42%, OI 26,164, breakeven 693.80. Down $9.50 since the 15:25Z read as SPY firmed -- that is insurance behaving like insurance on a risk-on day, not a signal. EXEMPT from all premium backstops per Ryan's 2026-08-05 authorization; next decision point is the ~21-DTE roll/close review WITH him (~2026-10-30). No notification sent: the monitoring-mandate silence rule holds because no trigger fired or un-fired."
+      },
+      "grades_considered": {
+        "QQQ box-top break, second attempt (tactical, upside)": "GRADE C -- SKIP. After the 15:25Z breakout close (710.85) and the 15:30Z extension to 711.52 failed and fully retraced, QQQ has climbed back to the ceiling: closes 710.53 / 709.61 / 710.30 / 710.46, spot 710.485 at 16:00Z, i.e. sitting ON the 710.55 box top rather than resolving either way. A second attempt at the same level after a failed first one is a lower-quality setup, not a higher one, and the participation behind it is decaying (last four bars average 82,211 = 66% of the pre-breakout local rate). The level that actually matters, the 50-day at 713.2256, is 2.74 points overhead and has not been touched since the opening bar.",
+        "QQQ downside / box-bottom break (tactical)": "GRADE C -- SKIP, unchanged. Box low 708.77 has not been threatened since 14:40Z; the index has spent the last 80 minutes in the upper half of the range. No fire.",
+        "CORE track, any name": "BLOCKED BY RULE, not re-litigated -- see holdings._CORE_TRACK_BLOCKED_2026-08-25. Every 21-45 DTE board spans NVDA's 2026-08-26 after-the-close print, and the exit engine says close before earnings, not open into them. The escape hatch (an uncorrelated non-tech CORE name) was measured shut at 14:31Z on liquidity (RTX 12.8-18.0% of mid, GD 45.2-52.4%) and at 15:46Z on the uncorrelated survey (IWM/GLD/XLF inert)."
+      },
+      "the_finding_this_run_adds": {
+        "what": "The desk's tactical confirmation clause -- 'volume at or above the session average' -- is calibrated against a baseline the intraday volume curve makes structurally unreachable after the first hour. Measured on today's own 5-minute QQQ series (30 bars, 13:30Z-15:55Z).",
+        "the_measurement": "First-hour mean 254,448/bar. Post-first-hour mean 118,481/bar -- a 53% decay. Session mean 172,868; ex-open mean 161,097. So a midday bar must trade ~1.5x the prevailing local rate merely to reach the 'average' the clause names, and ~2.1x to reach the first hour's. The clause is therefore acting as a de-facto TIME-OF-DAY filter, not a participation filter: after roughly 10:30 ET it can almost never fire, whatever the tape does.",
+        "and_here_is_the_honest_half": "Correcting the baseline would have changed NO decision today, which is why this is filed as a calibration note rather than a missed trade. Against a properly local baseline (the six bars 14:55Z-15:20Z, mean 123,868): the BREAKOUT bar traded 96,113 = 77.6% of local rate, so it still fails a corrected threshold and the veto stands on both measures. The one bar that DID clear a corrected threshold -- the 15:30Z extension bar at 173,453 = 140% of local rate (and only 100.3% of the session average) -- produced an immediate and complete retracement within three bars. So on today's evidence the corrected filter would have confirmed exactly one break, and that break failed.",
+        "the_recommendation_and_its_caveat": "Confirmation volume should be measured against the TRAILING 30-60 MINUTES of the same session, not the session average, because the session average embeds the opening auction and the first-hour surge. But a locally-calibrated threshold is easier to clear, so it must be paired with the price clause staying strict -- a COMPLETED close beyond the level AND holding beyond it on the following bar -- or the desk simply starts trading midday noise at a lower bar. This is a proposal for how to measure, not a loosening of what qualifies.",
+        "why_it_is_worth_writing_down": "Four level-fires have been vetoed on this clause in one session. A filter that rejects everything is indistinguishable from a filter that is broken, and the only way to tell them apart is to measure the baseline rather than the outcome. Written back to CLAUDE.md so the next instance inherits the corrected method instead of re-deriving it from a fifth veto."
+      },
+      "why_flat": "Five free slots, $2,773.56 deployable, penny-wide chains, both pre-priced vehicles in-band, throttle and loss cap untouched -- nothing is scarce except a setup. One track is closed by a written earnings rule; the other has now produced four level-fires and zero follow-through in a single session, with participation decaying into a scheduled catalyst the whole market is positioned for. Flat into tomorrow's NVDA print remains the correct tactical posture. Reasons, not inertia.",
+      "duties": {
+        "heartbeat": "Already stamped 2026-08-25T13:40Z by the first post-open run. Not re-stamped -- idempotent per day.",
+        "market_brief": "Stamped 2026-08-25. Not rebuilt -- no genuine shock; the tape is quieter than at the open, not more volatile.",
+        "iv_log": "All eight core names already carry a 2026-08-25 row (SPY 0.1283 / QQQ 0.1955 / NVDA 0.4108 / AMD 0.5402 / TSM 0.3467 / AVGO 0.4938 / MSFT 0.2601 / TSLA 0.4093), each with both raw and ex-gap ratios. No new name was evaluated to the point of needing a row; re-measuring an existing row mid-session would be churn, not data.",
+        "eod_report": "NOT DUE. The CLAUDE.md window opens at 19:15Z (14:15 CT) and this run is 16:05Z. The last report on master carries the 2026-08-24 header, so the duty is unclaimed for today and belongs to the first run at or after 19:15Z."
+      }
     }
   ],
   "updated_utc": "2026-08-24T19:25:00Z"
