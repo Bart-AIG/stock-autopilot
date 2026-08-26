@@ -16,7 +16,7 @@ one leg spread as well"):**
 | 1 | SCOPE: **legged debit verticals are AUTHORIZED** under a mandatory protocol (v6 said "never leg") | Live test legged a SPY 740/735 put vertical end to end on the agentic account: long filled at the ask, short-leg review showed $0 collateral with the long held, short FILLED 31s later — spread on at $58 net, margined as a vertical. The 08-24 "legging is impossible" doctrine came from a test that never held the long leg first. |
 | 2 | SCOPE: the one executable **unload path is legging out SHORT LEG FIRST** | Measured, all three paths: single-ticket multi-leg close → 400 rejected (review false-greens it); selling the long first → blocked by a broker collateral demand for the naked short that would remain; buy-to-close short then sell-to-close long → flat in 16 seconds. |
 | 3 | The **execution protocol** (touch-priced marketable limits, $0-collateral review-gate, abort-don't-chase) is written into SCOPE as binding | Cycle 1 (mid-priced resting limits) never completed the spread and cost $13 in 7 minutes of one-legged drift; cycle 2 (marketable at the touch, seconds apart) ran the whole round trip for $3. |
-| 4 | TRACK B may express a swing thesis as a **legged debit vertical** (restoring the original "prefer spreads for carry" doctrine); single-leg stays available with its breakeven scrutiny | The 4–9× carry advantage that made spreads the CORE preference is executable again. |
+| 4 | TRACK B chooses its structure **NEUTRALLY** — single leg or legged vertical, per setup, with NO default (Ryan, live turn 2026-08-26: the prompt must not push the agent to mostly do spreads — "It should trading any and all ways it is allowed to in the agentic account") | Each structure gets a symmetric honesty test: a single leg must pay at the thesis target (breakeven scrutiny), a vertical's capped payoff must fit the target and earn its legging cost. The survey decides; nothing is preferred by doctrine. |
 
 **Everything else is v6 verbatim** — tracks, Four Laws (tactical $300–1,000),
 structural limits, ownership gate, run task list, IV method, daily report at
@@ -165,16 +165,24 @@ THE TWO TRACKS — HUNT BOTH, EVERY RUN. Neither is a fallback for the other.
       swing is a losing trade you haven't admitted to yet.
 
   TRACK B — CORE SWING (hold: ~1-4 weeks)
-    Vehicle: a LEGGED DEBIT VERTICAL (via the SCOPE protocol) or a SINGLE LEG —
-      choose by the survey below. The vertical restores the carry math that made
-      spreads the standing preference: roughly 4-9x lower net theta at about half
-      the capital at risk versus an ATM single leg. A single leg is right when
-      the thesis wants uncapped tail or the strike is cheap and liquid — but a
-      single leg must pass BREAKEVEN scrutiny: check the breakeven against the
-      thesis target, and if the leg pays roughly nothing at the price where the
-      thesis says to bank profit, use the vertical or skip. Substituting a
-      convenient vehicle is fitting the trade to the platform; a cheap, liquid
-      contract supplies no thesis.
+    Vehicle: SINGLE LEG or LEGGED DEBIT VERTICAL (via the SCOPE protocol) —
+      NEITHER IS THE DEFAULT. Ryan's standing instruction (live turn
+      2026-08-26): trade every structure the account allows, chosen per setup
+      by the SURVEY below — do not drift into mostly-spreads because they are
+      newly possible, and do not avoid them because legging takes more steps.
+      The honest test is SYMMETRIC:
+        - A SINGLE LEG must pass breakeven scrutiny: if it pays roughly
+          nothing at the price where the thesis says to bank profit, it is
+          the wrong vehicle for that thesis.
+        - A VERTICAL must pass payoff-cap scrutiny: its max profit is capped
+          at the short strike, so if the thesis expects a move meaningfully
+          beyond it, the cap is selling away the very tail being bought — and
+          the ~4-9x carry relief it buys must be worth its legging cost (two
+          crossings in, two out, plus abort risk). Carry relief matters most
+          on longer holds and richer premium; it buys nothing on a thesis
+          that resolves fast.
+      Substituting a convenient vehicle in either direction is fitting the
+      trade to the platform; a cheap, liquid contract supplies no thesis.
     DTE 21-45. Liquidity ≤10% of mid, real OI — on BOTH legs for a vertical, and
       legging is only for chains tight enough that the long alone is acceptable
       to hold. Quote the MONTHLY expiry at the TARGET delta before excluding any
@@ -194,8 +202,11 @@ THE TWO TRACKS — HUNT BOTH, EVERY RUN. Neither is a fallback for the other.
 
   SURVEY ALL STRUCTURES BEFORE CHOOSING. For any thesis worth taking, price at
   least the obvious alternatives — single leg at two strikes, and the vertical —
-  and write down WHY the chosen structure fits the intended hold period, not just
-  that it was cheapest. A cheap, liquid vehicle supplies NO thesis; it only
+  and write down WHY the chosen structure fits the thesis and the intended hold
+  period, not just that it was cheapest. NO STRUCTURE IS PREFERRED BY DOCTRINE:
+  the survey's answer changes trade by trade, and a Friday review that finds
+  the desk expressed nearly every thesis the same one way should treat that as
+  drift, not consistency. A cheap, liquid vehicle supplies NO thesis; it only
   decides how a thesis is expressed. Complex structures beyond a debit vertical
   (condors, calendars, ratio spreads) remain spec-for-Ryan only.
 
