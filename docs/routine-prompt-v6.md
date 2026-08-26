@@ -1,11 +1,16 @@
-# Routine prompt v6 — DUAL-TRACK, single-leg-executable (2026-08-24) — PASTE-READY
+# Routine prompt v6 — DUAL-TRACK, single-leg-executable (2026-08-24) — ✅ LIVE since 2026-08-26
 
-Ryan pastes the block below the `---` divider into the "Options autopilot"
-routine (`trig_01NzocNeZGHw31LmsJdbJ1Jy`) at claude.ai/code/routines, replacing
-the stored prompt. Agents cannot edit an `http_api`-created routine — until this
-is pasted, the stored v4 dual-track prompt keeps firing with three defects the
-2026-08-24 session measured, and CLAUDE.md amendments are the only thing
-overriding them run by run.
+**PASTED BY RYAN AND CONFIRMED LIVE 2026-08-26**: scheduler-fired runs from
+11:38Z onward record being invoked with this text — the line-1 version stamp
+made the observation trivial, as designed. This file is now the canonical
+record of the stored prompt. If Ryan ever edits the routine again, the next
+session must update this file (or add a v7) — see the maintenance rule in
+`docs/options-automation-setup.md`.
+
+Historical context of the paste (2026-08-24→26): agents cannot edit an
+`http_api`-created routine, so until the paste the stored v4 dual-track prompt
+kept firing with three defects the 2026-08-24 session measured, and CLAUDE.md
+amendments were the only thing overriding them run by run.
 
 **Version numbering:** the live stored prompt is the v4 DUAL-TRACK paste of
 2026-08-21 (recorded verbatim in `docs/routine-prompt-v4.md`). The

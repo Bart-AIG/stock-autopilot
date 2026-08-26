@@ -1,8 +1,11 @@
 # Routine prompt v4 — DUAL-TRACK (2026-08-21) — ⚠️ SUPERSEDED BY v6, KEPT AS THE RECORD OF WHAT IS STORED
 
-> **This is the prompt the routine currently STORES AND FIRES (confirmed live
+> **RETIRED 2026-08-26: Ryan pasted v6 and it is confirmed live (scheduler-fired
+> runs record v6's version stamp from 2026-08-26T11:38Z). This file is now purely
+> the historical record of what fired 2026-08-21→2026-08-26.** Original banner
+> follows. This was the prompt the routine stored and fired (confirmed live
 > 2026-08-21T16:24Z by direct observation), but it is no longer the prompt Ryan
-> should paste.** The 2026-08-24 session measured three defects in it: the
+> should paste. The 2026-08-24 session measured three defects in it: the
 > $300–600 tactical band (Ryan widened it to $300–1,000 the same day), the SCOPE
 > authorization of debit spreads "legged ONE order at a time" (multi-leg orders
 > are rejected by the agentic API with a 400, and legging fails on collateral

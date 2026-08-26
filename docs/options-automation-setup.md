@@ -58,16 +58,17 @@ called "v4"), so here is the settled chain:
 2. **"JUDGMENT-FIRST"** (Ryan's rewrite, pasted ~2026-08-12; recorded verbatim
    below under the heading "v4") — retired 2026-08-21.
 3. **"JUDGMENT-FIRST, DUAL-TRACK"** (pasted 2026-08-21; recorded verbatim in
-   **`docs/routine-prompt-v4.md`**) — **THIS IS WHAT THE ROUTINE STORES AND
-   FIRES TODAY.** It is stale on three points measured 2026-08-24: the
-   $300–600 tactical band (Ryan widened to $300–1,000), the spread-legging
-   authorization (multi-leg orders 400 on the agentic API; legging fails on
-   collateral with certainty), and the CORE "prefer a debit spread" doctrine.
-   CLAUDE.md's 2026-08-24 amendments override those lines run by run.
-4. **v6** (`docs/routine-prompt-v6.md`, 2026-08-24) — **the PASTE-READY
-   corrected text awaiting Ryan.** (A `routine-prompt-v5.md` proposal from
-   2026-08-14 was never pasted; v6 skips it to keep the numbering unambiguous.)
-   v6 line 1 carries a version stamp so any run can confirm which prompt fired.
+   **`docs/routine-prompt-v4.md`**) — retired 2026-08-26. It was stale on three
+   points measured 2026-08-24 (the $300–600 tactical band, the spread-legging
+   authorization, the CORE "prefer a debit spread" doctrine), bridged run-by-run
+   by CLAUDE.md's amendments until the v6 paste.
+4. **v6** (`docs/routine-prompt-v6.md`, written 2026-08-24) — **LIVE since
+   2026-08-26: THIS IS WHAT THE ROUTINE STORES AND FIRES.** Confirmed by
+   scheduler-fired runs recording its line-1 version stamp from
+   2026-08-26T11:38Z. (A `routine-prompt-v5.md` proposal from 2026-08-14 was
+   never pasted; v6 skips it to keep the numbering unambiguous.) The version
+   stamp is the maintenance mechanism: any run can see which prompt fired, so
+   a future silent prompt edit is detectable the moment it lands.
 
 ## ⚠️ Routine prompt drift — the stored prompt must be updated by RYAN when run DUTIES change (found 2026-08-11)
 
