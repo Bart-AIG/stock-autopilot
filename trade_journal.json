@@ -20951,6 +20951,62 @@
     },
     {
       "run_utc": "2026-08-26T16:15:00Z",
+      "run_local_et": "12:15 ET Wednesday 2026-08-26 -- 165 minutes after the open.",
+      "trading_day_et": "2026-08-26",
+      "run_type": "market_hours_regular",
+      "prompt_version": "v6 (line-1 stamp present in this run's invocation)",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org). Scheduler-fired; counts toward cadence.",
+      "market_state": "OPEN. Quotes stamped 16:15-16:17Z, 165 minutes clear of the 13:30Z auction print.",
+      "account": "718757339",
+      "reconciliation": "ZERO DRIFT. get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed=true, unsettled_funds 0.0000. get_option_positions(nonzero): exactly ONE contract -- SPY 2026-11-20 700P qty 1.0000 @ average_price 749.0000, opened 2026-08-06T14:21:56Z, all six pending_* fields 0.0000. Matches holdings.json one-for-one. Lot invariant ASSERTED IN CODE: contracts 1 == broker qty 1.0000; 1 x 7.49 x 100 == 749.00 == max_loss. PASSED. Heartbeat already stamped 13:50:00Z -- not re-stamped. market_brief.json already built today and NOT rebuilt: a sector rotation inside a flat index is a measurement correction, not the 'genuine shock' the intraday-rebuild clause requires. iv_history.json untouched -- no 30-DTE ATM workup was performed this run. HEAD in sync with origin/master at run start (cb13845, the 16:00Z sibling's merge).",
+      "capital": "get_portfolio total_value $4,087.08 = equity $449.52 / options $614.00 / cash $3,023.56. unleveraged_buying_power $3,023.56 EQUALS buying_power -- no margin extended (FOUR LAWS #4). Deployable $2,773.56 after the $250 reserve. Account equity ~2x the $2,000 margin-equity minimum. Realized options P/L today $0.00 vs the -$400 cap. Entries 0 of 8 today, 0 of 2 this run. All five agentic slots free (2 tactical / 3 core), hedge excluded.",
+      "regime": "PRE-EVENT HOLDING PATTERN AT THE INDEX LEVEL -- AND THAT LABEL IS INCOMPLETE, WHICH IS THIS RUN'S ONE REAL FINDING. QQQ 709.150 -0.221% and SPY 765.110 -0.104% at 16:15Z, both inside a quarter-point of unchanged for the seventh consecutive hour. But the first non-tech sweep of the session shows a live rotation underneath: XLE +1.370%, XLU +0.448%, XLF -0.094%, IWM -0.276%, TLT -0.407%, XLV -0.890%, GLD -1.480%, SLV -1.500%. Energy bid while precious metals AND bonds are sold is a reflation/rates-up rotation -- a directional tape whose index print nets to flat. NVDA 209.970 -1.446% still fading into its own after-the-bell print; AMD +0.731% and MSFT +0.571% remain the only green core names and both keep leaking (AMD +2.12% at 14:05Z -> +0.894% at 16:00Z -> +0.731% now), so the reverse-beta withdrawal is in its third session.",
+      "position_verdicts": [
+        {
+          "position": "SPY 2026-11-20 700P x1 (agentic, authorized defensive hedge)",
+          "verdict": "WORKING -- hold, no action, no notification",
+          "detail": "Mark 6.14 (from broker options_value $614), entry 7.49, P/L -$135.00 / -18.02%, 86 DTE. Up $2 from 16:00Z; noise. EXEMPT from all premium backstops as insurance -- the drawdown is not a trigger, and the exemption exists precisely so a flat tape cannot stop the desk out of its own hedge on the eve of the quarter's largest scheduled event. Next decision is the ~21-DTE roll/close review WITH Ryan (~2026-10-30). No exit condition fired or un-fired, so the monitoring-mandate dedupe clause requires silence."
+        }
+      ],
+      "grades_considered": [
+        {
+          "track": "TACTICAL",
+          "candidate": "QQQ -- follow-through on the 16:00Z downside break of the prior-day close 710.72",
+          "grade": "C",
+          "trigger_state": "FAILED AND REVERTED. Not re-armed.",
+          "why_skipped": "The 16:00Z sibling declined this break on target arithmetic and recorded that it had stalled 0.807 above the session low; the fourteen minutes since settle it. Post-break low 708.7767 (16:01Z) was the extreme -- price has since traded a flat 709.020-709.620 band with volume of 14,489 shares/min across the 16:04-16:15Z bars, i.e. ~106% of the settled trailing-30 baseline (13,635). That is baseline participation with no directional follow-through: the five-minute burst at 15:51Z spent itself without reaching a boundary, which is the sixth failed break of this session. Re-entering a break that has already reverted would be trading the memory of participation rather than participation. Nothing re-armed and no new level came into play."
+        },
+        {
+          "track": "CORE",
+          "candidate": "GLD long put -- the metals leg of today's rotation (GLD -1.480%, SLV -1.500%)",
+          "grade": "C",
+          "why_skipped": "DECLINED ON STRUCTURE, MEASURED BEFORE ANY LEVEL WAS DRAWN, per the 2026-08-25 compute-both-SMAs rule. GLD spot 421.736 against a 20-day of 398.1775 and a 50-day of 384.6654, computed from 67 raw daily regular-hours closes (2026-05-20..2026-08-25): spot is +23.558 (+5.9%) above the 20-day and +37.071 (+9.6%) above the 50-day, with the 20-day itself 13.512 above the 50-day. There is no structural level anywhere near price -- today's -1.48% is a pullback inside a violently extended uptrend that ran 371.54 (07-31) to 428.07 (08-25), +15.2% in 18 sessions. The trend-maturity gate fails BOTH directions: a put fights a powerful and intact uptrend on a one-day dip, a call chases a move that has already run 15%. A CORE entry would additionally span tonight's print. No chain was quoted -- structure killed it before liquidity mattered, which is the correct ordering when the structural read is this decisive."
+        },
+        {
+          "track": "CORE",
+          "candidate": "XLE long call -- the energy leg of today's rotation (XLE +1.370%, the strongest thing on the board)",
+          "grade": "C",
+          "why_skipped": "DECLINED ON STRUCTURE PLUS THE STANDING SECTOR STEER. XLE spot 62.910 against a 20-day of 60.7475 and a 50-day of 57.7154 (same 67-close window): spot is +2.163 above the 20-day and +5.195 above the 50-day, so it is extended, not breaking out. Today's pop is a bounce INSIDE a two-week consolidation -- the 08-18/08-19/08-20 highs of 63.68 / 64.25 / 64.70 are all still overhead and untouched, so nothing structural broke; a +1.37% day that does not clear the range's own ceiling is not a trigger. Separately, CLAUDE.md's standing sector steer (Ryan, 2026-06-17) de-emphasizes oil-related energy for NEW entries on the view that its upside is capped and the sector is not trending. Two independent grounds, either sufficient."
+        },
+        {
+          "track": "CORE (index / mega-cap tech)",
+          "candidate": "none priced",
+          "grade": "n/a -- track barred",
+          "why_skipped": "Re-confirmed rather than re-derived. Any 21-45 DTE CORE entry spans tonight's NVDA print and the exit engine requires closing before earnings unless earnings IS the thesis, which it is not -- this desk has no edge on NVDA's numbers. Both index names independently fail IV sanity on the honest ex-gap read (QQQ 1.1697, SPY 1.2324), and NVDA's own event premium is the richest relative level in iv_history.json at n=12. Nothing today reopened it."
+        },
+        {
+          "track": "SPREAD SPEC FOR RYAN",
+          "candidate": "none",
+          "grade": "n/a",
+          "why_skipped": "The only two names that came into view this run (GLD, XLE) were declined on structure, and a vertical does not rescue a thesis that has none. Spec'ing a spread hours before a print on rich index vol was already declined at 16:00Z on the same merits."
+        }
+      ],
+      "durable_finding": "A REGIME LABEL BUILT FROM SPY/QQQ ALONE IS BLIND TO SECTOR DISPERSION. Six consecutive runs today called this tape a 'pre-event holding pattern' with 'no leadership in either direction', on index prints inside 25 basis points. The first non-tech sweep of the session, one get_equity_quotes call, showed XLE +1.370% against SLV -1.500% and GLD -1.480%, with TLT -0.407% alongside: a 2.87-point cross-sectional spread and a coherent reflation/rates-up rotation. The index netted to flat BECAUSE the rotation was two-sided, which the method reads as an absence of leadership when it is in fact leadership orthogonal to the eight instruments being watched (the core IV list is seven tech names plus SPY). DETECTOR, and it is free: quote the sector ETFs (XLE/XLF/XLV/XLU/XLI/XLP/XLY/XLB plus GLD/SLV/TLT/IWM) in the BRIEF alongside the core IV list; if the max-minus-min sector return exceeds the index return by more than ~1.5 points, the label is ROTATION, not chop -- name the sectors, and note the tradeable move may not be in the index at all. RELATED BUT DISTINCT from the 2026-08-25 regime-staleness finding: that one was a label going stale in TIME, this is a label blind in CROSS-SECTION on the day it is built. HONEST SCOPE, the standard this file sets for a credible audit: IT CHANGED NO DECISION. Both legs decline on the gates -- GLD sits +5.9% above its 20-day and +9.6% above its 50-day after a 15.2% run, XLE +2.163 above its 20-day and mid-consolidation under untouched highs -- so the finding is about the measurement, not a missed trade.",
+      "why_flat": "The session's sixth break failed and reverted to baseline participation, so TACTICAL had nothing live. CORE remains barred by tonight's print for index and mega-cap tech. The one genuinely new avenue -- the non-tech sweep -- found a real rotation and no tradeable leg inside it, because both legs sit far above both their moving averages and therefore nowhere near a structural level. Declining a real rotation because neither side offers an edge is the sector screen working; finding a rotation and forcing a trade into whichever leg moved most would be exactly the 'a cheap, liquid vehicle supplies no thesis' failure this playbook names.",
+      "duties": "Heartbeat already stamped (13:50Z). market_brief already built today and deliberately not rebuilt (no genuine shock). iv_history untouched -- no 30-DTE ATM workup this run, and no row written for GLD or XLE since neither received one. Daily report to Ryan is NOT due: the duty triggers on the first run at/after 19:15Z and this run is 16:15Z. No notification sent -- no exit condition fired or un-fired on the one open position and no trade was placed, so the monitoring-mandate dedupe clause requires silence."
+    },
+    {
+      "run_utc": "2026-08-26T16:19:00Z",
       "run_local_et": "12:19 ET Wednesday 2026-08-26 -- 169 minutes after the open, 221 minutes before the bell.",
       "trading_day_et": "2026-08-26",
       "run_type": "market_hours_regular",
@@ -20990,7 +21046,8 @@
       ],
       "durable_finding": "TWO, both recorded in holdings._SESSION_2026-08-26.durable_findings. (1) THE 30-DTE BOARD IS NOT WHERE AN EVENT IS PRICED -- iv_history's method reads the expiry nearest 30 DTE, which is right for its purpose and blind to the event board; measure the FIRST expiry after a print before claiming event premium is rising. Measured: NVDA's event-board implied move CONTRACTED to 5.806% from 5.975% while the 30-DTE row rose. Same family as the IV-sweep spread that became a liquidity verdict (2026-08-24) and the ATM quote that became an affordability verdict (2026-08-17) -- a correct measurement of the wrong board answering a question it was never measuring, with nothing erroring and the conclusion even coming out right. (2) THE VACUUM REABSORBS A FLUSH WITHIN MINUTES -- the one bar all week to pass the two-sided volume test decayed from 21,588/min to 11,104/min in nine minutes. The corrected filter caught the bar correctly; what it cannot see is DURATION, and in a pre-event vacuum the spike's half-life is shorter than a TACTICAL hold. Require participation to PERSIST across the following window before sizing a scalp off it.",
       "why_flat": "For the first time today there was no trigger to decline -- price broke nothing, sitting 1.155 above the session low and 3.035 below the 20-day with every structural level untouched, while participation halved again into the pre-event vacuum. CORE stays barred by tonight's print on four independent grounds. The run's actual contribution is a measurement, not a trade: the NVDA event board says the market's expected move stopped expanding today, which corrects this session's own repeated framing without reopening anything. Three and a half hours before the week's defining event, with all five slots free and $2,773.56 deployable, doing nothing is the position.",
-      "duties": "Heartbeat already stamped (13:50Z) -- not re-stamped. market_brief already built today. iv_history untouched -- the NVDA quote this run is the 2-DTE event board, deliberately not an IV-method reading. Daily report to Ryan NOT due: the duty triggers on the first run at/after 19:15Z and this run is 16:19Z. No notification sent -- no exit condition fired or un-fired on the one open position, so the monitoring-mandate dedupe clause requires silence."
+      "duties": "Heartbeat already stamped (13:50Z) -- not re-stamped. market_brief already built today. iv_history untouched -- the NVDA quote this run is the 2-DTE event board, deliberately not an IV-method reading. Daily report to Ryan NOT due: the duty triggers on the first run at/after 19:15Z and this run is 16:19Z. No notification sent -- no exit condition fired or un-fired on the one open position, so the monitoring-mandate dedupe clause requires silence.",
+      "_concurrency_note": "CONCURRENT WITH THE SIBLING RUN THAT SELF-LABELLED 16:15:00Z -- both fired for the same slot, neither could see the other, and both did real non-overlapping work. Resolved as a UNION per the collision protocol: the sibling's entry and its durable finding (sector_dispersion_blind_spot) are preserved untouched, this entry is re-keyed to its TRUE fire time and appended after it by run_utc, and the later _current_state (this one) wins where they overlap. The two runs AGREE on every shared number -- one contract, lot invariant passed, cash $3,023.56, ULBP == BP $3,023.56, zero entries used, hedge exempt and working -- which is cross-validation. Their findings are complementary: the sibling swept non-tech sectors and found a real rotation with no tradeable leg; this run measured NVDA's event board and found the implied move contracting. Both conclude flat, for different reasons."
     }
   ],
   "updated_utc": "2026-08-25T18:20:00Z"
