@@ -369,10 +369,10 @@
     "_collision_resolution_19_19Z": "The 19:19Z run had also written a full report before discovering the sibling had merged. Resolved per the 2026-08-24 precedent WITHOUT rewriting the file: the 19:20Z report stands, and the 19:19Z draft was DISCARDED. Its two measurements failed the MATERIAL test (they refine a story the delivered report already tells correctly) and were folded into holdings.json and trade_journal.json instead, so the next run inherits them and Ryan is not notified twice for one day."
   },
   "_last_reconciliation": {
-    "utc": "2026-08-26T02:19:00Z",
+    "utc": "2026-08-26T04:19:00Z",
     "trading_day_et": "2026-08-25",
-    "run_type": "post_close_overnight (seventh post-close firing)",
-    "result": "ZERO DRIFT. Broker shows exactly one option position -- SPY 2026-11-20 700P x1 @ 749.00 avg -- matching this ledger one-for-one, all pending_* 0.0000. Portfolio $4,075.85 = equity $442.29 / options $610.00 / cash $3,023.56; unleveraged_buying_power $3,023.56 equals buying_power, no margin extended. Heartbeat left at 2026-08-25 and no daily artifact rolled -- the trading day is still 2026-08-25 until the 13:30Z open."
+    "run_type": "post_close_overnight (ninth post-close firing)",
+    "result": "ZERO DRIFT. Broker shows exactly one option position -- SPY 2026-11-20 700P x1 @ 749.00 avg -- matching this ledger one-for-one, all pending_* 0.0000. PNC 1.825758 @ 246.47 matches. Portfolio $4,075.85 = equity $442.29 / options $610.00 / cash $3,023.56; unleveraged_buying_power $3,023.56 equals buying_power, no margin extended. Lot invariant asserted in code: 1 x 7.49 x 100 == 749.00 == max_loss == broker average_price. Heartbeat left at 2026-08-25 and no daily artifact rolled -- the trading day is still 2026-08-25 until the 13:30Z open."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
