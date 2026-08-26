@@ -1,4 +1,10 @@
-# Routine prompt v7 — DUAL-TRACK, legging authorized (2026-08-26) — PASTE-READY
+# Routine prompt v7 — ⚠️ SUPERSEDED BY v8 BEFORE PASTING — do not paste this one
+
+> **Paste `docs/routine-prompt-v8.md` instead.** Ryan authorized equity
+> autonomy later the same day (2026-08-26), so v8 = this v7 (legging protocol,
+> structure neutrality) + the equity module, in one paste. v7 was never live.
+
+# Routine prompt v7 — DUAL-TRACK, legging authorized (2026-08-26)
 
 Ryan pastes the block below the `---` divider into the "Options autopilot"
 routine (`trig_01NzocNeZGHw31LmsJdbJ1Jy`) at claude.ai/code/routines, replacing
