@@ -20549,6 +20549,49 @@
       },
       "governance": "HARD RULE 9 observed in full: this is an unattended scheduler-fired run, no Ryan turn is claimed, quoted or implied, and no flag was cleared or created. No equity action taken (HARD RULE 6). No spread armed or legged -- multi-leg is unexecutable through the agentic API and legging fails on collateral with certainty. TACTICAL band applied as $300-1,000 per Ryan's 2026-08-24 live turn; the stored routine prompt still says $300-600 inside THE FOUR LAWS and remains STALE, which is reported rather than resolved to the stricter number. docs/routine-prompt-v6.md is the paste-ready fix and only Ryan can apply it.",
       "next_run_duties": "Re-test the TACTICAL trigger once a real trailing-30-to-60-minute volume baseline exists, re-deriving BOTH the price and volume halves off the SAME window rather than quoting today's numbers. The EOD report for 2026-08-26 is due from the FIRST run at or after 19:15Z, with the cadence-independent fallback that if the bell rings unreported, the first post-close run writes it immediately."
+    },
+    {
+      "run_utc": "2026-08-26T14:05:00Z",
+      "run_type": "market_hours_regular",
+      "regime": "MIXED / TWO-SIDED CHOP, PRE-EVENT -- firming off the open but the split persists. SPY 766.770 +0.11%, QQQ 711.695 +0.14%, NVDA 212.410 -0.30% into its own print, AMD +2.12%, MSFT +0.72%, SMH +0.02%. Indices recovered the opening dip WITHOUT NVDA participating, which confirms rather than contradicts the 13:50Z read: this is event de-risking inside a flat tape, not a directional view.",
+      "reconciliation": "ZERO DRIFT. get_option_positions(nonzero) returns exactly ONE contract -- SPY 2026-11-20 700P qty 1.0000 @ 749.00 -- matching holdings.json one-for-one, every pending_* field 0.0000. Lot invariant asserted in code (contracts 1 == broker qty; 1 x 7.49 x 100 == 749.00 == max_loss): PASSED. get_portfolio total $4,068.31 = equity $447.75 / options $597.00 / cash $3,023.56. unleveraged_buying_power $3,023.56 EQUALS buying_power, so no margin is extended; deployable $2,773.56 after the $250 reserve. Heartbeat already stamped for 2026-08-26 by the 13:50Z run -- not re-stamped. market_brief.json already built for today -- not rebuilt, no shock to justify an intraday refresh.",
+      "position_verdicts": [
+        "SPY 2026-11-20 700P x1 (agentic, AUTHORIZED HEDGE, exempt from all premium backstops): WORKING. Mark 6.00 (bid 5.98 / ask 6.02, 0.67% of mid), P/L -$149.00 / -19.89%, 86 DTE, delta -0.1463, theta -$8.93/day. Improved $2 on the run as SPY firmed. The drawdown is NOT a trigger -- insurance is expected to bleed in a firm tape. Next scheduled decision is the ~21-DTE roll/close review WITH Ryan (~2026-10-30). Status unchanged, so no notification per the notify-once-per-incident rule."
+      ],
+      "grades_considered": [
+        {
+          "track": "tactical",
+          "candidate": "QQQ reclaim of the 20-day SMA 712.1600",
+          "grade": "C - VETOED, all three clauses failed independently",
+          "detail": "The 13:55Z 5-minute bar closed 712.170, a completed close above a genuine structural level. (1) Magnitude +0.010 pts = 0.0014%, inside the tick. (2) HOLD CLAUSE FAILS: the 14:00Z bar closed 711.695, back below by 0.465. (3) VOLUME CLAUSE FAILS on the corrected local baseline: 137,460 vs a trailing ex-open 5-bar mean of 156,483 = 87.8% (66.9% against the full trailing-30 mean of 205,582 including the opening bar) -- fails either way, so the open-bar decay artifact does not decide it. Feed reconciled clean first: 1-minute sums vs each 5-minute bucket ran +3.5/+2.5/+1.8/+1.7/+1.7/+0.9%, all inside the +/-5% band, no holes. The 50-day 713.0132 was never touched (session high 712.200), so the converged 0.85-point zone was never cleared -- only its lower edge grazed."
+        },
+        {
+          "track": "tactical",
+          "candidate": "SPY",
+          "grade": "C - no trigger",
+          "detail": "Spot 766.770 sits 1.97 above its 20-day (764.7985) and has been above it all session. That is drift, not a fresh break, and there is no level to reference."
+        },
+        {
+          "track": "core",
+          "candidate": "LLY 2026-09-18 1240C (23 DTE, target delta 0.391)",
+          "grade": "C - EXCLUDED ON BOTH GATES SIMULTANEOUSLY, quoted not estimated",
+          "detail": "The one non-correlated, non-earnings candidate in the fresh 13:59Z report (RSI2 5.7, spot 1182.65, no print until late Oct). Quoted on the MONTHLY board at the target delta per the three-instance measurement rule. bid 23.05 / ask 28.30, mid 25.675, spread 5.25 = 20.45% OF MID (CORE gate is <=10%), OI 849, volume 8, and $2,568/contract = 171% of the $1,500 per-position max. The 0.472-delta 1220C is no better: 10.04% of mid at $3,485 = 232% of the max. No strike fixes it -- moving OTM to cut cost widens the spread, moving ATM to tighten the spread raises the cost. Chain carries the FINE penny-pilot tick tier (0.05/0.01) and still quotes 20%, which is the second independent confirmation that min_ticks is valid for exclusion only. No thesis work was done, correctly -- the 30-second chain check came first and killed it."
+        },
+        {
+          "track": "core",
+          "candidate": "AMAT / AEHR / INTC / PANW (the report's other four RSI2 setups)",
+          "grade": "C - excluded before quoting",
+          "detail": "All four sit in the AI/semis complex -- the exact theme printing tonight (NVDA + SNPS Wed PM) and again Thursday PM (MRVL). PANW additionally carries a 2026-09-01 print inside any 21-45 DTE hold. Taking any of them would be a leveraged bet on tonight's NVDA number, which this desk has no edge on."
+        },
+        {
+          "track": "core",
+          "candidate": "QQQ / SPY index premium",
+          "grade": "C - standing plan, not re-litigated",
+          "detail": "The written plan from the 13:50Z run says open CORE index premium AFTER tonight's print, not into it. Both grounds still hold: any 21-45 DTE entry spans the print, and both names fail IV sanity on the honest ex-gap read (QQQ 0.9027 raw / 1.1697 ex-gap, SPY 1.0378 raw / 1.2324 ex-gap). I am not deviating from it and have no argument to."
+        }
+      ],
+      "why_flat": "Nothing cleared a gate, and every exclusion was measured this run rather than inherited. TACTICAL had one real candidate -- a completed close above a genuine structural level -- and it failed on magnitude, on the hold clause, and on the corrected volume baseline, independently. CORE was hunted rather than cited: the standing post-print plan covers index and mega-cap tech, so the fresh equity report was screened for something outside it, and the single non-correlated name was quoted and failed both the liquidity gate and the cost ceiling at once. Zero entries used of 8; loss cap untouched at $0.00 of -$400; all five slots still free.",
+      "note": "The corrected tactical filter (local volume baseline + strict two-bar price clause + structural-level-only triggers, all set 2026-08-25) got its FIRST live candidate today and vetoed it cleanly on three separable grounds. Honest scope, matching the original audit: this changed no decision, and one clean veto is not evidence the filter is selective rather than merely restrictive -- it has still never confirmed a trade. The test that would settle it is a candidate that CLEARS all three clauses."
     }
   ],
   "updated_utc": "2026-08-25T18:20:00Z"
