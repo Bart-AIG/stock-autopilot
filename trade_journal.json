@@ -20362,6 +20362,31 @@
       "grades_considered": "NONE, and that is correct rather than lazy: the market is closed, so no trigger can fire and no order can be placed. The forward setup for the 2026-08-26 session is already written into holdings.json._FORWARD_2026-08-26 by the 20:25Z run and needs no restatement here.",
       "tomorrow_watchpoints": "NVDA reports after the close on 2026-08-26 (verified via get_earnings_calendar on 2026-08-25). Two consequences the first post-open run must carry: (a) any CORE 21-45 DTE entry would span the print, which the exit engine says to close before rather than open into; (b) the four-session NVDA IV ramp measured 2026-08-25 (+1.88 vol points on falling spot, ratio 1.1057 raw / 1.2459 ex-gap, the richest readings on file at n=11) means long single-name premium into this print is bought at the desk's record relative level. QQQ's 20-day SMA continues rolling UP at ~+1.21/day as the late-July crash closes leave the window -- so any level quoted from the 2026-08-25 session is stale by construction and must be re-derived off the last closed daily bars before it gates anything.",
       "cadence_note": "This entry is run_type='post_close_overnight' and must NOT be counted in any market-hours cadence or rate computation. Only scheduler-fired market-hours types count toward the trigger-health rate check."
+    },
+    {
+      "run_utc": "2026-08-26T06:45:00Z",
+      "run_local_et": "02:45 ET Wednesday 2026-08-26 -- 645 minutes after the 16:00 ET bell of the 2026-08-25 session. ELEVENTH post-close run of the 2026-08-25 trading day.",
+      "trading_day_et": "2026-08-25",
+      "run_type": "post_close_overnight",
+      "fire_payload": "scheduled options check (routine native hourly backstop). Scheduler-fired; counts toward cadence.",
+      "market_state": "CLOSED. No entry or exit is placeable. Next open 2026-08-26T13:30Z (6h45m away).",
+      "account": "718757339",
+      "session_note": "STAND-DOWN under the POST-CLOSE RUN PROTOCOL. Eleventh firing of a trading day whose every duty was discharged before 20:25Z: heartbeat stamped 13:40Z, market_brief rebuilt, daily_options_report.md written by the 19:20Z run (PR #666), session keys compacted into _FORWARD_2026-08-26 with the durable lessons promoted to CLAUDE.md by the 20:25Z run. Did the one check the protocol says always repeats -- broker reconciliation -- found zero drift, and stopped. No extended-hours quote re-polled, no regime re-derived, no research task invented to justify the firing. That invention IS the failure mode the protocol names.",
+      "reconciliation": "ZERO DRIFT, matching the 03:19Z / 04:19Z / 05:24Z reads to the cent. get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed=true, unsettled_funds 0.0000. get_option_positions(nonzero): exactly ONE contract -- SPY 2026-11-20 700P, qty 1.0000 @ average_price 749.00, opened 2026-08-06T14:21:56Z, every pending_* field 0.0000 (buy, sell, exercise, assignment, expiration), so no overnight event touched the book. get_portfolio: total_value 4075.8498755, cash 3023.56, options_value 610, equity_value 442.29 (PNC 1.825758sh), buying_power 3023.5600 == unleveraged_buying_power 3023.5600 -- no borrowed funds extended, FOUR LAWS #4 satisfied with the smaller-is-the-budget test trivially met.",
+      "positions": [
+        {
+          "symbol": "SPY",
+          "contract": "2026-11-20 700P",
+          "track": "hedge",
+          "verdict": "working -- untouched, and untouchable tonight",
+          "note": "The authorized defensive hedge. EXEMPT from all premium backstops per the ownership gate; held to its ~21-DTE roll/close decision WITH Ryan. At 86 DTE that decision is far off. Mark 610 vs 749 basis is not a sell signal on insurance -- it is the cost of carrying it through a tape that did not break."
+        }
+      ],
+      "capital": "Deployable 3023.56 - 250 reserve = 2773.56. Zero agentic non-hedge premium at risk. All five slots (2 TACTICAL / 3 CORE) open. Realized options P/L today 0.00 against the -400 cap. Entries used 0 of 8.",
+      "hunt": "NOT CONDUCTED, correctly. Market closed: no intraday level can break, no chain quotes anything actionable, and every TACTICAL trigger is by definition a live-tape event. Overnight prints are not a hunting ground.",
+      "daily_artifacts": "NONE ROLLED FORWARD. It is 02:45 ET on 2026-08-26 but the trading day is still 2026-08-25 -- the UTC calendar has advanced, the trading day has not. Heartbeat NOT stamped (only a run at/after 09:30 ET on 2026-08-26 may stamp it; pre-stamping would pre-satisfy the dead-man for a session that has not begun). market_brief NOT rebuilt. Loss cap and entry throttle NOT reset.",
+      "next_run_note": "The first run at/after 13:30Z owns: stamp the heartbeat for 2026-08-26, rebuild market_brief, and read _FORWARD_2026-08-26 in holdings.json before hunting. Today's dominant catalyst is the NVDA print AFTER the bell -- see the iv_history finding in CLAUDE.md: NVDA ATM IV ramped monotonically four sessions (0.4032 -> 0.4108, +4.8%) while spot FELL 217.17 -> 211.77, which is event-premium accumulation, not directional repricing, and the ramp is NVDA-specific (QQQ and SPY ratios flat over the same stretch). Long single-name premium bought into that ramp is bought at the richest relative level on record into the event that mechanically crushes it.",
+      "decision": "NO ACTION. Nothing was placeable, nothing had changed, and a no-op logged in a few lines is the correct output of the eleventh redundant firing."
     }
   ],
   "updated_utc": "2026-08-25T18:20:00Z"
