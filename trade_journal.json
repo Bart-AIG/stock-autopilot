@@ -20864,6 +20864,45 @@
         "a_trigger_keyed_to_the_prior_day_close_stops_discriminating_on_a_day_price_straddles_it": "Worth recording before a future run treats today's near-misses as meaningful. QQQ's completed 5-minute closes crossed the 710.72 prior-day close FOUR times before 14:10Z (below at 13:30/13:35, above 13:40, below 13:45, above 13:50-14:05, below since), and price has spent the last fourteen bars inside 709.09-710.71, i.e. hugging just under it. A 'close above the prior close' clause on such a day fires on the morning drift and then goes silent while price oscillates a penny beneath it -- it is measuring the tape's noise amplitude, not a decision. The prior close IS a structural level, which is why it was correctly chosen over a desk-drawn box; the point is narrower and still real: STRUCTURAL IS NECESSARY, NOT SUFFICIENT. A structural level that today's price has already closed on both sides of several times has no remaining information in it, and the 0.010 near-miss at 15:05Z should be read as chop touching a magnet, not as a setup one tick from triggering."
       },
       "governance": "HARD RULE 9 observed in full: this is a scheduler-fired unattended run, it claims no Ryan turn, quotes no approval, and clears no flag. Prompt v6 was the invoking prompt (line-1 version stamp present) -- per the 2026-08-26 CLOSED note, the stamp outranks CLAUDE.md's description of the prompt, so the tactical band is $300-1,000 and the stale-prompt conflict is NOT reported. No spread was armed or legged (agentic multi-leg is unsupported; review is a false green). No margin: deployment measured against unleveraged_buying_power. Daily report not yet due -- the 14:15 CT / 19:15Z threshold is 3h45m away; _eod_report_written is unset for today and the first run at or after 19:15Z owns it, with the post-close fallback behind it."
+    },
+    {
+      "run_utc": "2026-08-26T15:45:00Z",
+      "run_type": "market_hours_regular",
+      "prompt_version": "v6 (line-1 stamp present in this run's invocation)",
+      "regime": "Pre-event holding pattern, fifth consecutive hour, into NVDA's after-the-bell print. QQQ 710.930 +0.030% and SPY 766.055 +0.019% -- both a rounding error from flat after a session spent inside a 3.76-point band. NVDA 211.220 -0.859% fading into its own report; AMD +1.231% and MSFT +0.698% the only green core names; TSLA -1.816%, GLD -1.313%, SMH -0.049%. No leadership in either direction.",
+      "reconciliation": "ZERO DRIFT. get_option_positions(nonzero) returns exactly one contract -- SPY 2026-11-20 700P, quantity 1.0000 @ 749.0000, all pending_* fields 0.0000 -- matching holdings.json one-for-one. Lot invariant asserted in code and PASSED (1 x 7.49 x 100 == 749.00 == max_loss). get_accounts confirms 718757339 limited_margin / option_level_3 / agentic_allowed. get_portfolio total $4,075.26 = equity $448.70 / options $603.00 / cash $3,023.56; unleveraged_buying_power $3,023.56 EQUALS buying_power, so no margin extended.",
+      "position_verdicts": [
+        {
+          "position": "SPY 2026-11-20 700P x1 (agentic, authorized defensive hedge)",
+          "verdict": "WORKING -- hold, no action, no notification",
+          "detail": "Mark 6.03 (from broker options_value $603), entry 7.49, P/L -$146.00 / -19.49%, 86 DTE. EXEMPT from all premium backstops as insurance; the drawdown is not a trigger. Next decision is the ~21-DTE roll/close review WITH Ryan (~2026-10-30). No exit condition fired or un-fired, so the monitoring-mandate dedupe clause requires silence."
+        }
+      ],
+      "grades_considered": [
+        {
+          "track": "TACTICAL",
+          "candidate": "QQQ long call on the bullish reclaim of the prior-day close 710.72",
+          "grade": "C+",
+          "trigger_state": "FIRED on both mechanical halves -- the session's first clean bullish fire",
+          "why_skipped": "The fire is real and is recorded as one: the 15:40-15:44Z bucket closed 711.030, +0.310 above the live-confirmed prior-day close 710.72, on 98,957 shares (read B; read A 100,833) against a settled baseline of 66,144 = 149.6%. Declined on six grounds. (1) THE CONFIRMATION IS HOLLOW -- the candidate bar sits BELOW every earlier baseline of the same session: 80.1% of 123,470 (13:45-14:14), 84.8% of 116,660 (14:05-14:34), 83.9% of the 117,990 that today's 15:00Z fire cleared at 209.6%, and 39.8% of the actual 14:25Z flush bucket of 248,511. The identical absolute volume would have FAILED this clause two hours ago; it passes now only because the denominator halved into the pre-event vacuum. (2) FOLLOW-THROUGH REVERTED IMMEDIATELY -- the three minutes after the candidate bar printed 13,625/min = 103% of baseline with price flat and the 711.1799 high given back to 710.9175, reproducing the air-pocket diagnostic this desk wrote at 15:00Z today about a fire that cleared at 209.6% and went nowhere inside 30 minutes. (3) MAGNITUDE +0.310 = 0.044%, less than half the 0.106% break declined on 2026-08-25. (4) THE LEVEL IS MID-CHOP, NOT AN EDGE: session range 707.970-711.7300 with price oscillating within half a point of 710.72 for over two hours (the 15:05Z bucket closed 710.710, short by 0.010). (5) BOTH MOVING AVERAGES OVERHEAD AND UNTOUCHED -- 20-day 712.1600, 50-day 713.0132, spot 1.98 under the 50-day, session high 712.200 still 0.813 short; the 13:52Z structural work designated the 50-day as THE bullish reclaim. (6) IV SANITY FAILS on the honest ex-gap read, QQQ IV/RV 1.1697, and there is no catalyst answering 'why NOW'. The standing 15:15Z plan also states both triggers are 'for tomorrow's tape' and 'NEITHER IS ARMED INTO TONIGHT'S PRINT' -- honoured, not overridden; I reach the same verdict on the merits independently."
+        },
+        {
+          "track": "TACTICAL",
+          "candidate": "QQQ bearish failed-retest below the session low 707.970",
+          "grade": "C",
+          "why_skipped": "Not close. Lowest completed 5-minute close of the session remains 708.525 (14:25Z) and price sits ~2.9 points above the low."
+        },
+        {
+          "track": "CORE",
+          "candidate": "any 21-45 DTE entry",
+          "grade": "C",
+          "why_skipped": "Barred on two independent grounds, unchanged from the 13:50Z run and re-affirmed rather than re-derived: every 21-45 DTE board spans tonight's NVDA print, and BOTH index names fail IV sanity on the honest ex-gap read (QQQ 0.9027 raw / 1.1697 ex-gap; SPY 1.0378 raw / 1.2324 ex-gap). NVDA's own event premium peaked into the print at 0.4144 ATM IV, the fifth consecutive monotonic session and the highest IV/RV in iv_history at n=12. No fifth candidate was manufactured to fill a slot."
+        }
+      ],
+      "actions_taken": "NONE. No entry, no exit, no modification. Entries used 0 of 8 today, 0 of 2 this run.",
+      "durable_finding": "A TRAILING-LOCAL VOLUME BASELINE INVERTS IN A DECAYING TAPE -- the confirmation clause gets EASIER exactly where it should get harder. The 2026-08-25 calibration rule rightly replaced a session-average denominator with a trailing-local one because the opening hour made midday fires impossible; nobody checked the other end. A trailing-local mean tracks a draining tape downward, so in a pre-event vacuum the clause stops asking 'did participation arrive' and starts asking 'is this bar busier than the vacuum', which any drift toward normal satisfies. Measured today: 149.6% against the current baseline, 80-85% against the same session's earlier ones. The 15:30Z run predicted the opposite -- that a clean price fire would fail on volume and that a volume-confirmed break would be 'far more informative than usual' -- and was refuted fifteen minutes later. DETECTOR: report absolute volume alongside the ratio and require BOTH at-or-above the trailing local mean AND not materially below the session's own established bucket rate. Written to holdings.json _SESSION_2026-08-26.durable_findings and promoted to CLAUDE.md this run.",
+      "why_flat": "The one trigger that fired did so on a hollow denominator and reverted within three minutes, and it fails on magnitude, structure, IV and catalyst besides. Declining a mechanically-clean fire is the filter working, not the desk hesitating -- but the useful output of this run is the measurement of WHY it was hollow, not the decline itself.",
+      "governance": "HARD RULE 9 intact: no Ryan approval claimed or quoted; no flag cleared. FOUR LAWS untouched -- nothing deployed, no margin used, loss cap unengaged at $0.00 of -$400. Ownership gate: the sole position is the agentic hedge, backstop-exempt, ask-first at its 21-DTE review. Prompt v6 confirmed live from this run's own line-1 version stamp."
     }
   ],
   "updated_utc": "2026-08-25T18:20:00Z"
