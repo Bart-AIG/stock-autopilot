@@ -1,82 +1,101 @@
 {
  "_comment": "Daily market brief for the options automation. Built by the first post-open run of each TRADING day (ET), never by a post-close/pre-open firing. Refresh intraday only on a genuine shock (VIX +15%, an index breaking a listed level, a major headline).",
- "date": "2026-08-25",
- "built_utc": "2026-08-25T13:42:00Z",
- "built_by": "First post-open run of the 2026-08-25 trading day (13:34Z invoke). Quotes stamped 13:35-13:39Z, deliberately clear of the 13:30Z opening-auction print per the CLAUDE.md re-quote rule.",
+ "date": "2026-08-26",
+ "built_utc": "2026-08-26T13:50:00Z",
+ "built_by": "First post-open run of the 2026-08-26 trading day (13:42Z invoke). Quotes stamped 13:42-13:46Z, deliberately clear of the 13:30Z opening-auction print per the CLAUDE.md re-quote rule. Eighteen pre-open stand-downs preceded this run.",
  "regime": {
-  "label": "RISK-ON, SEMI-LED -- and it is a CLEAN INVERSION of Monday's tape, not a continuation of anything.",
-  "measured_13_35Z_vs_2026_08_24_close": {
-   "SPY": "766.56 vs 763.47 = +0.40%",
-   "QQQ": "712.88 vs 706.32 = +0.93%",
-   "NVDA": "211.77 vs 208.48 = +1.58%",
-   "AMD": "476.65 vs 456.745 = +4.36% (day's leader)",
-   "SMH": "559.06 vs 546.80 = +2.24%",
-   "TSM": "417.64 vs 410.12 = +1.83%",
-   "AVGO": "362.79 vs 358.76 = +1.12%",
-   "TSLA": "349.29 vs 348.95 = +0.10% (did not participate)",
-   "MSFT": "484.47 vs 487.31 = -0.58% -- the ONLY red core name."
+  "label": "MIXED / TWO-SIDED CHOP, PRE-EVENT -- and it is a PARTIAL GIVE-BACK of Tuesday's semi-led risk-on, not a continuation.",
+  "measured_13_42Z_vs_2026_08_25_close": {
+   "SPY": "765.635 vs 765.91 = -0.04%",
+   "QQQ": "709.97 vs 710.72 = -0.11%",
+   "NVDA": "211.995 vs 213.05 = -0.50% -- FADING INTO ITS OWN PRINT",
+   "AMD": "485.785 vs 479.18 = +1.38% (day's leader again)",
+   "SMH": "555.30 vs 555.82 = -0.09%",
+   "TSM": "418.41 vs 417.41 = +0.24%",
+   "AVGO": "356.91 vs 356.74 = +0.05%",
+   "MSFT": "494.65 vs 491.71 = +0.60% -- flipped from Tuesday's only red name to a leader",
+   "TSLA": "347.07 vs 350.25 = -0.91%"
   },
-  "the_inversion_is_the_story": "Monday's _CLOSING_STRUCTURE asked exactly one forward question: 'whether the MSFT-up / semis-down divergence persists or resolves.' It did neither -- it INVERTED. Every semi that led Monday's decline leads today's advance (AMD -3.40% -> +4.36%, TSM -1.94% -> +1.83%, NVDA -2.48% -> +1.58%), and MSFT, Monday's sole green name at +1.14%, is today's sole red one. A divergence that flips sign in one session on a scheduled-catalyst setup is POSITIONING, not a change in trend. Do not read it as either thesis being confirmed.",
-  "breadth_caveat": "QQQ +0.93% against SPY +0.40% is a 2.3x divergence sourced almost entirely from semis. This is a rotation INTO the AI complex ahead of a known event, not a broad index bid -- the same narrowness as Monday, pointed the other way."
+  "the_read": "This is NOT Tuesday's clean semi-led risk-on repeating. The complex has SPLIT: AMD +1.38% and TSM +0.24% are up while NVDA -0.50% and SMH -0.09% are down, so the index-weight leaders are the ones being sold. A tape that buys the second-tier semis and sells the one that reports tonight is not expressing a view on semiconductors -- it is DE-RISKING THE EVENT while staying long the theme. MSFT and AMD leading with NVDA and TSLA red is rotation inside a flat index, which is the textbook signature of a market waiting rather than deciding.",
+  "regime_label_staleness_check": "Applied per the CLAUDE.md rule set 2026-08-25: Tuesday's label was RISK-ON, SEMI-LED, stamped 13:42Z. Its FINAL HOUR withdrew that leadership in reverse-beta order (NVDA -0.656%, SMH -0.307%, AMD -0.210%, QQQ -0.145%, SPY -0.084%) even though every name closed green on the day. Today's open CONFIRMS the give-back rather than the headline: QQQ and SPY opened slightly red and NVDA extended its fade. So the inherited risk-on label is correctly NOT carried forward. This is the rule paying for itself on the first session after it was written.",
+  "index_divergence": "QQQ -0.11% vs SPY -0.04% -- the same Nasdaq-underperforms-SPY pattern logged on 2026-08-24, but MUCH narrower (0.07pp today vs 0.56pp then). Not a de-rating; just drift."
  },
  "key_levels": {
-  "QQQ_50d_sma": {
-   "value": 713.2256,
-   "as_of_bar": "2026-08-24 (last closed daily bar)",
-   "verification": "Independently recomputed this run via get_equity_technical_indicators(sma, period=50, interval=day): 8/20 713.0466, 8/21 713.4416, 8/24 713.2256. RE-MEASURE DAILY off the last closed bar; do NOT extrapolate a drift -- the value has fallen two sessions running.",
-   "status_now": "QQQ 712.88 live sits 0.35 BELOW it. The opening 5-min bar (13:30-13:35Z) ran 711.23 -> high 713.13 -> close 713.125 on 515,800 shares: it reached within 0.10 of the 50-day and has not cleared it. THIS IS THE RETEST HAPPENING, NOT ITS RESOLUTION."
+  "_method_note": "BOTH the 20- and 50-day SMA computed off the last 55 CLOSED daily bars before drawing any level, per the CLAUDE.md rule set 2026-08-25 (a box that keeps producing failed breaks is usually a moving average nobody measured). Computed in code from get_equity_historicals daily closes through the 2026-08-25 close.",
+  "QQQ": {
+   "spot_13_42Z": 709.97,
+   "sma_20d": 712.16,
+   "sma_50d": 713.0132,
+   "position": "BELOW BOTH. Spot is 2.19 under the 20-day and 3.04 under the 50-day.",
+   "THE_COMPRESSION": "The 20-day and 50-day are now just 0.85 POINTS APART (712.1600 vs 713.0132) and CONVERGING. Price sits below both. That is a genuine structural feature and it is the level stack that matters today -- not any box drawn around recent bars.",
+   "50d_is_falling": "713.4416 (8/21) -> 713.2256 (8/24) -> 713.0132 (8/25). Third consecutive decline. RE-MEASURE DAILY.",
+   "session_range_so_far": "Opened 708.41, high 710.955 (13:30-13:35Z bar), low 708.41. Nothing broken in either direction."
   },
-  "QQQ_recent_daily_structure": "8/17 729.87 -> 8/18 717.51 -> 8/19 716.08 -> 8/20 710.93 -> 8/21 713.44 -> 8/24 706.32 -> today gapping back to ~713. Six sessions of stair-step decline with two failed bounces; today is the third attempt and the first to reach the 50-day.",
-  "SPY": "766.56, above Monday's 763.47 close and clear of the 20d/50d support shelf (748.5 / 746.4 from the defensive-posture stack). No SPY level is in play today.",
-  "hedge_reference": "SPY 2026-11-20 700P strike sits ~8.7% below spot; the defensive-posture stack it hedges (July-low shelf 716.6, rising 200d 702.0) is far away and untouched.",
-  "QQQ_triple_rejection_measured_13_46Z_by_the_sibling_run": "THREE consecutive 5-minute bars were turned away at effectively one price: highs 713.10 (13:30Z), 713.11 (13:35Z), 713.09 (13:40Z) -- a 0.02 spread across three touches, each ~0.13 BELOW the 50-day at 713.2256 -- on monotonically declining volume (514,218 -> 292,505 -> 220,272). Closes 713.10 / 711.665 / 712.525. A triple rejection to the penny is better evidence than a double, and it is recorded as such. IT FIRES NOTHING: the session low is 710.80, so no completed 5-minute close under 710 exists, and no close above 713.2256 exists either -- the coil is tightening, not breaking. Note also that the first bar's high REVISED from 713.13 to 713.10 between two reads twelve minutes apart. Early intraday bars settle, which is exactly why the trigger is written on a completed CLOSE rather than on a high, and why quoting a level off a fresh bar is not the same as confirming it."
+  "SPY": {
+   "spot_13_42Z": 765.635,
+   "sma_20d": 764.7985,
+   "sma_50d": 752.747,
+   "position": "ABOVE BOTH -- 0.84 over the 20-day and 12.89 over the 50-day. SPY's trend structure is intact and unthreatened; QQQ's is not. That divergence is the honest state of the tape."
+  },
+  "MA_ROLL_OFF_WARNING_READ_THIS_BEFORE_TRUSTING_ANY_QQQ_CROSS": {
+   "finding": "A BULLISH 20/50 CROSS ON QQQ IS MECHANICALLY ARRIVING WITHIN ABOUT ONE SESSION AND IT WILL BE A WINDOW ARTIFACT, NOT NEW DEMAND. Computed per the CLAUDE.md MA roll-off rule (compute what LEAVES the window, not just today's value).",
+   "the_arithmetic": "The 20-day window is dropping the crash closes one per night: 661.73 leaves tonight, then 683.55, 687.99, 700.07. With QQQ merely FLAT near 710 the 20-day rises about +2.4/day (661.73 -> ~710 is +48.27, /20). The 50-day is dropping 744.00, 729.86, 722.51, 740.62 and therefore FALLS about -0.7/day. They are 0.85 apart and closing at ~3.1/day, so they cross on roughly the next session REGARDLESS OF PRICE.",
+   "what_it_means": "Any 'QQQ golden cross' headline or signal on 2026-08-27 or 2026-08-28 carries ZERO information about demand -- it is the July crash leaving a 20-bar window. Do not treat it as a confirming technical, and do not let a later run rediscover it as bullish evidence.",
+   "the_scope_limit_stated_honestly": "This does NOT invalidate the 20-day as an INTRADAY level. A daily SMA is static during the session -- it only updates at the close -- so 712.1600 is a legitimate fixed reference for a same-session TACTICAL trade today. The roll-off matters for any MULTI-DAY hold, where the level would move ~2.4/day against a target the trade needs, and for any run tempted to read tomorrow's cross as a signal."
+  }
  },
  "catalysts_next_5_sessions": {
-  "DOMINANT -- NVDA Q2 FY2027 earnings, 2026-08-26 AFTER THE CLOSE (verified via get_earnings_calendar, report.verified=true, EPS est 2.09)": "This is the single governing fact of the week and it gates entries in BOTH directions. NVDA is the largest weight in QQQ/SMH, its ATM IV is 41.08% against QQQ's 19.55%, and the entire semi complex is trading as a proxy for the print. Any CORE position (DTE 21-45) opened now HOLDS THROUGH IT.",
-  "Also 2026-08-26 PM": "CRM, CRWD, SNPS, HPQ, NTNX, OKTA, VEEV -- a heavy software tape the same evening.",
-  "2026-08-27 PM": "MRVL (semis), ADSK, WDAY, AFRM, ESTC, RBRK (a name this desk traded on 2026-08-24), IREN, DELL-adjacent names.",
-  "Macro": "Fed annual symposium in progress and a key inflation print due this week; 10-year Treasury yield 4.658% and FALLING, which is a live tailwind under today's advance and the most durable non-earnings driver on the tape.",
-  "2026-08-25 PM": "INTU, ZM, BOX, HEI -- none are core-list names."
+  "DOMINANT -- NVDA Q2 FY2027 earnings, TONIGHT 2026-08-26 AFTER THE CLOSE": "Broker-verified via get_earnings_calendar on 2026-08-25 (report.date 2026-08-26, timing 'pm', verified=true, EPS est 2.09). This is the single governing fact of the session. NVDA is the largest weight in QQQ/SMH and the whole complex is trading as a proxy. Any CORE position (DTE 21-45) opened today is held THROUGH it.",
+  "Also tonight 2026-08-26 PM": "CRM, CRWD, SNPS, HPQ, NTNX, OKTA, VEEV, A, URBN -- a heavy software tape the same evening.",
+  "2026-08-27 AM": "DG, DLTR, BBY, BURL, TD, RY, CM.",
+  "2026-08-27 PM": "MRVL (semis), ULTA, ADSK, WDAY, RBRK, AFRM, ESTC, IREN, S, GAP.",
+  "2026-08-28": "Shipping and China banks only -- no US mega-cap. THE EVENT WINDOW CLOSES THURSDAY NIGHT.",
+  "implication": "The CORE track re-opens for index and mega-cap tech from 2026-08-27, once tonight's print is out and the IV crush has happened. Runs on 08-27 must hunt CORE properly rather than citing an expired block."
  },
  "watchlist": {
   "_ordering_note": "Sourced liquidity-FIRST per the 2026-08-14 SOURCING fix: genuinely liquid chains before the equity report's mid-cap screen.",
   "TACTICAL_candidates": {
    "QQQ": {
-    "level": "The 50-day at 713.2256, being retested from below RIGHT NOW.",
-    "vehicles_PRE-PRICED_this_run_13_37Z": {
-     "upside QQQ 2026-09-04 715C": "bid 8.35 / ask 8.44, mid 8.395, spread 1.07% of mid, delta 0.472, OI 4,919, vol 404, IV 19.65%, theta -0.489/day. COST $839.50 -- IN-BAND under Ryan's widened $300-1,000 tactical band. Breakeven 723.40.",
-     "downside QQQ 2026-09-04 710P": "bid 8.02 / ask 8.11, mid 8.065, spread 1.12% of mid, delta -0.445, OI 3,117, IV 19.90%, theta -0.425/day. COST $806.50 -- IN-BAND. Breakeven 701.93."
-    },
-    "note": "BOTH vehicles clear the strict 3%-of-mid tactical gate with room and both fit the band. This is the direct, measurable payoff of Ryan's 2026-08-24 widening: on Monday the identical QQQ vehicles ($788 / $911.50) were EXCLUDED on the old $300-600 ceiling and the track was SPY-only. It is no longer SPY-only."
+    "level": "The 20-day at 712.1600 and the 50-day at 713.0132, converged 0.85 apart and BOTH OVERHEAD (spot 709.97).",
+    "why_it_is_the_cleanest_structure_available": "Two independently-derived structural levels sitting on top of each other, with price beneath, is a far better trigger reference than the self-drawn micro-ranges that produced four failed breaks on 2026-08-25. A reclaim of 713.02 or a rejection from it is a real event.",
+    "status": "UNFIRED. Neither level touched today; session high 710.955."
    },
    "SPY": {
-    "level": "None in play. SPY is mid-range and above all near support; there is no level to break.",
-    "vehicle": "n/a"
+    "level": "20-day 764.7985, spot 765.635 -- price sits just 0.84 above it.",
+    "status": "UNFIRED and, more importantly, uninteresting: a 0.11% distance is noise, not a level."
    },
    "NVDA": {
-    "level": "Trading 211.77 into its own print.",
-    "verdict": "EXCLUDED as a vehicle in either direction -- see constraints_today."
+    "status": "EXCLUDED ON THE EVENT, NOT THE CHART. Reports tonight. Any tactical scalp would be a coin-flip on a number this desk has no edge on, priced at the richest IV on record. See the IV note."
    }
   },
   "CORE_candidates": {
-   "_blanket_constraint": "EVERY core candidate is gated today by the NVDA print. See constraints_today.core_track_closed.",
-   "QQQ_downside (_CORE_WATCH, carried forward)": "Thesis intact on the daily structure (six sessions of lower closes, price below the 50-day) but the trigger is UNFIRED and today's tape is going the other way. Not actionable.",
-   "AMD": "Cheapest premium on the core list (0.738 raw / 0.895 ex-gap, the only name sub-1.0 on BOTH readings). Parked, not rejected: it is a semi into NVDA's print. Revisit 8/27 once the event has cleared.",
-   "AVGO / NVDA / TSM": "Premium rich (AVGO 1.152/1.404 is the richest on the board). Wrong side of the vol trade for a long-premium desk."
+   "status": "NONE TODAY. See constraints_today.core_track_closed -- barred on TWO independent grounds this session.",
+   "equity_report_note": "latest_morning.md on master is stamped 2026-08-25 14:02 UTC -- YESTERDAY's report, not today's. Not a DATA ERROR, simply not yet refreshed for this session. Its only portfolio line is PNC HOLD (thesis-watch). No fresh RSI2 signal was available to source from, and the twice-measured finding stands that this screen's names quote at 12.6-52% of mid on their option chains and are effectively untradeable for this sleeve at this account size."
   }
  },
  "constraints_today": {
-  "core_track_closed": "NO CORE ENTRY IS AVAILABLE TODAY, IN EITHER DIRECTION, AND THIS IS THE DAY'S GOVERNING CONSTRAINT. The CORE track requires DTE 21-45; the nearest qualifying board is 2026-09-25 at 31 DTE. Any such position is opened TODAY and held THROUGH the NVDA print tomorrow after the close. The 2026-08-05 exit engine says to CLOSE before earnings unless earnings IS the thesis -- opening into one inverts the rule. Earnings is emphatically not this desk's thesis: it has no edge on NVDA's number, and NVDA's own 41.08% IV shows the market is charging full freight for that uncertainty. This is a clean, unforced decline on a written rule, not an absence of ideas.",
-  "tactical_track_open_but_unfired": "The TACTICAL track is genuinely available -- its hard time stop (flat by the close of the NEXT session, 2026-08-26 16:00 ET) lands BEFORE NVDA reports that evening, so a scalp does not straddle the print. Both vehicles are priced, liquid and in-band. What is missing is the only thing that matters: a level actually breaking. QQQ is pinned 0.35 under its 50-day, neither reclaimed nor rejected.",
-  "vol_context": "Index premium is NOT cheap. QQQ's headline 0.899 IV/RV ratio inverts to 1.154 once the two largest days are stripped -- so the 'buy cheap index vol' argument for taking the break is an artifact, not an edge.",
-  "capital": "unleveraged_buying_power $3,023.56 == buying_power (no margin extended). Deployable after the $250 reserve: $2,773.56. ALL FIVE agentic slots free (2 tactical / 3 core); the SPY hedge is excluded from the count. Loss cap a fresh $0.00 of -$400. Entries 0 of 8. NOTHING IS SCARCE -- capital, slots and throttle are all wide open, and the only missing ingredient is a setup."
+  "core_track_closed": {
+   "verdict": "NO CORE ENTRY IS AVAILABLE TODAY, IN EITHER DIRECTION, ON TWO INDEPENDENT GROUNDS. Either alone would be enough.",
+   "ground_1_the_earnings_rule": "CORE requires DTE 21-45. The nearest qualifying board is 2026-09-25 at 30 DTE. Any such position is opened today and held THROUGH tonight's NVDA print. The 2026-08-05 exit engine says CLOSE before earnings unless earnings IS the thesis -- opening into one inverts the rule. Earnings is emphatically not this desk's thesis.",
+   "ground_2_IV_SANITY_MEASURED_AND_THIS_IS_THE_NEW_ONE": "BOTH index names FAIL IV sanity on the honest ex-gap read, so even with the earnings rule set aside there is nothing to buy. QQQ IV/RV 0.9027 raw but 1.1697 EX-GAP; SPY 1.0378 raw and 1.2324 EX-GAP. The cheap-looking raw ratios are the documented post-earnings-gap artifact -- QQQ's 30-day realized-vol window still contains a 3.34% day and SPY's a 1.79% day. Read as a pair, index premium is priced FAIRLY TO RICHLY, not cheaply. A run quoting only the raw 0.9027 would have concluded QQQ vol was on sale."
+  },
+  "tactical_track": {
+   "verdict": "OPEN IN PRINCIPLE, BUT NO TRIGGER HAS FIRED AND AT 13:42Z NONE WAS EVEN MEASURABLE.",
+   "the_measurability_point": "Only TWO completed 5-minute bars existed at run time (13:30 and 13:35). The confirmation clause requires volume at or above the TRAILING 30-60 MINUTE mean -- that baseline does not exist 12 minutes into a session. Testing a trigger against the opening bar is precisely the 53%-first-hour-decay artifact documented 2026-08-25. The honest output is that the trigger is UNTESTABLE this early, not that it failed.",
+   "SAME_SESSION_ONLY_RULE_IN_FORCE": "Per _FORWARD_2026-08-26 in holdings.json, any TACTICAL scalp opened TODAY must be flat by TODAY's 20:00Z close -- no one-session extension. The normal 'flat by the next session's close' deadline would walk the position through NVDA's after-the-bell print overnight. THE TEST: if the setup is not good enough to close green intraday, it is not good enough to open Wednesday."
+  },
+  "NVDA_EVENT_PREMIUM_PEAKED": {
+   "measurement": "ATM IV on the 30-DTE board (2026-09-25, strike 210) is 0.4144 -- the FIFTH consecutive session of monotonic increase: 0.4032 (8/20), 0.4042 (8/21), 0.4093 (8/24), 0.4108 (8/25), 0.4144 (8/26). That is +3.3 vol points off the 0.3815-0.3920 flat band that held for nine sessions through 8/19.",
+   "the_ratios": "IV/RV 1.1560 raw and 1.3209 ex-gap. BOTH are the highest readings in iv_history.json for NVDA over the available series (n=12). Stated as a maximum over own history, explicitly NOT a percentile -- the IV method forbids one under 20 readings.",
+   "the_discrimination": "The ramp is NVDA-SPECIFIC, which is what makes it an event read rather than a market read. Over the same stretch QQQ's ex-gap ratio moved only 1.1450 -> 1.1536 -> 1.1697 and SPY's 1.2290 -> 1.2352 -> 1.2324, i.e. flat. One name is carrying the event.",
+   "what_it_decides": "Long NVDA premium today is bought at the richest relative level on record, hours before the print whose passing is the mechanical trigger for the crush -- and it looks most tempting precisely BECAUSE the ramp is visible. SKIP. This is the clearest single decision of the session."
+  }
  },
  "posture_carryover": {
-  "aug_oct_defensive_posture": "STANDS (Ryan, 2026-08-05; ~Nov 1 review). The SPY 2026-11-20 700P hedge is the live expression and is backstop-EXEMPT insurance. Today's risk-on tape is exactly the melt-up condition under which insurance is expected to decay -- that is the hedge working as designed, not a thesis break.",
-  "equity_cash_floor": ">=45% on the EQUITY book only (cash / (cash + equity_value)), excluding options. Today: 3023.56 / (3023.56 + 444.43) = 87.2% -- far above the floor.",
-  "no_margin_borrowing": "ABSOLUTE (Ryan, 2026-08-21). Deploy against unleveraged_buying_power only; the two fields are equal today at $3,023.56.",
-  "spreads_unexecutable": "Agentic multi-leg orders are REFUSED by the API (measured 2026-08-24) and legging is arithmetically impossible (standalone short leg demands full strike collateral). CORE is therefore single-leg-only and must clear a HIGHER bar on breakeven. A vertical worth taking gets fully specced and handed to Ryan to place in the app.",
-  "sector_steer": "Oil-related energy de-emphasized for new entries (Ryan, 2026-06-17). No energy names surfaced today."
- },
- "_union_merge_note_2026-08-25": "CONCURRENT-RUN COLLISION, resolved as a UNION per CLAUDE.md -- never by picking a side. Two runs executed the same post-open slot of 2026-08-25 independently: 13:42Z (this branch) and 13:45Z (merged to master as PR #637). The redundant trigger design (cron-job.org sub-hourly + the native hourly backstop) makes this intermittent and expected. BOTH runs did genuine, non-overlapping work and BOTH reached the SAME conclusion -- no entry, hedge held, artifacts rolled -- so this is cross-validation, not duplication. Critically, the latent danger the collision rule exists to prevent (two runs each believing they may open one entry, and both taking the same setup) did NOT materialise: neither run placed anything. This brief is the 13:45Z run's build; the 13:42Z run's independent build agreed on regime, levels and every gate, and its one unique measurement is folded into key_levels.QQQ below."
+  "aug_oct_defensive_posture": "STANDS (Ryan, 2026-08-05; ~Nov 1 review). The SPY 2026-11-20 700P hedge is the live expression and is backstop-EXEMPT insurance held to its ~21-DTE roll/close review with Ryan around 2026-10-30.",
+  "equity_cash_floor": ">=45% on the EQUITY book only (cash / (cash + equity_value)), excluding options. Today: 3023.56 / (3023.56 + 448.13) = 87.1% -- far above the floor.",
+  "no_margin_borrowing": "ABSOLUTE (Ryan, 2026-08-21). Deploy against unleveraged_buying_power only; today the two figures are EQUAL at $3,023.56, so no margin is being extended. Less the $250 reserve, deployable is $2,773.56.",
+  "tactical_band": "$300-1,000 per Ryan's REAL live turn of 2026-08-24. The stored routine prompt still says $300-600 inside THE FOUR LAWS and is STALE; his live turn outranks both documents. Only Ryan can re-paste the prompt. docs/routine-prompt-v6.md is the paste-ready fix.",
+  "spreads": "UNEXECUTABLE through the agentic API at any options level (measured 2026-08-24). Spec them for Ryan to place in the app; never arm one, never leg one."
+ }
 }
