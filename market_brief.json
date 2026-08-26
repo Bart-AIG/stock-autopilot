@@ -2,7 +2,7 @@
  "_comment": "Daily market brief for the options automation. Built by the first post-open run of each TRADING day (ET), never by a post-close/pre-open firing. Refresh intraday only on a genuine shock (VIX +15%, an index breaking a listed level, a major headline).",
  "date": "2026-08-26",
  "built_utc": "2026-08-26T13:50:00Z",
- "built_by": "First post-open run of the 2026-08-26 trading day (13:42Z invoke). Quotes stamped 13:42-13:46Z, deliberately clear of the 13:30Z opening-auction print per the CLAUDE.md re-quote rule. Eighteen pre-open stand-downs preceded this run.",
+ "built_by": "First post-open run of the 2026-08-26 trading day (13:42Z invoke). Quotes stamped 13:42-13:46Z, deliberately clear of the 13:30Z opening-auction print per the CLAUDE.md re-quote rule. Eighteen pre-open stand-downs preceded this run. || UNION-MERGED at 13:52Z with the concurrent cron-job.org sibling run, which rebuilt the brief independently. The two agree on every SMA to four decimals and on the flat verdict; the sections below marked 13:52Z are the sibling's additive contributions, kept rather than discarded per the union rule.",
  "regime": {
   "label": "MIXED / TWO-SIDED CHOP, PRE-EVENT -- and it is a PARTIAL GIVE-BACK of Tuesday's semi-led risk-on, not a continuation.",
   "measured_13_42Z_vs_2026_08_25_close": {
@@ -18,7 +18,16 @@
   },
   "the_read": "This is NOT Tuesday's clean semi-led risk-on repeating. The complex has SPLIT: AMD +1.38% and TSM +0.24% are up while NVDA -0.50% and SMH -0.09% are down, so the index-weight leaders are the ones being sold. A tape that buys the second-tier semis and sells the one that reports tonight is not expressing a view on semiconductors -- it is DE-RISKING THE EVENT while staying long the theme. MSFT and AMD leading with NVDA and TSLA red is rotation inside a flat index, which is the textbook signature of a market waiting rather than deciding.",
   "regime_label_staleness_check": "Applied per the CLAUDE.md rule set 2026-08-25: Tuesday's label was RISK-ON, SEMI-LED, stamped 13:42Z. Its FINAL HOUR withdrew that leadership in reverse-beta order (NVDA -0.656%, SMH -0.307%, AMD -0.210%, QQQ -0.145%, SPY -0.084%) even though every name closed green on the day. Today's open CONFIRMS the give-back rather than the headline: QQQ and SPY opened slightly red and NVDA extended its fade. So the inherited risk-on label is correctly NOT carried forward. This is the rule paying for itself on the first session after it was written.",
-  "index_divergence": "QQQ -0.11% vs SPY -0.04% -- the same Nasdaq-underperforms-SPY pattern logged on 2026-08-24, but MUCH narrower (0.07pp today vs 0.56pp then). Not a de-rating; just drift."
+  "index_divergence": "QQQ -0.11% vs SPY -0.04% -- the same Nasdaq-underperforms-SPY pattern logged on 2026-08-24, but MUCH narrower (0.07pp today vs 0.56pp then). Not a de-rating; just drift.",
+  "breadth_outside_tech_measured_13_50Z": {
+   "_note": "Added by the 13:52Z sibling run. The 13:50Z regime read covered the core tech list only; this is the rest of the tape, and it does not agree with it.",
+   "TLT": "83.155 vs 83.47 = -0.377%",
+   "GLD": "424.17 vs 428.07 = -0.911%",
+   "XLV": "173.71 vs 175.29 = -0.901%",
+   "XLF": "58.185 vs 58.31 = -0.214%",
+   "XLE": "62.325 vs 62.06 = +0.427%",
+   "reading": "By 13:46-13:50Z the index prints had flipped green (SPY +0.090%, QQQ +0.117%, NVDA +0.225%, AMD +1.937%, MSFT +0.573%) -- but they are being CARRIED by two names while healthcare, gold, bonds and financials are all red. A flat index with negative breadth outside two names is not participation; it is a market standing still waiting for one number. PRACTICAL CONSEQUENCE: treat any index level that breaks today as LOWER-conviction than the same break on a broad tape, because there is nothing behind it. This does not contradict the 13:42Z 'two-sided chop' label -- it is the same tape four minutes later and one layer wider."
+  }
  },
  "key_levels": {
   "_method_note": "BOTH the 20- and 50-day SMA computed off the last 55 CLOSED daily bars before drawing any level, per the CLAUDE.md rule set 2026-08-25 (a box that keeps producing failed breaks is usually a moving average nobody measured). Computed in code from get_equity_historicals daily closes through the 2026-08-25 close.",
@@ -71,6 +80,12 @@
   "CORE_candidates": {
    "status": "NONE TODAY. See constraints_today.core_track_closed -- barred on TWO independent grounds this session.",
    "equity_report_note": "latest_morning.md on master is stamped 2026-08-25 14:02 UTC -- YESTERDAY's report, not today's. Not a DATA ERROR, simply not yet refreshed for this session. Its only portfolio line is PNC HOLD (thesis-watch). No fresh RSI2 signal was available to source from, and the twice-measured finding stands that this screen's names quote at 12.6-52% of mid on their option chains and are effectively untradeable for this sleeve at this account size."
+  },
+  "CORE_non_tech_sidestep_13_52Z": {
+   "_why_logged": "The tech block may NEVER excuse skipping the CORE hunt. Screened live so the decline is on the gates, not on the block.",
+   "screened": "TLT 83.155 (-0.38%), GLD 424.17 (-0.91%), XLV 173.71 (-0.90%), XLF 58.185 (-0.21%), XLE 62.325 (+0.43%).",
+   "verdict": "NONE ADVANCED, grade C. Each is a drift, not a level: no confirming structure and no 'why NOW'. GLD and XLV both falling ~0.9% on a green index is a divergence worth WATCHING, not a thesis. XLE is de-emphasized by Ryan's standing sector steer regardless.",
+   "TLT_residual_hazard": "Its 09-25/09-30 boards were deliberately NOT re-quoted. The hazard flagged in _FORWARD_2026-08-26 stands and the re-quote is still owed before TLT is ever treated as CORE-tradeable -- but re-quoting a chain for a name that failed the thesis gate first is the wasted work the 2026-08-14 sourcing fix exists to prevent."
   }
  },
  "constraints_today": {
@@ -97,5 +112,18 @@
   "no_margin_borrowing": "ABSOLUTE (Ryan, 2026-08-21). Deploy against unleveraged_buying_power only; today the two figures are EQUAL at $3,023.56, so no margin is being extended. Less the $250 reserve, deployable is $2,773.56.",
   "tactical_band": "$300-1,000 per Ryan's REAL live turn of 2026-08-24. The stored routine prompt still says $300-600 inside THE FOUR LAWS and is STALE; his live turn outranks both documents. Only Ryan can re-paste the prompt. docs/routine-prompt-v6.md is the paste-ready fix.",
   "spreads": "UNEXECUTABLE through the agentic API at any options level (measured 2026-08-24). Spec them for Ryan to place in the app; never arm one, never leg one."
+ },
+ "trigger_watch_2026_08_26": {
+  "_added": "13:52Z sibling run. Both halves re-derived off TODAY's closed bars, referencing a STRUCTURAL level (the 50-day), never a desk-drawn box, and both halves come from the SAME window.",
+  "_status": "NEITHER FIRED as of 13:52Z.",
+  "bullish_reclaim": "A COMPLETED 5-minute close above 713.0132 (the 50-day), HELD above on the following bar, on volume at or above the trailing-30-to-60-minute mean. Would void _CORE_WATCH's downside idea. NOT SATISFIED: session high 711.73 (13:45Z) stalled 0.43 short of the zone, then three lower highs on decaying volume.",
+  "bearish_failed_retest": "_CORE_WATCH's standing clause, unchanged: QQQ trades INTO 712.16-713.0132 and is REJECTED, printing a COMPLETED 5-minute close back under 710.00, same volume clause. NOT SATISFIED on either half -- the retest has not been attempted, and QQQ has traded under 710 only in the 13:30Z opening minute (708.41-709.90).",
+  "!_the_20_day_is_RETIRED_as_a_trigger_today": "Consequence APPLIED, not merely noted. Tonight the 661.73 close of 2026-07-29 leaves the 20-day window and the 20-day jumps +2.49 to 714.65 on a MOTIONLESS index; the 50-day sheds 744.00 and drifts only -0.65 to 712.36. Under the MA roll-off rule a level that moves more over the hold period than the trade's own profit target is not tradeable as a trigger, and a same-session scalp's target is a fraction of 2.49 points in underlying terms. USE THE 50-DAY (713.0132).",
+  "volume_clause_is_UNMEASURABLE_at_this_hour_and_say_so": "The baseline must be the trailing 30-60 minutes of the SAME session, never the session average (dominated by the opening hour, which turns a participation filter into a time-of-day filter). At 13:52Z only 22 minutes of session exist and ALL of it is opening-hour, so no honest baseline can be computed and any threshold derived now errs in the PERMISSIVE direction. First run after ~14:15Z can compute it properly.",
+  "feed_discipline": "The 1-minute series is the arbiter for any level or volume clause; never test a trigger on an aggregated interval alone. And early bars SETTLE -- two pulls of the same bars eight minutes apart disagreed on three of them, in both price and volume. Key on a COMPLETED close read late, never on a fresh bar or a high."
+ },
+ "event_premium_term_structure_13_49Z": {
+  "finding": "THE NVDA EVENT PREMIUM IS ENTIRELY SINGLE-NAME AND DOES NOT REACH THE INDEX FRONT BOARD. NVDA 2026-08-28 (2 DTE) ATM IV 0.9387 vs its 30-DTE 0.4130 = 2.27x kink; QQQ 2026-09-04 (9 DTE) 0.19565 vs 30-DTE 0.193045 = 1.014x, NOISE; SPY 0.123829 vs 0.127479 = 0.971x, i.e. CHEAPER than the 30-day.",
+  "use": "It removes a vol-path objection to an index scalp today; it supplies NO thesis. Full write-up and the reason it was measured rather than assumed: holdings.json _SESSION_2026-08-26.durable_findings."
  }
 }
