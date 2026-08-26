@@ -69,6 +69,12 @@ called "v4"), so here is the settled chain:
    never pasted; v6 skips it to keep the numbering unambiguous.) The version
    stamp is the maintenance mechanism: any run can see which prompt fired, so
    a future silent prompt edit is detectable the moment it lands.
+5. **v7** (`docs/routine-prompt-v7.md`, written 2026-08-26) — **PASTE-READY,
+   awaiting Ryan.** v6 plus the Ryan-authorized LEGGING PROTOCOL, after the
+   2026-08-26 live test proved legged debit verticals executable end to end
+   (fills included) and measured all three exit paths (single-ticket close
+   400s; long-first close blocked on collateral; short-first legged close
+   works). Until pasted, v6's never-leg line binds unattended runs.
 
 ## ⚠️ Routine prompt drift — the stored prompt must be updated by RYAN when run DUTIES change (found 2026-08-11)
 
