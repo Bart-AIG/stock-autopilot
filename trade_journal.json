@@ -21245,6 +21245,80 @@
       "flag_handling": "_FLAG_UNAUTHORIZED_LEGGED_SPREAD_2026-08-26 read and LEFT ENTIRELY UNTOUCHED. Written by the 17:00Z run, which performed the one required notification. HARD RULE 9's once-per-incident clause governs: an unattended run finding the same flag in the same state takes no action on it at all -- no re-notification, no commit touching the field, no adjudication in either direction. Only Ryan or a genuinely interactive session may clear it.",
       "duties_state": "Heartbeat: already stamped 13:50:00Z, not re-stamped. Daily report: NOT due at 17:30Z -- the gate is the first run at or after 19:15Z (14:15 CT); daily_options_report.md remains unwritten for 2026-08-26 and is owned by that run, with the cadence-independent fallback that the first post-close run writes it if the bell rings without one. IV method: today's core-list rows exist and are cross-validated; a FINAL pre-print NVDA reading on the 2026-09-25 board is assigned to the last pre-bell run (~19:45Z) as a second measurement inside today's existing row, not a new row.",
       "orders_placed": "NONE. No order was placed, modified, cancelled or closed by this run."
+    },
+    {
+      "run_utc": "2026-08-26T17:45:00Z",
+      "run_local_et": "13:45 ET Wednesday 2026-08-26 -- 255 minutes after the open, 135 minutes before the bell.",
+      "trading_day_et": "2026-08-26",
+      "run_type": "market_hours_regular",
+      "prompt_version": "v6 (line-1 stamp present in this run's invocation)",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org). Scheduler-fired; counts toward cadence.",
+      "market_state": "OPEN. Quotes stamped 17:45-17:46Z, 255 minutes clear of the 13:30Z opening-auction print.",
+      "account": "718757339",
+      "headline": "FLAT, no order sent, and deliberately SHORT: the 17:30Z run already established this state and nothing material moved in fifteen minutes. The one piece of new work is a CORE screen of the core-IV list on the ex-gap ratios logged this morning, which identifies AMD as the ONLY name whose vol is genuinely cheap (ex-gap 0.8685, the sole sub-1.0 reading of eight) -- and declines it anyway, for a stated reason. Cheap vol is not a thesis.",
+      "reconciliation": "ZERO DRIFT. get_option_positions(nonzero): exactly ONE contract -- SPY 2026-11-20 700P qty 1.0000 @ average_price 749.0000, opened 2026-08-06T14:21:56Z, all six pending_* fields 0.0000 -- matching holdings.json one-for-one. Lot invariant ASSERTED IN CODE and PASSED (contracts 1 == broker qty 1.0000; 1 x 7.49 x 100 == 749.00 == max_loss). get_accounts: limited_margin / option_level_3 / agentic_allowed=true; unsettled_funds 923.8200 (instantly tradeable on limited_margin and already reflected in buying_power, so not a constraint). HEAD reset to origin/master (da75b3c) at run start, zero unmerged commits. Heartbeat already stamped 2026-08-26 at 13:50:00Z -- NOT re-stamped. market_brief.json NOT rebuilt: a tape sitting within 0.04% of unchanged is not a genuine shock. iv_history.json NOT written -- all eight core names already carry a 2026-08-26 row (SPY/QQQ/NVDA/AMD/TSM/AVGO/MSFT/TSLA), so today's IV duty is satisfied and re-measuring would only overwrite good rows with thinner ones.",
+      "tape": "STILL THE PRE-EVENT VACUUM, fifth hour. 17:45Z vs the 2026-08-25 closes: SPY 765.650 -0.034%, QQQ 710.950 +0.032% -- the two indices straddle unchanged. NVDA 210.580 -1.159% has firmed marginally off the 17:31Z low read (210.1205 / -1.375%) but remains the only core name meaningfully heavy into its own after-the-bell print; AVGO 352.800 -1.105% still tracks it. The reverse-beta leak persists for a third session and widened: AMD 484.150 +1.037% and MSFT 494.282 +0.523% green against SMH 555.170 -0.117% and the semis complex red. TSM 418.060 +0.156%.",
+      "positions": [
+        {
+          "contract": "SPY 2026-11-20 700P x1",
+          "track": "hedge",
+          "placed_agent": "agentic",
+          "verdict": "WORKING AS INSURANCE -- no action, and none is possible mechanically.",
+          "mark": 6.015,
+          "bid_ask": "6.00 x 6.03 (0.50% of mid -- the tightest chain the desk touches)",
+          "pl_usd": -147.5,
+          "pl_pct": -19.69,
+          "dte": 86,
+          "greeks": "delta -0.14795, theta -0.089188/day, vega 0.858694, IV 0.203475, OI 26,354",
+          "note": "EXEMPT from every premium backstop per the ownership gate -- it is the authorized Aug-Oct defensive-posture hedge, expected to decay in a tape that does not break. Its ~21-DTE roll/close decision (~2026-10-30) is WITH Ryan, not mechanical. Gave back ~$1.50 since 17:30Z on SPY's drift; setup_invalidation (SPY decisively above ~800 without the anticipated pullback) is nowhere near."
+        }
+      ],
+      "tactical_track": {
+        "entries": 0,
+        "verdict": "BARRED BY WRITTEN RULE, AND INDEPENDENTLY NO TRIGGER EXISTS.",
+        "detail": "The 17:19Z capstone -- promoted to CLAUDE.md this session -- bars TACTICAL breakout scalps into an unresolved scheduled catalyst, and NVDA reports after tonight's bell. That rule was earned the expensive way: five straight failed breaks across two sessions with RISING setup quality, the last of which satisfied every correction from the two-session volume-filter tuning arc (structural level, freshly re-derived clause, volume confirmed on every baseline including the inflated first hour) and failed anyway in 23 minutes. Separately there is nothing to decline: SPY -0.034% and QQQ +0.032% means neither index has displaced far enough from unchanged for any level to be breaking. No bar was measured and none needed to be."
+      },
+      "core_track": {
+        "entries": 0,
+        "verdict": "SCREENED THE FULL CORE-IV LIST ON TODAY'S EX-GAP RATIOS. ONE NAME CLEARS IV SANITY. IT IS STILL A PASS.",
+        "grades_considered": [
+          {
+            "name": "AMD",
+            "grade": "C",
+            "iv": "atm_iv 0.537187, raw IV/RV 0.7226, EX-GAP 0.8685 (dte_used 30)",
+            "reason": "THE ONLY SUB-1.0 EX-GAP READING OF THE EIGHT core names today, i.e. the single name whose premium is genuinely cheap on the honest read rather than on the post-earnings-gap artifact. Declined on THESIS, not on vehicle: (a) any 21-45 DTE CORE entry on a semiconductor spans NVDA's print tonight, so the position's first-day outcome is decided by an event the desk has no edge on and did not choose to trade -- buying AMD here is taking NVDA event risk by proxy while paying AMD carry; (b) there is no 'why NOW' independent of that print -- AMD +1.037% in a red semis tape (SMH -0.117%, NVDA -1.159%, AVGO -1.105%) is the third session of the reverse-beta leak this desk has logged, and a name rising while its complex falls is a DIVERGENCE, not a confirmation, which the trend-maturity gate treats as a skip; (c) cheap vol supplies no thesis -- that is this file's most-repeated lesson, and 'it is the only affordable/attractive vehicle left' is precisely the reasoning that produces fitted trades."
+          },
+          {
+            "name": "MSFT",
+            "grade": "C",
+            "iv": "atm_iv 0.259504, raw 0.5252, EX-GAP 1.0232",
+            "reason": "The raw 0.5252 is the textbook artifact this file documents -- one +14.42% gap dominating a 30-sample window. Ex-gap it is 1.0232, i.e. premium priced almost exactly FAIR. Fair vol plus no catalyst is not a setup. Chain quality is not the issue (the monthly-at-target-delta board is fine); there is simply nothing to express."
+          },
+          {
+            "name": "QQQ / SPY",
+            "grade": "C",
+            "iv": "QQQ raw 0.9027 / EX-GAP 1.1697; SPY raw 1.0378 / EX-GAP 1.2324",
+            "reason": "Both FAIL IV sanity on the honest ex-gap read -- long premium here is bought rich, and bought into an event whose passing is the mechanical trigger for a vol crush that hits index premium too. The cheap-looking raw ratios are the documented artifact, not an edge."
+          },
+          {
+            "name": "NVDA",
+            "grade": "PASS -- structurally excluded",
+            "iv": "atm_iv 0.414401, raw 1.1560, EX-GAP 1.3209",
+            "reason": "Fifth consecutive session of monotonic ATM-IV increase (0.4032 / 0.4042 / 0.4093 / 0.4108 / 0.4144) and the HIGHEST relative readings in iv_history.json for NVDA at n=12, on BOTH measures. Buying the event at the richest level on record, hours before the mechanical crush, is the exact trade the 2026-08-25 series-diff finding was written to prevent."
+          },
+          {
+            "name": "TSM / AVGO / TSLA",
+            "grade": "C",
+            "iv": "TSM ex-gap 1.2074, AVGO ex-gap 1.4463, TSLA ex-gap 1.1582",
+            "reason": "All rich ex-gap; AVGO the richest reading on the board. Same print exposure as AMD with none of the vol advantage."
+          }
+        ]
+      },
+      "spread_specs_for_ryan": "None this run. Nothing on the core list clears the thesis bar, so there is no vertical worth speccing -- and a spec handed over for a setup the desk would not take itself would be noise, not a deliverable.",
+      "capital": "get_portfolio 17:45Z: total_value $4,058.19 = equity $448.93 / options $602.00 / cash $3,007.26. unleveraged_buying_power $3,007.26 EQUALS buying_power -- NO margin extended (FOUR LAWS #4 satisfied). Deployable $2,757.26 after the $250 reserve. Account equity ~2x the $2,000 margin-equity minimum. Realized options P/L today -$16.00 (BROKER-CONFIRMED) against the -$400 cap; cap NOT hit, and the entire figure is the Ryan-authorized legging capability test, not a trading loss on a thesis. All five agentic slots free (2 tactical / 3 core), hedge excluded.",
+      "governance": "HARD RULE 9 observed in full: this is a scheduler-fired unattended run, so it claims no Ryan turn and clears no flag. The 17:00Z unauthorized-spread flag was RESOLVED by the genuinely interactive 17:35Z session under HARD RULE 9(a) and is recorded in holdings.json._resolved_flags -- this run leaves it untouched and does not re-notify (once-per-incident clause). Prompt v6 confirmed live by its own line-1 version stamp in this invocation; the $300-1,000 TACTICAL band is in the stored prompt, so no stale-prompt conflict remains to report. No margin borrowed, no equity touched, no spread armed, no multi-leg order attempted.",
+      "why_flat_one_line": "A written rule bars the only track with a plausible vehicle, the other track's entire universe fails IV sanity or spans an event the desk has no edge on, and the one genuinely cheap name is cheap without being a setup.",
+      "next_duty": "DAILY REPORT: the first run at or after 19:15Z (2:15 PM CT) writes daily_options_report.md. This run at 17:45Z does NOT qualify -- do not pre-write it. Cadence-independent fallback stands: if the bell rings with no report for 2026-08-26, the first post-close run writes it immediately."
     }
   ],
   "updated_utc": "2026-08-26T17:35:00Z"
