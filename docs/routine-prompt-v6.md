@@ -1,12 +1,12 @@
 # Routine prompt v6 — DUAL-TRACK, single-leg-executable (2026-08-24) — ⚠️ SUPERSEDED BY v7 (2026-08-26)
 
-**v7 (`docs/routine-prompt-v7.md`) is the current paste-ready prompt** — same
-text plus the Ryan-authorized legging protocol, after the 2026-08-26 live test
-proved legged debit verticals executable (v6's "NEVER LEG A SPREAD" line rested
-on a test that never held the long leg first). Until Ryan pastes v7, THIS v6
-text is what the routine stores and fires (confirmed live from 2026-08-26T11:38Z
-by its line-1 version stamp), and its never-leg line keeps binding unattended
-runs. If Ryan edits the routine again, the next session must update these files.
+**v8 (`docs/routine-prompt-v8.md`) is the current paste-ready prompt** — this
+text plus the fills-proven legging protocol AND the equity-autonomy module Ryan
+authorized 2026-08-26 (v7 was superseded before pasting). Until Ryan pastes v8,
+THIS v6 text is what the routine stores and fires (confirmed live from
+2026-08-26T11:38Z by its line-1 version stamp), and its never-leg and
+no-autonomous-equities lines keep binding unattended runs. If Ryan edits the
+routine again, the next session must update these files.
 
 Historical context of the paste (2026-08-24→26): agents cannot edit an
 `http_api`-created routine, so until the paste the stored v4 dual-track prompt
