@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-27T18:45:00Z",
+  "updated_utc": "2026-08-27T19:00:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-27",
     "realized_usd": 0.0,
@@ -28,14 +28,14 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "last_checked_utc": "2026-08-27T18:45:00Z",
-        "quote_basis": "get_portfolio 18:45Z options_value 535.00 -> mark 5.35. Not re-quoted on the chain this run: the hedge is exempt from every premium backstop, so no chain-level decision hangs on the exact mid.",
-        "mark": 5.35,
-        "value_usd": 535.0,
-        "pl_usd": -214.0,
-        "pl_pct": -28.57,
-        "greeks": "delta -0.131828, gamma 0.002805, theta -0.084263 (-$8.43/day), vega 0.794822, IV 0.204071, OI 26,923, volume 866. 85 DTE.",
-        "status": "HOLD -- insurance, EXEMPT from all premium backstops per the ownership gate and the Aug-Oct posture. 85 DTE; the ~21-DTE roll/close decision (~2026-10-30) is made WITH Ryan, never autonomously. SPY 769.870 (+0.495%) sits far above the 700 strike; nothing in the setup_invalidation has triggered."
+        "last_checked_utc": "2026-08-27T19:00:00Z",
+        "quote_basis": "get_option_quotes 19:01:03Z on instrument 79230921. bid 5.30 / ask 5.32, mid 5.31, spread 0.38% of mid. Chain-quoted this run rather than inferred from get_portfolio's options_value -- the two agree exactly ($531.00), which is a free cross-check of the portfolio field the 18:45Z run relied on.",
+        "mark": 5.31,
+        "value_usd": 531.0,
+        "pl_usd": -218.0,
+        "pl_pct": -29.11,
+        "greeks": "delta -0.133989, gamma 0.002903, theta -0.084640 (-$8.46/day), vega 0.802402, IV 0.203177, OI 26,923, volume 923. 85 DTE.",
+        "status": "HOLD -- insurance, EXEMPT from all premium backstops per the ownership gate and the Aug-Oct posture. Drawdown has widened 18:45Z -28.57% -> 19:01Z -29.11% as SPY held +0.49% on the day; that is carry plus a market that has not obliged, exactly what a 0.13-delta 85-DTE put does in a green tape. The exemption is what makes the number a non-event: a -29% print on a non-exempt CORE position would be inside re-check territory, and it is recorded here so no future run mistakes the hedge's drawdown for a fired backstop. The ~21-DTE roll/close decision (~2026-10-30) is made WITH Ryan, never autonomously. SPY 769.860 sits 69.86 above the 700 strike; setup_invalidation untriggered."
       },
       "_notify_state": {
         "last_checked_utc": "2026-08-26T21:20:00Z",
@@ -53,13 +53,13 @@
       "native_trail_pct": null,
       "_note": "placed_agent='agentic' -- RSI2(2) oversold swing entry, quota-removal batch (Ryan approved 2026-08-19 after the 'Remove swing quota' policy change, PR #441). Thesis: earnings beat, dividend raised +18%, active 300-branch expansion; JPMorgan raised PT to $269.50 (Deutsche Bank at Hold, not a red flag). No fixed loss-stop per HARD RULE 5 -- thesis-managed until green enough for a native trailing stop. GREEN-ENOUGH LEVEL CORRECTED 2026-08-26: entry 246.4729 / 0.85 = $289.97, not the ~$289.60 this note previously carried (a small arithmetic slip, corrected rather than inherited).",
       "_current_state": {
-        "last_checked_utc": "2026-08-27T18:45:00Z",
-        "quote_basis": "get_equity_quotes 18:45:05Z. last 243.480, bid 243.390 / ask 243.460.",
-        "mark": 243.48,
-        "pl_usd": -5.46,
-        "pl_pct": -1.214,
-        "value_usd": 444.54,
-        "status": "HOLD / no action, thesis INTACT, underwater -1.21% -- IMPROVED from -1.27% at 18:30Z. Target 255.50 is +4.9% away and the position is below basis, so an RSI2>=70 print would be an OPTIONAL exit-into-strength, never an autonomous bank (HARD RULE 6's profit-banking gate). No price stop, ever (HARD RULE 5). Green-enough level for a native trail: $289.97."
+        "last_checked_utc": "2026-08-27T19:00:00Z",
+        "quote_basis": "get_equity_quotes 19:00:48Z. last 243.140, bid 243.090 / ask 243.170.",
+        "mark": 243.14,
+        "pl_usd": -6.08,
+        "pl_pct": -1.351,
+        "value_usd": 443.93,
+        "status": "HOLD / no action, thesis INTACT, underwater -1.35% -- SOFTER than -1.21% at 18:45Z, a drift within the session's range on a -0.63% day for the name against a +0.49% SPY. Target 255.50 is +5.1% away and the position sits BELOW basis, so an RSI2>=70 print would be an OPTIONAL exit-into-strength, never an autonomous bank (HARD RULE 6's profit-banking gate). No price stop, ever (HARD RULE 5). Green-enough level for a native trail: $289.97."
       },
       "_notify_state": {
         "last_checked_utc": "2026-08-27T14:20:00Z",
@@ -78,13 +78,13 @@
       "_note": "placed_agent='agentic' -- FIRST AUTONOMOUS EQUITY ENTRY under the v8 / HARD RULE 6 authority Ryan granted 2026-08-26. NO Ryan approval was claimed, quoted or implied for this trade: HARD RULE 2's scope was explicitly narrowed on 2026-08-26 so that signal-sourced equity trades run autonomously, and this is one. Signal-sourced from the COMMITTED 15:01Z latest_intraday.md on master (Connors RSI2 5.8, theme 'Other', target 1280.34, Earnings column blank). Order 6a90528b-621f-4aaa-bd73-2fece96aae17, filled 0.420254 sh @ 1189.7553 = $500.00, zero fees, dollar-based market order in regular_hours per HARD RULE 3. FRACTIONAL BY NECESSITY, not preference: one whole LLY share is $1,189.76 = 29.9% of the $3,975 account and would breach the ~15-20% per-name cap outright. [CORRECTED 17:45Z -- this sentence originally read 'the whole-share preference exists so a position can carry a resting GTC stop; this desk places NO stops under HARD RULE 5, so it is moot here.' That is WRONG and the correction matters for how this position gets protected: the fractional objection was about RYAN's native 15% trail, not the desk's stop, and HARD RULE 5 states plainly that sub-1-share positions are 'monitored, not automatic'. The trade remains defensible on its thesis; the protection mechanism is discretionary rather than automatic. See _current_state.trail_mechanism.] THESIS: mega-cap pharma sold off -3.61% on 2026-08-26 after discontinuing THREE non-core pipeline assets -- LY3884963 (frontotemporal-dementia gene therapy from the $1.04B Prevail Therapeutics deal), CD19 antibody LY3541860, and radioligand 225Ac-PSMA-62 -- explicitly for LACK OF EFFICACY, not safety. None touches the incretin franchise that IS the thesis, and a cull for efficacy is a COMPLETED, already-announced event with nothing further to come. Core franchise expanding: orforglipron (Foundayo) US submission complete in type-2 diabetes and under expanded-label review; retatrutide BLA slated Q1 2027; Q2 2026 was a beat-and-raise quarter. BofA RAISED its PT to $1,286 from $950, reiterating Buy; ~26-analyst consensus $1,277-1,303 vs the 1,189.76 entry. The one unresolved negative is the disclosure that Q2 was aided by non-recurring US rebate/discount adjustments, an H2 margin/growth-RATE question rather than a franchise break -- it is what held the grade to A-minus and the size to the $400-500 defensive-posture band rather than the $596-795 the per-name cap would have allowed. NO PRICE STOP, EVER (HARD RULE 5) -- thesis-managed. Green-enough level for Ryan's native 15% trail: 1189.7553 / 0.85 = $1,399.71.",
       "setup_invalidation": "Sell ONLY on a HARD RULE 7 thesis BREAK, defined concretely so no future run has to re-derive it: (1) a SAFETY signal or regulatory action against the incretin franchise (orforglipron / tirzepatide / retatrutide); (2) an H2 guidance CUT confirming the rebate-driven margin-compression concern as structural rather than a timing artifact; or (3) a close back below the rising 200-day SMA (1057.48 on 2026-08-26, rising ~+1.66/day). Discontinuation of further NON-CORE pipeline assets does NOT invalidate -- that is the event already absorbed. Target 1280.34 = the 2026-08-19 swing high, +7.61% from entry.",
       "_current_state": {
-        "last_checked_utc": "2026-08-27T18:45:00Z",
-        "quote_basis": "get_equity_quotes 18:45:17Z. last 1181.675, bid 1181.480 / ask 1182.250.",
-        "mark": 1181.675,
-        "pl_usd": -3.4,
-        "pl_pct": -0.679,
-        "value_usd": 496.6,
-        "status": "HOLD / no action, thesis INTACT, underwater -0.68% on a position opened 15:06:51Z today. Target 1280.34 is +8.4% away; green-enough for a native trail is 1399.71. Nothing mechanical is near. LLY -0.65% on the day against a +0.50% SPY -- the drift is a continuation of the 2026-08-26 pipeline-discontinuation selloff the entry thesis was built to fade, not new information. FRACTIONAL (0.420254 sh): monitored, not automatic -- it cannot carry Ryan's native 15% trail if it ever gets green enough.",
+        "last_checked_utc": "2026-08-27T19:00:00Z",
+        "quote_basis": "get_equity_quotes 19:01:01Z. last 1181.170, bid 1180.760 / ask 1181.590.",
+        "mark": 1181.17,
+        "pl_usd": -3.61,
+        "pl_pct": -0.722,
+        "value_usd": 496.38,
+        "status": "HOLD / no action, thesis INTACT, underwater -0.72% on a position opened 15:06:51Z today (-0.68% at 18:45Z). Target 1280.34 is +8.4% away; green-enough for a native trail is 1399.71. Nothing mechanical is near. LLY -0.69% on the day against a +0.49% SPY -- still the continuation of the 2026-08-26 pipeline-discontinuation selloff the entry thesis was built to fade, not new information. FRACTIONAL (0.420254 sh): monitored, not automatic -- it cannot carry Ryan's native 15% trail if it ever gets green enough.",
         "trail_mechanism": "MONITORED, NOT AUTOMATIC -- and this CORRECTS the entry note's 'moot' framing, which would otherwise have propagated. At 0.420254 sh this position cannot carry a broker stop of any kind, so when it reaches the green-enough level of $1,399.71 Ryan CANNOT set the 15% native trailing stop that HARD RULE 5 makes the sole protection for a winner in this book. The entry note dismissed the earlier run's fractional objection on the grounds that 'this desk places NO stops under HARD RULE 5, so it is moot' -- but the objection was never about the DESK placing a stop; it was about RYAN's native trail being unavailable, and HARD RULE 5 already says so in terms: 'Fractional / sub-1-share positions can't carry a broker stop -> monitored, not automatic.' The objection stands; only its severity was mis-stated. Consequence, recorded so no future run re-derives it: LLY's protection at $1,399.71 is a DISCRETIONARY manual decision (bank it, or round the position up to a whole share first), not an automatic trail. ROOT FIX SHIPPED THIS RUN: report.py fired the unactionable 'TRAIL: set 15% native trailing stop in-app' instruction on every green-enough name regardless of size -- it now emits a distinct MONITOR-TRAIL action and a separate ntfy line for sub-1-share positions."
       }
     }
