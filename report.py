@@ -224,6 +224,10 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
         breakeven gets a ratchet-UP trailing stop = max(entry, 0.85*price). Up only — a
         winner can then only ever be sold for a locked-in gain. (Current price proxies the
         running high; the session ratchets the broker stop only when this would raise it.)
+      • MONITOR-TRAIL: green enough to trail, but the position is under one share, and a
+        fractional position cannot carry a broker stop of any kind — the native trail is
+        not placeable, so HARD RULE 5 makes it "monitored, not automatic". Surfaced as its
+        own action so the alert never instructs Ryan to set a stop the app won't offer.
       • REVIEW / THESIS-CHECK: below the 200-day MA, or a momentum name out of the top
         decile — a possible thesis break. Research the news; sell only if the thesis is
         dead, otherwise hold to the monthly rebalance.
@@ -291,6 +295,20 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
         green_enough = bool(entry and price >= entry / (1 - TRAIL_PCT))
         suggested = round(max(entry, price * (1 - TRAIL_PCT)), 2) if green_enough else None
 
+        # A sub-1-share position CANNOT carry a broker stop of any kind, native trailing
+        # included — HARD RULE 5 already says so ("Fractional / sub-1-share positions
+        # can't carry a broker stop → monitored, not automatic"), but this function did
+        # not implement it: it fired the same "set a 15% native trailing stop in-app"
+        # instruction on every green-enough name regardless of size. On a fractional
+        # position that instruction is unactionable — Ryan opens the app and there is no
+        # stop to set — so the winner-protection mechanism silently does not exist. Route
+        # these to an honest MONITOR action instead of a TRAIL one. (Live case: the LLY
+        # 0.420254sh entry of 2026-08-27 would have fired an impossible TRAIL alert at
+        # $1,399.71. Names above ~$1,000/share are structurally fractional at this account
+        # size once the ~15-20% per-name cap is applied.)
+        shares = pos.get("shares")
+        fractional = shares is not None and 0 < shares < 1
+
         if sell_reasons:
             if underwater:
                 action = "EXIT-INTO-STRENGTH (underwater — optional)"
@@ -310,6 +328,14 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
         elif review:
             action = "REVIEW / THESIS-CHECK"
             note = review + ["sell only if the thesis is dead; else hold to monthly rebalance"]
+        elif green_enough and fractional:
+            action = "MONITOR-TRAIL (fractional — native stop not placeable)"
+            note = [f"winner {pnl:+.0%} — GREEN ENOUGH, but the position is {shares:g} sh "
+                    f"(<1). A fractional position cannot carry a broker stop, so the "
+                    f"{TRAIL_PCT:.0%} native trail is NOT placeable in-app: per HARD RULE 5 "
+                    f"this one is MONITORED, not automatic. Discretionary decision at the "
+                    f"~{suggested} floor — bank it manually, or round the position up to a "
+                    f"whole share first so a native trail becomes possible."] + review
         elif green_enough:
             action = f"TRAIL: set {TRAIL_PCT:.0%} native trailing stop in-app"
             note = [f"winner {pnl:+.0%} — GREEN ENOUGH: Ryan sets a {TRAIL_PCT:.0%} NATIVE "
@@ -325,6 +351,7 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
 
         rows.append({"symbol": sym, "sleeve": sleeve, "price": price, "entry": entry,
                      "pnl": pnl, "stop": stop, "new_stop": suggested, "native": native,
+                     "shares": shares, "fractional": fractional,
                      "action": action, "note": "; ".join(note)})
     return rows, no_data
 
@@ -566,6 +593,9 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     port, port_no_data = evaluate_portfolio(holdings, swing_by_sym, momentum_rank, n_decile)
     sells = [r for r in port if r["action"].startswith("SELL")]
     trailing = [r for r in port if r["action"].startswith("TRAIL")]
+    # Green-enough winners too small to carry a native trail — a real action for Ryan
+    # (bank manually / round up to a whole share), just not the "set a 15% trail" one.
+    monitor_trails = [r for r in port if r["action"].startswith("MONITOR-TRAIL")]
     # Underwater RSI2 bounces are surfaced on the THESIS CHECK line (hold is the policy
     # default), NOT the TAKE PROFIT / SELL line — labeling them "take profit" repeatedly
     # misled the alert (IREN 2026-07-20, INOD 2026-07-21).
@@ -584,7 +614,7 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     for r in lt_rows:  # attach the fundamental value snapshot (Phase 2) when available
         r["value"] = value_data.get(r["symbol"], {})
 
-    action = ("ACTION" if (setups or sells or trailing)
+    action = ("ACTION" if (setups or sells or trailing or monitor_trails)
               else "NO ACTION (swing); momentum is informational")
 
     lines = []
@@ -780,7 +810,9 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
         json.dumps({"mode": mode, "generated_utc": now.isoformat(),
                     "action": action, "swing_setups": setups,
                     "portfolio_review": port, "sell_signals": sells,
-                    "trail_signals": trailing, "review_signals": reviews,
+                    "trail_signals": trailing,
+                    "monitor_trail_signals": monitor_trails,
+                    "review_signals": reviews,
                     "rotation_candidates": rotation,
                     "momentum_top": momentum[:n_decile],
                     "joint_accumulation": lt_rows,
