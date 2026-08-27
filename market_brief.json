@@ -1,96 +1,90 @@
 {
  "_comment": "Daily market brief for the options automation. Built by the first post-open run of each TRADING day (ET), never by a post-close/pre-open firing. Refresh intraday only on a genuine shock (VIX +15%, an index breaking a listed level, a major headline).",
  "date": "2026-08-27",
- "built_utc": "2026-08-27T13:36:00Z",
- "built_by": "First post-open run of the 2026-08-27 trading day (prompt v8). Quotes re-taken past the 13:30Z opening auction per the CLAUDE.md re-quote rule; the 13:31:10Z batch was discarded as auction prints and is reported only as the auction reference.",
+ "built_utc": "2026-08-27T13:39:00Z",
+ "built_by": "First post-open run of the 2026-08-27 trading day (prompt v8), following NINETEEN consecutive pre-open stand-downs since the 2026-08-26 bell. Equity quotes 13:31-13:37Z, option quotes 13:34-13:36Z. The 13:31Z batch sits INSIDE the opening-auction window and was used for DIRECTION ONLY; every number that could decide a trade was re-quoted at 13:35-13:37Z, and NVDA's ATM IV was read TWICE 112 seconds apart (agreement 0.4%) per the settled-data rule.",
  "regime": {
-  "label": "NVDA-CARRIED RISK-ON WITH NEGATIVE BREADTH -- a one-name index, not a broad rally. Treat any index level that breaks today as LOW conviction.",
-  "event": "NVDA reported 2026-08-26 PM and BEAT: EPS $2.22 vs $2.09 est (broker-verified actual), revenue $96.2B +106% YoY, guidance ~70% FY2028 revenue growth, expanded Amazon partnership. Shares +4% after hours, then gapped +6.79% at the open. This breaks NVDA's recent pattern of falling after six of the previous eight prints, including the last four.",
-  "measured_13_32_to_13_34Z_vs_2026_08_26_close": {
-   "NVDA": "223.898 vs 209.66 = +6.79% -- the whole story",
-   "SMH": "569.85 vs 555.77 = +2.53%",
-   "AVGO": "362.92 vs 355.59 = +2.06%",
-   "TSM": "423.54 vs 417.69 = +1.40%",
-   "QQQ": "716.03 vs 711.37 = +0.66% -- but 718.15 at the auction, so already -2.12 off the open",
-   "SPY": "767.57 vs 766.08 = +0.19% -- 768.68 at the auction, also fading",
-   "TSLA": "346.80 vs 345.82 = +0.28%",
-   "AMD": "474.485 vs 480.93 = -1.34% -- RED on a semis-up day",
-   "MSFT": "490.895 vs 496.37 = -1.10% -- RED"
+  "label": "NARROW, NVDA-ONLY MELT-UP -- NOT broad risk-on. The index is green because one stock is; the average large-cap tech name is DOWN. Treat this as a single-name repricing, not a regime change.",
+  "measured_13_37Z_vs_2026_08_26_close": {
+   "NVDA": "222.82 vs 209.66 = +6.28% (opened +6.80% at 223.93 and is FADING the gap)",
+   "SMH": "569.51 vs 555.77 = +2.47%",
+   "AVGO": "362.39 vs 355.59 = +1.91%",
+   "TSM": "422.91 vs 417.69 = +1.25%",
+   "TSLA": "347.13 vs 345.82 = +0.38%",
+   "SPY": "767.686 vs 766.08 = +0.21%",
+   "QQQ": "715.595 vs 711.37 = +0.59%",
+   "MSFT": "490.89 vs 496.37 = -1.10% (DOWN)",
+   "AMD": "473.605 vs 480.93 = -1.52% (DOWN, the day's worst core name)",
+   "PNC": "241.04 vs 244.67 = -1.48% (DOWN -- our only equity position)"
   },
-  "breadth_outside_semis": {
-   "XLF": "57.83 vs 58.26 = -0.74%",
-   "KRE": "73.95 vs 74.58 = -0.84%",
-   "JPM": "353.84 vs 356.50 = -0.75%",
-   "USB": "62.14 vs 62.80 = -1.05%",
-   "TFC": "50.1238 vs 50.67 = -1.08%",
-   "TLT": "83.1501 vs 83.30 = -0.18%"
-  },
-  "the_read": "This is a ROTATION, not a broad advance. NVDA alone is carrying QQQ: the two largest non-NVDA names on the core list are RED (AMD -1.34%, MSFT -1.10%) and the entire financial complex is down 0.74-1.08%. A +6.79% move in the single heaviest index component mechanically lifts QQQ even as the median name falls. PRACTICAL CONSEQUENCE, and it is the same warning the 2026-08-26 brief carried one day early: an index level that breaks on this tape has almost nothing behind it. Both indices ALREADY faded off their auction prints within three minutes, which is what a one-name lift looks like when the one name stops adding.",
-  "structural_levels_recomputed_this_run": {
-   "_method": "SMAs from daily closes through the 2026-08-26 settle. Computed per the CLAUDE.md rule that both the 20- and 50-day be measured BEFORE any intraday box is drawn.",
-   "QQQ": "SMA20 714.6420 / SMA50 712.3606 -- CONVERGED to 2.28 points apart. Spot 716.03 sits just ABOVE both, the first time in several sessions; QQQ closed 711.37 yesterday, below both.",
-   "SPY": "SMA20 766.6295 / SMA50 752.9720. Spot 767.57 just above the 20-day.",
-   "NVDA": "SMA20 215.5605 / SMA50 207.7506. The gap cleared BOTH decisively -- but 223.898 is still 4.02 below the 2026-08-17 high of 227.92 and inside the month-long 208-228 range."
-  },
-  "trend_maturity_note_NVDA": "The gap did NOT break the range; it returned NVDA to the top of it. NVDA has oscillated 208.48-227.92 since 2026-08-13. A mean-reversion or breakout thesis both need the 227.92 high taken out on real participation, which has not happened."
+  "breadth_arithmetic": "THE NUMBER THAT DEFINES TODAY. Using the ~8% NVDA weight in QQQ inherited from the 2026-08-25 run (inherited, NOT re-measured this run -- flagged as such): 0.08 x 6.28% = ~0.50pp of QQQ's +0.59%, i.e. NVDA alone accounts for roughly FOUR FIFTHS of the index's gain. The other ~92% of the Nasdaq-100 contributed ~0.09pp between them, and the two largest non-NVDA core names are outright red. A run that reads 'QQQ green, semis green' as risk-on has mistaken one stock for a market.",
+  "sell_the_news_within_the_complex": "AMD -1.52% on the session NVDA beat and gapped +6.3% is the tell: this is ROTATION INTO the reporter, funded OUT of its complex, not a sector bid. AMD was Tuesday's leader (+4.75%) and is Thursday's laggard. Do not treat semis as a single bullish bloc today.",
+  "retail_am_prints_all_beat": "A genuine second data point, and it cuts AGAINST the defensive read: every high-cap AM print today beat -- DG 2.48 vs 1.99e, DLTR 1.39 vs 1.03e, BBY 1.47 vs 1.37e, BURL 2.37 vs 1.98e, plus TD/RY/CM. The consumer tape is not confirming a drawdown here. Recorded as evidence, not as a thesis -- no equity entry was taken off it."
  },
  "key_levels": {
-  "_method_note": "BOTH the 20- and 50-day SMA computed off the last 55 CLOSED daily bars before drawing any level, per the CLAUDE.md rule set 2026-08-25 (a box that keeps producing failed breaks is usually a moving average nobody measured). Computed in code from get_equity_historicals daily closes through the 2026-08-25 close.",
+  "_method_note": "BOTH the 20- and 50-day SMA computed in code off 71 CLOSED daily bars (2026-05-15..2026-08-26) from get_equity_historicals, per the CLAUDE.md rule that a box producing failed breaks is usually an MA nobody measured. No desk-drawn intraday box is offered this run: at 13:34Z fewer than two 5-minute bars existed, so any range would be both self-drawn AND unmeasurable -- the two defects the 2026-08-25/26 findings warn about, compounded.",
   "QQQ": {
-   "spot_13_42Z": 709.97,
-   "sma_20d": 712.16,
-   "sma_50d": 713.0132,
-   "position": "BELOW BOTH. Spot is 2.19 under the 20-day and 3.04 under the 50-day.",
-   "THE_COMPRESSION": "The 20-day and 50-day are now just 0.85 POINTS APART (712.1600 vs 713.0132) and CONVERGING. Price sits below both. That is a genuine structural feature and it is the level stack that matters today -- not any box drawn around recent bars.",
-   "50d_is_falling": "713.4416 (8/21) -> 713.2256 (8/24) -> 713.0132 (8/25). Third consecutive decline. RE-MEASURE DAILY.",
-   "session_range_so_far": "Opened 708.41, high 710.955 (13:30-13:35Z bar), low 708.41. Nothing broken in either direction."
+   "spot_13_37Z": 715.595,
+   "sma_20d": 714.642,
+   "sma_50d": 712.3606,
+   "note": "Spot is ABOVE both. THE 20/50 CROSS PREDICTED AS AN ARTIFACT HAS LANDED AND THE PREDICTION VERIFIED: the 2026-08-25 run forecast sma20 714.5115 / sma50 712.3084 after the 08-26 close; measured today 714.6420 / 712.3606, accurate to ~0.13 points. ITS CONCLUSION STANDS UNCHANGED -- this cross is the late-July crash (675.49, 661.73, 683.55, 687.99) rolling OUT of the 20-day window on a flat index, NOT a momentum signal. Do not read it as a golden cross."
   },
   "SPY": {
-   "spot_13_42Z": 765.635,
-   "sma_20d": 764.7985,
-   "sma_50d": 752.747,
-   "position": "ABOVE BOTH -- 0.84 over the 20-day and 12.89 over the 50-day. SPY's trend structure is intact and unthreatened; QQQ's is not. That divergence is the honest state of the tape."
+   "spot_13_37Z": 767.686,
+   "sma_20d": 766.6295,
+   "sma_50d": 752.972,
+   "note": "Spot above both; 20d only 1.06 below spot, so SPY sits essentially ON its 20-day. 50d is 14.7 below and not in play."
   },
-  "MA_ROLL_OFF_WARNING_READ_THIS_BEFORE_TRUSTING_ANY_QQQ_CROSS": {
-   "finding": "A BULLISH 20/50 CROSS ON QQQ IS MECHANICALLY ARRIVING WITHIN ABOUT ONE SESSION AND IT WILL BE A WINDOW ARTIFACT, NOT NEW DEMAND. Computed per the CLAUDE.md MA roll-off rule (compute what LEAVES the window, not just today's value).",
-   "the_arithmetic": "The 20-day window is dropping the crash closes one per night: 661.73 leaves tonight, then 683.55, 687.99, 700.07. With QQQ merely FLAT near 710 the 20-day rises about +2.4/day (661.73 -> ~710 is +48.27, /20). The 50-day is dropping 744.00, 729.86, 722.51, 740.62 and therefore FALLS about -0.7/day. They are 0.85 apart and closing at ~3.1/day, so they cross on roughly the next session REGARDLESS OF PRICE.",
-   "what_it_means": "Any 'QQQ golden cross' headline or signal on 2026-08-27 or 2026-08-28 carries ZERO information about demand -- it is the July crash leaving a 20-bar window. Do not treat it as a confirming technical, and do not let a later run rediscover it as bullish evidence.",
-   "the_scope_limit_stated_honestly": "This does NOT invalidate the 20-day as an INTRADAY level. A daily SMA is static during the session -- it only updates at the close -- so 712.1600 is a legitimate fixed reference for a same-session TACTICAL trade today. The roll-off matters for any MULTI-DAY hold, where the level would move ~2.4/day against a target the trade needs, and for any run tempted to read tomorrow's cross as a signal."
+  "NVDA": {
+   "spot_13_37Z": 222.82,
+   "sma_20d": 215.5605,
+   "sma_50d": 207.7506,
+   "note": "Gapped clear of both. The 20-day is +8.4 below spot -- gap-extended, which is a maturity warning, not a breakout."
   }
  },
- "catalysts_next_5_sessions": [
-  "2026-08-27 (today): NVDA post-print session one -- watch whether the gap holds or fills. Gap-fill level is yesterday's 209.66 close; the intraday reference is the opening 223.83.",
-  "2026-08-28: monthly opex-adjacent Friday; NVDA 2-DTE board expires (barred by the DTE-7 floor regardless).",
-  "2026-09-01: DELL earnings (NVDA-complex read-through).",
-  "2026-09-02: AVGO earnings (NVDA-complex read-through; AVGO is +2.06% today on the NVDA halo).",
-  "Ongoing: Aug-Oct defensive posture stands until a >12% SPY drawdown resolves or Ryan lifts it (~Nov 1 review otherwise)."
- ],
+ "catalysts_next_5_sessions": {
+  "_source": "get_earnings_calendar(start_date=2026-08-27, days=6, filter=high_market_cap), pulled fresh 13:38Z this run -- NOT inherited from the 2026-08-25 list.",
+  "2026-08-27 AM (ALREADY REPORTED, ALL BEATS)": "DG 2.48/1.99e, DLTR 1.39/1.03e, BBY 1.47/1.37e, BURL 2.37/1.98e, HRL, HQY, TD, RY, CM, BILI, NAT",
+  "2026-08-27 PM (TONIGHT)": "MRVL (0.87e -- SEMIS), ADSK (2.97e), WDAY (2.34e), RBRK (-0.04e), AFRM (0.72e), ESTC (0.44e), IREN (-0.55e), ULTA (6.25e), S (-0.21e), GAP (0.52e)",
+  "2026-08-28": "Shipping and China banks ONLY (FRO, HAFN, BWLP, CHA, China banks) -- NO US mega-cap. THE EVENT WINDOW CLOSES TONIGHT, independently re-confirmed this run.",
+  "2026-08-31": "SAIC AM only.",
+  "2026-09-01": "PANW pm, DELL pm, CRDO pm, MDB pm, GTLB pm, MDT am, NIO am.",
+  "2026-09-02": "AVGO (from the standing calendar) -- relevant to any semis CORE structure opened now.",
+  "what_this_means_for_CORE": "A CORE entry today at the mandated 21-45 DTE (2026-09-18 to 2026-10-09 boards) SPANS MRVL tonight, then DELL/CRDO/PANW on 09-01 and AVGO on 09-02. For an INDEX leg none of these is position-level, and none is NVDA-sized, so the earnings-straddle rule does NOT bar index CORE today -- the 2026-08-25 block expired with last night's print exactly as the forward note said. Index CORE was hunted and declined on IV SANITY instead; say which."
+ },
  "watchlist": {
-  "TACTICAL_candidates": [
-   "QQQ -- the only structurally interesting name. SMA20 714.6420 and SMA50 712.3606 are 2.28 apart and spot 716.03 sits just above the pair. A COMPLETED 5-minute close below 712.36 (losing both) or a reclaim-and-hold above the 2026-08-27 session high, either one confirmed on volume at or above the trailing-30-to-60-minute mean AND not materially below the session's own established bucket rate, is a genuine structural trigger. NOT tradeable at 13:36Z: too few bars exist to compute any baseline, and fresh bars are provisional until a second read agrees.",
-   "SPY -- 20-day 766.6295 is 0.94 under spot. Same structure, lower beta, and the tactical band makes it the affordable one, which is precisely the reason to be suspicious of choosing it (a cheap vehicle supplies no thesis).",
-   "NVDA -- EXCLUDED as a tactical long today. Chasing a +6.79% gap into the top of a month-long range on a diverging tape is the trend-maturity gate's textbook fail."
-  ],
-  "CORE_candidates": [
-   "NVDA 2026-09-18 (22 DTE) / 2026-09-25 (29 DTE) -- DEFERRED, not excluded. The [ERN] deferral has resolved and the name is re-gradeable from scratch, which is exactly what this run did: it grades B, not A. Fails trend maturity on all three limbs and IV sanity on the ex-gap read (1.0710). Re-grade again once the gap either holds for a session or fills.",
-   "SPY / QQQ single legs -- fail ex-gap IV sanity outright (1.2002 and 1.1049). Long index premium is not cheap here."
-  ],
-  "EQUITY_candidates": [
-   "NONE ELIGIBLE THIS RUN -- the gate is closed, not empty. The newest committed report is 2026-08-26 (morning 14:02Z / intraday 19:01Z); the 2026-08-27 GitHub Actions report had not landed by 13:36Z. Prompt v8 THE EQUITY BOOK bars autonomous equity trades off a stale report. The stale report's own RSI2 setups (AEHR, AMAT, XOM, KHC, LLY) are recorded for reference only and MUST be re-derived from today's report before any of them is actionable; XOM is additionally barred by the oil-energy sector steer."
-  ]
+  "TACTICAL": {
+   "status": "NO CANDIDATE ARMED. Not a judgment -- an UNMEASURABLE one.",
+   "why": "At 13:34Z only a couple of completed 5-minute bars existed, so the trailing-30-to-60-minute volume baseline the confirmation clause requires DOES NOT YET EXIST. Per the 2026-08-26 capstone, a fire cannot be confirmed against a baseline that has not formed, and per the same finding a collapsed/absent denominator makes the clause EASIER, not harder -- so an early fire would be the least informative kind. A later run with a real baseline may arm one.",
+   "eligible_by_liquidity": "SPY (0.55% of mid) and QQQ (0.95%) both clear the 3%-of-mid tactical gate comfortably. NVDA does NOT today -- 6.10% of mid on the 225C, post-earnings-wide.",
+   "do_not_scalp_NVDA_today": "Chain is 6.10% of mid, twice the tactical ceiling, and the underlying is gap-extended and fading. Excluded on liquidity alone before thesis."
+  },
+  "CORE": {
+   "status": "HUNTED PROPERLY per the inherited 2026-08-26 instruction, and DECLINED on measured gates -- not skipped.",
+   "NVDA": "DECLINED on the TREND-MATURITY GATE, all three legs: (a) the move has already run -- +6.80% gap, spot 8.4 above its own 20-day; (b) the catalyst is one session old and fully priced -- the gap IS the repricing; (c) the present tape DIVERGES from a long -- NVDA faded 223.93 -> 222.82 within seven minutes of the open and the 225C mark fell 8.55 -> 7.375. Buying a call here is the ZTS incident with the sign flipped: trading a move that already completed. The cheap post-crush premium is the temptation, and a cheap liquid vehicle supplies NO thesis.",
+   "NVDA_puts": "DECLINED on leg (c) in the other direction -- shorting a beat-and-gap into a green tape is a divergence trade with no catalyst.",
+   "index_QQQ_SPY": "DECLINED on IV SANITY, honest ex-gap read: QQQ ex-gap 1.1028 and SPY ex-gap 1.1985 -- BOTH still rich. THE CRUSH MADE NVDA FAIR (1.3209 -> 1.0656); IT DID NOT MAKE INDEX PREMIUM CHEAP. Second, independent objection: the book already carries SPY put exposure via the exempt hedge, so a bearish index CORE would double the theme rather than diversify it.",
+   "AVGO": "EXCLUDED. Rich on BOTH reads (raw 1.2003 / ex-gap 1.4743, the sweep's highest) and its own 2026-09-02 print sits inside any CORE hold window.",
+   "AMD": "NOTED, not taken. Cheapest vol in the sweep (ex-gap 0.8758) and down -1.52% today, but cheap vol is not a thesis and there is no setup -- only a divergence. Watch it; do not buy it for being cheap."
+  },
+  "EQUITY": {
+   "status": "NO ENTRY. The committed report is STALE for entry purposes.",
+   "why": "The newest committed report is latest_intraday.md stamped 2026-08-26 19:01Z -- it PRE-DATES an overnight repricing that moved SMH +2.47%. Both its RSI2 names are semis (AEHR, AMAT) and their oversold readings were computed before the event. The [ERN] deferral corollary is explicit that a pre-event grade may never be carried forward and the name must be re-graded from scratch on post-event numbers. MEASURED CONFIRMATION that the edge is gone: AEHR is +5.51% today (91.12 -> 96.14) and INTC +3.44% -- the mean reversion these setups existed to capture FIRED OVERNIGHT without us. Buying now is chasing the bounce, which is the opposite of the signal. XOM is separately excluded by the oil-energy sector steer. Today's 08-27 report had not yet been committed at 13:39Z (yesterday's landed 14:02Z); a later run should re-hunt equities off it."
+  }
  },
  "constraints_today": {
-  "equity_cash_floor": "COMPLIANT WITH HEADROOM. Equity-book cash ratio = 3007.26 / (3007.26 + 440.09) = 87.2%, far above the >=45% Aug-Oct floor. Max compliant buy = 3007.26 - 0.45 x 3447.35 = $1,451.95, well above the ~$400 practical minimum. The floor is NOT the binding constraint today -- the stale-report gate is.",
-  "capital": "total $4,008.35 = equity $440.09 / options $561.00 / cash $3,007.26. unleveraged_buying_power $3,007.26 EQUALS buying_power (no margin extended). Deployable after the $250 reserve: $2,757.26.",
-  "throttles": "Options: 0 of 8 daily entries used, 0 of 2 this run, realized $0.00 vs the -$400 cap (all reset at the 13:30Z bell for trading day 2026-08-27). Equities: 0 of 3 daily entries used. Open positions: 1 (the exempt hedge) -- all 5 agentic option slots free.",
-  "posture": "Aug-Oct defensive posture STANDS: A-grade setups only, >=45% equity-book cash floor, no new oil-energy entries, no margin borrowing ever."
+  "capital": "total $4,006.35 = equity $440.09 / options $559.00 / cash $3,007.26. unleveraged_buying_power $3,007.26 EQUALS buying_power (no margin extended). Less the $250 reserve, deployable $2,757.26.",
+  "throttles": "RESET for the new trading day: options 0 of 8 entries and 0 of 2 this run; equities 0 of 3. Realized options P/L $0.00 against the -$400 cap.",
+  "slots": "Options 0 of 5 used (hedge excluded) -- 2 TACTICAL and 3 CORE all free. Equity book holds 1 position (PNC).",
+  "equity_cash_floor": "Aug-Oct posture stands. Equity-book cash floor = cash / (cash + equity_value) = 3007.26 / 3447.35 = 87.2%, far above the 45% minimum. Max compliant buy = 3007.26 - 0.45 x 3447.35 = $1,455.95, comfortably above the ~$400 practical minimum -- so the floor is NOT what blocked an equity entry today. The STALE REPORT is. Say which gate bound."
  },
- "posture_carryover": "Aug-Oct drawdown watch unchanged. The NVDA beat is a single-name fundamental event and does NOT lift the posture -- note that it did not even lift the median index name today. The SPY 700P hedge remains exempt insurance held to its ~21-DTE review (~2026-10-30) with Ryan.",
+ "posture_carryover": "Aug-Oct defensive drawdown watch remains in force (Ryan, 2026-08-05; ~Nov 1 review). A-grade setups only, no new oil-energy entries, no stops placed by the desk ever, hedge exempt from premium backstops. The swing-count quota remains VOID per Ryan's 2026-08-19 removal -- do not re-derive a count-based limiter.",
  "trigger_watch_2026_08_27": {
   "_expires": "END OF SESSION 2026-08-27. The first run after the bell DELETES this key, promoting anything durable to a top-level key first.",
   "status": "ARMED BUT UNMEASURABLE at 13:36Z -- no volume baseline exists this early. Not a stand-down; a not-yet.",
   "QQQ_levels": "SMA20 714.6420 / SMA50 712.3606 (2.28 apart) / auction high 718.15. Spot 716.03 at 13:32:44Z.",
   "clause": "Both halves must be RE-DERIVED off the last closed bars by whichever run tests this -- the numbers above are stamped 13:36Z and go stale. Price: a COMPLETED 5-minute close beyond the level that still holds on the following bar. Volume: at or above the trailing-30-to-60-minute mean AND not materially below the session's own established bucket rate (both tests, per the 2026-08-26T15:52Z baseline-collapse finding). Reconcile any aggregated bar against the 1-minute series before trusting it, and fetch the window twice.",
   "regime_caveat": "Breadth is negative outside NVDA, so a break today carries LESS information than the same break on a broad tape. The 2026-08-26T17:19Z capstone retired breakout scalps into an UNRESOLVED catalyst; that veto has lifted with the print, but it is replaced by a narrower one -- a one-name tape is a poor follow-through environment."
- }
+ },
+ "_union_merge_note": "CONCURRENT SAME-SLOT COLLISION, resolved as a UNION per the CLAUDE.md rule (never by picking a side). Two runs fired the 2026-08-27 open independently -- a sibling at 13:31-13:37Z (PR #735, merged to master first) and this one at 13:31-13:41Z (PR #736). Both did real, overlapping work and BOTH REACHED THE SAME CONCLUSION: NVDA's print resolved, the IV crush measured, no trade in either book. THE INDEPENDENT IV READINGS ARE CROSS-VALIDATION, NOT A CONFLICT -- NVDA ATM 0.341758 (sibling) vs 0.338555 (this run), agreeing to 0.0032 vol points / 0.9% across different minutes; SPY 0.123382 vs 0.123233; QQQ 0.184178 vs 0.183881. Neither run placed an order, so the double-entry hazard the collision rule exists to prevent did not arise. THIS BRIEF is the 13:39Z version (the later of the two); the sibling's 13:36Z 'trigger_watch_2026_08_27' key is PRESERVED VERBATIM above because it is genuinely unique work -- a correctly-formed armed-but-unmeasurable TACTICAL trigger carrying the dual-baseline confirmation clause and the one-name-tape regime caveat. Both runs independently computed QQQ SMA20 714.6420 / SMA50 712.3606 to four decimals."
 }

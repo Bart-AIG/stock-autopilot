@@ -151,17 +151,19 @@
   },
   {
    "date": "2026-08-27",
-   "spot": 767.57,
+   "spot": 767.686,
    "atm_strike": 768.0,
-   "atm_iv": 0.123382,
+   "atm_iv": 0.123233,
    "dte_used": 29,
    "expiry": "2026-09-25",
    "rv_30d": 0.1228,
    "rv_30d_ex_top2": 0.1028,
-   "iv_rv_ratio": 1.0047,
-   "iv_rv_ratio_ex_top2": 1.2002,
-   "largest_1d_move_in_window_pct": 1.79,
-   "_note": "rv from 30 daily LOG returns through the 2026-08-26 close, annualised x sqrt(252). Fails ex-gap IV sanity at 1.2002."
+   "iv_rv_ratio": 1.0036,
+   "iv_rv_ratio_ex_top2": 1.1985,
+   "largest_1d_move_in_window_pct": 1.8,
+   "_rv_window": "rv computed from 30 daily log returns through the 2026-08-26 regular-session close, annualised x sqrt(252). NOTE the series discontinuity: the 2026-08-26 NVDA row used a 31-return window (see its _rv_method_note); these rows use 30, matching the rv_30d field name and the prompt's IV method. The IV half of today's crush comparison is unaffected by this -- it is a direct board-to-board ATM IV reading.",
+   "_n_readings": 13,
+   "_sibling_cross_validation": "Independent sibling run (PR #735) read atm_iv 0.123382 on the SAME 2026-09-25 board and strike a few minutes earlier; this row reads 0.123233. Agreement to 0.000149 vol points across two independently-fetched quotes -- CROSS-VALIDATION of the post-print reading, not a conflict. CONCURRENT SAME-SLOT COLLISION, resolved as a UNION per the CLAUDE.md rule (never by picking a side). Two runs fired the 2026-08-27 open independently -- a sibling at 13:31-13:37Z (PR #735, merged to master first) and this one at 13:31-13:41Z (PR #736). Both did real, overlapping work and BOTH REACHED THE SAME CONCLUSION: NVDA's print resolved, the IV crush measured, no trade in either book. THE INDEPENDENT IV READINGS ARE CROSS-VALIDATION, NOT A CONFLICT -- NVDA ATM 0.341758 (sibling) vs 0.338555 (this run), agreeing to 0.0032 vol points / 0.9% across different minutes; SPY 0.123382 vs 0.123233; QQQ 0.184178 vs 0.183881. Neither run placed an order, so the double-entry hazard the collision rule exists to prevent did not arise."
   }
  ],
  "QQQ": [
@@ -314,17 +316,19 @@
   },
   {
    "date": "2026-08-27",
-   "spot": 716.03,
+   "spot": 715.595,
    "atm_strike": 716.0,
-   "atm_iv": 0.184178,
+   "atm_iv": 0.183881,
    "dte_used": 29,
    "expiry": "2026-09-25",
    "rv_30d": 0.2155,
    "rv_30d_ex_top2": 0.1667,
-   "iv_rv_ratio": 0.8547,
-   "iv_rv_ratio_ex_top2": 1.1049,
-   "largest_1d_move_in_window_pct": 3.34,
-   "_note": "rv from 30 daily LOG returns through the 2026-08-26 close, annualised x sqrt(252). Raw 0.8547 looks cheap; ex-gap 1.1049 does not. Ex-gap governs -- no index print inside this board."
+   "iv_rv_ratio": 0.8533,
+   "iv_rv_ratio_ex_top2": 1.1028,
+   "largest_1d_move_in_window_pct": 3.4,
+   "_rv_window": "rv computed from 30 daily log returns through the 2026-08-26 regular-session close, annualised x sqrt(252). NOTE the series discontinuity: the 2026-08-26 NVDA row used a 31-return window (see its _rv_method_note); these rows use 30, matching the rv_30d field name and the prompt's IV method. The IV half of today's crush comparison is unaffected by this -- it is a direct board-to-board ATM IV reading.",
+   "_n_readings": 13,
+   "_sibling_cross_validation": "Independent sibling run (PR #735) read atm_iv 0.184178 on the SAME 2026-09-25 board and strike a few minutes earlier; this row reads 0.183881. Agreement to 0.000297 vol points across two independently-fetched quotes -- CROSS-VALIDATION of the post-print reading, not a conflict. CONCURRENT SAME-SLOT COLLISION, resolved as a UNION per the CLAUDE.md rule (never by picking a side). Two runs fired the 2026-08-27 open independently -- a sibling at 13:31-13:37Z (PR #735, merged to master first) and this one at 13:31-13:41Z (PR #736). Both did real, overlapping work and BOTH REACHED THE SAME CONCLUSION: NVDA's print resolved, the IV crush measured, no trade in either book. THE INDEPENDENT IV READINGS ARE CROSS-VALIDATION, NOT A CONFLICT -- NVDA ATM 0.341758 (sibling) vs 0.338555 (this run), agreeing to 0.0032 vol points / 0.9% across different minutes; SPY 0.123382 vs 0.123233; QQQ 0.184178 vs 0.183881. Neither run placed an order, so the double-entry hazard the collision rule exists to prevent did not arise."
   }
  ],
  "NVDA": [
@@ -474,17 +478,20 @@
   },
   {
    "date": "2026-08-27",
-   "spot": 223.898,
+   "spot": 222.82,
    "atm_strike": 225.0,
-   "atm_iv": 0.341758,
+   "atm_iv": 0.338555,
    "dte_used": 29,
    "expiry": "2026-09-25",
    "rv_30d": 0.3614,
    "rv_30d_ex_top2": 0.3191,
-   "iv_rv_ratio": 0.9457,
-   "iv_rv_ratio_ex_top2": 1.071,
-   "largest_1d_move_in_window_pct": 5.12,
-   "_post_print_crush_measured": "POST-EVENT ROW. NVDA reported 2026-08-26 PM (EPS 2.22 vs 2.09 est, rev $96.2B +106% YoY, ~70% FY28 growth guide). ATM IV fell 0.4144 -> 0.341758 = -7.26 vol points, -17.5%, on the same 2026-09-25 board -- the mechanical crush the five-session ramp (0.4032/0.4042/0.4093/0.4108/0.4144) was accumulating toward. THE CRUSH DID NOT MAKE PREMIUM CHEAP: ex-gap ratio 1.0710 is fair-to-slightly-rich, and ex-gap governs here because this board expires before the 2026-11-18 print. rv computed from 30 daily LOG returns through the 2026-08-26 close, annualised x sqrt(252) -- the window EXCLUDES today's +6.79% gap, which has not closed yet. FORWARD WARNING FOR THE NEXT RUNS, computed rather than guessed: once today's gap enters the trailing window at tonight's close, rv_30d rises ~12% to about 0.4036 and the RAW ratio will print near 0.8468 -- roughly '15% cheap'. That is the documented one-gap-dominates-a-30-sample artifact arriving on schedule, NOT an edge. The ex-gap ratio barely moves (1.0710 -> ~1.0335). Read the pair; do not buy the raw number."
+   "iv_rv_ratio": 0.9407,
+   "iv_rv_ratio_ex_top2": 1.0656,
+   "largest_1d_move_in_window_pct": -4.99,
+   "_rv_window": "rv computed from 30 daily log returns through the 2026-08-26 regular-session close, annualised x sqrt(252). NOTE the series discontinuity: the 2026-08-26 NVDA row used a 31-return window (see its _rv_method_note); these rows use 30, matching the rv_30d field name and the prompt's IV method. The IV half of today's crush comparison is unaffected by this -- it is a direct board-to-board ATM IV reading.",
+   "_n_readings": 13,
+   "_note": "POST-PRINT CRUSH, MEASURED ON THE IDENTICAL 2026-09-25 BOARD. ATM IV 0.414401 (2026-08-26, 30 DTE) -> 0.338555 (today, 29 DTE) = -0.0759 vol points, -18.30%. Two independent reads 112 seconds apart agree to 0.4%: 13:34:03Z 225C 0.332519 / 225P 0.347421 -> 0.339970; 13:35:55Z 225C 0.335053 / 225P 0.342056 -> 0.338555 (this row). THE CRUSH IS ~4x THE RAMP: the five-session ramp added +1.88 vol points over the 0.3815-0.3920 pre-ramp band, and the crush landed 0.338555 -- roughly 4.3 vol points BELOW the bottom of that band. Measuring the ramp UNDERSTATES the crush, because the crush removes the event premium AND the elevated base. Ex-gap ratio 1.3209 (richest on record) -> 1.0656 (about fair). Spot +6.28% at 13:37:43Z and FADING off the gap (225C mark 8.55 at 13:34Z -> 7.375 at 13:35:55Z).",
+   "_sibling_cross_validation": "Independent sibling run (PR #735) read atm_iv 0.341758 on the SAME 2026-09-25 board and strike a few minutes earlier; this row reads 0.338555. Agreement to 0.003203 vol points across two independently-fetched quotes -- CROSS-VALIDATION of the post-print reading, not a conflict. CONCURRENT SAME-SLOT COLLISION, resolved as a UNION per the CLAUDE.md rule (never by picking a side). Two runs fired the 2026-08-27 open independently -- a sibling at 13:31-13:37Z (PR #735, merged to master first) and this one at 13:31-13:41Z (PR #736). Both did real, overlapping work and BOTH REACHED THE SAME CONCLUSION: NVDA's print resolved, the IV crush measured, no trade in either book. THE INDEPENDENT IV READINGS ARE CROSS-VALIDATION, NOT A CONFLICT -- NVDA ATM 0.341758 (sibling) vs 0.338555 (this run), agreeing to 0.0032 vol points / 0.9% across different minutes; SPY 0.123382 vs 0.123233; QQQ 0.184178 vs 0.183881. Neither run placed an order, so the double-entry hazard the collision rule exists to prevent did not arise."
   }
  ],
  "AMD": [
@@ -631,6 +638,22 @@
    "largest_1d_move_in_window_pct": 12.22,
    "_sibling_13_52Z": "13:52Z sibling independently read 0.537708 at strike 490 vs this row's 0.5372.",
    "_rv_method_note": "13:52Z sibling method note, recorded because it matters more than a day of vol: rv computed from 31 daily log returns through the 2026-08-25 close, annualised x sqrt(252). A 30-return window would have printed NVDA's raw ratio at 1.1519 instead of ~1.116 and manufactured a jump that is not in the tape. State the window whenever a ratio is quoted."
+  },
+  {
+   "date": "2026-08-27",
+   "spot": 473.605,
+   "atm_strike": 475.0,
+   "atm_iv": 0.536367,
+   "dte_used": 29,
+   "expiry": "2026-09-25",
+   "rv_30d": 0.7379,
+   "rv_30d_ex_top2": 0.6124,
+   "iv_rv_ratio": 0.7269,
+   "iv_rv_ratio_ex_top2": 0.8758,
+   "largest_1d_move_in_window_pct": 13.0,
+   "_rv_window": "rv computed from 30 daily log returns through the 2026-08-26 regular-session close, annualised x sqrt(252). NOTE the series discontinuity: the 2026-08-26 NVDA row used a 31-return window (see its _rv_method_note); these rows use 30, matching the rv_30d field name and the prompt's IV method. The IV half of today's crush comparison is unaffected by this -- it is a direct board-to-board ATM IV reading.",
+   "_n_readings": 13,
+   "_note": "The only core name CHEAP on both reads (raw 0.7269, ex-gap 0.8758) -- and the reason is a +13.00% day in the window inflating rv, plus AMD trading DOWN -1.52% today while NVDA gapped +6.28%. Cheap vol supplies no thesis; the divergence is the fact worth carrying forward, not the ratio."
   }
  ],
  "TSM": [
@@ -777,6 +800,21 @@
    "largest_1d_move_in_window_pct": 7.37,
    "_sibling_13_52Z": "13:52Z sibling independently read 0.345110 at strike 420 vs this row's 0.3422.",
    "_rv_method_note": "13:52Z sibling method note, recorded because it matters more than a day of vol: rv computed from 31 daily log returns through the 2026-08-25 close, annualised x sqrt(252). A 30-return window would have printed NVDA's raw ratio at 1.1519 instead of ~1.116 and manufactured a jump that is not in the tape. State the window whenever a ratio is quoted."
+  },
+  {
+   "date": "2026-08-27",
+   "spot": 422.9147,
+   "atm_strike": 425.0,
+   "atm_iv": 0.329167,
+   "dte_used": 29,
+   "expiry": "2026-09-25",
+   "rv_30d": 0.391,
+   "rv_30d_ex_top2": 0.2838,
+   "iv_rv_ratio": 0.8419,
+   "iv_rv_ratio_ex_top2": 1.1598,
+   "largest_1d_move_in_window_pct": 7.64,
+   "_rv_window": "rv computed from 30 daily log returns through the 2026-08-26 regular-session close, annualised x sqrt(252). NOTE the series discontinuity: the 2026-08-26 NVDA row used a 31-return window (see its _rv_method_note); these rows use 30, matching the rv_30d field name and the prompt's IV method. The IV half of today's crush comparison is unaffected by this -- it is a direct board-to-board ATM IV reading.",
+   "_n_readings": 13
   }
  ],
  "AVGO": [
@@ -925,6 +963,22 @@
    "largest_1d_move_in_window_pct": 6.4,
    "_sibling_13_52Z": "13:52Z sibling independently read 0.501200 at strike 355 vs this row's 0.5039. Sibling adds: AVGO is the RICHEST name in the core list on both measures and it is NOT NVDA sympathy -- it carries its own early-September print, and spot 357.15 sits 9.4% below its 20-day (393.63) and 7.8% below its 50-day (387.46). Rich vol on a broken chart.",
    "_rv_method_note": "13:52Z sibling method note, recorded because it matters more than a day of vol: rv computed from 31 daily log returns through the 2026-08-25 close, annualised x sqrt(252). A 30-return window would have printed NVDA's raw ratio at 1.1519 instead of ~1.116 and manufactured a jump that is not in the tape. State the window whenever a ratio is quoted."
+  },
+  {
+   "date": "2026-08-27",
+   "spot": 362.39,
+   "atm_strike": 360.0,
+   "atm_iv": 0.50813,
+   "dte_used": 29,
+   "expiry": "2026-09-25",
+   "rv_30d": 0.4233,
+   "rv_30d_ex_top2": 0.3447,
+   "iv_rv_ratio": 1.2003,
+   "iv_rv_ratio_ex_top2": 1.4743,
+   "largest_1d_move_in_window_pct": 6.61,
+   "_rv_window": "rv computed from 30 daily log returns through the 2026-08-26 regular-session close, annualised x sqrt(252). NOTE the series discontinuity: the 2026-08-26 NVDA row used a 31-return window (see its _rv_method_note); these rows use 30, matching the rv_30d field name and the prompt's IV method. The IV half of today's crush comparison is unaffected by this -- it is a direct board-to-board ATM IV reading.",
+   "_n_readings": 13,
+   "_note": "The only core name RICH on BOTH reads: raw 1.2003, ex-gap 1.4743 -- the highest ex-gap ratio in today's sweep. AVGO reports 2026-09-02, so this board (2026-09-25) spans the print and the buyer genuinely bears that gap; the raw ratio is the more honest gauge for a print-spanning contract, and it is still above 1."
   }
  ],
  "MSFT": [
@@ -1071,6 +1125,22 @@
    "largest_1d_move_in_window_pct": 14.42,
    "_sibling_13_52Z": "13:52Z sibling independently read 0.256747 at strike 495 vs this row's 0.2595 -- same conclusion, ex-gap ~1.01, fair.",
    "_rv_method_note": "13:52Z sibling method note, recorded because it matters more than a day of vol: rv computed from 31 daily log returns through the 2026-08-25 close, annualised x sqrt(252). A 30-return window would have printed NVDA's raw ratio at 1.1519 instead of ~1.116 and manufactured a jump that is not in the tape. State the window whenever a ratio is quoted."
+  },
+  {
+   "date": "2026-08-27",
+   "spot": 490.89,
+   "atm_strike": 490.0,
+   "atm_iv": 0.254586,
+   "dte_used": 29,
+   "expiry": "2026-09-25",
+   "rv_30d": 0.4907,
+   "rv_30d_ex_top2": 0.2422,
+   "iv_rv_ratio": 0.5188,
+   "iv_rv_ratio_ex_top2": 1.0512,
+   "largest_1d_move_in_window_pct": 15.51,
+   "_rv_window": "rv computed from 30 daily log returns through the 2026-08-26 regular-session close, annualised x sqrt(252). NOTE the series discontinuity: the 2026-08-26 NVDA row used a 31-return window (see its _rv_method_note); these rows use 30, matching the rv_30d field name and the prompt's IV method. The IV half of today's crush comparison is unaffected by this -- it is a direct board-to-board ATM IV reading.",
+   "_n_readings": 13,
+   "_note": "THE DOCUMENTED GAP ARTIFACT, REPRODUCED EXACTLY -- read the pair, never the headline. Raw ratio 0.5188 looks like half-price vol and is almost entirely one +15.51% day (2026-07-30) inside the window; ex-gap 1.0512 = premium is priced about FAIR. This is the same trap CLAUDE.md records for MSFT on 2026-08-20 (headline 0.52). Do not read this as cheap vol."
   }
  ],
  "TSLA": [
@@ -1217,6 +1287,21 @@
    "largest_1d_move_in_window_pct": 15.69,
    "_sibling_13_52Z": "13:52Z sibling independently read 0.410452 at strike 350 vs this row's 0.4084 -- same conclusion, ex-gap 1.18, rich.",
    "_rv_method_note": "13:52Z sibling method note, recorded because it matters more than a day of vol: rv computed from 31 daily log returns through the 2026-08-25 close, annualised x sqrt(252). A 30-return window would have printed NVDA's raw ratio at 1.1519 instead of ~1.116 and manufactured a jump that is not in the tape. State the window whenever a ratio is quoted."
+  },
+  {
+   "date": "2026-08-27",
+   "spot": 347.125,
+   "atm_strike": 345.0,
+   "atm_iv": 0.405908,
+   "dte_used": 29,
+   "expiry": "2026-09-25",
+   "rv_30d": 0.5898,
+   "rv_30d_ex_top2": 0.3543,
+   "iv_rv_ratio": 0.6882,
+   "iv_rv_ratio_ex_top2": 1.1456,
+   "largest_1d_move_in_window_pct": -14.52,
+   "_rv_window": "rv computed from 30 daily log returns through the 2026-08-26 regular-session close, annualised x sqrt(252). NOTE the series discontinuity: the 2026-08-26 NVDA row used a 31-return window (see its _rv_method_note); these rows use 30, matching the rv_30d field name and the prompt's IV method. The IV half of today's crush comparison is unaffected by this -- it is a direct board-to-board ATM IV reading.",
+   "_n_readings": 13
   }
  ],
  "CVS": [
