@@ -23083,6 +23083,51 @@
       },
       "iv_duty": "No new name evaluated to a decision this run, so no new iv_history.json row is owed. Today's core-list rows were logged by the earlier runs of this session; overwriting them on an 11-minute redundant firing would add nothing and risks re-serializing the file (which is indent=1, not the repo-wide 2 the old rule wrongly asserted).",
       "why_flat": "Ninth firing in 76 minutes. Every standing verdict that would gate a trade -- the TACTICAL stand-down, the CORE IV-sanity block, the equity screen's absence of an A-grade non-semicap non-oil name -- was written earlier this session and none of them moves on an 11-minute clock. The redundant-run protocol says the correct output is the reconciliation, fresh marks, and a short entry saying so; inventing a research task to justify the firing is what it explicitly forbids. Boredom is not a catalyst."
+    },
+    {
+      "run_utc": "2026-08-27T18:45:00Z",
+      "run_local_et": "2026-08-27 14:45 ET",
+      "trading_day_et": "2026-08-27",
+      "run_type": "market_hours_regular",
+      "prompt_version": "v8, pasted 2026-08-26",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org)",
+      "market_state": "OPEN, 315 minutes into the 2026-08-27 session, ~1h15m to the bell. TWENTY-NINTH post-open run and the TENTH scheduler firing in 91 minutes, fifteen minutes after the 18:30Z run. Heartbeat, market_brief and the cap/throttle reset are owned by the 13:38Z run; none re-rolled here.",
+      "headline": "NO TRADE, EITHER BOOK, and deliberately CHEAP. Tenth firing in 91 minutes against a written session-wide TACTICAL stand-down, an unchanged 18:01Z report, and three positions none of which is near an exit -- the redundant-run protocol governs: reconcile, re-mark, log, stop. Nothing on this desk is on a 15-minute clock. The one thing worth stating rather than assuming: the TACTICAL forward trigger left by the 14:00Z run is not merely unconfirmed, it is structurally unreachable right now -- it requires a SECOND test of QQQ's rising 20-day and QQQ sits ~3.4 points above that average, so the PRICE half cannot fire and no volume work is owed. Testing a trigger means checking both halves, and checking the cheap half first is what makes a redundant run cheap.",
+      "regime": "RE-MEASURED at 18:45Z, not inherited. SPY 769.870 +0.495% | QQQ 718.060 +0.940% | NVDA 226.470 +8.02% | LLY 1181.675 -0.650% | PNC 243.480 -0.487%. A shade FIRMER at the index level than the 18:31Z read (SPY 769.620 -> 769.870, QQQ 717.550 -> 718.060), ending nine consecutive softer prints -- a drift within the session's range, not a turn, and it changes no verdict. NVDA 226.470 is still -1.65% off its 230.265 session high: the NINTH consecutive read confirming this morning's trend-maturity decline on chasing the gap, a catalyst now one session old that the tape has spent the entire day selling rather than extending.",
+      "reconciliation": {
+        "verdict": "ZERO DRIFT, BOTH BOOKS, on an independent broker pull at 18:45Z -- the one check always worth repeating on a redundant firing, since it is the only way an assignment, expiration or unauthorized fill surfaces between runs.",
+        "options": "get_option_positions(nonzero): exactly ONE contract, SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921), all six pending_* fields 0.0000. No unpaired leg -- the ledger asserts no vertical, and the broker shows none.",
+        "equities": "get_equity_positions: exactly TWO, LLY 0.420254 sh @ 1189.760000 and PNC 1.825758 sh @ 246.470000. shares_available_for_sells == quantity on both; every hold bucket 0.000000. Matches holdings.json one-for-one.",
+        "lot_invariant": "ASSERTED in code, not eyeballed: contracts 1 == broker quantity 1.0000; 1 x 7.49 x 100 == 749.00 == total_cost_basis == max_loss. PASS.",
+        "account": "get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true, unchanged."
+      },
+      "capital_and_gates": {
+        "portfolio_1845Z": "total $3,983.40 = equity $941.14 / options $535.00 / cash $2,507.26.",
+        "margin": "unleveraged_buying_power $2,507.26 EQUALS buying_power -- no margin extended. FOUR LAWS #4 is checked on the field that binds, not on buying_power. Less the $250 reserve, deployable is $2,257.26 across BOTH books.",
+        "equity_cash_floor": "2507.26 / (2507.26 + 941.14) = 72.71%, far above the 45% Aug-Oct floor. Max compliant equity buy = 2507.26 - 0.45 x 3448.40 = $955.48. The floor is NOT binding; the absence of an A-grade signal is.",
+        "throttles": "READ from holdings.json._realized_options_pnl_today, never re-typed as a default: options 0 of 8 entries, equities 1 of 3 (LLY, filled 15:06:51Z), realized options P/L $0.00 against the -$400 cap.",
+        "slots": "Options premium at risk $749.00, all of it the exempt hedge. ALL FIVE agentic option slots free (2 TACTICAL / 3 CORE)."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P x1 (hedge)": "WORKING as insurance / HOLD. Mark 5.35, $535.00 vs $749.00 = -$214.00 / -28.57%, 85 DTE. EXEMPT from every premium backstop per the ownership gate and the Aug-Oct posture -- a hedge is expected to decay in a firm tape and that decay is the premium, not a signal. Roll/close decision at ~21 DTE (~2026-10-30) is made WITH Ryan, never autonomously. SPY 769.870 is far above the 700 strike and nothing in the written setup_invalidation has triggered.",
+        "LLY 0.420254 sh": "WORKING / HOLD, thesis INTACT, -$3.40 / -0.68% on a position opened 15:06:51Z today. Target 1280.34 is +8.4% away; green-enough for a native trail is 1399.71. LLY -0.65% on the day against SPY +0.50% is a continuation of the 2026-08-26 pipeline-discontinuation selloff this entry was built to fade -- the drift is the thesis being tested, not broken. Fractional: monitored, not automatic (HARD RULE 5).",
+        "PNC 1.825758 sh": "WORKING / HOLD, thesis INTACT, -$5.46 / -1.21%, IMPROVED from -1.27% at 18:30Z. Target 255.50 is +4.9% away. Because the position is BELOW basis, an RSI2>=70 print would be an OPTIONAL exit-into-strength and never an autonomous bank -- HARD RULE 6's profit-banking gate. No price stop, ever."
+      },
+      "tactical_track": {
+        "verdict": "NO ENTRY. Session-wide stand-down unchanged.",
+        "why_no_volume_work_was_owed": "The forward trigger written by the 14:00Z run requires a SECOND test of QQQ's rising 20-day SMA (~714.64 as measured this morning, slope +2.482/day) that HOLDS. QQQ at 718.060 sits roughly 3.4 points ABOVE that average -- price is nowhere near the level, so the PRICE half of the trigger cannot be satisfied and the volume half is moot. This is the cheap ordering the file's own rule implies: a trigger has two halves and both must be re-derived, but when the price half is unreachable by inspection there is nothing to confirm. A run that fetched bars and computed a trailing baseline here would have spent real budget to learn nothing.",
+        "level_durability_note": "Unchanged and still governing: the 20-day rises +2.482/day, so over a 2-session TACTICAL hold the level travels ~5 points while the trade's entire +20-40% target needs 3.6-7.2 points of index. A level that moves as much as the target is not tradeable as a trigger -- that judgment does not need re-deriving every fifteen minutes."
+      },
+      "core_track": {
+        "verdict": "NO ENTRY. No new candidate worked this run; the standing CORE verdict from earlier today is unchanged and no report signal has moved."
+      },
+      "equity_book": {
+        "verdict": "NO ENTRY, NO EXIT. 1 of 3 daily entries used.",
+        "why": "The committed report is unchanged since 18:01Z and every signal on it is already graded with a written verdict: AMAT C (declined, with the 17:20Z correction that reframed its weakness as IDIOSYNCRATIC rather than semicap-wide after six hours of tape disconfirmed the sector framing), XOM excluded on the 2026-06-17 oil steer, LLY held. No ungraded signal exists, so there is nothing to act on. Re-grading a name already graded this session, on unchanged inputs, is not diligence -- it is churn."
+      },
+      "iv_duty": "No new IV rows written. Nothing was evaluated as an options candidate this run, and the method logs one row per day per name EVALUATED -- today's core-list rows were written by earlier runs. Re-polling and overwriting them fifteen minutes later would add no information and is exactly the redundant work the post-close/redundant-run protocol forbids.",
+      "daily_report_status": "NOT written. The duty fires on the FIRST run at or after 19:15Z (2:15 PM CT); this run is at 18:45Z, thirty minutes early. Recorded again only so the 19:15Z run inherits the reasoning. Standing fallback unchanged: if the bell rings with no report for the trading day, the FIRST post-close run writes it immediately, without waiting for a tidier slot.",
+      "why_flat": "Three positions, none near an exit; no tradeable TACTICAL level; no ungraded equity signal; no CORE candidate whose IV/liquidity/thesis stack clears on unchanged inputs. Boredom is not a catalyst and a tenth firing in 91 minutes is not new information."
     }
   ],
   "updated_utc": "2026-08-26T18:00:00Z"
