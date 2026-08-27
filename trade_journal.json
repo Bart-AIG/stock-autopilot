@@ -22347,6 +22347,56 @@
         "notification_to_Ryan": "NONE SENT, and deliberately. No trigger fired or un-fired, no autonomous sell occurred, and no HARD RULE violation was found. The LLY finding is a position quietly working with an unmet re-check criterion, which the monitoring-mandate dedupe clause explicitly classifies as not-news; it reaches Ryan through the 19:15Z daily report, which IS the delivery. Paging him at ~26 runs/day for a -0.96% mark move on a $500 position is how the mandate gets destroyed."
       },
       "why_flat": "Flat on the MERITS with capacity to spare -- $2,257.26 deployable, five option slots free, two equity entries left, the loss cap untouched and the cash floor at 72.8% against a 45% requirement. The tactical filter has no engaged trigger, CORE fails ex-gap IV sanity on the index and the trend-maturity gate on NVDA, and the equity report's signal list is fully graded with its one qualifying name already taken. Nothing was declined for want of room."
+    },
+    {
+      "run_utc": "2026-08-27T15:45:00Z",
+      "run_local_et": "2026-08-27 11:45 ET",
+      "trading_day_et": "2026-08-27",
+      "run_type": "market_hours_regular",
+      "prompt_version": "v8, pasted 2026-08-26",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org)",
+      "market_state": "OPEN, 135 minutes into the 2026-08-27 session. FIFTEENTH post-open run. The 13:37Z run owns the heartbeat, brief and cap/throttle reset -- none re-rolled here.",
+      "headline": "NO TRADE, EITHER BOOK -- but declined for a reason no run today had established. This run finally executed the 2026-08-25T17:33Z rule that fourteen prior runs skipped (compute the 20- and 50-day SMA BEFORE drawing any intraday box) and found that both indices sit MID-RANGE with the nearest structural level 2.2-2.9 points away. There is no level in play, so the confirmation filter that consumed most of the session's analysis is not even reached. Second output: THREE defective 5-minute buckets in a 27-bar sample, one of which defeats the byte-identity detector this file currently prescribes.",
+      "regime": "AI-COMPUTE LED ON NARROW BREADTH, indices fading off session highs. Tape 15:45Z: SPY 769.530 +0.45% | QQQ 716.860 +0.77% | NVDA 225.271 +7.44% | XLV 172.645 -0.52% | XLF 58.100 -0.27% | LLY 1179.050 -0.87% | PNC 242.460 -0.90% | AMAT 473.930 -1.22%. SPY has given back 1.57 from its 771.100 session high and QQQ 2.72 from 719.580, both set at 15:15Z.",
+      "reconciliation": {
+        "verdict": "ZERO DRIFT, BOTH BOOKS, on an independent broker pull at 15:45-15:46Z.",
+        "options": "get_option_positions(nonzero): exactly ONE contract -- SPY 2026-11-20 700P qty 1.0000 @ 749.00, opened 2026-08-06T14:21:56Z. All six pending_* fields 0.0000 -- no assignment, exercise or unauthorized fill. No unpaired leg.",
+        "equities": "get_equity_positions: exactly TWO -- LLY 0.420254 sh @ 1189.760000 and PNC 1.825758 sh @ 246.470000. Both shares_available_for_sells == quantity, every hold bucket 0.000000.",
+        "lot_invariant_ASSERTED": "contracts 1 == broker quantity 1.0000; 1 x 7.49 x 100 == 749.00 == total_cost_basis_usd == max_loss. PASS, asserted in code.",
+        "method_note": "Per the 15:35Z truncation lesson, holdings.json was parsed and its positions array ITERATED PROGRAMMATICALLY with the count asserted -- not printed and eyeballed. The defect that run logged against itself cannot recur through this path.",
+        "account": "718757339 limited_margin / option_level_3 / agentic_allowed true."
+      },
+      "capital_and_gates": {
+        "portfolio_1546Z": "total $3,981.90 = equity $938.64 / options $536.00 / cash $2,507.26.",
+        "four_laws_4": "unleveraged_buying_power $2,507.26 EQUALS buying_power -- no margin extended. Less the $250 reserve, deployable across BOTH books is $2,257.26.",
+        "equity_cash_floor": "Equity book only, options excluded per the pinned denominator: 2507.26 / (2507.26 + 938.64) = 72.76% vs the >=45% floor. Max compliant additional buy $956.60, far above the ~$400 practical minimum. THE FLOOR DID NOT GATE THIS RUN -- recorded so no future run mistakes a merits-based decline for a capacity-based one.",
+        "slots": "All five agentic option slots free (hedge excluded); both option tracks empty.",
+        "throttles_read_not_defaulted": "READ from holdings.json._realized_options_pnl_today, never typed: OPTIONS 0 of 8, realized $0.00 across 0 closing trades vs the -$400 cap. EQUITIES 1 of 3 (LLY, order 6a90528b, 15:06:51Z). This run added nothing to any of them."
+      },
+      "position_verdicts_BOTH_BOOKS": {
+        "SPY 2026-11-20 700P (options, hedge)": "WORKING / NO ACTION. Mark 5.345 (bid 5.33 / ask 5.36, 0.56% of mid), -$214.50 / -28.6%, 85 DTE, delta -0.1348, theta -$0.0847/day. Recovered two runs running (5.19 -> 5.27 -> 5.345) as SPY eased off its session high; the -30.7% print flagged at 15:25Z is already back to -28.6%. Insurance -- EXEMPT from every premium backstop. Held to the ~21-DTE roll/close decision (~2026-10-30) WITH Ryan.",
+        "PNC (equity, swing)": "HOLD / NO ACTION. 242.46, -1.63% / -$7.33. Target 255.50 is +5.38% away; no RSI2>=70; no mechanical exit available. PNC -0.90% vs XLF -0.27% is the same modest lag as 15:35Z, not a widening one. The 14:20Z INTACT verdict stands and was deliberately NOT re-litigated -- that run wrote escalation criteria (break below ~232, a dated company headline, or XLF diverging up) and none is met.",
+        "LLY (equity, swing)": "HOLD / NO ACTION. 1179.05, -0.90% / -$4.50, position 40 minutes old. The 15:35Z re-check criteria were TESTED rather than re-derived and returned negative on all three limbs: no daily close below the 1175.43 session low (spot is above it and ticked UP from 1178.29), the sector gap NARROWED from -0.428pp to -0.356pp against a -1.5pp escalation threshold, and no dated company-specific headline. Written thesis invalidation untouched; spot +11.5% above the rising 200-day SMA. HARD RULE 5 governs -- no price stop, thesis-managed."
+      },
+      "grades_considered": {
+        "TACTICAL -- QQQ / SPY intraday break: NO SETUP, GRADE N/A (no trigger to grade)": {
+          "what_was_measured": "20-day SMAs computed off the last closed daily bars through 2026-08-26: QQQ 714.642, SPY 766.630. Spot 716.860 and 769.530 -- 2.22 and 2.90 points above respectively, both mid-session-range (QQQ range 714.525-719.580, SPY 767.160-771.100).",
+          "why_declined": "A level is a trigger when it is BREAKING, not when it is nearby. Nothing is in play, so the volume-confirmation clause is never reached. This is a materially different and cleaner decline than the fourteen that preceded it today, all of which turned on the confirmation filter applied to desk-drawn micro-ranges.",
+          "the_one_real_level_found": "QQQ's 20-day SMA at 714.642 sits 0.117 from today's session low of 714.525 -- the session's only genuine structural confluence, and the first identified in fifteen runs. Usable as a SAME-DAY trigger; NOT usable for a 2-session hold, because the 07-28..08-04 crash closes rolling out of the window drift the average +3.12 points over two sessions on a flat index, which is about what a ~0.45-delta QQQ contract needs to move to reach its +20% target. Recompute it tomorrow; do not inherit 714.64."
+        },
+        "CORE -- index and NVDA premium: DECLINED on IV sanity (unchanged, re-stated not re-derived)": "Index premium reads RICH on the honest ex-gap ratios measured at 13:37Z (QQQ 1.1028, SPY 1.1985) and NVDA post-crush reads 1.0656 -- FAIR, not cheap. The 18.3% NVDA IV crush was real and correctly measured this morning; 'crushed' and 'cheap' are different claims and only the first is true. NVDA calls fail the trend-maturity gate independently (+7.4% move already run, catalyst one session old and fully priced, tape fading it); NVDA puts would fight a +7.4% session on the day the overhang cleared. No re-measurement was warranted in two hours.",
+        "EQUITY -- the report's RSI2 list: FULLY GRADED, nothing new": "The 15:01Z committed report is the newest (44 minutes old, no DATA ERROR) and every signal on it has a verdict: AMAT C (idiosyncratic semicap selling with an active unresolved cause, 14:03Z), SCHW C (15:25Z), XOM and EOG excluded on the standing oil steer, LLY taken at 15:05Z. No new signal has appeared. Equity throttle unchanged at 1 of 3."
+      },
+      "data_integrity_finding": {
+        "subject": "THE BYTE-IDENTITY DETECTOR FOR A DEFECTIVE 5-MINUTE BUCKET IS SOUND WHEN IT FIRES AND UNSOUND AS A SCREEN -- one of three holes found this run defeats it.",
+        "measured": "Reconciled against the 1-minute series: QQQ 14:50 bucket reported 6,978 vs a true 87,192 (8.0%); SPY 14:40 reported 6,533 vs 55,769 (11.7%); SPY 14:50 reported 15,896 vs 124,253 (12.8%). Three holes in a 27-bar two-symbol sample, all in a -87% to -92% band, categorically separate from ordinary drift.",
+        "the_defeating_case": "SPY's 14:50 bucket is byte-identical to its 14:54 constituent minute and the prescribed detector catches it. QQQ's 14:50 bucket is NOT: vol 6,978 against that minute's 7,823, and matching open and low to four decimals but not high, close or volume. It is the last minute caught MID-SETTLEMENT -- the provisional-bar defect and the dropped-bucket defect in one bar.",
+        "why_it_matters_beyond_volume": "The bucket being one minute rather than five means it cannot show the interval's extremes: QQQ's true 14:50 range is 717.840-718.900 and it reported 718.07-718.30, hiding 0.60 of the high. That mechanism once put a wrong session low on master.",
+        "the_rule": "Keep the identity test as a fast POSITIVE indicator; never use it as the screen. Sum the constituent 1-minute bars and compare -- anything off by more than ~5% is a hole. A NEAR-miss on the identity test is evidence FOR the defect, not against it.",
+        "honest_scope": "Changed no decision. None of the three defective buckets falls in the trailing-30-minute window a confirmation clause would use now, and no trigger fired on any measure today. Logged because the defect rate (3 in 27) is materially higher than the 1-in-7 previously recorded."
+      },
+      "iv_duty": "No new IV rows written. iv_history.json already carries 2026-08-27 rows for all eight core names (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA), logged by earlier runs. This run priced no option chain, so it computed no new ATM IV and fabricated none -- the duty is to log what was measured, not to restamp.",
+      "why_flat": "No level in play for TACTICAL, no premium worth buying for CORE, and no ungraded report signal for equities. Nothing was forced on a run with all five option slots free and $2,257 deployable -- capacity is not a reason to trade."
     }
   ],
   "updated_utc": "2026-08-26T18:00:00Z"
