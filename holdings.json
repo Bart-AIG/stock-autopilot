@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-27T14:47:00Z",
+  "updated_utc": "2026-08-27T15:07:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-27",
     "realized_usd": 0.0,
@@ -8,7 +8,8 @@
     "cap": -400.0,
     "source": "FRESH RESET by the FIRST POST-OPEN run of trading day 2026-08-27 (13:38Z, after the 13:30Z bell). The reset is legitimate here precisely because the bell HAS rung -- the CLAUDE.md rule that a post-close/pre-open run must NOT reset the cap or throttles applies to the nineteen pre-open firings that preceded this one, and every one of them correctly declined to roll it. Prior trading day 2026-08-26 closed at -$16.00 across 3 closing trades (broker-confirmed), all three belonging to the Ryan-authorized interactive legging test; scheduled runs placed nothing.",
     "cap_status": "NOT BINDING. $0.00 realized against -$400 leaves the full cap. It gates NEW ENTRIES only and never delays or blocks an exit.",
-    "entry_throttle": "OPTIONS 0 of 8 for trading day 2026-08-27 (0 of 2 used by this run). EQUITIES 0 of 3. Both reset at this 09:30 ET open, not at the UTC rollover. NOTE for any post-close run later today: once the 20:00Z bell rings, these figures must be READ from this key, never re-typed as a default -- the 2026-08-27T09:18Z finding records four consecutive runs restating '0 of 8' about a day that had already traded 3."
+    "entry_throttle": "OPTIONS 0 of 8 for trading day 2026-08-27 (0 of 2 used by this run). EQUITIES 0 of 3. Both reset at this 09:30 ET open, not at the UTC rollover. NOTE for any post-close run later today: once the 20:00Z bell rings, these figures must be READ from this key, never re-typed as a default -- the 2026-08-27T09:18Z finding records four consecutive runs restating '0 of 8' about a day that had already traded 3.",
+    "equity_entry_throttle": "1 of 3 used for trading day 2026-08-27 (LLY, order 6a90528b, 15:06:51Z). Incremented from the 0 READ out of this file at 15:03Z -- never typed as a default. Options entries remain 0 of 8; options realized P/L remains $0.00 against the -$400 cap (this was an EQUITY trade and does not touch the options cap)."
   },
   "positions": [
     {
@@ -72,6 +73,27 @@
       "_notify_state": {
         "last_checked_utc": "2026-08-27T14:20:00Z",
         "status": "MONITORING -- SILENT, and the prior notify condition has EXPIRED cleanly. The RSI2>=70 exit-into-strength trigger that was live on 2026-08-26 is GONE: the fresh 2026-08-27 report downgrades PNC to HOLD (thesis-watch), so there is no longer a fired trigger to be silent about. Nothing notifiable happened this run -- a HARD RULE 7 verdict of INTACT owes Ryan no notification (only autonomous SELLS do, per HARD RULE 6). Becomes notifiable on: the 255.50 target printing, the 289.97 green-enough level (Ryan's native-trail cue), a break below ~232 that re-opens the thesis question, or a genuine HARD RULE 7 break."
+      }
+    },
+    {
+      "symbol": "LLY",
+      "sleeve": "swing",
+      "entry_date": "2026-08-27",
+      "entry_price": 1189.7553,
+      "shares": 0.420254,
+      "stop": null,
+      "target": 1280.34,
+      "native_trail_pct": null,
+      "_note": "placed_agent='agentic' -- FIRST AUTONOMOUS EQUITY ENTRY under the v8 / HARD RULE 6 authority Ryan granted 2026-08-26. NO Ryan approval was claimed, quoted or implied for this trade: HARD RULE 2's scope was explicitly narrowed on 2026-08-26 so that signal-sourced equity trades run autonomously, and this is one. Signal-sourced from the COMMITTED 15:01Z latest_intraday.md on master (Connors RSI2 5.8, theme 'Other', target 1280.34, Earnings column blank). Order 6a90528b-621f-4aaa-bd73-2fece96aae17, filled 0.420254 sh @ 1189.7553 = $500.00, zero fees, dollar-based market order in regular_hours per HARD RULE 3. FRACTIONAL BY NECESSITY, not preference: one whole LLY share is $1,189.76 = 29.9% of the $3,975 account and would breach the ~15-20% per-name cap outright. The whole-share preference exists so a position can carry a resting GTC stop; this desk places NO stops under HARD RULE 5, so it is moot here. THESIS: mega-cap pharma sold off -3.61% on 2026-08-26 after discontinuing THREE non-core pipeline assets -- LY3884963 (frontotemporal-dementia gene therapy from the $1.04B Prevail Therapeutics deal), CD19 antibody LY3541860, and radioligand 225Ac-PSMA-62 -- explicitly for LACK OF EFFICACY, not safety. None touches the incretin franchise that IS the thesis, and a cull for efficacy is a COMPLETED, already-announced event with nothing further to come. Core franchise expanding: orforglipron (Foundayo) US submission complete in type-2 diabetes and under expanded-label review; retatrutide BLA slated Q1 2027; Q2 2026 was a beat-and-raise quarter. BofA RAISED its PT to $1,286 from $950, reiterating Buy; ~26-analyst consensus $1,277-1,303 vs the 1,189.76 entry. The one unresolved negative is the disclosure that Q2 was aided by non-recurring US rebate/discount adjustments, an H2 margin/growth-RATE question rather than a franchise break -- it is what held the grade to A-minus and the size to the $400-500 defensive-posture band rather than the $596-795 the per-name cap would have allowed. NO PRICE STOP, EVER (HARD RULE 5) -- thesis-managed. Green-enough level for Ryan's native 15% trail: 1189.7553 / 0.85 = $1,399.71.",
+      "setup_invalidation": "Sell ONLY on a HARD RULE 7 thesis BREAK, defined concretely so no future run has to re-derive it: (1) a SAFETY signal or regulatory action against the incretin franchise (orforglipron / tirzepatide / retatrutide); (2) an H2 guidance CUT confirming the rebate-driven margin-compression concern as structural rather than a timing artifact; or (3) a close back below the rising 200-day SMA (1057.48 on 2026-08-26, rising ~+1.66/day). Discontinuation of further NON-CORE pipeline assets does NOT invalidate -- that is the event already absorbed. Target 1280.34 = the 2026-08-19 swing high, +7.61% from entry.",
+      "_current_state": {
+        "last_checked_utc": "2026-08-27T15:07:00Z",
+        "quote_basis": "Fill execution 15:06:51.832Z @ 1189.7553. Pre-order review quote 15:06:36Z: bid 1188.14 / ask 1189.28, last 1188.84, order_checks {} (no broker alerts).",
+        "mark": 1189.7553,
+        "pl_usd": 0.0,
+        "pl_pct": 0.0,
+        "status": "NEW POSITION, opened this run. Entered on a confirmed intraday reversal, not on the daily print: own 10-minute bars put the session low at 1175.43 (13:50Z), with higher lows and higher closes through the morning and a genuine volume push at 14:30Z (39,383 sh vs 1,438-4,142 on the quiet bars either side). By the 15:06Z fill LLY had recovered to 1189.76, +1.22% off that low and essentially FLAT against the 1189.41 prior close -- the whole of the previous day's -3.61% having stabilised. Entry is thesis-managed with no price stop.",
+        "basis_used": "0.420254 sh x 1189.7553 = $500.00. Invariant ASSERTED IN CODE this run against the broker fill: cumulative_quantity 0.420254 == shares; shares x entry_price == 500.00 == dollar_based_amount. PASSED."
       }
     }
   ],
