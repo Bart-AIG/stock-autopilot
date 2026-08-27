@@ -1,143 +1,95 @@
-# Daily Report — Wednesday, 2026-08-26 — **BOTH BOOKS**
+# Daily Report — Thursday, 2026-08-27 — **BOTH BOOKS**
 
-*Agentic account (••••7339, `limited_margin` / `option_level_3`). Written at 16:20 ET / 21:20 UTC by the first post-close run, under the fallback clause — the bell rang with no report written, so this one was written immediately rather than deferred. Regular-session quotes stamped 20:14:59Z; after-hours prints are labelled as such and are never used to value a position.*
+*Agentic account (••••7339, `limited_margin` / `option_level_3`). Written at 15:20 ET / 19:20 UTC by the first run at or after the 14:15 CT report window — on time, in-session, not under the post-close fallback that yesterday's report needed. All quotes stamped 19:19–19:20Z, ~40 minutes before the bell.*
 
-**One-line summary: two firsts and a flat book. The equity sleeve became autonomous at 18:15Z and its very first decision was to *decline its own trigger*; the legging protocol was proven end-to-end by fills in a Ryan-authorized live test for $16. Scheduled runs placed nothing in either book across twenty-eight firings — correctly, because the entire session was a pre-event vacuum in front of NVDA. NVDA has now reported: EPS $2.22 vs $2.09 estimated, a 6.2% beat, and the stock is +3.9% after hours. Everything the desk deferred today re-prices tomorrow morning.**
+**One-line summary: the desk took its second-ever autonomous equity entry — $500 of LLY at 1189.7553 — and then declined every other signal on a seven-name screen. NVDA's print resolved overnight with a +8% gap that the desk deliberately did not chase, and the reasoning behind that decline is the most useful thing in this report. Options: nothing opened, thirty-one runs, zero forced trades. The book is three positions, all small, none near an exit.**
 
 ---
 
-## 1. What we own
+## 1. Positions — what we own and why
 
-| Position | Book | Placed by | Basis | Close 2026-08-26 | P/L | What an exit nets | Status |
-|---|---|---|---|---|---|---|---|
-| SPY 2026-11-20 700P ×1 | options (hedge) | agentic | 7.49 / $749.00 | mark **5.805** | **−$168.50 / −22.50%** | −$171.00 at the 5.78 bid (spread 0.86% of mid) | Working as designed |
-| PNC 1.825758 sh | equity (swing) | agentic | 246.4729 / $450.01 | **244.71** (+0.25% on the day) | **−$3.22 / −0.72%** | n/a — held on thesis | Hold, 4.4% from target |
+| Position | Entry | Mark (19:19Z) | P/L | Status |
+|---|---|---|---|---|
+| **SPY 2026-11-20 700P** ×1 (hedge) | $7.49 = $749.00 | 5.25 mid = $525.00 | **−$224.00 / −29.9%** | HOLD — insurance, exempt |
+| **LLY** 0.420254 sh (swing) | $1,189.7553 = $500.00 | 1,174.40 = $493.53 | **−$6.47 / −1.29%** | HOLD — thesis intact |
+| **PNC** 1.825758 sh (swing) | $246.4729 = $450.02 | 243.10 = $443.84 | **−$6.18 / −1.37%** | HOLD — thesis intact |
 
-**Book value on regular-session closes: options $580.50 + equity $446.79 + cash $3,007.26 = $4,034.55.**
+**SPY 700P — why we own it.** This is the Aug–Oct drawdown insurance Ryan authorized on 2026-08-05: a single-leg long put, ~9.2% out of the money at entry, struck just under the July-low shelf and the rising 200-day so it pays on a genuine trend break rather than a routine dip. It is **not** a directional trade and it is **exempt from every premium backstop** — the −29.9% drawdown is what a 0.13-delta, 85-DTE put does while the market goes up, and it is a non-event by design. The number is printed here so no future run mistakes it for a fired stop. Delta −0.133, theta −$8.41/day, IV 20.3%, 85 DTE. The roll-or-close decision happens at ~21 DTE (~2026-10-30) **with Ryan**, never autonomously.
 
-**Why we own the SPY put.** This is the authorized Aug–Oct drawdown hedge — insurance, not a directional bet, and explicitly exempt from every premium backstop. It lost $29.50 today (prior close 6.10 → 5.805) in a tape that closed slightly green, which is exactly what a 0.14-delta, 86-DTE put is supposed to do when nothing breaks. Greeks at the close: delta −0.1449, theta **−$8.73/day**, IV 20.17%, OI 26,354, volume 2,175. Its one decision point is the ~21-DTE roll/close conversation with you around 2026-10-30. **No action, and none contemplated.** The honest read on the drawdown: it is now −22.5%, deeper than the −17% two sessions ago, and that is carry plus a market that has not obliged — not thesis deterioration. A hedge looks like this right up until the day it doesn't.
+**LLY — why we bought it today** (full detail in §2). Mega-cap pharma sold off 3.6% yesterday on a pipeline cull that never touched the franchise that is the thesis. Target 1,280.34. No price stop, ever — this is thesis-managed. It drifted a further −1.26% today, which is drift inside the setup, not a thesis event: invalidation is a close back under the 200-day at ~1,057, some 10% lower.
 
-**Why we own PNC.** RSI2 oversold swing entry from 2026-08-19: Q2 beat, dividend raised +18%, an active 300-branch expansion, JPMorgan PT $269.50. Target 255.50. Per HARD RULE 5 it carries **no price stop** — it is thesis-managed until it is green enough (**$289.97**, i.e. entry ÷ 0.85) to earn your native 15% trail in the app. Seven sessions in, it is 0.7% underwater and 4.4% below target. Thesis re-read today: **INTACT.**
-
-> ⚠️ **One number to disregard.** Your app and `get_portfolio` currently show the equity book at $440.25, not $446.79. That is a single thin after-hours PNC print at 241.13 on a **240.00 / 247.30 market — a $7.30-wide quote**. It is noise, not a −1.5% move. The regular-session close of 244.71 is the real number, and every figure in this report uses it.
+**PNC — why we still own it.** RSI(2) oversold swing from 2026-08-19; earnings beat, dividend raised 18%, 300-branch expansion, JPMorgan PT $269.50. Target 255.50. Nine days in and 1.4% underwater with the thesis unchanged, which under HARD RULE 5 is a hold, not a problem — underwater swings carry no price stop and are culled at the monthly rebalance if the thesis has decayed. This one hasn't.
 
 ---
 
 ## 2. Actions taken today
 
-### Scheduled runs: **NONE.** Zero orders, both books, across twenty-eight firings.
+**ONE trade, both books: BUY $500 LLY, filled 0.420254 sh @ $1,189.7553, 15:06:51Z, order `6a90528b`, zero fees.** Dollar-based market order, regular hours, per HARD RULE 3. This was the **second autonomous equity entry ever** and the reasoning ran as follows.
 
-That is the output, and it was a decision each time rather than an absence of one. The reasons are in §3.
+- **The signal.** Connors RSI(2) of 5.8 on the committed 15:01Z intraday report — oversold inside a rising 200-day uptrend. Report-sourced, which is the only kind of equity trade the desk may take on its own. Earnings column blank, cross-checked against the calendar: no print inside the hold window.
+- **The news gate (HARD RULE 7), which is what actually decided it.** LLY fell 3.61% on 2026-08-26 after discontinuing three pipeline assets — a frontotemporal-dementia gene therapy, a CD19 antibody, and a radioligand — all three explicitly **for lack of efficacy, not safety.** None of them touches the incretin franchise. That distinction is the whole trade: a safety signal would be a franchise question and an automatic skip; an efficacy cull is a company deciding not to spend more on programs that didn't work, and it is a *completed* event with nothing further to come. Meanwhile the core franchise is expanding — orforglipron's US submission is complete in type-2 diabetes, retatrutide's BLA is slated for Q1 2027, and Q2 was a beat-and-raise. BofA *raised* its target to $1,286 from $950 on the news; ~26-analyst consensus sits $1,277–1,303 against our $1,189.76 entry.
+- **What held it back from A+.** Q2 was aided by non-recurring US rebate and discount adjustments. That is an H2 growth-*rate* question, not a franchise break — but it is real, and it is why this graded **A-minus** and was sized at $500, the defensive-posture band, rather than the ~$600–795 the per-name cap alone would have allowed. Conviction sets size; the cap is only a ceiling.
+- **Gates cleared before the order, in order:** cash floor computed *first* (72.7% equity-book cash, max compliant buy $955 — not binding); per-name cap 12.6% of account; no oil-sector conflict; no earnings flag; throttle 1 of 3; unleveraged buying power checked, no margin extended.
+- **One honest correction from mid-session.** The position is fractional (0.42 shares) because a single whole share is $1,190 — 30% of the account, an outright cap breach. An earlier note dismissed the whole-share preference as moot "because this desk places no stops." That was wrong, and the correction matters for how the position gets protected: the whole-share preference exists so **Ryan's** native 15% trail can be set in-app, and HARD RULE 5 says plainly that sub-1-share positions are "monitored, not automatic." The trade is fine on its merits; the protection mechanism is discretionary rather than automatic, and that is now written into the ledger rather than glossed.
 
-### The one thing that did trade: the legging capability test — **yours, not the automation's**
-
-Between 16:54Z and 17:26Z, an **interactive session with you present** ran a live end-to-end test of whether this account can build a debit vertical by legging. This is recorded here because it is the trading day's only fills and it moved real money — it was **not** an autonomous action, and the automation claims no credit for it.
-
-**Total cost: −$16.00 across 3 closing trades.** What that $16 bought:
-
-- **Cycle 1 (aborted, −$13.00).** Legged with limits resting at mid. The short leg never filled while the market fell away; the filled long bled $13 in seven minutes and the position was aborted by selling the long back. This is the whole argument against mid-resting between legs, priced.
-- **Cycle 2 (complete round trip, −$3.00).** Both legs crossed at the touch, 31 seconds apart. Spread on at **$58 net debit**, margined as a vertical; legged back out at **$55 net**. In and out for $3 plus $0.32 of fees.
-
-**What it proved, and it is worth more than $16:**
-
-1. **Legging works when the long leg is held first.** With the long in hand, the short leg reviews at **$0 collateral** — the broker pairs them and margins the pair as a debit spread. The desk had spent two days believing this was arithmetically impossible, on the strength of a test that had reviewed a short leg with *no long held*, which is a different question entirely.
-2. **The only executable exit is short-leg-first**, and the broker enforces it: selling the long first raises a collateral demand for the naked short that would remain.
-3. **Single-ticket multi-leg orders still 400 out** — opening *and* closing — and `review_option_order` still returns a clean, healthy-looking preview of an order that cannot be placed. A clean multi-leg review remains worthless as evidence.
-4. **Cross the touch, never rest at mid.** Cycle 1 cost $13 in seven minutes without ever holding the position; cycle 2 crossed both spreads and the entire round trip cost $3. On a penny-wide chain the half-spread is an order of magnitude cheaper than inter-leg drift.
-
-No spread specs were handed to you today for in-app placement — nothing cleared the entry bar to spec.
+**No options were opened or closed.** Zero closing trades today, broker-confirmed: `get_realized_pnl` returns 0 trades and $0.00 realized for 2026-08-27.
 
 ---
 
-## 3. Actions considered and skipped — the educational section
+## 3. Candidates considered and SKIPPED — the educational section
 
-### Options — TACTICAL track: **five level-breaks fired, five declined, zero taken**
+**NVDA, the day's actual event — declined, and this is the decision the day turned on.** NVDA reported after yesterday's bell (EPS $2.22 vs $2.09, a 6.2% beat) and gapped +6.8% at the open, trading +8.1% by mid-afternoon. ATM IV on the 2026-09-25 board crushed **−18.3%** (0.4144 → 0.3386), landing ~4.3 vol points below the entire pre-print band. Three separate reasons not to touch it:
 
-Today was the end of a two-session arc in which the desk kept tuning its confirmation filter after each failed break. The 16:37Z SPY break settled it, and the finding is the most useful thing the options sleeve produced today:
+1. **The trend-maturity gate fails outright.** The move already happened, the catalyst is one session old and fully priced, and the tape has been *fading* it all afternoon — NVDA has printed nine consecutive reads below its 230.265 session high. Buying calls here is buying the move that already occurred.
+2. **The crush made NVDA *fair*, not cheap.** Post-crush IV against realized reads 0.9457 raw but **1.0656 ex-gap** — and ex-gap is the honest number, because a board that expires before the next print doesn't get to keep that gap. "IV crushed 18%" and "premium is now cheap" are different claims and only the first was true. Tomorrow the raw ratio will read ~15% cheap purely because the gap day enters the trailing window; that will be an artifact, and it is flagged here in advance so no future run buys it.
+3. **Breadth was narrow, not risk-on.** NVDA alone accounts for roughly four fifths of QQQ's gain. AMD and MSFT traded *down*. A one-stock tape is not a regime.
 
-**That break satisfied every correction the desk had spent two sessions writing.** The level was genuinely structural — the session low at 764.680 sat 0.12 points from the 20-day SMA at 764.7985, not a box drawn around recent bars. The clause was freshly re-derived rather than quoted from an earlier run. The volume confirmed against *every* denominator, including the inflated first hour: 160,261 shares = **200.8%** of the trailing-30-minute baseline, 149.7% of the post-first-hour mean, 102.3% of the first hour itself. Price broke on a completed close and held for eight consecutive one-minute closes.
+**AMAT (RSI2 1.8) — declined, grade C, re-tested three times today rather than inherited.** The deepest oversold print on the screen and the desk still didn't take it, because the print is measuring the wrong thing. AMAT is **−0.46% today while SMH is +2.38%** — a 2.8-point divergence on the single best day the semis have had this month. The news read explains it: China is down to 28% of revenue, the name is priced for perfection after a ~108% run, and the open question is whether it can outgrow LRCX/KLAC/ASML. Non-participation in the exact rally the setup was waiting for is *evidence about the name*, not noise to trade through. Worth noting: RSI2 *deepened* from 2.3 to 1.8 over the session, and that made the case **weaker**, not stronger — the deeper print is the divergence widening.
 
-**It failed completely in 23 minutes.** By 17:00Z SPY had reclaimed the 20-day and printed four straight closes above it, finishing *above where the break started*.
+*A correction inside that verdict, because it was mis-scoped earlier:* this was first read as a semicap-wide split. Six hours of tape disconfirmed that — LRCX went +0.32% → +1.06% and KLAC recovered too, leaving AMAT as the sole material laggard. The veto is **idiosyncratic to AMAT and does not extend to LRCX or KLAC.** A run inheriting "semicap is lagging" would have wrongly blacklisted a whole group.
 
-> **The conclusion, now a written rule: do not open TACTICAL breakout scalps into an unresolved scheduled catalyst, however clean the fire.** When successive fixes to an instrument leave the result unchanged, the instrument was never the problem. Into a scheduled event, de-risking flow is real volume arriving at a level — so the volume clause fires honestly and means nothing, because nobody expresses a directional view before the number. Five failed breaks in two sessions, each on a *better* setup than the last, is the regime talking, not the filter.
+**BAC (RSI2 9.8) — new to the screen this hour, declined, grade C.** BAC is −1.49% today against XLF −0.66%, so it is lagging its own sector by 0.8 points on a day financials is the only red group in a green tape. Two independent problems: the RSI2 print at 9.8 barely clears the <10 gate, which is the weakest signal on the board and nowhere near the A-grade-only bar the defensive posture requires; and the desk **already owns PNC**, an underwater bank. Adding a second financials name while the first is underwater and the sector is the day's laggard concentrates exactly the wrong way.
 
-A second, quieter check: the 16:45Z run declined that same break on **target arithmetic** — the +20% profit target needed roughly 95% of the entire session's range. Measured 36 minutes later, the vehicle it had priced (SPY 09-04 762P at 4.845) was at 4.300, **−11.25%**, more than a third of the way to its −30% stop, with delta drifted out of the tactical 0.40–0.60 band. Right for a stated reason, vindicated by a different one — worth auditing, because the arithmetic gate caught what the regime gate had not yet been written to catch.
+**XOM (RSI2 2.4) — excluded on Ryan's standing sector steer,** not on the merits. No new oil-energy entries: E&P, services, refiners, integrated majors. Reply to override.
 
-### Options — CORE track: **barred, and independently declined on IV**
+**BKNG (6.9) grade C · AMZN (8.5) grade B · SCHW (8.9) grade B-/C.** All real setups, none of them A-grade, and the Aug–Oct posture is explicitly A-grade-only. A B is a skip while the posture stands.
 
-Every 21–45 DTE board opened today spans tonight's NVDA print — plus MRVL (08-27), DELL (09-01) and AVGO (09-02) behind it. The exit engine says *close* before earnings, not *open* into them.
+**TACTICAL options — a session-wide stand-down, written early and held.** No level ever broke with confirmation. The forward trigger left this morning required a *second* test of QQQ's rising 20-day; QQQ spent the afternoon ~3.4 points above that average, so the price half of the trigger was structurally unreachable and no volume work was owed. Checking the cheap half of a trigger first is what makes a redundant run cheap.
 
-It also failed on vol, on the honest reading. All eight core names were screened on the **ex-gap** IV/RV ratio, which strips the single earnings gap that makes implied vol look artificially cheap after a print:
+**CORE options — no entry, and the honest reason is IV, not ideas.** The NVDA crush did not make *index* premium cheap: QQQ reads 1.1028 ex-gap and SPY 1.1985 ex-gap, both rich. Buying rich index premium because a single name's event resolved is a non-sequitur.
 
-| Name | Raw IV/RV | **Ex-gap IV/RV** | Read |
-|---|---|---|---|
-| QQQ | 0.9027 | **1.1697** | Looks cheap, isn't |
-| SPY | 1.0378 | **1.2324** | Rich |
-| NVDA | 1.1560 | **1.3209** | Highest on record for NVDA (n=12) |
-| AMD | — | **0.8685** | Only genuinely cheap name of the eight |
-
-AMD was the one name whose premium was actually inexpensive, **and it was declined anyway** — cheap vol is not a thesis, and there was no setup attached to it. NVDA itself was the clearest skip of the day: its ATM IV rose for a **fifth consecutive session** (0.4032 → 0.4042 → 0.4093 → 0.4108 → 0.4144) *while spot fell*, which is event premium accumulating, not directional repricing. Buying NVDA premium today meant paying the richest relative level in the entire history file, hours before the mechanical crush.
-
-### Equities — the book's first live session: **six signals, six declines**
-
-All six RSI2 swing setups in the 18:02Z report were graded. **The cash floor was not the constraint and it is worth saying so plainly**, because a run that declines everything can look frozen by a limit: the equity book sat at **87.0% cash**, leaving **$1,452 of compliant room** against a per-name cap of $609–812. A $400–800 A-grade entry was fully fundable. Every decline is on the merits.
-
-| Name | Grade | Why not |
-|---|---|---|
-| **XOM** | *excluded* | Integrated oil major — your 2026-06-17 sector steer. RSI2 4.5 with the tightest stop on the board at −3.7%; it would have been the most interesting risk profile of the six, **which is exactly why the steer is worth honouring instead of rationalizing around.** Reply to override. |
-| **LLY** | C — skip | **Thesis weakened on a same-day catalyst.** −3.18% today. Researched, not inferred: management disclosed the Q2 outperformance was aided by *non-recurring* U.S. rebate and discount adjustments, raising concern over H2 deceleration and margin compression. The RSI2 6.9 print is *produced by* the bad news, not an oversold dip inside an uptrend. Separately, 1 share = $1,194 = 29.4% of the account, so it could only be held fractionally — and a fractional position cannot carry your native trail. |
-| **KHC** | C — skip | Not A-grade, which is the bar the defensive posture sets. Q2 beat and the organic-sales outlook was raised, but $100M was added to the investment plan (~$700M incremental spend) against a continuing sales slide, and the Street is uniformly capped (JPMorgan initiated Neutral, $27 PT, 08-20). Bull case reduces to a 5.78% dividend and a low multiple — a value-trap profile. **Declined on grade, not on a break: a legitimate future candidate.** |
-| **AMAT** | B — **defer one session** | The cleanest setup of the six: RSI2 3.1, top-decile momentum, above a rising 200MA, 13.9% below its 50-day. Disqualified by the calendar, which was *checked* rather than assumed — NVDA tonight, MRVL 08-27, DELL 09-01, AVGO 09-02. AMAT is direct NVDA-complex beta and would carry **no stop**, so nothing protects an overnight gap. |
-| **INTC** | B — **defer one session** | The strongest deferral. RSI2 9.0, mom12-1 of 342.9% (5th in the entire universe), above the 200MA, 17.5% below its 50-day — the deepest pullback of the three semis inside an intact uptrend. Own-earnings check clean (absent from the 21-day calendar). Its disqualifiers were the event and the tape, **and both resolved tonight.** |
-| **AEHR** | C — skip outright | RSI2 2.1 is the most oversold print on the board, but the stock fell **4.32% today** on top of a −23.7% estimated stop width carrying the report's own extreme-volatility warning. A $91 small cap down 4.3% into the sector's largest print of the quarter is a falling knife, not a dip. |
-
-**The cluster check binds on top of all of it:** three of the six (AEHR, AMAT, INTC) are the same AI/tech complex. Even with no event risk, at most *one* was takeable — buying several is one leveraged AI bet wearing a diversification costume.
-
-### And the decision that defines the new authority: **PNC's exit trigger fired and was not taken**
-
-`report.py` fired `EXIT-INTO-STRENGTH` on PNC at RSI2 78.5. Read literally, the v8 mechanical-exit clause — *"a target hit or RSI2≥70 swing bounce = bank it autonomously"* — was satisfied. The automation declined.
-
-**Why:** at 18:16Z PNC was 245.635, up 0.62% on the day but still **$1.53 below the 246.4729 entry**. That trigger is a **take-profit authority, not a licence to realize a loss on a technical bounce.** Three independent sources agree: HARD RULE 5 defines it as a take-profit and states that a winner "can then only ever be sold for a locked-in gain"; `report.py` labels this exact case *"optional — policy default is hold-on-thesis"*; and the prior instance's written exit plan is target 255.50, no stop, thesis-managed. The thesis is intact, the trade is seven sessions old and working off its lows.
-
-> **The rule this draws, now written to the ledger for promotion: gate the mechanical equity exit on `price > entry`.** A trigger that banks profits must never be allowed to realize losses because the wording happened to fit. The first day of a new authority spent declining to use it is the correct output — the bar does not fall because the desk just got a new tool.
+**One thing that should NOT be cited as a reason for anything today: the cash floor.** It sat at 72.7% with $957 of compliant headroom — over $550 above the practical entry minimum. Every decline above was on the merits. Saying "the floor blocked it" when the floor has that much room is the kind of pass-for-the-wrong-reason that makes a log useless later.
 
 ---
 
-## 4. Sleeve and book state
+## 4. Sleeve state
 
-**Options**
-- Premium at risk: **$749.00**, all of it the exempt hedge. Zero in TACTICAL, zero in CORE.
-- Open agentic positions: **1 of 5** — and the one is the excluded hedge, so **all five slots are free** (2 tactical / 3 core).
-- Realized P/L today: **−$16.00** against the −$400 cap → **$384 of headroom, not binding.** All of it from the authorized capability test.
-- Entry throttle: **3 of 8** used, every one an interactive-session test entry. **Scheduled runs used 0.**
+| | |
+|---|---|
+| Account value | **$3,970.06** = equity $937.80 / options $525.00 / cash $2,507.26 |
+| Unleveraged buying power | **$2,507.26** — equals `buying_power`, so **no margin extended** |
+| Deployable after $250 reserve | $2,257.26 |
+| Options premium at risk | **$749.00**, all of it the exempt hedge |
+| Open option slots | **5 of 5 free** (2 TACTICAL / 3 CORE; hedge excluded) |
+| Realized options P/L today | **$0.00** vs the −$400 cap — broker-confirmed, 0 closing trades |
+| Options entries used | **0 of 8** |
+| Equity entries used | **1 of 3** (LLY) |
+| Equity-book cash floor | **72.78%** vs the ≥45% requirement — max compliant buy $956.98 |
+| Positions near an exit trigger | **None.** |
 
-**Equities**
-- Positions: 1 (PNC). Entries used: **0 of 1 this run, 0 of 3 today.**
-- **Cash floor: 87.0%** — cash $3,007.26 ÷ (cash + equity $446.79). The posture requires ≥45%. Max compliant buy **$1,452.94**; per-name cap $605–807.
-- Speculative sleeve: **0%** against the ~25% cap.
-
-**Capital, both books**
-- `unleveraged_buying_power` **$3,007.26 == buying_power** → **no margin extended**, as required.
-- Deployable after the $250 reserve: **$2,757.26.**
-- Account equity ~2× the $2,000 margin-equity minimum.
-- Reconciliation: **zero drift.** One option contract, one equity position, all `pending_*` fields at 0.0000 — no overnight assignment, expiration or unauthorized fill. Lot invariants asserted in code and passed.
-
-**Governance:** no open violation flags. The 17:00Z unauthorized-legged-spread flag was raised correctly by a scheduled run that could not see the interactive session, and was cleared by that session under HARD RULE 9(a) — by the session that placed the orders, on your live turns. This run touched neither the flag nor its resolution.
+Nothing in either book is close to a level. LLY needs +9.0% to its 1,280.34 target and −11% to its invalidation; PNC needs +5.1% to 255.50; the hedge has 85 days and no backstop.
 
 ---
 
 ## 5. Tomorrow's watchpoints
 
-**1. NVDA reported, and it beat.** FY2027 Q2 EPS **$2.22 actual vs $2.09 estimated — a 6.2% beat**, broker-verified. After hours the stock is **218.15, +3.90%** on the 209.95 close. QQQ 715.89 (+0.65%), SPY 769.48 (+0.46%). *After-hours prints are indicative only and routinely give back.*
-
-**2. The two deferrals come straight back onto the board — and this is the honest part.** INTC and AMAT were deferred purely because of tonight's print, and tonight's print went their way: INTC 88.95 after hours (+0.78%), AMAT 485.85 (+1.31%). **A gap-up is not a gift to a mean-reversion setup — it can just as easily consume the edge.** Both must be re-graded from scratch on tomorrow's numbers: an RSI2 dip that gaps up 1–2% overnight may no longer be oversold, and the entry that looked good at 478 is a different trade at 486. Re-price, don't re-use.
-
-**3. A pre-registered prediction settles.** The desk logged, in advance, that NVDA's IV/RV ratios (1.1560 raw / 1.3209 ex-gap — the highest on record at n=12) would collapse once the event passed. Tomorrow's `iv_history.json` row measures that against reality. Predictions written down before the fact are the only ones worth anything.
-
-**4. The event bar lifts, but only partially.** The rule barring breakout scalps into an unresolved catalyst is satisfied for NVDA — but **MRVL reports tomorrow evening (08-27), DELL 09-01, AVGO 09-02.** The semi complex is not clear yet, and a CORE swing opened tomorrow still spans two of those.
-
-**5. Everything that was scarce today was still scarce for the right reason.** Five free option slots, $2,757 deployable, an untouched loss cap, $1,452 of equity-floor room. **Capital has not been the constraint for weeks — setups have.** If tomorrow's tape hands the desk a genuine A-grade entry, nothing is in the way of taking it at size.
+- **The NVDA raw IV/RV ratio will read ~15% cheap tomorrow morning and it will be an artifact** — the +6.8% gap day enters the 30-day realized window and inflates the denominator. The ex-gap ratio barely moves (1.066 → ~1.034). Do not buy that number.
+- **Whether the NVDA gap holds.** It faded all afternoon and finished well off the session high. A gap that gives back through today's open would be a genuine signal about how much of the beat was already owned; a gap that holds re-opens the semis complex as a hunting ground.
+- **AMAT's re-open criteria, unchanged and both still unmet:** it needs to stop diverging from SMH, or the China revenue-mix question needs a visible resolution. A deeper RSI2 print alone does not qualify.
+- **LLY** — nothing scheduled. Watch for H2 guidance commentary on the rebate/discount question, the one open negative in the thesis. Green-enough for Ryan's native 15% trail at **$1,399.71**.
+- **PNC** — green-enough at **$289.97**; target 255.50.
+- **Cadence, flagged for Ryan and only he can fix it:** yesterday's runs stopped dead at 18:15Z, leaving zero coverage through the final 1h45m of the session, which is why yesterday's report fell to the post-close fallback. Today reached the terminal slot and kept firing, so it did not recur — but the trigger redundancy that causes it is configuration, not something a run can repair from the inside.
 
 ---
 
-*Committing this file to master IS the delivery. Both books, one report, per prompt v8.*
+*Written by the scheduled automation under prompt v8. No Ryan approval is claimed, quoted or implied anywhere in this report; the LLY entry was taken under the autonomous equity authority in HARD RULE 6, and every other decision described here was a decline.*
