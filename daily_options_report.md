@@ -1,6 +1,7 @@
 # Daily Report — Thursday, 2026-08-27 — **BOTH BOOKS**
 
 *Agentic account (••••7339, `limited_margin` / `option_level_3`). Written at 15:20 ET / 19:20 UTC by the first run at or after the 14:15 CT report window — on time, in-session, not under the post-close fallback that yesterday's report needed. All quotes stamped 19:19–19:20Z, ~40 minutes before the bell.*
+*Two scheduled runs fired this same slot concurrently and both wrote a report. This file is the **union** of the two, not one of them — the second run's additions are marked where they appear. In the one place the runs overlapped, the BAC grade, they reached the **same verdict on entirely different evidence**, which is worth more than either run alone.*
 
 **One-line summary: the desk took its second-ever autonomous equity entry — $500 of LLY at 1189.7553 — and then declined every other signal on a seven-name screen. NVDA's print resolved overnight with a +8% gap that the desk deliberately did not chase, and the reasoning behind that decline is the most useful thing in this report. Options: nothing opened, thirty-one runs, zero forced trades. The book is three positions, all small, none near an exit.**
 
@@ -50,6 +51,13 @@
 
 **BAC (RSI2 9.8) — new to the screen this hour, declined, grade C.** BAC is −1.49% today against XLF −0.66%, so it is lagging its own sector by 0.8 points on a day financials is the only red group in a green tape. Two independent problems: the RSI2 print at 9.8 barely clears the <10 gate, which is the weakest signal on the board and nowhere near the A-grade-only bar the defensive posture requires; and the desk **already owns PNC**, an underwater bank. Adding a second financials name while the first is underwater and the sector is the day's laggard concentrates exactly the wrong way.
 
+*Two further reasons, added by the second run that fired this same slot and graded BAC independently — same verdict, different evidence:*
+
+- **BAC already fired this exact setup six sessions ago and it failed.** RSI2 printed 6.16 on 08-20 and 5.29 on 08-21 — *deeper* than today's 9.8 — bottoming at 61.520 and holding that level twice. The bounce reached only 62.760, **+2.0% off the low**, and was sold. BAC now trades 61.32, a new low beneath that shelf, and is the **only big-four bank making a new low** — JPM, WFC and C all still sit above their own Aug 20–21 lows. A mean-reversion signal that fires, bounces feebly, and then breaks the level that defined it is a weakening pattern, not a fresh one. (Note XLF understates this: roughly a fifth of it is V/MA/Berkshire/insurance, which held. Financials are fine; *banks* de-rated 3.2–5.4% from their August peaks.)
+- **An unresolved binary event lands inside the hold window** — see the Warsh keynote in §5. A 1–3 week swing entered today straddles it, the entry has no edge on it, and HARD RULE 5 forbids the stop that could protect the gap.
+
+**To be precise about what was *not* concluded: BAC's thesis is intact, not broken.** Q2 beat with guidance *raised* (NII to the upper end of 6–8%), there are zero sell ratings, and even the low end of the published target range ($62) sits above spot. This is a **setup and timing decline** — which means the name comes back. Re-grade after the Warsh speech, from scratch on post-event numbers.
+
 **XOM (RSI2 2.4) — excluded on Ryan's standing sector steer,** not on the merits. No new oil-energy entries: E&P, services, refiners, integrated majors. Reply to override.
 
 **BKNG (6.9) grade C · AMZN (8.5) grade B · SCHW (8.9) grade B-/C.** All real setups, none of them A-grade, and the Aug–Oct posture is explicitly A-grade-only. A B is a skip while the posture stands.
@@ -83,6 +91,7 @@ Nothing in either book is close to a level. LLY needs +9.0% to its 1,280.34 targ
 
 ## 5. Tomorrow's watchpoints
 
+- **⚠️ Fed Chair Warsh delivers his first Jackson Hole keynote tomorrow, Friday 2026-08-28 at 10:00am ET.** This is the biggest scheduled event in front of the book and it was missing from this report's first draft. Two things make it bank-specific rather than generic macro: Warsh arrives from a hawkish trajectory (his debut FOMC held at 3.50–3.75%, but 9 of 18 dots projected at least one 2026 *hike*, the 2026 median dot moved 3.4% → 3.8%, and he eliminated forward guidance), and the symposium's theme this year is *"Financial Innovation: Implications for Payments and Policy"* — the first time it centers on digital payments and stablecoins, which bears directly on bank deposit funding and payments income. **This is why BAC was deferred rather than bought**, and it is worth watching for PNC too. Expect a real move in rates-sensitive names at the Friday open.
 - **The NVDA raw IV/RV ratio will read ~15% cheap tomorrow morning and it will be an artifact** — the +6.8% gap day enters the 30-day realized window and inflates the denominator. The ex-gap ratio barely moves (1.066 → ~1.034). Do not buy that number.
 - **Whether the NVDA gap holds.** It faded all afternoon and finished well off the session high. A gap that gives back through today's open would be a genuine signal about how much of the beat was already owned; a gap that holds re-opens the semis complex as a hunting ground.
 - **AMAT's re-open criteria, unchanged and both still unmet:** it needs to stop diverging from SMH, or the China revenue-mix question needs a visible resolution. A deeper RSI2 print alone does not qualify.
