@@ -23582,6 +23582,34 @@
       "why_flat": "The market is shut. No entry or exit of any kind is placeable in either book, so the only legitimate outputs of a redundant overnight firing are the broker reconciliation and this record of it.",
       "notification_decision": "SILENT, deliberately. Nothing fired, nothing changed, nothing needs Ryan. Under the monitoring-mandate dedupe clause a position quietly working is not news, and the day's state is already carried in daily_options_report.md, which IS the delivery.",
       "cost_note": "The redundancy is a trigger-config property (cron-job.org plus the routine's native hourly backstop) and only Ryan can change it. An agent's job is to make each extra firing cost almost nothing -- this entry, the reconciliation behind it, and no more."
+    },
+    {
+      "run_utc": "2026-08-28T02:18:00Z",
+      "run_local_et": "2026-08-27 22:18 ET",
+      "trading_day_et": "2026-08-27",
+      "prompt_version": "v8, pasted 2026-08-26",
+      "fire_payload": "scheduled options+equities automation run",
+      "run_type": "post_close_overnight",
+      "market_state": "CLOSED. The bell rang at 20:00Z, 378 minutes ago. SEVENTH post-bell run of the 2026-08-27 trading day (20:20Z, 21:20Z, 22:19Z, 23:24Z, 00:19Z, 01:20Z preceded it). No order is placeable in either book.",
+      "headline": "DELIBERATE NO-OP under the POST-CLOSE RUN PROTOCOL. Third run to fire after the UTC calendar rolled to 2026-08-28 and it applied the same rollover discipline as the 00:19Z and 01:20Z runs: the trading day is STILL 2026-08-27 until the 09:30 ET open, so no daily artifact was rolled. Broker reconciliation run and clean; nothing else re-derived, re-polled or re-measured.",
+      "actions": "NONE. No entry, no exit, no artifact rolled, no notification sent.",
+      "reconciliation": {
+        "verdict": "ZERO DRIFT, BOTH BOOKS -- seventh independent post-bell verification.",
+        "options": "get_option_positions(nonzero): exactly ONE contract -- SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921, opened 2026-08-06T14:21:56Z). All six pending_* fields 0.0000: no assignment, exercise or expiration overnight, no unauthorized fill. Matches positions[].",
+        "equities": "get_equity_positions: LLY 0.420254 @ 1189.76 and PNC 1.825758 @ 246.47 -- both match the ledger's entry_price to the cent (1189.7553 / 246.4729). No third position appeared.",
+        "account": "get_accounts: 718757339 still limited_margin / option_level_3 / agentic_allowed=true, unsettled_funds 0.0000.",
+        "portfolio": "total_value $3,968.78 | equity_value $939.52 | options_value $522.00 | cash $2,507.26 | unleveraged_buying_power $2,507.26 (equal to buying_power, so no margin is being extended -- FOUR LAWS #4 satisfied)."
+      },
+      "cap_and_throttle_READ_not_typed": {
+        "source": "READ this run from holdings.json._realized_options_pnl_today, per the 2026-08-27T09:18Z CLAUDE.md rule that a post-close run must never type a reset default.",
+        "realized_options_pnl": "$0.00 across 0 closing trades for trading day 2026-08-27, against the -$400 cap. Not binding.",
+        "options_entry_throttle": "0 of 8 used for trading day 2026-08-27.",
+        "equity_entry_throttle": "1 of 3 used -- LLY, order 6a90528b, filled 15:06:51Z by the 15:05Z run.",
+        "note": "These are the STILL-IN-FORCE figures for the day whose bell just rang. They reset at the 09:30 ET open, not at the UTC rollover."
+      },
+      "duties_owned_by_earlier_runs_not_repeated": "heartbeat stamped 13:38Z; market_brief built 13:39Z; IV core-list rows written 13:38Z; cap/throttle reset 13:38Z; DAILY REPORT written 19:20Z in-session and on time (_eod_report_written confirms trading_day_et 2026-08-27) -- the post-close fallback is therefore NOT owed and the report is NOT rewritten, nothing material having happened since; ledger compaction of _SESSION_2026-08-27 and the precomputed Friday review both done by the 20:20Z run.",
+      "why_flat": "Market shut. Nothing is placeable, and the Nth redundant overnight firing is a stand-down rather than a research assignment. The reconciliation is the one check always worth repeating because it is the only way an overnight assignment, expiration or unauthorized fill would surface -- it surfaced nothing.",
+      "notification": "NONE SENT. Nothing changed and nothing needs Ryan. A no-op overnight run is exactly the case where silence is the correct output."
     }
   ],
   "updated_utc": "2026-08-26T18:00:00Z"
