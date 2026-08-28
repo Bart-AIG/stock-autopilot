@@ -71,16 +71,17 @@ called "v4"), so here is the settled chain:
    a future silent prompt edit is detectable the moment it lands.
 5. **v7** (`docs/routine-prompt-v7.md`, written 2026-08-26) — superseded by
    v8 the same day, before pasting. Never live.
-6. **v8** (`docs/routine-prompt-v8.md`, written 2026-08-26) — **PASTE-READY,
-   awaiting Ryan. Paste this one.** Everything in v7 (the fills-proven
-   LEGGING PROTOCOL for debit verticals with short-leg-first exits; structure
-   neutrality — no default vehicle) PLUS the EQUITY BOOK module Ryan
-   authorized live 2026-08-26: bounded equity autonomy (signal-sourced
-   entries + mechanical exits + evidence-gated thesis sells, per-name-cap
-   sizing, max 3 entries/day; every other gate unchanged — cash floor,
-   HARD RULE 7, A-grade-only, oil steer, [ERN] veto, no stops, Ryan-placed
-   positions ask-first). Canonical policy: CLAUDE.md HARD RULES 6 and 8.
-   Until pasted, v6 binds unattended runs: no legging, no autonomous equities.
+6. **v8** (`docs/routine-prompt-v8.md`, written 2026-08-26) — **LIVE since
+   2026-08-27** (confirmed by scheduler-fired runs recording its line-1 stamp).
+   Added the fills-proven LEGGING PROTOCOL, structure neutrality, and bounded
+   EQUITY autonomy. Superseded by v9 on 2026-08-29 but remains what fires until
+   v9 is pasted.
+7. **v9** (`docs/routine-prompt-v9.md`, 2026-08-29) — **PASTE-READY, awaiting
+   Ryan. Paste this one.** v8 plus THE CAPITAL POLICY: the ≥45% cash floor is
+   removed, the operational reserve becomes 5% of total_value, and near-full
+   deployment funds new ideas by ROTATION (a new idea must beat the weakest
+   holding). **Required, not optional** — the stricter-of-two tie-breaker would
+   otherwise reinstate the floor from the stored v8 and undo his decision.
 
 ## ⚠️ Routine prompt drift — the stored prompt must be updated by RYAN when run DUTIES change (found 2026-08-11)
 
