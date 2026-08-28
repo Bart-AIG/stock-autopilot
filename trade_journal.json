@@ -24008,6 +24008,42 @@
       },
       "grades_considered": "NONE. The market is shut; there is nothing to grade and grading pre-open quotes would manufacture a candidate rather than find one.",
       "why_flat": "Market closed. A pre-open firing cannot place an order in either book, so the only work with value is the broker reconciliation -- the one check always worth repeating, because it is the sole way an overnight assignment, expiration or unauthorized fill would surface. It found nothing, which is the correct and expected output."
+    },
+    {
+      "run_utc": "2026-08-28T13:15:00Z",
+      "run_local_et": "2026-08-28 09:15 ET",
+      "trading_day_et": "2026-08-27",
+      "prompt_version": "v8 (pasted 2026-08-26) -- read from this run's own invocation stamp, which outranks CLAUDE.md's description of which prompt is live.",
+      "fire_payload": "scheduler-fired routine trigger (cron-job.org sub-hourly), no live user turn. HARD RULE 9 in full: no Ryan approval is claimed, quoted or implied anywhere in this entry, and no flag is created, cleared or adjudicated.",
+      "run_type": "post_close_overnight",
+      "market_state": "CLOSED. 13:15Z = 09:15 ET Friday -- 17h15m after the 2026-08-27 bell and 15 minutes before the 2026-08-28 open. No order of any kind is placeable in either book.",
+      "headline": "NINETEENTH post-bell reconciliation of trading day 2026-08-27, and the last firing before the 13:30Z bell. ZERO DRIFT, BOTH BOOKS. Deliberate no-op stand-down per the POST-CLOSE RUN PROTOCOL.",
+      "actions": "NONE. No entry, no exit, no artifact rolled, no notification sent, no research task invented to justify the firing. Fifteen minutes of remaining closure is not a reason to front-run the open: any level or volume baseline measured now is measured on an empty book and would be stale by the bell, and CLAUDE.md's opening-print rule requires the first post-open decision to be re-quoted at least ~5 minutes after 13:30Z anyway.",
+      "reconciliation": {
+        "verdict": "ZERO DRIFT, BOTH BOOKS -- broker-sourced, nineteenth independent post-bell verification.",
+        "account": "get_accounts: 718757339 -- limited_margin / option_level_3 / agentic_allowed true, unchanged. unsettled_funds 0.0000.",
+        "options": "get_option_positions(nonzero): exactly ONE contract -- SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921-9bd8-43fd-8b4d-60f76ac03f48), the agentic insurance-exempt hedge, opened 2026-08-06T14:21:56Z. All six pending_* fields 0.0000, so no overnight assignment, exercise, expiration or unauthorized fill. Matches positions[] one-for-one.",
+        "equities": "get_equity_positions: LLY 0.420254 @ 1189.760000 and PNC 1.825758 @ 246.470000 -- both match positions[] one-for-one (ledger carries 1189.7553 and 246.4729 as the finer-precision blended basis; the broker's rounded average_buy_price agrees). No unexpected third position.",
+        "capital": "get_portfolio: total $3,971.57 | equity $942.31 | options $522.00 | cash $2,507.26. unleveraged_buying_power $2,507.26 EQUALS buying_power, so no margin is extended (FOUR LAWS #4 satisfied). Deployable after the $250 reserve: $2,257.26. Cash unchanged from the 08:20Z / 09:19Z / 10:20Z / 11:27Z / 12:48Z / 13:00Z reads -- nineteen consecutive identical cash reads across the overnight.",
+        "equity_value_drift_note": "equity_value moved $940.49 -> $942.31 (+$1.82) versus the 10:20Z read with SHARE COUNTS UNCHANGED. This is pre-market marking of LLY/PNC, not a position change -- the arbiter is quantity x average_buy_price from the broker, and both quantities are identical. Not drift."
+      },
+      "daily_artifacts_not_rolled": "The in-force trading day is STILL 2026-08-27 (its bell rang at 20:00Z; the next open is 13:30Z today). Per the CLAUDE.md UTC-rollover rule, this run did NOT stamp automation_heartbeat.json (still 2026-08-27, correctly), did NOT rebuild market_brief.json (still stamped 2026-08-27), and did NOT reset the loss cap or either entry throttle. STATED FROM THE LEDGER, NOT FROM A DEFAULT, per the 2026-08-27T09:18Z finding: holdings.json._realized_options_pnl_today carries trading_day_et 2026-08-27, realized_usd $0.00, 0 closing trades against the -$400 cap. Throttles for 2026-08-27 as last recorded: options entries 0 of 8, equity entries 0 of 3. The reset belongs to the FIRST POST-OPEN run of 2026-08-28, not to this one.",
+      "friday_review": "DUE for the week ending today, and NOT performed here. It is not a pre-open task: prompt v8 requires it sourced from the broker (get_realized_pnl + get_option_orders + get_equity_orders) across the full week, and the week is not over until today's 20:00Z bell. It belongs to a post-close run of 2026-08-28. Flagged forward so the first post-close run does not have to re-derive that it is owed.",
+      "positions_verdicts": {
+        "SPY 2026-11-20 700P (options, hedge)": "HOLD -- working as designed. Authorized defensive hedge, insurance-exempt from ALL premium backstops per the ownership gate; held to its ~21-DTE roll/close decision WITH Ryan. 84 DTE, nowhere near that review. Not markable now: options do not quote pre-open, and CLAUDE.md forbids pricing a decision off a thin or auction print.",
+        "PNC 1.825758 sh (equity, swing)": "HOLD. No autonomous action available pre-open. Its RSI2>=70 print of 2026-08-26 remains an OPTIONAL exit-into-strength ONLY, not a mechanical fire, because the position is UNDERWATER -- the mechanical exit is a profit-banking authority gated on price > entry (CLAUDE.md HARD RULE 6). Underwater names route to thesis management with no price stop.",
+        "LLY 0.420254 sh (equity, swing)": "HOLD. No fired signal. Fractional (<1 share), so it could not carry a broker stop even if policy allowed one -- monitored, not automatic."
+      },
+      "regime": "NOT RE-DERIVED. Per the POST-CLOSE RUN PROTOCOL a redundant overnight firing does not re-derive the regime, re-poll thin extended-hours quotes, or roll any daily artifact. The 2026-08-27 label stands until the first post-open run of 2026-08-28 rebuilds market_brief.json -- and per the regime-staleness rule that rebuild must measure the PRIOR session's FINAL HOUR separately before inheriting any label.",
+      "iv_history": "No row written. Pre-open ATM IV is measured on wide auction-adjacent markets and is the exact artifact CLAUDE.md warns against; a row logged now would corrupt the series the ramp/crush analysis depends on.",
+      "forward_to_first_post_open_run": [
+        "You own the heartbeat stamp for 2026-08-28, the market_brief.json rebuild, and the reset of the -$400 options cap plus BOTH entry throttles (options 0 of 8, equities 0 of 3). Nineteen pre-open firings correctly declined all of it.",
+        "Re-quote at least ~5 minutes after 13:30Z before pricing ANY decision. Do not act on the opening auction print.",
+        "The committed equity report is 2026-08-26 19:01Z and PRE-DATES the NVDA repricing -- treat as STALE for autonomous entry purposes until a fresher latest_*.md lands on master.",
+        "TACTICAL confirmation needs a trailing-30-to-60-minute volume baseline that does not exist until roughly an hour into the session; and per the 2026-08-26 capstone, do not open breakout scalps into an unresolved scheduled catalyst however clean the fire.",
+        "Friday review is owed for the week ending 2026-08-28 -- broker-sourced, post-close."
+      ],
+      "why_flat": "Market is shut. Nothing is placeable in either book, and the one check worth repeating overnight -- the broker reconciliation that is the only way an assignment, expiration or unauthorized fill would surface -- came back clean for the nineteenth consecutive time."
     }
   ],
   "updated_utc": "2026-08-26T18:00:00Z"
