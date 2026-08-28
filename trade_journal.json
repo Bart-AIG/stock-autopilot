@@ -23712,6 +23712,48 @@
       "grades_considered": "NONE. Market shut; no candidate can be graded on actionable data and no entry is placeable in either book. Polling thin overnight quotes produces numbers nobody can act on -- explicitly forbidden by the POST-CLOSE RUN PROTOCOL.",
       "why_flat": "The market is closed and the book is correct. A tenth reconciliation that finds what the ninth found is the whole deliverable.",
       "next_run_watchpoints": "Pre-open runs: keep declining to roll any daily artifact until 13:30Z. FIRST post-open run of 2026-08-28: stamp the heartbeat, rebuild market_brief.json, and reset both throttles and the loss cap -- legitimately, because the bell will have rung. Carry forward the pre-flagged NVDA RAW-IV ARTIFACT: the 08-27 +6.79% gap is now inside the trailing window, so NVDA's raw iv_rv_ratio will read roughly 0.85 (~15% cheap) on unchanged implied vol while the ex-gap ratio stays ~1.03 (fair-to-rich). Quote the ex-gap ratio as the decision input; the raw number is an artifact, not a bargain."
+    },
+    {
+      "run_utc": "2026-08-28T06:33:00Z",
+      "run_type": "post_close_overnight",
+      "prompt_version": "v8, pasted 2026-08-26",
+      "regime": "NOT RE-DERIVED. Market closed (02:33 ET). Per the POST-CLOSE RUN PROTOCOL a redundant overnight firing does not re-derive the regime, re-poll extended-hours quotes, or roll any daily artifact. The 2026-08-27 label stands until the first post-open run of 2026-08-28 rebuilds market_brief.json.",
+      "trading_day_et": "2026-08-27",
+      "trading_day_note": "The still-in-force trading day is 2026-08-27 -- the one whose bell has rung. It is 06:33Z on the 08-28 UTC calendar date, but 'today' always means the US TRADING day. This run therefore did NOT stamp the heartbeat (still correctly dated 2026-08-27), did NOT rebuild the brief, and did NOT reset the daily loss cap or either entry throttle. The reset happens at the next open, not at the UTC rollover.",
+      "cap_and_throttle_READ_not_assumed": {
+        "_why": "CLAUDE.md rule measured 2026-08-27T09:18Z: never type a cap or throttle figure you did not READ this run. These values are read out of holdings.json._realized_options_pnl_today, not defaulted.",
+        "realized_options_usd": 0.0,
+        "closing_trades": 0,
+        "cap": -400.0,
+        "options_entries_used": "0 of 8",
+        "equity_entries_used": "1 of 3 (the LLY autonomous entry)",
+        "status": "Not binding, and moot -- no order is placeable with the market shut."
+      },
+      "reconciliation": {
+        "verdict": "ZERO DRIFT, BOTH BOOKS -- eleventh consecutive overnight verification.",
+        "account": "718757339 -- limited_margin / option_level_3 / agentic_allowed true, re-confirmed via get_accounts.",
+        "options": "get_option_positions(nonzero) returns exactly ONE contract: SPY 2026-11-20 700P, qty 1.0000 @ 749.00, opened 2026-08-06. All six pending_* fields 0.0000 -- no overnight assignment, exercise, expiration or unauthorized fill. Matches the ledger's single options position (contracts 1, entry_premium 7.49, max_loss 749.00).",
+        "equities": "get_equity_positions returns TWO positions, both matching the ledger to the share: LLY 0.420254 sh @ 1189.760000 (ledger 1189.7553) and PNC 1.825758 sh @ 246.470000 (ledger 246.4729). The sub-cent price deltas are broker rounding of average_buy_price, not drift.",
+        "capital": "total $3,968.82 = equity $939.56 + options $522.00 + cash $2,507.26. unleveraged_buying_power $2,507.26 EQUALS buying_power, so no margin is extended (FOUR LAWS #4 satisfied). Deployable after the $250 reserve: $2,257.26.",
+        "equity_cash_floor": "72.7% (2507.26 / (2507.26 + 939.56)) against the 45% Aug-Oct posture floor -- comfortably compliant. Computed on the EQUITY BOOK ONLY, options excluded, per the pinned 2026-08-11 denominator.",
+        "cash_bridge": "The $500.00 cash decrease from the 2026-08-27 13:38Z heartbeat stamp ($3,007.26 -> $2,507.26) reconciles EXACTLY to the LLY dollar-based market buy (0.420254 sh x $1,189.76 = $500.00). Not unexplained drift."
+      },
+      "apparent_drift_that_is_not_drift": "WORTH READING BEFORE THE NEXT RUN RE-DISCOVERS IT. The 2026-08-27 heartbeat note -- which every overnight run reads first -- says 'get_equity_positions returns exactly ONE position: PNC'. The broker now returns TWO. That is NOT drift and NOT an unauthorized fill: the heartbeat was stamped at 13:38Z by the first post-open run, and the LLY autonomous entry was placed LATER the same session (the second-ever autonomous equity trade under the v8 / HARD RULE 6 authority, fully documented in holdings.json and in section 2 of the 2026-08-27 daily report). The ledger already carries it. The lesson is small but real: a heartbeat note is a SNAPSHOT stamped at one moment of the session, not a running description of the book -- reconcile against holdings.json and the broker, never against a note written hours earlier. A run that treated this as drift would have escalated a non-incident to Ryan.",
+      "position_verdicts": {
+        "SPY 2026-11-20 700P (hedge, options)": "HOLD -- unchanged and untouchable overnight. Authorized defensive insurance, EXEMPT from all premium backstops; its drawdown is what a low-delta long-dated put does in an up-tape and is never a fired stop. Roll/close decision at ~21 DTE (~2026-10-30) WITH Ryan, never autonomously. No action available or appropriate at 02:33 ET.",
+        "LLY 0.420254 sh (swing, equity)": "HOLD -- thesis intact, working. placed_agent 'agentic'. Target 1,280.34; invalidation is a close back under the 200-day near ~1,057, roughly 10% below spot, so the ~1.3% drift since entry is inside the setup and not a thesis event. No price stop, ever (HARD RULE 5) -- thesis-managed. Not remotely green-enough for a native trail (that needs ~1,399.71).",
+        "PNC 1.825758 sh (swing, equity)": "HOLD -- thesis intact. placed_agent 'agentic'. Target 255.50. Underwater ~1.4%, which under HARD RULE 5 carries NO price stop and is managed on thesis to the monthly rebalance. Note the standing correction: an RSI2>=70 print on an UNDERWATER position is an optional exit-into-strength, never a mechanical take-profit -- the mechanical exit is a profit-banking authority gated on price > entry."
+      },
+      "grades_considered": "NONE, and deliberately so. Both books are shut: no equity entry or exit and no option entry or exit is placeable at 02:33 ET. Screening candidates now would produce grades priced off stale or thin overnight prints that the 09:30 open would immediately invalidate -- the POST-CLOSE RUN PROTOCOL names inventing a research task to justify a redundant firing as the failure mode to avoid. The 2026-08-27 session already screened seven names and wrote every verdict to the daily report.",
+      "actions_taken": "None in either book. This run made no order, no ledger edit beyond appending this entry, and no notification to Ryan.",
+      "notification_decision": "DELIBERATELY SILENT. Nothing changed, nothing is wrong, and no gate needs Ryan. Under the notify-once-per-incident discipline, an eleventh consecutive 'reconciled clean overnight' push would be pure noise on his phone and would erode the signal value of the alerts that do need him.",
+      "why_flat": "The market is closed and the book is correct. The eleventh reconciliation finding what the tenth found IS the deliverable -- it is the only check that would surface an overnight assignment, expiration or unauthorized fill, and it surfaced nothing.",
+      "next_run_watchpoints": [
+        "The FIRST run at or after 09:30 ET on 2026-08-28 owns: stamping the heartbeat for the new trading day, rebuilding market_brief.json, and resetting the loss cap and BOTH entry throttles (options 8, equities 3). No earlier run may do any of it.",
+        "It is FRIDAY -- the weekly review is due. Source ALL P&L from the broker (get_realized_pnl + get_option_orders + get_equity_orders), never from this journal, and split it by options track AND by book. Include the DRIFT CHECK: with the desk having taken two autonomous equity entries this week and zero options entries, ask honestly whether a clean structure-drift check reflects discipline or merely inactivity.",
+        "Re-quote everything at least ~5 minutes after 13:30Z before pricing any decision -- never off the opening auction print.",
+        "The 2026-08-27 report is written and delivered; do NOT rewrite daily_options_report.md unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing)."
+      ]
     }
   ],
   "updated_utc": "2026-08-26T18:00:00Z"
