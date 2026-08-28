@@ -26153,6 +26153,38 @@
       },
       "throttles": "Options 0 of 8 entries used for trading day 2026-08-28. Equities 2 of 3 used (ROST 13:37:13Z, MDLZ 13:40:03Z -- the concurrent-run collision); the third slot is closed by the CASH FLOOR ($1.07 max compliant buy), not by the throttle. Realized options P/L $0.00, READ from _realized_options_pnl_today (broker-confirmed 19:16Z), never typed as a default per the 2026-08-27T09:18Z finding. Open option positions: 1, the exempt hedge.",
       "why_flat": "Both books correctly flat-to-hold. The equity book has no fired exit and no compliant entry room; the options book has no trigger, and the two tracks are barred by structure (closing window + Friday weekend carry) rather than by judgment. The week ends with the desk having taken two report-signalled equity entries and zero option entries -- and the honest read, already flagged to Ryan by the 19:15Z weekly review, is that the TACTICAL clause stack has accreted to the point where six fires in six sessions produced zero entries."
+    },
+    {
+      "run_utc": "2026-08-28T20:20:00Z",
+      "run_local_et": "2026-08-28 16:20 ET",
+      "trading_day_et": "2026-08-28",
+      "prompt_version": "v8, pasted 2026-08-26",
+      "run_type": "post_close_first_of_trading_day",
+      "hard_rule_9": "Unattended scheduler-fired run. No Ryan turn is claimed, quoted or paraphrased; no flag cleared; no approval implied.",
+      "market_state": "CLOSED. The bell rang at 20:00Z, twenty minutes before this run fired. No order is placeable in either book, so this run is a reconcile-log-stand-down per the POST-CLOSE RUN PROTOCOL.",
+      "headline": "First post-close run of 2026-08-28. Settled reconciliation clean, zero drift both books, no closing-auction surprise. Every daily duty was already discharged in-session before the bell, so nothing is rewritten. Contribution: the equity cash floor closed at 45.0248% and the arithmetic showing that book CANNOT re-open on marks -- only on a sale, whose proceeds then redeploy 1:1 rather than 55%.",
+      "reconciliation": "BROKER-FIRST. get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000. get_option_positions(nonzero): ONE -- SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* 0.0000 (no assignment/exercise/expiration on the close). get_equity_positions: FOUR -- ROST 2.000000 @ 230.15, LLY 0.420254 @ 1189.76, PNC 1.825758 @ 246.47, MDLZ 7.988509 @ 62.59. All five match holdings.json one-for-one.",
+      "capital_settled_2019Z": "total $3,960.7970 = equity $1,888.8370 / options $525.00 / cash $1,546.96. unleveraged_buying_power $1,546.96 EQUALS buying_power -- no margin extended, FOUR LAWS #4 satisfied, $250 reserve intact.",
+      "throttles_and_cap_READ_NOT_ASSUMED": "Realized options P/L for trading day 2026-08-28 is $0.00 against the -$400 cap -- READ from get_realized_pnl(2026-08-24..2026-08-28), whose 08-28 bucket returns realized_gain null / number_of_trades 0, and cross-checked against holdings._realized_options_pnl_today. Throttles: OPTIONS 0 of 8, EQUITIES 2 of 3 (ROST 13:37:13Z, MDLZ 13:40:03Z). These do NOT reset on this run -- the trading day is still 2026-08-28 until Monday's 09:30 ET open. Per the 2026-08-27T09:18Z finding, a reset figure typed on a post-close run is wrong by construction.",
+      "position_verdicts_BOTH_BOOKS": {
+        "SPY 2026-11-20 700P (hedge)": "HOLD. Closed 525.00 vs 749.00 = -$224.00 / -29.91%, marginally better than the -30.3% in the daily report. Exempt from every premium backstop by Ryan's 2026-08-05 authorization; roll/close decision at ~21 DTE (~2026-10-30) WITH him, never autonomously.",
+        "PNC 1.825758 sh": "HOLD, thesis intact, no exit trigger. placed_agent agentic.",
+        "LLY 0.420254 sh": "HOLD, thesis intact, no exit trigger. placed_agent agentic.",
+        "MDLZ 7.988509 sh": "HOLD, thesis intact, day 1. placed_agent agentic.",
+        "ROST 2.000000 sh": "HOLD, thesis intact, day 1. placed_agent agentic.",
+        "aggregate": "Equity book closed $1,888.84 against $1,910.30 deployed = -$21.46 / -1.12%. Nothing near a target, an RSI2>=70 bounce, a green-enough trailing trigger, or a thesis flag."
+      },
+      "duties_check": "Heartbeat: stamped 13:38Z for 2026-08-28, NOT re-stamped. market_brief: stamped today, NOT rebuilt. daily_options_report.md: written 19:15Z in-session before the bell and union-resolved at 19:30Z -- NOT rewritten, because nothing material happened after it and each master push touching that file re-notifies Ryan. Friday weekly review: appended at 19:15Z, broker-sourced per the 2026-08-13 rule (+$270 account-level over 5 sessions, decomposed to +$286 of Ryan's own manual closes and -$16 from the desk's two capability-test round trips). iv_history: no names evaluated post-close, nothing to log -- quoting thin after-hours marks would manufacture numbers nobody can act on.",
+      "THE_FINDING_the_cash_floor_is_composition_invariant": {
+        "measured": "Cash $1,546.96 / book $3,435.7970 = 45.0248%, i.e. $0.85 of max-compliant-buy above the >=45% Aug-Oct minimum.",
+        "mechanism": "A buy converts cash to equity 1:1 and a sale converts it back, so the desk's own trading NEVER changes total book value -- the floor's denominator moves only on marks. Rewriting max compliant buy as 0.55*cash - 0.45*equity makes both consequences exact rather than intuited.",
+        "consequence_a_marks": "With cash fixed, headroom reaches the ~$400 practical entry minimum only once equity value falls to $1,001.84 -- a 46.96% drawdown across the four positions. The equity book cannot re-open on any plausible Monday gap.",
+        "consequence_b_a_sale": "Selling market value V leaves headroom of $0.85 + V. The FULL proceeds become deployable, not 55% of them, because the sale does not shrink the book the ratio is measured against. This is the counter-intuitive half and the number a future run is most likely to get wrong -- the natural but incorrect reading is that a 45% floor permits redeploying only 55% of a sale.",
+        "what_it_does_not_license": "The Aug-Oct posture separately directs that swing-exit proceeds ACCUMULATE and do not auto-recycle. Consequence (b) states what the FLOOR permits, never a licence to redeploy same-day; two independent gates, stricter governs.",
+        "honest_scope": "Changed no decision -- the market was closed and no order was placeable, which is the only condition under which a run can audit a gate it cannot benefit from. It is arithmetic about a stated rule, not a market call, and the inputs must be recomputed from live get_portfolio numbers on Monday rather than inherited."
+      },
+      "why_flat": "Market closed; no entry or exit is placeable in either book. Independently, the equity book is at its floor boundary with $0.85 of headroom against a ~$400 minimum, and options entries would in any case need a live tape.",
+      "next_run_watchpoints": "Monday 2026-08-31 pre-open runs: stand down and reconcile only -- do NOT stamp the heartbeat, rebuild the brief, or reset the cap/throttles before 09:30 ET. The first post-open run owns all four. Earnings inside a Friday-opened TACTICAL window would have been Monday's only, and get_earnings_calendar showed SAIC (am) alone -- no tech or semis print; the complex clusters Tue-Wed (DELL/PANW/CRDO/MDB 09-01 pm; AVGO/SNOW/HPE/NTAP 09-02 pm), which is inside every CORE 21-45 DTE window and bars CORE semis premium, not scalps. Equity book stays closed to entries until something is sold."
     }
   ]
 }
