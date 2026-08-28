@@ -11,6 +11,101 @@ decision** — exactly what nearly happened with the $300–600 tactical band on
 2026-08-24. Until this is pasted, CLAUDE.md governs on the strength of his live
 turn and runs must report the prompt as stale rather than defaulting to the floor.
 
+## ✂️ OPTION A — EDIT v8 IN PLACE (Ryan's choice 2026-08-29: "We can change V8 prompt to make this adjustment")
+
+Four surgical edits to the stored prompt instead of re-pasting the whole thing.
+The result is textually identical to the full v9 below.
+
+**EDIT 1 — the version stamp (do this one; it is not cosmetic).**
+Line 1 of the stored prompt. FIND:
+```
+OPTIONS + EQUITIES AUTOMATION RUN — JUDGMENT-FIRST, DUAL-BOOK (prompt v8, pasted 2026-08-26)
+```
+REPLACE WITH:
+```
+OPTIONS + EQUITIES AUTOMATION RUN — JUDGMENT-FIRST, DUAL-BOOK (prompt v9, edited in place 2026-08-29)
+```
+> Why it matters: the stamp is how any run reports which prompt it is actually
+> running, and how a session verifies a paste took. Editing the body without
+> bumping the stamp leaves every run truthfully reporting "v8" while executing
+> v9 rules — which silently destroys the one observability mechanism this
+> system has for prompt drift. Bump the stamp or make no edit at all.
+
+**EDIT 2 — kill the cash floor in THE EQUITY BOOK.** FIND:
+```
+      (b) The Aug-Oct defensive posture while it stands: A-GRADE SETUPS ONLY,
+          and the >=45% equity-book cash floor computed BEFORE sizing:
+          max compliant buy = cash - 0.45 x (cash + equity_value), on the
+          EQUITY BOOK ONLY (options excluded). Below the ~$400 practical
+          minimum = no compliant entry today; say so and stand down.
+```
+REPLACE WITH:
+```
+      (b) A-GRADE SETUPS ONLY (the Aug-Oct posture's quality bar survives).
+          THERE IS NO CASH FLOOR -- it was removed 2026-08-29. See THE
+          CAPITAL POLICY below; being ~fully invested is a correct state,
+          not a breach, and no percentage cash target exists anywhere.
+```
+
+**EDIT 3 — the reserve, in FOUR LAWS #4.** FIND:
+```
+     leave ≥$250 unencumbered. Never deploy money that does not exist.
+```
+REPLACE WITH:
+```
+     leave the OPERATIONAL RESERVE unencumbered: 5% of get_portfolio
+     total_value, recomputed every run, never a hard-coded dollar figure
+     (it replaces the old flat $250). Never deploy money that does not exist.
+```
+
+**EDIT 4 — insert THE CAPITAL POLICY.** Find the line that begins:
+```
+OWNERSHIP GATE (non-negotiable, both books): before ANY exit or modification,
+```
+and paste this block **immediately above it**, keeping the blank line after:
+```
+THE CAPITAL POLICY (set by Ryan 2026-08-29; replaces the >=45% cash floor,
+which is VOID -- do not re-derive any percentage cash target):
+  - ONE CASH POOL, BOTH BOOKS. The caps are separable; the cash is not. Every
+    options entry reduces equity capacity dollar-for-dollar and vice versa.
+  - DEPLOY FULLY. Cash is the RESIDUAL of quality, not a target: whatever is
+    left once every A-grade opportunity is funded. Being ~fully invested is a
+    correct state. Exit proceeds are redeployable immediately.
+  - OPERATIONAL RESERVE: 5% of total_value, untouchable, recomputed each run.
+    Plumbing, not strategy -- so a fee, assignment or exit never fails.
+    Deployable = unleveraged_buying_power - 0.05 x total_value.
+  - ROTATION, NOT QUEUING. When deployable cash is below one normal position
+    size, a new idea must be graded BETTER THAN THE WEAKEST POSITION HELD.
+    If it is: sell that one, buy this one, and write BOTH sides of the
+    comparison in the journal. If it is not: it is not an entry. The bar
+    therefore tightens automatically as the book fills.
+      * The rotation sell is an EXIT and obeys every exit rule -- the thesis
+        check, the ownership gate (NEVER rotate out a placed_agent 'user'
+        position autonomously), and the notify-once duty.
+      * "Weakest" = weakest on the ENTRY STACK (thesis strength, setup
+        quality, distance to target). NEVER simply the biggest loser.
+        Selling a sound underwater thesis to chase a fresher signal is churn.
+      * Cross-book: an entry consuming the last deployable cash must beat the
+        weakest position in EITHER book.
+  - A DELIBERATE CASH HOLD MUST NAME A CATALYST AND EXPIRE. You may hold cash
+    beyond the reserve, but only by recording (a) the specific opportunity,
+    (b) a checkable trigger -- a DATE or a PRICE LEVEL, never a feeling, and
+    (c) an expiry. When the date passes or the level is hit or missed, the
+    hold DISSOLVES and the capital returns to normal deployment. An
+    unexpiring "waiting for something better" hold is the floor sneaking
+    back and is FORBIDDEN.
+  - FULL DEPLOYMENT RAISES THE COST OF A BAD ENTRY; IT DOES NOT LOWER THE BAR
+    FOR ONE. Every other gate stands unchanged.
+```
+
+**Verification after editing:** the next scheduler-fired run should record
+`v9` in its journal entry. If runs still say `v8`, edit 1 did not save.
+
+## OPTION B — replace the whole prompt
+
+Paste everything below the `---` divider. Same result; use this if the editor
+makes find-and-replace awkward.
+
 **What v9 changes from v8 — one subject** (Ryan, REAL live turn 2026-08-29: *"I
 think we need to let the agent use the entire portfolio. I think it should only
 have cash on the side if it detects a good reason to hold it for an opportunity
