@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-28T19:30:00Z",
+  "updated_utc": "2026-08-28T19:45:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-28",
     "realized_usd": 0.0,
@@ -451,12 +451,12 @@
     "note": "daily_options_report.md for 2026-08-28 written ON TIME and IN SESSION, before the bell, NOT under the post-close fallback. TWO CONCURRENT RUNS WROTE IT -- a sibling at 19:15Z (PR #819) and one at 19:18Z (PR #820) -- because the 14:15 CT gate admits every run after it and neither could see the other. THE FILE ON MASTER IS THE UNION OF BOTH, not either one, per the CLAUDE.md concurrent-run rule: the 19:15Z report is the base (it landed first and carries the six-fire TACTICAL decline table and the Friday weekly review) and the 19:18Z run's unique contribution -- the 19:21Z follow-up measurement showing the arc's first fully-confirmed fire also went nowhere, with the declined vehicle re-quoted and its delta drifted out of the tactical band -- is inserted and marked. Covers BOTH books per v8. THAT FILE IS THE DELIVERY (eod-report-notify.yml fires on the master push). NO LATER RUN MAY REWRITE IT to refresh closing marks or restate 'still flat' -- only a MATERIAL event (a fill, an exit, a new flag, a trigger firing) justifies a rewrite, because every master push touching it notifies Ryan again. NOTE FOR THE NEXT INSTANCE: the report duty is now the SECOND duty observed to collide on this cadence, after the 13:37/13:40Z entry collision. A gate phrased as 'the first run at or after T' is satisfied by EVERY run after T, so it does not name a unique owner; the ledger's _eod_report_written key is the only thing that does, and it must be READ before writing the report."
   },
   "_last_reconciliation": {
-    "run_utc": "2026-08-28T19:19:00Z",
-    "method": "BROKER-FIRST per the 2026-08-28 collision fix -- the broker was read BEFORE any gate was computed; the origin/master check is second line only, because the ledger lags a sibling's fill by that sibling's commit latency.",
-    "result": "ZERO DRIFT, BOTH BOOKS. get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000. get_option_positions(nonzero): exactly ONE -- SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921, opened 2026-08-06), all six pending_* fields 0.0000, so no assignment, exercise, expiration or unauthorized fill. get_equity_positions: exactly FOUR -- ROST 2.000000 @ 230.150000, LLY 0.420254 @ 1189.760000, PNC 1.825758 @ 246.470000, MDLZ 7.988509 @ 62.590000. All five match positions[] one-for-one. get_equity_orders(created_at_gte=2026-08-28): exactly the two known 13:37/13:40Z sibling fills, nothing since -- no sibling entry landed during this run. get_option_orders(created_at_gte=2026-08-28): EMPTY, the broker confirming _realized_options_pnl_today's $0.00 / 0 closing trades rather than this run re-typing a default.",
-    "capital": "get_portfolio 19:19Z: total 3959.624782, equity 1887.664782, options 525.00, cash 1546.96. unleveraged_buying_power EQUALS buying_power at 1546.96 -- no margin extended, FOUR LAWS #4 satisfied. Options deployable = 1546.96 - 250 reserve = $1,296.96; nothing deployed.",
-    "equity_book_cash_floor": "45.0405% (1546.96 / (1546.96 + 1887.664782) = 3434.624782). Max compliant buy = $1.38, far below the ~$400 practical minimum. Net addition CLOSED, rotation-funded entries only; see _EQUITY_FLOOR_BOUNDARY_STATE. The move from the 19:00Z run's 45.0475% is mark drift, NOT a change of state.",
-    "sibling_cross_validation": "A concurrent 19:15Z run reconciled independently and reached the SAME result -- same one option position, same four equity positions, same zero drift, capital agreeing to a few dollars of mark drift ($3,955.11 vs $3,959.62). Two independent broker reads agreeing is cross-validation, not a conflict."
+    "run_utc": "2026-08-28T19:45:00Z",
+    "method": "BROKER-FIRST per the 2026-08-28 collision fix -- broker read BEFORE any gate was computed; the origin/master check is second line only, because the ledger lags a sibling's fill by that sibling's commit latency.",
+    "result": "ZERO DRIFT, BOTH BOOKS. get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000. get_option_positions(nonzero): exactly ONE -- SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921), all six pending_* fields 0.0000. get_equity_positions: exactly FOUR -- ROST 2.000000 @ 230.150000, LLY 0.420254 @ 1189.760000, PNC 1.825758 @ 246.470000, MDLZ 7.988509 @ 62.590000. All five match positions[] one-for-one.",
+    "capital": "get_portfolio 19:45Z: total 3954.321496, equity 1888.361496, options 519.00, cash 1546.96. unleveraged_buying_power EQUALS buying_power at 1546.96 -- no margin extended, FOUR LAWS #4 satisfied. Options deployable = $1,296.96 after the $250 reserve; nothing deployed.",
+    "equity_book_cash_floor": "45.0331% (1546.96 / 3435.321496). Max compliant buy = $1.07. NET ADDITION CLOSED, rotation-funded entries only per _EQUITY_FLOOR_BOUNDARY_STATE. The move from 19:19Z's 45.0405% is mark drift, NOT a change of state.",
+    "live_marks": "PNC 242.50 (-1.61% vs entry), LLY 1165.125 (-2.07%), MDLZ 62.335 (-0.41%), ROST 229.075 (-0.47%). Hedge SPY 700P mark 5.19 (bid 5.18 / ask 5.20), value $519 vs $749 cost."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
@@ -692,16 +692,18 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-08-28T19:30:00Z",
+    "run_utc": "2026-08-28T19:45:00Z",
     "trading_day_et": "2026-08-28",
-    "run_index_today": 27,
-    "action": "NO TRADE, both books. Every scheduled duty for 2026-08-28 was already discharged on arrival (heartbeat stamped 13:38Z, market_brief built, all nine IV rows logged, daily report written 19:15/19:18Z) -- so this run's output is a MEASUREMENT, not an artifact rewrite. The daily report was deliberately NOT rewritten: nothing material happened after 19:18Z.",
-    "reconciliation": "ZERO DRIFT, BOTH BOOKS, broker-first per the 2026-08-28 collision fix. get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000. get_option_positions(nonzero): exactly ONE -- SPY 2026-11-20 700P qty 1.0000 @ 749.00 (the exempt hedge). get_equity_positions: ROST 2.000000 @ 230.15, LLY 0.420254 @ 1189.76, PNC 1.825758 @ 246.47, MDLZ 7.988509 @ 62.59 -- all four match the ledger exactly.",
-    "capital": "total $3,956.60 = equity $1,887.64 / options $522.00 / cash $1,546.96. unleveraged_buying_power $1,546.96 EQUALS buying_power -- FOUR LAWS #4 satisfied, no margin extended. Options deployable $1,296.96 after the $250 reserve; nothing deployed.",
-    "equity_cash_floor": "45.0405% (1546.96 / 3434.60), max compliant buy $1.39. NET ADDITION CLOSED, rotation-funded only per _EQUITY_FLOOR_BOUNDARY_STATE. Equities 2 of 3 entries used today; the third slot is closed by the FLOOR, not the throttle.",
-    "throttles": "Options 0 of 8 entries used. Realized options P/L $0.00 for trading day 2026-08-28, READ from _realized_options_pnl_today (broker-confirmed 19:16Z), never typed as a default per the 2026-08-27T09:18Z finding. Open option positions: 1, the exempt hedge.",
-    "equity_book_verdict": "All four names HOLD on thesis, no exit fired. Live 19:30Z: PNC 242.19 (-1.74% vs entry), LLY 1164.08 (-2.16%), MDLZ 62.30 (-0.46%), ROST 229.18 (-0.42%). All underwater, so under HARD RULE 5 none carries a price stop and none is a mechanical-exit candidate: the RSI2>=70 take-profit authority is a PROFIT-BANKING authority gated on price > entry. No name is within reach of green-enough (+17.6%), so no SET TRAILING STOP alert is owed. Report 19:03Z agrees: four HOLD (thesis-watch) rows, no TAKE PROFIT, no THESIS CHECK.",
-    "options_verdict": "TACTICAL declined on the new reachability arithmetic below. CORE declined on catalyst-window: the only live thesis on the tape is semis-directional (NVDA -4.7%), and DELL 09-01 / AVGO 09-02 sit INSIDE every 21-45 DTE CORE window -- the correct application of the 2026-08-28T15:35Z per-track window rule, which bars importing those prints against a scalp but makes them binding against CORE."
+    "run_index_today": 28,
+    "action": "NO TRADE, both books. LAST MARKET-HOURS RUN OF THE WEEK, 14 minutes to a Friday bell. Every scheduled duty for 2026-08-28 was already discharged on arrival (heartbeat 13:38Z, brief built, nine IV rows logged, daily report written 19:15/19:18Z, Friday weekly review delivered inline) -- so this run's output is a MEASUREMENT, not an artifact rewrite. The daily report was deliberately NOT rewritten: nothing material happened after 19:18Z.",
+    "reconciliation": "ZERO DRIFT, BOTH BOOKS, broker-first. One option position (the exempt hedge), four equity positions, all matching the ledger exactly. No assignment, expiration or unauthorized fill.",
+    "capital": "total $3,954.32 = equity $1,888.36 / options $519.00 / cash $1,546.96. unleveraged_buying_power $1,546.96 EQUALS buying_power -- FOUR LAWS #4 satisfied. Options deployable $1,296.96 after the $250 reserve; nothing deployed.",
+    "equity_cash_floor": "45.0331%, max compliant buy $1.07. NET ADDITION CLOSED, rotation-funded only. Equities 2 of 3 entries used today; the third slot is closed by the FLOOR, not the throttle.",
+    "throttles": "Options 0 of 8 entries used. Realized options P/L $0.00 for trading day 2026-08-28, READ from _realized_options_pnl_today (broker-confirmed 19:16Z), never typed as a default.",
+    "equity_book_verdict": "All four HOLD on thesis, no exit fired. PNC 242.50 (-1.61%), LLY 1165.125 (-2.07%), MDLZ 62.335 (-0.41%), ROST 229.075 (-0.47%). No target hit, no green-enough crossing, no RSI2>=70 on a green name, no thesis-break evidence. All modestly underwater = thesis-managed with NO price stop, per HARD RULE 5.",
+    "options_book_verdict": "Hedge only: SPY 2026-11-20 700P, mark 5.19, -30.7%, 84 DTE, EXEMPT from premium backstops as authorized insurance. No 21-DTE review due. Zero entries in either track.",
+    "tactical_verdict": "NO ENTRY -- barred structurally on three independent grounds: the closing window (14 min to the bell, and today's measurement widens that unreadable window to ~40 min), the Friday weekend carry arithmetic, and the plain absence of any trigger (both indices drifted UP into the bell with no level broken).",
+    "core_verdict": "NO ENTRY. No candidate cleared across twenty-eight runs; a Friday closing-auction entry mark is the least readable of the week; and the 09-01/09-02 semis catalyst cluster sits inside every 21-45 DTE CORE window."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -874,5 +876,46 @@
     "construction_note_build_it_on_CLOSES": "Use close-to-close travel, never high-low range. A holed 5-minute bucket's CLOSE is still a real print near the bucket's end, so close-to-close is robust to the feed-hole defect; the bucket's HIGH and LOW are NOT -- a hole shows one constituent minute's range and systematically understates extremes, which would bias a range-based reachability test toward declaring moves impossible. Two hole candidates sat in today's series (NVDA 17:55Z volume 155,457 and 18:25Z 190,159 against ~640-700k neighbours) and left the close series monotone and usable, which is the point.",
     "honest_scope": "IT CHANGED NO DECISION. The 19:00Z run had already declined the same NVDA fire on theta-and-gap arithmetic, and this run declines it again. The value is that this test is SIMPLER and available BEFORE pricing a vehicle -- it needs one historicals call and no chain -- so it can kill a late-session TACTICAL candidate before any research is spent on it. A filter's inputs can only be audited credibly on a run where the audit does not license a trade.",
     "how_to_use_it": "Order of operations for any same-session-constrained TACTICAL candidate: (1) required move for +20%, from the vehicle's delta and premium; (2) realized distribution of equal-length windows in the current regime; (3) if required > recent max, STOP -- do not price, do not research. Only if it clears do the volume/price clauses and the late-entry stop-placement detector become worth running."
+  },
+  "_CLOSING_WINDOW_IS_FORTY_MINUTES_NOT_TWENTY": {
+    "found_utc": "2026-08-28T19:45:00Z",
+    "status": "DURABLE. Refines the 2026-08-27T19:45Z closing-window finding, which stated the blind spot as 'roughly the last 20 minutes'.",
+    "claim": "On SPY today the volume-confirmation denominator was contaminated by closing-auction flow for FORTY minutes, not twenty. The step is at 19:20Z and the tape never returns to the prevailing rate afterwards.",
+    "measured": {
+      "feed_integrity_first": "All five closing buckets reconciled against their 1-minute sums before any ratio was computed: +0.55% / +0.73% / +0.09% / +0.56% / exact. No hole in the numerator.",
+      "baseline_18:30-19:19Z_ten_buckets": [
+        69688,
+        75504,
+        92273,
+        65572,
+        137846,
+        95470,
+        71032,
+        110710,
+        102615,
+        73670
+      ],
+      "baseline_mean": 89438,
+      "ramp_19:20-19:44Z_five_buckets": [
+        221963,
+        126647,
+        211258,
+        165135,
+        205657
+      ],
+      "ramp_mean": 186132,
+      "ratio": 2.081,
+      "step_bucket": "19:20Z at 221,963 = 2.48x the prevailing mean, on its own, forty minutes before the bell. Every subsequent bucket >= 1.42x."
+    },
+    "honest_bounds": "(a) The baseline buckets were NOT reconciled; a hole there would depress the baseline and inflate the ratio, so 2.081x is an UPPER BOUND -- the finding survives regardless because the 19:20Z step is 2.48x standalone. (b) n=1 SESSION, a Friday two sessions from month-end when rebalancing flow is a known amplifier, so the width is plausibly narrower on a typical Tuesday. (c) The ramp is a choppy level shift (222k/127k/211k/165k/206k), not a smooth escalation.",
+    "the_rule": "Do NOT adopt 40 minutes as a new constant -- that repeats the error being corrected. DETECT the boundary per session: find the first bucket whose volume steps up and after which the tape does not return to the prevailing rate, and treat everything from there to the bell as unreadable for confirmation purposes. Same lesson as the ':05 offset' hole hypothesis killed earlier today: a clock offset carries no information; a denominator must be measured.",
+    "honest_scope": "CHANGED NO DECISION. TACTICAL was already barred on Friday weekend carry and the closing window, and no trigger fired in either index. A filter's inputs can only be audited credibly on a run the audit does not benefit."
+  },
+  "_QQQ_THIRD_HOLE_OF_SESSION_2026-08-28": {
+    "found_utc": "2026-08-28T19:45:00Z",
+    "status": "SESSION-SCOPED evidence for the DURABLE feed-integrity rules. Promote nothing new; this is a third confirming instance. Delete at the next session's first post-bell cleanup.",
+    "measured": "QQQ 19:30Z 5-minute bucket reported volume 4,770 against a 1-minute sum of 107,046 (48,618 + 23,487 + 15,838 + 14,333 + 4,770) -- bucket 95.5% BELOW, so per the direction rule the BUCKET is holed and 107,046 substitutes. The reported 4,770 EQUALS the 19:34 one-minute bar exactly: the single-constituent signature.",
+    "price_corruption_observed_live": "The bucket's whole OHLC is the 19:34 minute bar byte-for-byte (O 716.535 / H 716.570 / L 716.470 / C 716.520). Its reported LOW understates the true 5-minute low of 716.220 by 0.25 points -- the mechanism by which a hole corrupts LEVELS and not merely volume, observed rather than inferred.",
+    "offset_note": "Third QQQ hole of this one session at a THIRD distinct offset -- 14:05Z, 15:05Z, 19:30Z -- independently confirming the 15:35Z run's kill of the ':05 offset' hypothesis. Three holes in ~78 buckets is a ~3.8% per-symbol session rate; small sample, recorded so nobody treats holes as rare enough to skip the reconciliation."
   }
 }
