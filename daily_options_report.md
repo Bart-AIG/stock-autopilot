@@ -2,6 +2,8 @@
 
 *Agentic account (••••7339, `limited_margin` / `option_level_3`). Written at 15:15 ET / 19:15 UTC by the first run at or after the 14:15 CT report window — on time and in-session, 45 minutes before the bell. All quotes stamped 19:15–19:16Z. This is the twenty-sixth scheduled run of the day.*
 
+*Two scheduled runs fired this same slot — 19:15Z and 19:18Z — and both wrote a report, because the "first run at or after 14:15 CT" gate is satisfied by every run after it and neither could see the other. **This file is the UNION of the two, not one of them.** The 19:15Z report is the base; the 19:18Z run's unique contribution is marked where it appears. Their independent readings agree to within mark drift (equity floor 45.06% vs 45.04%, hedge −30.3% vs −30.2%), which is cross-validation rather than a conflict. It is the second duty to collide on this cadence today — see §2.*
+
 **One-line summary: two autonomous equity entries at the open — ROST $460.30 and MDLZ $500.00, taken 2m50s apart by two concurrent runs that each believed it was the only one trading — and nothing else all day. Options: zero entries in twenty-six runs. The equity book is now at the defensive posture's fully-invested boundary at 45.06% cash, which closes net additions until something is sold. The collision is the most important thing that happened this week and it is written up in full below, because the safety check that was supposed to prevent it was performed correctly by both runs and did not work.**
 
 ---
@@ -66,6 +68,18 @@ Two scheduler-fired runs executed the same first-post-open slot **2 minutes 50 s
 | 16:30Z | QQQ close through the 716.52 20-day / session-low confluence | Price clause satisfied for the first time all session; volume failed on both bars — **and the participation that broke the level was 65% below the participation that had defended it twenty minutes earlier.** A breakdown that matters takes more volume to break a level than it took to hold it. |
 | 17:15Z | QQQ structural break | **Both halves passed simultaneously for the first time in the entire arc.** Declined on the retrace gate and vehicle economics. |
 | 19:00Z | NVDA session-low break, fully confirmed | Passed every corrected clause this file has built, including the defence-vs-break ratio at 1.664× that every prior fire had failed. **Declined on measured vehicle arithmetic:** with 60 minutes to a Friday bell the position carries the weekend by construction, and three calendar days of 7-DTE theta shrinks the residual −30% stop to 0.09–0.66% of NVDA — distances that 58–100% of Mondays in a two-year sample clear on the gap alone. |
+
+#### What happened next to that last one — measured at 19:21Z by the concurrent 19:18Z run
+
+The 19:00Z decline was made on Friday arithmetic *before* the outcome was known, so it is worth recording what the tape then did — and the honest answer is **nothing**.
+
+The break **held**: four completed 5-minute closes (217.030 / 217.440 / 217.2699 / 217.510) all stayed below the broken 217.700 level. But price drifted **+0.23% against the trade** over 25 minutes, made no new low, and did it on decaying participation. Re-quoted at 19:21Z, the declined vehicle — NVDA 2026-09-04 215P — is bid 2.96 / ask 3.00, mid **$2.98** against the $3.05 ask it would have been bought at: **−2.3%**, essentially flat. Its delta has drifted to **−0.393**, now *below* the 0.40–0.60 tactical band, so the same contract would no longer even qualify for the track.
+
+**Read this carefully, because it illustrates the decline's argument rather than proving it.** The 19:00Z decline rested on the position *carrying the weekend* with a theta-shrunken stop — and that is exactly the position it would be in: roughly flat, with its outcome decided by Monday's gap rather than by anything analysed on Friday. This is **not** the 15:05Z pattern where a declined vehicle promptly lost 11% and the arithmetic was vindicated directionally. A decline that costs nothing visible is still logged as a real cost.
+
+**What it does establish is the harder point.** The 2026-08-26 conclusion — that the *regime*, not the filter, is the dominant variable — rested on five fires whose confirmation was imperfect, which always left the reply *"the sixth one, done properly, would have worked."* This was the sixth, done properly, and the outcome is identical to the five before it. That makes **six fires and six non-follow-throughs with setup quality rising monotonically**, which is the strongest available form of that evidence and the form that was previously missing.
+
+Its limits, stated with it: n=6, one regime, two symbols, two sessions. That is evidence about *this* tape, not about breakouts generally — and explicitly **not** a licence for another calibration pass. The correct response stays patience in the tactical track.
 
 **CORE track: no entry.** MMM was the closest thing to a candidate and it failed the liquidity gate at the target delta (11.06% of mid) even though it *passed* at the ATM strike (5.80%) — absolute spread is near-constant across strikes while mid collapses, so "% of mid" is not scale-free and the ATM quote is the most flattering point on a mid-cap chain. AVGO's ex-gap IV/RV ratio hit **1.494, the richest reading in the entire file**, with a 09-02 print four sessions out. Index premium is not cheap either: SPY ex-gap 1.103, QQQ 1.040, NVDA 1.019.
 
