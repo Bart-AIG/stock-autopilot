@@ -23831,6 +23831,39 @@
       "grades_considered": "NONE -- and deliberately so. The HUNT phase is not runnable with the market closed: no chain quotes worth taking, no intraday trigger measurable, no volume baseline in existence. Inventing a candidate to fill this section would be the manufactured-activity failure the POST-CLOSE RUN PROTOCOL exists to prevent.",
       "why_flat": "Market shut. Nothing placeable in either book, and every post-close-only task for trading day 2026-08-27 was already complete: EOD report written on time in-session at 19:20Z, ledger compaction and durable-findings promotion at 20:20Z, Friday review precomputed from broker data. A no-op logged in a few lines is the correct output of the Nth redundant overnight run.",
       "notification": "None sent. Nothing changed, both books healthy, no flag open -- an unattended run notifies on what needs attention, and a quiet reconciliation is not that."
+    },
+    {
+      "run_utc": "2026-08-28T09:19:00Z",
+      "run_type": "post_close_overnight",
+      "headline": "FOURTEENTH post-bell reconciliation of trading day 2026-08-27. ZERO DRIFT, BOTH BOOKS. Deliberate no-op stand-down per the POST-CLOSE RUN PROTOCOL. This run added one thing the previous thirteen did not: it sourced the loss cap and BOTH entry throttles from the broker rather than from the ledger's prose, independently confirming the figures the 2026-08-27T09:18Z lesson was written to protect.",
+      "market_state": "CLOSED. 09:19Z = 05:19 ET Friday 2026-08-28, pre-open. The in-force trading day is STILL 2026-08-27 (the day whose bell rang at 20:00Z) until the 09:30 ET open. No daily artifact rolled: heartbeat left stamped 2026-08-27, market_brief left as the day it describes, loss cap and both entry throttles NOT reset.",
+      "reconciliation": {
+        "verdict": "ZERO DRIFT, BOTH BOOKS, broker-verified one-for-one.",
+        "account": "718757339 -- limited_margin / option_level_3 / agentic_allowed true, re-confirmed via get_accounts.",
+        "options": "get_option_positions(nonzero) returns exactly ONE contract: SPY 2026-11-20 700P, qty 1.0000 @ 749.00, opened 2026-08-06. All six pending_* fields 0.0000 -- no overnight assignment, exercise or expiration. Matches holdings.json. This is the authorized defensive hedge: insurance, EXEMPT from all premium backstops, held to its ~21-DTE roll/close decision WITH Ryan. Marked 5.22 (options_value $522) vs 7.49 entry; the drawdown is expected of a hedge in a firm tape and is not an exit signal.",
+        "equities": "get_equity_positions returns exactly TWO: PNC 1.825758 sh @ 246.470000 and LLY 0.420254 sh @ 1189.760000. Both match holdings.json (PNC 246.4729, LLY 1189.7553) to the share.",
+        "capital": "total $3,968.49 = equity $939.23 / options $522.00 / cash $2,507.26. unleveraged_buying_power $2,507.26 EQUALS buying_power, so NO margin is extended (FOUR LAWS #4 satisfied). Less the $250 reserve, deployable is $2,257.26.",
+        "cash_movement_explained": "Cash fell $3,007.26 -> $2,507.26, exactly -$500.00, reconciling precisely to the LLY entry's $500.00 dollar-based order. Not drift."
+      },
+      "lly_provenance_verified": "Independently re-verified rather than inherited. get_equity_orders(created_at_gte=2026-08-27) returns exactly ONE order for the whole session: id 6a90528b-621f-4aaa-bd73-2fece96aae17, LLY buy market, state filled, placed_agent='agentic', $500.00 dollar-based, 0.420254 sh @ 1189.7553, regular_hours, fees $0.00, filled 2026-08-27T15:06:51.832Z. That is the FIRST autonomous equity entry under the v8 / HARD RULE 6 authority and it is fully ledgered. No unauthorized fill exists in either book; no HARD RULE 9 flag is raised, cleared or adjudicated by this run.",
+      "cap_and_throttle_SOURCED_NOT_TYPED": {
+        "note": "The CLAUDE.md rule measured at 2026-08-27T09:18Z -- this exact slot, one day earlier -- forbids typing a cap or throttle figure you did not READ this run, because a RESET value on a post-close run is wrong BY CONSTRUCTION. This run went one better than reading the ledger prose: it pulled the broker.",
+        "trading_day_et": "2026-08-27",
+        "realized_options_pnl": "$0.00 across 0 closing trades. BROKER-CONFIRMED: get_realized_pnl(2026-08-27..2026-08-27) returns number_of_trades 0, total_returns 0. This AGREES with holdings.json._realized_options_pnl_today (realized_usd 0.0, closing_trades 0), so the ledger figure is sound, not a stale default.",
+        "cap_status": "NOT BINDING -- $0.00 against the -$400 options cap. It gates NEW ENTRIES only and never delays or blocks an exit.",
+        "options_entry_throttle": "0 of 8 used for trading day 2026-08-27. Consistent with the broker: get_option_orders shows no option order placed this session.",
+        "equity_entry_throttle": "1 of 3 used -- LLY, order 6a90528b. Broker-confirmed as exactly one filled equity order on the day. NOT the '0 of 3' a reset default would produce.",
+        "reset_timing": "Both throttles and the cap reset at the 09:30 ET open, NOT at the UTC rollover. The first post-open run of 2026-08-28 owns that reset along with the heartbeat stamp and the market_brief rebuild."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P (options / hedge)": "WORKING AS INTENDED. Insurance against the Aug-Oct drawdown watch. Backstop-exempt by standing policy; no action, and none placeable with the market shut.",
+        "PNC (swing)": "HOLD. Entered 2026-08-19 @ 246.4729, target 255.50, no price stop per HARD RULE 5. Not green enough for a native trail (needs >= 289.97). Thesis-managed.",
+        "LLY (swing)": "HOLD, one session old. Entered 2026-08-27 @ 1189.7553, target 1280.34, no price stop per HARD RULE 5. Green-enough level for the SET TRAILING STOP alert is >= 1399.71, far off. Nothing to manage overnight."
+      },
+      "duties_already_discharged_for_2026-08-27": "EOD report daily_options_report.md written ON TIME in-session at 19:20Z (not under the post-close fallback). Ledger compaction of the _SESSION key plus durable-findings promotion at 20:20Z. Friday review precomputed from broker data. Thirteen prior post-bell reconciliations, all zero drift. Nothing was re-derived, re-polled or re-measured by this run, and no research task was invented to justify it.",
+      "grades_considered": "NONE, and correctly so. The market is closed: no entry or exit is placeable in either book. Screening candidates now would produce quotes nobody can act on and that the first post-open run must re-take anyway.",
+      "why_flat": "Market shut and the book is correct. The fourteenth reconciliation finding what the thirteenth found IS the deliverable -- it is the only check by which an overnight assignment, expiration or unauthorized fill would surface, and it surfaced nothing. A no-op logged in a few lines is the correct output of the Nth redundant overnight firing.",
+      "next_run_handoff": "Next open is Friday 2026-08-28 09:30 ET (13:30Z). The FIRST post-open run owns: stamping automation_heartbeat.json for 2026-08-28, rebuilding market_brief.json, and resetting the loss cap plus BOTH entry throttles (options to 0 of 8, equities to 0 of 3). It is also FRIDAY -- the weekly review is due, sourced from the broker (get_realized_pnl + get_option_orders + get_equity_orders), never from this journal, and split by options track AND by book. Do NOT price any decision off the opening auction print: re-quote at least ~5 minutes after 13:30Z. The committed equity report is dated 2026-08-26 19:01Z and was already ruled STALE for entry purposes on 08-27; check for a fresher latest_*.md before sourcing any autonomous equity entry, and treat a stale or DATA ERROR report as no-autonomous-equity-trades."
     }
   ],
   "updated_utc": "2026-08-26T18:00:00Z"
