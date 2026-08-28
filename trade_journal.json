@@ -25278,6 +25278,67 @@
         "Daily report due at the first run at/after 19:15Z. Fallback stands: if the bell rings with no report written, the first post-close run writes it immediately.",
         "Equity book stays closed until the floor reads >=45% (currently 44.9956%, needing ~$0.15). It recovers on equity MARK appreciation or on time -- NOT on a sale, and NOT by closing the hedge."
       ]
+    },
+    {
+      "run_utc": "2026-08-28T16:45:00Z",
+      "run_local_et": "2026-08-28 12:45 ET Friday",
+      "trading_day_et": "2026-08-28",
+      "prompt_version": "v8, pasted 2026-08-26 (line-1 stamp on this run's own invocation)",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org)",
+      "run_type": "market_hours_regular",
+      "market_state": "open; 3h15m to the bell. SPY 770.33 (-0.100%), QQQ 717.17 (-0.546%), NVDA 220.50 (-3.281%), XLF 58.18 (+0.518%). Semis-led de-rating, financials green -- same dispersion the 16:15Z run found CONCENTRATING rather than broadening.",
+      "headline": "SIXTEENTH run of the day. NO TRADE, either book. The QQQ 716.52 level the last four runs traded around is now in OPEN WHIPSAW -- four crossings in 25 minutes on decaying volume -- so under this file's own rule it is not tradeable as a trigger and re-tuning the clause against it would be the exact error the 08-25 arc capstone forbids. THE CONTRIBUTION IS NOT THE DECLINE. It is a STRUCTURAL RESTATEMENT OF THE EQUITY-BOOK CASH FLOOR: at 45.0001% the book is not 'nearly able to trade', it is AT ITS POSTURE-MANDATED FULLY-INVESTED BOUNDARY, where every new entry must be funded DOLLAR-FOR-DOLLAR by a sale. Sixteen runs have each recomputed a near-zero max-compliant-buy and reported it as a per-run measurement; it is a standing state, and it changes what a future take-profit MEANS.",
+      "reconciliation": "ZERO DRIFT, BOTH BOOKS, broker-first per the 2026-08-28 collision rule. get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000. get_option_positions: 1 position, SPY 2026-11-20 700P qty 1 @ 749.00 avg, opened 2026-08-06 -- matches the ledger hedge exactly, no pending_* quantities. get_equity_positions: ROST 2.000000 @ 230.150000, LLY 0.420254 @ 1189.760000, PNC 1.825758 @ 246.470000, MDLZ 7.988509 @ 62.590000 -- all four match the ledger share-for-share. get_portfolio: total 3962.679046, equity 1890.719046, options 525, cash 1546.96, buying_power == unleveraged_buying_power == 1546.96 (equal, so no borrowed funds are being extended; FOUR LAWS #4 satisfied).",
+      "positions_verdict": {
+        "SPY 2026-11-20 700P (hedge)": "WORKING as insurance. Options value 525 -> mark 5.25, P/L -$224.00 / -29.91%, 84 DTE. EXEMPT from every premium backstop per the hedge exemption and the ownership gate -- the -70% >45-DTE backstop is NOT armed against it. setup_invalidation untriggered (needs SPY decisively above ~800 without the anticipated pullback, or Ryan lifting the posture). ~21-DTE roll/close decision with Ryan ~2026-10-30.",
+        "PNC 1.825758 sh": "HOLD. 242.90 vs 246.4729 entry = -1.45% (-$6.52). Target 255.50 not hit; underwater, so the mechanical RSI2>=70 exit is NOT available to it -- that authority is gated on price > entry per HARD RULE 6's profit-banking clause. No price stop by policy.",
+        "LLY 0.420254 sh": "HOLD. 1169.12 vs 1189.7553 = -1.73% (-$8.67). Target 1280.34 far off. Same profit-banking gate.",
+        "MDLZ 7.988509 sh": "HOLD. 62.48 vs 62.5899 = -0.18% (-$0.88). Target 64.70. Entered THIS MORNING as one half of the concurrent-run collision; behaving quietly.",
+        "ROST 2 sh": "HOLD. 228.595 vs 230.1512 = -0.68% (-$3.11). Target 244.66. The collision's other half."
+      },
+      "equity_book_state_FINDING": {
+        "claim": "At a 45.0001% cash ratio the equity book is at the Aug-Oct posture's fully-invested boundary. The correct description is NOT 'no compliant entry today' (which reads as a transient) but 'net addition is closed; entries are ROTATION-FUNDED ONLY'.",
+        "arithmetic": "cash 1546.96 / (1546.96 + 1890.719046) = 45.000129%. Max compliant buy = cash - 0.45 x sum = $0.0044. To fund a $400 entry with NO sale, equity value would have to fall to $1,001.84 -- a further 47.0% drawdown. To fund it BY SELLING: S >= $400.00 exactly. Selling a dollar of stock buys back exactly a dollar of entry room, because a sale moves the numerator up and leaves the denominator unchanged.",
+        "why_this_reframes_it": "A dollar-for-dollar funding rule is a ROTATION constraint, not a freeze. The book can still express any view it likes -- it simply cannot grow. That distinction has an operational consequence sixteen runs of 'max compliant buy = $0.004' never surfaced: A FIRED TAKE-PROFIT OR THESIS SELL DOES NOT MERELY BANK A GAIN, IT CREATES EXACTLY ONE ENTRY SLOT OF ITS OWN SIZE. A future run that banks PNC at its 255.50 target should immediately re-run the hunt with ~$466 of freshly compliant room, rather than logging the sale and standing down on a stale floor reading.",
+        "hypersensitivity_warning": "d(ratio)/d(equity) = -cash/sum^2 = -1.309e-4 per dollar, i.e. ~1.31 floor-points per $100 of equity MARK movement and ~0.25 points per 1% move in the book. Measured live: the 16:20Z run read 44.9807% and this run reads 45.0001% -- the entire 'breach' cured on $1.49 of mark drift, with no trade. SO: NEVER report the floor as having 'recovered' or the book as having 'reopened' on a mark-drift crossing. The reading is noise at this resolution, and its improvement is mechanically identical to the book LOSING money -- the floor gets healthier precisely as the positions get worse. Both directions of that sentence are true and neither is news.",
+        "interaction_with_the_cross_book_coupling": "Re-derived at today's capital rather than inherited: an options entry of $300 / $500 / $750 takes the floor to 39.741% / 35.639% / 29.652%. The coupling note's framing stands -- this is an honest COST to state at decision time, never a bar on options entries -- but at the boundary the cost is now concrete: any options premium spent today converts 'rotation-funded' into 'closed until the premium comes back'.",
+        "GUARD_restated": "The arithmetic still runs backwards and a run under floor pressure will still notice: closing the SPY 700P adds ~$525 of cash and lifts the floor to ~52.4%. DO NOT. That is liquidating insurance to satisfy an accounting ratio, and the hedge is exempt from mechanical exits precisely so this cannot happen."
+      },
+      "tactical_hunt": {
+        "verdict": "NO TRADE.",
+        "level_state": "QQQ's 716.5200 20-day SMA / 716.79 session-low confluence is in OPEN WHIPSAW. Completed 5-minute closes: 16:20 716.249 (below), 16:25 716.310 (below), 16:30 716.0678 (below), 16:35 716.910 (ABOVE), 16:40 716.175 (below), live 717.17 (above). Four crossings in 25 minutes.",
+        "why_no_reclaim_trade": "Tested the failed-breakdown LONG honestly rather than only the short. It fails both halves. PRICE: the two-bar clause needs a completed close above the level AND a hold on the following bar -- 16:35 closed above and 16:40 closed straight back below, so the hold is refused. VOLUME: the 16:35 reclaim bar traded 104,620, the LOWEST bar in the entire pull, against a 179,074 trailing-six-bar mean = 58.4%. Decisive fail on both, in both directions.",
+        "why_no_re-tuning": "This is precisely the state CLAUDE.md's 08-25 finding names -- repeated whipsaw around a level is evidence the LEVEL is wrong, not that the filter needs calibration -- and the 08-26 capstone's conclusion (successive fixes to the instrument left the result unchanged, so stop tuning) applies. The level is a real structural one (a 20-day SMA, not a desk-drawn box), and it is still not tradeable while price is oscillating across it on decaying participation. A correctly-derived structural level in chop is untradeable for a different reason than a badly-drawn one, and neither is fixed by the volume clause.",
+        "participation": "Decaying through the afternoon: 16:05-16:40 volumes 196,788 / 119,792 / 229,682 / 232,572 / 146,163 / 149,447 / 104,620 / 129,777. Per the 08-26 decaying-tape correction a trailing-local baseline INVERTS here and gets easier as the tape drains, so any fire would have had to clear the session's earlier bucket rate as well -- and the 16:35 bar at 104,620 is far below every denominator available.",
+        "friday_clock": "Compounding, not decisive: per the 2026-08-28T15:35Z gap measurement a Friday TACTICAL entry's screen window runs Friday-close to Monday-close, and SPY's median weekend gap (0.342%) EXCEEDS the whole -30% stop distance in underlying terms. With 3h15m left, any entry taken now needs its +20% target before the bell or it becomes an unstopped weekend bet. No trigger fired, so this never became load-bearing -- recorded so it is not mistaken for the reason."
+      },
+      "core_hunt": {
+        "verdict": "NO TRADE. No thesis, and IV sanity is a necessary condition that supplies none.",
+        "iv_context": "Today's rows are already logged in iv_history.json by earlier runs for all eight core names and are NOT re-derived here (the file's overwrite-today's-row rule). Read as a pair: NVDA raw 0.7576 / ex-gap 0.9840 -- the four-session pre-print vol ramp is fully unwound and that standing objection is retired, which is exactly why it must be said again that FAIR VOL IS NOT A REASON TO OWN ANYTHING. AVGO is the one rich name (raw 1.2113 / ex-gap 1.4940) into its 09-02 print. MSFT raw 0.4996 is the textbook gap artifact -- ex-gap 1.0051, i.e. fair, not half-price.",
+        "catalyst_screen": "CORE's 21-45 DTE window contains the entire semis print cluster -- DELL/PANW/CRDO/MDB 09-01 pm, AVGO/SNOW/HPE/NTAP 09-02 pm. Per the 2026-08-28T15:35Z per-track screening rule this objection belongs to CORE and was NOT borrowed against the tactical decline above."
+      },
+      "equity_hunt": {
+        "verdict": "NO ENTRY -- and blocked at the FIRST gate, so no candidate was graded.",
+        "reason": "The >=45% cash floor is computed BEFORE sizing per THE EQUITY BOOK (b). Max compliant buy $0.0044, far below the ~$400 practical minimum. Stand down and say so plainly, per the rule.",
+        "throttle_note": "2 of 3 autonomous equity entries used today (ROST 13:37:13Z, MDLZ 13:40:03Z -- the concurrent-run collision). READ from the ledger, not typed as a default, per the 2026-08-27T09:18Z finding. Not the binding constraint; the floor is.",
+        "mechanical_exits": "None available. All four equity positions are BELOW entry (-0.18% to -1.73%), and the mechanical take-profit authority is gated on price > entry -- an RSI2>=70 print on an underwater name is an OPTIONAL exit-into-strength requiring a HARD RULE 7 thesis break, never a technical trigger. No target hit: PNC 242.90 vs 255.50, LLY 1169.12 vs 1280.34, MDLZ 62.48 vs 64.70, ROST 228.595 vs 244.66.",
+        "thesis_flags": "None fired this run; no below-200MA or out-of-decile flag researched to BROKEN, so no autonomous sell and no notification.",
+        "green_enough": "None. Green-enough needs price >= entry/0.85 (+17.6%); the best name in the book is -0.18%. No SET TRAILING STOP alert for Ryan."
+      },
+      "duties_checked": {
+        "heartbeat": "Already stamped for trading day 2026-08-28 at 13:38Z by the first post-open run. Not re-stamped.",
+        "market_brief": "Already built and stamped 2026-08-28. No genuine shock to justify an intraday refresh -- the semis de-rating is the continuation of a move the brief already carries.",
+        "iv_history": "Today's rows present for all eight core names. Not rewritten.",
+        "daily_report": "NOT DUE. Threshold is the first run at or after 19:15Z (2:15 PM CT); this run is 16:45Z. The post-close fallback stands if no run writes it.",
+        "loss_cap": "$0.00 realized options P/L for trading day 2026-08-28 against the -$400 cap, READ from holdings._realized_options_pnl_today, not defaulted. Options entries used: 0 of 8. Cap not binding; it gates new entries only and never delays an exit."
+      },
+      "capital": {
+        "unleveraged_buying_power": 1546.96,
+        "buying_power": 1546.96,
+        "reserve_required": 250,
+        "note": "buying_power == unleveraged_buying_power, so no margin is being extended. Deployable for options after the $250 reserve is ~$1,296.96 -- but see the coupling: spending it converts the equity book from rotation-funded to closed."
+      },
+      "why_flat": "No trigger fired in either options track, no thesis worth a CORE entry, and the equity book is blocked at its first gate by the cash floor. Sixteen no-trade runs in a session is a fact about the tape and the posture, not a target to correct -- boredom is not a catalyst, and the run's value today is the structural restatement of the floor, not a trade."
     }
   ]
 }
