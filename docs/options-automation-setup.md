@@ -71,6 +71,12 @@ called "v4"), so here is the settled chain:
    a future silent prompt edit is detectable the moment it lands.
 5. **v7** (`docs/routine-prompt-v7.md`, written 2026-08-26) — superseded by
    v8 the same day, before pasting. Never live.
+7. **v9** (`docs/routine-prompt-v9.md`, 2026-08-29) — **PASTE-READY, awaiting
+   Ryan. Paste this one.** v8 plus THE CAPITAL POLICY: the ≥45% cash floor is
+   removed, the reserve becomes 5% of total_value, and near-full deployment
+   funds new ideas by ROTATION (a new idea must beat the weakest holding).
+   **Required, not optional** — the stricter-of-two tie-breaker would otherwise
+   reinstate the floor from the stored v8 and undo his decision.
 6. **v8** (`docs/routine-prompt-v8.md`, written 2026-08-26) — **PASTE-READY,
    awaiting Ryan. Paste this one.** Everything in v7 (the fills-proven
    LEGGING PROTOCOL for debit verticals with short-leg-first exits; structure
