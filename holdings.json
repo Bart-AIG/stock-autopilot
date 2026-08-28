@@ -673,16 +673,17 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-08-28T18:00:00Z",
+    "run_utc": "2026-08-28T18:30:00Z",
     "trading_day_et": "2026-08-28",
-    "run_index_today": 21,
+    "run_index_today": 22,
     "action": "NO TRADE, both books.",
-    "reconciliation": "ZERO DRIFT, broker-first per the 2026-08-28 collision fix. get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000. get_option_positions(nonzero): exactly ONE -- SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* fields 0.0000. get_equity_positions: exactly FOUR -- ROST 2.000000 @ 230.150000, LLY 0.420254 @ 1189.760000, PNC 1.825758 @ 246.470000, MDLZ 7.988509 @ 62.590000. All five match positions[] one-for-one. HEAD equalled origin/master at c179da8 on arrival; nothing unmerged.",
-    "capital": "get_portfolio 18:01Z: total $3,960.44 = equity $1,885.48 / options $528.00 / cash $1,546.96. unleveraged_buying_power $1,546.96 EQUALS buying_power -- no margin extended, FOUR LAWS #4 satisfied. Options deployable = 1546.96 - 250 reserve = $1,296.96.",
-    "equity_cash_floor": "45.0688% (cash 1546.96 / book 3432.4429). Max compliant buy $2.36 -- two orders of magnitude below the ~$400 practical minimum. NOT RECOVERED, and the hypersensitivity warning in _EQUITY_FLOOR_BOUNDARY_STATE is the reason: the 17:45Z run read 45.007% and this run reads 45.069% because the equity book LOST $4.67 of mark value in between. The floor gets healthier exactly as the positions get worse. Net addition CLOSED, rotation-funded only. Equity throttle 2 of 3, and the third slot is closed by the floor rather than by the throttle.",
-    "options_state": "0 agentic positions open (hedge excluded), all 5 slots free. Realized options P/L READ from _realized_options_pnl_today: $0.00 across 0 closing trades against the -$400 cap -- not typed as a default. Options throttle 0 of 8 for the day, 0 of 2 this run.",
-    "position_marks": "PNC 242.15 (-1.75%), LLY 1166.38 (-1.96%), MDLZ 62.04 (-0.88%), ROST 229.00 (-0.50%), SPY 700P mark 5.245 (-29.97%, hedge, EXEMPT -- not a fired stop, see the position's _current_state). No target hit (PNC 255.50 / LLY 1280.34 / MDLZ 64.70 / ROST 244.66), no RSI2>=70-while-green, no green-enough crossing, no thesis-break evidence, no REVIEW/THESIS-CHECK flag in the 17:03Z committed report. All HOLD.",
-    "eod_report": "NOT due -- the 19:15Z (14:15 CT) window opens in 1h13m. Last written report covers 2026-08-27."
+    "reconciliation": "ZERO DRIFT, BOTH BOOKS, broker-first per the 2026-08-28 collision fix (broker read BEFORE any gate; git check second line only). get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000. get_option_positions(nonzero): exactly ONE -- SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921, opened 2026-08-06); all six pending_* fields 0.0000, so no assignment, exercise, expiration or unauthorized fill. get_equity_positions: exactly FOUR -- ROST 2.000000 @ 230.150000, LLY 0.420254 @ 1189.760000, PNC 1.825758 @ 246.470000, MDLZ 7.988509 @ 62.590000. All five match positions[] one-for-one. HEAD equalled origin/master at 501cd70 on arrival; nothing unmerged.",
+    "capital": "get_portfolio 18:19Z: total $3,960.99 = equity $1,887.03 / options $527.00 / cash $1,546.96. unleveraged_buying_power $1,546.96 EQUALS buying_power -- the broker extends no margin, FOUR LAWS #4 satisfied. Options deployable = 1546.96 - 250 reserve = $1,296.96. Nothing deployed this run.",
+    "equity_cash_floor": "45.0484% (cash 1546.96 / book 3433.99). Max compliant buy $1.66. NOT a fresh finding -- this is the standing FULLY-INVESTED BOUNDARY state per _EQUITY_FLOOR_BOUNDARY_STATE: net addition is CLOSED, entries are rotation-funded only, and the reading drifts either side of 45% on marks alone with no trade. Equity throttle 2 of 3; the third slot is closed by the floor, not the throttle.",
+    "options_state": "0 agentic positions open (hedge excluded), all 5 slots free. Realized options P/L READ from _realized_options_pnl_today: $0.00 across 0 closing trades against the -$400 cap -- read, never typed as a default (2026-08-27T09:18Z rule). Options throttle 0 of 8 for the day, 0 of 2 this run.",
+    "position_marks": "PNC 242.32 (-1.68%), LLY 1168.52 (-1.78%), MDLZ 62.02 (-0.91%), ROST 228.79 (-0.59%), SPY 700P mark 5.265 (-29.7%, hedge, EXEMPT from premium backstops, 84 DTE -- nowhere near its ~21-DTE roll decision with Ryan). No target hit (PNC 255.50 / LLY 1280.34 / MDLZ 64.70 / ROST 244.66). Every equity position is UNDERWATER, so the RSI2>=70 mechanical exit is not even eligible -- it is a PROFIT-BANKING authority gated on price > entry (HARD RULE 6). No green-enough crossing. The 18:02Z committed report's ACTION block is EMPTY and all four positions read HOLD (thesis-watch). All HOLD.",
+    "contribution": "Measured the FRONT-BOARD EVENT KINK the ~30-DTE IV row cannot see, with two controls. AVGO 1.4899x (print 09-02) vs NVDA 1.0746x (print passed) vs SPY 0.8729x (no event, and CONTANGO -- which is what refutes the 'front boards are just always richer' objection). Solved the two boards for AVGO: base vol 38.12%, implied event move +/-8.74%. Also decomposed AVGO's record-high 1.494 ex-gap ratio and found it 100% denominator-driven -- atm_iv identical to six decimals across five sessions. Written to _EVENT_PREMIUM_IS_INVISIBLE_ON_THE_30DTE_BOARD; today's AVGO iv_history row re-settled and annotated.",
+    "eod_report": "NOT due -- the 19:15Z (14:15 CT) window opens in 45m. Last written report covers 2026-08-27."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -700,5 +701,68 @@
     "what_it_does_NOT_license": "It is NOT a licence to fade a low-volume move, and that is the live temptation: the natural next mistake, given every other volume finding in this file, is to short the unparticipated NVDA reclaim on the grounds that it is unparticipated. That is the losing side of the exact move measured here. Nor does it license loosening or discarding the volume clause -- the clause's veto has cost this desk nothing (five of six vetoed breaks failed) and the one break it let through, the 14:40Z SPY reclaim, is the arc's single follow-through. Keep the veto; stop reading it forwards.",
     "honest_scope": "n=1 in the reversal direction, on one name, on one afternoon, in a pre-catalyst vacuum -- weak evidence about markets, decisive evidence about the CONSTRUCTION of a rule that was being used in both directions. The arc stands at six failed breaks and one follow-through. AND IT CHANGED NO DECISION: the 17:15Z run had already declined this break on the retrace/chase gate, no position was ever taken, and this run declines on independent grounds. A filter's inputs can only be audited credibly on a run the audit does not benefit.",
     "relation_to_the_capstone": "CONFIRMS it and does not reopen it. The 2026-08-26 capstone concluded that successive fixes to the instrument left the result unchanged, so the regime -- not the filter -- is the dominant variable. This is the strongest instance yet: the best-confirmed fire of the arc was reversed by flow that no filter would have credited. Do not answer it by tuning anything."
+  },
+  "_EVENT_PREMIUM_IS_INVISIBLE_ON_THE_30DTE_BOARD": {
+    "found_utc": "2026-08-28T18:30:00Z",
+    "status": "DURABLE IV-METHOD CORRECTION. Not session-scoped; do not delete at the bell. Read with the 2026-08-25 NVDA EVENT-PREMIUM RAMP finding (which this CORRECTS in method while confirming in substance) and the 2026-08-20 iv_rv_ratio post-earnings artifact (same instrument, different failure).",
+    "claim": "THE IV METHOD'S FIXED ~30-DTE BOARD IS STRUCTURALLY BLIND TO A SCHEDULED EVENT INSIDE ~7 DAYS, AND THE EX-GAP RATIO IS NOT A SUBSTITUTE DETECTOR BECAUSE IT MOVES ON ITS DENOMINATOR. Measured four calendar days before AVGO's 2026-09-02 print: the 28-DTE row this desk logs daily shows atm_iv 0.507981 on 2026-08-21 and 0.507981 on 2026-08-28 -- IDENTICAL TO SIX DECIMALS across five sessions -- so read from iv_history.json alone AVGO looks like a name with no event pending. Measured directly on the front board, the event premium is enormous and unambiguous.",
+    "the_measurement_1822Z": {
+      "method": "ATM IV = mean of the ATM call and put IV at one shared strike, quoted (never modelled), same strike on both boards, both boards spanning the 09-02 print.",
+      "AVGO_event_pending_09_02": {
+        "spot": 368.73,
+        "strike": 370,
+        "front_2026-09-04_7DTE": {
+          "call_iv": 0.736639,
+          "put_iv": 0.73798,
+          "avg": 0.73731,
+          "call_mid": 14.6,
+          "put_mid": 15.625,
+          "call_spread_pct_of_mid": 2.74,
+          "put_spread_pct_of_mid": 2.88,
+          "call_oi": 11371,
+          "put_oi": 1818
+        },
+        "back_2026-09-25_28DTE": {
+          "call_iv": 0.488684,
+          "put_iv": 0.501052,
+          "avg": 0.494868,
+          "call_mid": 19.825,
+          "put_mid": 20.55,
+          "call_spread_pct_of_mid": 4.79,
+          "put_spread_pct_of_mid": 2.92,
+          "call_oi": 278,
+          "put_oi": 790
+        },
+        "kink": 1.4899
+      },
+      "NVDA_event_passed_08_26_control": {
+        "spot": 218.51,
+        "strike": 220,
+        "front_avg": 0.356137,
+        "back_avg": 0.331402,
+        "kink": 1.0746
+      },
+      "SPY_no_event_control": {
+        "spot": 769.445,
+        "strike": 770,
+        "front_avg": 0.100806,
+        "back_avg": 0.115484,
+        "kink": 0.8729
+      }
+    },
+    "why_the_controls_matter": "The obvious objection is that front boards simply always carry more IV, so a 1.49x kink proves nothing. THE CONTROLS REFUTE IT: on a no-event name the term structure runs the OTHER WAY -- SPY's front board is 0.8729x its 28-DTE board (ordinary contango). NVDA, whose print resolved 2026-08-26, sits at 1.0746x, having collapsed from the 1.84x pre-print kink this file already records. Three names, one method, a monotonic ordering that tracks event proximity: 0.87 (none) < 1.07 (just passed) < 1.49 (four days out).",
+    "the_mechanism_which_makes_it_predictable": "Variance is additive in time. A board's total variance is roughly base_vol^2 * T + V_event, and V_event is the SAME absolute quantity on every board that spans the event. So the event's contribution to quoted IV scales like 1/T: on a 7-day board it is spread over 7 days, on a 28-day board over 28. THE EVENT DOES NOT DISAPPEAR FROM THE 28-DTE BOARD -- IT IS DILUTED TO ROUGHLY A QUARTER OF ITS FRONT-BOARD LIFT, which is small enough to hide inside ordinary week-to-week IV noise. That is exactly what happened here.",
+    "solving_the_two_boards_gives_the_numbers_the_desk_ACTUALLY_needs": {
+      "arithmetic": "base_vol^2 = (var_back - var_front) / ((T2-T1)/365); V_event = var_front - base_vol^2*(T1/365); implied 1-day event move = sqrt(V_event).",
+      "AVGO": "base vol 38.12% (NOT the 49.5% or 50.8% headline), implied event move +/-8.74% on the 09-02 print.",
+      "NVDA": "base vol 32.27%, residual event +/-2.09% -- i.e. essentially nothing left, which is the correct answer for a print that already happened.",
+      "SPY": "base vol 12.00%, V_event NEGATIVE (-0.0000812). The method correctly returns 'no event' rather than a small false positive -- the strongest evidence that it is measuring an event and not a fitting artifact."
+    },
+    "the_second_defect_and_it_is_the_one_that_would_have_misled_a_run": "AVGO's ex-gap IV/RV ratio climbed MONOTONICALLY for seven sessions -- 1.3371, 1.4115, 1.4190, 1.4041, 1.4463, 1.4743, 1.4940 -- and 1.494 is the RICHEST reading in this entire file. A run citing that as 'event premium accumulating into 09-02' would reach the right posture for the wrong reason. DECOMPOSED: between 08-21 and the pre-settle 08-28 row the numerator changed by EXACTLY 0.00% (atm_iv 0.507981 both days) while ex-gap realized vol fell 0.359887 -> 0.340000 (-5.53%). THE ENTIRE +5.84% RATIO MOVE IS DENOMINATOR. The ratio rose because AVGO got QUIETER, not because its options got more expensive.",
+    "why_that_distinction_licenses_OPPOSITE_trades": "A ratio moved by its NUMERATOR means premium is being bid -- decline to buy it, expect a crush. A ratio moved by its DENOMINATOR means the underlying is coiling while premium sits still -- which is not richness at all, and into a scheduled catalyst is closer to the opposite setup. The headline number is identical in both cases. THE RULE: never cite an IV/RV ratio as evidence without stating WHICH LEG MOVED. Decompose it; it is two divisions.",
+    "the_transferable_shape": "This is the same defect this file has now recorded across an entire arc in the VOLUME instrument -- session-average too strict, trailing-local too easy in a decaying tape, feed holes depressing the denominator, closing-auction flow inflating it, post-flush windows inflating it -- arriving in the IV instrument, where nobody had looked for it. A RATIO HAS TWO MOVING PARTS AND ITS HEADLINE CANNOT TELL YOU WHICH ONE MOVED. The 2026-08-27 finding stated this for FORECASTING a ratio ('a forecast that freezes one leg will be right about the artifact and wrong about the level'); it applies with equal force to READING one.",
+    "forward_actionable_for_monday_and_tuesday": "1. AVGO front-board premium is the most expensive vol on this desk's board at 0.7373 ATM. Long AVGO premium into 09-02 is buying a 1.49x kink -- a standing VETO for the 09-01/09-02 runs unless the event IS the thesis, which the exit engine forbids for CORE. 2. A CORE contract bought TODAY at 21-45 DTE on a name printing 09-01/09-02 ALREADY CONTAINS the diluted event premium and will take the crush on 09-03 even though the desk never decided to trade the event. That is a cost of entry, invisible on the 28-DTE row, and it applies to DELL (09-01) and AVGO (09-02) equally. 3. Use 38.12%, not 49.5%, as AVGO's base vol in any post-print IV-sanity read.",
+    "honest_scope": "THIS CHANGED NO DECISION ON THE RUN THAT FOUND IT, which is the only condition under which a measurement of the desk's own instruments is credible. No AVGO candidate was on the table -- AVGO is not in the committed report's RSI2 list, the equity book is closed by the cash floor, and no option entry was proposed in either track. LIMITS, stated rather than buried: the decomposition assumes ONE event in the window and a flat base-vol term structure, both of which are approximations; DELL prints 09-01 inside the same boards and its complex spillover is not separated out; and the numbers are one quote at one minute on a chain whose min_ticks are 0.05 above $3, not the penny tier.",
+    "cheap_detector_for_every_future_run": "Before treating an iv_history row as a name's vol, check whether an event falls inside the board. If one does, quote the nearest front board at the SAME strike and report the kink. It is one get_option_instruments call plus one get_option_quotes call, and a kink above ~1.15 on a name whose no-event control runs BELOW 1.0 means the 30-DTE row is not describing the vol you would actually be buying."
   }
 }
