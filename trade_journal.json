@@ -23973,6 +23973,41 @@
       "duties_already_discharged_for_this_trading_day": "EOD report for 2026-08-27 written ON TIME in-session at 19:20Z (14:19 CT, inside the 14:15 CT window). Ledger compaction and durable-findings promotion done at 20:20Z. The Friday weekly review was pre-computed from broker data by an earlier post-close run. Nothing in this run's remit was outstanding.",
       "why_no_new_work": "POST-CLOSE RUN PROTOCOL: the Nth redundant overnight firing is a stand-down, not a research assignment. The reconciliation is repeated because it is the only check whose value does not decay with repetition -- it is the sole way an overnight assignment, expiration or unauthorized fill would surface. Everything else is deliberately skipped. A no-op logged in a few lines is the correct output.",
       "no_notification": "No PushNotification sent. Nothing changed, both books are healthy, and this is the seventeenth identical stand-down for one trading day -- paging Ryan with 'ran, all well' seventeen times is exactly the notification-fatigue failure HARD RULE 9's notify-once discipline exists to prevent."
+    },
+    {
+      "run_utc": "2026-08-28T13:00:00Z",
+      "run_local_et": "2026-08-28 09:00 ET",
+      "trading_day_et": "2026-08-27",
+      "prompt_version": "v8 (pasted 2026-08-26) -- read from this run's own invocation stamp, which outranks CLAUDE.md's description of which prompt is live.",
+      "fire_payload": "scheduler-fired routine trigger (cron-job.org sub-hourly), no live user turn. HARD RULE 9 in full: no Ryan approval is claimed, quoted or implied anywhere in this entry, and no flag is created, cleared or adjudicated.",
+      "run_type": "post_close_overnight",
+      "market_state": "CLOSED. 13:00Z = 09:00 ET Friday -- 17h00m after the 2026-08-27 bell and exactly 30 minutes before the 2026-08-28 open. No order of any kind is placeable in either book.",
+      "headline": "EIGHTEENTH post-bell reconciliation of trading day 2026-08-27, and the closest pre-open firing yet. ZERO DRIFT, BOTH BOOKS. Deliberate no-op stand-down per the POST-CLOSE RUN PROTOCOL.",
+      "actions": "NONE. No entry, no exit, no artifact rolled, no notification sent, no research task invented to justify the firing. Thirty minutes of remaining closure is not a reason to front-run the open: a level measured now is measured on an empty book and would be stale by the bell.",
+      "reconciliation": {
+        "verdict": "ZERO DRIFT, BOTH BOOKS -- broker-sourced, eighteenth independent post-bell verification.",
+        "options": "SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* fields 0.0000. Matches positions[].",
+        "equities": "LLY 0.420254 @ 1189.760000 and PNC 1.825758 @ 246.470000. Both match positions[].",
+        "capital": "total $3,972.37 | equity $943.11 | options $522.00 | cash $2,507.26. unleveraged_buying_power == buying_power == $2,507.26, no margin extended. Deployable after the $250 reserve: $2,257.26.",
+        "delta_vs_prior_run": "+$0.52 total, entirely the equity mark. Cash and all position counts byte-identical to 12:48Z."
+      },
+      "cap_and_throttle_sourced_not_typed": {
+        "method": "READ out of holdings.json._realized_options_pnl_today this run -- never re-typed as a default. This is the 2026-08-27T09:18Z finding, which recorded four consecutive runs restating a reset '0 of 8 / $0.00' about a trading day that had already traded three times. On a pre-open run the still-in-force trading day is the one whose bell just rang, so a RESET value would be wrong BY CONSTRUCTION.",
+        "realized_options_pnl_trading_day_2026_08_27": "$0.00 across 0 closing trades, against the -$400 cap. NOT BINDING.",
+        "options_entry_throttle": "0 of 8 used for trading day 2026-08-27.",
+        "equity_entry_throttle": "1 of 3 used for trading day 2026-08-27 -- LLY, order 6a90528b, filled 15:06:51Z. It is 1, NOT 0, and stays 1 until the 09:30 ET open.",
+        "not_reset": "This run reset NEITHER throttle NOR the cap. Both reset at the bell, and the run that resets them is the first one AFTER it."
+      },
+      "daily_artifacts_not_rolled": "The in-force trading day is STILL 2026-08-27 because 'today' always means the US TRADING day, never the UTC calendar date. Therefore: heartbeat NOT stamped (still 2026-08-27; only a run at or after 09:30 ET on 2026-08-28 may stamp the new day -- 30 minutes short is still short), market_brief NOT rebuilt, daily_options_report NOT rewritten (the 2026-08-27 report was written on time and in-session at 19:20Z, and nothing MATERIAL has happened since).",
+      "handoff_to_first_post_open_run": "The next firing after 13:30Z owns, in order: stamp automation_heartbeat.json for 2026-08-28; rebuild market_brief.json (regime, catalysts, and a watchlist split TACTICAL / CORE / EQUITY); reset the -$400 options cap and BOTH entry throttles to 0; log the core IV list to iv_history.json; then MANAGE both books before hunting. Two calibration rules bind that first run specifically: never price a decision off the opening auction print (re-quote at least ~5 minutes after 13:30Z), and the regime label inherited from 2026-08-27 must be re-measured rather than carried, with the prior session's FINAL HOUR measured separately from its full-day change.",
+      "regime": "NOT RE-DERIVED, per the POST-CLOSE RUN PROTOCOL. The 2026-08-27 label stands until the first post-open run of 2026-08-28 rebuilds it.",
+      "positions_verdict_both_books": {
+        "SPY_2026-11-20_700P": "HOLD -- working as insurance. Authorized hedge, exempt from premium backstops, ~84 DTE so nowhere near its 21-DTE roll decision with Ryan.",
+        "PNC": "HOLD on thesis. Underwater; carries NO price stop per HARD RULE 5. Green-enough trail level $289.97, far above spot.",
+        "LLY": "HOLD on thesis. Entered 2026-08-27 at 1189.7553, target 1280.34, no stop per HARD RULE 5."
+      },
+      "grades_considered": "NONE. The market is shut; there is nothing to grade and grading pre-open quotes would manufacture a candidate rather than find one.",
+      "why_flat": "Market closed. A pre-open firing cannot place an order in either book, so the only work with value is the broker reconciliation -- the one check always worth repeating, because it is the sole way an overnight assignment, expiration or unauthorized fill would surface. It found nothing, which is the correct and expected output."
     }
   ],
   "updated_utc": "2026-08-26T18:00:00Z"
