@@ -23935,6 +23935,44 @@
       "action": "NONE. Deliberate no-op stand-down. A no-op logged in a few lines is the correct output of the Nth redundant overnight firing; the redundancy itself lives in the trigger config and is Ryan's to change, and an agent's job is only to make each extra firing cost almost nothing.",
       "notification": "NONE SENT. Zero drift, no fills, no flags, no fired triggers, nothing requiring Ryan. Notifying on a quiet sixteenth reconciliation is precisely the noise the notify-once-per-incident discipline exists to prevent.",
       "branch_vs_master": "Working branch reset to origin/master at run start; this run's single commit is pushed and merged to master via PR before the run ends, per the branch-vs-master drift check."
+    },
+    {
+      "run_utc": "2026-08-28T12:48:00Z",
+      "run_local_et": "2026-08-28 08:48 ET",
+      "trading_day_et": "2026-08-27",
+      "prompt_version": "v8 (pasted 2026-08-26) -- read from this run's own invocation stamp, which outranks CLAUDE.md's description of which prompt is live.",
+      "fire_payload": "scheduler-fired routine trigger, no live user turn. HARD RULE 9 in full: no Ryan approval is claimed, quoted or implied anywhere in this entry, and no flag is created, cleared or adjudicated.",
+      "run_type": "post_close_overnight",
+      "market_state": "CLOSED. 12:48Z = 08:48 ET Friday -- 16h48m after the 2026-08-27 bell and 42 minutes before the 2026-08-28 open. No order of any kind is placeable in either book.",
+      "headline": "SEVENTEENTH post-bell reconciliation of trading day 2026-08-27, and the last pre-open firing before the 13:30Z bell. ZERO DRIFT, BOTH BOOKS. Deliberate no-op stand-down per the POST-CLOSE RUN PROTOCOL.",
+      "actions": "NONE. No entry, no exit, no artifact rolled, no notification sent, no research task invented to justify the firing.",
+      "reconciliation": {
+        "verdict": "ZERO DRIFT, BOTH BOOKS -- seventeenth independent post-bell verification, broker-sourced.",
+        "account": "get_accounts: 718757339 -- limited_margin / option_level_3 / agentic_allowed true, unchanged. unsettled_funds 0.0000.",
+        "options": "get_option_positions(nonzero): exactly ONE contract -- SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921, opened 2026-08-06). All six pending_* fields 0.0000, so no overnight assignment, exercise, expiration or unauthorized fill. Matches positions[] one-for-one. Authorized defensive hedge: insurance, EXEMPT from all premium backstops, held to its ~21-DTE roll/close decision WITH Ryan.",
+        "equities": "get_equity_positions: exactly TWO -- LLY 0.420254 sh @ 1189.760000 and PNC 1.825758 sh @ 246.470000. Both match positions[] one-for-one. No unexpected third position.",
+        "capital": "get_portfolio: total $3,971.85 | equity $942.59 | options $522.00 | cash $2,507.26. unleveraged_buying_power $2,507.26 EQUALS buying_power, so the broker is extending no margin -- FOUR LAWS #4 satisfied. Deployable after the $250 reserve: $2,257.26.",
+        "delta_vs_prior_run": "Total value $3,969.75 -> $3,971.85 (+$2.10), entirely the equity mark ($940.49 -> $942.59). Cash, options mark and every share/contract count are byte-identical to the 11:27Z read. A pre-open equity mark drift of this size is quote noise, not activity."
+      },
+      "cap_and_throttle_sourced_not_typed": {
+        "method": "READ, not defaulted -- per the 2026-08-27T09:18Z finding that four consecutive runs restated reset values about a day that had already traded. Sourced from BOTH the broker and holdings.json._realized_options_pnl_today, and they agree.",
+        "broker": "get_realized_pnl(option, 2026-08-27..2026-08-27) returns number_of_trades 0, total_returns 0 -- no option closing trades that day.",
+        "ledger": "_realized_options_pnl_today: realized_usd 0.0, closing_trades 0, cap -400.0.",
+        "options_cap": "$0.00 realized against the -$400 cap for trading day 2026-08-27. NOT binding. The cap gates NEW ENTRIES only and never delays or blocks an exit.",
+        "options_entry_throttle": "0 of 8 for trading day 2026-08-27.",
+        "equity_entry_throttle": "1 of 3 for trading day 2026-08-27 -- LLY, order 6a90528b, filled 15:06:51Z by the 15:05Z run.",
+        "note": "These are the figures for the STILL-IN-FORCE trading day 2026-08-27, not a reset. A reset value on a pre-open run would be wrong by construction; the reset happens at the 09:30 ET open, not at the UTC rollover."
+      },
+      "daily_artifacts_not_rolled": "The in-force trading day is STILL 2026-08-27 -- the one whose bell rang -- because 'today' always means the US TRADING day, never the UTC calendar date. This run therefore did NOT stamp automation_heartbeat.json (correctly dated 2026-08-27), did NOT rebuild market_brief.json, and did NOT reset the daily realized-loss cap or either entry throttle. The first run at or after the 13:30Z open owns all four.",
+      "regime": "NOT RE-DERIVED. Per the POST-CLOSE RUN PROTOCOL a redundant overnight firing does not re-derive the regime, re-poll extended-hours quotes, or roll any daily artifact. The 2026-08-27 label stands until the first post-open run of 2026-08-28 rebuilds market_brief.json.",
+      "positions_verdict_both_books": {
+        "SPY_2026-11-20_700P": "HOLD -- working as designed. Authorized defensive hedge, ~84 DTE, EXEMPT from all premium backstops per the ownership gate and the hedge exemption. Marked 5.22 vs 7.49 entry; a hedge decaying in a firm tape is the instrument doing its job, not a setup break. Roll/close decision belongs to Ryan at ~21 DTE.",
+        "PNC_swing": "HOLD. Ledger target 255.50, no price stop (HARD RULE 5). Not green-enough (entry 246.4729; green-enough trigger = 289.97), so no SET TRAILING STOP alert is due. No mechanical exit condition testable pre-open.",
+        "LLY_swing": "HOLD. Entered 2026-08-27, ledger target 1280.34, no price stop. Not green-enough (entry 1189.7553; trigger = 1399.71). Too new for any exit condition; thesis unchanged since entry."
+      },
+      "duties_already_discharged_for_this_trading_day": "EOD report for 2026-08-27 written ON TIME in-session at 19:20Z (14:19 CT, inside the 14:15 CT window). Ledger compaction and durable-findings promotion done at 20:20Z. The Friday weekly review was pre-computed from broker data by an earlier post-close run. Nothing in this run's remit was outstanding.",
+      "why_no_new_work": "POST-CLOSE RUN PROTOCOL: the Nth redundant overnight firing is a stand-down, not a research assignment. The reconciliation is repeated because it is the only check whose value does not decay with repetition -- it is the sole way an overnight assignment, expiration or unauthorized fill would surface. Everything else is deliberately skipped. A no-op logged in a few lines is the correct output.",
+      "no_notification": "No PushNotification sent. Nothing changed, both books are healthy, and this is the seventeenth identical stand-down for one trading day -- paging Ryan with 'ran, all well' seventeen times is exactly the notification-fatigue failure HARD RULE 9's notify-once discipline exists to prevent."
     }
   ],
   "updated_utc": "2026-08-26T18:00:00Z"
