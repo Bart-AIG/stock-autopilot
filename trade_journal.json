@@ -24644,6 +24644,70 @@
       "iv_note": "Today's iv_history rows were re-measured at SETTLED prices by the 14:45Z run at 14:47Z (SPY atm_iv 0.114590, QQQ 0.169426), which is a better reading than another sweep 18 minutes later would produce; deliberately NOT overwritten, so this is a stated choice rather than a skipped duty. Incidentally observed and explicitly NOT recorded as an iv_history row: SPY 2026-09-04 (7 DTE) IV 0.0962-0.0986 -- the wrong board for the IV method, which specifies the expiry nearest 30 DTE, and per this file's own rule a reading from the wrong board is never a verdict.",
       "why_flat": "Both options tracks decline on their own merits and the equity book is closed on three independent gates. The one genuinely tradeable signal on the tape -- a real, followed-through SPY breakout -- is 1.70 points past its entry, and the quoted vehicle's -30% stop sits at the breakout level itself. The trade was at 773.9-774.6 and it is gone; taking it here would convert a process finding into a chase.",
       "duties": "Heartbeat already stamped for 2026-08-28 (13:38Z) -- not re-stamped. market_brief.json already stamped today -- not rebuilt. Daily report not due (first run at/after 19:15Z owns it; it is 15:05Z). No notification sent to Ryan: no trade, no flag, no fired trigger and nothing needing his decision -- notifying on a quiet run is how the mandate's signal gets destroyed."
+    },
+    {
+      "run_utc": "2026-08-28T15:20:00Z",
+      "run_local_et": "2026-08-28 11:20 ET",
+      "trading_day_et": "2026-08-28",
+      "prompt_version": "v8 (pasted 2026-08-26) -- read from this run's own invocation stamp, which outranks CLAUDE.md's description of which prompt is live.",
+      "fire_payload": "scheduler-fired routine trigger (cron-job.org sub-hourly), no live user turn. HARD RULE 9 in full: no Ryan approval is claimed, quoted or implied anywhere in this entry; no flag is created, cleared or adjudicated.",
+      "run_type": "market_hours_regular",
+      "market_state": "OPEN. 15:20Z = 11:20 ET Friday, 110 minutes into the session. The Warsh keynote round trip resolved to the upside at ~14:40Z; SPY topped at 775.292 on the 15:01Z minute and has since faded ~1.1 points.",
+      "headline": "TENTH run of the day. NO TRADE, either book, and neither decision is close. THE CONTRIBUTION: the LATE-ENTRY DETECTOR written by the 15:05Z run was falsifiable inside one cadence and it HELD -- the contract it declined is -11.19% twelve minutes later and SPY retested to within 0.22 of the projected stop level. Second contribution: a second QQQ feed hole this session, quantified, exercising both one-direction rules at once.",
+      "reconciliation": "ZERO DRIFT, BOTH BOOKS, broker-first. Detail in holdings.json._last_reconciliation (overwritten in place, not appended).",
+      "capital_at_1516Z": {
+        "total_value": 3927.05,
+        "equity_value": 1897.09,
+        "options_value": 483.0,
+        "cash": 1546.96,
+        "unleveraged_buying_power": 1546.96,
+        "four_laws_4": "unleveraged_buying_power EQUALS buying_power at $1,546.96 -- the broker extends NO margin. Satisfied. Options deployable = 1546.96 - 250 reserve = $1,296.96.",
+        "equity_book_cash_floor": "44.916% (1546.96 / 3444.05). BELOW the >=45% Aug-Oct minimum; max compliant buy = -$2.86, NEGATIVE. Equity book CLOSED on the floor alone. The 44.94% / 44.93% / 44.92% readings across the last three runs are mark drift on the same book, not three separate breaches."
+      },
+      "position_verdicts_both_books": {
+        "SPY 2026-11-20 700P (hedge)": "WORKING AS INSURANCE / structurally losing, which is what insurance does in a firm tape. Mark 4.83 vs 7.49 basis = -$266.00 / -35.5%. EXEMPT from all premium backstops per the hedge exemption; the -70% >45-DTE backstop is NOT armed against it. 84 DTE, its ~21-DTE roll/close decision belongs to Ryan and is not due. NO ACTION.",
+        "ROST 2.000000 @ 230.1512": "HOLD. Last 229.745 = -$0.81 / -0.18%. Report action HOLD (thesis-watch). Not green, no target hit, no price stop (HARD RULE 5).",
+        "LLY 0.420254 @ 1189.7553": "HOLD (thesis-watch, matching the fresh 15:01Z report). Last 1174.455 = -$6.43 / -1.29%. No SELL signal.",
+        "PNC 1.825758 @ 246.4729": "HOLD (thesis-watch). Last 243.720 = -$5.03 / -1.12%. The 2026-08-26 correction stands: an RSI2>=70 print on an UNDERWATER position is an OPTIONAL exit-into-strength, never a mechanical fire.",
+        "MDLZ 7.988509 @ 62.5899": "HOLD. Last 62.475 = -$0.92 / -0.18%. Thesis unchanged from this morning's entry.",
+        "equity_book_unrealized_total": "-$13.19 across four names, every one inside 1.3%. Nothing near an exit trigger, and the committed 15:01Z report independently actions all four HOLD."
+      },
+      "CONTRIBUTION_1_the_late_entry_detector_was_tested_and_held": {
+        "why_this_run_could_test_it": "The 15:05Z run made a specific, falsifiable claim -- that a late breakout entry has its -30% stop pushed back ONTO the trigger level, so 'a perfectly ordinary retest of the break stops the trade out', with the stop projected at SPY ~773.6. That is testable inside one 15-minute cadence for the cost of one re-quote, and nobody had to wait for an outcome to test it.",
+        "re_quoted_not_modelled": "SPY 2026-09-04 777C at 15:17:30Z: bid 3.12 / ask 3.15, mid 3.135, spread 0.03 = 0.96% of mid, delta 0.4227, gamma 0.0382, theta -0.3118, IV 0.0941, OI 1,883, volume 1,552, chance_of_profit_long 0.3039.",
+        "the_measurement": "Against the 3.53 mid quoted at 15:05Z: -0.395 = -11.19% ($353.00 -> $313.50, -$39.50) in 12.5 minutes -- 37% of the way to the -30% stop. Delta drifted 0.4501 -> 0.4227, still inside the 0.40-0.60 tactical band. The chain stayed flawless throughout, so nothing here is a liquidity artifact.",
+        "the_underlying_did_exactly_what_was_predicted": "After the 775.292 session high on the 15:01Z minute, SPY sold to 773.8201 at 15:12Z -- 0.22 ABOVE the projected 773.6 stop level, an unremarkable seven-minute retest of the break. The mechanism, not merely the arithmetic, was confirmed.",
+        "second_consecutive_instance_same_magnitude": "The 15:05Z run measured its own declined vehicle (the 762P quoted at 14:51Z) at -11.25% thirty-six minutes on. This run measures -11.19% twelve minutes on, on a vehicle facing the OPPOSITE direction. Two opposite-side late entries giving back near-identical fractions of the risk budget is consistent with the stated general form rather than with either being luck.",
+        "what_is_NOT_claimed": "The trade's OUTCOME is not validated -- only the stop's proximity. The +20% target at ~777.3 could still print later today, and a stop nearly touched is not a stop hit. A detector that predicts WHERE THE RISK SITS is verifiable inside one cadence; one that predicts WHETHER THE TRADE WINS is not, and conflating them retro-fits a good gate into a market call.",
+        "honest_scope": "CHANGED NO DECISION. The entry was already declined on arithmetic at 15:05Z and remains declined for that same reason; this run would not have taken it at 3.135 either, since a later entry only pushes the stop further onto the level. Written to CLAUDE.md as sub-bullets EDITED INTO the existing late-entry-detector bullet, per the session-key/container rule."
+      },
+      "CONTRIBUTION_2_second_QQQ_feed_hole_this_session": {
+        "measured": "QQQ 15:05Z 5-minute bucket reported 30,649 against a 1-minute sum of 194,971 -- bucket -84.3% LOW. The reported figure EQUALS the 15:09 one-minute bar exactly (30,649): the single-constituent signature. Per the 2026-08-28 direction rule, bucket-below-sum means the BUCKET is holed, so the 1-minute sum substitutes.",
+        "second_of_the_session": "QQQ's 14:05Z bucket was holed earlier today at -79.2%. Both at the :05 offset, both on QQQ. n=2 on one symbol in one session is a thing to WATCH, not a clock law -- yesterday's holes landed at :45 across three symbols.",
+        "quantified_in_the_dangerous_direction": "A trailing-30 baseline over 14:45-15:10 reads 181,918 raw vs 209,305 corrected -- raw is 13.1% LOW, again manufacturing the confirmation the tactical clause exists to withhold.",
+        "cross_symbol_rule_exercised_live": "SPY's 15:05Z bucket was CLEAN in the identical window (236,718 vs a 228,283 1-minute sum, +3.7%, inside tolerance). This is the 2026-08-27 cross-symbol detector's one-direction caveat arriving as a live example: agreement across symbols evidences a hole; a clean neighbour evidences NOTHING about the symbol you care about.",
+        "honest_scope": "CHANGED NO DECISION -- no volume clause was load-bearing this run, because no price trigger fired to test. Recorded because a feed audit is only creditable on a run that does not benefit from it."
+      },
+      "equity_book_hunt": {
+        "verdict": "NO ENTRY, over-determined by two gates, and for once NOT by a stale report.",
+        "report_freshness": "latest_intraday.md is stamped 2026-08-28 15:01 UTC -- 19 minutes old, TODAY's, no DATA ERROR header. The staleness objection the 14:45Z run raised is discharged; the report now carries all four positions and actions every one HOLD (thesis-watch).",
+        "gate_1_cash_floor": "44.916% against the >=45% minimum; max compliant buy NEGATIVE at -$2.86. Closed.",
+        "gate_2_throttle": "2 of 3 autonomous equity entries used today (ROST, MDLZ, both by this morning's concurrent sibling runs).",
+        "signals_checked_anyway": "No TAKE-PROFIT, no SET TRAILING STOP, no THESIS CHECK fired on any held name. Fresh RSI2 setups: AEHR 0.5 (stop -22.3%, extreme), XOM 1.5 and EOG 4.1 (BOTH EXCLUDED on the standing oil-energy sector steer, not on merit), REGN 4.8, MMM 5.0, KLAC 8.6, plus MDLZ 7.6 and ROST 8.3 already HELD. Nothing was worked up further: with the floor negative there is no size to propose, and proposing one would be exactly the fitting-the-trade-to-the-constraint this file forbids."
+      },
+      "options_hunt_both_tracks": {
+        "TACTICAL": "NO ENTRY -- grade C, and the honest reason is that THERE IS NO TRIGGER, not that a trigger failed confirmation. SPY and QQQ are FADING from session highs set on the 15:01Z minute (SPY 775.292 -> 774.46, QQQ 724.125 -> 722.98); a fade off a high is not a structural break, and both indices sit far above every structural level in reach (SPY prior close 771.10, session low 769.775). The one name with a real move is NVDA at 224.21, -1.65% on the day and giving back its post-print gap while SPY is +0.43% -- but its only structural level, the 223.25 session low, is roughly a point below spot and has not been tested. A break there is a WATCH for the next run, not a fire, and it would face the 2026-08-26 regime capstone anyway: DELL prints 09-01 and AVGO 09-02, so a semis-complex scalp is a breakout into an unresolved scheduled catalyst.",
+        "CORE": "NO ENTRY -- grade C, unchanged and for the RIGHT reason. The 14:45Z settled re-measure retired the old 'index premium fails IV sanity' objection for QQQ (ex-gap ratio 1.0097, essentially fair; SPY still ~10% rich at 1.1029), and the chains are excellent. Neither fact is a thesis. CORE declines on thesis: no answer to 'why NOW' on a Friday drifting off its high, and DELL 09-01 / AVGO 09-02 fall inside any 21-45 DTE hold window.",
+        "structures_surveyed": "None priced beyond the SPY 777C re-quote, because no thesis cleared the 'why NOW' bar. The SURVEY duty attaches to a thesis worth taking; pricing verticals against no thesis is the manufactured-activity failure this prompt names explicitly."
+      },
+      "iv_method": "NO WRITE. All eight core names already carry a 2026-08-28 row, and SPY/QQQ were overwritten at 14:47Z with the settled post-flush measure (SPY atm_iv 0.114590, QQQ 0.169426). This run evaluated no new name and produced no better measure of an existing one, so churning the file would add a diff without adding information.",
+      "why_flat": "No trigger in either options track and no compliant equity entry. The equity book is closed on the cash floor with 2 of 3 throttle used; the options book has all five slots free, the full -$400 cap and $1,296.96 deployable, and simply nothing worth owning. Capacity is not a reason to trade.",
+      "duties": {
+        "heartbeat": "Already stamped for trading day 2026-08-28 at 13:38Z by the first post-open run. Not re-stamped -- one stamp per trading day is the contract.",
+        "market_brief": "Already stamped today. Not rebuilt; no genuine shock (the keynote round trip is already recorded by three prior runs).",
+        "daily_report": "NOT DUE. The trigger is the first run at or after 19:15Z (14:15 CT); this run is 15:20Z. _eod_report_written shows no report for 2026-08-28 yet, which is correct.",
+        "branch_vs_master": "HEAD equalled origin/master at 1e44601 on arrival. This run's commit goes up via PR and is merged before the run ends."
+      }
     }
   ],
   "updated_utc": "2026-08-26T18:00:00Z"
