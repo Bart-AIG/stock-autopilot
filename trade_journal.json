@@ -23754,6 +23754,45 @@
         "Re-quote everything at least ~5 minutes after 13:30Z before pricing any decision -- never off the opening auction print.",
         "The 2026-08-27 report is written and delivered; do NOT rewrite daily_options_report.md unless something MATERIAL happens (a fill, an exit, a new flag, a trigger firing)."
       ]
+    },
+    {
+      "run_utc": "2026-08-28T07:26:00Z",
+      "run_local_et": "2026-08-28 03:26 ET",
+      "trading_day_et": "2026-08-27",
+      "prompt_version": "v8 (pasted 2026-08-26) -- read from this run's own invocation stamp, which outranks CLAUDE.md's description of which prompt is live.",
+      "fire_payload": "scheduler-fired routine trigger, no live user turn. HARD RULE 9 in full: no Ryan approval is claimed, quoted or implied anywhere in this entry, and no flag is created, cleared or adjudicated.",
+      "run_type": "post_close_overnight",
+      "market_state": "CLOSED. 03:26 ET Friday -- 11h26m after the 2026-08-27 bell and 6h04m before the 2026-08-28 open. No order of any kind is placeable in either book.",
+      "headline": "TWELFTH post-bell reconciliation of trading day 2026-08-27. ZERO DRIFT, BOTH BOOKS. Deliberate no-op stand-down per the POST-CLOSE RUN PROTOCOL -- every post-close-only task for this trading day was discharged hours ago (ledger compaction and durable-findings promotion at 20:20Z, Friday review precomputed from broker data, EOD report written ON TIME at 19:20Z in-session). Nothing re-derived, re-polled or re-measured.",
+      "regime": "NOT RE-DERIVED. The POST-CLOSE RUN PROTOCOL forbids a redundant overnight firing from re-deriving the regime or re-polling extended-hours quotes -- numbers nobody can act on. The 2026-08-27 label stands until the first post-open run of 2026-08-28 rebuilds market_brief.json.",
+      "trading_day_note": "The still-in-force trading day is 2026-08-27, the one whose bell has rung. It is 07:26Z on the 08-28 UTC calendar date, but 'today' always means the US TRADING day (ET). This run therefore did NOT stamp the heartbeat (correctly dated 2026-08-27, stamped 13:38Z), did NOT rebuild market_brief.json, and did NOT reset the options loss cap or either entry throttle. The reset happens at the 09:30 ET open, not at the UTC rollover.",
+      "cap_and_throttle_READ_not_typed": {
+        "method": "READ this run out of holdings.json._realized_options_pnl_today, per the 2026-08-27T09:18Z finding that four consecutive post-close runs restated a RESET figure about a day that had already traded. A reset value on a day that has already traded is wrong BY CONSTRUCTION.",
+        "options_realized_pl": "$0.00 against the -$400 cap. Broker-confirmed at the bell (get_realized_pnl 2026-08-27..2026-08-27 returned number_of_trades 0). Cap never came near binding.",
+        "options_entry_throttle": "0 of 8 used for trading day 2026-08-27.",
+        "equity_entry_throttle": "1 of 3 used for trading day 2026-08-27 -- LLY, order 6a90528b, filled 15:06:51Z. It stays 1, not 0, until the 09:30 ET open on 2026-08-28."
+      },
+      "reconciliation": {
+        "verdict": "ZERO DRIFT, BOTH BOOKS -- twelfth independent post-bell verification.",
+        "account": "get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true; unsettled_funds 0.0000.",
+        "options": "get_option_positions(nonzero) returns exactly ONE contract -- SPY 2026-11-20 700P, qty 1.0000 @ average_price 749.00, opened 2026-08-06T14:21:56Z, all pending_* quantities zero. Matches the ledger position (contracts 1, entry_premium 7.49, max_loss $749). This is the Ryan-authorized defensive hedge: EXEMPT from all premium backstops, held to its ~21-DTE roll/close decision WITH Ryan. No unpaired legs; the desk holds no vertical.",
+        "equities": "get_equity_positions returns exactly TWO -- PNC 1.825758 sh @ 246.47 (ledger 246.4729) and LLY 0.420254 sh @ 1189.76 (ledger 1189.7553). Both match; shares_available_for_sells equals quantity on both, nothing held for options events or transfer.",
+        "portfolio": "total_value $3,968.97 = equity $939.71 + options $522.00 + cash $2,507.26. unleveraged_buying_power $2,507.26 EQUALS buying_power, i.e. the broker is extending NO margin -- FOUR LAWS #4 satisfied with the full $250 reserve intact many times over.",
+        "cash_floor_informational": "Equity-book cash ratio = 2507.26 / (2507.26 + 939.71) = 72.7%, far above the Aug-Oct posture's 45% floor. Recorded as state only -- nothing is placeable with the market shut, and no sizing decision is being made from it."
+      },
+      "positions_verdict_both_books": {
+        "SPY 2026-11-20 700P (options, hedge)": "WORKING as insurance, not as a directional trade. Exit gate unchanged: hedge exemption from premium backstops, roll/close decision at ~21 DTE with Ryan. 84 days to expiry -- nowhere near that review.",
+        "PNC 1.825758 sh (swing)": "HOLD. Target 255.50, no stop by policy (HARD RULE 5 -- underwater or not-yet-green names carry no price stop and are managed on thesis). Not green-enough (needs >= entry / 0.85), so no SET TRAILING STOP alert is due.",
+        "LLY 0.420254 sh (swing)": "HOLD. Target 1280.34, no stop by policy. Entered 2026-08-27 15:06:51Z; not green-enough, no trail alert due."
+      },
+      "actions": "NONE. No entry, no exit, no artifact rolled, no ledger field edited beyond this journal append. Market closed -- nothing was placeable, and the POST-CLOSE RUN PROTOCOL's correct output for the Nth redundant overnight firing is a no-op logged in a few lines.",
+      "duties_check": {
+        "heartbeat": "Correctly NOT stamped -- still dated 2026-08-27, and stamping early would pre-satisfy the dead-man for a trading day that has not started.",
+        "eod_report": "Already written for 2026-08-27 (19:20Z, in-session, on time). The fallback clause does not apply and the file must NOT be rewritten -- nothing material has happened since, and a duplicate push re-notifies Ryan with identical content.",
+        "friday_review": "Trading day 2026-08-27 was a Thursday. The Friday review belongs to the 2026-08-28 session and was already precomputed from broker data by the 20:20Z run; this run does not duplicate it.",
+        "notification": "NONE SENT, deliberately. Nothing fired, nothing drifted, nothing needs Ryan. A quiet healthy book is not news, and paging him on an overnight no-op is exactly the notification fatigue the notify-once discipline exists to prevent."
+      },
+      "next_run": "The first run at or after 13:30Z on 2026-08-28 opens the new trading day: stamp the heartbeat for 2026-08-28, rebuild market_brief.json, reset the options loss cap to $0.00/-$400 and BOTH throttles (options 0 of 8, equities 0 of 3), then re-read the committed equity report for freshness and DATA ERROR before any signal is acted on."
     }
   ],
   "updated_utc": "2026-08-26T18:00:00Z"
