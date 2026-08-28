@@ -1,4 +1,4 @@
-# Strategy report - MORNING  (2026-08-27 22:55 UTC)
+# Strategy report - MORNING  (2026-08-28 22:59 UTC)
 
 ## >>> ACTION <<<
 
@@ -7,63 +7,66 @@ Each holding is judged on every run. Confirm with a live quote and approve any a
 
 | Ticker | Sleeve | Price | Entry | P/L | Action | Why |
 |---|---|---|---|---|---|---|
-| PNC | swing | 243.51 | 246.4729 | -1% | HOLD (thesis-watch) | underwater -1%; no price stop — sell only if the thesis breaks, else cull at monthly rebalance |
-| LLY | swing | 1176.1 | 1189.7553 | -1% | HOLD (thesis-watch) | underwater -1%; no price stop — sell only if the thesis breaks, else cull at monthly rebalance |
+| PNC | swing | 242.22 | 246.4729 | -2% | HOLD (thesis-watch) | underwater -2%; no price stop — sell only if the thesis breaks, else cull at monthly rebalance |
+| LLY | swing | 1172.86 | 1189.7553 | -1% | HOLD (thesis-watch) | underwater -1%; no price stop — sell only if the thesis breaks, else cull at monthly rebalance |
+| MDLZ | swing | 62.36 | 62.5899 | -0% | HOLD (thesis-watch) | underwater -0%; no price stop — sell only if the thesis breaks, else cull at monthly rebalance |
+| ROST | swing | 228.55 | 230.1512 | -1% | HOLD (thesis-watch) | underwater -1%; no price stop — sell only if the thesis breaks, else cull at monthly rebalance |
 
 ## Connors RSI(2) swing setups (1-3 week holds)
 Oversold (RSI2<10) inside a rising 200-day uptrend. Entry/stop/target are ESTIMATES.
 
 | Ticker | Theme | Spec | Held | Earnings | Price | RSI2 | Entry | Stop | Target | Stop% |
 |---|---|---|---|---|---|---|---|---|---|---|
-| AEHR | Semis |  |  |  | 90.46 | 1.6 | 90.46 | 70.47 | 120.44 | -22.1% ⚠ |
-| XOM | Energy |  |  |  | 156.44 | 2.0 | 156.44 | 150.43 | 165.46 | -3.8% |
-| LLY | Other |  | HELD |  | 1176.1 | 4.4 | 1176.1 | 1105.77 | 1280.34 | -6.0% |
-| EOG | Energy |  |  |  | 144.5 | 6.9 | 144.5 | 135.89 | 153.05 | -6.0% |
-| BKNG | Other |  |  |  | 202.56 | 7.0 | 202.56 | 191.53 | 214.42 | -5.4% |
-| MDLZ | Other |  |  |  | 62.43 | 8.1 | 62.43 | 60.48 | 64.7 | -3.1% |
-| BAC | Other |  |  |  | 61.17 | 8.1 | 61.17 | 59.69 | 63.38 | -2.4% |
-| ROST | Other |  |  |  | 229.87 | 9.3 | 229.87 | 220.01 | 244.66 | -4.3% |
-| SCHW | Other |  |  |  | 108.05 | 9.6 | 108.05 | 104.97 | 112.67 | -2.8% |
-| AMZN | Other |  |  |  | 256.26 | 9.7 | 256.26 | 231.99 | 284.02 | -9.5% |
+| AEHR | Semis |  |  |  | 80.81 | 0.3 | 80.81 | 62.27 | 108.62 | -22.9% ⚠ |
+| EOG | Energy |  |  |  | 143.35 | 3.7 | 143.35 | 134.99 | 153.05 | -5.8% |
+| LLY | Other |  | HELD |  | 1172.86 | 3.8 | 1172.86 | 1102.8 | 1277.95 | -6.0% |
+| KLAC | Semis |  |  |  | 175.54 | 3.9 | 175.54 | 162.71 | 194.78 | -7.3% |
+| MMM | Other |  |  |  | 174.34 | 4.4 | 174.34 | 169.95 | 180.92 | -2.5% |
+| REGN | Other |  |  |  | 794.19 | 4.8 | 794.19 | 765.09 | 837.85 | -3.7% |
+| AMAT | Semis |  |  |  | 461.67 | 5.8 | 461.67 | 426.58 | 514.3 | -7.6% |
+| MDLZ | Other |  | HELD |  | 62.36 | 7.2 | 62.36 | 60.45 | 64.7 | -3.1% |
+| ROST | Other |  | HELD |  | 228.55 | 7.4 | 228.55 | 218.74 | 243.26 | -4.3% |
+| MAR | Other |  |  |  | 351.08 | 8.1 | 351.08 | 333.12 | 361.31 | -5.1% |
+| MRVL | Semis |  |  |  | 216.62 | 9.7 | 216.62 | 186.43 | 251.01 | -13.9% |
 
 ### How to read this (concentration & sizing)
-- 📌 **Already held (marked HELD):** LLY. A new buy ADDS to the existing position — skip unless you mean to add, and re-check the per-name cap on the combined size.
+- 📌 **Already held (marked HELD):** LLY, MDLZ, ROST. A new buy ADDS to the existing position — skip unless you mean to add, and re-check the per-name cap on the combined size.
+- 🟡 **Cluster:** 4/11 setups are 'Semis' — correlated, don't buy them all.
 - ⚠️ **1 have stops wider than 15%** (marked ⚠) — extreme volatility. Size so the dollar-risk-to-stop is small, not the dollar position.
 - ✅ **Discipline:** take the 1-2 highest-conviction, least-correlated names. Per-name cap ~15-20%, and set the stop on every entry.
 
-## 12-1 momentum ranking (top decile = 23 of 230)
+## 12-1 momentum ranking (top decile = 22 of 229)
 Multi-week / monthly trend holds. Rebalance on a monthly cadence, not daily.
 
 | # | Ticker | mom12-1% | RSI14 | >200MA |
 |---|---|---|---|---|
-| 1 **TOP** | MU | 637.6 | 51.0 | T |
-| 2 **TOP** | LITE | 508.3 | 58.5 | T |
-| 3 **TOP** | BE | 379.7 | 49.2 | T |
-| 4 **TOP** | TSEM | 323.2 | 44.8 | T |
-| 5 **TOP** | INTC | 317.3 | 44.3 | T |
-| 6 **TOP** | ONDS | 293.0 | 52.5 | F |
-| 7 **TOP** | FCEL | 273.1 | 46.2 | T |
-| 8 **TOP** | AAOI | 249.5 | 45.4 | T |
-| 9 **TOP** | VIAV | 244.5 | 46.4 | T |
-| 10 **TOP** | WULF | 235.1 | 45.2 | F |
-| 11 **TOP** | AEHR | 234.8 | 44.2 | T |
-| 12 **TOP** | LASR | 227.3 | 36.1 | F |
-| 13 **TOP** | NBIS | 221.7 | 49.7 | T |
-| 14 **TOP** | DELL | 192.9 | 56.8 | T |
-| 15 **TOP** | LRCX | 173.4 | 50.4 | T |
-| 16 **TOP** | AMD | 161.8 | 47.4 | T |
-| 17 **TOP** | APLD | 151.6 | 43.9 | F |
-| 18 **TOP** | AMAT | 150.4 | 41.7 | T |
-| 19 **TOP** | COHR | 133.3 | 47.1 | T |
-| 20 **TOP** | MRVL | 129.8 | 56.3 | T |
-| 21 **TOP** | GLW | 127.4 | 46.8 | T |
-| 22 **TOP** | ALAB | 109.8 | 48.0 | T |
-| 23 **TOP** | NOK | 109.6 | 53.4 | T |
-| 24  | KLAC | 106.7 | 40.4 | T |
-| 25  | VLO | 106.5 | 65.2 | T |
-| 26  | IREN | 104.6 | 48.4 | F |
-| 27  | CAT | 94.2 | 41.8 | T |
-| 28  | WBD | 86.9 | 70.3 | T |
+| 1 **TOP** | MU | 560.1 | 50.7 | T |
+| 2 **TOP** | LITE | 450.2 | 53.1 | T |
+| 3 **TOP** | BE | 371.2 | 46.3 | T |
+| 4 **TOP** | INTC | 301.2 | 41.5 | T |
+| 5 **TOP** | TSEM | 292.8 | 41.0 | T |
+| 6 **TOP** | ONDS | 273.6 | 43.6 | F |
+| 7 **TOP** | FCEL | 269.7 | 42.0 | T |
+| 8 **TOP** | AEHR | 248.2 | 40.0 | T |
+| 9 **TOP** | AAOI | 217.4 | 42.6 | T |
+| 10 **TOP** | VIAV | 216.3 | 42.6 | T |
+| 11 **TOP** | NBIS | 194.1 | 47.2 | T |
+| 12 **TOP** | WULF | 189.1 | 40.5 | F |
+| 13 **TOP** | LASR | 185.4 | 34.1 | F |
+| 14 **TOP** | DELL | 176.9 | 52.5 | T |
+| 15 **TOP** | LRCX | 155.1 | 44.4 | T |
+| 16 **TOP** | AMD | 142.1 | 44.8 | T |
+| 17 **TOP** | AMAT | 131.6 | 37.6 | T |
+| 18 **TOP** | APLD | 129.4 | 38.6 | F |
+| 19 **TOP** | MRVL | 114.0 | 47.2 | T |
+| 20 **TOP** | ALAB | 110.9 | 44.0 | T |
+| 21 **TOP** | VLO | 108.2 | 67.9 | T |
+| 22 **TOP** | COHR | 107.6 | 43.7 | T |
+| 23  | NOK | 101.2 | 48.4 | T |
+| 24  | GLW | 100.1 | 44.6 | T |
+| 25  | WBD | 95.4 | 67.9 | T |
+| 26  | KLAC | 85.8 | 35.9 | T |
+| 27  | IREN | 85.6 | 40.2 | F |
 
 ## Joint long-term port — accumulate signals (oversold within an uptrend)
 Watch-only — the agent can't trade the joint account, so this surfaces BUY/ADD ideas ONLY (no exit alerts, not part of the ACTION trigger). **Primary signal is TECHNICAL:** a confirmed long-term uptrend (price above a RISING 200-day MA + positive 12-1 momentum) that is **oversold / pulled back** on the technicals (RSI + moving averages), ranked most-oversold first. **Signal:** 🟢 oversold (RSI14 ≤ 35 or RSI2 < 10) / 🟡 dip. The P/E, P/FCF, PEG columns are **secondary value context** — not the headline read (Val: ✅ cheap-for-growth / ⚠️ rich / — / blank = no data).
@@ -71,40 +74,40 @@ Watch-only — the agent can't trade the joint account, so this surfaces BUY/ADD
 **Held in the joint port — ADD / average-in candidates (oversold within their uptrend):**
 | Signal | Ticker | Theme | Price | RSI14 | RSI2 | vs 20d | vs 50d | mom12-1% | P/E | P/FCF | PEG | Val |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 🟡 dip | CVS | Other | 92.92 | 37.4 | 32.6 | -3.4% | -8.4% | 83.3 | 24.3 | 10.1 | 3.8 | ⚠️ rich |
-| 🟡 dip | TKR | Other | 124.54 | 40.7 | 47.8 | -3.7% | -8.1% | 71.3 | 33.6 | 22.5 | -2.0 | ✅ value |
-| 🟡 dip | UNH | Other | 395.05 | 43.7 | 35.0 | -1.5% | -4.3% | 52.0 | 25.4 | 15.2 | -0.8 | ✅ value |
-| 🟢 oversold | AEHR | Semis | 90.46 | 44.2 | 1.6 | -15.9% | -3.8% | 234.8 | -393.3 | -548.9 | 4.9 | ⚠️ rich |
-| 🟡 dip | GOOGL | Other | 340.65 | 44.2 | 13.8 | -2.9% | -2.7% | 73.3 | 16.9 | 77.4 | 0.2 | ✅ value |
-| 🟡 dip | TSEM | Semis | 219.85 | 44.8 | 58.1 | -6.5% | -8.3% | 323.2 | 88.7 | 83.5 | 2.0 | — |
-| 🟡 dip | AAOI | Photonics | 113.28 | 45.4 | 37.8 | -10.1% | -8.5% | 249.5 | -145.5 | -22.0 | -2.9 | — |
-| 🟡 dip | FCEL | Battery/H2 | 19.32 | 46.2 | 60.9 | -5.6% | -12.3% | 273.1 | -2.9 | -12.5 | 0.0 | — |
-| 🟡 dip | EME | Industrials | 775.04 | 46.4 | 71.0 | -3.8% | -2.1% | 11.7 | 24.2 | 29.2 | 0.8 | ✅ value |
-| 🟡 dip | GLW | Other | 152.8 | 46.8 | 78.5 | -2.0% | -11.0% | 127.4 | 69.1 | 55.0 | 0.5 | ✅ value |
-| 🟡 dip | COHR | Photonics | 295.39 | 47.1 | 75.2 | -5.6% | -8.2% | 133.3 | 67.9 | -56.1 | 0.0 | — |
-| 🟡 dip | ACGL | Financials | 98.76 | 47.1 | 13.8 | -0.4% | -0.6% | 23.1 | 7.6 | 5.7 | 0.2 | ✅ value |
-| 🟡 dip | AMD | Semis | 476.67 | 47.4 | 50.3 | -1.2% | -6.0% | 161.8 | 121.0 | 92.5 | 1.0 | ✅ value |
-| 🟡 dip | ALAB | Other | 304.09 | 48.0 | 92.0 | -2.1% | -11.7% | 109.8 | 140.1 | 188.4 | 0.5 | ✅ value |
-| 🟡 dip | BE | Other | 217.83 | 49.2 | 83.5 | -0.3% | -8.5% | 379.7 | — | — | — |  |
-| 🟡 dip | DDOG | AI-software | 242.93 | 49.5 | 89.0 | -1.8% | -2.5% | 66.4 | — | — | — |  |
-| 🟡 dip | NBIS | Other | 218.48 | 49.7 | 56.0 | -1.6% | -1.1% | 221.7 | — | — | — |  |
-| 🟡 dip | MU | Semis | 935.39 | 51.0 | 46.7 | +2.2% | -2.3% | 637.6 | — | — | — |  |
-| 🟡 dip | CRDO | Other | 240.24 | 51.6 | 90.0 | +0.3% | +0.3% | 78.1 | — | — | — |  |
-| 🟡 dip | NOK | Comm | 10.59 | 53.4 | 89.1 | +5.9% | -3.7% | 109.6 | — | — | — |  |
+| 🟡 dip | TKR | Other | 120.82 | 36.2 | 17.0 | -5.9% | -10.6% | 63.3 | 32.6 | 21.8 | -2.0 | ✅ value |
+| 🟡 dip | CVS | Other | 93.06 | 37.9 | 39.1 | -2.7% | -8.1% | 76.5 | 24.3 | 10.1 | 3.8 | ⚠️ rich |
+| 🟢 oversold | AEHR | Semis | 80.81 | 40.0 | 0.3 | -24.9% | -13.4% | 248.2 | -351.3 | -490.3 | 4.4 | ⚠️ rich |
+| 🟡 dip | TSEM | Semis | 208.01 | 41.0 | 14.8 | -11.4% | -12.8% | 292.8 | 85.5 | 80.5 | 1.9 | — |
+| 🟡 dip | FCEL | Battery/H2 | 17.76 | 42.0 | 12.0 | -12.4% | -19.2% | 269.7 | -2.7 | -11.5 | 0.0 | — |
+| 🟡 dip | UNH | Other | 392.95 | 42.3 | 24.9 | -1.8% | -4.8% | 61.1 | 25.3 | 15.1 | -0.8 | ✅ value |
+| 🟡 dip | AAOI | Photonics | 106.23 | 42.6 | 10.2 | -16.1% | -13.3% | 217.4 | -136.4 | -20.6 | -2.7 | — |
+| 🟡 dip | COHR | Photonics | 279.2 | 43.7 | 17.7 | -11.0% | -12.7% | 107.6 | 64.2 | -53.0 | 0.0 | — |
+| 🟡 dip | ALAB | Other | 289.47 | 44.0 | 38.0 | -6.5% | -15.5% | 110.9 | 133.4 | 179.3 | 0.5 | ✅ value |
+| 🟡 dip | GLW | Other | 148.98 | 44.6 | 27.8 | -4.8% | -12.9% | 100.1 | 67.4 | 53.5 | 0.5 | ✅ value |
+| 🟡 dip | AMD | Semis | 465.58 | 44.8 | 19.2 | -3.4% | -8.0% | 142.1 | 118.2 | 90.3 | 1.0 | ✅ value |
+| 🟡 dip | BE | Other | 210.77 | 46.3 | 21.5 | -3.6% | -10.9% | 371.2 | 252.2 | 98.8 | -0.0 | ⚠️ rich |
+| 🟡 dip | DDOG | AI-software | 236.98 | 46.9 | 55.8 | -3.6% | -5.0% | 75.8 | 476.6 | 73.0 | 12.3 | ⚠️ rich |
+| 🟢 oversold | MRVL | Semis | 216.62 | 47.2 | 9.7 | -3.4% | -5.2% | 114.0 | 71.0 | 109.7 | 0.0 | ⚠️ rich |
+| 🟡 dip | NBIS | Other | 209.18 | 47.2 | 23.2 | -6.2% | -4.6% | 194.1 | 804.5 | -8.5 | -10.4 | — |
+| 🟡 dip | ACGL | Financials | 98.84 | 47.5 | 19.1 | -0.3% | -0.7% | 21.4 | 7.6 | 5.7 | 0.2 | ✅ value |
+| 🟡 dip | NOK | Comm | 10.21 | 48.4 | 28.2 | +1.6% | -6.5% | 101.2 | — | — | — |  |
+| 🟡 dip | CRDO | Other | 232.75 | 49.0 | 47.2 | -3.4% | -2.7% | 62.2 | — | — | — |  |
+| 🟡 dip | GOOGL | Other | 346.59 | 49.3 | 74.7 | -1.1% | -0.9% | 72.0 | — | — | — |  |
+| 🟡 dip | MU | Semis | 932.86 | 50.7 | 37.6 | +1.3% | -2.3% | 560.1 | — | — | — |  |
 
 **New long-term ideas you don't hold (oversold uptrends):**
 | Signal | Ticker | Theme | Price | RSI14 | RSI2 | vs 20d | vs 50d | mom12-1% | P/E | P/FCF | PEG | Val |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 🟢 oversold | ROST | Other | 229.87 | 39.6 | 9.3 | -5.9% | -1.9% | 78.3 | 27.6 | 26.4 | 0.9 | ✅ value |
-| 🟡 dip | KLAC | Semis | 183.77 | 40.4 | 48.8 | -4.5% | -14.5% | 106.7 | 49.9 | 63.7 | 2.5 | — |
-| 🟡 dip | AMAT | Semis | 482.36 | 41.7 | 48.0 | -6.1% | -12.9% | 150.4 | 41.3 | 68.1 | 1.1 | ✅ value |
-| 🟡 dip | CAT | Other | 817 | 41.8 | 44.7 | -2.6% | -8.9% | 94.2 | 35.0 | 41.8 | 1.9 | — |
-| 🟡 dip | GE | Other | 342.73 | 41.8 | 26.1 | -5.4% | -4.9% | 34.4 | 40.2 | 99.0 | 2.3 | — |
-| 🟡 dip | GEV | Nuclear | 953.83 | 42.5 | 64.3 | -4.4% | -7.8% | 45.7 | 27.1 | 20.4 | 0.0 | ✅ value |
-| 🟢 oversold | BAC | Other | 61.17 | 43.1 | 8.1 | -3.0% | +0.3% | 29.8 | 13.9 | 4.6 | 0.5 | ✅ value |
-| 🟡 dip | TXN | Semis | 266.54 | 43.2 | 85.9 | -2.4% | -7.1% | 46.4 | 40.3 | 45.5 | 2.0 | — |
-| 🟡 dip | MAR | Other | 353.87 | 43.2 | 15.1 | -0.6% | -3.8% | 39.1 | 36.9 | 29.5 | 4.5 | ⚠️ rich |
-| 🟡 dip | AVGO | Semis | 371.54 | 43.9 | 85.7 | -5.2% | -3.9% | 29.4 | 60.0 | 54.0 | 0.5 | ✅ value |
+| 🟢 oversold | KLAC | Semis | 175.54 | 35.9 | 3.9 | -8.6% | -17.8% | 85.8 | 47.6 | 60.9 | 2.4 | — |
+| 🟡 dip | GEV | Nuclear | 911.93 | 37.0 | 13.3 | -8.2% | -11.6% | 42.3 | 25.9 | 19.5 | 0.0 | ✅ value |
+| 🟢 oversold | AMAT | Semis | 461.67 | 37.6 | 5.8 | -9.7% | -16.2% | 131.6 | 39.6 | 65.2 | 1.0 | ✅ value |
+| 🟡 dip | TXN | Semis | 258.64 | 38.3 | 26.1 | -5.0% | -9.5% | 41.8 | 39.1 | 44.1 | 2.0 | — |
+| 🟡 dip | CAT | Other | 800.25 | 38.4 | 13.2 | -4.6% | -10.5% | 82.0 | 34.3 | 41.0 | 1.9 | — |
+| 🟡 dip | ADI | Semis | 361.78 | 39.4 | 11.6 | -4.1% | -5.8% | 53.1 | 42.7 | 35.7 | 0.4 | ✅ value |
+| 🟡 dip | ARM | Semis | 239.05 | 40.0 | 22.3 | -8.5% | -17.0% | 37.6 | 246.4 | 173.2 | 5.2 | ⚠️ rich |
+| 🟢 oversold | MAR | Other | 351.08 | 40.9 | 8.1 | -1.1% | -4.3% | 39.4 | 36.6 | 29.2 | 4.5 | ⚠️ rich |
+| 🟡 dip | CSCO | Other | 109.93 | 41.4 | 16.3 | -4.6% | -4.7% | 65.5 | 32.7 | 31.9 | 1.0 | ✅ value |
+| 🟡 dip | INTC | Semis | 89.47 | 41.5 | 42.3 | -6.7% | -14.7% | 301.2 | -42.4 | 159.4 | 0.0 | ⚠️ rich |
 
 _The technical screen is the SIGNAL (oversold within an uptrend); the value columns are context. Confirm each with the news/thesis (HARD RULE 7) and a real valuation before buying — an oversold name can keep falling if the thesis is broken._
 
@@ -114,20 +117,20 @@ Underlyings only. In-session: pick the contract off the live Robinhood chain (~3
 **Calls (bullish — strong uptrend > 200MA):**
 | Ticker | mom12-1% | RSI14 | Spec |
 |---|---|---|---|
-| MU | 637.6 | 51.0 |  |
-| LITE | 508.3 | 58.5 |  |
-| BE | 379.7 | 49.2 |  |
-| TSEM | 323.2 | 44.8 |  |
-| INTC | 317.3 | 44.3 |  |
+| MU | 560.1 | 50.7 |  |
+| LITE | 450.2 | 53.1 |  |
+| BE | 371.2 | 46.3 |  |
+| INTC | 301.2 | 41.5 |  |
+| TSEM | 292.8 | 41.0 |  |
 
 **Puts (bearish — downtrend < 200MA):**
 | Ticker | mom12-1% | RSI14 | Spec |
 |---|---|---|---|
-| BYND | -84.0 | 42.6 |  |
-| SMR | -83.9 | 54.1 | SPEC |
-| RBLX | -59.1 | 40.9 |  |
-| NNE | -57.6 | 52.4 | SPEC |
-| JOBY | -57.6 | 39.9 | SPEC |
+| SMR | -84.5 | 50.1 | SPEC |
+| BYND | -83.7 | 41.9 |  |
+| JOBY | -60.6 | 37.7 | SPEC |
+| NNE | -58.0 | 46.8 | SPEC |
+| RBLX | -57.6 | 42.4 |  |
 
 ---
 _Read-only. No positions checked, no trades placed. Bring this into a session to act with live quotes and per-order approval._
