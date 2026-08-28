@@ -26083,6 +26083,76 @@
       "honest_scope": "THE MEASUREMENT CHANGED NO DECISION. The 19:00Z run had already declined this same NVDA fire on theta-and-gap arithmetic and this run declines it again; the new test is simply cheaper and earlier in the funnel. A filter's inputs can only be audited credibly on a run where the audit does not license a trade.",
       "duties": "Heartbeat: already stamped 2026-08-28 at 13:38Z, correctly not re-stamped. market_brief.json: stamped today, not rebuilt (no shock). iv_history.json: all nine rows for 2026-08-28 already present (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA, MMM) -- not duplicated. daily_options_report.md: written 19:15Z and union-merged 19:18Z; NOT rewritten, because nothing material happened after it and every master push touching that file notifies Ryan.",
       "flat_reason": "Both books are structurally closed rather than merely unattractive. Equities: the cash floor leaves $1.39 of compliant room, so net addition is shut. Options TACTICAL: 30 minutes to a Friday bell with the required move outside the afternoon's entire realized range. Options CORE: capital exists but the only live thesis carries a catalyst cluster inside its hold window. Nothing here is a judgment call the next run should re-litigate."
+    },
+    {
+      "run_utc": "2026-08-28T19:45:00Z",
+      "run_local_et": "2026-08-28 15:45 ET Friday",
+      "trading_day_et": "2026-08-28",
+      "prompt_version": "v8, pasted 2026-08-26 (line-1 stamp on this run's own invocation)",
+      "fire_payload": "scheduled sub-hourly options check (cron-job.org)",
+      "run_type": "market_hours_regular",
+      "hard_rule_9": "Scheduler-fired, no live user turn. No Ryan approval is claimed, quoted or implied; no flag created, cleared or adjudicated.",
+      "market_state": "OPEN, 14 minutes to a FRIDAY bell and the last market-hours run of the week. SPY 769.34 (-0.229%), QQQ 716.255 (-0.673%), NVDA 217.00 (-4.816%), XLF 58.14 (+0.449%). The semis-led de-rating held its level all afternoon while both indices drifted UP off the 19:00Z session lows into the close -- SPY laddered 768.56 -> 769.786 across the final half hour with no level broken in either direction.",
+      "headline": "TWENTY-EIGHTH run of the day. NO TRADE, both books; every scheduled duty was already discharged on arrival, so this run produced a MEASUREMENT. THE CONTRIBUTION: the 2026-08-27 closing-window rule says the volume-confirmation clause is unreadable in 'roughly the last 20 minutes' -- measured on SPY today it is unreadable for FORTY. The step is at 19:20Z (bucket 221,963 = 2.48x the 18:30-19:15Z prevailing mean of 89,438) and the tape NEVER returns to baseline afterwards (every subsequent bucket >= 1.42x). A rule written as a clock offset was half the true width.",
+      "reconciliation": "ZERO DRIFT, BOTH BOOKS, broker-first per the 2026-08-28 collision fix (broker read BEFORE any gate; the git check is second line only). get_accounts 19:45Z: 718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000. get_option_positions(nonzero): exactly ONE -- SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921, opened 2026-08-06); all six pending_* fields 0.0000, so no assignment, exercise, expiration or unauthorized fill. get_equity_positions: exactly FOUR -- ROST 2.000000 @ 230.150000, LLY 0.420254 @ 1189.760000, PNC 1.825758 @ 246.470000, MDLZ 7.988509 @ 62.590000. All five match holdings.json positions[] one-for-one.",
+      "capital": {
+        "read_utc": "2026-08-28T19:45Z",
+        "total_value": 3954.321495585,
+        "equity_value": 1888.361495585,
+        "options_value": 519.0,
+        "cash": 1546.96,
+        "unleveraged_buying_power": 1546.96,
+        "margin_check": "unleveraged_buying_power EQUALS buying_power at 1546.96 -- no margin extended, FOUR LAWS #4 satisfied.",
+        "options_deployable": "1546.96 - 250 reserve = $1,296.96; nothing deployed.",
+        "equity_cash_floor": "45.0331% (1546.96 / (1546.96 + 1888.361495585) = 3435.321496). Max compliant buy = 1546.96 - 0.45 x 3435.3215 = $1.07. NET ADDITION CLOSED, rotation-funded entries only per _EQUITY_FLOOR_BOUNDARY_STATE. The drift from the 19:19Z run's 45.0405% is mark movement, NOT a change of state -- never report the floor as reopened on drift."
+      },
+      "equity_book_verdict": {
+        "PNC": "HOLD. Live 242.50 vs entry 246.4729 = -1.61%. Target 255.50 NOT hit (-5.1% away). Underwater, so per the 2026-08-26 correction an RSI2>=70 print would be an OPTIONAL exit-into-strength requiring a HARD RULE 7 thesis break, never a mechanical fire -- and PNC is DOWN 0.42% today regardless, so nothing is near firing. No stop, held on thesis.",
+        "LLY": "HOLD. Live 1165.125 vs entry 1189.7553 = -2.07%. Target 1280.34 NOT hit. Day -0.93%. No exit condition, no new thesis evidence.",
+        "MDLZ": "HOLD. Live 62.335 vs entry 62.5899 = -0.41%, entered today 13:40:03Z. Target 64.70 NOT hit. Day -0.15%.",
+        "ROST": "HOLD. Live 229.075 vs entry 230.1512 = -0.47%, entered today 13:37:13Z. Target 244.66 NOT hit. Day -0.35%.",
+        "summary": "All four HOLD. Zero mechanical exits fired: no target hit, no RSI2>=70 bounce on a GREEN name, no green-enough (entry/0.85) crossing to fire a SET TRAILING STOP alert for Ryan, no thesis-break evidence on any name. Every position is modestly underwater, which under HARD RULE 5 is thesis-managed with NO price stop -- correct and uneventful."
+      },
+      "options_book_verdict": {
+        "SPY_2026-11-20_700P": "HOLD, EXEMPT HEDGE. Mark 5.19 (bid 5.18 / ask 5.20, 0.39% of mid), value $519 vs $749 cost = -30.7%. 84 DTE, so the ~21-DTE roll/close decision WITH Ryan is far off. Per the ownership gate and the hedge exemption this is insurance and is NOT subject to the premium backstops -- a -30.7% mark on a hedge into a melt-up is the instrument working as designed, not a loser to cut. delta -0.1329, theta -0.084/day.",
+        "entries": "ZERO. Options throttle 0 of 8 for trading day 2026-08-28 -- twenty-eight runs, zero option entries in either track."
+      },
+      "tactical_track": {
+        "verdict": "NO ENTRY -- BARRED STRUCTURALLY, not judged.",
+        "reasons": [
+          "(1) CLOSING WINDOW. 14 minutes to the bell. CLAUDE.md bars a TACTICAL scalp inside the final ~20 minutes: the volume clause cannot be confirmed against closing-auction flow, the spread is the day's widest, and the hard time stop then runs across a gap on a position never observed in a normal tape. Today's own measurement widens that window to ~40 minutes, so this run is deep inside it.",
+          "(2) FRIDAY WEEKEND CARRY. The 15:35Z gap finding and the 19:00Z NVDA theta arithmetic both stand: an entry now carries three calendar days on a 7-DTE vehicle, and the theta-shrunken residual stop is smaller than the median Monday gap. Neither exit level is enforceable while the market is shut.",
+          "(3) NO TRIGGER ANYWAY. No level broke. SPY drifted monotonically UP into the bell (768.56 -> 769.786) off the 19:00Z session low; QQQ did the same (715.47 -> 716.88). There is nothing to confirm in either direction."
+        ]
+      },
+      "core_track": {
+        "verdict": "NO ENTRY.",
+        "reasoning": "No candidate cleared the full stack across twenty-eight runs today, and nothing changed in the last fifteen minutes to create one. Separately and independently: opening a 21-45 DTE position in the closing auction of a Friday sets the entry mark on the least readable print of the week, and the 2026-08-26 regime capstone's semis-complex catalyst cluster (DELL/PANW/MDB 09-01 pm, AVGO/SNOW/HPE 09-02 pm) sits INSIDE every 21-45 DTE CORE window -- that objection is correctly aimed at CORE even though the 15:35Z run showed it does NOT port to a Friday TACTICAL window ending Monday's bell."
+      },
+      "measurement": {
+        "title": "THE CLOSING-WINDOW BLIND SPOT IS ~40 MINUTES ON SPY, NOT ~20 -- AND THE TRANSFERABLE PART IS THAT IT MUST BE DETECTED PER SESSION, NOT READ OFF A CLOCK",
+        "feed_integrity_first": "All five SPY closing buckets reconciled against their 1-minute sums BEFORE any ratio was computed, per the 2026-08-28 direction rule: 19:20Z 221,963 vs 220,757 (+0.55%), 19:25Z 126,647 vs 125,734 (+0.73%), 19:30Z 211,258 vs 211,058 (+0.09%), 19:35Z 165,135 vs 164,223 (+0.56%), 19:40Z 205,657 vs 205,657 (EXACT). All inside tolerance on both sides -- no hole propagated into the numerator.",
+        "measured": "SPY 5-minute buckets. Prevailing afternoon baseline, ten buckets 18:30-19:19Z: 69,688 / 75,504 / 92,273 / 65,572 / 137,846 / 95,470 / 71,032 / 110,710 / 102,615 / 73,670 -- mean 89,438. Closing ramp, five buckets 19:20-19:44Z: 221,963 / 126,647 / 211,258 / 165,135 / 205,657 -- mean 186,132. RATIO 2.081x.",
+        "the_finding": "The step is at 19:20Z -- FORTY minutes before the bell, not twenty. That bucket alone is 2.48x the prevailing mean, and the tape NEVER returns to baseline afterwards: every subsequent bucket is >= 1.42x. So a candidate bar anywhere in the final forty minutes is measured against a denominator the auction has already contaminated, which is exactly the too-easy failure mode the 2026-08-27 finding named -- it merely mis-stated the width by half.",
+        "honest_bounds": "(a) The BASELINE buckets were NOT reconciled against 1-minute sums. A hole there would depress the baseline and INFLATE the ratio, so 2.081x is an UPPER BOUND on today's ramp; the finding survives either way because the 19:20Z step is 2.48x on its own. (b) n=1 SESSION, and it is a Friday two sessions from month-end, when rebalancing flow is a known amplifier -- the 40-minute width is plausibly wider than a typical Tuesday. (c) The ramp is elevated but CHOPPY (222k / 127k / 211k / 165k / 206k), not monotonic, so 'the ramp' is a level shift rather than a smooth escalation.",
+        "the_transferable_rule": "Do NOT adopt 40 minutes as a new constant -- that repeats the error being corrected. DETECT the boundary per session: find the first bucket whose volume steps up and after which the tape does not return to the prevailing rate, and treat everything from there to the bell as unreadable. This is the same lesson today's 15:35Z run learned when it killed the ':05 offset' hypothesis for feed holes: a clock offset carries no information, and a denominator must be measured, not assumed.",
+        "honest_scope": "IT CHANGED NO DECISION. The TACTICAL track was already barred on two independent grounds (Friday weekend carry, closing window) and no trigger fired in either index, so no volume clause was load-bearing this run. A filter's inputs can only be audited credibly on a run the audit does not benefit."
+      },
+      "feed_integrity_note": {
+        "finding": "THIRD QQQ HOLE OF THIS ONE SESSION, at a THIRD distinct offset -- 14:05Z (-79.2%), 15:05Z (-84.3%), now 19:30Z (-95.5%). The 15:35Z run's warning that offsets carry no information is confirmed a second time.",
+        "measured": "QQQ 19:30Z 5-minute bucket reported volume 4,770 against a 1-minute sum of 107,046 (48,618 + 23,487 + 15,838 + 14,333 + 4,770). Bucket is 95.5% BELOW -> per the direction rule the BUCKET is the holed side and 107,046 substitutes. The reported 4,770 EQUALS the 19:34 one-minute bar exactly: the single-constituent signature.",
+        "price_corruption_half": "The bucket's entire OHLC is the 19:34 minute bar byte-for-byte (O 716.535 / H 716.570 / L 716.470 / C 716.520), so its reported LOW understates the true 5-minute low of 716.220 by 0.25 points. This is the mechanism that corrupts LEVELS, not merely volume -- observed live rather than inferred.",
+        "rate_note": "Three holes on QQQ in ~78 buckets is a ~3.8% per-symbol session rate. Small sample; recorded so nobody treats holes as rare enough to skip the reconciliation."
+      },
+      "duties": {
+        "heartbeat": "Already stamped 13:38Z for trading day 2026-08-28. Not touched.",
+        "market_brief": "Already built today. Not rebuilt.",
+        "iv_history": "All nine core-list rows already logged today. No name was evaluated to a decision this run that would warrant an overwrite -- no new candidate was priced.",
+        "daily_report": "ALREADY WRITTEN 19:15/19:18Z (union-resolved on master). DELIBERATELY NOT REWRITTEN: nothing material happened after 19:18Z -- no fill, no exit, no new flag, no trigger firing. Every master push touching that file re-notifies Ryan, and a rewrite carrying only refreshed closing marks is pure noise.",
+        "friday_review": "Already delivered by the 19:15Z run, inline in the daily report, broker-sourced. Not duplicated."
+      },
+      "throttles": "Options 0 of 8 entries used for trading day 2026-08-28. Equities 2 of 3 used (ROST 13:37:13Z, MDLZ 13:40:03Z -- the concurrent-run collision); the third slot is closed by the CASH FLOOR ($1.07 max compliant buy), not by the throttle. Realized options P/L $0.00, READ from _realized_options_pnl_today (broker-confirmed 19:16Z), never typed as a default per the 2026-08-27T09:18Z finding. Open option positions: 1, the exempt hedge.",
+      "why_flat": "Both books correctly flat-to-hold. The equity book has no fired exit and no compliant entry room; the options book has no trigger, and the two tracks are barred by structure (closing window + Friday weekend carry) rather than by judgment. The week ends with the desk having taken two report-signalled equity entries and zero option entries -- and the honest read, already flagged to Ryan by the 19:15Z weekly review, is that the TACTICAL clause stack has accreted to the point where six fires in six sessions produced zero entries."
     }
   ]
 }
