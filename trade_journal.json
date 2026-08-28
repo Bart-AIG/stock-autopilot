@@ -23864,6 +23864,38 @@
       "grades_considered": "NONE, and correctly so. The market is closed: no entry or exit is placeable in either book. Screening candidates now would produce quotes nobody can act on and that the first post-open run must re-take anyway.",
       "why_flat": "Market shut and the book is correct. The fourteenth reconciliation finding what the thirteenth found IS the deliverable -- it is the only check by which an overnight assignment, expiration or unauthorized fill would surface, and it surfaced nothing. A no-op logged in a few lines is the correct output of the Nth redundant overnight firing.",
       "next_run_handoff": "Next open is Friday 2026-08-28 09:30 ET (13:30Z). The FIRST post-open run owns: stamping automation_heartbeat.json for 2026-08-28, rebuilding market_brief.json, and resetting the loss cap plus BOTH entry throttles (options to 0 of 8, equities to 0 of 3). It is also FRIDAY -- the weekly review is due, sourced from the broker (get_realized_pnl + get_option_orders + get_equity_orders), never from this journal, and split by options track AND by book. Do NOT price any decision off the opening auction print: re-quote at least ~5 minutes after 13:30Z. The committed equity report is dated 2026-08-26 19:01Z and was already ruled STALE for entry purposes on 08-27; check for a fresher latest_*.md before sourcing any autonomous equity entry, and treat a stale or DATA ERROR report as no-autonomous-equity-trades."
+    },
+    {
+      "run_utc": "2026-08-28T10:20:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-08-27",
+      "phase": "PRE-OPEN of 2026-08-28; the still-in-force trading day is 2026-08-27, whose bell rang at 20:00Z. Fifteenth consecutive post-bell firing.",
+      "action": "NONE - stand-down. Market shut; nothing placeable in either book.",
+      "reconciliation": {
+        "verdict": "ZERO DRIFT, BOTH BOOKS - fifteenth independent post-bell verification.",
+        "options": "get_option_positions(nonzero): exactly ONE contract - SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921), the agentic insurance-exempt hedge. All six pending_* fields 0.0000, so no overnight assignment, exercise, expiration or unauthorized fill. Matches positions[].",
+        "equities": "get_equity_positions: LLY 0.420254 @ 1189.760000 and PNC 1.825758 @ 246.470000 - both match positions[] one-for-one. No unexpected third position.",
+        "accounts": "get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true, unchanged.",
+        "capital": "total $3,969.75 | equity $940.49 | options $522.00 | cash $2,507.26. unleveraged_buying_power $2,507.26 EQUALS buying_power, so no margin is extended (FOUR LAWS #4 satisfied). Deployable after the $250 reserve: $2,257.26. Cash unchanged from the 08:20Z and 09:19Z reads.",
+        "cash_provenance": "The $500.00 cash decrease from the 2026-08-27 heartbeat stamp ($3,007.26 -> $2,507.26) reconciles exactly to the $500 dollar-based LLY market order (0.420254 sh x $1,189.76 = $499.99). NOT unexplained drift."
+      },
+      "cap_and_throttle_state": {
+        "sourcing": "READ out of holdings._realized_options_pnl_today and BROKER-CONFIRMED this run - never re-typed as a default. Per the 2026-08-27T09:18Z finding, a post-close run restating a RESET figure about a day that has already traded is wrong BY CONSTRUCTION.",
+        "broker": "get_realized_pnl(718757339, option+equity, 2026-08-27..2026-08-27) returns number_of_trades 0 and a null realized_gain for the day's single bucket - no closing trade of any asset class on 2026-08-27.",
+        "options_realized": "$0.00 against the -$400 cap. Cap never came near binding.",
+        "options_throttle": "0 of 8 for trading day 2026-08-27.",
+        "equity_throttle": "1 of 3 for trading day 2026-08-27 (LLY, order 6a90528b, filled 15:06:51Z). It is 1, NOT 0, and stays 1 until the 09:30 ET open on 2026-08-28.",
+        "not_reset": "This run reset NEITHER throttle NOR the cap."
+      },
+      "artifacts_not_rolled": "Heartbeat left stamped 2026-08-27 (the UTC date is 2026-08-28 but the trading day is not; stamping now would pre-satisfy the dead-man for a session that has not started). market_brief.json left stamped 2026-08-27. Loss cap and both entry throttles left un-reset. The first run at or after 13:30Z today owns all of it.",
+      "post_close_tasks_already_complete": "Nothing new was owed. EOD report for 2026-08-27 written ON TIME in-session at 19:20Z (14:19 CT, inside the 14:15 CT window, ~40 min before the bell); ledger compaction and durable-findings promotion done at 20:20Z; the Friday weekly review pre-computed from broker data by an earlier post-close run. Per the POST-CLOSE RUN PROTOCOL no extended-hours quotes were re-polled, no regime re-derived, and no research task invented to justify the firing.",
+      "positions_verdict_both_books": {
+        "SPY_2026-11-20_700P": "HOLD - working as designed. Authorized defensive hedge, ~84 DTE, EXEMPT from all premium backstops per the ownership gate; its ~21-DTE roll/close decision is taken WITH Ryan, not mechanically.",
+        "PNC": "HOLD - swing, target 255.50, no price stop per HARD RULE 5. Underwater names are managed on thesis, not on price.",
+        "LLY": "HOLD - swing entered 2026-08-27 (first autonomous equity entry under v8), target 1280.34, no price stop. Not green-enough, so no SET TRAILING STOP alert is due."
+      },
+      "why_flat": "Market shut and the book is correct. The fifteenth reconciliation finding what the fourteenth found IS the deliverable - it is the only check by which an overnight assignment, expiration or unauthorized fill would surface, and it surfaced nothing. A no-op logged in a few lines is the correct output of the Nth redundant overnight firing.",
+      "grades_considered": "None. No candidate may be graded pre-open: the confirmation clauses that gate both option tracks require a trailing intraday volume baseline that does not exist before the bell, and prompt v8 forbids pricing any decision off the opening auction print."
     }
   ],
   "updated_utc": "2026-08-26T18:00:00Z"
