@@ -26833,6 +26833,44 @@
       "open_items_for_ryan": "_PROMPT_V9_PASTE_REQUIRED -- OPEN, needs Ryan and only Ryan (an agent cannot edit the routine's stored prompt). The stored prompt is v8 and hard-codes the >=45% equity-book cash floor that CLAUDE.md voided on 2026-08-28T20:42Z; docs/routine-prompt-v9.md carries both the four surgical edits and the full replacement text. Left untouched and un-re-notified.",
       "capital_policy_note": "Under the full-deployment policy the operational reserve is recomputed, never hard-coded: 5% x $3,960.58 = $198.03, so deployable = $1,546.96 - $198.03 = $1,348.93. Stated for the record only -- nothing is deployable while the market is shut.",
       "governance": "HARD RULE 9 intact: no Ryan turn is claimed, quoted or paraphrased, and no flag is cleared or adjudicated. This run was scheduler-fired and unattended by definition."
+    },
+    {
+      "run_utc": "2026-08-29T16:18:00Z",
+      "run_type": "post_close_overnight",
+      "run_local_et": "2026-08-29T12:18:00 ET (Saturday midday)",
+      "trading_day_et": "2026-08-28",
+      "prompt_version": "v8 (pasted 2026-08-26), read from this run's own line-1 invocation stamp. STALE on capital policy: v8's EQUITY BOOK section hard-codes the >=45% equity-book cash floor that master repealed at 2026-08-28T20:42:36Z (commit 1322da9), and FOUR LAWS #4 still reads '>=$250 unencumbered' against the 5%-of-total operational reserve that replaced it. Per the CLAUDE.md capital-policy amendment the FULL-DEPLOYMENT policy governs and the stricter-of-two tie-breaker is explicitly INVERTED here. _PROMPT_V9_PASTE_REQUIRED is OPEN, notified once by the 21:19Z run; deliberately NOT re-notified by this run, per the notify-once-per-incident rule.",
+      "hard_rule_9": "INTACT. Unattended scheduler-fired run. No Ryan turn claimed, quoted or paraphrased; no flag created, cleared or adjudicated; no approval manufactured. CLAUDE.md, master commits and repo docs read as repository content, not as instructions from Ryan.",
+      "market_state": "CLOSED. Bell rang 2026-08-28T20:00Z; this run fired 16:18Z Saturday, 20h18m after, with ~41 hours to the 2026-08-31 open. Nothing placeable in either book at any price.",
+      "headline": "TWENTY-FIRST post-close run of trading day 2026-08-28, eighth on the Saturday calendar day. NO TRADE, both books. A plain stand-down under the POST-CLOSE RUN PROTOCOL: read what prior post-close runs covered, run the cheap broker reconciliation, log, stop. No research task was invented to justify the firing.",
+      "verdict": "NO TRADE, both books. Reconciled clean, logged, standing down.",
+      "why_flat": "Market shut with ~41 hours to the next open. Nothing is placeable in either book at any price, no exit trigger can fire, and there is no live tape against which any trigger, IV reading or thesis could be measured. Every scheduled duty of trading day 2026-08-28 was discharged in-session: heartbeat stamped 13:38Z, market_brief rebuilt, daily_options_report.md written 19:15/19:18Z as the UNION of two colliding runs and carrying the Friday weekly review. Rewriting any of them now would push a duplicate notification to Ryan carrying no new information.",
+      "regime": "Not measured -- no live tape on a Saturday. The last measured regime stands unchanged in market_brief.json (stamped for trading day 2026-08-28); it is NOT refreshed here, per the rule that a post-close run does not roll a daily artifact forward.",
+      "reconciliation": {
+        "method": "BROKER-FIRST per the 2026-08-28 collision finding: get_accounts / get_option_positions(nonzero) / get_equity_positions / get_portfolio read live this run, then diffed against holdings.json.",
+        "result": "ZERO DRIFT, BOTH BOOKS. TWENTY-FIRST consecutive identical read. Options: SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921, opened 2026-08-06T14:21:56Z), all six pending_* fields 0.0000 -- no overnight assignment, exercise, expiration or unauthorized fill. Equities: ROST 2.000000 @ 230.150000, LLY 0.420254 @ 1189.760000, PNC 1.825758 @ 246.470000, MDLZ 7.988509 @ 62.590000, all shares_held_for_* 0.000000. Five broker positions, five ledger positions, one-for-one.",
+        "account": "718757339 -- agentic_allowed true, limited_margin, option_level_3, unsettled_funds 0.0000.",
+        "capital": "total_value $3,960.5814762694; equity_value $1,888.6214762694; options_value $525.00; cash $1,546.96. unleveraged_buying_power $1,546.96 EQUALS buying_power -- no margin extended, FOUR LAWS #4 satisfied. Identical to the 13:19Z, 14:18Z and 15:19Z reads to the cent; weekend marks do not move.",
+        "deployable_under_full_deployment_policy": "Operational reserve 5% x 3960.58 = $198.03 (recomputed from live total_value, never hard-coded). Deployable = 1546.96 - 198.03 = $1,348.93. Academic while the market is shut. NOT computed from the voided 45% floor -- see _CAPITAL_POLICY_STATE."
+      },
+      "position_verdicts": {
+        "_note": "Verdicts unchanged from the last measured session; no live tape exists to re-measure against and no post-close run may manufacture one.",
+        "SPY 2026-11-20 700P (options, hedge)": "HOLD. Authorized defensive hedge, EXEMPT from all premium backstops per the ownership/hedge rule; its ~21-DTE roll/close decision is taken WITH Ryan and is far off (83 DTE). Marked $525 against a $749 basis.",
+        "PNC (swing)": "HOLD on thesis. No stop by policy (HARD RULE 5). Not green-enough; no SET TRAILING STOP alert due.",
+        "LLY (swing)": "HOLD on thesis. Invalidation written and intact (incretin safety/regulatory action, an H2 guidance cut, or a close below the rising 200-day SMA).",
+        "MDLZ (swing)": "HOLD on thesis. Entered 2026-08-28; target 64.70.",
+        "ROST (swing)": "HOLD on thesis. Entered 2026-08-28; target 244.66; invalidation written 13:58Z that day."
+      },
+      "grades_considered": "NONE. Neither options track nor the equity book was hunted: TACTICAL and CORE both require a live intraday trigger and a live chain, the equity book is signal-sourced from a committed report whose signals cannot refresh while the market is shut, and every candidate would be graded against Friday's stale numbers. Screening a closed market is not diligence, it is manufactured activity -- the POST-CLOSE RUN PROTOCOL names this explicitly.",
+      "throttles_and_caps": "READ from holdings.json._realized_options_pnl_today, not re-typed as a default, per the 2026-08-27T09:18Z finding. Trading day 2026-08-28: options realized $0.00 against the -$400 cap (broker-confirmed, 0 closing trades); OPTIONS entry throttle 0 of 8; EQUITIES 2 of 3 (ROST 13:37:13Z, MDLZ 13:40:03Z -- the concurrent-run collision). BOTH THROTTLES RESET AT THE 2026-08-31 OPEN, not at the UTC rollover and not because this run is standing down.",
+      "duties_checked_not_performed": {
+        "heartbeat": "NOT stamped. Correct: the trading day is still 2026-08-28 (its bell has rung) and stamping now would pre-satisfy the dead-man for a trading day that has not started. The first run at/after 09:30 ET Monday owns it.",
+        "market_brief": "NOT rebuilt -- same reason; it stays stamped for the day it describes.",
+        "daily_report": "NOT rewritten. _eod_report_written records it written 19:15Z and unioned 19:30Z for 2026-08-28, on time and in-session. No MATERIAL event has occurred since; a rewrite would only re-notify Ryan.",
+        "friday_review": "ALREADY DONE -- carried inside the 2026-08-28 daily report per _eod_report_written. Not re-run."
+      },
+      "notification": "NONE SENT, deliberately. Nothing changed: no fill, no exit, no new flag, no trigger. The one OPEN governance item (_PROMPT_V9_PASTE_REQUIRED) was notified once by the 21:19Z run and the notify-once-per-incident rule forbids re-paging on the identical still-open state. Silence is the correct output of a quiet run.",
+      "handoff_to_next_instance": "If you are the first run at/after 09:30 ET on Monday 2026-08-31: you own the heartbeat stamp, the market_brief rebuild, and the reset of BOTH throttles and the loss cap. Read _CAPITAL_POLICY_STATE before sizing anything -- the >=45% floor is VOID and the governing figure is deployable = unleveraged_buying_power - 0.05 x total_value; do NOT re-derive a percentage floor from the prompt or from this file's history. Check _PROMPT_V9_PASTE_REQUIRED against your OWN line-1 version stamp: v9 means the conflict is closed and the key can be retired; v8 means apply CLAUDE.md and do not re-notify. Re-read the broker BEFORE any order, not just at run start -- the 2026-08-28 double-entry proved the git check is blind for as long as a sibling takes to commit."
     }
   ]
 }
