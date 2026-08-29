@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-29T11:18:00Z",
+  "updated_utc": "2026-08-29T12:18:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-28",
     "realized_usd": 0.0,
@@ -464,12 +464,12 @@
     "note": "daily_options_report.md for 2026-08-28 written ON TIME and IN SESSION, before the bell, NOT under the post-close fallback. TWO CONCURRENT RUNS WROTE IT -- a sibling at 19:15Z (PR #819) and one at 19:18Z (PR #820) -- because the 14:15 CT gate admits every run after it and neither could see the other. THE FILE ON MASTER IS THE UNION OF BOTH, not either one, per the CLAUDE.md concurrent-run rule: the 19:15Z report is the base (it landed first and carries the six-fire TACTICAL decline table and the Friday weekly review) and the 19:18Z run's unique contribution -- the 19:21Z follow-up measurement showing the arc's first fully-confirmed fire also went nowhere, with the declined vehicle re-quoted and its delta drifted out of the tactical band -- is inserted and marked. Covers BOTH books per v8. THAT FILE IS THE DELIVERY (eod-report-notify.yml fires on the master push). NO LATER RUN MAY REWRITE IT to refresh closing marks or restate 'still flat' -- only a MATERIAL event (a fill, an exit, a new flag, a trigger firing) justifies a rewrite, because every master push touching it notifies Ryan again. NOTE FOR THE NEXT INSTANCE: the report duty is now the SECOND duty observed to collide on this cadence, after the 13:37/13:40Z entry collision. A gate phrased as 'the first run at or after T' is satisfied by EVERY run after T, so it does not name a unique owner; the ledger's _eod_report_written key is the only thing that does, and it must be READ before writing the report."
   },
   "_last_reconciliation": {
-    "run_utc": "2026-08-29T11:18:00Z",
+    "run_utc": "2026-08-29T12:18:00Z",
     "trading_day_et": "2026-08-28",
     "method": "BROKER-FIRST. get_accounts / get_option_positions(nonzero) / get_equity_positions / get_portfolio read this run, then diffed against this ledger.",
-    "result": "ZERO DRIFT, BOTH BOOKS. Options: SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921, opened 2026-08-06T14:21:56Z), all six pending_* fields 0.0000 -- no overnight assignment, exercise, expiration or unauthorized fill. Equities: ROST 2.000000 @ 230.150000, LLY 0.420254 @ 1189.760000, PNC 1.825758 @ 246.470000, MDLZ 7.988509 @ 62.590000. Five broker positions, five ledger positions, one-for-one. SIXTEENTH consecutive identical read.",
+    "result": "ZERO DRIFT, BOTH BOOKS. Options: SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921, opened 2026-08-06T14:21:56Z), all six pending_* fields 0.0000 -- no overnight assignment, exercise, expiration or unauthorized fill. Equities: ROST 2.000000 @ 230.150000, LLY 0.420254 @ 1189.760000, PNC 1.825758 @ 246.470000, MDLZ 7.988509 @ 62.590000. Five broker positions, five ledger positions, one-for-one. SEVENTEENTH consecutive identical read.",
     "capital": "total_value $3,960.5814762694; equity_value $1,888.6214762694; options_value $525.00; cash $1,546.96. buying_power $1,546.96 EQUALS unleveraged_buying_power $1,546.96, so no margin is being extended -- FOUR LAWS #4 satisfied with the two figures identical.",
-    "account": "718757339 confirmed agentic_allowed=true, limited_margin, option_level_3."
+    "account": "718757339 confirmed agentic_allowed=true, limited_margin, option_level_3, unsettled_funds 0.0000."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
@@ -701,15 +701,15 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-08-29T11:18:00Z",
-    "run_type": "post_close_overnight (SIXTEENTH of trading day 2026-08-28)",
+    "run_utc": "2026-08-29T12:18:00Z",
+    "run_type": "post_close_overnight (SEVENTEENTH of trading day 2026-08-28)",
     "trading_day_et": "2026-08-28",
-    "verdict": "NO ACTION, BOTH BOOKS. Nothing placeable -- the market has been shut 15h18m (bell 2026-08-28T20:00Z) and reopens Monday 2026-08-31, ~46h out. Every scheduled duty for the trading day was discharged in-session (heartbeat 13:38Z, brief built, daily report 19:15/19:18Z union, Friday review 19:15Z) and none is rewritten.",
-    "reconciliation": "CLEAN, ZERO DRIFT, BOTH BOOKS, broker-verified this run -- see _last_reconciliation.",
+    "verdict": "NO ACTION, BOTH BOOKS. Nothing placeable -- the market has been shut 16h18m (bell 2026-08-28T20:00Z) and reopens Monday 2026-08-31, ~45h out. Every scheduled duty for the trading day was discharged in-session (heartbeat 13:38Z, brief built, daily report 19:15/19:18Z union, Friday review 19:15Z) and none is rewritten.",
+    "reconciliation": "CLEAN, ZERO DRIFT, BOTH BOOKS, broker-verified this run -- see _last_reconciliation. Seventeenth consecutive identical read.",
     "throttles_and_cap_READ_not_defaulted": "Trading day 2026-08-28 remains IN FORCE on a post-close run -- a RESET value would be wrong by construction (2026-08-27T09:18Z finding). Read from this ledger, not typed as a default: realized options P/L $0.00 against the -$400 cap, 0 closing trades; OPTIONS entries 0 of 8; EQUITY entries 2 of 3. All reset at the 2026-08-31 open, not at the UTC rollover.",
-    "capital_policy": "FULL-DEPLOYMENT policy governs (CLAUDE.md, commit 1322da9). No percentage floor on either book. Operational reserve = 5% of total_value = $198.03, recomputed this run rather than carried. Deployable = $1,546.96 - $198.03 = $1,348.93. No _cash_hold record exists and none is written: a deliberate hold needs a named catalyst, a checkable trigger and an expiry, and a closed weekend supplies none of the three.",
-    "duties_not_performed_and_why": "Heartbeat NOT stamped (still date_utc 2026-08-28; stamping early would pre-satisfy the dead-man for a trading day that has not started). Brief NOT rebuilt (would date Friday's tape as Monday's). Daily report NOT rewritten (written on time 19:15Z; nothing MATERIAL has happened since -- a rewrite is a duplicate ntfy push to Ryan and pure noise). No regime measured, no IV row logged, no candidate graded: there is no live tape to measure and no run-budget justification for re-deriving Friday's numbers.",
-    "open_flag_not_re_notified": "_PROMPT_V9_PASTE_REQUIRED is OPEN and was notified ONCE by the 21:19Z run. Per the notify-once-per-incident rule this run takes no action on it: no new notification, no edit, no adjudication in either direction. It needs Ryan and only Ryan -- an agent cannot edit the routine's stored prompt."
+    "capital_policy": "FULL-DEPLOYMENT policy governs (CLAUDE.md, commit 1322da9). No percentage floor on either book. Operational reserve = 5% of total_value = $198.03, RECOMPUTED this run rather than carried. Deployable = 1546.96 - 198.03 = $1,348.93. No _cash_hold is open and this run does not open one -- a weekend is not a named catalyst with a checkable trigger and an expiry.",
+    "open_items": "_PROMPT_V9_PASTE_REQUIRED OPEN, needs Ryan only, notified once at 21:19Z -- NOT re-notified by this run and its fields are untouched, per the notify-once-per-incident rule.",
+    "no_notification_sent": "Correct and deliberate. Nothing changed, both books healthy, and the one open item was already notified. A push carrying 'ran, all's well' spends Ryan's attention for no information."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
