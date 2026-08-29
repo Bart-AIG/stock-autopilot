@@ -26614,6 +26614,39 @@
       "why_flat": "Market closed, ~48 hours to the open. Nothing placeable in either book. Every duty for the trading day was discharged in-session and the reconciliation is clean.",
       "notification_decision": "SILENT. Nothing here meets the bar: the book is unchanged, the reconciliation is clean for the fourteenth consecutive read, no flag was created or cleared, and the one open item needing Ryan (_PROMPT_V9_PASTE_REQUIRED, the v8 stored prompt still carrying the repealed 45% floor) was notified once by the 21:19Z run -- notify-once-per-incident forbids paging him again with the same information. A weekend stand-down is not news.",
       "next_run_expectation": "Further redundant weekend firings until the 2026-08-31 open; each should reconcile, log briefly and stop. THE FIRST POST-OPEN RUN OF MONDAY 2026-08-31 owns: stamp the heartbeat (only at/after 09:30 ET), rebuild market_brief.json, reset both throttles and the loss cap, re-read the committed report for freshness and DATA ERROR, and re-derive deployable capital from a fresh get_portfolio under the FULL-DEPLOYMENT policy -- never from this file's voided-floor history."
+    },
+    {
+      "run_utc": "2026-08-29T10:18:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-08-28",
+      "headline": "FIFTEENTH post-close run of trading day 2026-08-28, second on the Saturday calendar day. NO TRADE, both books. A plain stand-down under the POST-CLOSE RUN PROTOCOL: read what the prior post-close runs covered, run the cheap broker reconciliation, log, stop. No research task was invented to justify the firing.",
+      "why_flat": "Market shut ~14h20m (bell 2026-08-28T20:00Z) with ~47 hours to the 2026-08-31 open. Nothing is placeable in either book at any price, no exit trigger can fire, and there is no live tape against which any trigger, IV reading or thesis could be measured. Every scheduled duty of trading day 2026-08-28 was discharged in-session.",
+      "reconciliation": {
+        "method": "BROKER-FIRST: get_accounts / get_option_positions(nonzero) / get_equity_positions / get_portfolio read this run, then diffed against holdings.json.",
+        "result": "ZERO DRIFT, BOTH BOOKS -- fifteenth consecutive identical read. Options: SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921, opened 2026-08-06T14:21:56Z); all six pending_* fields 0.0000, so no overnight assignment, exercise, expiration or unauthorized fill. Equities: ROST 2.000000 @ 230.150000, LLY 0.420254 @ 1189.760000, PNC 1.825758 @ 246.470000, MDLZ 7.988509 @ 62.590000. Five broker positions, five ledger positions, one-for-one.",
+        "account": "718757339 confirmed agentic_allowed=true, limited_margin, option_level_3 -- unchanged.",
+        "capital": "total_value $3,960.5815 = equity $1,888.6215 / options $525.00 / cash $1,546.96. unleveraged_buying_power $1,546.9600 == buying_power, so the broker extends no margin: FOUR LAWS #4 satisfied. 5% operational reserve $198.03; deployable $1,348.93. Stated for the relay only -- market shut, nothing placeable."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P (hedge)": "HOLD. Authorized defensive hedge, EXEMPT from all premium backstops per the ownership gate; its decision point is the ~21-DTE roll/close WITH Ryan, far out at 83 DTE. Nothing to do.",
+        "PNC (swing)": "HOLD. No target hit, no RSI2>=70 print measurable with the tape shut, no thesis flag. Mechanical exits need a live quote and there is none.",
+        "LLY (swing)": "HOLD. Same -- entered 2026-08-27, target 1280.34 unreached at the close.",
+        "MDLZ (swing)": "HOLD. Entered 2026-08-28 (one half of the concurrent-run collision), target 64.70.",
+        "ROST (swing)": "HOLD. Entered 2026-08-28 (the other half), target 244.66."
+      },
+      "duties_checked": {
+        "heartbeat": "NOT STAMPED, correctly. automation_heartbeat.json carries date_utc 2026-08-28 stamped at 13:38Z. 'Today' means the US TRADING day: it is still 2026-08-28 until the 2026-08-31 open, and stamping early would pre-satisfy the dead-man for a trading day that has not started.",
+        "market_brief": "NOT rebuilt, correctly -- same UTC-rollover rule. The brief stays stamped with the trading day it describes; the first post-open run of 2026-08-31 rebuilds it.",
+        "loss_cap_and_throttles": "READ, not re-typed as a default, per the 2026-08-27T09:18Z finding. holdings.json._realized_options_pnl_today: realized $0.00 / 0 closing trades against the -$400 options cap (broker-confirmed 19:16Z and re-confirmed from get_realized_pnl at 09:18Z); OPTIONS entry throttle 0 of 8, EQUITIES 2 of 3, both for trading day 2026-08-28. Both reset at the 2026-08-31 open, NOT at the UTC rollover.",
+        "eod_report": "WRITTEN AND DELIVERED at 2026-08-28T19:15Z, in session and before the bell (union of two concurrent runs, PRs #819/#820). NOT rewritten this run -- nothing material happened, and every master push touching that file re-notifies Ryan.",
+        "iv_history": "No row written. No name was evaluated this run and there is no live chain to quote; a weekend row would be a stale duplicate of Friday's."
+      },
+      "open_items": {
+        "_PROMPT_V9_PASTE_REQUIRED": "STILL OPEN, needs Ryan and only Ryan -- an agent cannot edit the routine's stored prompt. Already notified once at 21:19Z; per the notify-once-per-incident rule this run takes NO action on it: no re-notification, no re-litigation, no touching the field. The binding instruction stands unchanged: apply the full-deployment capital policy from CLAUDE.md (Ryan's live turn outranks both documents) and report the v8 prompt as stale -- never resolve the conflict back to the voided >=45% floor via the stricter-of-two tie-breaker."
+      },
+      "notification_to_ryan": "NONE. Nothing happened that he would want woken for: no fill, no exit, no new flag, no trigger, no drift. The one open item was notified once and re-paging him on it would be the exact cadence bug HARD RULE 9 fixed.",
+      "grades_considered": "None. Hunting requires a live tape; there is none. The committed report is a Monday input and was already screened by the 23:18Z run -- re-screening it against Friday's closing prices would produce numbers nobody can act on.",
+      "verdict": "NO TRADE, both books. Reconciled clean, logged, standing down. A no-op in a few lines is the protocol's prescribed correct output for the Nth redundant overnight firing."
     }
   ]
 }
