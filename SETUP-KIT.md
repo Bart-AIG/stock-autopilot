@@ -126,7 +126,7 @@ Explain the ladder plainly before asking; most people should start at rung 1.
 | # | Question | Options | RECOMMENDED | Ryan's setting |
 |---|---|---|---|---|
 | 4.1 | Stop-loss policy | (a) Fixed stop under every entry, (b) **No fixed stops; winners get a trailing stop you set in the app; losers are held on thesis and reviewed monthly** | **(b)** — fixed stops under cost basis turn normal pullbacks into realized losses; but it demands you actually do the monthly review | (b) |
-| 4.2 | Keep a minimum cash reserve? | % or none | **20–30% cash floor** while learning | 45% (defensive posture) |
+| 4.2 | Keep a minimum cash reserve? | % or none | **20–30% cash floor** while learning | ~~45% (defensive posture)~~ **VOID 2026-08-28T20:42:36Z** → **no percentage floor**; cash is the residual of quality. Only hard gate = a **5%-of-total-value operational reserve** (recompute from `get_portfolio.total_value` every run, never hard-code a dollar figure); deployable = `unleveraged_buying_power − 0.05 × total_value`. New ideas compete by **rotation** (beat the weakest held position), not by a cash percentage. |
 | 4.3 | Any sectors to avoid for new buys? | free text | — | Oil/energy de-emphasized |
 | 4.4 | Never trade a name with earnings inside the holding window? | Yes / No | **Yes** — a stop cannot protect an overnight gap | Yes |
 

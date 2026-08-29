@@ -70,7 +70,19 @@ No FMP or paid options feed required (FMP has no options data).
   time. Max loss = premium paid (defined).
 - **Total deployment is bounded by `unleveraged_buying_power`** from
   `get_portfolio`, never `buying_power` — **NO MARGIN BORROWING, EVER** (Ryan,
-  2026-08-21), and keep ≥$250 unencumbered. The old "settled cash / T+1 /
+  2026-08-21). ~~keep ≥$250 unencumbered~~ — **the flat $250 reserve is RETIRED
+  as of 2026-08-28T20:42:36Z** (master commit `1322da9`, capital-policy repeal).
+  It is replaced by an **OPERATIONAL RESERVE of 5% of total account value**,
+  which **SCALES** — recompute it from `get_portfolio.total_value` every run and
+  never hard-code a dollar figure. **Deployable = `unleveraged_buying_power −
+  0.05 × total_value`.** (At the 2026-08-29 account size of $3,960.58 that is
+  $198.03, i.e. *looser* than the old $250 — do not treat the retired number as a
+  stricter floor to fall back on. **Known conflict, stated rather than resolved
+  silently:** routine prompt v8's FOUR LAWS #4 still reads "leave ≥$250
+  unencumbered"; per the CLAUDE.md capital-policy amendment the 5% rule governs
+  until Ryan pastes v9, and a run finding the conflict must apply the 5% rule and
+  report the prompt as stale — see `holdings.json._PROMPT_V9_PASTE_REQUIRED`.)
+  The old "settled cash / T+1 /
   good-faith violation" mechanics are obsolete on the `limited_margin` account
   (settlement is instant); the intent — never deploy money that does not exist —
   is unchanged.
