@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-29T22:19:00Z",
+  "updated_utc": "2026-08-29T23:19:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-28",
     "realized_usd": 0.0,
@@ -701,16 +701,16 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-08-29T22:19:00Z",
+    "run_utc": "2026-08-29T23:19:00Z",
     "run_type": "post_close_overnight",
     "trading_day_et": "2026-08-28",
-    "sequence": "Twenty-seventh post-close run of trading day 2026-08-28; fourteenth on the Saturday calendar day.",
+    "sequence": "Twenty-eighth post-close run of trading day 2026-08-28; fifteenth on the Saturday calendar day.",
     "verdict": "NO TRADE, both books. Reconciled clean against the broker, logged, standing down.",
     "reconciliation": "ZERO DRIFT. Broker returns 1 option (SPY 2026-11-20 700P qty 1 @ 749.00, all pending_* 0.0000) and 4 equities (ROST 2.000000 @ 230.15, LLY 0.420254 @ 1189.76, PNC 1.825758 @ 246.47, MDLZ 7.988509 @ 62.59); all five match positions[] one-for-one.",
-    "capital": "total $3,960.58 = equity $1,888.62 / options $525.00 / cash $1,546.96. unleveraged_buying_power $1,546.96 EQUALS buying_power -- no margin extended. Under the FULL-DEPLOYMENT capital policy (CLAUDE.md, commit 1322da9): 5%-of-total operational reserve recomputed live this run = $198.03; deployable = $1,348.93. Recomputed from get_portfolio, never carried forward as a dollar figure. Informational only -- nothing is placeable on a Saturday.",
+    "capital": "total $3,960.58 = equity $1,888.62 / options $525.00 / cash $1,546.96 -- unchanged from 22:19Z. unleveraged_buying_power $1,546.96 EQUALS buying_power -- no margin extended. Under the FULL-DEPLOYMENT capital policy (CLAUDE.md, commit 1322da9): 5%-of-total operational reserve recomputed live this run = $198.03; deployable = $1,348.93. Recomputed from get_portfolio, never carried forward as a dollar figure. Informational only -- nothing is placeable on a Saturday.",
     "daily_report": "daily_options_report.md for trading day 2026-08-28 was written IN SESSION at 19:15Z (union of two concurrent runs, per _eod_report_written). The post-close fallback is NOT owed and this run must not rewrite it -- nothing material has happened since the bell.",
-    "loss_cap_and_throttles": "READ from _realized_options_pnl_today, not re-typed as a default per the 2026-08-27T09:18Z finding: trading day 2026-08-28 realized options P/L $0.00 against the -$400 cap, 0 closing trades, broker-confirmed. Throttles belong to 2026-08-28 and do NOT reset until the 2026-08-31 open -- a UTC rollover hands the desk no fresh budget.",
-    "why_flat": "Market shut 26h19m (bell 2026-08-28T20:00Z) with ~35 hours to the 2026-08-31 open. Nothing is placeable in either book at any price, no exit trigger can fire, and there is no live tape to measure. The correct output is a logged no-op."
+    "loss_cap_and_throttles": "READ from _realized_options_pnl_today, not re-typed as a default per the 2026-08-27T09:18Z finding: trading day 2026-08-28 realized options P/L $0.00 against the -$400 cap, 0 closing trades, broker-confirmed. Equity throttle 2 of 3. Both throttles belong to 2026-08-28 and do NOT reset until the 2026-08-31 open -- a UTC rollover hands the desk no fresh budget.",
+    "why_flat": "Market shut 27h19m (bell 2026-08-28T20:00Z) with ~34 hours to the 2026-08-31 open. Nothing is placeable in either book at any price, no exit trigger can fire, and there is no live tape to measure. The correct output is a logged no-op."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
