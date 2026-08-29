@@ -26388,6 +26388,44 @@
       },
       "why_flat": "Market closed six hours with a full weekend ahead; no order is placeable in either book. No signal existed to act on even in principle: no equity exit trigger fired, the sole option position is the backstop-exempt hedge, and the committed report is a Monday input already screened by the 23:18Z run.",
       "notification_decision": "NONE SENT. Nothing material changed: zero drift, no fills, no new flag, no fired trigger, nothing requiring Ryan. The residue repaired here is internal documentation hygiene which this run fixed itself. The one open item needing him (_PROMPT_V9_PASTE_REQUIRED) was already notified once by the 21:19Z run, and under the notify-once-per-incident rule a second page on an unchanged state is pure noise."
+    },
+    {
+      "run_utc": "2026-08-29T03:18:00Z",
+      "run_local_et": "2026-08-28T23:18:00 ET (Friday evening)",
+      "trading_day_et": "2026-08-28",
+      "prompt_version": "v8 (pasted 2026-08-26) -- STALE on capital policy; see _PROMPT_V9_PASTE_REQUIRED. CLAUDE.md's 2026-08-29 full-deployment amendment governs.",
+      "run_type": "post_close_overnight",
+      "hard_rule_9": "Unattended scheduler-fired run. No Ryan turn is claimed, quoted or paraphrased. No flag cleared. The open _PROMPT_V9_PASTE_REQUIRED flag was notified once by the 21:19Z run and is deliberately NOT re-notified.",
+      "market_state": "CLOSED. Bell rang 20:00Z, seven hours ago; next open is Monday 2026-08-31 13:30Z. Nothing placeable in either book.",
+      "headline": "EIGHTH post-close run of trading day 2026-08-28. NO TRADE, both books. This is a plain stand-down under the POST-CLOSE RUN PROTOCOL: reconcile, log, stop. No research task was invented to justify the run -- the void-floor residue sweep that occupied the 22:19Z-02:18Z runs is closed with its corpus explicitly enumerated, and re-auditing it would reproduce the exact widen-the-search-term pattern that key itself diagnoses.",
+      "regime": "Not re-derived. Market shut; the 2026-08-28 regime read stands as written and Monday's first post-open run rebuilds the brief. Per the UTC-rollover rule the trading day is still 2026-08-28 -- heartbeat NOT stamped, brief NOT rebuilt, loss cap and both entry throttles NOT reset.",
+      "reconciliation": "ZERO DRIFT, BOTH BOOKS -- broker-first per the 2026-08-28 collision fix. get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000. get_option_positions(nonzero): exactly ONE -- SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* fields 0.0000. get_equity_positions: exactly FOUR -- ROST 2.000000 @ 230.15, LLY 0.420254 @ 1189.76, PNC 1.825758 @ 246.47, MDLZ 7.988509 @ 62.59. All five match holdings.json positions[] one-for-one. get_portfolio byte-identical to the 00:18Z/01:18Z/02:18Z reads: total $3,960.5814762694 = equity $1,888.6214762694 / options $525.00 / cash $1,546.96; unleveraged_buying_power == buying_power == cash, no margin extended (FOUR LAWS #4 satisfied). Operational reserve 0.05 x total = $198.03; deployable $1,348.93.",
+      "the_contribution": {
+        "what": "The 2026-08-28 realized-P/L figure is now confirmed POST-BELL rather than pre-bell, which is a materially stronger read than the one every prior post-close run inherited.",
+        "detail": "holdings._realized_options_pnl_today cites a BROKER-CONFIRMED read taken at 19:16Z -- 44 minutes BEFORE the 20:00Z bell. That read could not have seen a closing trade in either book between 19:16Z and the close, so every post-close run since has been restating a figure whose window did not cover the whole trading day. Re-pulled here: get_realized_pnl(718757339, 2026-08-28..2026-08-28) returns one bucket spanning 2026-08-28T04:00:00Z -> 2026-08-29T03:19:15Z with realized_gain null and number_of_trades 0, total_returns 0. The day is now closed at $0.00 realized / 0 closing trades across BOTH books, over a window that provably covers the bell.",
+        "why_it_is_worth_a_line": "The 2026-08-27T09:18Z finding is precisely that runs restate cap and throttle figures they did not read this run. The correct fix is not merely 'read the stored field' -- it is to notice when the stored field's own WINDOW is narrower than the claim being made from it. A P/L number sourced before the bell cannot close the trading day, however well-provenanced it is. Same family as this ledger's most-repeated defect: a check that passes for the wrong reason.",
+        "materiality": "LOW and stated as such. $0.00 either way, nothing was placeable, and the answer did not change. Recorded because the METHOD generalizes, not because the number moved."
+      },
+      "position_verdicts": {
+        "SPY_2026-11-20_700P": "HOLD -- the authorized defensive hedge, EXEMPT from all premium backstops per the ownership gate. Marked $525.00 against $749.00 basis. Its ~21-DTE roll/close decision belongs to Ryan and is far off (83 DTE).",
+        "ROST_swing": "WORKING/UNCHANGED -- 2 sh @ 230.1512, agentic entry 2026-08-28T13:37:13Z, target 244.66. No stop, per HARD RULE 5. Not green-enough (needs 270.77).",
+        "MDLZ_swing": "WORKING/UNCHANGED -- 7.988509 sh @ 62.5899, agentic entry 2026-08-28T13:40:03Z, target 64.70. No stop. Not green-enough (needs 73.64).",
+        "PNC_swing": "HOLD -- 1.825758 sh @ 246.4729, target 255.50. No exit trigger fired; underwater names are thesis-managed with no price stop.",
+        "LLY_swing": "HOLD -- 0.420254 sh @ 1189.7553, target 1280.34. No exit trigger fired.",
+        "note": "No mechanical exit (target hit / RSI2>=70 while green) could fire tonight regardless -- the market is shut and every equity exit requires a live quote first."
+      },
+      "grades_considered": "NONE, and correctly so. The market has been closed seven hours; no options entry in either track and no equity entry is placeable. The committed report is a Monday input already screened by the 23:18Z run. Grading candidates against Friday's stale closing tape for a Monday open would be manufacturing work, and the trend-maturity gate could not be evaluated on a tape three sessions from the next print.",
+      "duties_checked": {
+        "heartbeat": "CORRECTLY NOT STAMPED. automation_heartbeat.json carries date_utc 2026-08-28, stamped 13:38:00Z by that day's first post-open run. Post-bell the trading day is still 2026-08-28; stamping 2026-08-29 would pre-satisfy the dead-man for a day that has not started.",
+        "daily_report": "WRITTEN AND DELIVERED for 2026-08-28 at 19:15Z, on time and in-session (not under the post-close fallback). It is the UNION of two concurrent runs' reports per the CLAUDE.md union rule. NOT rewritten here -- nothing material happened, and every push to that file re-pages Ryan.",
+        "iv_history": "Not updated. No name was evaluated this run and the IV method logs one row per name evaluated; a row built from Friday's closing quotes on a shut market would be a fabricated reading, not a measurement.",
+        "market_brief": "Not rebuilt -- see the UTC-rollover rule. Monday's first post-open run owns it.",
+        "loss_cap_and_throttles": "READ, NOT DEFAULTED, per the 2026-08-27T09:18Z finding. Trading day 2026-08-28: options realized $0.00 against the -$400 cap (broker-reconfirmed post-bell this run); OPTIONS entry throttle 3 of 8 unused -- 0 of 8 used across twenty-six runs; EQUITIES 2 of 3 used (ROST 13:37:13Z, MDLZ 13:40:03Z). Both throttles reset at Monday's open, NOT at the UTC rollover.",
+        "void_floor_sweep": "CLOSED by the 02:18Z run at nine instances across five files and two repealed constants, with the corpus enumerated explicitly and the exemptions justified (trade_journal.json, daily_options_report.md, docs/routine-prompt-v*.md, CLAUDE.md struck text). Verified as closed; NOT re-swept. A sixth consecutive run widening the query would be the very failure that key documents.",
+        "branch_vs_master": "HEAD was level with origin/master at run start; this run's own commit is being merged via PR before the run ends."
+      },
+      "why_flat": "Market closed seven hours with a full weekend ahead -- no order is placeable in either book. Beyond placeability, no signal existed to act on even in principle: no equity exit trigger fired, the sole option position is the backstop-exempt hedge, and the committed report is a Monday input already screened. A no-op logged in a few lines is the correct output of the Nth redundant post-close run.",
+      "notification_decision": "NO NOTIFICATION. Nothing fired, nothing drifted, nothing broke, and no new flag was raised. The one open item -- _PROMPT_V9_PASTE_REQUIRED -- was notified once by the 21:19Z run and re-notifying it would be exactly the once-per-run paging HARD RULE 9 forbids. Ryan's attention is not spent on 'I ran and all is well'."
     }
   ]
 }
