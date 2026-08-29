@@ -26907,6 +26907,50 @@
       },
       "grades_considered": "NONE. Grading candidates against Friday's stale closing marks would manufacture a thesis no run could act on for ~40 hours, and the tape that would validate or kill it has not traded yet. Under the POST-CLOSE RUN PROTOCOL the correct output of the Nth redundant overnight run is a short no-op, not invented research.",
       "open_items_for_the_next_run": "_PROMPT_V9_PASTE_REQUIRED remains OPEN and is Ryan's alone (an agent cannot edit the routine's stored prompt); it is already notified and must NOT be re-notified. The first run at or after the 2026-08-31 09:30 ET open owns: the heartbeat stamp, the market_brief rebuild, and the reset of the loss cap and BOTH entry throttles. Per the 2026-08-28 collision finding, ANY run intending an entry must re-read the BROKER (get_equity_orders / get_equity_positions / get_option_positions) immediately before placing -- the origin/master check is the second line, never the first, because the ledger lags a sibling's fill by that sibling's commit latency."
+    },
+    {
+      "run_utc": "2026-08-29T18:19:00Z",
+      "run_type": "post_close_overnight",
+      "run_local_et": "2026-08-29T14:19:00 ET (Saturday afternoon)",
+      "trading_day_et": "2026-08-28",
+      "headline": "TWENTY-THIRD post-close run of trading day 2026-08-28, tenth on the Saturday calendar day. NO TRADE, both books. A plain stand-down under the POST-CLOSE RUN PROTOCOL: read what prior post-close runs covered, run the cheap broker reconciliation, log, stop. No research task was invented to justify the firing.",
+      "verdict": "NO TRADE, both books. Reconciled clean, logged, standing down.",
+      "prompt_version": "v8 (pasted 2026-08-26), read from this run's own line-1 invocation stamp. STALE on capital policy: v8's EQUITY BOOK section hard-codes the >=45% equity-book cash floor that master repealed at 2026-08-28T20:42:36Z (commit 1322da9), and FOUR LAWS #4 still reads '>=$250 unencumbered' against the 5%-of-total operational reserve that replaced it. Per the CLAUDE.md capital-policy amendment the FULL-DEPLOYMENT policy governs and the stricter-of-two tie-breaker is explicitly INVERTED here. _PROMPT_V9_PASTE_REQUIRED is OPEN and was notified once at 2026-08-28T21:19Z; NOT re-notified by this run, per the notify-once-per-incident rule.",
+      "why_flat": "Market shut 22h19m (bell 2026-08-28T20:00Z) with ~39 hours to the 2026-08-31 open. Nothing is placeable in either book at any price, no exit trigger can fire, and there is no live tape against which any trigger, IV reading or thesis could be measured. A no-op logged in a few lines is the correct output of this firing.",
+      "heartbeat": "NOT stamped, correctly. automation_heartbeat.json carries date_utc 2026-08-28, which is the trading day whose bell just rang. 'Today' means the US TRADING day (ET): between the 16:00 ET bell and the next 09:30 ET open the trading day is still 2026-08-28, and on a Saturday there is no trading day at all. Stamping now would pre-satisfy the dead-man for a session that has not started. Same reasoning declines the market_brief rebuild and any reset of the loss cap or either entry throttle.",
+      "reconciliation": {
+        "source": "BROKER, read live this run at 18:19Z -- get_accounts, get_option_positions(nonzero), get_equity_positions, get_portfolio.",
+        "result": "ZERO DRIFT, both books. Five ledger positions, five broker positions, matching one-for-one.",
+        "account": "718757339 -- limited_margin, option_level_3, agentic_allowed true, unsettled_funds 0.0000.",
+        "options": "Exactly ONE contract: SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921-9bd8-43fd-8b4d-60f76ac03f48, opened 2026-08-06T14:21:56Z). All six pending_* fields 0.0000 -- no overnight assignment, exercise, expiration or unauthorized fill. This is the authorized defensive hedge: EXEMPT from all premium backstops, held to its ~21-DTE roll/close decision WITH Ryan. 83 DTE remaining, nowhere near that review.",
+        "equities": "Exactly FOUR: ROST 2.000000 @ 230.150000, LLY 0.420254 @ 1189.760000, PNC 1.825758 @ 246.470000, MDLZ 7.988509 @ 62.590000. Every one matches holdings.json positions[] on symbol and share count. shares_held_for_sells 0.000000 across all four -- no resting sell order anywhere, consistent with HARD RULE 5's absolute no-stops policy."
+      },
+      "capital": {
+        "measured_utc": "2026-08-29T18:19:00Z",
+        "total_value": 3960.5814762694,
+        "equity_value": 1888.6214762694,
+        "options_value": 525.0,
+        "cash": 1546.96,
+        "buying_power": 1546.96,
+        "unleveraged_buying_power": 1546.96,
+        "margin_check": "unleveraged_buying_power EQUALS buying_power to the cent, so the broker is extending no margin. FOUR LAWS #4 satisfied.",
+        "operational_reserve_5pct": 198.03,
+        "deployable": 1348.93,
+        "policy_note": "Computed under the FULL-DEPLOYMENT capital policy (CLAUDE.md, Ryan's live turn 2026-08-29 per commit 1322da9): deployable = unleveraged_buying_power - 0.05 * total_value. The reserve SCALES and is recomputed every run from total_value -- never hard-coded. No percentage cash floor exists in either direction; a run may be near-fully invested and that is a correct state. Nothing is deployable today regardless, the market being shut.",
+        "margin_equity_minimum": "Account equity $3,960.58 against the $2,000 limited-margin minimum -- clear by ~2x, not approaching it."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P (options, hedge)": "WORKING as insurance, unchanged. Exempt from backstops by standing authorization; no action available or due while the market is shut.",
+        "PNC (swing, entry 246.4729, target 255.50)": "Held, no trigger measurable off-hours. Last live read was Friday's tape; no exit condition can fire before the 08-31 open.",
+        "LLY (swing, entry 1189.7553, target 1280.34)": "Held, same. Entered 2026-08-27.",
+        "MDLZ (swing, entry 62.5899, target 64.70)": "Held, same. Entered 2026-08-28.",
+        "ROST (swing, entry 230.1512, target 244.66)": "Held, same. Entered 2026-08-28."
+      },
+      "grades_considered": "NONE, and deliberately so. There is no live tape on a Saturday afternoon, so every gate the hunt depends on -- the trailing-volume confirmation baseline, a live chain quote at the target delta on the monthly board, an IV row computed from real ATM marks -- is unmeasurable. Screening names against Friday's stale closes would manufacture a candidate list nobody could act on and would seed the next run with numbers that look measured but are two days old.",
+      "open_flags_untouched": "_PROMPT_V9_PASTE_REQUIRED (OPEN, needs Ryan only -- an agent cannot edit the routine's stored prompt; notified once 2026-08-28T21:19Z, not re-notified). _open_questions_for_ryan carries no new items. Per HARD RULE 9 an unattended run can never clear a flag or claim a Ryan approval; this run adjudicates nothing in either direction.",
+      "eod_report": "Already written for trading day 2026-08-28 at 19:15Z, in session and before the bell, not under the post-close fallback. NOT rewritten -- nothing material has happened since (no fill, no exit, no new flag, no trigger firing), and every master push touching that file notifies Ryan again.",
+      "notification": "NONE SENT. The run came up empty -- book unchanged, reconciliation clean, no flag newly raised, no decision needing Ryan. Silence is the correct output; a 'ran and all's well' ping on the tenth Saturday firing is exactly the noise the notify-once discipline exists to prevent.",
+      "next_run_should": "Nothing is due until the 2026-08-31 open. The first post-open run of 2026-08-31 owns the heartbeat stamp, the market_brief rebuild, and the reset of the daily loss cap and BOTH entry throttles -- and must re-read the BROKER immediately before any order, not just origin/master, per _CONCURRENT_RUN_COLLISION_2026-08-28."
     }
   ]
 }
