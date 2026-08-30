@@ -27466,6 +27466,37 @@
       },
       "action": "NONE. No order placed, reviewed or armed in either book. No flag created, cleared or adjudicated. No daily artifact rolled. One journal entry and the _last_reconciliation stamp are the only writes.",
       "why_flat": "Weekend, market closed, 39h19m past the last bell. Both books reconcile clean against the broker, no exit condition can fire on a closed tape, and no entry is placeable. A no-op logged in a few lines is the correct and complete output of this run."
+    },
+    {
+      "run_utc": "2026-08-30T12:19:00Z",
+      "run_type": "post_close_overnight",
+      "run_local_et": "Sunday 2026-08-30, 8:19 AM ET (12:19Z Sunday UTC)",
+      "trading_day_et": "2026-08-28",
+      "prompt_version": "v8 (line-1 stamp 'prompt v8, pasted 2026-08-26'), read from this run's own invocation. Still stale on capital policy: v8's EQUITY BOOK section hard-codes the >=45% equity-book cash floor that master repealed at 2026-08-28T20:42:36Z (commit 1322da9), and FOUR LAWS #4 still reads '>=$250 unencumbered' against the 5%-of-total operational reserve. CLAUDE.md's full-deployment amendment governs; the stricter-rule tie-breaker INVERTS here and must not be applied mechanically. Nothing was placeable this run, so the conflict was not load-bearing.",
+      "hard_rule_9": "Unattended scheduler-fired run. No flag created, cleared or adjudicated in either direction; no Ryan turn claimed, quoted or paraphrased. _PROMPT_V9_PASTE_REQUIRED remains OPEN and was NOT re-notified -- notified once at 2026-08-28T21:19Z, and a rerun finding the identical already-flagged state is not new information.",
+      "headline": "FORTY-FIRST post-close run of trading day 2026-08-28, thirteenth on the Sunday UTC calendar day. WEEKEND, market closed (bell 2026-08-28T20:00Z, 40h19m ago; next open 2026-08-31T13:30Z). NO TRADE, both books. Plain stand-down under the POST-CLOSE RUN PROTOCOL: read what prior post-close runs covered, run the cheap broker reconciliation -- the only check worth repeating, since it is the only way an overnight assignment, expiration or unauthorized fill would surface -- log, stop. Deliberately short by design.",
+      "regime": "NOT MEASURED, deliberately. There is no weekend session, so any regime label written now would be a verbatim copy of Friday's -- and CLAUDE.md's regime-staleness finding (2026-08-25T19:35Z) is explicit that a label is a timestamped measurement, not an inheritable fact. market_brief.json stays stamped with the trading day it describes; the 2026-08-31 first-post-open run rebuilds it.",
+      "reconciliation": {
+        "verdict": "ZERO DRIFT, BOTH BOOKS.",
+        "accounts": "get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true / unsettled_funds 0.0000. Unchanged.",
+        "options": "get_option_positions(nonzero) returns exactly ONE contract -- SPY 2026-11-20 700P, qty 1.0000 @ 749.00, option_id 79230921, opened 2026-08-06. All six pending_* fields 0.0000: no assignment, exercise or expiration over the weekend. Matches holdings.json one-for-one. This is the authorized defensive hedge, EXEMPT from premium backstops, held to its ~21-DTE roll/close decision WITH Ryan (82 DTE remaining).",
+        "equities": "get_equity_positions returns exactly FOUR -- ROST 2.000000 @ 230.150000, LLY 0.420254 @ 1189.760000, PNC 1.825758 @ 246.470000, MDLZ 7.988509 @ 62.590000. Matches holdings.json one-for-one. No unauthorized fill.",
+        "intraday_quantity_artifact": "ROST and MDLZ still report intraday_quantity equal to their full quantity (2.000000 and 7.988509) three days after their 2026-08-28 fills. This is a weekend flag-clearing artifact, NOT drift: average_buy_price, quantity and shares_available_for_sells all match the ledger exactly, and the guide's 'yesterday's quantity = quantity - intraday_quantity' arithmetic is simply not meaningful across a non-session gap. Recorded so a future run does not read it as a same-day fill it did not place -- the broker-first collision check of 2026-08-28 keys on filled orders, not on this field.",
+        "capital": "get_portfolio at 12:20Z: total_value $3,960.5814762694 = equity $1,888.6214762694 / options $525.00 / cash $1,546.96, pending_deposits $0. buying_power $1,546.9600 EQUALS unleveraged_buying_power $1,546.9600, so the broker is extending NO margin -- FOUR LAWS #4 satisfied. All figures are Friday-close marks frozen across the weekend; they are not a new measurement of anything."
+      },
+      "positions_verdict": {
+        "SPY_2026-11-20_700P_hedge": "HOLD, working as insurance. No verdict change possible with the tape 40h old and no weekend quotes. Backstop-exempt by standing rule; the 21-DTE roll/close decision is Ryan's and is far off (expiry 2026-11-20).",
+        "PNC_swing": "HOLD. No stop by policy (HARD RULE 5); managed on thesis. Target 255.50.",
+        "LLY_swing": "HOLD. No stop by policy; target 1280.34.",
+        "MDLZ_swing": "HOLD. Entered 2026-08-28 at 62.5899, target 64.70. Thesis INTACT at entry (FY26 guidance raised 2026-07-28); nothing has occurred since to test it.",
+        "ROST_swing": "HOLD. Entered 2026-08-28 at 230.1512, target 244.66.",
+        "note": "No position is green-enough for a SET TRAILING STOP alert and none can be evaluated for one without a live quote. No mechanical exit can fire, and no exit is placeable, with the market shut."
+      },
+      "hunt": "NOT PERFORMED. Market closed -- no options entry (both tracks) and no equity entry is placeable, and TACTICAL's confirmation clause requires a live trailing-volume baseline that does not exist on a Sunday. Manufacturing a research task to justify a redundant weekend firing is exactly what the POST-CLOSE RUN PROTOCOL forbids.",
+      "iv_method": "NO ROW WRITTEN. iv_history.json rows require a live ATM quote on the expiry nearest 30 DTE; there is no weekend market. Writing a row from Friday's frozen chain would duplicate an existing measurement under a Sunday date -- the exact stale-timestamp defect the regime-staleness finding warns about.",
+      "daily_artifacts": "NONE ROLLED, correctly. Between the 16:00 ET bell and the next 09:30 ET open the trading day is still 2026-08-28: heartbeat NOT stamped (it carries 2026-08-28T13:38:00Z and the next legitimate stamp belongs to the first post-open run of 2026-08-31); market_brief.json NOT rebuilt; daily_options_report.md NOT rewritten (the 2026-08-28 report exists and nothing MATERIAL has happened since -- a rewrite would only send Ryan a duplicate notification). Loss cap and throttles NOT reset: for the still-in-force trading day 2026-08-28 they read realized $0.00 against -$400, options 0 of 8, equities 2 of 3 -- READ from holdings.json._realized_options_pnl_today, not typed as a default, per the 2026-08-27T09:18Z finding that four consecutive runs restated reset values the ledger contradicted.",
+      "action": "NONE. No order placed, reviewed or armed in either book. No ledger field changed -- the reconciliation found nothing to fix, and touching holdings.json to record 'still unchanged' is the per-run append this file already forbids.",
+      "why_flat": "The market is closed. Everything else follows from that: no trigger can fire, no quote can price a decision, no exit is executable, and the one thing a weekend run can genuinely add -- proof that the broker still holds exactly what the ledger says it holds -- was done and came back clean."
     }
   ]
 }
