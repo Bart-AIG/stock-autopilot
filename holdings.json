@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-30T00:19:00Z",
+  "updated_utc": "2026-08-30T01:18:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-28",
     "realized_usd": 0.0,
@@ -701,17 +701,15 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-08-30T00:19:00Z",
+    "run_utc": "2026-08-30T01:18:00Z",
     "run_type": "post_close_overnight",
     "trading_day_et": "2026-08-28",
-    "sequence": "Twenty-ninth post-close run of trading day 2026-08-28; FIRST on the Sunday calendar day. The UTC date rolled to 2026-08-30 but the trading day did not: the still-in-force trading day is the one whose bell last rang (Friday 2026-08-28). Next open is Monday 2026-08-31 13:30Z.",
+    "sequence": "Thirtieth post-close run of trading day 2026-08-28; second on the 2026-08-30 UTC calendar day, Saturday 9:18 PM ET. The UTC date rolled but the trading day did not: the still-in-force trading day is the one whose bell last rang (Friday 2026-08-28). Next open Monday 2026-08-31 13:30Z.",
     "verdict": "NO TRADE, both books. Reconciled clean against the broker, logged, standing down.",
-    "reconciliation": "ZERO DRIFT, BOTH BOOKS -- twenty-eighth consecutive identical read. Options: SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921-9bd8-43fd-8b4d-60f76ac03f48, opened 2026-08-06T14:21:56Z), all six pending_* fields 0.0000 -- no assignment, exercise or expiration in flight. Equities: ROST 2.000000 @ 230.150000, LLY 0.420254 @ 1189.760000, PNC 1.825758 @ 246.470000, MDLZ 7.988509 @ 62.590000; every shares_held_for_* 0.000000, so nothing is encumbered and no stop order rests anywhere in the book (HARD RULE 5 verified by inspection, not assumed).",
-    "capital": "total_value $3,960.58 = equity $1,888.62 / options $525.00 / cash $1,546.96 -- unchanged from 23:19Z. unleveraged_buying_power $1,546.96 EQUALS buying_power -- no margin extended (FOUR LAWS #4). Under the FULL-DEPLOYMENT capital policy (CLAUDE.md commit 1322da9): 5%-of-total operational reserve recomputed live this run = $198.03; deployable = $1,348.93. Recomputed from get_portfolio, never carried forward as a dollar figure. Informational only -- markets are shut, nothing is placeable on a Sunday.",
-    "daily_report": "daily_options_report.md for trading day 2026-08-28 was written IN SESSION at 19:15Z (union of two concurrent runs, per _eod_report_written). The post-close fallback is NOT owed and this run must not rewrite it -- nothing material has happened since the bell.",
-    "loss_cap_and_throttles": "READ from _realized_options_pnl_today, not re-typed as a default per the 2026-08-27T09:18Z finding: trading day 2026-08-28 realized options P/L $0.00 against the -$400 cap (0 closing trades, broker-confirmed 19:16Z); OPTIONS entry throttle 0 of 8; EQUITIES 2 of 3 (ROST, MDLZ). BOTH THROTTLES RESET AT THE 2026-08-31 OPEN, not at the UTC rollover -- a reset value typed on a post-close run is wrong by construction.",
-    "daily_artifacts_not_rolled": "Heartbeat NOT stamped, market_brief NOT rebuilt, loss cap and throttles NOT reset. Per the UTC-rollover rule these roll at the next 09:30 ET open, never at 00:00Z.",
-    "flags": "_PROMPT_V9_PASTE_REQUIRED remains OPEN and was NOT re-notified -- notified once at 2026-08-28T21:19Z, and a rerun finding the identical already-flagged state is not new information (HARD RULE 9 notify-once). Only Ryan can paste the prompt; an agent cannot edit it. The capital-policy conflict stays LIVE and CLAUDE.md's full-deployment amendment governs -- no floor was re-derived this run."
+    "reconciliation": "ZERO DRIFT, BOTH BOOKS -- twenty-ninth consecutive identical read. Options: SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921-9bd8-43fd-8b4d-60f76ac03f48), all six pending_* fields 0.0000. Equities: ROST 2.000000 @ 230.150000, LLY 0.420254 @ 1189.760000, PNC 1.825758 @ 246.470000, MDLZ 7.988509 @ 62.590000; every shares_held_for_* 0.000000 -- nothing encumbered, no stop resting anywhere (HARD RULE 5 verified by inspection).",
+    "capital": "total_value $3,960.58 = equity $1,888.62 / options $525.00 / cash $1,546.96 -- unchanged from 00:19Z. unleveraged_buying_power $1,546.96 EQUALS buying_power, no margin extended (FOUR LAWS #4). Operational reserve recomputed live = $198.03; deployable = $1,348.93. Never carried forward as a dollar figure.",
+    "daily_report": "daily_options_report.md for 2026-08-28 written IN SESSION at 19:15Z. The post-close fallback is NOT owed and this run must not rewrite it.",
+    "loss_cap_and_throttles": "READ from _realized_options_pnl_today, not defaulted: 2026-08-28 realized $0.00 vs -$400; options 0 of 8, equities 2 of 3. Both reset at the 2026-08-31 open."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
