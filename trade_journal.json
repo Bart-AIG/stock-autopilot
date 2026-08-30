@@ -27203,6 +27203,46 @@
       "reconciliation": "ZERO DRIFT, both books, thirty-first consecutive identical read -- see holdings.json._last_reconciliation for the full field-level detail. This is the one check always worth repeating on a redundant run, because it is the only way an overnight assignment, expiration or unauthorized fill would surface. It surfaced nothing.",
       "governance": "Heartbeat NOT stamped (market shut -- stamping now would pre-satisfy the dead-man for a session that has not started). No daily artifact rolled; the trading day is still 2026-08-28. The cap and both entry throttles were READ from the ledger, not re-typed as defaults -- the 2026-08-27T09:18Z finding records four consecutive runs that silently reset them inside an otherwise-passing reconciliation. _PROMPT_V9_PASTE_REQUIRED stays OPEN and was NOT re-notified; notably this run's own invocation carries the line-1 stamp 'prompt v8, pasted 2026-08-26', which confirms the flag from the invocation itself rather than by inheriting this file's claim -- the stamp outranks the file's description of which prompt is live.",
       "verdict": "NO TRADE, both books. Reconciled clean, logged, standing down."
+    },
+    {
+      "run_utc": "2026-08-30T04:18:00Z",
+      "run_type": "post_close_overnight",
+      "run_local_et": "Sunday 2026-08-30, 12:18 AM ET (04:18Z Sunday UTC)",
+      "trading_day_et": "2026-08-28",
+      "prompt_version": "v8 (line-1 stamp 'prompt v8, pasted 2026-08-26'), read from this run's own invocation, not inherited from CLAUDE.md's description. STILL STALE on capital policy: v8's EQUITY BOOK section hard-codes the >=45% equity-book cash floor that master repealed at 2026-08-28T20:42:36Z (commit 1322da9), and FOUR LAWS #4 still reads '>=$250 unencumbered' against the 5%-of-total operational reserve. CLAUDE.md's full-deployment amendment governs; the stricter-rule tie-breaker INVERTS here and must not be applied mechanically. Nothing was placeable this run, so the conflict was not load-bearing. Already flagged by 30+ prior runs -- notify-once discipline applies, no re-notification sent.",
+      "hard_rule_9": "Unattended scheduler-fired run. No flag created, cleared or adjudicated in either direction; no Ryan turn claimed, quoted or paraphrased.",
+      "headline": "THIRTY-THIRD post-close run of trading day 2026-08-28, fifth on the Sunday UTC calendar day. WEEKEND, market closed. NO TRADE, both books. Plain stand-down under the POST-CLOSE RUN PROTOCOL. Deliberately short -- the protocol's whole point is that a redundant firing costs almost nothing.",
+      "regime": "Not measured, and deliberately not: there is no live tape. The last regime reading belongs to trading day 2026-08-28 and stands unchanged in market_brief.json. Re-deriving a regime from a shut market would manufacture a number nobody can act on, and the 2026-08-25 staleness finding warns specifically against inheriting or re-stamping a regime label outside the session that earned it.",
+      "reconciliation": {
+        "method": "BROKER-FIRST per the 2026-08-28 collision finding: get_accounts / get_option_positions(nonzero) / get_equity_positions / get_portfolio read live at 04:18Z, then diffed against holdings.json.",
+        "result": "ZERO DRIFT, BOTH BOOKS -- thirty-second consecutive identical read.",
+        "options": "SPY 2026-11-20 700P, qty 1.0000 @ 749.00, option_id 79230921-9bd8-43fd-8b4d-60f76ac03f48, opened 2026-08-06T14:21:56Z. All pending_* quantities zero -- no assignment, exercise or expiration surfaced over the weekend. Matches the ledger's single options position.",
+        "equities": "ROST 2.000000 @ 230.150000; LLY 0.420254 @ 1189.760000; PNC 1.825758 @ 246.470000; MDLZ 7.988509 @ 62.590000. All four match the ledger one-for-one on symbol, quantity and basis. shares_held_for_* all zero on every name -- no stop or other order encumbers any position, which is correct under HARD RULE 5 (the desk places no stops).",
+        "account": "718757339 confirmed limited_margin / option_level_3 / agentic_allowed true.",
+        "capital": "total_value $3,960.5815; equity_value $1,888.6215; options_value $525.00; cash $1,546.96. unleveraged_buying_power $1,546.96 EQUALS buying_power -- no margin is being extended, FOUR LAWS #4 satisfied by construction. Operational reserve at 5% of total_value = $198.03 (recomputed this run from live total_value, never hard-coded); deployable = $1,546.96 - $198.03 = $1,348.93. Reported for completeness only: nothing is placeable while the market is shut."
+      },
+      "positions_verdict": {
+        "SPY 2026-11-20 700P (hedge)": "HOLD. Authorized defensive hedge, EXEMPT from all premium backstops per the ownership gate; held to its ~21-DTE roll/close decision WITH Ryan. 82 days to expiry, so that decision is far off. Not re-marked this run -- there is no live options quote on a weekend and a stale mark decides nothing.",
+        "PNC / LLY / MDLZ / ROST (equity swing)": "HOLD, all four. No exit trigger can fire with the market shut: no live quote to confirm a target hit or an RSI2>=70 bounce, and no new information on which a thesis verdict could move. No stops exist by policy, so nothing can fire unattended either."
+      },
+      "throttles_and_caps": {
+        "note": "READ from holdings.json._realized_options_pnl_today, not typed as a default -- per the 2026-08-27T09:18Z finding that four consecutive post-close runs restated reset values the ledger contradicted. The still-in-force trading day is 2026-08-28, whose bell has rung; these do NOT reset until the 2026-08-31 open.",
+        "realized_options_pnl_2026-08-28": "$0.00 against the -$400 cap (broker-confirmed 19:16Z, 0 closing trades). Cap not binding.",
+        "options_entry_throttle": "0 of 8 used for trading day 2026-08-28.",
+        "equity_entry_throttle": "2 of 3 used for trading day 2026-08-28 (ROST and MDLZ, the concurrent-run collision documented in _CONCURRENT_RUN_COLLISION_2026-08-28)."
+      },
+      "daily_artifacts": {
+        "heartbeat": "NOT stamped, correctly. automation_heartbeat.json carries 2026-08-28, stamped 13:38Z by that day's first post-open run. 'Today' means the US TRADING day: between the bell and the next 09:30 ET open the trading day is still 2026-08-28. Stamping now would pre-satisfy the dead-man for a session that has not started.",
+        "market_brief": "NOT rebuilt, correctly -- same reasoning; the first run of the 2026-08-31 session rebuilds it.",
+        "daily_report": "ALREADY WRITTEN for 2026-08-28 (19:15Z, in-session and before the bell, union of two concurrent runs; includes the Friday weekly review). The post-close fallback does not apply and the file must NOT be rewritten -- nothing material has happened since, and every master push touching it re-notifies Ryan."
+      },
+      "why_flat": "Market shut 32h18m (bell 2026-08-28T20:00Z) with roughly 29 hours to the 2026-08-31 open. Nothing is placeable in either book at any price, no exit trigger can fire, and there is no tape against which any trigger, IV row or thesis could be re-measured. Weekend: no extended-hours session exists to re-poll. Every useful post-close task for this trading day -- final reconciliation, the EOD report, the Friday weekly review, broker-sourced P&L -- was completed by earlier runs. The correct output is a no-op logged in a few lines.",
+      "not_done_deliberately": [
+        "No IV row written: iv_history.json takes one row per day per name from a live ATM quote, and there is none on a weekend. A row fabricated from Friday's close would corrupt a time series the 2026-08-25 finding says must be DIFFED, not sampled.",
+        "No candidate grading or hunt: with no tape there is no 'why NOW' any candidate could answer, and grading names off stale Friday quotes manufactures a funnel nobody can act on.",
+        "No re-derivation of regime, levels, or the equity report's signals -- all belong to 2026-08-28 and are unchanged.",
+        "No research task invented to justify the firing. The redundancy is a trigger-config property (Ryan's to change); an agent's job is to make each extra firing cost almost nothing."
+      ]
     }
   ]
 }
