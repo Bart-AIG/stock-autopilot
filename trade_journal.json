@@ -27706,6 +27706,36 @@
       "hunt": "NOT PERFORMED, and deliberately so. Both options tracks and the equity book require a live tape: TACTICAL needs an intraday level breaking NOW with a trailing volume baseline, CORE needs live chain quotes, and equity entries are gated on a fresh committed report. None exists on a Sunday. Re-polling weekend quotes would produce numbers nobody can act on -- the protocol names that as the thing not to do.",
       "iv_history": "Not updated. No name was evaluated this run and no live chain is quotable while the market is shut; writing a row would fabricate a reading.",
       "verdict": "NO TRADE, both books. Reconciled clean, logged, standing down. Next open Monday 2026-08-31 13:30Z, 18h11m out."
+    },
+    {
+      "run_utc": "2026-08-30T20:19:00Z",
+      "run_type": "post_close_overnight",
+      "run_local_et": "Sunday 2026-08-30, 4:19 PM ET (20:19Z Sunday UTC)",
+      "trading_day_et": "2026-08-28",
+      "headline": "FORTY-NINTH post-close run of trading day 2026-08-28, twenty-first on the Sunday UTC calendar day. WEEKEND, market shut. NO TRADE, both books, nothing placeable. Plain stand-down under the POST-CLOSE RUN PROTOCOL: read what earlier post-close runs covered, run the one check always worth repeating (the broker reconciliation), log, stop. Kept deliberately short -- a redundant weekend firing should cost almost nothing, and inventing work to justify the run is the failure mode the protocol names.",
+      "prompt_version": "v8 (line-1 stamp 'prompt v8, pasted 2026-08-26'), read from this run's own invocation. STILL STALE ON CAPITAL POLICY, unchanged from the prior 48 runs: v8's EQUITY BOOK section hard-codes the >=45% equity-book cash floor that master repealed at 2026-08-28T20:42:36Z (commit 1322da9), and FOUR LAWS #4 reads '>=$250 unencumbered' against the 5%-of-total operational reserve ($198.03 at current size). CLAUDE.md's full-deployment amendment governs on the strength of Ryan's live turn; the stricter-of-the-two tie-breaker INVERTS here and must not be applied mechanically, since doing so resolves straight back to the repealed floor and silently undoes his decision. Nothing was placeable this run, so the conflict was not load-bearing.",
+      "hard_rule_9": "Unattended scheduler-fired run. No flag created, cleared or adjudicated in either direction; no Ryan turn claimed, quoted or paraphrased. _PROMPT_V9_PASTE_REQUIRED remains OPEN and was deliberately NOT re-notified -- it was notified once when raised at 2026-08-28T21:19:00Z and a rerun finding the identical already-flagged state is not new information.",
+      "heartbeat": "NOT STAMPED, correctly. automation_heartbeat.json carries 2026-08-28 and that is the still-in-force trading day: it is the weekend, and 'today' always means the US TRADING day. Stamping it now would pre-satisfy the dead-man for a trading day that has not started. The first post-open run on Monday 2026-08-31 owns the stamp, the market_brief rebuild, and the reset of the loss cap and BOTH entry throttles.",
+      "reconciliation": {
+        "method": "BROKER-FIRST per the 2026-08-28 collision finding: get_accounts / get_option_positions(nonzero) / get_equity_positions / get_portfolio read live, then diffed against holdings.json.",
+        "result": "ZERO DRIFT, BOTH BOOKS.",
+        "account": "718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000.",
+        "options": "Exactly ONE contract: SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921, opened 2026-08-06). All six pending_* fields 0.0000 -- no overnight assignment, exercise, expiration or unauthorized fill. This is the authorized defensive hedge, EXEMPT from premium backstops.",
+        "equities": "Exactly FOUR: ROST 2.000000 @ 230.150000, LLY 0.420254 @ 1189.760000, PNC 1.825758 @ 246.470000, MDLZ 7.988509 @ 62.590000. All match the ledger one-for-one.",
+        "capital": "total $3,960.5815 = equity $1,888.6215 / options $525.00 / cash $1,546.96. unleveraged_buying_power $1,546.96 EQUALS buying_power, so the broker extends no margin -- FOUR LAWS #4 satisfied. Operational reserve 5% of total = $198.03; deployable $1,348.93. Byte-identical to the 15:19Z through 19:19Z readings -- marks do not move on a Sunday."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P (hedge, options)": "HOLD. Insurance under the Aug-Oct posture, exempt from the mechanical premium backstops, held to its ~21-DTE roll/close decision WITH Ryan (that decision lands around 2026-10-30). No action available or wanted on a weekend.",
+        "PNC (swing)": "HOLD. Target 255.50 intact, no price stop per HARD RULE 5. Unmarkable while shut.",
+        "LLY (swing)": "HOLD. Target 1280.34 intact.",
+        "MDLZ (swing)": "HOLD. Target 64.70 intact.",
+        "ROST (swing)": "HOLD. Target 244.66 intact."
+      },
+      "throttles_and_caps": "CARRIED FORWARD from trading day 2026-08-28, READ from holdings.json._realized_options_pnl_today and NOT defaulted to a reset value (the defect measured 2026-08-27T09:18Z, where four consecutive post-close runs typed '0 of 8' about a day that had already traded): options entries 0 of 8 used, equity entries 2 of 3 used, realized options P/L $0.00 against the -$400 cap. These reset at the Monday 2026-08-31 09:30 ET open, NOT at the UTC rollover.",
+      "hunt": "NOT PERFORMED, and that is the correct output rather than an omission. The market is shut in both books: no live quote, no chain, no volume baseline, no intraday level to break. Every TACTICAL trigger is by construction unmeasurable and every CORE entry would be priced off a stale Friday close. Re-polling weekend quotes produces numbers nobody can act on -- explicitly named by the POST-CLOSE RUN PROTOCOL as work not to invent.",
+      "why_flat": "Market closed (Sunday). Nothing is placeable in either book, nothing is broken, nothing has drifted.",
+      "eod_report": "ALREADY WRITTEN for trading day 2026-08-28 (holdings.json._eod_report_written). Not rewritten: nothing MATERIAL has happened since -- no fill, no exit, no new flag, no trigger firing -- and every master push touching daily_options_report.md sends Ryan another notification, so a duplicate carrying the same content is pure noise.",
+      "notification": "NONE SENT. Nothing surfaced that Ryan would want pulled off his weekend for: no fill, no exit, no drift, no new flag, no failure of the run itself. The one open item (_PROMPT_V9_PASTE_REQUIRED) was notified once when raised and is not new information."
     }
   ]
 }
