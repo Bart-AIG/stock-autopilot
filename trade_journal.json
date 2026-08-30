@@ -27389,6 +27389,49 @@
       "loss_cap_and_throttles": "READ from holdings.json._realized_options_pnl_today, not typed as a default (per the 2026-08-27T09:18Z finding that four consecutive runs restated reset values the ledger contradicted). Trading day 2026-08-28 is STILL IN FORCE, so no reset applies: these figures stay exactly as the bell left them and roll only at the 2026-08-31 open.",
       "daily_artifacts": "NONE ROLLED, per the UTC-vs-trading-day rule. The trading day is still 2026-08-28: automation_heartbeat.json stays stamped 2026-08-28 (stamping it now would pre-satisfy the dead-man for a session that has not started), market_brief.json stays stamped with the day it describes, and daily_options_report.md for 2026-08-28 was written in session at 19:15Z -- the post-close fallback is NOT owed and this run must not rewrite it, since no material event has occurred and every master push touching that file notifies Ryan again.",
       "notification": "NONE SENT. Nothing changed, nothing fired, nothing failed. A scheduled run that comes up empty should stay silent -- a notification saying 'ran, all well' spends Ryan's attention for no information. The one open item (_PROMPT_V9_PASTE_REQUIRED) was notified once on 2026-08-28 and re-notifying the identical state is the exact cadence bug HARD RULE 9 was amended to stop."
+    },
+    {
+      "run_utc": "2026-08-30T10:19:00Z",
+      "run_type": "post_close_overnight",
+      "headline": "THIRTY-NINTH post-close run of trading day 2026-08-28, eleventh on the Sunday UTC calendar day. WEEKEND, market closed. NO TRADE, both books. Plain stand-down under the POST-CLOSE RUN PROTOCOL -- read what prior post-close runs covered, run the cheap broker reconciliation, log, stop. Deliberately short: the protocol's whole point is that a redundant weekend firing costs almost nothing.",
+      "regime": "NOT MEASURED, and deliberately so. The tape is 38h19m old (bell 2026-08-28T20:00Z) and there is no weekend extended-hours session, so any regime label written now would be a verbatim copy of Friday's -- and CLAUDE.md's regime-staleness finding (2026-08-25T19:35Z) is explicit that a label is a timestamped measurement, not an inheritable fact. The 2026-08-31 first-post-open run rebuilds market_brief.json against a live tape.",
+      "reconciliation": {
+        "method": "BROKER-FIRST per the 2026-08-28 concurrent-run collision finding: get_accounts / get_option_positions(nonzero) / get_equity_positions / get_portfolio read live at 10:19Z, then diffed against holdings.json. The broker is the arbiter; the git check is the second line, never the first.",
+        "result": "ZERO DRIFT, BOTH BOOKS -- thirty-ninth consecutive clean reconciliation of this stand-down series.",
+        "options_book": "SPY 2026-11-20 700P, 1 contract, average_price 749.00, opened 2026-08-06T14:21:56Z -- matches the ledger. All pending_* quantities zero: no assignment, exercise, or expiration surfaced overnight. This is the AUTHORIZED DEFENSIVE HEDGE and is EXEMPT from all premium backstops; its ~21-DTE roll/close decision is Ryan's and is not due (82 days to expiry).",
+        "equity_book": "ROST 2.000000 @ 230.15, LLY 0.420254 @ 1189.76, PNC 1.825758 @ 246.47, MDLZ 7.988509 @ 62.59 -- all four match the ledger to the share. No unauthorized fill, no position appeared or vanished.",
+        "account": "718757339 confirmed agentic_allowed=true, limited_margin, option_level_3. unsettled_funds 0.0000.",
+        "capital": "total_value $3,960.5814762694; equity_value $1,888.6214762694; options_value $525.00; cash $1,546.96. buying_power $1,546.96 EQUALS unleveraged_buying_power $1,546.96 -- no borrowed funds are being extended, FOUR LAWS #4 satisfied with nothing to reconcile.",
+        "capital_policy_note": "Under the 2026-08-29 full-deployment policy the 5%-of-total operational reserve recomputes to 0.05 x 3960.58 = $198.03 (it SCALES -- never hard-code a dollar figure), leaving deployable $1,348.93. Recorded for the Monday run's arithmetic, NOT acted on: nothing is placeable at any price with the market shut.",
+        "intraday_quantity_note": "ROST and MDLZ still report intraday_quantity equal to their full quantity, an artifact of the broker not having rolled its settlement day across the weekend -- both filled 2026-08-28 (13:37:13Z and 13:40:03Z). Not drift and not an incident; noted so a future run does not mistake it for a same-day fill."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P (options, hedge)": "HOLD -- unchanged. Insurance against the Aug-Oct drawdown watch, exempt from the premium backstops by standing rule. No exit trigger can fire with the market shut.",
+        "PNC (swing)": "HOLD -- unchanged. No stop by policy (HARD RULE 5); managed on thesis.",
+        "LLY (swing)": "HOLD -- unchanged. No stop by policy; managed on thesis.",
+        "MDLZ (swing)": "HOLD -- unchanged. No stop by policy; managed on thesis.",
+        "ROST (swing)": "HOLD -- unchanged. No stop by policy; managed on thesis.",
+        "basis": "Verdicts are carried, not re-measured. There is no tape to re-measure against, and re-quoting a 38-hour-old close to restate 'unchanged' is exactly the redundant work the POST-CLOSE RUN PROTOCOL forbids."
+      },
+      "grades_considered": "NONE, and this is the correct output rather than an omission. The HUNT phase requires a live tape for the trigger, the liquidity gate, and the IV row; none exists on a Sunday. Grading candidates against Friday's stale chain would manufacture a decision the next run would have to re-derive anyway.",
+      "daily_artifacts_not_rolled": {
+        "rule": "CLAUDE.md: 'today' means the US TRADING day (ET), never the UTC calendar date. Between the 16:00 ET bell and the next 09:30 ET open the trading day is STILL the one whose bell just rang.",
+        "heartbeat": "automation_heartbeat.json left stamped date_utc 2026-08-28. NOT rolled. Stamping it now would pre-satisfy the dead-man for a trading day that has not started -- if the trigger died overnight, Monday would look healthy all day and the one alarm designed to catch a dead automation would never fire. The 2026-08-31 first-post-open run stamps it.",
+        "market_brief": "left stamped with the trading day it describes. NOT rebuilt -- rebuilding it now would date it off dead weekend quotes and cause the real first post-open run to see it stamped and skip the rebuild, trading Monday off Friday-night prices.",
+        "loss_cap_and_throttles": "NOT reset, and READ rather than typed as a default per the 2026-08-27T09:18Z finding: holdings.json._realized_options_pnl_today carries trading_day_et 2026-08-28, realized_usd $0.00 against the -$400 options cap (broker-confirmed at 19:16Z, get_realized_pnl returning number_of_trades 0), options entry throttle 0 of 8. Those figures belong to 2026-08-28 and stay there. The reset happens at the next OPEN, not at the UTC rollover and not because the desk is standing down."
+      },
+      "duties_already_discharged_this_trading_day": {
+        "daily_report": "daily_options_report.md for 2026-08-28 was written ON TIME and IN SESSION at 19:15Z, before the bell -- not under the post-close fallback. The file on master is the UNION of two concurrent same-slot writes (PR #819 and #820), resolved per the collision protocol. NOT rewritten here: nothing material has happened since, and every master push touching that file sends Ryan another notification.",
+        "friday_weekly_review": "in the journal, sourced from the broker (get_realized_pnl + get_option_orders + get_equity_orders) rather than from this journal, per the 2026-08-13 finding.",
+        "conclusion": "Every useful post-close task for trading day 2026-08-28 is complete. Nothing was left for this run to do but reconcile and log."
+      },
+      "why_flat": "Market shut 38h19m (bell 2026-08-28T20:00Z) with 27h11m to the 2026-08-31 13:30Z open. Nothing is placeable in either book at any price, no exit trigger can fire, and there is no tape against which any trigger, IV row or thesis could be re-measured. Weekend: no extended-hours session exists to re-poll. The reconciliation -- the one check always worth repeating overnight, because it is the only way an assignment, expiration or unauthorized fill would surface -- came back clean on all five positions. A no-op logged in a few lines is the correct output; inventing a research task to justify a redundant firing is explicitly forbidden.",
+      "verdict": "NO TRADE, both books. Reconciled clean, logged, standing down.",
+      "governance": {
+        "prompt_version_observed": "v8, pasted 2026-08-26 (line-1 stamp on this run's own invocation).",
+        "capital_policy_conflict": "STILL OPEN AND STILL REPORTED, per the standing duty. Prompt v8 hard-codes the Aug-Oct posture's >=45% equity-book cash floor; Ryan VOIDED that floor in a live turn on 2026-08-29 and replaced it with the full-deployment policy (5%-of-total operational reserve + rotation-beats-the-weakest). CLAUDE.md governs on the strength of his live turn until he pastes v9 or applies the four OPTION A edits in docs/routine-prompt-v9.md -- including the line-1 version stamp bump, without which every run truthfully reports v8 while executing v9 rules. This run applied no capital gate either way: nothing was placeable.",
+        "hard_rule_9": "Intact. No Ryan turn is claimed, quoted or paraphrased. No flag cleared, none found needing adjudication. This is an unattended scheduler-fired run and structurally cannot supply an approval."
+      }
     }
   ]
 }
