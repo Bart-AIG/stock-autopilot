@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-30T17:19:00Z",
+  "updated_utc": "2026-08-30T18:19:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-28",
     "realized_usd": 0.0,
@@ -467,9 +467,10 @@
     "run_utc": "2026-08-30T17:19:00Z",
     "run_type": "post_close_overnight",
     "method": "BROKER-FIRST: get_accounts / get_option_positions(nonzero) / get_equity_positions / get_portfolio read live, then diffed against this ledger.",
-    "result": "ZERO DRIFT, BOTH BOOKS. 1 option + 4 equity positions, all matching to six decimals. No pending assignment/exercise/expiration; nothing encumbered.",
+    "result": "ZERO DRIFT both books. Broker: SPY 2026-11-20 700P x1 @ 749.00 (all pending_* 0.0000); ROST 2.000000 @ 230.15, LLY 0.420254 @ 1189.76, PNC 1.825758 @ 246.47, MDLZ 7.988509 @ 62.59. Capital total $3,960.5815 / equity $1,888.6215 / options $525.00 / cash $1,546.96; unleveraged_buying_power == buying_power, no margin extended. Ledger matches one-for-one. Forty-seventh post-close run of trading day 2026-08-28, weekend stand-down, no action either book.",
     "capital": "total $3,960.5815 = equity $1,888.6215 / options $525.00 / cash $1,546.96. unleveraged_buying_power $1,546.96 == buying_power (no margin). Reserve $198.03, deployable $1,348.93. Unchanged from 15:19Z and 16:19Z -- weekend marks are static.",
-    "action": "NONE. Nothing to fix."
+    "action": "NONE. Nothing to fix.",
+    "utc": "2026-08-30T18:19:00Z"
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
