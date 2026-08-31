@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-31T13:52:00Z",
+  "updated_utc": "2026-08-31T13:50:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-31",
     "realized_usd": 0.0,
@@ -8,7 +8,8 @@
     "cap": -400.0,
     "source": "BROKER-READ THIS RUN, not typed as a default, per the 2026-08-27T09:18Z finding. get_realized_pnl(718757339, 2026-08-28..2026-08-31) returns four buckets, every one number_of_trades 0 / realized_gain null, total_returns 0 -- so the 2026-08-31 session opens with a clean slate and the 2026-08-28 day closed at $0.00 as recorded.",
     "cap_status": "NOT BINDING. $0.00 realized against -$400 leaves the full cap. It gates NEW ENTRIES only and never delays or blocks an exit.",
-    "entry_throttle": "OPTIONS 0 of 8 for trading day 2026-08-31 -- no option entry in either track this run. EQUITIES 1 of 3 -- MMM 13:37:54Z, agentic, this run's single permitted entry now SPENT. Both throttles were RESET by this run, which is the first at or after the 13:30Z bell; they carried 2026-08-28 values through sixty-seven intervening pre-open runs, none of which reset them (correctly)."
+    "entry_throttle": "OPTIONS 0 of 8 for trading day 2026-08-31. EQUITIES 1 of 3 -- MMM at 13:37:54Z, placed by the 13:40Z run. BOTH of the other two runs sharing this slot (13:45Z and 13:50Z) took ZERO entries: the 13:45Z run DEFERRED its equity slot on the broker collision check, and the 13:50Z run found no candidate graded A. So the count stands at 1 and no double-sizing occurred.",
+    "_verified_utc": "2026-08-31T13:50:00Z -- throttle and cap READ from this key and the broker, never typed as a default, per the 2026-08-27T09:18Z finding."
   },
   "positions": [
     {
@@ -82,6 +83,20 @@
         "pl_usd": -13.77,
         "pl_pct": -2.75,
         "status": "HOLD. Underwater, so the mechanical take-profit authority is NOT available -- it is gated on price > entry, and an RSI2>=70 print on an underwater name is an OPTIONAL exit-into-strength needing a HARD RULE 7 thesis break, never a technical trigger. Target not hit. No price stop by policy (HARD RULE 5). Not green-enough (entry/0.85 = $1399.71), so no SET TRAILING STOP alert for Ryan. Thesis intact; no flag fired this run."
+      },
+      "_thesis_state": {
+        "checked_utc": "2026-08-31T13:50:00Z",
+        "verdict": "WEAKENED -- HOLD, not a sell",
+        "why_not_thesis_checked": "Deliberately NOT written as a thesis_checked block. That field exists solely to suppress the report's below_200ma / out_of_decile REVIEW flags, NEITHER of which is firing (LLY sits +10.8% above a rising 200-day SMA of 1059.78), and only an 'intact' verdict may be written there. A 'weakened' verdict recorded as thesis_checked would be doubly wrong.",
+        "evidence": "Competitive + quality-of-earnings pressure, not a franchise break: Foundayo (new oral obesity pill) facing early prescription headwinds vs Novo's oral Wegovy; Novo's July federal false-advertising suit over Lilly's comparative campaigns; and management's disclosure that Q2 outperformance was aided by NON-RECURRING US rebate/discount adjustments, raising H2 growth-deceleration and margin concerns. Offsetting: Street consensus Moderate Buy, average target ~$1,284 vs $1,152.08 spot (+11%); 200-day rising +16.56 over 10 sessions; the entry premise (oversold mean reversion inside a confirmed uptrend) is structurally intact.",
+        "mark_at_check": "1152.08 vs entry 1189.7553 = -3.17%; -1.92% on the day, the book's worst mover, in the session's worst sector (XLV -1.03% vs SPY -0.46%).",
+        "governing_rule": "HARD RULE 5 -- underwater names carry NO price stop and are sold only on a BROKEN thesis; the monthly rebalance is this position's real exit gate. HARD RULE 6's autonomous thesis-sell authority requires a BROKEN verdict with evidence; 'weakened' does not reach it.",
+        "consequence": "LLY is now the WEAKEST name in the equity book on the entry stack. That matters ONLY if the full-deployment policy's rotation test is triggered (deployable cash below one position size) -- it was not this run at $848.05 deployable. Recorded so a future rotation does not have to re-derive it, and note the standing caution: 'weakest on the entry stack' is never simply 'biggest loser'.",
+        "sources": [
+          "https://www.tradingkey.com/news/market-movers/262133341-market-movers-lly-20260826",
+          "https://stockanalysis.com/stocks/lly/",
+          "https://www.cnn.com/markets/stocks/LLY"
+        ]
       }
     },
     {
@@ -482,13 +497,12 @@
     "note": "daily_options_report.md for 2026-08-28 written ON TIME and IN SESSION, before the bell, NOT under the post-close fallback. TWO CONCURRENT RUNS WROTE IT -- a sibling at 19:15Z (PR #819) and one at 19:18Z (PR #820) -- because the 14:15 CT gate admits every run after it and neither could see the other. THE FILE ON MASTER IS THE UNION OF BOTH, not either one, per the CLAUDE.md concurrent-run rule: the 19:15Z report is the base (it landed first and carries the six-fire TACTICAL decline table and the Friday weekly review) and the 19:18Z run's unique contribution -- the 19:21Z follow-up measurement showing the arc's first fully-confirmed fire also went nowhere, with the declined vehicle re-quoted and its delta drifted out of the tactical band -- is inserted and marked. Covers BOTH books per v8. THAT FILE IS THE DELIVERY (eod-report-notify.yml fires on the master push). NO LATER RUN MAY REWRITE IT to refresh closing marks or restate 'still flat' -- only a MATERIAL event (a fill, an exit, a new flag, a trigger firing) justifies a rewrite, because every master push touching it notifies Ryan again. NOTE FOR THE NEXT INSTANCE: the report duty is now the SECOND duty observed to collide on this cadence, after the 13:37/13:40Z entry collision. A gate phrased as 'the first run at or after T' is satisfied by EVERY run after T, so it does not name a unique owner; the ledger's _eod_report_written key is the only thing that does, and it must be READ before writing the report."
   },
   "_last_reconciliation": {
-    "run_utc": "2026-08-31T13:40:00Z",
-    "run_type": "first_post_open_of_trading_day",
-    "method": "BROKER-FIRST: get_accounts / get_option_positions(nonzero) / get_equity_positions / get_portfolio / get_realized_pnl read live at 13:31Z, then diffed against this ledger. Re-checked with get_equity_orders(created_at_gte=2026-08-31) IMMEDIATELY before placing, per the 2026-08-28 collision finding -- returned an EMPTY order list, so no sibling run had landed an entry.",
-    "result": "ZERO DRIFT both books at run start. Options: SPY 2026-11-20 700P x1 @ 749.00, all six pending_* 0.0000 (no weekend assignment/exercise/expiration/unauthorized fill). Equities: ROST 2.000000 @ 230.15, LLY 0.420254 @ 1189.76, PNC 1.825758 @ 246.47, MDLZ 7.988509 @ 62.59. Ledger matched one-for-one. Capital at 13:31Z: total $3,970.34, equity $1,885.38, options $538.00, cash $1,546.96, unleveraged_buying_power $1,546.96 (== buying_power, no margin extended).",
-    "post_trade": "After the $500.00 MMM fill: cash ~$1,046.96, equity book ~$2,381, five equity positions + one option. Deployable = unleveraged_buying_power - 0.05 x total_value = ~$1,046.96 - ~$198.5 = ~$848. The 5%-of-total operational reserve is intact and FOUR LAWS #4 holds with no margin extended.",
-    "trading_day_in_force": "2026-08-31 -- rolled by THIS run, the first at or after the bell. Heartbeat stamped, brief rebuilt, loss cap and both entry throttles reset.",
-    "_union_addendum": "UNION MERGE of two same-slot runs. The 13:40Z sibling PLACED MMM and reconciled it as its own fill; the 13:45Z run detected the same fill from the BROKER while master was still clean, DEFERRED its own entry, and independently confirmed the position (2.884552 @ 173.3371, order 6a9583b2, agentic, 13:37:54Z) plus the exact $500.00 cash move $1,546.96 -> $1,046.96. Two independent broker reads agreeing one-for-one is cross-validation. Equity throttle 1 of 3 by BOTH runs' reckoning."
+    "run_utc": "2026-08-31T13:50:00Z",
+    "run_type": "market_hours_regular",
+    "method": "BROKER FIRST, then the ledger -- per the 2026-08-28 concurrent-collision root fix, which established that the git check is the SECOND line and never the first (a sibling's fill is invisible in git for as long as that sibling takes to write up, but visible at the broker in milliseconds). get_accounts + get_portfolio + get_equity_positions + get_option_positions at 13:45-13:47Z.",
+    "result": "ZERO DRIFT. 1 option position (SPY 2026-11-20 700P x1 @ 749.00, all pending_* 0.0000) and 5 equity positions (ROST 2.000000 @ 230.15, LLY 0.420254 @ 1189.76, PNC 1.825758 @ 246.47, MDLZ 7.988509 @ 62.59, MMM 2.884552 @ 173.34), each matching this ledger one-for-one. The broker read DID surface the sibling's MMM fill, which is exactly the case the collision rule exists for.",
+    "post_trade": "No trade placed this run, so no post-trade re-read was required.",
+    "trading_day_in_force": "2026-08-31 -- the bell rang at 13:30Z and the 13:40Z run rolled the daily artifacts. Throttles and the loss cap are this session's."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
@@ -720,15 +734,18 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-08-31T12:53:00Z",
-    "run_type": "post_close_overnight",
-    "trading_day_et": "2026-08-28",
-    "sequence": "Sixty-fifth post-close run of trading day 2026-08-28; Monday 2026-08-31 08:53 ET, pre-open. Next open 13:30Z, ~37m out. This is the LAST pre-open run of the weekend stand-down unless another fires inside the next half hour.",
-    "verdict": "NO TRADE, both books. Market closed. Reconciled clean against the broker, logged, standing down.",
-    "reconciliation": "ZERO DRIFT, BOTH BOOKS. Options: SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* fields 0.0000. Equities: ROST 2.000000 @ 230.150000, LLY 0.420254 @ 1189.760000, PNC 1.825758 @ 246.470000, MDLZ 7.988509 @ 62.590000. All five match this ledger one-for-one.",
-    "capital": "total $3,954.74653981; equity $1,882.79; options $525.00; cash $1,546.96; unleveraged_buying_power $1,546.96 == buying_power, no margin. Operational reserve 5% = $197.74, deployable $1,349.22.",
-    "handoff_to_the_first_post_open_run": "YOU own four duties nobody before you could legally perform: stamp automation_heartbeat.json for 2026-08-31 (it still reads 2026-08-28), rebuild market_brief.json, and reset BOTH throttles (options 0 of 8, equities 0 of 3) and the realized options loss cap to $0.00 against -$400. Read those values, do not re-type them as defaults. CAPITAL: the >=45% equity-book cash floor is VOID -- the gate is deployable = unleveraged_buying_power - 0.05 x total_value, and any floor arithmetic you meet in a 2026-08-28 artifact is residue. COLLISION: a sibling run may fire this same slot -- re-read the BROKER (get_equity_orders / get_option_positions) immediately before any order, not just origin/master, per _CONCURRENT_RUN_COLLISION_2026-08-28.",
-    "open_items_untouched": "_PROMPT_V9_PASTE_REQUIRED remains OPEN and was NOT re-notified (notify-once-per-incident). This run was itself invoked with the v8 prompt, whose EQUITY BOOK section still hard-codes the voided floor -- the stamp on the invocation confirms the flag is still live and needs Ryan."
+    "run_utc": "2026-08-31T13:50:00Z",
+    "run_type": "market_hours_regular",
+    "trading_day_et": "2026-08-31",
+    "sequence": "THIRD run of the 2026-08-31 session to execute the post-open slot. THREE scheduled runs collided here: 13:40Z (placed MMM), 13:45Z (deferred its entry on the broker check, recorded the collision), and this 13:50Z run. The permanent record of the collision is _CONCURRENT_RUN_COLLISION_2026-08-31, written by the 13:45Z sibling and PRESERVED intact by this union merge -- it documents the first live exercise of the 2026-08-28 broker-first fix.",
+    "verdict": "NO TRADE, both books. Every decline is ON MERIT -- nothing was blocked by capital, by a throttle or by the loss cap.",
+    "reconciliation": "ZERO DRIFT, BOTH BOOKS, broker read FIRST per the 2026-08-28 collision rule. Options: SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* 0.0000. Equities: ROST 2.000000 / LLY 0.420254 / PNC 1.825758 / MDLZ 7.988509 / MMM 2.884552 @ 173.340000 -- FIVE positions, matching this ledger one-for-one including the sibling's MMM fill.",
+    "capital": "total $3,978.28231178; equity $2,377.32; options $554.00; cash $1,046.96; unleveraged_buying_power $1,046.96 == buying_power, no margin extended. FULL-DEPLOYMENT POLICY: operational reserve 5% x total = $198.91, DEPLOYABLE $848.05 -- above one normal position size, so the rotation-beats-the-weakest test was NOT triggered.",
+    "throttles": "Equities 1 of 3 (MMM, the sibling's). Options 0 of 8. Realized options P/L $0.00 vs -$400, not binding.",
+    "why_flat": "EQUITIES: the only non-held, non-semi, non-oil RSI2 candidates were REGN (graded B -- sixth consecutive down session and still falling, an unresolved securities class action with a 09-14 lead-plaintiff deadline inside the hold window, and healthcare the day's worst sector at XLV -1.03% while the book already holds LLY there on a WEAKENED verdict) and MAR (graded C -- 6.2% BELOW its 50-day and only 2.2% above its 200-day, a downtrend approaching support, not a dip). The four semis are DEFERRED, not declined, on the AVGO 2026-09-02 pm print per the sector-print extension of the [ERN] rule. EOG excluded on the oil steer. Adding to LLY is BARRED by FOUR LAWS #3 (it is underwater). OPTIONS: TACTICAL has no measurable trigger 20 minutes in -- the trailing-30-to-60-minute volume baseline the confirmation clause needs does not yet exist, and an opening-window baseline is inflated; CORE declines because every 21-45 DTE window straddles the 09-01/09-02 print cluster.",
+    "what_this_run_added": "Completed the IV duty at 8 of 8 for 2026-08-31 (the 13:40Z run logged only SPY/QQQ/NVDA; this run measured AMD, TSM, AVGO, MSFT and TSLA on the 2026-10-02 board). Headline: AVGO ex-gap IV/RV 1.4811, the richest reading on the core list -- but the CLIMB from 1.4555 is entirely DENOMINATOR (atm_iv flat at 0.494868 -> 0.493750 while ex-gap rv decayed 0.3400 -> 0.3334), second consecutive session, so it must NOT be reported as event premium accumulating. Also ran the HARD RULE 7 research on LLY and recorded a WEAKENED verdict.",
+    "handoff": "NEXT RUN: (1) re-read latest_morning.md -- Monday's Stock Report Action was due 14:00Z, minutes after this run, so a FRESH report should exist and its signals supersede Friday's. (2) The daily report for 2026-08-31 is UNWRITTEN and belongs to the first run at or after 19:15Z; READ _eod_report_written before writing it, per the collision note there. (3) Both IV and brief are done for today; do not redo them. (4) A run before 2026-09-02 should re-measure AVGO's FRONT board -- the event premium lives there, not on the 32-DTE row.",
+    "union_note": "This ledger state is the UNION of the 13:45Z and 13:50Z runs, not either one. Sibling's contributions kept whole: the collision key and its MMM ledger sync. This run's kept: the later _current_state_run and _last_reconciliation, the LLY _thesis_state, and the completed IV sweep. Neither run placed a trade, so there is no fill to reconcile between them."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
