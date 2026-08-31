@@ -755,14 +755,14 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-08-31T18:01:00Z",
+    "run_utc": "2026-08-31T18:20:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-08-31",
     "outcome": "NO TRADE both books. Nothing blocked by capital, throttle or loss cap.",
-    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST. Options: SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* 0.0000. Equities: ROST 2.000000 / LLY 0.420254 / PNC 1.825758 / MDLZ 7.988509 / MMM 2.884552, one-for-one with holdings.json. get_equity_orders(created_at_gte=2026-08-31) returns exactly ONE order all day, the already-ledgered 13:37:54Z MMM fill (placed_agent agentic, avg 173.3371). get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000.",
-    "capital": "18:01Z get_portfolio: total $3,954.15; equity $2,374.19; options $533.00; cash $1,046.96; unleveraged_buying_power $1,046.96 == buying_power (no margin extended, FOUR LAWS #4 clean). Reserve max(0.05 x 3954.15 = $197.71, $250.00) = $250.00, the flat $250 binding below a $5,000 account. DEPLOYABLE $796.96, above one normal position size, so the rotation-beats-the-weakest test is NOT triggered.",
+    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST. Options: SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* 0.0000. Equities: ROST 2.000000 / LLY 0.420254 / PNC 1.825758 / MDLZ 7.988509 / MMM 2.884552, one-for-one with holdings.json. get_equity_orders(created_at_gte=2026-08-31) returns exactly ONE order all day, the already-ledgered 13:37:54Z MMM fill (placed_agent agentic, avg 173.3371). No sibling entry landed.",
+    "capital": "18:16Z get_portfolio: total $3,949.42; equity $2,374.46; options $528.00; cash $1,046.96; unleveraged_buying_power $1,046.96 == buying_power (no margin extended, FOUR LAWS #4 clean). Reserve max(0.05 x 3949.42 = $197.47, $250.00) = $250.00, the flat $250 binding below a $5,000 account. DEPLOYABLE $796.96, above one normal position size, so the rotation-beats-the-weakest test is NOT triggered.",
     "throttles": "Equities 1 of 3 for the day (MMM), 0 of 1 this run and UNUSED BY CHOICE. Options 0 of 8 for the day, 0 of 2 this run. Realized options P/L $0.00 against the -$400 cap, READ from _realized_options_pnl_today, not typed as a default.",
-    "eod_report": "NOT YET DUE. _eod_report_written last stamped for trading day 2026-08-28; today's report is due on the first run at or after 19:15Z. This run is 18:01Z."
+    "eod_report": "NOT YET DUE. _eod_report_written last stamped for trading day 2026-08-28; today's report is due on the first run at or after 19:15Z. This run is 18:20Z. READ this key before writing, per the 2026-08-28 collision note -- the 14:15 CT gate admits every later run and does not name a unique owner."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -1361,5 +1361,22 @@
       "reading": "The sell-off was the participated event; the recovery is drift. This is the same shape as the 2026-08-26 decaying-baseline finding: a bounce measured against a drained window looks like demand and is not. It supports the decline rather than the re-entry."
     },
     "outcome": "NO ENTRY on GD. Recorded because the RETEST was correct to run and its ANSWER was 'the veto that expired was never the one that mattered' -- which is the outcome _VETOES_HAVE_DIFFERENT_HALF_LIVES predicts and the first live instance of it resolving that way."
+  },
+  "_COHORT_SHRINKAGE_IS_SELECTION_ON_THE_OUTCOME": {
+    "found_utc": "2026-08-31T18:20:00Z",
+    "status": "DURABLE measurement rule for the equity entry gate. Not session-scoped; do not delete at the bell. Read WITH _OVERSOLD_COHORT_IS_MEASURABLE_BEFORE_ANY_NAME_IS_GRADED (15:25Z), which it corrects the reading of rather than replaces.",
+    "claim": "A SHRINKING OVERSOLD SCREEN IS NOT EVIDENCE THE COHORT IS REVERTING. Departure from an RSI2<10 screen is DEFINED BY the name having bounced, so counting departures is reading the outcome and calling it a signal. The count-based read and the level-based read of the same data pointed in OPPOSITE directions today, and only the level-based one is non-circular.",
+    "what_the_count_said": "The 18:02Z report snapshot dropped the screen from 22 names to 18 -- BLK, GE, FDX and USB all crossed RSI2 above 10 in one hour -- and EVERY surviving name's RSI2 rose (COF 7.1->9.3, RTX 7.6->8.9, MDLZ 4.1->5.5, CAT 7.9->9.3). Read naively that is a cohort healing, and it is the natural ground on which a run would declare the 15:25Z cohort veto expired.",
+    "what_the_LEVEL_said_measured": {
+      "method": "Fixed 22-name cohort as constituted on the 17:01Z snapshot, priced from that snapshot to live quotes at 18:16-18:17Z, so no name is dropped for having left the screen. Benchmarks pinned to the SAME clock: SPY's 17:00Z 5-minute bar open 765.850.",
+      "seventy_five_minute_window": "cohort +0.1861% (median +0.1617%, 20 of 22 green) against SPY +0.1162%, QQQ +0.0638%, XLI +0.1714%, XLF +0.2079%, IWM +0.0546%. A 7bp edge over SPY -- the cohort did not revert, THE TAPE DRIFTED UP and carried it. '20 of 22 green' is what any rising 75-minute window produces and is not a reversion signal.",
+      "leavers_vs_survivors": "leavers +0.4691%, survivors +0.1232%, desk's 5 held +0.0558%. The leavers' 35bp of outperformance is the circularity made visible: they are the group SELECTED FOR having risen. It must not be reported as a finding.",
+      "population_matched_retest_of_the_15_25Z_VETO": "Measured on the basis the veto was originally computed (day change vs prior close, NON-HELD candidates only, vs SPY). 15:27Z: n=15 mean -1.4524% vs SPY -0.4497%, spread -1.0027 pts. 18:17Z: n=17 mean -1.5865% vs SPY -0.3392%, spread -1.2472 pts. THE COHORT GOT ABSOLUTELY WORSE (-1.45 -> -1.59) WHILE SPY IMPROVED (-0.45 -> -0.34). The spread WIDENED by 0.245 pts over three hours."
+    },
+    "the_verdict": "THE 15:25Z COHORT VETO STANDS, AND STANDS HARDER. The screen shrank while the class it screens was being distributed harder relative to the index. No equity entry was taken; the slot stayed 1 of 3 by choice, not by any block.",
+    "I_CAUGHT_MY_OWN_DENOMINATOR_BUG_IN_THE_HEADLINE_STATISTIC_BEFORE_PUBLISHING_IT": "The first framing of the retest was a RATIO -- 3.23x -> 4.68x the index decline -- which reads as catastrophic deterioration. It is inflated by a SHRINKING DENOMINATOR: SPY's own decline narrowed from -0.4497% to -0.3392%, so the ratio would have risen even had the cohort not moved at all. This is the fifth instance of this file's denominator family (session-average too strict, trailing-local too easy in a decaying tape, closing-auction too easy, the 5-min/1-min substitution direction) and the FIRST caught inside the desk's own headline number rather than in a market input. REPORT THE SPREAD IN POINTS, NEVER THE RATIO, when both legs of a relative measure are moving. The conclusion survives on the spread (-1.0027 -> -1.2472 pts) but the ratio overstated the deterioration roughly threefold.",
+    "population_caveat_stated_because_it_limits_the_comparison": "The 15:27Z measurement covered 15 non-held candidates; today's matched set is 17. They are not identical populations -- names entered and left the screen between the two readings -- so the comparison is indicative, not exact. It is quoted on the matched basis precisely so the direction is not an artifact of including the desk's own five holdings, which are the BEST subgroup on the day (-0.8225% vs the cohort's -1.4129%).",
+    "the_transferable_lesson": "When a screen's MEMBERSHIP is a function of the variable you are trying to measure, membership changes carry no information about that variable. Measure the FIXED set across time, not the set as currently constituted. Same family as the survivorship and denominator findings: a statistic that is cheap, intuitive, and defined in terms of its own outcome.",
+    "honest_scope": "Changed no decision -- the equity slot was going unused on the standing gates regardless, and both options tracks declined independently. A gate's inputs can only be audited credibly on a run where the audit does not license a trade."
   }
 }
