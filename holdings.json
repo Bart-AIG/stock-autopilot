@@ -1498,5 +1498,33 @@
     "honest_bounds": "(a) n=1 for the 85-minute figure and n=2 for the whole boundary series (40 min on a non-month-end Friday, 85 here) -- two points name a mechanism, they do not fit a curve. (b) ONLY TWO BUCKETS have stepped so far, so 'the tape does not return to the prevailing rate' is PROVISIONAL; the next run can confirm or retire it by checking whether 18:45-19:00Z stays above ~1.4x. (c) The 16:00-16:55Z prevailing window was reconciled only via its neighbours, not bucket-by-bucket. (d) This measures SPY; QQQ's step is present but shallower (122,384 then 83,390 against a thinner book).",
     "changed_no_decision": "NO TACTICAL trigger existed to be confirmed or vetoed: neither index broke a structural level, so the volume clause was never load-bearing this run. A filter's inputs can only be audited credibly on a run the audit does not benefit -- that condition is met here.",
     "what_it_licenses_and_what_it_does_not": "It BARS opening a TACTICAL scalp from 18:35Z onward today, on the 2026-08-27 rule that a trigger which cannot be confirmed must not be traded -- and it moves that bar 45 minutes earlier than a run applying the 40-minute figure would have. It licenses NOTHING on the entry side: an unreadable denominator is a reason to stand down, never a reason to enter without one."
+  },
+  "_RSI2_REVERSION_AND_PROFIT_NEED_NOT_COINCIDE": {
+    "measured_utc": "2026-08-31T19:05:00Z",
+    "subject": "PNC, the book's oldest position (8 sessions), has completed a FULL RSI2 mean-reversion cycle -- 1.62 to 66.05 and back to 4.1 -- and the desk never had a single day on which BOTH exit conditions were true at once. The oscillator did its entire job and produced no bankable exit.",
+    "why_this_is_new": "The 2026-08-26 finding established that the RSI2>=70 mechanical exit is a PROFIT-banking authority and must be gated on price > entry (it had fired on PNC at 78.5 intraday while the position was 0.34% underwater). That finding fixed the GATE. Nobody had then watched a full cycle to completion to see what the gate actually costs -- or whether the two conditions ever co-occur at all in a grinding tape. This is that measurement.",
+    "method": "get_equity_technical_indicators(PNC, rsi, period=2, interval=day) for the daily RSI2 series, cross-referenced against get_equity_historicals(PNC, day) OHLC bars over the same holding period. Entry is the ledgered fill: 2026-08-19, 246.4729, 1.825758 sh, placed_agent agentic.",
+    "rsi2_path_daily_closes": {
+      "2026-08-19 (entry day)": 3.389,
+      "2026-08-20": 1.623,
+      "2026-08-21": 25.767,
+      "2026-08-24": 37.026,
+      "2026-08-25": 49.098,
+      "2026-08-26 PEAK": 66.05,
+      "2026-08-27": 27.756,
+      "2026-08-28": 12.123,
+      "2026-08-31 (19:01Z report)": 4.1
+    },
+    "THE_FINDING_the_two_conditions_never_co_occurred": "The mechanical exit needs RSI2>=70 AND price>entry ON THE SAME DAY. Measured across all 8 sessions held: on the day RSI2 PEAKED (08-26 at 66.05) the session HIGH was 246.425 -- 4.8 CENTS BELOW the 246.4729 entry, so price never reached break-even. On the two days price DID trade above entry intraday (08-24 high 247.080, +$0.61; 08-28 high 246.640, +$0.17) RSI2 read 37.03 and 12.12 respectively -- nowhere near the trigger and, on 08-28, already falling. The oscillator peak and the price peak were two sessions apart and never aligned.",
+    "magnitudes": {
+      "peak_rsi2_vs_trigger": "66.050 vs 70 -- missed the trigger by 3.95 points, so the gate was never even tested on the peak day.",
+      "max_favorable_excursion": "+$0.6071/sh on the 08-24 intraday high (+0.246%), = +$1.11 on 1.825758 shares. On the highest CLOSE of the hold (08-26, 244.67) the position was -$3.29 / -0.73%.",
+      "position_now": "19:01Z 239.97, -$11.87 / -2.64%. RSI2 4.1 -- a SECOND oversold print, from a base ~2.6% below the first."
+    },
+    "what_it_says_about_the_08_26_gate": "It VINDICATES the gate at near-zero opportunity cost, which is the strongest form the evidence could take. Had the ungated reading been applied, the RSI2 print that fired on 08-26 would have banked a LOSS. Had the gated version somehow fired at the best moment available (08-24 high, RSI2 37), it would have banked +$1.11 before spread. There was no profitable exit anywhere in this cycle to be missed. The gate cost nothing and prevented a realized loss.",
+    "the_transferable_mechanism": "RSI2 is a RELATIVE oscillator normalized to recent range, so it re-baselines to wherever price has settled. An entry taken before price bottoms means the whole subsequent reversion is measured against a LOWER base: the oscillator can traverse its entire range while price merely chops sideways. PNC ran 1.6 -> 66 while price stayed inside a 241.30-247.08 band the entire time. THEREFORE: 'the RSI2 signal reverted' and 'the trade is profitable' are independent events, and a swing thesis that treats the first as implying the second is unfalsifiable in exactly the tape where it fails.",
+    "HONEST_SCOPE_n_equals_1": "One name, one cycle. This does NOT condemn the RSI2 screen and must not be cited as though it did. Four of the book's five positions (LLY 2 sessions, MDLZ 1, ROST 1, MMM 0) are far too young for their signal to have had its chance -- only PNC has been held long enough to judge, and judging the strategy off its single oldest position is precisely the selection-on-the-outcome error the 18:18Z run recorded today. What it establishes is narrower and firm: a completed reversion is not a guaranteed exit, so the desk should not model RSI2 entries as self-liquidating.",
+    "NOT_A_SELL_SIGNAL_TODAY": "Explicitly: this is a TECHNICAL observation and HARD RULE 6 states a technical flag alone is NEVER a sell -- a thesis sell requires HARD RULE 7 research reaching a BROKEN verdict with sources. No such research was done this run and no sell is proposed. PNC carries no price stop under HARD RULE 5, remains HOLD-on-thesis, and its real exit gate is the monthly rebalance.",
+    "FEEDS_THE_2026_09_01_REBALANCE": "This is direct input to _MONTHLY_REBALANCE_PROPOSAL_2026-09-01, which is due tomorrow and whose cull question for PNC previously had no evidence attached beyond 'underwater 8 sessions'. The evidence is now specific: PNC was given a complete signal cycle and it produced no bankable exit, and it has re-entered oversold from a lower base. That is a fact the rebalance should weigh -- alongside a proper HARD RULE 7 thesis check, which is what would actually authorize a cull."
   }
 }
