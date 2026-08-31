@@ -186,6 +186,25 @@
    "_opening_window_caveat": "Quotes taken 13:41Z, ELEVEN minutes after the 13:30Z bell -- outside the strict 5-minute opening-print window, but the 2026-08-27 audit found the opening-window inflation still measurable much later (a re-measure at 16:02Z came in -4.23% below that day's 13:31-13:41Z ATM reading). So these rows are USABLE but should be treated as an upper bound on ATM IV; a settled-market re-measure would likely read slightly lower. Recorded rather than silently trusted.",
    "_board_note": "Expiry 2026-09-25, 28 DTE -- the board nearest 30 DTE, per the IV method. NOTE it is a WEEKLY, not the September monthly (2026-09-18, 21 DTE). Per the 2026-08-24 three-instance measurement-bug finding, the wide bid/ask seen on several of these contracts is an IV-SWEEP SPREAD and is NEVER a liquidity verdict on the name -- MSFT quoted 11.3% of mid here and has repeatedly measured ~2.5% on the monthly at the target delta. Do not disqualify any name on these spreads; re-quote the board you would actually trade.",
    "_SETTLED_REMEASURE_1447Z": "OVERWRITTEN IN PLACE at 14:47Z with a SETTLED-MARKET re-measure, which is exactly what this row's own _opening_window_caveat asked a later run to do. The 13:41Z reading was atm_iv 0.117570 on the 772 strike; this settled reading is 0.114590 on the 773 strike, -2.53%. The caveat was RIGHT in direction and the magnitude brackets the -4.23% the 2026-08-27 audit measured -- SPY -2.53%, QQQ -4.37%. SECOND INDEPENDENT CONFIRMATION of opening-window ATM inflation; treat any row quoted inside the first ~15 minutes as an upper bound and re-measure before letting it gate a trade."
+  },
+  {
+   "date": "2026-08-31",
+   "spot": 766.284,
+   "atm_strike": 766.0,
+   "atm_iv": 0.12137,
+   "dte_used": 30,
+   "expiry": "2026-09-30",
+   "rv_30d": 0.1187,
+   "rv_30d_ex_top2": 0.0997,
+   "iv_rv_ratio": 1.0225,
+   "iv_rv_ratio_ex_top2": 1.2174,
+   "largest_1d_move_in_window_pct": 1.787,
+   "_call_put": "call 0.110343 / put 0.132397, averaged per the IV method.",
+   "_rv_window": "rv from 30 daily log returns through the 2026-08-28 regular-session close, annualised x sqrt(252). Own bars, not inherited.",
+   "_n_readings": 15,
+   "_opening_window_caveat": "Option quotes taken 13:40Z, TEN minutes after the 13:30Z bell. Per the twice-confirmed opening-window finding (SPY -2.53% / QQQ -4.37% on 2026-08-28 re-measure; -4.23% on the 2026-08-27 audit), treat this atm_iv as an UPPER BOUND and re-measure before letting it gate a trade. No trade was gated on it this run.",
+   "_board_note": "Expiry 2026-09-30, 30 DTE -- the board nearest 30 DTE per the IV method. SPY and QQQ carry a genuine 2026-09-30 board (30 DTE exactly); the six single names do not, so they use 2026-10-02 (32 DTE). NOT the September monthly.",
+   "_spread_is_not_a_liquidity_verdict": "bid/ask on the quoted contract was 0.36% of mid. Per the 2026-08-24 three-instance measurement-bug finding this is an IV-SWEEP SPREAD and is NEVER a liquidity verdict on the name -- it is a weekly board quoted ten minutes after the bell. Re-quote the MONTHLY at the TARGET delta before excluding any name on liquidity."
   }
  ],
  "QQQ": [
@@ -373,6 +392,25 @@
    "_overwrite_note": "OVERWRITES the 16:20Z row (atm_iv 0.173300 at spot 716.6) per the one-row-per-day rule. Kept here because the delta is the finding: +0.73% on essentially unchanged spot AFTER a fresh session low of 715.690.",
    "_claim_scored": "OUT-OF-SAMPLE TEST of the 16:20Z run's falsifiable claim ('if ATM IV starts BIDDING on a further leg down, the narrow-drag reading breaks'). QQQ made a lower low; ATM IV did NOT bid. The claim HOLDS for a second consecutive test. HONEST CORRECTION TO THE ADJECTIVE: the prior run scored it as IV 'easing'; this run measures it ticking marginally UP. Both are the same fact -- ATM IV is unmoved across a 1.4-point range and a new session low. Carry the FACT forward, not either adjective.",
    "_decision_relevance": "ex-gap 1.0403 is marginally RICH and drifting slightly richer (1.0328 at 16:20Z). A long put would collect delta with vega leaning against it on the very move meant to justify it. This was a SUPPORTING objection to the 16:30Z TACTICAL decline, never the reason -- the volume clause was. IV sanity is a necessary condition and never a thesis."
+  },
+  {
+   "date": "2026-08-31",
+   "spot": 714.34,
+   "atm_strike": 714.0,
+   "atm_iv": 0.178442,
+   "dte_used": 30,
+   "expiry": "2026-09-30",
+   "rv_30d": 0.2093,
+   "rv_30d_ex_top2": 0.1633,
+   "iv_rv_ratio": 0.8526,
+   "iv_rv_ratio_ex_top2": 1.0927,
+   "largest_1d_move_in_window_pct": 3.34,
+   "_call_put": "call 0.173524 / put 0.183359, averaged per the IV method.",
+   "_rv_window": "rv from 30 daily log returns through the 2026-08-28 regular-session close, annualised x sqrt(252). Own bars, not inherited.",
+   "_n_readings": 15,
+   "_opening_window_caveat": "Option quotes taken 13:40Z, TEN minutes after the 13:30Z bell. Per the twice-confirmed opening-window finding (SPY -2.53% / QQQ -4.37% on 2026-08-28 re-measure; -4.23% on the 2026-08-27 audit), treat this atm_iv as an UPPER BOUND and re-measure before letting it gate a trade. No trade was gated on it this run.",
+   "_board_note": "Expiry 2026-09-30, 30 DTE -- the board nearest 30 DTE per the IV method. SPY and QQQ carry a genuine 2026-09-30 board (30 DTE exactly); the six single names do not, so they use 2026-10-02 (32 DTE). NOT the September monthly.",
+   "_spread_is_not_a_liquidity_verdict": "bid/ask on the quoted contract was 1.01% of mid. Per the 2026-08-24 three-instance measurement-bug finding this is an IV-SWEEP SPREAD and is NEVER a liquidity verdict on the name -- it is a weekly board quoted ten minutes after the bell. Re-quote the MONTHLY at the TARGET delta before excluding any name on liquidity."
   }
  ],
  "NVDA": [
@@ -560,6 +598,25 @@
    "_EX_GAP_CROSSED_BACK_ABOVE_1_AND_THE_LESSON": "READ: ex-gap is 1.0185 at the 220 ATM (1.0156 at the constant 225 strike) -- BACK ABOVE 1.0, fair-to-marginally-rich. Raw is 0.7841, still the +8.74% gap artifact and still not the decision input. THIS DIRECTLY REVERSES THE CONCLUSION THE 15:31Z RUN PUBLISHED, which read 0.9840 and declared the standing 'NVDA event premium is rich' objection FULLY UNWOUND, FALSE, and to 'stop being cited'. THE LESSON, and it is a new one: DO NOT RETIRE A STANDING OBJECTION ON A SINGLE READING THAT SITS WITHIN NOISE OF ITS THRESHOLD. That reading was 1.6% below 1.0; this same instrument then moved 3.2% in two hours on an ordinary afternoon -- TWICE the margin the retirement rested on. A crossing smaller than the measurement's own intraday variability is a CROSSING, not a RETIREMENT, and should be marked 'crossed, provisional' and required to hold across sessions before any future run is told to stop citing the objection. Same family as the regime-label staleness finding (a label earned in the morning and unwound by the close) and the same corrective: a conclusion is a timestamped measurement, and the stronger the verb used to publish it ('retired', 'stop citing'), the more it should have to survive. Note the honest scope: this changed no decision. CORE was declined this run on the 09-01/09-02 semis print cluster spanning every 21-45 DTE window, not on IV -- and fair vol, rich vol or cheap vol supplies no thesis either way.",
    "_opening_window_caveat": "DISCHARGED and no longer applicable: quotes taken 17:24Z, deep into a settled session, well past both the opening auction window and the ~20-minute closing-auction window.",
    "_front_board_check_1903Z": "7-DTE 2026-09-04 board ATM IV 0.345632 (217.5P) / 0.346676 (220P) / 0.348911 (215P) against this row's 28-DTE 0.336319 -> front/back kink 1.028x. Consistent with the 2026-08-28T18:30Z finding that NVDA's event premium is fully discharged (1.84x pre-print, 1.0746x on 08-27, 1.028x now); the residual kink is ordinary near-dated term structure, not an event. Logged as a field on today's row, NOT as a second row -- one row per name per day."
+  },
+  {
+   "date": "2026-08-31",
+   "spot": 217.19,
+   "atm_strike": 215.0,
+   "atm_iv": 0.324472,
+   "dte_used": 32,
+   "expiry": "2026-10-02",
+   "rv_30d": 0.447,
+   "rv_30d_ex_top2": 0.3545,
+   "iv_rv_ratio": 0.7259,
+   "iv_rv_ratio_ex_top2": 0.9153,
+   "largest_1d_move_in_window_pct": 8.377,
+   "_call_put": "call 0.319704 / put 0.329241, averaged per the IV method.",
+   "_rv_window": "rv from 30 daily log returns through the 2026-08-28 regular-session close, annualised x sqrt(252). Own bars, not inherited.",
+   "_n_readings": 15,
+   "_opening_window_caveat": "Option quotes taken 13:40Z, TEN minutes after the 13:30Z bell. Per the twice-confirmed opening-window finding (SPY -2.53% / QQQ -4.37% on 2026-08-28 re-measure; -4.23% on the 2026-08-27 audit), treat this atm_iv as an UPPER BOUND and re-measure before letting it gate a trade. No trade was gated on it this run.",
+   "_board_note": "Expiry 2026-10-02, 32 DTE -- the board nearest 30 DTE per the IV method. SPY and QQQ carry a genuine 2026-09-30 board (30 DTE exactly); the six single names do not, so they use 2026-10-02 (32 DTE). NOT the September monthly.",
+   "_spread_is_not_a_liquidity_verdict": "bid/ask on the quoted contract was 2.97% of mid. Per the 2026-08-24 three-instance measurement-bug finding this is an IV-SWEEP SPREAD and is NEVER a liquidity verdict on the name -- it is a weekly board quoted ten minutes after the bell. Re-quote the MONTHLY at the TARGET delta before excluding any name on liquidity."
   }
  ],
  "AMD": [
@@ -740,6 +797,25 @@
    "_n_readings": 14,
    "_opening_window_caveat": "Quotes taken 13:41Z, ELEVEN minutes after the 13:30Z bell -- outside the strict 5-minute opening-print window, but the 2026-08-27 audit found the opening-window inflation still measurable much later (a re-measure at 16:02Z came in -4.23% below that day's 13:31-13:41Z ATM reading). So these rows are USABLE but should be treated as an upper bound on ATM IV; a settled-market re-measure would likely read slightly lower. Recorded rather than silently trusted.",
    "_board_note": "Expiry 2026-09-25, 28 DTE -- the board nearest 30 DTE, per the IV method. NOTE it is a WEEKLY, not the September monthly (2026-09-18, 21 DTE). Per the 2026-08-24 three-instance measurement-bug finding, the wide bid/ask seen on several of these contracts is an IV-SWEEP SPREAD and is NEVER a liquidity verdict on the name -- MSFT quoted 11.3% of mid here and has repeatedly measured ~2.5% on the monthly at the target delta. Do not disqualify any name on these spreads; re-quote the board you would actually trade."
+  },
+  {
+   "date": "2026-08-31",
+   "spot": 467.3988,
+   "atm_strike": 465.0,
+   "atm_iv": 0.492036,
+   "dte_used": 32,
+   "expiry": "2026-10-02",
+   "rv_30d": 0.7243,
+   "rv_30d_ex_top2": 0.5954,
+   "iv_rv_ratio": 0.6793,
+   "iv_rv_ratio_ex_top2": 0.8264,
+   "largest_1d_move_in_window_pct": 12.219,
+   "_call_put": "call 0.489429 / put 0.494644, averaged per the IV method.",
+   "_rv_window": "rv from 30 daily log returns through the 2026-08-28 regular-session close, annualised x sqrt(252). Own bars, not inherited.",
+   "_n_readings": 15,
+   "_opening_window_caveat": "Option quotes taken 13:40Z, TEN minutes after the 13:30Z bell. Per the twice-confirmed opening-window finding (SPY -2.53% / QQQ -4.37% on 2026-08-28 re-measure; -4.23% on the 2026-08-27 audit), treat this atm_iv as an UPPER BOUND and re-measure before letting it gate a trade. No trade was gated on it this run.",
+   "_board_note": "Expiry 2026-10-02, 32 DTE -- the board nearest 30 DTE per the IV method. SPY and QQQ carry a genuine 2026-09-30 board (30 DTE exactly); the six single names do not, so they use 2026-10-02 (32 DTE). NOT the September monthly.",
+   "_spread_is_not_a_liquidity_verdict": "bid/ask on the quoted contract was 17.04% of mid. Per the 2026-08-24 three-instance measurement-bug finding this is an IV-SWEEP SPREAD and is NEVER a liquidity verdict on the name -- it is a weekly board quoted ten minutes after the bell. Re-quote the MONTHLY at the TARGET delta before excluding any name on liquidity."
   }
  ],
  "TSM": [
@@ -919,6 +995,25 @@
    "_n_readings": 14,
    "_opening_window_caveat": "Quotes taken 13:41Z, ELEVEN minutes after the 13:30Z bell -- outside the strict 5-minute opening-print window, but the 2026-08-27 audit found the opening-window inflation still measurable much later (a re-measure at 16:02Z came in -4.23% below that day's 13:31-13:41Z ATM reading). So these rows are USABLE but should be treated as an upper bound on ATM IV; a settled-market re-measure would likely read slightly lower. Recorded rather than silently trusted.",
    "_board_note": "Expiry 2026-09-25, 28 DTE -- the board nearest 30 DTE, per the IV method. NOTE it is a WEEKLY, not the September monthly (2026-09-18, 21 DTE). Per the 2026-08-24 three-instance measurement-bug finding, the wide bid/ask seen on several of these contracts is an IV-SWEEP SPREAD and is NEVER a liquidity verdict on the name -- MSFT quoted 11.3% of mid here and has repeatedly measured ~2.5% on the monthly at the target delta. Do not disqualify any name on these spreads; re-quote the board you would actually trade."
+  },
+  {
+   "date": "2026-08-31",
+   "spot": 419.96,
+   "atm_strike": 420.0,
+   "atm_iv": 0.327751,
+   "dte_used": 32,
+   "expiry": "2026-10-02",
+   "rv_30d": 0.3869,
+   "rv_30d_ex_top2": 0.2854,
+   "iv_rv_ratio": 0.8471,
+   "iv_rv_ratio_ex_top2": 1.1484,
+   "largest_1d_move_in_window_pct": 7.366,
+   "_call_put": "call 0.329539 / put 0.325963, averaged per the IV method.",
+   "_rv_window": "rv from 30 daily log returns through the 2026-08-28 regular-session close, annualised x sqrt(252). Own bars, not inherited.",
+   "_n_readings": 15,
+   "_opening_window_caveat": "Option quotes taken 13:40Z, TEN minutes after the 13:30Z bell. Per the twice-confirmed opening-window finding (SPY -2.53% / QQQ -4.37% on 2026-08-28 re-measure; -4.23% on the 2026-08-27 audit), treat this atm_iv as an UPPER BOUND and re-measure before letting it gate a trade. No trade was gated on it this run.",
+   "_board_note": "Expiry 2026-10-02, 32 DTE -- the board nearest 30 DTE per the IV method. SPY and QQQ carry a genuine 2026-09-30 board (30 DTE exactly); the six single names do not, so they use 2026-10-02 (32 DTE). NOT the September monthly.",
+   "_spread_is_not_a_liquidity_verdict": "bid/ask on the quoted contract was 15.84% of mid. Per the 2026-08-24 three-instance measurement-bug finding this is an IV-SWEEP SPREAD and is NEVER a liquidity verdict on the name -- it is a weekly board quoted ten minutes after the bell. Re-quote the MONTHLY at the TARGET delta before excluding any name on liquidity."
   }
  ],
  "AVGO": [
@@ -1103,6 +1198,25 @@
    "_board_note": "Expiry 2026-09-25, 28 DTE -- the board nearest 30 DTE, per the IV method. NOTE it is a WEEKLY, not the September monthly (2026-09-18, 21 DTE). Per the 2026-08-24 three-instance measurement-bug finding, the wide bid/ask seen on several of these contracts is an IV-SWEEP SPREAD and is NEVER a liquidity verdict on the name -- MSFT quoted 11.3% of mid here and has repeatedly measured ~2.5% on the monthly at the target delta. Do not disqualify any name on these spreads; re-quote the board you would actually trade.",
    "_note": "SETTLED RE-MEASURE at 18:22Z replacing the earlier intraday row (spot 376.0145, atm_iv 0.507981). Board unchanged: 2026-09-25, 28 DTE, ATM strike 370 vs spot 368.73, call 0.488684 / put 0.501052. The -2.58% IV revision sits inside the -2.5% to -4.4% intraday-inflation band this file records. CRITICAL CONTEXT, see holdings._EVENT_PREMIUM_IS_INVISIBLE_ON_THE_30DTE_BOARD: this 28-DTE row CANNOT see AVGO's 2026-09-02 print. The 2026-09-04 front board (7 DTE, spans the same print) carries ATM IV 0.737310 -- a 1.4899x kink -- implying a +/-8.74% event move on a 38.12% base vol. Do NOT read 0.4949 as this name's standing vol, and do NOT read the ex-gap ratio's monotonic climb as event premium accumulating: the numerator was FLAT (0.507981 on both 08-21 and the pre-settle 08-28 row) and the entire ratio move came from ex-gap realized vol decaying 0.359887 -> 0.340000.",
    "_resettled_utc": "2026-08-28T18:30:00Z"
+  },
+  {
+   "date": "2026-08-31",
+   "spot": 367.005,
+   "atm_strike": 365.0,
+   "atm_iv": 0.484363,
+   "dte_used": 32,
+   "expiry": "2026-10-02",
+   "rv_30d": 0.419,
+   "rv_30d_ex_top2": 0.3395,
+   "iv_rv_ratio": 1.156,
+   "iv_rv_ratio_ex_top2": 1.4267,
+   "largest_1d_move_in_window_pct": 6.402,
+   "_call_put": "call 0.476763 / put 0.491962, averaged per the IV method.",
+   "_rv_window": "rv from 30 daily log returns through the 2026-08-28 regular-session close, annualised x sqrt(252). Own bars, not inherited.",
+   "_n_readings": 15,
+   "_opening_window_caveat": "Option quotes taken 13:40Z, TEN minutes after the 13:30Z bell. Per the twice-confirmed opening-window finding (SPY -2.53% / QQQ -4.37% on 2026-08-28 re-measure; -4.23% on the 2026-08-27 audit), treat this atm_iv as an UPPER BOUND and re-measure before letting it gate a trade. No trade was gated on it this run.",
+   "_board_note": "Expiry 2026-10-02, 32 DTE -- the board nearest 30 DTE per the IV method. SPY and QQQ carry a genuine 2026-09-30 board (30 DTE exactly); the six single names do not, so they use 2026-10-02 (32 DTE). NOT the September monthly.",
+   "_spread_is_not_a_liquidity_verdict": "bid/ask on the quoted contract was 10.29% of mid. Per the 2026-08-24 three-instance measurement-bug finding this is an IV-SWEEP SPREAD and is NEVER a liquidity verdict on the name -- it is a weekly board quoted ten minutes after the bell. Re-quote the MONTHLY at the TARGET delta before excluding any name on liquidity."
   }
  ],
  "MSFT": [
@@ -1284,6 +1398,25 @@
    "_opening_window_caveat": "Quotes taken 13:41Z, ELEVEN minutes after the 13:30Z bell -- outside the strict 5-minute opening-print window, but the 2026-08-27 audit found the opening-window inflation still measurable much later (a re-measure at 16:02Z came in -4.23% below that day's 13:31-13:41Z ATM reading). So these rows are USABLE but should be treated as an upper bound on ATM IV; a settled-market re-measure would likely read slightly lower. Recorded rather than silently trusted.",
    "_board_note": "Expiry 2026-09-25, 28 DTE -- the board nearest 30 DTE, per the IV method. NOTE it is a WEEKLY, not the September monthly (2026-09-18, 21 DTE). Per the 2026-08-24 three-instance measurement-bug finding, the wide bid/ask seen on several of these contracts is an IV-SWEEP SPREAD and is NEVER a liquidity verdict on the name -- MSFT quoted 11.3% of mid here and has repeatedly measured ~2.5% on the monthly at the target delta. Do not disqualify any name on these spreads; re-quote the board you would actually trade.",
    "_note": "MOST EXTREME ARTIFACT IN TODAY'S SWEEP and a textbook instance of the 2026-08-20 finding: raw 0.4996 vs ex-gap 1.0051. The raw number says implied vol is HALF of realized; the honest ex-gap reading says premium is priced almost exactly FAIR. The gap doing the work is a single +15.51% day inside the 30-sample window. A run quoting the headline would conclude MSFT vol is on sale and be wrong."
+  },
+  {
+   "date": "2026-08-31",
+   "spot": 510.16,
+   "atm_strike": 510.0,
+   "atm_iv": 0.24736,
+   "dte_used": 32,
+   "expiry": "2026-10-02",
+   "rv_30d": 0.4856,
+   "rv_30d_ex_top2": 0.2404,
+   "iv_rv_ratio": 0.5094,
+   "iv_rv_ratio_ex_top2": 1.029,
+   "largest_1d_move_in_window_pct": 14.416,
+   "_call_put": "call 0.246838 / put 0.247881, averaged per the IV method.",
+   "_rv_window": "rv from 30 daily log returns through the 2026-08-28 regular-session close, annualised x sqrt(252). Own bars, not inherited.",
+   "_n_readings": 15,
+   "_opening_window_caveat": "Option quotes taken 13:40Z, TEN minutes after the 13:30Z bell. Per the twice-confirmed opening-window finding (SPY -2.53% / QQQ -4.37% on 2026-08-28 re-measure; -4.23% on the 2026-08-27 audit), treat this atm_iv as an UPPER BOUND and re-measure before letting it gate a trade. No trade was gated on it this run.",
+   "_board_note": "Expiry 2026-10-02, 32 DTE -- the board nearest 30 DTE per the IV method. SPY and QQQ carry a genuine 2026-09-30 board (30 DTE exactly); the six single names do not, so they use 2026-10-02 (32 DTE). NOT the September monthly.",
+   "_spread_is_not_a_liquidity_verdict": "bid/ask on the quoted contract was 13.75% of mid. Per the 2026-08-24 three-instance measurement-bug finding this is an IV-SWEEP SPREAD and is NEVER a liquidity verdict on the name -- it is a weekly board quoted ten minutes after the bell. Re-quote the MONTHLY at the TARGET delta before excluding any name on liquidity."
   }
  ],
  "TSLA": [
@@ -1463,6 +1596,25 @@
    "_n_readings": 14,
    "_opening_window_caveat": "Quotes taken 13:41Z, ELEVEN minutes after the 13:30Z bell -- outside the strict 5-minute opening-print window, but the 2026-08-27 audit found the opening-window inflation still measurable much later (a re-measure at 16:02Z came in -4.23% below that day's 13:31-13:41Z ATM reading). So these rows are USABLE but should be treated as an upper bound on ATM IV; a settled-market re-measure would likely read slightly lower. Recorded rather than silently trusted.",
    "_board_note": "Expiry 2026-09-25, 28 DTE -- the board nearest 30 DTE, per the IV method. NOTE it is a WEEKLY, not the September monthly (2026-09-18, 21 DTE). Per the 2026-08-24 three-instance measurement-bug finding, the wide bid/ask seen on several of these contracts is an IV-SWEEP SPREAD and is NEVER a liquidity verdict on the name -- MSFT quoted 11.3% of mid here and has repeatedly measured ~2.5% on the monthly at the target delta. Do not disqualify any name on these spreads; re-quote the board you would actually trade."
+  },
+  {
+   "date": "2026-08-31",
+   "spot": 353.44,
+   "atm_strike": 355.0,
+   "atm_iv": 0.405088,
+   "dte_used": 32,
+   "expiry": "2026-10-02",
+   "rv_30d": 0.5935,
+   "rv_30d_ex_top2": 0.3568,
+   "iv_rv_ratio": 0.6825,
+   "iv_rv_ratio_ex_top2": 1.1353,
+   "largest_1d_move_in_window_pct": -15.693,
+   "_call_put": "call 0.406727 / put 0.403449, averaged per the IV method.",
+   "_rv_window": "rv from 30 daily log returns through the 2026-08-28 regular-session close, annualised x sqrt(252). Own bars, not inherited.",
+   "_n_readings": 15,
+   "_opening_window_caveat": "Option quotes taken 13:40Z, TEN minutes after the 13:30Z bell. Per the twice-confirmed opening-window finding (SPY -2.53% / QQQ -4.37% on 2026-08-28 re-measure; -4.23% on the 2026-08-27 audit), treat this atm_iv as an UPPER BOUND and re-measure before letting it gate a trade. No trade was gated on it this run.",
+   "_board_note": "Expiry 2026-10-02, 32 DTE -- the board nearest 30 DTE per the IV method. SPY and QQQ carry a genuine 2026-09-30 board (30 DTE exactly); the six single names do not, so they use 2026-10-02 (32 DTE). NOT the September monthly.",
+   "_spread_is_not_a_liquidity_verdict": "bid/ask on the quoted contract was 2.87% of mid. Per the 2026-08-24 three-instance measurement-bug finding this is an IV-SWEEP SPREAD and is NEVER a liquidity verdict on the name -- it is a weekly board quoted ten minutes after the bell. Re-quote the MONTHLY at the TARGET delta before excluding any name on liquidity."
   }
  ],
  "CVS": [

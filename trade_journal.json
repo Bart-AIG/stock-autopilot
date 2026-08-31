@@ -27894,6 +27894,67 @@
       "headline": "Sixty-seventh pre-open no-op. Market shut (Monday 09:15 ET); bell 2026-08-31T13:30Z, ~15m out. Stand-down per POST-CLOSE RUN PROTOCOL. Trading day is still 2026-08-28 until the bell; rule 0 bars stamping the heartbeat before 09:30 ET.",
       "reconciliation": "ZERO DRIFT both books vs broker. Options: SPY 2026-11-20 700P x1 @ 749.00, all six pending_* 0.0000. Equities: ROST 2.000000 / LLY 0.420254 / PNC 1.825758 / MDLZ 7.988509, all matching holdings.json. Cash 1546.96, total 3957.45, unleveraged_buying_power 1546.96 == buying_power (no margin extended); equity_value 1885.49, options_value 525.00.",
       "actions": "NONE. Nothing placeable in either book. No artifact rolled; heartbeat, brief rebuild and both throttle resets belong to the first run at or after 13:30Z."
+    },
+    {
+      "run_utc": "2026-08-31T13:48:00Z",
+      "run_type": "first_post_open_of_trading_day",
+      "trading_day_et": "2026-08-31",
+      "prompt_version": "v8 (line-1 stamp 'prompt v8, pasted 2026-08-26'). The _PROMPT_V9_PASTE_REQUIRED conflict is therefore still LIVE: this run applied the FULL-DEPLOYMENT capital policy from CLAUDE.md and did NOT default to v8's voided >=45% floor. Flag already raised and Ryan notified 2026-08-28T21:19Z -- NOT re-notified and NOT touched, per HARD RULE 9's notify-once-per-incident rule.",
+      "headline": "First post-open run of a new trading day. Stamped the heartbeat, rebuilt the brief, reset both throttles, and CAUGHT A CONCURRENT SIBLING RUN'S EQUITY FILL BEFORE PLACING -- the 2026-08-28 collision fix exercised for the first time, and it held. FLAT in both books by choice.",
+      "regime": "BROAD-BASED RISK-OFF OPEN, FINANCIALS-LED. SPY 766.284 -0.40%, QQQ 714.340 -0.29%, XLF 57.820 -0.48%, NVDA 217.190 -0.17%, MSFT -0.66%; AMD +0.39%, TSM +0.58%, TSLA +1.34% GREEN. The index leads the semis lower -- de-risking breadth, not the sector rotation of the prior two sessions. Measured 13:38-13:40Z; hand forward the numbers, not the verdict.",
+      "THE_FINDING_collision_fix_exercised": {
+        "what_happened": "Two scheduled runs again executed the first-post-open slot. The sibling filled MMM $500.00 (2.884552 sh @ 173.3371, order 6a9583b2, placed_agent agentic) at 13:37:54Z. This run's session began 13:37:35Z -- nineteen seconds EARLIER -- and was working toward its own report-signaled equity entry.",
+        "the_git_check_was_accurate_and_useless": "origin/master was re-fetched at 13:40Z and 13:44Z and sat at 12f4f7f (the 13:15Z pre-open stand-down) with no MMM commit. The fill was already three minutes old at the broker. This reproduces the 2026-08-28 mechanism exactly: the ledger lags a sibling's fill by that sibling's entire write-up latency, so the blind window is as long as the other run takes to think. A git-only check would have cleared this run to place a SECOND entry.",
+        "the_broker_check_caught_it_in_one_call": "get_equity_positions returned a FIFTH position whose intraday_quantity equalled its quantity; get_equity_orders(created_at_gte=2026-08-31) then named the order, the agent, the dollar amount and the fill timestamp. Cash corroborated independently: $1,546.96 -> $1,046.96, exactly $500.00.",
+        "action_taken": "DEFERRED the equity entry per the collision rule. Recorded the sibling's fill in holdings.positions[] so the report stops seeing MMM as a fresh BUY. Set the equity throttle to 1 of 3.",
+        "why_this_entry_is_worth_its_length": "The 2026-08-28 finding was recorded on the day it COST something -- two entries went on 2m50s apart and together pushed the book through the then-live cash floor. This is the first run to exercise the prescribed remedy under live collision conditions, and the collision cost nothing. The finding is now EXERCISED, not merely written down.",
+        "not_adjudicated": "The sibling's MMM entry reads compliant on every gate this run can check -- signal-sourced (report RSI2 4.4), non-oil, non-speculative, $500 against ~$1,349 deployable, 12.6% of account against the ~15-20% cap, no earnings in window. Recorded, not second-guessed."
+      },
+      "position_verdicts_BOTH_BOOKS": {
+        "OPTIONS": {
+          "SPY 2026-11-20 700P x1 @ 749.00": "WORKING AS INSURANCE. Mark $549 vs $749 cost = -$200 / -26.7%, 81 DTE. This is the authorized defensive hedge: EXEMPT from all premium backstops by standing rule, held to its ~21-DTE roll/close decision WITH Ryan. Decay in a firm tape is the expected cost of insurance, not a setup break. No action."
+        },
+        "EQUITIES": {
+          "PNC 1.825758 @ 246.4729": "HOLD. 240.525, -2.41%. Underwater with thesis intact -> no price stop under HARD RULE 5; exit gate is a HARD RULE 7 thesis break or the monthly rebalance cull. Target 255.50. Financials were the weakest sector at the open (XLF -0.48%), which is tape, not thesis.",
+          "LLY 0.420254 @ 1189.7553": "HOLD. 1161.41, -2.38%. Same treatment. Target 1280.34. Still prints RSI2 3.8 on Friday's board -- the oversold condition that sourced it has not resolved.",
+          "MDLZ 7.988509 @ 62.5899": "HOLD. 62.415, -0.28%. Essentially flat since Friday's entry. Target 64.70.",
+          "ROST 2.000000 @ 230.1512": "HOLD. 229.465, -0.30%. Target 244.66.",
+          "MMM 2.884552 @ 173.3371": "NEW TODAY (sibling run). 173.22, -0.07%. Target 180.92. Green-enough trigger for the SET TRAILING STOP alert is 203.93."
+        },
+        "mechanical_exit_scan": "NOTHING FIRES. No position is at or near its target, and none is GREEN -- which is decisive, because the RSI2>=70 trigger is a PROFIT-BANKING authority gated on price > entry (the 2026-08-26 correction). An RSI2>=70 print on an underwater name is an optional exit-into-strength needing a HARD RULE 7 thesis break, never a technical trigger. All five equities are underwater; none is a sell.",
+        "ownership_gate": "All five equity positions and the hedge are agentic or the authorized hedge. No placed_agent='user' position exists in either book, so the ownership gate binds nothing today."
+      },
+      "grades_considered": {
+        "TACTICAL": {
+          "grade": "NO GRADE -- UNMEASURABLE, which is different from bad.",
+          "reasoning": "The confirmation clause requires a trailing-30-to-60-minute volume baseline AND a comparison against the session's own established bucket rate. Eleven minutes past the bell neither exists, and the opening hour is precisely the window that inflates a session-average denominator (2026-08-25). Any confirmation computed now would be an artifact of the denominator, not evidence of participation. Chains were excellent and were NOT the blocker: SPY 766C 0.36% of mid, QQQ 714C 1.01%, NVDA 215C 2.97%.",
+          "THE_OBJECTION_I_DELIBERATELY_DID_NOT_BORROW": "The Tue-Wed earnings cluster (PANW/DELL/CRDO/MDB 09-01 PM; AVGO/SNOW/HPE/NTAP 09-02 PM) does NOT bar a TACTICAL entry today. A Monday scalp is flat by TUESDAY'S CLOSE and every print lands Tue PM or later -- outside the window. Citing it would be the exact category error the 2026-08-28 track-window correction names: each track screens its OWN window, and a catalyst list is not portable between tracks. The decline is on measurement alone."
+        },
+        "CORE": {
+          "grade": "C -- declined on thesis AND on regime.",
+          "reasoning": "Both candidate boards (2026-09-30 / 2026-10-02, 30-32 DTE) span the entire Tue-Wed cluster including AVGO 09-02, so for CORE the 2026-08-26 capstone genuinely applies -- this is the case it was written for, unlike the tactical one above. IV sanity read as a pair confirms the market agrees: AVGO is the richest name on the board at raw 1.1560 / ex-gap 1.4267, which is event premium, not opportunity. Separately, no A-grade CORE thesis exists today: a -0.40% index open with spot below a rising 20-day and no level breaking answers no 'why NOW'.",
+          "MSFT_artifact_flagged": "MSFT printed raw 0.5094 -- the kind of half-price-vol number that invites a buy. Ex-gap it is 1.0289, i.e. FAIR. One +14.42% gap in the 30-day window is doing all the work. This is the 2026-08-20 finding reproducing cleanly; do not cite the raw ratio."
+        },
+        "EQUITY": {
+          "grade": "DEFERRED, not graded.",
+          "reasoning": "The collision rule says defer when a sibling entry has landed, and one had. For the record, the remaining open report signals and why each is problematic: EOG 3.7 EXCLUDED on the oil-energy sector steer; KLAC 3.9 / AMAT 5.8 / MRVL 9.7 are semis facing the 09-01 and 09-02 prints inside a 1-3 week swing window; AEHR 0.3 carries a -22.9% stop (extreme volatility); REGN 4.8 and MAR 8.1 are the cleanest survivors and neither was worked up, because no slot was available to this run."
+        }
+      },
+      "capital_and_gates": {
+        "measured_1339Z": "total $3,978.845 = equity $2,382.885 / options $549.00 / cash $1,046.96. unleveraged_buying_power $1,046.96 == buying_power, so no margin is extended (FOUR LAWS #4).",
+        "deployable": "Under CLAUDE.md's 5%-of-total operational reserve ($198.94): $848.02. Under v8's stricter flat $250: $796.96. Governing figure is the stricter, $796.96.",
+        "the_honest_statement": "Either figure comfortably funds a $300-1,000 TACTICAL scalp or a CORE entry. TODAY'S STAND-DOWN IS ON MERITS, NOT ON CAPITAL -- and saying so plainly matters, because a capital-shaped excuse would hide a measurement-shaped and regime-shaped decline.",
+        "throttles": "Options 0 of 8. Equities 1 of 3 -- READ from the broker, not typed as a new-day default. The 2026-08-27T09:18Z finding warns that a reset value is indistinguishable from a read value; here the honest reset is 1, and a later run assuming 0 would authorise three more entries against a budget of two.",
+        "concentration": "All five equity names sit at 11.0-12.6% of account against the ~15-20% per-name cap. Speculative sleeve empty against the ~25% cap. Option slots 5 of 5 free (hedge excluded)."
+      },
+      "duties": {
+        "heartbeat": "STAMPED 2026-08-31 (first run at/after 13:30Z; rule 0 satisfied).",
+        "brief": "REBUILT from live quotes, not inherited. Includes 20/50-day SMAs for SPY and QQQ computed from 63 daily closes, per the 2026-08-25 rule that both must exist before any intraday box is drawn.",
+        "iv_history": "15th reading logged for all eight core names, raw and ex-gap ratios as a pair, each row carrying the opening-window upper-bound caveat and the reminder that an IV-sweep spread is never a liquidity verdict.",
+        "daily_report": "NOT DUE. The 14:15 CT (19:15Z) gate has not been reached; _eod_report_written still shows 2026-08-28. Whichever run first passes 19:15Z owns it and must READ that key before writing."
+      },
+      "structural_levels_recorded_for_later_runs": "SPY spot 766.284 vs 20-day 769.216 (2.93 below) and 50-day 753.955 (12.33 above). QQQ spot 714.340 sits INSIDE a 5.88-point band between its 50-day (712.064) and 20-day (717.942) -- both structural, so either break is a legitimate trigger reference, unlike a desk-drawn box. BUT both 20-days are rising fast (SPY +1.116/day, QQQ +1.422/day): over a 2-session tactical hold QQQ's 20-day climbs ~2.8 points, which is a large fraction of what a tactical target is worth. Re-derive before testing any trigger written against these.",
+      "what_would_change_the_answer": "A completed 5-minute close through QQQ 712.06 or 717.94, held on the following bar, with volume confirming over that SAME two-bar window against BOTH a trailing local mean and the session's established bucket rate -- once such a baseline actually exists, i.e. not before roughly 14:15-14:30Z. Reconcile the bars against the 1-minute series first (direction rule: bucket materially BELOW its 1-minute sum = bucket holed, substitute; materially ABOVE = the 1-minute series is holed, keep the bucket). Then price the -30% stop in underlying terms and decline if it lands at or beyond the trigger level."
     }
   ]
 }
