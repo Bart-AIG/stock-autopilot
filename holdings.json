@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-31T17:46:00Z",
+  "updated_utc": "2026-08-31T18:40:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-31",
     "realized_usd": 0.0,
@@ -755,14 +755,14 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-08-31T18:20:00Z",
+    "run_utc": "2026-08-31T18:40:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-08-31",
-    "outcome": "NO TRADE both books. Nothing blocked by capital, throttle or loss cap.",
-    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST. Options: SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* 0.0000. Equities: ROST 2.000000 / LLY 0.420254 / PNC 1.825758 / MDLZ 7.988509 / MMM 2.884552, one-for-one with holdings.json. get_equity_orders(created_at_gte=2026-08-31) returns exactly ONE order all day, the already-ledgered 13:37:54Z MMM fill (placed_agent agentic, avg 173.3371). No sibling entry landed.",
-    "capital": "18:16Z get_portfolio: total $3,949.42; equity $2,374.46; options $528.00; cash $1,046.96; unleveraged_buying_power $1,046.96 == buying_power (no margin extended, FOUR LAWS #4 clean). Reserve max(0.05 x 3949.42 = $197.47, $250.00) = $250.00, the flat $250 binding below a $5,000 account. DEPLOYABLE $796.96, above one normal position size, so the rotation-beats-the-weakest test is NOT triggered.",
+    "outcome": "NO TRADE both books. Nothing blocked by capital, throttle or loss cap. Separable contribution: PREPARED the 2026-09-01 monthly rebalance proposal that twelve prior runs today flagged and none built.",
+    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST. Options: SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* 0.0000. Equities: ROST 2.000000 / LLY 0.420254 / PNC 1.825758 / MDLZ 7.988509 / MMM 2.884552, one-for-one with holdings.json. get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000. origin/master re-fetched at 6b3291a (the 18:18Z merge); no sibling entry landed.",
+    "capital": "18:31Z get_portfolio: total $3,949.26; equity $2,373.30; options $529.00; cash $1,046.96; unleveraged_buying_power $1,046.96 == buying_power (no margin extended, FOUR LAWS #4 clean). Reserve max(0.05 x 3949.26 = $197.46, $250.00) = $250.00. DEPLOYABLE $796.96, above one normal position size, so the rotation-beats-the-weakest test is NOT triggered. NOTHING declined on capital.",
     "throttles": "Equities 1 of 3 for the day (MMM), 0 of 1 this run and UNUSED BY CHOICE. Options 0 of 8 for the day, 0 of 2 this run. Realized options P/L $0.00 against the -$400 cap, READ from _realized_options_pnl_today, not typed as a default.",
-    "eod_report": "NOT YET DUE. _eod_report_written last stamped for trading day 2026-08-28; today's report is due on the first run at or after 19:15Z. This run is 18:20Z. READ this key before writing, per the 2026-08-28 collision note -- the 14:15 CT gate admits every later run and does not name a unique owner."
+    "eod_report": "NOT YET DUE. _eod_report_written last stamped for trading day 2026-08-28; today's is due on the first run at or after 19:15Z. This run is 18:40Z. The prepared rebalance proposal is the main new content that report should carry."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -1389,5 +1389,93 @@
       "single_data_point_deliberately_NOT_generalised": "AEHR -- the most oversold name on the screen all session (RSI2 0.2-0.3) -- was the cohort's worst performer, at 2.9x the next worst. Recorded because when the desk does enter, the top of the RSI2 table is the natural place to reach. It is n=1 and NO rank relationship is claimed: 17 names over four hours cannot support one, and RSI2 measured at the END of a window is mechanically correlated with the return over that window, so a naive fit would be circular in exactly the way this key is about.",
       "feed_integrity": "SPY is the benchmark and a wrong benchmark contaminates all 17 excess figures, so it was checked first per the 2026-08-28 direction rule: the 14:15Z 5-minute bucket printed 150,297 against a 1-minute sum of 147,622 (+1.81%, inside tolerance, and ABOVE rather than below, so no bucket hole), and the bucket close 766.000 equals the 14:19 one-minute close. Clean in both directions."
     }
+  },
+  "_MONTHLY_REBALANCE_PROPOSAL_2026-09-01": {
+    "_prepared_utc": "2026-08-31T18:40:00Z",
+    "_status": "PREPARED, NOT EXECUTED. This is a PROPOSAL TO RYAN per HARD RULE 6 (the monthly rebalance stays a proposal; only individual thesis-dead culls are autonomous, and none is established here). No order was placed on the strength of it.",
+    "_why_this_run_built_it": "The 2026-09-01 monthly rebalance has now been FLAGGED by twelve separate runs today (14:35Z through 17:46Z) and PREPARED by none. CLAUDE.md's standing principle names that exact pattern: surfacing an issue once is fine, surfacing the same issue every run means the fix was never made. The report was unchanged since 18:02Z and all 22 screen names were already graded, so a twenty-fourth serial decline would have added nothing; preparing the proposal is the work that was actually outstanding. It is due for delivery in the EOD report at 19:15Z.",
+    "concentration_check": {
+      "verdict": "COMPLIANT ON EVERY WRITTEN CAP. No trim is required by the rules as they are stated.",
+      "basis": "Marks quoted 18:29-18:31Z; account total_value $3,949.26 from the 18:31Z get_portfolio.",
+      "per_name_pct_of_account": {
+        "MMM": 12.6,
+        "MDLZ": 12.59,
+        "LLY": 12.29,
+        "ROST": 11.52,
+        "PNC": 11.1
+      },
+      "per_name_cap": "~15-20% -- largest position is 12.60%, so headroom on every name.",
+      "speculative_sleeve_pct": 0.0,
+      "speculative_cap": "~25% -- none of the five is a spec name (financials, pharma, staples, retail, industrial), so the sleeve is empty.",
+      "equity_book_mv_usd": 2373.71,
+      "cash_usd": 1046.96,
+      "cash_pct_of_equity_book": 30.61,
+      "options_hedge_pct_of_account": 13.37,
+      "deployable_usd": 796.96,
+      "capital_policy": "Full-deployment policy (Ryan 2026-08-29). There is NO percentage cash floor to meet -- the 45% figure is VOID and must not be re-derived. Deployable = unleveraged_buying_power $1,046.96 minus the reserve max(0.05 x 3949.26 = $197.46, $250.00) = $250.00, the flat floor binding below a $5,000 account."
+    },
+    "THE_FINDING_THE_PER_NAME_CAP_CANNOT_SEE": {
+      "claim": "Every written concentration cap passes, and the book is nonetheless concentrated in a way none of them measures: 100% of the equity book -- $2,373.71, or 60.11% of the account -- sits in ONE SIGNAL, Connors RSI(2) mean-reversion, expressed five times.",
+      "evidence_1_same_signal": "All five positions are sleeve 'swing' and all five were sourced from the report's RSI2 oversold-in-uptrend screen. There is not one momentum-sleeve position in the book, so the 12-1 re-rank half of the monthly ritual has nothing to re-rank.",
+      "evidence_2_same_direction_simultaneously": "All five are underwater at once: MMM -0.51%, MDLZ -0.54%, ROST -1.17%, PNC -2.55%, LLY -2.90%. Five of five same-sign is weak evidence on its own at n=5, but it is consistent with the structural claim rather than independent of it.",
+      "evidence_3_same_week": "Four of the five were entered inside two sessions (LLY 08-27, MDLZ 08-28, ROST 08-28, MMM 08-31). The book has no dispersion in ENTRY TIMING either -- same signal, same direction, same week, one tape.",
+      "why_it_matters": "The per-name cap measures issuer risk and the spec cap measures volatility risk. Neither measures SIGNAL risk. Five names at 11-13% each reads as a diversified book on both caps while behaving as a single ~60% position in the proposition 'oversold mean-reverts in this tape'. If that proposition is wrong for a month, all five are wrong together, and no cap in the ruleset would have flagged it beforehand.",
+      "honest_limit": "This is a structural observation, NOT a sell signal and NOT a claim the proposition is wrong. It is offered so the rebalance judges the book as a SET rather than name by name -- which is the framing the 14:35Z run also reached independently.",
+      "recommendation_to_ryan": "Consider whether a signal-level exposure cap belongs alongside the per-name and spec caps -- e.g. no more than N% of the equity book sourced from a single screen. Ryan's decision; the desk should not invent a new hard cap for itself."
+    },
+    "laggard_cull_review": {
+      "the_gate": "Underwater names carry no price stop (HARD RULE 5), so the monthly review is their exit gate: sell those whose thesis has weakened, keep the intact ones.",
+      "KEY_DISTINCTION": "NOT ONE OF THE FIVE HAS BOUNCED AND FAILED. Every one is still on the oversold screen on the 18:02Z report -- LLY RSI2 1.6, MMM 2.6, PNC 4.4, MDLZ 5.5, ROST 5.7. A mean-reversion entry that is STILL OVERSOLD is UNRESOLVED, not FAILED: the condition that sourced it has not yet been tested, let alone broken. That distinction is what decides a cull, and it points to hold on all five.",
+      "duration_problem": "Trading days held as of 2026-08-31: PNC 8, LLY 2, MDLZ 1, ROST 1, MMM 0. A cull review on 09-01 would be judging four positions that are 0-2 sessions old against a 1-3 WEEK horizon. MMM was bought at 13:37Z TODAY. The monthly cadence and these entry dates are simply misaligned, and applying the cull mechanically to a one-day-old position would be a calendar artifact, not a decision.",
+      "per_name": {
+        "PNC": {
+          "held_td": 8,
+          "pl_pct": -2.55,
+          "vs_SPY_since_entry_date_close_pct": -2.2,
+          "to_target_pct": 6.38,
+          "rsi2": 4.4,
+          "verdict": "THE ONE NAME WITH A CASE TO ANSWER. Worst on both axes that matter -- longest held (8 td, roughly the midpoint of a 1-3 week window) and worst alpha (-2.20% vs SPY on a like-for-like tape basis). Still oversold, so the setup is unresolved rather than failed. RECOMMEND: a fresh HARD RULE 7 thesis check on 09-01 before any judgement; hold absent a broken verdict. No thesis break is established as of this run and none is claimed."
+        },
+        "LLY": {
+          "held_td": 2,
+          "pl_pct": -2.9,
+          "vs_SPY_since_entry_date_close_pct": -1.16,
+          "to_target_pct": 10.83,
+          "rsi2": 1.6,
+          "verdict": "HOLD. Largest paper loss but only 2 td held and the deepest oversold reading in the book (RSI2 1.6). The 13:50Z run researched it to WEAKENED, NOT BROKEN -- which under HARD RULE 5/7 is explicitly a hold, not a sell. Too young for the cull gate to mean anything."
+        },
+        "MDLZ": {
+          "held_td": 1,
+          "pl_pct": -0.54,
+          "vs_SPY_since_entry_date_close_pct": 0.22,
+          "to_target_pct": 3.93,
+          "rsi2": 5.5,
+          "verdict": "HOLD. Essentially tracking the tape (+0.22% vs SPY) and closest to target of the five. Nothing to review at 1 td."
+        },
+        "ROST": {
+          "held_td": 1,
+          "pl_pct": -1.17,
+          "vs_SPY_since_entry_date_close_pct": -0.1,
+          "to_target_pct": 7.56,
+          "rsi2": 5.7,
+          "verdict": "HOLD. Flat to the tape (-0.10% vs SPY); the paper loss is entry-timing, not underperformance. Nothing to review at 1 td."
+        },
+        "MMM": {
+          "held_td": 0,
+          "pl_pct": -0.51,
+          "vs_SPY_since_entry_date_close_pct": null,
+          "to_target_pct": 4.85,
+          "rsi2": 2.6,
+          "verdict": "HOLD, and EXCLUDE from the cull entirely. Filled 13:37:54Z TODAY. No alpha comparison is computable and none is offered -- a same-day entry has no track record to judge."
+        }
+      },
+      "net": "PROPOSED: NO CULLS. Four names are too young for the gate to apply and the fifth (PNC) is unresolved rather than failed. The honest read is that the mechanical cull has nothing to bite on this month -- say that plainly rather than manufacturing a sale to make the ritual produce an action."
+    },
+    "momentum_rerank": {
+      "verdict": "NOT APPLICABLE TO HOLDS -- the book contains ZERO momentum-sleeve positions, so there is no held name to test against the top decile.",
+      "top_decile_note": "The 18:02Z report's top decile is 23 of 230, led by MU 684.7 / LITE 569.2 / BE 460.5 / TSEM 391.8 / AEHR 374.9. It is overwhelmingly semis, AI-infra and spec-adjacent -- which is exactly the cohort the Aug-Oct posture's A-grade bar and the spec cap are there to ration. A momentum rotation INTO that decile is not a free action under the standing posture and should not be proposed as though it were.",
+      "recommendation": "No momentum rotation proposed. If Ryan wants momentum exposure the entry would be a fresh decision under the full gate stack, not a rebalance mechanic."
+    },
+    "what_this_proposal_does_NOT_do": "It places no order, establishes no thesis break, clears no flag, and claims no Ryan turn. HARD RULE 9 intact. It is prepared state for the 19:15Z EOD report and for tomorrow's first post-open run, so that the twelve-times-flagged rebalance arrives as a worked proposal rather than a thirteenth flag."
   }
 }
