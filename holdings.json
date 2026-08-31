@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-31T16:05:00Z",
+  "updated_utc": "2026-08-31T16:20:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-31",
     "realized_usd": 0.0,
@@ -1166,5 +1166,39 @@
     "the_rule": "Re-read the freshest committed report on master immediately before placing, exactly as the collision rule already requires for the broker -- a name can leave the screen inside one run. And when a mean-reversion candidate's chief attraction is that it is ALREADY turning, check its RSI2 has not left the gate: that attraction and that disqualification are the same fact measured twice.",
     "why_this_is_not_an_argument_to_relax_the_gate": "The screen is not being pedantic. RSI2 rising through 10 means the oversold condition the strategy exploits has RESOLVED -- the edge is spent, not merely aged. Buying anyway is buying after the trigger, which is the equity-book twin of the TACTICAL late-entry defect already recorded at 2026-08-28T15:05Z. Both say: the level that defines a cheap invalidation is the thing you are paid for, and entering after price has left it spends exactly that.",
     "the_honest_caveat": "This changed the OUTCOME of this run (a fully-worked A-grade candidate was declined), so it is not one of the audits this file prefers -- the ones that change no decision. Stated plainly so the next instance weighs it accordingly: the thesis work on REGN was sound and remains on file; if REGN re-prints RSI2 < 10 on a future report it is a live candidate again and this note is the reason it was passed over, not evidence against it."
+  },
+  "_RSI2_SCREEN_TREND_FAILURE_IS_SYSTEMATIC": {
+    "measured_utc": "2026-08-31T16:20:00Z",
+    "headline": "THE REPORT'S 'RISING 200-DAY' GATE DOES NOT ENFORCE AN UPTREND, AND THE FAILURE IS THE MAJORITY CASE, NOT AN ANECDOTE: 5 OF 8 SCREEN NAMES TESTED SIT BELOW THEIR 20-, 50- AND 130-DAY AVERAGES, FOUR OF THEM 22-42% OFF THEIR HIGHS.",
+    "supersedes_scope_of": "_THE_200DAY_GATE_CERTIFIES_DOWNTRENDS (2026-08-31T15:30Z) recorded ONE name (MAR) whose 200-day gate certified a downtrend as a dip. That finding is CORRECT and is not superseded -- it is GENERALIZED. This run tested the whole screen and found MAR was not an outlier; it was typical.",
+    "method": "Daily closes through 2026-08-28 (get_equity_historicals, interval=day, 145 reg bars from 2026-02-02). For each name: SMA20 / SMA50 / SMA130, % off the highest close in the window, and consecutive lower closes. The 200-day is NOT computable from a 145-bar window and is deliberately not quoted -- the point is that the intermediate averages already settle the question.",
+    "measurements": {
+      "CAT": "last 800.25 | 20d 838.40 | 50d 893.91 | 130d 842.66 | -24.9% off high | BELOW ALL THREE",
+      "KLAC": "last 175.54 | 20d 192.13 | 50d 213.67 | 130d 190.14 | -41.8% off high | BELOW ALL THREE",
+      "AMAT": "last 461.67 | 20d 511.28 | 50d 551.13 | 130d 463.19 | -36.1% off high | BELOW ALL THREE",
+      "GEV": "last 911.93 | 20d 993.54 | 50d 1031.65 | 130d 987.27 | -22.4% off high | BELOW ALL THREE",
+      "BE": "last 210.77 | 20d 218.71 | 50d 236.61 | 130d 224.77 | -39.1% off high | BELOW ALL THREE",
+      "GE": "last 342.58 | 20d 361.30 | 50d 360.01 | 130d 327.69 | -10.1% off high | below 20d+50d, ABOVE 130d -- mixed",
+      "COF": "last 215.67 | 20d 219.34 | 50d 210.27 | 130d 197.09 |  -5.1% off high | below 20d ONLY -- genuine pullback",
+      "BLK": "last 1164.48 | 20d 1153.30 | 50d 1080.72 | 130d 1045.86 | -1.6% off high | ABOVE ALL THREE -- the only one"
+    },
+    "mechanism": "A 200-day average is still rising on year-ago data long after price has broken down. A name 40% off its high can sit above a rising 200-day for months. So the gate as written admits deep downtrends and calls them dips. Connors' RSI(2) mean-reversion is specified for names ABOVE their long-term average and in an intact uptrend; the report's gate does not enforce that in any usable form, and the RSI2 print itself is trend-blind by construction.",
+    "detector": "BEFORE grading any RSI2 name, compute SMA20 / SMA50 / SMA130 and % off high. Below all three = DOWNTREND, decline it -- do not spend a thesis workup on it. This is one get_equity_historicals call for up to 10 names and it disqualified five of eight candidates in a single pass, which is far cheaper than the per-name news-and-analyst workup the gate stack would otherwise demand.",
+    "the_inversion_that_makes_this_hard": "THE TREND FILTER AND THE MEAN-REVERSION EDGE POINT IN OPPOSITE DIRECTIONS, AND THIS IS STRUCTURAL RATHER THAN A QUIRK OF TODAY. BLK passes the trend test BECAUSE it is only 1.6% off its high -- and that same fact is what makes it the WEAKEST reversion candidate on the screen: there is almost nothing to revert into. Its RSI2 of 5.9 was generated by FOUR CONSECUTIVE SMALL DOWN DAYS (a sequence), not by any magnitude of decline; RSI2 is a 2-day oscillator and prints single digits on a 0.2% slide if the slide is consistent. The report's own numbers say it: stop 1120.52 (-2.65%) against target 1182.84 (+2.77%), roughly 1:1. So 'best trend on the screen' and 'best setup on the screen' are NOT the same name, and a run that finds the only trend-passing name must still ask what it is being paid to take the trade. Pairs with _TAPE_CONFIRMATION_AND_THE_RSI2_SCREEN_ARE_IN_TENSION (2026-08-31T16:00Z), which found the same tension from the opposite end -- there, the tape confirmation that validated REGN lifted its RSI2 out of the gate.",
+    "second_order_note": "The two names that PASS the trend test (BLK, COF) are BOTH financials, i.e. on this screen the trend filter and any sector-tape filter are aimed at each other. Neither filter is wrong; a run must resolve them on merits rather than let whichever it applies second do all the work."
+  },
+  "_COMPLEX_VETOES_NEED_A_MAGNITUDE_TEST": {
+    "measured_utc": "2026-08-31T16:16:00Z",
+    "headline": "A 'COMPLEX-WIDE DE-RATE' VETO IS ONLY A VETO AT REAL MAGNITUDE -- MEASURE THE RATIO TO THE INDEX AND SAY IT. TODAY DEFENSE IS 4.4x THE INDEX (a genuine veto) WHILE FINANCIALS ARE 1.32x (ordinary beta, NOT a veto), AND THE 'POWER COMPLEX' TURNS OUT NOT TO BE ONE COMPLEX AT ALL.",
+    "why_written": "The 16:00Z run's defense veto (ITA -2.14%, vetoing GD and RTX at once) was correct and is REAFFIRMED here. The hazard is that a correct veto invites reuse by analogy: this run was one step from vetoing GE/GEV/BE as a 'power complex de-rate' and BLK/COF as a 'financials-led risk-off' -- neither of which the numbers support.",
+    "measurements_1616Z": {
+      "index_baseline": "SPY -0.482%",
+      "DEFENSE -- a real complex de-rate": "ITA -2.10% = 4.4x SPY; GD -2.17%, RTX -1.60%. VETO STANDS.",
+      "FINANCIALS -- NOT a de-rate": "XLF -0.637% = 1.32x SPY. And XLF is no longer even the weak leg: IWM -0.872% and XLI -1.163% are BOTH weaker. Ordinary beta.",
+      "'POWER COMPLEX' -- NOT ONE COMPLEX": "SPLIT DOWN THE MIDDLE. Equipment/fuel-cell DOWN: GE -2.21%, GEV -2.33%, BE -3.34%, PLUG -2.28%. IPP/generation FLAT-TO-GREEN: CEG +0.79%, PWR +0.26%, VST +0.09%. NRG -1.53%, XLU -1.04%, XLI -1.16%.",
+      "SEMIS -- the one green complex": "SMH +0.19%, NVDA +1.05%. Semis are NOT weak today; they are declined on the 09-02 AVGO calendar, which is a separate and independent objection."
+    },
+    "rule": "Before vetoing a name on 'the whole complex is de-rating', quote the complex ETF, the index, and the RATIO. Below roughly 2x the index it is beta and not a de-rate, and saying otherwise borrows a conclusion the measurement does not support. Also confirm the complex actually MOVES AS ONE: GE/GEV/BE are weak on their own and inside a soft XLI, which is a real but much weaker claim than 'the power complex is de-rating' -- the generation half of that complex was green.",
+    "regime_label_staleness": "This also retires the day's inherited label. market_brief.json was stamped 'BROAD-BASED RISK-OFF OPEN, FINANCIALS-LED' at 13:38-13:40Z with its own staleness_warning attached. Re-measured 2h38m later, financials are the THIRD-weakest of the legs measured, behind small caps and industrials. The label's own warning was correct and is now discharged: hand forward the numbers, not the verdict."
   }
 }
