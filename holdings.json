@@ -758,15 +758,17 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-08-31T19:18:00Z",
+    "run_utc": "2026-08-31T19:30:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-08-31",
-    "outcome": "NO TRADE both books. Nothing blocked by capital, throttle or loss cap -- deployable $796.96 and an equity slot free, unused BY CHOICE. Concurrent with the 19:15Z sibling on the DAILY REPORT duty; this run wrote a full report, found the sibling's already on master covering strictly more, and DISCARDED its own rather than re-notify Ryan (detail in _eod_report_written). Separable contribution logged to the journal: an independent 19:20Z re-measure of the equity cohort veto that cross-validates the sibling's 19:16Z reading to within 0.06pp.",
-    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST per the 2026-08-28 collision rule. Options: SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* 0.0000 -- no assignment, exercise, expiration or unauthorized fill. Equities: ROST 2.000000 / LLY 0.420254 / PNC 1.825758 / MDLZ 7.988509 / MMM 2.884552, one-for-one with holdings.json. get_equity_orders(created_at_gte=2026-08-31) returns exactly ONE order all day, the already-ledgered 13:37:54Z MMM fill. get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000. origin/master re-fetched at 56fbbfa before any push. No order placed this run.",
-    "capital": "19:19Z get_portfolio: total $3,950.31; equity $2,372.35; options $531.00; cash $1,046.96; unleveraged_buying_power $1,046.96 == buying_power (no margin extended, FOUR LAWS #4 clean). Reserve max(0.05 x 3950.31 = $197.52, $250.00) = $250.00, the flat floor binding below a $5,000 account per _RESERVE_IS_THE_STRICTER_OF_TWO. DEPLOYABLE $796.96, above one normal position size, so the rotation-beats-the-weakest test is NOT triggered. NOTHING was declined on capital this run.",
-    "throttles": "Equities 1 of 3 for the day (MMM), 0 of 1 this run and UNUSED BY CHOICE, not by block. Options 0 of 8 for the day, 0 of 2 this run. Realized options P/L $0.00 against the -$400 cap, READ from holdings.json._realized_options_pnl_today rather than typed as a default.",
-    "governance": "Invoked with prompt v8, whose equity clause hard-codes the >=45% cash floor. That floor is VOID as of Ryan's 2026-08-29 live turn; CLAUDE.md's full-deployment policy governs and the prompt is STALE pending the v9 paste (docs/routine-prompt-v9.md, Option A). Reported, not silently resolved to the stricter number. No flag touched and none re-notified; HARD RULE 9 intact -- no Ryan turn claimed, quoted or implied.",
-    "positions_verdict": "ALL HOLD, no exit fired, marks 19:18Z. Hedge SPY 700P mark 5.295, -$219.50 / -29.3%, delta -0.1382, theta -$8.71/day, 81 DTE, EXEMPT. Equities all five underwater and all five still deeply oversold (RSI2 1.5-6.2), so no RSI2>=70 bounce and no target hit: PNC -2.67%, LLY -2.55%, ROST -1.18%, MDLZ -0.78%, MMM -0.75%; book -$37.88 / -1.57%. Nothing near green-enough; nearest target PNC at +3.93%."
+    "outcome": "NO TRADE both books, 29th run. Nothing blocked by capital, throttle or loss cap -- deployable $796.96 and an equity slot free, unused BY CHOICE. Every scheduled duty for 2026-08-31 was already discharged before this run (heartbeat 13:38Z, brief, IV rows all eight core names, daily report 19:15Z, monthly rebalance proposal 18:40Z). The one NEW input was the 19:27Z report snapshot; this run measured the two gates it bears on rather than restating them.",
+    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST per the 2026-08-28 collision rule. Options: SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* 0.0000 -- no assignment, exercise, expiration or unauthorized fill. Equities: ROST 2.000000 / LLY 0.420254 / PNC 1.825758 / MDLZ 7.988509 / MMM 2.884552, one-for-one with holdings.json. get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000. No order placed this run.",
+    "capital": "19:30Z get_portfolio: total $3,944.86; equity $2,371.90; options $526.00; cash $1,046.96; unleveraged_buying_power $1,046.96 == buying_power (no margin extended, FOUR LAWS #4 clean). Reserve max(0.05 x 3944.86 = $197.24, $250.00) = $250.00, the flat floor binding below a $5,000 account per _RESERVE_IS_THE_STRICTER_OF_TWO. DEPLOYABLE $796.96, above one normal position size, so the rotation-beats-the-weakest test is NOT triggered. NOTHING declined on capital.",
+    "throttles": "Equities 1 of 3 for the day (MMM), 0 of 1 this run and UNUSED BY CHOICE. Options 0 of 8 for the day, 0 of 2 this run. Realized options P/L $0.00 against the -$400 cap, READ from _realized_options_pnl_today rather than typed as a default.",
+    "governance": "Invoked with prompt v8, whose equity clause hard-codes the >=45% cash floor. That floor is VOID as of Ryan's 2026-08-29 live turn; CLAUDE.md's full-deployment policy governs and the prompt is STALE pending the v9 paste (docs/routine-prompt-v9.md, Option A). Reported, not silently resolved to the stricter number. No flag touched, none re-notified; HARD RULE 9 intact -- no Ryan turn is claimed, quoted or implied anywhere in this run.",
+    "positions_verdict_both_books": "ALL HOLD, no exit fired. Hedge SPY 700P options_value $526.00 -- EXEMPT from premium backstops by design, roll/close at ~21 DTE WITH Ryan (81 DTE now). Equities all five underwater and all five still deeply oversold on the 19:27Z screen (PNC RSI2 4.0, LLY 1.8, MMM 2.4, MDLZ 4.1, ROST 5.8), so NO target hit and NO RSI2>=70 bounce -- the two mechanical-exit conditions are not merely unmet, they are at the opposite end of their range. No name near green-enough. No thesis flag on any held name in the 19:27Z ACTION block, which is EMPTY.",
+    "why_flat_equities": "Cohort veto LIVE and WIDENED, measured 19:31Z -- see _OVERSOLD_COHORT_IS_MEASURABLE_BEFORE_ANY_NAME_IS_GRADED. Additionally: five of the eleven non-held names are semis (AEHR, KLAC, AMAT, MRVL, TSEM), vetoed by the 09-01/09-02 AI-infra print cluster under the sector-print extension of the [ERN] rule; FCEL carries its own 09-02 print AND the SPEC tag; GEV is SPEC. The five HELD names on the screen would be ADDS TO LOSERS, which FOUR LAWS #3 forbids without Ryan's explicit approval. No name graded A.",
+    "why_flat_options": "TACTICAL: no trigger -- SPY has chopped a ~1.7-point band (765.05-766.75) for ninety minutes with no structural level breaking, and QQQ likewise. Two further bars measured rather than assumed, both below. CORE: 21-45 DTE spans the 09-01/09-02 print cluster; declined on thesis, unchanged from the day's prior twenty-eight runs."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -980,7 +982,43 @@
     },
     "honest_bounds": "(a) The baseline buckets were NOT reconciled; a hole there would depress the baseline and inflate the ratio, so 2.081x is an UPPER BOUND -- the finding survives regardless because the 19:20Z step is 2.48x standalone. (b) n=1 SESSION, a Friday two sessions from month-end when rebalancing flow is a known amplifier, so the width is plausibly narrower on a typical Tuesday. (c) The ramp is a choppy level shift (222k/127k/211k/165k/206k), not a smooth escalation.",
     "the_rule": "Do NOT adopt 40 minutes as a new constant -- that repeats the error being corrected. DETECT the boundary per session: find the first bucket whose volume steps up and after which the tape does not return to the prevailing rate, and treat everything from there to the bell as unreadable for confirmation purposes. Same lesson as the ':05 offset' hole hypothesis killed earlier today: a clock offset carries no information; a denominator must be measured.",
-    "honest_scope": "CHANGED NO DECISION. TACTICAL was already barred on Friday weekend carry and the closing window, and no trigger fired in either index. A filter's inputs can only be audited credibly on a run the audit does not benefit."
+    "honest_scope": "CHANGED NO DECISION. TACTICAL was already barred on Friday weekend carry and the closing window, and no trigger fired in either index. A filter's inputs can only be audited credibly on a run the audit does not benefit.",
+    "DID_NOT_REPRODUCE_2026-08-31_WHICH_IS_THE_FINDINGS_OWN_INSTRUCTION_WORKING": {
+      "measured_utc": "2026-08-31T19:32:00Z",
+      "claim": "On SPY today there is NO closing-flow step-up as of 19:29Z -- thirty-one minutes before the bell, where the 2026-08-28 session was already running at 2.08x its prevailing rate. The 40-minute figure did not reproduce, exactly as this finding warned it might not.",
+      "measured": {
+        "spy_5min_buckets_18:00-19:29Z": [
+          154247,
+          57297,
+          81148,
+          137734,
+          103594,
+          104857,
+          76273,
+          228154,
+          189822,
+          80147,
+          134067,
+          96520,
+          186977,
+          179067,
+          74858,
+          73985,
+          103633,
+          126572
+        ],
+        "prevailing_mean": 121608,
+        "final_four_buckets_as_pct_of_mean": [
+          "62%",
+          "61%",
+          "85%",
+          "104%"
+        ],
+        "verdict": "The 19:10Z and 19:15Z buckets are the two LOWEST of the ninety-minute window. There is no bucket after which the tape fails to return to the prevailing rate, so the boundary has not been crossed."
+      },
+      "the_transferable_half": "This is the finding's own rule vindicated: it explicitly said do NOT adopt 40 minutes as a constant and DETECT the boundary per session. A run inheriting 40 minutes as a number would have declared TACTICAL barred by the closing window at 19:20Z today and been WRONG -- and, worse, would have banked a correct stand-down on a false reason. The 08-28 measurement was a Friday two sessions from month-end with rebalancing flow; today is a Monday month-end close without it.",
+      "consequence_for_this_run_stated_honestly": "TACTICAL was therefore NOT barred by the closing window at 19:30Z, and this run could not lean on it. It stood down on the merits instead: no structural level breaking on either index, plus the block-print contamination recorded in _A_BLOCK_PRINT_INFLATES_THE_BASELINE_AND_EVERY_INTEGRITY_CHECK_PASSES. Removing a gate you cannot verify is what makes the remaining gates worth anything."
+    }
   },
   "_QQQ_THIRD_HOLE_OF_SESSION_2026-08-28": {
     "found_utc": "2026-08-28T19:45:00Z",
@@ -1285,7 +1323,13 @@
     "why_it_is_new_and_why_it_survives_every_detector": "The four modes already recorded (session-average too strict, trailing-local too easy in a decaying tape, closing-auction too easy, post-flush too strict) are all about WHICH WINDOW the baseline is drawn over, and the feed-integrity family (5-min vs 1-min direction rule, cross-symbol agreement, double-fetch) is built to catch volume that is MISSING. This is neither: the window is right and the data is correct to the share. THE DETECTOR FAMILY IS STRUCTURALLY BLIND TO EXCESS VOLUME BECAUSE EXCESS VOLUME IS NOT AN ERROR. Reconciliation reported CLEAN and the denominator was still wrong by 2.5x.",
     "the_detector": "A 1-minute bar that is a large multiple of BOTH neighbours WITH A PRICE RANGE NEAR ZERO is a block cross, not participation -- exclude it from any trailing baseline used as a confirmation denominator. This is the exact mirror of the existing recognition rule ('a 1-minute bar whose volume is a tiny fraction of both neighbours is provisional'). The discriminator is RANGE, not size: participation moves price, a cross does not.",
     "direction_of_error_and_the_case_to_watch": "Here it errs STRICT, which is the safe direction -- it vetoes real breaks rather than manufacturing fake ones. THE DANGEROUS CASE IS THE SAME PRINT LANDING ON THE BREAK BAR ITSELF: a block cross inside the two-bar confirmation window would supply the participation the clause is looking for, on a trade that expressed no view at all. Check the break bar's RANGE against its volume before crediting it.",
-    "honest_scope": "CHANGED NO DECISION. XLF is not a TACTICAL vehicle at this account size and no trigger existed on it or on anything else this run -- SPY spent the hour in a 1.36-point band. SPY's own 16:20Z bucket reconciled clean (+4.13% vs its 1-minute sum, inside tolerance), so nothing propagated into the index numbers. A filter's inputs can only be audited credibly on a run the audit does not benefit."
+    "honest_scope": "CHANGED NO DECISION. XLF is not a TACTICAL vehicle at this account size and no trigger existed on it or on anything else this run -- SPY spent the hour in a 1.36-point band. SPY's own 16:20Z bucket reconciled clean (+4.13% vs its 1-minute sum, inside tolerance), so nothing propagated into the index numbers. A filter's inputs can only be audited credibly on a run the audit does not benefit.",
+    "REPRODUCED_2026-08-31T19:32Z_ON_QQQ": {
+      "measured": "QQQ's 19:10Z 5-minute bucket printed 259,524 against neighbours of 37,391 and 101,249 -- 3.47x the surrounding rate -- inside a price range of just 0.345 points (714.580-714.925). Heavy participation with no price consequence is the block/cross signature, not a hole: holes DEPRESS a bucket, a block INFLATES it.",
+      "the_cost_quantified_in_the_direction_that_matters": "The trailing-30-minute confirmation baseline (19:00-19:29Z) reads 105,567 raw against 74,776 ex-block -- the raw denominator is +41.2% INFLATED. That makes the volume-confirmation clause 41% TOO STRICT on QQQ right now, i.e. it would veto a genuine participation event. This is the OPPOSITE direction from the feed-hole case, which depresses the denominator and manufactures confirmation. Both are denominator defects; they point opposite ways and neither is visible from counting fires.",
+      "why_no_integrity_check_catches_it": "The 2026-08-28 direction rule tests a 5-minute bucket against its 1-minute sum. A block print is REAL volume that appears correctly in BOTH, so the reconciliation passes cleanly and the bucket is not holed. The detector is the PRICE RANGE: volume at several times the local rate inside a range at or below the local norm is a cross, and must be excluded from a confirmation denominator even though it is genuine.",
+      "changed_no_decision": "No QQQ trigger fired and TACTICAL was declined on the absence of a structural break, so no baseline was load-bearing. Recorded because a filter's inputs can only be audited credibly on a run the audit does not benefit."
+    }
   },
   "_A_DECLINE_THROUGH_POSITIVE_NEWS_IS_STRONGER_THAN_A_NEWSLESS_DRIFT": {
     "measured_utc": "2026-08-31T16:45:00Z",
@@ -1392,6 +1436,36 @@
       "REFINEMENT_OF_THE_SIBLING_and_the_two_results_are_both_right": "The 18:20Z run measured the cohort on DAY-CHANGE-vs-prior-close and found it absolutely worse with the spread to SPY WIDER by 0.245 points. This run measured from the GRADING TIMESTAMP and found it roughly flat to SPY. Both are correct and the difference locates the damage: the cohort's underperformance is concentrated BEFORE 14:15Z, not after it. The desk declined these names AFTER they had already fallen, and since the decision point they have tracked the index. THE TRANSFERABLE DISCIPLINE: an opportunity-cost question must be measured from the DECISION POINT, never from the session open -- a session-open basis charges the desk for a decline that had already happened when it chose, which flatters a decline exactly as a session-average denominator flatters a volume veto. Same denominator family, aimed at the desk's own scorekeeping.",
       "single_data_point_deliberately_NOT_generalised": "AEHR -- the most oversold name on the screen all session (RSI2 0.2-0.3) -- was the cohort's worst performer, at 2.9x the next worst. Recorded because when the desk does enter, the top of the RSI2 table is the natural place to reach. It is n=1 and NO rank relationship is claimed: 17 names over four hours cannot support one, and RSI2 measured at the END of a window is mechanically correlated with the return over that window, so a naive fit would be circular in exactly the way this key is about.",
       "feed_integrity": "SPY is the benchmark and a wrong benchmark contaminates all 17 excess figures, so it was checked first per the 2026-08-28 direction rule: the 14:15Z 5-minute bucket printed 150,297 against a 1-minute sum of 147,622 (+1.81%, inside tolerance, and ABOVE rather than below, so no bucket hole), and the bucket close 766.000 equals the 14:19 one-minute close. Clean in both directions."
+    },
+    "OUT_OF_SAMPLE_CONFIRMATION_2026-08-31T19:31Z": {
+      "why_this_is_appended_here_rather_than_minted_as_a_new_key": "It confirms this finding's central claim on new data and mints no new subject. Per CLAUDE.md, a contribution that narrows or confirms an existing key EDITS that key.",
+      "the_test_the_18:20Z_finding_implicitly_made": "It argued the 18:02Z screen shrinkage (BLK, GE, FDX, USB crossing RSI2 above 10) was selection on the outcome, NOT a cohort healing -- i.e. those names left because they had bounced, and a bounce is not a reversion. That is a falsifiable claim: if they had genuinely healed, they should stay off the screen.",
+      "what_the_19:27Z_snapshot_shows": "TWO OF THE FOUR DEPARTERS ARE BACK ON THE SCREEN INSIDE ~85 MINUTES -- BLK at RSI2 7.2 and USB at 9.7 -- having round-tripped out and back. Both are red on the day at the 19:31Z quote (BLK -0.864%, USB -1.321%). The count-based 'healing' read is refuted out-of-sample by its own population, without needing the level-based re-measure the 18:20Z run had to construct.",
+      "the_cohort_now_11_non_held_names_19:31Z_vs_08-28_official_closes": {
+        "BE": -2.937,
+        "MRVL": -2.53,
+        "GEV": -2.225,
+        "GD": -2.097,
+        "AEHR": -1.961,
+        "TSEM": -1.486,
+        "USB": -1.321,
+        "AMAT": -0.87,
+        "BLK": -0.864,
+        "IWM": -0.737,
+        "KLAC": -0.063,
+        "MEAN": -1.5536,
+        "MEDIAN": -1.4855,
+        "GREEN": "0 of 11",
+        "benchmarks": {
+          "SPY": -0.3834,
+          "QQQ": -0.1759,
+          "XLF": -0.6196,
+          "XLI": -1.098
+        },
+        "cohort_over_SPY": "4.05x"
+      },
+      "the_reading": "The veto has WIDENED, not expired: 3.23x the index decline at 15:27Z with 1 of 15 green, now 4.05x with 0 of 11 green. An RSI2 entry is a bet that an oversold name STOPS falling, and the class is being distributed at four times the index rate on the day the bet would be taken.",
+      "the_honest_caveats_which_both_cut_against_the_veto": "(a) The 15:27Z and 19:31Z cohorts are DIFFERENT POPULATIONS (15 names vs 11; REGN, COF, CAT, RTX, GE, MAR have left, BLK and USB returned), so '3.23x -> 4.05x' is NOT a like-for-like widening and must not be quoted as one -- it is two snapshots of a screen whose membership is itself outcome-selected. (b) A cohort of already-being-sold names underperforming on a down day is PARTLY EXPECTED BY CONSTRUCTION. What the measurement establishes is narrower and sufficient: today shows DISTRIBUTION where the entry needs STABILIZATION. It does NOT establish that the RSI2 edge is broken."
     }
   },
   "_MONTHLY_REBALANCE_PROPOSAL_2026-09-01": {
