@@ -186,6 +186,24 @@
    "_opening_window_caveat": "Quotes taken 13:41Z, ELEVEN minutes after the 13:30Z bell -- outside the strict 5-minute opening-print window, but the 2026-08-27 audit found the opening-window inflation still measurable much later (a re-measure at 16:02Z came in -4.23% below that day's 13:31-13:41Z ATM reading). So these rows are USABLE but should be treated as an upper bound on ATM IV; a settled-market re-measure would likely read slightly lower. Recorded rather than silently trusted.",
    "_board_note": "Expiry 2026-09-25, 28 DTE -- the board nearest 30 DTE, per the IV method. NOTE it is a WEEKLY, not the September monthly (2026-09-18, 21 DTE). Per the 2026-08-24 three-instance measurement-bug finding, the wide bid/ask seen on several of these contracts is an IV-SWEEP SPREAD and is NEVER a liquidity verdict on the name -- MSFT quoted 11.3% of mid here and has repeatedly measured ~2.5% on the monthly at the target delta. Do not disqualify any name on these spreads; re-quote the board you would actually trade.",
    "_SETTLED_REMEASURE_1447Z": "OVERWRITTEN IN PLACE at 14:47Z with a SETTLED-MARKET re-measure, which is exactly what this row's own _opening_window_caveat asked a later run to do. The 13:41Z reading was atm_iv 0.117570 on the 772 strike; this settled reading is 0.114590 on the 773 strike, -2.53%. The caveat was RIGHT in direction and the magnitude brackets the -4.23% the 2026-08-27 audit measured -- SPY -2.53%, QQQ -4.37%. SECOND INDEPENDENT CONFIRMATION of opening-window ATM inflation; treat any row quoted inside the first ~15 minutes as an upper bound and re-measure before letting it gate a trade."
+  },
+  {
+   "date": "2026-08-31",
+   "spot": 767.24,
+   "atm_strike": 767.0,
+   "atm_iv": 0.120998,
+   "dte_used": 30,
+   "expiry": "2026-09-30",
+   "rv_30d": 0.1187,
+   "rv_30d_ex_top2": 0.0997,
+   "iv_rv_ratio": 1.0194,
+   "iv_rv_ratio_ex_top2": 1.2136,
+   "largest_1d_move_in_window_pct": 1.79,
+   "_call_put": "call 0.110641 / put 0.131354, averaged per the IV method.",
+   "_rv_window": "rv from 30 daily log returns through the 2026-08-28 regular-session close, annualised x sqrt(252).",
+   "_n_readings": 15,
+   "_opening_window_caveat": "Quotes 13:35:22-13:35:43Z, ~5 min after the bell. Per the standing opening-window caveat (the 2026-08-27 audit found inflation measurable well past the 5-minute mark; confirmed -2.53% SPY / -4.37% QQQ / -3.56% NVDA on settled re-measures) TREAT THIS atm_iv AS AN UPPER BOUND. A settled re-measure would likely read lower. Recorded rather than silently trusted.",
+   "_board_note": "BOARD: 2026-09-30, exactly 30 DTE -- the board nearest 30 DTE, and note this is a WEEKLY not the Sept monthly (09-18, 18 DTE). READ THE PAIR: raw 1.0194 is fair, but ex-gap 1.2136 is RICH -- SPY premium is NOT cheap on the honest gauge. The raw/ex-gap spread is modest here (largest 1d move only 1.79%), so unlike NVDA this is not a gap artifact; SPY realized vol is simply very low (0.1187) and implied is not following it down."
   }
  ],
  "QQQ": [
@@ -373,6 +391,24 @@
    "_overwrite_note": "OVERWRITES the 16:20Z row (atm_iv 0.173300 at spot 716.6) per the one-row-per-day rule. Kept here because the delta is the finding: +0.73% on essentially unchanged spot AFTER a fresh session low of 715.690.",
    "_claim_scored": "OUT-OF-SAMPLE TEST of the 16:20Z run's falsifiable claim ('if ATM IV starts BIDDING on a further leg down, the narrow-drag reading breaks'). QQQ made a lower low; ATM IV did NOT bid. The claim HOLDS for a second consecutive test. HONEST CORRECTION TO THE ADJECTIVE: the prior run scored it as IV 'easing'; this run measures it ticking marginally UP. Both are the same fact -- ATM IV is unmoved across a 1.4-point range and a new session low. Carry the FACT forward, not either adjective.",
    "_decision_relevance": "ex-gap 1.0403 is marginally RICH and drifting slightly richer (1.0328 at 16:20Z). A long put would collect delta with vega leaning against it on the very move meant to justify it. This was a SUPPORTING objection to the 16:30Z TACTICAL decline, never the reason -- the volume clause was. IV sanity is a necessary condition and never a thesis."
+  },
+  {
+   "date": "2026-08-31",
+   "spot": 716.72,
+   "atm_strike": 717.0,
+   "atm_iv": 0.175312,
+   "dte_used": 30,
+   "expiry": "2026-09-30",
+   "rv_30d": 0.2093,
+   "rv_30d_ex_top2": 0.1633,
+   "iv_rv_ratio": 0.8376,
+   "iv_rv_ratio_ex_top2": 1.0736,
+   "largest_1d_move_in_window_pct": 3.34,
+   "_call_put": "call 0.171587 / put 0.179037, averaged per the IV method.",
+   "_rv_window": "rv from 30 daily log returns through the 2026-08-28 regular-session close, annualised x sqrt(252).",
+   "_n_readings": 15,
+   "_opening_window_caveat": "Quotes 13:35:22-13:35:43Z, ~5 min after the bell. Per the standing opening-window caveat (the 2026-08-27 audit found inflation measurable well past the 5-minute mark; confirmed -2.53% SPY / -4.37% QQQ / -3.56% NVDA on settled re-measures) TREAT THIS atm_iv AS AN UPPER BOUND. A settled re-measure would likely read lower. Recorded rather than silently trusted.",
+   "_board_note": "BOARD: 2026-09-30, exactly 30 DTE. THE RAW NUMBER IS THE ARTIFACT: raw 0.8376 reads 16% cheap, but ex-gap 1.0736 is fair-to-slightly-rich. The window still carries the 07-29 -3.34% flush; that one day is doing the work. Ex-gap governs for any contract expiring before the next macro event, and it says QQQ premium is not on sale."
   }
  ],
  "NVDA": [
@@ -560,6 +596,24 @@
    "_EX_GAP_CROSSED_BACK_ABOVE_1_AND_THE_LESSON": "READ: ex-gap is 1.0185 at the 220 ATM (1.0156 at the constant 225 strike) -- BACK ABOVE 1.0, fair-to-marginally-rich. Raw is 0.7841, still the +8.74% gap artifact and still not the decision input. THIS DIRECTLY REVERSES THE CONCLUSION THE 15:31Z RUN PUBLISHED, which read 0.9840 and declared the standing 'NVDA event premium is rich' objection FULLY UNWOUND, FALSE, and to 'stop being cited'. THE LESSON, and it is a new one: DO NOT RETIRE A STANDING OBJECTION ON A SINGLE READING THAT SITS WITHIN NOISE OF ITS THRESHOLD. That reading was 1.6% below 1.0; this same instrument then moved 3.2% in two hours on an ordinary afternoon -- TWICE the margin the retirement rested on. A crossing smaller than the measurement's own intraday variability is a CROSSING, not a RETIREMENT, and should be marked 'crossed, provisional' and required to hold across sessions before any future run is told to stop citing the objection. Same family as the regime-label staleness finding (a label earned in the morning and unwound by the close) and the same corrective: a conclusion is a timestamped measurement, and the stronger the verb used to publish it ('retired', 'stop citing'), the more it should have to survive. Note the honest scope: this changed no decision. CORE was declined this run on the 09-01/09-02 semis print cluster spanning every 21-45 DTE window, not on IV -- and fair vol, rich vol or cheap vol supplies no thesis either way.",
    "_opening_window_caveat": "DISCHARGED and no longer applicable: quotes taken 17:24Z, deep into a settled session, well past both the opening auction window and the ~20-minute closing-auction window.",
    "_front_board_check_1903Z": "7-DTE 2026-09-04 board ATM IV 0.345632 (217.5P) / 0.346676 (220P) / 0.348911 (215P) against this row's 28-DTE 0.336319 -> front/back kink 1.028x. Consistent with the 2026-08-28T18:30Z finding that NVDA's event premium is fully discharged (1.84x pre-print, 1.0746x on 08-27, 1.028x now); the residual kink is ordinary near-dated term structure, not an event. Logged as a field on today's row, NOT as a second row -- one row per name per day."
+  },
+  {
+   "date": "2026-08-31",
+   "spot": 218.75,
+   "atm_strike": 220.0,
+   "atm_iv": 0.328571,
+   "dte_used": 32,
+   "expiry": "2026-10-02",
+   "rv_30d": 0.447,
+   "rv_30d_ex_top2": 0.3545,
+   "iv_rv_ratio": 0.7351,
+   "iv_rv_ratio_ex_top2": 0.9269,
+   "largest_1d_move_in_window_pct": 8.38,
+   "_call_put": "call 0.327751 / put 0.329390, averaged per the IV method.",
+   "_rv_window": "rv from 30 daily log returns through the 2026-08-28 regular-session close, annualised x sqrt(252).",
+   "_n_readings": 15,
+   "_opening_window_caveat": "Quotes 13:35:22-13:35:43Z, ~5 min after the bell. Per the standing opening-window caveat (the 2026-08-27 audit found inflation measurable well past the 5-minute mark; confirmed -2.53% SPY / -4.37% QQQ / -3.56% NVDA on settled re-measures) TREAT THIS atm_iv AS AN UPPER BOUND. A settled re-measure would likely read lower. Recorded rather than silently trusted.",
+   "_board_note": "BOARD: 2026-10-02, 32 DTE -- NVDA has NO 09-30 board, so this is the nearest to 30 and the boards are NOT comparable to SPY/QQQ above. THE POST-PRINT VOL BLEED CONTINUES AND HAS NOW CROSSED FURTHER BELOW FAIR: ex-gap 0.9269 today vs the 0.9840 settled reading of 2026-08-28 and the 1.2459 four-session pre-print peak of 08-25. The event premium is fully unwound and then some. Raw 0.7351 remains the KNOWN ARTIFACT of the 08-27 +8.38% print gap sitting inside the 30-day window -- it will stay artificially low until that bar rolls out around 10-08. THE STANDING CAVEAT BINDS UNCHANGED: IV sanity is a NECESSARY condition and never a thesis. Marginally cheap vol supplies no reason whatsoever to own NVDA, and CORE declined it today on thesis, not on vol."
   }
  ],
  "AMD": [
