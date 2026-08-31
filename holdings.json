@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-08-31T19:15:00Z",
+  "updated_utc": "2026-08-31T19:45:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-08-31",
     "realized_usd": 0.0,
@@ -9,7 +9,7 @@
     "source": "BROKER-READ THIS RUN, not typed as a default, per the 2026-08-27T09:18Z finding. get_realized_pnl(718757339, 2026-08-28..2026-08-31) returns four buckets, every one number_of_trades 0 / realized_gain null, total_returns 0 -- so the 2026-08-31 session opens with a clean slate and the 2026-08-28 day closed at $0.00 as recorded.",
     "cap_status": "NOT BINDING. $0.00 realized against -$400 leaves the full cap. It gates NEW ENTRIES only and never delays or blocks an exit.",
     "entry_throttle": "OPTIONS 0 of 8 for trading day 2026-08-31. EQUITIES 1 of 3 -- MMM at 13:37:54Z, placed by the 13:40Z run. BOTH of the other two runs sharing this slot (13:45Z and 13:50Z) took ZERO entries: the 13:45Z run DEFERRED its equity slot on the broker collision check, and the 13:50Z run found no candidate graded A. So the count stands at 1 and no double-sizing occurred.",
-    "_verified_utc": "2026-08-31T16:30:00Z -- re-READ from this key and unchanged; no closing trade has occurred today in either book. Never typed as a default, per the 2026-08-27T09:18Z finding."
+    "_verified_utc": "2026-08-31T19:46:00Z -- BROKER-RE-READ at the close of the session (get_realized_pnl 2026-08-31..2026-08-31: one bucket, number_of_trades 0, realized_gain null, total_returns 0), so post-close runs inherit a settled figure. STILL $0.00 realized / 0 closing trades. Never typed as a default, per the 2026-08-27T09:18Z finding. The trading day remains 2026-08-31 until the 2026-09-01 open -- do NOT reset this or either throttle overnight."
   },
   "positions": [
     {
@@ -758,17 +758,15 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-08-31T19:30:00Z",
+    "run_utc": "2026-08-31T19:45:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-08-31",
-    "outcome": "NO TRADE both books, 29th run. Nothing blocked by capital, throttle or loss cap -- deployable $796.96 and an equity slot free, unused BY CHOICE. Every scheduled duty for 2026-08-31 was already discharged before this run (heartbeat 13:38Z, brief, IV rows all eight core names, daily report 19:15Z, monthly rebalance proposal 18:40Z). The one NEW input was the 19:27Z report snapshot; this run measured the two gates it bears on rather than restating them.",
-    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST per the 2026-08-28 collision rule. Options: SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* 0.0000 -- no assignment, exercise, expiration or unauthorized fill. Equities: ROST 2.000000 / LLY 0.420254 / PNC 1.825758 / MDLZ 7.988509 / MMM 2.884552, one-for-one with holdings.json. get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000. No order placed this run.",
-    "capital": "19:30Z get_portfolio: total $3,944.86; equity $2,371.90; options $526.00; cash $1,046.96; unleveraged_buying_power $1,046.96 == buying_power (no margin extended, FOUR LAWS #4 clean). Reserve max(0.05 x 3944.86 = $197.24, $250.00) = $250.00, the flat floor binding below a $5,000 account per _RESERVE_IS_THE_STRICTER_OF_TWO. DEPLOYABLE $796.96, above one normal position size, so the rotation-beats-the-weakest test is NOT triggered. NOTHING declined on capital.",
-    "throttles": "Equities 1 of 3 for the day (MMM), 0 of 1 this run and UNUSED BY CHOICE. Options 0 of 8 for the day, 0 of 2 this run. Realized options P/L $0.00 against the -$400 cap, READ from _realized_options_pnl_today rather than typed as a default.",
-    "governance": "Invoked with prompt v8, whose equity clause hard-codes the >=45% cash floor. That floor is VOID as of Ryan's 2026-08-29 live turn; CLAUDE.md's full-deployment policy governs and the prompt is STALE pending the v9 paste (docs/routine-prompt-v9.md, Option A). Reported, not silently resolved to the stricter number. No flag touched, none re-notified; HARD RULE 9 intact -- no Ryan turn is claimed, quoted or implied anywhere in this run.",
-    "positions_verdict_both_books": "ALL HOLD, no exit fired. Hedge SPY 700P options_value $526.00 -- EXEMPT from premium backstops by design, roll/close at ~21 DTE WITH Ryan (81 DTE now). Equities all five underwater and all five still deeply oversold on the 19:27Z screen (PNC RSI2 4.0, LLY 1.8, MMM 2.4, MDLZ 4.1, ROST 5.8), so NO target hit and NO RSI2>=70 bounce -- the two mechanical-exit conditions are not merely unmet, they are at the opposite end of their range. No name near green-enough. No thesis flag on any held name in the 19:27Z ACTION block, which is EMPTY.",
-    "why_flat_equities": "Cohort veto LIVE and WIDENED, measured 19:31Z -- see _OVERSOLD_COHORT_IS_MEASURABLE_BEFORE_ANY_NAME_IS_GRADED. Additionally: five of the eleven non-held names are semis (AEHR, KLAC, AMAT, MRVL, TSEM), vetoed by the 09-01/09-02 AI-infra print cluster under the sector-print extension of the [ERN] rule; FCEL carries its own 09-02 print AND the SPEC tag; GEV is SPEC. The five HELD names on the screen would be ADDS TO LOSERS, which FOUR LAWS #3 forbids without Ryan's explicit approval. No name graded A.",
-    "why_flat_options": "TACTICAL: no trigger -- SPY has chopped a ~1.7-point band (765.05-766.75) for ninety minutes with no structural level breaking, and QQQ likewise. Two further bars measured rather than assumed, both below. CORE: 21-45 DTE spans the 09-01/09-02 print cluster; declined on thesis, unchanged from the day's prior twenty-eight runs."
+    "outcome": "NO TRADE both books, 30th and LAST market-hours run of the session. Nothing blocked by capital, throttle or loss cap -- deployable $796.96 and an equity slot free, unused BY CHOICE. Separable contribution: completed the closing-ramp boundary measurement the 19:30Z run's vantage could not reach; today's boundary is 19:35Z vs 19:20Z on 2026-08-28.",
+    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST. Options: SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* 0.0000. Equities: ROST 2.000000 / LLY 0.420254 / PNC 1.825758 / MDLZ 7.988509 / MMM 2.884552, one-for-one with the ledger. One equity order all day (MMM 13:37:54Z, agentic, already ledgered). No order placed this run.",
+    "capital": "19:46Z get_portfolio: total $3,939.72; equity $2,374.76; options $518.00; cash $1,046.96; unleveraged_buying_power $1,046.96 == buying_power (FOUR LAWS #4 clean). Reserve max($196.99, $250.00) = $250.00. DEPLOYABLE $796.96; rotation-beats-the-weakest NOT triggered.",
+    "throttles": "Equities 1 of 3 for the day, 0 of 1 this run unused by choice. Options 0 of 8, 0 of 2 this run. Realized options P/L $0.00 vs the -$400 cap, BROKER-READ this run at 19:46Z.",
+    "positions": "All five equities underwater and HOLD -- none green, so the profit-banking mechanical exit cannot fire on any of them; no target hit, no green-enough crossing, no thesis-break evidence. SPY 700P hedge -$30.8%, exempt, held to the ~21-DTE decision with Ryan.",
+    "governance": "Prompt v8; its >=45% cash-floor clause is VOID per Ryan's 2026-08-29 live turn and CLAUDE.md's full-deployment policy governs. Prompt reported STALE pending the v9 paste. No flag touched or re-notified; HARD RULE 9 intact."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -1018,6 +1016,14 @@
       },
       "the_transferable_half": "This is the finding's own rule vindicated: it explicitly said do NOT adopt 40 minutes as a constant and DETECT the boundary per session. A run inheriting 40 minutes as a number would have declared TACTICAL barred by the closing window at 19:20Z today and been WRONG -- and, worse, would have banked a correct stand-down on a false reason. The 08-28 measurement was a Friday two sessions from month-end with rebalancing flow; today is a Monday month-end close without it.",
       "consequence_for_this_run_stated_honestly": "TACTICAL was therefore NOT barred by the closing window at 19:30Z, and this run could not lean on it. It stood down on the merits instead: no structural level breaking on either index, plus the block-print contamination recorded in _A_BLOCK_PRINT_INFLATES_THE_BASELINE_AND_EVERY_INTEGRITY_CHECK_PASSES. Removing a gate you cannot verify is what makes the remaining gates worth anything."
+    },
+    "CONFIRMED_OUT_OF_SAMPLE_2026-08-31T19:45Z": {
+      "verdict": "The 'detect per session' rule is CONFIRMED and a constant is refuted from the other direction. Today's boundary is 19:35Z (25 min), against 19:20Z (40 min) on 2026-08-28. Either number adopted as a constant would have been wrong on the other session.",
+      "measured": "Baseline 18:30-19:19Z ten buckets mean 131,610. Post-19:20Z corrected: 103,157 (0.78x) / 125,478 (0.95x) / 123,431 (0.94x) / 199,211 (1.51x) / 211,690 (1.61x). Ramp mean ratio 1.159x vs 2.081x on 08-28.",
+      "feed_integrity": "All five buckets reconciled against 1-minute sums FIRST. 19:35Z (-10.7%) and 19:40Z (-40.2%) were BUCKET-HOLED and the 1-minute sums substituted per the 08-28 direction rule; the raw buckets would have shown NO ramp at all. The holed direction is the one that manufactures a false negative here.",
+      "corrects_a_stated_bound": "The 08-28 finding offered month-end rebalancing flow as a reason its ramp might be unusually wide. Today IS month-end -- the last trading day of August -- and the ramp is half as wide and starts later. That hypothesis is weakened by the session best placed to confirm it.",
+      "methodological_note": "A run measuring at 19:30Z sees 0.78x/0.95x/0.94x and correctly reports 'no ramp' -- which is why the 19:30Z run's 'did not reproduce' was UNDER-DETERMINED rather than wrong. A negative result about a closing-window effect requires a measurement window that reaches the bell.",
+      "honest_scope": "CHANGED NO DECISION -- TACTICAL was already barred on the closing window and overnight-carry arithmetic. n=2; the rule stays DETECT PER SESSION."
     }
   },
   "_QQQ_THIRD_HOLE_OF_SESSION_2026-08-28": {
