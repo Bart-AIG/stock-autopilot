@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-01T13:50:00Z",
+  "updated_utc": "2026-09-01T13:55:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-01",
     "realized_usd": 0.0,
@@ -799,7 +799,8 @@
     },
     "why_flat": "EQUITIES: the per-run entry is unspent but deployable capital is $302.10, below the ~$400 practical minimum, and under the rotation rule a new idea must now beat the weakest name already held rather than merely clear the A-grade bar -- nothing does, 14 minutes after the sixth same-signal entry. The committed report is also one session old (08-31 19:01Z intraday / 19:27Z morning; no 2026-09-01 report has landed yet), which is the known report-cron gap at the open, not a DATA ERROR. OPTIONS: CORE needs $500-1,000 and is unaffordable at $302.10; TACTICAL is nominally reachable at the very bottom of its $300-1,000 band but the 2026-08-26 regime capstone bars breakout scalps into an unresolved scheduled catalyst, and tonight carries PANW/DELL/CRDO/MDB with AVGO 09-02 behind it -- QQQ -1.29% against SPY -0.65% is precisely the pre-event Nasdaq de-rate that capstone describes. Declining is the correct output and the binding constraint is named honestly: capital first, regime second.",
     "governance": "PROMPT v8 IS STALE ON THE CAPITAL POLICY and this run applied CLAUDE.md as required. v8's equity clause still hard-codes 'the Aug-Oct posture's >=45% equity-book cash floor computed BEFORE sizing'; that floor is VOID as of Ryan's 2026-08-29 live turn and the governing rule is the full-deployment policy plus the reserve. Applying v8 literally would have read this book at 16.11% cash and frozen it -- the exact silent reversal CLAUDE.md warns a run must refuse. No approval is claimed or quoted anywhere in this run; HARD RULE 9 intact. docs/routine-prompt-v9.md still awaits Ryan's paste.",
-    "outstanding_duty_iv_log": "THE CORE-LIST IV ROWS FOR 2026-09-01 ARE NOT YET LOGGED and this run deliberately did not write them. iv_history.json's last row for every core name (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) is dated 2026-08-31; the 13:36Z run built the brief but did not log the rows. This run declined to fill the gap at 13:54Z because this file's four-times-confirmed finding is that pre-14:00Z ATM IV is inflated by 2.5-4.4% and is an UPPER BOUND -- writing rows now would knowingly commit numbers the desk already knows to be wrong, and a bad row is worse than a late one because the series is what percentiles will eventually be computed from. OWNER: the first run at or after 14:00Z. It is six minutes away and the sub-hourly cadence should reach it. NOTE FOR THE RELAY: every core name is at n=15 readings. At n=20 -- roughly five more sessions -- the IV method permits percentiles rather than raw IV/RV ratios, but see this file's BOARD DISCONTINUITY comment in iv_history.json: the series is not board-homogeneous, so a percentile computed across mixed boards would measure the 2026-08-24 board switch as much as the vol. Pick and state one convention BEFORE the 20th reading, not after."
+    "outstanding_duty_iv_log": "THE CORE-LIST IV ROWS FOR 2026-09-01 ARE NOT YET LOGGED and this run deliberately did not write them. iv_history.json's last row for every core name (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) is dated 2026-08-31; the 13:36Z run built the brief but did not log the rows. This run declined to fill the gap at 13:54Z because this file's four-times-confirmed finding is that pre-14:00Z ATM IV is inflated by 2.5-4.4% and is an UPPER BOUND -- writing rows now would knowingly commit numbers the desk already knows to be wrong, and a bad row is worse than a late one because the series is what percentiles will eventually be computed from. OWNER: the first run at or after 14:00Z. It is six minutes away and the sub-hourly cadence should reach it. NOTE FOR THE RELAY: every core name is at n=15 readings. At n=20 -- roughly five more sessions -- the IV method permits percentiles rather than raw IV/RV ratios, but see this file's BOARD DISCONTINUITY comment in iv_history.json: the series is not board-homogeneous, so a percentile computed across mixed boards would measure the 2026-08-24 board switch as much as the vol. Pick and state one convention BEFORE the 20th reading, not after.",
+    "_union_merge_note": "CONCURRENT SAME-SLOT COLLISION, 2026-09-01: runs fired at 13:52Z and 13:55Z. This object carries the LATER (13:55Z) run's state per the union rule. The 13:52Z run's state, which agreed with it on every reconciled fact, was: ZERO DRIFT both books at 13:47Z (6 equities + SPY 2026-11-20 700P, all seven matching the ledger, all pending_* 0.0000); total $4,016.64 = equity $2,874.54 / options $590.00 / cash $552.10; unleveraged_buying_power $552.10 == buying_power so no margin extended; reserve $250.00 (stricter of the FOUR LAWS floor and 5%-of-total $200.83); DEPLOYABLE $302.10; options 0 of 8, equities 1 of 3 (GD at 13:36Z), realized $0.00 vs the -$400 cap. BOTH RUNS TRADED NOTHING and each recorded a separate finding -- _OPENING_WINDOW_SLIPPAGE_ON_AUTONOMOUS_EQUITY_ENTRIES (13:52Z) and _OPENING_WINDOW_DECAY_HITS_THE_EVIDENCE_LEG_NOT_ONLY_THE_PRICE_LEG (13:55Z), both retained above."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -1679,6 +1680,53 @@
       "watchpoint_for_later_runs_today": "MDLZ RSI2 66.2 and rising on a +0.89% session. If it crosses 70 while the position is green by a fraction of a percent, DO NOT fire mechanically -- apply the reading above, log the decision, and say plainly that the trigger was reached and declined on magnitude."
     }
   },
+  "_OPENING_WINDOW_SLIPPAGE_ON_AUTONOMOUS_EQUITY_ENTRIES": {
+    "measured_utc": "2026-09-01T13:50:00Z",
+    "headline": "EVERY AUTONOMOUS EQUITY ENTRY THIS BOOK HAS EVER PLACED WAS FILLED 6-10 MINUTES AFTER THE BELL, AND IN ALL FOUR CASES A MATERIALLY BETTER PRICE WAS AVAILABLE WITHIN THE NEXT 30 MINUTES -- MEAN 0.700%. THE RUN IS BUYING THE OPENING BOUNCE OF THE VERY DIP ITS SIGNAL TOLD IT TO BUY.",
+    "measurement": {
+      "method": "Fill price vs (a) its percentile of that session's eventual regular-hours range, (b) the best price actually printed in the 30 minutes AFTER the fill, (c) the session close.",
+      "ROST": {
+        "fill": 230.1512,
+        "filled_utc": "2026-08-28T13:37:13Z",
+        "pctile_of_session_range": 44.3,
+        "best_within_30min": 228.4,
+        "improvement_pct": 0.761,
+        "fill_vs_close_pct": 0.7
+      },
+      "MDLZ": {
+        "fill": 62.5899,
+        "filled_utc": "2026-08-28T13:40:03Z",
+        "pctile_of_session_range": 83.7,
+        "best_within_30min": 62.3,
+        "improvement_pct": 0.463,
+        "fill_vs_close_pct": 0.39
+      },
+      "MMM": {
+        "fill": 173.3371,
+        "filled_utc": "2026-08-31T13:37:54Z",
+        "pctile_of_session_range": 84.2,
+        "best_within_30min": 172.47,
+        "improvement_pct": 0.5,
+        "fill_vs_close_pct": 0.88
+      },
+      "GD": {
+        "fill": 374.4437,
+        "filled_utc": "2026-09-01T13:36:10Z",
+        "pctile_of_session_range": 82.4,
+        "best_within_30min": 370.415,
+        "improvement_pct": 1.076,
+        "fill_vs_close_pct": null,
+        "_note": "Session still open at measurement; range is 13:30-13:47Z only, so its percentile can still move. The 30-minute improvement figure is already realised."
+      },
+      "aggregate": "Mean fill percentile 73.6% of the session range; 3 of 4 landed in the top ~16%. Mean improvement available within 30 minutes 0.700% = ~$3.50 on a $500 entry, ~$14.00 across the four entries to date.",
+      "GD_detail": "GD ran 371.51 (13:30 low) -> 375.305 (13:32-33 high) -> 370.415 (13:47 low). The 13:36:10Z fill at 374.4437 caught 82% of that opening pop and the whole move round-tripped inside eleven minutes. The fill also printed ABOVE the reported high (374.060) of the one-minute bar containing it, on a bar showing only 255 shares -- either a thin consolidated bar or a marketable order crossing a wide spread on a $374 name. GD currently quotes 0.153% of mid wide, so a market order there is not free."
+    },
+    "THE_MECHANISM_and_it_is_the_transferable_part": "The signal and the execution are fighting each other. The autonomous entry is sourced from an RSI2 MEAN-REVERSION screen computed on the PREVIOUS SESSION'S CLOSE (see _REPORT_CRON_GAP_AT_THE_OPEN: the fresh report does not land on master until ~14:15Z, so the first-post-open run always acts on yesterday's report). The opening ten minutes is precisely when yesterday's oversold names get their reflexive bounce. So the run reads 'this name is oversold as of last night' and then executes into the exact window where that oversold condition is being relieved. It buys the bounce it meant to buy the dip of.",
+    "WHY_NOBODY_CAUGHT_IT": "This file already carries the rule 'NEVER price a decision off the opening auction print -- re-quote at least ~5 minutes after 13:30Z', and runs have obeyed it. But that rule was written about MARKS and DECISIONS (the 2026-08-21 QQQ 680P incident, where an opening print flipped the SIGN of a P/L reported to Ryan). Nobody applied it to EXECUTION. Re-quoting before deciding and then filling into the same window satisfies the letter of the rule and gets the artifact anyway -- this file's most-repeated defect, a check that passes for the wrong reason. It is also the execution-layer sibling of the documented first-hour volume inflation: the opening bar carried 5.2x the next bar's volume on ROST and 2.3x on MDLZ, which is the same auction imbalance seen from the fill side instead of the denominator side.",
+    "THE_FIX_and_it_repairs_TWO_findings_with_ONE_change": "PREFER to take the trading day's autonomous equity entry on the first run at or after ~14:15Z, once the fresh report has landed on master, rather than on the first-post-open run. Nothing in the thesis decays in 40 minutes: the hold is 1-3 weeks and the signal is already a day old. The same deferral ALSO retires _REPORT_CRON_GAP_AT_THE_OPEN's standing problem, because the run would then be acting on the CURRENT session's report instead of the prior one. Two known defects, one change, no gate loosened.",
+    "SCOPE_AND_LIMITS_stated_because_overclaiming_is_the_failure_mode_here": "n=4 and the total measured cost is ~$14. This is a process refinement, NOT a crisis, and it must not be written up as one. Three caveats: (1) buying lower is not automatically better for a mean-reversion entry -- if a name keeps falling the later fill wins, if it reverts immediately the earlier fill wins; what is notable is that the improvement was available in 4 of 4 cases, not that it is guaranteed. (2) ROST filled at 44.3% of its range, so 'the run always buys the top' would be false. (3) GD's session is incomplete. The deferral is a PREFERENCE, not a bar: a genuinely time-critical signal still trades when it fires, and the entry must never be delayed past the point where the setup is gone.",
+    "what_it_does_NOT_change": "No gate is loosened or tightened by this. The full HARD RULE 6 stack -- HARD RULE 7 thesis check, A-grade-only bar, capital policy, sector steer, [ERN] rule, per-name and spec caps, HARD RULE 3 market-order mechanics, HARD RULE 5's no-stops policy, 1/run and 3/day throttles -- applies unchanged. This is about WHEN in the session a cleared entry is executed, never about WHETHER it clears."
+  },
   "_OPENING_WINDOW_DECAY_HITS_THE_EVIDENCE_LEG_NOT_ONLY_THE_PRICE_LEG": {
     "measured_utc": "2026-09-01T13:50:00Z",
     "headline": "THE 2026-08-21 OPENING-WINDOW RE-QUOTE RULE WAS APPLIED TO THE PRICE BEING PAID AND NOT TO THE TAPE EVIDENCE THAT JUSTIFIED PAYING IT. THE EVIDENCE LEG DECAYED 65-72% IN THIRTEEN MINUTES ON A FLAT SPY.",
@@ -1700,5 +1748,13 @@
     "HONEST_SCOPE_this_changed_no_decision_and_is_NOT_a_sell_case": "GD is HELD and stays held. No mechanical exit fires (target 387.04 untouched; RSI2 13.8, nowhere near 70; the position is -0.72%, so the profit-banking authority is unavailable by construction under the 2026-08-26 gate). HARD RULE 5 forbids a price stop and permits an equity sale only on a target hit, an RSI2>=70 print while green, or a HARD RULE 7 THESIS break -- and a thirteen-minute tape decay is not a thesis break. The STRUCTURAL legs of the GD case are untouched by this measurement: the 08-31 seven-year DoD framework, the FactSet mean PT 424.50 / Overweight, the verified earnings-clear window, and RSI2 6.8 depth at entry all still stand. Only the TAPE leg decayed. Recorded per this file's standard that a measurement is creditable precisely because the audit does not license the action it might seem to argue for.",
     "HONEST_SCOPE_limits_of_the_measurement": "Thirteen minutes is a very short window and intraday relative strength oscillates -- this may fully revert by the close, and n=1 on one entry is not evidence about the screen. The claim is narrow and is about MEASUREMENT TIMING, not about whether GD was a good buy. A later run should re-measure the same three series after 14:00Z rather than inheriting either the 13:34Z reading or this one.",
     "what_a_future_run_should_do_differently": "When an entry gate turns on a tape comparison and the run fires inside the opening window, either (a) wait for the ~14:00Z re-measure before treating the comparison as established, or (b) take the entry and write the comparison down as PROVISIONAL with the re-measure scheduled -- never hand it forward as a settled fact, which is how the 2026-08-28 regime-label finding says a stale verdict propagates through the relay."
+  },
+  "_UNION_MERGE_DEDUP_KEY_SILENTLY_DROPS_ENTRIES": {
+    "measured_utc": "2026-09-01T14:00:00Z",
+    "headline": "THE UNION-MERGE RULE SAYS 'KEEP BOTH JOURNAL ENTRIES' BUT NEVER SAYS HOW TO IDENTIFY A DUPLICATE, AND THE OBVIOUS KEY -- (run_utc, headline-prefix) -- SILENTLY DELETES REAL HISTORY. CAUGHT BY AN ARITHMETIC ASSERTION, NOT BY READING THE FILE.",
+    "evidence": "Resolving the 2026-09-01 13:52Z/13:55Z collision, a first attempt deduped on (run_utc, headline[:60]) and produced 784 entries from two 787-entry sides. The correct union is 788 (786 common + one entry per run). FOUR pre-existing entry PAIRS -- 2026-08-13T18:30Z, 2026-08-13T23:29Z, 2026-08-14T17:15Z, 2026-08-14T19:15Z -- legitimately share both run_utc and headline prefix, themselves the surviving records of earlier collisions. The dedup treated each pair as one entry and dropped its twin.",
+    "the_rule": "Dedup journal entries on FULL-CONTENT identity (json.dumps(entry, sort_keys=True)), never on a summary key. Two entries that differ anywhere are two entries. Then ASSERT the count: len(merged) == len(ours) + len(theirs) - len(common). Three lines of arithmetic catch this; reading the file does not, which is exactly why it nearly shipped.",
+    "why_it_is_the_dangerous_direction": "The failure is SILENT and IRREVERSIBLE in the direction that matters -- a merge that drops history produces a perfectly valid JSON file, a plausible entry count, and a clean git diff. Nothing errors. This is the same shape as the lot-invariant rule ('assert, don't read') and the `git diff --stat` rule: trust the check, not your sense of having been careful.",
+    "scope": "Caught before the push, so nothing was lost. Recorded because the collision protocol is exercised rarely and under time pressure, and the next run to hit one will reach for the same obvious key."
   }
 }
