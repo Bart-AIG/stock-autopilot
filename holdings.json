@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-01T17:15:00Z",
+  "updated_utc": "2026-09-01T17:20:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-01",
     "realized_usd": 0.0,
@@ -1535,7 +1535,17 @@
       "cash_pct_of_equity_book": 30.61,
       "options_hedge_pct_of_account": 13.37,
       "deployable_usd": 796.96,
-      "capital_policy": "Full-deployment policy (Ryan 2026-08-29). There is NO percentage cash floor to meet -- the 45% figure is VOID and must not be re-derived. Deployable = unleveraged_buying_power $1,046.96 minus the reserve max(0.05 x 3949.26 = $197.46, $250.00) = $250.00, the flat floor binding below a $5,000 account."
+      "capital_policy": "Full-deployment policy (Ryan 2026-08-29). There is NO percentage cash floor to meet -- the 45% figure is VOID and must not be re-derived. Deployable = unleveraged_buying_power $1,046.96 minus the reserve max(0.05 x 3949.26 = $197.46, $250.00) = $250.00, the flat floor binding below a $5,000 account.",
+      "_REFRESHED_2026-09-01T17:20Z": "STALE WHEN PREPARED, REFRESHED HERE BEFORE DELIVERY. The 18:31Z 08-31 figures cover FIVE names and OMIT GD entirely -- GD was bought at 13:36Z today, after the proposal was written, and the proposal is not delivered until the 19:15Z EOD report. A concentration check that predates the newest position is not a concentration check. Refreshed on live 17:19Z quotes against total_value $4,008.03: GD 12.33%, MDLZ 12.33%, MMM 12.24%, LLY 12.22%, ROST 11.40%, PNC 10.79%. Equity value $2,857.69 reconciles to the broker's $2,857.93 within rounding. VERDICT UNCHANGED: COMPLIANT -- largest name 12.33% against the ~15-20% per-name cap, speculative sleeve still 0.0% against ~25% (defense, staples, industrial, pharma, bank, retail -- none speculative). No trim required. The refresh moved the largest name from 12.60% to 12.33% and added a sixth: adding a position DILUTES every existing weight, so the direction of a stale concentration reading after a new entry is to OVERSTATE the incumbents and to miss the newcomer completely.",
+      "per_name_pct_of_account_REFRESHED_17:20Z": {
+        "GD": 12.33,
+        "MDLZ": 12.33,
+        "MMM": 12.24,
+        "LLY": 12.22,
+        "ROST": 11.4,
+        "PNC": 10.79
+      },
+      "_basis_refreshed": "Marks quoted 17:19:09-17:19:18Z; total_value $4,008.031809815 from the 17:18Z get_portfolio. Six names."
     },
     "THE_FINDING_THE_PER_NAME_CAP_CANNOT_SEE": {
       "claim": "Every written concentration cap passes, and the book is nonetheless concentrated in a way none of them measures: 100% of the equity book -- $2,373.71, or 60.11% of the account -- sits in ONE SIGNAL, Connors RSI(2) mean-reversion, expressed five times.",
