@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-01T18:15:00Z",
+  "updated_utc": "2026-09-01T18:30:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-01",
     "realized_usd": 0.0,
@@ -803,15 +803,15 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-01T18:15:00Z",
+    "run_utc": "2026-09-01T18:30:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-01",
-    "outcome": "NO TRADE, EITHER BOOK. Twenty-third run. All six equities underwater on live 18:16Z quotes (ROST -0.44%, LLY -2.25%, PNC -3.63%, MDLZ -1.05%, MMM -1.05%, GD -1.22%), so the mechanical profit-banking exit fails book-wide -- it is gated on price > entry per the 2026-08-26 correction. No target hit, no green-enough crossing, no thesis-check flag. The 18:01Z committed report is fresh (14 min), no DATA ERROR, and its ACTION block carries ONLY the monthly-rebalance banner -- zero BUY/SELL/TRAIL/THESIS lines, so there is no signal-sourced equity entry to grade. Options declined on capital (CORE: $302.10 deployable against a $500 typical floor) and on the 2026-08-26 regime capstone (TACTICAL: tonight's PANW/DELL/CRDO/MDB prints and AVGO 09-02 sit squarely inside a scalp's hold window, and a 18:15Z entry would carry them unstopped overnight per the 2026-08-28 gap finding).",
-    "reconciliation": "ZERO DRIFT both books, BROKER FIRST per the 2026-08-28 collision fix. 1 ct SPY 2026-11-20 700P avg 749.00, all pending_* 0.0000. 6 equities matching holdings.json on qty AND average price. get_equity_orders(gte 2026-09-01) returns exactly ONE order all day -- the 13:36:10Z GD fill, agentic, already ledgered. No sibling entry landed.",
-    "capital": "Cash 552.10 = unleveraged_buying_power, so the broker extends no margin (FOUR LAWS #4 satisfied). total_value 4024.73 = equity 2863.63 / options 609.00 / cash 552.10. Reserve 250.00 -- v8's flat $250 is STRICTER than the full-deployment policy's 5%-of-total (201.24), so it binds. Deployable 302.10, below the ~$400 practical equity minimum and below CORE's $500.",
-    "tape": "SPY 761.395 -0.738% (20-day SMA 769.685, spot 8.29 below); QQQ 706.89 -1.377% (20-day SMA 718.7765, spot 11.89 below); IWM 290.66 -1.113%; XLI 172.775 -1.345%. Numbers only, no verdict handed forward, per the 2026-08-31 concurrent-run lesson. The morning's RISK-OFF/TECH-LED reading has HELD 4h43m rather than being a first-ten-minutes artifact -- QQQ 706.98 at 13:34Z vs 706.89 now.",
-    "why_flat": "EQUITIES: no mechanical exit fires (all six underwater); no report BUY line to source an entry from; and with 302.10 deployable the full-deployment policy's ROTATION gate applies -- a new idea would have to beat the weakest position held, and selling a sound underwater thesis to fund a fresher RSI2 print is the exact churn HARD RULE 5 forbids. OPTIONS: CORE unaffordable, TACTICAL barred by the regime capstone; no fresh structural trigger existed either -- QQQ has been below its 20-day all session, so an 18:15Z entry is a late entry on a persistent decline, not a break.",
-    "duties": "Heartbeat stamped 13:36Z. Brief stamped today. iv_history carries today's rows. Realized options P/L $0.00 BROKER-READ this run (get_realized_pnl 09-01..09-01, 0 trades) against the -$400 cap; throttles equities 1 of 3 (GD), options 0 of 8. Daily report due at the first run at/after 19:15Z -- not yet written, and this run is 59 minutes early for it."
+    "outcome": "NO TRADE, either book. Twenty-fourth run; pure re-verification.",
+    "reconciliation": "ZERO DRIFT. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00) + 6 equities (ROST/LLY/PNC/MDLZ/MMM/GD) match the ledger one-for-one at 18:30Z; all pending_* 0.0000.",
+    "capital": "total $4,024.73 = equity $2,859.63 / options $613.00 / cash $552.10. unleveraged_buying_power $552.10 == buying_power (no margin). Reserve $250 (stricter of 5%-of-total $201.24 and the FOUR LAWS floor); deployable $302.10, below the ~$400 practical equity minimum.",
+    "tape": "SPY 761.0542 -0.78%; QQQ 706.71 -1.40%. Risk-off, Nasdaq-led. Marks: PNC -3.68%, LLY -2.16%, MDLZ -1.11%, ROST -0.47%, MMM -1.47%, GD -1.67%. Hedge $613 vs $749.",
+    "why_flat": "Equities: all six HOLD (thesis-watch) on the 18:01Z report; no mechanical exit, no thesis sell, and the rotation rule blocks a new entry (deployable under one position size; no held name weaker on the entry stack). Options: both tracks decline on the unresolved 09-01pm/09-02pm earnings cluster per the 2026-08-26 capstone; a $300 tactical would leave $252.10 against the $250 floor.",
+    "duties": "Heartbeat stamped 13:36Z; brief stamped today; daily report not due until 19:15Z (last written 2026-08-31). Cap/throttle figures READ from the ledger."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
