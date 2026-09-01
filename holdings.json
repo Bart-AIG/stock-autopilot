@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-01T16:00:00Z",
+  "updated_utc": "2026-09-01T16:20:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-01",
     "realized_usd": 0.0,
@@ -797,15 +797,16 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-01T16:00:00Z",
+    "run_utc": "2026-09-01T16:20:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-01",
-    "outcome": "NO TRADE, EITHER BOOK. Eleventh run of the trading day. All six equities still underwater on live 15:45Z quotes so the profit-banking gate fails book-wide; deployable $302.10 against a ~$400 practical equity minimum; TACTICAL declined on THREE independent grounds this run, one of them newly measured rather than asserted.",
+    "outcome": "NO TRADE, EITHER BOOK. Fourteenth run of the trading day. All six equities underwater on live 16:19Z quotes so the profit-banking gate fails book-wide; equity hunt declined on the ROTATION gate (no thesis-broken cull exists, so there is no sell leg); TACTICAL declined on TWO INDEPENDENT grounds -- the QQQ 50-day broke and the price clause satisfied for the first time all session, but the volume clause failed on both bars against both denominators AND the defence-versus-break ratio vetoed it, so the $302.10 capital lock cost NOTHING.",
     "reconciliation": "ZERO DRIFT both books, BROKER FIRST. 1 ct SPY 2026-11-20 700P avg 749.00, all pending_* 0.0000. Six equities one-for-one with the ledger on quantity AND average price. get_equity_orders(created_at_gte=2026-09-01) returns exactly ONE order all day -- the 13:36:10Z GD fill, already ledgered. git log HEAD..origin/master empty; no sibling entry landed.",
-    "capital": "total $3,966.63 | equity $2,868.53 | options $546.00 | cash $552.10 == unleveraged_buying_power == buying_power, so no margin is extended. Reserve = max(5% of total = $198.33, $250 FOUR LAWS floor) = $250.00. DEPLOYABLE $302.10, unchanged since 13:36Z.",
-    "throttles": "Equities 1 of 3 for the day (GD 13:36:10Z); slot open, no compliant entry. Options 0 of 8 today, 0 of 2 this run. Realized options P/L $0.00 vs the -$400 cap -- not binding, and it gates entries only, never exits.",
-    "book_marks": "ROST 228.35 (-0.78%) | LLY 1173.195 (-1.39%) | PNC 238.51 (-3.23%) | MDLZ 62.26 (-0.53%) | MMM 171.165 (-1.25%) | GD 368.64 (-1.55%). Nearest target MDLZ 64.70, 3.9% away. Nothing green-enough (+17.6%), so no SET TRAILING STOP alert for Ryan. Hedge SPY 700P marks $546 vs $749 (-27.1%), ~80 DTE, backstop-exempt.",
-    "new_this_run": "See trade_journal 2026-09-01T16:00Z finding_CAPITAL_IS_THE_BINDING_CONSTRAINT_AND_IT_WAS_QUOTED_NOT_ASSUMED, promoted below as _BAND_FLOOR_REACHED_IS_NOT_VEHICLE_AFFORDABLE."
+    "capital": "total $3,985.21 | equity $2,865.11 | options $568.00 | cash $552.10 == unleveraged_buying_power == buying_power, so no margin is extended. Reserve = max(5% of total = $199.26, $250 FOUR LAWS floor) = $250.00. DEPLOYABLE $302.10, unchanged since 13:36Z.",
+    "throttles": "Equities 1 of 3 for the day (GD 13:36:10Z); per-run slot open, no compliant entry. Options 0 of 8 today, 0 of 2 this run. Realized options P/L $0.00 vs the -$400 cap, READ not defaulted -- gates entries only, never exits.",
+    "book_marks": "ROST 228.500 (-0.72%) | LLY 1164.285 (-2.14%) | PNC 238.330 (-3.30%) | MDLZ 62.090 (-0.80%) | MMM 171.210 (-1.23%) | GD 369.910 (-1.21%). Nearest target MDLZ 64.70, 4.2% away. Nothing green-enough (+17.6%), so no SET TRAILING STOP alert for Ryan. Hedge SPY 700P marks $568 vs $749 (-24.2%, from options_value), ~80 DTE, backstop-exempt.",
+    "tape": "NUMBERS, NOT A VERDICT. 16:19-16:20Z: SPY 763.0605 -0.520% | QQQ 709.690 -0.986% (session-weakest) | IWM 291.430 -0.851% | XLV 171.410 +0.510%. Second consecutive run of deterioration on all three risk legs; the 16:00Z 'firming' frame is dead and must not be inherited.",
+    "new_this_run": "NO new finding key minted, deliberately. The QQQ 50-day break is recorded in the trade_journal 2026-09-01T16:20Z entry under tactical_trigger_measured_and_declined; its capital half is the KNOWN _BAND_FLOOR_REACHED_IS_NOT_VEHICLE_AFFORDABLE class measured one notch harder (the entire 0.40-0.60 delta band is unaffordable, not merely the two vehicles quoted at 16:00Z), and re-noticing a known condition is not a finding."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
