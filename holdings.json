@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-01T15:30:00Z",
+  "updated_utc": "2026-09-01T15:45:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-01",
     "realized_usd": 0.0,
@@ -797,15 +797,15 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-01T15:30:00Z",
+    "run_utc": "2026-09-01T15:45:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-01",
-    "outcome": "NO TRADE, EITHER BOOK. Ninth run of the trading day, 115 minutes after the open. Every decline ground re-verified from fresh broker and tape data rather than inherited: all six equities underwater on a live 15:23Z quote so the profit-banking gate (price > entry) fails book-wide; deployable capital $302.10 against a ~$400 practical equity minimum; TACTICAL barred because a scalp opened now carries a hard time stop at Wednesday's bell and therefore straddles BOTH tonight's PANW/DELL/CRDO/MDB and tomorrow's AVGO/SNOW/HPE/NTAP prints; CORE unfundable at $500-1,000 typical size.",
-    "reconciliation": "ZERO DRIFT both books, BROKER FIRST per the 2026-08-28 collision fix. get_option_positions(nonzero): exactly 1 ct SPY 2026-11-20 700P avg 749.00, all six pending_* 0.0000. get_equity_positions: exactly 6 -- ROST 2.000000 / LLY 0.420254 / PNC 1.825758 / MDLZ 7.988509 / MMM 2.884552 / GD 1.335314 -- one-for-one with the ledger on quantity AND average price. get_equity_orders(created_at_gte=2026-09-01): exactly ONE order all day, the 13:36:10Z GD fill already ledgered. No sibling entry landed since this run began.",
-    "capital": "total $3,975.19 | equity $2,868.09 | options $555.00 | cash $552.10 == unleveraged_buying_power == buying_power, so no margin is extended and FOUR LAWS #4 is unambiguous. Reserve = max(0.05 x 3975.19 = $198.76, $250.00 FOUR LAWS floor) = $250.00. DEPLOYABLE $302.10, unchanged all session because nothing has been spent since 13:36Z.",
-    "throttles": "Equities 1 of 3 for the day (GD 13:36:10Z); slot available, no compliant entry. Options 0 of 8 today, 0 of 2 this run. Realized options P/L $0.00 against the -$400 cap, READ from _realized_options_pnl_today rather than typed as a default, per the 2026-08-27T09:18Z finding.",
-    "book_marks_15_23Z": "ROST 227.74 (-1.05%) | LLY 1172.2782 (-1.47%) | PNC 239.26 (-2.93%) | MDLZ 62.435 (-0.25%) | MMM 170.69 (-1.53%) | GD 369.09 (-1.43%). Total unrealized approximately -$41.35 on $2,910.34 cost. Hedge SPY 2026-11-20 700P mark $555 vs $749 = -25.9%, ~80 DTE, exempt from all premium backstops. Nothing green-enough (entry / 0.85), so no SET TRAILING STOP alert fires for Ryan.",
-    "deliverable": "First out-of-sample test of the 14:35Z green-name exception clause -- it FIRED rather than vetoed. Recorded as extension_2026-09-01T15_30Z on _OVERSOLD_COHORT_IS_MEASURABLE_BEFORE_ANY_NAME_IS_GRADED rather than as a new top-level key, per the session-key proliferation rule (edit the key your contribution narrows; mint one only for a genuinely new subject)."
+    "outcome": "NO TRADE, EITHER BOOK. Tenth run of the trading day, 130 minutes after the open. All six equities underwater on a live 15:31Z quote so the profit-banking gate fails book-wide; deployable capital $302.10 against a ~$400 practical equity minimum; TACTICAL barred by the 2026-08-26 regime capstone AND by the absence of any trigger; CORE unfundable at $500-1,000 typical size.",
+    "reconciliation": "ZERO DRIFT both books, BROKER FIRST. 1 ct SPY 2026-11-20 700P avg 749.00, all pending_* 0.0000. Six equities one-for-one with the ledger on quantity AND average price. get_equity_orders(created_at_gte=2026-09-01) returns exactly ONE order all day -- the 13:36:10Z GD fill, already ledgered. No sibling entry landed.",
+    "capital": "total $3,968.45 | equity $2,868.35 | options $548.00 | cash $552.10 == unleveraged_buying_power == buying_power, so no margin is extended. Reserve = max(5% of total = $198.42, $250 FOUR LAWS floor) = $250.00. DEPLOYABLE $302.10.",
+    "throttles": "Equities 1 of 3 for the day (GD 13:36:10Z); slot open, no compliant entry. Options 0 of 8 today, 0 of 2 this run. Realized options P/L $0.00 against the -$400 cap.",
+    "book_marks_15_31Z": "ROST 227.84 (-1.00%) | LLY 1176.23 (-1.14%) | PNC 238.95 (-3.05%) | MDLZ 62.30 (-0.46%) | MMM 170.70 (-1.52%) | GD 368.585 (-1.56%). Nothing green-enough, so no SET TRAILING STOP alert fires. Hedge SPY 700P mark $548 vs $749 = -26.8%, ~80 DTE, exempt from premium backstops.",
+    "deliverable": "The TACTICAL regime bar is now measured rather than inherited: get_earnings_calendar confirms PANW/DELL/CRDO/MDB/GTLB/VRNT print tonight and AVGO/SNOW/HPE/NTAP/AI/FIVE tomorrow, both inside the hard time stop of any scalp opened now. No new finding was manufactured -- the tape reversal and the 14:40Z two-symbol feed hole were both already on the record from the 15:00Z run and were confirmed, not re-minted as keys."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
