@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-01T17:45:00Z",
+  "updated_utc": "2026-09-01T18:00:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-01",
     "realized_usd": 0.0,
@@ -803,14 +803,14 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-01T17:45:00Z",
+    "run_utc": "2026-09-01T18:00:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-01",
-    "outcome": "NO TRADE, EITHER BOOK. Twenty-first run. Pure re-verification; every decline ground held and no finding manufactured. All six equities underwater on live 17:45Z quotes (ROST -0.87%, LLY -2.33%, PNC -3.70%, MDLZ -1.04%, MMM -1.55%, GD -1.16%), so the mechanical profit-banking exit fails book-wide (gated on price > entry). The 17:03Z committed report is fresh, no DATA ERROR, ACTION block carries ONLY the monthly-rebalance banner -- zero BUY/SELL/TRAIL/THESIS signal lines, so no signal-sourced equity entry to grade. Equity hunt declined into the ROTATION gate; options declined on capital (CORE) and on the 2026-08-26 regime capstone plus affordability (TACTICAL).",
+    "outcome": "NO TRADE, EITHER BOOK. Twenty-second run. Pure re-verification; every decline ground held and no finding manufactured. All six equities underwater on live 18:00Z quotes (ROST -0.74%, LLY -2.29%, PNC -3.72%, MDLZ -1.17%, MMM -1.35%, GD -1.19%), so the mechanical profit-banking exit fails book-wide (gated on price > entry). No target hit, no green-enough crossing. The 17:03Z committed report is fresh, no DATA ERROR, ACTION block carries ONLY the monthly-rebalance banner -- zero BUY/SELL/TRAIL/THESIS signal lines, so no signal-sourced equity entry to grade. Equity hunt declined into the ROTATION gate; options declined on capital (CORE) and on the 2026-08-26 regime capstone plus affordability (TACTICAL).",
     "reconciliation": "ZERO DRIFT both books, broker first. 1 ct SPY 2026-11-20 700P avg 749.00, all pending_* 0.0000. 6 equities matching holdings.json on qty AND average price. get_equity_orders(gte 2026-09-01) returns exactly ONE order all day, the 13:36:10Z GD fill, agentic, already ledgered -- no sibling entry landed.",
-    "capital": "Cash 552.10 = unleveraged_buying_power (no margin extended), total_value 4004.35, equity_value 2859.25, options_value 593.00. Operational reserve 250.00 -- v8's flat 250 is STRICTER than the full-deployment policy's 5% of total (200.22), so it binds. Deployable 302.10.",
+    "capital": "Cash 552.10 = unleveraged_buying_power (no margin extended), total_value 4009.68, equity_value 2859.58, options_value 598.00. Operational reserve 250.00 -- v8's flat 250 is STRICTER than the full-deployment policy's 5% of total (200.48), so it binds. Deployable 302.10.",
     "throttles": "Equity entries 1 of 3 used (GD 13:36Z). Options entries 0 of 8. Realized options P/L 0.00 vs the -400 cap, broker-read at 14:23Z this trading day and not defaulted.",
-    "duties": "Heartbeat stamped 13:36Z. Brief stamped today. iv_history carries today's rows for all 8 core names. Daily report due at 19:15Z, not yet written (_eod_report_written_for unset)."
+    "duties": "Heartbeat stamped 13:36Z. Brief stamped today. iv_history carries today's rows for all 8 core names. Daily report due at the first run at/after 19:15Z, not yet written."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
