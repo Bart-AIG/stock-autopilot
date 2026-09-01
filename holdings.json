@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-01T17:20:00Z",
+  "updated_utc": "2026-09-01T17:30:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-01",
     "realized_usd": 0.0,
@@ -803,15 +803,14 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-01T17:15:00Z",
+    "run_utc": "2026-09-01T17:30:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-01",
-    "outcome": "NO TRADE, EITHER BOOK. Eighteenth run of the trading day. Pure re-verification: every decline ground re-measured from fresh broker and quote data, all held. All six equities underwater on live 17:15Z quotes (ROST -0.90%, LLY -2.08%, PNC -3.80%, MDLZ -1.09%, MMM -1.79%, GD -1.14%), so the profit-banking gate fails book-wide. The 17:03Z committed report is fresh, carries no DATA ERROR, and carries no TAKE-PROFIT / SET TRAILING / THESIS CHECK line on any held name. Equity hunt declined into the ROTATION gate; options declined on capital (CORE) and on the regime capstone plus affordability (TACTICAL).",
-    "reconciliation": "ZERO DRIFT both books, BROKER FIRST per the 2026-08-28 collision fix. get_option_positions(nonzero): exactly 1 ct SPY 2026-11-20 700P avg 749.00, all six pending_* 0.0000. get_equity_positions: exactly 6 -- ROST 2.000000 @ 230.15 / LLY 0.420254 @ 1189.76 / PNC 1.825758 @ 246.47 / MDLZ 7.988509 @ 62.59 / MMM 2.884552 @ 173.34 / GD 1.335314 @ 374.44, all matching holdings.json on quantity AND average price. get_equity_orders(created_at_gte 2026-09-01): exactly ONE order all day, the 13:36:10.561Z GD fill, placed_agent 'agentic', already ledgered.",
-    "capital": "total $4,001.72 = equity $2,858.62 / options $591.00 / cash $552.10. unleveraged_buying_power $552.10 EQUALS buying_power, so the broker extends no margin (FOUR LAWS #4 satisfied). Reserve $250.00 (the stricter of 5%-of-total $200.09 and the FOUR LAWS floor, per _RESERVE_IS_THE_STRICTER_OF_TWO); deployable $302.10.",
-    "tape": "NUMBERS, NOT A VERDICT (2026-08-31 concurrent-run lesson). 17:15Z vs prior closes: SPY 762.130 -0.641% (767.05) | QQQ 708.570 -1.143% (716.76) | IWM 290.810 -1.061% (293.93) | XLV 171.380 +0.492% (170.54). Essentially unchanged from the 17:01Z read on the index legs; XLV firmed (+0.329% -> +0.492%), the only leg moving materially. Do not inherit a direction; re-measure.",
-    "throttles": "OPTIONS 0 of 8 entries, EQUITIES 1 of 3 (GD 13:36Z). Realized options P/L $0.00 against the -$400 cap -- read from _realized_options_pnl_today, not typed as a default, per the 2026-08-27T09:18Z finding.",
-    "duties": "Heartbeat stamped 13:36Z by the first post-open run. market_brief stamped today. iv_history.json carries today's rows for all 8 core names -- no new name priced this run, so no re-log. Daily report for 2026-09-01 NOT yet due: first run at or after 19:15Z owns it; _eod_report_written still shows 2026-08-31."
+    "outcome": "NO TRADE, EITHER BOOK. Twentieth run. Pure re-verification on fresh broker and quote data; every decline ground held and no finding was manufactured. All six equities underwater on live 17:30Z quotes (ROST -0.92%, LLY -2.30%, PNC -3.85%, MDLZ -1.23%, MMM -1.88%, GD -1.17%), so the mechanical profit-banking exit fails book-wide (gated on price > entry). The 17:03Z committed report is fresh, carries no DATA ERROR, and its ACTION block carries ONLY the monthly-rebalance banner -- zero BUY/SELL/TRAIL/THESIS signal lines, so there was no signal-sourced equity entry to grade. Equity hunt declined into the ROTATION gate; options declined on capital (CORE) and on the 2026-08-26 regime capstone plus affordability (TACTICAL).",
+    "reconciliation": "ZERO DRIFT both books, broker first. 1 ct SPY 2026-11-20 700P avg 749.00, all pending_* 0.0000. 6 equities matching holdings.json on qty AND average price. get_equity_orders(gte 2026-09-01) returns exactly ONE order all day, the 13:36:10Z GD fill, agentic, already ledgered -- no sibling entry landed.",
+    "capital": "Cash 552.10 = unleveraged_buying_power (no margin extended), total_value 4006.90, equity_value 2855.80, options_value 599.00. Operational reserve 250.00 -- v8's flat 250 is STRICTER than the full-deployment policy's 5% of total (200.34), so it binds. Deployable 302.10.",
+    "throttles": "Equity entries 1 of 3 used (GD 13:36Z). Options entries 0 of 8. Realized options P/L 0.00 vs the -400 cap, broker-read at 14:23Z this trading day and not defaulted.",
+    "duties": "Heartbeat stamped 13:36Z. Brief stamped today. iv_history carries today's rows for all 8 core names. Daily report due at 19:15Z, not yet written (_eod_report_written_for unset)."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
