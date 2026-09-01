@@ -781,15 +781,15 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-01T13:36:00Z",
-    "run_type": "first_post_open_of_trading_day",
+    "run_utc": "2026-09-01T13:52:00Z",
+    "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-01",
-    "outcome": "ONE AUTONOMOUS EQUITY ENTRY: GD $500.00 -> 1.335314 sh @ 374.4437, order 6a96d4ca-b009-4d0d-8f8f-50f1cb1ebe0a, filled 13:36:10.561Z. No options entry (both tracks declined -- see governance). This run also owns the trading-day roll: heartbeat stamped, market_brief rebuilt, loss cap and BOTH throttles reset, after eighteen consecutive pre-open stand-downs.",
-    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 13:31Z and get_equity_orders re-read EMPTY immediately before sending. Options 1 ct SPY 700P hedge; equities were 5, now 6 with GD.",
-    "capital": "Pre-trade total $4,032.22; equity $2,380.12; options $600.00; cash $1,052.10 == unleveraged_buying_power. Reserve $250.00 (the stricter of 5%-of-total $201.61 and the FOUR LAWS floor). Deployable was $802.10; $500.00 deployed; ~$302.10 remains. Full-deployment capital policy governs -- there is NO percentage cash floor.",
-    "throttles": "Equities 1 of 3 for the day and 1 of 1 for this run (spent). Options 0 of 8, 0 of 2. Realized options P/L $0.00 vs the -$400 cap, BROKER-READ at 13:34Z.",
-    "positions": "Six equities: GD just opened flat; PNC -2.8%, LLY -0.15% (a big +2.70% session move nearly erased a -2.85% hole -- watch, it is the closest any position has come to green), MDLZ ~+0.02%, ROST -1.1%, MMM -0.8%. None green enough to trail, no target hit, no RSI2>=70 print on a GREEN name, so the profit-banking authority could not fire on any of them. SPY 700P hedge marked 5.95 (bid 5.92 / ask 5.98, IV 0.2018, delta -0.1524, 80 DTE) = -20.6% from the 7.49 entry, EXEMPT from all premium backstops, held to the ~21-DTE decision WITH Ryan around 2026-10-30.",
-    "governance": "Prompt v8. Its >=45% equity-book cash-floor clause is VOID per Ryan's 2026-08-29 live turn; CLAUDE.md's full-deployment capital policy governs and the prompt is REPORTED STALE pending the v9 paste (_PROMPT_V9_PASTE_REQUIRED remains OPEN and was NOT re-notified this run, per notify-once-per-incident). No flag touched or adjudicated; HARD RULE 9 intact -- no Ryan turn is claimed or quoted anywhere in this run."
+    "reconciliation": "ZERO DRIFT BOTH BOOKS. Broker-read 13:47Z: 6 equities (ROST 2.0, LLY 0.420254, PNC 1.825758, MDLZ 7.988509, MMM 2.884552, GD 1.335314) + 1 option (SPY 2026-11-20 700P qty 1 @ 749.00), all seven matching holdings.json one-for-one. All pending_* 0.0000.",
+    "capital": "total $4,016.64 = equity $2,874.54 / options $590.00 / cash $552.10. unleveraged_buying_power $552.10 EQUALS buying_power -- no margin extended, FOUR LAWS #4 satisfied. Reserve $250.00 (stricter of 5%-of-total $200.83 and the FOUR LAWS floor). DEPLOYABLE $302.10.",
+    "throttles": "Options 0 of 8 for the day (0 of 2 this run). Equities 1 of 3 for the day (GD at 13:36Z by the sibling run); 0 of 1 available to this run but unused. Realized options P/L $0.00 against the -$400 cap -- read from _realized_options_pnl_today, not defaulted.",
+    "tape": "NUMBERS, NOT A VERDICT, per the 2026-08-31 concurrent-run lesson. 13:47Z: SPY 761.91 (-0.670%), QQQ 707.602 (-1.278%), NVDA 215.65 (-2.32% off the 220.78 close), XLF 57.72 (+0.19%). Nasdaq-specific de-rating with financials firming. Any run after ~14:15Z must RE-MEASURE before using this.",
+    "actions": "NONE. No entry either book; no exit fired either book.",
+    "verdict": "FLAT BY CHOICE ON THREE INDEPENDENT GROUNDS -- capital, regime, and the absence of a trigger. Detail in the journal entry for this run."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -1632,5 +1632,52 @@
     "HONEST_SCOPE_n_equals_1": "One name, one cycle. This does NOT condemn the RSI2 screen and must not be cited as though it did. Four of the book's five positions (LLY 2 sessions, MDLZ 1, ROST 1, MMM 0) are far too young for their signal to have had its chance -- only PNC has been held long enough to judge, and judging the strategy off its single oldest position is precisely the selection-on-the-outcome error the 18:18Z run recorded today. What it establishes is narrower and firm: a completed reversion is not a guaranteed exit, so the desk should not model RSI2 entries as self-liquidating.",
     "NOT_A_SELL_SIGNAL_TODAY": "Explicitly: this is a TECHNICAL observation and HARD RULE 6 states a technical flag alone is NEVER a sell -- a thesis sell requires HARD RULE 7 research reaching a BROKEN verdict with sources. No such research was done this run and no sell is proposed. PNC carries no price stop under HARD RULE 5, remains HOLD-on-thesis, and its real exit gate is the monthly rebalance.",
     "FEEDS_THE_2026_09_01_REBALANCE": "This is direct input to _MONTHLY_REBALANCE_PROPOSAL_2026-09-01, which is due tomorrow and whose cull question for PNC previously had no evidence attached beyond 'underwater 8 sessions'. The evidence is now specific: PNC was given a complete signal cycle and it produced no bankable exit, and it has re-entered oversold from a lower base. That is a fact the rebalance should weigh -- alongside a proper HARD RULE 7 thesis check, which is what would actually authorize a cull."
+  },
+  "_OPENING_WINDOW_SLIPPAGE_ON_AUTONOMOUS_EQUITY_ENTRIES": {
+    "measured_utc": "2026-09-01T13:50:00Z",
+    "headline": "EVERY AUTONOMOUS EQUITY ENTRY THIS BOOK HAS EVER PLACED WAS FILLED 6-10 MINUTES AFTER THE BELL, AND IN ALL FOUR CASES A MATERIALLY BETTER PRICE WAS AVAILABLE WITHIN THE NEXT 30 MINUTES -- MEAN 0.700%. THE RUN IS BUYING THE OPENING BOUNCE OF THE VERY DIP ITS SIGNAL TOLD IT TO BUY.",
+    "measurement": {
+      "method": "Fill price vs (a) its percentile of that session's eventual regular-hours range, (b) the best price actually printed in the 30 minutes AFTER the fill, (c) the session close.",
+      "ROST": {
+        "fill": 230.1512,
+        "filled_utc": "2026-08-28T13:37:13Z",
+        "pctile_of_session_range": 44.3,
+        "best_within_30min": 228.4,
+        "improvement_pct": 0.761,
+        "fill_vs_close_pct": 0.7
+      },
+      "MDLZ": {
+        "fill": 62.5899,
+        "filled_utc": "2026-08-28T13:40:03Z",
+        "pctile_of_session_range": 83.7,
+        "best_within_30min": 62.3,
+        "improvement_pct": 0.463,
+        "fill_vs_close_pct": 0.39
+      },
+      "MMM": {
+        "fill": 173.3371,
+        "filled_utc": "2026-08-31T13:37:54Z",
+        "pctile_of_session_range": 84.2,
+        "best_within_30min": 172.47,
+        "improvement_pct": 0.5,
+        "fill_vs_close_pct": 0.88
+      },
+      "GD": {
+        "fill": 374.4437,
+        "filled_utc": "2026-09-01T13:36:10Z",
+        "pctile_of_session_range": 82.4,
+        "best_within_30min": 370.415,
+        "improvement_pct": 1.076,
+        "fill_vs_close_pct": null,
+        "_note": "Session still open at measurement; range is 13:30-13:47Z only, so its percentile can still move. The 30-minute improvement figure is already realised."
+      },
+      "aggregate": "Mean fill percentile 73.6% of the session range; 3 of 4 landed in the top ~16%. Mean improvement available within 30 minutes 0.700% = ~$3.50 on a $500 entry, ~$14.00 across the four entries to date.",
+      "GD_detail": "GD ran 371.51 (13:30 low) -> 375.305 (13:32-33 high) -> 370.415 (13:47 low). The 13:36:10Z fill at 374.4437 caught 82% of that opening pop and the whole move round-tripped inside eleven minutes. The fill also printed ABOVE the reported high (374.060) of the one-minute bar containing it, on a bar showing only 255 shares -- either a thin consolidated bar or a marketable order crossing a wide spread on a $374 name. GD currently quotes 0.153% of mid wide, so a market order there is not free."
+    },
+    "THE_MECHANISM_and_it_is_the_transferable_part": "The signal and the execution are fighting each other. The autonomous entry is sourced from an RSI2 MEAN-REVERSION screen computed on the PREVIOUS SESSION'S CLOSE (see _REPORT_CRON_GAP_AT_THE_OPEN: the fresh report does not land on master until ~14:15Z, so the first-post-open run always acts on yesterday's report). The opening ten minutes is precisely when yesterday's oversold names get their reflexive bounce. So the run reads 'this name is oversold as of last night' and then executes into the exact window where that oversold condition is being relieved. It buys the bounce it meant to buy the dip of.",
+    "WHY_NOBODY_CAUGHT_IT": "This file already carries the rule 'NEVER price a decision off the opening auction print -- re-quote at least ~5 minutes after 13:30Z', and runs have obeyed it. But that rule was written about MARKS and DECISIONS (the 2026-08-21 QQQ 680P incident, where an opening print flipped the SIGN of a P/L reported to Ryan). Nobody applied it to EXECUTION. Re-quoting before deciding and then filling into the same window satisfies the letter of the rule and gets the artifact anyway -- this file's most-repeated defect, a check that passes for the wrong reason. It is also the execution-layer sibling of the documented first-hour volume inflation: the opening bar carried 5.2x the next bar's volume on ROST and 2.3x on MDLZ, which is the same auction imbalance seen from the fill side instead of the denominator side.",
+    "THE_FIX_and_it_repairs_TWO_findings_with_ONE_change": "PREFER to take the trading day's autonomous equity entry on the first run at or after ~14:15Z, once the fresh report has landed on master, rather than on the first-post-open run. Nothing in the thesis decays in 40 minutes: the hold is 1-3 weeks and the signal is already a day old. The same deferral ALSO retires _REPORT_CRON_GAP_AT_THE_OPEN's standing problem, because the run would then be acting on the CURRENT session's report instead of the prior one. Two known defects, one change, no gate loosened.",
+    "SCOPE_AND_LIMITS_stated_because_overclaiming_is_the_failure_mode_here": "n=4 and the total measured cost is ~$14. This is a process refinement, NOT a crisis, and it must not be written up as one. Three caveats: (1) buying lower is not automatically better for a mean-reversion entry -- if a name keeps falling the later fill wins, if it reverts immediately the earlier fill wins; what is notable is that the improvement was available in 4 of 4 cases, not that it is guaranteed. (2) ROST filled at 44.3% of its range, so 'the run always buys the top' would be false. (3) GD's session is incomplete. The deferral is a PREFERENCE, not a bar: a genuinely time-critical signal still trades when it fires, and the entry must never be delayed past the point where the setup is gone.",
+    "what_it_does_NOT_change": "No gate is loosened or tightened by this. The full HARD RULE 6 stack -- HARD RULE 7 thesis check, A-grade-only bar, capital policy, sector steer, [ERN] rule, per-name and spec caps, HARD RULE 3 market-order mechanics, HARD RULE 5's no-stops policy, 1/run and 3/day throttles -- applies unchanged. This is about WHEN in the session a cleared entry is executed, never about WHETHER it clears."
   }
 }
