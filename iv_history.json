@@ -233,19 +233,21 @@
   },
   {
    "date": "2026-09-02",
-   "measured_utc": "2026-09-02T13:33:24Z",
-   "spot": 761.87,
-   "atm_strike": 762.0,
-   "atm_iv": 0.13031,
+   "measured_utc": "2026-09-02T14:02:30Z",
+   "spot": 763.54,
+   "atm_strike": 764.0,
+   "atm_iv": 0.126734,
    "dte_used": 30,
    "expiry": "2026-10-02",
    "rv_30d": 0.119232,
    "rv_30d_ex_top2": 0.098573,
-   "iv_rv_ratio": 1.0929,
-   "iv_rv_ratio_ex_top2": 1.322,
+   "iv_rv_ratio": 1.0629,
+   "iv_rv_ratio_ex_top2": 1.2857,
    "largest_1d_move_in_window_pct": 1.8,
-   "_call_put": "call 0.120029 / put 0.140592, averaged per the IV method.",
-   "_timing_caveat": "MEASURED 13:33Z -- ~23 MIN EARLIER IN THE SESSION THAN YESTERDAY'S 14:03:13Z ROWS. Per _IV_DAY_OVER_DAY_DIFFS_NEED_A_TIME_OFFSET and the four-times-confirmed opening-window ATM IV inflation (-2.5% to -4.4% from a pre-14:00Z read to a settled one), EVERY atm_iv BELOW IS AN UPPER BOUND and every day-over-day increase must be discounted by roughly that band before it is called a real vol bid. Overwrite this row from a post-14:00Z run if one measures it."
+   "_call_put": "call 0.116304 / put 0.137165, averaged per the IV method.",
+   "_rv_provenance": "rv_30d / rv_30d_ex_top2 CARRIED FORWARD UNCHANGED from the 13:33Z row: both are computed off DAILY closes through 2026-09-01 and cannot move intraday. Only the IV leg was re-measured, which is the only leg the opening-window artifact touches.",
+   "_timing_note": "SETTLED 14:02-14:03Z, OVERWRITING THE 13:33Z ROW EXACTLY AS THAT ROW ASKED. This is now TIME-MATCHED to yesterday's 14:03:13Z rows, so the day-over-day diff is clean on the clock. MEASURED ARTIFACT, and it did NOT reproduce the documented band: across the four names whose ATM strike did NOT move (QQQ, NVDA, TSM, and AVGO re-quoted at its morning 365 strike) the 13:33Z->14:02Z change is -0.72% / +1.36% / -0.55% / -0.82%, mean -0.18%, one of them POSITIVE -- against the four-reading -2.5% to -4.4% band in CLAUDE.md. See holdings.json._OPENING_WINDOW_IV_DISCOUNT_IS_A_FUNCTION_OF_ELAPSED_TIME: the band was measured at +66 to +110 minutes, this at +29, so the discount is a decay curve and not a constant. Do NOT subtract a flat 2.5-4.4% from a row re-read this early.",
+   "_strike_moved": "ATM strike moved 762 -> 764 between the 13:33Z read and this one, so this name's 13:33Z-to-now change is CONFOUNDED BY SKEW and is not a clean artifact measurement. Use the four same-strike names for that."
   }
  ],
  "QQQ": [
@@ -480,19 +482,20 @@
   },
   {
    "date": "2026-09-02",
-   "measured_utc": "2026-09-02T13:33:24Z",
-   "spot": 705.98,
+   "measured_utc": "2026-09-02T14:02:30Z",
+   "spot": 706.23,
    "atm_strike": 706.0,
-   "atm_iv": 0.187382,
+   "atm_iv": 0.186041,
    "dte_used": 30,
    "expiry": "2026-10-02",
    "rv_30d": 0.20625,
    "rv_30d_ex_top2": 0.154676,
-   "iv_rv_ratio": 0.9085,
-   "iv_rv_ratio_ex_top2": 1.2114,
+   "iv_rv_ratio": 0.902,
+   "iv_rv_ratio_ex_top2": 1.2028,
    "largest_1d_move_in_window_pct": 3.4,
-   "_call_put": "call 0.183359 / put 0.191405, averaged per the IV method.",
-   "_timing_caveat": "MEASURED 13:33Z -- ~23 MIN EARLIER IN THE SESSION THAN YESTERDAY'S 14:03:13Z ROWS. Per _IV_DAY_OVER_DAY_DIFFS_NEED_A_TIME_OFFSET and the four-times-confirmed opening-window ATM IV inflation (-2.5% to -4.4% from a pre-14:00Z read to a settled one), EVERY atm_iv BELOW IS AN UPPER BOUND and every day-over-day increase must be discounted by roughly that band before it is called a real vol bid. Overwrite this row from a post-14:00Z run if one measures it."
+   "_call_put": "call 0.182912 / put 0.189170, averaged per the IV method.",
+   "_rv_provenance": "rv_30d / rv_30d_ex_top2 CARRIED FORWARD UNCHANGED from the 13:33Z row: both are computed off DAILY closes through 2026-09-01 and cannot move intraday. Only the IV leg was re-measured, which is the only leg the opening-window artifact touches.",
+   "_timing_note": "SETTLED 14:02-14:03Z, OVERWRITING THE 13:33Z ROW EXACTLY AS THAT ROW ASKED. This is now TIME-MATCHED to yesterday's 14:03:13Z rows, so the day-over-day diff is clean on the clock. MEASURED ARTIFACT, and it did NOT reproduce the documented band: across the four names whose ATM strike did NOT move (QQQ, NVDA, TSM, and AVGO re-quoted at its morning 365 strike) the 13:33Z->14:02Z change is -0.72% / +1.36% / -0.55% / -0.82%, mean -0.18%, one of them POSITIVE -- against the four-reading -2.5% to -4.4% band in CLAUDE.md. See holdings.json._OPENING_WINDOW_IV_DISCOUNT_IS_A_FUNCTION_OF_ELAPSED_TIME: the band was measured at +66 to +110 minutes, this at +29, so the discount is a decay curve and not a constant. Do NOT subtract a flat 2.5-4.4% from a row re-read this early."
   }
  ],
  "NVDA": [
@@ -727,19 +730,20 @@
   },
   {
    "date": "2026-09-02",
-   "measured_utc": "2026-09-02T13:33:24Z",
-   "spot": 219.595,
+   "measured_utc": "2026-09-02T14:02:30Z",
+   "spot": 221.5176,
    "atm_strike": 220.0,
-   "atm_iv": 0.322088,
+   "atm_iv": 0.326484,
    "dte_used": 30,
    "expiry": "2026-10-02",
    "rv_30d": 0.448434,
    "rv_30d_ex_top2": 0.355847,
-   "iv_rv_ratio": 0.7183,
-   "iv_rv_ratio_ex_top2": 0.9051,
+   "iv_rv_ratio": 0.7281,
+   "iv_rv_ratio_ex_top2": 0.9175,
    "largest_1d_move_in_window_pct": 8.74,
-   "_call_put": "call 0.313297 / put 0.330880, averaged per the IV method.",
-   "_timing_caveat": "MEASURED 13:33Z -- ~23 MIN EARLIER IN THE SESSION THAN YESTERDAY'S 14:03:13Z ROWS. Per _IV_DAY_OVER_DAY_DIFFS_NEED_A_TIME_OFFSET and the four-times-confirmed opening-window ATM IV inflation (-2.5% to -4.4% from a pre-14:00Z read to a settled one), EVERY atm_iv BELOW IS AN UPPER BOUND and every day-over-day increase must be discounted by roughly that band before it is called a real vol bid. Overwrite this row from a post-14:00Z run if one measures it."
+   "_call_put": "call 0.322536 / put 0.330433, averaged per the IV method.",
+   "_rv_provenance": "rv_30d / rv_30d_ex_top2 CARRIED FORWARD UNCHANGED from the 13:33Z row: both are computed off DAILY closes through 2026-09-01 and cannot move intraday. Only the IV leg was re-measured, which is the only leg the opening-window artifact touches.",
+   "_timing_note": "SETTLED 14:02-14:03Z, OVERWRITING THE 13:33Z ROW EXACTLY AS THAT ROW ASKED. This is now TIME-MATCHED to yesterday's 14:03:13Z rows, so the day-over-day diff is clean on the clock. MEASURED ARTIFACT, and it did NOT reproduce the documented band: across the four names whose ATM strike did NOT move (QQQ, NVDA, TSM, and AVGO re-quoted at its morning 365 strike) the 13:33Z->14:02Z change is -0.72% / +1.36% / -0.55% / -0.82%, mean -0.18%, one of them POSITIVE -- against the four-reading -2.5% to -4.4% band in CLAUDE.md. See holdings.json._OPENING_WINDOW_IV_DISCOUNT_IS_A_FUNCTION_OF_ELAPSED_TIME: the band was measured at +66 to +110 minutes, this at +29, so the discount is a decay curve and not a constant. Do NOT subtract a flat 2.5-4.4% from a row re-read this early."
   }
  ],
  "AMD": [
@@ -966,19 +970,21 @@
   },
   {
    "date": "2026-09-02",
-   "measured_utc": "2026-09-02T13:33:24Z",
-   "spot": 460.19,
-   "atm_strike": 460.0,
-   "atm_iv": 0.478849,
+   "measured_utc": "2026-09-02T14:02:30Z",
+   "spot": 453.64,
+   "atm_strike": 455.0,
+   "atm_iv": 0.478029,
    "dte_used": 30,
    "expiry": "2026-10-02",
    "rv_30d": 0.684374,
    "rv_30d_ex_top2": 0.53943,
-   "iv_rv_ratio": 0.6997,
-   "iv_rv_ratio_ex_top2": 0.8877,
+   "iv_rv_ratio": 0.6985,
+   "iv_rv_ratio_ex_top2": 0.8862,
    "largest_1d_move_in_window_pct": 13.0,
-   "_call_put": "call 0.483319 / put 0.474378, averaged per the IV method.",
-   "_timing_caveat": "MEASURED 13:33Z -- ~23 MIN EARLIER IN THE SESSION THAN YESTERDAY'S 14:03:13Z ROWS. Per _IV_DAY_OVER_DAY_DIFFS_NEED_A_TIME_OFFSET and the four-times-confirmed opening-window ATM IV inflation (-2.5% to -4.4% from a pre-14:00Z read to a settled one), EVERY atm_iv BELOW IS AN UPPER BOUND and every day-over-day increase must be discounted by roughly that band before it is called a real vol bid. Overwrite this row from a post-14:00Z run if one measures it."
+   "_call_put": "call 0.485703 / put 0.470355, averaged per the IV method.",
+   "_rv_provenance": "rv_30d / rv_30d_ex_top2 CARRIED FORWARD UNCHANGED from the 13:33Z row: both are computed off DAILY closes through 2026-09-01 and cannot move intraday. Only the IV leg was re-measured, which is the only leg the opening-window artifact touches.",
+   "_timing_note": "SETTLED 14:02-14:03Z, OVERWRITING THE 13:33Z ROW EXACTLY AS THAT ROW ASKED. This is now TIME-MATCHED to yesterday's 14:03:13Z rows, so the day-over-day diff is clean on the clock. MEASURED ARTIFACT, and it did NOT reproduce the documented band: across the four names whose ATM strike did NOT move (QQQ, NVDA, TSM, and AVGO re-quoted at its morning 365 strike) the 13:33Z->14:02Z change is -0.72% / +1.36% / -0.55% / -0.82%, mean -0.18%, one of them POSITIVE -- against the four-reading -2.5% to -4.4% band in CLAUDE.md. See holdings.json._OPENING_WINDOW_IV_DISCOUNT_IS_A_FUNCTION_OF_ELAPSED_TIME: the band was measured at +66 to +110 minutes, this at +29, so the discount is a decay curve and not a constant. Do NOT subtract a flat 2.5-4.4% from a row re-read this early.",
+   "_strike_moved": "ATM strike moved 460 -> 455 between the 13:33Z read and this one, so this name's 13:33Z-to-now change is CONFOUNDED BY SKEW and is not a clean artifact measurement. Use the four same-strike names for that."
   }
  ],
  "TSM": [
@@ -1204,19 +1210,20 @@
   },
   {
    "date": "2026-09-02",
-   "measured_utc": "2026-09-02T13:33:24Z",
-   "spot": 414.18,
+   "measured_utc": "2026-09-02T14:02:30Z",
+   "spot": 413.0,
    "atm_strike": 415.0,
-   "atm_iv": 0.312775,
+   "atm_iv": 0.311061,
    "dte_used": 30,
    "expiry": "2026-10-02",
    "rv_30d": 0.352598,
    "rv_30d_ex_top2": 0.249806,
-   "iv_rv_ratio": 0.8871,
-   "iv_rv_ratio_ex_top2": 1.2521,
+   "iv_rv_ratio": 0.8822,
+   "iv_rv_ratio_ex_top2": 1.2452,
    "largest_1d_move_in_window_pct": 7.64,
-   "_call_put": "call 0.305548 / put 0.320002, averaged per the IV method.",
-   "_timing_caveat": "MEASURED 13:33Z -- ~23 MIN EARLIER IN THE SESSION THAN YESTERDAY'S 14:03:13Z ROWS. Per _IV_DAY_OVER_DAY_DIFFS_NEED_A_TIME_OFFSET and the four-times-confirmed opening-window ATM IV inflation (-2.5% to -4.4% from a pre-14:00Z read to a settled one), EVERY atm_iv BELOW IS AN UPPER BOUND and every day-over-day increase must be discounted by roughly that band before it is called a real vol bid. Overwrite this row from a post-14:00Z run if one measures it."
+   "_call_put": "call 0.304803 / put 0.317320, averaged per the IV method.",
+   "_rv_provenance": "rv_30d / rv_30d_ex_top2 CARRIED FORWARD UNCHANGED from the 13:33Z row: both are computed off DAILY closes through 2026-09-01 and cannot move intraday. Only the IV leg was re-measured, which is the only leg the opening-window artifact touches.",
+   "_timing_note": "SETTLED 14:02-14:03Z, OVERWRITING THE 13:33Z ROW EXACTLY AS THAT ROW ASKED. This is now TIME-MATCHED to yesterday's 14:03:13Z rows, so the day-over-day diff is clean on the clock. MEASURED ARTIFACT, and it did NOT reproduce the documented band: across the four names whose ATM strike did NOT move (QQQ, NVDA, TSM, and AVGO re-quoted at its morning 365 strike) the 13:33Z->14:02Z change is -0.72% / +1.36% / -0.55% / -0.82%, mean -0.18%, one of them POSITIVE -- against the four-reading -2.5% to -4.4% band in CLAUDE.md. See holdings.json._OPENING_WINDOW_IV_DISCOUNT_IS_A_FUNCTION_OF_ELAPSED_TIME: the band was measured at +66 to +110 minutes, this at +29, so the discount is a decay curve and not a constant. Do NOT subtract a flat 2.5-4.4% from a row re-read this early."
   }
  ],
  "AVGO": [
@@ -1447,20 +1454,22 @@
   },
   {
    "date": "2026-09-02",
-   "measured_utc": "2026-09-02T13:33:24Z",
-   "spot": 367.29,
-   "atm_strike": 365.0,
-   "atm_iv": 0.497773,
+   "measured_utc": "2026-09-02T14:02:30Z",
+   "spot": 367.9,
+   "atm_strike": 370.0,
+   "atm_iv": 0.496582,
    "dte_used": 30,
    "expiry": "2026-10-02",
    "rv_30d": 0.409506,
    "rv_30d_ex_top2": 0.326662,
-   "iv_rv_ratio": 1.2155,
-   "iv_rv_ratio_ex_top2": 1.5238,
+   "iv_rv_ratio": 1.2126,
+   "iv_rv_ratio_ex_top2": 1.5202,
    "largest_1d_move_in_window_pct": 6.61,
-   "_call_put": "call 0.495538 / put 0.500008, averaged per the IV method.",
-   "_timing_caveat": "MEASURED 13:33Z -- ~23 MIN EARLIER IN THE SESSION THAN YESTERDAY'S 14:03:13Z ROWS. Per _IV_DAY_OVER_DAY_DIFFS_NEED_A_TIME_OFFSET and the four-times-confirmed opening-window ATM IV inflation (-2.5% to -4.4% from a pre-14:00Z read to a settled one), EVERY atm_iv BELOW IS AN UPPER BOUND and every day-over-day increase must be discounted by roughly that band before it is called a real vol bid. Overwrite this row from a post-14:00Z run if one measures it.",
-   "_event_note": "AVGO REPORTS TONIGHT (2026-09-02 PM, est EPS 3.16, verified via get_earnings_calendar this run). THE OBSERVATION, AND IT IS A NEGATIVE RESULT WORTH KEEPING: AVGO's event premium did NOT ramp into this print the way NVDA's did before 2026-08-26. Diffed across the nine sessions 08-21..09-02, ATM IV is FLAT in a 0.4893-0.5150 band with the ex-gap ratio parked at 1.40-1.48 and no monotonic run -- against NVDA's four consecutive rises (+4.8%) into its own print. So the 2026-08-25 pre-print ramp finding is a pattern this desk has now seen ONCE and failed to reproduce ONCE; do not treat it as a law. AND THE HEADLINE NUMBER IS AN ARTIFACT: today's ex-gap 1.5238 is the highest AVGO reading in the file, +4.08% over yesterday's 1.4641 -- but today's row was measured 30 minutes earlier in the session, and the documented opening-window inflation band is -2.5% to -4.4%. The whole increment sits INSIDE the artifact. The honest read is FLAT day-over-day, not 'richest ever'; a run quoting the record without the time offset would manufacture a vol-bid story out of a clock difference."
+   "_call_put": "call 0.488535 / put 0.504628, averaged per the IV method.",
+   "_rv_provenance": "rv_30d / rv_30d_ex_top2 CARRIED FORWARD UNCHANGED from the 13:33Z row: both are computed off DAILY closes through 2026-09-01 and cannot move intraday. Only the IV leg was re-measured, which is the only leg the opening-window artifact touches.",
+   "_timing_note": "SETTLED 14:02-14:03Z, OVERWRITING THE 13:33Z ROW EXACTLY AS THAT ROW ASKED. This is now TIME-MATCHED to yesterday's 14:03:13Z rows, so the day-over-day diff is clean on the clock. MEASURED ARTIFACT, and it did NOT reproduce the documented band: across the four names whose ATM strike did NOT move (QQQ, NVDA, TSM, and AVGO re-quoted at its morning 365 strike) the 13:33Z->14:02Z change is -0.72% / +1.36% / -0.55% / -0.82%, mean -0.18%, one of them POSITIVE -- against the four-reading -2.5% to -4.4% band in CLAUDE.md. See holdings.json._OPENING_WINDOW_IV_DISCOUNT_IS_A_FUNCTION_OF_ELAPSED_TIME: the band was measured at +66 to +110 minutes, this at +29, so the discount is a decay curve and not a constant. Do NOT subtract a flat 2.5-4.4% from a row re-read this early.",
+   "_strike_moved": "ATM strike moved 365 -> 370 between the 13:33Z read and this one, so this name's 13:33Z-to-now change is CONFOUNDED BY SKEW and is not a clean artifact measurement. Use the four same-strike names for that.",
+   "_event_note": "AVGO REPORTS TONIGHT (2026-09-02 PM, est EPS 3.16). CORRECTING THIS MORNING'S ROW, WHICH OVER-APPLIED THE OPENING-WINDOW DISCOUNT AND THEREBY ERASED A REAL READING. The 13:33Z row said today's file-high ex-gap ratio was an artifact of the clock and that 'the honest read is FLAT day-over-day'. Measured at the settled hour on the SAME 365 strike it used, ATM IV moved only -0.82%, so the artifact accounts for roughly a fifth of the increment, not all of it. Settled numbers: at the method-correct ATM 370 strike ex-gap 1.5202 vs yesterday 1.4641 (+3.83%); re-quoted at the morning's 365 strike, 0.493675 -> ex-gap 1.5113 (+3.22%). EITHER WAY THIS IS THE HIGHEST AVGO EX-GAP READING IN THE FILE, on a settled, time-matched read. What that does and does not mean: it is IV SANITY ONLY -- rich event premium into tonight's print is a reason NOT to buy AVGO premium, and is no kind of directional signal. The _AVGO_EVENT_PREMIUM_DID_NOT_RAMP finding still stands on its own terms: there is no monotonic multi-session ramp here as NVDA had, the level is simply high. A flat-but-high reading and a ramping one are different things and this row is the former."
   }
  ],
  "MSFT": [
@@ -1688,19 +1697,21 @@
   },
   {
    "date": "2026-09-02",
-   "measured_utc": "2026-09-02T13:33:24Z",
-   "spot": 495.5556,
-   "atm_strike": 495.0,
-   "atm_iv": 0.247136,
+   "measured_utc": "2026-09-02T14:02:30Z",
+   "spot": 497.6678,
+   "atm_strike": 500.0,
+   "atm_iv": 0.246391,
    "dte_used": 30,
    "expiry": "2026-10-02",
    "rv_30d": 0.488209,
    "rv_30d_ex_top2": 0.237638,
-   "iv_rv_ratio": 0.5062,
-   "iv_rv_ratio_ex_top2": 1.04,
+   "iv_rv_ratio": 0.5047,
+   "iv_rv_ratio_ex_top2": 1.0368,
    "largest_1d_move_in_window_pct": 15.51,
-   "_call_put": "call 0.254139 / put 0.240132, averaged per the IV method.",
-   "_timing_caveat": "MEASURED 13:33Z -- ~23 MIN EARLIER IN THE SESSION THAN YESTERDAY'S 14:03:13Z ROWS. Per _IV_DAY_OVER_DAY_DIFFS_NEED_A_TIME_OFFSET and the four-times-confirmed opening-window ATM IV inflation (-2.5% to -4.4% from a pre-14:00Z read to a settled one), EVERY atm_iv BELOW IS AN UPPER BOUND and every day-over-day increase must be discounted by roughly that band before it is called a real vol bid. Overwrite this row from a post-14:00Z run if one measures it."
+   "_call_put": "call 0.253245 / put 0.239536, averaged per the IV method.",
+   "_rv_provenance": "rv_30d / rv_30d_ex_top2 CARRIED FORWARD UNCHANGED from the 13:33Z row: both are computed off DAILY closes through 2026-09-01 and cannot move intraday. Only the IV leg was re-measured, which is the only leg the opening-window artifact touches.",
+   "_timing_note": "SETTLED 14:02-14:03Z, OVERWRITING THE 13:33Z ROW EXACTLY AS THAT ROW ASKED. This is now TIME-MATCHED to yesterday's 14:03:13Z rows, so the day-over-day diff is clean on the clock. MEASURED ARTIFACT, and it did NOT reproduce the documented band: across the four names whose ATM strike did NOT move (QQQ, NVDA, TSM, and AVGO re-quoted at its morning 365 strike) the 13:33Z->14:02Z change is -0.72% / +1.36% / -0.55% / -0.82%, mean -0.18%, one of them POSITIVE -- against the four-reading -2.5% to -4.4% band in CLAUDE.md. See holdings.json._OPENING_WINDOW_IV_DISCOUNT_IS_A_FUNCTION_OF_ELAPSED_TIME: the band was measured at +66 to +110 minutes, this at +29, so the discount is a decay curve and not a constant. Do NOT subtract a flat 2.5-4.4% from a row re-read this early.",
+   "_strike_moved": "ATM strike moved 495 -> 500 between the 13:33Z read and this one, so this name's 13:33Z-to-now change is CONFOUNDED BY SKEW and is not a clean artifact measurement. Use the four same-strike names for that."
   }
  ],
  "TSLA": [
@@ -1926,19 +1937,21 @@
   },
   {
    "date": "2026-09-02",
-   "measured_utc": "2026-09-02T13:33:24Z",
-   "spot": 356.305,
-   "atm_strike": 355.0,
-   "atm_iv": 0.415072,
+   "measured_utc": "2026-09-02T14:02:30Z",
+   "spot": 351.14,
+   "atm_strike": 350.0,
+   "atm_iv": 0.412539,
    "dte_used": 30,
    "expiry": "2026-10-02",
    "rv_30d": 0.611826,
    "rv_30d_ex_top2": 0.382147,
-   "iv_rv_ratio": 0.6784,
-   "iv_rv_ratio_ex_top2": 1.0862,
+   "iv_rv_ratio": 0.6743,
+   "iv_rv_ratio_ex_top2": 1.0795,
    "largest_1d_move_in_window_pct": -14.52,
-   "_call_put": "call 0.421181 / put 0.408962, averaged per the IV method.",
-   "_timing_caveat": "MEASURED 13:33Z -- ~23 MIN EARLIER IN THE SESSION THAN YESTERDAY'S 14:03:13Z ROWS. Per _IV_DAY_OVER_DAY_DIFFS_NEED_A_TIME_OFFSET and the four-times-confirmed opening-window ATM IV inflation (-2.5% to -4.4% from a pre-14:00Z read to a settled one), EVERY atm_iv BELOW IS AN UPPER BOUND and every day-over-day increase must be discounted by roughly that band before it is called a real vol bid. Overwrite this row from a post-14:00Z run if one measures it."
+   "_call_put": "call 0.414476 / put 0.410602, averaged per the IV method.",
+   "_rv_provenance": "rv_30d / rv_30d_ex_top2 CARRIED FORWARD UNCHANGED from the 13:33Z row: both are computed off DAILY closes through 2026-09-01 and cannot move intraday. Only the IV leg was re-measured, which is the only leg the opening-window artifact touches.",
+   "_timing_note": "SETTLED 14:02-14:03Z, OVERWRITING THE 13:33Z ROW EXACTLY AS THAT ROW ASKED. This is now TIME-MATCHED to yesterday's 14:03:13Z rows, so the day-over-day diff is clean on the clock. MEASURED ARTIFACT, and it did NOT reproduce the documented band: across the four names whose ATM strike did NOT move (QQQ, NVDA, TSM, and AVGO re-quoted at its morning 365 strike) the 13:33Z->14:02Z change is -0.72% / +1.36% / -0.55% / -0.82%, mean -0.18%, one of them POSITIVE -- against the four-reading -2.5% to -4.4% band in CLAUDE.md. See holdings.json._OPENING_WINDOW_IV_DISCOUNT_IS_A_FUNCTION_OF_ELAPSED_TIME: the band was measured at +66 to +110 minutes, this at +29, so the discount is a decay curve and not a constant. Do NOT subtract a flat 2.5-4.4% from a row re-read this early.",
+   "_strike_moved": "ATM strike moved 355 -> 350 between the 13:33Z read and this one, so this name's 13:33Z-to-now change is CONFOUNDED BY SKEW and is not a clean artifact measurement. Use the four same-strike names for that."
   }
  ],
  "CVS": [
