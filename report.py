@@ -297,10 +297,17 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
                 days_held = None  # unparseable -> fail OPEN (no time stop), never a phantom sell
             if days_held is not None and days_held >= SWING_TIME_STOP_DAYS:
                 time_stop = True
+                # Wording deliberately does NOT claim "no bounce printed": the branch
+                # tests elapsed time ONLY, and the one way a bounced name survives to
+                # get here is the underwater RSI2 print, which is an OPTIONAL exit and
+                # is routinely declined (PNC, the first name this fires on, printed
+                # RSI2 71.6 the day before its time stop). Asserting an untested
+                # condition in the alert Ryan reads would be wrong exactly when it
+                # matters most.
                 sell_reasons.append(
-                    f"TIME STOP — held {days_held}d (>= {SWING_TIME_STOP_DAYS}d) without "
-                    f"hitting target or printing an RSI2 bounce; the mean-reversion window "
-                    f"has passed ({pnl:+.1%}) — recycle the capital")
+                    f"TIME STOP — held {days_held}d (>= {SWING_TIME_STOP_DAYS}d) and still "
+                    f"open: the mean-reversion window has passed with no exit taken "
+                    f"({pnl:+.1%}) — recycle the capital")
 
         if target and price >= target:
             sell_reasons.append(f"hit target {target} — take profit")

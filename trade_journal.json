@@ -30543,6 +30543,15 @@
       "finding_in_regime_bug": "calibrate.py's FIRST run on real data proposed loosening the time stop from 53 trades that all closed BEFORE the time stop existed. Caught and fixed before merge with the in_regime_trades gate. Written up in holdings.json._CALIBRATION_ENGINE_AND_THE_IN_REGIME_BUG_IT_CAUGHT -- the transferable point is that tuning on pre-parameter data is indistinguishable from real calibration unless you count, which is exactly the failure mode a self-optimizing system is most exposed to.",
       "open_for_ryan": "docs/routine-prompt-v10.md needs pasting into the routine. Until then the stored prompt is v8 and CLAUDE.md governs on the strength of today's live turns -- a run finding the conflict applies CLAUDE.md and reports the prompt as stale, never the stricter stored text.",
       "what_was_NOT_done": "No trade, no ledger position change, no parameter tuned (in-regime evidence is zero by construction today). The 14-day constant is the original author's number, not an optimized one."
+    },
+    {
+      "run_utc": "2026-09-02T21:25:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-02",
+      "headline": "Second post-close run of 2026-09-02. Market shut, no trade placeable. Not a pure no-op: corrected the new time-stop alert string before its debut fire, and pre-computed the time-stop schedule for the whole book.",
+      "reconciliation": "ZERO DRIFT both books vs broker (read FIRST). 1 option: SPY 2026-11-20 700P qty 1.0000 @ 749.00, all pending_* 0.0000. 6 equities: ROST 2.0 @ 230.15, LLY 0.420254 @ 1189.76, PNC 1.825758 @ 246.47, MDLZ 7.988509 @ 62.59, MMM 2.884552 @ 173.34, GD 1.335314 @ 374.44 -- all match holdings.json on quantity AND average price. get_equity_orders(gte 2026-09-02) EMPTY: no fills today, no sibling entry. Capital: total 3972.16 = equity 2865.06 / options 555.00 / cash 552.10; unleveraged_buying_power 552.10 EQUALS buying_power, so no margin extended (FOUR LAWS #4 ok).",
+      "actions": "NONE placed. ONE code change: report.py time-stop reason string reworded to what the branch actually tests (see holdings._EXIT_POLICY_REWRITTEN_CONNORS_PURE_PLUS_TIME_STOP.post_merge_correction_2026-09-02T21:25Z). py_compile clean on report.py and calibrate.py; git diff --stat 1 file, +10/-3. No artifact rolled: heartbeat stays 13:33Z, brief stays today's, daily report stays the 19:15Z one (the 20:45Z policy change was Ryan's own live decision -- rewriting the report would notify him of what he just authored). Realized options P/L 2026-09-02 read from the ledger, not typed: $0.00 / 0 closing trades against the -$400 cap.",
+      "duties": "Heartbeat stamped 13:33Z by the first post-open run -- not re-stamped. Trading day is still 2026-09-02 (post-bell, pre-open), so no cap or throttle reset. Monday calibration not due (Wednesday). Next market-hours run owns three exits at the open: PNC TIME STOP (15d, red) plus the MDLZ and ROST take-profits now that the magnitude floor is void."
     }
   ]
 }
