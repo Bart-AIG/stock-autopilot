@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-02T18:46:00Z",
+  "updated_utc": "2026-09-02T19:02:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-02",
     "realized_usd": 0.0,
@@ -535,8 +535,8 @@
     "prior_day": "2026-08-31, written 2026-08-31T19:15:00Z."
   },
   "_last_reconciliation": {
-    "utc": "2026-09-02T18:45:00Z",
-    "result": "ZERO DRIFT both books. Broker read FIRST per the 2026-08-28 collision fix: get_accounts (718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000), get_option_positions nonzero (exactly 1 -- SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* 0.0000), get_equity_positions (exactly 6: ROST 2.000000 @ 230.15, LLY 0.420254 @ 1189.76, PNC 1.825758 @ 246.47, MDLZ 7.988509 @ 62.59, MMM 2.884552 @ 173.34, GD 1.335314 @ 374.44), get_portfolio, get_equity_orders(gte 2026-09-02) EMPTY. All seven positions match the ledger on quantity AND average price."
+    "utc": "2026-09-02T19:01:00Z",
+    "result": "ZERO DRIFT both books. Broker read FIRST: get_accounts (718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000), get_option_positions nonzero (exactly 1 -- SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* 0.0000), get_equity_positions (exactly 6: ROST 2.000000 @ 230.15, LLY 0.420254 @ 1189.76, PNC 1.825758 @ 246.47, MDLZ 7.988509 @ 62.59, MMM 2.884552 @ 173.34, GD 1.335314 @ 374.44), get_portfolio, get_equity_orders(gte 2026-09-02) EMPTY. All seven positions match the ledger on quantity AND average price."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
@@ -784,13 +784,13 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-02T18:46:00Z",
+    "run_utc": "2026-09-02T19:02:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-02",
     "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST per the 2026-08-28 collision fix. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* 0.0000) + 6 equities matching holdings.json on quantity AND average price. get_equity_orders(gte 2026-09-02) EMPTY -- broker proof of the 0-of-3 equity throttle and of no sibling entry.",
-    "capital": "18:45Z get_portfolio: total $3,949.31 = equity $2,865.21 / options $532.00 / cash $552.10. unleveraged_buying_power $552.10 EQUALS buying_power, no margin extended (FOUR LAWS #4). Reserve $250.00 (stricter of the flat FOUR LAWS floor and 5%-of-total $197.47). Deployable $302.10 -- below the ~$400 practical equity minimum and below CORE's $500-1,000 band.",
-    "tape": "18:46:30Z SPY 764.67 (+0.38%), QQQ 707.94 (+0.04%). Numbers only; no verdict handed forward.",
-    "verdict": "NO TRADE either book. Both take-profits fire and both decline on the inherited magnitude floor (ROST 3.09%, MDLZ 11.85% of objective vs the ~33% floor). This run's contribution is a CORRECTION, not a re-verification: the floor's only outcome evidence, written 41 minutes earlier, has been fully withdrawn by the tape and is corrected in place inside _MAGNITUDE_FLOOR_HAS_NOW_OVERRIDDEN_A_MECHANICAL_EXIT_ELEVEN_TIMES before it reaches Ryan in the 19:15Z report."
+    "capital": "19:01Z get_portfolio: total $3,948.10 = equity $2,863.00 / options $533.00 / cash $552.10. unleveraged_buying_power $552.10 EQUALS buying_power, no margin extended (FOUR LAWS #4). Reserve $250.00 (stricter of the flat FOUR LAWS floor and 5%-of-total $197.41). Deployable $302.10.",
+    "tape": "19:01Z SPY 764.775 (+0.39%), QQQ 708.16 (+0.07%). Numbers only; no verdict handed forward.",
+    "verdict": "NO TRADE either book. Both take-profits fire on the report's print and both decline on the magnitude floor, recomputed live rather than inherited: ROST +4.4% and MDLZ +4.3% of their entry-to-target objectives against the ~33% floor. PNC's optional exit-into-strength declines as underwater (-1.61%) per the 2026-08-26 correction. This run's contribution is a CORRECTION plus an out-of-sample re-quote inside _BAND_FLOOR_REACHED_IS_NOT_VEHICLE_AFFORDABLE: its stored cheapest_compliant figure ($463.00) was a below-band contract by that key's own text, and the true cheapest COMPLIANT vehicle today is $538.50."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -1910,7 +1910,18 @@
     "detector": "Before recording TACTICAL as available on capital, QUOTE the cheapest 0.40-0.60-delta contract on the nearest DTE-7-clearing board of a penny-wide index chain and compare THAT to deployable. Two calls. Never infer affordability from the band's own floor.",
     "do_not_inherit_the_number": "Re-quote it. Premium scales with spot x IV x sqrt(time) and all three move; $463 is a 2026-09-01 reading, not a constant. The METHOD is the durable part, not the figure.",
     "honest_scope": "Changed no decision. There was no fire to take -- QQQ sat ON its 50-day SMA (711.715 vs 711.5868, +0.128) rather than through it, so the two-bar price clause was unsatisfied in both directions -- and the 2026-08-26 regime capstone independently barred a QQQ scalp whose hold window (hard time stop = flat by the 09-02 close) contains tonight's PANW/DELL/CRDO/MDB prints. Three independent grounds; only this one was measurable to a number. A gate's inputs can only be audited credibly on a run the audit does not benefit.",
-    "adjacent_measurement_worth_keeping": "The QQQ 50-day PASSES the 2026-08-25 fast-average test and is therefore usable as a trigger if capital ever permits: on a flat index its forward path is 711.59 -> 711.06 -> 711.02 -> 711.05 -> 710.95 over five sessions, i.e. ~0.5 points of drift over a TACTICAL hold against a ~2-point profit target. Most levels this arc has tested failed that test; this one does not."
+    "adjacent_measurement_worth_keeping": "The QQQ 50-day PASSES the 2026-08-25 fast-average test and is therefore usable as a trigger if capital ever permits: on a flat index its forward path is 711.59 -> 711.06 -> 711.02 -> 711.05 -> 710.95 over five sessions, i.e. ~0.5 points of drift over a TACTICAL hold against a ~2-point profit target. Most levels this arc has tested failed that test; this one does not.",
+    "CORRECTION_2026-09-02T19:02Z_the_stored_cheapest_figure_was_NOT_a_compliant_vehicle": "The field `cheapest_compliant_tactical_vehicle_usd: 463.00` is WRONG BY ITS OWN KEY. $463.00 was the QQQ 705P at delta -0.3435, and this key's own text says that put is 'BELOW the 0.40-0.60 band'. A contract outside the delta band is not a compliant TACTICAL vehicle, so the cheapest COMPLIANT vehicle on 2026-09-01 was the in-band 716C at $577.50, not $463.00. The number that was stored is the one a later run would compare deployable against -- understating the true bar by $114.50 (24.8%). Same shape as the defect the key was written to name: the wrong quantity carried forward under a label asserting it was the right one.",
+    "REQUOTED_2026-09-02T19:02Z_out_of_sample_and_the_two_legs_moved_OPPOSITE_WAYS": {
+      "why_requoted": "The key's own do_not_inherit_the_number clause. Executed rather than cited.",
+      "conditions": "QQQ spot 708.16 (was 711.7 on 09-01). Nearest board clearing the DTE-7 floor is 2026-09-11 at 9 DTE (09-04 now 2 DTE, barred).",
+      "QQQ_2026-09-11_704P": "bid 5.10 / ask 5.15, mid 5.125, spread 0.98% of mid, delta -0.3917, gamma 0.0211, theta -0.3604, OI 338, vol 120, IV 0.1644 -> $512.50. STILL BELOW the 0.40-0.60 band -- not compliant, quoted only as the comparable to 09-01's $463.00 put.",
+      "QQQ_2026-09-11_712C": "bid 5.36 / ask 5.41, mid 5.385, spread 0.93% of mid, delta 0.4320, gamma 0.0229, theta -0.4039, OI 580, vol 314, IV 0.1537 -> $538.50. IN BAND. THIS is the cheapest compliant TACTICAL vehicle today.",
+      "cheapest_COMPLIANT_vehicle_usd": 538.5,
+      "the_out_of_sample_point": "Across one session the OUT-OF-BAND leg ROSE $49.50 (463.00 -> 512.50) while the IN-BAND leg FELL $39.00 (577.50 -> 538.50). They moved in OPPOSITE directions, so 'the cheapest vehicle got dearer' and 'the cheapest vehicle got cheaper' are both defensible sentences depending on which leg is tracked -- and only the in-band one is the gate. A run inheriting the $463.00 figure would have carried a number that was both non-compliant AND stale in the wrong direction. The detector's instruction to re-quote is confirmed out-of-sample, at n=1.",
+      "verdict_on_capital": "Deployable $302.10 vs a $538.50 cheapest-compliant vehicle = 56.1% of the bar. TACTICAL is NOT reachable on capital, and the band-floor arithmetic ($302.10 >= $300) still reads satisfied. Unchanged conclusion, freshly measured inputs.",
+      "honest_scope": "Changed no decision -- no trigger existed and deployable was already below both the ~$400 equity minimum and CORE's $500-1,000 band on three independent counts. A gate's inputs can only be audited credibly on a run the audit does not benefit."
+    }
   },
   "_A_ONE_DAY_MA_SLOPE_IS_NOT_A_FORWARD_PATH": {
     "measured_utc": "2026-09-01T16:30:00Z",
