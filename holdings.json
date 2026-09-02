@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-02T16:45:00Z",
+  "updated_utc": "2026-09-02T17:00:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-02",
     "realized_usd": 0.0,
@@ -785,18 +785,15 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-02T16:45:00Z",
+    "run_utc": "2026-09-02T17:00:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-02",
-    "outcome": "NO TRADE either book. Seventeenth run of 2026-09-02, re-verification. Overwrites the 16:30Z state in place.",
+    "outcome": "NO TRADE either book. Eighteenth run of 2026-09-02, re-verification. Overwrites the 16:45Z state in place.",
     "reconciliation": "ZERO DRIFT, broker read FIRST. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, pending_* 0.0000) + 6 equities matching on quantity AND average price. get_equity_orders(gte 2026-09-02) EMPTY.",
-    "capital": "Total $3,964.01 = equity $2,868.91 / options $543.00 / cash $552.10. UBP $552.10 EQUALS buying_power -- no margin (FOUR LAWS #4). Reserve $250.00; deployable $302.10, below one position size in either book, so the ROTATION GATE governs.",
-    "tape": "16:46Z: SPY 764.89 (+0.41%), QQQ 708.28 (+0.09%), XLF 57.655 (+0.80%), XLI 172.72 (-0.01%). Numbers only; no verdict handed forward.",
-    "equities_verdict": "HOLD all six. ROST take-profit declined a sixth run on the magnitude floor at 14.2% of the $29.02 objective (was 10.05% at 16:30Z, 2.83% at the 15:02Z first fire); floor price 234.9875 now $2.78 above the 232.21 spot. ROST is the only green name (+0.89% vs entry, +1.30% on the day) and the only one that could reach the floor today. PNC EXIT-INTO-STRENGTH optional at -1.74% underwater, gated on a HARD RULE 7 break. No target hit, no green-enough crossing.",
-    "options_verdict": "Hedge SPY 2026-11-20 700P only, mark 5.43 vs 7.49 cost (-27.5%), 79 DTE. EXEMPT from premium backstops; held to its ~21-DTE roll/close decision WITH Ryan. No CORE entry (deployable $302.10 under the $500 minimum). No TACTICAL entry: no trigger fired, the regime capstone bars a scalp across tonight's AVGO print, and the cheapest compliant vehicle exceeds deployable.",
-    "entry_evaluation": "NO ENTRY either book. Report unchanged since 16:03Z and its candidates fully worked at 16:15Z/16:22Z; no held name has a thesis break to supply the rotation gate's sell side.",
-    "throttles": "READ from _realized_options_pnl_today: realized $0.00 against the -$400 options cap; options 0 of 8; equities 0 of 3.",
-    "duties": "Heartbeat 13:33Z, brief and IV sweeps already owned. Daily report due at/after 19:15Z. Prompt v8 flag open, not re-notified."
+    "capital": "Total $3,959.39 = equity $2,870.29 / options $537.00 / cash $552.10. UBP $552.10 EQUALS buying_power -- no margin (FOUR LAWS #4). Reserve $250.00 (stricter of the flat floor and 5%-of-total $197.97); deployable $302.10, below one normal position size in either book, so the rotation gate governs entries.",
+    "equity_book": "HOLD all six. ROST take-profit declined a seventh run on the magnitude floor: 232.54 banks $4.78 gross = 16.5% of the $29.02 objective, floor price 234.9875 $2.45 above spot. Gap closing monotonically this session ($4.43 -> $3.38 -> $2.78 -> $2.45); if it reaches the floor the answer flips, so re-run the arithmetic rather than inheriting the decline. PNC EXIT-INTO-STRENGTH optional at -1.86% underwater, gated on a HARD RULE 7 break. Throttle 0 of 3 (broker-confirmed).",
+    "options_book": "Hedge only -- SPY 2026-11-20 700P, mark 5.37 vs 7.49 entry, 79 DTE, exempt from backstops per the ownership gate. No TACTICAL trigger (SPY/QQQ sideways in a 0.21% band for 90 minutes, no structural level breaking); AVGO prints tonight inside a TACTICAL hold window, barred by the 2026-08-26 regime capstone. CORE unaffordable at $302.10. Realized options P/L today $0.00 vs the -$400 cap; 0 of 8 option entries used.",
+    "duties": "Heartbeat stamped 13:33Z; market_brief stamped today; IV rows re-measured post-14:00Z at 14:02:30Z. Daily report due on the first run at/after 19:15Z -- NOT yet written."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
