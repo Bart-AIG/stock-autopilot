@@ -319,8 +319,16 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
                 # When the time stop is CLOSE, say so on this line: a position that will
                 # be recycled within days anyway is better sold INTO a bounce than out of
                 # one, so the clock is the decisive fact for the reader — not the print.
-                soon = (days_held is not None
-                        and SWING_TIME_STOP_DAYS - days_held <= TIME_STOP_WARN_DAYS)
+                # `not time_stop` is load-bearing, not defensive: without it the window
+                # is one-sided and stays TRUE forever once crossed, so a position PAST
+                # the stop printed "NOTE: -1d to the time stop" — a negative countdown
+                # advising a better exit price on a name being SOLD in the same alert.
+                # Found 2026-09-02 by exercising the function against the live book;
+                # the merge's own edge cases (13d/14d/green-at-20d) all missed it
+                # because none combined underwater + bounce + past-stop, which is
+                # exactly what PNC, the first name to fire, is.
+                soon = (not time_stop and days_held is not None
+                        and 0 <= SWING_TIME_STOP_DAYS - days_held <= TIME_STOP_WARN_DAYS)
                 sell_reasons.append(
                     f"RSI2 {rsi2} overbought but position UNDERWATER ({pnl:+.0%}) — "
                     f"optional exit-into-strength; policy default is hold-on-thesis"
