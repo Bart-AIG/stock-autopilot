@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-02T19:02:00Z",
+  "updated_utc": "2026-09-02T19:19:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-02",
     "realized_usd": 0.0,
@@ -529,14 +529,18 @@
     }
   },
   "_eod_report_written": {
-    "trading_day_et": "2026-09-01",
-    "written_utc": "2026-09-01T19:15:00Z",
-    "note": "daily_options_report.md for trading day 2026-09-01 written ON TIME and IN SESSION by the first run at or after the 14:15 CT window, 45 minutes before the bell -- NOT under the post-close fallback. Covers BOTH books per v8. THAT COMMIT IS THE DELIVERY (eod-report-notify.yml fires on the master push touching this file). NO LATER RUN MAY REWRITE IT to refresh closing marks or restate 'still flat' -- only a MATERIAL event (a fill, an exit, a new flag, a trigger firing) justifies a rewrite, because every master push touching this file sends Ryan another notification and a duplicate carrying the same content is pure noise.",
-    "prior_day": "2026-08-31, written 2026-08-31T19:15:00Z."
+    "trading_day_et": "2026-09-02",
+    "written_utc": "2026-09-02T19:19:00Z",
+    "note": "daily_options_report.md for trading day 2026-09-02 written ON TIME and IN SESSION by the first run at or after the 14:15 CT (19:15Z) window, 40 minutes before the bell -- NOT under the post-close fallback. The 19:02Z run landed 13 minutes early and correctly handed the duty forward. Covers BOTH books per v8. THAT COMMIT IS THE DELIVERY (eod-report-notify.yml fires on the master push touching this file). NO LATER RUN MAY REWRITE IT to refresh closing marks or restate 'still flat' -- only a MATERIAL event (a fill, an exit, a new flag, a trigger firing) justifies a rewrite, because every master push touching this file sends Ryan another notification and a duplicate carrying the same content is pure noise.",
+    "prior_day": "2026-09-01, written 2026-09-01T19:15:00Z."
   },
   "_last_reconciliation": {
-    "utc": "2026-09-02T19:01:00Z",
-    "result": "ZERO DRIFT both books. Broker read FIRST: get_accounts (718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000), get_option_positions nonzero (exactly 1 -- SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* 0.0000), get_equity_positions (exactly 6: ROST 2.000000 @ 230.15, LLY 0.420254 @ 1189.76, PNC 1.825758 @ 246.47, MDLZ 7.988509 @ 62.59, MMM 2.884552 @ 173.34, GD 1.335314 @ 374.44), get_portfolio, get_equity_orders(gte 2026-09-02) EMPTY. All seven positions match the ledger on quantity AND average price."
+    "run_utc": "2026-09-02T19:19:00Z",
+    "source": "broker, read FIRST before any decision",
+    "options": "1 position -- SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921-9bd8-43fd-8b4d-60f76ac03f48), all six pending_* 0.0000.",
+    "equities": "6 positions -- ROST 2.000000 @ 230.15, LLY 0.420254 @ 1189.76, PNC 1.825758 @ 246.47, MDLZ 7.988509 @ 62.59, MMM 2.884552 @ 173.34, GD 1.335314 @ 374.44.",
+    "drift": "NONE. All seven match holdings.json on quantity AND average price.",
+    "orders_today": "get_equity_orders(created_at_gte 2026-09-02) EMPTY; get_realized_pnl(2026-09-02, equity+option) 0 closing trades, $0.00."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
@@ -784,13 +788,13 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-02T19:02:00Z",
+    "run_utc": "2026-09-02T19:19:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-02",
-    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST per the 2026-08-28 collision fix. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* 0.0000) + 6 equities matching holdings.json on quantity AND average price. get_equity_orders(gte 2026-09-02) EMPTY -- broker proof of the 0-of-3 equity throttle and of no sibling entry.",
-    "capital": "19:01Z get_portfolio: total $3,948.10 = equity $2,863.00 / options $533.00 / cash $552.10. unleveraged_buying_power $552.10 EQUALS buying_power, no margin extended (FOUR LAWS #4). Reserve $250.00 (stricter of the flat FOUR LAWS floor and 5%-of-total $197.41). Deployable $302.10.",
-    "tape": "19:01Z SPY 764.775 (+0.39%), QQQ 708.16 (+0.07%). Numbers only; no verdict handed forward.",
-    "verdict": "NO TRADE either book. Both take-profits fire on the report's print and both decline on the magnitude floor, recomputed live rather than inherited: ROST +4.4% and MDLZ +4.3% of their entry-to-target objectives against the ~33% floor. PNC's optional exit-into-strength declines as underwater (-1.61%) per the 2026-08-26 correction. This run's contribution is a CORRECTION plus an out-of-sample re-quote inside _BAND_FLOOR_REACHED_IS_NOT_VEHICLE_AFFORDABLE: its stored cheapest_compliant figure ($463.00) was a below-band contract by that key's own text, and the true cheapest COMPLIANT vehicle today is $538.50."
+    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST per the 2026-08-28 collision fix. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, all six pending_* 0.0000) + 6 equities matching holdings.json on quantity AND average price. get_equity_orders(gte 2026-09-02) EMPTY and get_realized_pnl(2026-09-02) returns 0 closing trades / $0.00 -- independent broker proof of the 0-of-3 equity throttle, the 0-of-8 options throttle and the $0.00 against the -$400 cap.",
+    "capital": "19:19Z get_portfolio: total $3,944.68 = equity $2,866.58 / options $526.00 / cash $552.10. unleveraged_buying_power $552.10 EQUALS buying_power, no margin extended (FOUR LAWS #4). Reserve $250.00 (stricter of the flat FOUR LAWS floor and 5%-of-total $197.23). Deployable $302.10.",
+    "tape": "19:19:40Z SPY 765.41 (+0.48%), QQQ 708.76 (+0.16%). Numbers only; no verdict handed forward.",
+    "verdict": "NO TRADE either book. THIS RUN OWED AND WROTE THE DAILY REPORT for 2026-09-02 (first run at/after the 19:15Z window). Both flagged take-profits declined, on DIFFERENT gates: MDLZ on the `price > entry` sign gate (bid 62.520 below the 62.5899 entry -- the report's 19:01Z print was 18 minutes stale and no longer true), ROST on the magnitude floor (+$1.1376 = 3.92% of objective, twelfth consecutive decline). PNC declines as underwater -1.69%. No thesis reached BROKEN. No entry: deployable $302.10 is below the ~$400 practical minimum, so the rotation gate governs and its SELL side is empty -- no position has a thesis break, and the only green name is ROST at +$1.14. Options unreachable: cheapest compliant TACTICAL vehicle $538.50 vs $302.10 deployable (56.1%); CORE below its band floor."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -2184,6 +2188,14 @@
       "ROST": "settled RSI2 35.547; live-appended at 230.690 = 71.47, so the flag genuinely still fires -- but it is only $0.128 above the 230.5621 price at which RSI2 falls back under 70. THE SIGNAL IS 13 CENTS FROM UN-FIRING ON ITS OWN, which is a materially different state from the report's 82.5 reading at its 18:01Z price of 232.32.",
       "MDLZ": "settled RSI2 1.472; live-appended at 62.845 = 76.81; crosses back under 70 at 62.4785, so live sits $0.367 above it. Floor price 63.2933 -- the gap WIDENED from $0.3133 at 18:35Z to $0.4533 now, reversing the narrowing the last three runs tracked.",
       "PNC": "RSI2 print with the position UNDERWATER at 242.15 bid vs 246.4729 entry (-1.75%). Routed to thesis by HARD RULE 5 and the 2026-08-26 profit-banking correction, never to a technical trigger. No researched break exists. HOLD."
+    },
+    "ADDENDUM_2026-09-02T19:19Z_THE_MDLZ_HALF_OF_THIS_QUESTION_DECIDED_ITSELF_ON_THE_SIGN_GATE_NOT_THE_MAGNITUDE_FLOOR": {
+      "why_this_edits_the_key_rather_than_minting_a_new_one": "It is direct evidence bearing on THIS key's open governance question and reaches Ryan in the same 19:15Z report. Per the CLAUDE.md session-key rule, a contribution that narrows an existing key edits it; a new top-level key would scatter the state this flag exists to consolidate.",
+      "the_measurement": "The 19:01Z report flagged MDLZ SELL/TAKE-PROFIT at 62.64 on RSI2 73.4. The live quote at 19:19:59Z is last 62.535, bid 62.520 / ask 62.540 against the 62.5899 entry -- UNDERWATER $0.5584 at the bid, $0.4386 at last. The mechanical exit's `price > entry` gate (added 2026-08-26) therefore FAILS, and MDLZ is an optional exit-into-strength needing a HARD RULE 7 thesis break, not a magnitude judgement at all.",
+      "why_it_matters_to_the_open_question": "MDLZ's take-profit was declined all session on the magnitude floor, at roughly 3-4% of its $16.86 objective. It then ceased to qualify WITHOUT the floor being invoked, because the position drifted underwater. THE GAIN THE FLOOR REFUSED TO BANK WAS SMALLER THAN ONE AFTERNOON'S ORDINARY DRIFT. That is a STRUCTURAL argument for the floor -- a take-profit that noise can erase was never a take-profit -- and it is independent of any outcome measurement, which is what makes it citable where the withdrawn $3.44 claim was not.",
+      "what_it_does_NOT_establish": "It does not vindicate the ~one-third fraction, which remains a judgement rather than a measured optimum, and it does not touch the denominator problem -- measuring against a target the report itself labels an ESTIMATE is still the defect that most needs Ryan's ruling. n=1 name, one session. It is an argument for having SOME magnitude floor, not for this particular one.",
+      "todays_ROST_arithmetic_recomputed_live_not_inherited": "Bid 230.720 vs entry 230.1512 on 2 sh = +$1.1376 = 3.92% of the $29.0176 entry-to-target objective, against the ~33% floor. TWELFTH consecutive decline of the same signal in one session. Declined.",
+      "status": "OPEN. Flagged to Ryan in daily_options_report.md section 6 for trading day 2026-09-02, with a recommendation to redefine the denominator (option a) rather than drop the floor. HARD RULE 9: unattended run, no Ryan turn claimed, quoted or implied, nothing cleared."
     }
   },
   "_RSI2_EXIT_TRIGGER_SITS_AT_THE_ENTRY_PRICE_BY_CONSTRUCTION": {
