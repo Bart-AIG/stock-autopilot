@@ -551,7 +551,7 @@
     "prior_day": "2026-08-31, written 2026-08-31T19:15:00Z."
   },
   "_last_reconciliation": {
-    "utc": "2026-09-02T13:50:00Z",
+    "utc": "2026-09-02T14:31:00Z",
     "result": "ZERO DRIFT both books. Broker read FIRST: get_accounts (718757339 limited_margin / option_level_3 / agentic_allowed true, unsettled_funds 0.0000), get_option_positions (1), get_equity_positions (6), get_equity_orders since 2026-09-02 (EMPTY), get_portfolio. All seven positions match the ledger on quantity AND average price."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
@@ -800,17 +800,18 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-02T14:25:00Z",
+    "run_utc": "2026-09-02T14:31:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-02",
-    "outcome": "NO TRADE either book. Re-verification run three minutes behind the 14:22Z entry evaluation; nothing in either book changed and no new measurement was owed.",
-    "reconciliation": "ZERO DRIFT, broker read FIRST. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, option_id 79230921, pending_* all 0.0000) + 6 equities (ROST 2.000000 @ 230.15 / LLY 0.420254 @ 1189.76 / PNC 1.825758 @ 246.47 / MDLZ 7.988509 @ 62.59 / MMM 2.884552 @ 173.34 / GD 1.335314 @ 374.44) one-for-one on quantity AND average price. get_equity_orders(created_at_gte=2026-09-02) EMPTY.",
-    "capital": "Total $3,967.29 = equity $2,872.19 / options $543.00 / cash $552.10. unleveraged_buying_power $552.10 EQUALS buying_power -- no margin (FOUR LAWS #4). Reserve $250.00 (stricter of the flat floor and 5%-of-total $198.36). DEPLOYABLE $302.10, below one position size, so the rotation gate governs entries.",
-    "marks_1425Z": "PNC 242.54 (-1.60% vs entry), LLY 1177.025 (-1.07%), MDLZ 61.91 (-1.09%), ROST 230.86 (+0.31%, only green name), MMM 170.51 (-1.63%), GD 364.51 (-2.65%). Tape SPY 765.20 (+0.45%), QQQ 708.97 (+0.19%). Numbers only; no regime verdict handed forward.",
-    "equities_verdict": "HOLD all six. No target hit, no green-enough crossing, no thesis flag, no mechanical exit available on the five underwater names. Entry not re-litigated -- the 14:22Z run's UNP decline stands on unchanged capital and an unchanged report.",
-    "options_verdict": "Hedge SPY 700P only, 79 DTE, $543.00 vs $749.00 cost = -27.5%. EXEMPT from premium backstops as authorized insurance; the ~21-DTE roll/close decision is far off and is Ryan's.",
-    "duties": "Heartbeat/brief/IV sweep all already owned by earlier runs today; daily report due at/after 19:15Z. Cap and throttles read from the ledger: $0.00 of -$400, OPTIONS 0 of 8, EQUITIES 0 of 3.",
-    "prompt_version_note": "Invoked with v8, still carrying the voided >=45% floor. Not load-bearing: under v8 the max compliant buy is negative, so v8 declines the same entry by a different route. Tracked in _PROMPT_V9_PASTE_REQUIRED; notify-once respected."
+    "outcome": "NO TRADE either book. Re-verification run six minutes behind the 14:25Z run; nothing in either book changed and no new measurement was owed. Overwrites the 14:25Z state in place per the ledger-notes rule.",
+    "reconciliation": "ZERO DRIFT, broker read FIRST. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, option_id 79230921, pending_* all 0.0000) + 6 equities (ROST 2.000000 @ 230.15 / LLY 0.420254 @ 1189.76 / PNC 1.825758 @ 246.47 / MDLZ 7.988509 @ 62.59 / MMM 2.884552 @ 173.34 / GD 1.335314 @ 374.44) one-for-one on quantity AND average price. get_equity_orders(created_at_gte=2026-09-02) EMPTY -- no sibling entry.",
+    "capital": "Total $3,969.22 = equity $2,873.12 / options $544.00 / cash $552.10. unleveraged_buying_power $552.10 EQUALS buying_power -- no margin (FOUR LAWS #4). Reserve $250.00 (stricter of the flat floor and 5%-of-total $198.46). Deployable $302.10, below one normal position size, so the ROTATION GATE governs any new idea.",
+    "tape": "14:30-14:31Z: SPY 765.16 (+0.44%), QQQ 708.95 (+0.18%). Numbers only; no verdict handed forward.",
+    "equities_verdict": "HOLD all six, no exit fired. Live quotes vs targets: PNC 243.06/255.50, LLY 1179.045/1280.34, MDLZ 61.91/64.70 (nearest, +4.5%), ROST 230.465/244.66, MMM 170.2029/180.83, GD 365.00/387.04. Cheapest green-enough crossing is ROST at 270.77. Only ROST is green vs entry (+0.14%), so the RSI2>=70 profit-banking authority is structurally off on the other five. No stops, ever (HARD RULE 5).",
+    "options_verdict": "Hedge SPY 2026-11-20 700P only, 79 DTE, $544.00 vs $749.00 cost = -27.4%. EXEMPT from premium backstops as Ryan-authorized insurance; the ~21-DTE roll/close decision is far off and is his.",
+    "entry_decision": "DECLINED, not deferred, and not re-litigated: the 14:22Z run evaluated UNP against the rotation gate on the same capital ($552.10 cash) and the same report, and declined. Nothing has changed in nine minutes.",
+    "throttles": "Options realized $0.00 vs the -$400 cap; options entries 0 of 8; equity entries 0 of 3. All READ from _realized_options_pnl_today, not typed as defaults (2026-08-27T09:18Z finding).",
+    "_superseded_note": "Prior 14:25Z state overwritten in place; its content is preserved in that run's trade_journal.json entry."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
