@@ -1,85 +1,55 @@
-# Daily Report — Tuesday, 2026-09-01 — **BOTH BOOKS**
+# Daily Report — Wednesday, 2026-09-02 — **BOTH BOOKS**
 
-*Agentic account (••••7339, `limited_margin` / `option_level_3`). Written at 14:15 CT / 19:15 UTC by the first run at or after the report window — on time and in-session, 45 minutes before the bell. All quotes stamped 19:16Z. Twenty-eighth scheduled run of the day.*
+*Agentic account (••••7339, `limited_margin` / `option_level_3`). Written at 14:15 CT / 19:15 UTC by the first run at or after the report window — on time and in-session, 45 minutes before the bell. All quotes stamped 19:16Z. Twenty-seventh scheduled run of the day.*
 
-**One-line summary: one autonomous equity entry at the open — GD $500.00 — and nothing else in twenty-eight runs. Zero option entries. The reason the other twenty-seven runs declined is now a single number rather than a paragraph: with $302.10 of deployable cash the book is under the rotation gate, and the equity screen's own ranking puts three held positions in its top seven of thirty-four, so 30 of 34 fresh candidates are ranked BELOW something we already own. Buying any of them means selling a better-ranked, intact-thesis position to fund a worse-ranked one.**
+**One-line summary: zero trades in twenty-seven runs — no entry was fundable and no exit cleared its gate. But one thing needs your decision, and it is the same thing that has been declined all day: the RSI(2) take-profit rule you granted has now fired and been overridden fifteen times in one session by a floor this desk invented and never wrote down. Today gave the clearest evidence yet about which way to settle it, and it is not the evidence this morning's runs thought they had. Details in §6 — that section is the report.**
 
 ---
 
 ## 1. Positions — what we own and why
 
-| Position | Cost | Mark (19:16Z) | P/L | Status |
+Broker-reconciled at 19:16Z: **1 option + 6 equities, zero drift** against the ledger on quantity *and* average price. `get_equity_orders` since 2026-09-02 is empty — no fills today, in either direction.
+
+| Position | Cost | Mark (19:16Z) | P/L | Why we own it |
 |---|---|---|---|---|
-| **SPY 2026-11-20 700P** ×1 (hedge) | $749.00 | $604.00 | **−$145.00 / −19.4%** | HOLD — insurance, exempt from backstops |
-| **PNC** 1.825758 sh (swing) | $450.00 | 237.812 = $434.19 | **−$15.81 / −3.51%** | HOLD — thesis intact |
-| **LLY** 0.420254 sh (swing) | $500.00 | 1,158.81 = $486.99 | **−$13.01 / −2.60%** | HOLD — thesis intact |
-| **MDLZ** 7.988509 sh (swing) | $500.00 | 61.485 = $491.17 | **−$8.83 / −1.77%** | HOLD — thesis intact |
-| **ROST** 2.000000 sh (swing) | $460.30 | 229.04 = $458.08 | **−$2.22 / −0.48%** | HOLD — thesis intact |
-| **MMM** 2.884552 sh (swing) | $500.00 | 170.745 = $492.52 | **−$7.48 / −1.50%** | HOLD — thesis intact |
-| **GD** 1.335314 sh (swing) | $500.00 | 368.985 = $492.71 | **−$7.29 / −1.46%** | HOLD — entered today |
-| **Equity book total** | **$2,910.30** | **$2,855.67** | **−$54.63 / −1.88%** | |
+| **SPY 2026-11-20 700P** ×1 *(hedge)* | $749.00 | $525.00 | **−$224.00 / −29.9%** | Insurance against the Aug–Oct drawdown watch. **Exempt from all premium backstops** — it is *supposed* to bleed in a melt-up. Roll/close decision with you at ~21 DTE. |
+| **ROST** 2.000000 sh *(swing)* | $460.30 | 230.760 = $461.52 | **+$1.22 / +0.27%** | RSI(2) mean-reversion entry, 08-28. Thesis intact. **Take-profit fired — see §6.** |
+| **MDLZ** 7.988509 sh *(swing)* | $500.00 | 62.540 = $499.60 | **−$0.40 / −0.08%** | RSI(2) entry, 08-28. Thesis intact. Take-profit fired at 18:08Z and **disarmed itself by 19:16Z — see §6.** |
+| **PNC** 1.825758 sh *(swing)* | $450.00 | 242.270 = $442.33 | **−$7.67 / −1.71%** | RSI(2) entry. RSI2 71.6 = overbought, but the position is underwater, so this is an *optional* exit-into-strength, not a mechanical one. Policy default is hold-on-thesis; thesis intact. |
+| **LLY** 0.420254 sh *(swing)* | $500.00 | 1,164.590 = $489.42 | **−$10.58 / −2.12%** | RSI(2) entry. Underwater, no price stop by policy. Thesis intact — cull at the monthly rebalance if it stays weak. |
+| **MMM** 2.884552 sh *(swing)* | $500.00 | 168.210 = $485.21 | **−$14.79 / −2.96%** | RSI(2) entry. Still on today's screen at RSI2 0.7 — the *deepest* oversold reading in the whole 21-name list, i.e. the signal that bought it is stronger now than at entry. Thesis intact. |
+| **GD** 1.335314 sh *(swing)* | $500.00 | 365.180 = $487.63 | **−$12.37 / −2.47%** | RSI(2) entry, 09-01 (yesterday). Still on the screen at RSI2 1.6. Thesis intact. |
+| **Equity book** | **$2,910.30** | **$2,865.71** | **−$44.59 / −1.53%** | |
 
-**Why we own each one:**
-
-- **SPY 700P (hedge)** — the Aug–Oct drawdown insurance Ryan authorized 2026-08-05. ~80 DTE. It is *supposed* to lose money in a market that has not broken; that is what paying for insurance looks like. **Exempt from every premium backstop**, so the −19.4% cannot force a sale. Its roll/close decision comes at ~21 DTE **with Ryan**, never autonomously. Worth knowing: on a −0.72% SPY day this position is the reason the whole account is *up* — see §5.
-- **PNC** (08-19) — RSI(2) oversold swing on a bank that beat earnings and raised its dividend 18%. Target $255.50, 7.4% away.
-- **LLY** (08-27) — oversold entry in durable-growth pharma. Target $1,280.34, 10.5% away.
-- **MDLZ** (08-28) — defensive staples oversold print. Target $64.70, 5.2% away.
-- **ROST** (08-28) — off-price retail oversold print. Target $244.66, 6.8% away.
-- **MMM** (08-31) — industrial oversold print. Target $180.83, 5.9% away.
-- **GD** (09-01, today) — defense oversold print taken into a green defense complex. Target $387.04, 4.9% away.
-
-**No position fired an exit, and one structural reason covers all six.** The mechanical exit authority is a **profit-banking** power, not a loss-realizing one (HARD RULE 5: "a winner can then only ever be sold for a locked-in gain"). Every equity position is underwater, so a target hit is impossible and an RSI2 ≥ 70 print would be an *optional* exit-into-strength, not a fire. None is close to "green enough" for a trailing stop either — the nearest is ROST, which needs $270.77 against $229.04 today. There are **no stops on anything**, by design; the underwater names are managed on thesis and their real exit gate is the monthly review.
+Nothing in the book is stopped, gated, or awaiting your go-ahead on ownership: every position was opened by the automation (`placed_agent` "agentic"), so none is protected by the ownership gate. **No stops are resting anywhere** — that is policy (HARD RULE 5), not an oversight. No name has crossed green-enough (+17.6%), so there is no `SET TRAILING STOP` alert for you today.
 
 ---
 
 ## 2. Actions taken today
 
-**One — the 13:36:10Z GD entry, placed by the first post-open run.**
+**None. Zero fills, zero orders sent, in either book.** Realized P/L today, broker-sourced (`get_realized_pnl`, 09-02..09-02): **$0.00 across 0 closing trades** — read this run, not carried forward.
 
-- **GD $500.00 market, filled 1.335314 sh @ $374.4437**, order `6a96d4ca`, `placed_agent: agentic`.
-- **Signal:** RSI(2) 3.7 on the committed morning report, inside a rising 200-day uptrend. Target $387.04, invalidation $359.49.
-- **Thesis gate (HARD RULE 7):** intact. Defense was the one green complex on a red tape — NOC +1.7%, RTX +1.5% — and GD's pullback was an index-beta drag rather than a company event. No adverse news, no earnings inside the hold window.
-- **Gates cleared:** A-grade bar; no oil-energy conflict; no `[ERN]` flag and the earnings date sanity-checked; per-name 12.5% of account, inside the ~15–20% cap; dollar-based market order, `regular_hours`; no stop placed.
-
-**Nothing since.** Twenty-seven subsequent runs, no fills in either book.
+That is the whole of it, and the rest of this report is why.
 
 ---
 
-## 3. Candidates considered and SKIPPED — and the one number that explains most of them
+## 3. What was considered and skipped — the educational section
 
-This is the section worth reading today, because the answer got *quantitatively* cleaner rather than merely repeating "no compliant entry".
+**Equities.** The screen is working; the capital is not. Deployable cash is **$302.10**, below the ~$400 practical minimum for an entry, so every candidate had to clear the **rotation gate** — beat the weakest name we already hold, and be funded by selling it. Graded today:
 
-**The capital position first.** Deployable cash is **$302.10** — cash $552.10 minus the $250 reserve (the stricter of the flat FOUR LAWS floor and 5%-of-total, which is $200.57 today). That is below one normal position size ($400–500), which puts the book under the **rotation gate**: a new idea does not simply wait for cash, it must be graded **better than the weakest position currently held**, and funding it means selling that position.
+| Candidate | Verdict | The specific reason |
+|---|---|---|
+| **UNP** | **C — vetoed** | The most-worked name of the day, and the closest call. Structure is excellent: RSI2 1.02 (deepest on the screen), 200-day SMA rising monotonically for 25 sessions with spot +12.1% above it, earnings clear through 09-27, thesis intact (mean PT $332.70 overweight, dividend raised 07-29). Vetoed on a **measured sector de-rate**: UNP −5.46%, NSC −4.51%, CSX −5.03% over 08-28→09-01 on 1.2–2.4× volume. CSX is not in the merger, which rules out merger-arb and makes this freight-rail repricing rather than a single-name dip. No reversion today either — UNP +0.19% against SPY +0.41%. Deferral expires on the complex stabilising, not on a date. |
+| **AMAT, ADI, LRCX, MRVL, AEHR, TSEM** | Deferred | **AVGO reports tonight.** Deferred as a complex under the sector-earnings rule, not on their own merits — a semis swing entered today straddles a print we have no edge on, and policy places no stop that could protect the gap. This expires with the event; re-grade from scratch on post-print numbers, and do **not** reuse today's grade. |
+| **FCEL, SNOW** | Excluded | Their own earnings today (`[ERN 2026-09-02]`). No-entry by rule. |
+| **FDX** | Excluded | Earnings 09-17, inside a 1–3 week hold window. |
+| **BLK** | C | Lagging its own sector by 1.94pp (−1.005% while XLF is +0.93%), dividend-checked so the gap is real. Not a dip in strength. |
+| **GS, MS, CSCO, NBIS, PANW** | Ranked below the book | GS and CSCO offer marginally more upside but rank 9th and last on the oversold trigger that is the entry's entire premise. NBIS and PANW offer the most upside *only because they are the most volatile* — 23.1% and 11.4% invalidations into a book that places no price stops. |
+| Oil & gas | n/a | No oil-energy name printed RSI2 under 10 today, so your sector steer excluded nothing. Worth saying plainly rather than claiming credit for a filter that did no work. |
 
-**So the real question all day was: is any fresh setup better than something we already own?** Today the screen answers that itself, because **three held names are on it**:
-
-| Rank (of 34) | Ticker | RSI2 | Held? |
-|---|---|---|---|
-| 1 | AEHR | 0.2 | |
-| 2 | UNP | 1.0 | |
-| 3 | AMAT | 1.3 | |
-| **4** | **MMM** | **1.4** | **HELD** |
-| 5 | BLK | 1.6 | |
-| **6** | **MDLZ** | **1.7** | **HELD** |
-| **7** | **PNC** | **1.7** | **HELD** |
-| 8–17 | TMO, RTX, FDX, CAT, IWM, EMR, GS, DIA, ETN, USB | 2.3–4.3 | |
-| **18** | **GD** | **4.5** | **HELD** |
-| 19–34 | LRCX … CL | 4.8–9.8 | |
-
-**30 of the 34 setups rank below a position we already hold.** Rotating into any of them means selling a better-ranked, intact-thesis position to fund a worse-ranked one — which is precisely the churn the rotation rule forbids when it says "weakest" means weakest on the **entry stack**, never simply the biggest loser. Only the three names above MMM needed a real workup:
-
-- **AEHR (#1, RSI2 0.2)** — **declined, grade C.** Its own suggested invalidation sits **18.1% below spot**. On a book that places no price stops, a setup whose thesis-death level is 18% away is not a tight mean-reversion trade; it is a small-cap semi with wide dispersion. Compounding it, AEHR is direct NVDA/AVGO-complex beta into the **AVGO print tomorrow evening (09-02)** — the same-complex earnings rule treats that as an `[ERN]` flag even though AEHR has no print of its own.
-- **AMAT (#3, RSI2 1.3)** — **deferred, not excluded.** Clean setup, −6.8% invalidation, no own earnings. But it is core semi-cap equipment and **AVGO reports 09-02 pm**, squarely inside a 1–3 week swing window. This is a deferral that expires with the event: re-grade AMAT from scratch on post-print numbers, and do **not** carry today's grade forward — a gap-up can consume a mean-reversion edge just as easily as a gap-down creates one.
-- **UNP (#2, RSI2 1.0)** — **declined on the rotation gate, and this is the honest one.** It is the single fresh candidate that is genuinely clean: rails, no earnings inside the window, −3.2% invalidation, +4.7% to target, no sector-steer conflict. To buy it I would have to sell **MMM** — entered yesterday, thesis intact, down 1.50%, and ranked #4 against UNP's #2. The entire edge on offer is **0.4 of an RSI2 point**, which is inside the noise of a 2-period oscillator. Paying a round trip and realizing a loss on an intact thesis to capture that is not a rotation; it is churn wearing a rotation's clothes.
-
-**Honest limit on the ranking method, so it does not get over-trusted:** RSI2 rank is the *oversold trigger* only — it says nothing about thesis, trend quality, invalidation distance, or earnings. A name ranked below a held one could still be the better position on the full stack. What the ranking legitimately does is **order the workup**: it identifies the handful of candidates that could possibly clear the rotation bar, so the desk grades those properly instead of writing up thirty names. Used as a screen it is sound; used as a verdict it would be the same "check that passes for the wrong reason" this book keeps catching itself on.
-
-**Options — both tracks declined, on capital and on regime:**
-
-- **CORE SWING:** unaffordable. The band is $500–1,000 and deployable is $302.10. No structure survey was run, because a survey that cannot end in an order is spent budget.
-- **TACTICAL SCALP:** declined on the **regime capstone**, independently of price. A scalp opened today is held to tomorrow's close, and **DELL, CRDO, PANW and MDB all print tonight (09-01 pm)** — those events are *inside* the hold window, and the capstone bars breakout scalps into an unresolved scheduled catalyst however clean the fire. Independently, the band floor binds: a $300 minimum entry would leave $2.10 above the reserve, which is not a buffer.
-- **Vertical specs for Ryan:** none written. The same regime objection applies to the names with tradeable chains.
+**Options.** No entry either track.
+- **TACTICAL** — barred by the regime rule: **AVGO prints tonight**, with SNOW, HPE and NTAP alongside. A scalp opened today is flat by tomorrow's close, so tonight's print is *inside* the hold window, and we do not take breakout scalps into an unresolved scheduled catalyst however clean the trigger looks. Capital was independently marginal anyway — $302.10 against a cheapest-compliant vehicle of **$538.50** (re-quoted live this afternoon; a stored figure from an earlier run turned out to be a below-band contract and was corrected).
+- **CORE** — unfundable. $302.10 against a $500 practical minimum, and every 21–45 DTE expiry spans AVGO tonight plus ORCL and ADBE on 09-10.
 
 ---
 
@@ -87,39 +57,48 @@ This is the section worth reading today, because the answer got *quantitatively*
 
 | | |
 |---|---|
-| Account value | **$4,011.32** |
-| Equity book | $2,855.22 |
-| Options book | $604.00 (hedge only) |
-| Cash | $552.10 |
-| `unleveraged_buying_power` | **$552.10** — equal to `buying_power`, so **no margin is extended** (FOUR LAWS #4 satisfied) |
-| Reserve | $250.00 (stricter of flat $250 and 5%-of-total $200.57) |
-| **Deployable** | **$302.10** — below one position size, rotation gate live |
-| Options premium at risk | $749.00 basis, all of it the exempt hedge. **$0 in TACTICAL, $0 in CORE.** |
-| Realized options P/L today | **$0.00** against the −$400 cap — broker-read, not defaulted |
-| Option entries used | 0 of 8 |
-| Equity entries used | **1 of 3** (GD) |
-| Open option positions | 1 of 5, and it is the hedge (excluded from the count) |
+| Account value | **$3,944.01** = equity $2,866.91 + options $525.00 + cash $552.10 |
+| Unleveraged buying power | **$552.10** — *equal to* `buying_power`, so the broker is extending **no margin**. Compliant with the no-margin rule with no ambiguity about which field is the budget. |
+| Operational reserve | **$250.00** — the stricter of the flat $250 floor and 5%-of-total ($197.20) |
+| **Deployable** | **$302.10** |
+| Options premium at risk | $749.00 cost basis, all of it the hedge. **Zero tactical, zero core.** |
+| Realized options P/L today | **$0.00** against the −$400 cap — not binding |
+| Entry throttles | Options **0 of 8**; equities **0 of 3**. Both untouched — every decline today was on merit, not on a throttle. |
 
-**Reconciliation: ZERO DRIFT.** Broker read first, before any decision — 1 option position (SPY 700P, qty 1.0000 @ $749.00, all `pending_*` zero) and 6 equity positions matching `holdings.json` one-for-one on quantity and average price. One equity order exists for the whole day, the 13:36Z GD fill, already ledgered — no sibling run has landed anything.
+**The honest read on capital: the book is effectively fully invested.** $302.10 is below the entry minimum in *both* books simultaneously, which means for most of today the only way to take a new position was to sell an existing one. That is the full-deployment policy working as designed — cash is the residual of quality — but it does mean the rotation gate, not the signal quality, has been the binding constraint since the open.
 
 ---
 
-## 5. Worth knowing — the hedge is carrying the account today
+## 5. Tomorrow's watchpoints
 
-SPY is **−0.72%** and QQQ **−1.29%**, and the equity book is down $54.63 against its cost. The account is nonetheless roughly **flat-to-up on the day**, because the SPY 700P gains as the index falls. That is the hedge doing exactly the job it was bought for, and it is the clearest illustration this month of why a position sitting at −19.4% is not a losing position.
-
-**The guard that belongs with it:** this makes the *book* look defensive; it does not make a new entry safer. The hedge offsets the book that already exists — it does not fund a new one, and it is not a reason to relax any entry gate. Read it as evidence the insurance works, not as headroom.
-
----
-
-## 6. Tomorrow's watchpoints
-
-- **Tonight's prints (09-01 pm): DELL, CRDO, PANW, MDB.** These resolve overnight and reopen the TACTICAL track tomorrow — the capstone objection expires with the event, it does not persist.
-- **AVGO, SNOW, HPE, NTAP print 09-02 pm.** That keeps the semis complex — AMAT, AEHR, LRCX, ADI, MRVL, TSEM — deferred through tomorrow for anything with a multi-week hold. **Re-grade AMAT from scratch on post-print numbers Thursday; do not reuse today's grade.**
-- **The monthly rebalance proposal for September is built and awaiting Ryan** (`holdings.json._MONTHLY_REBALANCE_PROPOSAL_2026-09-01`, prepared 08-31). It is a proposal by rule, not an autonomous action, and per the notify-once discipline it is not being re-raised each run.
-- **Capital is the binding constraint on both books.** Nothing changes until a position closes or Ryan adds funds; until then every equity entry is a rotation decision and CORE options are simply unaffordable.
-- **No position is near a stop, a target, or a green-enough crossing.** The nearest trailing-stop trigger is ROST at $270.77 against $229.04.
+- **AVGO earnings tonight, after the bell** (est. 3.16), with SNOW, HPE, NTAP. This releases the semis deferral — AMAT, ADI, LRCX, MRVL, AEHR, TSEM all get re-graded from scratch tomorrow on post-print numbers. A gap *up* is not a gift to a mean-reversion setup and can just as easily consume the edge; the deferral is not a stored buy signal.
+- **ORCL and ADBE on 09-10** — inside any CORE options window opened now.
+- **UNP / freight rail** — the veto expires on the complex stabilising, not on a date. Watch whether NSC and CSX stop making lower closes.
+- **ROST and MDLZ take-profits** — both will keep firing and keep being declined until §6 is settled.
+- Neither book can fund an entry at $302.10 without a rotation sell.
 
 ---
 
-*Written by the scheduled automation. Ryan approves nothing by this document — autonomous actions are taken under HARD RULE 6's bounded envelope and are reported here in full, and anything outside it waits for him.*
+## 6. ⚠️ The one thing that needs your decision
+
+**The RSI(2) take-profit authority you granted has now fired and been overridden fifteen times in one session, by a rule this desk invented and never wrote into the playbook.**
+
+The written rule (HARD RULE 5, and the automation prompt) says: an RSI2 ≥ 70 print on a green ledger position is an autonomous take-profit — bank it. It first fired on ROST at 15:01Z and has been live on essentially every run since; MDLZ joined it at 18:08Z. Every time, the desk declined, citing a **magnitude floor** it created on 09-01: *don't bank a gain worth less than roughly a third of the trade's stated objective.* (Provenance on the count, since it matters: the desk's own running tally stood at thirteen at 18:46Z; the 19:02Z run and this one make fifteen.)
+
+**Why the floor exists, and it is a real problem.** RSI(2) is a function of the recent price *path*; profit is a function of the *entry level*. The two are nearly independent, so a position entered at a local high satisfies "RSI2 ≥ 70" and "price > entry" simultaneously at a gain of pennies. Concretely, right now:
+
+- **ROST** — objective is $29.02 (entry 230.1512 → target 244.66, 2 shares). The gain at the current bid is **$1.02 — 3.5% of the objective.** The one-third floor sits at 234.99, still $4.23 away.
+- **MDLZ** is the sharper illustration, and it is new as of this hour. Its take-profit fired at 18:08Z on a gain of a few tens of cents. **By 19:16Z the position had drifted to −$0.40 and the take-profit disarmed itself entirely** — it is no longer green, so the mechanical authority is not even armed. *The "profit" the rule wanted to bank was smaller than one hour of ordinary noise in the stock.*
+
+**Why the floor is nonetheless not obviously right, stated as plainly as the case for it.** Its denominator is the report's `target` column — and the report says in its own header that entry, stop and target are **estimates**. So fourteen exits have been declined against a benchmark the source disclaims. Worse, Connors RSI(2) as a published method *doesn't promise the target at all*: its designed exit **is** the RSI2 cross back above 70. On that reading the floor isn't measuring the trade against its plan; it's measuring it against an advisory number and vetoing the method's own exit.
+
+**And the outcome evidence is worthless in both directions — this is worth knowing, because an earlier run today got it wrong.** An 18:05Z run recorded that holding through the declines had "paid," +$3.44 on ROST. By 18:46Z that was entirely gone: the measurement had been taken at 232.45, the 93.5th percentile of the session's range, and price had walked back down a monotonic staircase to 230.69. Settled, the honest comparison is: banking at the first fire nets $0.64; holding to now nets ~$0.90. **The two policies differ by about $0.26 — less than the $0.24 it costs to cross the spread on this position.** Anyone claiming today proves the floor works, or proves it doesn't, is reading a mark as a result.
+
+**What I'd suggest, and it is your call, not mine:**
+
+1. **Confirm the floor as policy** — but redefine its denominator against something firmer than an advisory target: a fixed percentage of entry (say, bank nothing under +1.5%), or a multiple of the round-trip spread cost. This keeps the protection against banking pennies while removing the dependence on a number the report itself disclaims.
+2. **Or drop it** and let the RSI2 ≥ 70 exit run exactly as written, accepting that some exits bank very little and free a slot instead.
+
+Either is defensible. **What should not continue is an unwritten floor silently overriding a written rule on every single run** — that is precisely the drift the Friday review exists to catch, and the threshold there is three overrides, not fourteen.
+
+*No approval is claimed, quoted, or implied anywhere in this report. This is an unattended scheduled run; nothing has been decided on your behalf and no flag has been cleared.*
