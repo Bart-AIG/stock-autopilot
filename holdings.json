@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-02T14:25:00Z",
+  "updated_utc": "2026-09-02T14:45:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-02",
     "realized_usd": 0.0,
@@ -800,18 +800,18 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-02T14:31:00Z",
+    "run_utc": "2026-09-02T14:45:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-02",
-    "outcome": "NO TRADE either book. Re-verification run six minutes behind the 14:25Z run; nothing in either book changed and no new measurement was owed. Overwrites the 14:25Z state in place per the ledger-notes rule.",
-    "reconciliation": "ZERO DRIFT, broker read FIRST. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, option_id 79230921, pending_* all 0.0000) + 6 equities (ROST 2.000000 @ 230.15 / LLY 0.420254 @ 1189.76 / PNC 1.825758 @ 246.47 / MDLZ 7.988509 @ 62.59 / MMM 2.884552 @ 173.34 / GD 1.335314 @ 374.44) one-for-one on quantity AND average price. get_equity_orders(created_at_gte=2026-09-02) EMPTY -- no sibling entry.",
-    "capital": "Total $3,969.22 = equity $2,873.12 / options $544.00 / cash $552.10. unleveraged_buying_power $552.10 EQUALS buying_power -- no margin (FOUR LAWS #4). Reserve $250.00 (stricter of the flat floor and 5%-of-total $198.46). Deployable $302.10, below one normal position size, so the ROTATION GATE governs any new idea.",
-    "tape": "14:30-14:31Z: SPY 765.16 (+0.44%), QQQ 708.95 (+0.18%). Numbers only; no verdict handed forward.",
-    "equities_verdict": "HOLD all six, no exit fired. Live quotes vs targets: PNC 243.06/255.50, LLY 1179.045/1280.34, MDLZ 61.91/64.70 (nearest, +4.5%), ROST 230.465/244.66, MMM 170.2029/180.83, GD 365.00/387.04. Cheapest green-enough crossing is ROST at 270.77. Only ROST is green vs entry (+0.14%), so the RSI2>=70 profit-banking authority is structurally off on the other five. No stops, ever (HARD RULE 5).",
-    "options_verdict": "Hedge SPY 2026-11-20 700P only, 79 DTE, $544.00 vs $749.00 cost = -27.4%. EXEMPT from premium backstops as Ryan-authorized insurance; the ~21-DTE roll/close decision is far off and is his.",
-    "entry_decision": "DECLINED, not deferred, and not re-litigated: the 14:22Z run evaluated UNP against the rotation gate on the same capital ($552.10 cash) and the same report, and declined. Nothing has changed in nine minutes.",
+    "outcome": "NO TRADE either book. Eighth run of the day, fourteen minutes behind the 14:31Z run; nothing changed and no new measurement was owed. Overwrites the 14:31Z state in place per the ledger-notes rule.",
+    "reconciliation": "ZERO DRIFT, broker read FIRST. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, option_id 79230921, pending_* all 0.0000) + 6 equities matching the ledger on quantity AND average price.",
+    "capital": "Total $3,959.71 = equity $2,874.61 / options $533.00 / cash $552.10. unleveraged_buying_power $552.10 EQUALS buying_power -- no margin (FOUR LAWS #4). Reserve $250.00 (stricter of the flat floor and 5%-of-total $197.99). Deployable $302.10, below one normal position size, so the ROTATION GATE governs any new idea.",
+    "tape": "14:45Z: SPY 766.03 (+0.56%), QQQ 709.16 (+0.22%). Numbers only; no verdict handed forward.",
+    "equities_verdict": "HOLD all six, no exit fired. Live quotes vs entries: PNC 244.02/-1.00%, LLY 1176.205/-1.14%, MDLZ 62.02/-0.91%, ROST 230.89/+0.32%, MMM 170.18/-1.82%, GD 364.15/-2.75%. No target hit (nearest MDLZ 62.02 vs 64.70, +4.3%). Cheapest green-enough crossing is ROST at 270.77. Only ROST is green, so the RSI2>=70 profit-banking authority is structurally off on the other five. No stops, ever (HARD RULE 5).",
+    "options_verdict": "Hedge SPY 2026-11-20 700P only, 79 DTE, $533.00 vs $749.00 cost = -28.8%. EXEMPT from premium backstops as Ryan-authorized insurance; the ~21-DTE roll/close decision is far off and is his.",
+    "entry_decision": "DECLINED, not deferred and not re-litigated: the 14:22Z run evaluated UNP against the rotation gate on the same capital and the same 14:02Z report, and declined. Capital is unchanged twenty-three minutes later.",
     "throttles": "Options realized $0.00 vs the -$400 cap; options entries 0 of 8; equity entries 0 of 3. All READ from _realized_options_pnl_today, not typed as defaults (2026-08-27T09:18Z finding).",
-    "_superseded_note": "Prior 14:25Z state overwritten in place; its content is preserved in that run's trade_journal.json entry."
+    "_superseded_note": "Prior 14:31Z state overwritten in place; its content is preserved in that run's trade_journal.json entry."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
