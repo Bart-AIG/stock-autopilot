@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-02T15:16:00Z",
+  "updated_utc": "2026-09-02T15:22:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-02",
     "realized_usd": 0.0,
@@ -799,18 +799,18 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-02T15:02:00Z",
+    "run_utc": "2026-09-02T15:22:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-02",
-    "outcome": "NO TRADE either book -- but NOT a re-verification run. A fresh 15:01Z intraday report landed on master mid-run and fired SELL / TAKE-PROFIT on ROST; it was re-derived, confirmed genuine, and DECLINED on the magnitude floor. Overwrites the 14:45Z state in place.",
+    "outcome": "NO TRADE either book. Re-verification run six minutes after the 15:16Z run; nothing in either book changed and no new measurement was owed. Overwrites the 15:02Z state in place.",
     "reconciliation": "ZERO DRIFT, broker read FIRST. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, pending_* all 0.0000) + 6 equities matching the ledger on quantity AND average price. get_equity_orders(created_at_gte=2026-09-02) EMPTY.",
-    "capital": "Total $3,974.99 = equity $2,873.89 / options $549.00 / cash $552.10. unleveraged_buying_power $552.10 EQUALS buying_power -- no margin (FOUR LAWS #4). Reserve $250.00 (stricter of the flat floor and 5%-of-total $198.75). Deployable $302.10, below one normal position size, so the ROTATION GATE governs any new idea.",
-    "tape": "15:01Z: SPY 765.26 (+0.46%), QQQ 707.37 (-0.04%). Numbers only; no verdict handed forward.",
-    "equities_verdict": "HOLD all six. ROST's mechanical take-profit FIRED and was declined on the magnitude floor (2.83% of objective at the trigger; see _MAGNITUDE_FLOOR_FIRST_LIVE_APPLICATION). No other exit fired: nearest target MDLZ 62.18 vs 64.70 (+4.1%), cheapest green-enough crossing ROST 270.77, and the other five are underwater so the RSI2>=70 authority is structurally off on them. No stops, ever (HARD RULE 5).",
-    "options_verdict": "Hedge SPY 2026-11-20 700P only, 79 DTE, $549.00 vs $749.00 cost = -26.7%. EXEMPT from premium backstops as Ryan-authorized insurance; the ~21-DTE roll/close decision is far off and is his.",
-    "entry_decision": "DECLINED. The rotation that would fund the day's deferred UNP entry requires selling ROST, and UNP is the lower-reward trade on remaining distance (+3.0% vs +6.0%). No HARD RULE 7 verdict for UNP has ever been performed -- the 14:22Z run explicitly declined to claim one, and that still stands.",
+    "capital": "Total $3,962.23 = equity $2,873.13 / options $537.00 / cash $552.10. unleveraged_buying_power $552.10 EQUALS buying_power -- no margin (FOUR LAWS #4). Reserve $250.00 (stricter of the flat floor and 5%-of-total $198.11). Deployable $302.10, below one normal position size, so the ROTATION GATE governs any new idea.",
+    "tape": "15:21Z: SPY 765.90 (+0.54%), QQQ 709.16 (+0.21%). Numbers only; no verdict handed forward.",
+    "equities_verdict": "HOLD all six. ROST's mechanical take-profit remains declined on the magnitude floor (230.81 vs the 234.9875 one-third floor). PNC's EXIT-INTO-STRENGTH is underwater and therefore optional, gated on a HARD RULE 7 break. No target hit, no green-enough crossing, and the five underwater names have the RSI2>=70 banking authority structurally off. No stops, ever (HARD RULE 5).",
+    "options_verdict": "Hedge SPY 2026-11-20 700P only, 79 DTE, $537.00 vs $749.00 cost = -28.3%. EXEMPT from premium backstops as Ryan-authorized insurance; the ~21-DTE roll/close decision is far off and is his.",
+    "entry_decision": "DECLINED, unchanged. Capital and the committed report are both unchanged since the 15:02Z evaluation, so the rotation gate's answer is unchanged: the only rotation available (sell ROST to fund UNP) is the lower-reward trade on remaining distance, and no HARD RULE 7 verdict for UNP has ever been performed.",
     "throttles": "Options realized $0.00 vs the -$400 cap; options entries 0 of 8; equity entries 0 of 3. All READ from _realized_options_pnl_today, not typed as defaults (2026-08-27T09:18Z finding).",
-    "_superseded_note": "Prior 14:45Z state overwritten in place; its content is preserved in that run's trade_journal.json entry."
+    "_superseded_note": "Prior 15:02Z state overwritten in place; its content is preserved in that run's trade_journal.json entry."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
