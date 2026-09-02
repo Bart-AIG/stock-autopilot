@@ -120,7 +120,14 @@ JOINT_WATCH = Path(__file__).resolve().parent / "watchlist_joint.json"
 
 # Exit thresholds (mirror the entry rules).
 RSI2_OVERBOUGHT = 70.0        # swing take-profit: bounce done (mirror of the <10 entry)
-SWING_TIME_STOP_DAYS = 14     # ~10 trading days held without a target -> recycle capital
+SWING_TIME_STOP_DAYS = 14     # ~10 trading days held without a target -> recycle capital.
+                              # LIVE since 2026-09-02. It was defined here and read by
+                              # NOTHING for the life of the file: the book therefore had
+                              # no mechanical way to close a losing swing (HARD RULE 5
+                              # forbids price stops), and stalled names ran to the monthly
+                              # cull. Wired into evaluate_portfolio() as the third exit.
+TIME_STOP_WARN_DAYS = 3       # within this many days of the time stop, an underwater RSI2
+                              # bounce is annotated as the likely better exit price
 TRAIL_PCT = 0.15              # trailing-stop distance below the high; a winner is "green
                               # enough" to trail once price >= entry/(1-TRAIL_PCT) (~+17.6%),
                               # so a 15%-below-high stop clears breakeven (set 2026-06-17)
@@ -217,9 +224,16 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
     in a 'legacy' bucket — the whole book is judged on each run (BUY/SELL/HOLD style),
     treating the account as an income / grow-the-balance portfolio. Returns (rows, no_data).
 
-    Policy (set 2026-06-17):
+    Policy (set 2026-06-17; TIME STOP added 2026-09-02):
       • SELL / TAKE-PROFIT: a name reached its target, or a swing bounce printed
         RSI2>=70 (mean-reversion done). Bank the gain.
+      • SELL / TIME STOP: a SWING held >= SWING_TIME_STOP_DAYS that has neither hit its
+        target nor printed its bounce. Fires green OR red — it is the book's only
+        mechanical loss discipline, since HARD RULE 5 forbids price stops. Both price
+        exits above are functions of the recent price range and so collapse toward the
+        entry (measured: the RSI2>=70 trigger sits a mean 0.84% from entry across the
+        book); elapsed time cannot, which is why this is the mechanism that closes
+        losers. Momentum positions are exempt — they are judged on the monthly re-rank.
       • TRAIL: a winner that has run far enough that a stop 15% below its high clears
         breakeven gets a ratchet-UP trailing stop = max(entry, 0.85*price). Up only — a
         winner can then only ever be sold for a locked-in gain. (Current price proxies the
@@ -260,6 +274,34 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
 
         sell_reasons, review, review_keys = [], [], set()
         underwater = pnl is not None and pnl < 0
+
+        # TIME STOP — the exit that is NOT indexed on the recent price range.
+        # Measured 2026-09-02: the RSI2>=70 take-profit trigger sits within a mean 0.84%
+        # of the entry price across the whole book, because a 2-period RSI traverses
+        # oversold->overbought inside the same few sessions' range the entry was taken
+        # from. Both price-based exits therefore collapse toward the entry, and NEITHER
+        # closes a loser: under HARD RULE 5 a swing carries no price stop, so a stalled
+        # position ran until the monthly cull. This constant was defined at module level
+        # and read by nothing — the author's intended loss discipline was never wired up.
+        # Elapsed time cannot collapse onto the entry price, which is exactly why it is
+        # the right third mechanism: a swing that has neither hit its target nor printed
+        # its bounce inside the window had its chance and did not pay. Recycle the capital.
+        # SWING ONLY — a momentum position is a multi-week trend hold judged on the
+        # monthly re-rank, and time-stopping it would defeat its whole premise.
+        days_held, time_stop = None, False
+        if sleeve == "swing" and pos.get("entry_date"):
+            try:
+                entered = datetime.strptime(str(pos["entry_date"]), "%Y-%m-%d").date()
+                days_held = (today - entered).days
+            except (TypeError, ValueError):
+                days_held = None  # unparseable -> fail OPEN (no time stop), never a phantom sell
+            if days_held is not None and days_held >= SWING_TIME_STOP_DAYS:
+                time_stop = True
+                sell_reasons.append(
+                    f"TIME STOP — held {days_held}d (>= {SWING_TIME_STOP_DAYS}d) without "
+                    f"hitting target or printing an RSI2 bounce; the mean-reversion window "
+                    f"has passed ({pnl:+.1%}) — recycle the capital")
+
         if target and price >= target:
             sell_reasons.append(f"hit target {target} — take profit")
         if sleeve == "swing" and rsi2 is not None and rsi2 >= RSI2_OVERBOUGHT:
@@ -267,9 +309,17 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
                 # An RSI2 bounce on a position still below basis is NOT a profit take —
                 # calling it one has repeatedly misled the alert reader (IREN 7/20, INOD
                 # 7/21). Surface it honestly as an optional exit-into-strength.
+                # When the time stop is CLOSE, say so on this line: a position that will
+                # be recycled within days anyway is better sold INTO a bounce than out of
+                # one, so the clock is the decisive fact for the reader — not the print.
+                soon = (days_held is not None
+                        and SWING_TIME_STOP_DAYS - days_held <= TIME_STOP_WARN_DAYS)
                 sell_reasons.append(
                     f"RSI2 {rsi2} overbought but position UNDERWATER ({pnl:+.0%}) — "
-                    f"optional exit-into-strength; policy default is hold-on-thesis")
+                    f"optional exit-into-strength; policy default is hold-on-thesis"
+                    + (f". NOTE: {SWING_TIME_STOP_DAYS - days_held}d to the time stop "
+                       f"(held {days_held}d) — this bounce is likely the better exit price"
+                       if soon else ""))
             else:
                 sell_reasons.append(f"RSI2 {rsi2} overbought — swing bounce done, take profit")
         if ma200 and price < ma200:
@@ -310,7 +360,12 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
         fractional = shares is not None and 0 < shares < 1
 
         if sell_reasons:
-            if underwater:
+            # A TIME STOP is never "optional" and is never a "take-profit" — it is the
+            # book's only mechanical loss discipline, so it outranks both other labels
+            # and fires whether the position is green or red.
+            if time_stop:
+                action = "SELL / TIME STOP (stalled)"
+            elif underwater:
                 action = "EXIT-INTO-STRENGTH (underwater — optional)"
             else:
                 action = "SELL / TAKE-PROFIT"
@@ -352,6 +407,7 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
         rows.append({"symbol": sym, "sleeve": sleeve, "price": price, "entry": entry,
                      "pnl": pnl, "stop": stop, "new_stop": suggested, "native": native,
                      "shares": shares, "fractional": fractional,
+                     "days_held": days_held, "time_stop_days": SWING_TIME_STOP_DAYS,
                      "action": action, "note": "; ".join(note)})
     return rows, no_data
 
@@ -591,7 +647,11 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     momentum_rank = {r["symbol"]: i for i, r in enumerate(momentum, 1)}
     holdings = load_holdings()
     port, port_no_data = evaluate_portfolio(holdings, swing_by_sym, momentum_rank, n_decile)
-    sells = [r for r in port if r["action"].startswith("SELL")]
+    # A time stop is a SELL but not a take-profit — it gets its own alert line so a
+    # session pasting the notification is never told to "take profit" on a stalled
+    # position it is closing for the opposite reason.
+    time_stops = [r for r in port if r["action"].startswith("SELL / TIME STOP")]
+    sells = [r for r in port if r["action"].startswith("SELL / TAKE-PROFIT")]
     trailing = [r for r in port if r["action"].startswith("TRAIL")]
     # Green-enough winners too small to carry a native trail — a real action for Ryan
     # (bank manually / round up to a whole share), just not the "set a 15% trail" one.
@@ -605,7 +665,7 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     # on an underlying is not a stock holding (a new equity buy would not be an "add").
     held_syms = {p.get("symbol") for p in holdings if (p.get("sleeve") or "momentum") != "options"}
     rotation = ([r["symbol"] for r in momentum[:n_decile] if r["symbol"] not in held_syms][:8]
-                if (sells or reviews) else [])
+                if (sells or time_stops or reviews) else [])
 
     # Joint long-term port — buy/accumulate signals only (watch-only; never an exit
     # alert and never part of the ACTION trigger, which stays driven by the Agentic book).
@@ -614,7 +674,7 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     for r in lt_rows:  # attach the fundamental value snapshot (Phase 2) when available
         r["value"] = value_data.get(r["symbol"], {})
 
-    action = ("ACTION" if (setups or sells or trailing or monitor_trails)
+    action = ("ACTION" if (setups or sells or time_stops or trailing or monitor_trails)
               else "NO ACTION (swing); momentum is informational")
 
     lines = []
@@ -630,8 +690,8 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
         lines.append("Run the monthly portfolio review alongside today's signals:")
         lines.append("- **Momentum rotate:** re-rank the 12-1 top decile (below); exit held momentum "
                      "names that dropped out of the decile or broke the 200-day MA; weigh the better-play list.")
-        lines.append("- **Concentration check:** trim any position over the per-name cap (~15-20%) or the "
-                     "speculative sleeve over ~25%; confirm the cash buffer.")
+        lines.append("- **Concentration check:** trim any position over the per-name cap (30% of account "
+                     "value) or the speculative sleeve over ~25%; confirm the operational reserve.")
         lines.append("- **Cull the laggards:** this is the moment to sell underwater names whose thesis "
                      "has weakened — they carry no price stop, so the monthly review is their exit gate.")
         if today.month in (1, 4, 7, 10):
@@ -722,7 +782,11 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
             lines.append(f"- ⚠️ **{wide_n} have stops wider than 15%** (marked ⚠) — extreme volatility. Size so the "
                          "dollar-risk-to-stop is small, not the dollar position.")
         lines.append("- ✅ **Discipline:** take the 1-2 highest-conviction, least-correlated names. Per-name cap "
-                     "~15-20%, and set the stop on every entry.")
+                     "30% of account value; target 3-4 concurrent swings, minimum entry ~$600 — a smaller "
+                     "entry is a SKIPPED opportunity, not a small one. A-grade only; a B-grade gets no "
+                     "position rather than a little one. The agent places NO stop (HARD RULE 5): exits are "
+                     f"the RSI2>={RSI2_OVERBOUGHT:.0f} cross, the {SWING_TIME_STOP_DAYS}-day time stop, and "
+                     "Ryan's native trail once green enough.")
     else:
         lines.append("No swing setups today (nothing oversold inside an uptrend). Hold / wait — a 'no-trade' day is normal and correct.")
 
@@ -810,6 +874,7 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
         json.dumps({"mode": mode, "generated_utc": now.isoformat(),
                     "action": action, "swing_setups": setups,
                     "portfolio_review": port, "sell_signals": sells,
+                    "time_stop_signals": time_stops,
                     "trail_signals": trailing,
                     "monitor_trail_signals": monitor_trails,
                     "review_signals": reviews,
