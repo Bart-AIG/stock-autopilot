@@ -30552,6 +30552,15 @@
       "reconciliation": "ZERO DRIFT both books vs broker (read FIRST). 1 option: SPY 2026-11-20 700P qty 1.0000 @ 749.00, all pending_* 0.0000. 6 equities: ROST 2.0 @ 230.15, LLY 0.420254 @ 1189.76, PNC 1.825758 @ 246.47, MDLZ 7.988509 @ 62.59, MMM 2.884552 @ 173.34, GD 1.335314 @ 374.44 -- all match holdings.json on quantity AND average price. get_equity_orders(gte 2026-09-02) EMPTY: no fills today, no sibling entry. Capital: total 3972.16 = equity 2865.06 / options 555.00 / cash 552.10; unleveraged_buying_power 552.10 EQUALS buying_power, so no margin extended (FOUR LAWS #4 ok).",
       "actions": "NONE placed. ONE code change: report.py time-stop reason string reworded to what the branch actually tests (see holdings._EXIT_POLICY_REWRITTEN_CONNORS_PURE_PLUS_TIME_STOP.post_merge_correction_2026-09-02T21:25Z). py_compile clean on report.py and calibrate.py; git diff --stat 1 file, +10/-3. No artifact rolled: heartbeat stays 13:33Z, brief stays today's, daily report stays the 19:15Z one (the 20:45Z policy change was Ryan's own live decision -- rewriting the report would notify him of what he just authored). Realized options P/L 2026-09-02 read from the ledger, not typed: $0.00 / 0 closing trades against the -$400 cap.",
       "duties": "Heartbeat stamped 13:33Z by the first post-open run -- not re-stamped. Trading day is still 2026-09-02 (post-bell, pre-open), so no cap or throttle reset. Monday calibration not due (Wednesday). Next market-hours run owns three exits at the open: PNC TIME STOP (15d, red) plus the MDLZ and ROST take-profits now that the magnitude floor is void."
+    },
+    {
+      "run_utc": "2026-09-02T21:40:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-02",
+      "headline": "Second push of the 21:25Z run. Smoke-tested the newly-live time stop against the real book instead of trusting py_compile, and it surfaced a negative-countdown bug that would have shipped on the stop's debut fire.",
+      "finding": "NAMED, not re-argued: holdings._EXIT_POLICY_REWRITTEN_CONNORS_PURE_PLUS_TIME_STOP.negative_countdown_bug_fixed_2026-09-02T21:40Z. The warn-band annotation used a one-sided window, so a position past the stop printed '-1d to the time stop' and advised a better exit price on a name being sold in the same alert. Gated on 'not time_stop and 0 <= ... <= WARN'.",
+      "verification": "evaluate_portfolio() run against the live six-position book at today=2026-09-03 with the 09-02 closing tape. PNC 15d -> SELL / TIME STOP, no countdown. Regression at today=2026-08-31: PNC 12d -> still prints '2d to the time stop', so the band is intact. ROST -> SELL / TAKE-PROFIT, MDLZ -> EXIT-INTO-STRENGTH, LLY/MMM/GD -> HOLD. Module imports with no top-level network call. git diff --stat 1 file, +10/-2.",
+      "duties": "No CI runs on push in this repo -- only the scheduled Stock Report and the EOD notifier (which keys on daily_options_report.md, untouched). So this code path's first real exercise is tomorrow's live morning report; that is why it was worth running by hand tonight rather than at 13:30Z."
     }
   ]
 }
