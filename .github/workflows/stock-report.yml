@@ -90,6 +90,7 @@ jobs:
           action = d.get('action', '')
           setups = d.get('swing_setups', [])
           sells = d.get('sell_signals', [])
+          time_stops = d.get('time_stop_signals', [])
           trails = d.get('trail_signals', [])
           monitor_trails = d.get('monitor_trail_signals', [])
           reviews = d.get('review_signals', [])
@@ -99,6 +100,14 @@ jobs:
               # Claude session. Order = manage the book first (take-profit, trail,
               # thesis-check), then new entries.
               lines = []
+              if time_stops:
+                  # A stalled swing being recycled — NOT a take-profit, and it fires
+                  # whether the position is green or red. Its own line so the pasted
+                  # alert never mislabels the book's one mechanical loss discipline.
+                  lines.append('TIME STOP / SELL (stalled): ' + ' | '.join(
+                      f"{r['symbol']} {r['price']} ({r['pnl']:+.1%}, held {r.get('days_held')}d) "
+                      f"-> recycle capital"
+                      for r in time_stops[:10]))
               if sells:
                   lines.append('TAKE PROFIT / SELL: ' + ' | '.join(
                       f"{r['symbol']} {r['price']} ({r['note']})"
