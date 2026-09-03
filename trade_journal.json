@@ -30589,6 +30589,16 @@
       "small_concrete_consequence_that_changed_nothing_tonight": "Under v10 the operational reserve is 5% of total_value and explicitly replaces the old flat $250: 0.05 x 3975.61 = $198.78, so deployable = 552.10 - 198.78 = $353.32 rather than the $302.10 today's v8-era heartbeat recorded. Immaterial in both directions -- $353.32 is still far below the ~$600 minimum entry, so the equity book is shut to new entries on size alone, and the market is closed regardless. Noted only so the first market-hours run computes the reserve from the v10 rule rather than inheriting the $250 figure.",
       "actions": "NONE. No trade placed or placeable. No artifact rolled: heartbeat stays stamped 2026-09-02T13:33Z, market_brief stays stamped for 2026-09-02, daily_options_report.md stays as written 19:15Z (no MATERIAL event to justify a rewrite), and neither the -$400 options cap nor either entry throttle is reset -- the trading day is still the one whose bell rang.",
       "tomorrow": "PNC fires the TIME STOP at the 2026-09-03 open (entry 08-19 = 15d, past the 14d threshold) -- the stop's debut fire, autonomous under HARD RULE 5 / the equity exit rules, no approval needed. Schedule already pre-computed by the 21:25Z run and the two defects in that block (alert wording, negative countdown) already fixed by the 21:25Z and 21:40Z runs. Next fires after PNC: LLY 09-10, MDLZ/ROST 09-11, MMM 09-15, GD 09-15."
+    },
+    {
+      "run_utc": "2026-09-03T01:25:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-02",
+      "headline": "Sixth post-close run of 2026-09-02. Market shut, nothing placeable. NOT a pure no-op: the routine reconciliation surfaced two defects in the state the FIRST market-hours run under prompt v10 will inherit, and both are recorded as ledger keys rather than re-argued here.",
+      "reconciliation": "ZERO DRIFT both books, broker read first. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, all pending_* 0.0000) + 6 equities matching holdings.json on quantity AND average price. total $3,974.88 / cash $552.10 = unleveraged_buying_power, no margin extended.",
+      "findings": "(1) _SLOT_BAND_IS_A_SIZING_GATE_NOT_A_LIQUIDATION_MANDATE -- NEW. The book holds 6 swings against v10's hard band of 3-5, so 'size = deployable / remaining slots' divides by -2. Nothing was breached (all six predate the 2026-09-02T20:45Z policy) and NOTHING should be sold: HARD RULE 5 lists four sell triggers and 'over the band' is not among them. The time stop drains it -- PNC at 15 days is DUE and its exit alone restores the band. (2) _RESERVE_IS_THE_STRICTER_OF_TWO -- EDITED TO VOID. v10's FOUR LAWS #4 now names and retires the flat $250 itself, so both documents say 5%; reserve $198.74, deployable $353.36 not $302.10. Immaterial today (both below the $600 minimum entry), binds when PNC's proceeds land.",
+      "actions": "NONE. No artifact rolled -- trading day is still 2026-09-02; heartbeat stamped 13:33Z, daily report written 19:15Z, entry throttles and the -$400 options cap unchanged at 0 of 3 / 0 of 8 / $0.00 (broker-confirmed: get_equity_orders and get_realized_pnl both empty for 09-02).",
+      "duties": "Weekly calibration NOT due -- the week's first trading day was Monday 2026-08-31, before calibrate.py existed; next fire is the week of 2026-09-07."
     }
   ]
 }
