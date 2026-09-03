@@ -533,9 +533,9 @@
     "_union_note": "CONCURRENT SAME-SLOT COLLISION: the 19:16Z and 19:19Z runs each independently owed and wrote this report (the 19:02Z run had handed the duty forward). The 19:16Z version reached master first and IS the delivered report; the 19:19Z version was discarded in the union, because exactly ONE run per trading day writes this file and a second push would send Ryan a duplicate ntfy for the same day with the same content. Both runs' ledger findings and journal entries are preserved."
   },
   "_last_reconciliation": {
-    "run_utc": "2026-09-03T14:32:00Z",
-    "source": "broker, read 14:30-14:31Z (broker-first per the 2026-08-28 collision fix)",
-    "options": "1 position -- SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921-9bd8-43fd-8b4d-60f76ac03f48), all six pending_* 0.0000.",
+    "run_utc": "2026-09-03T14:45:00Z",
+    "source": "broker, read 14:46Z (broker-first per the 2026-08-28 collision fix)",
+    "options": "1 position -- SPY 2026-11-20 700P qty 1 @ 749.00 (option_id 79230921-9bd8-43fd-8b4d-60f76ac03f48), pending 0.",
     "equities": "4 positions -- LLY 0.420254 @ 1189.76, MDLZ 7.988509 @ 62.59, MMM 2.884552 @ 173.34, GD 1.335314 @ 374.44.",
     "drift": "NONE. All five match holdings.positions on quantity AND average price. get_equity_orders(gte 2026-09-03) shows only the two 13:33Z agentic sells; get_option_orders empty. No unlisted sibling entry."
   },
@@ -785,15 +785,15 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-03T14:32:00Z",
+    "run_utc": "2026-09-03T14:45:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-03 (bell rang 13:30Z)",
-    "reconciliation": "ZERO DRIFT both books. BROKER 14:30-14:31Z: 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, all pending_* 0.0000) + 4 equities (LLY 0.420254@1189.76, MDLZ 7.988509@62.59, MMM 2.884552@173.34, GD 1.335314@374.44) -- quantity AND average price match the ledger. get_equity_orders(gte 09-03) = only the two 13:33Z agentic sells; get_option_orders EMPTY. No sibling entry.",
-    "capital": "total $3,881.84 = equity $1,936.66 / options $486 / cash $1,459.18. unleveraged_BP $1,459.18 == BP (no margin, FOUR LAWS #4). Reserve 5% = $194.09. DEPLOYABLE $1,265.09 -- above the $600 minimum, so capital is NOT the binding constraint; setup quality is.",
-    "book": "4 equity swings (LLY/MDLZ/MMM/GD), all HOLD, all underwater -2.2% to -3.9%, theses intact, none near the 14d time stop (earliest LLY 09-10, 7 of 14). 1 option SPY 700P hedge (exempt). Throttles: equity 0/3, options 0/8. Realized today: options $0.00 vs the -$400 cap; equities -$3.22 (PNC -4.41 / ROST +1.19, both 13:33Z).",
-    "equity_decision": "NO ENTRY. The post-14:15Z fresh-report window was owned by the 14:20Z sibling and independently concurred by 14:22Z; both declined AMAT. Re-tested rather than inherited: the binding veto was the semis de-rate + tape divergence, and it has DEEPENED since -- SMH -1.04% (was -0.94%) against SPY +0.49%, AMAT 428.49 = -2.27% on the day (was -2.07% at 14:22Z) and still sliding. The decline therefore holds a fortiori; re-litigating it a third time would be churn, not diligence. UNP 287.21 (-0.87%) remains B on weak momentum / no catalyst. Cash is the residual of quality, NOT a named cash hold (no catalyst, no trigger, no expiry -- correctly so).",
-    "options_decision": "Both tracks STAND DOWN. TACTICAL: SPY 768.93 sits essentially ON the 768.976 20-day SMA -- the 13:35-13:40Z reclaim already fired and FAILED by 14:00Z, and a level price is oscillating around is not a break in either direction (_CONFIRMED_TRIGGERS_HAVE_A_SHELF_LIFE). CORE: the 14:05Z IV sweep has 6 of 8 core names fair-to-rich ex-gap and no thesis answers 'why NOW'. Hedge exempt.",
-    "duties_status": "heartbeat 13:34Z done; brief 09-03 done; IV sweep 14:05Z done; EOD report due on the first run >=19:15Z; weekly calibration is Monday-only (today Thursday). None owed this run."
+    "reconciliation": "ZERO DRIFT both books. BROKER 14:46Z: 1 option (SPY 2026-11-20 700P qty 1 @ 749.00, pending 0) + 4 equities (LLY 0.420254@1189.76, MDLZ 7.988509@62.59, MMM 2.884552@173.34, GD 1.335314@374.44). get_equity_orders(gte 09-03) shows only the two 13:33Z agentic sells; get_option_orders empty. No sibling entry.",
+    "capital": "total $3,890.48 = equity $1,940.30 / options $491 / cash $1,459.18. unleveraged_BP $1,459.18 == BP (no margin). Reserve 5% = $194.52. DEPLOYABLE $1,264.66 -- capital is NOT the binding constraint; setup quality is.",
+    "book": "4 equity swings (LLY/MDLZ/MMM/GD) all HOLD, -2.15% to -3.76%, theses intact, earliest time stop LLY 09-10 (7/14). 1 option SPY 700P hedge (exempt). Throttles: equity 0/3, options 0/8. Realized today: options $0 vs -$400 cap; equities -$3.22 (PNC time stop / ROST TP, both 13:33Z).",
+    "equity_decision": "NO ENTRY. AMAT veto (semis de-rate + tape divergence) HOLDS a fortiori vs 14:32Z -- SMH now -1.24% (was -1.04%), AMAT -2.18% (was -2.27%) but SPY has softened to +0.40% (was +0.49%). Re-litigating a fourth time is churn. Rotation gate: no held name shows a thesis break, sell side unavailable regardless. UNP 288.14 (-0.55%) still B on weak momentum / no catalyst. No named cash hold (cash is residual of quality, correct).",
+    "options_decision": "Both tracks STAND DOWN. TACTICAL: SPY 768.19 sits 0.79 below 20-day SMA 768.976, oscillating -- not a break in either direction. CORE: 14:05Z IV sweep still governs (6/8 core names fair-to-rich ex-gap, no thesis answers 'why NOW'). Hedge exempt.",
+    "duties_status": "heartbeat 13:34Z done; brief 09-03 done; IV sweep 14:05Z done; EOD report due on the first run >=19:15Z; calibration Monday-only (today Thursday). None owed this run."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
