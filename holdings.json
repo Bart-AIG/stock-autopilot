@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-03T18:45:00Z",
+  "updated_utc": "2026-09-03T19:00:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-03",
     "realized_usd_options": 0.0,
@@ -800,13 +800,13 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-03T18:45:00Z",
+    "run_utc": "2026-09-03T19:00:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-03 (bell rang 13:30Z)",
-    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 18:45Z. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, pending_* all zero) + 4 equities matched on qty AND avg price. get_equity_orders(09-03) = only the two 13:33Z agentic sells; NO SIBLING ENTRY.",
-    "capital": "total $3,846.32 = equity $1,950.14 / options $437 / cash $1,459.18. unleveraged_BP $1,459.18 == BP (FOUR LAWS #4 clean, no margin). Reserve 5% = $192.32. DEPLOYABLE $1,266.86. Per-name cap 30% = $1,153.90. Deployable exceeds a full-size entry, so the rotation clause stays dormant -- capital is NOT binding; candidate QUALITY is. get_accounts unsettled_funds $907.08 does NOT bind on limited_margin (instant settlement).",
-    "book": "4 equity swings, all HOLD (thesis-watch), theses intact, no price stops per HARD RULE 5. Vs entry at 18:45Z: LLY -2.50%, MDLZ -1.95%, MMM -2.79%, GD -2.72%. ALL RED, so the green-only RSI2>=70 take-profit is unreachable BY CONSTRUCTION. Green-enough trail triggers (entry/0.85) sit at LLY 1399.71 / MDLZ 73.64 / MMM 203.93 / GD 440.52 -- none close. Time stops LLY 09-10 (7/14), MDLZ 09-11 (6/14), MMM 09-14 (3/14), GD 09-15 (2/14) -- none due, none inside the 3-day warn. 1 option: SPY 700P, Ryan's authorized hedge, backstop-exempt, ~78 DTE. Throttles: equity 0/3, options 0/8; realized options $0.00 vs the -$400 cap, realized equities -$3.22 on 2 closes.",
-    "verdict": "NO TRADE, both books. Nothing changed since 18:30Z and no new durable finding was measured, so this run takes the RE-VERIFICATION SCHEMA. EQUITIES: no exit reachable (all red, no target, no time stop, no thesis flag) and no entry (book at 4 of the 3-4 target; LRCX firming to +0.857% makes its mean-reversion entry worse, not better). OPTIONS: TACTICAL barred on the verified NFP catalyst; no CORE full-stack candidate. NEXT RUN: the first at/after 19:15Z owns daily_options_report.md for 2026-09-03 -- BOTH books."
+    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 19:00Z. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, pending_* all zero) + 4 equities matched on qty AND avg price. get_equity_orders(09-03) = only the two 13:33Z agentic sells; NO SIBLING ENTRY.",
+    "capital": "total $3,848.73 = equity $1,951.55 / options $438 / cash $1,459.18. unleveraged_BP $1,459.18 == BP (FOUR LAWS #4 clean, no margin). Reserve 5% = $192.44. DEPLOYABLE $1,266.74. Per-name cap 30% = $1,154.62. Deployable exceeds a full-size entry, so the rotation clause stays dormant -- capital is NOT binding; candidate QUALITY is.",
+    "book": "4 equity swings, all HOLD (thesis-watch), theses intact, no price stops per HARD RULE 5. Vs entry at 19:01Z: LLY -2.42%, MDLZ -1.81%, MMM -2.71%, GD -2.78%. ALL RED, so the green-only RSI2>=70 take-profit is unreachable BY CONSTRUCTION. Green-enough trail triggers (entry/0.85) sit at LLY 1399.71 / MDLZ 73.64 / MMM 203.93 / GD 440.52 -- none close. Time stops LLY 09-10 (7/14), MDLZ 09-11 (6/14), MMM 09-14 (3/14), GD 09-15 (2/14) -- none due, none inside the 3-day warn. 1 option: SPY 700P, Ryan's authorized hedge, backstop-exempt, ~78 DTE. Throttles: equity 0/3, options 0/8; realized options $0.00 vs the -$400 cap, realized equities -$3.22 on 2 closes.",
+    "verdict": "NO TRADE, both books. Nothing changed since 18:45Z and no new durable finding was measured, so this run takes the RE-VERIFICATION SCHEMA. EQUITIES: no exit reachable (all red, no target, no time stop, no thesis flag) and no entry (book at 4 of the 3-4 target; LRCX extended to +0.929% and AMAT red on a +1.27% QQQ tape -- neither improved). OPTIONS: TACTICAL barred on the verified NFP catalyst; no CORE full-stack candidate. NEXT RUN: the first at/after 19:15Z owns daily_options_report.md for 2026-09-03 -- BOTH books."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
