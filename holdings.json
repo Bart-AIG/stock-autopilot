@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-03T14:05:00Z",
+  "updated_utc": "2026-09-03T14:32:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-03",
     "realized_usd_options": 0.0,
@@ -32,14 +32,14 @@
       "setup_invalidation": "Defensive-posture hedge invalidates if SPY confirms new all-time highs (decisively above the pre-drawdown-watch highs, ~800+) without the anticipated Aug-Oct pullback materializing, or if Ryan lifts the Aug-Oct defensive posture early (~Nov 1 review otherwise). Underlying support stack it's betting against holding: 20d 748.5 / 50d 746.4 / July-low shelf 716.6 / rising 200d 702.0 (as of 2026-08-05; recompute weekly per the defensive-posture playbook).",
       "_note": "placed_agent='agentic' -- executes Ryan's 2026-08-05 Aug-Oct drawdown-watch authorization for a single-leg long SPY/QQQ put (Oct-Dec expiry, within the $1,500 options budget) that no run had placed yet. Entry: SPY spot $771.73, 700 strike (~9.2% OTM) sits just below both the July-low shelf (716.6) and the rising 200d MA (702.0) -- pays off on a genuine trend-break, not a garden-variety dip. Thesis: Fundstrat's Tom Lee (current as of 2026-08-06) still flags a 15-20% Aug-Oct correction risk (Fed framework test, SpaceX share lockup unlock, petroleum product shortage, elevated margin debt) ahead of a year-end rally -- unchanged from the 2026-08-05 posture. IV 21% (normal for SPY -- not an elevated/rich options print), OI 19,168, $0.03-wide bid/ask -- highly liquid. This is insurance: per the defensive-posture playbook it is NOT subject to the mechanical -50%/DTE premium-stop cuts; hold to a ~21-DTE review (~2026-10-30) for a roll/close decision with Ryan rather than any automated exit.",
       "_current_state": {
-        "last_checked_utc": "2026-09-02T13:50:00Z",
-        "quote_basis": "get_option_quotes at 13:46:27Z -- instrument-level chain quote, 16 minutes after the bell and well clear of the opening-auction rule. Market 5.89 x 5.92, 0.51% of mid, OI 30,291.",
-        "mark": 5.905,
-        "pl_usd": -158.5,
-        "pl_pct": -21.2,
-        "dte": 79,
-        "status": "WORKING AS DESIGNED. Authorized defensive hedge -- EXEMPT from all premium backstops per the ownership gate, so -21.2% is not an exit trigger and never has been. delta -0.1514, theta -0.0943/day, IV 0.2035. 79 DTE; the ~21-DTE roll/close decision WITH Ryan is not due until ~2026-10-30.",
-        "value_usd": 590.5
+        "last_checked_utc": "2026-09-03T14:32:00Z",
+        "quote_basis": "get_option_quotes at 14:31:02Z -- instrument-level chain quote, 61 min after the bell. Market 4.84 x 4.86, 0.41% of mid, OI 30,500, volume 406.",
+        "mark": 4.85,
+        "value_usd": 485.0,
+        "pl_usd": -264.0,
+        "pl_pct": -35.25,
+        "dte": 78,
+        "status": "WORKING AS DESIGNED. Authorized defensive hedge -- EXEMPT from all premium backstops per the ownership gate, so -35.25% is not an exit trigger and never has been. delta -0.129013, theta -0.086373/day, IV 0.203177, break-even 695.15. 78 DTE; the ~21-DTE roll/close decision WITH Ryan is not due until ~2026-10-30."
       },
       "_notify_state": {
         "last_checked_utc": "2026-08-26T21:20:00Z",
@@ -58,14 +58,16 @@
       "_note": "placed_agent='agentic' -- FIRST AUTONOMOUS EQUITY ENTRY under the v8 / HARD RULE 6 authority Ryan granted 2026-08-26. NO Ryan approval was claimed, quoted or implied for this trade: HARD RULE 2's scope was explicitly narrowed on 2026-08-26 so that signal-sourced equity trades run autonomously, and this is one. Signal-sourced from the COMMITTED 15:01Z latest_intraday.md on master (Connors RSI2 5.8, theme 'Other', target 1280.34, Earnings column blank). Order 6a90528b-621f-4aaa-bd73-2fece96aae17, filled 0.420254 sh @ 1189.7553 = $500.00, zero fees, dollar-based market order in regular_hours per HARD RULE 3. FRACTIONAL BY NECESSITY, not preference: one whole LLY share is $1,189.76 = 29.9% of the $3,975 account and would breach the ~15-20% per-name cap outright. [CORRECTED 17:45Z -- this sentence originally read 'the whole-share preference exists so a position can carry a resting GTC stop; this desk places NO stops under HARD RULE 5, so it is moot here.' That is WRONG and the correction matters for how this position gets protected: the fractional objection was about RYAN's native 15% trail, not the desk's stop, and HARD RULE 5 states plainly that sub-1-share positions are 'monitored, not automatic'. The trade remains defensible on its thesis; the protection mechanism is discretionary rather than automatic. See _current_state.trail_mechanism.] THESIS: mega-cap pharma sold off -3.61% on 2026-08-26 after discontinuing THREE non-core pipeline assets -- LY3884963 (frontotemporal-dementia gene therapy from the $1.04B Prevail Therapeutics deal), CD19 antibody LY3541860, and radioligand 225Ac-PSMA-62 -- explicitly for LACK OF EFFICACY, not safety. None touches the incretin franchise that IS the thesis, and a cull for efficacy is a COMPLETED, already-announced event with nothing further to come. Core franchise expanding: orforglipron (Foundayo) US submission complete in type-2 diabetes and under expanded-label review; retatrutide BLA slated Q1 2027; Q2 2026 was a beat-and-raise quarter. BofA RAISED its PT to $1,286 from $950, reiterating Buy; ~26-analyst consensus $1,277-1,303 vs the 1,189.76 entry. The one unresolved negative is the disclosure that Q2 was aided by non-recurring US rebate/discount adjustments, an H2 margin/growth-RATE question rather than a franchise break -- it is what held the grade to A-minus and the size to the $400-500 defensive-posture band rather than the $596-795 the per-name cap would have allowed. NO PRICE STOP, EVER (HARD RULE 5) -- thesis-managed. Green-enough level for Ryan's native 15% trail: 1189.7553 / 0.85 = $1,399.71.",
       "setup_invalidation": "Sell ONLY on a HARD RULE 7 thesis BREAK, defined concretely so no future run has to re-derive it: (1) a SAFETY signal or regulatory action against the incretin franchise (orforglipron / tirzepatide / retatrutide); (2) an H2 guidance CUT confirming the rebate-driven margin-compression concern as structural rather than a timing artifact; or (3) a close back below the rising 200-day SMA (1057.48 on 2026-08-26, rising ~+1.66/day). Discontinuation of further NON-CORE pipeline assets does NOT invalidate -- that is the event already absorbed. Target 1280.34 = the 2026-08-19 swing high, +7.61% from entry.",
       "_current_state": {
-        "last_checked_utc": "2026-09-02T13:50:00Z",
-        "quote_basis": "get_equity_quotes at 13:46:0x-13:46:2xZ -- settled, 16 minutes after the bell, well clear of the opening-auction rule.",
-        "mark": 1185.725,
-        "value_usd": 498.31,
-        "pl_usd": -1.69,
-        "pl_pct": -0.34,
-        "day_pct": 2.22,
-        "status": "HOLD. Underwater, so the mechanical take-profit authority is STRUCTURALLY OFF (gated on price > entry per the 2026-08-26 profit-banking correction; it may never realize a loss on a technical bounce). Target 1280.34 not hit (8.0% away). Not green-enough (1399.71 needed). No below-200MA or out-of-decile flag on the committed report. No price stop by policy (HARD RULE 5)."
+        "last_checked_utc": "2026-09-03T14:32:00Z",
+        "quote_basis": "get_equity_quotes at 14:30:5xZ -- 61 minutes after the bell, well clear of the opening-auction rule.",
+        "mark": 1149.8475,
+        "value_usd": 483.23,
+        "pl_usd": -16.77,
+        "pl_pct": -3.35,
+        "day_pct": -0.88,
+        "days_held": 7,
+        "time_stop_date": "2026-09-10",
+        "status": "HOLD. UNDERWATER (-3.35%), so the mechanical take-profit is STRUCTURALLY OFF (gated on price > entry per the 2026-08-26 profit-banking correction -- it may never realize a loss on a technical bounce). TIME STOP not due: 7 of 14 days, fires 2026-09-10. Target 1280.34 not hit. Not green-enough. No below-200MA / out-of-decile flag on today's 14:01Z committed report (ACTION block EMPTY). No price stop by policy (HARD RULE 5)."
       },
       "_thesis_state": {
         "checked_utc": "2026-08-31T13:50:00Z",
@@ -93,10 +95,16 @@
       "native_trail_pct": null,
       "_note": "placed_agent='agentic' -- AUTONOMOUS equity entry under HARD RULE 6 / prompt v8 THE EQUITY BOOK. NO Ryan approval is claimed, quoted or implied: HARD RULE 2's scope was narrowed on 2026-08-26 so signal-sourced equity trades run autonomously, and this is one. Order 6a918fb3-8e3d-4248-87be-36acaee71950, filled 13:40:03Z at $62.5899 for $500.00, zero fees, single execution. SIGNAL: committed latest_morning.md on master (2026-08-27 22:55Z), Connors RSI2 8.1 -- independently re-verified against 270 own daily bars, matching the report exactly, as did all five other RSI2 rows. THESIS (HARD RULE 7, written to trade_journal.json BEFORE the order and merged to master in PR #788): INTACT and strengthened -- Q2 beat with FY26 guidance RAISED 2026-07-28, near-unanimous post-print PT raises (JPM $72, BTIG/Jefferies $73, HSBC $72, Barclays/TD Cowen/BNP $70, UBS $68; sole dissent Deutsche Bank $60 Hold, itself a raise), FactSet mean PT $68.95 vs $62.59 fill = +10.2%, dividend yield 3.24%, and NO adverse news attached to the three-session dip. One blemish recorded honestly: CEO sold 133,580 sh ($8.56M) on 2026-08-19, ~9% of his direct holding, retaining 1,326,488. STRUCTURE: above a RISING 200-day MA (+5.9%), above the 50-day (+1.7%), pullback landing ON the 20-day at 62.87, only -3.9% off the 52-week high, RSI14 49.2 neutral -- a shallow orderly dip, not a breakdown. Chosen over SCHW (the runner-up on structure) because SCHW is a FINANCIAL and the book already holds PNC; taking it would have put ~27% of the account in one theme. No earnings inside 21 days (calendar-confirmed, not inferred from a blank column); non-oil; non-spec. NO PRICE STOP per HARD RULE 5 -- the 60.48 in the report is an advisory screen output, never an order. GREEN-ENOUGH LEVEL 73.6352 (= 62.5899/0.85): at or above it the report fires SET TRAILING STOP and RYAN sets a native 15% trail in-app; the agent never places it. EXIT PLAN: bank on target 64.70 or an RSI2>=70 print while GREEN (an RSI2>=70 print while UNDERWATER is an optional exit-into-strength, never mandatory). THESIS INVALIDATION: a cut to the FY26 guidance just raised, an analyst complex reversing to net targets below spot, or a close through the rising 200-day MA at 58.94. A close below the 50-day at 61.39 alone is a re-check, not an exit.",
       "_current_state": {
-        "last_checked_utc": "2026-09-03T12:55:00Z",
-        "quote_basis": "NO LIVE QUOTE -- pre-open run (12:41Z = 08:41 ET). Not a decision basis.",
-        "status": "HOLD pending the open. days_held 6 of 14, so no time stop. The prior status string on this field said the take-profit was 'DECLINED ON THE MAGNITUDE FLOOR' -- THAT FLOOR IS VOID as of 2026-09-02T20:45Z and is overwritten here rather than inherited. Under the live rule an RSI2>=70 cross on a GREEN position IS the exit and is taken with NO magnitude test. MDLZ closed 2026-09-02 slightly UNDERWATER, so what actually governs it is the `price > entry` SIGN gate: while it is below 62.5899 the take-profit is structurally disarmed and any RSI2 print is an OPTIONAL exit-into-strength routed to thesis. The executing run re-tests the sign on a live quote -- if MDLZ is green AND RSI2 >= 70 on today's report, BANK IT without further argument.",
-        "residue_repaired": "magnitude-floor language removed from this field 2026-09-03T12:55Z; see _REPEALED_EXIT_POLICY_RESIDUE_INSIDE_POSITION_RECORDS."
+        "last_checked_utc": "2026-09-03T14:32:00Z",
+        "quote_basis": "get_equity_quotes at 14:30:5xZ -- 61 minutes after the bell, well clear of the opening-auction rule.",
+        "mark": 61.21,
+        "value_usd": 488.98,
+        "pl_usd": -11.02,
+        "pl_pct": -2.2,
+        "day_pct": -1.99,
+        "days_held": 6,
+        "time_stop_date": "2026-09-11",
+        "status": "HOLD. UNDERWATER (-2.2%), so the mechanical take-profit is STRUCTURALLY OFF (gated on price > entry per the 2026-08-26 profit-banking correction -- it may never realize a loss on a technical bounce). TIME STOP not due: 6 of 14 days, fires 2026-09-11. Target 64.7 not hit. Not green-enough. No below-200MA / out-of-decile flag on today's 14:01Z committed report (ACTION block EMPTY). No price stop by policy (HARD RULE 5)."
       },
       "setup_invalidation": "ADDED 2026-09-01T14:20:00Z -- SWEEP OF THE CLASS, not this one instance. The 2026-08-28T13:58Z run added this field to ROST and wrote 'positions[] carried NO setup_invalidation field' -- naming the defect but fixing only the name in front of it. Audited this run: FOUR of six equity positions (PNC, MDLZ, MMM, GD) still had no setup_invalidation while prompt v8 states plainly 'No written invalidation = no trade'. All four filled in one pass. NOT A PRICE STOP: the agent places no stop orders (HARD RULE 5); every level below is a written thesis-review trigger only. 200-day SMAs computed THIS RUN from completed daily bars through 2026-08-31 and each verified RISING over the trailing 7 bars. This position ALREADY carried a written invalidation in its _note prose -- it was simply never promoted into the field, which is a distinct sub-case of the same defect: a run reading positions[] programmatically sees nothing, while a run reading the prose sees a complete plan. Promoted verbatim and the level refreshed to today's measurement: sell ONLY on a HARD RULE 7 thesis BREAK -- (1) a cut to the FY26 guidance just raised; (2) the analyst complex reversing to net targets below spot (mean PT $68.95 vs the $62.5899 fill at entry); or (3) a close through the RISING 200-day MA, measured 59.00 on 2026-09-01 (+0.2326 over the trailing 7 bars; the entry note's 58.94 was the same average computed four sessions earlier -- a 6-cent drift, so the entry's number was sound). A close below the 50-day at 61.46 ALONE is a re-check, not an exit. The 2026-08-19 CEO share sale (133,580 sh, ~9% of direct holding) was recorded as a blemish at entry and is already priced into that judgement -- it does not re-invalidate."
     },
@@ -111,14 +119,16 @@
       "native_trail_pct": null,
       "_note": "placed_agent='agentic' -- AUTONOMOUS equity entry under HARD RULE 6 / prompt v8 THE EQUITY BOOK, signal-sourced from the committed report on master (latest_morning.md, 2026-08-28 22:59Z). Order 6a9583b2-0281-43b7-9fef-4ea915295312, $500.00 dollar-based market order, regular_hours, filled 13:37:54Z at $173.3371 in two executions. GATE STACK, all cleared and each verified INDEPENDENTLY of the report rather than taken on trust: RSI2 4.40 computed from own daily bars (report said 4.3 -- agrees); price $173.51 sits +7.9% above a 200-day SMA of $160.8617 that is RISING monotonically over the trailing 22 sessions (158.97 -> 160.86), so this is a dip inside a confirmed uptrend, not a falling knife; HARD RULE 7 thesis INTACT -- FactSet mean PT $188.80 with an average rating of OVERWEIGHT (MT Newswires 08-10), Morgan Stanley RAISED its PT to $189 from $165 on 08-10, quarterly dividend MAINTAINED at $0.78 on 08-14, and no thesis-breaking headline in the trailing news; earnings VERIFIED CLEAR through 2026-09-27 by the 08-28T23:18Z pre-screen's continuous two-window calendar pull, which spans any 1-3 week swing opened today; non-oil, non-speculative; and industrials is UNCORRELATED with the existing book (PNC bank / LLY pharma / MDLZ staples / ROST retail), which is the diversification lever actually available. GREEN-ENOUGH LEVEL: 173.3371 / 0.85 = $203.93 -- at that price the report fires SET TRAILING STOP and Ryan sets a native 15% trail in-app. The agent places NO stop (HARD RULE 5); this position is thesis-managed until it is green enough.",
       "_current_state": {
-        "last_checked_utc": "2026-09-02T13:50:00Z",
-        "quote_basis": "get_equity_quotes at 13:46:0x-13:46:2xZ -- settled, 16 minutes after the bell, well clear of the opening-auction rule.",
-        "mark": 169.75,
-        "value_usd": 489.65,
-        "pl_usd": -10.35,
-        "pl_pct": -2.07,
-        "day_pct": -0.29,
-        "status": "HOLD. Underwater, so the mechanical take-profit authority is STRUCTURALLY OFF (gated on price > entry per the 2026-08-26 profit-banking correction; it may never realize a loss on a technical bounce). Target 180.83 not hit (6.5% away). Not green-enough (203.93 needed). No below-200MA or out-of-decile flag on the committed report. No price stop by policy (HARD RULE 5)."
+        "last_checked_utc": "2026-09-03T14:32:00Z",
+        "quote_basis": "get_equity_quotes at 14:30:5xZ -- 61 minutes after the bell, well clear of the opening-auction rule.",
+        "mark": 166.5051,
+        "value_usd": 480.29,
+        "pl_usd": -19.71,
+        "pl_pct": -3.94,
+        "day_pct": -1.33,
+        "days_held": 3,
+        "time_stop_date": "2026-09-14",
+        "status": "HOLD. UNDERWATER (-3.94%), so the mechanical take-profit is STRUCTURALLY OFF (gated on price > entry per the 2026-08-26 profit-banking correction -- it may never realize a loss on a technical bounce). TIME STOP not due: 3 of 14 days, fires 2026-09-14. Target 180.83 not hit. Not green-enough. No below-200MA / out-of-decile flag on today's 14:01Z committed report (ACTION block EMPTY). No price stop by policy (HARD RULE 5)."
       },
       "_notify_state": {
         "last_checked_utc": "2026-08-31T13:40:00Z",
@@ -137,14 +147,16 @@
       "native_trail_pct": null,
       "_note": "placed_agent='agentic' -- AUTONOMOUS equity entry under HARD RULE 6 / prompt v8 THE EQUITY BOOK, signal-sourced from the freshest committed report on master (latest_morning.md, header 2026-08-31 19:27Z, which lists GD at RSI2 7.5 / entry 372.20 / target 387.04). Order 6a96d4ca-b009-4d0d-8f8f-50f1cb1ebe0a, $500.00 dollar-based market order, regular_hours, FILLED 13:36:10.561Z at $374.4437 in two executions, $0.00 fees. || WHY THIS NAME AND WHY NOW, and it is a DELIBERATE REVERSAL of yesterday's veto rather than an oversight of it: the 2026-08-31T16:45Z run recorded _A_DECLINE_THROUGH_POSITIVE_NEWS_IS_STRONGER_THAN_A_NEWSLESS_DRIFT on THIS EXACT NAME -- GD fell 2.03% on the day it signed a seven-year DoD multiyear procurement framework (triple PAC-3 MSE, quadruple THAAD interceptor capacity, minimum annual procurement commitments) while partner LMT fell only 0.44%, which that run graded 'case (c): the marginal buyer is absent at this price even when handed a reason to show up' and called a veto that is 'FIRMER, not weaker'. Per _VETOES_HAVE_DIFFERENT_HALF_LIVES the correct procedure is to re-read the original decline, identify the BINDING veto, and test whether it decayed -- NOT to re-test in isolation and read expiry as a green light. Done, and BOTH vetoes were tape-class and BOTH inverted: (1) the complex de-rate (08-31: ITA -2.10% = 4.4x SPY) is now a complex ADVANCE -- measured 13:34Z, ALL SIX defense names GREEN against SPY -0.678% and XLI -0.034%: NOC +1.725%, RTX +1.499%, LHX +0.881%, GD +0.976%, ITA +0.534%, LMT +0.330%. ITA outperforms SPY by 1.21pp. That is a uniform sector rotation INTO defense on a risk-off tape, not a single-name blip. (2) case (c) is refuted by the cleanest available test -- the marginal buyer who was absent on announcement day showed up the very next session, across the whole complex, with the index down 0.7%. The structural veto never bound: GD is below 2 of 3 averages, not 3 of 3, so it never met the _RSI2_SCREEN_TREND_FAILURE_IS_SYSTEMATIC decline rule. || GATE STACK, each verified independently of the report: RSI2 6.8 computed from own completed daily bars through 08-31 (report said 7.5 -- agrees directionally); TREND GATE PASSED -- last 371.35 vs SMA20 387.00 / SMA50 376.41 / SMA130 357.42, i.e. above the long-term average by +3.9% and only -6.2% off the highest close in a 145-bar window, a pullback inside an intact uptrend rather than a downtrend (contrast the same call's GEV -23.5% off high and CAT -25.1%, both below all three, both DECLINED); DEPTH AND RELATIVE STRENGTH BOTH PRESENT, which per _OVERSOLD_COHORT_IS_MEASURABLE_BEFORE_ANY_NAME_IS_GRADED are SEPARATE tests a candidate needs both of -- GD sits -4.04% below its 20-day (real washout, unlike BLK at +0.07% ABOVE its 20-day, declined for having nothing to revert) and was the cohort's second-strongest name today; HARD RULE 7 thesis INTACT AND IMPROVING -- the 08-31 seven-year DoD framework, the 08-07 $1.3B GDIT Army National Guard IT/cyber award (1yr base + six option years), FactSet mean PT $424.50 with an average rating of OVERWEIGHT (= +13.2% over the fill) and DA Davidson raising to $416 from $375 Buy/Add on 08-21, against a macro of a proposed $1.5T FY27 Pentagon budget (+66% over the $901B enacted for 2026) and $1.21T of incremental NATO commitments; EARNINGS CLEAR -- GD is absent from a verified get_earnings_calendar high_market_cap pull for 2026-09-01..09-16 and next reports late October, and the SECTOR-COMPLEX check required by CLAUDE.md is also clean (no LMT/NOC/RTX/LHX print inside the window); non-oil, non-speculative; and aerospace/defense is a NEW sector for a book otherwise holding PNC bank / LLY pharma / MDLZ staples / ROST retail / MMM industrials. || THE HONEST DEBITS, recorded so no later run has to rediscover them: the fill at 374.4437 is +0.60% above the report's 372.20 signaled entry because the confirmation IS the move, which costs ~19% of the 3.36% distance to target; the Warren/Trump political pressure on defense buybacks and dividends is real and persistent (the top four primes cut combined payouts ~36% Y/Y in Q1 2026) but is a CAPITAL-RETURNS overhang, not an order-book thesis break, and the order book just took a seven-year commitment; funding is 'subject to annual appropriations'; a bearish Jan-2027 420C sweep printed 08-20 and a director sold 1,990 shares at ~$394 on 08-10. Graded A, not A+, on the entry drift and on _UNREVERTED_COHORT_HAS_NO_GATE (this is the book's SIXTH simultaneous un-reverted mean-reversion bet) -- that finding is an OPEN RECOMMENDATION TO RYAN and explicitly not a self-applied gate, so it is recorded as context, not treated as a veto an unattended run may invent. || GREEN-ENOUGH LEVEL: 374.4437 / 0.85 = $440.52 -- at that price the report fires SET TRAILING STOP and Ryan sets a native 15% trail in-app. The agent places NO stop (HARD RULE 5); thesis-managed until green enough.",
       "_current_state": {
-        "last_checked_utc": "2026-09-02T13:50:00Z",
-        "quote_basis": "get_equity_quotes at 13:46:0x-13:46:2xZ -- settled, 16 minutes after the bell, well clear of the opening-auction rule.",
-        "mark": 364.49,
-        "value_usd": 486.71,
-        "pl_usd": -13.29,
-        "pl_pct": -2.66,
-        "day_pct": -1.33,
-        "status": "HOLD. Underwater, so the mechanical take-profit authority is STRUCTURALLY OFF (gated on price > entry per the 2026-08-26 profit-banking correction; it may never realize a loss on a technical bounce). Target 387.04 not hit (6.2% away). Not green-enough (440.52 needed). No below-200MA or out-of-decile flag on the committed report. No price stop by policy (HARD RULE 5)."
+        "last_checked_utc": "2026-09-03T14:32:00Z",
+        "quote_basis": "get_equity_quotes at 14:30:5xZ -- 61 minutes after the bell, well clear of the opening-auction rule.",
+        "mark": 362.82,
+        "value_usd": 484.48,
+        "pl_usd": -15.52,
+        "pl_pct": -3.1,
+        "day_pct": -0.34,
+        "days_held": 2,
+        "time_stop_date": "2026-09-15",
+        "status": "HOLD. UNDERWATER (-3.1%), so the mechanical take-profit is STRUCTURALLY OFF (gated on price > entry per the 2026-08-26 profit-banking correction -- it may never realize a loss on a technical bounce). TIME STOP not due: 2 of 14 days, fires 2026-09-15. Target 387.04 not hit. Not green-enough. No below-200MA / out-of-decile flag on today's 14:01Z committed report (ACTION block EMPTY). No price stop by policy (HARD RULE 5)."
       },
       "_notify_state": {
         "last_checked_utc": "2026-09-01T13:36:00Z",
@@ -521,11 +533,11 @@
     "_union_note": "CONCURRENT SAME-SLOT COLLISION: the 19:16Z and 19:19Z runs each independently owed and wrote this report (the 19:02Z run had handed the duty forward). The 19:16Z version reached master first and IS the delivered report; the 19:19Z version was discarded in the union, because exactly ONE run per trading day writes this file and a second push would send Ryan a duplicate ntfy for the same day with the same content. Both runs' ledger findings and journal entries are preserved."
   },
   "_last_reconciliation": {
-    "run_utc": "2026-09-03T13:36:00Z",
-    "source": "broker, read AFTER the 13:33Z sibling fills landed (per the 2026-08-28 collision-fix: re-read the broker before acting; here re-read to confirm final state after the sibling completed)",
+    "run_utc": "2026-09-03T14:32:00Z",
+    "source": "broker, read 14:30-14:31Z (broker-first per the 2026-08-28 collision fix)",
     "options": "1 position -- SPY 2026-11-20 700P qty 1.0000 @ 749.00 (option_id 79230921-9bd8-43fd-8b4d-60f76ac03f48), all six pending_* 0.0000.",
-    "equities": "4 positions -- LLY 0.420254 @ 1189.76, MDLZ 7.988509 @ 62.59, MMM 2.884552 @ 173.34, GD 1.335314 @ 374.44. PNC and ROST correctly absent post-sell.",
-    "drift": "NONE. All five match holdings.positions on quantity AND average price. get_equity_orders(gte 2026-09-03) shows only the two 13:33Z agentic sells; no unlisted sibling entry."
+    "equities": "4 positions -- LLY 0.420254 @ 1189.76, MDLZ 7.988509 @ 62.59, MMM 2.884552 @ 173.34, GD 1.335314 @ 374.44.",
+    "drift": "NONE. All five match holdings.positions on quantity AND average price. get_equity_orders(gte 2026-09-03) shows only the two 13:33Z agentic sells; get_option_orders empty. No unlisted sibling entry."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
@@ -773,15 +785,15 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-03T14:20:00Z",
+    "run_utc": "2026-09-03T14:32:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-03 (bell rang 13:30Z)",
-    "reconciliation": "ZERO DRIFT both books. BROKER 14:18-14:20Z: 1 option (SPY 2026-11-20 700P qty 1 @ 749) + 4 equities (LLY 0.420254@1189.76, MDLZ 7.988509@62.59, MMM 2.884552@173.34, GD 1.335314@374.44). get_equity_orders(gte 09-03)=only the two 13:33Z agentic sells, nothing since; get_option_orders EMPTY. No sibling.",
-    "capital": "total $3,882.85 = equity $1,932.67 / options $491 / cash $1,459.18. unleveraged_BP $1,459.18 = BP (no margin). Reserve $194.14. DEPLOYABLE $1,265.04 -- above $600 min, but no A-grade setup clears (sourcing/quality binding, not capital).",
-    "book": "4 equity swings (LLY/MDLZ/MMM/GD) all HOLD, all underwater -2..-4%, intact theses, none near 14d time stop. 1 option SPY 700P hedge (exempt). Options throttle 0/8, equity throttle 0/3, realized opt $0 vs -$400 cap, realized eq -$3.22.",
-    "equity_decision": "NO ENTRY this run in the deferred post-14:15Z window. Best RSI2 candidate AMAT (RSI2 0.5, thesis intact, analyst Strong Buy) DECLINED on a semis-sector de-rate + tape divergence (SMH -0.94% vs SPY +0.48%; AMAT -20% vs 50d) -- grades A-/B+, below the A-only bar for a 28%-of-account concentrated add to an all-red book. UNP=B. No rotation (AMAT not > any held intact thesis). Cash = residual of quality; NOT a named hold. WATCH: AMAT/LRCX/AMD become cleaner if the semis tape stabilizes and confirms.",
-    "options_decision": "Both tracks STAND DOWN, consistent with 14:05Z. TACTICAL: SPY break failed/reverted, chop ~20-SMA 769, no clean structural break. CORE: 6/8 core names fair-to-rich ex-gap, premium not cheap. Hedge exempt.",
-    "duties_status": "heartbeat 13:34Z done; brief 09-03 done; IV 14:05Z done; EOD due >=19:15Z; calibration Monday-only. None owed this run."
+    "reconciliation": "ZERO DRIFT both books. BROKER 14:30-14:31Z: 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, all pending_* 0.0000) + 4 equities (LLY 0.420254@1189.76, MDLZ 7.988509@62.59, MMM 2.884552@173.34, GD 1.335314@374.44) -- quantity AND average price match the ledger. get_equity_orders(gte 09-03) = only the two 13:33Z agentic sells; get_option_orders EMPTY. No sibling entry.",
+    "capital": "total $3,881.84 = equity $1,936.66 / options $486 / cash $1,459.18. unleveraged_BP $1,459.18 == BP (no margin, FOUR LAWS #4). Reserve 5% = $194.09. DEPLOYABLE $1,265.09 -- above the $600 minimum, so capital is NOT the binding constraint; setup quality is.",
+    "book": "4 equity swings (LLY/MDLZ/MMM/GD), all HOLD, all underwater -2.2% to -3.9%, theses intact, none near the 14d time stop (earliest LLY 09-10, 7 of 14). 1 option SPY 700P hedge (exempt). Throttles: equity 0/3, options 0/8. Realized today: options $0.00 vs the -$400 cap; equities -$3.22 (PNC -4.41 / ROST +1.19, both 13:33Z).",
+    "equity_decision": "NO ENTRY. The post-14:15Z fresh-report window was owned by the 14:20Z sibling and independently concurred by 14:22Z; both declined AMAT. Re-tested rather than inherited: the binding veto was the semis de-rate + tape divergence, and it has DEEPENED since -- SMH -1.04% (was -0.94%) against SPY +0.49%, AMAT 428.49 = -2.27% on the day (was -2.07% at 14:22Z) and still sliding. The decline therefore holds a fortiori; re-litigating it a third time would be churn, not diligence. UNP 287.21 (-0.87%) remains B on weak momentum / no catalyst. Cash is the residual of quality, NOT a named cash hold (no catalyst, no trigger, no expiry -- correctly so).",
+    "options_decision": "Both tracks STAND DOWN. TACTICAL: SPY 768.93 sits essentially ON the 768.976 20-day SMA -- the 13:35-13:40Z reclaim already fired and FAILED by 14:00Z, and a level price is oscillating around is not a break in either direction (_CONFIRMED_TRIGGERS_HAVE_A_SHELF_LIFE). CORE: the 14:05Z IV sweep has 6 of 8 core names fair-to-rich ex-gap and no thesis answers 'why NOW'. Hedge exempt.",
+    "duties_status": "heartbeat 13:34Z done; brief 09-03 done; IV sweep 14:05Z done; EOD report due on the first run >=19:15Z; weekly calibration is Monday-only (today Thursday). None owed this run."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
