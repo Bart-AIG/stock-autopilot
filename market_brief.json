@@ -1,46 +1,34 @@
 {
  "_comment": "Daily market brief for the options automation. Built by the first post-open run of each TRADING day (ET), never by a post-close/pre-open firing. Refresh intraday only on a genuine shock (VIX +15%, an index breaking a listed level, a major headline).",
- "date": "2026-09-03",
- "built_utc": "2026-09-03T13:35:00Z",
- "built_by": "First post-open run of the 2026-09-03 trading day (prompt v10). Owns the heartbeat, this brief, and the reset of the daily options loss cap + both throttles. This run EXECUTED TWO MECHANICAL EQUITY EXITS at the open (PNC time stop, ROST take-profit) \u2014 see holdings.json._closed_positions. Quotes are the 13:32-13:35Z settled reads, NOT the opening auction; the opening-window ATM-IV inflation is four-times-confirmed so no IV row written pre-14:00Z.",
- "THE_UNRESOLVED_CATALYST_TODAY": "AVGO reported last night (2026-09-02 PM) \u2014 RESOLVED, no longer constraining the book. TODAY 2026-09-03 catalysts: CIEN (am); LULU, ZS, DOCU, IOT, PATH, GWRE, AMBA, ASAN, PL (pm). None is an index-level binding event; the tape is a normal session. Watch for the FRESH equity report landing on master ~14:15Z (09:15 CT) per _REPORT_CRON_GAP_AT_THE_OPEN \u2014 the day's autonomous equity entry, if any, is preferred on the first run at/after that, on TODAY's signals.",
+ "date": "2026-09-04",
+ "built_utc": "2026-09-04T13:42:00Z",
+ "built_by": "First post-open run of 2026-09-04 (routine, prompt v10). Owns heartbeat + brief + throttle reset.",
+ "THE_UNRESOLVED_CATALYST_TODAY": "NONE UNRESOLVED. August payrolls printed 12:30Z, BEFORE the bell -- NFP +162k vs +53k consensus, u-rate 4.1% steady, July revised up to +21k (see holdings.json._A_VERIFIED_MACRO_FIGURE_WAS_WRONG_BY_AN_ORDER_OF_MAGNITUDE_AND_THE_SURPRISE_SIGN_INVERTS -- the inherited consensus figures were wrong by ~9x and a run reading the stale key sees a 3x BEAT as a catastrophic MISS). The 2026-08-26 capstone barring TACTICAL breakout scalps into an UNRESOLVED scheduled catalyst therefore does NOT bind today. Earnings calendar (high_market_cap, 09-04..09-11): nothing today; next week ORCL 09-10 pm, ADBE 09-10 pm, CPRT 09-10 pm, RH 09-10 pm, CHWY 09-09 am. NO holding (LLY, MDLZ, MMM, GD) reports inside its hold window -- verified, not assumed. Watch for the FRESH equity report landing on master ~14:15Z per _REPORT_CRON_GAP_AT_THE_OPEN; the day's autonomous equity entry, if any, is preferred on the first run at/after that.",
  "regime": {
-  "label": "NEUTRAL-TO-RISK-ON",
-  "measured_utc": "2026-09-03T13:35Z",
-  "SPY": "768.99 (+0.50% vs 765.16 close), above 20/50-day",
-  "QQQ": "711.22 (+0.28% vs 709.24 close)",
-  "note": "Modestly green open, no shock. Regime label is a 13:35Z snapshot \u2014 a full-day % change near a catalyst is a poor regime input, but there is no binding catalyst today. Re-measure the prior session's final hour before inheriting this label across sessions (2026-08-25 finding)."
+  "label": "RISK-ON, TECH-LED / FINANCIALS LAGGING",
+  "measured_utc": "2026-09-04T13:33:40Z (venue timestamp, not fetch time)",
+  "SPY": "772.74 (-0.056% vs 773.17 close), above 20d 769.21 and 50d 756.14",
+  "QQQ": "719.885 (+0.309% vs 717.67 close), above 20d 717.71 and 50d 711.03",
+  "NVDA": "230.89 (+1.068%)",
+  "XLF": "58.275 (-0.487%)",
+  "PROVISIONAL": "This label is built on prints whose VENUE timestamps sit inside the opening auction window -- see holdings.json._QUOTE_FEED_LAG_MEANS_WALL_CLOCK_CANNOT_CLEAR_THE_OPENING_WINDOW. Treat it as an upper-bound snapshot and RE-MEASURE before it decides anything. Per the 2026-08-28 lesson the NUMBERS are handed forward and the VERDICT deliberately is not: a mid-event or opening-window cross-asset read can fully invert inside ten minutes."
  },
  "key_levels": {
-  "_method": "20/50-day SMAs computed this run off 58 settled daily closes (2026-06-10..2026-09-01), per the 2026-08-25T17:33Z rule that BOTH averages are computed before any intraday box is drawn.",
+  "_method": "20/50-day SMAs recomputed this run via get_equity_technical_indicators on settled DAILY bars through 2026-09-03, per the 2026-08-25T17:33Z rule that BOTH averages are computed before any intraday box is drawn. The prior brief's block was a session stale (it carried SPY last_close 761.78).",
   "SPY": {
-   "last_close": 761.78,
-   "sma20": 769.2075,
-   "sma50": 754.7092,
-   "vs20": -7.43,
-   "vs50": 7.07,
-   "sma20_fwd_path_if_flat": [
-    768.81,
-    768.47,
-    767.89,
-    767.33
-   ],
-   "note": "20-day is drifting DOWN ~0.5/session, so a flat SPY closes the gap slowly from the average's side, not price's. Per the 2026-08-25T19:00Z rule this is a trend measurement, not a reclaim."
+   "last_close": 773.17,
+   "sma20": 769.2065,
+   "sma50": 756.1394,
+   "sma20_prior_session": 768.976,
+   "note": "20-day is RISING ~+0.23/session. Spot 772.74 sits +3.53 over the 20d and +16.60 over the 50d."
   },
   "QQQ": {
-   "last_close": 707.64,
-   "sma20": 717.966,
-   "sma50": 710.9806,
-   "vs20": -10.33,
-   "vs50": -3.34,
-   "sma20_fwd_path_if_flat": [
-    717.48,
-    717.13,
-    716.36,
-    715.7
-   ]
-  },
-  "posture_levels_STALE_WARNING": "CLAUDE.md's Aug-Oct posture quotes SPY 20d 748.5 / 50d 746.4 as of 2026-08-05. Those are FOUR WEEKS STALE and materially wrong today (actual 769.21 / 754.71). The posture's early-warning line -- 'a CLOSING loss of SPY 746-748' -- now sits BELOW the 50-day rather than at it. SPY 761.78 is above both the stale band and the live 50-day, so the posture's own calibration reads 'business as usual under the caps'. Recompute weekly as the posture instructs; do not quote the 08-05 numbers as live."
+   "last_close": 717.67,
+   "sma20": 717.714,
+   "sma50": 711.0334,
+   "sma20_prior_session": 717.563,
+   "note": "20-day RISING ~+0.15/session and spot is right on it: 719.885 is +2.17 over the 20d, +8.85 over the 50d. A level this close to spot is a real structural reference for a TACTICAL trigger, unlike a desk-drawn box."
+  }
  },
  "catalysts_next_5_sessions": [
   "2026-09-02 PM (TONIGHT): AVGO 3.16 | SNOW 0.26 | HPE 0.91 | NTAP 2.04 | AI -0.33 | PVH 2.62 | FIVE 1.16 | GOLD 0.96",
@@ -51,58 +39,33 @@
   "AHEAD (outside the 5-session window but inside every CORE 21-45 DTE window): ORCL and ADBE both 2026-09-10 PM."
  ],
  "watchlist": {
-  "EQUITY_candidates_from_the_committed_report": "Source: latest_morning.md on master, header 2026-08-31 19:27Z -- the FRESHEST committed report, and note it is a session old because the report cron's first fire is ~14:00Z, 30 min after the bell (_REPORT_CRON_GAP_AT_THE_OPEN). TAKEN: GD (RSI2 7.5 -> own 6.8; the only name clearing BOTH the depth and relative-strength tests). DEFERRED ON THE AVGO 09-02 SECTOR-COMPLEX [ERN] FLAG: AEHR (RSI2 0.2), KLAC (3.7), AMAT (4.3), MRVL (7.1), TSEM (9.6). DECLINED ON THE TREND GATE, below all three of SMA20/50/130: GEV (-23.5% off high) and CAT (-25.1%). DECLINED ON DEPTH -- trend is pristine but there is nothing to revert: BLK, which sits +0.07% ABOVE its own 20-day and -2.3% off its high with RSI14 56.6; its RSI2 7.8 comes from a few small down days, the same objection that declined REGN on 08-31. DECLINED, EARNINGS: FCEL (own print 09-02 am). DECLINED, SAME-COMPLEX: BE (FCEL 09-02 is a direct fuel-cell read-through). DECLINED, CONCENTRATION + WEAKER CONFIRMATION: USB (RSI2 9.0, only +0.03% today, and it doubles the book's bank exposure alongside PNC). DECLINED, NO IDIOSYNCRATIC THESIS: IWM. NOT ELIGIBLE THOUGH IT LOOKS BEST ON THE TAPE: RTX (+1.499%, below its 20-day only, RSI2 6.7) -- it appears in the 19:01Z intraday report but NOT in the fresher 19:27Z morning report, and prompt v8's EQUITY BOOK is SIGNAL-SOURCED ONLY. Recording this rather than routing around it; if a fresh report re-signals RTX it is a live A-grade candidate.",
-  "TACTICAL_candidates": "NONE ARMED, and the reason is regime rather than any filter. The 2026-08-26 capstone is explicit: do not open TACTICAL breakout scalps into an unresolved scheduled catalyst, however clean the fire -- five consecutive failed breaks were answered by tuning the instrument before the desk concluded the instrument was never the problem. Tonight's PANW/DELL/CRDO/MDB and tomorrow's AVGO cluster are exactly that condition, and a Tuesday scalp's hold window (flat by Wednesday's close) sits squarely across both. Per the 2026-08-28 window rule this screen is stated for THIS track's horizon, not borrowed from CORE.",
-  "CORE_candidates": "NONE ARMED. A 21-45 DTE CORE window opened today spans AVGO 09-02, ORCL 09-10 and ADBE 09-10, so the catalyst objection applies with MORE force to CORE than to TACTICAL, not less. Capital is also the honest binding constraint: after the GD entry, deployable is ~$302.10 against a $500-1,000 typical CORE size, so no CORE position is fundable today regardless of merit. Say that plainly rather than implying a full survey was gated on thesis."
+  "TACTICAL": "SPY, QQQ, NVDA -- the only chains that clear the <=3%-of-mid gate at this account size. QQQ's 20-day SMA at 717.714 is the nearest genuine STRUCTURAL level (spot 719.885, +2.17 over it) and is the reference to watch rather than any desk-drawn range. Confirmation requires the two-bar window (break bar AND its holding bar) measured against the PRE-EVENT baseline, plus the defence-vs-break participation ratio.",
+  "CORE": "None carried forward -- the 09-01 report's candidate list has aged out and the fresh 09-04 report is not yet on master. Rebuild the CORE candidate list from it at ~14:15Z, screening LIQUIDITY FIRST on the MONTHLY board at the TARGET delta before any thesis workup.",
+  "EQUITY": "Pending the fresh 09-04 report at ~14:15Z. Standing filters that will apply: A-grade only, no new oil-energy, [ERN] inside the hold window is an ABSOLUTE bar, minimum entry $600, per-name cap $1,147.93."
  },
  "constraints_today": {
-  "_CORRECTED_1352Z": "This block was carried forward from the 2026-09-02 brief and was a full session stale -- it quoted cash $552.10 / deployable $302.10 and a $250.00 reserve as 'the STRICTER of the flat FOUR LAWS floor and 5%-of-total'. BOTH were wrong for today: the capital is different, and v10 RETIRED the flat $250 outright ('recomputed every run, never a hard-coded dollar figure -- it replaces the old flat $250'). Edited in place rather than flagged, per the rule that a contribution which supersedes a key edits that key instead of minting another. Same class as STALE_BLOCK_FLAGGED_IN_THE_UNION below.",
-  "BINDING_CONSTRAINT": "SOURCING, not capital -- the inverse of yesterday. The report on master is a session stale; the money is there.",
-  "capital": "get_portfolio 13:46Z: total $3,883.82 = equity $1,940.64 / options $484.00 / cash $1,459.18. unleveraged_buying_power $1,459.18 EQUALS buying_power -- no margin extended. Reserve $194.19 = 5% of total_value (v10). DEPLOYABLE $1,264.99.",
-  "equity_book": "FUNDABLE BUT NOT LICENSED. $1,264.99 clears the $600 v10 minimum entry with room, and the book is at 4 of the 3-5 band with one slot open. The blocker is that v10's EQUITY BOOK is SIGNAL-SOURCED ONLY and the freshest committed report is latest_intraday.md 2026-09-02T19:01Z -- clean (no DATA ERROR) but a session old. Today's lands ~14:15Z; that run owns the entry, size = deployable / 1 slot = $1,264.99 CAP-BOUND to 30% of total = $1,165.15.",
-  "options_CORE": "AFFORDABLE, NO CANDIDATE. Six of the eight core-list ex-gap IV/RV ratios sit above 1.0 (premium fair-to-rich), the report's RSI2 universe is twice-measured at ~zero options tradeability, and ORCL/ADBE both print 2026-09-10 PM -- inside every 21-45 DTE window. No thesis answers 'why NOW'.",
-  "options_TACTICAL": "TRIGGER FIRED, DECLINED SINGLE-CAUSE ON PARTICIPATION. SPY reclaimed its freshly-re-derived 20-day (768.976; the key_levels block's 769.2075 is the 09-01 value) with a completed 13:35Z close at 769.750 and a 13:40Z hold at 769.790. Vehicle was quoted and fit: SPY 2026-09-11 772C mid 4.080, 0.49% of mid, delta 0.4463, OI 1,830, $408. Late-entry arithmetic PASSED -- the -30% stop lands ~767.57, 1.41 points below the trigger. The 08-26 capstone does NOT apply (today's prints are single-name). It fails only on volume, and see holdings.json._NO_DENOMINATOR_EXISTS_IN_THE_FIRST_THIRTY_MINUTES: 21 minutes into a session every candidate denominator is either the opening auction bar or the candidate bars themselves."
+  "equity_entries": "BARRED THIS RUN. Autonomous equity trades are SIGNAL-SOURCED ONLY and the report on master is the 2026-09-03T19:02Z intraday -- stale for the 09-04 trading day. No DATA ERROR in its header; it is simply the wrong day. Throttle 0 of 3 used.",
+  "equity_exits": "NONE AVAILABLE, and this is independent of report freshness. All four swings are UNDERWATER (LLY -2.9%, MDLZ -2.2%, MMM -3.1%, GD -3.5%), and the RSI2>=70 take-profit is gated on price > entry per the 2026-08-26 correction -- an RSI2 print on an underwater position is an OPTIONAL exit-into-strength routed to thesis, never a mechanical loss realization. Time stops: LLY 09-10, MDLZ 09-11, MMM 09-14, GD 09-15 -- nearest is 6 days out, none inside the 3-day warn window.",
+  "options": "Loss cap -$400 UNUSED, 0 of 8 entries. No TACTICAL trigger exists: the session was 7 minutes old, no structural level had been tested, and the volume-confirmation denominator is unreadable in the opening window (first-hour inflation). No CORE candidate is in hand and building one from scratch minutes after the bell would be manufacturing activity -- boredom is not a catalyst.",
+  "friday_specific": "TODAY IS A FRIDAY. Per _TACTICAL_IS_AN_INTRA_SESSION_CONSTRUCT (2026-08-28), a TACTICAL entry taken today carries a ~72-hour weekend gap against a stop distance of roughly 0.20-0.32% of SPY, and the MEDIAN Monday gap (0.342%) EXCEEDS the entire stop distance. Prefer entries early enough to reach the +20-40% target before the bell; treat an overnight carry as a named, accepted risk rather than a default."
  },
  "posture_carryover": "Aug-Oct defensive drawdown watch STANDS (Ryan, 2026-08-05; ~Nov 1 review). A-grade equity setups only (SURVIVES and is the operative bar), no new oil-energy entries, no margin borrowing, and the agent places NO stops of any kind -- winners crossing green-enough (entry / 0.85) fire the SET TRAILING STOP alert for Ryan to set a native 15% trail in-app. The weekly swing quota was REMOVED by Ryan on 2026-08-19 and the >=45% cash floor was VOIDED on 2026-08-28; neither may be re-derived from any file's history. Full deployment RAISES the cost of a bad entry -- it does not lower the bar for one.",
- "regime_label_staleness_check": "Rebuilt fresh this run; no inheritance issue. Prior 09-02 label superseded.",
- "equity_entries_taken_today": 0,
- "_union_merge_note": "Two runs rebuilt this brief for 2026-08-31. Resolved as a UNION: this run's structure is the base (it carries the computed 20/50-day SMAs and the per-track catalyst screen), with the sibling's regime label, posture levels and NVDA window note merged in rather than overwritten. CONCURRENT-RUN CROSS-MEASUREMENT, 2026-08-31, AND IT IS THE MOST DIRECT EVIDENCE THIS FILE HAS THAT AN OPENING-WINDOW REGIME LABEL IS NOT A LABEL. Two scheduled runs measured the same tape THREE MINUTES APART and produced OPPOSITE verdicts from CORRECT numbers. 13:36Z (sibling): AMD 475.22 +2.07%, AVGO 371.64 +0.77%, NVDA 218.75 +0.55% -> 'SEMI-LED RISK-ON UNDER A RED INDEX'. 13:38-13:40Z (this run): AMD 467.40 +0.39%, AVGO 367.005 -0.48%, NVDA 217.19 -0.17% -> 'BROAD-BASED RISK-OFF, FINANCIALS-LED'. Neither is wrong: the semis simply FADED between the two reads -- AMD -1.65%, AVGO -1.25%, NVDA -0.71% in about three minutes, while SPY was roughly unchanged (765.77 -> 766.28). || THE LESSON, which extends the 2026-08-28 mid-event finding from an event tape to the ORDINARY OPEN: hand forward the NUMBERS, never the VERDICT. A directional label extracted from the first ten minutes measures whichever leg happened to be running when the run fired, and a later run inheriting it will reason from a frame the tape has already withdrawn. Both labels above should be read as timestamped observations, and any run after ~14:15Z must RE-MEASURE all legs before using either. || The IV readings, by contrast, CROSS-VALIDATE cleanly across the same gap -- SPY 0.120998 vs 0.121370 (0.3% apart), QQQ 0.175312 vs 0.178442 (1.8%), NVDA 0.328571 vs 0.324473 (1.2%), on slightly different ATM strikes. Implied vol was stable while spot direction inverted; that asymmetry is itself the point.",
+ "equity_entries_taken_today": "NONE as of 13:42Z. Throttle 0 of 3.",
  "capital_state": {
-  "measured_utc": "2026-09-03T13:34Z (post the two exits)",
-  "total_value": 3895.22,
+  "measured_utc": "2026-09-04T13:33Z",
+  "total_value": 3826.45,
+  "equity_value": 1940.27,
+  "options_value": 427.0,
   "cash": 1459.18,
-  "equity_value": 1953.04,
-  "options_value": 483.0,
   "unleveraged_buying_power": 1459.18,
-  "buying_power": 1459.18,
-  "margin_used": 0.0,
-  "operational_reserve_5pct": 194.76,
-  "deployable": 1264.42,
-  "equity_book": "4 swings held (LLY, MDLZ, MMM, GD) \u2014 within the 3-5 band, at the 3-4 target. 1 slot to the ceiling.",
-  "options_book": "1 position: SPY 2026-11-20 700P hedge (exempt from premium backstops; ~78 DTE, held to ~21-DTE decision WITH Ryan).",
-  "note": "Deployable $1,264 now exceeds the $600 v10 minimum entry \u2014 an entry IS fundable on capital. It is deferred this run only because the report is stale; a fresh-report run at/after 14:15Z can act on today's signals with size = deployable / remaining slots."
+  "operational_reserve_5pct": 191.32,
+  "deployable": 1267.86,
+  "per_name_cap_30pct": 1147.93,
+  "minimum_entry": 600.0,
+  "equity_slots": "4 open of a 3-4 target (hard band 3-5). ONE slot available before the band's ceiling.",
+  "sizing_if_one_slot": "deployable / remaining slots = $1,267.86, CAPPED by the 30%-of-account per-name limit at $1,147.93. Comfortably above the $600 minimum, so a fundable A-grade entry exists IF the fresh report signals one.",
+  "THE_CROSS_BOOK_TENSION_TO_HAND_FORWARD": "ONE CASH POOL. Deployable $1,267.86 funds EITHER a CORE options entry ($500-1,000 typical) OR the single remaining equity slot -- not comfortably both. Under THE CAPITAL POLICY an options entry that consumes the last deployable cash must beat the weakest position in EITHER book. The fresh 09-04 report lands ~14:15Z and is the only permitted source of an equity signal. So the correct posture for the next few runs is: do NOT spend this capital on a marginal options setup before the report lands -- not because options rank below equities by doctrine, but because committing the pool to a B-grade option would forfeit an unexamined A-grade equity entry, and the rotation gate exists precisely to force that comparison. If the report signals nothing A-grade, the capital is free for the options hunt with no such tension."
  },
- "monthly_rebalance": "The MONTHLY REBALANCE DUE banner belonged to 2026-09-01 (first trading day of the month) and is NOT due today. It remains a PROPOSAL to Ryan per HARD RULE 6; see _MONTHLY_REBALANCE_PROPOSAL_2026-09-01.",
- "iv_sweep_deferred": "NO IV ROW WRITTEN THIS RUN, deliberately, and this is a deferral not a skipped duty. The opening-window ATM inflation is confirmed four times at -2.5% to -4.4% (SPY, QQQ, NVDA), and CLAUDE.md instructs that any pre-14:00Z ATM row be treated as an UPPER BOUND and re-measured before it decides anything. Writing eight knowingly-inflated rows at 13:36Z and re-measuring them an hour later spends ~24 chain/instrument/quote calls to produce numbers the file itself says not to trust. THE FIRST RUN AT/AFTER ~14:00Z OWNS TODAY'S SWEEP for the core list (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) -- and note AVGO's row tonight is a PRE-PRINT reading: per the 2026-08-27 rule, state tomorrow's projected RAW ratio in advance and label it a gap artifact, so the next run inherits the warning rather than rediscovering it a day late.",
- "_union_merge_note_2026-09-02": "CONCURRENT SAME-SLOT COLLISION on the 2026-09-02 open, resolved as a UNION per the standing rule -- never by picking a side. TWO scheduled runs executed the first-post-open slot: 13:33-13:36Z (this file's base structure) and 13:33-13:38Z. NEITHER PLACED A TRADE, so the double-entry hazard the collision rule exists to prevent did not materialise, and the two runs' independently-fetched numbers CROSS-VALIDATE: identical reconciliation (1 option + 6 equities, zero drift), identical cash $552.10, identical reserve $250.00 and deployable $302.10, and the same verdict in both books for the same reasons. Portfolio totals differ only by the option mark drifting between reads ($4,017.17/$600.00 at 13:31Z vs $4,009.42/$595.00 at 13:32Z) -- that is the tape, not a discrepancy. || WHERE THEY DIFFERED, AND IT IS COMPLEMENTARY RATHER THAN CONTRADICTORY: this run DEFERRED the IV sweep (see iv_sweep_deferred below, a reasoned deferral on opening-window inflation); the sibling PERFORMED it with the upper-bound caveat stamped on every row. The union KEEPS THE ROWS -- the IV method says to overwrite today's row, so a post-14:00Z run should re-measure and overwrite rather than treat the sweep as spent -- and keeps the deferral reasoning, which remains correct about what the numbers are worth. Writing them was additionally load-bearing because DIFFING the series is what produced the AVGO finding below, which a deferral would have missed.",
- "IV_readings_logged_by_the_sibling_run": "All eight core names logged to iv_history.json for 2026-09-02 at 13:33Z on the 2026-10-02 board (30 DTE exactly). Raw / ex-gap ratios: SPY 1.0929/1.3220, QQQ 0.9085/1.2114, NVDA 0.7183/0.9051, AMD 0.6997/0.8877, TSM 0.8871/1.2521, AVGO 1.2155/1.5238, MSFT 0.5062/1.0400, TSLA 0.6784/1.0862. READ THE PAIR, NEVER THE HEADLINE: MSFT's 0.51 raw is one +15.51% gap and flips to fair at 1.04 ex-gap; TSLA's 0.68 is one -14.52% gap and flips to 1.09. Six of eight sit above 1.0 ex-gap -- premium is fair-to-rich across the list, not cheap. EVERY ROW CARRIES THE PRE-14:00Z UPPER-BOUND CAVEAT and should be overwritten by the first post-14:00Z run.",
- "AVGO_PRE_PRINT_FINDING": "NEW DURABLE FINDING, full text in holdings.json._AVGO_EVENT_PREMIUM_DID_NOT_RAMP_THE_NVDA_PATTERN_IS_NOT_A_LAW. Diffing iv_history across nine sessions 08-21..09-02: AVGO's ATM IV is FLAT at 0.4893-0.5149 with the ex-gap ratio parked at 1.40-1.48 into tonight's print -- NO ramp, against NVDA's four-session monotonic +4.8% before 2026-08-26. One reproduction, one failure to reproduce: the pre-print vol ramp is a thing that SOMETIMES happens, not a mechanism to expect. AND THE HEADLINE IS A CLOCK ARTIFACT: today's record ex-gap 1.5238 is +4.08% over yesterday's 1.4641, but was measured 30 minutes earlier in the session -- entirely inside the documented -2.5% to -4.4% opening-window inflation band. The honest read is FLAT day-over-day, not 'richest ever'. This ALSO answers the pre-print duty iv_sweep_deferred asked for: on tomorrow's raw ratio, AVGO's gap has not happened yet, so if it prints a large move that day enters the trailing window and the RAW ratio will read artificially CHEAP tomorrow on unchanged implied vol. Quote the EX-GAP ratio as the decision input and quote the raw one only to disarm it.",
- "DEFENSE_COMPLEX_the_GD_entry_premise_measured_one_day_on": {
-  "why_this_is_here": "The 2026-09-01 GD entry was justified in part by a uniform defense-complex rotation -- ALL SIX primes green against SPY -0.678%, ITA outperforming by 1.21pp, itself a deliberate reversal of the 08-31 de-rate that had vetoed the same name. That premise is worth re-measuring at the same clock time one day later rather than assumed.",
-  "measured_1334_1335Z": "ITA 224.725 -0.326% | RTX 204.255 -0.441% | NOC 529.845 -0.575% | LMT 541.235 -0.599% | LHX 261.640 -0.728% | GD 367.150 -0.612%, against SPY +0.012%. The complex is now uniformly RED and yesterday's rotation has not persisted into a second session.",
-  "THE_MAGNITUDE_TEST_and_it_is_the_whole_point": "Per _COMPLEX_VETOES_NEED_A_MAGNITUDE_TEST this is measured, not just noticed. ITA lags SPY by 0.34pp. The 2026-08-31 reading that legitimately vetoed GD was ITA -2.10% at 4.4x SPY. Today's lag is roughly a TENTH of that -- noise-scale on a flat tape, not a de-rate. VERDICT: the entry premise is WEAKENED, NOT WITHDRAWN, and this is explicitly NOT a sell signal. HARD RULE 5 gives underwater equities no price stop and permits an exit only on a HARD RULE 7 thesis BREAK; a one-session give-back of a one-session rotation is neither. Recorded so a later run does not rediscover it as news, and so the GD thesis is judged on defense fundamentals rather than on two consecutive daily prints.",
-  "what_would_change_it": "A multi-session ITA de-rate at 2x+ SPY's move, or a defense-specific fundamental (budget headline, program cancellation, guidance cut). Re-measure at the 14:15Z+ run."
- },
- "STALE_BLOCK_FLAGGED_IN_THE_UNION": "CORRECTION SURFACED BY THE MERGE, not a criticism of either run: the 'watchlist' block below still cites latest_morning.md header 2026-08-31 19:27Z as the source and lists GD as TAKEN -- it is carried forward from the 2026-08-31 brief and is A SESSION AND A HALF STALE. The freshest committed reports on master are latest_morning.md (2026-09-01 17:16Z) and latest_intraday.md (2026-09-01 19:02Z), both clean, no DATA ERROR. Use the EQUITY_candidates_2026-09-01_report block instead, and expect TODAY's report to land ~14:15Z per _REPORT_CRON_GAP_AT_THE_OPEN -- the 14:15Z+ run should act on that, not on either list here.",
- "EQUITY_candidates_2026-09-01_report": {
-  "_status": "NO ENTRY THIS RUN -- DEFERRED, NOT DECLINED. See the heartbeat note for the three independent reasons (opening-window slippage; today's report not yet on master; deployable $302.10 below the practical minimum so the ROTATION GATE governs).",
-  "_source_freshness": "Freshest committed report on master is latest_intraday.md stamped 2026-09-01T19:02Z -- YESTERDAY's. Header clean, no DATA ERROR. Per _REPORT_CRON_GAP_AT_THE_OPEN today's report lands ~14:15Z; the 14:15Z+ run should act on THAT, not on this list.",
-  "cleared_of_the_semis_ERN_flag_from_the_09-01_report": "UNP (RSI2 1.0), BLK (1.6), TMO (2.3), RTX (2.9), CAT (3.0), IWM (3.1), EMR (3.3), GS (5.0), GE (5.1), ETN (3.7), USB (4.1), DIA (3.8), TKR (8.4).",
-  "already_held_so_not_fresh_entries": "MMM (1.4), MDLZ (1.7), PNC (1.7), ROST (5.1), GD (5.2).",
-  "excluded_semis_ERN_complex": "AEHR 0.2, AMAT 1.4, ADI 4.7, LRCX 5.3, MRVL 5.6, TSEM 5.7 -- all deferred on the AVGO print tonight, not on their own merits.",
-  "excluded_own_earnings": "FDX (2026-09-17, inside a 1-3 week swing window), FCEL (reported am today, and SPEC sleeve).",
-  "excluded_sector_steer": "None on this list -- no oil-energy name printed RSI2 under 10.",
-  "OBSERVED_ALREADY_BOUNCING_at_the_open": "TMO +1.525% (609.66 vs 600.50) on an RSI2 2.3 print, GS +0.396%, BLK +0.393%. This is the _OPENING_WINDOW_SLIPPAGE mechanism visible in real time: an RSI2 mean-reversion signal computed on YESTERDAY's close, being relieved in exactly the minutes a first-post-open run would execute it. A run buying TMO now buys the bounce it meant to buy the dip of."
- },
- "equity_exits_taken_today": "2 - PNC (time stop, first-ever firing, -$4.41 red) and ROST (RSI2>=70 take-profit, +$1.19 green), both at 13:33Z by the first-post-open run. Exits are never throttled. Autonomous equity ENTRIES remain 0 of 3; options entries 0 of 8."
+ "monthly_rebalance": "Not due -- the MONTHLY REBALANCE DUE banner belonged to 2026-09-01. Remains a PROPOSAL to Ryan per HARD RULE 6; see _MONTHLY_REBALANCE_PROPOSAL_2026-09-01.",
+ "weekly_calibration": "NOT DUE. The v10 calibration ritual runs on the FIRST run of each Monday; today is Friday. The partial Friday review (Mon 08-31 through Thu 09-03) was pre-computed by the 11:30Z overnight run and must be APPENDED TO after today's close, not treated as final."
 }

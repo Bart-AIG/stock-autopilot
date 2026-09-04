@@ -31300,6 +31300,36 @@
       "tape": "Pre-market 13:16Z vs 09-03 closes: SPY 771.82 -0.175%, QQQ 718.56 +0.124%, NVDA 231.02 +1.125%. Mixed and muted, NOT the 'futures mostly lower' a search summary asserted -- numbers handed forward, verdict deliberately not. MDLZ (06:27Z) and MMM (07:10Z) last prints PREDATE the 12:30Z release and are not post-print reads; pre-market books 1.2-1.6% wide and unpriceable.",
       "why_flat": "Equities: market not open; and the report on master is the 09-03T19:02Z intraday, STALE for today, so no autonomous equity trade is permitted regardless -- the fresh 09-04 report lands ~14:15Z, which is also where the opening-window deferral wants the day's entry. Book is at 4 of the 3-4 target; deployable $1,266.90 (cash $1,459.18 - 5% reserve $192.28) covers a full entry, so the rotation gate is dormant. No time stop within 3 days (LLY 09-10, MDLZ 09-11, MMM 09-14, GD 09-15). Options: nothing placeable; TACTICAL's catalyst bar LIFTED at 12:30Z but a Friday entry stays barred on the weekend-gap ground instead.",
       "duties": "Heartbeat NOT stamped -- 13:20Z precedes the 13:30Z bell and v10 forbids stamping early; the first post-open run owns the stamp, the brief rebuild and the reset of the options loss cap + both entry throttles. No artifact rolled; trading day still 2026-09-03. Friday review was pre-computed 11:30Z and must be APPENDED after today's close, not re-run. Weekly calibration is Monday, not today."
+    },
+    {
+      "run_utc": "2026-09-04T13:42:00Z",
+      "run_type": "first_post_open_of_trading_day",
+      "trading_day_et": "2026-09-04",
+      "prompt_version": "v10 (pasted 2026-09-02) -- read from this run's own invocation stamp.",
+      "headline": "FIRST POST-OPEN run of 2026-09-04. Owns the heartbeat stamp, the market_brief rebuild and the reset of the options loss cap + both entry throttles. NO TRADE in either book. Not a no-op: measured a defect in the standing opening-print rule and recorded it as a durable finding.",
+      "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST per the 2026-08-28 sibling-collision rule. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, all pending_* zero) + 4 equities matched on qty AND avg price (LLY 0.420254@1189.76, MDLZ 7.988509@62.59, MMM 2.884552@173.34, GD 1.335314@374.44). total $3,826.45 / equity $1,940.27 / options $427.00 / cash $1,459.18 == unleveraged_buying_power. get_equity_orders and get_option_orders(created_at_gte=2026-09-04) both EMPTY -- no sibling entry, no overnight fill, assignment or expiration. Account confirmed 718757339 limited_margin / option_level_3 / agentic_allowed.",
+      "new_durable_finding": "_QUOTE_FEED_LAG_MEANS_WALL_CLOCK_CANNOT_CLEAR_THE_OPENING_WINDOW in holdings.json -- argued there, not re-argued here. One line: the 2026-08-21 remedy 're-quote ~5 minutes after 13:30Z' is written in wall-clock units while the artifact lives in the quote's VENUE timestamp, and two fetches (13:37Z -> venue 13:31:40Z; 13:42Z -> venue 13:33:40Z) both returned opening-window prints while the feed fell FURTHER behind. Detector: read venue_last_trade_time, not your own clock.",
+      "tape": {
+        "_note": "Numbers only; verdict deliberately not handed forward (2026-08-28). Venue timestamps 13:33:39-40Z, inside the opening window -- provisional.",
+        "SPY": "772.74 vs 773.17 close, -0.056%; 20d 769.2065, 50d 756.1394",
+        "QQQ": "719.885 vs 717.67, +0.309%; 20d 717.7140, 50d 711.0334",
+        "NVDA": "230.89 +1.068%",
+        "XLF": "58.275 -0.487%",
+        "macro": "August payrolls printed 12:30Z, PRE-BELL: NFP +162k vs +53k consensus, u-rate 4.1%, July revised to +21k. Resolved -- the 2026-08-26 unresolved-catalyst capstone does not bind today."
+      },
+      "position_verdicts": {
+        "SPY 2026-11-20 700P (hedge, Ryan's)": "HOLD. Mark 4.255 vs 7.49 basis, -43.2%. EXEMPT from all premium backstops per the ownership gate; held to its ~21-DTE roll/close decision WITH Ryan. No action available to this desk.",
+        "LLY": "HOLD (thesis-watch). 1155.09 vs 1189.7553 entry, -2.91%. Time stop 09-10.",
+        "MDLZ": "HOLD (thesis-watch). 61.21 vs 62.5899, -2.20%. Time stop 09-11.",
+        "MMM": "HOLD (thesis-watch). 167.55-167.92 vs 173.3371, -3.12%. Time stop 09-14.",
+        "GD": "HOLD (thesis-watch). 361.29 vs 374.4437, -3.53%. Time stop 09-15."
+      },
+      "why_flat": {
+        "equities": "Two independent bars, either sufficient. (1) SIGNAL SOURCE: the report on master is the 2026-09-03T19:02Z intraday -- stale for today; no DATA ERROR, just the wrong day -- and autonomous equity trades are signal-sourced only. (2) EXITS ARE STRUCTURALLY UNAVAILABLE REGARDLESS: all four swings are underwater, and the RSI2>=70 take-profit is gated on price > entry per the 2026-08-26 correction, so a fresh report could not have fired one either. No time stop inside the 3-day warn window (nearest LLY 09-10, 6 days out). No thesis flag fired. So the stale report cost nothing on the exit side today -- worth stating plainly rather than implying coverage was lost.",
+        "options": "No TACTICAL trigger: 7 minutes into the session, no structural level tested, and the volume denominator is unreadable in the opening window. No CORE candidate in hand; the 09-01 list has aged out and building a thesis from scratch minutes after the bell is manufacturing activity. Cap -$400 unused, 0 of 8 entries.",
+        "capital_frame_handed_forward": "Deployable $1,267.86 (ubp $1,459.18 less the 5% reserve $191.32) funds EITHER a CORE option OR the one remaining equity slot, not comfortably both. Recorded in market_brief.capital_state.THE_CROSS_BOOK_TENSION_TO_HAND_FORWARD so the ~14:15Z run does not spend the pool on a marginal option before the fresh report is readable."
+      },
+      "duties": "Heartbeat STAMPED 2026-09-04 (bell had rung; the three pre-open runs correctly declined). Brief REBUILT with recomputed 20/50 SMAs, today's catalysts and capital state; stale 09-02/09-03 dated blocks expired after confirming their durable halves were already promoted. Loss cap and both throttles RESET, broker-sourced (get_realized_pnl 09-04: 0 trades, $0). IV sweep DEFERRED to a post-14:00Z run -- every ATM row taken now would be an opening-window upper bound and overwritten anyway; flagged so the duty is handed forward, not dropped. Daily report due at/after 19:15Z, not this run. Weekly calibration is a MONDAY ritual, not due. Friday review: the 11:30Z run pre-computed Mon-Thu; it must be APPENDED TO after today's close."
     }
   ]
 }
