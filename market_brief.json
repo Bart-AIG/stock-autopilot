@@ -20,23 +20,36 @@
    "sma20": 769.2065,
    "sma50": 756.1394,
    "sma20_prior_session": 768.976,
-   "note": "20-day is RISING ~+0.23/session. Spot 772.74 sits +3.53 over the 20d and +16.60 over the 50d."
+   "note": "20-day is RISING ~+0.23/session. Spot 772.74 sits +3.53 over the 20d and +16.60 over the 50d.",
+   "sma20_fwd_path_if_flat": [
+    769.2,
+    769.21,
+    769.34,
+    769.37
+   ]
   },
   "QQQ": {
    "last_close": 717.67,
    "sma20": 717.714,
    "sma50": 711.0334,
    "sma20_prior_session": 717.563,
-   "note": "20-day RISING ~+0.15/session and spot is right on it: 719.885 is +2.17 over the 20d, +8.85 over the 50d. A level this close to spot is a real structural reference for a TACTICAL trigger, unlike a desk-drawn box."
-  }
+   "note": "20-day RISING ~+0.15/session and spot is right on it: 719.885 is +2.17 over the 20d, +8.85 over the 50d. A level this close to spot is a real structural reference for a TACTICAL trigger, unlike a desk-drawn box.",
+   "sma20_fwd_path_if_flat": [
+    717.45,
+    717.29,
+    717.25,
+    716.95
+   ]
+  },
+  "_union_note": "Both runs computed these independently and by DIFFERENT METHODS and agreed to four decimals (SPY 769.2065/756.1394, QQQ 717.7140/711.0334). Forward paths contributed by the 13:40Z run, per-session slopes by the 13:42Z run.",
+  "posture_levels_STALE_WARNING": "CLAUDE.md's Aug-Oct posture still quotes SPY 20d 748.5 / 50d 746.4 from 2026-08-05. FIVE WEEKS stale and materially wrong (live 769.21 / 756.14). SPY 773.17 is above both the stale band and the live 50-day, so the posture's own calibration reads 'business as usual under the caps'. Do not quote the 08-05 numbers as live."
  },
  "catalysts_next_5_sessions": [
-  "2026-09-02 PM (TONIGHT): AVGO 3.16 | SNOW 0.26 | HPE 0.91 | NTAP 2.04 | AI -0.33 | PVH 2.62 | FIVE 1.16 | GOLD 0.96",
-  "2026-09-03 am: CIEN 1.67 | CPB 0.39 | TTC 1.31 | BRC 1.47 | WLY 0.40",
-  "2026-09-03 PM: LULU 2.51 | ZS 0.88 | DOCU 0.96 | IOT 0.13 | PATH 0.13 | GWRE 0.85 | AMBA 0.08 | ASAN 0.05 | PL -0.05",
-  "2026-09-04: IRS (timing n/a). Thin day.",
-  "2026-09-08: GME 0.06 | CASY 6.76 | BRZE 0.08 | TTAN 0.26 | UNFI 0.62 | ABM 1.01",
-  "AHEAD (outside the 5-session window but inside every CORE 21-45 DTE window): ORCL and ADBE both 2026-09-10 PM."
+  "2026-09-04 (TODAY): August payrolls PRINTED 12:30Z -- RESOLVED. Earnings: IRS only (timing n/a). Thin.",
+  "2026-09-08 (Mon): ABM am | UNFI am | GME pm | CASY pm | BRZE pm | TTAN pm | AVO pm | INNV pm. No index-level event.",
+  "2026-09-09 (Tue): CHWY am | SIG am | KFY am | ASO am | CNM am | SAIL am | AEO pm | AVAV pm | COO pm",
+  "2026-09-10 (Wed): M am | TEN am | ORCL pm | ADBE pm | CPRT pm | RH pm | DSGX pm  <-- ORCL and ADBE are the two that matter",
+  "2026-09-11 (Thu): quiet on the high-cap calendar."
  ],
  "watchlist": {
   "TACTICAL": "SPY, QQQ, NVDA -- the only chains that clear the <=3%-of-mid gate at this account size. QQQ's 20-day SMA at 717.714 is the nearest genuine STRUCTURAL level (spot 719.885, +2.17 over it) and is the reference to watch rather than any desk-drawn range. Confirmation requires the two-bar window (break bar AND its holding bar) measured against the PRE-EVENT baseline, plus the defence-vs-break participation ratio.",
@@ -67,5 +80,15 @@
   "THE_CROSS_BOOK_TENSION_TO_HAND_FORWARD": "ONE CASH POOL. Deployable $1,267.86 funds EITHER a CORE options entry ($500-1,000 typical) OR the single remaining equity slot -- not comfortably both. Under THE CAPITAL POLICY an options entry that consumes the last deployable cash must beat the weakest position in EITHER book. The fresh 09-04 report lands ~14:15Z and is the only permitted source of an equity signal. So the correct posture for the next few runs is: do NOT spend this capital on a marginal options setup before the report lands -- not because options rank below equities by doctrine, but because committing the pool to a B-grade option would forfeit an unexamined A-grade equity entry, and the rotation gate exists precisely to force that comparison. If the report signals nothing A-grade, the capital is free for the options hunt with no such tension."
  },
  "monthly_rebalance": "Not due -- the MONTHLY REBALANCE DUE banner belonged to 2026-09-01. Remains a PROPOSAL to Ryan per HARD RULE 6; see _MONTHLY_REBALANCE_PROPOSAL_2026-09-01.",
- "weekly_calibration": "NOT DUE. The v10 calibration ritual runs on the FIRST run of each Monday; today is Friday. The partial Friday review (Mon 08-31 through Thu 09-03) was pre-computed by the 11:30Z overnight run and must be APPENDED TO after today's close, not treated as final."
+ "weekly_calibration": "NOT DUE. The v10 calibration ritual runs on the FIRST run of each Monday; today is Friday. The partial Friday review (Mon 08-31 through Thu 09-03) was pre-computed by the 11:30Z overnight run and must be APPENDED TO after today's close, not treated as final.",
+ "_catalysts_corrected_in_union": "The 13:42Z brief's catalyst list was CARRIED FORWARD STALE -- it still led with '2026-09-02 PM (TONIGHT): AVGO...' two sessions after that print. Replaced with the 13:40Z run's list, rebuilt live from get_earnings_calendar(09-04..09-11, high_market_cap). Same class as every stale-block finding in this repo: the block's CONCLUSION (ORCL/ADBE 09-10 govern CORE) was right, so nothing flagged the stale dates under it.",
+ "the_catalyst_that_governs_CORE": "ORCL and ADBE BOTH report 2026-09-10 PM. That date sits INSIDE EVERY CORE 21-45 DTE WINDOW (09-25 = 21 DTE, 10-16 = 42 DTE) and inside no TACTICAL window (a Friday scalp is force-flat by Monday 09-08's close). Per the 2026-08-28T15:35Z rule each track screens its OWN window -- so this is a real constraint on any CORE entry in the software/AI-infra complex and is NOT importable as an objection to a scalp.",
+ "THE_TACTICAL_NON_TRIGGER": {
+  "verdict": "NO TACTICAL TRIGGER EXISTS THIS RUN. Not 'declined on a filter' -- there is no level breaking.",
+  "measured": "QQQ 1-minute bars 13:30-13:36Z: open 719.41, session low 718.525, last 720.02. The 20-day SMA is 717.714. QQQ has NOT TRADED DOWN TO THE LEVEL AT ANY POINT TODAY -- it was cleared overnight by the gap and price has spent the whole session 0.8-2.9 points above it. SPY likewise dead flat in a 0.99-point range (771.88-772.87), 3.2 points above its own 20-day.",
+  "why_a_gap_is_not_a_break": "A TACTICAL trigger requires a structural level actually breaking NOW, entered near the level so the invalidation is cheap. A level cleared by a gap hands the desk an entry 0.35% ABOVE its own trigger, which is exactly the 2026-08-28T15:05Z late-entry detector: the -30% stop lands back AT the level, so the position cannot be wrong about timing without being wrong about thesis.",
+  "and_the_volume_clause_is_unreadable_here_anyway": "Opening-bar volume decayed 208,349 -> 104,828 -> 80,496 -> 53,068 -> 38,854 -> 77,491 -> 35,781 across the first seven minutes -- the first bar is 5.8x the seventh. This is the opening mirror of the 2026-08-27T19:45Z closing-auction finding: for roughly the first half hour there is no baseline that is neither inflated (session/first-hour) nor collapsing (trailing-local), so BOTH known denominator defects are live simultaneously. A confirmation ratio computed now carries no information in either direction."
+ },
+ "iv_sweep_DEFERRED_and_why": "DEFERRED to the first run at/after ~14:00Z, with the specific run named rather than left to nobody. Rationale: the 2026-08-28 audit measured ATM IV reading 2.5-4.4% HIGH in the opening window across four readings spanning a 12-vol index and a 32-vol single name. A row logged at 13:37Z is a known-biased upper bound that a later run must overwrite, and -- per the 2026-08-25T18:30Z lesson that iv_history.json is a TIME SERIES to be DIFFED -- an inflated row corrupts the day-over-day diff, which is the part that actually carries information. Logging it would be worse than not logging it. NOTE the 2026-09-02 union precedent: a sibling run performed the sweep with the caveat attached and that was also defensible; the difference is that this run is declining both options tracks on grounds that do not depend on an IV reading, so nothing is gated on the sweep.",
+ "_union_merge_note": "CONCURRENT SAME-SLOT COLLISION on the 2026-09-04 open, resolved as a UNION per CLAUDE.md -- never by picking a side. Two scheduler-fired runs (13:40Z and 13:42Z) each owned the first-post-open duties. THE BROKER WAS RE-READ AT 13:45Z AND BOTH ORDER ENDPOINTS WERE EMPTY: neither run traded, so there is no double-position risk -- this is an ARTIFACT collision only. The two agreed independently on everything material: zero-drift reconciliation (1 option + 4 equities), cash $1,459.18 == unleveraged_buying_power, deployable ~$1,267.9, equities barred on report staleness, no TACTICAL trigger, no CORE candidate. The 20/50-day SMAs were computed by DIFFERENT METHODS (13:42Z via get_equity_technical_indicators, 13:40Z by hand off 60 settled daily closes) and agreed to four decimals -- cross-validation, not duplication."
 }
