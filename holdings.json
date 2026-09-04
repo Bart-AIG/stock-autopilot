@@ -1,20 +1,17 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-03T19:20:00Z",
+  "updated_utc": "2026-09-04T13:42:00Z",
   "_realized_options_pnl_today": {
-    "trading_day_et": "2026-09-03",
+    "trading_day_et": "2026-09-04",
     "realized_usd_options": 0.0,
     "closing_trades_options": 0,
     "cap_options_usd": -400.0,
-    "realized_usd_equities": -3.22,
-    "closing_trades_equities": 2,
-    "source": "BROKER-READ (options) at 2026-09-03T14:00Z via get_realized_pnl(718757339, [equity], 2026-09-03..2026-09-03): still one bucket 04:00-13:37:18Z, realized -3.22, trades 2 -- unchanged from 13:36Z read. get_realized_pnl for options not re-fetched (no closing options today; 0 trades). Matches PNC (-4.41) + ROST (+1.19) exactly. Broker re-verified at 14:00Z; no new activity.",
-    "note": "This key historically tracked ONLY the options loss cap. Since the 2026-08-26 equity-book grant it also carries equity-realized P/L for the trading day so any run can compute both throttles at a glance without re-hitting the broker. Options day starts fresh 0/8 entries, -$400 cap unused; equity day starts fresh 0/3 entries (the two exits are exits, not entries, and do not count).",
-    "entry_throttle_options_used": 0,
-    "entry_throttle_options_max": 8,
-    "entry_throttle_equities_used": 0,
-    "entry_throttle_equities_max": 3,
-    "reset_from_prior_day": "2026-09-02 (0/8, 0/3, realized 0.0/0.0)"
+    "realized_usd_equities": 0.0,
+    "closing_trades_equities": 0,
+    "entry_throttle_options": "0 of 8 used",
+    "entry_throttle_equities": "0 of 3 used",
+    "source": "BROKER-READ at 2026-09-04T13:36Z. get_realized_pnl(718757339, 2026-09-04..2026-09-04) returns a single bucket 04:00-13:33:03Z with number_of_trades 0 and total_returns 0. get_equity_orders and get_option_orders(created_at_gte=2026-09-04) both EMPTY. Reset owned by this run as the FIRST POST-OPEN run of the 2026-09-04 trading day -- the 12:52Z/13:00Z/13:20Z pre-open runs correctly declined to roll it.",
+    "note": "Tracks AGENTIC-placed realized P/L for the trading day, which is what the -$400 options cap gates. Do NOT type a cap or throttle figure you did not read this run (_RESET_VALUES_ARE_WRONG_BY_CONSTRUCTION_ON_A_POST_CLOSE_RUN)."
   },
   "positions": [
     {
@@ -2586,5 +2583,21 @@
       "but_TACTICAL_STAYS_BARRED_ON_A_DIFFERENT_GROUND": "A Friday TACTICAL entry's hard time stop is the NEXT session's close = MONDAY. Per the 2026-08-28 gap measurement the -30% stop sits INSIDE one median overnight gap, and a WEEKEND gap runs 1.36x the mean / 1.55x the frequency of a >0.5% move (n=96 Mondays). So the position would be unstopped across ~72 hours. SAME ANSWER, DIFFERENT REASON -- written down so the first post-open run does not conclude 'catalyst cleared, scalp away'.",
       "equities_and_CORE_unaffected": "A macro print is ordinary risk on a 1-3 week swing and a 21-45 DTE CORE hold; the [ERN] absolute bar is about a name's OWN earnings, not the macro calendar. Neither book is declined on catalyst grounds today."
     }
+  },
+  "_QUOTE_FEED_LAG_MEANS_WALL_CLOCK_CANNOT_CLEAR_THE_OPENING_WINDOW": {
+    "measured_utc": "2026-09-04T13:42:00Z",
+    "status": "DURABLE. Corrects the REMEDY of the 2026-08-21T13:32Z opening-print rule, not its diagnosis.",
+    "headline": "THE STANDING FIX -- 'RE-QUOTE AT LEAST ~5 MINUTES AFTER 13:30Z' -- IS CALIBRATED ON WALL-CLOCK TIME, BUT THE ARTIFACT IT GUARDS AGAINST IS A PROPERTY OF THE DATA'S VENUE TIMESTAMP. THE CONNECTOR'S QUOTE FEED LAGS WALL CLOCK BY AN AMOUNT THAT IS NEITHER ZERO NOR CONSTANT, SO WAITING FIVE MINUTES AND RE-QUOTING RETURNED A PRINT FROM INSIDE THE OPENING AUCTION WINDOW -- TWICE.",
+    "measurement": {
+      "fetch_A": "wall clock ~13:37:00Z -> SPY venue_last_trade_time 13:31:40.523Z. Lag ~5.4 min.",
+      "fetch_B": "wall clock ~13:42:00Z -> SPY venue_last_trade_time 13:33:40.248Z. Lag ~8.3 min.",
+      "the_damning_ratio": "Between the two fetches wall clock advanced ~5.0 min while venue time advanced 2.0 min -- the feed progressed at ~40% of real time, i.e. it FELL FURTHER BEHIND. Re-fetching is therefore not guaranteed to walk you out of the opening window; it can walk you deeper into the lag.",
+      "uniform_across_symbols": "All 8 symbols in fetch A carried 13:31:34-13:31:40Z venue times (SPY, QQQ, LLY, MDLZ, MMM, GD, NVDA, XLF). A single lagged symbol would be a per-instrument quirk; eight at one timestamp is the feed.",
+      "materiality": "Not cosmetic. MMM marked 167.92 in fetch A and 167.5504 in fetch B -- -0.37, -0.22% -- and GD 361.2199 -> 361.295. Position marks and any percentage computed off them move between two reads that a wall-clock rule would call equally settled."
+    },
+    "the_detector": "READ venue_last_trade_time ON THE QUOTE, NOT YOUR OWN CLOCK. A print is settled when its VENUE timestamp is at/after ~13:35Z, regardless of when you fetched it. If the venue timestamp is still inside the opening window, the quote is provisional no matter how long you waited -- re-fetch and CHECK AGAIN rather than assuming the wait did it. The same applies to get_option_quotes, which returns quote.updated_at (the SPY 700P hedge read updated_at 13:31:41.8Z in fetch A).",
+    "why_it_survived": "This file's most-repeated shape: a check that passes for the wrong reason. A run that waits past 13:35Z and re-quotes has followed the 2026-08-21 rule to the letter, reports 'settled numbers', and is holding opening-auction prints. Nothing errors. The 2026-08-21 incident itself was diagnosed correctly -- an opening print flipped the SIGN of a P/L reported to Ryan -- and the remedy was simply written in the wrong units.",
+    "honest_scope": "n=2 fetches on ONE morning, one symbol set. This may be opening-window congestion that clears later in the session rather than a standing property of the feed, and a caching layer in the connector would produce the same signature. Do NOT generalize it into 'the feed is always ~8 minutes late'. The DETECTOR is the durable half and costs nothing: the venue timestamp is returned on every quote already. A later run should re-measure the lag mid-session and record whether it decays.",
+    "changed_no_decision": "Correct by the file's own standard for an input audit. No trade was placeable in either book this run -- the equity report on master is stale so signal-sourced trades are barred, and no options trigger existed 7 minutes into the session. Both fetches agree that all four swings are underwater, so the RSI2>=70 take-profit was unavailable on either read."
   }
 }
