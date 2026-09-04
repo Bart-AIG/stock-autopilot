@@ -31249,6 +31249,30 @@
       "headline": "15th post-close no-op. Market shut (next open 13:30Z, Fri 2026-09-04). Stand-down per POST-CLOSE RUN PROTOCOL.",
       "reconciliation": "ZERO DRIFT both books vs broker. Options 1: SPY 2026-11-20 700P qty 1.0000 @749.00. Equities 4: LLY 0.420254, MDLZ 7.988509, MMM 2.884552, GD 1.335314, all avg prices matched. Cash 1459.18 / total 3845.79 / unleveraged BP 1459.18.",
       "actions": "NONE. No artifact rolled; trading day still 2026-09-03 (heartbeat stamped 13:34Z, EOD report written 19:15Z, both owned by earlier runs)."
+    },
+    {
+      "run_utc": "2026-09-04T11:30:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-03",
+      "headline": "16th post-close no-op on the book -- but NOT a no-op run: the due FRIDAY REVIEW is pre-computed here from broker data, which all 15 prior overnight runs deferred to the 09-04 session. Market shut; nothing placed.",
+      "reconciliation": "ZERO DRIFT both books, broker read FIRST. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00) + 4 equities matched on qty AND avg price. total $3,846.03 / cash $1,459.18 == unleveraged_buying_power. No overnight fill, assignment or expiration.",
+      "friday_review_PARTIAL_week_2026-08-31_through_09-03": {
+        "scope_stated_honestly": "Mon 08-31 through Thu 09-03 ONLY. Friday's session has not opened, so this is the week MINUS its last day and must be appended to, not treated as final. Pre-computed now because a redundant overnight run is the right place for work that needs no live quotes.",
+        "source": "BROKER, per the standing rule that the journal is the thesis record and the broker is the ledger of record: get_pnl_trade_history(week), get_realized_pnl(08-31..09-04), get_equity_orders and get_option_orders(created_at_gte=2026-08-31).",
+        "equity_book": "2 entries, 2 exits, both exits on 09-03. ENTRIES: MMM $500 08-31T13:37:54Z, GD $500 09-01T13:36:10Z. EXITS: ROST +$1.19 (take-profit, RSI2>=70 while green) and PNC -$4.41 (14-day time stop, green-or-red). Realized -$3.22 on 2 closes; hit rate 1/2; avg win +$1.19 vs avg loss -$4.41; PAYOFF RATIO 0.27, so BREAKEVEN WIN RATE is 79% against 50% actual -- MARGIN -29 pts. n=2. That number is arithmetic, not evidence: at n=2 it is one trade wide and must not be read as a degraded edge.",
+        "options_book": "ZERO orders all week -- no entries, no exits, no realized P/L, cap untouched. The only option held is Ryan's authorized SPY 700P hedge, which is backstop-exempt and was never a candidate for action.",
+        "exit_mechanism_split_the_v10_duty": "take-profit 1 / time stop 1 / thesis 0. The v10 review asks whether the time stop is closing nearly everything, because that would mean the book is not mean-reverting and the entry trigger needs review. At n=2 that question is UNANSWERABLE and 50% is not a signal. Ask it again once the mechanism has a real sample.",
+        "best_decision_process_not_pnl": "Taking the PNC time stop at -$4.41 on its first-ever firing. A red mechanical exit executed without hesitation is the mechanism working: it is the ONLY loss discipline the book has under HARD RULE 5's no-price-stop policy, and the first chance to soften it is exactly when it would stop being mechanical.",
+        "worst_decision_process_not_pnl": "None identified. The closest call is 09-03 ending flat with $1,266 deployable and two candidates (AMAT, RTX) graded B+/borderline A- with verified-intact theses. Declining them was CORRECT under the concentration policy -- a B-grade gets no position, not a small one -- and the day's report said so plainly rather than dressing idle cash as caution.",
+        "DRIFT_CHECK": {
+          "overrides_logged_this_week": "Effectively none, because the standing override was RESOLVED rather than repeated: the desk-invented magnitude floor had overridden the written RSI2>=70 exit ELEVEN times, was flagged past the 3x threshold, and on 09-02 Ryan's policy rewrite VOIDED it. ROST on 09-03 is the first exit taken under the repeal. That is the drift check functioning end to end -- repeated override detected, escalated, and converted into a rule change.",
+          "structure_drift_options": "Zero structures used, so the 'nearly every thesis expressed one way' test cannot fire. Stated honestly as the prompt demands: THIS CLEAN DRIFT CHECK REFLECTS INACTIVITY, NOT DISCIPLINE. An options book that placed nothing in a week has not demonstrated balanced structure selection; it has demonstrated nothing.",
+          "structure_drift_equities": "Both entries were dollar-based market buys of low-beta large-caps at an identical $500. The sameness is real but is explained by the OLD sizing band, not by preference drift -- see the sizing finding below."
+        },
+        "finding_named_not_reargued": "_THIS_WEEKS_ENTRIES_PREDATE_THE_SIZING_POLICY_SO_CALIBRATION_HAS_NO_IN_REGIME_SAMPLE in holdings.json: both entries were $500, below the new ~$600 minimum, so the concentration policy has n=0 in-regime entries and n=0 in-regime closes. Consequence for the weekly calibration -- and the calendar correction that 2026-09-07 is LABOR DAY, so the duty falls to TUESDAY 2026-09-08 -- are in that key."
+      },
+      "why_flat": "Market shut (bell 20:00Z; next open 13:30Z). Nothing placeable in either book. No artifact rolled: heartbeat unstamped, brief unrolled, loss cap and both entry throttles unreset -- they reset at the next open, not at the UTC rollover. daily_options_report.md for 09-03 stands as written at 19:15Z; nothing material occurred to justify a rewrite.",
+      "next_session_watchpoint": "August nonfarm payrolls prints today 08:30 ET = 12:30Z, ~60 min before the open. Already verified 09-03T17:45Z. TACTICAL is barred session-wide on catalyst grounds -- the print sits inside every scalp's hold window. Re-quote at least ~5 min after 13:30Z before pricing any decision."
     }
   ]
 }
