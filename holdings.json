@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-04T17:19:00Z",
+  "updated_utc": "2026-09-04T17:35:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-04",
     "realized_usd_options": 0.0,
@@ -2879,5 +2879,33 @@
     "DETECTOR": "Before testing ANY completed-close price clause against a structural level, reconcile the candidate bucket against its 1-minute constituents and take the LAST minute's close as the interval close -- never the bucket's reported close. This is the same 1-minute reconciliation the volume rules already demand, so it costs no extra call; what is new is that it must be run for the PRICE test too, and must be run even when no volume clause will be evaluated. A bucket flagged as holed for volume purposes has an untrustworthy OHLC as well: this file already knows a holed bucket's LOW understates the interval (2026-08-27 FLOOR rule, re-confirmed 16:05Z today) -- the CLOSE is corrupted by exactly the same mechanism and nobody had said so.",
     "consequence_for_the_20day_crossing_count": "The crossing count adopted at 15:47Z as a free pre-screen is computed from completed 5-minute closes, so it inherits this defect directly. The 16:05Z run extended the count to 5 and checked that it survived the holes -- correctly, and that check is now understood to have been load-bearing rather than incidental. Re-derive the count from hole-corrected closes, or it will count fictional crossings; on today's SPY series the raw 15:30Z close would have added a spurious crossing to a name that in truth never lost its 20-day all session (true minimum close 769.250, +0.006% above).",
     "honest_scope": "n=1 window, two symbols, one session, and IT CHANGED NO DECISION -- which is the condition under which this file's own standard says a filter audit is credible. TACTICAL was declined this run on the late-entry arithmetic (the SPY 20-day was never lost, so there was no reclaim to trade, and price sits 1.6 points above the level 40 minutes on), not on anything measured here. What is established is STRUCTURAL rather than statistical, like the RSI2-saturation finding: a whole-bar substitution reports a single minute's close as the interval's, and a single minute's close can sit on either side of a level, so no sample size is needed to show the verdict can invert. What is NOT established is how often the substituted minute lands across a level that matters."
+  },
+  "_THE_QQQ_20DAY_IS_NOT_A_TRADEABLE_LEVEL__VOLUME_CONFIRMED_AND_THE_LEVEL_FAILED": {
+    "measured_utc": "2026-09-04T17:35Z",
+    "headline": "QQQ lost its 20-day SMA intraday on the FIRST volume reading of this arc that clears EVERY denominator -- and it is still not a trigger, because the LEVEL fails its own prescreen. The usual failure is inverted: normally the level looks fine and the volume clause vetoes. Here volume confirmed and the level is the thing that is meaningless.",
+    "the_level": "20-day SMA 717.7140, computed off the last 20 daily closes through 09-03 and matching the two-method cross-validation inherited from this morning to 4dp. Spot 717.300 at 17:31Z = 0.414 BELOW it (-0.058%).",
+    "why_it_is_not_a_level_the_free_prescreen": {
+      "intraday_crossings_today": "FOUR crossings of 717.7140 in one session: below at the 15:30 open (717.05), above at 15:40 (717.760), back below at 15:45 (717.340), above at 16:05 (718.075) and held there for ~80 minutes to a 719.470 high, back below at 17:25 (717.505). Two of those crossings came ten minutes apart.",
+      "daily_context_which_is_the_damning_half": "QQQ has closed on BOTH sides of this average for eight sessions and only flipped sign 3 times in 18. It closed BELOW on 08-24, 08-25, 08-26, 08-28, 08-31, 09-01, 09-02 and 09-03 -- and yesterday's close was 717.67 against an SMA of 717.7140, i.e. 0.044 BELOW. The index has been sitting ON this line for over a week.",
+      "conclusion": "Today's cross is not a level giving way. It is the index oscillating around a value it has been pinned to for eight sessions. Breaking it carries no information, and no volume reading can supply information a level does not have."
+    },
+    "the_volume_clause_PASSED_and_that_is_the_notable_part": {
+      "break_bar": "17:25Z QQQ 5-min, volume 141,697.",
+      "denominators_all_three": "trailing-30 local mean 132,891 -> 106.6%; early-session (15:35-16:00) baseline 66,235 -> 213.9%; session mean ex-candidate 100,717 -> 140.7%. Clears every one, including the strictest.",
+      "feed_integrity_checked_first": "All six QQQ 5-min buckets 17:00-17:25 reconcile EXACTLY against their 1-minute sums (119,053 / 120,233 / 123,785 / 134,108 / 239,168 / 141,697 -- zero discrepancy in either direction), so no holed denominator is doing this work. SPY's 17:25 bucket likewise exact (81,834).",
+      "so_the_veto_is_not_a_volume_veto": "Every prior decline in this arc rested at least partly on participation. This one cannot, and saying so is the point of recording it."
+    },
+    "the_test_that_actually_kills_it_defence_vs_break": {
+      "rule_applied": "The 2026-08-28 defence-versus-break ratio: a breakdown that matters takes MORE participation to break a level than it took to defend it.",
+      "measured": "The 17:20Z bar was the session's heaviest at 239,168 (180% of the trailing-30 mean) and it was a DOWN bar that closed at 717.740 -- 0.026 ABOVE the level, i.e. the level was DEFENDED on the day's biggest print. The 17:25Z break bar took 141,697 = 59.2% of that. Participation fell 41% between the defence and the break.",
+      "reading": "Sellers finished at the line; what followed is drift, not distribution. Identical shape to the 2026-08-28 QQQ 716.52 case (defence 162.5%, break 91.9%/57.6%), which reverted within six minutes."
+    },
+    "three_further_independent_grounds": {
+      "price_clause_INCOMPLETE": "The two-bar clause needs a completed close beyond the level AND a holding bar. 17:25Z is the FIRST completed close below (717.505); the 17:30Z bar was still forming at decision time. One bar is not the trigger, and entering on it is trading the anticipation.",
+      "index_agreement_FAILS": "SPY 769.590 is still +0.384 ABOVE its own 20-day (769.2065) and has not tested it. A QQQ-only break with SPY holding its level is a divergence, not a tape.",
+      "friday_weekend_gap": "2026-09-04 is a Friday. A TACTICAL scalp not closed by the bell carries a weekend whose MEDIAN gap (0.342%) exceeds the entire -30% stop distance in underlying terms. Unchanged and still binding."
+    },
+    "honest_scope": "This changed NO decision -- the trade was declined on four independent grounds and the level prescreen alone was sufficient. That is the only condition under which a filter's inputs can be audited credibly. It is recorded because it is the first clean instance of the INVERSE case, and because a later run that sees a confirmed volume reading on this level must not read it as the arc's first real signal.",
+    "transferable": "A volume clause measures whether participation arrived. It cannot measure whether the thing participation arrived AT means anything. When the volume finally confirms, that is the moment to re-audit the LEVEL -- not the moment to trust the filter. Count the crossings first: it is free, it needs no live data, and here it settled the question before any denominator was computed."
   }
 }
