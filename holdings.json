@@ -2746,6 +2746,69 @@
     "the_trap_it_guards_against": "The inverse error is the tempting one: a desk sitting on $1,266.73 of idle cash next to four sub-minimum positions feels UNDER-deployed and reaches for the best available name to fill the slot. Full deployment raises the cost of a bad entry; it does not lower the bar for one. Idle cash is the residual of quality and being flat is a correct state.",
     "note_on_the_current_book": "The book's shape -- four small, equally-weighted positions -- is precisely what the 09-02 change was written to move away from. Nothing is to be DONE about that directly: HARD RULE 5 permits no exit here, and selling a sound thesis to re-size is churn. The four will resolve on their own exits (time stops 09-10 through 09-15) and the capital will re-deploy under the new policy then."
   },
+  "_A_RISING_200DAY_CAN_BE_A_WINDOW_ARTIFACT__MEASURE_THE_CUSHION_IN_SESSIONS_NOT_IN_PERCENT": {
+    "measured_utc": "2026-09-04T15:20:00Z",
+    "headline": "LIN cleared the report's 'oversold inside a RISING 200-day uptrend' gate at +0.26% cushion -- and the 200-day is rising ONLY because last autumn's lows are rolling off the back of the window. Frozen at today's price, the average CROSSES ABOVE spot in 4 sessions, inside a 14-session swing hold. The entry gate expires before the trade does.",
+    "the_measurement": {
+      "spot": 481.43,
+      "sma200_thru_09_03": 480.1777,
+      "cushion_pct": 0.26,
+      "sma200_slope_per_day": 0.294,
+      "sma200_rise_over_20_sessions": 5.3844,
+      "sma50": 502.4067,
+      "sma20": 485.2383,
+      "spot_vs_sma50_pct": -4.18,
+      "spot_vs_sma20_pct": -0.78,
+      "rsi2_settled": 11.6,
+      "rsi14": 49.4,
+      "pct_off_52wk_high": -11.9,
+      "note": "Price is BELOW both the 20- and 50-day while sitting 0.26% above the 200-day. The 50-day (502.41) is 22.23 ABOVE the 200-day and falling toward it."
+    },
+    "why_the_gate_passes_for_the_wrong_reason": "Decomposing the rolling window settles it arithmetically. Over the last 20 sessions the closes ENTERING the 200-day window averaged 485.24; the closes LEAVING it averaged 431.39 -- a +53.84 gap that mechanically lifts the average +5.38. The 200-day is climbing out of the November-December 2025 lows (389-430), NOT because LIN is advancing. LIN is -11.9% off its July high of 546.64 and has not filled the -5.95% earnings gap of 2026-07-31 (508.64 -> 478.38 on 5.2M shares, ~2.5x normal) in the five weeks since.",
+    "the_projection": "Holding SPOT FROZEN at 481.43 and rolling the window forward: +1 session 480.4956 (+0.194%), +3 481.1703 (+0.054%), +5 481.8783 (-0.093% -- CROSSED), +7 482.6150 (-0.246%), +10 483.7097 (-0.471%), +14 485.2321 (-0.784%). The position would go from 'above a rising 200-day' to 'below its 200-day' -- a THESIS-CHECK flag on its own ledger row -- with no selling whatsoever, purely from the window rolling.",
+    "the_detector": "Measure the 200-day cushion in SESSIONS, not in percent: sessions_to_cross = (spot - sma200) / sma200_slope_per_day. If that number is shorter than the trade's hold period (14 sessions under SWING_TIME_STOP_DAYS), the uptrend gate is satisfied only for part of the hold and must not be treated as a trend confirmation. Cheap confirmator, one extra SMA: if price is BELOW the 50-day while the 50-day is well ABOVE the 200-day, the 'uptrend' is a rolling-window artifact -- the short averages are descending toward the long one.",
+    "scope_tested_against_the_held_book_and_it_is_NOT_systematic": {
+      "method": "sma(200,day) via get_equity_technical_indicators, last 22 values, slope from the final two settled bars; spot frozen.",
+      "LLY": {
+        "spot": 1143.51,
+        "sma200": 1062.6887,
+        "cushion_pct": 7.61,
+        "slope_per_day": 0.6716,
+        "sessions_to_cross": 120
+      },
+      "MMM": {
+        "spot": 168.74,
+        "sma200": 160.8675,
+        "cushion_pct": 4.89,
+        "slope_per_day": 0.0036,
+        "sessions_to_cross": ">200"
+      },
+      "MDLZ": {
+        "spot": 61.625,
+        "sma200": 59.0729,
+        "cushion_pct": 4.32,
+        "slope_per_day": 0.0479,
+        "sessions_to_cross": 53
+      },
+      "GD": {
+        "spot": 358.72,
+        "sma200": 354.4446,
+        "cushion_pct": 1.21,
+        "slope_per_day": 0.1081,
+        "sessions_to_cross": 40
+      },
+      "LIN_candidate": {
+        "spot": 481.43,
+        "sma200": 480.1777,
+        "cushion_pct": 0.26,
+        "slope_per_day": 0.294,
+        "sessions_to_cross": 4
+      },
+      "verdict": "All four HELD positions clear a 14-session hold with room to spare -- the nearest (GD) is 40 sessions out, 10x LIN's horizon. So the entry gate has NOT been systematically hollow and this is not a book-wide indictment. LIN is an outlier by an order of magnitude. Recording the negative result matters as much as the positive one: it is what makes the finding specific rather than a general suspicion of the screen."
+    },
+    "relation_to_prior_findings": "This is the 2026-08-25 fast-moving-average finding ('a correctly re-derived structural level can itself be moving fast; compute what LEAVES the window over the intended hold period') generalized from an intraday TRIGGER to an ENTRY GATE. That rule's test -- 'if the level moves more over the hold period than the trade's own profit target, the level is not tradeable' -- nearly fires here too: the 200-day travels +5.05 over 14 sessions against the report's stated target move of +10.34, i.e. 49% of the whole objective. It is also this file's most-repeated shape, a check that passes for the wrong reason: nothing errored, the screen behaved exactly as written, and a hollow gate is indistinguishable from a real one unless the cushion is measured as a duration.",
+    "honest_scope": "n=1 candidate and it changed no position -- LIN was declined on the full stack (grade B-minus/C: a 0.26% uptrend cushion, price below both short averages, a five-week-old unfilled earnings gap as the only catalyst, RSI2 at the very edge of the screen's <10 gate, and no answer to 'why NOW' on a -0.16% session). The finding is therefore recorded on a run where acting on it cost nothing, which is the only condition under which an entry gate's inputs can be audited credibly. It does NOT claim the screen is broken: it claims one of its two gates needs a duration attached before it can be read as a trend."
+  },
   "_SECTOR_RELATIVE_MOMENTUM_SEPARATES_A_DIP_FROM_A_DERATE": {
     "measured_utc": "2026-09-04T15:25:00Z",
     "headline": "The RSI2 screen's rising-200-day gate certified LIN as 'oversold inside a rising uptrend' while LIN was 0.42% above a 200-day it is about to lose, 11.79% off its July high, and FLAT for twelve months in a sector that made +14.8%. One extra measurement -- the name's 12-month return against its own sector ETF -- separates a dip from a de-rate, and the report cannot see it.",
@@ -2765,5 +2828,11 @@
     "why_it_is_not_the_void_cash_floor_returning": "It is a POSITION-COUNT gate, not a percentage cash target, and it does not reserve any cash: with 3 positions the formula is well-defined and the book deploys fully into the 4th. It only binds at the target count, and it binds on COUNT, which the concentration policy sets explicitly. Nothing here re-derives a cash percentage, and no cash is being held back for a better setup -- that would require the catalyst-and-expiry record the policy demands.",
     "ESCALATED_TO_RYAN": "YES -- recorded in _open_questions_for_ryan.q3_slot_denominator. An unattended run may apply the stricter reading; it may not settle which denominator Ryan meant. This will recur on every run while the book sits at 4.",
     "changed_a_decision": "PARTIALLY. PM graded A- this run on the full entry stack and was declined on the combination of this above-target gate and the size/selectivity test; under the band reading it would have been a genuinely closer call at $1,155. LIN was vetoed on trend structure and would have been declined under either denominator."
+  },
+  "_union_merge_note_2026-09-04T15:30Z": {
+    "resolved_utc": "2026-09-04T15:35:00Z",
+    "what": "CONCURRENT SAME-SLOT COLLISION, resolved as a UNION per CLAUDE.md -- never by picking a side. Two scheduler-fired runs (15:20Z and 15:30Z) each graded the fresh 15:01Z intraday report's new LIN signal. THE BROKER WAS RE-READ AT 15:33Z AND get_equity_orders WAS EMPTY for 2026-09-04: neither run traded, so there is no double-position risk -- an ARTIFACT collision only.",
+    "cross_validation_not_duplication": "Both runs independently reached VETO on LIN by DIFFERENT measurements, which is the strongest form of agreement available here. The 15:20Z run measured the 200-day CUSHION IN SESSIONS rather than in percent (_A_RISING_200DAY_CAN_BE_A_WINDOW_ARTIFACT__MEASURE_THE_CUSHION_IN_SESSIONS_NOT_IN_PERCENT); the 15:30Z run measured SECTOR-RELATIVE MOMENTUM and the SMA50 slope against the SMA200 (_SECTOR_RELATIVE_MOMENTUM_SEPARATES_A_DIP_FROM_A_DERATE). Neither derives from the other and both are KEPT -- they attack the same gate defect from opposite ends and are more useful together than either alone.",
+    "how_resolved": "Master taken as the base so the 15:20Z finding survives intact; the 15:30Z run's two findings layered on; _current_state_run taken from the LATER run (15:30Z) per the standing rule; _open_questions_for_ryan unioned key-by-key so q3_slot_denominator is added without disturbing q1/q2. trade_journal.json keeps BOTH entries ordered by run_utc, deduped on exact content per _JOURNAL_UNION_MUST_DEDUP_ON_EXACT_CONTENT_NOT_A_COMPOSITE_KEY."
   }
 }
