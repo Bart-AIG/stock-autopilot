@@ -268,21 +268,21 @@
   },
   {
    "date": "2026-09-04",
-   "measured_utc": "2026-09-04T14:03:00Z",
-   "spot": 772.22,
-   "atm_strike": 772.0,
-   "atm_iv": 0.113323,
+   "measured_utc": "2026-09-04T15:32:34Z",
+   "spot": 769.1,
+   "atm_strike": 769.0,
+   "atm_iv": 0.115112,
    "dte_used": 28,
    "expiry": "2026-10-02",
    "rv_30d": 0.11596,
    "rv_30d_ex_top2": 0.097486,
-   "iv_rv_ratio": 0.9773,
-   "iv_rv_ratio_ex_top2": 1.1625,
+   "iv_rv_ratio": 0.9927,
+   "iv_rv_ratio_ex_top2": 1.1808,
    "largest_1d_move_in_window_pct": 1.787,
-   "_call_put": "call 0.101402 / put 0.125244, averaged per the IV method.",
+   "_call_put": "call 0.102893 / put 0.127330, averaged per the IV method.",
    "_rv_provenance": "rv_30d / rv_30d_ex_top2 computed off SETTLED daily closes through 2026-09-03 (30-return window). Today's live spot NOT included -- intraday moves cannot enter the rv window.",
-   "_timing_note": "Deferred IV sweep, assigned by the 13:40Z/13:50Z runs to the first run at/after ~14:00Z. Quote venue/updated_at timestamps 14:01-14:04Z, ~0-10s lag, so the opening-window inflation caveat is DISCHARGED BY MEASUREMENT (venue timestamp), not by wall clock -- per _QUOTE_FEED_LAG_MEANS_WALL_CLOCK_CANNOT_CLEAR_THE_OPENING_WINDOW and its per-session qualifier.",
-   "_scheduled_rolloff": "Largest return in the window is 2026-08-04 +1.79%; it EXITS after 8 more daily closes. Ex-top1 rv would be 0.1070, taking the RAW ratio 0.9773 -> 1.0594 WITH IMPLIED VOL UNCHANGED. Held fixed in this projection: atm_iv at today's 0.113323. See holdings.json._THE_RAW_IV_RV_RATIO_HAS_A_SCHEDULED_JUMP_AND_THE_DATE_IS_COMPUTABLE_TODAY."
+   "_timing_note": "OVERWRITES the 14:03:00Z row per the IV method's overwrite-today's-row rule. The 14:03Z reading was taken +33 min after the open at the then-ATM 772 strike (atm_iv 0.113323); this one is +122 min at the now-ATM 769 strike. BOTH corrections were MEASURED, not applied from a remembered constant, per holdings.json._OPENING_WINDOW_IV_DISCOUNT_IS_A_FUNCTION_OF_ELAPSED_TIME. (a) ELAPSED-TIME artifact, isolated by re-quoting the SAME 772 strike: 0.113323 -> 0.113323 = +0.000% over 93 minutes. (b) STRIKE-MIGRATION, measured at ONE instant across both strikes so no time effect can contaminate it: see holdings.json._THE_ATM_STRIKE_MIGRATES_WITH_SPOT_AND_THE_SKEW_SLOPE_IS_BIGGER_THAN_THE_OPENING_ARTIFACT.",
+   "_scheduled_rolloff": "Largest return in the window is 2026-08-04 +1.79%; it EXITS after 8 more daily closes. Ex-top1 rv would be 0.1070, taking the RAW ratio 0.9927 -> 1.0758 WITH IMPLIED VOL UNCHANGED. Held fixed in this projection: atm_iv at this run's 0.115112 (the 14:03Z projection held the superseded 0.113323 and is restated here, not re-derived). See holdings.json._THE_RAW_IV_RV_RATIO_HAS_A_SCHEDULED_JUMP_AND_THE_DATE_IS_COMPUTABLE_TODAY."
   }
  ],
  "QQQ": [
@@ -551,21 +551,21 @@
   },
   {
    "date": "2026-09-04",
-   "measured_utc": "2026-09-04T14:03:00Z",
-   "spot": 721.45,
-   "atm_strike": 721.0,
-   "atm_iv": 0.168085,
+   "measured_utc": "2026-09-04T15:32:34Z",
+   "spot": 716.95,
+   "atm_strike": 717.0,
+   "atm_iv": 0.167936,
    "dte_used": 28,
    "expiry": "2026-10-02",
    "rv_30d": 0.199981,
    "rv_30d_ex_top2": 0.151142,
-   "iv_rv_ratio": 0.8405,
-   "iv_rv_ratio_ex_top2": 1.1121,
+   "iv_rv_ratio": 0.8398,
+   "iv_rv_ratio_ex_top2": 1.1111,
    "largest_1d_move_in_window_pct": 3.34,
-   "_call_put": "call 0.163540 / put 0.172630, averaged per the IV method.",
+   "_call_put": "call 0.162348 / put 0.173524, averaged per the IV method.",
    "_rv_provenance": "rv_30d / rv_30d_ex_top2 computed off SETTLED daily closes through 2026-09-03 (30-return window). Today's live spot NOT included -- intraday moves cannot enter the rv window.",
-   "_timing_note": "Deferred IV sweep, assigned by the 13:40Z/13:50Z runs to the first run at/after ~14:00Z. Quote venue/updated_at timestamps 14:01-14:04Z, ~0-10s lag, so the opening-window inflation caveat is DISCHARGED BY MEASUREMENT (venue timestamp), not by wall clock -- per _QUOTE_FEED_LAG_MEANS_WALL_CLOCK_CANNOT_CLEAR_THE_OPENING_WINDOW and its per-session qualifier.",
-   "_scheduled_rolloff": "Largest return in the window is 2026-08-04 +3.34%; it EXITS after 8 more daily closes. Ex-top1 rv would be 0.1783, taking the RAW ratio 0.8405 -> 0.9428 WITH IMPLIED VOL UNCHANGED. Held fixed in this projection: atm_iv at today's 0.168085. See holdings.json._THE_RAW_IV_RV_RATIO_HAS_A_SCHEDULED_JUMP_AND_THE_DATE_IS_COMPUTABLE_TODAY."
+   "_timing_note": "OVERWRITES the 14:03:00Z row per the IV method's overwrite-today's-row rule. The 14:03Z reading was taken +33 min after the open at the then-ATM 721 strike (atm_iv 0.168085); this one is +122 min at the now-ATM 717 strike. BOTH corrections were MEASURED, not applied from a remembered constant, per holdings.json._OPENING_WINDOW_IV_DISCOUNT_IS_A_FUNCTION_OF_ELAPSED_TIME. (a) ELAPSED-TIME artifact, isolated by re-quoting the SAME 721 strike: 0.168085 -> 0.164733 = -1.995% over 93 minutes. (b) STRIKE-MIGRATION, measured at ONE instant across both strikes so no time effect can contaminate it: see holdings.json._THE_ATM_STRIKE_MIGRATES_WITH_SPOT_AND_THE_SKEW_SLOPE_IS_BIGGER_THAN_THE_OPENING_ARTIFACT.",
+   "_scheduled_rolloff": "Largest return in the window is 2026-08-04 +3.34%; it EXITS after 8 more daily closes. Ex-top1 rv would be 0.1783, taking the RAW ratio 0.8398 -> 0.9419 WITH IMPLIED VOL UNCHANGED. Held fixed in this projection: atm_iv at this run's 0.167936 (the 14:03Z projection held the superseded 0.168085 and is restated here, not re-derived). See holdings.json._THE_RAW_IV_RV_RATIO_HAS_A_SCHEDULED_JUMP_AND_THE_DATE_IS_COMPUTABLE_TODAY."
   }
  ],
  "NVDA": [
