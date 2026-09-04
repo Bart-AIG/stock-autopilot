@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-04T13:47:00Z",
+  "updated_utc": "2026-09-04T13:52:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-04",
     "realized_usd_options": 0.0,
@@ -11,7 +11,12 @@
     "entry_throttle_options": "0 of 8 used",
     "entry_throttle_equities": "0 of 3 used",
     "source": "BROKER-READ at 2026-09-04T13:36Z. get_realized_pnl(718757339, 2026-09-04..2026-09-04) returns a single bucket 04:00-13:33:03Z with number_of_trades 0 and total_returns 0. get_equity_orders and get_option_orders(created_at_gte=2026-09-04) both EMPTY. Reset owned by this run as the FIRST POST-OPEN run of the 2026-09-04 trading day -- the 12:52Z/13:00Z/13:20Z pre-open runs correctly declined to roll it.",
-    "note": "Tracks AGENTIC-placed realized P/L for the trading day, which is what the -$400 options cap gates. Do NOT type a cap or throttle figure you did not read this run (_RESET_VALUES_ARE_WRONG_BY_CONSTRUCTION_ON_A_POST_CLOSE_RUN)."
+    "note": "Tracks AGENTIC-placed realized P/L for the trading day, which is what the -$400 options cap gates. Do NOT type a cap or throttle figure you did not read this run (_RESET_VALUES_ARE_WRONG_BY_CONSTRUCTION_ON_A_POST_CLOSE_RUN).",
+    "entry_throttle_options_used": 0,
+    "entry_throttle_options_max": 8,
+    "entry_throttle_equities_used": 0,
+    "entry_throttle_equities_max": 3,
+    "_schema_note": "BOTH SHAPES ARE CARRIED DELIBERATELY. The union of the two 2026-09-04 same-slot runs briefly left only the string forms ('0 of 8 used'), while every prior day and every reader in this repo uses the INTEGER fields entry_throttle_{options,equities}_{used,max}. A run reading the canonical integer shape would have gotten nothing and fallen back to a default -- harmless today because both are 0, and a genuine over-authorization hazard on a day when they are not, since the THROTTLE is the real gate (a run believing it holds a fresh 8-entry budget when 3 are spent breaches the limit without erroring). Keep the integers canonical and the strings as prose; when you update one, update the other. Same class as the lot-invariant rule: a derived field whose CONCLUSION is still right is invisible to a check that only reads the conclusion."
   },
   "positions": [
     {
