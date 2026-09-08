@@ -32694,6 +32694,14 @@
       "reconciliation": "ZERO DRIFT both books, broker read first at 11:24Z. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, hedge, all pending_* zero, mkt 461) + 4 equity swings (LLY 0.420254 @1189.76, MDLZ 7.988509 @62.59, MMM 2.884552 @173.34, GD 1.335314 @374.44) matching ledger qty AND basis. get_equity_orders since 09-05 EMPTY. Cash 1459.18 == unleveraged_buying_power == buying_power (no margin extended); total_value 3847.12; reserve 192.36; deployable 1266.82.",
       "actions": "NONE. No artifact rolled: heartbeat left at 2026-09-04, market_brief left at 2026-09-04, options loss cap and both entry throttles left keyed to 09-04 (a RESET value on a pre-open run is wrong by construction). No flag touched. No time stop due today (LLY 09-10, MDLZ 09-11, MMM 09-14, GD 09-15).",
       "handoff": "First post-open run of 2026-09-08 owns heartbeat + market_brief rebuild + loss-cap/throttle reset. Two bars on it: (1) both committed reports are the holiday-generated 09-07 pair, so NO signal-sourced equity trade until today's report lands on master (~14:15Z per _REPORT_CRON_GAP_AT_THE_OPEN); (2) all four swings are red, so the RSI2>=70 take-profit is structurally unavailable book-wide -- the 14-day time stop is the only live equity exit, and LLY fires it Thursday."
+    },
+    {
+      "run_utc": "2026-09-08T12:28:00Z",
+      "run_type": "pre_open_overnight",
+      "trading_day_et": "2026-09-04",
+      "headline": "116th pre-open no-op, ~1h02m before the Tue 2026-09-08 open. Market shut; stand-down per POST-CLOSE RUN PROTOCOL. Trading day in force remains 2026-09-04 (Labor Day rang no bell): no heartbeat stamp, no brief rebuild, no throttle reset. Weekly calibration CONFIRMED as done by the 10:25Z run, not redone.",
+      "reconciliation": "ZERO DRIFT both books, broker read first at 12:29Z. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, hedge, all pending_* zero, mkt 461) + 4 equity swings (LLY 0.420254 @1189.76, MDLZ 7.988509 @62.59, MMM 2.884552 @173.34, GD 1.335314 @374.44) matching ledger qty AND basis. get_equity_orders since 09-05 EMPTY. Cash 1459.18 == unleveraged_buying_power == buying_power (no margin extended); total_value 3846.50; reserve 192.33; deployable 1266.85.",
+      "actions": "NONE. No artifact rolled. Day counts today: LLY 12/14 (stop 09-10), MDLZ 11/14 (09-11), MMM 8/14 (09-14), GD 7/14 (09-15) -- none fires today. HANDOFF: the first post-open run owns heartbeat + brief + throttle reset, and per _A_REPORT_GENERATED_ON_A_MARKET_HOLIDAY_INVERTS_THE_NEWER_IS_FRESHER_RULE must verify any signal price against get_equity_quotes[].close.price before acting -- both reports on master are still holiday-stamped 2026-09-07 until Actions regenerates."
     }
   ]
 }
