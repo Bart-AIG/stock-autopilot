@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-08T16:30:00Z",
+  "updated_utc": "2026-09-08T16:18:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-08",
     "realized_usd_options": 0.0,
@@ -3477,5 +3477,31 @@
       "VERDICT": "DECLINE, unchanged, on reasons that survive the inversion: (1) trend-maturity clause (b) FAILS -- the catalyst is same-session and unresolved, AMGN has not quantified olpasiran exposure and no analyst has revised for it; (2) clause (c) FAILS -- the tape confirms the downside, AMGN near session lows inside XLV -2.42%, last of 11 sectors; (3) even taken at face value the stale PT implies +0.63% upside, i.e. NO mean-reversion edge, so the original logic holds on magnitude even though its sign flipped; (4) the book holds 4 of the 3-4 target so a fifth needs A/A+, and a live unresolved binary read-across carrying no permitted price stop (HARD RULE 5) at ~30%-cap sizing is not that."
     },
     "honest_scope": "This changed no decision -- AMGN was declined at 14:14Z and is declined now, and no run had yet acted on the inverted fact. That is the only condition under which a rejection's evidence can be audited credibly. The finding is about the INSTRUMENT, not about AMGN: it would hold identically on a name the desk wanted to buy."
+  },
+  "_A_VETOED_BREAK_THAT_HELD__THE_BREAKOUT_ARC_HAS_ONLY_EVER_MEASURED_FALSE_POSITIVES_2026-09-08T16-18Z": {
+    "measured_utc": "2026-09-08T16:18:00Z",
+    "status": "DURABLE. First recorded FALSE NEGATIVE in this repo's breakout arc -- every prior entry in that arc measured a break that CONFIRMED and then failed. Nobody had looked at the other error cell.",
+    "what_prompted_it": "The 14:33Z run named QQQ's 20-day SMA 717.5105 'THE ONE LIVE WATCH LEVEL IN EITHER INDEX' and wrote the exact fire condition. FIVE subsequent runs (14:45, 15:20, 15:30, 15:45, 16:00, 16:15) reported 'no TACTICAL trigger' and NOT ONE of them re-tested it. The level fired two minutes after it was named and went unexamined for 105 minutes. That is the process defect; the measurement below is what was found when it was finally tested.",
+    "feed_reconciliation_done_FIRST_and_it_made_the_test_HARDER": {
+      "method": "5-minute buckets summed against their constituent 1-minute bars, per the 2026-08-28 direction rule.",
+      "14:30 bucket": "reported 42,373 vs 1-minute sum 60,068 -> bucket 29.4% BELOW its constituents = BUCKET HOLED, substitute 60,068. (Its 14:33 minute printed 399 shares between neighbours of 9,050 and 17,296 -- the provisional-minute signature -- so 60,068 is itself a floor.)",
+      "14:35 bucket": "67,340 vs 1-minute sum 67,340 -- EXACT MATCH, clean.",
+      "14:40 bucket": "125,822 vs 125,822 -- EXACT MATCH, clean.",
+      "14:45 bucket": "84,517 vs 84,517 -- EXACT MATCH, clean.",
+      "why it matters": "The correction RAISED the trailing denominator (129,336 -> 132,286), i.e. it made the volume clause STRICTER. The veto below survives its own feed correction, which is the only condition under which a veto is citable."
+    },
+    "the_price_clause_PASSED_cleanly": "Break bar 14:35Z closed 717.600 above the 717.5105 level; holding bar 14:40Z closed 718.150, still above -- the two-bar price test satisfied. It then held above for 21 CONSECUTIVE 5-minute closes through 16:15Z (105 minutes), peaking 720.930 at 15:40Z.",
+    "the_volume_clause_FAILED_on_every_denominator": {
+      "trailing-30 local (corrected 132,286)": "break bar 67,340 = 50.9%; holding bar 125,822 = 95.1%; two-bar mean 96,581 = 73.0%.",
+      "session pre-event bucket rate (286,749, six 13:30-13:55 bars)": "break bar = 23.5%; two-bar mean = 33.7%.",
+      "verdict": "FAIL on both denominators in both the one-bar and the two-bar construction. Participation did not arrive; the level was reclaimed on a drift."
+    },
+    "the_crossing_count_prescreen_also_flagged_it": "Per _A_LEVEL_CROSSED_REPEATEDLY_IS_NOT_A_LEVEL: QQQ crossed 717.5105 SIX times between 13:40Z and 14:35Z (below 13:40, above 13:45, below 13:50, above 14:20, below 14:30, above 14:35). Two independent prescreens agreed on the veto -- and the level then held for 105 minutes anyway.",
+    "what_actually_happened_on_the_underlying": "Reclaim ~717.60 at 14:35Z -> peak 720.930 at 15:40Z (+0.46%) -> 719.130 at 16:15Z, +1.62 points / +0.22% above the trigger and holding.",
+    "what_is_NOT_claimed_and_the_reason": "WHETHER A SCALP WOULD HAVE HIT ITS +20% PREMIUM TARGET IS NOT MEASURED AND IS NOT CLAIMED. No contract was quoted. Deriving a premium outcome from spot times an assumed delta is exactly the modelled-estimate-instead-of-a-quote error this file has now recorded four times (spot price, ATM strike, wrong expiry board, modelled estimate vs quote). A false negative on the UNDERLYING is what was measured; the dollar cost of it was not.",
+    "the_finding_stated_at_the_right_scope": "The arc's five-to-six recorded instances are all CONFIRMED breaks that failed -- false positives. The clause's other error cell, a VETOED break that persists, had never been looked at, so the arc's evidence base was one-sided by construction. This is the first entry in that cell.",
+    "what_this_does_NOT_license": "DO NOT LOOSEN THE VOLUME CLAUSE. n=1 in the confirming direction against 5-6 in the vetoing direction is not a calibration case, and the 2026-08-26 capstone's conclusion -- that REGIME, not the filter, is the dominant variable -- is untouched. The correct response is to KEEP COUNTING BOTH CELLS, which nobody was doing. A filter can only be audited on its error profile, and an error profile needs both cells.",
+    "the_decision_this_run_and_it_is_still_DECLINE": "Even taking the break at face value, entry now is 105 minutes and +0.22% above the trigger. That is precisely the late-entry geometry the 2026-08-28 detector prices out: the stop lands at or below the trigger level, so the position cannot be wrong about timing without being wrong about thesis. A missed entry is recovered by fixing the process for the next break, never by taking the same trade 105 minutes worse.",
+    "the_process_fix_which_is_the_actionable_half": "A watch level a run NAMES becomes a duty the next run must DISCHARGE: re-derive it and test it, or say in one line why it is void. Five runs inherited a live, numbered, fully-specified trigger and none tested it -- the same shape as this file's stale-clause findings, arriving as an untested clause rather than an unrefreshed one. Naming a level and never testing it is indistinguishable from having no level at all."
   }
 }
