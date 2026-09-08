@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-08T13:38:00Z",
+  "updated_utc": "2026-09-08T13:47:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-08",
     "realized_usd_options": 0.0,
@@ -3083,5 +3083,32 @@
     "why_it_is_invisible": "The output is a valid, correctly-ordered journal whose tail looks exactly right -- this run's entry and the sibling's, both present, in order. The loss is seven entries buried three weeks back. Nothing errors, no diff line screams, and `git diff --stat` reports a plausible number because a merge legitimately rewrites many lines. This is the file's most-repeated shape: a check that passes for the wrong reason.",
     "THE_FIX_two_lines": "Union on CONTENT identity -- json.dumps(entry, sort_keys=True) -- never on a timestamp. Then ASSERT the arithmetic before writing: len(merged) == len(ours) + len(entries unique to theirs). The assertion is what actually catches it; the content key is only what makes the assertion pass. Same discipline as the lot-count invariants and the `git diff --stat` rule -- TRUST THE CHECK, NOT YOUR READING OF THE RESULT.",
     "generalise_it_beyond_the_journal": "Any 'merge as a union' instruction that names a field to key on is asserting that field is unique. Verify that before trusting it. The same trap is live for iv_history rows keyed on (ticker, date) -- overwriting today's row is the DOCUMENTED intent there, so it is correct -- and for market_brief watchlist entries. Know which of your union keys are meant to collapse and which are not."
+  },
+  "_HEALTHCARE_ROUT_REMEASURED_2026-09-08T13-47Z": {
+    "what": "The 13:38Z first-post-open run labelled the tape a HEALTHCARE-SPECIFIC ROUT and explicitly stamped it PROVISIONAL, instructing the next run to RE-MEASURE all eleven sectors before letting it decide anything. This run did. The label's SHAPE holds; its headline CLAIM -- 'XLV is a ~3x downside outlier' -- is partly WITHDRAWN.",
+    "measured_utc": "2026-09-08T13:46:28-13:46:39Z venue timestamps, ~17 minutes into the session (outside the 2-5 minute opening window the prior reading sat in)",
+    "sector_board_pct_remeasured": {
+      "XLE": 1.304,
+      "XLU": 0.58,
+      "XLRE": 0.319,
+      "XLK": 0.22,
+      "XLB": 0.143,
+      "XLI": 0.029,
+      "XLP": -0.402,
+      "XLY": -0.592,
+      "XLC": -0.692,
+      "XLF": -0.878,
+      "XLV": -1.709
+    },
+    "the_withdrawal_stated_plainly": "XLV -2.319% -> -1.709%, recovering 0.61 points. Next-worst went XLF -0.792% -> -0.878%. The outlier ratio therefore COLLAPSED from 2.93x to 1.95x in fifteen minutes. 'Roughly 3x the second-place decliner' was the single number carrying the 'single-sector event, not broad de-risking' discrimination, and it no longer reads that way. XLV is still clearly the worst sector; it is no longer a categorical outlier.",
+    "and_the_half_that_cuts_the_OTHER_way_and_matters_more": "The board CONVERGED FROM BOTH ENDS. While XLV bounced, the INDICES FELL: SPY -0.171% -> -0.342%, QQQ +0.250% -> -0.180% (QQQ flipped sign). XLK +0.657 -> +0.220. Green sectors went 4 -> 6, but the green ones LED LOWER while the worst one bounced. So the correct read is not 'healthcare recovered, all clear' and not 'de-risking is spreading' -- it is that the DISPERSION that made the 13:38Z label a finding is draining out of the tape. A label built on dispersion expires when the dispersion does.",
+    "driver_hunt_SECOND_CONSECUTIVE_FAILURE_and_say_so": "The 13:38Z run ran two web searches and a 12-article LLY news pull and found NOTHING dated 2026-09-08. This run ran two further searches (one name-level, one sector/policy-level) plus a fresh 10-article LLY pull and ALSO found nothing dated 2026-09-08. Newest LLY item remains 2026-09-04 (Merida Biosciences $2.8B, already priced 08-31). Nothing after 08-31 is adverse. TWO INDEPENDENT RUNS, FIVE SEARCHES, ZERO DRIVER. Do not manufacture one: the standing 'most favored nation' drug-pricing theme is permanently available as a story and explains nothing specific about today.",
+    "what_the_recovery_without_news_weakly_suggests": "A -2.3% sector print that retraces 27% of itself inside fifteen minutes on NO identified headline is more consistent with a positioning/rotation unwind than with a fundamental repricing -- a genuine adverse policy or regulatory catalyst does not usually bounce that fast on no news. This is WEAK evidence and is offered as such: 'no driver found' is not the same as 'no driver exists', and the absence could equally be a wire this desk cannot see.",
+    "what_it_decides": {
+      "LLY": "HOLD, unchanged. An autonomous thesis sell requires HARD RULE 7 research reaching BROKEN with evidence; five searches across two runs produced NO adverse evidence at all, which is the opposite of a break. Verdict: INTACT-BUT-UNEXPLAINED. The 14-day TIME STOP fires 2026-09-10 on elapsed time regardless and needs no thesis verdict -- that is the mechanical exit and it is the one that will actually close this position.",
+      "healthcare_CORE_or_XLV_mean_reversion": "STILL NOT ARMED, and the moderation makes it LESS attractive, not more: the dislocation the setup would have been buying has already given back a quarter of itself. Both of the 13:38Z run's grounds also stand unchanged -- no driver identified (a fall is a trigger, never a thesis), and the desk is ALREADY LONG this exposure via LLY.",
+      "the_regime_label": "May no longer be quoted as a ~3x single-sector outlier. Quote the 13:46Z board."
+    },
+    "transferable": "This is the 2026-08-25T19:35Z rule ('a regime label is a TIMESTAMPED MEASUREMENT') working as designed for once -- the prior run stamped its own label PROVISIONAL, named the successor duty, and the successor performed it and found the label had decayed. Worth noting the decay direction: the label was not WRONG, it was measured at the moment of maximum dispersion and dispersion mean-reverts. An opening-window regime reading is an UPPER BOUND on dispersion the same way an opening-window ATM IV row is an upper bound on vol."
   }
 }
