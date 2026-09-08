@@ -32798,6 +32798,33 @@
       ],
       "duties": "IV sweep DISCHARGED (6 of 8 core names, 2026-10-09 board, 31 DTE, 14:03:42Z -- outside the opening-window inflation caveat; TSM and AVGO not swept). Heartbeat, market_brief, weekly calibration and the throttle reset were all owned and completed by the 13:38Z run -- confirmed, not redone. Daily report belongs to the first run at/after 19:15Z. Throttles unchanged: options 0 of 8, equities 0 of 3. Realized P/L today $0.00 both books.",
       "process_note": "Two of this run's four findings are CORRECTIONS OF ITS OWN OR AN INHERITED CLAIM, one of them published and refuted inside the same run. Both cost nothing because no trade rested on either. The recurring defect in both: reasoning from how a thing is USUALLY built instead of measuring how THIS one is built."
+    },
+    {
+      "run_utc": "2026-09-08T14:22:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-08",
+      "headline": "NO TRADE, both books. Fired 8 minutes behind the 14:14Z run, so I tested its handoffs instead of re-running its hunt: discharged its self-flagged unverified AMGN mechanism (VERIFIED -- Amgen owns olpasiran in Phase 3), found one of its supporting citations twelve days stale, and confirmed its VRTX re-check is unsatisfiable today by construction. Also verified the 14-day time stop is genuinely wired in report.py.",
+      "reconciliation": "ZERO DRIFT both books, broker read FIRST at 14:17Z before any other work. 1 option (SPY 2026-11-20 700P, qty 1.0000 @ 749.00, hedge, all pending_* zero) + 4 equity swings (LLY 0.420254 @1189.76, MDLZ 7.988509 @62.59, MMM 2.884552 @173.34, GD 1.335314 @374.44) matching ledger on qty AND average_buy_price. get_equity_orders EMPTY for 2026-09-08 -- no sibling entry despite a run 8 minutes prior. cash 1459.18 == unleveraged_buying_power == buying_power (FOUR LAWS #4 satisfied, no margin); total_value 3861.78; reserve 193.09; deployable 1266.09.",
+      "tape": "14:16:37Z venue: SPY 766.480 -0.482% | QQQ 716.811 -0.299% | XLV 168.030 -1.994% | XLF -0.852% | XLE +1.733% | LLY 1126.37 -1.99% | MDLZ 60.77 -0.83% | MMM 166.125 -1.44% | GD 357.44 -0.54% | VRTX 532.64 -2.47% | ABBV 250.465 -2.34% | AMGN 399.87 -8.54%. Numbers only; no regime verdict handed forward.",
+      "position_verdicts": {
+        "LLY  swing -5.33%": "working-poorly, thesis unbroken. NO mechanical exit available: RSI2>=70 take-profit is gated on price>entry and the position is red; RSI2 is 0.9, the opposite end. Time stop 2026-09-10, days_held 12 of 14.",
+        "MDLZ swing -2.91%": "working-poorly, thesis unbroken. Time stop 2026-09-11, days_held 11 of 14.",
+        "MMM  swing -4.16%": "working-poorly, thesis unbroken. Time stop 2026-09-14, days_held 8 of 14.",
+        "GD   swing -4.54%": "working-poorly, thesis unbroken. Time stop 2026-09-15, days_held 7 of 14.",
+        "SPY 2026-11-20 700P (hedge)": "HOLD. Insurance -- exempt from every premium backstop per the ownership/hedge gate. No trigger fired, so no notification owed. 21-DTE roll/close decision with Ryan ~2026-10-30."
+      },
+      "duty_discharged_verified_the_time_stop_is_really_wired": "CLAUDE.md records that SWING_TIME_STOP_DAYS 'was defined in report.py and read by nothing for the life of the file', so I checked rather than assumed that the 09-10 LLY stop will actually fire. It is wired: report.py:298 sets time_stop, :308 appends the SELL / TIME STOP reason, :381 routes it to the action, :668 collects time_stops into the ACTION block. Calendar days, not trading days. Separately confirmed that the MISSING warn annotation on LLY is CORRECT and not a defect: report.py:330 gates the '-Nd to the time stop' note inside the underwater-RSI2-BOUNCE branch only, and LLY's RSI2 is 0.9, so there is no bounce line to annotate. A silent report is trustworthy here.",
+      "handoffs_tested_rather_than_hunt_re_run": {
+        "AMGN mechanism (14:14Z asked a future run to verify)": "DISCHARGED -> _AMGN_LPA_READACROSS_VERIFIED_AND_A_STALE_SWEEP_CITATION_CORRECTED. Premise VERIFIED (olpasiran, Phase 3 OCEAN(a)-Outcomes NCT05581303); attribution still inference and labelled so; one cited evidence item (the $400 put sweep) found to be from a 2026-08-27 article, not today. Verdict REJECT unchanged and better supported.",
+        "VRTX re-check (14:14Z wrote the test)": "NOT SATISFIABLE TODAY, BY CONSTRUCTION -- and that is the test working, not failing. It requires RSI2 < 10 on a SETTLED daily bar plus a stabilising-or-up session. At 14:16Z the session is 47 minutes old, VRTX is -2.47% and XLV is -1.99% and slightly WIDER than the -1.837% the prior run measured, so the divergence that decided the decline is still unresolved. Re-grade on settled numbers, earliest 2026-09-09. I did not re-grade it early to manufacture an entry.",
+        "the rest of the 14:01Z report": "NOT re-graded. The 14:14Z run graded all eleven candidates against this same report 8 minutes ago; the tape has not moved enough to flip a single verdict, and re-grading identical inputs to a different answer is the 'boredom is not a catalyst' failure this prompt names."
+      },
+      "why_flat": "EQUITIES: no exit fires (all four red, so the RSI2>=70 take-profit is structurally unavailable; no time stop for 2 more days; no THESIS CHECK line on the report). No entry: the one A-minus name (VRTX) fails its own written re-check on settled-bar grounds, the top-ranked name (AMGN) is the event itself and now verified as a direct Lp(a) re-rating, and the book already holds 4 of the 3-4 target swings with LLY already in the affected sector. OPTIONS: no TACTICAL trigger -- the 20-day was lost in the OPENING bar so no clean baseline exists and the level is now stale, which is precisely the stale-box + collapsed-baseline pair this repo has measured; no CORE thesis; index premium rich on both ratios (SPY ex-gap 1.2998, QQQ 1.2664, both 100th percentile of their own 20 readings).",
+      "duties": "Heartbeat, market_brief, weekly calibration and both throttle resets were owned and completed by the 13:38Z run; IV sweep discharged by the 14:14Z run -- all CONFIRMED, none redone. Daily report belongs to the first run at/after 19:15Z. Throttles unchanged: options 0 of 8, equities 0 of 3. Realized P/L today $0.00 both books, against the -$400 options cap.",
+      "watchpoints_for_the_next_run": "LLY TIME STOP fires 2026-09-10 and MDLZ 2026-09-11 -- two mechanical sells inside three sessions, green or red, freeing roughly $960 and taking the book from 4 slots to 2. That is the capital event to plan around, not a new entry today.",
+      "durable_findings_written_this_run_see_holdings_json": [
+        "_AMGN_LPA_READACROSS_VERIFIED_AND_A_STALE_SWEEP_CITATION_CORRECTED"
+      ]
     }
   ]
 }
