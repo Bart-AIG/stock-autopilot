@@ -1475,6 +1475,27 @@
    "_rv_provenance": "rv_30d / rv_30d_ex_top2 computed off SETTLED daily closes through 2026-09-03 (30-return window). Today's live spot NOT included -- intraday moves cannot enter the rv window.",
    "_timing_note": "Deferred IV sweep, assigned by the 13:40Z/13:50Z runs to the first run at/after ~14:00Z. Quote venue/updated_at timestamps 14:01-14:04Z, ~0-10s lag, so the opening-window inflation caveat is DISCHARGED BY MEASUREMENT (venue timestamp), not by wall clock -- per _QUOTE_FEED_LAG_MEANS_WALL_CLOCK_CANNOT_CLEAR_THE_OPENING_WINDOW and its per-session qualifier.",
    "_scheduled_rolloff": "Largest return in the window is 2026-07-30 +7.37%; it EXITS after 5 more daily closes. Ex-top1 rv would be 0.2768, taking the RAW ratio 0.8741 -> 1.1057 WITH IMPLIED VOL UNCHANGED. Held fixed in this projection: atm_iv at today's 0.306070. See holdings.json._THE_RAW_IV_RV_RATIO_HAS_A_SCHEDULED_JUMP_AND_THE_DATE_IS_COMPUTABLE_TODAY."
+  },
+  {
+   "date": "2026-09-08",
+   "measured_utc": "2026-09-08T14:24:25Z",
+   "spot": 435.56,
+   "atm_strike": 435.0,
+   "atm_iv": 0.334978,
+   "dte_used": 31,
+   "expiry": "2026-10-09",
+   "rv_30d": 0.347446,
+   "rv_30d_ex_top2": 0.245064,
+   "iv_rv_ratio": 0.9641,
+   "iv_rv_ratio_ex_top2": 1.3669,
+   "largest_1d_move_in_window_pct": 7.366,
+   "_call_put": "call 0.327304 / put 0.342652, averaged per the IV method.",
+   "_rv_provenance": "rv_30d / rv_30d_ex_top2 off SETTLED daily closes through 2026-09-04 (30-return window; 2026-09-07 was Labor Day, no bar). Today's live spot NOT included.",
+   "_timing_note": "Venue/updated_at 14:24:25Z, 54 minutes after the bell -- well outside the opening window, so the documented -2.5% to -4.4% pre-14:00Z ATM inflation caveat does not attach.",
+   "_why_this_row_is_late": "The 14:14Z run swept 6 of 8 core names and explicitly left TSM and AVGO unswept. This run discharged the remainder. Both names were at n=19 -- one short of the IV method's 20-reading percentile threshold -- so completing the sweep is what makes them percentile-capable for the first time.",
+   "_n_readings": 20,
+   "_percentile_note": "n=20, 20th reading. Raw iv_rv_ratio 0.9641 sits at the 95.0th percentile of this name's own history. Indicative only: a rank over 20 readings spanning ~4 weeks is a rank within one regime, not a vol-of-vol estimate. See holdings.json._A_RAW_IV_RV_RATIO_LEVEL_IS_NOT_COMPARABLE_ACROSS_NAMES -- TSM at 0.9641 is near its OWN richest while AVGO at a HIGHER 0.9803 is near its own cheapest.",
+   "_the_09_04_forecast_scored": "The 2026-09-04 TSM row projected the 07-30 +7.37% gap rolling off would lift the raw ratio 0.8741 -> 1.1057 'WITH IMPLIED VOL UNCHANGED'. The gap has NOT yet rolled off (it exits after the 2026-09-14 close), and implied vol did not hold still: atm_iv 0.306070 -> 0.334978, +9.44%, on a +1.55% TSM session with semis broadly bid. Raw came in at 0.9641. Same shape as the 2026-08-28 NVDA scoring -- a two-legged ratio forecast that freezes one leg is right about the artifact and wrong about the level -- but note the leg moved the OPPOSITE way here (implied ROSE into a rally, where NVDA's bled after a print). The lesson is 'say which leg you held fixed', not 'implied always falls'."
   }
  ],
  "AVGO": [
@@ -1756,6 +1777,27 @@
    "_rv_provenance": "rv_30d / rv_30d_ex_top2 computed off SETTLED daily closes through 2026-09-03 (30-return window). Today's live spot NOT included -- intraday moves cannot enter the rv window.",
    "_timing_note": "Deferred IV sweep, assigned by the 13:40Z/13:50Z runs to the first run at/after ~14:00Z. Quote venue/updated_at timestamps 14:01-14:04Z, ~0-10s lag, so the opening-window inflation caveat is DISCHARGED BY MEASUREMENT (venue timestamp), not by wall clock -- per _QUOTE_FEED_LAG_MEANS_WALL_CLOCK_CANNOT_CLEAR_THE_OPENING_WINDOW and its per-session qualifier.",
    "_scheduled_rolloff": "Largest return in the window is 2026-08-04 +6.40%; it EXITS after 8 more daily closes. Ex-top1 rv would be 0.3601, taking the RAW ratio 0.8649 -> 0.9778 WITH IMPLIED VOL UNCHANGED. Held fixed in this projection: atm_iv at today's 0.352114. See holdings.json._THE_RAW_IV_RV_RATIO_HAS_A_SCHEDULED_JUMP_AND_THE_DATE_IS_COMPUTABLE_TODAY."
+  },
+  {
+   "date": "2026-09-08",
+   "measured_utc": "2026-09-08T14:24:24Z",
+   "spot": 370.35,
+   "atm_strike": 370.0,
+   "atm_iv": 0.392944,
+   "dte_used": 31,
+   "expiry": "2026-10-09",
+   "rv_30d": 0.400836,
+   "rv_30d_ex_top2": 0.31476,
+   "iv_rv_ratio": 0.9803,
+   "iv_rv_ratio_ex_top2": 1.2484,
+   "largest_1d_move_in_window_pct": 6.402,
+   "_call_put": "call 0.381991 / put 0.403896, averaged per the IV method.",
+   "_rv_provenance": "rv_30d / rv_30d_ex_top2 off SETTLED daily closes through 2026-09-04 (30-return window; 2026-09-07 was Labor Day, no bar). Today's live spot NOT included.",
+   "_timing_note": "Venue/updated_at 14:24:24Z, 54 minutes after the bell -- outside the opening window.",
+   "_why_this_row_is_late": "Second of the two names the 14:14Z run left unswept. Discharged here.",
+   "_n_readings": 20,
+   "_percentile_note": "n=20, 20th reading. Raw iv_rv_ratio 0.9803 sits at the 10.0th percentile of this name's own history -- near the CHEAPEST it has read, despite being numerically HIGHER than TSM's 95th-percentile 0.9641. Do not compare raw ratio LEVELS across names; see holdings.json._A_RAW_IV_RV_RATIO_LEVEL_IS_NOT_COMPARABLE_ACROSS_NAMES.",
+   "_context": "AVGO reported 2026-09-02 pm. The 09-03 session is inside the rv window, and the window's largest move is the 2026-08-04 +6.40% log gap, not the earnings reaction. AVGO +3.48% on the session at the time of this row; implied 0.352114 -> 0.392944 (+11.60%) alongside it."
   }
  ],
  "MSFT": [
