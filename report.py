@@ -128,6 +128,31 @@ SWING_TIME_STOP_DAYS = 14     # ~10 trading days held without a target -> recycl
                               # cull. Wired into evaluate_portfolio() as the third exit.
 TIME_STOP_WARN_DAYS = 3       # within this many days of the time stop, an underwater RSI2
                               # bounce is annotated as the likely better exit price
+
+
+def _exit_gate_phrase(days_held):
+    """Name the exit gate that will ACTUALLY close a held position, per sleeve.
+
+    Both hold branches used to end "cull/hold to monthly rebalance" unconditionally.
+    That was true before 2026-09-02 and has been WRONG for a swing ever since: the
+    monthly cull stopped being a swing's exit gate the moment SWING_TIME_STOP_DAYS was
+    wired in, and the ~14-day time stop always fires first. It is the one Ryan-facing
+    line that says what happens next, so it was pointing at the wrong mechanism on a
+    date-certain sell — live case 2026-09-08, when all four swings read "cull at
+    monthly rebalance" with LLY two sessions from a mechanical liquidation.
+
+    Only `days_held` is passed because evaluate_portfolio() sets it for a SWING with a
+    parseable entry_date and leaves it None otherwise — so it doubles as the sleeve
+    test, and momentum (judged on the monthly re-rank, correctly NOT time-stopped)
+    keeps the monthly wording. Callers reach here only when no sell fired, so
+    days_held < SWING_TIME_STOP_DAYS and the countdown cannot print negative.
+    """
+    if days_held is None:
+        return "monthly rebalance"
+    return (f"the TIME STOP in {SWING_TIME_STOP_DAYS - days_held}d "
+            f"(held {days_held}d/{SWING_TIME_STOP_DAYS}d) — recycled then, green or red")
+
+
 TRAIL_PCT = 0.15              # trailing-stop distance below the high; a winner is "green
                               # enough" to trail once price >= entry/(1-TRAIL_PCT) (~+17.6%),
                               # so a 15%-below-high stop clears breakeven (set 2026-06-17)
@@ -397,7 +422,8 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
             note = [thesis_note] + review
         elif review:
             action = "REVIEW / THESIS-CHECK"
-            note = review + ["sell only if the thesis is dead; else hold to monthly rebalance"]
+            note = review + ["sell only if the thesis is dead; else hold to "
+                             + _exit_gate_phrase(days_held)]
         elif green_enough and fractional:
             action = "MONITOR-TRAIL (fractional — native stop not placeable)"
             note = [f"winner {pnl:+.0%} — GREEN ENOUGH, but the position is {shares:g} sh "
@@ -413,7 +439,7 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
         elif pnl is not None and pnl < 0:
             action = "HOLD (thesis-watch)"
             note = [f"underwater {pnl:+.0%}; no price stop — sell only if the thesis breaks, "
-                    f"else cull at monthly rebalance"]
+                    f"else " + _exit_gate_phrase(days_held)]
         else:
             action = "HOLD"
             note = [f"{('up '+format(pnl, '+.0%')) if pnl is not None else 'flat'}; "
