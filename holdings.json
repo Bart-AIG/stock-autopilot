@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-08T18:15:00Z",
+  "updated_utc": "2026-09-08T18:20:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-08",
     "realized_usd_options": 0.0,
@@ -826,13 +826,13 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-08T18:15:00Z",
+    "run_utc": "2026-09-08T18:20:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-08",
-    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 18:15Z. 1 option (SPY 2026-11-20 700P hedge, qty 1.0000 @ 749.00, all pending_* zero) + 4 equity swings matched on qty AND average_buy_price to 6dp. get_equity_orders EMPTY for 2026-09-08 -- no sibling entry across twenty-two runs.",
-    "capital": "total_value $3,849.39; cash $1,459.18 == unleveraged_buying_power == buying_power (no margin). equity_value $1,922.21, options_value $468.00. Operational reserve 5% = $192.47. DEPLOYABLE $1,266.71. Per-name cap 30% = $1,154.82. Deployable clears the $600 minimum, so the ROTATION gate is NOT engaged. _cash_hold (CPI 2026-09-11, expiry 2026-09-14) re-verified well-formed and NOT extended.",
-    "book": "4 of the 3-4 target equity swings open (band 3-5), all red on 18:15Z live quotes: LLY 1125.870 (-5.37%), MDLZ 61.430 (-1.85%), MMM 166.890 (-3.72%), GD 357.000 (-4.66%); -$77.79 / -3.89% on $2,000 cost. RSI2>=70 TAKE-PROFIT STRUCTURALLY UNAVAILABLE BOOK-WIDE (gated on price > entry). Time stops LLY 09-10 / MDLZ 09-11 / MMM 09-14 / GD 09-15 -- none fired. No exit fires, no trigger fired, so no notification is owed.",
-    "verdict": "NO TRADE both books. Re-verification run on the 18:03Z intraday report: the RSI2 table lost RTX and gained nothing, so the 17:25Z rate-shock grade of the cohort stands unchanged (B, one correlated duration de-rating rather than a name). Tape re-checked and the duration split holds -- SPY 767.795 red and below its 20d 769.05, QQQ 720.080 green and above its own 717.51, XLK +0.58% vs XLV -2.00% / XLF -0.90%.",
+    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 18:19Z. 1 option (SPY 2026-11-20 700P hedge, qty 1.0000 @ 749.00, all pending_* zero) + 4 equity swings matched on qty AND average_buy_price to 6dp. get_equity_orders EMPTY for 2026-09-08 -- no sibling entry across twenty-three runs.",
+    "capital": "total_value $3,850.53; cash $1,459.18 == unleveraged_buying_power == buying_power (no margin). equity_value $1,922.35, options_value $469.00. Operational reserve 5% = $192.53. DEPLOYABLE $1,266.65. Per-name cap 30% = $1,155.16. Deployable clears the $600 minimum, so the ROTATION gate is NOT engaged. _cash_hold (CPI 2026-09-11, expiry 2026-09-14) re-verified well-formed and NOT extended.",
+    "book": "4 of the 3-4 target equity swings open (band 3-5), all red on 18:19Z live quotes: LLY 1125.915 (-5.37%), MDLZ 61.485 (-1.77%), MMM 166.910 (-3.71%), GD 357.130 (-4.62%); -$77.31 / -3.87% on $2,000.00 cost. RSI2>=70 TAKE-PROFIT STRUCTURALLY UNAVAILABLE BOOK-WIDE (gated on price > entry). Time stops LLY 09-10 / MDLZ 09-11 / MMM 09-14 / GD 09-15 -- none fired; LLY is inside the 3-day warn window but prints RSI2 0.8, i.e. there is no bounce to sell into. No exit fires, no trigger fired, so no notification is owed.",
+    "verdict": "NO TRADE both books. Re-verification on the SAME 18:03Z intraday report the 18:15Z run already graded -- no newer report, so the 17:25Z cohort grade (B, one correlated duration de-rating rather than a name) stands unchanged. Tape re-checked: the duration split holds and widened slightly, XLV -2.076% against XLK +0.593%, with the indices themselves split (SPY -0.316% below its 20d, QQQ +0.161% above its own) -- which is itself why no TACTICAL index scalp can fire.",
     "new_durable_finding": "NONE."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
