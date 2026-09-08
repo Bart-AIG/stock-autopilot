@@ -2933,5 +2933,37 @@
     "and_the_in_regime_caveat_cuts_hardest_here": "These 73 closes span several policy regimes (the $1,500-per-trade sizing amendment, the dual-track split, the concentration rewrite, the time stop going live). In-regime n for the CURRENT parameters is approximately zero on both books -- see _THIS_WEEKS_ENTRIES_PREDATE_THE_SIZING_POLICY_SO_CALIBRATION_HAS_NO_IN_REGIME_SAMPLE. So this is a DESCRIPTIVE measurement of what the account has done, not an actionable calibration input. Do not tune anything off it.",
     "what_the_next_run_should_do": "Tuesday 2026-09-08 owns the weekly calibration. Run the split again then, state both margins separately in the daily report, and if the options book has reached n>=20 still at margin <=0, the KILL branch applies to THAT BOOK ALONE -- halve options size, pause new options entries, escalate to Ryan. It must not be netted against the equity book's health.",
     "honest_scope": "This changed no decision today: both books were flat on their own merits before the statistic was computed, and no calibration was due. A measurement is only creditable when it does not license what the desk already wanted to do."
+  },
+  "_A_REPORT_GENERATED_ON_A_MARKET_HOLIDAY_INVERTS_THE_NEWER_IS_FRESHER_RULE": {
+    "measured_utc": "2026-09-08T09:30:00Z",
+    "headline": "Both committed reports on master are stamped 2026-09-07 -- LABOR DAY, a session that never happened. The MORNING file (18:12Z) carries LLY at 1149.36, the exact official settled close. The INTRADAY file (19:02Z), 50 minutes later on the same closed market, carries LLY at 1148.20 -- a price that matches NO settled close, NO last regular trade, and NO extended print. The price source DRIFTED between two runs of a non-session, and the drift PROPAGATED INTO THE SIGNAL. Prompt v10 and CLAUDE.md both say to read 'latest_morning.md / latest_intraday.md, WHICHEVER IS NEWER'. On a holiday-generated pair that rule selects the WRONG file: newer is LESS trustworthy, because it is further from the last settled close.",
+    "how_the_holiday_was_established_from_DATA_not_a_calendar": {
+      "historicals": "get_equity_historicals(day, adjustment_type=none, 5 symbols, 08-31..09-08) returns bars for 08-31, 09-01, 09-02, 09-03, 09-04 and NO 09-07 bar, in an otherwise continuous series.",
+      "broker_confirms": "get_equity_quotes returns previous_close_date = 2026-09-04 for all five names, and close.source = 'sip-list-exchange-close', close.interpolated = false.",
+      "calendar_agrees": "2026-09-07 is the first Monday of September 2026 = Labor Day. The data was checked FIRST; the calendar only corroborates."
+    },
+    "the_measurement": {
+      "LLY_morning_1812Z": "price 1149.36 | RSI2 3.6 | stop 1090.52 | target 1237.63",
+      "LLY_intraday_1902Z": "price 1148.20 | RSI2 3.0 | stop 1095.74 | target 1226.90",
+      "LLY_official_close": "1149.36 (2026-09-04, sip-list-exchange-close, interpolated=false)",
+      "LLY_last_regular_trade": "1148.74 @ 2026-09-04T19:59:59.96Z -- NOT the close, and NOT 1148.20 either",
+      "LLY_last_non_reg_print": "1141.7687 @ 2026-09-08T08:25:54Z -- also not 1148.20",
+      "verdict": "1148.20 reconciles to NOTHING the broker reports. It is a thin holiday quote from the report's upstream feed, not any settled or observable print."
+    },
+    "THE_CONTROL_that_makes_this_a_finding_and_not_an_anecdote": "Of the six RSI2 setup rows, FIVE are byte-identical across the two holiday reports -- PM 182.53, PATH 15.19, CL 88.77, SBUX 104.47, GD 359.39 -- and all five match their official settled closes exactly. GD's RSI2 is 9.8 in BOTH files. Only LLY's price moved, and only LLY's RSI2 moved. The signal change is therefore ATTRIBUTABLE to the price drift rather than to noise in the indicator, which is the difference between a measurement and a coincidence.",
+    "THE_AMPLIFICATION_and_it_is_the_hazard": "A -0.101% price change (1149.36 -> 1148.20) moved RSI2 from 3.6 to 3.0 -- a -16.7% RELATIVE move, roughly 165x amplification. A 2-period RSI is enormously sensitive near its extremes, which is exactly the region the entry screen reads. THE FAILURE THIS PREDICTS: a name sitting at RSI2 ~10.5 on the settled close can print RSI2 ~9.8 on a holiday phantom quote and appear as a fresh A-grade BUY setup that the settled data does not support. Under the 2026-09-02 concentration policy that is a ~30%-of-account entry sourced from a price nobody traded. Do NOT generalize the 165x figure -- it is measured at RSI2 ~3 where sensitivity is highest and it is not constant across the range.",
+    "THE_RULE": {
+      "selection": "On a report pair whose header date is a NON-SESSION, prefer the EARLIER file -- it was built closer to the settled close. Better still: verify the report's price column against get_equity_quotes[].close.price before any signal off it decides a trade. That is one call for up to 10 names and it is the arbiter.",
+      "detector": "Before trusting any committed report, check that its header date is a real session: a daily bar exists for that date, or get_equity_quotes.previous_close_date equals it. A header date is a CLAIM about when the report ran, never evidence that a market was open.",
+      "scope": "This is not confined to holidays. Any report generated while the market is shut -- a weekend backstop firing, an early-close afternoon, a pre-open run -- can carry a price field unanchored to the last settled close."
+    },
+    "HONEST_SCOPE_it_changed_no_decision": "(1) The market is shut and nothing is placeable. (2) LLY is already HELD, so its BUY row is a [HELD] line the desk skips regardless. (3) The error is 0.10% on a position underwater ~3.5%, so no exit trigger is anywhere near. (4) A fresh 2026-09-08 report lands on master ~14:15Z and overwrites both files before the preferred entry window. Recorded because ~9 market holidays a year each manufacture this pair, and because a filter's inputs can only be audited credibly on a run where the audit does not license a trade.",
+    "family": "This file's most-repeated defect, arriving in the report layer: a check that passes for the wrong reason. 'Is the report fresh?' was answered by reading its header date and confirming no DATA ERROR -- both true, both passing, and neither one evidence that the underlying session existed. Sibling of _QUOTE_FEED_LAG_MEANS_WALL_CLOCK_CANNOT_CLEAR_THE_OPENING_WINDOW (a clock is not a data-freshness proof) and of the 2026-08-24 wrong-expiry-board bug (the right question asked of the wrong artifact).",
+    "handoff_to_the_first_post_open_run_of_2026-09-08": {
+      "owns": "heartbeat stamp, market_brief rebuild, loss-cap + both throttle resets, and the WEEKLY CALIBRATION (Monday 09-07 was a holiday, so 09-08 is the week's first TRADING day).",
+      "report": "Do NOT source an equity signal from the 09-07 pair. Wait for the fresh 09-08 report (~14:15Z), which the _OPENING_WINDOW_SLIPPAGE finding independently prefers anyway.",
+      "time_stops": "LLY fires 2026-09-10 (3 sessions left: 09-08, 09-09, 09-10). MDLZ 09-11. MMM 09-14. GD 09-15.",
+      "calibration": "Check _THIS_WEEKS_ENTRIES_PREDATE_THE_SIZING_POLICY_SO_CALIBRATION_HAS_NO_IN_REGIME_SAMPLE before proposing any parameter change -- the in-regime gate may still bar adjustment."
+    }
   }
 }
