@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-08T19:30:00Z",
+  "updated_utc": "2026-09-08T19:48:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-08",
     "realized_usd_options": 0.0,
@@ -824,15 +824,15 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-08T19:30:00Z",
+    "run_utc": "2026-09-08T19:48:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-08",
-    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 19:31Z. 1 option (SPY 2026-11-20 700P hedge, qty 1.0000 @ 749.00, all pending_* zero) + 4 equity swings matched on qty AND average_buy_price. get_equity_orders EMPTY for 2026-09-08 -- no fill by any run today.",
-    "capital": "total_value $3,875.43; cash $1,459.18 == unleveraged_buying_power == buying_power (no margin extended). equity_value $1,926.99, options_value $489.00. Operational reserve 5% = $193.77. DEPLOYABLE $1,265.41 -- clears the $600 minimum, so the ROTATION gate is DORMANT. Per-name cap 30% = $1,162.63. _cash_hold (CPI 2026-09-11, expiry 2026-09-14) re-verified well-formed and NOT extended.",
-    "book": "4 of the 3-4 target equity swings open (band 3-5), all red on 19:31Z live quotes: LLY 1123.481 (-5.57%), MDLZ 61.795 (-1.27%), MMM 167.800 (-3.19%), GD 357.3392 (-4.57%). equity_value $1,926.99 on $2,000.00 cost = -$73.01 / -3.65%. Hedge marked $489.00 vs $749.00 cost, 73 DTE, exempt from premium backstops.",
-    "equities_verdict": "NO EXIT CAN FIRE. All four underwater, so the RSI2>=70 take-profit is structurally unavailable (HARD RULE 5 / the 2026-08-26 correction: it is a PROFIT-BANKING authority gated on price > entry). Time stops LLY 2026-09-10 / MDLZ 2026-09-11 / MMM 2026-09-14 / GD 2026-09-15 -- none due today. No THESIS CHECK on the 19:01Z report; none green-enough for a native trail. NO ENTRY: slots full at the target, cohort grades B, _cash_hold live.",
-    "options_verdict": "NO TACTICAL, NO CORE. No trigger exists -- neither index is breaking its session low after the 18:45Z record-participation flush, and index agreement fails independently. On top of that the closing-window bar is structural at 19:31Z: a two-bar confirmation started now completes inside the final ~20 minutes where the volume clause is unreadable, and both scalp exits sit inside one median overnight gap. Hedge exempt at 73 DTE.",
-    "duties": "Heartbeat 13:38Z. Brief stamped 09-08. Weekly calibration 10:25Z (NO CHANGE both books). IV rows logged for all 8 core names. Daily report DELIVERED by the 19:16Z run -- not rewritten, nothing material since. Throttles 0 of 3 equities / 0 of 8 options; realized $0.00 vs the -$400 options cap."
+    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 19:46Z. 1 option (SPY 2026-11-20 700P hedge, qty 1.0000 @ 749.00, all pending_* zero) + 4 equity swings matched on qty AND average_buy_price. get_equity_orders EMPTY for 2026-09-08 -- no fill by any run today.",
+    "capital": "total_value $3,872.56; cash $1,459.18 == unleveraged_buying_power == buying_power (no margin extended). equity_value $1,925.99, options_value $487.00. Operational reserve 5% = $193.63. DEPLOYABLE $1,265.55 -- clears the $600 minimum, so the ROTATION gate is DORMANT. Per-name cap 30% = $1,161.77. _cash_hold (CPI 2026-09-11, expiry 2026-09-14) re-verified well-formed and NOT extended.",
+    "book": "4 of the 3-4 target equity swings open (band 3-5), all red on 19:46Z live quotes: LLY 1123.1475 (-5.60%), MDLZ 61.72 (-1.39%), MMM 167.69 (-3.26%), GD 357.40 (-4.55%). equity_value $1,925.99 on $2,000.00 cost = -$74.01 / -3.70%. Hedge marked $487.50 vs $749.00 cost, 73 DTE, exempt from premium backstops.",
+    "equities_verdict": "NO EXIT CAN FIRE. All four underwater, so the RSI2>=70 take-profit is structurally unavailable (HARD RULE 5 / the 2026-08-26 correction: it is a PROFIT-BANKING authority gated on price > entry). Time stops LLY 2026-09-10 / MDLZ 2026-09-11 / MMM 2026-09-14 / GD 2026-09-15 -- none due today; LLY and MDLZ are inside the 3-day warn window and the 19:01Z report annotates both. No THESIS CHECK on that report; none green-enough for a native trail. NO ENTRY: slots full at the target, cohort grades B, _cash_hold live.",
+    "options_verdict": "NO TACTICAL, NO CORE. At 19:48Z the closing-window bar is structural: a two-bar confirmation started now completes after the bell, the volume clause is unreadable in closing-auction flow, and both scalp exits sit inside one median overnight gap. No CORE candidate -- a thesis worked up in the last 12 minutes and priced into the closing window is not one. Hedge exempt at 73 DTE.",
+    "duties": "Heartbeat 13:38Z. Brief stamped 09-08. Weekly calibration 10:25Z (NO CHANGE both books). 8 IV rows dated 09-08. Daily report DELIVERED by the 19:16Z run -- not rewritten, nothing material since. Throttles 0 of 3 equities / 0 of 8 options; realized $0.00 vs the -$400 options cap."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
