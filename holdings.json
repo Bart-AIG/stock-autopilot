@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-08T17:30:00Z",
+  "updated_utc": "2026-09-08T17:45:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-08",
     "realized_usd_options": 0.0,
@@ -826,14 +826,14 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-08T17:30:00Z",
+    "run_utc": "2026-09-08T17:45:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-08",
-    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 17:30Z. 1 option (SPY 2026-11-20 700P hedge, qty 1.0000 @ 749.00, all pending_* zero) + 4 equity swings matched on qty AND average_buy_price. get_equity_orders EMPTY for 2026-09-08 -- no sibling across nineteen runs.",
-    "capital": "total_value $3,850.61; cash $1,459.18 == unleveraged_buying_power == buying_power (no margin). equity_value $1,921.43, options_value $470.00. Operational reserve 5% = $192.53. DEPLOYABLE $1,266.65. Per-name cap 30% = $1,155.18. Deployable clears the $600 minimum, so the ROTATION gate is NOT engaged. _cash_hold set 17:25Z (catalyst CPI 2026-09-11, expiry 2026-09-14) verified well-formed this run and NOT extended.",
-    "book": "4 of the 3-4 target equity swings open (band 3-5), all red on 17:30Z quotes: LLY 1127.575 (-5.23%), MDLZ 61.420 (-1.87%), MMM 166.665 (-3.85%), GD 356.650 (-4.75%). RSI2>=70 TAKE-PROFIT STRUCTURALLY UNAVAILABLE BOOK-WIDE (gated on price > entry). Time stops LLY 09-10 / MDLZ 09-11 / MMM 09-14 / GD 09-15 -- none fired. No exit fires, no trigger fired in either book, so no notification is owed.",
-    "verdict": "NO TRADE both books. Re-verification run; no newer report than 17:10Z, cohort already graded, regime relabel inherited from the 17:25Z key and re-checked against the live tape (SPY below 20d / QQQ above, XLK green, XLV and XLF red -- duration split unchanged). No new durable finding.",
-    "new_durable_finding": "_REGIME_RELABEL_2026-09-08_RATE_SHOCK_NOT_HEALTHCARE (this run). The 17:15Z sibling's _ITA_IS_PROPPED_BY_ONE_UPGRADED_CONSTITUENT... key is retained unchanged."
+    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 17:45Z. 1 option (SPY 2026-11-20 700P hedge, qty 1.0000 @ 749.00, all pending_* zero) + 4 equity swings matched on qty AND average_buy_price. get_equity_orders EMPTY for 2026-09-08 -- no sibling across twenty runs.",
+    "capital": "total_value $3,853.27; cash $1,459.18 == unleveraged_buying_power == buying_power (no margin). equity_value $1,921.09, options_value $473.00. Operational reserve 5% = $192.66. DEPLOYABLE $1,266.52. Per-name cap 30% = $1,155.98. Deployable clears the $600 minimum, so the ROTATION gate is NOT engaged. _cash_hold (CPI 2026-09-11, expiry 2026-09-14) re-verified well-formed this run and NOT extended.",
+    "book": "4 of the 3-4 target equity swings open (band 3-5), all red on 17:45Z quotes: LLY 1127.170 (-5.26%), MDLZ 61.360 (-1.97%), MMM 166.430 (-3.98%), GD 356.840 (-4.70%); -$78.91 / -3.95% on $2,000 cost. RSI2>=70 TAKE-PROFIT STRUCTURALLY UNAVAILABLE BOOK-WIDE (gated on price > entry). Time stops LLY 09-10 / MDLZ 09-11 / MMM 09-14 / GD 09-15 -- none fired. No exit fires and no trigger fired in either book, so no notification is owed.",
+    "verdict": "NO TRADE both books. Re-verification run; no report newer than 17:02Z intraday / 17:10Z morning, cohort already graded, rate-shock relabel from 17:25Z re-checked against the live tape and unchanged (SPY below its 20d and red, QQQ above its own and green, XLK green vs XLV/XLF red -- the duration split holds). No new durable finding.",
+    "new_durable_finding": "NONE. The 17:25Z _REGIME_RELABEL_2026-09-08_RATE_SHOCK_NOT_HEALTHCARE and the 17:15Z _ITA_IS_PROPPED_BY_ONE_UPGRADED_CONSTITUENT keys are retained unchanged; re-noticing a known condition is not a finding."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
