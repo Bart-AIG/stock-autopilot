@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-08T19:00:00Z",
+  "updated_utc": "2026-09-08T19:20:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-08",
     "realized_usd_options": 0.0,
@@ -10,8 +10,7 @@
     "closing_trades_equities": 0,
     "entry_throttle_options": "0 of 8 used",
     "entry_throttle_equities": "0 of 3 used",
-    "source": "BROKER-READ at 2026-09-08T13:33Z by the FIRST POST-OPEN run of the 2026-09-08 trading day, which owns this reset. get_equity_orders(created_at_gte=2026-09-08) and get_option_orders(same) both return EMPTY, so zero closing trades and zero entries in either book. The 118 pre-open runs of the 2026-09-04..09-08 overnight stretch correctly declined to roll this object: per _RESET_VALUES_ARE_WRONG_BY_CONSTRUCTION_ON_A_POST_CLOSE_RUN a reset figure written about a day that has already traded is wrong by construction, and the reset happens at the OPEN, never at the UTC rollover.",
-    "_prior_day": "2026-09-04 closed at realized $0.00 options / $0.00 equities, 0 of 8 and 0 of 3 entries used."
+    "source": "BROKER-READ at 2026-09-08T19:22Z by the 19:20Z run: get_equity_orders(created_at_gte=2026-09-08) and get_option_orders(same) BOTH return EMPTY across twenty-seven runs. Re-read rather than inherited, per the CLAUDE.md rule that a cap or throttle figure must never be typed from a default -- a reset value on a day that has already traded is wrong by construction."
   },
   "positions": [
     {
@@ -562,14 +561,11 @@
     }
   },
   "_eod_report_written": {
-    "trading_day_et": "2026-09-04",
-    "written_utc": "2026-09-04T19:15:00Z",
-    "written_by": "The 19:15Z run. ITS FILE IS THE DELIVERED REPORT -- it reached master first (commit 9db58f4 / PR #1134).",
-    "note": "daily_options_report.md for trading day 2026-09-04 written ON TIME and IN SESSION by the first run at or after the 14:15 CT window, 45 minutes before the bell -- NOT under the post-close fallback. Covers BOTH books per v10. THAT COMMIT IS THE DELIVERY (eod-report-notify.yml fires on the master push touching this file). NO LATER RUN MAY REWRITE IT to refresh closing marks or restate 'still flat' -- only a MATERIAL event (a fill, an exit, a new flag, a trigger firing) justifies a rewrite, because every master push touching this file sends Ryan another notification and a duplicate carrying the same content is pure noise.",
-    "what_it_carries": "A ZERO-TRADE day across 30 market-hours runs, with the SKIP reasoning carrying the educational load: capital ($1,266.69 deployable) and both throttles (0 of 8 options, 0 of 3 equities) were open all day and the equity licence was live from 14:10Z, so nothing was binding except CANDIDATE QUALITY -- which under full deployment is the correct output. Headline finding is the first-ever per-book calibration split (_THE_TWO_BOOKS_HAVE_OPPOSITE_EDGES_AND_BLENDING_HIDES_IT): equities +21.9 pts over breakeven on n=55, options -1.0 pt on n=18, blended +6.7 pts hides both.",
-    "prior_day_superseded": "2026-09-03 (written 19:15Z)",
-    "_union_note_the_second_report_was_DISCARDED": "The 19:20Z run independently wrote its own full report for the same trading day before discovering the collision. THAT VERSION WAS DISCARDED WHOLESALE and master's 19:15Z file kept unmodified, because exactly ONE run per trading day writes this file and a second push would send Ryan a DUPLICATE ntfy for the same day. Same resolution as the 2026-09-03 collision. Nothing was lost: the discarded version's distinct content (the four-report-refresh grading narrative and the q4 escalation) is preserved in the 19:20Z journal entry.",
-    "_stale_field_caught_in_this_union": "THE 19:15Z RUN WROTE THE REPORT FILE BUT LEFT THIS KEY STAMPED 2026-09-03. A later run reading the KEY rather than the FILE would have concluded the report was still owed and written a second one, sending Ryan the duplicate the rule above exists to prevent. Caught only because the union compared both versions field by field. This is the repo's most-repeated defect -- a derived field left behind by a change that updated its subject -- and the detector is the standing one: when an artifact is written, update the ledger key that TRACKS it in the same commit."
+    "trading_day_et": "2026-09-08",
+    "written_utc": "2026-09-08T19:20:00Z",
+    "written_by": "The 19:20Z run -- the FIRST run at or after the 14:15 CT (19:15Z) report window. The 19:00Z run correctly deferred it: its clock read 19:02:48Z, thirteen minutes short of the gate, and it handed the duty forward explicitly.",
+    "note": "daily_options_report.md for trading day 2026-09-08 written ON TIME and IN SESSION, ~40 minutes before the bell -- NOT under the post-close fallback. Covers BOTH books per v10. THAT COMMIT IS THE DELIVERY (eod-report-notify.yml fires on the master push touching this file). NO LATER RUN MAY REWRITE IT to refresh closing marks or restate 'still flat' -- only a MATERIAL event (a fill, an exit, a new flag, a trigger firing) justifies a rewrite, because every master push touching this file sends Ryan another notification and a duplicate carrying the same content is pure noise.",
+    "prior_report": "The previous file covered 2026-09-04. 2026-09-07 was LABOR DAY (no bell, correctly no report)."
   },
   "_last_reconciliation": {
     "utc": "2026-09-04T19:19:00Z",
@@ -826,15 +822,16 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-08T19:00:00Z",
+    "run_utc": "2026-09-08T19:20:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-08",
-    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 19:01Z. 1 option (SPY 2026-11-20 700P hedge, qty 1.0000 @ 749.00, all pending_* zero) + 4 equity swings matched on qty AND average_buy_price. get_equity_orders EMPTY for 2026-09-08 -- no sibling entry across twenty-six runs.",
-    "capital": "total_value $3,867.83; cash $1,459.18 == unleveraged_buying_power == buying_power (no margin). equity_value $1,921.65, options_value $487.00. Operational reserve 5% = $193.39. DEPLOYABLE $1,265.79 -- clears the $600 minimum, so the ROTATION gate is NOT engaged. _cash_hold (CPI 2026-09-11, expiry 2026-09-14) re-verified well-formed and NOT extended.",
-    "book": "4 of the 3-4 target equity swings open (band 3-5), all red on 19:01Z live quotes: LLY 1122.505 (-5.65%), MDLZ 61.635 (-1.53%), MMM 166.860 (-3.74%), GD 356.450 (-4.81%). equity_value $1,921.39 on $2,000.00 cost = -$78.61 / -3.93%. Hedge marked $487.00 vs $749.00 cost, 73 DTE, exempt from premium backstops.",
-    "equities_verdict": "NO EXIT CAN FIRE. All four are underwater, so the RSI2>=70 take-profit is structurally unavailable (it is gated on price > entry). Time stops LLY 09-10 / MDLZ 09-11 / MMM 09-14 / GD 09-15 -- none due today. No THESIS CHECK on the 18:03Z report; all four read HOLD (thesis-watch), LLY researched intact 15:45Z. None green-enough for a trail alert. NO ENTRY: 4 of the 3-4 target slots so a fifth needs A/A+ and would size to the 30% cap, and the 16-name RSI2 cohort still grades B as one correlated duration de-rating. Throttle 0 of 3.",
-    "options_verdict": "NO TACTICAL. A record-participation flush at 18:47-18:49Z produced NO structural break -- SPY wicked 0.042% through its session low and closed back above it, QQQ never came within 2.34 points of its own. Index-agreement fails on both legs. See _PARTICIPATION_HIT_ITS_RECORD_AND_THE_LEVEL_STILL_HELD_2026-09-08T19-00Z. No CORE candidate. Hedge untouched. Throttle 0 of 8; realized $0.00 vs the -$400 cap.",
-    "duties": "Heartbeat stamped 13:38Z by the first post-open run. Brief stamped 09-08 (17:25Z RATE SHOCK relabel). Weekly calibration completed pre-open 10:25Z, NO CHANGE both books. All 8 core IV rows logged for 09-08. Daily report NOT due -- clock 19:02:48Z against a 19:15Z window; the next run owns it."
+    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 19:20Z. 1 option (SPY 2026-11-20 700P hedge, qty 1.0000 @ 749.00, all pending_* zero) + 4 equity swings matched on qty AND average_buy_price. get_equity_orders AND get_option_orders both EMPTY for 2026-09-08 -- no sibling entry across twenty-seven runs.",
+    "capital": "total_value $3,872.59; cash $1,459.18 == unleveraged_buying_power == buying_power (no margin extended). equity_value $1,924.41, options_value $489.00. Operational reserve 5% = $193.63. DEPLOYABLE $1,265.55 -- clears the $600 minimum, so the ROTATION gate is DORMANT. Per-name cap 30% = $1,161.78. _cash_hold (CPI 2026-09-11, expiry 2026-09-14) re-verified well-formed and NOT extended.",
+    "book": "4 of the 3-4 target equity swings open (band 3-5), all red on 19:20Z live quotes: LLY 1123.4118 (-5.58%), MDLZ 61.6450 (-1.51%), MMM 167.3000 (-3.48%), GD 357.1350 (-4.62%). equity_value $1,924.04 on $2,000.00 cost = -$75.96 / -3.80%. Hedge marked $489.00 (4.88 x 4.90) vs $749.00 cost, 73 DTE, delta -0.132, theta -9.25/day, exempt from premium backstops.",
+    "equities_verdict": "NO EXIT CAN FIRE. All four underwater, so the RSI2>=70 take-profit is structurally unavailable (gated on price > entry). Time stops LLY 09-10 / MDLZ 09-11 / MMM 09-14 / GD 09-15 -- none due today. Re-verified against the FRESH 19:01Z report (no prior run had graded it): all four still read HOLD (thesis-watch), no THESIS CHECK raised, LLY researched intact 15:45Z. None green-enough for a trail alert. NO ENTRY: 4 of the 3-4 slots, so a fifth needs A/A+ and would size to the $1,161.78 cap; the RSI2 cohort grew to 16 names (PFE added on the 19:01Z report) and still grades B as ONE correlated duration de-rating printed sixteen times. Throttle 0 of 3.",
+    "options_verdict": "NO TACTICAL: the price clause fails on BOTH legs. SPY sits 766.70, 1.03 ABOVE its 18:45Z session low of 765.67; QQQ 718.86, 0.95 above its own 717.91. Both bounced from the record-participation flush and have drifted sideways since -- no level is breaking, so no volume denominator was load-bearing. Index agreement independently fails (SPY -0.453% below its 20d vs QQQ -0.014% above its own). Closing window and overnight-gap bars apply on top. No CORE candidate -- momentum names fail the <=10%-of-mid gate at this account size, bearish list fails the trend-maturity gate. Hedge exempt, untouched. Throttle 0 of 8; realized $0.00 vs the -$400 cap.",
+    "closing_boundary_check": "NO closing-flow step-up detected at 19:20Z, forty minutes before the bell. SPY's last four buckets 113,717 / 69,839 / 110,647 / 95,059 run AT OR BELOW the ~97,000 pre-flush prevailing rate. This is the SECOND session failing to reproduce the 2026-08-28 forty-minute boundary, which is that finding's own instruction working as written: detect the boundary per session, never adopt a clock offset as a constant. Not minted as a new key -- it re-confirms _CLOSING_WINDOW_IS_FORTY_MINUTES_NOT_TWENTY rather than adding to it.",
+    "duties": "DAILY REPORT WRITTEN by this run -- first run at/after the 19:15Z window, on time and in-session, ~40 min before the bell (see _eod_report_written). Heartbeat stamped 13:38Z by the first post-open run. Brief stamped 09-08 (17:25Z RATE SHOCK relabel). Weekly calibration completed pre-open 10:25Z, NO CHANGE both books, in-regime gate blocked all tuning. All 8 core IV rows logged for 09-08 -- verified present, not re-fetched."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
