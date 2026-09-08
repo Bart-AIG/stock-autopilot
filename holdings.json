@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-04T19:45:00Z",
+  "updated_utc": "2026-09-08T10:25:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-04",
     "realized_usd_options": 0.0,
@@ -815,13 +815,13 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-04T19:45:00Z",
-    "run_type": "market_hours_regular",
-    "trading_day_et": "2026-09-04",
-    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 19:45Z. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, all pending_* zero) + 4 equities matched on qty AND avg price, shares_held_for_sells 0 on all. get_equity_orders and get_option_orders EMPTY for 2026-09-04 -- no sibling entry all day. total_value $3,853.94; cash $1,459.18 == unleveraged_buying_power == buying_power (no margin); reserve 5% $192.70, deployable $1,266.48, per-name cap 30% $1,156.18.",
-    "capital": "total_value $3,853.94; cash $1,459.18 == unleveraged_buying_power == buying_power (no margin extended); equity_value $1,937.76, options_value $457. Operational reserve 5% = $192.70. Deployable $1,266.48. Per-name cap 30% = $1,156.18. No _cash_hold record exists and none is claimed -- the idle cash is the residual of quality under the full-deployment policy, with the book at the top of its 3-4 swing target and no A-grade fifth idea on the board.",
-    "book": "4 equity swings (LLY/MDLZ/MMM/GD, all RED, mark $1,936.88 vs $1,999.96 cost = -3.15%) + 1 authorized SPY 2026-11-20 700P hedge (mark $457.00 vs $749.00, -38.98%, 77 DTE, EXEMPT from premium backstops). 0 TACTICAL, 0 CORE open.",
-    "verdict": "NO TRADE. Re-verification only. Exits: none fired in either book. Entries: equities blocked on grade (book at target, only PM available and it is a B); options blocked on the closing-window rule with 14 minutes to the bell before a 96-hour weekend."
+    "run_utc": "2026-09-08T10:25:00Z",
+    "run_type": "pre_open_overnight",
+    "trading_day_et": "2026-09-04 (still in force -- 10:18Z is before the 2026-09-08 open at 13:30Z)",
+    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 10:20Z. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, all pending_* zero) + 4 equities matched on qty AND average_buy_price; shares_held_for_sells 0 on all four.",
+    "capital": "total_value $3,846.49; cash $1,459.18 == unleveraged_buying_power == buying_power (no margin extended); equity_value $1,926.31, options_value $461. Operational reserve 5% = $192.32. Deployable $1,266.86. Per-name cap 30% = $1,153.95. No _cash_hold record exists and none is claimed.",
+    "duties": "Heartbeat NOT stamped (pre-open; last stamp 2026-09-04) and market_brief NOT rolled -- both correct per the trading-day rule. Daily report duty belongs to a run at/after 14:15 CT. WEEKLY CALIBRATION RUN AND COMPLETE -- see _WEEKLY_CALIBRATION_2026-09-08; the first post-open run should CONFIRM it, not redo the pull.",
+    "why_flat": "Market shut (opens 13:30Z). No order is placeable in either book. Separately, both committed reports are HOLIDAY-GENERATED (stamped 2026-09-07, a session that never happened), so signal-sourced equity trades would be barred on staleness even during the session until today's report lands on master."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -2965,5 +2965,81 @@
       "time_stops": "LLY fires 2026-09-10 (3 sessions left: 09-08, 09-09, 09-10). MDLZ 09-11. MMM 09-14. GD 09-15.",
       "calibration": "Check _THIS_WEEKS_ENTRIES_PREDATE_THE_SIZING_POLICY_SO_CALIBRATION_HAS_NO_IN_REGIME_SAMPLE before proposing any parameter change -- the in-regime gate may still bar adjustment."
     }
+  },
+  "_WEEKLY_CALIBRATION_2026-09-08": {
+    "measured_utc": "2026-09-08T10:25:00Z",
+    "status": "RUN AND COMPLETE for the week of 2026-09-08. VERDICT ON BOTH BOOKS: NO CHANGE. No parameter was altered; nothing was escalated as a band breach. The first post-open run of 2026-09-08 owns confirming this record, NOT redoing the pull.",
+    "why_a_pre_open_run_did_it": "Prompt v10 puts the weekly calibration on the week's first trading day, which is TUESDAY 2026-09-08 (Monday 09-07 was Labor Day). This run fired at 10:18Z, pre-open, so by the trading-day convention it still belongs to 2026-09-04 and may not stamp the heartbeat or roll any daily artifact. It CAN do this: CLAUDE.md states post-close runs are the right place to pre-compute a broker-sourced review, because the work needs no live quotes and would otherwise consume a market-hours run.",
+    "source": "BROKER, get_pnl_trade_history(span='3month') on 718757339, pulled 10:22Z this run. 72 closes. Split per the v10 duty: equities = side 'sell', options = side ''. NOT from trade_journal.json.",
+    "EQUITIES": {
+      "n": 55,
+      "wins": 38,
+      "losses": 17,
+      "hit_rate": "69.1%",
+      "mean_win": "+$12.94",
+      "mean_loss": "-$13.34",
+      "payoff_ratio": 0.97,
+      "breakeven_win_rate": "50.8%",
+      "MARGIN_PTS": "+18.3",
+      "expectancy": "+$4.82/trade",
+      "net": "+$264.89",
+      "verdict": "REPORT ONLY -- only 2 of 55 trades closed under the current parameters (need 20). The IN-REGIME GATE blocked it, exactly as designed.",
+      "in_regime_detail": "The Connors-pure exit policy and the concentration sizing both went live 2026-09-02. Only ROST (+$1.19) and PNC (-$4.41), both closed 2026-09-03, sit under them. A +18.3 pt margin measured on 53 pre-policy closes carries no evidence about the parameters it would tune."
+    },
+    "OPTIONS": {
+      "n": 17,
+      "wins": 9,
+      "losses": 7,
+      "zero_gain": 1,
+      "hit_rate": "52.9%",
+      "mean_win": "+$88.67",
+      "mean_loss": "-$101.14",
+      "payoff_ratio": 0.88,
+      "breakeven_win_rate": "53.3%",
+      "MARGIN_PTS": "-0.3",
+      "expectancy": "+$5.29/trade",
+      "net": "+$90.00",
+      "verdict": "REPORT ONLY -- n=17 < MIN_TRADES_FOR_ACTION=20.",
+      "the_number_that_matters": "The margin is NEGATIVE. The +$90 net is carried entirely by QQQ +$226 and WULF +$208; strip those two and the other 15 closes are about -$344. A 52.9% hit rate against a 53.3% breakeven is a coin flip that pays slightly less than it costs, and the dollar total conceals it."
+    },
+    "BLENDED_shown_only_to_demonstrate_what_it_hides": "margin +6.6 pts, n=72. Reads as a healthy book. It is the average of a strong equity engine (+18.3) and an options sleeve a hair under its own breakeven (-0.3). The v10 rule that blending hides which book is working is not stylistic -- on this account it is the difference between +18.3 and -0.3.",
+    "confirms_the_2026-09-04_finding": "_THE_TWO_BOOKS_HAVE_OPPOSITE_EDGES_AND_BLENDING_HIDES_IT reached the same conclusion four days ago on the same endpoint. Direction, sign and verdict all reproduce. The magnitudes do not exactly -- see _A_HAND_TRANSCRIBED_BROKER_PULL_IS_A_MEASUREMENT_WITH_AN_ERROR_BAR."
+  },
+  "_THE_KILL_BRANCHS_EXEMPTION_IS_DEFEATED_BY_THE_SAMPLE_SIZE_FLOOR_AHEAD_OF_IT": {
+    "measured_utc": "2026-09-08T10:25:00Z",
+    "headline": "The options book measured a NEGATIVE margin this run (-0.3 pts, n=17) -- the KILL condition (margin <= KILL_MARGIN_PTS = 0.0) is literally satisfied. It did not fire, and it CANNOT fire below n=20, because recommend() returns early on the n < MIN_TRADES_FOR_ACTION check BEFORE the KILL branch is ever reached.",
+    "the_tension_stated_honestly": "Prompt v10 says 'The KILL branch is EXEMPT from the in-regime gate... RISK-OFF NEVER WAITS FOR A CLEAN SAMPLE.' The code implements the exemption against the IN-REGIME gate only -- the guard it is written next to -- and the n<20 floor sits ahead of both. So risk-off does, in fact, wait for a sample. Whether 'clean sample' in the prompt meant only the in-regime gate or both guards is genuinely ambiguous.",
+    "why_this_run_did_NOT_change_it": "Guard ordering is the module's safety model, not a parameter inside BANDS. Reordering it is outside every band, so it ESCALATES and is not applied -- the same rule that stops a calibration widening its own bands. An unattended run may not decide this.",
+    "the_case_for_leaving_it_ALONE_and_it_is_strong": "At n=17 a -0.3 pt margin is indistinguishable from zero. One trade's sign flips it either way -- the whole options total is two winners. Halving size and pausing entries on that evidence would be exactly the overfitting-to-noise the module exists to prevent. The current behaviour may simply be correct.",
+    "the_case_for_RYAN_to_look": "A book can be small AND genuinely unprofitable, and the guard means a small book can never trip its own kill switch no matter how bad the margin gets. The options sleeve has been near breakeven for weeks and would need three more closes just to become eligible for the branch designed to protect it.",
+    "recommendation_for_Ryan_no_approval_claimed_or_implied": "Decide whether the KILL branch should also be exempt from MIN_TRADES_FOR_ACTION, or whether a separate lower floor (say n>=10) should gate a kill. Until he rules, the code stands as written and no run may change it.",
+    "HARD_RULE_9": "This is an unattended run. No Ryan turn is claimed, quoted or implied. Nothing is cleared."
+  },
+  "_A_HAND_TRANSCRIBED_BROKER_PULL_IS_A_MEASUREMENT_WITH_AN_ERROR_BAR": {
+    "measured_utc": "2026-09-08T10:25:00Z",
+    "headline": "Two runs four days apart ran the SAME calibration on the SAME broker endpoint and got different numbers for the SAME 55 equity closes. 2026-09-04 recorded n=55, net +$303.23, hit 70.9% (39W), payoff 1.04, margin +21.9. This run measures n=55, net +$264.89, hit 69.1% (38W), payoff 0.97, margin +18.3. One trade is classified differently and the nets differ by $38.34.",
+    "what_the_rolling_window_DOES_explain": "span='3month' rolls. The total fell 73 -> 72 and the OPTIONS count 18 -> 17, consistent with one options close from 06-04..06-10 ageing out (this pull's oldest is 2026-06-11T14:28:15Z). That part reconciles cleanly.",
+    "what_it_does_NOT_explain_and_this_is_the_finding": "The equity n is 55 in BOTH pulls and there have been NO equity closes since 2026-09-03, so the equity sample is identical by construction. Two identical samples cannot honestly produce two different nets. One of the two transcriptions is wrong, and neither run can tell which from its own record -- because neither recorded the per-trade list it computed from.",
+    "the_mechanism": "The connector returns JSON into the run's context; the run then RETYPES it into an analysis. Every retyping is a lossy channel, and nothing in the pipeline ever errors. The arithmetic downstream is exact, which is what makes it convincing -- a precise figure computed from a mistyped input looks exactly like a precise figure.",
+    "why_it_matters_more_than_$38": "This is the statistic the parameter bands are tuned against. At n=55 a single reclassified trade moved the margin 3.6 points. DEGRADED_MARGIN_PTS is 5.0 and HEALTHY_MARGIN_PTS is 15.0 -- so a transcription slip of one trade is most of the distance between two verdict states. The guards happened to block any change this week, so it cost nothing; it would not always.",
+    "the_fix_and_it_is_cheap": "Persist the per-trade list the calibration actually consumed (symbol, timestamp, side, realized_gain) alongside the summary, so the next run DIFFS two lists instead of comparing two summaries. A discrepancy then names the offending trade instead of being unresolvable. This run's list is 72 rows and was verified internally consistent before use: equities 38W+17L=55, options 9W+7L+1 zero-gain=17.",
+    "this_runs_numbers_are_the_ones_to_carry_forward": "Not because they are provably right -- because they were computed this run from a pull whose row counts were checked, and because the VERDICT is identical under either set (equities healthy but blocked by the in-regime gate; options at/below breakeven and blocked by n<20). The discrepancy changes no decision, which is the only condition under which a measurement dispute can be recorded credibly.",
+    "family": "Same shape as this file's most-repeated defect -- a check that passes for the wrong reason. Here the check is the calibration itself: it ran, it returned a clean answer, and its input had drifted."
+  },
+  "_TWO_TIME_STOPS_FIRE_THIS_WEEK_AND_BOTH_WILL_REALIZE_A_LOSS": {
+    "measured_utc": "2026-09-08T10:25:00Z",
+    "headline": "The 14-day SWING TIME STOP went live 2026-09-02 and has never fired. It fires TWICE this week, on LLY (Thursday 2026-09-10) and MDLZ (Friday 2026-09-11), and on Friday's settled closes BOTH are underwater -- so the book's first mechanical loss discipline will make its debut by realizing two losses, autonomously, on schedule.",
+    "the_arithmetic_at_the_2026-09-04_settled_close": {
+      "LLY": "entry 1189.7553 x 0.420254 sh = $499.98 | close 1149.36 -> $482.99 | -3.40% | -$16.98 | day 12 of 14 | TIME STOP 2026-09-10",
+      "MDLZ": "entry 62.5899 x 7.988509 sh = $499.98 | close 61.28 -> $489.53 | -2.09% | -$10.46 | day 11 of 14 | TIME STOP 2026-09-11",
+      "MMM": "entry 173.3371 x 2.884552 sh = $500.00 | close 168.56 -> $486.24 | -2.76% | -$13.78 | day 8 of 14 | TIME STOP 2026-09-14",
+      "GD": "entry 374.4437 x 1.335314 sh = $500.00 | close 359.39 -> $479.90 | -4.02% | -$20.10 | day 7 of 14 | TIME STOP 2026-09-15",
+      "book": "all four underwater, total -$61.32 on $1,999.96 deployed (-3.07%)"
+    },
+    "consequence_that_is_easy_to_miss": "The RSI2>=70 take-profit is GATED ON price > entry, so with every position red it is structurally unavailable on the whole book. The time stop is therefore not one of three available exits right now -- it is the ONLY one. Whatever it does this week, it does unopposed.",
+    "the_holiday_costs_LLY_a_session": "Per _LABOR_DAY_MAKES_THIS_A_96_HOUR_WEEKEND, days_held is CALENDAR days, so Labor Day sat inside all four windows without moving any deadline. LLY has three sessions left (09-08, 09-09, 09-10) to revert, not four. That is not an argument to extend the stop -- charging for dead time is the point of it.",
+    "capital_released": "~$972.52 at Friday's marks if both fire, taking the book from 4 slots to 2 against a 3-4 target, with deployable rising from $1,266.86 to roughly $2,239. That is a real re-deployment decision landing on Thursday and Friday, not a housekeeping event.",
+    "this_is_designed_behaviour_not_a_malfunction": "HARD RULE 5 forbids price stops, so before 09-02 a stalled swing ran to the monthly cull. The time stop exists precisely to recycle capital out of a swing that has stopped working, GREEN OR RED. Firing red on its first outing is the policy operating as written, and the reason Ryan is being told in advance rather than after.",
+    "what_the_next_runs_must_NOT_do": "Do not talk the fires out of existence. The magnitude floor that overrode a written exit eleven times is VOID (see _MECHANICAL_EXIT_HAS_NO_MAGNITUDE_FLOOR); a small loss is not a reason to hold, and 'it might revert tomorrow' is the exact reasoning the time stop replaces. Sell on the alert line TIME STOP / SELL (stalled), with a live quote first, and never label it a take-profit."
   }
 }

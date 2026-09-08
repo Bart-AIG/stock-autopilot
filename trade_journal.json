@@ -32669,6 +32669,22 @@
       "finding_named_not_reargued": "_A_REPORT_GENERATED_ON_A_MARKET_HOLIDAY_INVERTS_THE_NEWER_IS_FRESHER_RULE. One line of it that the next run must act on: prompt v10's 'whichever is newer' selects the WORSE file on a holiday pair. The control is what makes it a finding -- 5 of 6 setup rows are byte-identical across the two files and match their settled closes exactly (GD's RSI2 is 9.8 in both), so only LLY moved and only LLY's signal moved.",
       "actions": "NONE placed -- market shut. No artifact rolled: heartbeat left at 2026-09-04, market_brief left at 2026-09-04, options loss cap and both entry throttles left keyed to 09-04 per the UTC-rollover rule (a RESET value on a pre-open run is wrong by construction). No flag touched. holdings.json gained one findings key; positions untouched so updated_utc left at 2026-09-04T19:45:00Z.",
       "handoff": "The first post-open run of 2026-09-08 owns heartbeat + brief + throttle reset + WEEKLY CALIBRATION (Monday 09-07 was a holiday, so 09-08 is the week's first TRADING day). It must NOT source an equity signal from the 09-07 pair -- wait for the fresh 09-08 report (~14:15Z), which _OPENING_WINDOW_SLIPPAGE independently prefers. Time stops: LLY 09-10 (3 sessions left), MDLZ 09-11, MMM 09-14, GD 09-15. All four swings are underwater (-2.1% to -4.0% on Friday's closes), so the RSI2>=70 take-profit is structurally unavailable -- it is gated on price > entry; the 14-day time stop is the live mechanism."
+    },
+    {
+      "run_utc": "2026-09-08T10:25:00Z",
+      "run_type": "pre_open_overnight",
+      "trading_day_et": "2026-09-04",
+      "headline": "Pre-open Tuesday run. WEEKLY CALIBRATION EXECUTED for the week of 2026-09-08 (week's first trading day; Monday was Labor Day): NO CHANGE on either book, both blocked by their own guards. Two 14-day time stops fire this week, LLY 09-10 and MDLZ 09-11, both currently red.",
+      "reconciliation": "ZERO DRIFT both books, broker read first at 10:20Z. 1 option + 4 equities matched on qty and avg price. total_value $3,846.49, cash $1,459.18 == unleveraged_buying_power, deployable $1,266.86 after the $192.32 reserve.",
+      "calibration": "EQUITIES n=55 hit 69.1% payoff 0.97 breakeven 50.8% MARGIN +18.3 expectancy +$4.82 -- REPORT ONLY, in-regime gate (2 of 55 closed under the 09-02 parameters). OPTIONS n=17 hit 52.9% payoff 0.88 breakeven 53.3% MARGIN -0.3 expectancy +$5.29 -- REPORT ONLY, n<20. Blended would read +6.6 and hide both.",
+      "findings_named_not_reargued": [
+        "_WEEKLY_CALIBRATION_2026-09-08",
+        "_TWO_TIME_STOPS_FIRE_THIS_WEEK_AND_BOTH_WILL_REALIZE_A_LOSS",
+        "_THE_KILL_BRANCHS_EXEMPTION_IS_DEFEATED_BY_THE_SAMPLE_SIZE_FLOOR_AHEAD_OF_IT",
+        "_A_HAND_TRANSCRIBED_BROKER_PULL_IS_A_MEASUREMENT_WITH_AN_ERROR_BAR"
+      ],
+      "actions": "NONE. Market shut. No parameter changed, nothing escalated as a band breach. Heartbeat not stamped and no daily artifact rolled -- correct, the trading day in force is still 2026-09-04.",
+      "handoff": "First post-open run of 2026-09-08 owns: the heartbeat stamp, the market_brief rebuild, the loss-cap and throttle resets, and CONFIRMING (not redoing) the calibration record. Both committed reports are holiday-generated 2026-09-07 -- wait for today's report on master before any signal-sourced equity trade. All four swings are red, so the RSI2>=70 take-profit is structurally unavailable book-wide and the time stop is the only live exit."
     }
   ]
 }
