@@ -32685,6 +32685,15 @@
       ],
       "actions": "NONE. Market shut. No parameter changed, nothing escalated as a band breach. Heartbeat not stamped and no daily artifact rolled -- correct, the trading day in force is still 2026-09-04.",
       "handoff": "First post-open run of 2026-09-08 owns: the heartbeat stamp, the market_brief rebuild, the loss-cap and throttle resets, and CONFIRMING (not redoing) the calibration record. Both committed reports are holiday-generated 2026-09-07 -- wait for today's report on master before any signal-sourced equity trade. All four swings are red, so the RSI2>=70 take-profit is structurally unavailable book-wide and the time stop is the only live exit."
+    },
+    {
+      "run_utc": "2026-09-08T11:26:00Z",
+      "run_type": "pre_open_overnight",
+      "trading_day_et": "2026-09-04",
+      "headline": "115th pre-open no-op, ~2h04m before the Tue 2026-09-08 open. Market shut. Stand-down per POST-CLOSE RUN PROTOCOL. Trading day in force remains 2026-09-04 (Labor Day rang no bell). Weekly calibration already executed and committed by the 10:25Z run -- CONFIRMED, not redone.",
+      "reconciliation": "ZERO DRIFT both books, broker read first at 11:24Z. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, hedge, all pending_* zero, mkt 461) + 4 equity swings (LLY 0.420254 @1189.76, MDLZ 7.988509 @62.59, MMM 2.884552 @173.34, GD 1.335314 @374.44) matching ledger qty AND basis. get_equity_orders since 09-05 EMPTY. Cash 1459.18 == unleveraged_buying_power == buying_power (no margin extended); total_value 3847.12; reserve 192.36; deployable 1266.82.",
+      "actions": "NONE. No artifact rolled: heartbeat left at 2026-09-04, market_brief left at 2026-09-04, options loss cap and both entry throttles left keyed to 09-04 (a RESET value on a pre-open run is wrong by construction). No flag touched. No time stop due today (LLY 09-10, MDLZ 09-11, MMM 09-14, GD 09-15).",
+      "handoff": "First post-open run of 2026-09-08 owns heartbeat + market_brief rebuild + loss-cap/throttle reset. Two bars on it: (1) both committed reports are the holiday-generated 09-07 pair, so NO signal-sourced equity trade until today's report lands on master (~14:15Z per _REPORT_CRON_GAP_AT_THE_OPEN); (2) all four swings are red, so the RSI2>=70 take-profit is structurally unavailable book-wide -- the 14-day time stop is the only live equity exit, and LLY fires it Thursday."
     }
   ]
 }
