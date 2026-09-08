@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-08T14:26:00Z",
+  "updated_utc": "2026-09-08T14:33:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-08",
     "realized_usd_options": 0.0,
@@ -810,15 +810,15 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-08T14:26:00Z",
+    "run_utc": "2026-09-08T14:33:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-08",
-    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 14:20-14:21Z before any other work. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, hedge, all pending_* zero) + 4 equity swings matched on qty AND average_buy_price (LLY 0.420254 @1189.76, MDLZ 7.988509 @62.59, MMM 2.884552 @173.34, GD 1.335314 @374.44), shares_available_for_sells equal to quantity on all four. BOTH order endpoints EMPTY for 2026-09-08 -- no sibling entry despite four prior runs today.",
-    "capital": "total_value $3,859.34; cash $1,459.18 == unleveraged_buying_power == buying_power, so no margin is extended and FOUR LAWS #4 holds. equity_value $1,912.16, options_value $488.00. Operational reserve 5% = $192.97. DEPLOYABLE $1,266.21. Per-name cap 30% = $1,157.80. Minimum entry $600 -- clearable. No _cash_hold record exists and none is claimed: today's flat is a QUALITY residual, not a deliberate hold.",
-    "book": "4 of the 3-4 target equity swings open (hard band 3-5), all underwater: LLY -5.33%, MDLZ -3.24%, MMM -4.29%, GD -4.72%; book -$88.07 on $2,000.08 cost (-4.40%). The RSI2>=70 take-profit is STRUCTURALLY UNAVAILABLE book-wide because it is gated on price > entry. Time stops LLY 09-10, MDLZ 09-11, MMM 09-14, GD 09-15 -- none fires today. Options: the authorized SPY 700P hedge only, 73 DTE, mark ~4.88 vs 7.49 entry, EXEMPT from all premium backstops; its ~21-DTE roll/close decision with Ryan is ~2026-10-30. No trigger fired, so no notification is owed in either book.",
-    "tape": "Numbers only, no verdict handed forward. 14:21-14:23Z venue timestamps. SPY 766.700 -0.453% | QQQ 717.600 -0.189%. Sector board: XLE +1.764 XLU +0.952 XLRE +0.478 XLK +0.251 XLB -0.095 XLI -0.245 XLP -0.638 XLC -0.652 XLY -0.709 XLF -0.998 XLV -2.222. Names: TSM 435.56 +1.55, AVGO 370.35 +3.48, AMGN 399.23 -8.69, VRTX 532.355 -2.52, BMY 64.81 -3.01, MA 571.74 -1.29, LLY 1126.305 -2.01, MDLZ 60.56 -1.17, MMM 165.90 -1.58, GD 356.765 -0.73.",
-    "duties": "IV SWEEP COMPLETED -- this run swept TSM and AVGO, the two core names the 14:14Z run left unswept; all 8 core names now carry a 2026-09-08 row on the 2026-10-09 board, and both crossed n=20. Heartbeat, market_brief rebuild, weekly calibration and the throttle reset were all owned and completed by the 13:38Z first-post-open run -- CONFIRMED, not redone. Daily report duty belongs to the first run at/after 19:15Z; not yet due. Also corrected two stale fields another run would have read as current: market_brief.regime.driver said 'STILL UNIDENTIFIED' after the driver had been found and verified, and the 13:47Z healthcare key's directional read was withdrawn by the tape.",
-    "why_flat": "EQUITIES -- FLAT ON THE MERITS, throttle 0 of 3 unused. The 14:01Z report's RSI2 list is now fully graded: I graded DLTR, the one name no prior run had reached, and it REJECTS on the same 50-day discriminator the others did (spot 126.54 vs SMA20 130.40 and SMA50 127.31, SMA20 > SMA50 = downtrend stack). VRTX remains the only structural pass and remains DECLINED -- and its decline is now supported by fresh measurement rather than an inherited verdict: the trend-maturity clause (c) divergence has NOT resolved, it re-widened (XLV -2.319% -> -1.709% -> -2.222%, outlier ratio back to 2.23x, ~84% of the intraday recovery given back). Separately I found that the written VRTX re-entry test is arithmetically a null test and replaced it -- see _THE_VRTX_RECHECK_TEST_IS_A_NULL_TEST... -- so the name is not silently vetoed forever by an accident of 2-period-RSI mechanics. OPTIONS -- no entry either track, 0 of 8 used. TACTICAL: the healthcare event is round-tripping and unresolved, which is precisely the regime the 2026-08-26 capstone bars breakout scalps in, and no structural level was breaking on either index. CORE: no candidate cleared; the report's fresh names are one sector event expressed four times, and none is a liquid enough chain at this account size."
+    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 14:30-14:31Z before any other work. 1 option (SPY 2026-11-20 700P qty 1.0000 @ 749.00, hedge, all pending_* zero) + 4 equity swings matched on qty AND average_buy_price (LLY 0.420254 @1189.76, MDLZ 7.988509 @62.59, MMM 2.884552 @173.34, GD 1.335314 @374.44), shares_available_for_sells == quantity on all four. get_equity_orders EMPTY for 2026-09-08 -- no sibling entry across six runs.",
+    "capital": "total_value $3,858.95; cash $1,459.18 == unleveraged_buying_power == buying_power, so no margin is extended and FOUR LAWS #4 holds. equity_value $1,915.77, options_value $484.00. Operational reserve 5% = $192.95. DEPLOYABLE $1,266.23. Per-name cap 30% = $1,157.68. Minimum entry $600 -- clearable. No _cash_hold record exists and none is claimed: today's flat is a QUALITY residual, not a deliberate hold.",
+    "book": "4 of the 3-4 target equity swings open (hard band 3-5), all underwater at 14:31Z marks: LLY 1128.285 -5.17%, MDLZ 60.8599 -2.76%, MMM 166.11 -4.17%, GD 356.85 -4.70%; book -$84.04 on $2,000.08 cost (-4.20%). RSI2>=70 TAKE-PROFIT REMAINS STRUCTURALLY UNAVAILABLE BOOK-WIDE -- it is gated on price > entry. Time stops LLY 09-10 (day 12/14), MDLZ 09-11 (11/14), MMM 09-14 (8/14), GD 09-15 (7/14) -- none fires today. Options: the authorized SPY 700P hedge only, 73 DTE, EXEMPT from all premium backstops; ~21-DTE roll/close decision with Ryan ~2026-10-30. No trigger fired in either book, so no notification is owed.",
+    "tape": "Numbers only, no verdict handed forward. 14:31Z venue timestamps. SPY 766.490 -0.480% | QQQ 717.254 -0.237% | XLE 65.17 +1.733 XLF 57.545 -0.955 XLV 167.79 -2.135 | LLY -1.834 MDLZ -0.685 MMM -1.454 GD -0.706 | VRTX 531.79 -2.624 AMGN 397.615 -9.058.",
+    "duties": "Heartbeat, market_brief rebuild, weekly calibration and both throttle resets were owned and completed by the 13:38Z first-post-open run -- CONFIRMED from the artifacts, not redone. IV sweep COMPLETED by the 14:26Z run (all 8 core names carry a 2026-09-08 row). Daily report duty belongs to the first run at/after 19:15Z; not yet due, not written. Nothing was rolled forward or reset by this run.",
+    "why_flat": "EQUITIES -- FLAT ON THE MERITS, throttle 0 of 3 unused. The 14:01Z report's RSI2 list was fully graded by the 14:14Z and 14:26Z runs; the only A-minus name, VRTX, is DEFERRED and this run confirms the deferral against the REPLACEMENT test (not the null test it superseded): clause 2 needs a SETTLED flat-or-up session and VRTX is -2.62% and unsettled, and clause 4 needs XLV off its session low while XLV sits -2.135%. Both fail on facts, not on arithmetic accident -- the replacement test is satisfiable in principle, just not today. OPTIONS -- no TACTICAL fire and no CORE candidate; see _INDEX_STRUCTURAL_LEVELS_MEASURED_NOT_ASSERTED_2026-09-08T14-33Z for the first actual measurement behind today's five prior no-trigger verdicts."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -3254,5 +3254,35 @@
     "the_mechanism": "iv_rv_ratio is implied divided by that name's OWN trailing realized, so the denominator is name-specific and its typical level is a property of the name's vol structure -- how much of its realized variance is gap-driven, how much event premium its chain habitually carries. Dividing by realized removes the vol LEVEL from the comparison but not the name's characteristic BIAS. AVGO habitually runs a higher ratio than TSM, so the same number means different things.",
     "what_it_does_and_does_not_change": "It does NOT weaken the raw-versus-ex-gap pairing rule (2026-08-20), which is about one name across time and stands unchanged -- note both names here also show the classic gap artifact, TSM raw 0.9641 vs ex-gap 1.3669 and AVGO 0.9803 vs 1.2484, so BOTH look cheap raw and rich ex-gap. It adds a second, orthogonal caution: the existing rule guards a name's ratio against its own window; this one guards one name's ratio against ANOTHER name's. Before ranking candidates on IV cheapness, rank each on its OWN percentile, and say n -- at n=20 over ~4 weeks a percentile is a rank within one regime, not a vol-of-vol estimate.",
     "honest_scope": "Changed no decision -- no options entry was armed in either track this run, and IV sanity is a NECESSARY condition that never supplies a thesis. Also n=20 for both names is the bare minimum the method permits; the 95th and 10th percentiles are 19-of-20 and 2-of-20 counts, not stable estimates. The finding is the DIVERGENCE at nearly equal levels, which does not depend on either percentile being precise."
+  },
+  "_INDEX_STRUCTURAL_LEVELS_MEASURED_NOT_ASSERTED_2026-09-08T14-33Z": {
+    "measured_utc": "2026-09-08T14:33:00Z",
+    "why_this_exists": "Five runs today reported 'no TACTICAL trigger' and none of them computed the index structural levels that verdict is a claim about. The sector board was measured exhaustively; SPY's and QQQ's own moving averages were not measured once. A no-trigger verdict asserted without a level is not a measurement, and the next run inherits it as though it were one -- this file's most-repeated shape, a check that passes for the wrong reason.",
+    "method": "20- and 50-day SMA computed off SETTLED daily closes through 2026-09-04 (get_equity_historicals, interval=day, bounds=regular). Live prices are 14:31Z venue quotes.",
+    "SPY": {
+      "live": 766.49,
+      "prev_close": 770.19,
+      "change_pct": -0.48,
+      "sma20": 769.053,
+      "distance_to_sma20_pct": -0.33,
+      "sma50": 756.8572,
+      "distance_to_sma50": 9.63,
+      "sma20_slope_per_day": -0.1535,
+      "read": "NO FRESH BREAK AVAILABLE. SPY opened below its 20-day and is drifting there; the level was lost before this session, so there is nothing here to break. A scalp entered now would be entered mid-range, which is exactly the late-entry geometry the 2026-08-28 detector prices out."
+    },
+    "QQQ": {
+      "live": 717.2537,
+      "prev_close": 718.96,
+      "change_pct": -0.237,
+      "sma20": 717.5105,
+      "distance_to_sma20_pct": -0.04,
+      "sma50": 711.085,
+      "distance_to_sma50": 6.17,
+      "sma20_slope_per_day": -0.2035,
+      "read": "THE ONE LIVE WATCH LEVEL IN EITHER INDEX. QQQ sits 0.26 points -- 0.04% -- under its 20-day SMA, i.e. ON the level, oscillating. That is a WATCH, not a fire: a trigger requires a COMPLETED 5-minute close beyond 717.51 AND holding beyond it on the following bar, with volume confirmed over that SAME two-bar window (the 2026-08-28 construction fix) against BOTH the trailing-30 local mean AND the session's own earlier bucket rate (the 2026-08-26 baseline-collapse fix), after reconciling the buckets against their 1-minute sums by the DIRECTION rule."
+    },
+    "level_shelf_life_checked": "SMA20 slope is -0.15/day (SPY) and -0.20/day (QQQ). Over a TACTICAL hold of ~1-2 sessions the QQQ level drifts ~0.2-0.4 points against a scalp objective of roughly 2.1 points of QQQ (a +20-40% premium move on a 0.40-0.60 delta contract). The level moves far less than the target, so it is tradeable as a trigger and does NOT hit the 2026-08-25 retire-the-level clause.",
+    "but_the_thesis_gate_still_fails_and_this_is_the_load_bearing_half": "Even on a clean fire, 'why NOW' is unanswered. Today's dispersion is HEALTHCARE-SPECIFIC -- XLV -2.135% against XLE +1.733% and the indices down less than half a percent. QQQ carries almost no healthcare weight, so the one thing actually moving the tape is not expressed in the vehicle the level belongs to. Trading QQQ because QQQ is where the level is would be fitting the trade to the instrument, which is the same error as fitting it to whatever contract is affordable. A LEVEL IS NOT A THESIS.",
+    "handoff": "The next run tests 717.5105 (recompute; the level falls ~0.20/day) for a two-bar close-and-hold on QQQ, and does NOT re-test SPY's 20-day, which is already lost. Neither is a trade without a thesis answering why the Nasdaq should move on a healthcare event."
   }
 }
