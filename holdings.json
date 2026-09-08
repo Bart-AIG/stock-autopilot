@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-08T17:00:00Z",
+  "updated_utc": "2026-09-08T17:25:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-08",
     "realized_usd_options": 0.0,
@@ -199,23 +199,31 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "evaluated_utc": "2026-09-02T16:15:00Z",
-    "report_used": "latest_intraday.md header 2026-09-02 16:03 UTC (commit a365a7c), 12 minutes old -- GENUINELY NEW, landed on master AFTER the 16:05Z run's PR merged. NO DATA ERROR. Prior runs from 15:01Z onward read the superseded 15:01Z report, so this is the first evaluation of the refreshed setup list.",
-    "what_changed_in_the_report": "AEHR and NBIS dropped off the RSI2 table; BLK and GM arrived; SNOW and IBKR/GE appeared. ROST's take-profit flag persists with RSI2 rising 70.6 -> 76.4 at 231.24.",
-    "outcome": "NO ENTRY, and no exit. Equities throttle 0 of 3 used; the decline is on merit and on the rotation gate, not on the throttle.",
-    "candidates": {
-      "_method": "Rotation-ranking screen FIRST per _ROTATION_GATE_IS_ANSWERABLE_FROM_THE_SCREENS_OWN_RANKING, used only in its valid direction (disposing of names ranked BELOW a held name). Held names on today's list: MMM #4 (RSI2 1.3), GD #6 (1.9). PNC and MDLZ are not on the list.",
-      "BLK_rank_2_rsi2_0.9": "GRADED C, DECLINED -- the only name that outranked a held position and therefore the only one owed a full workup. Full evidence in _A_DECLINE_THROUGH_POSITIVE_NEWS_IS_STRONGER_THAN_A_NEWSLESS_DRIFT.CASE_D. Six-session -5.09% slide through positive news, -1.01% today against XLF +0.95%, 3.28% below a 20-day that has just rolled over. Earnings independently cleared (get_earnings_calendar 09-02 +24d: no BLK print in the window) -- it fails on tape, not on the calendar.",
-      "AMAT_rank_3_rsi2_1.1": "DEFERRED, grade withheld -- unchanged from the 09-01 deferral and for the same reason, now confirmed rather than inherited: AVGO reports TONIGHT (get_earnings_calendar this run: 2026-09-02 pm, est 3.16), with HPE and NTAP alongside it. Core semi-cap equipment carries direct complex beta and a 1-3 week swing straddles the print. The deferral EXPIRES with the event -- re-grade from scratch on post-print numbers, never reuse a pre-event grade.",
-      "GM_rank_7_rsi2_2.6": "DISPOSED by the ranking screen, no workup owed. Ranks below BOTH held names (MMM 1.3, GD 1.9), so funding it means selling a better-ranked intact-thesis position -- the churn the rotation rule forbids.",
-      "FCEL_rank_1_rsi2_0.8": "EXCLUDED. [ERN 2026-09-02] and it has now REPORTED -- actual -0.64 against a -0.39 estimate, a large miss. SPEC sleeve besides.",
-      "SNOW_rsi2_8.4": "EXCLUDED. [ERN 2026-09-02 pm] confirmed in the calendar, reports tonight.",
-      "MRVL_LRCX_rsi2_3.7_4.2": "DEFERRED with AMAT on the same AVGO-tonight sector-earnings rule.",
-      "MMM_GD": "HELD already -- a new buy ADDS. No add; per-name cap and the unreverted-cohort problem both argue against.",
-      "RTX_FDX_DDOG_GLW_NOK_AAOI_IBKR_GE": "Rank below a held name (or, for FDX, carry [ERN 2026-09-17] inside the hold window). Disposed by the ranking screen; none reached a workup."
+    "run_utc": "2026-09-08T17:25:00Z",
+    "verdict": "NO EQUITY ENTRY, NO OPTIONS ENTRY. No A-grade candidate; the screen is one correlated trade.",
+    "capital": {
+      "total_value": 3848.32,
+      "unleveraged_buying_power": 1459.18,
+      "cash": 1459.18,
+      "operational_reserve_5pct": 192.42,
+      "deployable": 1266.76,
+      "per_name_cap_30pct": 1154.49,
+      "margin_check": "buying_power == unleveraged_buying_power ($1,459.18) -- no borrowed funds extended. FOUR LAWS #4 clean."
     },
-    "capital_gate": "Deployable $302.10 = cash $552.10 minus the $250.00 reserve (stricter of the flat FOUR LAWS floor and 5%-of-total $197.86). Below one normal $400-500 position size, so the ROTATION GATE governs: a new idea must beat the WEAKEST HELD name on the entry stack and is funded by selling it. No held name carries a HARD RULE 7 thesis break, so the sell side is unavailable regardless of the buy side's grade -- and BLK did not clear the buy side either. Both legs fail independently.",
-    "sector_note": "BLK would also have doubled financial exposure alongside PNC (1.83 sh, entered 08-19), into the one financial being distributed on a day XLF is +0.95%."
+    "slots": "4 of the 3-4 target used (hard band 3-5). A 5th entry sizes at deployable/1 = $1,266.76, which BREACHES the 30% per-name cap and must be written down to $1,154.49 -- i.e. the only compliant fifth entry available today is one at the MAXIMUM single-name concentration the policy allows.",
+    "THE_DECIDING_ARGUMENT": "That $1,154 would go into the epicentre of a live rate repricing, three days before CPI, in the same factor as all four existing positions (which are 4-for-4 underwater, -$79.43 combined). The concentration policy authorises size for A/A+ ONLY and states plainly that concentration does not raise expected return -- it only pays if the top ideas are genuinely better, so FEWER MUST MEAN MORE SELECTIVE, NEVER MERELY BIGGER. Sizing a B-grade to 30% because the arithmetic permits it is the exact trade that clause exists to prevent.",
+    "why_this_is_NOT_queuing": "The rotation gate binds only when deployable cash is BELOW one normal position size. Deployable $1,266.76 exceeds the ~$600 minimum entry, so the ordinary branch applies and it asks a single question: is there an A-grade setup? There is not, and the policy states that saying so is the correct output. No position was ranked against a held name because no candidate reached the bar to trigger that comparison.",
+    "grades": {
+      "AMGN": "C -- NOT a dip. Novartis pelacarsen Phase 3 (Lp(a)HORIZON) missed its primary endpoint; the read-across hit Amgen's olpasiran and BMO cut to Market Perform. Consensus Hold, mean PT $398.52 against spot $395.97 = ~0.6% implied upside. UBS keeps Buy/$440 arguing the mechanisms differ (siRNA vs antisense) -- a live scientific dispute is not a mean-reversion setup.",
+      "DLTR": "B -- the cleanest of the list and still not A. No company-specific bad news; Barclays RAISED to $160 Overweight on 09-04 and mean PT $137.33 vs spot $124.40 (+10.4%). But -5.34% today is the XRT -2.2% retail de-rating, i.e. squarely the rate shock, with CPI Friday.",
+      "ABNB": "B -- Baird raised PT $175->$200 today, but consumer discretionary into a hike repricing.",
+      "MA_V": "C -- Benzinga explicitly reports 'a broad de-rating across payments and fintech' today (FOUR -9.0%, WEX, Remitly, Paymentus). Sector event in progress, not a dip.",
+      "PATH": "C -- extending losses on what analysts call a low-quality beat with slowing growth; IGV -2.1%. Thesis weakening, spec sleeve.",
+      "RTX": "B/C -- and correlated with the held GD; a second defence name is not diversification.",
+      "SBUX_CL_ABBV_BMY_VRTX_WBD": "B/C -- same de-rating complex; none carries an idiosyncratic catalyst."
+    },
+    "earnings_gate": "VERIFIED INDEPENDENTLY, not from the report's blank Earnings column (absence of the flag is not proof). get_earnings_calendar(high_market_cap, 2026-09-08 +25d) lists NONE of the candidates or the four held names inside the hold window. No [ERN] bar applied and none was needed.",
+    "sector_steer": "No oil-energy name was proposed. XLE was among the day's leaders (+0.45%/+1.0%), which is exactly when the steer is most tempting to override -- it was not."
   },
   "_closed_positions": [
     {
@@ -818,14 +826,14 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-08T17:15:00Z",
+    "run_utc": "2026-09-08T17:25:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-08",
-    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 17:15Z. 1 option (SPY 2026-11-20 700P hedge, qty 1.0000 @ 749.00, all pending_* zero) + 4 equity swings matched on qty AND average_buy_price (LLY 0.420254 @1189.76, MDLZ 7.988509 @62.59, MMM 2.884552 @173.34, GD 1.335314 @374.44), shares_available_for_sells == quantity on all four. get_equity_orders EMPTY for 2026-09-08 -- no sibling entry across seventeen runs.",
-    "capital": "total_value $3,848.84; cash $1,459.18 == unleveraged_buying_power == buying_power, so no margin is extended and FOUR LAWS #4 holds. equity_value $1,920.66, options_value $469.00. Operational reserve 5% = $192.44. DEPLOYABLE $1,266.74. Per-name cap 30% = $1,154.65. Deployable clears the $600 minimum, so capital is NOT the constraint and the ROTATION gate is not engaged. No _cash_hold record exists and none is claimed.",
+    "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 17:20Z and RE-READ at 17:29Z before writing. 1 option (SPY 2026-11-20 700P hedge, qty 1.0000 @ 749.00, all pending_* zero) + 4 equity swings matched on qty AND average_buy_price (LLY 0.420254 @1189.76, MDLZ 7.988509 @62.59, MMM 2.884552 @173.34, GD 1.335314 @374.44). get_equity_orders and get_option_orders both EMPTY for 2026-09-08 -- no sibling entry across eighteen runs.",
+    "capital": "total_value $3,848.32; cash $1,459.18 == unleveraged_buying_power == buying_power, so no margin is extended and FOUR LAWS #4 holds. equity_value $1,920.14, options_value $469.00. Operational reserve 5% = $192.42. DEPLOYABLE $1,266.76. Per-name cap 30% = $1,154.49. Deployable clears the $600 minimum, so the ROTATION gate is NOT engaged and the ordinary A-grade branch applies. A _cash_hold record NOW EXISTS as of this run (see _cash_hold): catalyst CPI 2026-09-11, EXPIRY 2026-09-14, dissolves automatically. It is not a cash floor.",
     "book": "4 of the 3-4 target equity swings open (hard band 3-5), all red on 17:16Z quotes: LLY 1127.490 (-5.24%), MDLZ 61.420 (-1.87%), MMM (-4.0%), GD 356.280 (-4.85%). RSI2>=70 TAKE-PROFIT STRUCTURALLY UNAVAILABLE BOOK-WIDE (gated on price > entry). Earliest time stop LLY 2026-09-10, inside the 3-day warn window, NOT fired. No exit fires; no trigger fired in either book, so no notification is owed. Options: the authorized SPY 700P hedge only, 73 DTE, EXEMPT from all premium backstops; ~21-DTE roll/close decision with Ryan ~2026-10-30.",
-    "verdict": "NO TRADE both books. EQUITIES: the 17:02Z/17:10Z reports refreshed the cohort and changed exactly ONE name -- RTX re-entered at RSI2 9.6; the other fifteen are identical to the 16:03Z list already graded through V (B) by the 16:15Z run. RTX re-graded B against its own 09-03 re-open conditions, both of which fail, plus the unchanged theme-concentration objection against held GD. Nothing reached A/A+, which a fifth slot needs at 4 of the 3-4 target. Throttle 0 of 3, unused on merit. OPTIONS: no TACTICAL trigger -- SPY 767.670 below its 20-day 769.05 while QQQ 720.590 is above its own 717.51, so the index-agreement clause cannot clear today whatever level breaks; no CORE candidate. DUTIES: heartbeat (13:38Z), brief (13:33Z), weekly calibration (10:25Z), IV sweep (14:26Z) all confirmed from artifacts rather than redone; daily report due at the first run at/after 19:15Z, not this run.",
-    "new_durable_finding": "_ITA_IS_PROPPED_BY_ONE_UPGRADED_CONSTITUENT_SO_A_SECTOR_ETF_REOPEN_CONDITION_CAN_PASS_ON_AN_IDIOSYNCRATIC_CATALYST_2026-09-08T17-15Z"
+    "verdict": "NO TRADE both books -- CONCURRENT with the 17:15Z sibling run, whose RTX re-grade and ITA-dispersion finding are PRESERVED IN FULL (union merge, PR #1278 over PR #1277; both runs did genuine non-overlapping work and both correctly declined). THIS run's contribution is the REGIME RELABEL: today is a rate shock, not a healthcare-specific rout -- see _REGIME_RELABEL_2026-09-08_RATE_SHOCK_NOT_HEALTHCARE. That reframes the whole cohort: the 16 RSI2 names are ONE correlated trade, not sixteen dips, and so are all four held positions. With 4 of the 3-4 slots filled, the only compliant fifth entry sizes to the 30% cap ($1,154.49) -- maximum concentration into the losing factor three days before CPI. Nothing graded A/A+. Throttle 0 of 3, unused on merit. OPTIONS: TACTICAL barred by the 2026-08-26 unresolved-catalyst capstone (PPI Thu, CPI Fri, live-hike FOMC next week); no CORE candidate. DUTIES: heartbeat (13:38Z), brief (13:33Z, regime label CORRECTED this run), weekly calibration (10:25Z, NO CHANGE both books), IV sweep (14:26Z) all confirmed from artifacts rather than redone; daily report due at the first run at/after 19:15Z, not this run.",
+    "new_durable_finding": "_REGIME_RELABEL_2026-09-08_RATE_SHOCK_NOT_HEALTHCARE (this run). The 17:15Z sibling's _ITA_IS_PROPPED_BY_ONE_UPGRADED_CONSTITUENT... key is retained unchanged."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -3540,5 +3548,23 @@
       "the_one_bear_datapoint_and_its_weight": "Cramer 09-02 flagged eventual budget-deficit pressure on military spending and named LMT as his preferred name in the group. That is commentary, not a thesis break, and it does not meet the HARD RULE 7 bar for an autonomous thesis sell. GD stays HOLD, bounded by its 2026-09-15 time stop."
     },
     "honest_scope__this_changed_no_decision": "RTX declines today on the unresolved-escalation clause and on theme concentration independently, before the ETF clause is reached at all, and it is a red day so clause 2 could not have fired regardless. The audit is creditable precisely because it did not license a trade -- a confirmation clause's inputs can only be audited credibly on a run where the audit does not benefit. Recorded also: the grade MOVED the right way for the wrong-looking reason -- RSI2 9.6 today vs 1.14 on 09-03 means the oversold signal is far weaker now, so even a cleared thesis would not have restored the 09-03 setup quality."
+  },
+  "_REGIME_RELABEL_2026-09-08_RATE_SHOCK_NOT_HEALTHCARE": {
+    "measured_utc": "2026-09-08T17:25:00Z",
+    "supersedes": "market_brief.json regime label 'HEALTHCARE-SPECIFIC ROUT, TECH AND ENERGY FIRM -- NOT risk-off', written 13:32-13:35Z and self-flagged PROVISIONAL for being measured inside the opening window. The brief's label is EDITED IN PLACE, not duplicated (per the one-key-per-subject rule).",
+    "THE_CORRECTION": "Today is not a sector event with an unremarkable board around it. It is a RATE SHOCK: the 10-year crossed 4.80% for the first time since Oct 2023 on Brent >$97 (+11-12% m/m), and fed funds futures now carry ~58% odds of a 25bp HIKE at next week's FOMC. PPI lands Thu 09-10 and CPI Fri 09-11. Dow -1.1% (-578pts) while QQQ was GREEN (+0.216%) -- a duration split, not a risk-off tape.",
+    "WHY_THE_FIRST_LABEL_PASSED_FOR_THE_WRONG_REASON": "XLV genuinely WAS the worst sector (-2.11%) and AMGN genuinely WAS the single largest drag (-9.6%), so every observable the 13:3xZ run checked was correct. What it could not see 3 minutes after the bell is that XRT (-2.2%), ITB (-2.2%), IGV (-2.1%), IBB (-1.8%), XLF (-1.02%) and XLP (-0.70%) were falling with it, and that XLU/XLE/SMH were bid. The label was true about the ranking and wrong about the MECHANISM.",
+    "WHY_IT_CHANGES_A_DECISION_which_is_the_only_reason_to_record_it": "Under 'healthcare-specific rout', the other 15 RSI2 names on today's screen read as unrelated single-name dips and the screen looks diversified. Under 'rate shock' they are ONE trade: SBUX, AMGN, ABBV, CL, MA, V, DLTR, ABNB, BMY, VRTX, RTX, WBD and PATH all sit inside the de-rating complex, and so do all four positions the book already holds. A fifth entry would not have added a name -- it would have added leverage to the factor that is already down -$79.43.",
+    "the_transferable_shape": "This file's most-repeated defect (a check that passes for the wrong reason) applied to a REGIME LABEL rather than to a filter. The 2026-08-25T19:35Z rule already says a regime label is a timestamped measurement that a later run must re-measure before inheriting; it was written about labels inherited ACROSS SESSIONS. This one went stale in FOUR HOURS, inside a single session, because the measurement window was the opening auction. An opening-window regime label needs re-measuring the same day, not the next one."
+  },
+  "_cash_hold": {
+    "set_utc": "2026-09-08T17:25:00Z",
+    "set_by": "scheduled automation run (prompt v10). NOT a Ryan instruction -- HARD RULE 9 intact, no approval claimed.",
+    "why_this_record_exists": "THE CAPITAL POLICY permits holding cash beyond the operational reserve ONLY with a named opportunity, a checkable DATE-or-PRICE trigger, and an expiry. Recording it is the conservative choice: it makes the hold DISSOLVE automatically instead of decaying into the unexpiring 'waiting for a better setup' hold the policy forbids.",
+    "a_opportunity": "Re-grade the 16-name RSI2 defensive / rate-sensitive complex on today's screen (SBUX, AMGN, ABBV, CL, MA, V, DLTR, ABNB, BMY, VRTX, RTX, WBD, PATH + the three HELD names) once the macro repricing resolves. These are not being skipped on thesis -- they are being skipped because a mean-reversion entry into the first session of a rate repricing is buying the knife BEFORE the catalyst that caused it.",
+    "b_trigger_DATE": "CPI print Friday 2026-09-11 08:30 ET (headline seen 3.4%, core 2.4%); PPI Thu 2026-09-10. Independently, the LLY time stop fires 2026-09-10 and the MDLZ time stop 2026-09-11, mechanically returning ~$960 of capital in the same window regardless of what CPI prints.",
+    "c_expiry": "2026-09-14. On that date this hold DISSOLVES automatically and the capital returns to normal full deployment, whatever CPI did and whether or not a better setup has appeared. No run may extend it without a NEW named catalyst and a NEW expiry.",
+    "amount_held": "Deployable $1,266.76 = unleveraged_buying_power $1,459.18 - operational reserve $192.42 (5% of total_value $3,848.32, recomputed this run).",
+    "NOT_a_cash_floor": "There is no percentage cash target and none is implied here. If an A-grade setup clears the bar tomorrow it is taken in full, and this record is void the moment that happens."
   }
 }
