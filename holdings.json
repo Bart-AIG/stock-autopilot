@@ -1,16 +1,16 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-09T18:25:00Z",
+  "updated_utc": "2026-09-09T18:35:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-09",
     "realized_usd_options": 0.0,
     "closing_trades_options": 0,
     "cap_options_usd": -400.0,
-    "realized_usd_equities": 0.0,
-    "closing_trades_equities": 0,
+    "realized_usd_equities": -4.07,
+    "closing_trades_equities": 1,
     "entry_throttle_options": "0 of 8 used",
     "entry_throttle_equities": "0 of 3 used",
-    "source": "BROKER-READ at 2026-09-09T13:29Z by the FIRST POST-BELL run of the 2026-09-09 trading day, which owns this reset. get_equity_orders(created_at_gte=2026-09-08) and get_option_orders(same) both return EMPTY, so zero closing trades and zero entries in either book. READ, NOT DEFAULTED, per _RESET_VALUES_ARE_WRONG_BY_CONSTRUCTION_ON_A_POST_CLOSE_RUN: the 17 pre-open runs of the 2026-09-08..09-09 overnight stretch correctly declined to roll this object, because the reset happens at the OPEN and never at the UTC rollover.",
+    "source": "BROKER-READ at 2026-09-09T18:32Z by the 18:30Z run. get_realized_pnl(2026-09-09..2026-09-09) returns realized_gain -4.07 on number_of_trades 1 -- the MDLZ exit (7.988509 sh @ 62.08, order 6aa1a3b4, placed_agent agentic, filled 18:21:40Z; cost 62.5899 -> -$4.07). get_option_orders(created_at_gte=2026-09-09) EMPTY, so the options book is untouched: realized $0.00, 0 closing trades. THROTTLES UNCHANGED AND CORRECT AS WRITTEN: an exit is never an entry and exits are never throttled, so 0 of 3 equity entries and 0 of 8 option entries both still stand. REPAIR: the 18:21Z exit run updated positions[] and removed MDLZ but left THIS object reading realized_usd_equities 0.0 / closing_trades_equities 0 -- stale by one closing trade. Same class as _MAGNITUDE_FLOOR / the lot-count rule: a lot-or-position change invalidates the derived set, and a field whose CONCLUSION still looks plausible ($0 on a quiet day) survives a reconciliation that only reads positions. The positions reconciliation genuinely passed and lent its credibility to an adjacent number nobody sourced -- this repo's most-repeated defect, one field to the left of where the check was pointed. Detector unchanged: never type a realized/throttle figure you did not READ this run.",
     "_prior_day": "2026-09-08 closed at realized $0.00 options / $0.00 equities, 0 of 8 and 0 of 3 entries used."
   },
   "positions": [
