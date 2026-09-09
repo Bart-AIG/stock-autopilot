@@ -104,9 +104,13 @@ jobs:
                   # A stalled swing being recycled — NOT a take-profit, and it fires
                   # whether the position is green or red. Its own line so the pasted
                   # alert never mislabels the book's one mechanical loss discipline.
+                  # pnl is null when the ledger row carries no entry_price; the time stop
+                  # still fires (elapsed time is the trigger), so format defensively —
+                  # an unguarded :+.1% here raises TypeError and kills the whole alert.
                   lines.append('TIME STOP / SELL (stalled): ' + ' | '.join(
-                      f"{r['symbol']} {r['price']} ({r['pnl']:+.1%}, held {r.get('days_held')}d) "
-                      f"-> recycle capital"
+                      f"{r['symbol']} {r['price']} "
+                      f"({format(r['pnl'], '+.1%') if r.get('pnl') is not None else 'P/L unknown'}, "
+                      f"held {r.get('days_held')}d) -> recycle capital"
                       for r in time_stops[:10]))
               if sells:
                   lines.append('TAKE PROFIT / SELL: ' + ' | '.join(

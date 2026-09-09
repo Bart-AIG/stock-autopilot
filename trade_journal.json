@@ -33438,6 +33438,18 @@
       "headline": "Sixteenth post-close no-op. Market shut (07:24 ET). Stand-down per POST-CLOSE RUN PROTOCOL; all daily duties discharged.",
       "reconciliation": "ZERO DRIFT both books, BROKER FIRST at 11:22Z. 1 option (SPY 2026-11-20 700P, hedge, pending_* zero) + 4 equities (LLY/MDLZ/MMM/GD) matching qty AND avg price; both order pulls since 09-08 EMPTY. Cash $1,459.18 == unleveraged BP, total $3,884.79, deployable $1,264.94 after the $194.24 reserve.",
       "actions": "NONE. No artifact rolled; trading day still 2026-09-08 (no stamp, no reset -- $0.00 of -$400, 0 of 8 options / 0 of 3 equities). LLY time stop 09-10 in the warn window, does not fire today."
+    },
+    {
+      "run_utc": "2026-09-09T12:45:00Z",
+      "run_type": "pre_open",
+      "trading_day_et": "2026-09-08",
+      "headline": "Pre-open (08:31 ET), market shut. NO TRADE, nothing placeable. Verified the LLY time stop that fires TOMORROW -- the first this book will ever execute -- and found + fixed a latent TypeError in that same branch that would have taken the whole report down.",
+      "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 12:35Z. 1 option (SPY 2026-11-20 700P, qty 1 @ 749.00, all pending_* zero, backstop-exempt hedge, mark $504) + 4 equities matching qty AND avg price (LLY 0.420254/1189.76, MDLZ 7.988509/62.59, MMM 2.884552/173.34, GD 1.335314/374.44). get_equity_orders and get_option_orders since 2026-09-08 both EMPTY -- no fills, no sibling entry, nothing unauthorized. Cash $1,459.18 == unleveraged_buying_power, total $3,883.68, equity $1,920.50.",
+      "duties": "Trading day in force is still 2026-09-08 (pre-open, bell has not rung). Correctly did NOT stamp the heartbeat, rebuild market_brief, or reset the options loss cap / either entry throttle -- a reset figure written about a day that has already traded is wrong by construction. Weekly calibration was completed 09-08 10:25Z (NO CHANGE both books, in-regime gate blocked all tuning); daily report delivered 09-08 19:16Z. Nothing due.",
+      "why_flat": "Equities: no exit fires today -- LLY is day 13 of 14 (verified by unit test, not by reading the report), and the RSI2>=70 take-profit is structurally unavailable on all four names because it is gated on price > entry and all four are red. No entry: the _cash_hold (expiry 2026-09-14, trigger PPI 09-10 / CPI 09-11) is live and un-expired, and pre-open there is no quote to price anything off. Options: market shut, no TACTICAL trigger measurable, no CORE candidate.",
+      "new_durable_finding": "_THE_TIME_STOP_CRASHES_ON_A_NULL_ENTRY_PRICE_AND_TAKES_THE_WHOLE_REPORT_WITH_IT_2026-09-09T12-45Z in holdings.json -- full measurement, the three-case unit test, the fix and the transferable lesson are there and are NOT re-argued here.",
+      "code_change": "report.py time-stop branch + .github/workflows/stock-report.yml ntfy line: guard the pnl format so a swing past its time stop with a null/zero entry_price renders 'P/L unknown' and STILL FIRES, rather than raising TypeError and aborting report generation (which under the playbook bars every autonomous equity trade). Format defensively, never gate the branch -- elapsed time is the trigger and an unknown P/L is no reason to skip a mechanical exit. Diff 31 insertions / 3 deletions across 3 files, git diff --stat checked, workflow YAML re-validated.",
+      "verified_forward": "LLY 2026-09-10 -> 'SELL / TIME STOP (stalled)', day 14, and correctly silent at day 13 today. Momentum sleeve does not time-stop. End-to-end path report.py -> time_stop_signals -> ntfy emits the TIME STOP line ABOVE the TAKE PROFIT line, so the pasted alert cannot mislabel the book's only mechanical loss discipline as a take-profit."
     }
   ]
 }
