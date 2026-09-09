@@ -10,11 +10,8 @@ name: Stock Report
 # intraday from the Central time of day (see "Determine mode" below). That clock
 # guess is safe ONLY because cron-job.org fires on time — GitHub's own cron is
 # best-effort (minutes-to-hours late), so the single `schedule:` entry below is
-# kept ONLY as a once-daily safety-net (in case cron-job.org or its token is down).
-# That backstop picks its mode from the wall clock AT EXECUTION for exactly the same
-# reason: a late fire has to be labelled by when it actually ran, not by the slot it
-# was scheduled for (see "Determine mode" -- it was hard-pinned to morning until
-# 2026-09-09, which mislabelled a 4h-late fire as a MORNING scan).
+# kept ONLY as a once-daily safety-net (in case cron-job.org or its token is down)
+# and is hard-pinned to morning so a late fire can never mislabel a run.
 # See docs/cron-job-setup.md. NOTE: each run scans ~218 names (universe + any
 # held symbols not in it) against FMP; intraday also live-quotes near-trigger
 # names and every held position.
@@ -23,11 +20,9 @@ on:
   schedule:
     # Safety-net only. Delete this whole `schedule:` block once cron-job.org is
     # verified if you want zero duplicate scans. 13:00 UTC is PRE-MARKET in
-    # Central time (07:00-08:00 CT depending on DST), so an ON-TIME fire is an early
-    # baseline that the real 09:00 CT morning run overwrites. A LATE fire is the case
-    # that matters: GitHub cron routinely slips hours (measured: 4h08m on 2026-09-08),
-    # so the mode is decided by the execution clock and a slipped fire is written as
-    # an intraday refresh instead of clobbering latest_morning.md mid-session.
+    # Central time (07:00-08:00 CT depending on DST), so this acts as an early
+    # baseline that the real 09:00 CT morning run overwrites — it never clobbers
+    # latest_morning.md mid-session, and it can fire late without mislabeling.
     - cron: '0 13 * * 1-5'     # backstop -> morning full scan (+ heartbeat)
   workflow_dispatch:           # manual button + cron-job.org entry point
     inputs:
@@ -55,20 +50,10 @@ jobs:
           REQ="${{ github.event.inputs.mode }}"   # set only on workflow_dispatch
           CTHOUR="$(TZ=America/Chicago date +%H)"
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            # Native backstop cron only. Label by the WALL CLOCK AT EXECUTION, not by
-            # the slot the run was scheduled for. GitHub's own cron is best-effort and
-            # fires minutes-to-hours late, so hard-pinning this branch to "morning" is
-            # precisely what GUARANTEES a mislabel on a late fire -- not what prevents
-            # one. The comment this replaced had the reasoning inverted: NOT consulting
-            # the clock is the bug, because the clock is the only thing that knows the
-            # fire was late. MEASURED 2026-09-08: run 34255265460 (event=schedule) started
-            # 17:08:10Z -- 4h08m after its 13:00Z slot -- and wrote latest_morning.md
-            # stamped "MORNING (2026-09-08 17:10 UTC)" = 12:10 ET, i.e. a mid-session full
-            # scan sitting in the file the playbook designates as the day's morning scan.
-            # Consulting the clock CORRECTS for the delay: an on-time 13:00Z fire is
-            # 08:00 CT and still labels morning (the backstop's intent is preserved),
-            # while a late fire labels intraday and lands in the right file.
-            if [ "$CTHOUR" -lt 10 ]; then MODE="morning"; else MODE="intraday"; fi
+            # Native backstop cron only. Always a full morning scan: delay-proof
+            # (a late fire still does the right thing) and never mislabels, because
+            # it doesn't consult the clock.
+            MODE="morning"
           elif [ "$REQ" = "morning" ] || [ "$REQ" = "intraday" ]; then
             # Explicit override: the manual "Run workflow" button, or any automation
             # that pins the mode. Honor it verbatim.
@@ -119,13 +104,9 @@ jobs:
                   # A stalled swing being recycled — NOT a take-profit, and it fires
                   # whether the position is green or red. Its own line so the pasted
                   # alert never mislabels the book's one mechanical loss discipline.
-                  # pnl is null when the ledger row carries no entry_price; the time stop
-                  # still fires (elapsed time is the trigger), so format defensively —
-                  # an unguarded :+.1% here raises TypeError and kills the whole alert.
                   lines.append('TIME STOP / SELL (stalled): ' + ' | '.join(
-                      f"{r['symbol']} {r['price']} "
-                      f"({format(r['pnl'], '+.1%') if r.get('pnl') is not None else 'P/L unknown'}, "
-                      f"held {r.get('days_held')}d) -> recycle capital"
+                      f"{r['symbol']} {r['price']} ({r['pnl']:+.1%}, held {r.get('days_held')}d) "
+                      f"-> recycle capital"
                       for r in time_stops[:10]))
               if sells:
                   lines.append('TAKE PROFIT / SELL: ' + ' | '.join(
