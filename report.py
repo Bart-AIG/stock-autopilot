@@ -35,7 +35,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
-from datetime import datetime, timezone, timedelta
+from datetime import date, datetime, timezone, timedelta
 from pathlib import Path
 
 # Reuse the universe + helpers from the momentum tool (single source of truth).
@@ -128,6 +128,31 @@ SWING_TIME_STOP_DAYS = 14     # ~10 trading days held without a target -> recycl
                               # cull. Wired into evaluate_portfolio() as the third exit.
 TIME_STOP_WARN_DAYS = 3       # within this many days of the time stop, an underwater RSI2
                               # bounce is annotated as the likely better exit price
+
+
+def _exit_gate_phrase(days_held):
+    """Name the exit gate that will ACTUALLY close a held position, per sleeve.
+
+    Both hold branches used to end "cull/hold to monthly rebalance" unconditionally.
+    That was true before 2026-09-02 and has been WRONG for a swing ever since: the
+    monthly cull stopped being a swing's exit gate the moment SWING_TIME_STOP_DAYS was
+    wired in, and the ~14-day time stop always fires first. It is the one Ryan-facing
+    line that says what happens next, so it was pointing at the wrong mechanism on a
+    date-certain sell — live case 2026-09-08, when all four swings read "cull at
+    monthly rebalance" with LLY two sessions from a mechanical liquidation.
+
+    Only `days_held` is passed because evaluate_portfolio() sets it for a SWING with a
+    parseable entry_date and leaves it None otherwise — so it doubles as the sleeve
+    test, and momentum (judged on the monthly re-rank, correctly NOT time-stopped)
+    keeps the monthly wording. Callers reach here only when no sell fired, so
+    days_held < SWING_TIME_STOP_DAYS and the countdown cannot print negative.
+    """
+    if days_held is None:
+        return "monthly rebalance"
+    return (f"the TIME STOP in {SWING_TIME_STOP_DAYS - days_held}d "
+            f"(held {days_held}d/{SWING_TIME_STOP_DAYS}d) — recycled then, green or red")
+
+
 TRAIL_PCT = 0.15              # trailing-stop distance below the high; a winner is "green
                               # enough" to trail once price >= entry/(1-TRAIL_PCT) (~+17.6%),
                               # so a 15%-below-high stop clears breakeven (set 2026-06-17)
@@ -153,6 +178,61 @@ def load_holdings() -> list[dict]:
         return blob.get("positions", []) if isinstance(blob, dict) else []
     except (ValueError, AttributeError):
         return []
+
+
+def load_recent_exits(today) -> dict[str, str]:
+    """Symbols closed out of the EQUITY book within the last SWING_TIME_STOP_DAYS,
+    mapped to the exit date. Used to annotate the RSI(2) setup table.
+
+    Why this exists (found 2026-09-08): a sell REMOVES the position from
+    `positions`, so the "HELD" marker — which is derived from open positions only —
+    drops the moment a name is exited, and the same name can re-present on the next
+    run as a clean, unannotated BUY candidate. `_closed_positions` was read by
+    NOTHING, so the report had no way to say "you sold this on Thursday."
+
+    The exposure is NOT symmetric across the three exits, which is the point:
+      • A TAKE-PROFIT is self-immunizing — it fires at RSI2 >= RSI2_OVERBOUGHT, the
+        opposite end of the oscillator from the RSI2 < 10 entry screen, so a name
+        sold that way cannot appear on the setup table on the way out.
+      • A TIME STOP has no such immunity. It is indexed on ELAPSED TIME, which is
+        uncorrelated with RSI2, so a time-stopped name can exit at any RSI2 —
+        including deeply oversold, i.e. straight back onto this table.
+    Only one time stop had fired when this was written (PNC, 2026-09-03) and it
+    happened to exit un-oversold, so the loop had never actually been observed.
+    That was luck, not structure.
+
+    This ANNOTATES; it does not gate. Re-entering a name can be perfectly correct,
+    and inventing a cooldown here would be the report granting itself a trading rule
+    it was never given. It only ensures the run SEES the exit before deciding.
+
+    Window is SWING_TIME_STOP_DAYS rather than a new constant: a name exited inside
+    one full swing-holding period is a re-entry decision, not a fresh idea.
+    """
+    if not HOLDINGS.exists():
+        return {}
+    try:
+        blob = json.loads(HOLDINGS.read_text(encoding="utf-8"))
+        closed = blob.get("_closed_positions", []) if isinstance(blob, dict) else []
+    except (ValueError, AttributeError):
+        return {}
+    out: dict[str, str] = {}
+    for pos in closed:
+        # Options-sleeve closes are a different book — a closed contract on an
+        # underlying says nothing about re-entering the STOCK.
+        if (pos.get("sleeve") or "momentum") == "options":
+            continue
+        sym, stamp = pos.get("symbol"), pos.get("closed_utc")
+        if not sym or not isinstance(stamp, str):
+            continue
+        try:
+            day = date.fromisoformat(stamp[:10])
+        except ValueError:
+            continue  # unparseable -> fail OPEN (no annotation), never a phantom one
+        if 0 <= (today - day).days <= SWING_TIME_STOP_DAYS:
+            # Keep the most recent exit if a name was traded more than once.
+            if sym not in out or day > date.fromisoformat(out[sym]):
+                out[sym] = day.isoformat()
+    return out
 
 
 def load_joint_watch() -> list[str]:
@@ -304,10 +384,18 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
                 # RSI2 71.6 the day before its time stop). Asserting an untested
                 # condition in the alert Ryan reads would be wrong exactly when it
                 # matters most.
+                # pnl is None whenever entry_price is missing/zero (see its assignment
+                # above), and the time stop is the ONE exit that fires without consulting
+                # it — elapsed time is the trigger, so an unknown P/L is no reason to skip
+                # a mechanical exit. Format defensively rather than gating the branch: an
+                # unguarded {pnl:+.1%} here raises TypeError and takes the WHOLE report
+                # down, which under the playbook bars every autonomous equity trade. Same
+                # idiom the HOLD branch below already uses.
                 sell_reasons.append(
                     f"TIME STOP — held {days_held}d (>= {SWING_TIME_STOP_DAYS}d) and still "
                     f"open: the mean-reversion window has passed with no exit taken "
-                    f"({pnl:+.1%}) — recycle the capital")
+                    f"({format(pnl, '+.1%') if pnl is not None else 'P/L unknown — no entry_price'})"
+                    f" — recycle the capital")
 
         if target and price >= target:
             sell_reasons.append(f"hit target {target} — take profit")
@@ -397,7 +485,8 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
             note = [thesis_note] + review
         elif review:
             action = "REVIEW / THESIS-CHECK"
-            note = review + ["sell only if the thesis is dead; else hold to monthly rebalance"]
+            note = review + ["sell only if the thesis is dead; else hold to "
+                             + _exit_gate_phrase(days_held)]
         elif green_enough and fractional:
             action = "MONITOR-TRAIL (fractional — native stop not placeable)"
             note = [f"winner {pnl:+.0%} — GREEN ENOUGH, but the position is {shares:g} sh "
@@ -413,7 +502,7 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
         elif pnl is not None and pnl < 0:
             action = "HOLD (thesis-watch)"
             note = [f"underwater {pnl:+.0%}; no price stop — sell only if the thesis breaks, "
-                    f"else cull at monthly rebalance"]
+                    f"else " + _exit_gate_phrase(days_held)]
         else:
             action = "HOLD"
             note = [f"{('up '+format(pnl, '+.0%')) if pnl is not None else 'flat'}; "
@@ -679,6 +768,10 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     # HELD markers / rotation reflect EQUITY positions only — an options-sleeve contract
     # on an underlying is not a stock holding (a new equity buy would not be an "add").
     held_syms = {p.get("symbol") for p in holdings if (p.get("sleeve") or "momentum") != "options"}
+    # Names exited from the equity book inside the last swing-holding period. The HELD
+    # marker vanishes on a sell, so without this a name sold this week re-presents as a
+    # clean setup — see load_recent_exits().
+    recent_exits = load_recent_exits(now.date())
     rotation = ([r["symbol"] for r in momentum[:n_decile] if r["symbol"] not in held_syms][:8]
                 if (sells or time_stops or reviews) else [])
 
@@ -746,6 +839,9 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
             s["theme"] = theme_of(s["symbol"])
             s["speculative"] = s["symbol"] in SPECULATIVE
             s["held"] = s["symbol"] in held_syms
+            # Only meaningful when NOT currently held: a name we still own is already
+            # marked HELD, and an add is a different decision from a re-entry.
+            s["recent_exit"] = None if s["held"] else recent_exits.get(s["symbol"])
             s["earnings_date"] = earnings_cal.get(s["symbol"])
             s["earnings_soon"] = bool(s["earnings_date"] and s["earnings_date"] <= blackout)
         lines.append("Oversold (RSI2<10) inside a rising 200-day uptrend. Entry/stop/target are ESTIMATES.\n")
@@ -753,7 +849,7 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
         lines.append("|---|---|---|---|---|---|---|---|---|---|---|")
         for s in setups:
             spec = "SPEC" if s["speculative"] else ""
-            held = "HELD" if s["held"] else ""
+            held = "HELD" if s["held"] else (f"EXITED {s['recent_exit']}" if s["recent_exit"] else "")
             wide = " ⚠" if abs(s["stop_pct"]) > 15 else ""
             ern = (f"⚠️ {s['earnings_date']}" if s["earnings_soon"]
                    else (s["earnings_date"] or ""))
@@ -783,6 +879,17 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
             lines.append(f"- 📌 **Already held (marked HELD):** {', '.join(held_overlap)}. A new buy "
                          "ADDS to the existing position — skip unless you mean to add, and re-check "
                          "the per-name cap on the combined size.")
+        exit_overlap = [(s["symbol"], s["recent_exit"]) for s in setups if s.get("recent_exit")]
+        if exit_overlap:
+            lines.append(
+                "- 🔁 **Recently EXITED (re-entry, not a fresh idea):** "
+                + ", ".join(f"{sym} on {day}" for sym, day in exit_overlap)
+                + f". Sold from this book inside the last {SWING_TIME_STOP_DAYS}d, so the HELD marker "
+                  "is gone but the history is not. A TIME STOP exit is the live case — it fires on "
+                  "elapsed time, which is uncorrelated with RSI2, so a stalled name can be sold and "
+                  "re-screen as oversold the same day. Buying it back restarts the clock on the trade "
+                  "the time stop just ended. This is a FLAG, not a ban — say why the re-entry is "
+                  "different from the hold that just failed.")
         if ai_n >= max(3, total * 0.5):
             lines.append(f"- 🔴 **Correlated cluster:** {ai_n}/{total} setups are in the AI/tech complex "
                          "(semis, AI-infra, quantum, photonics). They move together — buying several is "
