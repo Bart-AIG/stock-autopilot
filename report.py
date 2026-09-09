@@ -384,10 +384,18 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
                 # RSI2 71.6 the day before its time stop). Asserting an untested
                 # condition in the alert Ryan reads would be wrong exactly when it
                 # matters most.
+                # pnl is None whenever entry_price is missing/zero (see its assignment
+                # above), and the time stop is the ONE exit that fires without consulting
+                # it — elapsed time is the trigger, so an unknown P/L is no reason to skip
+                # a mechanical exit. Format defensively rather than gating the branch: an
+                # unguarded {pnl:+.1%} here raises TypeError and takes the WHOLE report
+                # down, which under the playbook bars every autonomous equity trade. Same
+                # idiom the HOLD branch below already uses.
                 sell_reasons.append(
                     f"TIME STOP — held {days_held}d (>= {SWING_TIME_STOP_DAYS}d) and still "
                     f"open: the mean-reversion window has passed with no exit taken "
-                    f"({pnl:+.1%}) — recycle the capital")
+                    f"({format(pnl, '+.1%') if pnl is not None else 'P/L unknown — no entry_price'})"
+                    f" — recycle the capital")
 
         if target and price >= target:
             sell_reasons.append(f"hit target {target} — take profit")
