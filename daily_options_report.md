@@ -1,78 +1,98 @@
-# Daily Report — Tuesday, 2026-09-08 — **BOTH BOOKS**
+# Daily Report — Wednesday, 2026-09-09 — **BOTH BOOKS**
 
-*Agentic account (••••7339, `limited_margin` / `option_level_3`). Written at 14:16 CT / 19:16 UTC by the first run at or after the report window — on time and in-session, 44 minutes before the bell. All quotes stamped 19:16Z. Prompt v10.*
+*Agentic account (••••7339, `limited_margin` / `option_level_3`). Written at 14:16 CT / 19:16 UTC by the first run at or after the report window — in-session, 44 minutes before the bell. All quotes stamped 19:16Z. Prompt v10.*
 
-Broker-reconciled at 19:16Z: **1 option + 4 equities, zero drift** on quantity *and* average price. `get_equity_orders` for 2026-09-08 is empty and `get_option_orders` likewise — no fills today, no sibling run landed anything across twenty-seven runs, nothing unauthorized.
+Broker-reconciled at 19:16Z: **1 option + 3 equities, zero drift** on quantity *and* average price. `get_option_orders` for 2026-09-09 is empty; `get_equity_orders` returns exactly one order — this desk's own MDLZ sell — so nothing unauthorized landed and no sibling run placed anything across today's runs.
 
-**Headline: the book did nothing today, and that was the correct output.** No exit could fire, no entry cleared the bar, and no options trigger existed. The interesting part of the day was macro, not positional — see *Regime* below.
+**Headline: one action today — MDLZ was sold in full at 18:21Z for −$4.07, two days ahead of its time stop, into the best print of its entire 12-day hold.** No entry was taken in either book. The equity slot that exit opened is genuinely free and was declined on merit, not capacity.
 
 ---
 
 ## 1. Positions
 
-### Equity swing book — 4 open (target 3-4, band 3-5)
+### Equity swing book — 3 open (target 3-4, band 3-5)
 
-| Name | Entry (date) | Shares | Mark 19:16Z | P/L | % | Held | **Time stop** | Why we own it |
-|---|---|---|---|---|---|---|---|---|
-| **LLY** | 1189.7553 (08-27) | 0.420254 | 1123.68 | −$27.72 | −5.55% | 12 of 14 | **2026-09-10 (Thu)** | Connors RSI(2) mean-reversion inside a rising 200-day uptrend. Thesis researched **intact** at 15:45Z today — the incretin franchise (orforglipron / tirzepatide / retatrutide) is unbroken; today's drop is sector, not company. |
-| **MDLZ** | 62.5899 (08-28) | 7.988509 | 61.735 | −$6.81 | −1.37% | 11 of 14 | **2026-09-11 (Fri)** | Same RSI(2) setup in staples. Defensive cash-flow name; thesis intact, no company news. The only holding bid today (+0.74%). |
-| **MMM** | 173.3371 (08-31) | 2.884552 | 167.185 | −$17.74 | −3.55% | 8 of 14 | **2026-09-14 (Mon)** | RSI(2) dip in an industrial with an intact margin-recovery story. Thesis intact. |
-| **GD** | 374.4437 (09-01) | 1.335314 | 356.83 | −$23.60 | −4.70% | 7 of 14 | **2026-09-15 (Tue)** | RSI(2) dip in defense. Thesis intact; the complex de-rated on rates, not on orders or backlog. |
+| Name | Entry (date) | Shares | Mark 19:16Z | P/L | % | Day | Held | **Time stop** | Why we own it |
+|---|---|---|---|---|---|---|---|---|---|
+| **LLY** | 1189.7553 (08-27) | 0.420254 | 1125.745 | −$26.90 | −5.38% | **+0.16%** | 13 of 14 | **2026-09-10 (Thu)** | Connors RSI(2) mean-reversion inside a rising 200-day uptrend. Thesis researched **intact** 09-08 — the incretin franchise (orforglipron / tirzepatide / retatrutide) is unbroken. The only book name green today. |
+| **MMM** | 173.3371 (08-31) | 2.884552 | 164.69 | −$24.94 | −4.99% | −1.69% | 9 of 14 | **2026-09-14 (Mon)** | RSI(2) dip in an industrial with an intact margin-recovery story. Still prints RSI2 1.8 on today's screen — the setup has deepened, not resolved. |
+| **GD** | 374.4437 (09-01) | 1.335314 | 352.8301 | −$28.86 | −5.77% | −1.05% | 8 of 14 | **2026-09-15 (Tue)** | RSI(2) dip in defense. Thesis **re-confirmed INTACT today** — see §2. |
 
-**Book: $1,924.05 on $1,999.92 cost — −$75.87 / −3.79%.** All four red, which matters mechanically: the RSI2≥70 take-profit is gated on `price > entry`, so **no take-profit can physically fire on any of them.** Per HARD RULE 5 none carries a price stop, and none is near green-enough (needs entry ÷ 0.85) for a trailing-stop alert.
+**Equity book: $1,500.00 cost → $1,419.29 mark, −$80.70 unrealized (−5.38%).** All three red, which is the structural reason no take-profit could fire (below).
 
 ### Options book — 1 open (the hedge)
 
-| Contract | Entry | Mark | P/L | DTE | Greeks | Status |
-|---|---|---|---|---|---|---|
-| **SPY 2026-11-20 700P** ×1 | $7.49 ($749) | $4.86 ($486) | −$263.00 / −35.11% | 73 | δ −0.132, θ −0.092/day, IV 20.60% | **Hedge — EXEMPT from all premium backstops.** Insurance under the Aug–Oct defensive posture; expected to decay in a firm tape. Roll/close decision with Ryan at ~21 DTE (≈ 2026-10-30). |
+| Contract | Entry | Mark 19:16Z | P/L | DTE | Status |
+|---|---|---|---|---|---|
+| **SPY 2026-11-20 700P ×1** | $749.00 (08-06) | 5.35 → **$535.00** | **−$214.00 (−28.6%)** | 72 | Authorized defensive hedge. **EXEMPT from all premium backstops** — it is insurance, expected to decay in a rising tape. Roll/close decision with Ryan at ~21 DTE (≈2026-10-30). Delta −0.143, theta −$9.80/day, IV 20.7%. Up $31 today on the soft tape. |
 
-No TACTICAL and no CORE positions open. Slots: **0 of 2 TACTICAL, 0 of 3 CORE.**
+No TACTICAL and no CORE position is open. Options slots used: **0 of 2 TACTICAL, 0 of 3 CORE** (hedge excluded).
 
 ---
 
 ## 2. Actions taken today
 
-**None in either book.** Zero orders placed, zero closed. The one thing that happened was this report and the ledger/journal upkeep behind it.
+### ✅ SELL MDLZ — 7.988509 sh @ $62.08, realized **−$4.07 (−0.81%)**, 12 days held
 
-That is the eighth consecutive session with no equity entry, and it is worth stating plainly rather than burying: **zero equity entries have ever been placed under the concentration policy that went live 2026-09-02.** Every position in the book above was sized $500 under the *old* rules. The new rules say size = deployable ÷ remaining slots with a ~$600 minimum — and with 4 of the 3–4 target slots already full, a fifth name has to clear an A/A+ bar that nothing has cleared yet.
+Order `6aa1a3b4-2a25-4513-a02d-4f7547e07f5a`, sent 18:21:40.096Z, **filled in 103 milliseconds** at $62.08 in a single execution, zero fees — price-improved one cent above the $62.07 bid. `review_equity_order` returned `order_checks {}` beforehand: no broker alerts. Cost basis $500.00 (7.988509 @ 62.5899); proceeds $495.93.
+
+**What fired.** The 18:03Z committed report flagged `EXIT-INTO-STRENGTH (underwater — optional)` on MDLZ at **RSI2 75.5**, with the annotation *"2d to the time stop (held 12d) — this bounce is likely the better exit price."* At decision time MDLZ traded 62.08, **+0.73% on a day SPY was −0.44% and every other name in the book was red**. That was the highest price and the highest RSI2 of the entire hold.
+
+**What this was NOT, and the distinction matters.** It was **not** the mechanical RSI2≥70 take-profit. That authority is *profit-banking*, gated on `price > entry` (the 2026-08-26 correction), and MDLZ was underwater — so it was structurally unavailable and was never invoked. It was **not** a thesis sell either: every invalidation level in the entry plan was intact (no FY26 guidance cut, analyst complex above spot, price 5%+ above a rising 200-day). Filing it as either would misrepresent the decision. It was a **discretionary exit-into-strength**, which is what the rules call this state.
+
+**The actual argument.** The time stop fires **2026-09-11** and is not discretionary — it sells green or red. So the only live question was *price*, never *whether*. Two facts decided it:
+1. The 2026-09-02 amendment, written into both HARD RULE 5 and prompt v10, addresses exactly this state: within `TIME_STOP_WARN_DAYS` (3), *"a position about to be recycled anyway is better sold INTO a bounce than out of one."* Day 12 of 14 is inside that window.
+2. **2026-09-11 is the CPI print.** The mechanical sale would have executed into a macro-conditioned tape — an unknown price two days out, versus a known one in hand at the bounce's high.
+
+**The steelman for holding, and why it lost.** MDLZ needed only +0.79% to reach breakeven and was moving that way; two more sessions might have converted this into a proper green take-profit. Rejected because it asks the position to do in 2 sessions what it did not do in 12, *through a CPI print* — and because the green-take-profit scenario requires a **conjunction** (price up **and** RSI2 still ≥70) while RSI2 at 75.5 mean-reverts down fast. A conjunction is not the base case.
+
+**Deviation duty discharged.** The prior instance's written plan said: *"bank on target 64.70 or an RSI2≥70 print while GREEN (an RSI2≥70 print while UNDERWATER is an optional exit-into-strength, never mandatory)."* The plan is right that this is never mandatory, and it was not treated as mandatory. What a day-0 plan cannot price is that **the optionality expires**: holding on an intact thesis buys runway only while runway exists, and the time stop removes it. Four earlier runs today (14:12Z, 15:20Z, 15:35Z, 16:45Z) held the same signal correctly, each giving the same stated reason — the bounce was *weaker* than when the plan was written (61.755 / 61.610 vs 61.855). At 62.08 that reason inverted. This run acted on the new fact, not on a re-litigation of theirs.
+
+### ✅ GD thesis check → **INTACT**, written back to the ledger
+
+The 14:01Z report flagged GD `REVIEW / THESIS-CHECK` on *below 200-day MA* (352.97 vs 354.66 — **0.4% below, marginal not decisive**). Full HARD RULE 7 research returned **INTACT**, and the fundamentals are *strengthening*, not breaking: Q2-26 revenue $14.09B and adj EPS $4.24; **FY2026 EPS guidance raised to $16.80-16.90**; Gulfstream revenue +15.1% on higher deliveries; Marine Systems +10.4%; a new $194.1M Mission Systems contract modification; quarterly dividend $1.59 declared. Consensus Moderate Buy, mean target ~8.9% above spot. The one negative in the record is *segment-level* — U.S. demand concerns in Combat Systems — and a single soft segment inside a raised company-level guide is not a dead thesis. Corroborating that this is sector flow rather than company-specific: **RTX prints RSI2 4.8 on the same screen**, i.e. the defense complex is oversold together.
+
+Verdict written to `holdings.json` as `thesis_checked` so the flag stops re-firing for 30 days. **GD holds to its 2026-09-15 time stop, which is its real exit gate.**
+
+### 🔧 Two repairs pushed today
+- **`iv_history.json` key rename** (19:00Z run): the 14:02Z sweep wrote all 8 core rows under renamed ratio keys, silently breaking the series diff that the IV method depends on. Normalized — labels only, no values touched.
+- **Report workflow mislabel** (13:31Z run): the schedule-backstop branch mislabelled late fires, so a late cron could write a mid-session scan into `latest_morning.md` as the day's *morning* report.
 
 ---
 
-## 3. Actions considered and SKIPPED — the reasoning
+## 3. Candidates considered and SKIPPED
 
-### Equity entries — the whole RSI(2) screen, declined as one block
+### Equities — one open slot, $1,759.59 deployable, and still no entry
 
-Today's 18:03Z report surfaced 16 RSI(2) names: SBUX (2.5), PATH (2.9), AMGN (3.1), WBD (4.4), ABBV (4.9), CL (5.2), MA (5.9), ABNB (6.7), VRTX (6.9), DLTR (7.1), BMY (7.2), PFE (8.6), V (9.0), plus the three HELD (LLY, MMM, GD).
+The RSI(2) screen produced a **17-name cohort**, and it is not seventeen ideas — **it is one trade**: a rate-and-defensives repricing. That is the whole reason for the skip, and it was re-measured live this run rather than inherited.
 
-**Grade: B as a block. Reason: they are not 16 signals, they are one signal printed 16 times.**
+**Every one of the 14 cohort names I quoted at 19:16Z is red on the day:**
 
-This is the day's central judgement, so here is the full chain:
+| | | | |
+|---|---|---|---|
+| DLTR **−3.64%** | ABNB −2.79% | PATH −2.43% | TGT −2.09% |
+| BLK −1.60% | VRTX −1.50% | T −1.46% | SBUX −1.44% |
+| UNP −1.13% | AMGN −0.48% | MA −0.45% | WBD −0.44% |
+| BMY −0.37% | CL −0.32% | | |
 
-1. **The regime was relabelled at 17:25Z, and the relabel is what changes the answer.** The 13:32Z brief called today a *"healthcare-specific rout"* — and every observable it checked was correct: XLV genuinely was the worst sector (−2.20% at 19:16Z) and AMGN genuinely was the single largest drag (−9.6%). What a run three minutes after the bell could not see is that XRT, ITB, IGV, IBB, XLF and XLP were all falling *with* it while XLU/XLE/SMH were bid. **The label was true about the ranking and wrong about the mechanism.**
-2. **The mechanism is a rate shock.** The 10-year crossed **4.80%** for the first time since Oct 2023 on Brent above $97 (+11–12% m/m), and fed funds futures now carry roughly **58% odds of a 25bp HIKE** at next week's FOMC. The tape confirms the shape: Dow −1.1% while **QQQ closed green (+0.03% at 19:16Z) against SPY −0.43%** and **XLE +1.30%**. That is a duration split, not a risk-off day.
-3. **Why that disqualifies the screen.** Under "healthcare rout", the other names read as unrelated single-name dips — 16 independent draws. Under "rate shock", SBUX/CL/ABBV/BMY/PFE/AMGN/VRTX/MA/V/DLTR are *the same trade*: long-duration and bond-proxy equities being repriced by the same discount rate. Buying one is buying the factor; buying two is doubling it. And the existing book (LLY/MDLZ/MMM/GD) is already positioned on that same factor.
-4. **The timing objection, which is the decisive one.** A Connors RSI(2) entry is a bet on mean-reversion. These names are oversold *because of a macro repricing that has not finished* — **PPI lands Thursday 09-10 and CPI Friday 09-11**, with the FOMC behind them. Entering now is buying the knife *before* the catalyst that is cutting it. The RSI(2) screen is purely technical and knows nothing about any of this; HARD RULE 7 exists precisely to gate it.
+**14 of 14.** This is the third consecutive session the cohort has extended rather than reverted, and DLTR — graded the *cleanest* name on the list yesterday — is down another 3.64% on top of 09-08's −5.34%. **A mean-reversion cohort that falls every session is not yet mean-reverting.** Buying it now is buying the knife *before* the catalyst that is cutting it, with **PPI tomorrow and CPI Friday**.
 
-**A `_cash_hold` record is open and governs this** (set 17:25Z, re-verified this run):
-- **Opportunity:** re-grade the 16-name cohort once the macro repricing resolves.
-- **Trigger (a DATE, not a feeling):** CPI Fri 2026-09-11 08:30 ET; PPI Thu 09-10.
-- **Expiry: 2026-09-14** — on that date the hold **dissolves automatically** and capital returns to full deployment whether or not a better setup has appeared. No run may extend it without a *new* named catalyst and a *new* expiry.
-- **It is NOT a cash floor.** There is no percentage cash target anywhere in this system. If an A-grade setup clears the bar tomorrow it is taken in full and this record is void the same minute.
+Specific grades carried and re-checked:
+- **DLTR — B.** No company-specific bad news; Barclays raised to $160 Overweight on 09-04, mean PT $137.33 vs spot $119.53 (+14.9% implied). But the move is the XRT retail de-rating, i.e. squarely the rate shock. Best name on the list and **still not A**.
+- **AMGN — C.** Not a dip. Novartis pelacarsen Phase 3 missed its primary endpoint; the read-across hit Amgen's olpasiran and BMO cut to Market Perform. A live scientific dispute is not a mean-reversion setup.
+- **ABNB — B.** Baird raised PT $175→$200, but consumer discretionary is the epicentre of the repricing.
+- **SBUX, CL, MA, VRTX, BMY, T, UNP, BLK, TGT, WBD, PATH — B/C.** All the same factor as each other *and* as the three names already held. Adding a fourth correlated position is concentration without selection.
+- **MMM / LLY — HELD**, not re-entered. HARD RULE 3 (FOUR LAWS #3) forbids adding to a loser without Ryan's explicit approval.
 
-### Options — TACTICAL declined on the LEVEL, single-cause
+**Why this is a decline and not queuing.** Deployable ($1,759.59) far exceeds the ~$600 minimum entry, so the rotation gate does not bind and the ordinary branch applies: *is there an A-grade setup?* There is not, and the policy states plainly that **saying so is the correct output**. A B-grade gets **no** position, not a small one — and at a 30% cap the compliant size here would be **$1,173.12**, i.e. the only entry available would be one at maximum single-name concentration, into the epicentre of a live repricing, two days before CPI. That is precisely the trade the concentration policy exists to prevent: *fewer must mean more selective, never merely bigger.*
 
-The honest version of today's tactical work: **there was never anything to trade, and the reason is price, not participation.**
+The live `_cash_hold` (set 09-08, **expiry 2026-09-14**) covers this with a named opportunity, checkable date triggers (PPI 09-10, CPI 09-11) and a hard expiry. It stands on its own written terms — **not extended, not re-argued, and not converted into a floor.**
 
-- **Structural levels, measured not asserted** (20/50-day SMAs off settled closes through 09-04): SPY 20d **769.053**, 50d **756.857**; spot 766.885 sits **between them** — 2.17 below the 20-day and 10.03 above the 50-day. Mid-range. The 20-day was lost *before* this session, so there is no fresh break available; a scalp entered here is entered mid-range, which is the setup the late-entry detector exists to refuse.
-- **The session's one real test failed to break anything.** At 18:47–18:49Z both indices flushed hard — SPY 767.61 → **765.67** (session low), QQQ 720.12 → **717.91** — on the largest participation this desk has ever recorded (SPY's 18:45Z bucket **415,484 = 463% of its trailing-30 baseline**). And the level *held*: SPY wicked 0.042% through and closed back above, QQQ never came within 2.34 points of its own low. Price is now 1.22 above that low.
-- **That is the informative part, and it points the opposite way from the usual failure.** Two weeks of this desk's breakout work went into fixing the *volume* denominator, because volume was always the binding veto. Today the volume clause was satisfied overwhelmingly and there was still no trade, because the **level did not give way**. Participation is a veto, never a green light.
-- **Index agreement fails independently:** SPY red below its 20-day, QQQ green above its own. A tactical trigger needs the tape agreeing; today the two indices are on opposite sides of the rate story.
-- **What was NOT used as a reason, deliberately:** PPI (Thu 09-10) and CPI (Fri 09-11) are **outside** a Tuesday scalp's window — a TACTICAL entry taken now is flat by Wednesday's close. Citing them here would be importing CORE's catalyst objection into a track it does not apply to, which this desk has logged as a real error before. The decline stands on the level alone.
+### Options — both tracks hunted, neither armed
 
-### Options — CORE declined
-
-No candidate. The equity report's RSI(2) names have now been measured twice at essentially zero options tradeability (bid/ask 12–52% of mid on the sampled names), and a liquid chain supplies no thesis anyway. The core IV list produced no setup with a "why NOW" that survives an unresolved rate repricing into two inflation prints. **No spread specced for Ryan today.**
+- **TACTICAL: no arm, and the bar is regime, not the filter.** One genuine structural level remains live — the **QQQ 20-day SMA at 717.385**, with spot 716.45, i.e. **0.935 below it and drifting away** rather than coiling on it. No break is in progress, so nothing to confirm. Independently, the **2026-08-26 capstone bars TACTICAL breakout scalps into an unresolved scheduled catalyst**, and PPI (Thu) plus CPI (Fri) are exactly that. That finding was earned the hard way — five failed breaks across two sessions, with setup quality *rising* while the outcome stayed identical, which is what established that the regime and not the measurement was the dominant variable.
+- **CORE: no candidate.** No thesis presented. The equity report's RSI2 names have been measured twice at roughly zero options-tradeability (12-52% of mid), and a cheap liquid vehicle supplies no thesis in any case. IV context from today's own sweep: SPY .1299, QQQ .1895, NVDA .3451, AMD .5329, TSM .3353, AVGO .3871, MSFT .2555, TSLA .4265 — nothing flagged materially cheap against realized on the pair-read.
+- **No spread spec was handed to Ryan today** (multi-leg tickets remain unplaceable through the agentic API; legging is authorized but requires a thesis, and there wasn't one).
 
 ---
 
@@ -80,36 +100,34 @@ No candidate. The equity report's RSI(2) names have now been measured twice at e
 
 | | |
 |---|---|
-| Total account value | **$3,869.23** |
-| Cash = `unleveraged_buying_power` = `buying_power` | **$1,459.18** (no margin extended — the three agree) |
-| Operational reserve (5% of total, recomputed) | **$193.46** |
-| **Deployable** | **$1,265.72** |
-| Equity value / cost | $1,924.05 / $1,999.92 (−$75.87, −3.79%) |
-| Options premium at risk | $749.00 (hedge only; $0 TACTICAL, $0 CORE) |
-| Realized options P/L today | **$0.00** vs the −$400 cap |
-| Realized equity P/L today | **$0.00** |
+| **Total account value** | **$3,910.39** |
+| Cash | $1,955.11 |
+| `unleveraged_buying_power` | **$1,955.11** — equal to `buying_power` and to cash, so **no margin is being extended.** FOUR LAWS #4 clean. |
+| Operational reserve (5% of total) | **$195.52** (recomputed this run, never hard-coded) |
+| **Deployable** | **$1,759.59** |
+| Per-name cap (30% of total) | $1,173.12 — **binding** on any single entry |
+| Equity value | $1,419.28 (3 swings) |
+| Options premium at risk | $749.00 cost / $535.00 mark — **hedge only**; $0 TACTICAL, $0 CORE |
+| **Realized P/L today — options** | **$0.00** vs the −$400 cap. Broker-confirmed: `get_option_orders(09-09)` empty. |
+| **Realized P/L today — equities** | **−$4.07** on 1 closing trade (the MDLZ exit), broker-confirmed via `get_realized_pnl`. |
 | Options entry throttle | **0 of 8** used |
-| Equity entry throttle | **0 of 3** used |
-| Open slots | Equities 4 of 3-4 target (band 3-5) · TACTICAL 0/2 · CORE 0/3 |
+| Equity entry throttle | **0 of 3** used *(an exit is never an entry; exits are never throttled)* |
+| Equity slots | **3 of the 3-4 target** — one open |
 
-Deployable **clears the ~$600 minimum entry comfortably**, so the ROTATION gate is *not* engaged — a new idea today would not have had to beat an existing holding; it only had to be A-grade. Nothing was.
-
-**Weekly calibration — run and complete for this week** (10:25Z pre-open; Tuesday is the week's first trading day, Monday 09-07 being Labor Day). Source: broker `get_pnl_trade_history(span='3month')`, 72 closes, split by book per the v10 duty.
-- **Equities: n=55, hit rate 69.1%, mean win +$12.94 vs mean loss −$13.34, payoff 0.97, breakeven win rate 50.8% → margin +18.3 pts, expectancy +$4.82/trade, net +$264.89.**
-- **Verdict: NO CHANGE, both books, nothing escalated.** Not because the numbers are bad — they are good — but because the **in-regime gate** blocked action: only **2 of those 55 closes** happened under the current parameters (the Connors-pure exit policy and the concentration sizing both went live 2026-09-02), against a floor of 20. Tuning a parameter on trades that predate it is superstition. The evidence has to rebuild from zero, and it will.
+**Weekly calibration:** run and complete for this week at 10:25Z on 09-08 (Tuesday was the week's first trading day, Monday being Labor Day). **Verdict on both books: NO CHANGE, no parameter altered, nothing escalated.** Equities n=55, hit 69.1%, payoff 0.97, breakeven 50.8%, **margin +18.3 pts**, expectancy +$4.82/trade — but **only 2 of those 55 closes happened under the current parameters**, so the in-regime gate blocked any tuning, exactly as designed. Options n=17, hit 52.9% against a **53.3% breakeven — margin −0.3 pts**; the +$90 net is carried entirely by QQQ +$226 and WULF +$208, and stripping those two leaves the other 15 closes at about −$344. Below `MIN_TRADES_FOR_ACTION` either way: report, do not adjust.
 
 ---
 
 ## 5. Tomorrow's watchpoints
 
-1. **⏰ THE TIME-STOP CLUSTER — this is the single most important thing on the calendar.** All four equity swings hit their 14-day time stop on **four consecutive trading days: LLY Thu 09-10, MDLZ Fri 09-11, MMM Mon 09-14, GD Tue 09-15.** On current marks none can escape via take-profit (that exit is gated on `price > entry` and all four are red), so **the entire equity book is scheduled to liquidate mechanically inside one four-session window, returning ~$1,924 to cash at roughly −$76.** This is not a malfunction: the time stop is the book's *only* mechanical loss discipline under a no-price-stop policy, and it fires green or red by design. It is a scheduling consequence of two individually-correct rules that were never read together. **LLY fires in two sessions.**
-2. **Thu 09-10 — PPI.** First of the two prints the `_cash_hold` is waiting on.
-3. **Fri 09-11 — CPI** (headline seen 3.4%, core 2.4%). The named trigger. **The `_cash_hold` expires 09-14 regardless of outcome** — it cannot quietly become a permanent cash preference.
-4. **Next week — FOMC**, with futures at ~58% odds of a 25bp **hike**. If that pricing holds, the duration de-rating that produced today's entire RSI(2) screen is not finished, and the cohort should be re-graded on post-CPI numbers *from scratch* — never on today's pre-event grade.
-5. **Levels to watch:** SPY 20-day **769.05** (reclaim = the rate pressure is easing) and 50-day **756.86** (loss = it is broadening). SPY session low **765.67**, which held today on record participation. QQQ session low **717.91**.
-6. **MDLZ is inside its 3-day time-stop warn window.** It is the only holding bid today but sits 1.37% under entry, so there is no green bounce to sell into yet. If it prints one before Friday, selling *into* strength beats being recycled *out of* it.
-7. **Hedge:** SPY 700P at 73 DTE, exempt from backstops, no action until the ~21-DTE roll/close decision with Ryan (≈ 10-30).
+1. **🔴 LLY TIME STOP FIRES 2026-09-10 — day 14 of 14.** It sells **green or red**, and it is the book's only mechanical loss discipline. At today's mark that is a ~−$27 realization on a −5.38% position. **This takes the equity book to 2 concurrent swings, below the 3-4 target band.** Note for the run that handles it: the exit-into-strength logic that governed MDLZ applies to LLY too — LLY was the one green name today (+0.16%), so if a bounce is offered before the stop date, taking it is preferable to selling out of one.
+2. **PPI, Thursday 2026-09-10.** First of the two macro prints the cash hold is waiting on.
+3. **CPI, Friday 2026-09-11, 08:30 ET** (headline seen 3.4%, core 2.4%) — the trigger the entire 17-name cohort is being deferred past.
+4. **`_cash_hold` expires 2026-09-14.** On that date it **dissolves automatically** and the capital returns to normal full deployment, whatever CPI printed and whether or not a better setup appeared. No run may extend it without a *new* named catalyst and a *new* expiry.
+5. **Re-grade the RSI2 cohort post-CPI, from scratch, on the post-event numbers.** Do not carry today's grades forward: a deferral is never a thesis judgement, and a gap-up is not a gift to a mean-reversion setup — it can just as easily consume the edge.
+6. **Earnings in the window:** ORCL and ADBE Thu 09-10 pm, RH 09-10 pm, KR Fri 09-11 am. **None of the three held swings reports inside 21 days** — verified against `get_earnings_calendar`, not assumed. Standing caveat: the calendar degrades to empty on API failure, so absence is not proof — re-check any name actually being bought.
+7. **QQQ 20-day SMA 717.385** remains the only live structural level for TACTICAL. Any fire must clear **both** denominator corrections (trailing-local *and* the session's own bucket rate) plus the feed-hole reconciliation — and the regime bar stands until CPI resolves.
 
 ---
 
-*Both books flat today. Four exits are scheduled inside the next five sessions and the capital they return lands almost exactly when the CPI print resolves the reason the desk is holding cash — so the week ahead is about redeploying deliberately, not about finding something to do tomorrow.*
+*Positions: 3 equity swings + 1 hedge. Actions: 1 (MDLZ exit, −$4.07). Entries: 0 of 3 equity, 0 of 8 options. Reconciliation: zero drift, broker-read first. Next mechanical event: LLY time stop, 2026-09-10.*
