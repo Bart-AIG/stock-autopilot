@@ -33685,6 +33685,17 @@
       "tape": "Report on master after restore: latest_intraday.md 2026-09-09 16:01 UTC, 21 minutes old, FRESH, no DATA ERROR, ACTION block empty. Vs entry: LLY 1129.69 (-5.05%), MDLZ 61.65 (-1.50%), MMM 165.08 (-4.76%), GD 353.44 (-5.61%). Numbers only.",
       "why_flat": "EQUITIES no exit -- all four RED, so the RSI2>=70 take-profit is structurally unavailable (it is gated on price > entry). Days held LLY 13/14 (time stop fires 09-10), MDLZ 12/14 (09-11), MMM 9/14 (09-14), GD 8/14 (09-15) -- none fires today. GD's thesis answered in-ledger 09-09, INTACT. No entry: 4 of the 3-4 target slots filled, and the _cash_hold set 09-08 runs to 09-14 on named PPI (09-10) / CPI (09-11) triggers, neither reached. OPTIONS: no TACTICAL trigger; CORE declined on thesis, unchanged; SPY hedge exempt. Throttles read from the restored ledger, broker-corroborated: options 0 of 8, $0.00 vs the -$400 cap; equities 0 of 3.",
       "duties": "Heartbeat 13:31Z, brief 13:33Z, throttle reset + IV sweep 14:02Z -- all done earlier today and all RESTORED by this run rather than redone. Calibration ran 09-08. Daily report due at/after 19:15Z, not yet due. No new name evaluated, no new IV row."
+    },
+    {
+      "run_utc": "2026-09-09T16:33:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-09",
+      "headline": "Re-verification, no trade either book. Closed out the stale-clone incident: the 16:22Z restore is verified COMPLETE against the bad commit's parent, all ten files, zero deletions.",
+      "reconciliation": "ZERO DRIFT both books, broker read first. 4 equity swings (LLY/MDLZ/MMM/GD) matched on qty and average_buy_price; 1 SPY 700P hedge 1.0000@749.00; today's equity and option orders both EMPTY. cash $1,459.18 == unleveraged_buying_power, total_value $3,929.98.",
+      "tape": "16:32Z SPY 761.835 (-0.539%), QQQ 715.31 (-0.425%). LLY 1126.305 (-5.33% vs entry), MDLZ 61.83 (-1.21%), MMM 164.805 (-4.92%), GD 352.66 (-5.82%).",
+      "why_flat": "EQUITIES: no exit -- all four red, so the RSI2>=70 take-profit is structurally unavailable; nearest time stop is LLY tomorrow. No entry -- 4 slots against a 3-4 target means the only compliant size is the 30% cap (max concentration, no price stop), reserved for A/A+; today's ~20-name RSI2 cohort is oversold together into an unresolved rate repricing, which is macro flow rather than 20 A-grades, and the live _cash_hold (expiry 09-14) names that cohort with DATE triggers not yet reached. OPTIONS: TACTICAL barred -- a scalp's hard time stop lands at the 09-10 close with PPI 08:30 ET inside it (2026-08-26 capstone), re-verified against the brief's calendar rather than inherited. CORE declined on thesis -- a 21-45 DTE hold spans PPI, CPI and the mid-Sept FOMC with no view on any; rich ex-gap IV corroborates, does not decide.",
+      "finding": "NAMED not re-argued: _A_RUN_COMMITTED_ITS_STALE_CLONE_OVER_MASTER_AND_REVERTED_TEN_FILES.restore_VERIFIED_COMPLETE_2026-09-09T16:33Z. Verify a restore against the BAD COMMIT'S PARENT, never against the restore's own diff. Eight of ten files byte-identical; the two that differ are pure additions, zero deletions across all ten. report.py and the report workflow -- live cron code, the silent-failure risk -- are confirmed intact.",
+      "duties": "Heartbeat/brief/throttles/IV sweep confirmed present, not redone. Calibration not due (ran 09-08; next is Monday). Daily report due at/after 19:15Z. Throttles read from ledger: options 0 of 8, $0.00 of -$400; equities 0 of 3."
     }
   ]
 }
