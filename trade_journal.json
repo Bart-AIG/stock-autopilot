@@ -33450,6 +33450,14 @@
       "new_durable_finding": "_THE_TIME_STOP_CRASHES_ON_A_NULL_ENTRY_PRICE_AND_TAKES_THE_WHOLE_REPORT_WITH_IT_2026-09-09T12-45Z in holdings.json -- full measurement, the three-case unit test, the fix and the transferable lesson are there and are NOT re-argued here.",
       "code_change": "report.py time-stop branch + .github/workflows/stock-report.yml ntfy line: guard the pnl format so a swing past its time stop with a null/zero entry_price renders 'P/L unknown' and STILL FIRES, rather than raising TypeError and aborting report generation (which under the playbook bars every autonomous equity trade). Format defensively, never gate the branch -- elapsed time is the trigger and an unknown P/L is no reason to skip a mechanical exit. Diff 31 insertions / 3 deletions across 3 files, git diff --stat checked, workflow YAML re-validated.",
       "verified_forward": "LLY 2026-09-10 -> 'SELL / TIME STOP (stalled)', day 14, and correctly silent at day 13 today. Momentum sleeve does not time-stop. End-to-end path report.py -> time_stop_signals -> ntfy emits the TIME STOP line ABOVE the TAKE PROFIT line, so the pasted alert cannot mislabel the book's only mechanical loss discipline as a take-profit."
+    },
+    {
+      "run_utc": "2026-09-09T13:05:00Z",
+      "run_type": "pre_open",
+      "trading_day_et": "2026-09-08",
+      "headline": "Pre-open (09:05 ET, bell 13:30Z). Seventeenth consecutive no-op of this overnight stretch. NO TRADE, nothing placeable in either book.",
+      "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST at 13:02Z. 1 option (SPY 2026-11-20 700P, qty 1.0000 @ 749.00, all pending_* zero, backstop-exempt hedge) + 4 equities matched on qty AND average_buy_price (LLY 0.420254/1189.76, MDLZ 7.988509/62.59, MMM 2.884552/173.34, GD 1.335314/374.44), shares_held_for_sells 0 on all. get_equity_orders and get_option_orders since 2026-09-08 BOTH EMPTY. Cash $1,459.18 == unleveraged_buying_power == buying_power (no margin extended), total $3,884.08, equity $1,920.90, options $504.00; reserve 5% = $194.20, deployable $1,264.98.",
+      "actions": "NONE. Correctly did NOT stamp the heartbeat, rebuild market_brief, or reset the options loss cap / either throttle -- the bell has not rung, so the trading day in force is still 2026-09-08 and a reset figure written about a day that has already traded is wrong by construction. Read, not defaulted: realized $0.00 of the -$400 options cap, 0 of 8 options / 0 of 3 equity entries. No exit fires today (LLY is day 13 of 14; all four red, so the RSI2>=70 take-profit is structurally unavailable). _cash_hold live and un-expired (expiry 2026-09-14). Nothing new measured."
     }
   ]
 }
