@@ -34060,6 +34060,17 @@
       "union_note": "Two scheduler-fired runs executed this same first-post-open slot concurrently. Both entries are KEPT per the union rule -- neither is a duplicate: the sibling placed the LLY exit, this run's review gate blocked the duplicate order. Exactly ONE exit exists on the broker record and the two runs' numbers agree."
     },
     {
+      "run_utc": "2026-09-10T13:36:00Z",
+      "run_type": "first_post_open_of_trading_day",
+      "trading_day_et": "2026-09-10",
+      "headline": "THIRD run in this slot (sessions ...01AwUr2W filled, PR #1364 reconciled, this one narrowed). All three independently reached the LLY time stop -- strong cross-validation of the exit logic. No trade by this run; the sibling's fill is the book's only LLY exit and master carries exactly one closed-position record.",
+      "reconciliation": "Verified against master after two merge conflicts: one LLY closed record, positions SPY/MMM/GD, order 6aa2b259 @ 1129.5485, realized -$25.30 -- identical to this run's independently-computed figures. Heartbeat, brief, cap and throttle resets all already complete and correct; NOT duplicated.",
+      "contribution": "EDITED the existing key _THE_REVIEW_GATE_CAUGHT_A_SIBLING_COLLISION_THE_BROKER_PRECHECK_MISSED_BY_1_4_SECONDS_2026-09-10 rather than minting a competing one. The narrowing: that key concludes 'the review gate CLOSES it', which holds for a SELL and fails for a BUY. Share count is a binding broker constraint so a duplicate sell fails safe by construction; a duplicate BUY is a valid order and reviews CLEAN, so both fill. That is exactly why the 2026-08-28 ROST+MDLZ collision -- two BUYS, $960.30 against a $956 ceiling -- was not caught and would not have been. Entries remain genuinely exposed; the 14:15Z entry preference now also does de-synchronisation duty away from this crowded slot.",
+      "self_correction": "This run drafted and pushed to its branch, but never merged, a finding claiming review_equity_order had PLACED a live order. FALSE -- the sibling placed it and review's sharesOwned '0' alert was the refusal working. It dismissed the sibling hypothesis partly on git silence, which commit latency makes worthless (sibling pushed 13:39:19Z, check ran ~13:37Z). Caught by a merge conflict, not by reasoning. Also wrongly called LLY the first time stop; PNC 2026-09-03 was. Both recorded in the key above so the mechanism outlives the episode.",
+      "why_flat": "No entry either book. Equities: today's report has not landed (latest 09-09) so the stale-report gate bars autonomous entries, and the opening-window preference independently defers to ~14:15Z. Options: hedge only (SPY 2026-11-20 700P), exempt; no TACTICAL arm. Book 2 of the 3-4 target, ~$2,232 deployable vs a $1,178 per-name cap.",
+      "duties": "All daily duties verified complete by earlier runs in this slot. IV sweep still due on the first run at/after 14:00Z; daily report due at/after 19:15Z."
+    },
+    {
       "run_utc": "2026-09-10T13:37:00Z",
       "run_type": "first_post_open_of_trading_day",
       "trading_day_et": "2026-09-10",
@@ -34092,17 +34103,6 @@
       "union_note": "Two scheduler-fired runs executed this same first-post-open slot concurrently. Both entries are KEPT per the union rule -- neither is a duplicate: the sibling placed the LLY exit, this run's review gate blocked the duplicate order. Exactly ONE exit exists on the broker record and the two runs' numbers agree."
     },
     {
-      "run_utc": "2026-09-10T13:36:00Z",
-      "run_type": "first_post_open_of_trading_day",
-      "trading_day_et": "2026-09-10",
-      "headline": "THIRD run in this slot (sessions ...01AwUr2W filled, PR #1364 reconciled, this one narrowed). All three independently reached the LLY time stop -- strong cross-validation of the exit logic. No trade by this run; the sibling's fill is the book's only LLY exit and master carries exactly one closed-position record.",
-      "reconciliation": "Verified against master after two merge conflicts: one LLY closed record, positions SPY/MMM/GD, order 6aa2b259 @ 1129.5485, realized -$25.30 -- identical to this run's independently-computed figures. Heartbeat, brief, cap and throttle resets all already complete and correct; NOT duplicated.",
-      "contribution": "EDITED the existing key _THE_REVIEW_GATE_CAUGHT_A_SIBLING_COLLISION_THE_BROKER_PRECHECK_MISSED_BY_1_4_SECONDS_2026-09-10 rather than minting a competing one. The narrowing: that key concludes 'the review gate CLOSES it', which holds for a SELL and fails for a BUY. Share count is a binding broker constraint so a duplicate sell fails safe by construction; a duplicate BUY is a valid order and reviews CLEAN, so both fill. That is exactly why the 2026-08-28 ROST+MDLZ collision -- two BUYS, $960.30 against a $956 ceiling -- was not caught and would not have been. Entries remain genuinely exposed; the 14:15Z entry preference now also does de-synchronisation duty away from this crowded slot.",
-      "self_correction": "This run drafted and pushed to its branch, but never merged, a finding claiming review_equity_order had PLACED a live order. FALSE -- the sibling placed it and review's sharesOwned '0' alert was the refusal working. It dismissed the sibling hypothesis partly on git silence, which commit latency makes worthless (sibling pushed 13:39:19Z, check ran ~13:37Z). Caught by a merge conflict, not by reasoning. Also wrongly called LLY the first time stop; PNC 2026-09-03 was. Both recorded in the key above so the mechanism outlives the episode.",
-      "why_flat": "No entry either book. Equities: today's report has not landed (latest 09-09) so the stale-report gate bars autonomous entries, and the opening-window preference independently defers to ~14:15Z. Options: hedge only (SPY 2026-11-20 700P), exempt; no TACTICAL arm. Book 2 of the 3-4 target, ~$2,232 deployable vs a $1,178 per-name cap.",
-      "duties": "All daily duties verified complete by earlier runs in this slot. IV sweep still due on the first run at/after 14:00Z; daily report due at/after 19:15Z."
-    },
-    {
       "run_utc": "2026-09-10T13:45:00Z",
       "run_type": "first_post_open_of_trading_day",
       "trading_day_et": "2026-09-10",
@@ -34117,6 +34117,18 @@
       "why_flat": "NO ENTRY either book; on the equity side by RULE not merit -- today's report had not landed and autonomous equity entries are signal-sourced only. Options: no volume denominator exists minutes into a session, and the 2026-08-26 capstone bars a breakout scalp into an unresolved catalyst (CPI 09-11, ORCL/ADBE tonight). Noted for the next run: SPY testing its 50-day (758.41 vs 758.02) and QQQ having LOST its (709.75 vs 711.17) is a genuine structural pair -- but a level without a computable confirmation clause is not a trigger.",
       "duties": "Heartbeat, brief and throttle reset were owned and completed by the 13:30Z sibling; verified present and correct on master rather than rewritten, to avoid churn. This run contributed the two findings above.",
       "handoff": "(1) READ FINDING 1 BEFORE PLACING ANYTHING IN EITHER BOOK -- especially a BUY. (2) Report lands ~14:15Z; next run owns the entry decision with 2 slots at ~$1,114 each. THE BAR IS HIGHER NOT LOWER: the slot is ~2.2x the entries that just stalled, and a B-grade gets NO position, not a small one. (3) IV sweep owed, 8 core names, 2026-10-09 board, defer past 14:00Z. (4) 19:15Z daily report must cover this exit. (5) MMM time-stops 09-14, GD 09-15 -- both red, so the book may go to ZERO swings next week."
+    },
+    {
+      "run_utc": "2026-09-10T13:52:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-10",
+      "headline": "No trade either book. PPI printed hot on ENERGY this morning (headline 5.4% YoY +0.1pp vs est, CORE +0.2% BELOW est, crude >$100, yields sharply higher) and a 25bp hike at the 09-16 FOMC is live. New durable finding recorded: a macro catalyst inside the 14-day swing window is a grade/sizing input, NOT an entry bar -- because the account is measurably net short the index through the hedge.",
+      "reconciliation": "Broker read first; branch reset to fresh origin/master before any edit. ZERO DRIFT: MMM 2.884552 + GD 1.335314 (equity_value $939.90), SPY 2026-11-20 700P x1, one equity order today (the 13:36Z sibling's LLY time stop), cash == UBP == $2,429.81, total_value $4,000.71.",
+      "tape": "13:46Z SPY 758.515 (-0.51%), QQQ 709.45 (-0.96%), XLF 57.035 (-0.04%). Numbers only; no directional label handed forward 16 minutes into a session.",
+      "positions": "MMM -6.30% day 10/14 (time stop 09-14), GD -5.71% day 9/14 (time stop 09-15) -- both red, so the RSI2>=70 take-profit is structurally unavailable and neither can exit except mechanically. Hedge -$121.50 on the position but +$80.50 today, 71 DTE, exempt.",
+      "why_flat": "EQUITY: today's report has not landed -- the report cron's first fire of the day is 14:00Z, so it is NOT late; a stale report bars autonomous equity entries under prompt v10. OPTIONS: TACTICAL barred all session on catalyst grounds (CPI 09-11 08:30 ET sits inside a Thursday scalp's flat-by-Friday-close window) and the volume denominator is uncomputable 16 min past the bell; CORE has no signal source until the report lands. IV sweep deferred past 14:00Z per the opening-window decay finding.",
+      "finding_named_not_reargued": "_MACRO_CATALYSTS_INSIDE_THE_SWING_WINDOW_ARE_NOT_AN_ENTRY_BAR_AND_THE_HEDGE_IS_WHY_2026-09-10 in holdings.json. Short form: every catalyst-window key in this ledger is TACTICAL-scoped, so a run reaching for the nearest catalyst objection imports a breakout rule into a 14-day mean-reversion decision; a macro print is market-wide and hedged where an [ERN] gap is idiosyncratic and unhedgeable; and on a 14-day hold a macro-inside-window veto is a permanent freeze, not a filter. Measured net exposure -$122.78 (hedge) vs +$4.70..+$18.80 (equity book, beta 0.5-2.0) per +1% SPY. CONDITIONAL on the hedge staying on -- if it is closed or rolled the arithmetic inverts.",
+      "duties": "Heartbeat and market_brief already stamped for 2026-09-10 by the 13:32/13:38Z run. Daily report due on the first run at/after 19:15Z. IV sweep owed by the next post-14:00Z run."
     }
   ]
 }
