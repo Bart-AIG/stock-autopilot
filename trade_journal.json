@@ -34028,6 +34028,37 @@
       "headline": "17th post-close no-op. Market shut (12:33Z; next open 13:30Z). Stand-down per POST-CLOSE RUN PROTOCOL.",
       "reconciliation": "ZERO DRIFT both books, broker read FIRST. Options 1 (SPY 2026-11-20 700P qty 1.0000 @ 749.00, hedge, pending_* zero); equities 3 (LLY 0.420254 @ 1189.76, MMM 2.884552 @ 173.34, GD 1.335314 @ 374.44), matched on qty and average_buy_price. Cash $1,955.11 == unleveraged_buying_power == buying_power (no margin); total $3,923.63; reserve $196.18, deployable $1,758.93.",
       "actions": "NONE. No artifact rolled: heartbeat (still 09-09), brief, options cap -$0.00/-$400 and throttles 0-of-8 / 0-of-3 stay on trading day 09-09, READ from the ledger not defaulted. Branch reset to origin/master before any read per the stale-clone rule; 09-09 daily report confirmed present. LLY TIME STOP IS DUE TODAY (entry 08-27, day 14 of 14) -- it is the first post-bell run's to execute on a live quote, green or red, not this pre-open run's."
+    },
+    {
+      "run_utc": "2026-09-10T13:37:00Z",
+      "run_type": "first_post_open_of_trading_day",
+      "trading_day_et": "2026-09-10",
+      "prompt_version": "v10",
+      "headline": "LLY 14-day TIME STOP fired and filled -- first scheduled exit of the four-day liquidation cluster. Realized -$25.30 (-5.06%). Placed by a concurrent sibling 1.4s ahead of this run; this run's review gate blocked the duplicate. No entry either book.",
+      "reconciliation": "Broker read FIRST, before and after. Pre-bell: LLY/MMM/GD + 1 SPY 700P hedge, ZERO DRIFT vs ledger. Post-exit 13:37Z: MMM 2.884552, GD 1.335314, hedge 1.0000, pending_* zero. Ledger synced -- LLY moved to _closed_positions. Cash $2,429.81 == unleveraged_buying_power (no margin, FOUR LAWS #4 clean); total $4,003.04.",
+      "tape": {
+        "SPY": "758.42 (-0.52% vs 762.40 close)",
+        "LLY": "1130.015 (+0.52%)",
+        "MMM": "162.6575 (-1.06%)",
+        "GD": "354.52 (+0.52%)",
+        "note": "numbers only; no regime verdict asserted from an opening-window read"
+      },
+      "the_exit": {
+        "trigger": "days_held 14 >= SWING_TIME_STOP_DAYS 14 (entry 2026-08-27). Calendar arithmetic over the ledger only.",
+        "why_a_stale_report_did_not_block_it": "report.py:291-308 reads ONLY sleeve, entry_date and today's date -- no price, no rsi2, no ma200. Per _TIME_STOP_NEEDS_NO_REPORT_BUT_THE_RSI2_EXIT_NEEDS_A_LIVE_ONE the stale-report bar exists to stop the desk acting on decayed TECHNICALS; a time stop has none, it is the book's only mechanical loss discipline, and prompt v10 says mechanical exits are never throttled.",
+        "not_a_take_profit": "The RSI2>=70 authority is gated on price > entry and LLY was -5%, so it was structurally unavailable and never invoked. Logged on its own TIME STOP line so it is never mislabeled.",
+        "ownership": "Buy fill 2026-08-27T15:06:51Z placed_agent 'agentic' -- ownership gate does not apply.",
+        "fill": "0.420254 sh @ 1129.5485, order 6aa2b259-4dea-46b0-92e4-0a1c8c89c2ff, 13:36:25.786Z, zero fees.",
+        "price_quality": "Priced >5min past the bell per the opening-auction rule. Bid 1129.33 / ask 1130.00, spread 0.06% of mid, and +0.52% above yesterday's 1124.21 close -- sold INTO a bounce, not out of one.",
+        "result": "proceeds $474.70 vs $500.00 cost = -$25.30 (-5.06%). Broker get_realized_pnl confirms to the cent."
+      },
+      "the_collision": "A sibling run placed the same exit 1.4 seconds after this run's get_equity_orders pre-check returned empty. This run's review_equity_order then returned EQUITY_MAX_SELL_SHARES_EXCEEDED / sharesOwned 0, which is TRUE, and no second order was sent. Full write-up in holdings.json key _THE_REVIEW_GATE_CAUGHT_A_SIBLING_COLLISION_THE_BROKER_PRECHECK_MISSED_BY_1_4_SECONDS_2026-09-10 -- named here, not re-argued. Exactly one exit order exists on the broker record; nothing double-counted.",
+      "why_flat": {
+        "equities": "No entry. Today's report has not landed on master (newest latest_intraday.md is 2026-09-09 19:01Z), and prompt v10 makes a stale report a bar on autonomous equity entries -- there is no signal source. The standing preference is also to take the day's entry at/after ~14:15Z once the session's own report is live. No other exit fires: MMM and GD are both red so no take-profit is available, and their time stops are 09-14 and 09-15.",
+        "options": "Hedge only and it is exempt. No TACTICAL arm -- the volume-confirmation denominator is uncomputable in the first 30 minutes (_NO_DENOMINATOR_EXISTS_IN_THE_FIRST_THIRTY_MINUTES), so no trigger is testable. IV sweep deferred past 14:00Z per _OPENING_WINDOW_IV_DECAYS_WITH_TIME."
+      },
+      "capital": "Reserve 5% of $4,003.04 = $200.15; deployable $2,229.66; 30% per-name cap $1,200.91. Book at 2 of the 3-4 target = two open slots. The _cash_hold set 09-08 expires 2026-09-14 and names today's PPI / tomorrow's CPI; it bars nothing A-grade and dissolves on its own date.",
+      "duties": "Heartbeat stamped for 09-10 after the bell. Ledger synced to master this run. market_brief rebuild for 09-10 and the daily report at/after 19:15Z remain OPEN for a later run today."
     }
   ]
 }
