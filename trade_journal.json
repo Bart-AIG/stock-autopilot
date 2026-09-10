@@ -34232,6 +34232,50 @@
       "options_books": "No options action this run. TACTICAL: declined \u2014 a Thursday scalp is flat by Friday's close and therefore holds through the 09-11 08:30 ET CPI print, which is the 2026-08-26 capstone applied to ITS OWN window, correctly this time. CORE: declined for want of a thesis answering 'why NOW'; index premium at a series record is a reason to be careful about buying it, never a thesis to sell it. Hedge SPY 2026-11-20 700P untouched, exempt, 71 DTE.",
       "throttles_before_this_entry": "Equity 0 of 3 for the trading day (the only order today is the 13:36Z LLY time-stop SELL, which is an exit and not throttled). Options 0 of 8. Realized options P/L today $0.00 against the -$400 cap.",
       "opening_window_preference": "SATISFIED for the first time today. The 2026-09-01 finding prefers taking the day's autonomous equity entry on the first run at or after ~14:15Z, once the current session's report is on master. It is 14:20Z and the 14:01Z report is on master at commit 12f6ccb. This run is precisely the one that preference was written for \u2014 and the deferral also retires the stale-report problem, because this acts on TODAY's report."
+    },
+    {
+      "run_utc": "2026-09-10T14:21:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-10",
+      "headline": "FILL \u2014 ABNB 6.573584 sh @ $169.5209, $1,114.36, order 6aa2bcce. First autonomous equity entry since 09-01 and the first of this trading day. Reasoning is in this run's 14:20Z PRE-TRADE DECISION RECORD and is not re-argued here.",
+      "execution": {
+        "order_id": "6aa2bcce-ec3b-40d9-8c87-06752c3a4515",
+        "side": "buy",
+        "type": "market",
+        "market_hours": "regular_hours",
+        "time_in_force": "gfd",
+        "dollar_amount": 1114.36,
+        "shares": 6.573584,
+        "avg_price": 169.5209,
+        "executions": "2 (6.000000 + 0.573584), both 14:21:02Z",
+        "fees": 0.0,
+        "placed_agent": "agentic",
+        "review_gate": "order_checks {} \u2014 no alerts. Quote at review 14:20:46Z: bid 169.53 / ask 169.60, spread $0.07 = 0.04% of mid. Fill at 169.5209 came in BELOW the 169.60 ask.",
+        "state_confirmed": "get_equity_orders re-read after sending returns state=filled with both executions. Not inferred from the place response \u2014 per _A_PLACE_ERROR_CAN_BE_FALSE (13:45Z today), the place endpoint's return value is not the arbiter of whether an order exists."
+      },
+      "post_trade_reconciliation": "ZERO DRIFT. Broker: MMM 2.884552 / GD 1.335314 / ABNB 6.573584, all pending_* zero; options SPY 2026-11-20 700P x1. Ledger holdings.json now carries the same three swings plus the hedge; updated_utc bumped to 14:21Z. Exactly TWO orders exist today \u2014 the 13:36Z LLY time-stop sell and this buy \u2014 so no sibling entry landed. Sibling check was run against the BROKER first (get_equity_orders/get_option_orders) and again immediately before sending, per the 2026-08-28 'the broker is the arbiter' rule; git alone cannot see a sibling's fill because the ledger lags it by that run's commit latency.",
+      "capital_after": {
+        "total_value": 4007.71,
+        "equity_value": 2055.26,
+        "options_value": 637.0,
+        "cash": 1315.45,
+        "unleveraged_buying_power": 1315.45,
+        "margin_check": "cash == unleveraged_buying_power == buying_power == $1,315.45. No margin extended. FOUR LAWS #4 clean.",
+        "operational_reserve_5pct": 200.39,
+        "deployable_remaining": 1115.06,
+        "open_equity_swings": "3 of the 3-4 target band \u2014 the book is in-band for the first time since the LLY exit.",
+        "throttles": "Equity entries 1 of 3 used. Options 0 of 8 used, $0.00 realized against the -$400 options cap (today's -$25.30 is an EQUITY loss and does not touch it)."
+      },
+      "positions_verdict": {
+        "MMM": "HOLD, working-but-red. 162.02, -6.53%, day 10 of 14, time stop 2026-09-14. Take-profit structurally unavailable while red (RSI2>=70 is gated on price > entry).",
+        "GD": "HOLD, thesis confirmed INTACT 2026-09-09, re-checks 2026-10-09. 353.19, -5.68%, day 9 of 14, time stop 2026-09-15.",
+        "ABNB": "NEW. Time stop 2026-09-24. No price stop (HARD RULE 5). Take-profit is the RSI2>=70 cross while green; trail trigger at entry/0.85 = 199.44.",
+        "SPY_700P_hedge": "Untouched, exempt from all backstops, 71 DTE. Mark 6.37 vs 7.49 basis. The ~21-DTE roll/close decision with Ryan is far off."
+      },
+      "options_books": "No action. TACTICAL declined on the 2026-08-26 capstone scoped to ITS OWN window (a Thursday scalp is flat by Friday's close and so holds through the 09-11 08:30 ET CPI print). CORE declined for want of a thesis answering 'why NOW'. Index premium at a series record is a reason to be careful buying it, never a thesis to sell it \u2014 and naked shorts are banned regardless.",
+      "duties": "Heartbeat already stamped 13:32Z; market_brief already stamped; IV sweep already TAKEN by the 14:00Z run (all 8 core names, 2026-10-09 board, 14:07Z) \u2014 not duplicated. No IV row is owed for ABNB/CMG/KHC: they were evaluated as EQUITY candidates and no options vehicle was priced on any of them, so there is no IV decision they could inform. Daily report is due at 19:15Z, not this run.",
+      "new_durable_finding_NAMED_not_re-argued": "holdings.json._A_ZERO_OF_26_VERDICT_WAS_BUILT_FROM_A_23_NAME_SAMPLE_AND_THE_REMAINDER_HELD_THE_BEST_SETUP_2026-09-10 \u2014 cohort-grading a board silently omits names belonging to no cohort, and the bucket list still reads as exhaustive. Detector: sum the cohort sizes and assert the total equals the board size before writing the verdict. Carries its own honest-scope and outcome-disclaimer sections: the omission was capacity not carelessness, the prior run's 23 declines all look correct, this run independently declined two of the three it missed, and a fill does not turn a process finding into a market call.",
+      "handoff": "Book is 3 of the 3-4 target with ~$1,115 deployable still unspent \u2014 deliberately, so the MMM (09-14) and GD (09-15) time stops have room to be re-deployed rather than crowded out. Two equity entries remain on today's throttle but the bar rises as the book fills: a fourth name must now out-grade the weakest of MMM/GD/ABNB on the ENTRY STACK, not on P/L. CPI 09-11 08:30 ET and a live 25bp FOMC 09-16 both sit inside ABNB's window; both were priced into the grade, not treated as a bar. No _cash_hold is recorded and none is warranted \u2014 the residual is sized capital awaiting the two scheduled exits, not a deliberate hold, so it needs no catalyst-and-expiry record."
     }
   ]
 }
