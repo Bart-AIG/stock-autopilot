@@ -192,5 +192,23 @@ jobs:
           git commit -m "report: ${{ steps.m.outputs.mode }} $(date -u +%Y-%m-%dT%H:%MZ)" || echo "no change to commit"
           # A trading session may have pushed (e.g. holdings.json) while this run
           # was in flight — rebase on top so the push doesn't get rejected.
-          git pull --rebase
-          git push
+          #
+          # A SINGLE pull-then-push is not enough: it leaves a race window between
+          # the pull completing and the push landing, and the automation merges a
+          # PR to master every few minutes, so that window DOES get hit. Measured
+          # 2026-09-10 on run 34492753828: the fetch printed "Current branch master
+          # is up to date" at 15:03:08.99Z and the push was rejected "(fetch first)"
+          # at 15:03:10.01Z — ONE SECOND later — which failed the job and lost the
+          # 15:00Z intraday report entirely. The report is the sole source of every
+          # autonomous equity signal, so a lost push is a blind trading session.
+          # Retry the whole rebase+push cycle instead of assuming one shot wins.
+          for attempt in 1 2 3 4 5; do
+            if git pull --rebase --quiet && git push; then
+              echo "pushed on attempt $attempt"
+              exit 0
+            fi
+            echo "push attempt $attempt rejected (concurrent push to master); retrying"
+            sleep $((attempt * 3))
+          done
+          echo "::error::report generated but could not be pushed after 5 attempts"
+          exit 1
