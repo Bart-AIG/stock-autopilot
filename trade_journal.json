@@ -34090,6 +34090,17 @@
       "capital": "Reserve 5% of $4,003.04 = $200.15; deployable $2,229.66; 30% per-name cap $1,200.91. Book at 2 of the 3-4 target = two open slots. The _cash_hold set 09-08 expires 2026-09-14 and names today's PPI / tomorrow's CPI; it bars nothing A-grade and dissolves on its own date.",
       "duties": "Heartbeat stamped for 09-10 after the bell. Ledger synced to master this run. market_brief rebuild for 09-10 and the daily report at/after 19:15Z remain OPEN for a later run today.",
       "union_note": "Two scheduler-fired runs executed this same first-post-open slot concurrently. Both entries are KEPT per the union rule -- neither is a duplicate: the sibling placed the LLY exit, this run's review gate blocked the duplicate order. Exactly ONE exit exists on the broker record and the two runs' numbers agree."
+    },
+    {
+      "run_utc": "2026-09-10T13:36:00Z",
+      "run_type": "first_post_open_of_trading_day",
+      "trading_day_et": "2026-09-10",
+      "headline": "THIRD run in this slot (sessions ...01AwUr2W filled, PR #1364 reconciled, this one narrowed). All three independently reached the LLY time stop -- strong cross-validation of the exit logic. No trade by this run; the sibling's fill is the book's only LLY exit and master carries exactly one closed-position record.",
+      "reconciliation": "Verified against master after two merge conflicts: one LLY closed record, positions SPY/MMM/GD, order 6aa2b259 @ 1129.5485, realized -$25.30 -- identical to this run's independently-computed figures. Heartbeat, brief, cap and throttle resets all already complete and correct; NOT duplicated.",
+      "contribution": "EDITED the existing key _THE_REVIEW_GATE_CAUGHT_A_SIBLING_COLLISION_THE_BROKER_PRECHECK_MISSED_BY_1_4_SECONDS_2026-09-10 rather than minting a competing one. The narrowing: that key concludes 'the review gate CLOSES it', which holds for a SELL and fails for a BUY. Share count is a binding broker constraint so a duplicate sell fails safe by construction; a duplicate BUY is a valid order and reviews CLEAN, so both fill. That is exactly why the 2026-08-28 ROST+MDLZ collision -- two BUYS, $960.30 against a $956 ceiling -- was not caught and would not have been. Entries remain genuinely exposed; the 14:15Z entry preference now also does de-synchronisation duty away from this crowded slot.",
+      "self_correction": "This run drafted and pushed to its branch, but never merged, a finding claiming review_equity_order had PLACED a live order. FALSE -- the sibling placed it and review's sharesOwned '0' alert was the refusal working. It dismissed the sibling hypothesis partly on git silence, which commit latency makes worthless (sibling pushed 13:39:19Z, check ran ~13:37Z). Caught by a merge conflict, not by reasoning. Also wrongly called LLY the first time stop; PNC 2026-09-03 was. Both recorded in the key above so the mechanism outlives the episode.",
+      "why_flat": "No entry either book. Equities: today's report has not landed (latest 09-09) so the stale-report gate bars autonomous entries, and the opening-window preference independently defers to ~14:15Z. Options: hedge only (SPY 2026-11-20 700P), exempt; no TACTICAL arm. Book 2 of the 3-4 target, ~$2,232 deployable vs a $1,178 per-name cap.",
+      "duties": "All daily duties verified complete by earlier runs in this slot. IV sweep still due on the first run at/after 14:00Z; daily report due at/after 19:15Z."
     }
   ]
 }
