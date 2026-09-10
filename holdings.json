@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-10T14:47:00Z",
+  "updated_utc": "2026-09-10T15:01:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-10",
     "realized_usd_options": 0.0,
@@ -842,14 +842,14 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-10T14:47:00Z",
+    "run_utc": "2026-09-10T15:01:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-10",
-    "reconciliation": "Broker read first; branch reset to fresh origin/master 855d191 and re-fetched before writing (HEAD == master, no sibling). ZERO DRIFT: MMM 2.884552 / GD 1.335314 / ABNB 6.573584; SPY 2026-11-20 700P x1 @ $749.00. Two equity orders today, both this desk's (6aa2b259, 6aa2bcce); no option orders. total_value $3,991.95; cash == ubp $1,315.45; reserve $199.60; deployable $1,115.85; per-name cap $1,197.58.",
-    "capital": "total_value $3,991.95; cash == unleveraged_buying_power == buying_power == $1,315.45 (no margin extended); equity_value $2,054.50; options_value $622.00. Reserve 5% = $199.60; DEPLOYABLE $1,115.85; per-name cap 30% = $1,197.58. ABNB $1,115.41 = 27.9% of total_value, 93% of the cap -- a SIZING gate, not a continuous constraint, so mark drift above 30% owes no liquidation.",
-    "book": "3 swings. MMM 161.80 (-6.66%, day 10/14, TIME STOP 2026-09-14); GD 354.185 (-5.41%, day 9/14, TIME STOP 2026-09-15, thesis INTACT 2026-09-09, still 0.15% under the 354.73 200-day); ABNB 169.68 (+0.09%, day 0/14, TIME STOP 2026-09-24). ABNB is green but the RSI2>=70 take-profit needs an overbought PRINT, not merely price > entry. Hedge SPY 2026-11-20 700P x1: exempt from all backstops, 71 DTE, roll/close decision WITH Ryan.",
-    "tape_numbers_only": "14:46Z SPY 758.85 (-0.47%), QQQ 711.23 (-0.71%), IWM 288.88 (-0.61%); MMM 161.80, GD 354.185, ABNB 169.68. Numbers only.",
-    "verdict": "NO TRADE EITHER BOOK; NOTHING NEW MEASURED. Re-verification schema applied.",
+    "reconciliation": "Broker read FIRST, then branch reset to fresh origin/master 81a93c3 -- unchanged since 14:47Z, so no sibling landed. ZERO DRIFT: MMM 2.884552 / GD 1.335314 / ABNB 6.573584; SPY 2026-11-20 700P x1 @ $749.00. Exactly two equity orders today, both this desk's (6aa2b259 LLY time-stop sell, 6aa2bcce ABNB buy); no option orders.",
+    "capital": "total_value $3,981.17; cash == unleveraged_buying_power == buying_power == $1,315.45 (no margin extended); equity_value $2,052.72; options_value $613.00. Reserve 5% = $199.06; DEPLOYABLE $1,116.39; per-name cap 30% = $1,194.35. ABNB $1,113.60 = 28.0% of total_value, 93% of the cap -- a SIZING gate, not a continuous constraint, so mark drift above 30% owes no liquidation.",
+    "book": "3 swings. MMM 161.69 (-6.72%, day 10/14, TIME STOP 2026-09-14); GD 353.60 (-5.57%, day 9/14, TIME STOP 2026-09-15, thesis INTACT 2026-09-09, 0.32% under the 354.73 200-day); ABNB 169.42 (-0.06%, day 0/14, TIME STOP 2026-09-24). All three red, so the RSI2>=70 take-profit is structurally unavailable this run. Hedge SPY 2026-11-20 700P x1: exempt from all backstops, 71 DTE, mark $613 vs $749 basis, roll/close decision WITH Ryan.",
+    "tape_numbers_only": "15:01Z SPY 758.905 (-0.46%), QQQ 711.16 (-0.72%), IWM 288.79 (-0.64%), NVDA 218.05 (-2.40%); MMM 161.69, GD 353.60, ABNB 169.42. Numbers only.",
+    "verdict": "NO TRADE EITHER BOOK; NOTHING NEW MEASURED. Re-verification schema applied. Equity entry declined on GRADE not capital -- the 14:20Z run graded all 26 setups on this same 14:01Z board and found one A, already taken; board 60 min old and unmoved, accepted explicitly rather than re-litigated. Options: TACTICAL barred by the CPI print inside any scalp's own hard time stop; CORE has no 'why NOW'.",
     "throttles": "Equity entries 1 of 3 used (ABNB). Option entries 0 of 8. Realized today: equities -$25.30 (LLY time stop); options $0.00 against the -$400 OPTIONS cap, which an equity trade never touches."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
