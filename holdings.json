@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-10T15:50:00Z",
+  "updated_utc": "2026-09-10T18:20:30Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-10",
     "realized_usd_options": 0.0,
@@ -9,8 +9,8 @@
     "realized_usd_equities": -25.3,
     "closing_trades_equities": 1,
     "entry_throttle_options": "0 of 8 used",
-    "entry_throttle_equities": "1 of 3 used",
-    "source": "BROKER-READ at 2026-09-10T13:37Z, never inherited. get_realized_pnl(equity, 09-10..09-10) returns realized_gain -25.30 / rate -0.0506 / number_of_trades 1 = the LLY time stop. get_equity_orders(created_at_gte=2026-09-10) shows that single sell and nothing else; no option orders today, so the options book is untouched at $0.00 realized. THROTTLES: an exit is never an entry and exits are never throttled, so 0 of 3 equity entries and 0 of 8 option entries both stand unused on the new trading day. The -25.30 is an EQUITY loss and does NOT count against the -$400 OPTIONS cap, which gates option entries only. || UPDATED 14:21Z: one autonomous equity ENTRY placed and filled -- ABNB 6.573584 sh @ 169.5209, $1,114.36, order 6aa2bcce-ec3b-40d9-8c87-06752c3a4515. Equity entry throttle now 1 of 3. Options untouched: 0 of 8 and $0.00 realized against the -$400 options cap, which an equity trade never touches."
+    "entry_throttle_equities": "2 of 3 used",
+    "source": "BROKER-READ at 2026-09-10T13:37Z, never inherited. get_realized_pnl(equity, 09-10..09-10) returns realized_gain -25.30 / rate -0.0506 / number_of_trades 1 = the LLY time stop. get_equity_orders(created_at_gte=2026-09-10) shows that single sell and nothing else; no option orders today, so the options book is untouched at $0.00 realized. THROTTLES: an exit is never an entry and exits are never throttled, so 0 of 3 equity entries and 0 of 8 option entries both stand unused on the new trading day. The -25.30 is an EQUITY loss and does NOT count against the -$400 OPTIONS cap, which gates option entries only. || UPDATED 14:21Z: one autonomous equity ENTRY placed and filled -- ABNB 6.573584 sh @ 169.5209, $1,114.36, order 6aa2bcce-ec3b-40d9-8c87-06752c3a4515. Equity entry throttle now 1 of 3. Options untouched: 0 of 8 and $0.00 realized against the -$400 options cap, which an equity trade never touches. || UPDATED 18:20Z: second autonomous equity ENTRY filled -- UNP 3.858199 sh @ 285.1071, $1,100.00, order 6aa2f4ee-a23b-49c3-8e48-eee4a2601f93. Equity entry throttle now 2 of 3. Options STILL untouched: 0 of 8 entries and $0.00 realized against the -$400 OPTIONS cap, which no equity trade ever touches. Equity realized for the day remains -25.30 (the LLY time stop); an ENTRY realizes nothing."
   },
   "positions": [
     {
@@ -146,6 +146,32 @@
         "time_stop_date": "2026-09-24",
         "status": "JUST FILLED. Take-profit is the RSI2>=70 cross while green (no magnitude test -- the void magnitude floor is not re-derived). Target 183.08 is ADVISORY. Green-enough trail trigger is entry/0.85 = 199.44, at which point the SET TRAILING STOP alert fires for Ryan to set a native 15% trail in-app; the agent never places it."
       }
+    },
+    {
+      "symbol": "UNP",
+      "sleeve": "swing",
+      "entry_date": "2026-09-10",
+      "entry_price": 285.1071,
+      "shares": 3.858199,
+      "stop": null,
+      "target": 298.32,
+      "native_trail_pct": null,
+      "_note": "AUTONOMOUS equity entry under HARD RULE 6, placed_agent 'agentic', order 6aa2f4ee-a23b-49c3-8e48-eee4a2601f93 filled 2026-09-10T18:20:30Z, 3.858199 sh @ 285.1071 = $1,100.00, zero fees. SIGNAL-SOURCED from the committed 2026-09-10T18:01Z intraday report (RSI2 2.2, the lowest non-held print on a 25-name board). Graded A: 200-day SMA rising monotonically 255.467->260.934 with spot 61.6 SESSIONS of cushion above it; Q2 2026 adj EPS $3.41 vs $3.24 and revenue +12% to $6.864B, both beats; dividend raised to $1.42 on 07-29; consensus Overweight, FactSet mean PT $332.70 (+16.7%); three upward PT revisions in six weeks; and the entry prints GREEN (+0.09%) against SPY -0.61% / QQQ -1.00%, so trend-maturity gate (c) confirms rather than diverges. NO adverse catalyst behind the slide -- the last company news is a beat and a raise. KNOWN NEGATIVES, recorded not buried: PEG 3.2 reads '(WARN) rich' on the report's SECONDARY value screen (P/E 23.0 is ordinary for a Class I rail and PEG penalises mature compounders; unlike SBUX's PEG -2.3 there is no de-rating catalyst); the UNP/NSC $85B merger is under STB review with comments due 11-18, DOJ/DOT 12-03, final briefs 2027-05-28 -- nothing binary inside the hold; Baupost cut 23% in Q2, offset by Viking Global initiating a new $556.9M position the same quarter. NO PRICE STOP EVER (HARD RULE 5). Full pre-trade decision record: trade_journal.json entry run_utc 2026-09-10T18:19:00Z, written BEFORE the order per gate (a).",
+      "_current_state": {
+        "last_checked_utc": "2026-09-10T18:20:30Z",
+        "mark": 285.1071,
+        "pct_from_entry": 0.0,
+        "days_held": 0,
+        "time_stop_date": "2026-09-24",
+        "trail_trigger_price": 335.4201,
+        "status": "NEW -- filled this run at the entry price."
+      },
+      "_notify_state": {
+        "last_trigger": null,
+        "last_notified_utc": null,
+        "note": "No trigger fired. Entry itself is an autonomous action reported in the daily report, not a per-position alert."
+      },
+      "setup_invalidation": "A hostile STB development that materially changes the NS merger economics; a guidance cut; or a downward PT-revision cluster reversing the current upward one. Technical invalidation is NOT a price stop -- exits are the RSI2>=70 cross while green, the 2026-09-24 time stop (green or red), or a HARD RULE 7 thesis break."
     }
   ],
   "_resolved_flags": [
@@ -3982,5 +4008,13 @@
     "the_root_fix_applied": "stock-report.yml 'Commit the published report' now retries the whole rebase+push cycle up to 5 times with backoff (3s, 6s, 9s, 12s) and fails loudly with ::error:: if it still cannot land. One shot was never enough against a moving ref.",
     "the_detector_for_the_class": "An artifact that is SUPPOSED to arrive on a schedule and does not is invisible to every check that reads the artifact -- because there is nothing to read. Assert the SCHEDULE, not the content: on any run, if the newest committed report is older than the report cadence would imply (~1 hour during 14:00-19:00Z), check the workflow's run list for a FAILED fire before reasoning off the stale board. Same family as the 2026-08-21 dead-man lesson -- a liveness check cannot detect degradation, and here it could not detect a single missing beat either.",
     "honest_scope": "n=1 failure. The push race is proven; the claim that it will recur is an inference from the cadence arithmetic, not a measurement. It changed no trading decision today."
+  },
+  "_THE_UNGRADED_DELTA_RETURNED_ON_A_BOARD_FOUR_RUNS_HAD_DECLARED_CLOSED_2026-09-10": {
+    "measured_utc": "2026-09-10T18:19:00Z",
+    "what": "Four consecutive runs (17:19Z, 17:30Z, 17:45Z, 18:02Z) each RE-ASSERTED -- correctly, and explicitly refusing to inherit it -- that every name on the board sat inside the 30 graded today and the 'ungraded delta' was NONE. The 18:01Z report then added FOUR names (UNP, AMZN, QQQ, ROST) and the claim lapsed. UNP had ZERO mentions across all 28 of the day's journal entries, graded A on a full stack, and was bought this run for $1,100.",
+    "why_no_run_erred": "The 18:02Z run rebased onto origin/master 16343f1, which PREDATES report commit e7296df. It graded the newest board it could see. This is the 2026-09-09 stale-clone hazard in its benign form: not a stale WRITE over master, but a stale READ of an input that master had already refreshed. The window is the gap between a run's rebase and the report cron's push, and on a ~15-minute cadence against a report that re-runs every few minutes those two will collide regularly.",
+    "the_transferable_shape": "A NEGATIVE claim about a data set is only as fresh as the fetch that produced it, and it decays SILENTLY. 'Ungraded delta NONE' reads identically whether it was re-derived one second ago or inherited from an hour-old board -- which is precisely why those four runs were right to re-assert it mechanically each time rather than quote it. The residual gap is that re-asserting against a stale COPY of the board is indistinguishable from re-asserting against the live one. Same family as the 2026-08-28 sibling-collision finding: the check was performed correctly and interrogated an artifact that had already moved.",
+    "detector": "Before asserting a board is fully graded, confirm the board you graded is the one on master RIGHT NOW: `git fetch origin master && git log origin/master --oneline -3 -- latest_intraday.md` and compare the report's own header timestamp to the file you read. If a newer report commit landed after your rebase, re-read it and diff the setup table before writing any 'delta NONE' claim. Cheap -- one fetch -- and it is the only thing separating a graded zero from an ungraded one.",
+    "honest_scope": "This is a REFINEMENT, not a fault. No run misgraded a name, no gate was skipped, and the four re-assertions were each methodologically correct on the data they held. The cost was one A-grade setup sitting ungraded for roughly 18 minutes, which is why it is filed as a detector rather than an incident."
   }
 }
