@@ -3240,5 +3240,30 @@
    "_timing_note": "Deferred IV sweep, assigned by the 13:40Z/13:50Z runs to the first run at/after ~14:00Z. Quote venue/updated_at timestamps 14:01-14:04Z, ~0-10s lag, so the opening-window inflation caveat is DISCHARGED BY MEASUREMENT (venue timestamp), not by wall clock -- per _QUOTE_FEED_LAG_MEANS_WALL_CLOCK_CANNOT_CLEAR_THE_OPENING_WINDOW and its per-session qualifier.",
    "_forecast_scored": "SCORES the 2026-08-28 MMM _PRECOMPUTED_ARTIFACT_ROLLOFF, which had never been re-measured (this ticker had n=1). It predicted raw ~1.07 once the 7/21 +6.9% gap exited after the 09-01 close, holding atm_iv fixed at 0.218601. VERIFIED: the 7/21 return is OUT of the window (oldest is now 07-24) and the raw ratio is 1.1012 -- direction right, +2.9% high. HONEST DECOMPOSITION, because +2.9% flatters the method: the frozen leg MOVED (atm_iv 0.218601 -> 0.230819, +5.6%, worth +0.058 of ratio) while the projected leg came in RICHER than modelled (actual rv 0.209612 vs the ~0.204 implied by the 1.07 projection, because the departing gap was partly replaced by 08-28's -2.54%). Two real errors of opposite sign that largely cancelled."
   }
+ ],
+ "AMGN": [
+  {
+   "date": "2026-09-11",
+   "spot": 380.31,
+   "atm_strike": 380.0,
+   "atm_iv": 0.256821,
+   "call_iv": 0.259057,
+   "put_iv": 0.254586,
+   "dte_used": 28,
+   "expiry": "2026-10-09",
+   "rv_30d": 0.406975,
+   "rv_30d_ex_top2": 0.230807,
+   "iv_rv_ratio": 0.6311,
+   "iv_rv_ratio_ex_top2": 1.1127,
+   "largest_1d_move_in_window_pct": -10.62,
+   "call_spread_pct_of_mid": 19.78,
+   "put_spread_pct_of_mid": 26.34,
+   "readings_incl_today": 1,
+   "pctile_vs_own_history": null,
+   "_first_reading": "AMGN added to iv_history this run because it was EVALUATED as a CORE candidate (top of the 15:01Z RSI2 board at 1.4). n=1, so IV/RV only -- no percentile is computed or citable until 20 readings, per the IV method.",
+   "_READ_THE_PAIR_THIS_IS_A_TEXTBOOK_GAP_ARTIFACT": "RAW 0.6311 vs EX-GAP 1.1127 -- the single widest raw/ex-gap divergence in this file after MSFT's 0.52 on 2026-08-20. The raw ratio says AMGN premium is ~37% CHEAP and is WRONG; ex-gap says it is RICH. The entire difference is ONE bar: a -10.62% move on 2026-09-08 (437.23 -> 393.17 close) on 6.83M shares against a ~2.0M norm. rv_30d is a 30-SAMPLE stdev, so that day alone lifts realized from 0.2308 to 0.4070 (+76%) and mechanically deflates the ratio.",
+   "_WHICH_RATIO_GOVERNS_AND_WHY": "EX-GAP (1.1127) GOVERNS, so premium is RICH, so the IV-sanity gate FAILS for any long-premium AMGN trade. The rule: raw governs for a contract that SPANS the next print, ex-gap for one that expires BEFORE it. get_earnings_calendar(2026-09-11,+21d) returns NO pharma name through 2026-10-02 and AMGN's Q3 lands late Oct/Nov, so BOTH the 10-09 and 10-16 boards expire before the print. There is no event for the buyer to bear, so the gap is pure history and must be trimmed out.",
+   "_BOARD_NOTE_DO_NOT_READ_THESE_SPREADS_AS_A_LIQUIDITY_VERDICT": "The 19.78%/26.34% spreads above are from the 2026-10-09 board (28 DTE, nearest-30, chosen for IV-method homogeneity with today's other 8 rows) and it is a THIN NON-MONTHLY WEEKLY -- the ATM call shows open_interest 0 and volume 0. Per the 2026-08-24 three-instance measurement-bug rule, an IV-sweep spread is NEVER a liquidity verdict on a name. AMGN's real liquidity reading is the 2026-10-16 MONTHLY at target delta: 6.95-8.76% of mid with OI 239-837, which PASSES the CORE <=10% gate. Same name, same minute, two boards, a ~3x difference in quoted width."
+  }
  ]
 }
