@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-11T19:05:00Z",
+  "updated_utc": "2026-09-11T19:15:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-11",
     "realized_usd_options": -247.0,
@@ -169,31 +169,38 @@
     "resolution": "Options-automation run confirmed all 8 consolidation-batch market sells (MRK, GOOGL, KO, C, FCX, QCOM, IBKR, RKLB) filled at today's open (2026-07-22 13:30-13:33 UTC), matching the 2026-07-21 Ryan-approved batch order IDs exactly -- verified via get_equity_orders and get_equity_positions (broker book now shows only ACHR/IREN/INOD/IONQ/LIN/CAT/CSCO/RBRK, matching this ledger). Positions removed above; not a new equity decision, just syncing the ledger to already-authorized, already-filled trades. Note: broker shows a residual 0.002540sh FCX dust position (~$0.15, avg cost $59.06 -- a different cost basis than the ledger's $64.61/1sh lot, likely an old fractional remainder unrelated to this sell) -- immaterial, left alone."
   },
   "_last_entry_evaluation": {
-    "run_utc": "2026-09-08T17:25:00Z",
-    "verdict": "NO EQUITY ENTRY, NO OPTIONS ENTRY. No A-grade candidate; the screen is one correlated trade.",
-    "capital": {
-      "total_value": 3848.32,
-      "unleveraged_buying_power": 1459.18,
-      "cash": 1459.18,
-      "operational_reserve_5pct": 192.42,
-      "deployable": 1266.76,
-      "per_name_cap_30pct": 1154.49,
-      "margin_check": "buying_power == unleveraged_buying_power ($1,459.18) -- no borrowed funds extended. FOUR LAWS #4 clean."
-    },
-    "slots": "4 of the 3-4 target used (hard band 3-5). A 5th entry sizes at deployable/1 = $1,266.76, which BREACHES the 30% per-name cap and must be written down to $1,154.49 -- i.e. the only compliant fifth entry available today is one at the MAXIMUM single-name concentration the policy allows.",
-    "THE_DECIDING_ARGUMENT": "That $1,154 would go into the epicentre of a live rate repricing, three days before CPI, in the same factor as all four existing positions (which are 4-for-4 underwater, -$79.43 combined). The concentration policy authorises size for A/A+ ONLY and states plainly that concentration does not raise expected return -- it only pays if the top ideas are genuinely better, so FEWER MUST MEAN MORE SELECTIVE, NEVER MERELY BIGGER. Sizing a B-grade to 30% because the arithmetic permits it is the exact trade that clause exists to prevent.",
-    "why_this_is_NOT_queuing": "The rotation gate binds only when deployable cash is BELOW one normal position size. Deployable $1,266.76 exceeds the ~$600 minimum entry, so the ordinary branch applies and it asks a single question: is there an A-grade setup? There is not, and the policy states that saying so is the correct output. No position was ranked against a held name because no candidate reached the bar to trigger that comparison.",
+    "run_utc": "2026-09-11T19:15:00Z",
+    "verdict": "NO EQUITY ENTRY, NO OPTIONS ENTRY. Declined on the GRADE, not on the cash -- which is the distinction the 14:20Z rotation-lock key says runs keep getting backwards.",
+    "board": "19:03Z report, 13 RSI2 names: SBUX, LLY(exited 09-10), AMGN, CVS, BMY, MRK, REGN, PFE, GILD, UNH, RBRK, JNJ, TGT.",
+    "ungraded_delta_checked": "Versus the 18:02Z board already graded 12-of-12, this board ADDED MRK and TGT and DROPPED HAL. MRK was graded earlier today inside the pharma cluster (it is a named Keytruda price-cap target). HAL is excluded on the oil sector steer regardless. TGT was genuinely NEW and therefore genuinely UNGRADED, so this run graded it from scratch rather than inheriting a closed-board claim -- the defect _THE_UNGRADED_DELTA_RETURNED_ON_A_BOARD_FOUR_RUNS_HAD_DECLARED_CLOSED_2026-09-10 exists to prevent.",
     "grades": {
-      "AMGN": "C -- NOT a dip. Novartis pelacarsen Phase 3 (Lp(a)HORIZON) missed its primary endpoint; the read-across hit Amgen's olpasiran and BMO cut to Market Perform. Consensus Hold, mean PT $398.52 against spot $395.97 = ~0.6% implied upside. UBS keeps Buy/$440 arguing the mechanisms differ (siRNA vs antisense) -- a live scientific dispute is not a mean-reversion setup.",
-      "DLTR": "B -- the cleanest of the list and still not A. No company-specific bad news; Barclays RAISED to $160 Overweight on 09-04 and mean PT $137.33 vs spot $124.40 (+10.4%). But -5.34% today is the XRT -2.2% retail de-rating, i.e. squarely the rate shock, with CPI Friday.",
-      "ABNB": "B -- Baird raised PT $175->$200 today, but consumer discretionary into a hike repricing.",
-      "MA_V": "C -- Benzinga explicitly reports 'a broad de-rating across payments and fintech' today (FOUR -9.0%, WEX, Remitly, Paymentus). Sector event in progress, not a dip.",
-      "PATH": "C -- extending losses on what analysts call a low-quality beat with slowing growth; IGV -2.1%. Thesis weakening, spec sleeve.",
-      "RTX": "B/C -- and correlated with the held GD; a second defence name is not diversification.",
-      "SBUX_CL_ABBV_BMY_VRTX_WBD": "B/C -- same de-rating complex; none carries an idiosyncratic catalyst."
+      "TGT": "B -- the cleanest non-pharma name on the board and still not A, so it gets NOTHING rather than something small. FOR: Oppenheimer maintains Outperform / PT $180 against spot 155.88 (+15.5% implied), and the Beauty Studio launched TODAY in 600+ stores with 1,600 products from 90 brands, two-thirds new to Target -- a real, dated catalyst. AGAINST, and it decides it: UBS 09-04 names TGT SPECIFICALLY as being on the WRONG end of the tariff-refund spectrum (with WSM and FIVE) while WMT/DG/DLTR/BBY/HD/TSCO are the beneficiaries, and flags the ANNIVERSARY of those benefits as a forward margin/earnings headwind -- TGT's own Q2 beat was tariff-refund-driven, so the tailwind it just enjoyed is the headwind it now faces. Sector sentiment is 'a mix of apathy, caution, and chagrin' with 'a lack of long-term secular growth potential'; Canada's retaliatory tariffs name it. And RSI2 8.4 is the SHALLOWEST reading on the entire board -- a dip, not an extreme, so the mean-reversion premise is weakest exactly where the thesis is cleanest.",
+      "pharma_cluster_AMGN_LLY_CVS_BMY_MRK_REGN_PFE_GILD_UNH": "C -- unchanged from the 16:05Z measurement, re-read not re-derived: a LIVE, unresolved regulatory repricing aimed at these exact companies (MFN 60-day deadline structure, CMS-finalized 38-79% Medicare discounts effective Jan 2026 with Keytruda and Eliquis named). A mean-reversion thesis needs the selling to have been indiscriminate; this selling is targeted and has further scheduled legs. Also fails trend-maturity (c): the complex made relative lows on a session SPY spent +0.95% higher.",
+      "SBUX": "B/C -- same consumer/rate de-rating, no differentiating catalyst.",
+      "RBRK": "B/C -- SPEC sleeve, P/FCF 55 and negative P/E, mom12-1 only 9.5.",
+      "JNJ": "C -- pharma cluster.",
+      "HAL": "EXCLUDED on the sector steer (oil-related energy). Off the board at 19:03Z anyway."
     },
-    "earnings_gate": "VERIFIED INDEPENDENTLY, not from the report's blank Earnings column (absence of the flag is not proof). get_earnings_calendar(high_market_cap, 2026-09-08 +25d) lists NONE of the candidates or the four held names inside the hold window. No [ERN] bar applied and none was needed.",
-    "sector_steer": "No oil-energy name was proposed. XLE was among the day's leaders (+0.45%/+1.0%), which is exactly when the steer is most tempting to override -- it was not."
+    "capital": {
+      "total_value": 3881.27,
+      "cash": 717.38,
+      "unleveraged_buying_power": 717.38,
+      "operational_reserve_5pct": 194.06,
+      "deployable": 523.32,
+      "per_name_cap_30pct": 1164.38,
+      "minimum_entry": 600,
+      "gap_to_minimum": "deployable is $76.68 SHORT of the ~$600 floor, so no ORDINARY entry was available at any grade."
+    },
+    "rotation_gate_answered_in_ARITHMETIC_not_prose": {
+      "why": "The 14:20Z detector: when deployable is below one position size, print position_value + deployable per held name against the floor. Answering in prose ('no cash, so no entry') is circular, because creating cash by selling a held name is the exact question the gate exists to ask.",
+      "MMM": "$475.53 + $523.32 = $998.85 -> FUNDS an entry",
+      "GD": "$476.56 + $523.32 = $999.88 -> FUNDS an entry",
+      "ABNB": "$1,115.34 + $523.32 = $1,638.66 -> FUNDS",
+      "UNP": "$1,096.89 + $523.32 = $1,620.20 -> FUNDS",
+      "THE_LOCK_IS_BROKEN_AND_RYANS_TRADE_BROKE_IT": "At 14:20Z MMM ($493.83) and GD ($494.79) were each SHORT of the floor and therefore rotation-locked. Ryan's 15:54Z hedge close added $502 of deployable and put both above it. So the rotation gate was genuinely OPEN this run for the first time today -- all four names fund a replacement -- and it was declined because NO CANDIDATE GRADED A, not because no sell was available. That is the falsifiable decline the rotation-lock key asks for."
+    },
+    "why_waiting_dominates": "Rotating out of MMM or GD realizes ~$24, pays a round trip, and overrides a thesis that is intact by design -- to fund a B-grade, 1 to 3 sessions before the SAME capital returns mechanically. MMM's time stop is Monday 2026-09-14 and GD's Tuesday 09-15, together releasing ~$952 and taking deployable to roughly $1,475 at 2 of the 3-4 target. No _cash_hold record is owed: the book is fully deployed at 4 of 4, so this is a funding state, not a deliberate hold.",
+    "options": "NO ENTRY either track. TACTICAL: no trigger -- SPY 2.6335 under its 20-day and QQQ 0.9375 under are STANDING conditions carried all day, and QQQ's gap is 0.34x one day of the level's own drift, i.e. a break smaller than the level's overnight movement; no index disagreement (SPY +0.95% / QQQ +0.97% / XLF +0.69%); and the Friday 14:16 ET clock bars it independently, since the hard time stop forces a weekend carry whose median Monday SPY gap (0.342%) exceeds the entire -30% stop distance. CORE: no 'why NOW' on any candidate, the report's momentum names carry no fresh catalyst, and spending the last $523 two sessions before ~$952 returns is poor sequencing. Re-hedging remains DECLINED on the 16:05Z ownership reasoning, not on a market view."
   },
   "_closed_positions": [
     {
@@ -605,22 +612,24 @@
     }
   },
   "_eod_report_written": {
-    "trading_day_et": "2026-09-10",
-    "written_utc": "2026-09-10T19:16:00Z",
-    "written_by": "The 19:16Z run wrote it; the concurrent 19:20Z run wrote it again (each re-read master before the other had pushed) and PR #1396 union-merged the two. daily_options_report.md on master is the 2026-09-10 report, header stamped 14:16 CT / 19:16 UTC.",
-    "quotes_stamped_utc": "2026-09-10T19:16Z",
-    "note": "daily_options_report.md for trading day 2026-09-10 covers BOTH books per v10. THAT COMMIT IS THE DELIVERY (eod-report-notify.yml fires on the master push touching this file). NO LATER RUN MAY REWRITE IT to refresh closing marks or restate 'still flat' -- every master push touching this file sends Ryan another notification. Rewrite ONLY on something MATERIAL after 19:16Z: a fill, an exit, a new flag, or a trigger firing.",
-    "prior_day": "The 2026-09-09 report (written 19:16Z on 09-09) is superseded by this one.",
-    "_repaired_2026-09-10T19:35Z": "STAMPED LATE, BY A THIRD RUN. Both runs that wrote today's report left this marker reading trading_day_et 2026-09-09 -- the field whose ONE job is to stop a later run rewriting the report and sending Ryan a duplicate ntfy push. For 19 minutes the guard said the duty was unmet while the duty was done, with ~28 minutes of market-hours runs and every post-close run still to read it. THE CLASS (the lot-count sweep finding, arriving at the report duty): A DUTY AND THE MARKER THAT RECORDS THE DUTY ARE TWO WRITES, AND THE SECOND IS THE ONE THAT GETS DROPPED -- because the first produces a visible artifact that looks like completion. Nothing errored; a run reading only the marker would have concluded, correctly per the marker and wrongly per the repo, that it owned the duty. DETECTOR, one line and it needs no judgement: after writing daily_options_report.md, assert h['_eod_report_written']['trading_day_et'] == the trading day in the file's own header. Same shape as the git diff --stat rule -- trust the assertion, not your sense of having finished."
+    "trading_day_et": "2026-09-11",
+    "written_utc": "2026-09-11T19:15:00Z",
+    "written_by": "The 19:15Z scheduled run. 19:15Z IS the v10 threshold (first run at or after 2:15 PM CT), and master still carried the 2026-09-10 report, so this run owned the duty and took it rather than deferring to a tidier slot.",
+    "quotes_stamped_utc": "2026-09-11T19:16Z",
+    "note": "daily_options_report.md for trading day 2026-09-11 covers BOTH books per v10. THAT COMMIT IS THE DELIVERY (eod-report-notify.yml fires on the master push touching this file). NO LATER RUN MAY REWRITE IT to refresh closing marks or restate 'still flat' -- every master push touching this file sends Ryan another notification. Rewrite ONLY on something MATERIAL after 19:15Z: a fill, an exit, a new flag, or a trigger firing. NOTE the two live candidates for exactly that: MMM's time stop is 3 days out and GD's 4, so neither fires today; but ABNB is marginally green, so an RSI2>=70 print on it would be a genuine mechanical exit and WOULD justify a rewrite.",
+    "headline_of_the_report": "Ryan closed the SPY 2026-11-20 700P himself at 15:54Z (-$247); the desk placed nothing in either book; the options sleeve is empty and the book is unhedged into a weekend; his close freed $502 and broke the morning's rotation lock.",
+    "prior_day": "The 2026-09-10 report (written 19:16Z on 09-10) is superseded by this one.",
+    "_assertion_run": "PASSED. Per the detector recorded on 2026-09-10T19:35Z, this run asserted h['_eod_report_written']['trading_day_et'] == the trading day in daily_options_report.md's own H1 header ('Friday, 2026-09-11') BEFORE committing -- the check that stops a duty being done while the marker that records it says otherwise."
   },
   "_last_reconciliation": {
-    "utc": "2026-09-11T13:40:00Z",
-    "result": "ZERO DRIFT, BOTH BOOKS. Broker read FIRST, before any gate was computed.",
-    "options": "1 position: SPY 2026-11-20 700P, quantity 1.0000, average_price 749.00, opened 2026-08-06T14:21:56Z, all pending_* zero. Mark 4.99 (bid 4.98 / ask 5.00, 0.40% of mid), value $499, P/L -$250.00 (-33.4%), 70 DTE, delta -0.135, theta -0.097. HEDGE -- exempt from all premium backstops.",
-    "equities": "4 positions, matched on quantity AND average_buy_price: MMM 2.884552@173.34, GD 1.335314@374.44, ABNB 6.573584@169.52, UNP 3.858199@285.11. shares_available_for_sells == quantity on all four.",
-    "orders": "get_equity_orders(created_at_gte=2026-09-11) and get_option_orders(created_at_gte=2026-09-11) both EMPTY at 13:37Z -- re-read AFTER the 13:35Z sibling's PR landed, so the broker check and the git check agree. No sibling fill, nothing unauthorized, no placed_agent 'user' fill to gate.",
-    "portfolio": "total_value $3,879.85291034; equity_value $3,162.40291034; options_value $502.00; cash $215.45 == unleveraged_buying_power == buying_power (no margin extended -- FOUR LAWS #4 unambiguous). Reserve 5% = $193.99; deployable $21.46; 30% per-name cap $1,163.96.",
-    "report_freshness": "STALE for entry purposes: master's newest board is latest_intraday.md stamped 2026-09-10T19:01Z, i.e. the PRIOR trading day. Verified independently rather than assumed -- the GitHub Actions run list shows ZERO Stock Report runs so far on 2026-09-11 (last 2026-09-10T19:00Z), consistent with _REPORT_CRON_GAP_AT_THE_OPEN (~30 min typical, 91 min worst observed). No DATA ERROR header. Valid for the time stop (pure calendar arithmetic, no market data) and NOT valid to source an autonomous entry or to certify an RSI2 exit."
+    "run_utc": "2026-09-11T19:15:00Z",
+    "verdict": "ZERO DRIFT, both books.",
+    "equities": "MMM 2.884552 @ 173.34 / GD 1.335314 @ 374.44 / ABNB 6.573584 @ 169.52 / UNP 3.858199 @ 285.11 -- all four match the ledger on quantity AND average price; every shares_held_for_* and pending_* field is zero.",
+    "options": "get_option_positions(nonzero=true) returns EMPTY. The ledger agrees: the SPY 2026-11-20 700P was closed by Ryan at 15:54:21Z and is already out of positions[].",
+    "orders_today": "get_equity_orders(created_at_gte=2026-09-11) EMPTY. get_option_orders(created_at_gte=2026-09-11) returns EXACTLY ONE order -- 6aa4242d, SPY 2026-11-20 700P sell-to-close x1 @ 5.02, placed_agent='user', filled 15:54:21.471Z. No agentic order exists today in either book, so the sibling precheck is clean and both throttles are untouched (equities 0 of 3, options 0 of 8).",
+    "capital": "get_portfolio 19:15Z: total_value $3,881.27, cash $717.38, unleveraged_buying_power $717.38 (IDENTICAL -> no margin extended, FOUR LAWS #4 clean), equity_value $3,163.89, options_value $0.00. Reserve 5% = $194.06, DEPLOYABLE $523.32. unsettled_funds $501.93 (hedge proceeds, settle 09-14; limited_margin so tradeable now and already inside buying_power).",
+    "account": "get_accounts confirms 718757339 = limited_margin / option_level_3 / agentic_allowed=true. HARD RULE 1 clean.",
+    "stale_clone_guard": "`git fetch origin master` + `git checkout -B <branch> origin/master` ran BEFORE any file was read. Master had FORCE-UPDATED (d2a176e -> 6070e0d) since the container's clone, so reading the clone would have reproduced the 2026-09-09 ten-file stale-clone overwrite exactly."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
