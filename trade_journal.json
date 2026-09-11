@@ -35152,6 +35152,17 @@
         "CORE": "NO THESIS. The candidate funnel is the same one the equity book just declined -- pharma on policy, SBUX on an expiring trend, oil on the steer. Capital $523.40 also sits at the very bottom of the $500-1,000 band, but that is not why it was declined: a cheap, liquid vehicle supplies no thesis, and there was no thesis to express. No chain was priced because no name survived to the vehicle question."
       },
       "duties": "Heartbeat already stamped 13:34Z for this trading day -- not re-stamped. market_brief.json already stamped 2026-09-11 -- not rebuilt, no shock. IV: core-list rows (SPY/QQQ/NVDA/AMD/TSM/AVGO/MSFT/TSLA) plus AMGN already logged for 2026-09-11 by earlier runs; no row written for SBUX because it was declined on trend/thesis before any chain was quoted, so no ATM IV was measured and fabricating one would be worse than the gap. DAILY REPORT: last written for trading day 2026-09-10; today's is due on the first run at/after 19:15Z and this run is 17:05Z, so it is deliberately NOT written early."
+    },
+    {
+      "run_utc": "2026-09-11T17:22:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-11",
+      "headline": "ROOT-CAUSE FIX PUSHED (no trade; book untouched). Woken by PR #1436's own merge notification, checked master's Actions health and found the 17:00Z Stock Report run FAILED and lost its board -- the second lost board in two days. Root-caused, reproduced, fixed, verified.",
+      "what_was_wrong": "The 09-10 remedy for the one-second push race added a 5-attempt rebase+push loop. It handles a REJECTED PUSH but not a CONFLICTED REBASE. When the 16:57Z scheduled fire and the 17:00Z dispatch fire both wrote latest_intraday.md, our replayed commit conflicted, and from then on every `git pull` died with 'unmerged files' -- attempts 2-5 were guaranteed no-ops. The loop logs one generic message for every failure mode, which is why the distinct mechanism stayed invisible.",
+      "the_fix": "stock-report.yml: the loop now detects a conflicted rebase and resolves it in favour of THIS run's freshly generated board (under rebase the replayed commit is the 'theirs' side), then continues; a conflict outside that file aborts so the next attempt starts clean instead of wedged.",
+      "verification": "Reproduced in a 3-clone scratch repo: the old loop emitted the CI log's exact error text and wedged at 'UU latest_intraday.md'. The new loop resolved on attempt 1 and PUSHED ON ATTEMPT 2, tree clean, newer board landed, sibling commit preserved in history. YAML parses; the extracted step passes `bash -n` with the workflow expression substituted.",
+      "scope_discipline": "Recorded by EDITING the existing key _THE_REPORT_PIPELINE_LOSES_A_BOARD_TO_A_ONE_SECOND_PUSH_RACE_AND_NO_RUN_ASKED_WHY_2026-09-10 rather than minting a new one -- same subject, and that key's 'no run asked why' framing is now superseded. Residual risk stated there: this makes the collision non-fatal, it does not stop the duplicate fires, and the fix is unexercised in production until the next collision.",
+      "book": "UNCHANGED. No order placed, no ledger position touched, no throttle consumed. This was infrastructure work on the equity book's signal source, not a trading action."
     }
   ]
 }
