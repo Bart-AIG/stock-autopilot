@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-11T14:28:00Z",
+  "updated_utc": "2026-09-11T15:02:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-11",
     "realized_usd_options": 0.0,
@@ -869,14 +869,13 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-11T14:06:00Z",
+    "run_utc": "2026-09-11T15:02:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-11",
-    "reconciliation": "ZERO DRIFT both books vs broker on quantity AND average price at 14:00Z: MMM 2.884552 @ 173.34 / GD 1.335314 @ 374.44 / ABNB 6.573584 @ 169.52 / UNP 3.858199 @ 285.11, plus SPY 2026-11-20 700P x1 @ 749.00, all pending_* zero. get_equity_orders and get_option_orders both EMPTY for 2026-09-11 -- no sibling fill.",
-    "capital": "14:00Z: total_value $3,875.44; cash == buying_power == unleveraged_buying_power == $215.45 (no margin extended, FOUR LAWS #4 unambiguous). Reserve 5% = $193.77; DEPLOYABLE $21.68; per-name cap 30% = $1,162.63. Fully deployed at 4 of the 3-4 target is a CORRECT state, not a breach.",
-    "book": "4 swings + the exempt hedge. Settled 14:01Z marks: MMM 163.6254 (-5.60%, day 11/14, TIME STOP 2026-09-14, inside the 3-day warn window); GD 354.935 (-5.21%, day 10/14, TIME STOP 2026-09-15, thesis INTACT 09-09 TTL 10-09); ABNB 168.135 (-0.82%, day 1/14, 09-24); UNP 285.555 (+0.16%, day 1/14, 09-24). Hedge mark 5.100 (-31.9% vs basis, -$134 on the session), 70 DTE, exempt.",
-    "THE_EVENT_OF_THIS_RUN": "TODAY'S REPORT LANDED AT 14:02Z AND THIS RUN IS THE FIRST TO HOLD IT -- the addressee the 13:35Z deferral named. IT RESOLVES THE UNP QUESTION ON ITS OWN AUTHORITY: the report judges UNP 'HOLD -- up +0%; building toward the +18% trailing-stop trigger' and fires NO take-profit, and its ACTION block is EMPTY (no TAKE PROFIT, no TIME STOP, no SET TRAILING STOP, no BUY). The 13:40Z/13:45Z runs' self-computed NOT-LIVE conclusion is confirmed by the authority the handoff deferred to. UNP holds to its 2026-09-24 time stop. The deferral is CLOSED, not carried forward.",
-    "verdict": "No trade either book. EQUITIES: no entry -- $21.68 deployable against a ~$600 minimum; rotation gate answerable without grading, since MMM and GD self-liquidate on their time stops in 3 and 4 sessions (~$946 freed) and selling a sound thesis days early to chase a fresher signal is the churn the rotation rule forbids. No exit -- report ACTION empty, no time stop due today. OPTIONS: no entry -- unfundable against a $300 TACTICAL floor; hedge exempt. IV SWEEP DISCHARGED (owed since the open, correctly deferred out of the opening window by three prior runs) -- 8 rows written WITH the strike-migration correction, which refuted a compelling false finding this run nearly recorded."
+    "reconciliation": "ZERO DRIFT both books vs broker at 15:00Z on qty AND avg price: MMM 2.884552 / GD 1.335314 / ABNB 6.573584 / UNP 3.858199, plus SPY 2026-11-20 700P x1 @ 749.00, all pending_* zero. Both order endpoints EMPTY for 2026-09-11 -- no sibling fill; throttles and realized P/L re-sourced from the broker, not inherited.",
+    "capital": "15:00Z: total_value $3,893.44; cash == buying_power == unleveraged_buying_power == $215.45 (no margin extended). Reserve 5% = $194.67; DEPLOYABLE $20.78; per-name cap 30% = $1,168.03. Fully deployed at 4 of the 3-4 target is a CORRECT state, not a breach.",
+    "book": "4 swings + the exempt hedge. Settled 15:01Z marks: MMM 163.47 (-5.69%, day 11/14, TIME STOP 2026-09-14, inside the 3-day warn window); GD 353.09 (-5.70%, day 10/14, TIME STOP 2026-09-15, thesis INTACT 09-09 TTL 10-09); ABNB 169.34 (-0.11%, day 1/14, 09-24); UNP 284.1125 (-0.35%, day 1/14, 09-24). All four RED, so the RSI2>=70 take-profit is unavailable on its price>entry gate book-wide.",
+    "verdict": "No trade either book, no new finding. EQUITIES: no exit (report ACTION empty, no time stop due, no broken thesis); no entry ($20.78 vs a ~$600 minimum, and neither weakest name is worth one minimum entry so rotation cannot self-fund). OPTIONS: no entry (unfundable against the $300 TACTICAL floor); hedge exempt. All daily duties discharged by earlier runs; daily report owed 19:15Z."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
