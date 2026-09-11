@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-11T17:20:03Z",
+  "updated_utc": "2026-09-11T17:32:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-11",
     "realized_usd_options": -247.0,
@@ -868,15 +868,15 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-11T17:20:03Z",
+    "run_utc": "2026-09-11T17:32:00Z",
     "run_type": "market_hours_regular (scheduled, sub-hourly cron)",
     "trading_day_et": "2026-09-11",
-    "reconciliation": "ZERO DRIFT both books vs broker 17:15-17:17Z. Equities qty AND avg price: MMM 2.884552 @173.34 / GD 1.335314 @374.44 / ABNB 6.573584 @169.52 / UNP 3.858199 @285.11, pending_* zero. get_option_positions(nonzero) EMPTY, options_value 0 -- matches the post-hedge-close ledger. get_equity_orders(today) EMPTY -- broker-first sibling precheck CLEAN. git fetch + checkout -B origin/master ran before any file read.",
-    "capital": "total_value $3,878.56; cash == buying_power == unleveraged_buying_power == $717.38 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $3,161.18; options_value $0.00. Operational reserve 5% = $193.93. DEPLOYABLE $523.45 -- $76.55 UNDER the ~$600 minimum equity entry.",
-    "book": "4 equity swings, top of the 3-4 target band, ALL FOUR RED. Options book EMPTY and UNHEDGED since Ryan's 15:54Z close.",
-    "throttles": "Equity entries 0 of 3 used. Options entries 0 of 8 used. Options realized -$247.00 against the -$400 cap, $153.00 headroom -- gated nothing.",
-    "verdict": "FLAT BOTH BOOKS. No exit fired (all four positions below entry, so the RSI2>=70 take-profit fails its price>entry gate; no time stop due until MMM on 09-14) and no entry cleared (capital-bound $76.55 under the minimum, and no A grade on the board so the rotation gate is never reached). See why_flat in the paired journal entry.",
-    "new_finding_this_run": "_EVENT_WOKEN_RUNS_STAMP_run_utc_AHEAD_OF_THEIR_OWN_COMMIT"
+    "reconciliation": "ZERO DRIFT both books vs broker 17:30-17:31Z. Equities qty AND avg price: MMM 2.884552 @173.34 / GD 1.335314 @374.44 / ABNB 6.573584 @169.52 / UNP 3.858199 @285.11, all pending_* zero. get_option_positions(nonzero) EMPTY, options_value 0. get_equity_orders(created_at_gte=2026-09-11) EMPTY -- broker-first sibling precheck CLEAN. git fetch + checkout -B origin/master ran BEFORE any file read (stale-clone rule); master had advanced to 405611b since clone.",
+    "capital": "total_value $3,880.19; cash == buying_power == unleveraged_buying_power == $717.38 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $3,162.81; options_value $0.00. Operational reserve 5% = $194.01. DEPLOYABLE $523.37 -- $76.63 UNDER the ~$600 minimum equity entry. Per-name cap 30% = $1,164.06, not binding.",
+    "book": "4 equity swings, top of the 3-4 target band, ALL FOUR RED on live quotes (MMM -4.69%, GD -4.64%, ABNB -0.07%, UNP -0.28%). Options book EMPTY and UNHEDGED since Ryan's own 15:54Z SPY 700P close -- already recorded and notified once at 16:05Z, NOT re-notified.",
+    "throttles": "Equity entries 0 of 3 used. Options entries 0 of 8 used. Options realized -$247.00 against the -$400 cap, $153.00 headroom -- gated nothing this run.",
+    "verdict": "FLAT BOTH BOOKS. No exit fired: all four positions BELOW entry so the RSI2>=70 take-profit fails its price>entry gate on every name, no time stop due (MMM 09-14, GD 09-15, ABNB/UNP 09-24), no target hit, no thesis flag -- the 17:00Z report's ACTION block is EMPTY. No entry: equities capital-bound $76.63 under the minimum AND no A grade on a 12-name board that is 12-of-12 covered by existing durable keys; options declined on both tracks.",
+    "new_finding_this_run": "_A_BREAK_SMALLER_THAN_ONE_DAY_OF_THE_LEVELS_OWN_DRIFT_IS_MANUFACTURED_BY_THE_DENOMINATOR_2026-09-11"
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -4373,5 +4373,21 @@
     "the_detector": "Read run_utc from the clock at WRITE time, never estimate it, and never round it to a cadence slot. Cheap assertion before committing any journal entry: its run_utc must be <= now, and after committing it must be <= the commit's own timestamp. One line, and it catches every variant including the ones this key does not enumerate -- same posture as the `git diff --stat` rule: trust the assertion, not your sense of having stamped it correctly.",
     "remediation_applied": "Both entries REPAIRED in trade_journal.json by this run: run_utc set to the introducing commit's timestamp (a defensible upper bound on the true decision time), with the original value and the evidence preserved in a _stamp_corrected field on each. Nothing else in either entry was altered -- their reasoning stands as written.",
     "measured_and_dormant_do_not_re_flag": "Checked in the same pass: 146 entries carry NO run_type at all, and ALL of them are dated 2026-08-11..2026-08-20 -- entirely before the 2026-08-21 rule that requires the field. Historical, not an active defect; no run since has omitted it. No bulk repair made, and none is warranted."
+  },
+  "_A_BREAK_SMALLER_THAN_ONE_DAY_OF_THE_LEVELS_OWN_DRIFT_IS_MANUFACTURED_BY_THE_DENOMINATOR_2026-09-11": {
+    "measured_utc": "2026-09-11T17:32:00Z",
+    "run_type": "market_hours_regular (scheduled, sub-hourly cron)",
+    "status": "DURABLE, NEW, and MODEST. It is the RATIO form of the 2026-08-25T19:00Z fast-moving-average finding, which states the mechanism (a fast MA's value today says nothing about tomorrow) and gives a TARGET-relative test ('if the level moves more over the hold period than the trade's own profit target, retire it'). Nobody had written the BREAK-relative test, which is the one that fires first and is cheaper to compute. Changed NO decision -- the QQQ re-cross was declining on four independent legs anyway -- which is the only condition under which a trigger test can be audited credibly.",
+    "headline": "COMPARE A BREAK'S MAGNITUDE TO ONE SESSION OF THE LEVEL'S OWN DRIFT BEFORE TREATING IT AS A SIGNAL. WHEN THE BREAK IS SMALLER, THE SEPARATION IS BEING PRODUCED BY THE AVERAGE MOVING, NOT BY PRICE -- AND IT WILL WIDEN TOMORROW ON A MOTIONLESS TAPE.",
+    "the_measurement": {
+      "method": "20-bar SMA over broker daily closes (get_equity_historicals interval=day) through the settled 2026-09-10 close. RE-DERIVED this run, not inherited; reproduces the 17:16Z and 17:20Z runs to 4dp.",
+      "QQQ": "20d SMA 716.5275. Spot 716.990 at 17:31:23Z venue -> separation +0.4625 (+0.0645%). Slope -0.7505/day (forward 1d 715.7770).",
+      "THE_RATIO": "break magnitude 0.4625 vs one day of level drift 0.7505 = 0.62x. The level falls further in ONE session than the entire break is worth. A QQQ that does not move at all until Monday's close prints a +1.21 'break' -- 2.6x today's -- with zero buying.",
+      "what_is_rolling_out": "The three closes leaving the 20-bar window next are 732.07 / 731.07 / 729.87, all 13-15 points above spot. The average is mechanically committed to falling for at least three more sessions."
+    },
+    "the_detector": "One line, off bars the run already fetched: drift_ratio = |spot - level| / |level_slope_per_day|. Below ~1.0 the 'break' is smaller than one day of denominator movement -- treat it as NOT a signal, whatever the volume clause says. Above ~1.0 it is at least a price event, and the normal confirmation work applies.",
+    "why_this_is_the_same_family_as_the_volume_denominators": "The 2026-08-26 baseline-collapse finding caught a volume clause that got EASIER as participation drained, because the denominator fell rather than the numerator rising. This is the identical inversion on the PRICE leg: a falling average manufactures a rising separation. The file has now recorded the defect on both legs of the same trigger, and both times it presented as the filter finally working.",
+    "honest_scope": "n=1, one symbol, one session. The ~1.0 threshold is a reasoned round number, not a measured one -- do not cite it as calibrated. The test says nothing about direction: a break whose magnitude clears the drift is not thereby a good trade, it has merely earned the confirmation work.",
+    "what_it_declined_today": "QQQ 20-day re-cross, declined on FIVE independent legs, of which this was the fourth: (1) magnitude +0.0645%, at the low end of an arc where 0.044% and 0.106% were both declined; (2) INDEX TAPE DISAGREES -- SPY 766.185 is 1.3735 BELOW its own 20d SMA 767.5585 (-0.1789%), and v10 TACTICAL requires the index tape agreeing; (3) trend maturity (a) -- QQQ +1.17% / SPY +1.10% on the session, the move has largely run, this is a Friday 13:31 ET entry into a melt-up; (4) this drift ratio, 0.62x; (5) FRIDAY WEEKEND GAP -- a TACTICAL opened now carries to Monday's close, and the measured Monday gap (mean 0.545% / median 0.342% / p90 1.197%) exceeds the ~0.29-0.32% underlying distance to a typical -30% tactical stop, so the exit that decides the trade is unenforceable. No volume workup was run, deliberately: no volume reading could change an outcome already decided by three legs that are each independently fatal."
   }
 }
