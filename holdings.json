@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-11T19:32:00Z",
+  "updated_utc": "2026-09-11T19:38:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-11",
     "realized_usd_options": -247.0,
@@ -4458,5 +4458,63 @@
     "resolution": "Master's key ordering and every key it carried are preserved, including _A_FRIDAY_REVIEW_WRITTEN_AT_THE_OPEN_SUMMARIZES_A_WEEK_THAT_IS_NOT_OVER_2026-09-11. Added from the 19:15Z branch: _THE_REPORT_WINDOW_IS_IN_CT_AND_THE_MARKET_CLOCK_IS_IN_ET_SO_ONE_RUN_HOLDS_TWO_OFFSETS_2026-09-11. Overwritten with the later 19:30Z values: updated_utc, _eod_report_written, _last_reconciliation, _last_entry_evaluation (the last of which carries the same clock correction).",
     "journal": "Both entries kept, ordered by run_utc, deduped on EXACT CONTENT rather than on run_utc -- per _JOURNAL_UNION_MUST_DEDUP_ON_EXACT_CONTENT_NOT_A_COMPOSITE_KEY, because a composite key is not unique and silently deletes the pairs the union exists to save.",
     "cross_validation": "The two runs independently reconciled the same book minutes apart and AGREE: 4 equities at unchanged quantities, options EMPTY, and Ryan's 15:54Z SPY 700P close as the only order of the day. Agreement between independent fetches is cross-validation, not a conflict."
+  },
+  "_THE_RSI2_EXIT_BANKS_0_TO_1_PERCENT_BY_CONSTRUCTION_IS_NOT_A_CONSTANT__IT_SPANS_MINUS_4_5_TO_PLUS_3_5_ACROSS_THE_LIVE_BOOK_2026-09-11": {
+    "measured_utc": "2026-09-11T19:36:00Z",
+    "headline": "THE BOOK'S MOST-QUOTED EXIT CONSTANT -- 'the RSI2>=70 take-profit sits a mean 0.84% from the ENTRY price BY CONSTRUCTION, so it banks ~0-1%' -- IS NOT A CONSTANT. Solved on all four live positions with report.py's own algorithm, the trigger spans -4.46% to +3.49% vs entry, a 7.95-point range, and the 0.84% figure is wrong on EVERY ONE of the four.",
+    "why_it_matters": "This is not a curiosity: the 0.84% measurement is the STATED REASON the magnitude floor was voided (HARD RULE 5 and prompt v10 both argue 'the exit banks ~0-1% of position value BY CONSTRUCTION, so a floor measured against the target can never be satisfied'). THE VOIDING REMAINS CORRECT -- a target-relative floor still cannot be met, and the broker record behind it (trades under +/-$10 are 58% of closes and net +$90.48) is untouched. What is wrong is the REASON, and a reason that is an artifact of when it was measured will mislead the next run that reasons FORWARD from it: a run inheriting 'the take-profit will bank ~1%' would price ABNB's exit near 169.5 when it actually arms at 175.44, and would expect MMM's and GD's to bank a profit when they arm 3.7% and 4.5% BELOW entry, i.e. realize a LOSS while wearing a take-profit label.",
+    "the_measurement": {
+      "method": "report.py's OWN analyze.compute_rsi (Wilder, period 2) over list(reversed(closes[:25])) -- the identical 25-bar window report.py:80 uses -- on broker daily closes with a candidate price appended as the provisional newest close. The RSI2=70.0 crossing price was solved by bisection on that same function. Not a substitute algorithm; the window length alone moves a reading across the trigger.",
+      "rows": [
+        {
+          "sym": "MMM",
+          "held_d": 11,
+          "entry": 173.3371,
+          "live": 165.04,
+          "rsi2_live": 55.7,
+          "trigger_px": 166.92,
+          "trigger_vs_entry_pct": -3.7,
+          "mean_abs_daily_move_5d_pct": 0.77
+        },
+        {
+          "sym": "GD",
+          "held_d": 10,
+          "entry": 374.4437,
+          "live": 356.33,
+          "rsi2_live": 61.0,
+          "trigger_px": 357.75,
+          "trigger_vs_entry_pct": -4.46,
+          "mean_abs_daily_move_5d_pct": 0.92
+        },
+        {
+          "sym": "ABNB",
+          "held_d": 1,
+          "entry": 169.5209,
+          "live": 170.18,
+          "rsi2_live": 43.6,
+          "trigger_px": 175.44,
+          "trigger_vs_entry_pct": 3.49,
+          "mean_abs_daily_move_5d_pct": 2.18
+        },
+        {
+          "sym": "UNP",
+          "held_d": 1,
+          "entry": 285.1071,
+          "live": 284.65,
+          "rsi2_live": 19.0,
+          "trigger_px": 288.06,
+          "trigger_vs_entry_pct": 1.03,
+          "mean_abs_daily_move_5d_pct": 0.48
+        }
+      ],
+      "range": "-4.46% (GD) to +3.49% (ABNB) = 7.95 points. Book mean |distance| 3.17%, i.e. ~3.8x the 0.84% the constant asserts."
+    },
+    "what_is_established_and_what_is_not": {
+      "ESTABLISHED -- the SIGN separates perfectly by position age": "Both STALE names (10-11d held) arm BELOW entry; both FRESH names (1d) arm ABOVE it. That is a clean 2-2 split and it CORROBORATES _THE_RSI2_TRIGGER_SITS_AT_THE_ENTRY_PRICE_ONLY_WHILE_A_POSITION_IS_FRESH__ON_A_STALLED_NAME_IT_DETACHES_AND_ARMS_DEEP_IN_THE_RED_2026-09-11 (19:01Z) exactly, on an independent solve. The incumbent finding is confirmed, not displaced.",
+      "NOT ESTABLISHED -- the mechanism behind the MAGNITUDE": "This run proposed that recent realized volatility drives the distance and TESTED IT AGAINST THE INCUMBENT. It LOST: correlation of |distance| with 5d mean absolute daily move is r=+0.3742, against r=+0.6895 for held-days. Recorded as a refuted hypothesis rather than dropped. AT n=4 NEITHER r IS EVIDENCE and neither should ever be quoted as such -- four points across two cohorts cannot separate two collinear candidate mechanisms.",
+      "THE ONE ARITHMETIC FACT THAT SURVIVES THE SMALL SAMPLE, because it needs no correlation at all": "ABNB and UNP were entered on the SAME DAY and are the SAME AGE (1d), yet their triggers sit +3.49% and +1.03% from entry -- a 3.4x spread with the age variable held constant. So age, whatever it explains about the sign, CANNOT explain the magnitude. The natural candidate is that ABNB's RSI2 window carries 4.5x UNP's daily move (2.18% vs 0.48%) and a 2-period RSI needs a proportionally larger up-move to traverse to 70 -- a ratio that happens to match, and a match of two ratios at n=2 is a hypothesis, NOT a finding. Do not promote it without more closes."
+    },
+    "the_transferable_shape": "A CONSTANT DERIVED FROM ONE CROSS-SECTION IS A SNAPSHOT WEARING THE WORD 'BY CONSTRUCTION'. The phrase 'by construction' is what made this durable and unexamined: it reads as a claim about the ALGEBRA of a 2-period RSI (which would be regime-free and permanent) when it is in fact a claim about one day's BOOK (four names, their ages and their realized vols on 2026-09-02). This file's most-repeated defect is a check that passes for the wrong reason; this is its sibling -- a number that is TRUE for the wrong reason, and therefore silently stops being true. Detector: when a rule quotes a measured constant to justify itself, re-solve the constant on the CURRENT book before reasoning forward from it. Here that cost one bisection per position.",
+    "operational_consequence": "NONE TODAY -- and that is what makes the measurement creditable. Only ABNB was green (the price gate the profit-banking exit requires), its RSI2 read 43.6 against a 70 line (26 points clear of the ~10-point substitution band, so this run could conclude without deferring to the report), and today's 19:03Z report independently returned HOLD on all four. No exit fired, no trade was licensed either way. A filter's inputs can only be audited credibly on a run where the audit does not change the answer. FORWARD: the exits now ARMED on the book are MMM 166.92 and GD 357.75 -- both BELOW entry, so if either prints it is a LOSS-REALIZING exit arriving under a take-profit label, and it must be gated on the HARD RULE 5 'price > entry' profit-banking condition, NOT taken mechanically. MMM's 14-day TIME STOP fires Monday 2026-09-14 and GD's Tuesday 09-15; those are the exits that will actually close these two."
   }
 }
