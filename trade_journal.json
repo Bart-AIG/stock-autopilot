@@ -34957,6 +34957,28 @@
       },
       "why_flat": "EQUITIES: no entry -- $21.68 deployable vs a ~$600 minimum; no exit -- report ACTION block empty, no time stop due today, UNP take-profit resolved not live. OPTIONS: no entry fundable; hedge exempt and unactionable by an unattended run.",
       "prompt_version": "v10"
+    },
+    {
+      "run_utc": "2026-09-11T14:20:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-11",
+      "headline": "No trade either book. Not a no-op: the rotation gate was answered with ARITHMETIC instead of prose for the first time, and the funding measurement is a new durable finding -- both names weakest on the entry stack are worth less than the $600 minimum entry, so neither can fund its own replacement.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 14:15Z: MMM 2.884552 / GD 1.335314 / ABNB 6.573584 / UNP 3.858199 exact on qty and avg price, SPY 2026-11-20 700P x1 @ 749.00, all pending_* zero. get_equity_orders and get_option_orders both EMPTY for 2026-09-11 -- sibling check clean. total_value $3,888.66, cash == unleveraged_buying_power == $215.45, reserve $194.43, DEPLOYABLE $21.02.",
+      "tape": "NUMBERS ONLY, no verdict. Settled quotes, venue 14:15:47-14:15:53Z (45 min past the bell, opening-window rule discharged). SPY 764.98 (+0.944% vs the 757.83 close), QQQ 715.14 (+0.910%). Book: MMM 163.91 (-5.44% vs entry), GD 354.80 (-5.25%), ABNB 168.83 (-0.41%), UNP 284.84 (-0.09%). Hedge SPY 700P mark 5.175 vs a 6.44 close, IV 0.2106, delta -0.1387, 70 DTE.",
+      "position_verdicts": {
+        "MMM": "stalled. Day 11/14, TIME STOP 2026-09-14 (Mon), inside the 3-day warn window. Red, so the RSI2>=70 take-profit is unavailable on its price>entry gate. Thesis not broken. HOLD.",
+        "GD": "stalled. Day 10/14, TIME STOP 2026-09-15 (Tue). Red, take-profit unavailable. Thesis re-confirmed intact 09-09, TTL 10-09. HOLD.",
+        "ABNB": "working. Day 1/14, time stop 09-24, -0.41%. HOLD.",
+        "UNP": "working. Day 1/14, time stop 09-24, -0.09%. HOLD. The 13:35Z deferral is now closed on a THIRD independent ground: UNP trades BELOW entry (284.84 vs 285.1071), so the take-profit fails its price>entry gate outright, no RSI2 computation required.",
+        "SPY 2026-11-20 700P": "hedge, EXEMPT from premium backstops per the ownership gate. Mark 5.175 = -30.9% vs the 7.49 basis, -$126.50 on the session as the post-CPI relief rally ran against it. That is what a hedge does in a melt-up and is not an exit signal. 70 DTE; Ryan's roll/close decision ~49 days out. No action."
+      },
+      "why_flat": {
+        "equities": "No exit: no time stop due today (MMM 09-14, GD 09-15, ABNB/UNP 09-24), all four red so no take-profit is available on any of them, and no thesis flag in the report -- today's 14:02Z board carries an EMPTY ACTION block and judges all four HOLD. No entry: book is AT the 3-4 target with 4 names and deployable is $21.02 against a ~$600 minimum, so a new name requires a ROTATION, and the rotation is unfundable one name at a time -- see the finding.",
+        "options": "No entry either track: $21.02 deployable against a $300 TACTICAL floor and a $500 CORE floor. CAPITAL is binding, not catalyst or liquidity. No exit: the only position is the exempt hedge."
+      },
+      "finding": "_A_POSITION_WORTH_LESS_THAN_THE_MINIMUM_ENTRY_IS_ROTATION_LOCKED__AND_BOTH_WEAKEST_NAMES_ARE_2026-09-11 in holdings.json -- named here, argued there. One line: MMM liquidates to $472.81 and GD to $473.77, so each plus the $21.02 deployable lands ~$105 SHORT of the $600 minimum entry, while ABNB ($1,109.82) and UNP ($1,098.97) clear it easily -- the entry-stack ranking and the funding capacity are exactly inverted, because the two legacy names were sized under the pre-09-02 policy and the two new ones under the concentration policy. A two-name MMM+GD rotation ($967.60) IS arithmetically open and is declined on its own terms: it must beat both theses rather than one, pays two round trips, and buys only 1-2 sessions over the time stops that recycle the same capital on Monday and Tuesday for free.",
+      "grades_considered": "Today's 14:02Z RSI2 screen, 12 names: LLY 1.4 (EXITED 09-10, re-entry flag), AMGN 1.5, MRK 3.0, SBUX 3.4, BMY 3.5, PFE 3.9, REGN 3.9, MA 4.2, KHC 5.2, DLTR 7.4, UNH 8.9, VRTX 9.4. Eight of twelve are the documented healthcare/pharma rout cohort, i.e. one correlated theme rather than eight ideas. NONE worked up to a grade, and the reason is stated as FUNDING rather than as quality: the only sell side that clears the minimum entry is one of the two strongest, freshest positions, which the rotation rule's 'weakest on the ENTRY STACK' clause forbids. No held name appears on today's screen, so the ranking shortcut (_ROTATION_GATE_IS_ANSWERABLE_FROM_THE_SCREENS_OWN_RANKING) was not available and the funding arithmetic had to be run directly.",
+      "duties": "Heartbeat (13:34Z), market_brief rebuild and both throttle resets owned by the 13:35Z first-post-bell run; Friday review DISCHARGED at 13:20Z off broker data; IV sweep DISCHARGED at 14:06Z with the strike-migration correction. Daily report not owed until 19:15Z. Nothing re-done here. Realized today, READ from the ledger not defaulted: options $0.00 against the -$400 cap, equities -$25.30; throttles 0 of 8 options, 2 of 3 equities."
     }
   ]
 }
