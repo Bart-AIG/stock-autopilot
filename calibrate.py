@@ -57,7 +57,8 @@ class EdgeStats:
     n: int
     wins: int
     losses: int
-    win_rate: float          # fraction
+    scratches: int           # closes that realized exactly $0 — see edge_stats()
+    win_rate: float          # fraction, over DECIDED trades (wins + losses)
     mean_win: float
     mean_loss: float         # negative
     payoff_ratio: float      # mean_win / abs(mean_loss)
@@ -73,7 +74,30 @@ def edge_stats(trades: list[dict], key: str = "realized_gain") -> EdgeStats | No
     `trades` is the broker's per-trade realized P&L (get_pnl_trade_history), newest
     first or oldest first — order does not matter here. Returns None on an empty list
     or when the sample has no losses (a payoff ratio needs both sides; a lossless
-    sample is not evidence of an infinite edge, it is evidence of too few trades)."""
+    sample is not evidence of an infinite edge, it is evidence of too few trades).
+
+    SCRATCHES ($0 realized) ARE EXCLUDED FROM THE WIN RATE, and that is the whole
+    point of this function's one subtlety. The margin compares `win_rate` against
+    `breakeven_win_rate`, and the breakeven is derived ENTIRELY from mean_win and
+    mean_loss — i.e. from the decided trades. So the win rate must be measured over
+    that SAME population, or the two sides of the comparison are computed over
+    different denominators and the margin is not a like-for-like number.
+
+    Measured 2026-09-11, which is why this is a fix and not a preference: the options
+    book's 17 closes include exactly one $0 row (the long leg of the 2026-08-26 legged
+    SPY vertical, closed at its entry price). Dividing by all 17 gave win_rate 52.94%
+    against a 53.29% breakeven = margin -0.35 pts, which is the KILL branch ("edge
+    gone, halve size, pause entries"). Dividing by the 16 DECIDED trades gives 56.25%
+    = margin +2.96 pts, thin but positive. Net ($90.00) and expectancy (+$5.29/trade)
+    are identical either way — the book's economics never changed, only the statistic
+    did. A single scratch flipped the sign of the number that selects the risk-off
+    branch. Legged verticals produce multi-row closes and scratch legs are a normal
+    product of them, so this was not a one-off.
+
+    `n` deliberately still counts every close (it gates the sample-size guard, and a
+    scratch really is a completed trade); `expectancy` and `net` likewise average over
+    everything, because a scratch genuinely contributed $0. Only the win rate — the one
+    figure that is compared against a decided-trades breakeven — narrows."""
     if not trades:
         return None
     g = [float(t[key]) for t in trades]
@@ -84,9 +108,11 @@ def edge_stats(trades: list[dict], key: str = "realized_gain") -> EdgeStats | No
     mean_win, mean_loss = st.mean(w), st.mean(l)
     payoff = mean_win / abs(mean_loss)
     breakeven = abs(mean_loss) / (mean_win + abs(mean_loss))
-    win_rate = len(w) / len(g)
+    decided = len(w) + len(l)
+    win_rate = len(w) / decided
     return EdgeStats(
-        n=len(g), wins=len(w), losses=len(l), win_rate=win_rate,
+        n=len(g), wins=len(w), losses=len(l), scratches=len(g) - decided,
+        win_rate=win_rate,
         mean_win=mean_win, mean_loss=mean_loss, payoff_ratio=payoff,
         expectancy=sum(g) / len(g), net=sum(g),
         breakeven_win_rate=breakeven, margin_pts=(win_rate - breakeven) * 100.0,
@@ -212,7 +238,8 @@ def format_report(rec: dict) -> str:
     lines.append(f"VERDICT: {rec['verdict']}")
     if s:
         lines.append(
-            f"  n={s['n']}  win rate {s['win_rate']:.0%} ({s['wins']}W/{s['losses']}L)  "
+            f"  n={s['n']}  win rate {s['win_rate']:.0%} ({s['wins']}W/{s['losses']}L"
+            + (f"/{s['scratches']}scratch" if s.get('scratches') else "") + ")  "
             f"payoff {s['payoff_ratio']:.2f}  expectancy ${s['expectancy']:+.2f}/trade  "
             f"net ${s['net']:+.2f}")
         lines.append(
