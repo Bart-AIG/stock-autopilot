@@ -4100,7 +4100,7 @@
   },
   "_UNP_RSI2_TAKE_PROFIT_IS_LIVE_AND_DEFERRED_TO_THE_REPORT_2026-09-11": {
     "measured_utc": "2026-09-11T13:33:00Z",
-    "status": "SUPERSEDED IN PART 2026-09-11T13:40Z BY A SETTLED RE-QUOTE: THE TRIGGER HAS UN-FIRED. The deferral was right and its SECOND ground turned out to be outcome-determinative. Still LIVE as a watch -- the trigger price stands at ~288.06 and UNP can re-cross it at any point today -- but a run reading this key must not inherit 'armed' as the current state. See THE_TRIGGER_UNFIRED_ON_THE_SETTLED_QUOTE_2026-09-11T13-40Z below, then the original text, which is unchanged and still correct as of its own timestamps.",
+    "status": "RESOLVED NOT-LIVE 2026-09-11T13:45Z ON SETTLED QUOTES, AND THE DEFERRAL DISSOLVED WITHOUT THE REPORT. RSI2 is now 47.9-53.0 depending on quote choice -- 17 to 22 points BELOW the 70 line, i.e. OUTSIDE the ~10-point band in which the substitution rule forbids a self-computed RSI2 from standing in for the report's. That is the operative change: the 13:35Z and 13:40Z runs could not conclude anything without today's report BECAUSE their readings sat inside the band; this one can, because the reading left it. The trigger price is unchanged at ~288.06 and UNP can re-cross it any time today, so this stays a WATCH -- but a run reading this key must inherit NOT-LIVE, not 'armed' and not 'awaiting the report'.",
     "headline": "UNP CROSSED ITS RSI2>=70 TAKE-PROFIT TRIGGER WHILE GREEN -- THE FIRST TIME THE MECHANICAL PROFIT-BANKING EXIT HAS ARMED ON THIS BOOK SINCE THE CONNORS-PURE REWRITE. IT WAS NOT TAKEN, FOR TWO INDEPENDENT AND INDIVIDUALLY SUFFICIENT REASONS.",
     "the_measurement": {
       "method": "report.py's OWN algorithm, not a substitute: analyze.compute_rsi (Wilder smoothing, period 2) over list(reversed(closes[:25])) -- the identical 25-bar window report.py:80 uses -- applied to broker daily closes with the live price appended as the provisional newest close. An 8-bar window gave 69.7 and a 25-bar window gives 70.5 on the SAME price, so THE WINDOW LENGTH ALONE MOVES THIS READING ACROSS THE TRIGGER. Matching report.py exactly is not a detail here.",
@@ -4135,6 +4135,20 @@
       "the_counterfactual_priced": "Had the desk banked at the 13:33Z print it would have sold 3.858199 sh at ~288.58 = ~$1,113.40 against a $1,100.00 basis, ~+$13.40 realized -- a real, positive, policy-compliant round trip, which is exactly what makes it the dangerous case. It would NOT have looked like an error afterwards. The defect is invisible from the outcome and visible only in the quote timestamp.",
       "what_the_next_run_should_do_NOW": "Unchanged in mechanism, corrected in state. (1) Broker first -- get_equity_orders for today; a sibling may have acted. (2) Today's report (typical landing ~14:01Z) is the authority on UNP's rsi2, not any self-computed figure. (3) Report rsi2 >= 70 AND a SETTLED live quote above 285.1071 -> the take-profit FIRES; sell by QUANTITY 3.858199, market, regular_hours; no magnitude test, the floor is VOID. (4) Report rsi2 < 70 -> the trigger is simply not live; hold to the 2026-09-24 time stop and DO NOT write this up as a missed trade -- on the settled tape it was never a trade. (5) Whatever the report says, re-quote before sending: the trigger price is ~288.06 and the reading moves ~6 RSI points per dollar.",
       "honest_scope": "Still no order placed, so this too is audited on a run it does not benefit. n=1 for the un-fire, on one name, on a CPI-gap open -- do NOT generalise a frequency from it. What IS established and is not sample-dependent is the SENSITIVITY arithmetic above, which is a property of a 2-period RSI near its threshold rather than of this session."
+    },
+    "THE_TRIGGER_IS_DECISIVELY_OFF_2026-09-11T13-45Z": {
+      "measured_utc": "2026-09-11T13:46:03Z",
+      "method": "Same report.py path as both siblings (analyze.compute_rsi, Wilder period 2, over list(reversed(closes[:25]))), independently reimplemented and cross-validated a THIRD time: it reproduces the report's PUBLISHED UNP figure of 2.3 on the committed 2026-09-10T19:01Z board at price 284.61 to the decimal.",
+      "readings": [
+        "13:45:45Z last  286.580  RSI2 52.7  (+0.52% vs entry 285.1071)",
+        "13:46:03Z bid   286.090  RSI2 41.5  (+0.34%)",
+        "13:46:03Z ask   286.600  RSI2 53.0  (+0.52%)",
+        "13:46:03Z mid   286.345  RSI2 47.9  (+0.43%)"
+      ],
+      "distance": "Trigger solves at ~288.06 (+1.03% vs entry). Last trade 286.58 sits $1.48 / 0.51% below it. Sensitivity re-solved at this level: ~7.6 RSI points per $1.00, so the gap is ~11 RSI points of price plus the reading's own position -- not a knife edge any more, which is exactly why the substitution band no longer binds.",
+      "trajectory_since_the_open": "73.4 (13:33Z, opening window) -> 69.4 (13:36Z) -> 59.9 (13:39Z mid) -> 47.9 (13:46Z mid). Monotonic decay across four measurements with no news and no desk action; the opening auction simply kept settling.",
+      "what_this_does_NOT_establish": "Nothing new about the OPENING-WINDOW artifact -- that was measured and written up at 13:40Z and this run adds only a fourth point on the same curve. It is recorded as an EDIT to this key rather than a new key precisely because re-noticing a known condition is not a finding.",
+      "state_for_the_next_run": "NOT LIVE. Hold UNP to its 2026-09-24 time stop. Re-check only if a settled quote prints above ~288.06; today's report (typical landing ~14:01Z) remains the authority if it disagrees, but a report rsi2 below ~60 simply confirms this."
     }
   }
 }
