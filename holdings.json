@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-11T16:20:00Z",
+  "updated_utc": "2026-09-11T17:20:03Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-11",
     "realized_usd_options": -247.0,
@@ -868,15 +868,15 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-11T17:05:00Z",
+    "run_utc": "2026-09-11T17:20:03Z",
     "run_type": "market_hours_regular (scheduled, sub-hourly cron)",
     "trading_day_et": "2026-09-11",
-    "reconciliation": "ZERO DRIFT both books vs broker. Equities MMM 2.884552 / GD 1.335314 / ABNB 6.573584 / UNP 3.858199, all pending_* zero. get_option_positions(nonzero) EMPTY -- the hedge is gone, closed by Ryan 15:54:21Z. get_equity_orders(today) EMPTY; get_option_orders(today) returns only Ryan's own hedge close. Sibling-collision precheck CLEAN at the broker.",
-    "capital": "total_value $3,879.66; cash == buying_power == unleveraged_buying_power == $717.38 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $3,162.28; options_value $0.00. Operational reserve 5% = $193.98. DEPLOYABLE $523.40 -- $76.60 UNDER the ~$600 minimum equity entry. unsettled_funds $501.93 from the hedge close, tradeable now on limited_margin, settling 09-14.",
-    "book": "4 equity swings, at the top of the 3-4 target band. Options book EMPTY and UNHEDGED.",
+    "reconciliation": "ZERO DRIFT both books vs broker 17:15-17:17Z. Equities qty AND avg price: MMM 2.884552 @173.34 / GD 1.335314 @374.44 / ABNB 6.573584 @169.52 / UNP 3.858199 @285.11, pending_* zero. get_option_positions(nonzero) EMPTY, options_value 0 -- matches the post-hedge-close ledger. get_equity_orders(today) EMPTY -- broker-first sibling precheck CLEAN. git fetch + checkout -B origin/master ran before any file read.",
+    "capital": "total_value $3,878.56; cash == buying_power == unleveraged_buying_power == $717.38 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $3,161.18; options_value $0.00. Operational reserve 5% = $193.93. DEPLOYABLE $523.45 -- $76.55 UNDER the ~$600 minimum equity entry.",
+    "book": "4 equity swings, top of the 3-4 target band, ALL FOUR RED. Options book EMPTY and UNHEDGED since Ryan's 15:54Z close.",
     "throttles": "Equity entries 0 of 3 used. Options entries 0 of 8 used. Options realized -$247.00 against the -$400 cap, $153.00 headroom -- gated nothing.",
-    "verdict": "FLAT BOTH BOOKS. No exit fired and no entry cleared. See why_flat in the paired journal entry.",
-    "new_finding_this_run": "_THE_200DAY_UPTREND_CERTIFICATION_EXPIRES_INSIDE_THE_HOLD_WINDOW_ON_AN_ENTRY_CANDIDATE_2026-09-11"
+    "verdict": "FLAT BOTH BOOKS. No exit fired (all four positions below entry, so the RSI2>=70 take-profit fails its price>entry gate; no time stop due until MMM on 09-14) and no entry cleared (capital-bound $76.55 under the minimum, and no A grade on the board so the rotation gate is never reached). See why_flat in the paired journal entry.",
+    "new_finding_this_run": "_EVENT_WOKEN_RUNS_STAMP_run_utc_AHEAD_OF_THEIR_OWN_COMMIT"
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -4350,5 +4350,28 @@
       "why_the_percent_reading_hides_it": "+1.29% above a rising 200-day reads as a healthy uptrend at a glance. The same fact expressed in sessions is 0.8 to 13.5 -- the percent framing hides the clock entirely, which is exactly the failure _A_RISING_200DAY_CAN_BE_A_WINDOW_ARTIFACT__MEASURE_THE_CUSHION_IN_SESSIONS_NOT_IN_PERCENT named and which had, until now, only ever been applied to positions ALREADY HELD.",
       "class_membership": "Third measured instance of _A_GATE_EVALUATED_AS_A_SNAPSHOT_EXPIRES_INSIDE_THE_HOLD_WINDOW_2026-09-10 (after target-reachability and its sibling). First one at the ENTRY gate, which is the only place the defect can still be PREVENTED rather than merely diagnosed."
     }
+  },
+  "_EVENT_WOKEN_RUNS_STAMP_run_utc_AHEAD_OF_THEIR_OWN_COMMIT": {
+    "measured_utc": "2026-09-11T17:20:03Z",
+    "headline": "A RUN WOKEN BY AN EVENT RATHER THAN BY THE SCHEDULER HAS NO FIRE TIME HANDED TO IT, AND TODAY TWO SUCH RUNS ESTIMATED run_utc FORWARD INSTEAD OF READING THE CLOCK -- STAMPING THEMSELVES 11m25s AND 17m40s AFTER THE COMMITS THAT CARRIED THEM. A journal entry cannot postdate the commit containing it; these do.",
+    "the_measurement": {
+      "method": "For each of today's entries, git log -S'<stamp>' -- trade_journal.json gives the commit that INTRODUCED it; compare its committer timestamp to the entry's own run_utc. The commit time is a hard upper bound on the true decision time, so any run_utc later than it is wrong by construction -- no clock-skew argument can rescue it.",
+      "readings": [
+        "entry 2026-09-11T17:22:00Z <- commit 5702cf60 at 17:10:35Z  => stamped 11m25s AHEAD",
+        "entry 2026-09-11T17:30:00Z <- commit 148d076e at 17:12:20Z  => stamped 17m40s AHEAD",
+        "CONTROL, same day same file: entry 2026-09-11T17:05:00Z <- commit 8cd851a7 at 17:06:01Z => stamped 61s BEHIND, i.e. correct (decision time, committed a minute later)."
+      ],
+      "the_discriminator": "The two wrong entries are the two EVENT-WOKEN runs (both woken by a PR-merge notification, per their own headlines: the 17:22Z Actions-health fix and the 17:30Z self-correction). The correct one is SCHEDULER-FIRED. n=3 on one day, but the split is clean and the mechanism explains it.",
+      "prevalence": "EXACTLY 2 of 1,278 entries are stamped in the future relative to a clock reading of 17:16:47Z (corroborated by Robinhood venue timestamps of 17:16:46Z, so the container clock is correct and the entries are not). ZERO entries are out-of-order by run_utc. This is a new defect that appeared today, not a chronic one."
+    },
+    "why_it_matters_despite_changing_no_decision": [
+      "It corrupts THE ONE PRESCRIBED FIX for the dead-man's known blind spot. CLAUDE.md's cadence rule says a health check must assert a RATE by counting scheduler-fired entries per trading day, and that count keys on run_utc. Entries stamped into a future bucket are counted in the wrong bucket -- and these two are ALSO run_type 'market_hours_regular', which the rule says to COUNT, so they are not filtered out by the run_type discipline that was supposed to make cadence math safe.",
+      "It inverts the handoff. THIS run read a tail ending at '17:30Z' while its own clock said 17:16Z and nearly concluded its own clock was skewed -- i.e. a run that trusts a forward-stamped predecessor concludes it is running BEFORE work that has already landed on master. That is the precise inverse of the relay's purpose.",
+      "Honest scope: it changed no decision here. Both mis-stamped runs were non-trading (an Actions fix and a correction), the book was untouched, and nothing gated on the timestamps. Recorded because a timestamp defect is only auditable on a run where it costs nothing."
+    ],
+    "the_transferable_shape": "This file's most-repeated defect arriving in the metadata rather than the measurement: a value that LOOKS like it was read was actually ESTIMATED, and nothing errors. A scheduler fire hands the run a time; an event wake does not, so the run supplies one -- and a plausible-looking round number ('17:30:00Z') is indistinguishable from a read one. Note that both wrong values are round to the minute AND to a :22/:30 cadence slot, i.e. they were reconstructed from what the run EXPECTED the schedule to be rather than from the clock.",
+    "the_detector": "Read run_utc from the clock at WRITE time, never estimate it, and never round it to a cadence slot. Cheap assertion before committing any journal entry: its run_utc must be <= now, and after committing it must be <= the commit's own timestamp. One line, and it catches every variant including the ones this key does not enumerate -- same posture as the `git diff --stat` rule: trust the assertion, not your sense of having stamped it correctly.",
+    "remediation_applied": "Both entries REPAIRED in trade_journal.json by this run: run_utc set to the introducing commit's timestamp (a defensible upper bound on the true decision time), with the original value and the evidence preserved in a _stamp_corrected field on each. Nothing else in either entry was altered -- their reasoning stands as written.",
+    "measured_and_dormant_do_not_re_flag": "Checked in the same pass: 146 entries carry NO run_type at all, and ALL of them are dated 2026-08-11..2026-08-20 -- entirely before the 2026-08-21 rule that requires the field. Historical, not an active defect; no run since has omitted it. No bulk repair made, and none is warranted."
   }
 }
