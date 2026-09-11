@@ -35163,6 +35163,16 @@
       "verification": "Reproduced in a 3-clone scratch repo: the old loop emitted the CI log's exact error text and wedged at 'UU latest_intraday.md'. The new loop resolved on attempt 1 and PUSHED ON ATTEMPT 2, tree clean, newer board landed, sibling commit preserved in history. YAML parses; the extracted step passes `bash -n` with the workflow expression substituted.",
       "scope_discipline": "Recorded by EDITING the existing key _THE_REPORT_PIPELINE_LOSES_A_BOARD_TO_A_ONE_SECOND_PUSH_RACE_AND_NO_RUN_ASKED_WHY_2026-09-10 rather than minting a new one -- same subject, and that key's 'no run asked why' framing is now superseded. Residual risk stated there: this makes the collision non-fatal, it does not stop the duplicate fires, and the fix is unexercised in production until the next collision.",
       "book": "UNCHANGED. No order placed, no ledger position touched, no throttle consumed. This was infrastructure work on the equity book's signal source, not a trading action."
+    },
+    {
+      "run_utc": "2026-09-11T17:30:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-11",
+      "headline": "SELF-CORRECTION, no trade. The 17:00Z Stock Report failure cost NOTHING -- no board was lost today. My own 17:22Z entry and PR #1437 called it 'the second lost board in two days'; that overstated the impact and is corrected in the ledger.",
+      "the_correction": "The 17:00Z board LANDED as e2ef706 from the successful 16:57Z SCHEDULED run; the failed 17:00:08Z DISPATCH run's board was a duplicate of one already on master. Verified by `git log -1 -- latest_intraday.md` and the file header. This run traded off that landed board, so the signal path was never degraded today. The 09-10 incident DID lose a board for real (no successful sibling); today's did not.",
+      "does_it_change_the_fix": "NO. The conflict-wedge is a latent board-loss path -- harmless today only because the colliding run was the redundant one. Invert the timing and the board is genuinely lost. The fix stands on that reasoning rather than on a harm it did not impose.",
+      "lesson": "A FAILED JOB IS NOT THE SAME FACT AS A LOST ARTIFACT. The root cause was real; the impact was imported from the prior incident because the symptom matched. Detector: before claiming an artifact was lost, check what is actually on master -- one `git log -1 -- <artifact>`.",
+      "book": "UNCHANGED. No order, no ledger position, no throttle."
     }
   ]
 }
