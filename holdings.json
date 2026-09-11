@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-11T17:50:00Z",
+  "updated_utc": "2026-09-11T18:01:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-11",
     "realized_usd_options": -247.0,
@@ -868,15 +868,15 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-11T17:32:00Z",
+    "run_utc": "2026-09-11T18:01:00Z",
     "run_type": "market_hours_regular (scheduled, sub-hourly cron)",
     "trading_day_et": "2026-09-11",
-    "reconciliation": "ZERO DRIFT both books vs broker 17:30-17:31Z. Equities qty AND avg price: MMM 2.884552 @173.34 / GD 1.335314 @374.44 / ABNB 6.573584 @169.52 / UNP 3.858199 @285.11, all pending_* zero. get_option_positions(nonzero) EMPTY, options_value 0. get_equity_orders(created_at_gte=2026-09-11) EMPTY -- broker-first sibling precheck CLEAN. git fetch + checkout -B origin/master ran BEFORE any file read (stale-clone rule); master had advanced to 405611b since clone.",
-    "capital": "total_value $3,880.19; cash == buying_power == unleveraged_buying_power == $717.38 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $3,162.81; options_value $0.00. Operational reserve 5% = $194.01. DEPLOYABLE $523.37 -- $76.63 UNDER the ~$600 minimum equity entry. Per-name cap 30% = $1,164.06, not binding.",
-    "book": "4 equity swings, top of the 3-4 target band, ALL FOUR RED on live quotes (MMM -4.69%, GD -4.64%, ABNB -0.07%, UNP -0.28%). Options book EMPTY and UNHEDGED since Ryan's own 15:54Z SPY 700P close -- already recorded and notified once at 16:05Z, NOT re-notified.",
+    "reconciliation": "ZERO DRIFT both books vs broker 18:00-18:01Z. Equities qty AND avg price: MMM 2.884552 @173.34 / GD 1.335314 @374.44 / ABNB 6.573584 @169.52 / UNP 3.858199 @285.11, shares_available_for_sells == quantity and all pending_* zero. get_option_positions(nonzero) EMPTY, options_value 0. get_equity_orders(created_at_gte=2026-09-11) EMPTY -- broker-first sibling precheck CLEAN. git fetch + checkout -B origin/master ran BEFORE any file read (stale-clone rule); master had FORCE-updated to 21d365a since container clone, so the rule was load-bearing again this run.",
+    "capital": "total_value $3,881.01; cash == buying_power == unleveraged_buying_power == $717.38 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $3,163.63; options_value $0.00. Operational reserve 5% = $194.05. DEPLOYABLE $523.33 -- $76.67 UNDER the ~$600 minimum equity entry. Per-name cap 30% = $1,164.30, not binding.",
+    "book": "4 equity swings, top of the 3-4 target band, ALL FOUR RED on live quotes (MMM -4.70%, GD -4.70%, ABNB -0.07%, UNP -0.24%; combined -$50.44). Options book EMPTY and UNHEDGED since Ryan's own 15:54Z SPY 700P close -- recorded and notified once at 16:05Z, NOT re-notified.",
     "throttles": "Equity entries 0 of 3 used. Options entries 0 of 8 used. Options realized -$247.00 against the -$400 cap, $153.00 headroom -- gated nothing this run.",
-    "verdict": "FLAT BOTH BOOKS. No exit fired: all four positions BELOW entry so the RSI2>=70 take-profit fails its price>entry gate on every name, no time stop due (MMM 09-14, GD 09-15, ABNB/UNP 09-24), no target hit, no thesis flag -- the 17:00Z report's ACTION block is EMPTY. No entry: equities capital-bound $76.63 under the minimum AND no A grade on a 12-name board that is 12-of-12 covered by existing durable keys; options declined on both tracks.",
-    "new_finding_this_run": "_A_BREAK_SMALLER_THAN_ONE_DAY_OF_THE_LEVELS_OWN_DRIFT_IS_MANUFACTURED_BY_THE_DENOMINATOR_2026-09-11"
+    "verdict": "FLAT BOTH BOOKS. No exit fired: all four positions below entry so the RSI2>=70 take-profit fails its price>entry gate on every name, no time stop due (MMM 09-14, GD 09-15, ABNB/UNP 09-24), no target hit, no thesis flag -- the 17:00Z report's ACTION block is EMPTY. No entry: equities $76.67 under the minimum with the board unchanged since 17:50Z graded 12-of-12 against MMM at none-A; options declined on both tracks.",
+    "new_finding_this_run": "NONE. QQQ's 20-day break at 0.083x of one day's own drift is a CONFIRMING INSTANCE of _A_BREAK_SMALLER_THAN_ONE_DAY_OF_THE_LEVELS_OWN_DRIFT_IS_MANUFACTURED_BY_THE_DENOMINATOR_2026-09-11 (measured at 0.62x six runs ago), not a new key. Re-noticing a known condition is not a finding."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
