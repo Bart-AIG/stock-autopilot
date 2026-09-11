@@ -108,7 +108,9 @@ This morning MMM and GD were each *below* the floor on their own and therefore r
 
 **Calibration:** no parameter changed this week. The 09-08 run pulled 72 broker closes and both books reported healthy — equities margin **+18.3 pts over breakeven** (69.1% actual vs 50.8% breakeven, n=55, expectancy +$4.82/trade, net +$264.89) — but the **in-regime gate blocked any adjustment**, because only 2 of those 55 trades closed under the current parameters and the gate requires 20. That is the guard working: tuning a parameter on trades that predate it is superstition. Next calibration is **Monday 2026-09-14**.
 
-**Friday review** was completed pre-open at 13:20Z, and the `calibrate.py` fix above came out of it.
+**Friday review** was completed pre-open at 13:20Z, and the `calibrate.py` fix above came out of it — **but one of its figures was stale before the day ended, and a concurrent run caught it.** The 13:20Z review stated "zero options closes and zero options entries — the sleeve did not trade at all this week" and put the week at two closes, net **−$29.37**. That was true at 13:20Z and false by the close. Broker-confirmed: `get_pnl_trade_history(span='week')` returns **three** closes — MDLZ −$4.07 (09-09), LLY −$25.30 (09-10), **SPY −$247.00 (09-11)** — and the week's realized total is **−$276.37, 9.4× what the review reported.** Your hedge close at 15:54Z is the missing trade, and it is the single most consequential thing that happened to the book this week.
+
+**Every conclusion of that review still stands** — both books remain "report only" (equities 2-of-54 in-regime, options n=17 < 20), no parameter change is legitimate, and the exit-taxonomy flag concerns equity closes only. The amendment is to one week-tally sentence, not to the analysis. The durable fix: **take the Friday review on the last run of Friday, not the first.** A review of a week should review a *completed* week; a Friday-morning review is four days plus a guess. This matters because that review is the input to Monday's calibration, which reads the broker directly and would otherwise silently disagree with the journal's own account of the same week.
 
 ---
 
