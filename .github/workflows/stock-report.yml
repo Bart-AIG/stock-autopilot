@@ -202,10 +202,39 @@ jobs:
           # 15:00Z intraday report entirely. The report is the sole source of every
           # autonomous equity signal, so a lost push is a blind trading session.
           # Retry the whole rebase+push cycle instead of assuming one shot wins.
+          #
+          # A BARE RETRY IS NOT ENOUGH EITHER, because the rebase can leave the
+          # tree CONFLICTED rather than merely losing a push race. When a second
+          # report run lands the same latest_*.md first, our replayed commit
+          # conflicts on that file — and from then on every further `git pull`
+          # dies with "Pulling is not possible because you have unmerged files",
+          # so attempts 2-5 are guaranteed no-ops. Measured 2026-09-11 on run
+          # 34625197677: the 16:57Z scheduled run and the 17:00Z dispatch run
+          # both generated an intraday board, the scheduled one landed, and this
+          # loop then burned all five attempts against an unresolved conflict and
+          # lost the 17:00Z board — the SECOND lost board in two days, after the
+          # one-second race this loop was added to fix.
+          #
+          # Resolve deterministically in favour of THIS run's freshly generated
+          # report: under `git rebase` the replayed commit is the "theirs" side,
+          # so --theirs is our new board. If the conflict is anything other than
+          # that file, abort so the next attempt at least starts from a clean
+          # tree instead of a permanently wedged one.
+          REPORT="latest_${{ steps.m.outputs.mode }}.md"
           for attempt in 1 2 3 4 5; do
             if git pull --rebase --quiet && git push; then
               echo "pushed on attempt $attempt"
               exit 0
+            fi
+            if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ]; then
+              echo "rebase conflicted; resolving $REPORT in favour of this run's board"
+              if git checkout --theirs -- "$REPORT" 2>/dev/null; then
+                git add "$REPORT"
+                GIT_EDITOR=true git rebase --continue || git rebase --abort
+              else
+                echo "conflict is not confined to $REPORT; aborting rebase"
+                git rebase --abort
+              fi
             fi
             echo "push attempt $attempt rejected (concurrent push to master); retrying"
             sleep $((attempt * 3))
