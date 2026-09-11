@@ -1,105 +1,90 @@
 {
  "_comment": "Daily market brief for the options automation. Built by the first post-open run of each TRADING day (ET), never by a post-close/pre-open firing. Refresh intraday only on a genuine shock (VIX +15%, an index breaking a listed level, a major headline).",
- "date": "2026-09-10",
- "built_utc": "2026-09-10T13:38:00Z",
- "built_by": "scheduled_automation_run (prompt v10) \u2014 first post-bell run of the 2026-09-10 trading day.",
+ "date": "2026-09-11",
+ "built_utc": "2026-09-11T13:35:00Z",
+ "built_by": "first post-bell run of 2026-09-11 (routine, prompt v10)",
  "regime": {
-  "_measured": "Live quotes 13:32:00-13:36:12Z. The 13:32Z batch was ~2 minutes past the bell and is an OPENING-AUCTION read; the LLY decision was re-quoted at 13:36Z per the standing 5-minute rule and priced only off the settled quote. Numbers below are the settled ones where a settled one exists.",
-  "label": "RISK-OFF OPEN, NASDAQ-LED. Stated as a NUMBERS-FIRST read with the verdict deliberately withheld per the 2026-08-28T14:27Z finding: a directional label extracted from the first minutes of a session measures whichever leg happened to be running when the run fired, and the next run inherits it as a frame. Hand forward the numbers, not the verdict.",
+  "_measured": "Live quotes 13:31:30-13:33:12Z venue time, wall clock ~13:34:4xZ (feed lag ~90 seconds). ALL of these are OPENING-WINDOW prints, under 5 minutes past the 13:30Z bell, and the opening-auction rule bars them from pricing any decision. They are recorded as a baseline, not as a decision input.",
+  "label": "POST-CPI RELIEF RALLY, BROAD. Stated NUMBERS-FIRST with the verdict deliberately withheld per the 2026-08-28T14:27Z finding: a directional label extracted from the first minutes of a session measures whichever leg was running when the run fired, and the next run inherits it as a frame. Hand forward the numbers, not the verdict.",
+  "the_event": "CPI printed 2026-09-11 12:30Z, BEFORE the bell. The 12:35Z run pinned the pre-print baseline and the 13:00Z run measured the reaction; this run inherits both rather than re-deriving. SPY 762.95 pre-print -> 766.35 at 13:01Z = +0.446% ON THE PRINT. The CPI bar that gated TACTICAL yesterday HAS EXPIRED -- the print is out.",
   "spy": {
-   "last": 757.65,
-   "prev_close": 762.4,
-   "pct": -0.62
+   "last": 764.95,
+   "prev_close": 757.83,
+   "pct": 0.94
   },
   "qqq": {
-   "last": 707.71,
-   "prev_close": 716.31,
-   "pct": -1.2
+   "last": 714.86,
+   "prev_close": 708.69,
+   "pct": 0.87
   },
-  "dispersion_note": "QQQ is underperforming SPY by ~58bp at the open \u2014 growth/tech de-rating rather than a broad tape flush. Not confirmed past the opening window; re-measure before it decides anything.",
+  "xlf": {
+   "last": 57.47,
+   "prev_close": 56.87,
+   "pct": 1.06
+  },
+  "dispersion_note": "SPY +0.94% / QQQ +0.87% / XLF +1.06% -- the three move together within ~19bp. This is a BROAD relief rally, not a sector rotation; no index-vs-index divergence to trade. Contrast 2026-09-10's open, which had QQQ underperforming SPY by ~58bp.",
   "book_names": {
    "MMM": {
-    "last": 162.4,
-    "pct": -1.22
+    "last": 163.97,
+    "pct": 0.68
    },
    "GD": {
-    "last": 355.58,
-    "pct": 0.83
+    "last": 356.14,
+    "pct": 0.53
    },
-   "LLY_exited": {
-    "fill": 1129.5485,
-    "pct_vs_prev_close": 0.47
+   "ABNB": {
+    "last": 168.795,
+    "pct": 0.68
+   },
+   "UNP": {
+    "last": 288.58,
+    "pct": 0.98
    }
-  }
+  },
+  "book_note": "ALL FOUR swings are green on the session for the first time in the book's recent history, and UNP has crossed above its entry. That is what arms the RSI2 take-profit described in constraints_today."
  },
  "key_levels": {
-  "_method": "20/50-day SMAs recomputed THIS RUN from get_equity_historicals daily bars, off SETTLED closes through 2026-09-08 (the prior brief's block was computed through 09-03). Both averages computed before any level is quoted, per the 2026-08-25T17:33Z rule.",
+  "_method": "20/50-day SMAs recomputed THIS RUN from get_equity_historicals daily bars, off SETTLED closes through 2026-09-10. Both averages computed before any level is quoted, per the 2026-08-25T17:33Z rule.",
+  "_transcription_check": "The bar series was hand-transcribed from the tool output, which _A_HAND_TRANSCRIBED_BROKER_PULL_IS_A_MEASUREMENT_WITH_AN_ERROR_BAR says to treat as a measurement with error. VALIDATED rather than assumed: recomputing THROUGH 2026-09-08 off the same transcription reproduces the prior brief's SPY sma20 768.6995 and QQQ sma20 717.3850 to four decimal places. The transcription is exact; no error bar applies to the levels below.",
   "SPY": {
-   "last_close": 765.96,
-   "sma20": 768.6995,
-   "sma50": 757.5966,
-   "sma20_prior_session": 769.053,
-   "sma20_delta_per_session": -0.3535,
-   "sma20_fwd_path_if_flat": [
-    768.469,
-    768.143,
-    767.547,
-    767.028
-   ],
-   "note": "Spot 763.72 is 4.98 BELOW the 20-day and 6.12 ABOVE the 50-day."
+   "last_close": 757.83,
+   "sma20": 767.5585,
+   "sma50": 758.2458,
+   "sma20_delta_per_session": -0.733,
+   "note": "Spot 764.95 is 2.61 BELOW the 20-day and 6.70 ABOVE the 50-day. The 50-day at 758.2458 is the level worth watching -- yesterday's 757.83 close was BELOW it and today's rally has reclaimed it."
   },
   "QQQ": {
-   "last_close": 718.36,
-   "sma20": 717.385,
-   "sma50": 711.3218,
-   "sma20_prior_session": 717.5105,
-   "sma20_delta_per_session": -0.1255,
-   "sma20_fwd_path_if_flat": [
-    717.38,
-    717.114,
-    716.428,
-    715.793
-   ],
-   "note": "Spot 716.045 is 1.34 BELOW the 20-day, having sat ON it (0.049 below) yesterday."
+   "last_close": 708.69,
+   "sma20": 716.5275,
+   "sma50": 710.6122,
+   "sma20_delta_per_session": -0.7505,
+   "note": "Spot 714.86 is 1.67 BELOW the 20-day and 4.25 ABOVE the 50-day. Same shape as SPY: yesterday's 708.69 close sat BELOW the 50-day at 710.6122 and today's open has reclaimed it."
   },
-  "THE_CHANGE_WORTH_INHERITING_BOTH_20DAYS_HAVE_ROLLED_OVER": "The 2026-09-08 brief recorded SPY's 20-day RISING ~+0.23/session and QQQ's ~+0.15/session. BOTH have now turned NEGATIVE -- SPY -0.354/session, QQQ -0.126/session -- on a tape that has barely moved. The cause is mechanical and is exactly what the 2026-08-25T19:00Z rule says to compute: the late-August closes are ROLLING OUT of the window. SPY drops 770.56 / 772.49 / 777.88 / 776.34 over the next four sessions, so its 20-day falls ~1.67 points to 767.03 even if price never moves. A run that reads 'spot 4.98 below a rising 20-day' has the sign of the trend backwards.",
-  "IS_THE_QQQ_20DAY_STILL_TRADEABLE_AS_A_TRIGGER_YES": "The same rule says to retire a level that moves more over the intended hold than the trade's own profit target. Applied honestly: a TACTICAL scalp holds hours to ~2 sessions, over which the QQQ 20-day drifts 717.385 -> 717.114, i.e. 0.27 points; a +20% target on a ~0.45-delta QQQ contract needs roughly 1.5-2 index points. Drift is ~15% of the target, so the level SURVIVES the test for TACTICAL. It would NOT survive it for a multi-week CORE horizon (1.59 points over 4 sessions).",
-  "posture_levels_STALE_WARNING": "CLAUDE.md's Aug-Oct posture block still quotes SPY 20d 748.5 / 50d 746.4 from 2026-08-05 -- five weeks stale and ~20 points low. Use the block above, never those.",
-  "READ_THE_FWD_PATHS_AS_A_SENSITIVITY_NOT_A_FORECAST": "ADDED BY THE 13:40Z SIBLING RUN, and it applies to the sma20_fwd_path_if_flat fields republished directly above. Those paths compute only what LEAVES the 20-day window and freeze what ENTERS it at \"price stays flat\". MEASURED: the 2026-09-08 brief's SPY path was [769.20, 769.21, 769.34, 769.37] -- flat to RISING -- and the average actually printed 769.0530 then 768.6995, wrong in SIGN within two sessions. Root cause confirmed arithmetically: actual closes came in 2.98 and 7.21 BELOW the frozen-spot assumption, giving a predicted drag of -0.5095 against an observed error of -0.5105 -- agreement to 0.001, so the entering leg accounts for essentially ALL of the miss. The paths are NOT wrong and are NOT to be deleted: the leaving leg is real, useful, and the half a run cannot do in its head. They are MISLABELLED. Read them as \"where the average goes IF price holds here\", re-derive them every session, and never quote one as a forecast. Full write-up and the transferable class: holdings.json _AN_SMA_FORWARD_PATH_IS_A_TWO_VARIABLE_PROJECTION_AND_THE_PUBLISHED_ONE_FREEZES_THE_ENTERING_LEG_2026-09-09T13-40Z."
+  "THE_CHANGE_WORTH_INHERITING": "Both 20-days are falling FASTER than yesterday's brief recorded -- SPY -0.354/session then, -0.733 now; QQQ -0.126 then, -0.751 now. Per _A_ONE_DAY_MA_SLOPE_IS_NOT_A_FORWARD_PATH do NOT project these linearly: the slope is steepening because the strong early-August closes (SPY 771-778, QQQ 718-732) are rolling OUT of the 20-bar window, which is a window artifact, not selling. The tradeable read is the 50-day RECLAIM on both indices, which is a price event rather than a window effect."
  },
  "_key_levels_staleness": "FRESH -- recomputed this run off settled closes through 2026-09-08. Next run may reuse until a new session settles.",
- "catalysts_next_5_sessions": [
-  {
-   "date": "2026-09-11",
-   "event": "US CPI, 08:30 ET",
-   "why_it_matters": "THE binding catalyst for this desk. It lands INSIDE the hard time stop of any TACTICAL scalp opened today (flat by the close of the next session = 2026-09-11), so the 2026-08-26 capstone \u2014 do NOT open TACTICAL breakout scalps into an unresolved scheduled catalyst \u2014 bars the tactical track today on its own, before any trigger is even measured. It does NOT bar a CORE swing (21-45 DTE) or an equity swing: those horizons routinely span a macro print, and CPI is not a name-specific binary the way an [ERN] flag is."
-  },
-  {
-   "date": "2026-09-14",
-   "event": "MMM time stop (entry 2026-08-31 + 14d)",
-   "why_it_matters": "Mechanical; fires green or red. 4 sessions out."
-  },
-  {
-   "date": "2026-09-15",
-   "event": "GD time stop (entry 2026-09-01 + 14d)",
-   "why_it_matters": "Mechanical; fires green or red. 5 sessions out."
-  }
- ],
+ "catalysts_next_5_sessions": {
+  "_source": "get_earnings_calendar(start 2026-09-11, days 6, high_market_cap) pulled THIS RUN.",
+  "cpi": "OUT. Printed 2026-09-11 12:30Z, pre-bell. The TACTICAL catalyst bar it created has EXPIRED -- see _NFP_BAR_HAS_EXPIRED_THE_PRINT_IS_OUT for the same pattern last week.",
+  "earnings": "CLEAN for anything this desk trades. KR reported 09-11 am (EPS 1.09 vs 1.12 est, a miss). Ahead: KMTS 09-14 pm, FPS 09-15 am, TCOM 09-15 pm, PS 09-15 pm (UNVERIFIED date), LEN 09-16 pm, LUXE 09-16 am. NO mega-cap tech, NO semis, and no earnings inside any held name's window.",
+  "held_name_earnings": "NONE of MMM / GD / ABNB / UNP appears in the 6-day high-market-cap calendar. Absence is not proof (the calendar degrades to {} on API failure and this pull returned rows, so it did not degrade), but the ERN bar is clear for every position through its time stop."
+ },
  "watchlist": {
-  "EQUITY_candidates": "NO SOURCE YET TODAY, and this is a verified fact rather than an assumption: GitHub Actions shows ZERO Stock Report runs so far on 2026-09-09 (last was 09-08T19:00Z), so master still carries yesterday's 17:10Z morning / 19:01Z intraday. The hourly cron-job.org dispatches begin ~14:00Z. This lines up with the documented preference to take the day's equity entry on the first run at/after ~14:15Z, which fixes the stale-report and opening-window defects with one deferral. Yesterday's cohort for reference only, NOT tradeable off a stale file: SBUX 3.0, AMGN 3.0, PATH 3.1, WBD 4.0, ABBV 5.5, CL 5.7, MA 5.9, VRTX 6.9 (RSI2), plus HELD LLY/MMM/GD.",
-  "TACTICAL_candidates": "NONE ARMED. One structural level remains live and is handed forward: the QQQ 20-day SMA at 717.3850, with spot 716.045 now 1.34 BELOW it (it sat 0.049 below yesterday, i.e. price has stepped away from the level rather than coiling on it). Genuine structural reference, not a desk-drawn box. NOT armed because the confirmation clause is UNCOMPUTABLE 90 seconds into a session: there is no trailing 30-60 minute baseline at all, and the opening hour inflates every denominator in the direction that MANUFACTURES confirmation. The first run at/after ~14:15Z is the first that can compute it honestly, and must apply BOTH denominator corrections (trailing-local AND the session's own bucket rate) plus the feed-hole reconciliation before letting it fire.",
-  "CORE_candidates": "NONE. No thesis presented, and IV sanity -- a required leg of the CORE stack -- is deliberately unmeasured this run (see iv_sweep_DEFERRED_and_why). A CORE entry cannot be graded without it, so declining is the correct output rather than a stand-down excuse."
+  "EQUITY_candidates": "NO FRESH SOURCE YET. master still carries yesterday's 14:01Z morning / 19:01Z intraday reports; today's first report lands ~14:01Z on the measured 11-day distribution (25-32 min post-bell, 91 min worst observed). Yesterday's cohort for REFERENCE ONLY, not tradeable off a stale file: SBUX 0.9, MMM 0.9 (HELD), AMGN 1.7, UNP 2.3 (HELD), ABNB 2.4 (HELD), MA 2.7, TGT 3.2, VRTX 3.3, MRK 3.4, PFE 3.6. Moot for entries regardless: $19.88 deployable.",
+  "TACTICAL_candidates": "NONE ARMED. The structural levels are live and handed forward -- SPY 50-day 758.2458 and QQQ 50-day 710.6122, BOTH reclaimed from below on this morning's gap. A reclaim is a genuine structural event rather than a desk-drawn box, but it is NOT armed: the confirmation clause is uncomputable in the first 30 minutes (no trailing-30 baseline exists yet, per _NO_DENOMINATOR_EXISTS_IN_THE_FIRST_THIRTY_MINUTES), and the track is unfundable at $19.88 against a $300 floor. Recording the level, not the trade.",
+  "CORE_candidates": "NONE. Unfundable."
  },
  "THE_TACTICAL_NON_TRIGGER": "NOT ARMED, structural not discretionary, and one notch stronger than yesterday's version of this note: yesterday's first-post-open run was 8 minutes into the session, this one is 90 SECONDS. The clause needs a candidate bar measured against a trailing 30-60 minute baseline (2026-08-25T16:05Z) that must also not sit materially below the session's own established bucket rate (2026-08-26T15:52Z). Neither denominator exists yet -- not 'is hard to compute', does not exist. Per 2026-08-25T17:22Z, a trigger whose numbers cannot be re-derived off the same window has not been tested, only quoted. || SECOND AND INDEPENDENT GROUND, added by the 13:40Z sibling run -- and it is the DURABLE one, because the ground above dissolves the moment a trailing baseline exists. The 2026-08-26 regime capstone bars a TACTICAL breakout scalp into an unresolved scheduled catalyst, screened against THIS TRACK'S OWN window per the 2026-08-28 per-track rule rather than borrowing CORE's objection: the hard time stop forces a scalp opened today flat by the 2026-09-10 close, and PPI prints 09-10 at 08:30 ET -- squarely inside it. So TACTICAL is barred for the WHOLE SESSION, not merely until a denominator exists, and the 14:15Z+ run should not expect to arm the QQQ 20-day trigger the watchlist hands forward. Note the rule cutting the other way, deliberately: ADBE and ORCL print 09-10 pm, AFTER that window closes, so they are NOT a reason to decline a scalp and were not cited as one. A catalyst list is not portable between tracks.",
  "constraints_today": {
-  "capital": "total_value $4,002.84; cash == unleveraged_buying_power $2,429.81 (no margin extended); reserve 5% = $200.14; deployable $2,229.67.",
-  "equity_slots": "2 of 3-4 target swings open (MMM, GD). 1-2 free. Sizing = deployable / remaining slots ~ $1,115; per-name cap $1,200.85; minimum entry $600.",
-  "options": "Max 5 open (2 TACTICAL / 3 CORE), hedge excluded. Currently 0 agentic option positions + the exempt SPY 2026-11-20 700P hedge at 71 DTE. Options loss cap -$400 unspent. 0 of 8 entries used.",
-  "tactical_barred_today": "Yes \u2014 CPI 2026-09-11 sits inside the tactical hard time stop. See catalysts.",
-  "no_cash_floor": "VOID since 2026-08-29. No percentage cash target exists. No _cash_hold is owed \u2014 the under-deployment is signal-availability, not a deliberate hold."
+  "capital": "total_value $3,911.33; cash == unleveraged_buying_power == $215.45 (no margin extended); reserve 5% = $195.57; DEPLOYABLE $19.88.",
+  "equity_slots": "4 of the 3-4 target swings filled (MMM, GD, ABNB, UNP) -- at the TOP of the band. Deployable $19.88 is far below the ~$600 minimum entry, so NO new entry is fundable and the ROTATION GATE IS LIVE (its precondition -- deployable below one position size -- is true, unlike 2026-09-03 when it was wrongly invoked with $1,266 free). Any new idea must be graded BETTER THAN THE WEAKEST HELD POSITION.",
+  "options": "Max 5 open (2 TACTICAL / 3 CORE), hedge excluded. Currently 0 agentic option positions + the exempt SPY 2026-11-20 700P hedge at 70 DTE. Options loss cap -$400 unspent. Throttles RESET by this run for the new trading day: 0 of 8 options, 0 of 3 equities.",
+  "THE_LIVE_ITEM": "UNP's RSI2>=70 TAKE-PROFIT IS ARMED AND DEFERRED, not declined. RSI2 70.5 at 288.13 / 73.4 at 288.58, position green. Deferred because (a) both readings sit inside the ~10-point band around 70 where a self-computed RSI2 may NOT substitute for the report's, and today's report had not landed; (b) both quotes are opening-window prints. See _UNP_RSI2_TAKE_PROFIT_IS_LIVE_AND_DEFERRED_TO_THE_REPORT_2026-09-11.",
+  "tactical_barred_today": "NO -- the CPI bar has expired with the print. TACTICAL is unbarred on catalyst grounds for the first time this week, but is UNFUNDABLE: $19.88 deployable against a $300 band floor.",
+  "no_cash_floor": "VOID since 2026-08-29. No percentage cash target exists. No _cash_hold is owed -- the book is fully deployed, which the capital policy calls a correct state."
  },
  "posture_carryover": "Aug-Oct defensive posture still nominally in force pending Ryan's ~Nov 1 review. The >=45% cash floor inside it is VOID (2026-08-29) and must not be re-derived; the FULL-DEPLOYMENT CAPITAL POLICY governs -- 5% operational reserve plus the rotation-beats-the-weakest gate. The A-grade-only bar SURVIVES and is the real control.",
- "equity_entries_taken_today": "NONE as of 14:00Z. Throttle 0 of 3 used. Today's report LANDED 14:01Z (fresh, no DATA ERROR) and its 26 RSI2 setups were graded to ZERO A-grades -- this is a grading outcome, not a deferral and not a signal-availability problem. See holdings.json._THE_RSI2_SCREEN_LOSES_ITS_IDIOSYNCRATIC_INFORMATION_WHEN_THE_INDEX_ETFS_ARE_ON_IT_2026-09-10: all four major index ETFs are themselves on the RSI2<10 screen today, which happens in only 3 of the last 10 sessions and has never before happened with all four.",
+ "equity_entries_taken_today": "0 of 3. None fundable -- $19.88 deployable vs a ~$600 minimum entry.",
  "weekly_calibration": "DONE for the week of 2026-09-08 -- run pre-open 09-08 at 10:25Z, recorded in _WEEKLY_CALIBRATION_2026-09-08. VERDICT: NO CHANGE on both books, nothing escalated. Equities n=55, margin over breakeven +18.3 pts; options n=17, margin -0.3 pts. BOTH report-only: equities because only 2 of 55 closes are in-regime under the 09-02 parameters (need 20), options because n<20. Monday 2026-09-07 was Labor Day, so 09-08 was the week's first trading day and correctly owned it. Not due again until the week of 2026-09-14. This run CONFIRMED the record rather than re-pulling it.",
  "monthly_rebalance": "Not due. The monthly ritual falls on the first trading day of the month; 2026-09-01 has passed.",
  "iv_sweep_DEFERRED_and_why": "RESOLVED -- SWEEP TAKEN 2026-09-10T14:07Z by the 14:00Z run, 37 minutes past the bell and therefore out of the opening window the deferral existed to avoid. All 8 core names logged to iv_history.json on the 2026-10-09 board (29 DTE), the SAME board as the 09-09 rows, so the day-over-day diff is board-homogeneous. Method validated against the committed 09-09 SPY row (recomputing the window as of 2026-09-08 reproduces rv 0.1187 / ex-gap 0.0998 / largest 1.79 vs 1.8) -- no methodology drift. HEADLINE: SPY and QQQ ATM IV both printed the 100th percentile of their own 22-reading history (SPY 0.145361, ex-gap ratio 1.4464; QQQ 0.203773, ex-gap 1.4034) while the semis actually falling sit near their own lows (NVDA 33rd, AMD 24th, AVGO 9.5th). Full write-up: holdings.json._INDEX_VOL_AT_A_SERIES_RECORD_WHILE_SEMI_VOL_SITS_LOW__AND_THE_HEDGE_IS_NOW_MOSTLY_A_VOL_POSITION_2026-09-10.",
