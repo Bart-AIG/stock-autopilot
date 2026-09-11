@@ -35346,6 +35346,14 @@
       "actions": "NONE, either book. Market closed at 20:00Z; nothing placeable. No artifact rolled forward -- heartbeat already stamped 13:34Z for this trading day, market_brief already stamped, loss cap and both throttles stay on the 2026-09-11 trading day per the UTC-rollover rule.",
       "daily_report": "NOT REWRITTEN. The 2026-09-11 report exists on master (written 19:15Z, corrected 19:30Z) and already carries the day's material event -- Ryan's hedge close and the unhedged-into-the-weekend state. Nothing material happened after 19:30Z: no fill, no exit, no trigger, no new flag. A rewrite would send a duplicate notification carrying the same content.",
       "what_the_next_run_inherits": "Book is 100% long equity beta, unhedged, 4 swings, into a weekend. MMM's TIME STOP fires Monday 2026-09-14 and GD's Tuesday 2026-09-15; both are red, so both are expected to realize losses -- that is the mechanism working, not failing. MMM's exit returns ~$472, taking deployable from ~$523 to roughly $996 and re-opening a full-size entry above the $600 minimum. MONDAY IS THE WEEKLY CALIBRATION RUN: read the options-bucket finding BEFORE running recommend() on the blended sample. Re-hedging remains Ryan's call and was already flagged to him at 16:05Z -- notify-once, do not re-raise."
+    },
+    {
+      "run_utc": "2026-09-11T21:19:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-11",
+      "headline": "2nd post-close no-op of Friday. Market shut. Stand-down per POST-CLOSE RUN PROTOCOL; all duties of this trading day already discharged (heartbeat 13:34Z, daily report 19:15Z, Friday review 20:25Z).",
+      "reconciliation": "ZERO DRIFT both books. Equities 4: MMM 2.884552 / GD 1.335314 / ABNB 6.573584 / UNP 3.858199. Options: broker EMPTY, ledger none. total_value $3,875.92, cash == unleveraged_buying_power == $717.38, equity_value $3,158.54 (-$8.59 vs 20:25Z, mark drift). Orders 09-11: equity EMPTY; options only Ryan's 15:54Z SPY 700P sell-to-close, already recorded.",
+      "actions": "NONE. No artifact rolled; trading day unchanged; no notification -- nothing new."
     }
   ]
 }
