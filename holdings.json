@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-11T20:25:00Z",
+  "updated_utc": "2026-09-14T07:45:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-11",
     "realized_usd_options": -247.0,
@@ -3449,7 +3449,8 @@
       "the_escape_arithmetic_still_holds_for_the_two_that_remain": "Both are red and the RSI2>=70 take-profit is gated on price > entry, so on current marks NEITHER can exit via take-profit. MMM -6.24% needs +6.66% in 2 sessions; GD -5.55% needs +5.88% in 3. Expect both to be sold on the clock, red, absent a hard move. That is the mechanism working, not a defect.",
       "why_this_is_an_EDIT_and_not_a_new_key": "Per CLAUDE.md's ledger-notes rule: preserve the FINDING, do not preserve the CONTAINER. This run narrows and partially supersedes an existing key, so it edits that key and says what changed, rather than minting a 13th dated key for the same subject on the same day.",
       "the_transferable_half": "A scheduling cluster is not a standing property of a book -- it is a property of the ENTRY DATES currently in it, and ordinary turnover dissolves it without anyone acting on it. The 09-08 finding was correct and correctly flagged as forward-looking; it simply had a shorter half-life than a durable key normally implies. A run inheriting it two days later, without re-deriving the dates from the CURRENT positions, would have reported a four-name forced liquidation that no longer existed. RE-DERIVE A DATED PROJECTION FROM LIVE STATE BEFORE REPEATING IT -- same family as this file's stale-denominator and stale-box findings, aimed at a calendar instead of a price."
-    }
+    },
+    "UPDATE_2026-09-14T07-45Z_MMM_FIRES_TODAY": "THIRD LEG DUE NOW. MMM entry 2026-08-31 is held 14d/14d as of today 2026-09-14 -- the TIME STOP FIRES THIS SESSION. GD (entry 2026-09-01) is 13d/14d and fires TOMORROW 09-15. ABNB and UNP (both 09-10) are 4d/14d, due 09-24. EXECUTION, settled by _TIME_STOP_NEEDS_NO_REPORT_BUT_THE_RSI2_EXIT_NEEDS_A_LIVE_ONE: the time stop reads ONLY sleeve, entry_date and today's date -- no price, no rsi2, no ma200 -- so the report on master being stamped 2026-09-11 does NOT block it, and prompt v10 states mechanical exits are never throttled. The FIRST market-hours run may and should execute it: re-quote at least ~5 minutes past 13:30Z per the opening-auction rule (and per _QUOTE_FEED_LAG_MEANS_WALL_CLOCK_CANNOT_CLEAR_THE_OPENING_WINDOW, clear the window on VENUE timestamps, not wall clock), confirm the position is not placed_agent 'user', then SELL WITH `quantity` = the exact broker figure 2.884552, NEVER dollar_amount (_TIME_STOP_EXECUTION_PATH_PREFLIGHTED...), type market, market_hours regular_hours. Fires GREEN OR RED and is not a take-profit -- label it TIME STOP / SELL (stalled). Then remove MMM from positions[], bump updated_utc, push to master, and notify Ryan once. MARKS at the 09-11 close for scale (the executing run must re-quote): MMM 164.97 vs entry 173.3371 = -4.83%, position ~$475.88 on ~$500.03 cost, so the exit realizes roughly -$24. GD 355.90 vs 374.4437 = -4.95%, ~-$25 due tomorrow. CAPITAL AFTER: cash $717.38 + ~$476 = ~$1,193; reserve 5% of ~$3,887 = ~$194; DEPLOYABLE ~$999 into a 3-name book with ONE open slot of the 3-4 target, i.e. one entry of ~$999 -- comfortably over the ~$600 minimum, where today's $523.03 deployable is NOT. So the exit is what re-opens the entry door, and consequence_1 CAPITAL PRESSURE above applies in full: the bar does not move because the book emptied, and an entry still needs TODAY's report (signal-sourced, lands ~14:15Z) plus the whole gate stack."
   },
   "_A_FEED_HOLE_IN_THE_CANDIDATE_BAR_PRODUCES_A_FALSE_NEGATIVE__THE_FIRST_ONE_THIS_REPO_HAS_MEASURED_2026-09-08": {
     "measured_utc": "2026-09-08T15:03Z",
@@ -4563,5 +4564,76 @@
       "the_preference_worth_watching": "Not an override, but the pattern to flag: the RSI2 take-profit constant has now been re-solved and refuted twice in one session (19:01Z and 19:38Z findings). Two runs independently found the book's most-quoted exit number wrong. That is the file working -- but a constant that needs re-deriving every few hours is a constant nobody should be quoting."
     },
     "positions_into_the_weekend": "4 equity swings, 0 options, 100% long equity beta with no offset. MMM's TIME STOP fires Monday 2026-09-14 (11d/14 at the close); GD's Tuesday 2026-09-15. Both are currently red, so both are expected to realize losses -- that is the time stop working as the book's only mechanical loss discipline, not a failure."
+  },
+  "_WEEKLY_CALIBRATION_2026-09-14": {
+    "measured_utc": "2026-09-14T07:35:00Z",
+    "status": "RUN AND COMPLETE for the week of 2026-09-14. VERDICT ON BOTH BOOKS: NO CHANGE. No parameter was altered; nothing was escalated as a band breach. The first post-open run of 2026-09-14 owns CONFIRMING this record, not redoing the pull.",
+    "why_a_pre_open_run_did_it": "Prompt v10 puts the weekly calibration on the week's first trading day (Monday 2026-09-14). This run fired at 07:19Z, pre-open, so by the trading-day convention it still belongs to 2026-09-11 and may not stamp the heartbeat or roll any daily artifact -- and it did neither. It CAN do this: the pull is broker-sourced, needs no live quotes, and returns identical data pre-open and mid-session (no trades occur over a weekend), so doing it here spends a run that cannot trade instead of one that can. Same precedent as _WEEKLY_CALIBRATION_2026-09-08, which a 10:18Z pre-open run took for the same reason.",
+    "source": "BROKER, get_pnl_trade_history(span='3month') on 718757339, pulled 07:24Z. 69 closes (51 equity, 18 option). Split per the v10 duty: equities = side 'sell', options = side ''. NOT from trade_journal.json. Window rolled: 72 closes on 09-11 -> 69 today, the three oldest June equity closes having aged out; no new closes since 09-11.",
+    "EQUITIES": {
+      "n": 51,
+      "wins": 34,
+      "losses": 17,
+      "scratches": 0,
+      "hit_rate": "66.67%",
+      "mean_win": "+$13.94",
+      "mean_loss": "-$12.83",
+      "payoff_ratio": 1.086,
+      "breakeven_win_rate": "47.94%",
+      "MARGIN_PTS": "+18.73",
+      "expectancy": "+$5.01/trade",
+      "net": "+$255.68",
+      "verdict": "REPORT ONLY -- only 4 of 51 trades closed under the current parameters (need 20). The IN-REGIME GATE blocked it, exactly as designed.",
+      "in_regime_detail": "The Connors-pure exit policy and the concentration sizing both went live 2026-09-02. Four closes now sit under them, up from two last week: ROST +$1.19 and PNC -$4.41 (both 09-03), MDLZ -$4.07 (09-09, time stop) and LLY -$25.30 (09-10, time stop). The in-regime sample is REBUILDING as designed and is 4/20. On the current cadence -- MMM time-stops today and GD tomorrow -- it reaches 6 this week, so the gate stays shut for roughly another month."
+    },
+    "OPTIONS_as_currently_bucketed": {
+      "n": 18,
+      "wins": 9,
+      "losses": 8,
+      "scratches": 1,
+      "hit_rate": "52.94%",
+      "payoff_ratio": 0.743,
+      "breakeven_win_rate": "57.38%",
+      "MARGIN_PTS": "-4.44",
+      "expectancy": "-$8.72/trade",
+      "net": "-$157.00",
+      "verdict": "REPORT ONLY -- n=18 < MIN_TRADES_FOR_ACTION=20."
+    },
+    "OPTIONS_directional_only_hedge_stripped": {
+      "n": 17,
+      "wins": 9,
+      "losses": 7,
+      "scratches": 1,
+      "hit_rate": "56.25%",
+      "payoff_ratio": 0.877,
+      "breakeven_win_rate": "53.29%",
+      "MARGIN_PTS": "+2.96",
+      "expectancy": "+$5.29/trade",
+      "net": "+$90.00",
+      "verdict": "REPORT ONLY -- n=17 < 20.",
+      "hedge_leg_excluded": "SPY 2026-11-20 700P close, 2026-09-11T15:54:21Z, -$247.00, placed_agent 'user'. Excluded per _THE_CALIBRATION_OPTIONS_BUCKET_BLENDS_THE_HEDGE_WITH_DIRECTIONAL_TRADES, whose fix this run applied at the call site: the split is ledger-driven, because get_pnl_trade_history returns no placed_agent and no hedge tag.",
+      "DO_NOT_QUOTE_EITHER_AS_THE_TRUE_EDGE": "That finding's honest-scope clause still binds. n=17 and n=18 are both far too small for either margin to mean anything, and the ex-hedge figure is not a better estimate -- it is the same tiny sample minus one point. Both return REPORT ONLY and neither gated anything."
+    },
+    "BLENDED_shown_only_to_demonstrate_what_it_hides": "margin +1.90 pts, n=69 -- and this week that is no longer a rhetorical demonstration. See _A_BLENDED_CALIBRATION_SAMPLE_PASSES_BOTH_GUARDS_AND_TIGHTENS_A_HEALTHY_BOOK_2026-09-14: the blend crossed out of the STABLE band into DEGRADED and would have CHANGED THREE EQUITY PARAMETERS. Last week the same blend read +6.6 pts and merely 'looked healthy'.",
+    "changed_no_trading_decision": "Market shut. No entry, no exit, no parameter written. The only artifact altered is calibrate.py, a defensive guard that leaves every per-book verdict byte-identical."
+  },
+  "_A_BLENDED_CALIBRATION_SAMPLE_PASSES_BOTH_GUARDS_AND_TIGHTENS_A_HEALTHY_BOOK_2026-09-14": {
+    "measured_utc": "2026-09-14T07:40:00Z",
+    "status": "NEW DURABLE FINDING + ROOT FIX APPLIED to calibrate.py this run. Escalates _THE_CALIBRATION_OPTIONS_BUCKET_BLENDS_THE_HEDGE_WITH_DIRECTIONAL_TRADES_2026-09-11 from a two-closes-away hazard to a LIVE one, by a route that finding did not name.",
+    "headline": "THE CALIBRATION'S SAMPLE-SIZE AND IN-REGIME GUARDS BOTH PASS ON A BLENDED PULL, SO A BLENDED SAMPLE RETURNS AN ACTIONABLE DEGRADED VERDICT -- AND ONE DEFENSIVE-HEDGE CLOSE IS ENOUGH TO TRIGGER IT AGAINST AN EQUITY BOOK MEASURING +18.7 PTS ON ITS OWN.",
+    "the_measurement": {
+      "source": "get_pnl_trade_history(span='3month'), broker, 07:24Z. calibrate.edge_stats + calibrate.recommend, current params {swing_time_stop_days 14, target_positions 4, rsi2_oversold 10.0}.",
+      "equities_alone": "n=51, margin +18.73 pts, payoff 1.086, expectancy +$5.01 -> REPORT ONLY (in-regime 4/51). A healthy book by every figure.",
+      "blended_all_69": "margin +1.90 pts, payoff 0.630 -> DEGRADED, changes {swing_time_stop_days: 14->11, target_positions: 4->3, rsi2_oversold: 10.0->8.0}. ALL THREE ARE EQUITY PARAMETERS AND ALL THREE ARE INSIDE THEIR BANDS, so a run would APPLY them, not escalate them.",
+      "blended_ex_the_single_hedge_close": "margin +7.57 pts, payoff 0.766 -> STABLE, no changes. The one SPY -$247.00 insurance close is the ENTIRE difference between 'no change' and a three-parameter tightening.",
+      "last_week_for_contrast": "_WEEKLY_CALIBRATION_2026-09-08 measured the same blend at +6.6 pts and described it as reading 'as a healthy book'. It was inside the STABLE band then. It is not now."
+    },
+    "WHY_NEITHER_GUARD_CATCHES_IT_and_this_is_the_load_bearing_part": "The module has exactly two guards and a blended sample defeats both BY CONSTRUCTION, not by accident. (1) MIN_TRADES_FOR_ACTION=20 is a floor, so BLENDING RAISES n AND MAKES THE GUARD EASIER TO CLEAR -- each book alone is under 20 (51 equities pass, but the options bucket at 18 does not), while the blend at 69 sails through. The guard that exists to demand a big enough sample is satisfied by the very act of contaminating it. (2) recommend()'s in_regime_trades defaults to stats.n, i.e. 'the whole sample is in-regime', so a caller that does not pass the argument -- the natural thing to do when you have not split the books and have no per-book regime date -- disables the attribution gate silently. Two guards, both passed, nothing logged as skipped.",
+    "WHY_IT_IS_A_MIS_SPECIFICATION_AND_NOT_A_BAD_WEEK": "A directional trade that loses money is evidence the entry was wrong. An insurance leg that loses money is evidence the insured-against event did not happen -- CLAUDE.md defines the hedge as exempt from every premium backstop precisely because it is 'expected to decay in a melt-up'. Scoring them together biases the calibration toward 'edge gone' EXACTLY IN THE TAPES WHERE THE HEDGE DID ITS JOB. What today adds to the 09-11 finding is the BLAST RADIUS: the 09-11 run scoped the damage to the options bucket's own KILL branch and judged it two closes away. It is not confined there. Through the blend it reaches the EQUITY parameters -- a different book, with an opposite and demonstrably healthy edge -- and it is live today, not at n=20.",
+    "THE_ROOT_FIX_APPLIED": "calibrate.py: edge_stats() now inspects each trade's `side` and sets a new EdgeStats.mixed_book flag when the sample carries BOTH 'sell' (equity) and '' (option) closes; recommend() returns 'REFUSED -- blended sample' as its FIRST guard, before the n and in-regime checks, and adjusts nothing. Verified this run: EQUITIES and both OPTIONS buckets return byte-identical verdicts to the pre-fix run, and only the blended path changes -- from three applied parameter changes to REFUSED.",
+    "why_the_guard_is_FIRST_and_why_that_does_not_weaken_risk_off": "A blended margin is not a measurement of anything, so nothing downstream of it is meaningful -- including the KILL branch, which is deliberately exempt from the in-regime gate. A blended KILL would halve the EQUITY book's size on OPTIONS losses, which is the same defect pointing the other way. Refusing does not suppress a risk-off signal: splitting the sample is one line and a real KILL survives it, arriving attributed to the book that produced it. The guard demands attribution, not delay.",
+    "non_breaking_by_design": "A per-book sample is never mixed, so every compliant call is untouched. A sample whose trades carry no `side` key at all leaves the flag False -- provenance unknown is not the same as known-bad, and silently refusing a synthetic or hand-built sample would be its own trap.",
+    "HONEST_SCOPE": "This changed NO trading decision: the market is shut, both books return REPORT ONLY on their own, and no parameter was written. It is also NOT a claim that the options book is fine -- at n=17/18 nothing about that sleeve is measurable. The claim is narrow and structural: THE SPLIT WAS THE ONLY THING STANDING BETWEEN AN INSURANCE DECAY AND A THREE-PARAMETER TIGHTENING OF A HEALTHY BOOK, AND THE SPLIT WAS PURE DISCIPLINE WITH NO ENFORCEMENT BEHIND IT. That would be true had the hedge closed at a profit, and it was true last week when the blend happened to land inside the STABLE band.",
+    "the_class": "This repo's denominator/sample family, and the SIXTH distinct instance -- after session-average, trailing-local-in-decay, closing-auction, post-flush-inflation, and edge_stats' own scratch denominator. It arrives with a twist worth naming: here the contaminating data does not merely distort the statistic, IT SATISFIES THE GUARD THAT WOULD HAVE REJECTED IT. A sample-size floor cannot defend against contamination that adds samples. Sibling in shape to this file's most-repeated defect -- a check that passes for the wrong reason -- arriving inside the module written to keep the desk honest, for the second time in four days."
   }
 }

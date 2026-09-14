@@ -66,6 +66,7 @@ class EdgeStats:
     net: float
     breakeven_win_rate: float
     margin_pts: float        # (win_rate - breakeven) in PERCENTAGE POINTS
+    mixed_book: bool = False  # sample contains BOTH equity and option closes — see edge_stats()
 
 
 def edge_stats(trades: list[dict], key: str = "realized_gain") -> EdgeStats | None:
@@ -97,9 +98,29 @@ def edge_stats(trades: list[dict], key: str = "realized_gain") -> EdgeStats | No
     `n` deliberately still counts every close (it gates the sample-size guard, and a
     scratch really is a completed trade); `expectancy` and `net` likewise average over
     everything, because a scratch genuinely contributed $0. Only the win rate — the one
-    figure that is compared against a decided-trades breakeven — narrows."""
+    figure that is compared against a decided-trades breakeven — narrows.
+
+    MIXED-BOOK DETECTION (added 2026-09-14). The caller is required by the run duty to
+    split equities (`side == "sell"`) from options (`side == ""`) and measure each book
+    separately, because the two have opposite edges on this account. Nothing enforced
+    that, and both numeric guards below pass on a blended sample — so a blended pull
+    produced an ACTIONABLE recommendation. Measured that morning: blended n=69 gives
+    margin +1.90 pts = DEGRADED, proposing swing_time_stop_days 14->11, target_positions
+    4->3 and rsi2_oversold 10.0->8.0. Drop the ONE defensive-hedge close (SPY -$247) and
+    the same blend reads +7.57 pts = STABLE, no change. The equity book measured on its
+    own that morning was +18.73 pts. So an insurance leg decaying exactly as designed
+    would have tightened three parameters of a demonstrably healthy equity book.
+
+    `mixed_book` is set when the sample carries both kinds of `side` value, and
+    recommend() refuses to adjust on it. This is a NON-BREAKING guard: a per-book sample
+    is never mixed, so every compliant call is unaffected (verified — both books return
+    byte-identical verdicts before and after). When the trades carry no `side` key at all
+    the flag stays False, because the sample's provenance is then unknown rather than
+    known-bad."""
     if not trades:
         return None
+    sides = {t.get("side") for t in trades if "side" in t}
+    mixed = ("sell" in sides) and ("" in sides)
     g = [float(t[key]) for t in trades]
     w = [x for x in g if x > 0]
     l = [x for x in g if x < 0]
@@ -116,6 +137,7 @@ def edge_stats(trades: list[dict], key: str = "realized_gain") -> EdgeStats | No
         mean_win=mean_win, mean_loss=mean_loss, payoff_ratio=payoff,
         expectancy=sum(g) / len(g), net=sum(g),
         breakeven_win_rate=breakeven, margin_pts=(win_rate - breakeven) * 100.0,
+        mixed_book=mixed,
     )
 
 
@@ -162,6 +184,17 @@ def recommend(stats: EdgeStats | None, current: dict,
     if stats is None:
         out["verdict"] = "INSUFFICIENT DATA — no adjustment"
         out["notes"].append("Sample empty or one-sided (needs both wins and losses).")
+        return out
+
+    if stats.mixed_book:
+        out["verdict"] = "REFUSED — blended sample (equity + option closes in one bucket)"
+        out["notes"].append(
+            "The two books have opposite edges on this account, so a blended margin is "
+            "not a measurement of anything. Split on `side` ('sell' = equities, '' = "
+            "options), strip hedge legs from the options bucket using the ledger, and "
+            "re-run edge_stats() per book. This guard is NOT a reason to skip risk-off: "
+            "a real KILL signal survives the split and arrives attributed to the book "
+            "that actually produced it.")
         return out
 
     if stats.n < MIN_TRADES_FOR_ACTION:
