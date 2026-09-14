@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-14T19:45:00Z",
+  "updated_utc": "2026-09-14T22:30:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-14",
     "realized_usd_options": 0.0,
@@ -5410,5 +5410,54 @@
     "what_it_did_not_decide": "Nothing. Every name on this board had already been declined on its own grade by earlier runs today, so the portfolio-level property recorded here changed no decision -- which is the only condition under which a premise can be audited credibly. It is recorded because the NEXT board that looks like this will again present as N independent opportunities, and the count is the illusion.",
     "the_transferable_rule": "Before grading an RSI2 board name-by-name, ask whether the names share ONE driver. If they do, grade the DRIVER first and the tickers second: a shared-driver board offers at most one position regardless of how many rows it has, and a book targeting 3-4 concurrent swings cannot fill two slots from it without abandoning the diversification the target assumes. The report ranks by RSI2 and has no way to see correlation -- that check exists only here.",
     "capital_at_measurement": "total_value $3,882.86; cash == buying_power == unleveraged_buying_power == $1,664.60 (no margin extended); equity_value $2,218.26; options_value $0. Reserve 5% = $194.14 -> DEPLOYABLE $1,470.46. Two open slots against the 3-4 target = $735.23/slot, inside the 30% per-name cap of $1,164.86 and above the ~$600 minimum. FUNDABLE TWICE OVER. Declined on GRADE, not on cash -- twelfth consecutive run today."
+  },
+  "_DAY_TRACK": {
+    "set_utc": "2026-09-14T22:30:00Z",
+    "authority": "Ryan, REAL live turn 2026-09-14 (interactive session, typed turns): '1. Let's make the change. 2. Whichever you recommend is fine. 3. 5-20%. 4. Sure. 5. Let's do it.' -- answering the five design decisions in the autonomy-audit proposal. Spec: docs/day-track-spec.md. Code: day_track.py. Prompt carrying the duties: docs/routine-prompt-v11.md (PASTE-READY).",
+    "status": "PAPER",
+    "status_note": "PAPER needs no orders and runs under the stored v10 prompt with no rule conflict. LIVE requires (a) day_track.graduate() == go_live, evaluated at the Monday calibration and written here, AND (b) the run's own invocation stamp reading v11 (stop-order authority). A run seeing v10 must not place a live day trade.",
+    "signal_symbol": "QQQ",
+    "long_vehicle": "QQQ",
+    "short_vehicle": "PSQ",
+    "params": {
+      "risk_pct": 5.0,
+      "risk_pct_band": [
+        5.0,
+        20.0
+      ],
+      "or_minutes": 5,
+      "doji_body_frac": 0.1,
+      "min_stop_atr": 0.1,
+      "late_entry_frac": 0.5,
+      "breakeven_r": 1.0,
+      "trail_start_r": 2.0,
+      "trail_atr_mult": 1.5,
+      "chop_r": 0.5,
+      "chop_time_et": "12:00",
+      "flat_time_et": "15:30",
+      "max_trades_day": 1,
+      "pause_consec_losses": 3,
+      "pause_week_r": -3.0,
+      "min_equity_usd": 2600.0,
+      "paper_min_days": 10,
+      "paper_min_signals": 8
+    },
+    "paper_started_trading_day": "2026-09-15",
+    "paper_log_file": "day_track_paper.json",
+    "results": [],
+    "graduation": {
+      "evaluated_utc": null,
+      "verdict": null,
+      "note": "Written ONLY by the Monday calibration via day_track.graduate(). Never promoted mid-week, never by an unattended run's own judgment."
+    },
+    "capital_priority": "The day trade claims deployable cash at its entry run; swing-book entries that day wait until it is flat or was skipped. A swing position is never sold to fund a day trade.",
+    "what_this_is_not": "Not a judgment track. No news check, regime label, volume clause, catalyst screen or 'why now'. An unattended run may not add a gate. If the edge is absent, graduate() and the calibration KILL branch say so in numbers."
+  },
+  "_TACTICAL_TRACK_RETIRED_2026-09-14": {
+    "retired_utc": "2026-09-14T22:30:00Z",
+    "authority": "Ryan, REAL live turn 2026-09-14: '5. Let's do it' (retire TACTICAL options; narrow CORE's catalyst bar to single-name binaries).",
+    "evidence": "2026-08-27..09-14: 407 market-hours runs, 85 fully-evaluated TACTICAL triggers, 0 trades; 3 post-hoc findings of vetoed breaks that followed through (08-28 SPY, 09-08 QQQ, 09-14 SPY); 'unresolved scheduled catalyst' cited on 12 of 12 trading days; both TACTICAL exits sat inside one median overnight gap at a 15-min cadence with no resting stop.",
+    "replacement": "THE DAY TRACK (_DAY_TRACK, docs/day-track-spec.md). Options book is CORE-only: max 3 open, 1 entry/run, 3/day. CORE catalyst bar = binary events on the underlying only; macro calendar is a sizing input, never a bar.",
+    "instruction_to_runs": "Do not hunt intraday options scalps, price a TACTICAL vehicle, or re-create the track under another name. All TACTICAL-arc findings in CLAUDE.md are history, not gates."
   }
 }

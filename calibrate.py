@@ -41,6 +41,8 @@ BANDS = {
     "swing_time_stop_days": (8, 21),      # report.SWING_TIME_STOP_DAYS
     "target_positions":     (3, 5),       # concurrent equity swing positions
     "rsi2_oversold":        (5.0, 15.0),  # report.RSI2_OVERSOLD (entry trigger)
+    "day_risk_pct":         (5.0, 20.0),  # day_track.RISK_PCT — Ryan's band, 2026-09-14; a CEILING
+                                          # on risk per day trade, cash usually binds first
 }
 
 # The edge is measured against the BREAKEVEN win rate implied by the payoff ratio,

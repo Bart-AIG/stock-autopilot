@@ -49,7 +49,7 @@ schedule kept as a backstop** in case the cron-job.org token/job fails.
 - **Success:** HTTP 200 with a JSON body containing the new session id/URL.
   401/403 = token problem (regenerate in the routine editor, update cron-job.org).
 
-## 📌 CURRENT PROMPT STATUS (updated 2026-08-24) — read this before anything below
+## 📌 CURRENT PROMPT STATUS (updated 2026-09-14) — read this before anything below
 
 The version history in this file is tangled (two different prompts have been
 called "v4"), so here is the settled chain:
@@ -76,12 +76,18 @@ called "v4"), so here is the settled chain:
    Added the fills-proven LEGGING PROTOCOL, structure neutrality, and bounded
    EQUITY autonomy. Superseded by v9 on 2026-08-29 but remains what fires until
    v9 is pasted.
-7. **v9** (`docs/routine-prompt-v9.md`, 2026-08-29) — **PASTE-READY, awaiting
-   Ryan. Paste this one.** v8 plus THE CAPITAL POLICY: the ≥45% cash floor is
-   removed, the operational reserve becomes 5% of total_value, and near-full
-   deployment funds new ideas by ROTATION (a new idea must beat the weakest
-   holding). **Required, not optional** — the stricter-of-two tie-breaker would
-   otherwise reinstate the floor from the stored v8 and undo his decision.
+7. **v9** (`docs/routine-prompt-v9.md`, 2026-08-29) — never pasted; folded
+   into v10 (THE CAPITAL POLICY: no cash floor, 5%-of-total reserve, rotation).
+8. **v10** (`docs/routine-prompt-v10.md`, 2026-09-02) — **LIVE since 2026-09-02**
+   (confirmed by scheduler-fired runs recording its line-1 stamp; see
+   `holdings.json._PROMPT_V9_PASTE_REQUIRED`, resolved 2026-09-03). Connors-pure
+   exits, the 14-day time stop, concentration sizing, weekly calibration.
+9. **v11** (`docs/routine-prompt-v11.md`, 2026-09-14) — **PASTE-READY, awaiting
+   Ryan. Paste this one.** Adds the mechanical DAY TRACK (`docs/day-track-spec.md`,
+   `day_track.py`), retires the TACTICAL options track (85 evaluations, 0 trades),
+   narrows CORE's catalyst bar to binary events on the underlying. **Required for
+   LIVE day trading** — v10's "NO STOPS, EVER" would refuse the DAY TRACK's resting
+   stop under the stricter-of-two tie-breaker. Until pasted the track runs PAPER only.
 
 ## ⚠️ Routine prompt drift — the stored prompt must be updated by RYAN when run DUTIES change (found 2026-08-11)
 
