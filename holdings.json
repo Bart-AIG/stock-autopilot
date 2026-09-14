@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-14T18:45:00Z",
+  "updated_utc": "2026-09-14T19:15:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-14",
     "realized_usd_options": 0.0,
@@ -576,14 +576,14 @@
     }
   },
   "_eod_report_written": {
-    "trading_day_et": "2026-09-11",
-    "written_utc": "2026-09-11T19:15:00Z",
-    "written_by": "The 19:15Z scheduled run. 19:15Z IS the v10 threshold (first run at or after 2:15 PM CT), and master still carried the 2026-09-10 report, so this run owned the duty and took it rather than deferring to a tidier slot.",
-    "quotes_stamped_utc": "2026-09-11T19:16Z",
-    "note": "daily_options_report.md for trading day 2026-09-11 covers BOTH books per v10. THAT COMMIT IS THE DELIVERY (eod-report-notify.yml fires on the master push touching this file). NO LATER RUN MAY REWRITE IT to refresh closing marks or restate 'still flat' -- every master push touching this file sends Ryan another notification. Rewrite ONLY on something MATERIAL after 19:15Z: a fill, an exit, a new flag, or a trigger firing. NOTE the two live candidates for exactly that: MMM's time stop is 3 days out and GD's 4, so neither fires today; but ABNB is marginally green, so an RSI2>=70 print on it would be a genuine mechanical exit and WOULD justify a rewrite.",
-    "headline_of_the_report": "Ryan closed the SPY 2026-11-20 700P himself at 15:54Z (-$247); the desk placed nothing in either book; the options sleeve is empty and the book is unhedged into a weekend; his close freed $502 and broke the morning's rotation lock.",
-    "prior_day": "The 2026-09-10 report (written 19:16Z on 09-10) is superseded by this one.",
-    "_assertion_run": "PASSED. Per the detector recorded on 2026-09-10T19:35Z, this run asserted h['_eod_report_written']['trading_day_et'] == the trading day in daily_options_report.md's own H1 header ('Friday, 2026-09-11') BEFORE committing -- the check that stops a duty being done while the marker that records it says otherwise."
+    "trading_day_et": "2026-09-14",
+    "written_utc": "2026-09-14T19:15:00Z",
+    "written_by": "The 19:15Z scheduled run. 19:15Z IS the v10 threshold (first run at or after 2:15 PM CT) and master still carried the 2026-09-11 report, so this run owned the duty and took it rather than deferring to a tidier slot -- the 18:45Z and 19:00Z runs both correctly declined it as early and both handed the duty forward explicitly.",
+    "quotes_stamped_utc": "2026-09-14T19:16Z",
+    "note": "daily_options_report.md for trading day 2026-09-14 covers BOTH books per v10. THAT COMMIT IS THE DELIVERY (eod-report-notify.yml fires on the master push touching this file). NO LATER RUN MAY REWRITE IT to refresh closing marks or restate 'still flat' -- every master push touching this file sends Ryan another notification. Rewrite ONLY on something MATERIAL after 19:15Z: a fill, an exit, a new flag, or a trigger firing. The ONE live candidate for exactly that: ABNB is GREEN (+0.224%), so an RSI2>=70 print on it before the bell would be a genuine mechanical take-profit and WOULD justify a rewrite -- but RSI2 is 39.82 and the cross is not close. UNP is red, so its authority is unavailable regardless.",
+    "headline_of_the_report": "The book shrank 4 -> 2 by exits (MMM 14-day time stop -$30.96, GD discretionary exit-into-strength -$21.82, together -$52.78); the desk placed nothing new across ~30 runs; deployable $1,470.57 against an open slot and NOTHING on the 11-name board above B+; options empty and the account unhedged into FOMC week; exit taxonomy now 4 closes, ALL time-stop-family, ZERO mechanical take-profits.",
+    "prior_day": "The 2026-09-11 report (written 19:15Z on 09-11) is superseded by this one.",
+    "_assertion_run": "PASSED. Per the detector recorded 2026-09-10T19:35Z, this run asserted h['_eod_report_written']['trading_day_et'] == the trading day in daily_options_report.md's own H1 header ('Monday, 2026-09-14') BEFORE committing -- the check that stops a duty being done while the marker recording it says otherwise."
   },
   "_last_reconciliation": {
     "run_utc": "2026-09-11T19:15:00Z",
@@ -841,27 +841,27 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-14T18:15:00Z",
+    "run_utc": "2026-09-14T19:15:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-14",
     "prompt_version": "v10 (pasted 2026-09-02) -- as invoked",
-    "headline": "No trade either book. The new work is a COHORT THE PRIOR NINE RUNS NEVER SAW: the 18:02Z report retired NBIS/WMB and added FOUR large-cap financials at once (BAC 3.2, C 8.6, MS 9.5, GS 9.9), minted by a sector break that began at 17:00Z and was still extending at decision time. Declined -- see _A_REPORT_CYCLE_CAN_MINT_A_WHOLE_NEW_RSI2_COHORT_OUT_OF_A_LIVE_SECTOR_BREAK_2026-09-14, named here not re-argued.",
-    "book": "2 equity swings -- ABNB and UNP, both time-stopping 2026-09-24 (4d/14d). BELOW the 3-4 target since GD's 14:17Z exit. ZERO options; unhedged since Ryan closed the SPY 700P himself 09-11 (re-establishing it is his call).",
-    "capital": "Broker-read 18:16Z: total_value $3,879.67; cash == buying_power == unleveraged_buying_power == $1,664.60 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $2,215.07; options_value $0. Reserve 5% = $193.98 -> DEPLOYABLE $1,470.62. Two open slots: $735.31/slot to reach 4, or up to the $1,163.90 per-name cap (30% of total_value). Every figure clears the ~$600 minimum. FUNDABLE; declined on grade, tenth consecutive run today.",
-    "tape": "Venue 18:16:45-18:16:59Z, settled. SPY 762.265 (-0.265%), QQQ 712.34 (-0.355%), SMH 545.52 (-4.047%), XLF 56.82 (-0.751%), BAC 59.34 (-5.344%), GS 982.77 (-4.509%), MS 206.03 (-3.895%), C 134.088 (-3.408%), JPM 349.05 (-2.015%), WFC 87.77 (-2.791%), ABNB 170.155, UNP 284.39, FCX 69.43 (-2.308%).",
+    "headline": "No trade either book. THIS RUN OWNED AND WROTE THE DAILY REPORT for trading day 2026-09-14 (19:15Z IS the v10 threshold = 14:15 CT; master carried Friday 09-11's). Both books re-verified from the broker; both equity positions HOLD on RSI2 recomputed from own bars. New measurement: today's closing-flow boundary steps at 19:00Z, an hour before the bell -- recorded as _CLOSING_FLOW_BOUNDARY_STEPPED_AT_19_00Z_THIS_SESSION_2026-09-14, provisional, and it decided nothing.",
+    "book": "2 equity swings -- ABNB and UNP, both entered 09-10, both time-stopping 2026-09-24 (4d/14d). BELOW the 3-4 target band floor since GD's 14:17Z exit and MMM's 13:35Z time stop. ZERO options; unhedged since Ryan closed the SPY 700P himself 09-11 (re-establishing it is his call, not the desk's).",
+    "capital": "BROKER-READ 19:16Z, not inherited: total_value $3,880.65; cash == buying_power == unleveraged_buying_power == $1,664.60 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $2,216.05; options_value $0. Reserve 5% = $194.03 -> DEPLOYABLE $1,470.57. Two open slots: $735.29/slot to reach 4, against a $1,164.20 per-name cap (30%) and a ~$600 minimum. Fundable twice over; declined on GRADE, eleventh consecutive run today.",
+    "tape": "Venue 19:15:48-19:16:01Z, settled, far past the opening window. SPY 761.8704 (-0.317%), QQQ 711.025 (-0.539%), SMH 544.77 (-4.181%), XLF 56.955 (-0.515%), BAC 59.175 (-5.607%), GS 988.79 (-3.924%), ABNB 169.900, UNP 284.900, GD 357.005 (post-exit), MMM 162.3655 (post-exit). Numbers only; verdict withheld per the 2026-08-28 inherited-label rule.",
     "position_verdicts": {
-      "ABNB": "HOLD / working. 170.155 vs 169.5209 entry = +0.374%. Green so the take-profit gate is open on price, but RSI2 nowhere near the 70 cross. No exit. Time stop 2026-09-24.",
-      "UNP": "HOLD / stalled but intact. 284.39 vs 285.1071 entry = -0.251%. Take-profit gate closed on price; no price stop ever (HARD RULE 5). Time stop 2026-09-24 is the binding exit."
+      "ABNB": "HOLD / working. 169.900 vs 169.5209 entry = +0.224%. GREEN, so the take-profit authority is open on price -- but RSI2 recomputed Wilder from own daily bars INCLUDING the live print is 39.82 (43.66 on the 09-11 close), nowhere near the 70 cross. No target hit (183.08). Time stop 2026-09-24, 4d/14d. No exit.",
+      "UNP": "HOLD / stalled but intact. 284.900 vs 285.1071 entry = -0.073%. RED, so the RSI2>=70 banking authority is structurally unavailable per the 2026-08-26 correction regardless of the print; RSI2 is 37.41 anyway (17.50 on the 09-11 close). No price stop ever (HARD RULE 5). Time stop 2026-09-24 is the binding exit."
     },
     "reopening_conditions_discharged": {
-      "FCX": "NOT MET. Pinned gate 68.535; last 69.43, still 0.895 above it. Grade unchanged at B.",
-      "SEMIS_CLUSTER": "NOT MET on either trigger. DATE trigger is the first report of 09-15; PRICE trigger is a close below the 537.730 session low, and SMH is 545.52, 7.79 above it. Grades unchanged, best name B+."
+      "SEMIS_CLUSTER": "NOT MET on either trigger, re-derived from this run's own quote rather than inherited. DATE trigger is the first committed report of 09-15 (tomorrow). PRICE trigger is an SMH close below 537.730 (today's session low, a structural level and therefore a well-formed gate); SMH is 544.77, still 7.04 above it with 44 minutes to the bell. Grades unchanged, best name NVDA B+.",
+      "FCX": "Declines on GRADE (B), not on the drawn gate -- per the 18:45Z construction audit the 68.535 level is the midpoint of a range drawn around today's bars and is a proxy for nothing."
     },
     "why_flat": {
-      "equities": "No A-grade, and the one genuinely new cohort is the weakest thing on the board. The four financials grade C to C- on three independent grounds: the FOMC decision Wed 09-16 sits squarely inside a 14-day hold (brief verified this at 13:41Z and pre-scoped it), banks are the most rate-exposed sector, HARD RULE 5 forbids the stop that could protect the gap, and the concentration policy makes a binary event inside the hold window an absolute bar at a 30% cap; the cohort is in ACTIVE distribution at a mean 12.9x the index rate and printing session lows in the current bar; and all four sit below their 50-day. Standing list unchanged: semis/AI B+ to C, RTX B, FCX B, MU excluded on [ERN 2026-09-30], SLB on the oil steer. 0 of 3 entries used, capital fundable twice over, declined on grade alone.",
-      "options": "TACTICAL: the live XLF/bank break is the only fresh structural move, and it is 75 minutes old with the -30% stop landing back at the trigger -- the late-entry state that spends a breakout's only cheap invalidation. Compounding it, a scalp opened now carries the hard time stop across the overnight into FOMC eve, and _TACTICAL_IS_AN_INTRA_SESSION_CONSTRUCT measures both exits as sitting inside one median overnight gap. The QQQ 50-day remains disqualified on five same-session cross transitions. CORE: no thesis worth a 21-45 DTE vehicle two days ahead of an unresolved FOMC."
+      "equities": "All ELEVEN RSI2 setups on the 19:03Z report are accounted for against the enumeration (SLB, NVDA, BAC, RTX, LRCX, WMB, LITE, FCX, AMAT, MU, NBIS) and NOTHING reaches A. SLB + WMB excluded on Ryan's oil steer. MU excluded on [ERN 2026-09-30], an ABSOLUTE bar at 30% sizing. Six of eleven are ONE trade -- the semis/AI export-policy de-rate, SMH -4.18%, catalyst unresolved, trend-maturity gate failing all three legs. BAC C (uncalendared IB-fee guidance cut, plus FOMC 09-16 inside a 14-day hold for the most rate-exposed sector on the board). RTX B, FCX B, LITE/NBIS C. A B-grade gets NO position, not a small one. 0 of 3 entries used; capital fundable twice over.",
+      "options": "TACTICAL: no trigger. SPY held an 18:00-19:16Z range of 1.22 points (761.61-762.83, 0.16%) and QQQ 1.75 points -- drift, not a break, and an empty book is not a trigger. Compounding: a scalp opened now carries its hard time stop overnight into FOMC eve, with both exits inside one median overnight gap; and the confirmation denominator is already contaminated (see the named key). CORE: no full-stack thesis, and FOMC 09-16 sits inside every 21-45 DTE window. The FOMC is deliberately NOT cited against TACTICAL -- a scalp opened today is flat by the 09-15 close, so that catalyst is outside this track's window."
     },
-    "duties": "Heartbeat stamped 13:35Z by the first post-bell run -- not re-stamped. market_brief.json stamped today and already carries the FOMC verified at 13:41Z -- not rebuilt. iv_history.json already holds 9 rows dated today and this run priced no new option chain, so no row is owed. Daily report for 2026-09-14 NOT yet due: the v10 threshold is 19:15Z and this run is 18:15Z; master still carries the 09-11 report, so the first run at/after 19:15Z owns it. Weekly calibration ran pre-open 07:35Z (NO CHANGE both books) -- not re-run. HARD RULE 9: no flag touched, none claimed, no Ryan turn asserted."
+    "duties": "DAILY REPORT WRITTEN THIS RUN for 2026-09-14, both books, and _eod_report_written updated with the H1 assertion passing. Heartbeat already stamped 13:35Z by the first post-bell run -- not re-stamped. market_brief.json stamped today -- not rebuilt. iv_history.json already carries today's rows for all 8 core names and this run priced NO new option chain, so no row is owed. Weekly calibration ran pre-open 07:35Z (NO CHANGE both books, nothing escalated) and is CONFIRMED here, not re-run. HARD RULE 9: no flag touched, none claimed, no Ryan turn asserted."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -5332,5 +5332,39 @@
     "what_is_NOT_claimed": "The hold is NOT invalid and is NOT dissolved by this finding. FOMC 2026-09-16 is a real, dated, screen-wide catalyst; the capital genuinely sits; the expiry is real and unextended. Only the PROSE of the opportunity field was wrong. This finding also does NOT argue the semis cluster should be bought -- it grades B+ at best and a B gets no position, not a small one.",
     "the_repair_performed_this_run": "Corrected the three false clauses IN PLACE inside _cash_hold and scoped the semis half to its own 09-15 trigger. Nothing was loosened: the expiry, the amount and the reserve are untouched, no renewal or extension was performed (RENEWAL IS NOT AVAILABLE TO AN UNATTENDED RUN, and this is a factual repair, not a renewal). A correction that makes a hold's stated basis narrower and truer can only shorten the hold's reach, never lengthen it.",
     "detector": "Before crediting an inherited governance object -- a cash hold, a reopening condition, a deferral -- RE-READ ITS PREMISE, not just its trigger and expiry. Ask: has anything measured since this was written refuted the reason it exists? A dated trigger that still parses is not evidence the object is sound. Cheapest form: when a run refutes a claim, grep the ledger for the objects that assert it and edit them in the same pass -- the same discipline the lot-invariant rule applies to derived numeric fields, applied to derived PROSE."
+  },
+  "_CLOSING_FLOW_BOUNDARY_STEPPED_AT_19_00Z_THIS_SESSION_2026-09-14": {
+    "measured_utc": "2026-09-14T19:20:00Z",
+    "status": "PROVISIONAL, session-scoped observation. NOT a new constant and NOT a durable finding. It CHANGED NO DECISION -- TACTICAL declined on the absence of any price trigger, which stands on its own.",
+    "headline": "Today's closing-flow contamination boundary appears to step at 19:00Z -- a FULL HOUR before the bell, against the 40 minutes measured on 2026-08-28 and the 20 minutes stated on 2026-08-27. This is exactly why _CLOSING_WINDOW_IS_FORTY_MINUTES_NOT_TWENTY says to DETECT the boundary per session rather than adopt a number.",
+    "measured": {
+      "feed_integrity_first": "All three ramp buckets reconciled against their own 1-minute sums BEFORE any ratio was computed, per the 2026-08-28 direction rule: 19:00Z 125,412 vs 125,412 EXACT; 19:05Z 131,367 vs 131,367 EXACT; 19:10Z 105,254 vs 105,254 EXACT. No hole in the numerator, so the ratio is computed on clean data.",
+      "baseline_18:00-18:55Z_twelve_buckets": [
+        158064,
+        88557,
+        73588,
+        48948,
+        63085,
+        38925,
+        91366,
+        77566,
+        99223,
+        135617,
+        80135,
+        59622
+      ],
+      "baseline_mean": 84558,
+      "ramp_19:00-19:10Z_three_buckets": [
+        125412,
+        131367,
+        105254
+      ],
+      "ramp_mean": 120678,
+      "ratio": 1.427,
+      "symbol": "SPY, 5-minute, bounds regular"
+    },
+    "honest_bounds_and_they_are_wide": "(a) n=3 RAMP BUCKETS -- fifteen minutes. The 08-28 finding had five buckets and an unambiguous 2.48x standalone step; this has 1.43x on three. (b) The claim 'the tape never returns to the prevailing rate' is UNTESTED here: the 18:00Z baseline bucket alone (158,064) EXCEEDS every ramp bucket, so the prevailing rate is choppy and a single quiet bucket after 19:15Z would weaken this considerably. (c) The baseline buckets were NOT reconciled, so a hole there would depress the baseline and inflate the ratio -- 1.427x is an UPPER BOUND. (d) The run that measured it ends at 19:20Z and cannot observe the rest of the window, so nobody has checked whether the step persisted.",
+    "what_it_does_NOT_license": "It does not establish a one-hour blind spot, and no run should inherit '60 minutes' from it -- that would repeat precisely the error _CLOSING_WINDOW_IS_FORTY_MINUTES_NOT_TWENTY was written to correct, one number later. The transferable content is the METHOD: reconcile first, compute the prevailing rate from the session's own earlier buckets, find the step, and state the bounds.",
+    "why_recorded_despite_deciding_nothing": "A filter's inputs can only be audited credibly on a run where the audit does not license a trade. This run declined TACTICAL on a price-trigger absence before any volume clause was reached, so the measurement is free of motivated reasoning. The next run that DOES face a late-session fire inherits a session-specific boundary estimate instead of re-deriving it from a stale constant."
   }
 }
