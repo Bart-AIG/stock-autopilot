@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-14T18:15:00Z",
+  "updated_utc": "2026-09-14T18:25:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-14",
     "realized_usd_options": 0.0,
@@ -4811,7 +4811,8 @@
     "explicitly_NOT_a_cash_hold": "THE CAPITAL POLICY requires a _cash_hold record to name an opportunity, a checkable DATE or PRICE trigger, and an expiry. None is written because none applies: this is the ABSENCE of an A-grade opportunity, which the policy already covers -- 'cash is whatever is left after every A-grade opportunity has been funded'. Labelling it a hold would misdescribe the decision and start the unexpiring 'waiting for a better setup' hold the policy forbids. The prior _cash_hold dissolved on its own expiry today and was correctly NOT renewed.",
     "rotation_gate": "DORMANT and not invoked. Its precondition is deployable BELOW one position size; $992.53 IS a full position.",
     "handoff": "RE-GRADE FROM SCRATCH next run. Do NOT inherit these vetoes -- the semis veto in particular is a DEFERRAL tied to an unresolved catalyst, and per the standing corollary the event resolving is a reason to re-grade on fresh numbers, never to carry the grade forward. A gap-up is not a gift to a mean-reversion setup either.",
-    "_REGRADED_FROM_SCRATCH_2026-09-14T16:05Z": "The 14:20Z handoff instructed RE-GRADE FROM SCRATCH and specifically warned that the semis veto was a DEFERRAL tied to an unresolved catalyst, not a standing grade. Done on fresh 16:02Z quotes, and the veto SURVIVES -- see _AN_INDEX_LEVEL_RECOVERY_IS_NOT_EVIDENCE_ABOUT_A_COMPLEX_LEVEL_VETO_2026-09-14 for the measurement. Residual verdicts, each re-checked rather than copied: SEMIS (NVDA/LRCX/AMAT/MU) still C, catalyst still unresolved and the complex flat-to-worse while the index recovered. SLB/HAL/WMB still EXCLUDED on Ryan's sector steer. NBIS/LITE still C (AI-adjacent, extended). SBUX 5.2 sessions and RTX 9.7 sessions of 200-day cushion -- structural measurements that do not move in 40 minutes, so they stand. AMGN declined on the unresolved olpasiran Phase 3 binary, which is an [ERN]-class bar and is NOT retired by its green tape today (+0.77%) -- the binary is unchanged. FCX still -2.42% and still falling, so the dip is still unfinished, and it is the most rate-sensitive name in the field two sessions from an FOMC dot-plot. NO candidate grades A/A+. 0 of 3 equity entries used."
+    "_REGRADED_FROM_SCRATCH_2026-09-14T16:05Z": "The 14:20Z handoff instructed RE-GRADE FROM SCRATCH and specifically warned that the semis veto was a DEFERRAL tied to an unresolved catalyst, not a standing grade. Done on fresh 16:02Z quotes, and the veto SURVIVES -- see _AN_INDEX_LEVEL_RECOVERY_IS_NOT_EVIDENCE_ABOUT_A_COMPLEX_LEVEL_VETO_2026-09-14 for the measurement. Residual verdicts, each re-checked rather than copied: SEMIS (NVDA/LRCX/AMAT/MU) still C, catalyst still unresolved and the complex flat-to-worse while the index recovered. SLB/HAL/WMB still EXCLUDED on Ryan's sector steer. NBIS/LITE still C (AI-adjacent, extended). SBUX 5.2 sessions and RTX 9.7 sessions of 200-day cushion -- structural measurements that do not move in 40 minutes, so they stand. AMGN declined on the unresolved olpasiran Phase 3 binary, which is an [ERN]-class bar and is NOT retired by its green tape today (+0.77%) -- the binary is unchanged. FCX still -2.42% and still falling, so the dip is still unfinished, and it is the most rate-sensitive name in the field two sessions from an FOMC dot-plot. NO candidate grades A/A+. 0 of 3 equity entries used.",
+    "APPENDED_1825Z_the_four_new_board_entrants_are_also_declined": "The 18:02Z report added FOUR names absent at 17:02Z -- BAC (RSI2 3.2), C (8.6), MS (9.5), GS (9.9) -- so the earlier runs' 'every board name is graded' statements no longer cover the board. All four are now graded and all four are DECLINED at grade C on the HARD RULE 7 thesis gate: they are one intra-quarter guidance event (BAC's CEO cutting Q3 investment-banking fee guidance >=10% YoY and calling the whole industry ~10% lower), not four setups, and the FOMC hike decision lands 2026-09-16 inside the hold window on the most rate-sensitive cluster on the board. Argued in _FOUR_BANKS_ENTERED_THE_RSI2_BOARD_IN_ONE_REFRESH_AND_ONE_UNCALENDARED_GUIDANCE_EVENT_MADE_ALL_FOUR_2026-09-14, union-merged with the concurrent 18:15Z run's _A_REPORT_CYCLE_CAN_MINT_A_WHOLE_NEW_RSI2_COHORT_OUT_OF_A_LIVE_SECTOR_BREAK_2026-09-14 which reached the same decline via the break's timing. VERDICT UNCHANGED: 0 of 3 equity entries used, declined on grade with capital available -- broker-read 18:20Z, total_value $3,878.94, cash == buying_power == unleveraged_buying_power == $1,664.60, reserve 5% = $193.95, DEPLOYABLE $1,470.65 against 2 held of the 3-4 target ($735.33/slot to reach 4, per-name cap $1,163.68). A full-size entry was fundable twice over and was declined anyway."
   },
   "_CONCURRENT_RUNS_SPLIT_ON_A_DISCRETIONARY_EXIT_AND_THE_ACTING_RUN_WINS_BY_DEFAULT_2026-09-14": {
     "measured_utc": "2026-09-14T14:25:00Z",
@@ -5202,5 +5203,69 @@
     "the_detector": "WHEN ONE REPORT CYCLE ADDS TWO OR MORE NAMES FROM A SINGLE SECTOR THAT WERE ABSENT FROM THE PRIOR CYCLE, DATE THE SECTOR'S BREAK BEFORE GRADING ANY MEMBER. One get_equity_historicals call on the sector ETF and the two largest members answers it. If the break is same-session and still extending, the cohort is distribution and not opportunity, and the correct output is a decline that says so. Test the cohort against the INDEX, never against its own sector ETF -- a cap-weighted ETF whose non-bank majority is flat will understate a bank de-rate by 5x, as XLF did here (2.83x vs a 12.9x cohort mean).",
     "why_this_is_the_mirror_of_the_tension_finding": "_TAPE_CONFIRMATION_AND_THE_RSI2_SCREEN_ARE_IN_TENSION establishes that a name which visibly CONFIRMS disqualifies itself from the screen that found it, within about one report cycle. This establishes the entry side of the same mechanism: the screen ADMITS names at the moment of maximum distribution. Together they say the RSI2 board is biased at BOTH ends -- it drops names as they turn up and adds them as they break down -- so recency on the board is a hazard signal, not a freshness merit.",
     "honest_scope": "This changed no decision that a correct application of the existing rules would not also have reached, and it licensed no trade -- which is the only condition under which an entry filter can be audited credibly. n=1 board turnover on one sector. The claim is about the MECHANISM (a mid-session screen samples in-progress moves), which is structural and does not depend on this cohort's outcome. It is explicitly NOT a claim that these four names will keep falling; a sharp one-day repricing in a mega-cap bank is a legitimate Connors setup in the abstract, and if the FOMC resolves and the tape stabilizes these are worth re-grading FROM SCRATCH on post-event numbers, never on today's grade."
+  },
+  "_FOUR_BANKS_ENTERED_THE_RSI2_BOARD_IN_ONE_REFRESH_AND_ONE_UNCALENDARED_GUIDANCE_EVENT_MADE_ALL_FOUR_2026-09-14": {
+    "measured_utc": "2026-09-14T18:25:00Z",
+    "status": "NEW DURABLE FINDING. Changed the REASON for a decline, not the decision. UNION-MERGED with the concurrent 18:15Z run's _A_REPORT_CYCLE_CAN_MINT_A_WHOLE_NEW_RSI2_COHORT_OUT_OF_A_LIVE_SECTOR_BREAK_2026-09-14, which found the SAME cohort independently by a different route -- it dated the break's TIMING off 30-minute bars and showed the names were still falling when the screen sampled them; this key identifies the break's CAUSE and shows why it continues. Neither supersedes the other and both decline. Two independent runs converging on one verdict by disjoint evidence is cross-validation, not a conflict (CLAUDE.md concurrent-run union rule).",
+    "headline": "THE 18:02Z RSI2 BOARD GAINED FOUR NAMES IN A SINGLE REFRESH -- BAC, C, MS, GS -- AND ALL FOUR WERE MANUFACTURED BY ONE FUNDAMENTAL EVENT THE REPORT IS STRUCTURALLY BLIND TO: AN INTRA-QUARTER CEO GUIDANCE DISCLOSURE, WHICH NO EARNINGS CALENDAR CARRIES. FOUR NAMES ARRIVING TOGETHER IS NOT FOUR OPPORTUNITIES; IT IS ONE UNEXPLAINED FACT.",
+    "the_board_diff": {
+      "method": "git show 150ecb3:latest_intraday.md vs 8c97fdc:latest_intraday.md -- the 17:02Z and 18:02Z reports, one hour apart",
+      "board_1702Z": [
+        "SLB",
+        "NVDA",
+        "RTX",
+        "LRCX",
+        "LITE",
+        "MU",
+        "AMAT",
+        "WMB",
+        "FCX",
+        "NBIS"
+      ],
+      "board_1802Z": [
+        "SLB",
+        "NVDA",
+        "BAC",
+        "RTX",
+        "LRCX",
+        "LITE",
+        "AMAT",
+        "FCX",
+        "MU",
+        "C",
+        "MS",
+        "GS"
+      ],
+      "NEW": [
+        "BAC",
+        "C",
+        "MS",
+        "GS"
+      ],
+      "dropped": [
+        "WMB",
+        "NBIS"
+      ],
+      "note": "Every one of the four new entrants is a money-center or investment bank. No prior run today had graded any of them."
+    },
+    "the_cause_identified_not_inferred": {
+      "driver": "BAC CEO Brian Moynihan publicly guided Q3 INVESTMENT BANKING FEES to $1.6-1.8B, a decline of AT LEAST 10% year over year, attributing it to a broad-based slowdown and stating the INDUSTRY overall is tracking roughly 10% lower.",
+      "source": "Investing.com, 'Why is Bank of America stock sliding today?'; corroborated by TradingView 'Bank of America (BAC) Shares Drop Over 6%'. Retrieved 2026-09-14T18:22Z via web search.",
+      "get_equity_news_was_EMPTY_on_this": "The connector's BAC news feed returned NOTHING about it -- its newest BAC item was an 08:11 ET Kioxia-listing story. The finding required a web search. A QUIET COMPANY NEWS FEED IS NOT EVIDENCE OF NO COMPANY EVENT, and HARD RULE 7 is not discharged by the connector alone on a name that has just moved 5%.",
+      "the_magnitude_ordering_CONFIRMS_the_mechanism": "Day change at 18:20Z, ranked: BAC -5.30% (source of the guidance), GS -4.30% (most IB-fee-levered), MS -3.79%, C -3.47%, JPM -2.01% (most diversified, least IB-levered). The cross-section is ordered by investment-banking exposure -- a rational repricing of IB earnings power, NOT an undifferentiated sector selloff. This is the piece the concurrent run's timing analysis could not supply: it establishes the break has a CAUSE with a known direction, rather than being unexplained flow.",
+      "prior_five_sessions_were_quiet": "Daily bars 09-02..09-11: BAC ranged 61.94-63.83 and closed 62.69; GS 998-1043 closing 1029.18; MS 210.60-218.51 closing 214.38; C 132.70-141.27 closing 138.82. A ONE-DAY crater out of a tight range, not a multi-day slide."
+    },
+    "why_the_report_could_not_see_it": "The [ERN] flag screens SCHEDULED REPORT DATES from the earnings calendar. None of these four reports earnings inside the window, so the Earnings column was correctly blank on all four -- and that blankness carried no information. Mid-quarter guidance from a CEO speaking publicly is an EARNINGS EVENT WITH NO CALENDAR ENTRY: it moves forward earnings power exactly as a print does, it is unschedulable, and no calendar-based screen can ever flag it. This extends the 2026-08-26 NVDA-complex finding ('the [ERN] rule's mechanism is agnostic about WHOSE print it is') along a new axis -- agnostic about whether the event is on ANY calendar at all.",
+    "THE_DETECTOR_which_is_the_keepable_part": "WHEN THREE OR MORE SAME-SECTOR NAMES APPEAR ON THE RSI2 BOARD IN ONE REFRESH THAT WERE ABSENT FROM THE PRIOR REFRESH, TREAT IT AS ONE EVENT AND FIND THE EVENT BEFORE GRADING ANY MEMBER. Diffing consecutive committed reports costs one git command and is the cheapest signal-origin check available. The screen grades each name independently, so a cluster arrives looking like N setups when the THESIS SAMPLE SIZE IS ONE. The concentration policy's 'don't buy them all' warning addresses correlation of HOLDINGS; this is correlation of SIGNAL ORIGIN, which binds earlier and harder -- there is not one good idea among four to pick, there is one fact, and it is bearish.",
+    "WHY_THIS_DESK_WAS_PRIMED_TO_MISREAD_IT": "This session had declined the semis/AI complex for six consecutive runs. A four-name NON-SEMIS cluster printing RSI2 3.2-9.9 while tech de-rates reads as exactly the diversifying rotation a hunt in that state is hoping to find -- oversold quality, uncorrelated with the crowded trade, in a sector whose CFOs have said a rate hike HELPS them. That story is seductive precisely because it is the shape of the opposite of the thing being avoided. The cluster is not uncorrelated with anything: its four members share ONE catalyst, and that catalyst is a downgrade to their common earnings power.",
+    "the_HARD_RULE_7_verdict": {
+      "grade": "C on all four. NOT B, and not a close call.",
+      "thesis_gate": "The RSI2 buy thesis is 'oversold within an intact uptrend; the move is an overreaction and reverts.' Here the decline is the market repricing a NEW FACT about forward earnings, disclosed by the sector's own largest retail bank and explicitly extended to the industry. There is nothing to fade. Thesis BROKEN for a mean-reversion long.",
+      "trend_maturity_gate_b": "The catalyst is HOURS old, not priced over weeks. This is the ZTS lesson inverted: there the desk nearly chased a trend that had already COMPLETED; here the re-rating is at its START, with analyst estimate revisions still ahead of it. Post-guidance drift runs WITH the move for days.",
+      "second_independent_bar_FOMC": "The FOMC decision is WEDNESDAY 2026-09-16 at 14:00 ET, with the SEP and dot plot, ~85% priced for a 25bp HIKE to 3.75-4.00% (verified: federalreserve.gov September 2026 calendar; FedRateCalc; FedWatch/Polymarket pricing per Benzinga 09-11). TWO DAYS into any swing entered today, on the most rate-sensitive cluster on the board -- so for THESE names the macro event is not background, it is a second binary aimed directly at the thesis. HARD RULE 5 forbids the price stop that could protect the gap."
+    },
+    "scope_discipline_on_the_FOMC_leg": "Applied with proportion and stated honestly: a MARKET-WIDE macro event is not the same as a single-name print, because it is priced into everything and an equity swing book cannot avoid eight FOMC weeks a year. Barring all entries on FOMC-week grounds would be exactly the unbounded, unexpiring exclusion THE CAPITAL POLICY forbids. So the FOMC is an ABSOLUTE bar only for names whose thesis IS the rate decision -- which the banks are, doubly -- and a grade-reducer, not a veto, elsewhere. The other eight board names decline on grade alone.",
+    "XLF_UNDERSTATED_IT__SECOND_INSTANCE_OF_A_CLASS_ALREADY_FOUND_TODAY": "XLF printed -0.73% while its own bank constituents fell 2.0-5.3%, because the ETF is roughly half non-bank (Berkshire, payments networks, insurers) and dilutes a bank-specific event by more than half. A run checking 'is the sector under stress?' via the ETF would have read -0.73% and concluded the cluster was mild or idiosyncratic. SAME CLASS as today's _THE_DEFENSE_ETF_BLENDS_TWO_COHORTS_MOVING_IN_OPPOSITE_DIRECTIONS_AND_RTX_TRADES_WITH_THE_WRONG_ONE_2026-09-14, arriving on a different sector in the same session -- so a class CONFIRMATION, not a fresh discovery. The class: A SECTOR ETF IS A WEIGHTED BLEND AND IS NEVER A PROXY FOR A SUB-COHORT EVENT. Honest limit: exact constituent weights were NOT verified this run, so the arithmetic reconciliation is qualitative; the conclusion does not depend on it.",
+    "honest_scope": "This changed no decision -- no entry was going to be placed, and the concurrent 18:15Z run declined the same four names independently. What it changed is the RECORDED REASON, from 'a live sector break, so the newest cohort is the worst' to 'and here is WHAT the break is, why it has a direction, and why it continues.' A filter's inputs can only be audited credibly on a run where the audit does not license a trade."
   }
 }
