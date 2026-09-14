@@ -1,91 +1,87 @@
-# Daily Report — Friday, 2026-09-11 — **BOTH BOOKS**
+# Daily Report — Monday, 2026-09-14 — **BOTH BOOKS**
 
-*Agentic account (••••7339, `limited_margin` / `option_level_3`). Written at 14:15 CT / 15:15 ET / 19:15 UTC by the first run at or after the report window — **45 minutes before the bell**. All quotes stamped 19:16Z. Prompt v10.*
+*Agentic account (••••7339, `limited_margin` / `option_level_3`). Written by the 19:15Z run — the first at or after the 14:15 CT report window. 14:15 CT = **15:15 ET**, so this lands ~40 minutes before the bell. All quotes venue-stamped 19:19–19:20Z, settled, far past the opening auction. Prompt v10.*
 
-> *Correction pushed 19:30Z: the first version of this header said "1h45m before the bell" and §3 said "the Friday 14:16 ET clock". Both were wrong by exactly one hour — 19:15Z is **3:15 PM ET**, not 2:15 PM ET. The report window is specified in **CT** and the market clock runs in **ET**, so one run has to hold two different UTC offsets at once, and the CT offset got reused for ET. No decision changes: the corrected clock makes the options decline **stronger**, not weaker (see §3).*
+Broker-reconciled at 19:19–19:20Z: **2 equities, 0 options, zero drift** on quantity *and* average price. `get_equity_orders(2026-09-14)` returns exactly two orders — both this desk's own exits, already on master. `get_option_orders(2026-09-14)` is **empty**.
 
-Broker-reconciled at 19:15–19:16Z: **4 equities, 0 options, zero drift** on quantity *and* average price. `get_equity_orders(2026-09-11)` is **empty**. `get_option_orders(2026-09-11)` returns **exactly one order — yours**.
-
-> **Headline: you closed the SPY hedge yourself at 15:54Z, and that is the whole story of today.** The desk placed nothing, in either book, across ~30 runs. The options sleeve is now **empty for the first time in weeks** and the account is **100% long equity beta with no offset, going into a weekend.** Your close is also what ended a day-long capital lockout — it freed $502 and took deployable from $21 to $523. Section 2 explains why the desk did *not* buy the put back, which was a deliberate decision and not an oversight.
+> **Headline: the book halved today, and both closures were exits rather than decisions to raise cash.** MMM hit its 14-day time stop and was sold mechanically at 13:35Z. GD was sold at 14:17Z on an optional exit-into-strength — a call a concurrent run had *declined* seventeen minutes earlier, which is worth reading in §2 because it is the first time two scheduled runs have split on a discretionary exit. Realized **−$52.78** across the two. The desk then declined every one of the day's 15 RSI2 candidates on **grade**, with $1,470 fundable and the book **below its target band**. That combination — capital available, a genuine open slot, and still no trade — is the whole story of the afternoon, and §3 is where it is argued.
 
 ---
 
-## 1. Positions — 4 equity swings, 0 options
+## 1. Positions — 2 equity swings, 0 options
 
-| Ticker | Sleeve | Shares | Entry | Last (19:16Z) | Value | P/L $ | P/L % | Held | **Time stop** | Why we own it |
+| Ticker | Sleeve | Shares | Entry | Last (19:19Z) | Value | P/L $ | P/L % | Held | **Time stop** | Why we own it |
 |---|---|---|---|---|---|---|---|---|---|---|
-| **MMM** | swing | 2.884552 | 173.3371 | 164.855 | $475.53 | **−$24.47** | −4.89% | 11d/14 | **Mon 2026-09-14 (3d)** | RSI2 mean-reversion entry 08-31. Thesis intact, no company break — it has simply stalled. |
-| **GD** | swing | 1.335314 | 374.4437 | 356.890 | $476.56 | **−$23.44** | −4.69% | 10d/14 | **Tue 2026-09-15 (4d)** | RSI2 entry 09-01, defence complex. Thesis re-confirmed intact 09-09; the de-rate was sector flow, not GD news. |
-| **ABNB** | swing | 6.573584 | 169.5209 | 169.670 | $1,115.34 | **+$0.98** | +0.09% | 1d/14 | Thu 2026-09-24 | Graded-A entry 09-10 under the concentration policy. Baird PT $175→$200. |
-| **UNP** | swing | 3.858199 | 285.1071 | 284.300 | $1,096.89 | **−$3.11** | −0.28% | 1d/14 | Thu 2026-09-24 | Graded-A entry 09-10. Rail, low-beta, uncorrelated with the rest of the book. |
+| **ABNB** | swing | 6.573584 | 169.5209 | 169.860 | $1,116.59 | **+$2.23** | +0.20% | 4d/14 | Thu **2026-09-24** | Graded-A RSI2 entry 09-10 inside a monotonically rising 200-day (+20.7% above it). Baird PT $175→$200. |
+| **UNP** | swing | 3.858199 | 285.1071 | 285.015 | $1,099.55 | **−$0.36** | −0.03% | 4d/14 | Thu **2026-09-24** | Graded-A entry 09-10. Rail — low-beta and genuinely uncorrelated with the rest of the book, which is why it survived a day that hit semis for −4%. |
 
-**Open P/L −$50.04** on $3,214.36 of cost. No position carries a price stop — that is policy (HARD RULE 5), not an oversight. None is near its green-enough trailing trigger: MMM needs $203.93, GD $440.52, ABNB $199.44, UNP $335.42.
+**Open P/L +$1.87** on $2,214.60 of cost. Broker `equity_value` $2,216.92.
 
-**Options: none.** The SPY 2026-11-20 700P is gone (see §2).
+**No position carries a price stop. That is policy (HARD RULE 5), not an oversight.** The three exits this book has are the RSI2≥70 cross while green, the 14-day time stop, and Ryan's native 15% trail once a name is green enough. Neither name is close to a trail trigger: ABNB needs **$199.44**, UNP needs **$335.42**.
 
-### The thing to look at on this table
-**Two of the four positions are recycled by the clock inside the next two sessions** — MMM Monday, GD Tuesday — and both will realize a loss of roughly $24 unless they move. That is the time stop working as designed, not a failure: it is the *only* mechanical loss discipline this book has, because policy forbids price stops. It returns ~$952 of capital on its own, which is the single most important fact for next week's sizing.
+**Mechanical exits checked independently of the report, not taken on trust.** Wilder RSI2 computed from own daily bars including the live print: **ABNB 39.35**, **UNP 40.70** — both nowhere near the 70 cross. (ABNB's settled 09-11 reading was 43.68, UNP's 17.51; UNP's jump to 40.70 is today's +0.22% bounce off a 2-period base, not a signal.) Neither time stop fires for another ten days.
 
----
-
-## 2. Actions taken today — the desk placed **nothing**; you closed the hedge
-
-### Your trade (`placed_agent="user"`), 15:54:21Z
-**SELL to close SPY 2026-11-20 700P ×1 @ $5.02 limit → filled, $502.00 credit. Realized −$247.00** against a $7.49 entry, ~45 days before its scheduled ~21-DTE review.
-
-Three consequences, all of which change how the desk is allowed to behave:
-
-1. **The book is unhedged.** The Aug–Oct drawdown-watch posture nominally runs to a ~Nov 1 review, and a long index put was one of its four named layers. That layer is now gone by your own hand. The account is four long equity swings and nothing else.
-2. **It ended the capital lockout.** Deployable went $21.02 → $523.32. For the first time today the options sleeve cleared the $300 TACTICAL floor, and the rotation gate became fundable one name at a time (it was not, this morning — either weak name was worth less than the $600 minimum entry on its own).
-3. **−$247 now sits against the −$400 daily options cap**, leaving $153 of headroom. Counted under the stricter reading: the cap is a *risk* rule ("stop opening new option trades"), not the sizing rule that excludes your manual positions. It gated nothing — both options tracks were declined on their merits first.
-
-### **What the desk deliberately did NOT do: re-establish the hedge**
-Buying an index put minutes after you voluntarily closed one at a loss would be the desk **taking the opposite side of your decision, autonomously, in the same session** — and it would be sourced from a *posture* rather than a *setup*. A standing defensive frame is not a signal: it answers no "why NOW", and nothing in the report signalled it. This is the ownership gate read in the direction that is easy to miss — the gate stops the desk selling your position, and the same logic stops the desk immediately undoing your sale. **Re-hedging is your call.** If you want it back on, say so and it goes in the next batch.
-
-### One code fix landed (13:20Z, pre-open)
-`calibrate.py` had a real defect in live code: `edge_stats()` divided the win rate by **all** closes but derived the breakeven win rate from only the **decided** ones — two sides of the same comparison on different denominators. A single $0 scratch leg (the long leg of the August legged SPY vertical, bought and sold back at 3.22) was enough to flip the options book from a thin-positive edge into the **KILL branch** — "halve size, pause new entries, escalate." Fixed: the win rate is now computed over wins+losses and scratches are reported separately (`9W/7L/1scratch`).
-
-The economics never moved — net +$90.00 and expectancy +$5.29/trade are identical either way. **Only the statistic changed.** Worth flagging why it survived: the error was *directional*, and it could only ever drag the measured win rate toward risk-off. A defect that only errs toward caution is the hardest kind to catch, because every instance of it looks like prudence.
+**Options: none.** The sleeve has been empty since you closed the SPY 2026-11-20 700P yourself on 09-11. **The account remains 100% long equity beta with no offset going into the FOMC decision on Wednesday** — stated plainly because it is the single largest uncovered risk in the book, and §5 explains why the desk did not buy a hedge back today.
 
 ---
 
-## 3. Considered and SKIPPED — the educational section
+## 2. Actions taken today — two exits, no entries
 
-### Equities — 13 names on the 19:03Z RSI2 board, **zero graded A**
+### 2a. MMM — SELL / TIME STOP (stalled), 13:35:45Z, 2.884552 sh @ $162.605, realized **−$30.96 (−6.19%)**
 
-The board is **dominated by one sector**: 9 of 13 are pharma/healthcare (AMGN 1.2, LLY 0.9, CVS 2.1, BMY 2.4, MRK 2.5, REGN 3.3, PFE 3.7, GILD 3.7, UNH 3.8).
+Entered 2026-08-31 at $173.3371. `(2026-09-14 − 2026-08-31).days = 14 ≥ SWING_TIME_STOP_DAYS`. **It fired on the calendar, not on the price, and it went out red — which is the mechanism working, not failing.** Because HARD RULE 5 forbids price stops, the time stop is the *only* mechanical loss discipline this book has, and it is deliberately the one exit that cannot collapse onto the entry price the way both price-based exits do. MMM had neither hit its target nor printed its bounce in 14 days; that is the definition of stalled.
 
-| Candidate(s) | Grade | Why skipped |
+This is the **third** time-stop firing since the policy went live 09-02 (PNC 09-03, LLY 09-10, MMM today). No thesis break was alleged and none was needed — a time stop does not ask whether the company is fine, it asks whether the *trade* is working.
+
+Priced honestly, not favourably: the 13:31Z quotes carried venue timestamps *inside* the opening auction window, so the exit was priced off a re-quote whose venue stamp was at/after 13:35Z.
+
+### 2b. GD — SELL / EXIT-INTO-STRENGTH (underwater, **optional**), 14:17:31Z, 1.335314 sh @ $358.0976, realized **−$21.82 (−4.36%)**
+
+Entered 2026-09-01 at $374.4437. Held 13 days — **one day short of the time stop**, which was due Tuesday 09-15. So this was *not* the mechanical time stop, and it was *not* the RSI2 take-profit either: that authority is gated on `price > entry`, and GD was ~4.4% underwater, so the profit-banking power was structurally unavailable. It was the report's optional `EXIT-INTO-STRENGTH` line, taken into the strongest RSI2 print of the whole 13-day hold (report 80.9; independently computed 75.28 at the fill price).
+
+**The part you should know about, because it is a first for this system:** a concurrent run had evaluated the *same* signal seventeen minutes earlier and **declined** it, on a HARD RULE 7 thesis verdict of **INTACT — and strongly so**: FactSet mean PT $424.50 against a $357 spot, mean rating Overweight, **four consecutive upward PT revisions with not one cut**, plus $184.3M and $194.1M of fresh contract awards and the 08-31 multiyear DoD framework to triple PAC-3 and quadruple THAAD capacity.
+
+Two scheduled runs, opposite conclusions, 17 minutes apart, and the position is gone.
+
+**Neither run broke a rule, and I am not going to pretend otherwise.** HARD RULE 5 makes an underwater RSI2 bounce an *optional* exit routed to thesis — optional means both hold and sell were inside policy. The selling run took the same class of exit this book took on MDLZ on 09-09. The declining run's argument was the better-evidenced one. What the day exposed is structural: the existing collision rule covers two runs that **agree** and both act (the duplicate-entry hazard). It has nothing to say about two runs that **disagree**, where the one that acts simply wins, because acting is irreversible and declining is not. Recorded in `holdings.json._CONCURRENT_RUNS_SPLIT_ON_A_DISCRETIONARY_EXIT_AND_THE_ACTING_RUN_WINS_BY_DEFAULT_2026-09-14`.
+
+**Net for the day: −$52.78 realized over 2 closing trades, broker-confirmed** (`get_realized_pnl` equity, 09-14..09-14). Both were exits. **Zero entries in either book.**
+
+---
+
+## 3. Candidates screened and SKIPPED — 15 names, zero A-grades
+
+This is the section worth reading, because the honest summary of today is *"capital was available, the book was under-target, and nothing was good enough."*
+
+**The screen was not 15 opportunities. It was about four.** The 19:03Z board carries 11 RSI2 setups; earlier boards carried 15 distinct names across the session. Six of them are **one trade** (the AI/semis complex), four more are **one trade** (the bank cohort), and two are excluded outright by your sector steer. A screen that fills with one de-rating is *measuring the de-rating*, not finding N independent setups.
+
+### The AI/semis cluster — NVDA, LRCX, AMAT, LITE, NBIS, MU
+
+| Name | Grade | The specific reason |
 |---|---|---|
-| AMGN, LLY, CVS, BMY, MRK, REGN, PFE, GILD, UNH | **C** | **A live, unresolved regulatory repricing aimed at these exact companies** — the MFN ultimatum to 17 drugmakers with a 60-day deadline structure and agreements still being signed name by name, plus CMS-finalized 38–79% Medicare discounts effective January 2026 with Keytruda (MRK) and Eliquis (BMY) named as direct price-cap targets. A mean-reversion entry is a bet that the selling was *indiscriminate*. This selling is targeted, policy-driven, and has further scheduled legs. It also fails the trend-maturity gate's tape test: the complex made relative lows on a session SPY spent +0.95% higher. |
-| **TGT** | **B** | **New to the board at 19:03Z, so it was graded fresh rather than inherited.** The cleanest non-pharma name and still not A. For it: Oppenheimer maintains Outperform/$180 (+15% vs spot 155.88) and the Beauty Studio launched in 600+ stores today. Against it: UBS named TGT specifically as being on the **wrong** end of the tariff-refund spectrum with the *anniversary* of those benefits as a coming margin headwind; sector sentiment "a mix of apathy, caution, and chagrin"; Canada's retaliatory tariffs name it. And RSI2 8.4 is the **shallowest** reading on the whole board — a dip, not an extreme. |
-| SBUX | B/C | Same consumer/rate de-rating complex; no differentiating catalyst. |
-| RBRK | B/C | SPEC sleeve, rich valuation (P/FCF 55, negative P/E), mom12-1 only 9.5. |
-| JNJ | C | Pharma cluster, above. |
-| HAL | — | **Excluded on the sector steer** — oil-related energy, no new entries by default. Dropped off the board at 19:03Z anyway. |
+| **NVDA** | **B+** | Deepest oversold on the board (RSI2 2.5) and BofA's PO $350 vs $212 spot. Against it: it is the *least* dislocated name in the complex (−2.7% vs LRCX −7.6%), so there is the least reversion to capture — and it is the most-owned semi in America (82% of active managers), i.e. the most exposed if the sentiment unwind has legs. Close to A. Not A. |
+| **AMAT** | **B** | Weakest oversold print of the group. UBS Buy PT $695 vs $428. No name-specific negative found — but BofA's note today explicitly buckets chip-equipment as names that "could recover **later**", i.e. the bull case itself does not say buy it now. |
+| **LRCX** | **B−** | Biggest dislocation and the best PT support on paper (Berenberg $420). Outweighed by **three insider sales totalling ~$30.0M in the two weeks before the drop** — CEO Archer $9.58M and Director Mayer $3.01M on 09-09, SVP Varadarajan $17.41M on 09-02 (SEC Form 4s). |
+| **LITE / NBIS** | **C** | Highest beta to the narrative (LITE −9.0% today). No verified analyst support. |
+| **MU** | **EXCLUDED** | `[ERN 2026-09-30]` inside the hold window. Under the concentration policy that flag is an **absolute bar** — at 30% sizing with no price stop, one overnight gap through a print is a ~4–5% account hit. Verified against the earnings calendar, not taken from the report's column. |
 
-**Why a B-grade got nothing rather than something small:** the concentration policy is explicit that **a B-grade gets no position, not a small one.** At equal capital deployed, 4 × $900 and 8 × $450 have the *same* expectancy and the concentrated book has strictly *more* variance — concentration only pays if the top 3–4 ideas are genuinely better than ideas 5–8. Fewer must mean **more selective**, never merely bigger. Sizing TGT because the cash now happens to permit it is the exact trade that clause exists to prevent.
+**A correction the desk made about itself today, which changed no decision but cleaned up the reasoning.** Four consecutive runs had declined this cluster on two stated grounds — *"the chip-export/memory catalyst is unresolved"* and *"the de-rating is still deepening."* Both were checked today and **both are wrong**. The driver is not export policy at all: it is an **AI-governance sentiment shock** (a weekend essay from Anthropic's CEO urging the industry to slow frontier capability gains, backed publicly by OpenAI's Altman, DeepMind's Hassabis and Musk), and the tell is that the bid rotated straight into **cybersecurity** — CRWD/PANW/NOW all ~+5%. That is a sentiment rotation signature, not an export-control one. And the names were *basing* through the afternoon, not deepening.
 
-**The capital picture behind it, stated honestly rather than used as the excuse:** deployable $523.32 is **$76.68 short of the ~$600 minimum entry** at 4 of the 3–4 target, so an ordinary entry was not available regardless. What *was* available is a **rotation** — and this is the arithmetic that matters, because it says which sells were even possible:
+Withdrawing two false objections does not create a thesis. The cluster is still declined — but now on **grade**, which is an honest reason, rather than on two facts that weren't true.
 
-| Sell candidate | Position value | + deployable | vs $600 floor |
-|---|---|---|---|
-| MMM | $475.53 | $998.85 | **funds an entry** |
-| GD | $476.56 | $999.88 | **funds an entry** |
-| ABNB | $1,115.34 | $1,638.66 | funds an entry |
-| UNP | $1,096.89 | $1,620.20 | funds an entry |
+### The bank cohort — BAC, C, MS, GS: all **C**
 
-This morning MMM and GD were each *below* the floor on their own and therefore rotation-locked; your hedge close broke that lock. So the rotation gate was genuinely open today and was declined **on the grade, not on the cash** — there was no A-grade to compare against the weakest held name. Rotating out of MMM or GD would realize a ~$24 loss and pay a round trip to buy a B-grade, **1–3 sessions before the same capital comes back mechanically via the time stops.** Waiting strictly dominates.
+**Four banks entered the RSI2 board in a single one-hour report refresh**, and one event made all four: BAC's CEO publicly guided Q3 investment-banking fees to $1.6–1.8B, **down at least 10% year over year**, and characterised the *industry* as ~10% lower. That is an intra-quarter guidance disclosure — **no earnings calendar carries it**, so the screen is structurally blind to it and simply reported four fresh oversold prints. Four names arriving together is not four opportunities; it is one unexplained fact, and once explained it is a fundamental downgrade rather than a technical dip. The FOMC decision Wednesday is an independent second bar on the most rate-sensitive cluster on the board.
 
-### Options — both tracks declined
+### The rest
 
-**TACTICAL (0 of 2 open, capital cleared the floor for the first time today):**
-- **No trigger.** SPY 764.925 sits 2.6335 *under* its 20-day (−0.343%) and QQQ 715.590 sits 0.9375 under (−0.131%) — but both are **standing conditions the index has carried all day, not breaks happening NOW.** QQQ's gap is 0.34× one day of the level's own drift, i.e. smaller than the level moves on its own overnight; a "break" that size is manufactured by the denominator.
-- **No index disagreement** to trade against: SPY +0.95%, QQQ +0.97%, XLF +0.69% — a uniformly risk-on tape.
-- **The Friday clock bars it independently of any trigger.** A TACTICAL position's hard time stop is the close of the *next* session, so one opened now is held across a weekend — and the measured median Monday gap in SPY (0.342%, vs 0.279% on other days, with a >0.5% gap on 39.6% of Mondays) **exceeds the entire −30% stop distance** on a right-delta contract. Across a close the outcome is decided by the gap and neither exit level is enforceable, because the desk does not run while the market is shut. That is not a bearish view; it is that holding over a weekend replaces the track's risk control with a coin flip of larger magnitude than either exit.
-- **And on the corrected clock there is a second, independent bar: at 15:16 ET the run is only ~45 minutes from the bell, i.e. at or inside the closing-auction window where the volume-confirmation denominator stops being readable** — auction and imbalance flow inflates every bar for reasons unrelated to information, so a trigger genuinely cannot be confirmed. Stated carefully, because the desk's own finding forbids the shortcut: **40 minutes is not a constant and must not be treated as one** (it measured 40 minutes on 2026-08-28 and failed to reproduce at 31 minutes on 08-31). The boundary has to be detected per session, and this run did not measure it. What is certain is that the window is close enough that entering a scalp here would mean confirming a trigger against a denominator nobody has verified — which is reason enough to decline, and it is the reason the original 1h45m figure obscured.
+- **SLB, WMB — EXCLUDED on your standing sector steer** (oilfield services; WMB gas midstream, treated as de-emphasized-adjacent). Not graded, per the steer.
+- **RTX — B.** Broke the very session low its earlier B-grade was reasoned from.
+- **FCX — B**, and its reopening gate was retired today as badly constructed: the 68.535 level was the **midpoint of a range the desk drew around its own session bars** — 6.90% below the 20-day SMA and 1.70% above the 50-day, so a proxy for nothing. The standing rule against exactly this object had been written for options triggers and never carried across to the equity book. It has been now.
 
-**CORE (0 of 3 open):** no candidate answers "why NOW." The report's options candidates are momentum names (LITE, MU, AEHR, AAOI, BE) with no fresh catalyst, and the equity report's mid-caps have been measured repeatedly at 12–50%-of-mid chains — untradeable at this size. Spending the last $523 on a 21–45 DTE single leg two sessions before ~$952 returns mechanically is also poor sequencing.
+**The verdict, stated as a policy question rather than a mood:** the concentration policy says a **B-grade gets no position, not a small one**, and that *fewer must mean more selective, never merely bigger*. Being below the target band raises the **value** of a good entry; it does not lower the **bar** for a bad one. Capital was fundable twice over — $1,470.52 deployable, $735/slot to reach four, a $1,164 per-name cap, everything clearing the $600 minimum. **Declined on grade.** 0 of 3 equity entries used.
+
+**Spread specs handed to you today: none.** No CORE options thesis cleared, so there was nothing to spec.
 
 ---
 
@@ -93,37 +89,51 @@ This morning MMM and GD were each *below* the floor on their own and therefore r
 
 | | |
 |---|---|
-| Total account value | **$3,881.27** |
-| Equity value / options value | $3,163.89 / **$0.00** |
-| Cash = `unleveraged_buying_power` | **$717.38** — identical, so **no margin is extended** (FOUR LAWS #4 clean) |
-| Operational reserve (5% of total) | $194.06 |
-| **Deployable** | **$523.32** — $76.68 under the ~$600 minimum entry |
-| Per-name cap (30%) | $1,164.38 |
-| Equity slots | **4 of the 3–4 target** (hard band 3–5) — fully deployed, a correct state |
-| Options premium at risk | **$0** by track (TACTICAL 0/2, CORE 0/3) |
-| Realized options P/L today | **−$247.00** vs the −$400 cap → **$153.00 headroom** |
-| Realized equities P/L today | $0.00 |
-| Entry throttles used | equities **0 of 3**, options **0 of 8** |
-| `unsettled_funds` | $501.93 (the hedge proceeds, settling 09-14; `limited_margin` so tradeable now) |
+| **Total account value** | $3,881.52 |
+| **Cash = buying power = unleveraged BP** | **$1,664.60** — identical, so no margin is being extended and FOUR LAWS #4 is unambiguous |
+| Equity value / options value | $2,216.92 / **$0** |
+| Operational reserve (5% of total, recomputed) | $194.08 |
+| **Deployable** | **$1,470.52** |
+| Options premium at risk — TACTICAL / CORE / hedge | **$0 / $0 / $0** |
+| Realized today — options | **$0.00** against the −$400 cap; full headroom, gates nothing |
+| Realized today — equities | **−$52.78** over 2 closing trades (MMM −$30.96, GD −$21.82) |
+| Entry throttles | Options **0 of 8**; equities **0 of 3**. Today's two orders were *exits*, and exits are never throttled |
+| Open equity slots | **2 of the 3–4 target — below the hard band floor of 3**, so the open slot is a genuine hole, not an optional fourth |
+| Options positions | 0 of 5 (0 TACTICAL / 0 CORE) |
 
-**Calibration:** no parameter changed this week. The 09-08 run pulled 72 broker closes and both books reported healthy — equities margin **+18.3 pts over breakeven** (69.1% actual vs 50.8% breakeven, n=55, expectancy +$4.82/trade, net +$264.89) — but the **in-regime gate blocked any adjustment**, because only 2 of those 55 trades closed under the current parameters and the gate requires 20. That is the guard working: tuning a parameter on trades that predate it is superstition. Next calibration is **Monday 2026-09-14**.
+**The `_cash_hold` on the books is properly formed and I am going to be honest about how much work it is doing.** It names a real dated catalyst (**FOMC decision Wed 2026-09-16, 14:00 ET**, an SEP/dot-plot meeting with CME FedWatch pricing a 25bp **hike** at ~85.6%), a checkable trigger, and an expiry of **2026-09-17**. That satisfies the capital policy's three requirements. But the entries were declined on **grade** independently — so the hold is not what kept the money in cash today, and it should not be credited with a discipline that grade actually supplied. Its original justification text was refuted by this same session three hours after it was written and was repaired in place at 19:00Z rather than left standing.
 
-**Friday review** was completed pre-open at 13:20Z, and the `calibrate.py` fix above came out of it — **but one of its figures was stale before the day ended, and a concurrent run caught it.** The 13:20Z review stated "zero options closes and zero options entries — the sleeve did not trade at all this week" and put the week at two closes, net **−$29.37**. That was true at 13:20Z and false by the close. Broker-confirmed: `get_pnl_trade_history(span='week')` returns **three** closes — MDLZ −$4.07 (09-09), LLY −$25.30 (09-10), **SPY −$247.00 (09-11)** — and the week's realized total is **−$276.37, 9.4× what the review reported.** Your hedge close at 15:54Z is the missing trade, and it is the single most consequential thing that happened to the book this week.
-
-**Every conclusion of that review still stands** — both books remain "report only" (equities 2-of-54 in-regime, options n=17 < 20), no parameter change is legitimate, and the exit-taxonomy flag concerns equity closes only. The amendment is to one week-tally sentence, not to the analysis. The durable fix: **take the Friday review on the last run of Friday, not the first.** A review of a week should review a *completed* week; a Friday-morning review is four days plus a guess. This matters because that review is the input to Monday's calibration, which reads the broker directly and would otherwise silently disagree with the journal's own account of the same week.
+**No options hedge was re-opened, and that was a decision rather than an omission.** Buying index puts into an 85%-priced hike, two days ahead of the event, is paying event premium for the leg the market has already discounted — the asymmetric surprise Wednesday is a *hold* or the dot plot, neither of which a put is well-positioned for. The honest cost of that choice is stated at the top of §1: the book is unhedged long beta into a binary.
 
 ---
 
-## 5. Tomorrow's watchpoints (next session = Monday 2026-09-14)
+## 5. Weekly calibration — ran this morning, **NO CHANGE to either book**
 
-1. **MMM time stop fires Monday.** Day 14 of 14. It sells green or red — currently −$24.47 — and returns ~$476. This is mechanical; it is not a judgement call and does not wait for a better price.
-2. **GD time stop fires Tuesday 09-15.** Same mechanics, ~$477.
-3. **Together those take deployable to roughly $1,475**, re-opening a full-size entry above the $600 minimum and taking the book to 2 of the 3–4 target — i.e. **two open slots** with real capital behind them for the first time since 09-10. That is when the entry bar actually gets tested again.
-4. **The `_cash_hold` record expires Monday 2026-09-14** and dissolves automatically. It is not load-bearing now and gated nothing today — capital was the binding constraint, not a deliberate hold.
-5. **Weekly calibration runs Monday** (first trading day of the week). Watch whether the in-regime count has moved off 2 — it will not have by much, so expect "report only" again.
-6. **The book is unhedged into the weekend.** If you want the put back on, that is a decision for you; the desk will not re-establish it autonomously.
-7. **Pharma stays off the entry list** until the policy leg resolves. The desk did *not* verify which specific MFN deadline is next, so that catalyst needs re-checking before any pharma entry — do not quote a date from this report.
+Pulled from the **broker** (`get_pnl_trade_history`, span 3month, 69 closes), never from the journal, and split per book because blending hides which one is working.
+
+| Book | n | Hit rate | Payoff | Breakeven WR | **Margin** | Expectancy | Verdict |
+|---|---|---|---|---|---|---|---|
+| **Equities** | 51 | 66.67% | 1.086 | 47.94% | **+18.73 pts** | +$5.01/trade | **Report only** |
+| **Options** (directional, hedge stripped) | 17 | 56.25% | 0.877 | 53.29% | **+2.96 pts** | +$5.29/trade | **Report only** |
+| Options (as bucketed, hedge included) | 18 | 52.94% | 0.743 | 57.38% | −4.44 pts | −$8.72/trade | Report only |
+
+Both books are blocked from adjustment, for **different** reasons, and the difference matters:
+
+- **Equities** are healthy on the headline (+18.7 pts of margin over breakeven) but only **4 of 51 closes happened under the current parameters** — the Connors-pure exits and concentration sizing only went live 09-02. The **in-regime gate** blocked any tuning, exactly as designed. Tuning a parameter on trades that predate it is superstition, and it is indistinguishable from real calibration unless you count. The in-regime sample is rebuilding: 4 today, 6 by week's end with MMM and GD now closed. It needs 20. **Roughly another month before that gate opens.**
+- **Options** are blocked on sample size alone — n=17 < 20.
+
+**The demonstration this week stopped being rhetorical.** The blended 69-trade sample reads +1.90 pts, which crosses out of STABLE into **DEGRADED** and would have **changed three equity parameters** — on a book whose own per-book reading is +18.7 and thriving. Last week the same blend read +6.6 and merely "looked healthy." A defensive guard was added to `calibrate.py` at the call site; every per-book verdict is byte-identical.
 
 ---
 
-*No trades were placed by the desk today. No flag was created, cleared, or touched; HARD RULE 9 intact. Committing this file to master IS the delivery.*
+## 6. Tomorrow's watchpoints
+
+- **FOMC, Wed 09-16 14:00 ET** — SEP/dot-plot meeting. 25bp hike ~85.6% priced; **the asymmetric surprise is a hold or the dots, not the hike**. Both open equity swings have time stops on 09-24, so **both span it squarely**. Any new equity entry spans it too. A TACTICAL option scalp would not — don't let that objection get borrowed across tracks.
+- **The AI/semis deferral EXPIRES at the first committed report of the 09-15 session.** Re-grade NVDA / LRCX / AMAT / LITE / NBIS **from scratch on post-shock numbers** — do not carry today's grade forward and do not reuse the pre-shock one. Hard price gate attached: **if SMH closes below today's session low of 537.730** the de-rating has resumed and the cluster stays excluded regardless of RSI2 (SMH closed the day around 544.65, above it). If it holds, they compete on grade like anything else. **This is not a queue — they re-enter the funnel, not the book.**
+- **No time stop is due tomorrow.** GD's 09-15 stop was pre-empted by today's exit; ABNB and UNP are both 09-24.
+- **No earnings for any held name** through its time stop, verified against the 6-day high-market-cap calendar — which returned rows rather than degrading, so the absence is corroborated rather than assumed.
+- **The book is 2 of 3–4 and unhedged.** Both are real, both are stated, and neither is a reason to lower the entry bar.
+
+---
+
+*Broker is the ledger of record for every P&L figure here. Reasoning lives in `trade_journal.json`; the durable findings behind §2 and §3 are named in `holdings.json` rather than re-argued.*
