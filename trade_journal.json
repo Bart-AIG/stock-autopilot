@@ -36727,6 +36727,18 @@
       "headline": "19th post-close no-op. Pre-open (09:17 ET). Stand-down per POST-CLOSE RUN PROTOCOL; trading day still 2026-09-14 per the UTC rule.",
       "reconciliation": "ZERO DRIFT both books at 13:16Z. Options EMPTY; equities 2 (ABNB 6.573584, UNP 3.858199) match the ledger, all sellable. get_equity_orders(>=09-15) EMPTY. Cash == unleveraged_buying_power $1,664.60, total_value $3,908.18, reserve $195.41, deployable $1,469.19.",
       "actions": "NONE. No artifact rolled, no throttle reset, heartbeat left at 09-14 (never stamp early). The first run at/after 13:30Z owns the 09-15 stamp, brief, cap/throttle reset; the day-track paper row is owed only from 09:35 ET."
+    },
+    {
+      "run_utc": "2026-09-15T13:25:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-14",
+      "headline": "20th pre-open run of the 09-15 session, and the FIRST that was not a no-op: found and fixed a BLOCKING schema bug in day_track.py hours before the DAY TRACK's paper phase takes its first signal today. No trade either book; market shut throughout.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 13:19Z. Options EMPTY; equities 2 (ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11) match the ledger one-for-one, all sellable. get_equity_orders(>=09-14) returns only the two 09-14 agentic exits already on master (GD 14:17:31Z, MMM 13:35:45Z) -- no sibling fill. Cash == buying_power == unleveraged_buying_power == $1,664.60 (no margin extended, FOUR LAWS #4 unambiguous), equity_value $2,243.58, total_value $3,908.18; reserve 5% = $195.41, DEPLOYABLE $1,469.19.",
+      "tape": "Market shut at the time of the run (09:18-09:26 ET, bell 13:30Z). No quotes taken; no regime label derived or inherited.",
+      "finding": "_DAY_TRACK_BAR_SCHEMA_MISMATCH (holdings.json) -- named here, argued there. In short: day_track.opening_range() and atr() read the terse bar keys high/low/open/close; get_equity_historicals returns high_price/low_price/open_price/close_price, so all five accessors KeyError on every real bar. _selftest() passed because its fixtures are hand-built with the terse keys -- the test encoded the same assumption as the bug. Fixed with a _bf() accessor taking both spellings, plus a selftest case pinned to five VERBATIM connector bars so the terse-only path can never pass again. Verified end-to-end on real bars post-fix.",
+      "why_this_run_acted_rather_than_flagged": "CLAUDE.md's standing principle: fix the root cause, don't surface it run after run. The window mattered -- the paper track's first signal is due at 09:35 ET today and the failure mode was silent (a thrown duty looks like a quiet track). It is a code repair, NOT a rule change: no gate, filter, screen or 'why now' was added to the DAY TRACK, which the spec forbids an unattended run from doing. Parameters, graduate() and the PAPER->LIVE conditions are untouched.",
+      "why_flat": "EQUITIES: market shut, and no autonomous entry is available pre-open regardless; the report on master is 09-14's and today's morning scan lands ~14:02Z. OPTIONS: book empty, nothing placeable with the market closed. DAY TRACK: PAPER, and the 09-15 row is owed only from 09:35 ET.",
+      "duties": "Heartbeat left at 09-14 -- NEVER stamp early; the first run at/after 13:30Z owns the 09-15 stamp, the brief rebuild and the cap/throttle reset. No daily artifact rolled (trading day still 2026-09-14 per the UTC rule). 09-14 daily report, the Monday calibration (NO CHANGE both books) and all flags remain settled -- HARD RULE 9 untouched, no flag adjudicated. Prompt v10 as invoked; DAY TRACK stays PAPER (LIVE needs a v11 stamp plus graduate())."
     }
   ]
 }
