@@ -93,18 +93,34 @@ class OpeningRange:
         return "long" if self.close > self.open else "short"
 
 
+def _bf(bar: dict, field: str) -> float:
+    """One OHLC field off a bar, accepting BOTH spellings.
+
+    get_equity_historicals returns 'open_price'/'high_price'/'low_price'/'close_price';
+    the terse 'open'/'high'/'low'/'close' form is what hand-built fixtures and most
+    other feeds use. Reading only the terse form raised KeyError on every real
+    connector bar — see holdings.json._DAY_TRACK_BAR_SCHEMA_MISMATCH. Prefer the
+    connector spelling so a bar carrying both is read the way the broker meant it."""
+    for key in (f"{field}_price", field):
+        if key in bar:
+            return float(bar[key])
+    raise KeyError(
+        f"bar has no {field!r} field (tried {field}_price, {field}); keys={sorted(bar)}"
+    )
+
+
 def opening_range(minute_bars: list[dict]) -> OpeningRange | None:
     """Build the OR from the first OR_MINUTES one-minute bars of the session (each bar a dict
-    with open/high/low/close, in time order, starting at 09:30 ET). Returns None if fewer than
-    OR_MINUTES bars are present — the run must wait, never guess."""
+    with open/high/low/close — either spelling, see _bf — in time order, starting at 09:30 ET).
+    Returns None if fewer than OR_MINUTES bars are present — the run must wait, never guess."""
     bars = minute_bars[:OR_MINUTES]
     if len(bars) < OR_MINUTES:
         return None
     return OpeningRange(
-        high=max(float(b["high"]) for b in bars),
-        low=min(float(b["low"]) for b in bars),
-        open=float(bars[0]["open"]),
-        close=float(bars[-1]["close"]),
+        high=max(_bf(b, "high") for b in bars),
+        low=min(_bf(b, "low") for b in bars),
+        open=_bf(bars[0], "open"),
+        close=_bf(bars[-1], "close"),
         bars=len(bars),
     )
 
@@ -115,7 +131,7 @@ def atr(bars: list[dict], n: int = 14) -> float | None:
         return None
     trs = []
     for prev, cur in zip(bars[-n - 1:-1], bars[-n:]):
-        h, l, pc = float(cur["high"]), float(cur["low"]), float(prev["close"])
+        h, l, pc = _bf(cur, "high"), _bf(cur, "low"), _bf(prev, "close")
         trs.append(max(h - l, abs(h - pc), abs(l - pc)))
     return sum(trs) / n
 
@@ -273,6 +289,34 @@ def _selftest() -> None:
     assert opening_range(mb[:4]) is None
     doji = [dict(open=700.0, high=701.0, low=699.0, close=700.05)] * 5
     assert opening_range(doji).direction == "none"
+
+    # CONNECTOR SCHEMA — verbatim get_equity_historicals(QQQ, interval='minute') bars,
+    # 2026-09-14 13:30-13:34Z. The terse-key fixtures above CANNOT catch a code path that
+    # only reads 'high'/'low'/'open'/'close', because they encode the same assumption as
+    # the bug; this case is the one that fails if _bf is ever removed. Values are strings
+    # from the wire, on purpose.
+    wire = [{"begins_at": "2026-09-14T13:30:00Z", "open_price": "703.330000",
+             "close_price": "702.860000", "high_price": "703.670000",
+             "low_price": "702.800000", "volume": 682593, "session": "reg"},
+            {"begins_at": "2026-09-14T13:31:00Z", "open_price": "702.870000",
+             "close_price": "703.160000", "high_price": "703.607600",
+             "low_price": "702.750000", "volume": 178772, "session": "reg"},
+            {"begins_at": "2026-09-14T13:32:00Z", "open_price": "703.160000",
+             "close_price": "703.630000", "high_price": "703.860000",
+             "low_price": "703.090000", "volume": 110956, "session": "reg"},
+            {"begins_at": "2026-09-14T13:33:00Z", "open_price": "703.640000",
+             "close_price": "703.310000", "high_price": "703.990000",
+             "low_price": "703.279700", "volume": 234331, "session": "reg"},
+            {"begins_at": "2026-09-14T13:34:00Z", "open_price": "703.290000",
+             "close_price": "703.340000", "high_price": "703.690000",
+             "low_price": "703.090000", "volume": 151811, "session": "reg"}]
+    wor = opening_range(wire)
+    assert wor and wor.high == 703.99 and wor.low == 702.75, wor
+    assert wor.open == 703.33 and wor.close == 703.34, wor
+    assert wor.direction == "none", wor          # body 0.01 < 0.1 * 1.24 range -> doji
+    wdaily = [dict(open_price="700", high_price="708",
+                   low_price="694", close_price="701")] * 16
+    assert abs(atr(wdaily) - 14.0) < 1e-9        # atr() reads the wire schema too
 
     daily = [dict(open=700, high=708, low=694, close=701)] * 16
     assert abs(atr(daily) - 14.0) < 1e-9
