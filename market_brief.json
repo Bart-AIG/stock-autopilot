@@ -1,42 +1,44 @@
 {
  "_comment": "Daily market brief for the options automation. Built by the first post-open run of each TRADING day (ET), never by a post-close/pre-open firing. Refresh intraday only on a genuine shock (VIX +15%, an index breaking a listed level, a major headline).",
- "date": "2026-09-14",
- "built_utc": "2026-09-14T13:40:00Z",
- "built_by": "first post-bell run of 2026-09-14 (routine, prompt v10)",
+ "date": "2026-09-15",
+ "built_utc": "2026-09-15T13:34:00Z",
+ "built_by": "scheduled run 13:30Z 2026-09-15 (unattended, prompt v10) -- FIRST POST-BELL run of the trading day; owns the heartbeat, this rebuild, the cap/throttle reset and the DAY TRACK first paper signal.",
  "regime": {
-  "_measured": "Live quotes with VENUE timestamps 13:35:34-13:36:06Z -- SETTLED, at/after the 13:35Z boundary the opening-auction rule requires. The 13:31Z fetch was discarded for pricing (venue 13:30:11-13:31:21Z, inside the auction window). Feed lag on THIS connection is near zero today (~10s), which per _FEED_LAG_IS_PER_SESSION_NOT_FEED_WIDE says nothing about tomorrow's -- read the venue timestamp, never the wall clock.",
-  "label": "RISK-OFF GAP DOWN, NASDAQ-LED. Stated NUMBERS-FIRST with the verdict withheld per the 2026-08-28T14:27Z finding: a direction extracted from the first minutes measures whichever leg was running when the run fired, and the next run inherits it as a frame. Hand forward the numbers, not the verdict.",
+  "_measured": "Live quotes with VENUE timestamps 13:31:09-13:32:02Z -- INSIDE the opening auction window, therefore PROVISIONAL. Per the standing rule (never price a decision off the opening auction print) nothing in this run was priced off them; no order was sent and no exit was evaluated against them. The minute-bar series below is the settled record and is what the numbers should be read from. Feed lag on THIS connection is ~60-70s (bar 13:33 published by 13:34:03Z) -- per _FEED_LAG_IS_PER_SESSION_NOT_FEED_WIDE that says nothing about the next run's.",
+  "label": "MILDLY RISK-OFF, NARROW -- stated NUMBERS-FIRST with the verdict withheld per the 2026-08-28T14:27Z finding (a direction extracted from the first minutes measures whichever leg was running when the run fired; hand forward the numbers, not the verdict).",
   "spy": {
-   "last": 758.68,
-   "prev_close": 764.29,
-   "pct": -0.73
+   "last": 759.5354,
+   "prev_close": 760.88,
+   "pct": -0.18
   },
   "qqq": {
-   "last": 703.09,
-   "prev_close": 714.88,
-   "pct": -1.65
+   "last": 708.025,
+   "prev_close": 709.18,
+   "pct": -0.16
   },
-  "dispersion_note": "QQQ is underperforming SPY by 92bp -- more than double the 58bp divergence flagged on 2026-09-10 and the OPPOSITE of 09-11's 19bp broad relief rally. This is a Nasdaq-specific de-rating, not a uniform risk-off, so an index-agreement clause must be tested on the index actually being traded rather than borrowed across.",
+  "dispersion_note": "SPY -0.18% vs QQQ -0.16% = 2bp. That is the OPPOSITE configuration to yesterday's open, which carried a 92bp Nasdaq-specific de-rating (SPY -0.73% / QQQ -1.65%). Read together with NVDA +0.90% and AMD +1.74% against MSFT -0.82% and TSLA -0.89%, the AI/semis cohort is BIDDING BACK this morning while the mega-cap software leg is not. Do NOT carry yesterday's 'Nasdaq-led de-rating' frame forward -- it has been withdrawn by the tape, which is exactly the stale-label failure the 2026-08-25T19:35Z rule was written for.",
   "book_names": {
-   "GD": {
-    "last": 356.74,
-    "pct": 0.24
-   },
    "ABNB": {
-    "last": 172.74,
-    "pct": 1.5
+    "last": 168.54,
+    "pct": -1.24,
+    "note": "the book's weak name this morning; entry 169.5209 so the position is ~-0.58% underwater"
    },
    "UNP": {
-    "last": 284.38,
-    "pct": -0.01
-   },
-   "MMM_exited": {
-    "last": 162.81,
-    "pct": -1.31
+    "last": 284.78,
+    "pct": -0.11,
+    "note": "entry 285.1071, ~-0.11% underwater"
    }
   },
-  "book_note": "The book is defensive by construction and is behaving that way: all three survivors are flat-to-up while QQQ is -1.65%. ABNB +1.50% is the notable one and is what puts its RSI2 take-profit within reach (see constraints_today).",
-  "EXPLICIT_NON_CARRYFORWARD": "The 2026-09-11 brief's 'POST-CPI RELIEF RALLY, BROAD' label is NOT carried into today. It described Friday. Today opened the other way, and a regime label is a TIMESTAMPED MEASUREMENT that the next session can withdraw -- exactly what the 2026-08-25T19:35Z finding warns about. Note also that Friday's core CPI actually ran HOT (+0.3% vs +0.2% expected); the 'relief' label was always describing the tape, not the print."
+  "core_list_open": {
+   "NVDA": 212.86,
+   "AMD": 501.98,
+   "TSM": 418.885,
+   "AVGO": 345.92,
+   "MSFT": 501.25,
+   "TSLA": 355.765,
+   "PSQ": 26.2
+  },
+  "book_note": "Both positions are within 0.6% of entry after 5 of their 14 held days. Nothing is near any of the three Connors-pure exits: no RSI2>=70 print while green, no target, time stop 2026-09-24 (9 days out). The book is doing nothing, which at day 5 of a 1-3 week mean-reversion hold is the expected state and not a signal."
  },
  "key_levels": {
   "_method": "20/50-day SMAs recomputed THIS RUN from get_equity_historicals daily bars off SETTLED closes through 2026-09-11 (58 bars pulled, 50 used). Both averages computed before any level is quoted, per the 2026-08-25T17:33Z rule.",
@@ -61,12 +63,11 @@
  },
  "_key_levels_staleness": "FRESH -- recomputed this run off settled closes through 2026-09-11.",
  "catalysts_next_5_sessions": {
-  "_source": "get_earnings_calendar(start 2026-09-14, days 6, high_market_cap) pulled THIS RUN; it returned rows, so it did not degrade to {}.",
-  "earnings": "CLEAN for anything this desk trades. KMTS 09-14 pm, FPS 09-15 am, TCOM 09-15 pm, PS 09-15 pm (UNVERIFIED date), LEN 09-16 pm, LUXE 09-16 am. NO mega-cap tech, NO semis, and no held name appears.",
-  "held_name_earnings": "NONE of GD / ABNB / UNP is in the 6-day high-market-cap calendar, so the ERN bar is clear for every position through its time stop. Absence is not proof, but this pull did not degrade.",
-  "FOMC_VERIFIED_2026-09-14T13:41Z": "2026-09-15/16 meeting, DECISION Wed 2026-09-16 14:00 ET, an SEP/dot-plot meeting. CME FedWatch prices a 25bp HIKE at ~85.6%, up from ~58% measured 09-08 and 48.4% on Aug 11 -- repriced by August PPI (+0.4% MoM, 5.4% YoY) and core CPI (+0.3% vs +0.2% expected). THE HIKE IS LARGELY PRICED; the asymmetric surprise is a HOLD or the dot plot, not the hike.",
-  "WINDOW_SCOPING_read_this_before_borrowing_an_objection": "Each track screens its OWN window (2026-08-28 rule). A TACTICAL scalp opened today is flat by Tuesday 09-15's close, so the 09-16 decision is OUTSIDE it -- do NOT cite FOMC against a scalp. A CORE option (21-45 DTE) and any EQUITY swing entered today (time stop 2026-09-28) both span it squarely.",
-  "_macro_provenance": "The prior text here read 'macro_NOT_ASSERTED -- this run did NOT verify any macro calendar item and therefore names none', which was the correct thing for that run to write. A concurrent run DID verify it by web search at 13:41Z and the entry above replaces the placeholder. This is the intended resolution of that honest gap: a remembered macro date is not evidence, a verified one is."
+  "_source": "get_earnings_calendar(start 2026-09-15, days 6, high_market_cap) pulled THIS RUN; it returned rows, so it did not degrade to {}.",
+  "earnings": "CLEAN for anything this desk trades. FPS 09-15 am (reported, 0.25 vs 0.23 est), TCOM 09-15 pm, PS 09-15 pm (UNVERIFIED date), LEN 09-16 pm, LUXE 09-16 am. NO mega-cap tech, NO semis, and no held name appears.",
+  "held_name_earnings": "NEITHER ABNB NOR UNP is in the 6-day high-market-cap calendar, so the ERN bar is clear for both through their 2026-09-24 time stop. Absence is not proof -- the calendar degrades to {} on API failure -- but this pull returned rows, so it did not degrade.",
+  "FOMC": "THE meeting is TODAY AND TOMORROW: the 2026-09-15/16 FOMC convenes today, DECISION Wed 2026-09-16 14:00 ET, an SEP/dot-plot meeting. Carried from the 2026-09-14T13:41Z verification (CME FedWatch ~85.6% on a 25bp HIKE, repriced by August PPI +0.4% MoM / 5.4% YoY and core CPI +0.3% vs +0.2% est). NOT RE-VERIFIED THIS RUN -- it is a one-day-old reading of a market-implied probability, which moves; a run that intends to trade off the odds rather than the date must re-pull them.",
+  "WINDOW_SCOPING_read_this_before_borrowing_an_objection": "Each track screens its OWN window (2026-08-28 rule). An EQUITY swing entered today carries a 2026-09-29 time stop and spans the decision squarely. A DAY TRACK position is flat by 15:30 ET TODAY and the decision is OUTSIDE its window -- do NOT cite FOMC against the day track. The TACTICAL options track is RETIRED (2026-09-14) and needs no window at all."
  },
  "watchlist": {
   "_source": "Friday 2026-09-11's committed intraday report (19:03Z) -- a PRIOR-SESSION screen, carried only as context. Today's screen replaces it ~14:01Z and the entry decision waits for it.",
@@ -74,27 +75,21 @@
   "TACTICAL_candidates": "SPY at its 50-day 758.6164 (testing from above) and QQQ below its own at 710.4064 (broken). Neither is armable until a trailing volume baseline exists.",
   "CORE_candidates": "None surveyed this run."
  },
- "THE_TACTICAL_NON_TRIGGER": "NOT ARMED as of 2026-09-14T17:25Z -- and the ground has CHANGED, so this key is rewritten rather than carried, per the lesson this very key recorded at 13:50Z about a verdict inheriting a rebuilt artifact's credibility. || THE 13:50Z GROUND HAS DISSOLVED, AS IT SAID IT WOULD: it barred the track because ~20 minutes into the session the trailing 30-60 minute volume denominator did not yet exist. The session is now ~4 hours old and both denominators exist and were computed. || THE GROUND THAT NOW STANDS IS MEASURED, NOT STRUCTURAL: the QQQ 50-day (710.4064, recomputed off settled daily bars this run) was reclaimed TWICE this hour and the volume clause fails both fires. FIRE 1 16:15/16:20Z satisfied the two-bar price clause at 99.4% / 60.9% of a 183,790 trailing-30 baseline and then FAILED on price -- two closes back below the level by 16:30Z. FIRE 2 16:35/16:40Z satisfied it at 43.5% / 44.5% of a 143,607 trailing-30 baseline and 45.9% / 46.9% of the 136,186 session ex-first-hour rate, and price HAS held above the level for nine consecutive bars. Both fire bars reconcile EXACTLY against the 1-minute series, so the numerators are real. Price above a structural level on 43-46% of every baseline, with participation down 63% from the first hour, is a DRIFT, not a break. || EXPLICITLY NOT DECLINED ON A CATALYST: a scalp opened today is flat by the 2026-09-15 close; FOMC is Wed 2026-09-16 14:00 ET, OUTSIDE this window. Do NOT cite FOMC against today's scalp. The late-entry detector was also computed and PASSES. || HANDED FORWARD, re-derive rather than inherit: a scalp opened TOMORROW 2026-09-15 is flat by 2026-09-16's close, which IS FOMC decision day -- the 2026-08-26 regime capstone applies to tomorrow's window. Full measurement in holdings._THE_VOLUME_CLAUSE_VETOED_A_BREAK_THAT_THEN_FAILED_ON_PRICE_WITHIN_TWO_BARS__FIRST_PROSPECTIVE_VINDICATION_IN_THE_ARC_2026-09-14.",
+ "THE_TACTICAL_NON_TRIGGER": "RETIRED 2026-09-14 with the TACTICAL track (Ryan, live turn). Kept as a key name only so a run grepping for it finds this line instead of re-creating the track. Do not hunt intraday options scalps; that job belongs to the DAY TRACK.",
  "constraints_today": {
-  "capital": "total_value $3,897.56; cash == unleveraged_buying_power == $1,186.42 (no margin extended, FOUR LAWS #4 unambiguous); reserve 5% = $194.88; DEPLOYABLE $991.54.",
-  "equity_slots": "3 of the 3-4 target filled (GD, ABNB, UNP) after the MMM time stop. ONE OPEN SLOT -> size = deployable / remaining slots = ~$991.54, which clears the ~$600 minimum entry and sits under the $1,169.27 per-name cap (30% of total_value). AN ENTRY IS FUNDABLE TODAY. The ROTATION GATE IS DORMANT -- its precondition is deployable BELOW one position size, and $991.54 IS a full position (_ROTATION_GATE_IS_DORMANT_WHEN_CASH_COVERS_A_FULL_POSITION). Do not invoke it.",
-  "entry_deferred_not_declined": "SUPERSEDED -- the deferral was honoured and the decision is now MADE: NO ENTRY, on GRADE, not on capital and not on the clock. The 14:00Z run held today's 14:02Z report and graded all 13 RSI2 setups. Capital was genuinely available ($992.53 deployable, one open slot, $600 minimum cleared), so this is a quality verdict. NOT A _cash_hold: no catalyst is being waited on and no hold record is written -- cash is the RESIDUAL OF QUALITY per THE CAPITAL POLICY. The next run must RE-GRADE FROM SCRATCH and must not inherit today's veto. See _NO_A_GRADE_EQUITY_ENTRY_2026-09-14 for the per-name reasoning.",
-  "options": "Max 5 open (2 TACTICAL / 3 CORE). Currently ZERO option positions and NO hedge -- Ryan closed the SPY 2026-11-20 700P himself on 09-11, and re-establishing it is HIS call, not the desk's. Options loss cap -$400 fully unspent for 2026-09-14. Throttles RESET by this run: 0 of 8 options, 0 of 3 equities.",
-  "THE_LIVE_ITEM": "RESOLVED by the 14:00Z run -- BOTH handoffs closed, NEITHER produced a trade. (1) ABNB's approaching take-profit UN-FIRED by retreating: 170.10 at 14:01:45Z puts self-computed RSI2 at ~43.3 (was 69.2 at 172.6836), and today's report independently says HOLD. See _ABNB_RSI2_HANDOFF_RESOLVED_UNFIRED_2026-09-14. (2) GD fired EXIT-INTO-STRENGTH (underwater -- optional) at report RSI2 80.9 / self-computed 75.28, the strongest print of its hold, 1 day from its time stop -- and was DECLINED: HARD RULE 7 came back thesis-INTACT (4 consecutive upward PT revisions, mean PT $424.50, fresh Navy contracts), which closes the only gate that authorizes selling an underwater equity. See _GD_WARN_WINDOW_DECISION_2026-09-14 and the durable finding it rests on, _THE_WARN_WINDOW_EXIT_INTO_STRENGTH_HEURISTIC_IS_UNMEASURED_AND_BOTH_AVAILABLE_MEASUREMENTS_CONTRADICT_IT_2026-09-14.",
-  "tomorrow": "GD's 14-day time stop fires 2026-09-15 (entry 2026-09-01, days_held 14). MECHANICAL -- fires green or red, execute it, do not re-litigate it. At 357.49 it goes out RED ~-4.5% / ~-$22.6, returning ~$477 and taking the book to 2 of the 3-4 target, which is BELOW band and makes an entry materially more pressing than it was today. DUTY: record GD's forgone price (09-14 last 357.49 / bid 357.22) against the achieved fill -- that is the third data point for the warn-window finding.",
-  "tactical_barred_today": "STILL NOT ARMED at 14:20Z, and the 13:50Z run's stated ground (no trailing baseline exists yet) is now dissolving as the session matures -- but a NEW and better ground has replaced it: there is no TRIGGER. SPY 760.45 is HOLDING 1.83 ABOVE its 50-day (758.6164), i.e. not broken; QQQ 706.38 lost its 50-day (710.4064) on the GAP, which per the standing rule is not a tradeable intraday break because the level gave way before the session opened and no completed 5-minute close through it can be attributed to it. Nothing to confirm, so the volume clause was never reached. A later run may arm SPY's 50-day as a genuine structural level, re-deriving BOTH clauses off the SAME window and reconciling buckets against the 1-minute series first.",
-  "no_cash_floor": "VOID since 2026-08-29. No percentage cash target exists and none may be re-derived. No _cash_hold is owed: the 09-08 record expired by its own clause on 2026-09-14 and was already voided on quality on 09-10, and today's cash is earmarked for a fundable entry rather than deliberately held."
+  "capital": "total_value $3,874.77; cash == buying_power == unleveraged_buying_power == $1,664.60 (no margin extended, FOUR LAWS #4 unambiguous); reserve 5% = $193.74; DEPLOYABLE $1,470.86.",
+  "equity_slots": "2 of the 3-4 target filled (ABNB, UNP) after yesterday's MMM time stop and GD exit. TWO OPEN SLOTS -> size = deployable / remaining slots = ~$735.43 each, which clears the ~$600 minimum and sits well under the $1,162.43 per-name cap (30% of total_value). The ROTATION GATE IS DORMANT: its precondition is deployable BELOW one position size, and $1,470.86 covers two.",
+  "no_entry_this_run_TWO_INDEPENDENT_BARS": "(1) THE COMMITTED REPORT IS STALE: latest_morning.md is stamped 2026-09-14 14:02 UTC and latest_intraday.md 2026-09-14 19:03 UTC. Today's has not landed on master yet (the Actions cron lands it ~14:00-14:15Z). Autonomous equity trades are SIGNAL-SOURCED ONLY and a stale report = no autonomous equity trade, full stop. (2) THE _cash_hold IS LIVE: set 2026-09-14T14:25Z over $1,470.92 against the 2026-09-16 FOMC decision, expiry 2026-09-17. It names a dated catalyst and it expires, so it is a compliant hold under THE CAPITAL POLICY and it has NOT been reached. Either bar alone is sufficient; both hold.",
+  "opening_window": "This run fired at the bell. Every equity and option quote it took carries a venue timestamp inside 13:31-13:33Z. Per the standing rule they are UPPER BOUNDS for IV and provisional for price, and no decision was taken on them. The next run should re-quote past ~13:35Z venue time before anything is priced.",
+  "options_book": "EMPTY, and unhedged since Ryan closed the SPY 2026-11-20 700P himself on 2026-09-11. TACTICAL is retired; CORE's catalyst bar is now single-name binaries only, and neither ABNB nor UNP nor anything on the core IV list has one inside a 21-45 DTE window. No CORE candidate was armed.",
+  "iv_sweep": "DONE this run, all 8 core names, 2026-10-16 board (31 DTE). Written to iv_history.json. Headline: SPY raw 1.3478 / ex-gap 1.7086 and TSM 1.2408 / 1.5590 are the RICHEST premium on the list; NVDA 0.7995 / 1.0382 and TSLA 0.9156 / 1.0473 the cheapest on the ex-gap read. Every row is an opening-window UPPER BOUND -- re-measure before any of it decides anything. IV sanity is necessary and never a thesis."
  },
  "posture_carryover": "Aug-Oct defensive posture still nominally in force pending Ryan's ~Nov 1 review. The >=45% cash floor inside it is VOID (2026-08-29) and must not be re-derived; the FULL-DEPLOYMENT CAPITAL POLICY governs -- 5% operational reserve plus the rotation-beats-the-weakest gate. The A-grade-only bar SURVIVES and is the real control.",
- "equity_entries_taken_today": "0 of 3, and NO LONGER 'deferred' -- the deferral discharged when today's report landed. Four runs (14:20Z, 14:35Z, 14:50Z, 15:00Z) have now each DECLINED ON GRADE against live re-measurement, not on capital and not on the clock. All 13 RSI2 setups are covered with no remainder: 6 semis/AI (NVDA, LRCX, MU, AMAT, LITE, NBIS) on an unresolved, still-deepening policy de-rate; 3 energy (SLB, HAL, WMB) excluded on Ryan's standing oil steer; RTX, FCX, AMGN, DLTR each on their own named defect. Capital was genuinely available every time -- at 15:00Z, DEPLOYABLE $1,470.81 with TWO open slots = $735.40 per entry, clearing the ~$600 minimum and far under the $1,162.75 per-name cap. The book sits BELOW its 3-4 target at 2, i.e. maximum pressure to trade, which is exactly when the A-grade-only bar is load-bearing: a B-grade gets NO position, not a small one.",
- "weekly_calibration": "DONE for the week of 2026-09-14 -- run pre-open 07:35Z, recorded in _WEEKLY_CALIBRATION_2026-09-14. VERDICT: NO CHANGE on both books, nothing escalated. Equities n=51, margin over breakeven +18.73 pts, payoff 1.086, expectancy +$5.01 -- REPORT ONLY because only 4 of 51 closes are in-regime under the 2026-09-02 parameters (need 20). This run CONFIRMED that record rather than re-pulling it. NOTE the root fix that shipped with it: _A_BLENDED_CALIBRATION_SAMPLE_PASSES_BOTH_GUARDS_AND_TIGHTENS_A_HEALTHY_BOOK_2026-09-14 -- a blended equity+options pull defeats BOTH guards by construction and would have tightened three equity parameters off one defensive-hedge close. Split the books before calling recommend(); never blend.",
- "monthly_rebalance": "Not due. The monthly ritual falls on the first trading day of the month; 2026-09-01 has passed.",
- "iv_sweep_DEFERRED_and_why": "*** TAKEN AND COMPLETE 2026-09-14T14:12:52Z by the 14:00Z run (the one holding today's report). This key is REWRITTEN in place rather than superseded by a new one, per the one-key-per-subject rule. *** All 8 core names logged to iv_history.json (n=24 each): SPY / QQQ / NVDA / AMD / TSM / AVGO / MSFT / TSLA, ATM strike on the nearest-30-DTE board, call+put IV averaged. TWO board-level caveats are written into every row and must be read before any diff is quoted: (1) BOARD TRANSITION -- 2026-10-16 (32 DTE) replaces 2026-10-09 (now 25 DTE) as nearest-30, so the day-over-day atm_iv diff is DOUBLE-confounded today (board change AND ATM-strike migration on all 8 names, spot having moved -0.5% to -4.9%); no same_strike correction is offered because it would fix one confound and leave the other, producing a number that looks clean and is not. (2) PENDING-MOVE ARTIFACT -- rv_30d runs through the 09-11 close, so today's move is not yet in the denominator and every raw ratio is artifact-carrying; *_projected fields re-run the window with today's print appended and are the numbers to reason from. The artifact is small (+-5%) and NOT uniform in direction (SPY/MSFT rise on correction, every semi falls). READ: long index/mega-cap premium is RICH and stays rich after correction -- SPY exgap 1.65 (proj 1.69), QQQ 1.52 (proj 1.49), TSM 1.74 (proj 1.61); NVDA 1.07 (proj 1.05) and TSLA 1.04 (proj 1.03) are near fair. pctile_vs_own_history is NOT quotable today (first row on a new board). This is a real IV-sanity veto on buying index premium into the 09-16 FOMC, and it is a NECESSARY-condition check only: fair or rich vol supplies no thesis either way.",
- "exits_taken_today": {
-  "count": 2,
-  "MMM": "SELL / TIME STOP (stalled). 2.884552 sh @ 162.605, order 6aa7f831, filled 13:35:45.761Z, realized -$30.96 / -6.19% (broker-confirmed via get_realized_pnl). days_held 14 >= SWING_TIME_STOP_DAYS 14. Thesis was NOT broken -- it was sold on elapsed time, which is the mechanism. PLACED BY A CONCURRENT SIBLING RUN; the 13:35Z run's pre-place broker re-read caught the fill and stood down rather than duplicating it. See _THE_BROKER_PRECHECK_PREVENTED_A_DUPLICATE_TIME_STOP_SELL_2026-09-14.",
-  "GD": "SELL / discretionary warn-window exit. 1.335314 sh @ 358.0976, order 6aa801fb-afa7-4fc3-80d3-8e1f2227d85c, placed_agent 'agentic', filled 14:17:31.285Z, $0.00 fees, realized -$21.82 / -4.36% (broker-confirmed). The PLACING run logged it as a PROCESS ERROR against itself, not a win: HARD RULE 5 gives exactly one gate for selling an underwater equity -- a HARD RULE 7 thesis BREAK -- and GD's thesis was INTACT, so the report's 'this bounce is likely the better exit price' was treated as a third exit authority it is not. A concurrent 14:00Z run had MEASURED that heuristic and DECLINED the same sale 17 minutes earlier. See _GD_WARN_WINDOW_DECISION_2026-09-14 and _CONCURRENT_RUNS_SPLIT_ON_A_DISCRETIONARY_EXIT_AND_THE_ACTING_RUN_WINS_BY_DEFAULT_2026-09-14.",
-  "_repaired_1500Z": "This key read count:1 (MMM only) until 15:00Z -- it was written by the 14:00Z run and the GD sale landed at 14:17Z, so it understated the day's exits for ~45 minutes. Repaired in place per the one-key-per-subject rule rather than superseded."
- },
- "_tactical_key_provenance": "REWRITTEN 2026-09-14T13:50Z. The text this replaces was byte-identical to the 2026-09-11 brief's version and was carried verbatim through today's 13:40Z rebuild -- verified by git: all four commits touching market_brief.json carry the identical string. It was already wrong on 09-11 (a Friday scalp is flat by Monday 09-14's close, and PPI had printed the day before), so the dates were stale for at least three sessions. See holdings._A_STALE_CATALYST_WINDOW_BARRED_A_TRACK_FOR_A_SESSION_THAT_HAD_NO_CATALYST_2026-09-14."
+ "equity_entries_taken_today": "0 of 3. No entry: report stale + live cash hold (see no_entry_this_run_TWO_INDEPENDENT_BARS).",
+ "weekly_calibration": "DONE 2026-09-14 (Monday) pre-open at 07:35Z, confirmed by the 13:35Z run: NO CHANGE on either book, nothing escalated. Next due Monday 2026-09-21.",
+ "monthly_rebalance": "Next due the first trading day of October 2026. report.py prints the banner.",
+ "iv_sweep_DEFERRED_and_why": "N/A today -- the sweep was RUN this run (see constraints_today.iv_sweep). Key retained for one more day so the diff reads honestly, then delete.",
+ "exits_taken_today": "NONE. Neither ABNB nor UNP fired any of the three Connors-pure exits; time stop 2026-09-24 for both.",
+ "_tactical_key_provenance": "REWRITTEN 2026-09-14T13:50Z. The text this replaces was byte-identical to the 2026-09-11 brief's version and was carried verbatim through today's 13:40Z rebuild -- verified by git: all four commits touching market_brief.json carry the identical string. It was already wrong on 09-11 (a Friday scalp is flat by Monday 09-14's close, and PPI had printed the day before), so the dates were stale for at least three sessions. See holdings._A_STALE_CATALYST_WINDOW_BARRED_A_TRACK_FOR_A_SESSION_THAT_HAD_NO_CATALYST_2026-09-14.",
+ "DAY_TRACK_today": "PAPER, day 1. Opening range 13:30-13:35Z built from ONE-MINUTE bars per spec. See day_track_paper.json and holdings.json._DAY_TRACK for the row this run wrote."
 }
