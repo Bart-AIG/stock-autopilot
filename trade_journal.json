@@ -36796,6 +36796,18 @@
         "day_track": "Traded (paper) and already closed -- stopped, done for the day."
       },
       "duties": "Heartbeat already stamped for 2026-09-15 by the 13:33Z run (not re-stamped). market_brief stamped today; DAY_TRACK_today and exits_taken_today updated in place, no new key minted. Daily report not due (first run at/after 19:15Z owns it). IV sweep deferred per the brief's standing note. Weekly calibration ran Monday 2026-09-14; not due."
+    },
+    {
+      "run_utc": "2026-09-15T14:00:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-15",
+      "headline": "Re-verification run, no trade either book, nothing new measured. Day track paper day 1 already closed (stopped out 13:47Z; one trade per day = done).",
+      "reconciliation": "ZERO DRIFT both books vs broker at 14:01Z, run BEFORE any write. Equities 2 -- ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, both fully sellable. Options EMPTY. get_equity_orders(>=2026-09-15) EMPTY, sibling check clean. Cash == buying_power == unleveraged_buying_power == $1,664.60; total_value $3,866.62; reserve $193.33, deployable $1,471.27 -- of which $1,470.92 is under the live _cash_hold (FOMC 09-16, expiry 09-17).",
+      "tape": "Venue 14:01:10-14:01:23Z, settled (31 min past the bell). ABNB 168.370 (-1.34%), UNP 283.400 (-0.59%), QQQ 708.695 (-0.07%), SPY 759.1323 (-0.23%), NVDA 212.660 (+0.81%). Numbers only; no verdict handed forward.",
+      "position_verdicts": "Both swings stalled-but-early, no exit fires. ABNB -0.68% vs 169.5209, RSI2 51.16 (09-14 settled) and falling; UNP -0.60% vs 285.1071, RSI2 42.41. Each held 5d of 14 (time stop 2026-09-24), targets 183.08 / 298.32 both far. No target hit, no RSI2>=70-while-green, no time stop; neither is green-enough so no trailing-stop alert. Options book empty -- nothing to manage.",
+      "why_flat": "EQUITIES: two independent bars, either sufficient -- the committed report on master is still 2026-09-14 (autonomous equity trades are signal-sourced only), and the _cash_hold is live on a dated catalyst it does not get to reinterpret. OPTIONS: book empty; TACTICAL retired (CORE-only since 09-14) and CORE now needs a BINARY EVENT ON THE UNDERLYING -- FOMC is macro, which that amendment makes a sizing input and explicitly not a bar, but equally not a catalyst, so there is no candidate. DAY TRACK: done for the day.",
+      "duties": "Heartbeat, brief and cap/throttle reset owned by the 13:30Z run; weekly calibration done Monday 09-14 (no change, next 09-21); daily report due at/after 19:15Z. No new name evaluated, so no iv_history row is owed.",
+      "watch_not_a_finding": "Stock Report run 34978680106 (morning scan) started 14:00:09Z, still in_progress at 14:11Z -- ~11 min vs a ~2-3.5 min norm over the prior five runs. WATCH only: Actions queuing slips routinely and n=1 proves nothing, and it changed no decision (the cash hold bars the equity book independently of report freshness). A second reading next run is worth root-causing."
     }
   ]
 }
