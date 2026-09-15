@@ -36768,6 +36768,34 @@
       },
       "prompt_version": "v10 on this invocation. The DAY TRACK is therefore correctly in PAPER: v11 carries the stop-order authority LIVE would need. Reported, not re-argued.",
       "duties": "Heartbeat stamped 2026-09-15 (first run at/after 09:30 ET, never early). market_brief.json rebuilt for 09-15. _realized_options_pnl_today reset to the 09-15 trading day -- READ from the broker and the prior object, not typed. IV sweep done. Daily report NOT due yet (first run at/after 14:15 CT / 19:15Z owns it). Weekly calibration done 09-14, next Monday 09-21. Monthly rebalance next due the first trading day of October."
+    },
+    {
+      "run_utc": "2026-09-15T13:47:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-15",
+      "prompt_version": "v10 (stored). DAY TRACK is PAPER, which needs no orders and so has no v10 conflict; LIVE would additionally require v11.",
+      "headline": "DAY TRACK paper day 1 CLOSED: the first signal the track ever produced stopped out at -1R (-$1.56 at the stop price; -1.254R / -$1.96 at the realistic PSQ fill). Stop hit = done for the day. No trade in either real book: options empty, equity report stale, cash hold live.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 13:45Z. Equities ABNB 6.573584 @ 169.52 and UNP 3.858199 @ 285.11, both fully sellable (shares_held_for_sells 0). Options EMPTY. get_equity_orders(created_at_gte=2026-09-15) EMPTY -- sibling-collision check clean per the 2026-08-28 broker-is-the-arbiter rule, run BEFORE any write.",
+      "capital": "total_value $3,869.75; cash == buying_power == unleveraged_buying_power == $1,664.60 (no margin extended); equity_value $2,205.15; options_value $0. Reserve 5% = $193.49, deployable $1,471.11 -- of which $1,470.92 sits under the LIVE _cash_hold naming the 2026-09-16 FOMC (expiry 2026-09-17). Deliberately parked, not idle.",
+      "tape": "QQQ 709.010 (prev close 709.180, -0.02%); SPY 759.815 (prev 760.880, -0.14%); ABNB 168.310 (prev 170.650, -1.37%); UNP 284.020 (prev 285.080, -0.37%). Numbers only -- no regime verdict is handed forward from a mid-session read, per the 2026-08-28 inherited-label rule.",
+      "day_track": {
+        "action": "EXIT (paper). day_track.manage() returns 'close' / 'stop level reached' on both instruments.",
+        "row": "day_track_paper.json rows[0] and holdings.json._DAY_TRACK.results[0], status open -> closed.",
+        "evidence": "QQQ 1-min: 13:37 high 708.730 (stop 708.855 intact), 13:38 high 709.100 -> breached; spot 709.010 at 13:45:59Z, 0.155 above the stop and never reclaimed. PSQ 1-min: 13:37 low 26.1600 <= psq_stop 26.1671 -> breached one minute EARLIER.",
+        "recorded_r": "-1.00R at the stop price per spec ('record exits at the stop / chop / flat prices'). Realistic fill 26.16 -> -1.254R / -$1.96 is carried in the row rather than smoothed away; this run did not change the track's statistic.",
+        "day_complete": "Yes -- one trade per day, stop hit = done. No re-entry today whatever QQQ does."
+      },
+      "new_durable_finding": "holdings.json._DAY_TRACK_THE_PSQ_STOP_IS_2_79_TICKS_WIDE_AND_THE_VEHICLE_STOPPED_A_MINUTE_BEFORE_THE_SIGNAL_2026-09-15 -- the short side's 0.1066% stop translates to $0.0279 on PSQ, i.e. 2.79 one-cent ticks on an instrument quoted one tick wide, so the spread alone is 0.358R against 0.053R on QQQ (6.77x). Flagged to the Monday calibration with the instruction to split the paper sample BY DIRECTION; NOT fixed here, because every available fix edits the spec and an unattended run widening its own stop right after losing 1R is precisely what the no-new-gates clause forbids. Argued in the key, not re-argued here.",
+      "positions_verdicts": {
+        "ABNB": "WORKING (thesis), 5d held of 14. 168.310 vs entry 169.5209 = -0.71%. No exit fires: target 183.08 not hit; the RSI2>=70 take-profit is gated on price > entry and the position is RED; time stop 2026-09-24. Hold, no price stop ever (HARD RULE 5).",
+        "UNP": "WORKING (thesis), 5d held of 14. 284.020 vs entry 285.1071 = -0.38%. Same three exits, none fired; time stop 2026-09-24. Hold."
+      },
+      "why_flat": {
+        "equities": "NO ENTRY, two independent bars, unchanged from the 13:33Z run and re-verified rather than inherited: (1) the committed report on master is STALE -- latest_morning.md 2026-09-14 14:02Z, latest_intraday.md 2026-09-14 19:03Z; today's has not landed (Actions cron ~14:00-14:15Z), and autonomous equity trades are SIGNAL-SOURCED ONLY. (2) The _cash_hold over the 09-16 FOMC is LIVE and holds $1,470.92 of the $1,471.11 deployable. Exits are never gated by either bar and were checked on live quotes above.",
+        "options": "NO ENTRY. Book empty and unhedged since Ryan closed the SPY 700P himself 2026-09-11. TACTICAL is RETIRED (Ryan, live turn 2026-09-14) -- CLAUDE.md governs over v10's two-track text and is the stricter reading, so no intraday options scalp was hunted or priced. CORE was not opened: its catalyst bar is now a BINARY EVENT ON THE UNDERLYING, the FOMC is a macro event and therefore a sizing input rather than a catalyst, and funding a CORE entry would spend the cash the live hold is parking for the post-FOMC re-grade.",
+        "day_track": "Traded (paper) and already closed -- stopped, done for the day."
+      },
+      "duties": "Heartbeat already stamped for 2026-09-15 by the 13:33Z run (not re-stamped). market_brief stamped today; DAY_TRACK_today and exits_taken_today updated in place, no new key minted. Daily report not due (first run at/after 19:15Z owns it). IV sweep deferred per the brief's standing note. Weekly calibration ran Monday 2026-09-14; not due."
     }
   ]
 }
