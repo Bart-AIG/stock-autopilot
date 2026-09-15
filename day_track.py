@@ -171,10 +171,31 @@ def size(price: float, stop: float, equity: float, deployable_cash: float,
     }
 
 
+def vehicle_stop(direction: str, vehicle_px: float, stop_dist_pct: float) -> float:
+    """Translate the SIGNAL-symbol stop distance onto the vehicle actually bought.
+
+    Both vehicles are held LONG, so the stop is BELOW the entry in both cases:
+      - long  -> QQQ, moves +1x the signal: stop = px * (1 - d)
+      - short -> PSQ, moves ~-1x the signal, so a RISE in QQQ to the stop is a FALL
+        in PSQ of the same percentage: stop = px * (1 - d)
+    An earlier note on this module said psq_stop = psq_entry * (1 + d), which puts the
+    stop ABOVE a long entry — unplaceable as a stop-loss, and the number a live run
+    would have typed into the broker order. Same arithmetic for both sides; the sign
+    is carried by which vehicle you bought, not by the formula."""
+    return vehicle_px * (1.0 - stop_dist_pct / 100.0)
+
+
 def plan_entry(minute_bars: list[dict], daily_bars: list[dict], price_now: float,
-               equity: float, deployable_cash: float, risk_pct: float = RISK_PCT_START) -> dict:
+               equity: float, deployable_cash: float, risk_pct: float = RISK_PCT_START,
+               vehicle_px: float | None = None) -> dict:
     """The whole entry decision in one call. Returns a dict with 'action' in
-    {'wait','skip','enter'} and the reason; on 'enter' it carries vehicle/side/stop/size/R."""
+    {'wait','skip','enter'} and the reason; on 'enter' it carries vehicle/side/stop/size/R.
+
+    price_now is the SIGNAL symbol (QQQ) — the OR, the direction and the stop all live
+    there. vehicle_px is the price of the instrument actually bought; pass the PSQ quote
+    on a short. It defaults to price_now, which is correct for the long side only:
+    sizing a PSQ trade off the QQQ price bought 2 shares instead of 56 on the track's
+    first real signal (2026-09-15), i.e. 3.6% of the intended position."""
     or_ = opening_range(minute_bars)
     if or_ is None:
         return {"action": "wait", "reason": f"fewer than {OR_MINUTES} one-minute bars yet"}
@@ -189,7 +210,14 @@ def plan_entry(minute_bars: list[dict], daily_bars: list[dict], price_now: float
     if not late_entry_ok(or_, direction, price_now):
         return {"action": "skip", "reason": "late entry: price already > 0.5 x OR range beyond the edge",
                 "or": asdict(or_), "price_now": price_now, "stop": stop}
-    sz = size(price_now, stop, equity, deployable_cash, risk_pct)
+    if direction == "short" and (vehicle_px is None or vehicle_px == price_now):
+        return {"action": "wait", "reason": f"short signal needs the {SHORT_VEHICLE} quote as "
+                "vehicle_px, not the signal price", "or": asdict(or_)}
+    if vehicle_px is None:
+        vehicle_px = price_now
+    stop_dist_pct = abs(price_now - stop) / price_now * 100
+    v_stop = vehicle_stop(direction, vehicle_px, stop_dist_pct)
+    sz = size(vehicle_px, v_stop, equity, deployable_cash, risk_pct)
     if sz["shares"] < 1:
         return {"action": "skip", "reason": "cannot afford one whole share inside the caps",
                 "or": asdict(or_), "size": sz}
@@ -198,10 +226,13 @@ def plan_entry(minute_bars: list[dict], daily_bars: list[dict], price_now: float
         "vehicle": LONG_VEHICLE if direction == "long" else SHORT_VEHICLE,
         "signal_symbol": SIGNAL_SYMBOL, "or": asdict(or_), "atr14_daily": round(a, 4),
         "entry_px_expected": price_now, "stop_px_signal": round(stop, 4),
-        "stop_dist_pct": round(abs(price_now - stop) / price_now * 100, 4),
+        "stop_dist_pct": round(stop_dist_pct, 4),
+        "vehicle_px": vehicle_px, "stop_px_vehicle": round(v_stop, 4),
         "size": sz, "risk_pct_used": risk_pct,
-        "note": ("stop is expressed on the SIGNAL symbol; for PSQ translate as "
-                 "psq_stop = psq_entry * (1 + stop_dist_pct/100) since PSQ moves ~-1x QQQ"),
+        "note": ("OR, direction and stop_px_signal are on the SIGNAL symbol; size, "
+                 "vehicle_px and stop_px_vehicle are on the instrument actually bought. "
+                 "The resting stop order goes at stop_px_vehicle — BELOW entry on both "
+                 "sides, because both vehicles are held long."),
     }
 
 
@@ -339,6 +370,28 @@ def _selftest() -> None:
     assert plan["action"] == "enter" and plan["vehicle"] == "QQQ" and plan["size"]["shares"] == 2
     assert plan_entry(doji, daily, 700.0, 3884.0, 1470.0)["action"] == "skip"
     assert plan_entry(mb, daily, 704.0, 3884.0, 1470.0)["reason"].startswith("late entry")
+
+    # SHORT SIDE — sized on the VEHICLE, not the signal. This is the case the long-only
+    # fixtures above cannot catch: PSQ trades near $26 while the signal trades near $700,
+    # so sizing off price_now buys ~3.6% of the intended position (measured live
+    # 2026-09-15: 2 shares instead of 56). The short stop must land BELOW the PSQ entry.
+    mbs = [dict(open=702.0, high=702.2, low=700.6, close=701.5),
+           dict(open=701.5, high=701.6, low=700.2, close=700.6),
+           dict(open=700.6, high=700.9, low=700.0, close=700.3),
+           dict(open=700.3, high=700.7, low=699.8, close=700.1),
+           dict(open=700.1, high=700.4, low=699.6, close=699.9)]
+    ors = opening_range(mbs)
+    assert ors.direction == "short" and ors.high == 702.2, ors
+    ps = plan_entry(mbs, daily, 700.0, 3884.0, 1470.0, vehicle_px=26.195)
+    assert ps["action"] == "enter" and ps["vehicle"] == "PSQ", ps
+    assert ps["size"]["shares"] == 56, ps               # 1470 / 26.195, not 1470 / 700
+    assert ps["stop_px_signal"] == 702.2, ps            # stop stays on the signal
+    assert ps["stop_px_vehicle"] < 26.195, ps           # PSQ is held LONG -> stop BELOW entry
+    # tolerance, not equality: stop_dist_pct is reported rounded to 4dp while
+    # stop_px_vehicle is computed from the unrounded distance
+    assert abs(ps["stop_px_vehicle"] - 26.195 * (1 - ps["stop_dist_pct"] / 100)) < 1e-3, ps
+    # the default is the long-side convenience only: a short must be given the PSQ quote
+    assert plan_entry(mbs, daily, 700.0, 3884.0, 1470.0)["action"] == "wait"
 
     sd = 2.4
     m = manage("long", 702.0, 699.6, 703.0, 703.2, 0.6, "10:15", sd)

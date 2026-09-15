@@ -2,17 +2,16 @@
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
   "updated_utc": "2026-09-14T22:30:00Z",
   "_realized_options_pnl_today": {
-    "trading_day_et": "2026-09-14",
+    "trading_day_et": "2026-09-15",
     "realized_usd_options": 0.0,
     "closing_trades_options": 0,
     "cap_options_usd": -400.0,
     "cap_headroom_usd": -400.0,
-    "realized_usd_equities": -52.78,
-    "closing_trades_equities": 2,
+    "realized_usd_equities": 0.0,
+    "closing_trades_equities": 0,
     "entry_throttle_options": "0 of 8 used",
     "entry_throttle_equities": "0 of 3 used",
-    "source": "BROKER-READ 2026-09-14T14:18Z by the run that placed the GD exit, then REPAIRED at 14:40Z. *** THE -30.96 / 1-TRADE FIGURE THIS OBJECT CARRIED WAS STALE BY ONE FILL. *** The 14:25Z run correctly reconciled GD out of positions[] and correctly recorded the closure, but left this object at the MMM-only figure -- so the ledger simultaneously knew GD was closed for -21.82 and reported the day's equity realized as -30.96. get_realized_pnl(equity, 09-14..09-14) returns -52.78 over 2 CLOSING TRADES: MMM time stop -30.96 (13:35:45Z) + GD warn-window exit -21.82 (14:17:31Z). This is the documented class 'NEVER type a cap or throttle figure you did not READ this run', arriving in its P&L sibling: a derived total went stale while the record it derives from was being updated correctly. The lot-invariant lesson generalises -- when a position leaves the book, the day's realized total is a DERIVED FIELD and must be repaired in the same pass. Options untouched: no option position or order today, so the -$400 OPTIONS cap is at full headroom and gates nothing; the equity book has no daily loss cap. Both ENTRY throttles remain 0 -- an exit is not an entry.",
-    "NOTE_THE_EXIT_IS_NOT_A_THROTTLE_EVENT": "The MMM sale consumes no entry throttle. Exits are never throttled (prompt v10 STRUCTURAL LIMITS) and the equity throttle counts ENTRIES only, so 0 of 3 is correct despite one autonomous order having been placed today."
+    "source": "RESET BY THE FIRST POST-BELL RUN of trading day 2026-09-15 (13:33Z), which is the only run entitled to roll it -- the UTC-rollover rule bars every post-close/pre-open run from resetting a cap or a throttle, and four consecutive runs once broke exactly that clause by TYPING a zero (2026-08-27T09:18Z finding). These zeros are correct because the 09-15 session has just opened and no order has been placed in it: get_equity_orders(created_at_gte=2026-09-15) returned EMPTY at 13:31Z and get_option_positions is EMPTY. The prior object's 09-14 figures (equities -52.78 over 2 closing trades: MMM time stop -30.96, GD exit -21.82; options 0.00) are superseded and live on in the 09-14 daily report. Any later run must READ this object or the broker before restating either figure -- never type one."
   },
   "positions": [
     {
@@ -5444,7 +5443,48 @@
     },
     "paper_started_trading_day": "2026-09-15",
     "paper_log_file": "day_track_paper.json",
-    "results": [],
+    "results": [
+      {
+        "phase": "paper",
+        "trading_day_et": "2026-09-15",
+        "decided_utc": "2026-09-15T13:35:20Z",
+        "decided_by": "scheduled run 13:30Z 2026-09-15 (unattended, prompt v10) -- first post-bell run, DAY TRACK paper day 1",
+        "action": "enter",
+        "signal_symbol": "QQQ",
+        "direction": "short",
+        "vehicle": "PSQ",
+        "opening_range": {
+          "high": 708.855,
+          "low": 707.56,
+          "open": 708.79,
+          "close": 707.88,
+          "bars": 5,
+          "range_pts": 1.295,
+          "range_pct_of_spot": 0.1829,
+          "body_frac_of_range": 0.7027,
+          "source": "get_equity_historicals(QQQ, interval='minute', bounds='regular') 13:30-13:34Z, all five bars present and settled by 13:35:10Z. ONE-MINUTE bars per spec, never 5-minute buckets."
+        },
+        "atr14_daily": 7.8939,
+        "entry_px_signal": 708.1,
+        "entry_px_signal_venue_utc": "2026-09-15T13:35:17.558993063Z",
+        "entry_px_vehicle": 26.195,
+        "entry_px_vehicle_venue_utc": "2026-09-15T13:35:02.454605587Z",
+        "stop_px_signal": 708.855,
+        "stop_px_vehicle": 26.1671,
+        "stop_dist_pct": 0.1066,
+        "shares": 56,
+        "dollars": 1466.92,
+        "r_usd": 1.56,
+        "bound_by": "cash",
+        "risk_pct_used": 5.0,
+        "late_entry_ok": true,
+        "status": "open",
+        "exit": null,
+        "capital_note": "Paper only -- no order placed, none placeable: _DAY_TRACK.status is PAPER and LIVE additionally requires the v11 stamp, while this run was invoked with v10. Sizing used deployable $1,470.86 (unleveraged_buying_power $1,664.60 minus the 5% operational reserve $193.74). NOTE THE COLLISION AND THAT IT IS UNRESOLVED IN THE SPEC: $1,470.92 of that same cash is under the LIVE _cash_hold for the 2026-09-16 FOMC. _DAY_TRACK.capital_priority says the day trade claims deployable cash at its entry run, and a day-track position is flat by 15:30 ET the same session so it never spans the catalyst the hold is waiting on -- but the two rules have not been read against each other by anyone with authority to settle it. In PAPER this costs nothing. BEFORE THE TRACK GOES LIVE Ryan should say which claim wins; see holdings.json._DAY_TRACK_VS_CASH_HOLD_UNSETTLED_2026-09-15.",
+        "quote_provenance": "Both venue timestamps are at/after 13:35Z, i.e. OUTSIDE the opening auction window, so this row satisfies the standing re-quote rule. The 13:31-13:33Z quotes taken earlier in the run were NOT used for it.",
+        "bugs_found_and_fixed_by_this_row": "Two, both in day_track.plan_entry, both caught only because this was the first SHORT signal the track ever produced. See holdings.json._DAY_TRACK_SHORT_SIDE_SIZED_IN_THE_WRONG_INSTRUMENT_2026-09-15."
+      }
+    ],
     "graduation": {
       "evaluated_utc": null,
       "verdict": null,
@@ -5470,5 +5510,24 @@
     "transferable_lesson": "WHEN A MODULE IS WRITTEN AHEAD OF ITS FIRST LIVE CALL, ITS TESTS ENCODE THE AUTHOR'S GUESS AT THE UPSTREAM SCHEMA, NOT THE SCHEMA. Pin at least one fixture to bytes actually returned by the upstream call, copied verbatim, before the module's first live use. Same family as 'the broker is the arbiter' -- applied to a data SHAPE rather than to a position or a price.",
     "scope_and_honesty": "This changed NO trading decision: the track is PAPER (no orders), the market was shut when the fix was made (13:25Z, bell 13:30Z), and yesterday's OR was a doji the track would have skipped anyway. It is a code repair, not a rule change -- it adds no gate, filter or screen to the DAY TRACK, which the spec forbids an unattended run from doing. graduate(), the parameters and the PAPER->LIVE conditions are untouched.",
     "still_gating_live": "Unchanged: LIVE needs (a) day_track.graduate() == go_live at a Monday calibration AND (b) a v11 stamp on the run's own invocation. This run was invoked with v10, so PAPER stands."
+  },
+  "_DAY_TRACK_SHORT_SIDE_SIZED_IN_THE_WRONG_INSTRUMENT_2026-09-15": {
+    "found_utc": "2026-09-15T13:36:00Z",
+    "found_by": "scheduled run 13:30Z 2026-09-15 (unattended, prompt v10), on the DAY TRACK's FIRST EVER SIGNAL",
+    "severity": "BLOCKING for the short side. Caught in PAPER, which is what PAPER is for. Second day_track defect in 12 hours -- the 13:25Z run fixed the bar-schema KeyError this morning.",
+    "what_happened": "The 09-15 opening range printed SHORT (OR open 708.79, close 707.88, body 70.3% of a 1.295-pt range), so the vehicle is PSQ, not QQQ. plan_entry() passed price_now -- the QQQ price, 708.10 -- straight into size(), and size() divides deployable cash by that price. It returned 2 SHARES / $1,416.20. The trade is in PSQ at $26.195, where $1,470.86 of deployable cash buys 56 SHARES / $1,466.92. Placing the returned number would have deployed $52.39 -- 3.6% of the intended position. risk_usd was equally meaningless: $1.51 computed from QQQ shares x a QQQ stop distance, against the true $1.56 on the PSQ leg.",
+    "second_defect_same_function": "plan_entry's own note read: 'for PSQ translate as psq_stop = psq_entry * (1 + stop_dist_pct/100)'. stop_dist_pct is an absolute value, so that formula puts the stop ABOVE the entry -- and PSQ is held LONG. A stop-loss above a long entry is rejected by the broker or fills instantly. Under v11 (which grants this track stop-order authority) that note is the number a run types into the resting stop order, so it is the more dangerous of the two.",
+    "why_neither_was_caught_earlier": "EVERY fixture in _selftest was a LONG. The long path is correct by coincidence -- for a long the vehicle IS the signal symbol, so price_now is the right price and the stop is already on the right side. A test suite that only exercises the side where two variables happen to coincide cannot distinguish them. Exactly the shape of this morning's schema bug, whose fixtures encoded the same assumption as the code; both are instances of the file's most-repeated defect, a check that passes for the wrong reason.",
+    "fix_applied": "day_track.plan_entry now takes vehicle_px and sizes on the instrument actually bought; a new vehicle_stop() translates the signal stop onto the vehicle and returns a stop BELOW entry on BOTH sides (both vehicles are held long, so the sign is carried by which vehicle you bought, not by the formula); the output carries vehicle_px and stop_px_vehicle alongside stop_px_signal. A SHORT call with vehicle_px missing or equal to price_now now returns action='wait' rather than silently mis-sizing -- fail loud, since the wrong answer here looks perfectly plausible. A short-side self-test asserting 56 shares and a sub-entry stop is added. Selftest passes. NO parameter, gate, filter or threshold was touched: this is arithmetic, not a rule change, so it does not run into the DAY TRACK's bar on unattended runs adding gates.",
+    "transferable_lesson": "A module with a LONG vehicle and a SHORT vehicle has two price scales, and every function that takes 'price' must say WHICH. The long side hides the bug because signal and vehicle are the same instrument there. When a strategy is asymmetric in its instruments, the asymmetric side needs its own test on day one -- not the first time the market happens to produce it.",
+    "verification_note": "The paper row for today was written from the FIXED code. Replayed live: 56 shares / $1,466.92 / stop_px_vehicle 26.1671 / 1R $1.56."
+  },
+  "_DAY_TRACK_VS_CASH_HOLD_UNSETTLED_2026-09-15": {
+    "found_utc": "2026-09-15T13:36:00Z",
+    "severity": "NOT blocking in PAPER. MUST be settled before the track goes LIVE, because on that day the two rules point at the same dollars.",
+    "the_collision": "_DAY_TRACK.capital_priority: 'The day trade claims deployable cash at its entry run; swing-book entries that day wait until it is flat or skipped.' THE CAPITAL POLICY: a _cash_hold parks capital against a named, dated catalyst until it expires. Today both are live over the SAME $1,470.86: the hold (set 2026-09-14T14:25Z, catalyst the 2026-09-16 FOMC decision, expiry 2026-09-17) covers $1,470.92, and the day track's paper size claimed $1,466.92 of it.",
+    "the_argument_each_way": "FOR the day track: the hold exists to avoid committing capital ACROSS a binary event, and a day-track position is flat by 15:30 ET the same session, so it never spans the catalyst -- the hold's purpose is not threatened. AGAINST: THE CAPITAL POLICY says a hold parks the cash, full stop, and a day trade that loses still reduces what is available on the other side of the event. Neither reading is obviously wrong, which is precisely why an unattended run must not pick one.",
+    "what_this_run_did": "Logged the paper row at full size and flagged the conflict rather than resolving it. Nothing was placed; PAPER runs no orders and v10 carries no stop authority, so the question cost nothing today.",
+    "for_ryan": "One sentence settles it: when a live day-track signal and a live cash hold want the same dollars, which wins? A reasonable default -- and the desk's recommendation, recorded as a recommendation and NOT as an approval per HARD RULE 9 -- is that the DAY TRACK wins, because it returns the capital the same session and therefore cannot defeat the hold's purpose. No approval is claimed, quoted, or implied; this was raised by an unattended run."
   }
 }
