@@ -657,24 +657,34 @@
     }
   },
   "_eod_report_written": {
-    "trading_day_et": "2026-09-14",
-    "written_utc": "2026-09-14T19:15:00Z",
-    "written_by": "The 19:15Z scheduled run. 19:15Z IS the v10 threshold (first run at or after 2:15 PM CT) and master still carried the 2026-09-11 report, so this run owned the duty and took it rather than deferring to a tidier slot -- the 18:45Z and 19:00Z runs both correctly declined it as early and both handed the duty forward explicitly.",
-    "quotes_stamped_utc": "2026-09-14T19:16Z",
-    "note": "daily_options_report.md for trading day 2026-09-14 covers BOTH books per v10. THAT COMMIT IS THE DELIVERY (eod-report-notify.yml fires on the master push touching this file). NO LATER RUN MAY REWRITE IT to refresh closing marks or restate 'still flat' -- every master push touching this file sends Ryan another notification. Rewrite ONLY on something MATERIAL after 19:15Z: a fill, an exit, a new flag, or a trigger firing. The ONE live candidate for exactly that: ABNB is GREEN (+0.224%), so an RSI2>=70 print on it before the bell would be a genuine mechanical take-profit and WOULD justify a rewrite -- but RSI2 is 39.82 and the cross is not close. UNP is red, so its authority is unavailable regardless.",
-    "headline_of_the_report": "The book shrank 4 -> 2 by exits (MMM 14-day time stop -$30.96, GD discretionary exit-into-strength -$21.82, together -$52.78); the desk placed nothing new across ~30 runs; deployable $1,470.57 against an open slot and NOTHING on the 11-name board above B+; options empty and the account unhedged into FOMC week; exit taxonomy now 4 closes, ALL time-stop-family, ZERO mechanical take-profits.",
-    "prior_day": "The 2026-09-11 report (written 19:15Z on 09-11) is superseded by this one.",
-    "_assertion_run": "PASSED. Per the detector recorded 2026-09-10T19:35Z, this run asserted h['_eod_report_written']['trading_day_et'] == the trading day in daily_options_report.md's own H1 header ('Monday, 2026-09-14') BEFORE committing -- the check that stops a duty being done while the marker recording it says otherwise."
+    "trading_day_et": "2026-09-15",
+    "written_utc": "2026-09-15T19:15:00Z",
+    "written_by": "The 19:15Z scheduled run. 19:15Z IS the v11 threshold (first run at or after 2:15 PM CT) and master still carried the 2026-09-14 report, so this run owned the duty and took it rather than deferring to a tidier slot.",
+    "quotes_stamped_utc": "2026-09-15T19:16-19:17Z",
+    "note": "daily_options_report.md for trading day 2026-09-15 covers ALL THREE books per v11 (DAY TRACK section first). THAT COMMIT IS THE DELIVERY (eod-report-notify.yml fires on the master push touching this file). NO LATER RUN MAY REWRITE IT to refresh closing marks or restate 'still flat' -- every master push touching this file sends Ryan another notification. Rewrite ONLY on something MATERIAL after 19:15Z: a fill, an exit, a new flag, or a trigger firing. LIVE CANDIDATES FOR EXACTLY THAT, both narrow: (a) an equity mechanical exit, which is UNAVAILABLE on both names today because each is RED (ABNB -0.94%, UNP -0.16%) and the take-profit requires GREEN, so only a large intraday reversal into a >=70 RSI2 print could create one -- RSI2 is 19.87 / 30.50, nowhere near; (b) Ryan closing or adding to his own SPY strangle, which would be a genuine ledger change. A re-mark of his contracts is NOT material and must not trigger a rewrite or a second notification.",
+    "headline_of_the_report": "Nothing traded by the desk in any book. DAY TRACK paper day 1 stopped -1.00R. Ryan opened a SPY 09-17 strangle himself at 18:43Z (ownership gate, notified once). Equity screen produced no A-grade for the 8th straight session; declined ON GRADE with capital fundable at $708.14/slot. FOMC 09-16 is the event everything is waiting on."
   },
   "_last_reconciliation": {
-    "run_utc": "2026-09-11T19:15:00Z",
-    "verdict": "ZERO DRIFT, both books.",
-    "equities": "MMM 2.884552 @ 173.34 / GD 1.335314 @ 374.44 / ABNB 6.573584 @ 169.52 / UNP 3.858199 @ 285.11 -- all four match the ledger on quantity AND average price; every shares_held_for_* and pending_* field is zero.",
-    "options": "get_option_positions(nonzero=true) returns EMPTY. The ledger agrees: the SPY 2026-11-20 700P was closed by Ryan at 15:54:21Z and is already out of positions[].",
-    "orders_today": "get_equity_orders(created_at_gte=2026-09-11) EMPTY. get_option_orders(created_at_gte=2026-09-11) returns EXACTLY ONE order -- 6aa4242d, SPY 2026-11-20 700P sell-to-close x1 @ 5.02, placed_agent='user', filled 15:54:21.471Z. No agentic order exists today in either book, so the sibling precheck is clean and both throttles are untouched (equities 0 of 3, options 0 of 8).",
-    "capital": "get_portfolio 19:15Z: total_value $3,881.27, cash $717.38, unleveraged_buying_power $717.38 (IDENTICAL -> no margin extended, FOUR LAWS #4 clean), equity_value $3,163.89, options_value $0.00. Reserve 5% = $194.06, DEPLOYABLE $523.32. unsettled_funds $501.93 (hedge proceeds, settle 09-14; limited_margin so tradeable now and already inside buying_power).",
-    "account": "get_accounts confirms 718757339 = limited_margin / option_level_3 / agentic_allowed=true. HARD RULE 1 clean.",
-    "stale_clone_guard": "`git fetch origin master` + `git checkout -B <branch> origin/master` ran BEFORE any file was read. Master had FORCE-UPDATED (d2a176e -> 6070e0d) since the container's clone, so reading the clone would have reproduced the 2026-09-09 ten-file stale-clone overwrite exactly."
+    "run_utc": "2026-09-15T19:15:00Z",
+    "broker_read_utc": "2026-09-15T19:16Z",
+    "result": "ZERO DRIFT, both books, read BEFORE any write.",
+    "equities": "2 positions, match ledger exactly: ABNB 6.573584 @ 169.520 and UNP 3.858199 @ 285.110, both fully sellable (shares_held_for_sells 0).",
+    "options": "2 positions, match the ledger synced at 18:45Z: SPY 2026-09-17 731P x1 @ 28.00 and SPY 2026-09-17 770C x1 @ 27.00, BOTH placed_agent='user'. The AGENTIC options book is EMPTY -- 0 of 3 CORE slots used.",
+    "sibling_precheck": "get_equity_orders(created_at_gte=2026-09-15) returned EMPTY. No sibling run has landed an entry today.",
+    "capital": {
+      "total_value": 3864.75119616,
+      "cash": 1609.52,
+      "buying_power": 1609.52,
+      "unleveraged_buying_power": 1609.52,
+      "equity_value": 2202.23119616,
+      "options_value": 53.0,
+      "operational_reserve_5pct": 193.24,
+      "deployable": 1416.28,
+      "open_equity_slots": 2,
+      "per_slot_at_4_target": 708.14,
+      "per_name_cap_30pct": 1159.43,
+      "no_margin_extended": "buying_power == unleveraged_buying_power exactly."
+    }
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
@@ -922,17 +932,15 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-15T16:18:00Z",
+    "run_utc": "2026-09-15T19:15:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-15",
-    "prompt_version": "v11 (pasted 2026-09-14) -- AS INVOKED, and this is the first run of any day to see it. Every earlier run today recorded v10. Confirmation + probe evidence: _PROMPT_V11_CONFIRMED_LIVE_2026-09-15.",
-    "headline": "No trade either book. ONE new durable measurement: prompt v11 is CONFIRMED LIVE, which satisfies the DAY TRACK's stop-authority precondition (b) and retires the stale-prompt conflict CLAUDE.md has carried since 09-14 -- but NOT graduation, so the track stays PAPER. Board delta since the 16:05Z grading is MU and C, both routing to existing durable rejects.",
-    "book": "2 equity swings -- ABNB and UNP, both entered 09-10, both time-stopping 2026-09-24 (5d/14d). BELOW the 3-4 target band floor, so the open slot is a genuine hole, not an optional fourth. ZERO options; unhedged since Ryan closed the SPY 700P himself 09-11 (re-establishing it is his call). DAY TRACK paper day 1 ENTERED AND CLOSED at -1R (PSQ short, stopped 13:47Z) -- day complete, no re-entry, nothing to manage.",
-    "capital": "BROKER-READ 16:19Z, not inherited: total_value $3,861.52; cash == buying_power == unleveraged_buying_power == $1,664.60 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $2,196.92; options_value $0. Reserve 5% = $193.08 -> DEPLOYABLE $1,471.52. The _cash_hold is a DISCLOSURE over that capital, NOT a subtraction -- the 16:05Z guard stands and was honoured. Per-name cap $1,158.46 (30%), minimum entry ~$600, two open slots.",
-    "tape": "Venue 16:18-16:19Z, settled. ABNB 167.405 (-1.90% day, -1.249% vs entry), UNP 284.200 (-0.31% day, -0.318% vs entry), QQQ 705.080 (-0.58%), SPY 757.070 (-0.50%), NEM 122.400 (-0.54%), BAC 58.915 (-0.93%), JPM 344.330 (-1.66%). Numbers only; no regime verdict handed forward.",
-    "positions": "No exit fires on either, confirmed against live quotes and the fresh 16:11Z report. Both RED vs entry, so the RSI2>=70 take-profit is gated shut on price (profit-banking only, 2026-08-26 correction). No target hit (183.08 / 298.32). Neither green-enough (199.44 / 335.42), so no SET TRAILING STOP alert. Held 5 of 14d, TIME STOP 09-24, outside the 3-day warn window. No stops placed, ever -- and note that v11's stop authority does NOT change this: it is scoped to sleeve 'day' only.",
-    "why_flat": "EQUITIES: no A-grade. The 16:11Z board carries 16 names against the 14 the 16:05Z run graded; the delta is MU and C and NEITHER is genuinely ungraded. C is one of the four banks named verbatim in the 09-14 cohort reject (BAC's IB-fee guidance, now its third session: BAC -0.93%, JPM -1.66% at 16:19Z). MU inherits the semis AI-governance sentiment-shock veto that graded LRCX B- and AMAT B on 09-14. NEM remains the best name on the board at B, declined ON GRADE with capital fundable, re-grade first after tomorrow's FOMC. A B-grade gets NO position. OPTIONS: book empty, CORE-only since the 09-14 TACTICAL retirement; nothing on the board clears the full entry stack and no thesis was worth a survey. DAY TRACK: today's one trade is done.",
-    "duties": "Heartbeat stamped 13:33Z by the first post-bell run. market_brief.json stamped today. iv_history rows present for all eight core names. Daily report NOT due -- the 14:15 CT / 19:15Z gate is ~3h out. Not Monday, so no calibration."
+    "prompt_stamp_observed": "v11",
+    "verdict": "NO TRADE ANY BOOK. This run's deliverable was the DAILY REPORT for 2026-09-15, which it owned and wrote.",
+    "equities": "No exit: the take-profit's binding leg is BOTH the signal AND the sign, and both fail -- RSI2 re-derived Wilder off own daily bars incl. the live print is ABNB 19.87 / UNP 30.50 (vs >=70), and both names are RED (-0.943% / -0.164%) so the profit-banking authority does not exist regardless. No target hit (+9.03% / +4.81% away), neither green-enough (needs 199.44 / 335.42), held 5 of 14d so the 09-24 TIME STOP is outside the 3-day warn window. No entry: 19:06Z board of 11 names has ZERO ungraded delta -- it SHRANK from the 15:02Z board (RTX, BAC, JPM, NEM dropped) and every remaining name was graded today or 09-14. Best is AMAT at B; a B GETS NO POSITION. Declined ON GRADE, capital fundable.",
+    "options": "0 of 3 CORE, 0 of 3 entries. TACTICAL retired. Index premium rich into the event (SPY raw 1.3478 / ex-gap 1.7086) so long premium is the wrong side of the vol; board routes to ERN binaries (MU 09-30) or chains untradeable at this size. FOMC 09-16 is MACRO = sizing input, not a bar -- it is not what declined the entry.",
+    "day_track": "PAPER day 1 CLOSED, stopped -1.00R at 13:47Z. One trade/day, no re-entry. graduate() is the SURVIVING lock at 1 day of 10 and 1 signal of 8; the v11 stamp discharged the stop-authority lock ONLY and is NOT a graduation.",
+    "user_positions": "Ryan's SPY 09-17 731P/770C re-marked 19:17Z: put 0.265, call 0.255, combined $52.00 vs $55.00 basis = -$3.00. IMMATERIAL -- ownership-gate notify-once stays discharged, no second notification, and a re-mark does not justify rewriting the daily report."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
