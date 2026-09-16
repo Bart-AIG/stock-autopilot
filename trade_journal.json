@@ -37877,6 +37877,30 @@
         "day_track": "Nothing owed. Paper day 2 spent and closed (-1.00R); one trade per day; phase stays PAPER (2d/2 signals vs 10/8)."
       },
       "duties": "Heartbeat 13:40Z; brief 09-16; no new options name so no iv_history row owed. _cash_hold untouched -- resolves at 18:00Z, the first run after DELETES it; flag for that run: its amount_held_usd $1,470.92 now exceeds actual cash $901.56 (stale, and never a gate). Report due >=19:15Z; calibration Monday-only. No new durable finding."
+    },
+    {
+      "run_utc": "2026-09-16T17:50:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-16",
+      "headline": "Re-verification, no trade in any book, ~10 min before FOMC. The 17:35Z report refreshed the RSI2 board and the UNGRADED DELTA IS ZERO: UNP departed, nothing arrived.",
+      "reconciliation": "BROKER FIRST. ZERO DRIFT both books. IBKR 8.109516 @ 87.30, ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, all sellable. get_equity_orders(>=09-16): still only the ledgered 16:24:37Z IBKR fill, sibling check clean. Both SPY 09-17 legs present, placed_agent='user'; Ryan's own 17:13Z sell-to-close limit on the 770C (order 6aaace42, 0.50 credit, processed 0) still working -- gate engaged, no action. total_value $3,852.82; cash == ubp == $901.56 (no margin); reserve $192.64, deployable $708.92, cap $1,155.85. Throttles READ: equities 1 of 3, options 0 of 3, $0.00 vs the -$400 cap.",
+      "board_delta_check": "17:35Z board (d995f2f) = BAC WMB LRCX FDX AMAT USB PNC PFE IBKR CVS; 17:06Z (35222b0) = those ten plus UNP. Only a departure, no arrival. Per _ABSENCE_FROM_THE_SIGNAL_TABLE_IS_NOT_SIGNAL_EXPIRY a held name leaving the table is just its live RSI2 crossing back above 10 -- it fires nothing. No ungraded name exists on the live board.",
+      "tape_numbers_only": {
+        "SPY": 759.59,
+        "QQQ": 709.155,
+        "ABNB": 168.79,
+        "UNP": 283.315,
+        "IBKR": 87.48,
+        "quotes_utc": "17:45:38-17:46:27Z",
+        "note": "Numbers, not a verdict. FOMC decision + dot plot 18:00Z."
+      },
+      "why_flat": {
+        "equity_exits": "NO SALE, determinate on the cheapest leg: ABNB bid 168.73 (-0.43%) and UNP bid 283.31 (-0.63%) are RED, so the take-profit's GREEN precondition is shut whatever RSI2 does. IBKR green +0.206% but RSI2 8.7 against a ~91.44 crossing (+4.5%). Trails 199.44/335.42/102.71 and targets 183.08/298.32/96.14, none near. Time stops 09-24 (6d of 14) and 09-30, outside the warn.",
+        "equity_entries": "None owed. Capital declined nothing -- deployable $708.92 clears the $600 minimum and the 4th slot of the 3-4 target is open. The BAR declined it: the whole live board was graded earlier today (FDX B+ at 17:25Z closed the last deferral; BAC/USB in the bank cohort de-rating; LRCX/AMAT B/B-; PFE/CVS pharma policy de-rating; WMB excluded on the oil-energy steer) and the delta check adds no name.",
+        "options": "No entry. 0 of 3 slots, 0 of 3 entries. Macro is a sizing input under v11, not a bar, but no CORE thesis justifies opening premium ten minutes before a dot plot; TACTICAL is retired.",
+        "day_track": "Nothing owed. Paper day 2 spent and closed (-1.00R). One trade/day. Phase stays PAPER (2d/2 signals vs 10/8); earliest go-live is a Monday on or after 09-28 and no run promotes it mid-week."
+      },
+      "duties": "Heartbeat 13:40Z; brief 09-16; no new options name so no iv_history row owed; daily report due at the first run >=19:15Z. FLAG FOR THE FIRST RUN AT/AFTER 18:00Z: _cash_hold expires ON the FOMC release and must be DELETED, not renewed."
     }
   ]
 }
