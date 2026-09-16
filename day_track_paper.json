@@ -92,7 +92,7 @@
       "bound_by": "cash",
       "risk_pct_used": 5.0,
       "late_entry_ok": true,
-      "status": "open",
+      "status": "closed",
       "vehicle_note": "LONG side, so vehicle == signal == QQQ and no PSQ translation is involved. This is the mirror of paper day 1 and it exposes a sizing asymmetry the track has not seen before -- see holdings.json._DAY_TRACK_PAPER_DAY_2_LONG_SIDE_QUANTIZATION_AND_THE_FOMC_WINDOW_2026-09-16.",
       "capital_note": "Paper only -- no order placed, none placeable: _DAY_TRACK.status is PAPER. Prompt v11 IS the invocation stamp this run carries, which satisfies the STOP-AUTHORITY precondition ONLY; graduation is decided by day_track.graduate() at a Monday calibration and this is paper day 2 of a required 10 (2 signals of 8). A LIVE PROMPT STAMP IS NOT A GRADUATION. Sizing used deployable $1,416.68 = unleveraged_buying_power $1,609.52 minus the 5% operational reserve $192.84.",
       "quote_provenance": "Venue timestamp 13:35:30Z is >5 min past 13:30Z, i.e. OUTSIDE the opening auction window, so this row satisfies the standing re-quote rule. The 13:31-13:33Z reconciliation quotes were NOT used for it.",
@@ -120,7 +120,8 @@
           "PAPER_so_nothing_was_placed": "_DAY_TRACK.status is PAPER, so NO stop order was placed or replaced at the broker. In LIVE this pass would be a cancel/replace of the resting stop_market to 708.95 in this same minute. Recorded here so the paper row carries the management history the LIVE phase will have to execute.",
           "status_after": "open",
           "next_checks": "Flat rule at 15:30 ET; chop rule is already moot (|R| >> 0.5). Stop now 708.95. The FOMC decision at 18:00Z falls INSIDE this position's window and the flat rule is 1.5 hours after it -- the sibling flagged this and no gate may be added for it.",
-          "finding": "holdings.json._DAY_TRACK_EARLY_SESSION_ATR14_5MIN_IS_MOSTLY_YESTERDAY_2026-09-16"
+          "finding": "holdings.json._DAY_TRACK_EARLY_SESSION_ATR14_5MIN_IS_MOSTLY_YESTERDAY_2026-09-16",
+          "SUPERSEDED_2026-09-16T14:20Z": "This ratchet is VOID as a stop level: the initial stop 707.86 was breached at 13:36Z, 24 minutes before this pass, so there was no live position to ratchet. Kept in full because the pass itself was careful and its ATR5/feed findings stand. See the row's exit.SUPERSEDES_THE_14_00Z_RATCHET_AND_WHY."
         }
       ],
       "stop_history": [
@@ -133,8 +134,29 @@
           "utc": "2026-09-16T14:00:00Z",
           "stop": 708.95,
           "why": "2R trail ratchet, session_high 710.18 - 1.5 x ATR5 0.82"
+        },
+        {
+          "utc": "2026-09-16T14:20:00Z",
+          "stop": null,
+          "why": "VOID -- reconstructed: stop 707.86 was hit at 13:36Z; the 14:00Z ratchet to 708.95 postdates the exit and never existed."
         }
-      ]
+      ],
+      "exit": {
+        "exited_utc": "2026-09-16T14:20:00Z",
+        "exited_by": "scheduled run 14:00Z 2026-09-16 (unattended, prompt v11), on re-examining the row after a merge conflict with the concurrent 13:45Z run.",
+        "reason": "stop level reached (initial stop 707.86, breached 13:36Z)",
+        "trigger_minute_utc": "2026-09-16T13:36:00Z",
+        "exit_px_signal": 707.86,
+        "exit_px_vehicle": 707.86,
+        "r_realized": -1.0,
+        "pnl_usd": -0.57,
+        "evidence": "QQQ 1-minute bars (bounds=regular): the 13:36 bar -- the FIRST full minute after the 13:35:30.133Z entry -- printed LOW 707.650 against the initial stop 707.86, a breach of 0.21 points. The 13:39 bar low 707.840 breached again. FETCHED TWICE, ~5 minutes apart (14:02Z and 14:18Z), per the provisional-bar rule: byte-identical both times (o 708.200 / h 708.215 / l 707.650 / c 708.072, vol 102,727), so the bar is settled and not a revision artifact. Feed integrity: the 13:35Z five-minute bucket volume 455,774 equals its 1-minute sum 83,954+102,727+95,313+81,243+92,537 exactly, and the bucket low equals the 1-minute minimum. SPY pulled in the same call as a cross-symbol control printed normally across the identical timestamps.",
+        "r_note": "RECORDED AT THE STOP PRICE (-1.00R = -$0.57) per spec, the same convention paper day 1 used, so graduate() reads one consistent statistic. The honest fill is worse and is not hidden: a resting stop_market at 707.86 triggers and fills at market, and the breaching minute traded to 707.650, so a realistic fill is 707.65-707.86 -> -1.00R to -1.37R. day_track.manage() fed the actual bar low returns r=-1.368.",
+        "day_complete": "YES -- one day trade per trading day, stop hit. No re-entry on 2026-09-16 whatever QQQ does next.",
+        "SUPERSEDES_THE_14_00Z_RATCHET_AND_WHY": "The concurrent 13:45Z run's management pass (preserved in full in this row's 'management' array, and NOT deleted) ratcheted the stop 707.86 -> 708.95 at +2.44R and left status 'open'. That pass was correct in every step it took and is wrong in its conclusion, because the position it managed had already stopped 24 minutes earlier. A stop cannot ratchet after it has been hit, so the 708.95 level never existed and the row's outcome is -1.00R, not an open winner. The 2.44R figure, the ATR5 measurement and the finding it produced (_DAY_TRACK_EARLY_SESSION_ATR14_5MIN_IS_MOSTLY_YESTERDAY_2026-09-16) are all independently valid and are kept. Root cause, and it is the durable lesson: _DAY_TRACK_IN_PAPER_manage_MUST_BE_FED_THE_ADVERSE_EXTREME_SINCE_THE_LAST_PASS_NOT_THE_CURRENT_PRICE_2026-09-16.",
+        "counterfactual_not_a_result": "QQQ traded 710.01 at 14:01:05Z. Had the stop not been taken the position would be ~+2.8R. THIS IS A LIVE MARK, NOT A RESULT. It is recorded only because it is the second consecutive paper day on which the DIRECTION was right and the stop was removed by sub-2-minute noise -- see _DAY_TRACK_BOTH_PAPER_SIGNALS_WERE_DIRECTIONALLY_RIGHT_AND_BOTH_STOPPED_INSIDE_TWO_MINUTES_2026-09-16.",
+        "finding": "holdings.json._DAY_TRACK_IN_PAPER_manage_MUST_BE_FED_THE_ADVERSE_EXTREME_SINCE_THE_LAST_PASS_NOT_THE_CURRENT_PRICE_2026-09-16"
+      }
     }
   ]
 }
