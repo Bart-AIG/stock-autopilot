@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-16T19:15:00Z",
+  "updated_utc": "2026-09-16T21:19:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-16",
     "realized_usd_options": 0.0,
@@ -144,15 +144,16 @@
         "verdict": "NO ACTION -- placed_agent='user'. OWNERSHIP GATE: Ryan's own trade, never closed, trimmed or rolled autonomously. Detect, record, wait. Notify-once discharged 2026-09-15 and nothing material has changed: a 1-DTE SPY strangle into the 18:00Z FOMC decision is doing exactly what it is designed to do. Consumes NEITHER an agentic CORE slot NOR the options throttle."
       },
       "_user_working_order": {
-        "observed_utc": "2026-09-16T17:16:00Z",
-        "observed_by": "scheduled run 17:15Z 2026-09-16 (unattended, prompt v11), via get_option_orders(created_at_gte=2026-09-16)",
+        "status": "RESOLVED -- CANCELLED UNFILLED AT THE CLOSE, exactly as the 17:15Z run predicted.",
         "order_id": "6aaace42-b127-4d01-ab83-48b004e68a06",
         "placed_agent": "user",
         "created_utc": "2026-09-16T17:13:38.860553Z",
-        "what": "Ryan placed a SELL-TO-CLOSE LIMIT on this leg in-app: closing_strategy long_call, qty 1, limit 0.50 (credit $50.00), gfd, regular_hours. State 'confirmed', processed_quantity 0 -- WORKING, NOT FILLED, resting above the market (leg marked 0.285 at 14:31Z). The position row now shows pending_sell_quantity 1.0000.",
-        "AGENT_ACTION": "NONE, AND NONE IS PERMITTED. placed_agent='user' on both the position and the order -- the OWNERSHIP GATE bars the desk from closing, trimming, rolling, cancelling or replacing it. Do not cancel_option_order, do not re-price it, do not 'help'. This is Ryan trading his own book, not an incident and not a HARD RULE 9 flag.",
-        "why_it_is_recorded": "So the NEXT run does not read a vanished leg as drift or as an unauthorized change. If this fills, the 770C simply leaves the book at ~+85% on a $27 basis and the ledger row is removed as a user close; if it expires gfd it will be absent from tomorrow's open orders without ever having filled. Either way the reconciliation is expected, not a discrepancy.",
-        "notify": "No new notification owed. The strangle's notify-once was discharged 2026-09-15; a user working an exit on his own position is not a new incident."
+        "resolved_utc": "2026-09-16T20:30:11.331746Z",
+        "observed_by": "scheduled run 21:19Z 2026-09-16 (unattended, prompt v11, 2nd post-close), via get_option_orders(created_at_gte=2026-09-16)",
+        "what": "Ryan's in-app SELL-TO-CLOSE LIMIT on this leg (long_call, qty 1, limit 0.50 = $50 credit, gfd, regular_hours) ended state 'cancelled' with processed_quantity 0.00000 and canceled_quantity 1.00000. It never filled: gfd means good-for-day, so the broker retired it at the close with the leg marked ~0.03 against his 0.50 ask. The position row now reads pending_sell_quantity 0.0000 and the contract is STILL HELD at 1 long.",
+        "AGENT_ACTION": "NONE, AND NONE IS PERMITTED. placed_agent='user' on both the position and the order -- the OWNERSHIP GATE bars the desk from closing, trimming, rolling, re-placing or replacing it. A cancelled user order is NOT an invitation to re-place it on his behalf. Not an incident, not a HARD RULE 9 flag, no notification owed: a gfd order expiring unfilled is that order type working as designed, and the 09-16 daily report already told Ryan this limit was moving away from the market.",
+        "why_it_is_recorded": "The prior version of this field described the order as 'State confirmed -- WORKING, NOT FILLED' and was written while it was live. Left as-is it would tell tomorrow's run to expect an open sell order that no longer exists. Overwritten in place per the ledger-notes discipline rather than appended.",
+        "carry_forward": "The 770C EXPIRES 2026-09-17 (tomorrow) and is now unprotected by any resting order. Both strangle wings are far OTM (731P / 770C) with a combined mark of roughly $18 against $55 paid, so absent a very large overnight move both expire worthless and simply leave the book. That is a ledger event to reconcile, NOT a decision for the desk to make. If Ryan wants an exit rather than an expiry he must place it himself; Thursday is the last session."
       }
     },
     {
