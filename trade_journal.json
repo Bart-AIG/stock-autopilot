@@ -37629,6 +37629,28 @@
         "cash_hold": "LIVE, correctly un-dissolved -- trigger is the 18:00Z release. Deleted by the first run after it, or any run on/after 09-17. Never renewed."
       },
       "duties": "Heartbeat 13:40Z; brief stamped 09-16; throttles reset 13:40Z; IV sweep complete (13:30Z sibling); daily report due at the first run >=19:15Z; calibration Monday-only."
+    },
+    {
+      "run_utc": "2026-09-16T16:05:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-16",
+      "headline": "Re-verification, no trade in any book. UNP's RSI2 take-profit has fully UN-ARMED -- bid, last AND ask all below 70 for the first time since 13:39Z, so the two prior runs' straddle is gone, not resolved-on-the-bid.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 16:01Z. ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, both fully sellable. Options 2 long SPY 09-17 legs, placed_agent='user' (gate engaged). get_equity_orders(>=09-16) EMPTY -- broker read first, sibling check clean. total $3,882.77; cash == ubp == $1,609.52 (no margin); reserve $194.14, deployable $1,415.38, per-name cap $1,164.83.",
+      "tape_numbers_only": {
+        "SPY": 760.68,
+        "QQQ": 710.58,
+        "UNP": 285.46,
+        "ABNB": 170.24,
+        "quotes_utc": "16:00:4x-16:01:0xZ",
+        "note": "Numbers only. FOMC decision + dot plot 18:00Z."
+      },
+      "why_flat": {
+        "equity_exits": "NO SALE. RSI2 re-derived this run, not inherited: UNP bid 285.45 -> 66.2, ask 285.60 -> 68.0, crossing 285.7746 (reproduces prior runs' 285.7795 to 0.5c); needs +$0.32 on the bid. ABNB bid 170.21 -> 59.5, crossing 171.5739, +0.80% away. Both GREEN (+0.12% / +0.41%), neither near green-enough (335.42 / 199.44). Time stop 09-24, held 6d/14, outside the warn. Targets untouched.",
+        "equity_entries": "None. Report on master is still 15:07Z with an empty ACTION block, so the board is the one graded at 15:19Z (_last_entry_evaluation). Capital declined nothing: deployable $1,415.38 clears the $600 minimum; _cash_hold is a disclosure and its amount is NOT subtracted.",
+        "options": "No agentic entry. 0 of 3 slots, 0 of 3 entries, $0.00 vs the -$400 cap. Macro is a sizing input under v11, not a bar -- but no thesis here is worth FOMC carry crushing at 18:00Z.",
+        "day_track": "Nothing owed. Paper day 2 SPENT: LONG QQQ entered 13:35Z, stopped 707.86, -1.00R; one trade per day. Phase stays PAPER -- graduate() reads 2d/2 signals against 10/8."
+      },
+      "duties": "Heartbeat 13:40Z; brief 09-16; throttles reset 13:40Z (verified); IV sweep complete, no new name evaluated so no row owed. Daily report due at the first run >=19:15Z. Calibration Monday-only."
     }
   ]
 }

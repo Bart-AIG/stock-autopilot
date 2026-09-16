@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-16T15:31:00Z",
+  "updated_utc": "2026-09-16T16:05:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-16",
     "realized_usd_options": 0.0,
@@ -919,46 +919,37 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-16T15:45:00Z",
+    "run_utc": "2026-09-16T16:05:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-16",
     "prompt": "v11 (stamp read on this run's own invocation)",
-    "reconciliation": "ZERO DRIFT both books vs broker at 15:45Z. Equities ABNB 6.573584 @ 169.52 and UNP 3.858199 @ 285.11, both fully sellable, zero held. Options 2 long SPY 2026-09-17 legs (qty 1 @ 27.00, qty 1 @ 28.00), option_ids match the placed_agent='user' ledger rows -- ownership gate engaged, notify-once discharged 09-15. get_equity_orders(created_at_gte=2026-09-16) EMPTY -- broker read FIRST per the 2026-08-28 rule, sibling check clean.",
+    "reconciliation": "ZERO DRIFT both books vs broker at 16:01Z. Equities ABNB 6.573584 @ 169.52 and UNP 3.858199 @ 285.11, both fully sellable, zero held. Options 2 long SPY 2026-09-17 legs (qty 1 @ 27.00, qty 1 @ 28.00) matching the placed_agent='user' ledger rows -- ownership gate engaged, notify-once discharged 09-15. get_equity_orders(created_at_gte=2026-09-16) EMPTY, read BEFORE anything else per the 2026-08-28 broker-first rule -- sibling check clean.",
     "capital": {
-      "total_value": 3878.274332776,
+      "total_value": 3882.77121918,
       "cash": 1609.52,
       "unleveraged_buying_power": 1609.52,
       "buying_power": 1609.52,
-      "equity_value": 2217.754332776,
-      "options_value": 51.0,
-      "operational_reserve_5pct": 193.91,
-      "deployable": 1415.61,
-      "per_name_cap_30pct": 1163.48,
+      "equity_value": 2220.25121918,
+      "options_value": 53.0,
+      "operational_reserve_5pct": 194.14,
+      "deployable": 1415.38,
+      "per_name_cap_30pct": 1164.83,
       "no_margin": "buying_power == unleveraged_buying_power exactly; FOUR LAWS #4 unambiguous."
     },
     "tape_numbers_only": {
-      "SPY": 760.5779,
-      "QQQ": 710.615,
-      "ABNB": 169.64,
-      "UNP": 285.67,
-      "board": {
-        "WMB": 71.5978,
-        "BAC": 58.595,
-        "FDX": 302.98,
-        "USB": 60.825,
-        "PFE": 27.61,
-        "PNC": 236.765
-      },
-      "quotes_utc": "2026-09-16T15:45:4xZ",
+      "SPY": 760.68,
+      "QQQ": 710.58,
+      "UNP": 285.46,
+      "ABNB": 170.24,
+      "quotes_utc": "2026-09-16T16:00:4x-16:01:0xZ",
       "_note": "Numbers, not a verdict. FOMC decision + dot plot 18:00Z."
     },
-    "duties_this_run": "Re-verification. Heartbeat stamped 13:40Z; brief stamped 09-16; throttles reset 13:40Z; IV sweep complete (8 core rows dated 2026-09-16, by the 13:30Z sibling) and NO new name evaluated here, so no IV row is owed. Daily report due at the first run >=19:15Z. Calibration is Monday-only.",
+    "duties_this_run": "Re-verification. Heartbeat stamped 13:40Z; brief stamped 09-16; throttles reset 13:40Z (verified against empty order books, not typed); IV sweep complete for 09-16 and no new name was evaluated here, so no IV row is owed. Daily report due at the first run >=19:15Z. Calibration is Monday-only.",
     "why_flat": {
-      "equity_exits": "NO SALE, and this is the one thing that moved this run: BOTH positions flipped GREEN, so the profit-banking PRICE leg opened for the first time today and the RSI2 leg became load-bearing rather than moot. Resolved on the EXECUTABLE bid per the 13:39Z straddle detector. UNP: bid 285.62 -> RSI2 68.25 FALSE; ask 285.78 -> 70.01 fires; crossing 285.7795 sits inside the $0.16 spread -> INDETERMINATE on the oscillator, DETERMINATE on the price a long actually sells into. Needs bid +$0.16 (+0.056%). ABNB: bid 169.55 -> RSI2 51.30, ask 52.75, agree, needs bid 171.5823 (+1.20%) -- not close. Neither green-enough for a trail (199.44 / 335.42). Time stop 2026-09-24 for both, held 6d of 14, outside the 3-day warn. The 15:07Z report agrees independently: ABNB HOLD, UNP HOLD (thesis-watch).",
-      "equity_entries": "None. origin/master re-fetched 15:46Z: latest_intraday.md 2026-09-16T15:07Z (commit 50fb402) is still the newest report, so the board is the one the 15:19Z run graded name-by-name; grounds stand in _last_entry_evaluation (USB downtrend stack, WMB oil steer, BAC/PNC C-for-today, FDX [ERN] ambiguity, PFE B and a B gets NO position). Re-arguing six unchanged names on an unchanged report is inertia dressed as diligence. Capital is NOT binding: deployable $1,415.61 clears the ~$600 minimum comfortably.",
-      "options": "No agentic entry. 0 of 3 CORE slots, 0 of 3 entries today, $0.00 realized vs the -$400 cap. FOMC vol sits in every 21-45 DTE board and crushes at 18:00Z; under v11 macro is a SIZING input and not a bar, but no thesis on the desk is worth that carry.",
-      "day_track": "Nothing owed. Paper day 2 is SPENT: the LONG QQQ signal entered 13:35Z and stopped at 707.86 on the 13:36 bar, -1.00R. One trade per trading day, so no re-entry whatever QQQ does. graduate() reads 2 days / 2 signals against 10 and 8 -> PAPER. A live v11 stamp is NOT a graduation; phase is Monday-only.",
-      "cash_hold": "LIVE and correctly un-dissolved -- its checkable trigger is the 18:00Z FOMC release. Dissolves and is DELETED by the first run after that release, or any run on/after 2026-09-17, whichever comes first. Never renewed by an unattended run."
+      "equity_exits": "NO SALE, and the one thing that moved this run is that UNP's take-profit UN-ARMED. RSI2 was RE-DERIVED here from 15 daily closes through the 09-15 settle rather than inherited, and it reproduces the prior runs' crossing price to half a cent: crossing 285.7746 vs their 285.7795. UNP bid 285.45 -> 66.2, last 285.46 -> 66.3, ask 285.60 -> 68.0 -- ALL THREE legs FALSE, where 15:45Z had bid 68.25 / ask 70.01 straddling. This is an un-fire, not a bid-side resolution, and it needs +$0.32 on the bid (+0.11%) to re-arm. ABNB bid 170.21 -> 59.5, crossing 171.5739, +0.80% away -- not close. Both positions GREEN (UNP +0.12%, ABNB +0.41%); neither anywhere near green-enough for a trail (335.42 / 199.44). Time stop 2026-09-24 for both, held 6d of 14, outside the 3-day warn. Targets 298.32 / 183.08 untouched.",
+      "equity_entries": "None. origin/master re-fetched 16:02Z: latest_intraday.md 2026-09-16T15:07Z is still the newest report and its ACTION block is empty, so the board is unchanged from the one the 15:19Z run graded name-by-name -- grounds stand in _last_entry_evaluation (USB downtrend stack, WMB oil steer, BAC/PNC C-for-today, FDX [ERN] ambiguity, PFE B and a B gets NO position). Capital declined nothing: deployable $1,415.38 clears the $600 minimum outright, and _cash_hold's amount is NOT subtracted -- it is a disclosure with an expiry, not a gate.",
+      "options": "No agentic entry. 0 of 3 CORE slots, 0 of 3 entries today, $0.00 realized against the -$400 cap. Under v11 macro is a SIZING input and not a bar, but no thesis on the desk is worth paying carry that the 18:00Z decision crushes.",
+      "day_track": "Nothing owed. Paper day 2 is SPENT: the LONG QQQ signal entered 13:35Z and stopped at 707.86 on the 13:36 bar, -1.00R. One trade per trading day, so no re-entry whatever QQQ does. Phase stays PAPER -- graduate() reads 2 days / 2 signals against paper_min_days 10 and paper_min_signals 8, and a live v11 stamp is NOT a graduation."
     }
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
