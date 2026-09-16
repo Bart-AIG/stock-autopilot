@@ -3804,5 +3804,26 @@
    "_WHICH_RATIO_GOVERNS_AND_WHY": "EX-GAP (1.1127) GOVERNS, so premium is RICH, so the IV-sanity gate FAILS for any long-premium AMGN trade. The rule: raw governs for a contract that SPANS the next print, ex-gap for one that expires BEFORE it. get_earnings_calendar(2026-09-11,+21d) returns NO pharma name through 2026-10-02 and AMGN's Q3 lands late Oct/Nov, so BOTH the 10-09 and 10-16 boards expire before the print. There is no event for the buyer to bear, so the gap is pure history and must be trimmed out.",
    "_BOARD_NOTE_DO_NOT_READ_THESE_SPREADS_AS_A_LIQUIDITY_VERDICT": "The 19.78%/26.34% spreads above are from the 2026-10-09 board (28 DTE, nearest-30, chosen for IV-method homogeneity with today's other 8 rows) and it is a THIN NON-MONTHLY WEEKLY -- the ATM call shows open_interest 0 and volume 0. Per the 2026-08-24 three-instance measurement-bug rule, an IV-sweep spread is NEVER a liquidity verdict on a name. AMGN's real liquidity reading is the 2026-10-16 MONTHLY at target delta: 6.95-8.76% of mid with OI 239-837, which PASSES the CORE <=10% gate. Same name, same minute, two boards, a ~3x difference in quoted width."
   }
+ ],
+ "FDX": [
+  {
+   "date": "2026-09-16",
+   "spot": 303.81,
+   "strike": 300.0,
+   "expiry": "2026-10-16",
+   "atm_iv": 0.28871,
+   "call_iv": 0.28871,
+   "put_iv": null,
+   "dte_used": 30,
+   "rv_30d": 0.2424,
+   "rv_30d_ex_top2": 0.2033,
+   "iv_rv_ratio": 1.1911,
+   "iv_rv_ratio_ex_top2": 1.4203,
+   "largest_1d_move_in_window_pct": 3.7775,
+   "n_readings_for_this_ticker": 1,
+   "call_spread_pct_of_mid": 4.0,
+   "call_oi": 36,
+   "note": "FIRST FDX row. Logged because this run QUOTED FDX's chain and CITED IV context while grading it as an equity candidate -- the IV-method duty attaches to any name evaluated, not only to options candidates. Call-only: the 300 put was not quoted, so atm_iv is the call leg alone and is NOT a call/put average; do not compare it like-for-like against the core-list rows. Quoted 17:22:44Z, well outside the opening-auction window, so not flagged an upper bound. Expiry 2026-10-16 = 30 DTE, the MONTHLY board, per the standing rule to quote the monthly at target delta. n=1, so IV/RV only and NO percentile (the <20-reading bar). READ THE PAIR: raw 1.1911 and ex-gap 1.4203 both say implied is RICH to realized -- the ex-gap number strips the 3.78% largest daily move in the window and the ratio RISES, meaning the richness is not an artifact of one gap day. *** The term structure measured alongside this row is the decision-relevant part and lives in _FDX_EARNINGS_SETTLED_BY_OPTION_TERM_STRUCTURE_NOT_BY_THE_CALENDAR_2026-09-16: 09-18 0.359342 / 09-25 0.301376 / 10-02 0.291243 / 10-16 0.288710 / 10-30 0.376627 -- a +8.79 vol-point jump at 10-30 that brackets the earnings print between 10-16 and 10-30. ***"
+  }
  ]
 }
