@@ -602,6 +602,17 @@
       "why_an_unattended_run_did_not_just_decide_it": "A cooldown is a POLICY change, not a parameter inside calibrate.BANDS, so the 2026-09-02 bounded-tuning grant does not cover it. It also cuts both ways: a genuine fresh setup in a name we happened to exit would be blocked. Ryan's call.",
       "options": "(a) annotation only -- status quo after this run's fix; (b) a hard N-day re-entry bar after a TIME STOP exit specifically (take-profit exits need no bar -- they are self-immunizing at RSI2>=70); (c) allow re-entry but require it to clear the ROTATION bar against the rest of the book rather than the ordinary entry bar.",
       "desk_recommendation": "(b) scoped to TIME STOP exits only, with a window equal to SWING_TIME_STOP_DAYS. The time stop's purpose is to bound how long capital sits in a stalled swing; an immediate re-entry removes that bound while looking like a fresh trade. A take-profit exit needs no such bar."
+    },
+    "q3_day_track_capital_priority_in_paper": {
+      "raised_utc": "2026-09-16T14:30:00Z",
+      "raised_by": "scheduled run 14:15Z 2026-09-16 (unattended, prompt v11)",
+      "status": "OPEN. LATENT, NOT LIVE -- it bound nothing today and no entry was lost to it. Recorded because it will recur on every remaining paper signal day and an unattended run may not rule on it. Not a flag; nothing claimed or cleared.",
+      "the_question": "Does the DAY TRACK's capital-priority rule engage during the PAPER phase?",
+      "the_text": "docs/day-track-spec.md: 'The DAY TRACK claims deployable cash at its entry run. Swing-book entries that day happen AFTER the day trade is flat or was skipped.'",
+      "why_it_is_ambiguous": "The stated MECHANISM is a cash claim, and in paper nothing is placed and nothing is claimed -- so on that reading the rule never engages. The SEQUENCING clause is unconditional -- so on that reading an open paper row closes the swing book until the flat rule fires at 15:30 ET, which is the closing window this repo's own findings call the worst execution slot. The two halves disagree and the spec does not say which governs.",
+      "honest_scope_stated_because_this_run_first_got_it_wrong": "This run initially treated the question as live and deferred a swing entry on it. That premise was FALSE: paper day 2 had already stopped out at 13:36Z, so the day trade was flat and the rule was satisfied either way. The 14:00Z run then graded the full board and declined on the merits, with no capital gate involved. So the question has never actually bound -- do NOT cite this entry as evidence that the rule has cost anything.",
+      "the_narrow_arithmetic_worth_keeping_either_way": "Even on the strictest CASH reading the rule would not BLOCK an entry, only shrink one. A live day trade today would have claimed $708.43 of $1,416.80 deployable, leaving $708.37 -- still clear of the $600 minimum entry. So only the SEQUENCING sentence can ever close the book, and it is stricter than the purpose it states.",
+      "options_stated_neutrally": "(a) paper does not engage capital priority at all; (b) paper engages it as an arithmetic claim only -- notional day-trade dollars subtracted from deployable, swing sized against the remainder; (c) paper engages the full sequencing clause as written. The desk's reading is that (b) matches the rule's stated mechanism while still simulating live capital honestly, but that is an opinion for Ryan's decision, not a change applied -- the spec is edited only by an interactive session with a real Ryan turn."
     }
   },
   "_monitoring_mandate": {
