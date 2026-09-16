@@ -2,6 +2,8 @@
 
 *Written by the 19:15Z scheduled run (2:15 PM CT — the v11 threshold). Master carried the 2026-09-15 report, so this run owned the duty and took it rather than deferring. Quotes stamped 19:16–19:19Z — well past the opening auction, and ~45 minutes after the Powell press conference began.*
 
+***Amended 19:32Z by the 19:30Z run.** A fill is explicitly a MATERIAL event under the do-not-rewrite rule: Ryan opened a new options position in-app at 19:28Z, which added a row to §2 and superseded every capital figure in §5. Both sections are marked. Nothing else was touched.*
+
 **One line:** The desk made **one** trade today — an autonomous IBKR swing entry at 16:24Z, taken ~95 minutes before the Fed decision — and the day's story since then is that the presser handed the whole tape back and then some. **SPY went from +0.34% at 18:19Z to −0.83% now, a −1.16% leg inside one hour.** All three swing positions are red; nothing fires an exit, by design. The DAY TRACK took paper signal #2 and stopped out at −1.00R for the second day running, both times with the *direction* right. And the RSI(2) board **doubled from 9 names to 19** during the selloff — which this run investigated and declined, for two different reasons that are worth separating.
 
 ---
@@ -58,10 +60,25 @@ Nothing open on the desk's own account. **0 of 3 CORE slots, 0 of 3 daily entrie
 
 | Contract | Cost | Mark | DTE | Status |
 |---|---|---|---|---|
-| SPY 2026-09-17 **731P** | $28.00 | ~$0.09–0.10 | **1** | Ryan's, `placed_agent="user"` |
-| SPY 2026-09-17 **770C** | $27.00 | ~$0.12 | **1** | Ryan's; his own sell-to-close limit at 0.50 is working (order `6aaace42`, 0 filled) |
+| SPY 2026-09-17 **731P** | $28.00 | $16.50 | **1** | Ryan's, `placed_agent="user"` |
+| SPY 2026-09-17 **770C** | $27.00 | $1.50 | **1** | Ryan's; his own sell-to-close limit at 0.50 is working (order `6aaace42`, 0 filled) |
+| VLO 2026-09-18 **390P ×2** | **$510.00** | $420.00 | **2** | **NEW at 19:28Z** — see below |
 
-The two legs of the strangle Ryan opened himself on 09-15, 55 seconds apart. **With SPY at 751.14 both wings are ~20 points out of the money with one day left**, and the combined mark is ~$24 against $55 paid. The desk never closes, trims or re-prices these; his 17:13Z limit order is direct evidence he is managing them himself. Notify-once was discharged 09-15 — re-paging him on a position he is actively working would be noise. **Recorded, not actioned.**
+The two SPY legs are the strangle Ryan opened himself on 09-15, 55 seconds apart. **With SPY at 751.68 both wings are ~20 points out of the money with one day left**, combined mark $18.00 against $55 paid. The desk never closes, trims or re-prices these; his 17:13Z limit order is direct evidence he is managing them himself. Notify-once was discharged 09-15.
+
+**⚠️ ADDED AFTER THIS REPORT WAS FIRST WRITTEN — the 19:30Z run found a new user position and this section is the amendment.** Ryan bought **2 × VLO 2026-09-18 390P for $510.00** in-app at 19:28:19Z and 19:28:39Z — two orders on one contract at $2.80 and $2.30, averaging $2.55. Ledgered with both lots and the invariants asserted. **Ownership gate fully engaged: the desk will not close, trim, roll or re-price this, and it consumes none of the 3 agentic CORE slots.** Notify-once discharged by the 19:30Z run.
+
+The facts, offered because they are time-critical and the desk will not be acting on them — **this is Ryan's trade and his call:**
+
+| | |
+|---|---|
+| Mark / bid / ask | $2.10 / $1.80 / $2.40 — **spread 28.6% of mid**, so an exit nets materially less than the mark |
+| P/L | **−17.6% at mark, −29.4% at the bid** ($360 net if sold into the bid now) |
+| Theta | **−$1.27 per contract per day = −$254/day on the pair** — ~60% of the remaining $420 mark per day |
+| Breakeven | **387.90**, i.e. VLO must fall **4.22%** in 2 sessions; VLO is **+2.01% today** at 405.005 |
+| Broker's own odds | `chance_of_profit_long` **0.179** |
+
+**Expiry is Friday 09-18.** Because of the ownership gate, **no run will manage or close this position** — if it is to be exited rather than expired, Ryan does it himself.
 
 ---
 
@@ -131,20 +148,26 @@ Benchmarks: SPY −0.825% · QQQ −0.430% · **XLF −2.155%** · SMH −0.111%
 
 ## 5. Sleeve state
 
-| | |
-|---|---|
-| Account value | **$3,799.92** |
-| Cash = buying power = **unleveraged** buying power | **$901.56** — identical, so no margin is being extended (FOUR LAWS #4 unambiguous) |
-| Equity value / options value | $2,874.36 / $24.00 |
-| Operational reserve (5% of total, recomputed) | **$190.00** |
-| **Deployable** | **$711.56** |
-| Per-name cap (30%) | $1,139.97 |
-| Options premium at risk — **agentic** | **$0.00** (0 of 3 CORE slots) |
-| Options premium at risk — Ryan's own | $55.00 cost, ~$24.00 mark |
-| Realized options P/L today | **$0.00** vs the −$400 cap |
-| Entry throttles used | **equities 1 of 3** · options 0 of 3 · day track 1 of 1 (spent) |
-| Equity slots | **3 of the 3–4 target** |
-| Reconciliation | **ZERO DRIFT, both books, verified at the broker 19:16Z.** 3 equity positions and 2 option legs match the ledger one-for-one. Sibling check clean: the only equity order today is the ledgered IBKR fill; the only option order is Ryan's own. |
+*Restated at 19:32Z by the 19:30Z run. The 19:16Z figures below were superseded twelve minutes later by Ryan's $510.08 of VLO fills — the largest one-minute move in deployable cash this book has recorded.*
+
+| | 19:16Z (as first written) | **19:32Z (current)** |
+|---|---|---|
+| Account value | $3,799.92 | **$3,727.57** |
+| Cash = buying power = **unleveraged** buying power | $901.56 | **$391.48** — identical, so no margin is being extended (FOUR LAWS #4 unambiguous) |
+| Equity value / options value | $2,874.36 / $24.00 | $2,879.09 / **$457.00** |
+| Operational reserve (5% of total, recomputed) | $190.00 | **$186.38** |
+| **Deployable** | $711.56 | **$205.10 — BELOW the $600 minimum entry** |
+| Per-name cap (30%) | $1,139.97 | $1,118.27 |
+| Options premium at risk — **agentic** | $0.00 | **$0.00** (0 of 3 CORE slots — Ryan's positions consume none) |
+| Options premium at risk — Ryan's own | $55.00 cost | **$565.00 cost, $438.00 mark** |
+| Realized options P/L today | $0.00 | **$0.00** vs the −$400 cap |
+| Entry throttles used | equities 1 of 3 | **equities 1 of 3** · options 0 of 3 · day track 1 of 1 (spent) |
+| Equity slots | 3 of the 3–4 target | **3 of the 3–4 target** |
+| Reconciliation | ZERO DRIFT at 19:16Z | **DRIFT FOUND AND REPAIRED at 19:31Z** — the VLO position was new and is now ledgered with both lots. Equities zero drift; sibling check clean. |
+
+**The consequence worth naming: the equity book is now shut for new entries on CAPITAL, not on the bar.** At 19:16Z the report correctly recorded that capital declined nothing and only the A-grade bar held the book flat. That is no longer true — deployable $205.10 is under the $600 minimum, and a sub-$600 entry is a *skipped* opportunity rather than a small one. Nothing was lost by it: the board still carries no A-grade name, so both gates decline the same way. Rotation was considered and does not apply — it requires a candidate better than the weakest held, and there is no candidate.
+
+This is bookkeeping, not an objection to Ryan's trade. But it produced a **new durable finding** (`holdings.json._A_USER_PLACED_FILL_DRAINS_THE_AGENTIC_BOOKS_DEPLOYABLE_CASH_AND_NO_GATE_SEES_IT_COMING_2026-09-16`): THE CAPITAL POLICY's "one cash pool, both books" clause models only the outflows *the desk itself decides*. A user fill is a third drain, unpredictable and unannounced. The detector is cheap — **re-read `get_portfolio` immediately before sending any order, not once at the top of the run.** It changed no decision today, which is the only condition under which such a finding is credible.
 
 **Weekly calibration (week of 2026-09-14):** run and complete, pre-open Monday, broker-sourced. **Verdict both books: NO CHANGE.** No parameter altered, nothing escalated as a band breach. No calibration change was applied this week, so nothing in today's behaviour traces to one.
 
@@ -152,7 +175,8 @@ Benchmarks: SPY −0.825% · QQQ −0.430% · **XLF −2.155%** · SMH −0.111%
 
 ## 6. Tomorrow's watchpoints (Thursday 2026-09-17)
 
-1. **Ryan's SPY strangle expires.** Both wings ~20 points OTM with a combined ~$24 mark against $55 paid. Absent a very large overnight move both expire worthless; his 0.50 sell limit on the 770C is moving *away* from the market, not toward it. **His call entirely** — the desk will not touch it. Expiry is a ledger event to reconcile, not a decision to make.
+0. **⚠️ Ryan's new VLO 390P ×2 expires Friday 09-18 — the nearest real deadline on the book.** At 19:32Z: mark $420 against $510 paid, breakeven 387.90 needing VLO −4.22% in two sessions while VLO sits +2.01% at 405.005, theta −$254/day on the pair, exit market 28.6% wide. **The ownership gate means no run will close it** — if it is to be exited rather than expired, Ryan does it. Thursday is the last full session to act.
+1. **Ryan's SPY strangle expires.** Both wings ~20 points OTM with a combined $18.00 mark against $55 paid. Absent a very large overnight move both expire worthless; his 0.50 sell limit on the 770C is moving *away* from the market, not toward it. **His call entirely** — the desk will not touch it. Expiry is a ledger event to reconcile, not a decision to make.
 2. **Whether today's presser leg extends or reverts.** This matters to the desk not as a market call but because the swing book carries **no price stops** by design — a continued leg down is absorbed, not stopped. That is the accepted cost of a policy that refuses to turn normal pullbacks into realized losses.
 3. **ABNB and UNP cross day 7 of 14.** Time stop **2026-09-24** for both. Inside 3 days of that date the report begins annotating them, and an RSI2 bounce on a name about to be recycled is better sold *into* than out of.
 4. **Whether the bank/broker cohort stabilises.** Seven financials sit on the RSI2 board and the desk holds one of them. A cohort that stops underperforming XLF converts those names from de-ratings into candidates; one that keeps underperforming is a reason to stay at one.
