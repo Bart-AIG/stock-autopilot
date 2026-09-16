@@ -37290,6 +37290,46 @@
       "headline": "20th pre-open no-op (09:18 ET, 12 min to the bell). FOMC decision 18:00Z today. Stand-down per POST-CLOSE RUN PROTOCOL.",
       "reconciliation": "ZERO DRIFT both books vs broker at 13:18Z. Equities ABNB 6.573584 @ 169.52 / UNP 3.858199 @ 285.11, fully sellable; options 2 long SPY 2026-09-17 legs (qty 1 @ 28.00, qty 1 @ 27.00), option_ids match the ledger's placed_agent='user' rows. get_equity_orders(>=2026-09-16) EMPTY. total_value $3,888.01, cash == buying_power == unleveraged_buying_power == $1,609.52 (no margin), equity_value $2,226.49, options_value $52.00; reserve 5% = $194.40, deployable $1,415.12.",
       "actions": "NONE. Nothing placeable pre-open. Heartbeat NOT stamped (before 9:30 ET), brief not rebuilt, no cap or throttle reset -- all belong to the first post-bell run, which also owns DAY TRACK paper day 2 opening range (09:30-09:35 ET). _cash_hold stays LIVE and un-dissolved: its trigger is the 18:00Z FOMC release, not yet occurred."
+    },
+    {
+      "run_utc": "2026-09-16T13:46:00Z",
+      "run_type": "first_post_open_of_trading_day",
+      "trading_day_et": "2026-09-16",
+      "prompt_version": "v11 (read on this run's own invocation)",
+      "headline": "First post-bell run of 2026-09-16. Heartbeat stamped, brief rebuilt, cap + both throttles reset (broker-verified, not typed), IV sweep run on all 8 core names, DAY TRACK paper day 2 opened LONG. NOTHING PLACED IN ANY BOOK. One exit is ARMED and deliberately deferred: UNP's RSI2>=70 take-profit.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 13:31Z. Equities ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, both fully sellable. Options 2 long SPY 2026-09-17 legs (731P avg 28.00, 770C avg 27.00), option_ids match the ledger's placed_agent='user' rows. get_equity_orders and get_option_orders (>=2026-09-16) BOTH EMPTY -- sibling check clean. total_value $3,856.73, cash == buying_power == unleveraged_buying_power == $1,609.52, equity_value $2,201.21, options_value $46.00; reserve $192.84, deployable $1,416.68.",
+      "tape": {
+        "SPY": 759.349,
+        "SPY_pct": 0.26,
+        "QQQ": 708.1165,
+        "QQQ_pct": 0.51,
+        "AMD_pct": 3.34,
+        "NVDA_pct": 0.96,
+        "TSM_pct": 1.03,
+        "AVGO_pct": 0.2,
+        "MSFT_pct": -0.72,
+        "TSLA_pct": 0.69,
+        "ABNB": 167.435,
+        "UNP": 285.95,
+        "_note": "Numbers, not a verdict. Pre-event tape; the 18:00Z FOMC can withdraw any morning label."
+      },
+      "day_track": "PAPER DAY 2, OPEN. OR 13:30-13:35Z from one-minute bars: 708.79/707.86/open 708.01/close 708.45, body 47.3% of a 0.93-pt range -> LONG, vehicle QQQ (the track's first long). Entry 708.43 @13:35:30Z venue, stop 707.86, 1 share, $708.43, R=$0.57, bound by cash. Row in day_track_paper.json and mirrored to _DAY_TRACK.results. Taken exactly as day_track.plan_entry computed it -- NO gate, filter or 'why now' was added, which the spec forbids an unattended run from doing. Later runs manage via day_track.manage(); flat by 15:30 ET.",
+      "actions": "NONE in any book. No order was sent. Artifacts rolled by this run because it is the first post-bell run: heartbeat -> 2026-09-16, market_brief rebuilt, _realized_options_pnl_today reset to 0/0 with both throttles at '0 of 3' (verified against two EMPTY broker order queries, never typed).",
+      "why_flat": {
+        "equities_entry": "Report on master is 2026-09-15 (STALE; today's lands ~14:00-14:15Z per _REPORT_CRON_GAP_AT_THE_OPEN) and prompt v11 says a stale report = no autonomous equity trades this run. CAPITAL WAS NOT BINDING and is not recorded as if it were: deployable $1,416.68 funds a full slot above the $600 minimum, and the live _cash_hold is a DISCLOSURE whose dollar figure must never be subtracted.",
+        "equities_exit": "UNP's take-profit READ FIRED and was NOT taken. Three independent reasons, all recorded in _UNP_TAKE_PROFIT_ARMED_PENDING_FRESH_REPORT_2026-09-16: (1) the 2026-09-03 written ruling _TIME_STOP_NEEDS_NO_REPORT_BUT_THE_RSI2_EXIT_NEEDS_A_LIVE_ONE is directly on point and says WAIT when a live RSI2 lands within ~10 points of 70 and the report is silent -- the live reading is 71.7; (2) this run's reproduction of report.py's RSI2 is 1-3 points off when validated against the published 09-15 numbers, a gap comparable to the 1.7-point margin; (3) NEW -- the bid/ask straddles the trigger price, so at the executable price the trigger does not fire at all. ABNB: RSI2 14.7 and red, no exit available at any reading. Neither name is near its 2026-09-24 time stop (6d of 14d) or green-enough for a trail.",
+        "options": "No CORE entry, declined ON THE MERITS rather than on a bar. The narrowed catalyst rule (2026-09-14) makes macro a SIZING input and explicitly not a bar, so FOMC does not forbid a CORE entry -- the IV sweep does. Measured this run at n=26 readings: SPY sits at the 100th percentile of its own recorded IV/RV range (raw 1.4222, ex-gap 1.8195), MSFT and TSLA also 100th, QQQ/AMD/TSM 92nd. Buying long premium at the top of its own recorded range, hours before the scheduled event that mechanically releases it, is exactly what the IV-sanity gate exists to prevent. AVGO is the single cheap reading (12th percentile) and has no signal, a 2.8-3.0% spread and no answer to 'why NOW' -- a cheap liquid vehicle supplies no thesis. No structure survey was run because no thesis cleared; there was nothing to survey structures FOR."
+      },
+      "grades_considered": {
+        "CORE_options": "No candidate reached a gradeable thesis; the screen ended at IV sanity.",
+        "equities": "Not graded this run -- the stale report cannot source an entry, so grading yesterday's carried names would be grading a board that no longer exists. They are listed in the brief's watchlist as carried candidates, with WMB excluded on the oil steer and MU and AEHR excluded on [ERN]."
+      },
+      "new_durable_findings": [
+        "_RSI2_EXIT_IS_INDETERMINATE_WHEN_THE_BID_ASK_STRADDLES_THE_TRIGGER_PRICE_2026-09-16",
+        "_DAY_TRACK_PAPER_DAY_2_LONG_SIDE_QUANTIZATION_AND_THE_FOMC_WINDOW_2026-09-16"
+      ],
+      "findings_note": "Named, not re-argued, per the logging rule. The first is a second independent ~10-point source of uncertainty at the RSI2=70 line (the quote, not the formula) and compounds the 2026-09-03 implementation finding. The second carries two subjects from the track's first LONG signal: the long side buys ONE whole share and missed two by 1.3 basis points of QQQ price, with the risk cap inert by ~169x; and today's day-track window SPANS the FOMC, reversing the all-clear yesterday's brief correctly stated for 09-15.",
+      "duties": "Heartbeat stamped. Brief rebuilt. Cap + throttles reset. IV sweep written (8 names, n=26 each, percentiles licensed for the first time). Daily report NOT due until 19:15Z. Weekly calibration not due (Wednesday). Monthly rebalance not due. HARD RULE 9 intact: no approval claimed, quoted or implied; no flag created or cleared."
     }
   ]
 }
