@@ -37520,6 +37520,30 @@
       "duties": "Heartbeat stamped 13:40Z; brief stamped 13:46Z; IV sweep complete (8 core rows dated 2026-09-16) and no new name evaluated here; daily report due at the first run >=19:15Z; calibration Monday-only."
     },
     {
+      "run_utc": "2026-09-16T15:15:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-16",
+      "headline": "Re-verification. No trade either book. A NEWER report landed (latest_intraday.md 15:07Z, 50fb402) whose board is NOT identical to the 14:00Z grade -- it drops GS/RTX/UNP and adds USB. USB graded fresh and DECLINED; grounds in holdings.json._last_entry_evaluation.grades.USB, not re-argued here.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 15:16Z. ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, both fully sellable. Options 2 long SPY 09-17 legs, placed_agent='user' (gate engaged). get_equity_orders(>=09-16) EMPTY. total $3,870.57, cash==ubp==$1,609.52 (no margin), reserve $193.53, deployable $1,416.00.",
+      "tape_numbers_only": {
+        "SPY": 760.488,
+        "QQQ": 710.89,
+        "ABNB": 169.41,
+        "UNP": 284.18,
+        "USB": 61.06,
+        "quotes_utc": "15:16:1xZ",
+        "note": "Numbers only, no verdict. FOMC decision + dot plot 18:00Z."
+      },
+      "why_flat": {
+        "equity_exits": "None. RSI2 Wilder off own bars w/ live print: ABNB 49.1 (21.8 settled), UNP 33.0 (21.6) -- far under 70, and BOTH RED (-0.065% / -0.326%), so the price leg of the profit-banking gate fails too -- determinative regardless of RSI2. Neither green-enough (199.44 / 335.42). Time stop 09-24, outside the 3d warn.",
+        "equity_entries": "None. WMB oil steer; BAC/PNC C-for-today on FOMC-at-30%-unstopped (PNC also recently-EXITED 09-03); FDX [ERN] ambiguity + duplicate transport idea vs UNP; PFE B and a B gets NO position; USB per the key above. Capital NOT binding.",
+        "options": "No agentic entry. 0 of 3 slots, 0 of 3 entries, $0.00 vs -$400 cap. FOMC vol in every 21-45 DTE board, crushes 18:00Z; macro is a sizing input under v11, not a bar -- no thesis worth that carry. No new name evaluated, so no IV row owed.",
+        "day_track": "Nothing owed. Paper day 2 closed -1.00R (stop 13:36Z); 1 trade/day. graduate() 2d/2 vs 10d/8 -> PAPER; phase is Monday-only. A v11 stamp is not a graduation.",
+        "cash_hold": "LIVE, correctly un-dissolved -- trigger is the 18:00Z release. Not renewed."
+      },
+      "duties": "Heartbeat 13:40Z; brief stamped 09-16; throttles reset 13:40Z; IV sweep complete (13:30Z sibling); daily report due at first run >=19:15Z; calibration Monday-only."
+    },
+    {
       "run_utc": "2026-09-16T15:19:00Z",
       "run_type": "market_hours_regular",
       "trading_day_et": "2026-09-16",
@@ -37554,7 +37578,8 @@
         "cash_hold": "LIVE and correctly NOT dissolved: its checkable trigger is the 18:00Z FOMC release, which has not happened. Not renewed, not extended -- renewal is unavailable to an unattended run. It dissolves and the key is DELETED at the first run after the release, or any run on/after 09-17, whichever comes first."
       },
       "finding": "holdings.json._RSI2_BOARD_IS_SIX_FOR_SIX_DOWN_ON_A_GREEN_TAPE_AND_THE_BANK_COHORT_LEADS_ITS_OWN_SECTOR_DOWN_2026-09-16 -- named, not re-argued. Short form: all six board names are red while SPY is +0.42% and QQQ +0.90%, and the three banks are falling 3-5x XLF/KRE, which refines (does not overturn) the 14:00Z FOMC attribution while leaving its size-based ground untouched. It changed no decision, which is the condition that makes it creditable, and it is explicitly NOT a new entry gate.",
-      "duties": "Heartbeat stamped 13:40Z; brief stamped 13:46Z. IV sweep: complete for the 8 core names (rows dated 2026-09-16); no row added for USB, which was evaluated as an EQUITY candidate only -- no chain was quoted and no IV context is cited anywhere in this entry, so logging one would be inventing a reading rather than recording one. Daily report due at the first run >=19:15Z. Calibration is Monday-only."
+      "duties": "Heartbeat stamped 13:40Z; brief stamped 13:46Z. IV sweep: complete for the 8 core names (rows dated 2026-09-16); no row added for USB, which was evaluated as an EQUITY candidate only -- no chain was quoted and no IV context is cited anywhere in this entry, so logging one would be inventing a reading rather than recording one. Daily report due at the first run >=19:15Z. Calibration is Monday-only.",
+      "concurrent_run_union": "MERGE CONFLICT with the concurrent 15:15Z run, resolved as a UNION per the standing rule -- both entries kept, ordered by run_utc, neither discarded. The two runs worked the same fresh 15:07Z report INDEPENDENTLY and AGREED: both declined USB, both found zero drift, both left the cash hold live. Independently-fetched marks agree (USB 61.06 vs 61.0484, SPY 760.488 vs 760.60, QQQ 710.89 vs 710.875) -- cross-validation, not a conflict. ONE REPAIR THIS UNION MAKES, and it is the reason the union matters rather than being bookkeeping: the 15:15Z entry defers its USB reasoning to 'holdings.json._last_entry_evaluation.grades.USB', and that path DID NOT EXIST on master -- origin/master's _last_entry_evaluation was still the 14:00Z object, whose grades cover WMB/UNP/BAC/GS/PNC/FDX/RTX/PFE and no USB. Whether the write was lost in that run's own conflict resolution or was assumed already present cannot be determined from here and is not asserted. This run's rewrite of _last_entry_evaluation supplies the key it points at, so the merged state is consistent. The transferable shape: a journal entry that DEFERS its reasoning to a ledger key is only as good as the write that creates that key -- 'grounds in <key>, not re-argued here' is a promise, and at 15:19Z it was an unkept one. When you defer, assert the key exists in the state you are about to PUSH, not the state you read."
     }
   ]
 }
