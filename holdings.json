@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-16T14:30:00Z",
+  "updated_utc": "2026-09-16T14:31:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-16",
     "realized_usd_options": 0.0,
@@ -27,18 +27,18 @@
       "_note": "placed_agent='agentic' -- AUTONOMOUS equity entry under HARD RULE 6 / prompt v10 THE EQUITY BOOK, signal-sourced from the committed report on master (latest_morning.md 2026-09-10T14:01Z, commit 12f6ccb; header clean, no DATA ERROR). Order 6aa2bcce-ec3b-40d9-8c87-06752c3a4515, $1,114.36 dollar-based MARKET order, regular_hours, FILLED 14:21:02Z at $169.5209 in two executions (6.000000 + 0.573584). Review gate returned order_checks {} on a $0.07 spread (0.04% of mid). HOW THIS NAME WAS FOUND: the 14:00Z run reported '26 RSI2 setups, ZERO graded A' but its cohort enumeration covers only 23 -- ABNB, CMG and KHC were never reached. See _A_ZERO_OF_26_VERDICT_WAS_BUILT_FROM_A_23_NAME_SAMPLE_AND_THE_REMAINDER_HELD_THE_BEST_SETUP_2026-09-10. All three were then graded from this run's own bars; CMG and KHC independently declined (flat non-monotonic 200-day, negative 12-1 momentum, and CMG's oversold condition already relieved at a live RSI2 of 17.05 versus 5.47 on the prior close). GATE STACK, each leg verified independently of the report rather than taken on trust: RSI2 3.38 on the 09-09 close and 3.00 including the live 169.00 print, Wilder-computed from own daily bars (report said 2.6 -- same regime); the 200-day SMA is 139.9809 and RISING MONOTONICALLY across the trailing 22 sessions (133.345 -> 139.981, +4.98%, no down-tick) with price +20.73% above it, so this is a dip inside a confirmed uptrend and NOT the flat-average artifact _THE_200DAY_GATE_CERTIFIES_DOWNTRENDS warns about; mom12-1 +49.2%; spot only -11.3% off the 52-week high of 190.50. HARD RULE 7 VERDICT INTACT AND STRENGTHENING -- the decisive evidence is that the FactSet consensus mean price target rose MONOTONICALLY across the very week the stock fell ~7.7%: $179.75 (08-31) -> $180.84 (09-01) -> $182.05 (09-08) -> $183.24 (09-10), average rating OVERWEIGHT throughout, with Raymond James UPGRADING to Outperform (PT $200) on 09-08, Baird $175->$200, Rosenblatt initiating Buy at $220 on 09-01, DA Davidson $175->$220, and Truist raising $134->$161 at 08:20 ET THIS MORNING. Analysts marking estimates UP while price marks DOWN is the cleanest available evidence that the decline reprices the MARKET rather than the COMPANY, which is exactly the condition Connors RSI(2) exists to exploit. Mean PT $183.24 is +8.4% from the fill and agrees with the report's independently-derived $183.08 to within 0.1%. NEGATIVES WEIGHED, NOT OMITTED: crude >$100 is a real ongoing travel-cost and consumer headwind and is the most plausible proximate driver of the decline; the 08-31 Bloomberg-reported pilot cutting host take-rate to 6%/10% from ~16% is a genuine revenue-model risk though confined to hosts on third-party software and defensive against direct-booking leakage; co-founder/CSO Blecharczyk sold 353,292 shares for $67.3M on 08-24 (Form 4, pre-dates the decline, usual 10b5-1 ambiguity). No company-specific negative headline appears in the last 10 days of a heavily-covered name. [ERN] CLEAR and VERIFIED not assumed: get_earnings_calendar over 09-10 +31d returned 374 live events across 301 symbols -- not the degraded-empty that makes an absent flag meaningless -- and ABNB appears nowhere through 2026-10-10, far beyond the time stop. Sector steer clear (consumer discretionary, not oil). UNCORRELATED with MMM (industrials) and GD (defense), which is why this entry was available where the prior run correctly declined RTX as a GD duplicate and EMR/TKR as MMM duplicates; it is also not an index ETF, so it does not fight the SPY 700P hedge the way IWM/DIA/SPY/QQQ would. GRADE A (not A+: the macro driver is unresolved and the name has no catalyst of its own). SIZING per the 2026-09-02 CONCENTRATION POLICY: total_value $4,021.67, cash == unleveraged_buying_power == $2,429.81 (no margin), 5% operational reserve $201.08, deployable $2,228.73, 2 open slots to the 3-4 target -> $1,114.36 = 27.71% of the account, inside the 30% per-name cap of $1,206.50 and well above the ~$600 minimum. Sized at deployable/2 rather than deployable/1 deliberately: MMM time-stops 09-14 and GD 09-15, so leaving $1,114.36 undeployed funds the next A-grade instead of crowding out that re-deployment.",
       "setup_invalidation": "This is a swing with NO price stop (HARD RULE 5 -- the agent places no stop of any kind). Bounded instead by the TIME STOP of 2026-09-24 (entry 2026-09-10 + SWING_TIME_STOP_DAYS 14), on which it is sold green or red. Thesis invalidation is company-specific: generalization of the reduced take-rate beyond a pilot in a way that resets revenue guidance, a guidance cut, or -- most directly -- a REVERSAL IN THE ANALYST REVISION TREND, since a mean PT turning DOWN through a further decline would break the central plank of this thesis, which is that estimates are rising into weakness.",
       "_current_state": {
-        "as_of_utc": "2026-09-16T14:30:00Z",
-        "mark": 169.18,
-        "mark_venue_utc": "2026-09-16T14:00:55Z",
-        "pl_usd": -2.24,
-        "pl_pct": -0.201,
-        "rsi2_wilder_live": 45.1,
+        "as_of_utc": "2026-09-16T14:31:00Z",
+        "mark": 169.545,
+        "mark_venue_utc": "2026-09-16T14:31:14Z",
+        "pl_usd": 0.16,
+        "pl_pct": 0.014,
+        "rsi2_wilder_live": 51.2,
         "rsi2_report_1406Z": null,
-        "target_distance_pct": 8.22,
+        "target_distance_pct": 7.98,
         "green_enough_trigger": 199.44,
         "days_held": 6,
         "time_stop_date": "2026-09-24",
-        "verdict": "HOLD -- no exit fires. RSI2 45.1 vs >=70 (report prints 45.1-equivalent at 169.19, HOLD thesis-watch); no target hit; not green-enough (needs 199.44); time stop 2026-09-24, 8 days out, outside the 3-day warn window. Underwater, so the take-profit gate is shut on price regardless. Thesis unchanged and deliberately not re-litigated."
+        "verdict": "HOLD -- no exit fires. RSI2 51.2 live-substituted (21.8 on the 09-15 close), far under the >=70 take-profit. Position crossed marginally GREEN for the first time since entry (+0.014%), so the profit-banking gate is now open on PRICE; the RSI2 leg is unmet, so nothing fires. Not green-enough for a trail (needs 199.44). Time stop 2026-09-24, 8 days out. Thesis unchanged and deliberately not re-litigated."
       }
     },
     {
@@ -52,18 +52,18 @@
       "native_trail_pct": null,
       "_note": "AUTONOMOUS equity entry under HARD RULE 6, placed_agent 'agentic', order 6aa2f4ee-a23b-49c3-8e48-eee4a2601f93 filled 2026-09-10T18:20:30Z, 3.858199 sh @ 285.1071 = $1,100.00, zero fees. SIGNAL-SOURCED from the committed 2026-09-10T18:01Z intraday report (RSI2 2.2, the lowest non-held print on a 25-name board). Graded A: 200-day SMA rising monotonically 255.467->260.934 with spot 61.6 SESSIONS of cushion above it; Q2 2026 adj EPS $3.41 vs $3.24 and revenue +12% to $6.864B, both beats; dividend raised to $1.42 on 07-29; consensus Overweight, FactSet mean PT $332.70 (+16.7%); three upward PT revisions in six weeks; and the entry prints GREEN (+0.09%) against SPY -0.61% / QQQ -1.00%, so trend-maturity gate (c) confirms rather than diverges. NO adverse catalyst behind the slide -- the last company news is a beat and a raise. KNOWN NEGATIVES, recorded not buried: PEG 3.2 reads '(WARN) rich' on the report's SECONDARY value screen (P/E 23.0 is ordinary for a Class I rail and PEG penalises mature compounders; unlike SBUX's PEG -2.3 there is no de-rating catalyst); the UNP/NSC $85B merger is under STB review with comments due 11-18, DOJ/DOT 12-03, final briefs 2027-05-28 -- nothing binary inside the hold; Baupost cut 23% in Q2, offset by Viking Global initiating a new $556.9M position the same quarter. NO PRICE STOP EVER (HARD RULE 5). Full pre-trade decision record: trade_journal.json entry run_utc 2026-09-10T18:19:00Z, written BEFORE the order per gate (a).",
       "_current_state": {
-        "as_of_utc": "2026-09-16T14:30:00Z",
-        "mark": 283.11,
-        "mark_venue_utc": "2026-09-16T14:00:42Z",
-        "pl_usd": -7.71,
-        "pl_pct": -0.7,
-        "rsi2_wilder_live": 12.0,
+        "as_of_utc": "2026-09-16T14:31:00Z",
+        "mark": 284.16,
+        "mark_venue_utc": "2026-09-16T14:31:18Z",
+        "pl_usd": -3.65,
+        "pl_pct": -0.332,
+        "rsi2_wilder_live": 32.0,
         "rsi2_report_1406Z": 9.4,
-        "target_distance_pct": 5.37,
+        "target_distance_pct": 4.98,
         "green_enough_trigger": 335.42,
         "days_held": 6,
         "time_stop_date": "2026-09-24",
-        "verdict": "HOLD. The morning's ARMED take-profit is FALSIFIED on both legs and was resolved against the AUTHORITATIVE source: today's report landed on master at 14:06Z printing UNP RSI2 9.4 / action HOLD, and the live tape agrees (283.11, RED 0.70%). No sale. Key deleted per its own clause; measurement promoted to _RSI2_TAKE_PROFIT_DECAYED_80_TO_12_IN_THIRTY_MINUTES_AND_THE_REPORT_GATE_CANNOT_OUTRUN_IT_2026-09-16. Holds to the 2026-09-24 time stop."
+        "verdict": "HOLD. RSI2 32.0 live-substituted (21.6 on the 09-15 close) -- the overnight-armed take-profit stays FALSIFIED, consistent with today's 14:06Z report (RSI2 9.4 / HOLD). Red -0.33%, so the profit-banking gate is shut on price regardless. Not green-enough for a trail (needs 335.42). Holds to the 2026-09-24 time stop."
       },
       "_notify_state": {
         "last_trigger": null,
@@ -91,7 +91,7 @@
       "sellout_datetime": "2026-09-17T19:45:00+00:00",
       "_note": "placed_agent='user' -- RYAN PLACED THIS HIMSELF IN THE ROBINHOOD APP. OWNERSHIP GATE (HARD RULE 6 / prompt v11): the desk NEVER closes, trims or rolls it without his explicit go-ahead. It may detect a fired exit condition, record it, notify him ONCE, and wait. Per the 2026-08-03 agentic sub-sleeve rule, a user-placed option does NOT consume the agentic per-trade budget, the max-3-open CORE slots, or the daily options entry throttle -- the agentic book remains 0 of 3 CORE and 0 of 3 entries today. It is likewise NOT a HARD RULE 9 incident and must not be flagged as one: an unauthorized trade is an AGENTIC order nobody approved, and this is the account owner trading his own account, which needs no approval from anything. Nothing here is adjudicated in either direction. LEG: this is the PUT wing of a two-legged long STRANGLE Ryan opened 55 seconds apart (see the 770C row and _USER_PLACED_SPY_FOMC_STRANGLE_DETECTED_2026-09-15). The two legs are ONE trade in intent but TWO independent single-leg positions at the broker -- they are not a spread, carry no collateral relationship, and each can be closed alone.",
       "_current_state": {
-        "as_of_utc": "2026-09-16T14:30:00Z",
+        "as_of_utc": "2026-09-16T14:31:00Z",
         "contract": "SPY 2026-09-17 731P",
         "mark": 0.095,
         "bid": 0.09,
@@ -126,7 +126,7 @@
       "sellout_datetime": "2026-09-17T19:45:00+00:00",
       "_note": "placed_agent='user' -- RYAN PLACED THIS HIMSELF IN THE ROBINHOOD APP. OWNERSHIP GATE (HARD RULE 6 / prompt v11): the desk NEVER closes, trims or rolls it without his explicit go-ahead. It may detect a fired exit condition, record it, notify him ONCE, and wait. Per the 2026-08-03 agentic sub-sleeve rule, a user-placed option does NOT consume the agentic per-trade budget, the max-3-open CORE slots, or the daily options entry throttle -- the agentic book remains 0 of 3 CORE and 0 of 3 entries today. It is likewise NOT a HARD RULE 9 incident and must not be flagged as one: an unauthorized trade is an AGENTIC order nobody approved, and this is the account owner trading his own account, which needs no approval from anything. Nothing here is adjudicated in either direction. LEG: this is the CALL wing of the same two-legged long STRANGLE. See the 731P row.",
       "_current_state": {
-        "as_of_utc": "2026-09-16T14:30:00Z",
+        "as_of_utc": "2026-09-16T14:31:00Z",
         "contract": "SPY 2026-09-17 770C",
         "mark": 0.285,
         "bid": 0.28,
