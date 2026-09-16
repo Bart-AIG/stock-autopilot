@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-16T13:40:00Z",
+  "updated_utc": "2026-09-16T14:00:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-16",
     "realized_usd_options": 0.0,
@@ -5621,8 +5621,8 @@
         "entry_px_signal_venue_utc": "2026-09-16T13:35:30.133740112Z",
         "entry_px_vehicle": 708.43,
         "entry_px_vehicle_venue_utc": "2026-09-16T13:35:30.133740112Z",
-        "stop_px_signal": 707.86,
-        "stop_px_vehicle": 707.86,
+        "stop_px_signal": 708.95,
+        "stop_px_vehicle": 708.95,
         "stop_dist_pct": 0.0805,
         "shares": 1,
         "dollars": 708.43,
@@ -5634,7 +5634,45 @@
         "vehicle_note": "LONG side, so vehicle == signal == QQQ and no PSQ translation is involved. This is the mirror of paper day 1 and it exposes a sizing asymmetry the track has not seen before -- see holdings.json._DAY_TRACK_PAPER_DAY_2_LONG_SIDE_QUANTIZATION_AND_THE_FOMC_WINDOW_2026-09-16.",
         "capital_note": "Paper only -- no order placed, none placeable: _DAY_TRACK.status is PAPER. Prompt v11 IS the invocation stamp this run carries, which satisfies the STOP-AUTHORITY precondition ONLY; graduation is decided by day_track.graduate() at a Monday calibration and this is paper day 2 of a required 10 (2 signals of 8). A LIVE PROMPT STAMP IS NOT A GRADUATION. Sizing used deployable $1,416.68 = unleveraged_buying_power $1,609.52 minus the 5% operational reserve $192.84.",
         "quote_provenance": "Venue timestamp 13:35:30Z is >5 min past 13:30Z, i.e. OUTSIDE the opening auction window, so this row satisfies the standing re-quote rule. The 13:31-13:33Z reconciliation quotes were NOT used for it.",
-        "fomc_note": "UNLIKE PAPER DAY 1, TODAY'S DAY-TRACK WINDOW SPANS A SCHEDULED BINARY MACRO EVENT: the FOMC decision lands 14:00 ET / 18:00Z and the flat rule is 15:30 ET, so the position is held across it by 1.5 hours. NO GATE WAS ADDED AND NONE MAY BE -- the spec forbids an unattended run adding a filter, and the signal was taken as computed. Recorded because it is a real property of the track's risk that the LIVE phase will inherit."
+        "fomc_note": "UNLIKE PAPER DAY 1, TODAY'S DAY-TRACK WINDOW SPANS A SCHEDULED BINARY MACRO EVENT: the FOMC decision lands 14:00 ET / 18:00Z and the flat rule is 15:30 ET, so the position is held across it by 1.5 hours. NO GATE WAS ADDED AND NONE MAY BE -- the spec forbids an unattended run adding a filter, and the signal was taken as computed. Recorded because it is a real property of the track's risk that the LIVE phase will inherit.",
+        "management": [
+          {
+            "managed_utc": "2026-09-16T14:00:00Z",
+            "managed_by": "scheduled run 13:45Z 2026-09-16 (unattended, prompt v11) -- SECOND post-bell run; the 13:30Z sibling opened this row and left it status 'open', so this run owes it a management pass.",
+            "action": "raise_stop",
+            "day_track_manage_returned": "raise_stop -- 'ratchet at 2.44R'",
+            "inputs": {
+              "price_used": 709.82,
+              "price_note": "The BID, not the 709.835 last. A long position is SOLD INTO THE BID, so the bid is the executable price and the conservative side for any exit-management decision. This follows the sibling's own finding from this same morning, _RSI2_EXIT_IS_INDETERMINATE_WHEN_THE_BID_ASK_STRADDLES_THE_TRIGGER_PRICE_2026-09-16, applied to the day track rather than to the RSI2 exit. Immaterial here -- last gives 2.465R and bid 2.439R, both clear of the 2.0 trail trigger -- but the habit is the point.",
+              "venue_utc": "2026-09-16T13:59:13.158Z",
+              "session_high_since_entry": 710.18,
+              "session_high_source": "Max of ONE-MINUTE highs 13:35-13:59Z (the 13:55 bar). Cross-checked against the 5-minute buckets, which agree.",
+              "atr5_used": 0.82,
+              "stop_dist": 0.57,
+              "r_multiple": 2.439
+            },
+            "feed_integrity_checked_first": "ALL THREE 5-minute buckets used here reconcile EXACTLY to their 1-minute sums -- 13:45 bucket 307,199 vs sum 307,199; 13:50 206,329 vs 206,329; 13:55 110,275 vs 110,275. Zero discrepancy, so no feed hole propagates into the stop level. Noted separately: the 13:55 bucket read 104,898 on a 13:59Z fetch and 110,275 on a 14:01Z fetch -- the documented in-progress settling revision, not a hole; both reads agree the bar's HIGH is 710.18, which is the number the trail depends on.",
+            "both_ratchets_fire_and_the_trail_wins": "At 2.44R both thresholds are crossed. Breakeven (r>=1) would move the stop to entry 708.43; the trail (r>=2) gives session_high - 1.5 x ATR5 = 710.18 - 1.23 = 708.95. The stop ratchets UP only and takes the higher: 707.86 -> 708.9500. That locks in +0.52 per share (+0.92R) against the 708.43 entry.",
+            "new_stop": 708.95,
+            "locked_in": "+$0.52/share = +0.92R on the 1-share paper position, i.e. ~+$0.52.",
+            "PAPER_so_nothing_was_placed": "_DAY_TRACK.status is PAPER, so NO stop order was placed or replaced at the broker. In LIVE this pass would be a cancel/replace of the resting stop_market to 708.95 in this same minute. Recorded here so the paper row carries the management history the LIVE phase will have to execute.",
+            "status_after": "open",
+            "next_checks": "Flat rule at 15:30 ET; chop rule is already moot (|R| >> 0.5). Stop now 708.95. The FOMC decision at 18:00Z falls INSIDE this position's window and the flat rule is 1.5 hours after it -- the sibling flagged this and no gate may be added for it.",
+            "finding": "holdings.json._DAY_TRACK_EARLY_SESSION_ATR14_5MIN_IS_MOSTLY_YESTERDAY_2026-09-16"
+          }
+        ],
+        "stop_history": [
+          {
+            "utc": "2026-09-16T13:36:00Z",
+            "stop": 707.86,
+            "why": "initial -- opposite OR edge"
+          },
+          {
+            "utc": "2026-09-16T14:00:00Z",
+            "stop": 708.95,
+            "why": "2R trail ratchet, session_high 710.18 - 1.5 x ATR5 0.82"
+          }
+        ]
       }
     ],
     "graduation": {
@@ -5929,5 +5967,40 @@
       "what_it_does_and_does_NOT_license": "It does NOT veto the day trade and was NOT used to. The spec is explicit that no unattended run may add a gate, a filter or a 'why now' to this track, and the whole design lesson behind the DAY TRACK is that the retired TACTICAL track died under exactly this kind of accreted, individually reasonable veto. The signal was taken as computed. What it DOES do is record, before the LIVE phase inherits it, that the track's resting stop will at some point sit across a scheduled binary macro release -- where a stop_market can gap through its trigger price and fill arbitrarily far away. That is a real execution property for Ryan and the Monday calibration, and it is the day-track sibling of the already-recorded overnight-gap argument that killed TACTICAL's hold-over convention.",
       "the_general_rule": "Each track screens its own window (2026-08-28), and the window MOVES WITH THE DATE. Recompute the window's start and end every day and name what falls inside it -- never inherit yesterday's answer, in either direction."
     }
+  },
+  "_DAY_TRACK_A_SECOND_CONCURRENT_RUN_DECIDED_THE_SAME_PAPER_DAY_AND_THE_BROKER_CHECK_COULD_NOT_SEE_IT_2026-09-16": {
+    "found_utc": "2026-09-16T14:00:00Z",
+    "found_by": "scheduled run 13:45Z 2026-09-16 (unattended, prompt v11), by nearly committing the duplicate itself",
+    "headline": "THE DAY TRACK'S SIBLING-COLLISION DEFENCE DOES NOT FUNCTION IN PAPER PHASE, AND THIS RUN PROVED IT BY ALMOST WRITING A SECOND, CONTRADICTORY PAPER DAY-2 ROW. Two concurrent runs both believed they were the first post-bell run of 2026-09-16; the 13:30Z sibling ENTERED at 708.43 and this 13:45Z run independently computed SKIP. Same opening range, same code, opposite decisions -- and nothing in the prescribed check could see the conflict.",
+    "status": "NEW DURABLE FINDING. It is also a CORRECTION of this run's own earlier reasoning, retracted below. No trade was affected: the track is in PAPER, and the duplicate row was discarded before it reached master.",
+    "the_mechanism_and_why_the_prescribed_check_is_blind": "Prompt v11's day-track rule is explicit and correct for LIVE: 'before the entry order re-read get_equity_orders for today. A filled QQQ/PSQ order this run did not place = a sibling took today's trade -> stand down and manage it instead.' IN PAPER THERE IS NO ORDER. This run's get_equity_orders(>=2026-09-16) returned EMPTY -- correctly, because the sibling had placed nothing and never would. The broker, which the repo rightly calls the arbiter, is SILENT by construction in the one phase whose output decides whether the track ever goes live.",
+    "the_second_blind_check": "The git fallback was blind too, for the already-documented reason: the sibling's commit (b196800, PR #1630) did not land on master until after this run had read the journal, so the journal's newest entry was 13:18Z and there was no trace of a 13:30Z run anywhere this run could look. This is the 2026-08-28 commit-latency mechanism exactly -- 'the ledger lags a sibling's fill by that sibling's commit latency' -- but with the broker leg removed, latency is the ONLY signal, so there is no second line of defence at all.",
+    "WHAT_THIS_RUN_GOT_WRONG_AND_RETRACTS": {
+      "the_retracted_claim": "This run initially recorded a finding titled '_DAY_TRACK_PAPER_DAY_2_WAS_SKIPPED_BY_LATENCY_NOT_BY_THE_TAPE', asserting a '27-minute cadence gap' with 'runs at 13:05/13:15/13:18Z then NOTHING until 13:45Z', and blaming the missed entry partly on the cron and partly on this run's own sequencing.",
+      "why_it_was_wrong": "THE CRON FIRED NORMALLY. A run fired at 13:30Z, inside the window, quoted QQQ at 13:35:30Z with the late-entry gate comfortably satisfied, and took the entry. There was no cadence gap. The 'gap' was an artifact of reading the journal before the sibling had committed -- i.e. the finding's evidence was the very latency it was trying to describe, pointed at the wrong conclusion.",
+      "what_survives_of_it": "Only the narrow sequencing point, and it is now moot rather than wrong: a run firing inside the entry window should quote the signal FIRST, because the late-entry gate is a moving threshold against a moving price. That remains good practice. It did not cost anything today, because the day's decision was already correctly taken by the run whose job it was.",
+      "the_transferable_shape_and_it_is_the_repo_s_most_repeated_one": "A RUN THAT CANNOT SEE A SIBLING WILL EXPLAIN THE SIBLING'S ABSENCE AS A FACT ABOUT THE WORLD. Absence of evidence in a latency-bound artifact is not evidence of absence, and the failure is self-confirming: the quieter the record looks, the more confident the wrong conclusion. This run wrote a plausible, numerate, well-evidenced finding about infrastructure that was working perfectly."
+    },
+    "why_it_matters_more_in_PAPER_than_it_would_in_LIVE": "graduate() is the ONLY gate left between this track and real money -- the v11 stop-authority precondition is already satisfied -- and it reads the paper log. Its inputs are paper_days and the list of R-multiples. A duplicate day would have inflated paper_days toward the 10-day minimum with no extra information, and had BOTH rows been action='enter' with different prices, the R-multiple list would have carried two contradictory outcomes for one day. The corruption would have been invisible: both rows are individually well-formed and internally correct.",
+    "the_defence_that_does_work_in_paper_and_costs_one_read": "THE PAPER LOG ITSELF IS THE ARBITER WHEN THE BROKER CANNOT BE. Before writing any day-track row, re-fetch origin/master and check day_track_paper.json AND _DAY_TRACK.results for a row whose trading_day_et is today. If one exists, the day is DECIDED -- stand down and MANAGE it, which is what this run ultimately did. This is not a new gate on the strategy (the spec forbids a run adding one) -- it is a write-conflict check on the log, and it is the paper-phase analogue of the existing broker-first rule rather than an addition to it.",
+    "residual_hole_this_run_CANNOT_close": "The re-fetch narrows the window; it does not eliminate it. Two runs can still compute the day concurrently and both find a clean log, exactly as happened here. Only the trigger configuration can stop two runs racing the same slot, and that is Ryan's to change -- an agent can make the collision cheap and detectable, never impossible. Recorded with NO approval claimed or implied (HARD RULE 9).",
+    "for_ryan_no_approval_implied": "Before the day track goes LIVE, the 13:30Z/13:45Z pair racing the same opening-range slot is worth one look at the trigger config: in LIVE, the broker check catches it and the second run stands down, so this is a paper-phase measurement problem rather than a live-money one -- but the paper phase is what decides whether live money is ever committed."
+  },
+  "_DAY_TRACK_EARLY_SESSION_ATR14_5MIN_IS_MOSTLY_YESTERDAY_2026-09-16": {
+    "found_utc": "2026-09-16T14:00:00Z",
+    "found_by": "scheduled run 13:45Z 2026-09-16 (unattended, prompt v11), running the first management pass the day track has ever performed on an open position",
+    "headline": "EARLY IN A SESSION, ATR14(5-MINUTE) IS MOSTLY *YESTERDAY* -- SO THE DAY TRACK'S 2R TRAIL IS SET BY THE PRIOR AFTERNOON'S VOLATILITY, NOT TODAY'S. At 09:59 ET only 6 five-minute bars of today exist, so 9 of the 15 bars ATR14 consumes come from the previous session.",
+    "status": "NEW DURABLE FINDING. THE SPEC WAS FOLLOWED AS WRITTEN -- ATR14(5-min) was computed over the available series and the stop was set from it. No parameter was changed and no gate added; an unattended run may not edit this track. Recorded for the Monday calibration and for Ryan.",
+    "measured": {
+      "atr14_5min_as_specified_spans_the_overnight_gap": 0.82,
+      "atr6_today_only_gap_free_for_comparison": 1.412,
+      "ratio": "Today's gap-free 5-minute ATR is 1.72x the ATR14 the spec actually uses.",
+      "composition_at_0959_ET": "15 bars consumed: 6 from 2026-09-16 (13:30-13:55Z) and 9 from 2026-09-15's 17:20-19:55Z tail.",
+      "consequence_for_the_stop": "Trail = session_high - 1.5 x ATR5. With 0.82 -> 710.18 - 1.23 = 708.95. With today's 1.412 -> 710.18 - 2.118 = 708.06, which is BELOW the breakeven stop 708.43, so breakeven would have governed and the stop would have been 708.43. The two inputs differ by 0.52 per share = 0.92R on this trade."
+    },
+    "THE_DIRECTION_IS_THE_SURPRISE_AND_IT_INVERTS_THE_OBVIOUS_WORRY": "The intuition is that including an overnight gap INFLATES ATR and loosens the stop. The opposite happened. 2026-09-15's final hour was exceptionally quiet -- five-minute ranges around 0.2-0.4 points -- while today is running 1.4, and one gap bar diluted across fourteen does not offset nine placid ones. So the stale bars DRAG ATR DOWN and make the trail TIGHTER, i.e. MORE aggressive, in a tape that is demonstrably moving faster than the average describes. A trail 0.885 under the session high on a name printing 1.4-point five-minute ranges is well inside noise.",
+    "why_it_is_not_a_bug_and_must_not_be_patched_by_a_run": "ATR14(5-min) is what the spec says, the code computes it correctly, and the formula is deliberately mechanical so that runs execute rather than judge -- which is the entire design lesson the track was built on after TACTICAL died of accreted judgment. A run that silently swapped in a gap-free intraday ATR because it preferred the number would be re-importing exactly that failure. The right move is to execute as written and report the measurement, which is what happened.",
+    "quantified_pattern_rather_than_a_one_off": "The composition problem decays predictably through the session: 9 of 15 bars are stale at 09:59 ET, 0 of 15 by roughly 10:45 ET. So the trail is most contaminated exactly when a fast trade reaches +2R earliest -- the tail of the distribution where the trail matters most. It is a systematic early-session bias, not a fluke of today's quiet prior close.",
+    "for_the_monday_calibration": "Worth a look, and NOT a self-granted change: whether the 2R trail should use ATR14(5-min) as written, or hold the initial/breakeven stop until 15 bars of the CURRENT session exist (~10:45 ET). Note the honest counter-argument -- a tighter trail banks more of a fast move and this paper trade would lock +0.92R instead of +0.00R, so the stale input is not obviously worse, merely unintended. Two paper days is no sample for settling it; the point is that the input is not measuring what its name implies."
   }
 }

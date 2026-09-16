@@ -83,8 +83,8 @@
       "entry_px_signal_venue_utc": "2026-09-16T13:35:30.133740112Z",
       "entry_px_vehicle": 708.43,
       "entry_px_vehicle_venue_utc": "2026-09-16T13:35:30.133740112Z",
-      "stop_px_signal": 707.86,
-      "stop_px_vehicle": 707.86,
+      "stop_px_signal": 708.95,
+      "stop_px_vehicle": 708.95,
       "stop_dist_pct": 0.0805,
       "shares": 1,
       "dollars": 708.43,
@@ -96,7 +96,45 @@
       "vehicle_note": "LONG side, so vehicle == signal == QQQ and no PSQ translation is involved. This is the mirror of paper day 1 and it exposes a sizing asymmetry the track has not seen before -- see holdings.json._DAY_TRACK_PAPER_DAY_2_LONG_SIDE_QUANTIZATION_AND_THE_FOMC_WINDOW_2026-09-16.",
       "capital_note": "Paper only -- no order placed, none placeable: _DAY_TRACK.status is PAPER. Prompt v11 IS the invocation stamp this run carries, which satisfies the STOP-AUTHORITY precondition ONLY; graduation is decided by day_track.graduate() at a Monday calibration and this is paper day 2 of a required 10 (2 signals of 8). A LIVE PROMPT STAMP IS NOT A GRADUATION. Sizing used deployable $1,416.68 = unleveraged_buying_power $1,609.52 minus the 5% operational reserve $192.84.",
       "quote_provenance": "Venue timestamp 13:35:30Z is >5 min past 13:30Z, i.e. OUTSIDE the opening auction window, so this row satisfies the standing re-quote rule. The 13:31-13:33Z reconciliation quotes were NOT used for it.",
-      "fomc_note": "UNLIKE PAPER DAY 1, TODAY'S DAY-TRACK WINDOW SPANS A SCHEDULED BINARY MACRO EVENT: the FOMC decision lands 14:00 ET / 18:00Z and the flat rule is 15:30 ET, so the position is held across it by 1.5 hours. NO GATE WAS ADDED AND NONE MAY BE -- the spec forbids an unattended run adding a filter, and the signal was taken as computed. Recorded because it is a real property of the track's risk that the LIVE phase will inherit."
+      "fomc_note": "UNLIKE PAPER DAY 1, TODAY'S DAY-TRACK WINDOW SPANS A SCHEDULED BINARY MACRO EVENT: the FOMC decision lands 14:00 ET / 18:00Z and the flat rule is 15:30 ET, so the position is held across it by 1.5 hours. NO GATE WAS ADDED AND NONE MAY BE -- the spec forbids an unattended run adding a filter, and the signal was taken as computed. Recorded because it is a real property of the track's risk that the LIVE phase will inherit.",
+      "management": [
+        {
+          "managed_utc": "2026-09-16T14:00:00Z",
+          "managed_by": "scheduled run 13:45Z 2026-09-16 (unattended, prompt v11) -- SECOND post-bell run; the 13:30Z sibling opened this row and left it status 'open', so this run owes it a management pass.",
+          "action": "raise_stop",
+          "day_track_manage_returned": "raise_stop -- 'ratchet at 2.44R'",
+          "inputs": {
+            "price_used": 709.82,
+            "price_note": "The BID, not the 709.835 last. A long position is SOLD INTO THE BID, so the bid is the executable price and the conservative side for any exit-management decision. This follows the sibling's own finding from this same morning, _RSI2_EXIT_IS_INDETERMINATE_WHEN_THE_BID_ASK_STRADDLES_THE_TRIGGER_PRICE_2026-09-16, applied to the day track rather than to the RSI2 exit. Immaterial here -- last gives 2.465R and bid 2.439R, both clear of the 2.0 trail trigger -- but the habit is the point.",
+            "venue_utc": "2026-09-16T13:59:13.158Z",
+            "session_high_since_entry": 710.18,
+            "session_high_source": "Max of ONE-MINUTE highs 13:35-13:59Z (the 13:55 bar). Cross-checked against the 5-minute buckets, which agree.",
+            "atr5_used": 0.82,
+            "stop_dist": 0.57,
+            "r_multiple": 2.439
+          },
+          "feed_integrity_checked_first": "ALL THREE 5-minute buckets used here reconcile EXACTLY to their 1-minute sums -- 13:45 bucket 307,199 vs sum 307,199; 13:50 206,329 vs 206,329; 13:55 110,275 vs 110,275. Zero discrepancy, so no feed hole propagates into the stop level. Noted separately: the 13:55 bucket read 104,898 on a 13:59Z fetch and 110,275 on a 14:01Z fetch -- the documented in-progress settling revision, not a hole; both reads agree the bar's HIGH is 710.18, which is the number the trail depends on.",
+          "both_ratchets_fire_and_the_trail_wins": "At 2.44R both thresholds are crossed. Breakeven (r>=1) would move the stop to entry 708.43; the trail (r>=2) gives session_high - 1.5 x ATR5 = 710.18 - 1.23 = 708.95. The stop ratchets UP only and takes the higher: 707.86 -> 708.9500. That locks in +0.52 per share (+0.92R) against the 708.43 entry.",
+          "new_stop": 708.95,
+          "locked_in": "+$0.52/share = +0.92R on the 1-share paper position, i.e. ~+$0.52.",
+          "PAPER_so_nothing_was_placed": "_DAY_TRACK.status is PAPER, so NO stop order was placed or replaced at the broker. In LIVE this pass would be a cancel/replace of the resting stop_market to 708.95 in this same minute. Recorded here so the paper row carries the management history the LIVE phase will have to execute.",
+          "status_after": "open",
+          "next_checks": "Flat rule at 15:30 ET; chop rule is already moot (|R| >> 0.5). Stop now 708.95. The FOMC decision at 18:00Z falls INSIDE this position's window and the flat rule is 1.5 hours after it -- the sibling flagged this and no gate may be added for it.",
+          "finding": "holdings.json._DAY_TRACK_EARLY_SESSION_ATR14_5MIN_IS_MOSTLY_YESTERDAY_2026-09-16"
+        }
+      ],
+      "stop_history": [
+        {
+          "utc": "2026-09-16T13:36:00Z",
+          "stop": 707.86,
+          "why": "initial -- opposite OR edge"
+        },
+        {
+          "utc": "2026-09-16T14:00:00Z",
+          "stop": 708.95,
+          "why": "2R trail ratchet, session_high 710.18 - 1.5 x ATR5 0.82"
+        }
+      ]
     }
   ]
 }
