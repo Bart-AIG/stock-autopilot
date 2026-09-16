@@ -37687,6 +37687,34 @@
         "day_track": "PAPER, and today is COMPLETE. Paper day 2's LONG signal (entry 708.43 / stop 707.86, R=$0.57) stopped at 13:36Z for -1.00R; one trade per day, no re-entry whatever QQQ does. Running paper sample 2 days / 2 signals / -2.00R. day_track.graduate() -> go_live FALSE ('need 10d and 8 trades'). The v11 stamp on this invocation is the STOP-AUTHORITY lock only and is NOT a graduation; only the Monday calibration promotes the phase."
       },
       "duties": "Heartbeat stamped 13:40Z; brief stamped 09-16; throttles reset 13:40Z (READ from _realized_options_pnl_today, not typed). IV sweep complete for the 8 core names (rows dated 2026-09-16); no row owed for IBKR -- it was graded as an EQUITY candidate only, no chain quoted and no IV context cited anywhere in this entry, so logging one would invent a reading rather than record one. Daily report due at the first run >=19:15Z. Calibration is Monday-only."
+    },
+    {
+      "run_utc": "2026-09-16T16:31:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-16",
+      "headline": "FILL: IBKR $707.96 @ $87.2999 (8.109516 sh) at 16:24:37.62Z -- the day's autonomous equity entry, book to 3 swings. A CONCURRENT 16:20Z run graded the same name off the same report and DEFERRED it; both entries are preserved and the disagreement is flagged for Ryan.",
+      "concurrent_run_note": "This entry and the 16:20Z entry above are two scheduler-fired runs of one slot, union-merged per the standing rule rather than resolved by picking a side. They agree on every measured leg of the IBKR grade and differ only on whether v11's 'macro is a sizing input, not a bar' permits a reduced-size entry before the FOMC. The 16:20Z run's 200-day measurement (79.7249, rising monotonically over 22 sessions from 217 closes) was ADOPTED in preference to this run's coarser check. No double position, no throttle breach: the deferring run placed nothing.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 16:18-16:19Z. ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11. Options 2 long SPY 09-17 legs, placed_agent='user'. get_equity_orders(>=09-16) EMPTY at 16:18Z and re-read EMPTY at 16:24Z immediately before the order. Pre-trade total $3,872.28; cash == ubp == $1,609.52 (no margin); reserve $193.61, deployable $1,415.91, cap $1,161.68.",
+      "tape_numbers_only": {
+        "SPY": 760.37,
+        "QQQ": 710.46,
+        "IBKR": 87.27,
+        "UNP": 284.15,
+        "ABNB": 169.62,
+        "quotes_utc": "16:18:41-16:19:28Z",
+        "note": "FOMC decision + dot plot 18:00Z; 25bp HIKE ~68-86% priced."
+      },
+      "action_taken": {
+        "order": "IBKR buy, dollar-based MARKET $707.96, regular_hours, gfd. Order 6aaac2c5-b4dc-4e0e-8787-c5dbbd9cc506, placed_agent='agentic'. FILLED one execution 16:24:37.62Z at $87.2999, zero fees, order_checks {} on a $0.02 spread (0.023% of mid). NO STOP -- HARD RULE 5.",
+        "signal_source": "latest_intraday.md 2026-09-16T16:07Z on master (commit 4b00617), RSI2 table, 12 minutes old at decision. IBKR is the only name on that board absent from the 15:07Z one.",
+        "gate_stack": "RSI2 8.6 live / 17.3 on the 09-15 settle. 200-day 79.7249 rising monotonically, spot +9.46% above. 20-day ABOVE 50-day (+0.60%) with spot -5.62%/-5.06% under both -- the discriminator that separates IBKR from the USB/RTX declines, which had the 20-day BELOW the 50-day. mom12-1 +49.0%. Non-oil. [ERN] clean and verified on a 64-event non-degraded calendar; Q3 mid-October, outside the 09-30 time stop.",
+        "hard_rule_7": "INTACT-TO-STRENGTHENING. FactSet OVERWEIGHT, mean PT $108.72-109.42 (+24.6% on the fill); GS Buy $113; BofA Buy $114 on the agentic-trading thesis. August metrics +23% to +41% YoY. The -7% on 09-01 was a UBS cut to Neutral (PT $102, still +17% above the fill) on a 4.78% 10-year -- priced, not fundamental. Negatives weighed: that cut stands, and IBKR is two-sided to the Fed.",
+        "sizing": "$707.96 = deployable / 2 remaining slots to the 4-name target = 18.3% of account, NOT the $1,161.68 cap. The reduction IS the event adjustment.",
+        "exit_plan_pre_written": "RSI2>=70 cross while GREEN; time stop 2026-09-30; Ryan's native 15% trail at green-enough $102.71. Target $96.14 advisory. No price stop ever."
+      },
+      "new_durable_findings": "(1) _TWO_CONCURRENT_RUNS_REACHED_OPPOSITE_VERDICTS_ON_ONE_NAME_AND_THE_BROKER_FIRST_CHECK_CANNOT_SEE_A_SIBLINGS_DECISION_2026-09-16 -- the 2026-08-28 broker-first rule detects a sibling's FILL, and a sibling that DECLINES leaves no broker trace, so the disagreement case is invisible by construction. Cost nothing today; flagged for Ryan as a policy question. (2) _THE_VOL_TO_EXPECTANCY_VETO_DOES_NOT_DISCRIMINATE_IT_CONDEMNS_EVERY_TRADE_THE_BOOK_MAKES_2026-09-16 -- the decline this run first built (p90 move 6.2x per-trade expectancy) was measured against ABNB's 7.6x and discarded as non-discriminating and size-invariant. Named here, argued there.",
+      "other_books": "Options: no entry, 0 of 3 slots, 0 of 3 entries, $0.00 vs the -$400 cap; the SPY 09-17 legs are Ryan's and expire tomorrow. Day track: paper day 2 SPENT at -1.00R, phase stays PAPER (2 days / 2 signals vs 10 and 8). Equity exits: none armed -- UNP's take-profit moved further away and its GREEN precondition now fails at -0.34%.",
+      "duties": "Heartbeat 13:40Z (not this run's). Brief stamped 09-16. Equity throttle 0 -> 1 of 3. No iv_history row owed. Daily report due at the first run >=19:15Z."
     }
   ]
 }
