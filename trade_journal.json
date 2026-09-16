@@ -37161,6 +37161,15 @@
       "headline": "4th post-close no-op. Market shut (bell 20:00Z). Stand-down per POST-CLOSE RUN PROTOCOL.",
       "reconciliation": "ZERO DRIFT both books vs broker. Options 2 contracts (Ryan's SPY 2026-09-17 pair, both placed_agent='user', ledger-matched); equities 2 positions (ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11); cash/BP/unleveraged all $1,609.52, total_value $3,861.96, options_value $52.",
       "actions": "NONE. No artifact rolled; trading day unchanged. Daily report written 19:15Z, heartbeat stamped 13:33Z, calibration done."
+    },
+    {
+      "run_utc": "2026-09-16T00:19:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-15",
+      "headline": "5th post-close no-op. Market shut (bell 20:00Z). Stand-down per POST-CLOSE RUN PROTOCOL. One NEW DURABLE FINDING recorded.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 00:20Z. Options 2 contracts (Ryan's SPY 2026-09-17 731P @ 0.28 / 770C @ 0.27, both placed_agent='user', option_ids 20ad35ff / b8ea8c4b match the ledger, notify-once discharged 18:45Z); equities ABNB 6.573584 + UNP 3.858199; get_equity_orders and get_option_orders (>=2026-09-15) return nothing not already recorded. total_value $3,865.25, cash == buying_power == unleveraged_buying_power $1,609.52, options_value $52.",
+      "actions": "NONE. No artifact rolled; trading day unchanged (still 2026-09-15 -- heartbeat, brief, loss cap and both throttles untouched). Daily report written 19:15Z stands; nothing material since.",
+      "finding": "holdings.json._DAY_TRACK_PAPER_ROW_IS_STORED_TWICE_AND_THE_GRADUATION_SAMPLE_CAN_DOUBLE_COUNT_2026-09-15 -- paper day 1 exists in both day_track_paper.json and _DAY_TRACK.results because docs/day-track-spec.md's PAPER bullet and its step 4 disagree; graduate() takes its sample as an argument, so an unfiltered concatenation clears the >=8-signal gate at 4 real signals. No row edited, no spec edited. See the key."
     }
   ]
 }
