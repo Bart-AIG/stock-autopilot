@@ -1,8 +1,8 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-15T19:45:00Z",
+  "updated_utc": "2026-09-16T13:40:00Z",
   "_realized_options_pnl_today": {
-    "trading_day_et": "2026-09-15",
+    "trading_day_et": "2026-09-16",
     "realized_usd_options": 0.0,
     "closing_trades_options": 0,
     "cap_options_usd": -400.0,
@@ -11,8 +11,8 @@
     "closing_trades_equities": 0,
     "entry_throttle_options": "0 of 3 used",
     "entry_throttle_equities": "0 of 3 used",
-    "source": "RESET BY THE FIRST POST-BELL RUN of trading day 2026-09-15 (13:33Z), which is the only run entitled to roll it -- the UTC-rollover rule bars every post-close/pre-open run from resetting a cap or a throttle, and four consecutive runs once broke exactly that clause by TYPING a zero (2026-08-27T09:18Z finding). These zeros are correct because the 09-15 session has just opened and no order has been placed in it: get_equity_orders(created_at_gte=2026-09-15) returned EMPTY at 13:31Z and get_option_positions is EMPTY. The prior object's 09-14 figures (equities -52.78 over 2 closing trades: MMM time stop -30.96, GD exit -21.82; options 0.00) are superseded and live on in the 09-14 daily report. Any later run must READ this object or the broker before restating either figure -- never type one.",
-    "throttle_repair_2026-09-15T19:20Z": "entry_throttle_options READ '0 of 8 used' until this run. That is the RETIRED v8 number (2 entries/run, 8/day) which survived the 2026-09-14 TACTICAL retirement. Both live authorities say THREE: prompt v11 STRUCTURAL LIMITS ('max 1 new option entry per run, 3 per trading day') and CLAUDE.md HARD RULE 8 as narrowed 2026-09-14 ('max 3 open CORE, 1 entry per run, 3 per day'). Corrected to '0 of 3 used'. Immaterial today at zero entries used; load-bearing in general -- see _OPTIONS_THROTTLE_CARRIED_THE_RETIRED_V8_LIMIT_OF_8_2026-09-15."
+    "source": "RESET BY THE FIRST POST-BELL RUN of trading day 2026-09-16 (13:40Z), which is the only run entitled to roll it -- the UTC-rollover rule bars every post-close/pre-open run from resetting a cap or a throttle, and four consecutive runs once broke exactly that clause by TYPING a zero (2026-08-27T09:18Z finding). These zeros are VERIFIED, not typed: get_equity_orders(created_at_gte=2026-09-16) and get_option_orders(created_at_gte=2026-09-16) BOTH returned EMPTY at 13:33Z. The prior object's 09-15 figures (all zero; nothing traded in either book that day) are superseded and live on in the 09-15 daily report. Any later run must READ this object or the broker before restating either figure -- never type one.",
+    "note_on_ryans_strangle": "Ryan's two SPY 2026-09-17 legs (731P/770C, placed_agent='user', filled 09-15T18:43-18:44Z) do NOT consume the agentic options throttle or the max-3 CORE slots, per the 2026-08-03 agentic sub-sleeve rule. The agentic options book is 0 of 3 open and 0 of 3 entries today."
   },
   "positions": [
     {
@@ -922,15 +922,41 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-15T19:45:00Z",
-    "run_type": "market_hours_regular",
-    "trading_day_et": "2026-09-15",
-    "prompt_stamp_observed": "v11",
-    "verdict": "NO TRADE ANY BOOK. Re-verification run, 14 minutes to the bell. Nothing material since 19:15Z, so the daily report stands unrewritten.",
-    "equities": "No exit: RSI2 re-derived Wilder off own daily bars incl. the live print is ABNB 20.78 / UNP 28.67 (vs >=70), and both names are RED (-0.826% / -0.199%) so the take-profit gate is closed on price regardless. No target hit (+8.90% / +4.84%), neither green-enough (199.44 / 335.42), held 5 of 14d so the 09-24 TIME STOP is outside the 3-day warn window. No entry: master unchanged at 4f56857, still the 19:06Z report, the identical 11-name board graded in full at 19:15Z/19:20Z -- ZERO ungraded delta. Best is AMAT at B; a B GETS NO POSITION. Declined ON GRADE, capital fundable at $708.13 a slot.",
-    "options": "0 of 3 CORE, 0 of 3 entries. TACTICAL retired. Agentic options book EMPTY. Index premium rich into the 09-16 FOMC, and at 15:45 ET this run is inside the closing window that bars an open independently of any thesis.",
-    "day_track": "PAPER day 1 CLOSED, stopped -1.00R at 13:47Z. One trade/day, no re-entry, so the 15:30 ET flat rule is moot -- nothing open. graduate() is the SURVIVING lock at 1 day of 10 and 1 signal of 8; the v11 stamp discharged the stop-authority lock ONLY and is NOT a graduation.",
-    "user_positions": "Ryan's SPY 09-17 731P/770C unchanged at 2 contracts, options_value $53.00 vs $55.00 basis. Ownership gate holds, notify-once stays discharged; a re-mark is not material and does not justify rewriting the daily report."
+    "run_utc": "2026-09-16T13:40:00Z",
+    "run_type": "first_post_open_of_trading_day",
+    "trading_day_et": "2026-09-16",
+    "prompt": "v11 (stamp read on this run's own invocation)",
+    "reconciliation": "ZERO DRIFT both books vs broker at 13:31Z. Equities ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, both fully sellable. Options 2 long SPY 2026-09-17 legs (731P avg 28.00, 770C avg 27.00), option_ids match the ledger's placed_agent='user' rows. get_equity_orders and get_option_orders (>=2026-09-16) both EMPTY.",
+    "capital": {
+      "total_value": 3856.734343285,
+      "cash": 1609.52,
+      "unleveraged_buying_power": 1609.52,
+      "buying_power": 1609.52,
+      "equity_value": 2201.214343285,
+      "options_value": 46.0,
+      "operational_reserve_5pct": 192.84,
+      "deployable": 1416.68,
+      "no_margin": "buying_power == unleveraged_buying_power exactly; FOUR LAWS #4 unambiguous."
+    },
+    "tape_numbers_only": {
+      "SPY": 759.349,
+      "SPY_pct": 0.26,
+      "QQQ": 708.1165,
+      "QQQ_pct": 0.51,
+      "ABNB": 167.435,
+      "ABNB_pct": -0.53,
+      "UNP": 285.95,
+      "UNP_pct": 0.69,
+      "_note": "Numbers, not a verdict -- per the 2026-08-28T14:27Z rule, hand forward the numbers and not the label."
+    },
+    "duties_this_run": "Heartbeat STAMPED for 2026-09-16. market_brief REBUILT. Options loss cap and BOTH entry throttles RESET (broker-verified empty, not typed). DAY TRACK paper day 2 row written (long, QQQ, 1 share). IV sweep: see market_brief.constraints_today.iv_sweep.",
+    "why_flat": {
+      "equities": "No entry: the only report on master is 2026-09-15 (STALE; today's lands ~14:00-14:15Z per _REPORT_CRON_GAP_AT_THE_OPEN), and prompt v11 says a stale report = no autonomous equity trades this run. Capital was NOT the binding constraint and must not be recorded as one -- deployable $1,416.68 funds a full slot well above the $600 minimum, and the live _cash_hold is a DISCLOSURE, NOT A GATE (its amount must never be subtracted; see _A_CASH_HOLD_THAT_CARRIES_A_DOLLAR_FIGURE_GETS_SUBTRACTED...).",
+      "equity_exit": "UNP's RSI2>=70 take-profit FIRED on the live tape while green and was deliberately NOT taken -- three independent reasons, all recorded in _UNP_TAKE_PROFIT_ARMED_PENDING_FRESH_REPORT_2026-09-16. It is ARMED for the first run holding today's report. ABNB: RSI2 14.7, red, no exit available. Neither name is near its 2026-09-24 time stop (6d of 14d held) or green-enough for a trail.",
+      "options": "No CORE entry. The agentic options book is 0 of 3 open, 0 of 3 entries. Declined on IV sanity and on 'why NOW': the FOMC decision with an SEP/dot plot lands 18:00Z today, so 21-45 DTE premium is carrying event vol that mechanically crushes on the release, and this desk has no edge on a dot plot. The narrowed catalyst bar (macro is a SIZING input, not a bar) means this is a declination ON THE MERITS, not a bar -- buying vol into a known crush is the IV-sanity gate doing its job, and it would be equally true in a tape the desk liked. Ryan's strangle is his own trade under the ownership gate and neither consumes a slot nor licenses a desk view.",
+      "day_track": "Signal TAKEN as computed (long, QQQ, 1 share, entry 708.43 / stop 707.86). PAPER, so nothing placed. A v11 stamp satisfies stop authority only; graduation needs 10 paper days and 8 signals and this is day 2 of 10."
+    },
+    "cash_hold": "_cash_hold remains LIVE and correctly un-dissolved: its trigger is the 18:00Z FOMC release, which has not occurred. The FIRST run after the release -- or any run on/after 2026-09-17 -- DELETES the key. It is never renewed, and an unattended run may not write a successor."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -5485,7 +5511,7 @@
     "set_utc": "2026-09-14T22:30:00Z",
     "authority": "Ryan, REAL live turn 2026-09-14 (interactive session, typed turns): '1. Let's make the change. 2. Whichever you recommend is fine. 3. 5-20%. 4. Sure. 5. Let's do it.' -- answering the five design decisions in the autonomy-audit proposal. Spec: docs/day-track-spec.md. Code: day_track.py. Prompt carrying the duties: docs/routine-prompt-v11.md (PASTE-READY).",
     "status": "PAPER",
-    "status_note": "PAPER. LIVE requires (a) day_track.graduate() == go_live, evaluated at the Monday calibration and written to .graduation, AND (b) the run's own invocation stamp reading v11 (stop-order authority). *** (b) IS SATISFIED AS OF 2026-09-15T16:18Z -- prompt v11 CONFIRMED LIVE by direct observation of a run's own invocation; see _PROMPT_V11_CONFIRMED_LIVE_2026-09-15. (a) IS NOT: this track has ONE paper day (2026-09-15) against a paper_min_days of 10 and paper_min_signals of 8, so the earliest arithmetically possible go-live is a Monday on or after 2026-09-28. A LIVE PROMPT STAMP IS NOT A GRADUATION. *** A run seeing v10 on its invocation still must not place a live day trade; a run seeing v11 still must not place one while status reads PAPER.",
+    "status_note": "PAPER. LIVE requires (a) day_track.graduate() == go_live, evaluated at the Monday calibration and written to .graduation, AND (b) the run's own invocation stamp reading v11 (stop-order authority). *** (b) IS SATISFIED -- prompt v11 CONFIRMED LIVE 2026-09-15T16:18Z and this 2026-09-16 run is likewise invoked with v11; see _PROMPT_V11_CONFIRMED_LIVE_2026-09-15. (a) IS NOT: after paper day 2 (2026-09-16) the track has TWO paper days and TWO signals against paper_min_days 10 and paper_min_signals 8, so the earliest arithmetically possible go-live is a Monday on or after 2026-09-28. A LIVE PROMPT STAMP IS NOT A GRADUATION. *** No run promotes the phase itself mid-week; only the Monday calibration writes it.",
     "signal_symbol": "QQQ",
     "long_vehicle": "QQQ",
     "short_vehicle": "PSQ",
@@ -5569,6 +5595,46 @@
         "capital_note": "Paper only -- no order placed, none placeable: _DAY_TRACK.status is PAPER and LIVE additionally requires the v11 stamp, while this run was invoked with v10. Sizing used deployable $1,470.86 (unleveraged_buying_power $1,664.60 minus the 5% operational reserve $193.74). NOTE THE COLLISION AND THAT IT IS UNRESOLVED IN THE SPEC: $1,470.92 of that same cash is under the LIVE _cash_hold for the 2026-09-16 FOMC. _DAY_TRACK.capital_priority says the day trade claims deployable cash at its entry run, and a day-track position is flat by 15:30 ET the same session so it never spans the catalyst the hold is waiting on -- but the two rules have not been read against each other by anyone with authority to settle it. In PAPER this costs nothing. BEFORE THE TRACK GOES LIVE Ryan should say which claim wins; see holdings.json._DAY_TRACK_VS_CASH_HOLD_UNSETTLED_2026-09-15.",
         "quote_provenance": "Both venue timestamps are at/after 13:35Z, i.e. OUTSIDE the opening auction window, so this row satisfies the standing re-quote rule. The 13:31-13:33Z quotes taken earlier in the run were NOT used for it.",
         "bugs_found_and_fixed_by_this_row": "Two, both in day_track.plan_entry, both caught only because this was the first SHORT signal the track ever produced. See holdings.json._DAY_TRACK_SHORT_SIDE_SIZED_IN_THE_WRONG_INSTRUMENT_2026-09-15."
+      },
+      {
+        "phase": "paper",
+        "trading_day_et": "2026-09-16",
+        "decided_utc": "2026-09-16T13:36:00Z",
+        "decided_by": "scheduled run 13:30Z 2026-09-16 (unattended, prompt v11) -- FIRST POST-BELL run of the trading day -- DAY TRACK paper day 2",
+        "action": "enter",
+        "signal_symbol": "QQQ",
+        "direction": "long",
+        "vehicle": "QQQ",
+        "opening_range": {
+          "high": 708.79,
+          "low": 707.86,
+          "open": 708.01,
+          "close": 708.45,
+          "bars": 5,
+          "range_pts": 0.93,
+          "range_pct_of_spot": 0.1313,
+          "body_frac_of_range": 0.4731,
+          "source": "get_equity_historicals(QQQ, interval='minute', bounds='regular') 13:30-13:34Z, all five bars present and settled by 13:35:15Z. ONE-MINUTE bars per spec, never 5-minute buckets. Volumes 213852/74798/79260/71865/87545 -- the 13:30 bar carries 2.6x the next bar, the ordinary opening-auction inflation, which the spec does not filter on and this run did not filter on."
+        },
+        "atr14_daily": 7.7635,
+        "entry_px_signal": 708.43,
+        "entry_px_signal_venue_utc": "2026-09-16T13:35:30.133740112Z",
+        "entry_px_vehicle": 708.43,
+        "entry_px_vehicle_venue_utc": "2026-09-16T13:35:30.133740112Z",
+        "stop_px_signal": 707.86,
+        "stop_px_vehicle": 707.86,
+        "stop_dist_pct": 0.0805,
+        "shares": 1,
+        "dollars": 708.43,
+        "r_usd": 0.57,
+        "bound_by": "cash",
+        "risk_pct_used": 5.0,
+        "late_entry_ok": true,
+        "status": "open",
+        "vehicle_note": "LONG side, so vehicle == signal == QQQ and no PSQ translation is involved. This is the mirror of paper day 1 and it exposes a sizing asymmetry the track has not seen before -- see holdings.json._DAY_TRACK_PAPER_DAY_2_LONG_SIDE_QUANTIZATION_AND_THE_FOMC_WINDOW_2026-09-16.",
+        "capital_note": "Paper only -- no order placed, none placeable: _DAY_TRACK.status is PAPER. Prompt v11 IS the invocation stamp this run carries, which satisfies the STOP-AUTHORITY precondition ONLY; graduation is decided by day_track.graduate() at a Monday calibration and this is paper day 2 of a required 10 (2 signals of 8). A LIVE PROMPT STAMP IS NOT A GRADUATION. Sizing used deployable $1,416.68 = unleveraged_buying_power $1,609.52 minus the 5% operational reserve $192.84.",
+        "quote_provenance": "Venue timestamp 13:35:30Z is >5 min past 13:30Z, i.e. OUTSIDE the opening auction window, so this row satisfies the standing re-quote rule. The 13:31-13:33Z reconciliation quotes were NOT used for it.",
+        "fomc_note": "UNLIKE PAPER DAY 1, TODAY'S DAY-TRACK WINDOW SPANS A SCHEDULED BINARY MACRO EVENT: the FOMC decision lands 14:00 ET / 18:00Z and the flat rule is 15:30 ET, so the position is held across it by 1.5 hours. NO GATE WAS ADDED AND NONE MAY BE -- the spec forbids an unattended run adding a filter, and the signal was taken as computed. Recorded because it is a real property of the track's risk that the LIVE phase will inherit."
       }
     ],
     "graduation": {
@@ -5781,5 +5847,87 @@
     "explicitly_NOT_done_by_this_run": "No row deleted, no ledger de-duplication, and NO edit to docs/day-track-spec.md. The spec is edited only by an interactive session with a real Ryan turn, and choosing which of two contradicting sentences wins is a spec decision, not a bookkeeping one. HARD RULE 9 intact: no Ryan turn is claimed or quoted.",
     "for_ryan": "One line in the spec needs to pick a side: either step 4 becomes 'LIVE closed rows append to _DAY_TRACK.results' (matching prompt v11), or the PAPER bullet says the row is written to both on purpose. Either is fine; the ambiguity is what is not.",
     "current_gate_state_for_context": "_DAY_TRACK.status PAPER. graduate() needs >=10 paper days and >=8 signals; actual 1 and 1. The v11 stop-authority lock was discharged 2026-09-15T16:18Z, so graduate() is the ONLY remaining lock -- which is exactly why its sample arithmetic now matters."
+  },
+  "_UNP_TAKE_PROFIT_ARMED_PENDING_FRESH_REPORT_2026-09-16": {
+    "measured_utc": "2026-09-16T13:39:00Z",
+    "measured_by": "scheduled run 13:30Z 2026-09-16 (unattended, prompt v11) -- FIRST POST-BELL run of the trading day",
+    "status": "ARMED, NOT TAKEN. This is a LIVE pending action for the first run that has TODAY's report on master (expected ~14:00-14:15Z). It is NOT a finding and NOT a flag -- it expires when the trigger is either executed or falsified, and the run that resolves it DELETES this key.",
+    "headline": "UNP's RSI2>=70 take-profit fired on the live tape this morning while the position is GREEN -- but the report on master is 2026-09-15 (stale), and the repo's own written ruling on exactly this case says WAIT.",
+    "the_position": {
+      "symbol": "UNP",
+      "sleeve": "swing",
+      "entry_date": "2026-09-10",
+      "entry_price": 285.1071,
+      "shares": 3.858199,
+      "placed_agent": "agentic (desk-entered; NOT subject to the user-ownership gate)",
+      "days_held": 6,
+      "time_stop_date": "2026-09-24",
+      "target": 298.32
+    },
+    "the_measurements": {
+      "rsi2_method": "Reproduced report.py exactly: analyze.compute_rsi(period=2) -- simple seed over the first 2 deltas then Wilder smoothing -- fed connors_swing's series, i.e. [live_price] + newest-first settled closes, truncated to 25 and reversed.",
+      "at_13_35_30Z_last_287_28": {
+        "rsi2": 80.2,
+        "pl_pct": 0.76,
+        "fires": true
+      },
+      "at_13_38_43Z_last_285_95": {
+        "rsi2": 71.7,
+        "pl_pct": 0.3,
+        "fires": true
+      },
+      "at_13_39Z_BID_285_51": {
+        "rsi2": 66.9,
+        "pl_pct": 0.14,
+        "fires": false
+      },
+      "at_13_39Z_ASK_286_61": {
+        "rsi2": 76.7,
+        "pl_pct": 0.53,
+        "fires": true
+      },
+      "trigger_threshold_price": 285.7746,
+      "green_threshold_price": 285.1071,
+      "gap_green_to_trigger_usd": 0.6675
+    },
+    "WHY_IT_WAS_NOT_TAKEN_three_independent_reasons": {
+      "1_the_written_ruling_is_directly_on_point": "_TIME_STOP_NEEDS_NO_REPORT_BUT_THE_RSI2_EXIT_NEEDS_A_LIVE_ONE (2026-09-03) settles this exact question and says: 'NOT LICENSED: treating a live RSI2 as interchangeable with the report's near the 70 line. Where a live reading lands within ~10 points of 70 and the report disagrees or is silent, WAIT for the fresh report rather than banking or declining off the substitute.' The live reading is 71.7 -- 1.7 points above the line, squarely inside that band -- and the stale report is SILENT on today's value (it carries yesterday's 30.50). This is a written, measured, prior ruling, not a veto invented by this run.",
+      "2_this_runs_own_method_reproduction_is_imperfect_in_the_direction_that_matters": "Validated against the published 2026-09-15T19:06Z intraday report: it printed UNP RSI2 30.50 at px 284.77 and this run's reproduction returns 33.3; it printed ABNB 19.87 at 168.03 against 20.4 here. A ~1-3 point gap, and the report prints 2 decimals while compute_rsi rounds to 1, so the report is not simply calling compute_rsi -- most likely an FMP-vs-Robinhood close/live-row difference. The gap is small against today's 1.7-point margin, which is precisely why it is disqualifying rather than ignorable.",
+      "3_NEW__THE_BID_ASK_STRADDLES_THE_TRIGGER_PRICE": "At the BID -- the price the sale would actually receive -- RSI2 is 66.9 and the trigger DOES NOT FIRE. It fires only on the last/ask. See _RSI2_EXIT_IS_INDETERMINATE_WHEN_THE_BID_ASK_STRADDLES_THE_TRIGGER_PRICE_2026-09-16."
+    },
+    "WHAT_THE_NEXT_RUN_SHOULD_DO": "When today's report lands on master: if it prints UNP RSI2 >= 70 AND the live quote is above 285.1071 (green), EXECUTE the take-profit immediately -- dollar-based market sell of all 3.858199 shares, regular_hours, no magnitude test (the magnitude floor is VOID; the RSI2 cross IS the exit and banks ~0-1% by construction). Reconcile against the broker first, confirm placed_agent is NOT 'user', then sell, update the ledger, notify Ryan once, and DELETE this key. If the report prints < 70, the trigger is falsified -- DELETE this key and hold to the 2026-09-24 time stop. Either way this key does not survive today.",
+    "honest_scope": "A 2-period RSI is fast and this trigger may not survive the morning: UNP gave back $1.33 of its $2.17 advance in the three minutes between the two quotes here, moving RSI2 80.2 -> 71.7. Deferring can cost the exit. That is an accepted cost of the written ruling, not an argument against it -- and the position's downside is bounded by the 2026-09-24 time stop, which needs no report at all.",
+    "not_a_hard_rule_9_matter": "No approval is claimed, quoted or implied. Nothing is flagged and nothing is cleared."
+  },
+  "_RSI2_EXIT_IS_INDETERMINATE_WHEN_THE_BID_ASK_STRADDLES_THE_TRIGGER_PRICE_2026-09-16": {
+    "measured_utc": "2026-09-16T13:39:00Z",
+    "measured_by": "scheduled run 13:30Z 2026-09-16 (unattended, prompt v11), first post-bell run of the trading day",
+    "status": "NEW DURABLE FINDING. It CHANGED NO DECISION -- the exit was already being deferred under the written 2026-09-03 ruling before this was measured, so the finding licenses nothing and blocks nothing. That is the only condition under which a measurement of the desk's own trigger is credible.",
+    "headline": "The RSI2>=70 take-profit is evaluated on a PRICE, and when the bid/ask straddles the price at which RSI2 crosses 70, the trigger's answer depends on which side of the spread you quote. Measured live on UNP at 13:39Z: BID 285.51 -> RSI2 66.9, DOES NOT FIRE. ASK 286.61 -> RSI2 76.7, FIRES. The crossing price is 285.7746 and it sits INSIDE a $1.10 spread. Same instrument, same second, opposite verdicts.",
+    "THE_MECHANISM_which_is_the_transferable_half": "A 2-period RSI is a near-vertical function of the newest close, so a small price interval maps to a large RSI interval -- here $1.10 of spread spans 9.8 RSI points (66.9 to 76.7). Every other trigger this desk uses is evaluated on a SETTLED daily close, where there is exactly one number and the question does not arise. The RSI2 exit is the only one evaluated intraday against a LIVE price, and a live price is not a number -- it is an interval. The trigger silently assumes a point quote.",
+    "the_half_that_actually_bites__THE_TRIGGER_CAN_FIRE_ON_A_PRICE_THE_EXIT_CANNOT_OBTAIN": "A long position is SOLD INTO THE BID. So the executable price is 285.51, at which RSI2 is 66.9 and the condition is FALSE. Firing off last (285.95) or ask (286.61) means banking on a print the sale will not receive. The asymmetry is directional and always points the same way: for a LONG take-profit the bid is the conservative side and the trigger's own input (last/mid) is optimistic. This is the repo's most-repeated shape -- a check that passes for the wrong reason -- arriving through the difference between the price a signal is COMPUTED on and the price a trade is FILLED at.",
+    "why_it_showed_up_today_and_not_before": "Spread width. UNP's bid/ask was $1.10 (0.39% of spot) nine minutes after the bell; by mid-session it is typically a few cents, at which point the straddle is arithmetically almost impossible and the trigger is determinate. So this defect is concentrated in exactly the window the standing opening-auction rule already tells the desk to distrust -- the two rules are the same rule seen from different ends, and the existing one (re-quote >=5 min past 13:30Z) is NECESSARY BUT NOT SUFFICIENT: this quote was taken 9 minutes after the bell and complied with it fully.",
+    "the_detector_and_it_costs_nothing": "You already have the bid and the ask. Compute RSI2 at BOTH. If they disagree across 70, the trigger is INDETERMINATE -- do not fire and do not declare it falsified; re-quote later in the session when the spread has tightened. If they agree, the trigger is determinate and the spread is not load-bearing. Quote the crossing PRICE (here 285.7746) alongside the RSI2 value, because a price threshold can be compared against a spread and an oscillator reading cannot.",
+    "relation_to_the_existing_ruling": "_TIME_STOP_NEEDS_NO_REPORT_BUT_THE_RSI2_EXIT_NEEDS_A_LIVE_ONE (2026-09-03) established that competing RSI2 IMPLEMENTATIONS disagree by ~10 points near the 70 line. This is a SECOND, INDEPENDENT source of ~10 points of uncertainty at the same line, from the QUOTE rather than the formula. They compound: today the implementation gap (~3 points, measured against the published 09-15 report) and the spread gap (9.8 points) both sit on a 1.7-point margin. Neither alone would be decisive; together the trigger is not resolvable from this run's data.",
+    "what_it_does_NOT_license": "It is NOT an argument for a magnitude floor, which is VOID and must not be re-derived -- the finding is about whether the trigger FIRED, never about whether the gain is big enough to bother with. It is also NOT a general licence to defer exits: where bid and ask agree, the trigger is determinate and HARD RULE 5 says TAKE IT, including for a gain of a few dollars. And it says nothing about the TIME STOP, which reads no price at all.",
+    "honest_scope": "n=1, one name, one morning. The 9.8-point span is a property of UNP's price level and spread width and will differ per name; a $60 stock with a 2c spread cannot produce it. What generalises is the METHOD (quote the trigger at both sides) and the DIRECTION (bid is conservative for a long take-profit), not the magnitude."
+  },
+  "_DAY_TRACK_PAPER_DAY_2_LONG_SIDE_QUANTIZATION_AND_THE_FOMC_WINDOW_2026-09-16": {
+    "measured_utc": "2026-09-16T13:36:00Z",
+    "measured_by": "scheduled run 13:30Z 2026-09-16 (unattended, prompt v11), first post-bell run of the trading day",
+    "status": "NEW DURABLE FINDING, two subjects, both from the track's FIRST LONG signal. NEITHER CHANGED THE DECISION -- the signal was taken exactly as day_track.plan_entry computed it and no gate was added, which the spec forbids an unattended run from doing. PAPER, so nothing was placed.",
+    "subject_1_the_long_side_buys_ONE_SHARE_and_the_risk_band_Ryan_chose_is_INERT": {
+      "measured": "Paper day 2 is LONG, so the vehicle is QQQ at 708.43 against deployable $1,416.68. floor(1416.68 / 708.43) = floor(1.99975) = 1 SHARE, $708.43 deployed, R = $0.57. Paper day 1 was SHORT, so the vehicle was PSQ at 26.195 and the same capital bought 56 shares, R = $1.56.",
+      "the_quantization": "On the long side the position is 1 or 2 whole shares and nothing in between, so sizing granularity is 50-100%. Today it missed 2 shares by $0.02 of QQQ price -- 1.3 BASIS POINTS. A trivially different open doubles R. On the short side PSQ's 56 shares give ~1.8% granularity. The track's dollar risk per trade therefore differs ~2.7x BY DIRECTION, driven entirely by the share price of the vehicle and not at all by signal quality.",
+      "the_risk_band_is_inert_and_this_is_checkable": "RISK_PCT 5% of $3,856.73 = $192.84 of risk budget, which at a 0.0805% stop permits ~$239,600 of position -- about 169x the cash cap. Cash binds by two orders of magnitude, so NO value in Ryan's chosen 5-20% band changes the position by a single share, on either side. CLAUDE.md HARD RULE 4 already says RISK_PCT is a ceiling that cash binds before; this quantifies the margin (169x) and shows it holds on the long side too. The Monday calibration should not read a day_risk_pct move as meaningful until the account is large enough for the risk cap to bind.",
+      "why_it_matters_for_GRADUATION": "graduate() reads R-MULTIPLES, which normalise the 2.7x dollar difference away -- correctly. What does NOT normalise is friction as a fraction of R: QQQ's $0.04 spread is 7.0% of today's $0.57 R, and paper day 1 recorded PSQ's stop as 2.79 ticks wide with a realistic fill of -1.254R against a recorded -1.00R. A paper sample mixing the two sides mixes two different friction regimes under one statistic. Flag to the Monday calibration; do NOT 'fix' it by adding a filter.",
+      "the_root_cause_is_the_OR_stop_being_sub_0_15_percent": "Both days the opening-range stop was a fraction of a percent of the signal -- 0.0805% today, 0.1066% on day 1. A stop that tight is inside ordinary microstructure noise on any vehicle, which is why R is measured in cents and why fill slippage is a large fraction of R. This is a SPEC-level property for Ryan and the calibration to consider, not something a run may adjust."
+    },
+    "subject_2_todays_window_SPANS_the_FOMC_and_the_briefs_carried_claim_is_now_STALE": {
+      "the_stale_claim": "market_brief.json (built 2026-09-15) says, under WINDOW_SCOPING: 'A DAY TRACK position is flat by 15:30 ET TODAY and the decision is OUTSIDE its window -- do NOT cite FOMC against the day track.' That was TRUE on 09-15, when the decision was the next day. It is FALSE on 09-16: the decision lands 14:00 ET and the flat rule is 15:30 ET, so a day-track position is held ACROSS it by 1.5 hours.",
+      "why_this_is_the_documented_failure_shape": "It is the 2026-08-25 stale-regime-label rule and the 2026-09-14 _A_STALE_CATALYST_WINDOW_BARRED_A_TRACK_FOR_A_SESSION_THAT_HAD_NO_CATALYST finding, running in the OPPOSITE direction: that one carried a catalyst objection forward to a day that had no catalyst; this one carries a no-catalyst ALL-CLEAR forward to a day that has one. A window claim is only true relative to the date it was computed on, and an all-clear inherited across a day boundary is as wrong as a veto inherited across one. Today's rebuilt brief states it correctly.",
+      "what_it_does_and_does_NOT_license": "It does NOT veto the day trade and was NOT used to. The spec is explicit that no unattended run may add a gate, a filter or a 'why now' to this track, and the whole design lesson behind the DAY TRACK is that the retired TACTICAL track died under exactly this kind of accreted, individually reasonable veto. The signal was taken as computed. What it DOES do is record, before the LIVE phase inherits it, that the track's resting stop will at some point sit across a scheduled binary macro release -- where a stop_market can gap through its trigger price and fill arbitrarily far away. That is a real execution property for Ryan and the Monday calibration, and it is the day-track sibling of the already-recorded overnight-gap argument that killed TACTICAL's hold-over convention.",
+      "the_general_rule": "Each track screens its own window (2026-08-28), and the window MOVES WITH THE DATE. Recompute the window's start and end every day and name what falls inside it -- never inherit yesterday's answer, in either direction."
+    }
   }
 }

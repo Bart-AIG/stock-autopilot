@@ -57,6 +57,46 @@
       "capital_note": "Paper only -- no order placed, none placeable: _DAY_TRACK.status is PAPER and LIVE additionally requires the v11 stamp, while this run was invoked with v10. Sizing used deployable $1,470.86 (unleveraged_buying_power $1,664.60 minus the 5% operational reserve $193.74). NOTE THE COLLISION AND THAT IT IS UNRESOLVED IN THE SPEC: $1,470.92 of that same cash is under the LIVE _cash_hold for the 2026-09-16 FOMC. _DAY_TRACK.capital_priority says the day trade claims deployable cash at its entry run, and a day-track position is flat by 15:30 ET the same session so it never spans the catalyst the hold is waiting on -- but the two rules have not been read against each other by anyone with authority to settle it. In PAPER this costs nothing. BEFORE THE TRACK GOES LIVE Ryan should say which claim wins; see holdings.json._DAY_TRACK_VS_CASH_HOLD_UNSETTLED_2026-09-15.",
       "quote_provenance": "Both venue timestamps are at/after 13:35Z, i.e. OUTSIDE the opening auction window, so this row satisfies the standing re-quote rule. The 13:31-13:33Z quotes taken earlier in the run were NOT used for it.",
       "bugs_found_and_fixed_by_this_row": "Two, both in day_track.plan_entry, both caught only because this was the first SHORT signal the track ever produced. See holdings.json._DAY_TRACK_SHORT_SIDE_SIZED_IN_THE_WRONG_INSTRUMENT_2026-09-15."
+    },
+    {
+      "phase": "paper",
+      "trading_day_et": "2026-09-16",
+      "decided_utc": "2026-09-16T13:36:00Z",
+      "decided_by": "scheduled run 13:30Z 2026-09-16 (unattended, prompt v11) -- FIRST POST-BELL run of the trading day -- DAY TRACK paper day 2",
+      "action": "enter",
+      "signal_symbol": "QQQ",
+      "direction": "long",
+      "vehicle": "QQQ",
+      "opening_range": {
+        "high": 708.79,
+        "low": 707.86,
+        "open": 708.01,
+        "close": 708.45,
+        "bars": 5,
+        "range_pts": 0.93,
+        "range_pct_of_spot": 0.1313,
+        "body_frac_of_range": 0.4731,
+        "source": "get_equity_historicals(QQQ, interval='minute', bounds='regular') 13:30-13:34Z, all five bars present and settled by 13:35:15Z. ONE-MINUTE bars per spec, never 5-minute buckets. Volumes 213852/74798/79260/71865/87545 -- the 13:30 bar carries 2.6x the next bar, the ordinary opening-auction inflation, which the spec does not filter on and this run did not filter on."
+      },
+      "atr14_daily": 7.7635,
+      "entry_px_signal": 708.43,
+      "entry_px_signal_venue_utc": "2026-09-16T13:35:30.133740112Z",
+      "entry_px_vehicle": 708.43,
+      "entry_px_vehicle_venue_utc": "2026-09-16T13:35:30.133740112Z",
+      "stop_px_signal": 707.86,
+      "stop_px_vehicle": 707.86,
+      "stop_dist_pct": 0.0805,
+      "shares": 1,
+      "dollars": 708.43,
+      "r_usd": 0.57,
+      "bound_by": "cash",
+      "risk_pct_used": 5.0,
+      "late_entry_ok": true,
+      "status": "open",
+      "vehicle_note": "LONG side, so vehicle == signal == QQQ and no PSQ translation is involved. This is the mirror of paper day 1 and it exposes a sizing asymmetry the track has not seen before -- see holdings.json._DAY_TRACK_PAPER_DAY_2_LONG_SIDE_QUANTIZATION_AND_THE_FOMC_WINDOW_2026-09-16.",
+      "capital_note": "Paper only -- no order placed, none placeable: _DAY_TRACK.status is PAPER. Prompt v11 IS the invocation stamp this run carries, which satisfies the STOP-AUTHORITY precondition ONLY; graduation is decided by day_track.graduate() at a Monday calibration and this is paper day 2 of a required 10 (2 signals of 8). A LIVE PROMPT STAMP IS NOT A GRADUATION. Sizing used deployable $1,416.68 = unleveraged_buying_power $1,609.52 minus the 5% operational reserve $192.84.",
+      "quote_provenance": "Venue timestamp 13:35:30Z is >5 min past 13:30Z, i.e. OUTSIDE the opening auction window, so this row satisfies the standing re-quote rule. The 13:31-13:33Z reconciliation quotes were NOT used for it.",
+      "fomc_note": "UNLIKE PAPER DAY 1, TODAY'S DAY-TRACK WINDOW SPANS A SCHEDULED BINARY MACRO EVENT: the FOMC decision lands 14:00 ET / 18:00Z and the flat rule is 15:30 ET, so the position is held across it by 1.5 hours. NO GATE WAS ADDED AND NONE MAY BE -- the spec forbids an unattended run adding a filter, and the signal was taken as computed. Recorded because it is a real property of the track's risk that the LIVE phase will inherit."
     }
   ]
 }
