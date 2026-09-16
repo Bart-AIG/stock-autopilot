@@ -83,8 +83,8 @@
       "entry_px_signal_venue_utc": "2026-09-16T13:35:30.133740112Z",
       "entry_px_vehicle": 708.43,
       "entry_px_vehicle_venue_utc": "2026-09-16T13:35:30.133740112Z",
-      "stop_px_signal": 708.95,
-      "stop_px_vehicle": 708.95,
+      "stop_px_signal": 707.86,
+      "stop_px_vehicle": 707.86,
       "stop_dist_pct": 0.0805,
       "shares": 1,
       "dollars": 708.43,
@@ -156,6 +156,16 @@
         "SUPERSEDES_THE_14_00Z_RATCHET_AND_WHY": "The concurrent 13:45Z run's management pass (preserved in full in this row's 'management' array, and NOT deleted) ratcheted the stop 707.86 -> 708.95 at +2.44R and left status 'open'. That pass was correct in every step it took and is wrong in its conclusion, because the position it managed had already stopped 24 minutes earlier. A stop cannot ratchet after it has been hit, so the 708.95 level never existed and the row's outcome is -1.00R, not an open winner. The 2.44R figure, the ATR5 measurement and the finding it produced (_DAY_TRACK_EARLY_SESSION_ATR14_5MIN_IS_MOSTLY_YESTERDAY_2026-09-16) are all independently valid and are kept. Root cause, and it is the durable lesson: _DAY_TRACK_IN_PAPER_manage_MUST_BE_FED_THE_ADVERSE_EXTREME_SINCE_THE_LAST_PASS_NOT_THE_CURRENT_PRICE_2026-09-16.",
         "counterfactual_not_a_result": "QQQ traded 710.01 at 14:01:05Z. Had the stop not been taken the position would be ~+2.8R. THIS IS A LIVE MARK, NOT A RESULT. It is recorded only because it is the second consecutive paper day on which the DIRECTION was right and the stop was removed by sub-2-minute noise -- see _DAY_TRACK_BOTH_PAPER_SIGNALS_WERE_DIRECTIONALLY_RIGHT_AND_BOTH_STOPPED_INSIDE_TWO_MINUTES_2026-09-16.",
         "finding": "holdings.json._DAY_TRACK_IN_PAPER_manage_MUST_BE_FED_THE_ADVERSE_EXTREME_SINCE_THE_LAST_PASS_NOT_THE_CURRENT_PRICE_2026-09-16"
+      },
+      "stop_field_repair": {
+        "repaired_utc": "2026-09-16T17:20:00Z",
+        "repaired_by": "scheduled run 17:15Z 2026-09-16 (unattended, prompt v11)",
+        "was": 708.95,
+        "now": 707.86,
+        "why": "708.95 was the 14:00Z 2R trail ratchet, which the SAME run's stop_history VOIDED ('the 14:00Z ratchet to 708.95 postdates the exit and never existed') after reconstructing that the initial stop 707.86 was hit at 13:36Z. The void was written to stop_history and to exit{}, but the two SUMMARY fields were left carrying the voided value -- so the row led with a stop 0.52 pts ABOVE the entry of a LONG, which is arithmetically impossible and contradicted its own stop_dist_pct 0.0805 (= 0.57 pts = entry 708.43 - 707.86) and r_usd 0.57.",
+        "class": "Derived-field set repaired one member at a time. Same shape as CLAUDE.md's lot-count rule ('a lot-count change invalidates every derived field at once -- repair them as a SET'): the exit reconstruction invalidated the ratchet, one of the two places the ratchet lived was repaired, and the summary field was not. A reader taking stop_px_signal at face value re-derives a negative stop distance instead of 0.57.",
+        "assert": "For any row: sign(entry - stop) must match direction (long -> stop < entry), and abs(entry - stop) must equal r_usd/shares and stop_dist_pct*entry/100. Day 2 now satisfies all three; day 1 (short, entry 708.10 / stop 708.855) already did.",
+        "changed_no_outcome": "r_realized -1.00R, pnl -$0.57, status closed, and graduate()'s inputs are untouched. This repairs how the row READS, not what it says happened."
       }
     }
   ]
