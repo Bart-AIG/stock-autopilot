@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-16T17:25:00Z",
+  "updated_utc": "2026-09-16T17:50:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-16",
     "realized_usd_options": 0.0,
@@ -952,40 +952,40 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-16T16:31:00Z",
+    "run_utc": "2026-09-16T17:50:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-16",
     "prompt": "v11 (stamp read on this run's own invocation)",
-    "reconciliation": "ZERO DRIFT both books vs broker at 16:18-16:19Z, read BEFORE anything else per the 2026-08-28 broker-first rule. ABNB 6.573584 @ 169.52 and UNP 3.858199 @ 285.11, fully sellable. Options 2 long SPY 2026-09-17 legs (qty 1 @ 27.00, qty 1 @ 28.00) matching the placed_agent='user' rows -- ownership gate engaged. get_equity_orders(created_at_gte=2026-09-16) EMPTY at 16:18Z and re-read EMPTY at 16:24Z immediately before the order. IBKR added by this run at 16:24:37.62Z; book now 3 swings. A CONCURRENT 16:20Z run deferred this same name -- the broker check cannot see a sibling's decision, only its fill; see the collision key.",
-    "capital_pre_trade": {
-      "total_value": 3872.279125075,
-      "cash": 1609.52,
-      "unleveraged_buying_power": 1609.52,
-      "buying_power": 1609.52,
-      "equity_value": 2210.759125075,
-      "options_value": 52.0,
-      "operational_reserve_5pct": 193.61,
-      "deployable": 1415.91,
-      "per_name_cap_30pct": 1161.68,
+    "reconciliation": "ZERO DRIFT both books vs broker at 17:46-17:47Z, read BEFORE anything else per the 2026-08-28 broker-first rule. IBKR 8.109516 @ 87.30, ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, all fully sellable. get_equity_orders(>=2026-09-16) returns only the ledgered 16:24:37.62Z IBKR fill -- sibling check clean. Both SPY 2026-09-17 legs present (27.00 / 28.00), placed_agent='user'; Ryan's own 17:13:38Z sell-to-close limit on the 770C (order 6aaace42, 0.50 credit, qty 1, gfd, confirmed, processed 0, is_replaceable) is STILL WORKING and the position still shows pending_sell_quantity 1.0 -- ownership gate engaged, no action taken and none permitted.",
+    "capital": {
+      "total_value": 3852.8210418602,
+      "cash": 901.56,
+      "unleveraged_buying_power": 901.56,
+      "buying_power": 901.56,
+      "equity_value": 2912.2610418602,
+      "options_value": 39.0,
+      "operational_reserve_5pct": 192.64,
+      "deployable": 708.92,
+      "per_name_cap_30pct": 1155.85,
       "no_margin": "buying_power == unleveraged_buying_power exactly; FOUR LAWS #4 unambiguous."
     },
-    "capital_post_trade": "Deployable falls to ~$707.95 against the $600 minimum entry, so one further entry remains arithmetically possible today (throttle 2 of 3 remaining) but would be the last. Reserve untouched, no margin.",
     "tape_numbers_only": {
-      "SPY": 760.37,
-      "QQQ": 710.46,
-      "IBKR": 87.27,
-      "UNP": 284.15,
-      "ABNB": 169.62,
-      "quotes_utc": "2026-09-16T16:18:41-16:19:28Z",
-      "note": "Numbers, not a verdict. FOMC decision + dot plot 18:00Z; a 25bp HIKE is ~68-86% priced."
+      "SPY": 759.59,
+      "QQQ": 709.155,
+      "ABNB": 168.79,
+      "UNP": 283.315,
+      "IBKR": 87.48,
+      "quotes_utc": "2026-09-16T17:45:38-17:46:27Z",
+      "note": "Numbers, not a verdict. FOMC decision + dot plot 18:00Z."
     },
+    "board_delta_check": "17:35Z RSI2 board (commit d995f2f) = BAC WMB LRCX FDX AMAT USB PNC PFE IBKR CVS. The 17:06Z board (35222b0) held those ten PLUS UNP. Delta is a DEPARTURE ONLY -- nothing arrived -- so no ungraded name exists on the live board and the 17:20Z/17:25Z gradings still cover it in full. UNP leaving the table is its live RSI2 crossing back above 10 and fires nothing (_ABSENCE_FROM_THE_SIGNAL_TABLE_IS_NOT_SIGNAL_EXPIRY).",
     "actions": {
-      "equity_entries": "ONE. IBKR $707.96 market, filled 16:24:37.62Z @ $87.2999, 8.109516 sh, order 6aaac2c5-b4dc-4e0e-8787-c5dbbd9cc506, order_checks {} on a $0.02 spread. NO STOP (HARD RULE 5). Grounds in the position note and the amended _last_entry_evaluation.",
-      "equity_exits": "NONE, and nothing is armed. UNP's take-profit moved FURTHER AWAY: bid 283.96 / last 284.15 against a 285.7746 crossing needs +0.57%, and at -0.34% vs the 285.1071 entry the GREEN precondition fails as well -- the take-profit is a profit-banking authority and may never realize a loss on a technical bounce (2026-08-26 correction). ABNB bid 169.53 vs a 171.5739 crossing, +1.20% away, +0.06% vs entry. Neither near green-enough (335.42 / 199.44). Time stop 2026-09-24 for both, 6d of 14, outside the 3-day warn.",
-      "options": "No agentic entry. 0 of 3 CORE slots, 0 of 3 entries, $0.00 realized against the -$400 cap. The two SPY 2026-09-17 legs are Ryan's; ownership gate holds and they expire tomorrow. Macro is a sizing input under v11, but no options thesis on the desk is worth paying carry the 18:00Z decision crushes.",
-      "day_track": "Nothing owed. Paper day 2 SPENT -- LONG QQQ entered 13:35Z, stopped 707.86 on the 13:36 bar, -1.00R. One trade per day. Phase stays PAPER: graduate() reads 2 days / 2 signals against 10 and 8, and a live v11 stamp is NOT a graduation. Already flat, so it claimed no capital against this swing entry."
+      "equity_entries": "NONE. Throttle 1 of 3. Deployable $708.92 clears the $600 minimum and the 4th slot of the 3-4 target is open, so CAPITAL declined nothing -- the A-grade BAR did.",
+      "equity_exits": "NONE, and nothing is armed. ABNB -0.43% and UNP -0.63% are RED so the take-profit's GREEN precondition is shut on both regardless of RSI2 (2026-08-26 correction). IBKR green +0.206% with RSI2 8.7 against a ~91.44 crossing. No trail trigger, no target, no time stop inside the warn window.",
+      "options": "No agentic entry. 0 of 3 CORE slots, 0 of 3 entries, $0.00 realized vs the -$400 cap. Macro is a sizing input under v11, not a bar, but no CORE thesis justifies paying carry into a dot plot ten minutes out.",
+      "day_track": "Nothing owed. Paper day 2 spent and closed at -1.00R; one trade per day. Phase stays PAPER -- graduate() reads 2 days / 2 signals against 10 and 8."
     },
-    "duties_this_run": "Heartbeat stamped 13:40Z (not this run's to touch). Brief stamped 09-16. Equity throttle 0 -> 1 of 3; options 0 of 3. No iv_history row owed -- IBKR was graded as an EQUITY candidate and never priced as an options vehicle, the same basis on which the 15:19Z run owed none for USB. Daily report due at the first run >=19:15Z. Calibration is Monday-only."
+    "handoff_flag": "THE FIRST RUN AT OR AFTER 18:00Z MUST DELETE _cash_hold. Its checkable trigger is the FOMC decision release and its expiry_mechanics say it dissolves on release or 2026-09-17, whichever comes first, and that the key is DELETED rather than renewed. RENEWAL IS NOT AVAILABLE TO AN UNATTENDED RUN. Its amount_held_usd $1,470.92 is stale bookkeeping and must not be subtracted from deployable (_A_CASH_HOLD_THAT_CARRIES_A_DOLLAR_FIGURE_GETS_SUBTRACTED_AND_THREE_RUNS_CALLED_IT_DISPOSITIVE_2026-09-15)."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
