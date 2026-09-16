@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-16T16:35:00Z",
+  "updated_utc": "2026-09-16T17:20:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-16",
     "realized_usd_options": 0.0,
@@ -140,6 +140,17 @@
         "theta_per_day_usd": -0.4685,
         "dte": 1,
         "verdict": "NO ACTION -- placed_agent='user'. OWNERSHIP GATE: Ryan's own trade, never closed, trimmed or rolled autonomously. Detect, record, wait. Notify-once discharged 2026-09-15 and nothing material has changed: a 1-DTE SPY strangle into the 18:00Z FOMC decision is doing exactly what it is designed to do. Consumes NEITHER an agentic CORE slot NOR the options throttle."
+      },
+      "_user_working_order": {
+        "observed_utc": "2026-09-16T17:16:00Z",
+        "observed_by": "scheduled run 17:15Z 2026-09-16 (unattended, prompt v11), via get_option_orders(created_at_gte=2026-09-16)",
+        "order_id": "6aaace42-b127-4d01-ab83-48b004e68a06",
+        "placed_agent": "user",
+        "created_utc": "2026-09-16T17:13:38.860553Z",
+        "what": "Ryan placed a SELL-TO-CLOSE LIMIT on this leg in-app: closing_strategy long_call, qty 1, limit 0.50 (credit $50.00), gfd, regular_hours. State 'confirmed', processed_quantity 0 -- WORKING, NOT FILLED, resting above the market (leg marked 0.285 at 14:31Z). The position row now shows pending_sell_quantity 1.0000.",
+        "AGENT_ACTION": "NONE, AND NONE IS PERMITTED. placed_agent='user' on both the position and the order -- the OWNERSHIP GATE bars the desk from closing, trimming, rolling, cancelling or replacing it. Do not cancel_option_order, do not re-price it, do not 'help'. This is Ryan trading his own book, not an incident and not a HARD RULE 9 flag.",
+        "why_it_is_recorded": "So the NEXT run does not read a vanished leg as drift or as an unauthorized change. If this fills, the 770C simply leaves the book at ~+85% on a $27 basis and the ledger row is removed as a user close; if it expires gfd it will be absent from tomorrow's open orders without ever having filled. Either way the reconciliation is expected, not a discrepancy.",
+        "notify": "No new notification owed. The strangle's notify-once was discharged 2026-09-15; a user working an exit on his own position is not a new incident."
       }
     },
     {
@@ -6157,6 +6168,16 @@
     "detector": "When a name's exclusion cites a component the report left BLANK, the exclusion is provisional whatever its age or however many runs have repeated it. Repetition is not corroboration: twelve runs inheriting one unverified ground is still n=1. Say 'unknown' in the grade rather than folding it into the decline, so the next run can see what is outstanding.",
     "what_it_changed_today": "FDX moves from carry-over decline to LIVE CANDIDATE with one named gate outstanding (the HARD RULE 7 news/thesis check, not run). Technicals re-derived off own daily bars: RSI2 4.37 on the live 302.80 bid, 20d SMA 322.8755 ABOVE the 50d 318.9236, spot -6.13%/-4.97% under them, transports sector so outside the oil steer, and falling WITH IYT (-1.68% vs -1.56%) rather than idiosyncratically.",
     "honest_scope": "IT CHANGED NO POSITION. The entry was deferred anyway on the missing thesis check -- which is the only condition under which an inherited ground can be audited credibly, and the same standard this file applies to filter audits. The finding is the PROCESS defect, not a claim that FDX should have been bought.",
-    "duty_handed_forward": "The first run after 18:00Z re-grades FDX on POST-EVENT numbers and runs the HARD RULE 7 thesis check -- specifically whether the 335.99 (08-26) -> 303.08 slide is a dip inside an uptrend or a broken thesis, which the trend-maturity gate requires and no run has yet asked. Do NOT re-use this run's technical stack: per the [ERN]-deferral corollary a gap in either direction can consume a mean-reversion edge entirely."
+    "duty_handed_forward": "The first run after 18:00Z re-grades FDX on POST-EVENT numbers and runs the HARD RULE 7 thesis check -- specifically whether the 335.99 (08-26) -> 303.08 slide is a dip inside an uptrend or a broken thesis, which the trend-maturity gate requires and no run has yet asked. Do NOT re-use this run's technical stack: per the [ERN]-deferral corollary a gap in either direction can consume a mean-reversion edge entirely.",
+    "CORRECTION_2026-09-16T17:20Z": {
+      "corrected_by": "scheduled run 17:15Z 2026-09-16 (unattended, prompt v11). EDIT of this key, not a rival key, per the session-key rule: this NARROWS an existing finding's evidence and the state belongs in one place.",
+      "what_stands": "The VERDICT stands and the decision is unchanged: two calendar pulls this run (2026-09-16 +7d and 2026-09-22 +12d, high_market_cap) cover 2026-09-16 through 2026-10-01 and contain NO FDX row. The 14-day hold window ending 2026-09-30 is calendar-clean, and FDX was deferred to the first post-18:00Z run anyway, so nothing traded differently.",
+      "what_does_NOT_stand": "The claim 'TWO independent sources agree'. The second source was misread. get_earnings_results('FDX') attaches its only eps.actual==null row to FY2026 **Q3** at 2026-10-28 -- but FY2026 **Q4** already reported an ACTUAL of 6.31 on 2026-06-23. A Q3 printing five months after its own Q4 is not a forward date; it is a malformed/placeholder row. It is one source (the calendar) plus an artifact, not two sources.",
+      "the_residual_risk_that_was_never_stated": "FedEx's FY2027 Q1 print is ABSENT FROM BOTH ENDPOINTS ENTIRELY. FDX's own cadence in the same dataset is a clean quarterly march -- 2024-12-19, 2025-03-20, 2025-06-24, 2025-09-18, 2025-12-18, 2026-06-23 -- with the fiscal-Q1 print landing ~Sept 18. By that cadence FY2027 Q1 is due in the next one to two weeks and it is in neither feed. The calendar does carry forward FY2027 rows for other issuers (MLKN, WOR, CTAS, PAYX, GIS, DRI, AIR, KMX, CALM, CAG, NKE, ACN), so forward rows are representable and FDX's is simply missing.",
+      "THE_TRANSFERABLE_SHAPE": "AN ABSENT FORWARD ROW IS NOT EVIDENCE OF ABSENCE -- it is the same UNKNOWN that a blank Earnings column is, which this very key was written to insist on. CLAUDE.md already says the calendar 'degrades to {} on any API failure, and an unflagged name is unknown'. A name MISSING from a calendar pull and a name CONFIRMED absent from it are indistinguishable in the response. The cheap discriminator is the issuer's OWN cadence: if the trailing rows imply a print inside the window and no forward row exists, the status is UNRESOLVED, not clean.",
+      "status_of_FDX_now": "NO SCHEDULED PRINT FOUND through 2026-10-01 -- NOT 'confirmed clean', and specifically NOT 'next print 2026-10-28'. Any run about to actually buy FDX owes the sanity-check CLAUDE.md already mandates, because at the current deployable (~$708 = ~18% of a $3,855 account, no price stop per HARD RULE 5) a gap through an unlocated print is the exact harm the [ERN] ABSOLUTE bar exists to prevent. Do NOT inherit '2026-10-28' from the text above it.",
+      "why_this_is_the_same_class_as_its_parent_finding": "This key's own lesson -- a carry-over preserves the verdict and silently preserves the evidentiary status of parts that were never established -- arriving one level up and aimed at the key's own verification. The verification was real and worth doing; one of its two legs was an artifact, and calling it 'two independent sources' upgraded the status a second time in the same move the key was written to prevent.",
+      "changed_no_decision": "No trade this run in any book; FDX remains deferred. Recorded because the next run inherits this key, and 'earnings CONFIRMED CLEAN, next print 2026-10-28' would clear the single hardest gate on an 18%-of-account entry."
+    }
   }
 }
