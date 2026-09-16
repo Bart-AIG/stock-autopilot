@@ -37518,6 +37518,43 @@
         "cash_hold": "LIVE, correctly un-dissolved -- trigger is the 18:00Z release. Deleted by the first run after it, or any run on/after 09-17. Never renewed."
       },
       "duties": "Heartbeat stamped 13:40Z; brief stamped 13:46Z; IV sweep complete (8 core rows dated 2026-09-16) and no new name evaluated here; daily report due at the first run >=19:15Z; calibration Monday-only."
+    },
+    {
+      "run_utc": "2026-09-16T15:19:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-16",
+      "headline": "FIRST run to hold the 15:07Z intraday report. Board re-graded on fresh data, not re-asserted: one new name (USB) rejected on the downtrend stack + size-into-a-binary. No trade in any book. One new durable finding recorded.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 15:20Z. Equities ABNB 6.573584 @ 169.52 and UNP 3.858199 @ 285.11, both fully sellable, zero held. Options 2 long SPY 2026-09-17 legs (qty 1 @ 27.00, qty 1 @ 28.00), option_ids match the placed_agent='user' ledger rows -- ownership gate engaged, notify-once discharged 09-15. get_equity_orders(>=2026-09-16) EMPTY: sibling check clean, broker read FIRST per the 2026-08-28 rule. total_value $3,873.07; cash == buying_power == unleveraged_buying_power == $1,609.52 (no margin extended, FOUR LAWS #4 unambiguous); equity $2,211.55, options $52.00; reserve 5% = $193.65, deployable $1,415.87.",
+      "tape_numbers_only": {
+        "SPY": 760.6,
+        "QQQ": 710.875,
+        "ABNB": 169.465,
+        "UNP": 284.475,
+        "board": {
+          "WMB": 71.195,
+          "BAC": 58.505,
+          "FDX": 303.31,
+          "USB": 61.0484,
+          "PFE": 27.535,
+          "PNC": 237.61
+        },
+        "sector_proxies": {
+          "XLF": 56.585,
+          "KRE": 73.7741
+        },
+        "quotes_utc": "2026-09-16T15:20:0xZ",
+        "note": "Numbers, not a verdict. FOMC decision + dot plot 18:00Z."
+      },
+      "what_this_run_added": "The 15:07Z intraday report (commit 50fb402) is NEWER than the 14:06Z morning report every earlier grade today used -- so this is the one run today with an obligation to re-grade rather than defer to _last_entry_evaluation. Board delta: ADDED USB; DROPPED GS, RTX, UNP. USB graded from scratch; the five carry-overs keep their 14:00Z grounds, because re-arguing them 80 minutes later on a flat tape is inertia dressed as diligence.",
+      "why_flat": {
+        "equity_exits": "None fire, and both DETERMINATE (RSI2 computed Wilder off own daily bars at BOTH bid and ask, per the 09-11 straddle detector). ABNB 49.8/51.2, UNP 49.4/57.3 -- both far under 70 on either side, so the wide UNP span decides nothing. BOTH RED: ABNB -0.033%, UNP -0.222%, so the price leg of the profit-banking gate also fails and the question is moot twice over. Neither green-enough for a trail (triggers 199.44 / 335.42). Time stop 2026-09-24 for both -- held 6d of 14, outside the 3-day warn. The fresh report agrees independently: ABNB HOLD, UNP HOLD (thesis-watch).",
+        "equity_entries": "NONE -- see holdings.json._last_entry_evaluation (rewritten this run against the 15:07Z report). USB is the only name that needed a fresh grade and it fails TWICE: (1) the downtrend stack, spot 61.0484 below the 20-day 62.558 and the 50-day 63.167 with the 20-day under the 50-day -- the identical structure that rejected RTX at 14:00Z, applied from this repo's own written discriminator rather than re-derived; (2) 30% of account, unstopped, in the most rate-sensitive sector 2h40m before an FOMC decision and dot plot. RSI2 5.1 live is a real signal; the context is what kills it. Capital declined nothing -- deployable $1,415.87 against a $600 minimum and one open slot.",
+        "options": "No agentic entry. 0 of 3 CORE slots, 0 of 3 daily entries, $0.00 realized vs the -$400 cap. Every 21-45 DTE board carries FOMC event vol that crushes at 18:00Z; macro is a sizing input under v11, not a bar -- but no thesis on the desk is worth paying that carry for, which is a grading answer and not a governance one. Ryan's two SPY 09-17 legs consume no slot.",
+        "day_track": "Nothing owed. Paper day 2 closed -1.00R (stop 707.86 breached 13:36Z, established by the 14:00Z run on a twice-fetched byte-identical bar). max_trades_day 1, so the day is spent whatever QQQ does. graduate() reads 2 days / 2 signals against 10 and 8 -- PAPER stands, and the phase is Monday-only in any case. A live v11 stamp is NOT a graduation.",
+        "cash_hold": "LIVE and correctly NOT dissolved: its checkable trigger is the 18:00Z FOMC release, which has not happened. Not renewed, not extended -- renewal is unavailable to an unattended run. It dissolves and the key is DELETED at the first run after the release, or any run on/after 09-17, whichever comes first."
+      },
+      "finding": "holdings.json._RSI2_BOARD_IS_SIX_FOR_SIX_DOWN_ON_A_GREEN_TAPE_AND_THE_BANK_COHORT_LEADS_ITS_OWN_SECTOR_DOWN_2026-09-16 -- named, not re-argued. Short form: all six board names are red while SPY is +0.42% and QQQ +0.90%, and the three banks are falling 3-5x XLF/KRE, which refines (does not overturn) the 14:00Z FOMC attribution while leaving its size-based ground untouched. It changed no decision, which is the condition that makes it creditable, and it is explicitly NOT a new entry gate.",
+      "duties": "Heartbeat stamped 13:40Z; brief stamped 13:46Z. IV sweep: complete for the 8 core names (rows dated 2026-09-16); no row added for USB, which was evaluated as an EQUITY candidate only -- no chain was quoted and no IV context is cited anywhere in this entry, so logging one would be inventing a reading rather than recording one. Daily report due at the first run >=19:15Z. Calibration is Monday-only."
     }
   ]
 }
