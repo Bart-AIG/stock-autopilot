@@ -38073,6 +38073,39 @@
         "day_track": "Paper day 2 spent and closed at -1.00R; one trade/day, nothing open, so the 15:30 ET flat rule has nothing to act on. Phase PAPER (2d/2 signals vs 10 and 8)."
       },
       "duties": "Heartbeat, brief and all 9 IV rows done for today. DAILY REPORT for 2026-09-16 IS UNWRITTEN (_eod_report_written reads 2026-09-15). This run is 19:05Z, short of the 19:15Z threshold, so it is not owed here; the FIRST run at or after 19:15Z owes it and must not defer."
+    },
+    {
+      "run_utc": "2026-09-16T19:15:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-16",
+      "headline": "DAILY REPORT FOR 2026-09-16 WRITTEN -- this run is the v11 threshold run (first at/after 2:15 PM CT) and the 18:45Z run had handed the duty forward explicitly. No trade in any book. NEW DURABLE FINDING: the board doubled 9->19 on the presser leg and the beta hypothesis this run reached for first was REFUTED by the desk's own sector detector.",
+      "reconciliation": "BROKER FIRST per the 2026-08-28 rule. ZERO DRIFT both books. get_equity_positions: IBKR 8.109516 @ 87.30, ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, all fully sellable, zero held. get_option_positions: both SPY 2026-09-17 legs (770C @ 27.00, 731P @ 28.00), placed_agent='user'; the 770C pending_sell 1.0 is Ryan's own 17:13Z limit (6aaace42, 0.50 credit, processed 0, is_replaceable) -- gate engaged, no cancel, no re-price, no notification owed. Ledger's 5 rows = 3 equities + Ryan's 2 legs, one-for-one. get_equity_orders(>=2026-09-16): only the ledgered 16:24:37.62Z IBKR fill. get_option_orders(>=2026-09-16): only Ryan's own limit. Sibling check clean. get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed. Capital: total_value $3,799.92; cash == buying_power == unleveraged_buying_power == $901.56 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $2,874.36, options_value $24.00; reserve 5% $190.00, DEPLOYABLE $711.56, per-name cap 30% $1,139.97. Throttles READ from _realized_options_pnl_today, not typed: equities 1 of 3, options 0 of 3, realized options $0.00 vs the -$400 cap.",
+      "tape_numbers_only": {
+        "SPY": 751.14,
+        "QQQ": 701.51,
+        "XLF": 55.625,
+        "SMH": 541.51,
+        "XLB": 49.9801,
+        "XLI": 167.74,
+        "XLY": 109.89,
+        "XLV": 167.5,
+        "ABNB": 166.9,
+        "UNP": 281.09,
+        "IBKR": 85.4,
+        "day_pct_vs_09_15_close": "SPY -0.825 / QQQ -0.430 / XLF -2.155 / SMH -0.111 / XLI -0.657 / XLY -0.893 / XLV -0.095 / IBKR -3.829 / ABNB -0.844 / UNP -1.021 / PNC -4.940 / USB -4.878 / BAC -3.637 / C -3.485 / SCHW -3.303 / FDX -2.626 / CVS -2.799 / LRCX -1.683",
+        "presser_leg": "SPY 759.98 at 18:19Z -> 751.14 at 19:16Z = -1.163%. The post-decision leg was handed back and then some: +0.342% on the day at 18:19Z, -0.825% now.",
+        "quotes_utc": "2026-09-16T19:16:28-19:19:16Z",
+        "note": "Numbers, not a verdict. Presser began 18:30Z. Per the 2026-08-28 Warsh rule, hand forward the numbers and never a directional read taken while the speaker is still talking."
+      },
+      "duty_discharged_daily_report": "daily_options_report.md rewritten for trading day 2026-09-16. _eod_report_written advanced 2026-09-15 -> 2026-09-16. Structure per v11 step 7: DAY TRACK section FIRST (paper day 2, OR long, 1 share, entry 708.43 / stop 707.86, stopped 13:36Z at -1.00R, running tally 2 signals / -2.00R, phase PAPER with lock (a) discharged and lock (b) open at 2d/2 signals vs 10/8), then positions with why-we-own-it AND days-held/time-stop dates, the IBKR entry with its full gate stack, every declined candidate with its specific reason, sleeve state, the week-of-09-14 calibration verdict (NO CHANGE both books), and 5 watchpoints. The commit IS the delivery via eod-report-notify.yml.",
+      "new_durable_finding": "_A_DOUBLING_RSI2_BOARD_IS_A_TRIGGER_TO_RUN_THE_SECTOR_TEST_NOT_A_REASON_TO_DISCOUNT_IT__MY_BETA_HYPOTHESIS_WAS_REFUTED_2026-09-16 -- NAMED here, argued there. Board 9 names at 18:07Z -> 19 at 19:07Z while SPY fell 1.163%. Hypothesis: an absolute RSI2<10 threshold admits a crowd on a beta leg, so 19 names are one trade in 19 tickers and each should be DISCOUNTED. Refuted: five of nine tradeable arrivals sit materially BELOW their own sector (LRCX -1.573pp under a FLAT SMH, C -1.330pp, SCHW -1.148pp, AMZN -0.496pp, TKR -0.467pp), which no index move manufactures. They are de-ratings, not beta -- stricter than the hypothesis, not looser, which is the direction that matters. The surviving rule: a doubling board is a TRIGGER to run the sector test on every arrival, and the arrivals then split into sector-divergent de-ratings vs sector-trackers/index vehicles (FCX -0.179pp, MS -0.308pp, IWM, DIA) -- two failure modes needing different words even when the verdict matches.",
+      "why_flat": {
+        "equity_exits": "NO SALE, determinate on the cheapest leg: all three RED at the live bid -- ABNB 166.82 vs 169.5209 (-1.59%, -$17.75), UNP 280.65 vs 285.1071 (-1.56%, -$17.20), IBKR 85.37 vs 87.2999 (-2.21%, -$15.65) -- so the RSI2>=70 take-profit's GREEN precondition is shut whatever RSI2 prints (2026-08-26 correction: an RSI2 print on an underwater name is an OPTIONAL exit-into-strength routed to thesis, never a mechanical loss-realization). Targets 183.08 / 298.32 / 96.14 and trail triggers 199.44 / 335.42 / 102.71, none near. Time stops 2026-09-24 (ABNB, UNP: 6 of 14) and 2026-09-30 (IBKR: 0 of 14). No thesis break: a -1.16% index leg is not a name-specific thesis break, and per _THE_COHORT_VETO_IS_ENTRY_SIDE_ONLY a cross-sectional percentage can never license an exit -- that is the discretionary price stop HARD RULE 5 forbids.",
+        "equity_entries": "None, and CAPITAL DECLINED NOTHING -- deployable $711.56 clears the $600 minimum, the 4th slot of the 3-4 target is open, throttle 1 of 3. THE BAR declined it: the 19:07Z board's 11 arrivals produced ZERO A-grades and NOT ONE trades at or above its own sector. Secondary and deliberately subordinate: correlation (IBKR held and the book's worst sector-relative name at -1.674pp vs XLF; a second financial at ~$700 = ~37% of a 4-name account on one macro factor) and the clock (15:16 ET, overnight carry with no price stop). EPD/WMB excluded on the oil steer; UNP and IBKR are HELD so a buy is an ADD and FOUR LAWS #3 bars adding to a loser.",
+        "options": "No entry. 0 of 3 agentic CORE slots, 0 of 3 daily entries, $0.00 realized vs -$400. No CORE thesis cleared the stack; TACTICAL retired 2026-09-14. Ryan's two SPY 09-17 legs expire tomorrow ~20 pts OTM each, combined mark ~$24 against $55 paid -- ownership gate, recorded not actioned, notify-once discharged 09-15 and his own working limit is evidence he is managing them.",
+        "day_track": "Paper day 2 spent and CLOSED at -1.00R (stop 707.86 breached 13:36Z). One trade per trading day, so nothing open and the 15:30 ET flat rule has nothing to act on. Phase PAPER: lock (a) v11 stamp discharged, lock (b) graduate() returns go_live FALSE at 2d/2 signals vs paper_min_days 10 / paper_min_signals 8. No run promotes the phase mid-week. Noted for the Monday calibration, NOT acted on: both signals were directionally right and both stopped inside two minutes."
+      },
+      "duties": "Heartbeat stamped 13:40Z by the first post-bell run -- not touched. market_brief stamped today -- not rebuilt. IV rows: 9 dated 2026-09-16 already present (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA, FDX), core list complete -- not duplicated. DAILY REPORT: WRITTEN THIS RUN. Weekly calibration: complete for the week of 2026-09-14 (Monday, pre-open, broker-sourced, NO CHANGE both books) -- confirmed, not redone. Branch re-based on origin/master at run start per the stale-clone rule; git diff --stat checked before commit."
     }
   ]
 }
