@@ -37931,6 +37931,37 @@
       },
       "new_durable_finding": "_A_CASH_HOLDS_TRIGGER_AND_ITS_OPPORTUNITY_ARE_TWO_DIFFERENT_EVENTS_2026-09-16 -- named here, argued there. A hold's expiry trigger firing does not deliver the opportunity it was waiting for: the trigger was 'the decision is released' and the actionability condition is 'a post-decision report exists on master AND the tape has settled'. Both obvious readings are wrong -- treating dissolution as a green light manufactures an entry, treating the un-actionable opportunity as grounds to renew manufactures a floor.",
       "duties": "Heartbeat stamped 13:40Z. Brief stamped 09-16. No new options name evaluated, so no iv_history row owed. Daily report due at the first run >=19:15Z -- not this run. Calibration is Monday-only. HARD RULE 9 untouched: no flag cleared, no Ryan turn claimed or quoted."
+    },
+    {
+      "run_utc": "2026-09-16T18:20:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-16",
+      "headline": "No trade in any book. The first POST-DECISION report (18:07Z) is on master and the decision leg has measurably settled -- so the actionability condition the 18:00Z run handed forward is CLOSED, and it resolved to a decline on the merits. New finding: the deeper post-FOMC board is a real cohort repricing, not the sampling artifact this run first suspected.",
+      "reconciliation": "BROKER FIRST per the 2026-08-28 rule. get_equity_positions: IBKR 8.109516 @ 87.2999, ABNB 6.573584 @ 169.5209, UNP 3.858199 @ 285.1071, all fully sellable, zero held. get_option_positions: both SPY 2026-09-17 legs present (770C @ 27.00, 731P @ 28.00), placed_agent='user'. Ledger carries 5 rows = 3 equities + Ryan's 2 legs; matches the broker one-for-one. ZERO DRIFT both books. get_equity_orders(>=2026-09-16): still only the ledgered 16:24:37Z IBKR fill -- sibling check clean. get_option_orders(>=2026-09-16): only Ryan's own 17:13:38Z sell-to-close limit on the 770C (order 6aaace42, 0.50 credit, processed 0, still working, is_replaceable) -- ownership gate engaged, no cancel, no re-price, no notification owed. Capital: total_value $3,843.88; cash == buying_power == unleveraged_buying_power == $901.56 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $2,911.32, options_value $31.00; reserve 5% $192.19, DEPLOYABLE $709.37, per-name cap 30% $1,153.16. Throttles READ from _realized_options_pnl_today, not typed: equities 1 of 3, options 0 of 3, realized options P/L $0.00 vs the -$400 cap.",
+      "tape_numbers_only": {
+        "SPY": 759.98,
+        "QQQ": 709.835,
+        "SMH": 549.96,
+        "XLF": 56.47,
+        "ABNB": 168.72,
+        "UNP": 284.115,
+        "IBKR": 87.21,
+        "BAC": 58.305,
+        "USB": 60.835,
+        "PNC": 235.7375,
+        "FDX": 302.8,
+        "day_pct_vs_09_15_close": "SPY +0.342 / QQQ +0.752 / SMH +1.448 / XLF -0.668 / BAC -2.041 / USB -2.226 / PNC -2.094 / IBKR -1.790 / FDX -1.771 / AMAT -0.666 / LRCX -0.007",
+        "quotes_utc": "2026-09-16T18:19:53-18:21:48Z",
+        "note": "Numbers, not a verdict. Powell press conference 18:30Z, ten minutes out."
+      },
+      "why_flat": {
+        "equity_exits": "NO SALE, determinate on the cheapest leg alone: ALL THREE POSITIONS ARE RED at the live bid -- ABNB 168.65 vs 169.5209 (-0.52%), UNP 283.97 vs 285.1071 (-0.40%), IBKR 87.17 vs 87.2999 (-0.15%) -- and red on the last trade too. The RSI2>=70 take-profit requires a GREEN position (2026-08-26 correction: an RSI2 print on an underwater name is an OPTIONAL exit-into-strength routed to thesis, never a mechanical loss-realization), so the GREEN precondition is shut on all three whatever RSI2 does; no RSI2 re-derivation was needed. The 18:07Z report independently judges all three HOLD (thesis-watch) and its ACTION block is EMPTY. Time stops 2026-09-24 (ABNB, UNP -- 6 of 14 days, outside the 3-day warn) and 2026-09-30 (IBKR, 0 of 14). Targets 183.08 / 298.32 / 96.14 and trail triggers 199.44 / 335.42 / 102.71: none near. No target hit, no time stop, no trail crossing, no thesis flag.",
+        "equity_entries": "NONE. CAPITAL DECLINED NOTHING -- deployable $709.37 clears the $600 minimum, the 4th slot of the 3-4 target is open, the throttle has 2 of 3 left, and with the _cash_hold dissolved at 18:00Z no disclosure sits on this capital. THE BAR declined it, and the post-decision report made the case WORSE not better: the board's carried-over names went a mean -0.467 RSI2 deeper with ZERO arrivals, and the deepening lands on the bank/broker cohort the 17:20Z-17:50Z runs had already graded down -- BAC/USB/PNC/IBKR are -2.041/-2.226/-2.094/-1.790% on a day SPY is +0.342%, i.e. 2.68-3.33x XLF's -0.668%. A cohort down two-plus percent against a green index is a repricing, not an oversold dip inside an intact uptrend. FDX stays B+ (-1.771%), WMB stays excluded on the oil-energy steer, IBKR is HELD so a buy would be an ADD into the cohort taking the damage. Zero A-names.",
+        "options": "No entry. 0 of 3 CORE slots, 0 of 3 entries, $0.00 realized vs the -$400 cap. Under v11 macro is a SIZING input and not a bar -- but 'not a bar' supplies no thesis, and no CORE thesis exists on the board. No options candidate was evaluated, so no iv_history row is owed; today's core-list rows (9 symbols incl. FDX) are already written. TACTICAL is retired.",
+        "day_track": "Nothing owed. Paper day 2 spent and CLOSED at -1.00R; one trade per trading day. Phase stays PAPER -- 2 days / 2 signals against paper_min_days 10 and paper_min_signals 8, so the earliest arithmetically possible go-live is a Monday on or after 2026-09-28. A live v11 stamp is NOT a graduation and no run promotes the phase mid-week."
+      },
+      "new_durable_finding": "_THE_POST_DECISION_BOARD_GOT_DEEPER_AND_THE_SAMPLING_ARTIFACT_HYPOTHESIS_WAS_REFUTED_2026-09-16 -- named here, argued there. Includes the settlement measurement (SPY/QQQ 1-minute volume back to 1.26x/0.77x of a baseline that reproduces the 18:00Z run's exactly; both directions of a 2.4-3.1 point round trip traversed and rejected; net -0.036%/-0.038% vs the pre-decision close) and the detector: measure a screen name against its SECTOR ETF, not the index, before calling it an oversold dip.",
+      "duties": "Heartbeat stamped 13:40Z (not this run's to touch). Brief stamped 09-16. No iv_history row owed. Daily report due at the first run >=19:15Z -- not this run (18:20Z). Calibration is Monday-only. The 18:00Z actionability condition is CLOSED, not carried forward. HARD RULE 9 untouched: no flag cleared, no Ryan turn claimed or quoted, no approval implied."
     }
   ]
 }
