@@ -952,40 +952,45 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-16T17:50:00Z",
+    "run_utc": "2026-09-16T18:30:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-16",
     "prompt": "v11 (stamp read on this run's own invocation)",
-    "reconciliation": "ZERO DRIFT both books vs broker at 17:46-17:47Z, read BEFORE anything else per the 2026-08-28 broker-first rule. IBKR 8.109516 @ 87.30, ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, all fully sellable. get_equity_orders(>=2026-09-16) returns only the ledgered 16:24:37.62Z IBKR fill -- sibling check clean. Both SPY 2026-09-17 legs present (27.00 / 28.00), placed_agent='user'; Ryan's own 17:13:38Z sell-to-close limit on the 770C (order 6aaace42, 0.50 credit, qty 1, gfd, confirmed, processed 0, is_replaceable) is STILL WORKING and the position still shows pending_sell_quantity 1.0 -- ownership gate engaged, no action taken and none permitted.",
+    "reconciliation": "ZERO DRIFT both books vs broker at 18:30-18:31Z, read BEFORE anything else per the 2026-08-28 broker-first rule. IBKR 8.109516 @ 87.2999, ABNB 6.573584 @ 169.5209, UNP 3.858199 @ 285.1071, all fully sellable. get_equity_orders(>=2026-09-16): only the ledgered 16:24:37.62Z IBKR fill -- sibling check clean. Both SPY 2026-09-17 legs present (770C @ 27.00, 731P @ 28.00), placed_agent='user'; Ryan's own 17:13:38Z sell-to-close limit on the 770C (order 6aaace42, 0.50 credit, processed 0, still working, is_replaceable) UNCHANGED -- ownership gate engaged, no cancel, no re-price, no notification owed.",
     "capital": {
-      "total_value": 3852.8210418602,
+      "total_value": 3843.3699876911,
       "cash": 901.56,
       "unleveraged_buying_power": 901.56,
       "buying_power": 901.56,
-      "equity_value": 2912.2610418602,
-      "options_value": 39.0,
-      "operational_reserve_5pct": 192.64,
-      "deployable": 708.92,
-      "per_name_cap_30pct": 1155.85,
+      "equity_value": 2909.8099876911,
+      "options_value": 32.0,
+      "operational_reserve_5pct": 192.17,
+      "deployable": 709.39,
+      "per_name_cap_30pct": 1153.01,
       "no_margin": "buying_power == unleveraged_buying_power exactly; FOUR LAWS #4 unambiguous."
     },
     "tape_numbers_only": {
-      "SPY": 759.59,
-      "QQQ": 709.155,
-      "ABNB": 168.79,
-      "UNP": 283.315,
-      "IBKR": 87.48,
-      "quotes_utc": "2026-09-16T17:45:38-17:46:27Z",
-      "note": "Numbers, not a verdict. FOMC decision + dot plot 18:00Z."
+      "SPY": 758.995,
+      "QQQ": 709.025,
+      "IBKR": 86.75,
+      "ABNB": 168.705,
+      "UNP": 283.44,
+      "BAC": 58.12,
+      "USB": 60.525,
+      "PNC": 234.26,
+      "XLF": 56.35,
+      "FDX": 302.75,
+      "quotes_utc": "2026-09-16T18:31:09-18:32:41Z",
+      "note": "Numbers, not a verdict. Powell presser underway from 18:30Z; the decision leg is ~32 min old."
     },
-    "board_delta_check": "17:35Z RSI2 board (commit d995f2f) = BAC WMB LRCX FDX AMAT USB PNC PFE IBKR CVS. The 17:06Z board (35222b0) held those ten PLUS UNP. Delta is a DEPARTURE ONLY -- nothing arrived -- so no ungraded name exists on the live board and the 17:20Z/17:25Z gradings still cover it in full. UNP leaving the table is its live RSI2 crossing back above 10 and fires nothing (_ABSENCE_FROM_THE_SIGNAL_TABLE_IS_NOT_SIGNAL_EXPIRY).",
     "actions": {
-      "equity_entries": "NONE. Throttle 1 of 3. Deployable $708.92 clears the $600 minimum and the 4th slot of the 3-4 target is open, so CAPITAL declined nothing -- the A-grade BAR did.",
-      "equity_exits": "NONE, and nothing is armed. ABNB -0.43% and UNP -0.63% are RED so the take-profit's GREEN precondition is shut on both regardless of RSI2 (2026-08-26 correction). IBKR green +0.206% with RSI2 8.7 against a ~91.44 crossing. No trail trigger, no target, no time stop inside the warn window.",
-      "options": "No agentic entry. 0 of 3 CORE slots, 0 of 3 entries, $0.00 realized vs the -$400 cap. Macro is a sizing input under v11, not a bar, but no CORE thesis justifies paying carry into a dot plot ten minutes out.",
-      "day_track": "Nothing owed. Paper day 2 spent and closed at -1.00R; one trade per day. Phase stays PAPER -- graduate() reads 2 days / 2 signals against 10 and 8."
+      "equity_exits": "NONE, and determinate on the cheapest leg: ALL THREE POSITIONS ARE RED at the live bid -- ABNB 168.68 vs 169.5209 (-0.50%), UNP 283.19 vs 285.1071 (-0.67%), IBKR 86.75 vs 87.2999 (-0.63%). The RSI2>=70 take-profit requires a GREEN position (2026-08-26 correction), so the GREEN precondition is shut on all three whatever RSI2 reads and no RSI2 re-derivation was needed. IBKR turned RED since the 17:50Z run (it was +0.206%); that fires nothing -- there is no price stop. No target (183.08/298.32/96.14), no trail trigger (199.44/335.42/102.71), no time stop inside the warn (09-24 / 09-24 / 09-30). The 18:07Z report independently judges all three HOLD and its ACTION block is EMPTY.",
+      "equity_entries": "NONE. CAPITAL DECLINED NOTHING -- deployable $709.39 clears the $600 minimum, the 4th slot of the 3-4 target is open, the throttle has 2 of 3 left. THE BAR declined it. The board is UNCHANGED from the 18:07Z report already graded in full at 18:15Z and 18:20Z: BAC WMB FDX USB PNC PFE AMAT IBKR(HELD) CVS, zero arrivals, so no ungraded name exists and no re-grade is owed. The bank/broker cohort deepened further on this run's quotes (BAC -2.352, USB -2.724, PNC -2.708 vs SPY +0.212), which strengthens the existing decline rather than changing it.",
+      "options": "No agentic entry. 0 of 3 CORE slots, 0 of 3 entries, $0.00 realized vs the -$400 cap. Under v11 macro is a SIZING input and not a bar, but 'not a bar' supplies no thesis and no CORE thesis exists on the board. No options candidate was evaluated, so no iv_history row is owed; today's core-list rows are already written.",
+      "day_track": "Nothing owed. PAPER. Paper day 2 SPENT and CLOSED at -1.00R; one trade per trading day, no re-entry. Running sample 2 days / 2 signals / -2.00R against paper_min_days 10 and paper_min_signals 8 -- earliest arithmetically possible go-live is a Monday on or after 2026-09-28. The v11 stamp is the STOP-AUTHORITY lock only and is NOT a graduation; only the Monday calibration promotes the phase."
     },
-    "handoff_flag": "THE FIRST RUN AT OR AFTER 18:00Z MUST DELETE _cash_hold. Its checkable trigger is the FOMC decision release and its expiry_mechanics say it dissolves on release or 2026-09-17, whichever comes first, and that the key is DELETED rather than renewed. RENEWAL IS NOT AVAILABLE TO AN UNATTENDED RUN. Its amount_held_usd $1,470.92 is stale bookkeeping and must not be subtracted from deployable (_A_CASH_HOLD_THAT_CARRIES_A_DOLLAR_FIGURE_GETS_SUBTRACTED_AND_THREE_RUNS_CALLED_IT_DISPOSITIVE_2026-09-15)."
+    "new_durable_finding": "_THE_COHORT_VETO_IS_ENTRY_SIDE_ONLY_AND_THE_DESK_NOW_HOLDS_A_NAME_INSIDE_THE_VETOED_COHORT_2026-09-16 -- named here, argued there.",
+    "duties": "Heartbeat stamped 13:40Z (not this run's to touch). Brief stamped 09-16. Throttles READ, not typed: equities 1 of 3, options 0 of 3. Daily report due at the first run >=19:15Z -- not this run (18:30Z). Calibration is Monday-only. HARD RULE 9 untouched: no flag cleared, no Ryan turn claimed or quoted, no approval implied."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -6305,5 +6310,23 @@
     "what_it_decided": "NO ENTRY, on the BAR and not on the event. The post-decision report -- the artifact the 18:00Z run was waiting for -- arrived and made the board's LARGEST COHORT LESS attractive, not more: the bank/broker names the 17:20Z-17:50Z runs graded down on a de-rating thesis are precisely the ones the post-decision tape has de-rated hardest. Grades hold or worsen; still zero A-names. FDX (B+ at 17:25Z) is -1.771% and unchanged in grade. WMB stays excluded on the oil-energy steer. IBKR is HELD, so a buy would be an ADD, and it is the cohort taking the damage.",
     "the_actionability_condition_is_now_CLOSED": "The 18:00Z finding _A_CASH_HOLDS_TRIGGER_AND_ITS_OPPORTUNITY_ARE_TWO_DIFFERENT_EVENTS_2026-09-16 named the condition as 'a post-decision report exists on master AND the tape has settled'. BOTH halves are now measurably met for the decision leg -- the 18:07Z report (commit 2e0eb5a) and the decay above -- and the condition resolved to a DECLINE ON THE MERITS. That is the predicted and correct outcome: a procedural condition clearing is not an opportunity arriving. Do not carry the condition forward as though it were still open.",
     "honest_scope": "n=9 carried-over names on ONE report pair, one trading day, one event. The sector-ratio evidence is strong for the bank cohort (four names, 2.68-3.33x XLF, same direction) and WEAK for the semis (AMAT/LRCX lag SMH but moved the other way on RSI2). The sampling-artifact MECHANISM remains real and unrefuted in general -- what was refuted is that it explains TODAY's deepening; a report swept inside an impulse is still a report to re-quote before acting on. And this changed no decision, which is the only condition under which a screen's inputs can be audited credibly."
+  },
+  "_THE_COHORT_VETO_IS_ENTRY_SIDE_ONLY_AND_THE_DESK_NOW_HOLDS_A_NAME_INSIDE_THE_VETOED_COHORT_2026-09-16": {
+    "measured_utc": "2026-09-16T18:32Z",
+    "run": "scheduled 18:30Z 2026-09-16 (unattended, prompt v11), during the Powell presser, ~32 min after the decision.",
+    "status": "NEW DURABLE FINDING -- a GUARDRAIL plus a REFUSAL TO RETURN A VERDICT. Changed no decision: HARD RULE 5 makes the hold determinate whatever this measures, which is the only condition under which an entry discriminator can be audited credibly.",
+    "the_situation_that_produced_it": "Two runs today measured the bank/broker cohort as RELATIVE WEAKNESS and used it to decline entries: 15:20Z (_RSI2_BOARD_IS_SIX_FOR_SIX_DOWN_ON_A_GREEN_TAPE...) and 18:20Z ('a cohort down two-plus percent against a green index is a repricing, not an oversold dip'). The 16:31Z run ENTERED IBKR -- a name in that same cohort -- on a stated discriminator: 20-day SMA ABOVE the 50-day, which is exactly what USB and RTX failed. BOTH ACTIONS WERE CORRECT UNDER THEIR OWN RULES. The desk now holds a position inside a cohort it is simultaneously vetoing, and that is the configuration this key exists to govern.",
+    "THE_GUARDRAIL_which_is_the_reason_to_write_this": "A COHORT-RELATIVE MEASUREMENT IS AN ENTRY-SIDE VETO ONLY. IT CAN NEVER LICENSE AN EXIT. The run that measures 'this cohort is repricing, not dipping' while holding a name in that cohort is precisely the run most tempted to convert the measurement into a sell -- and it may not. HARD RULE 5 permits an equity sale on a target hit, an RSI2>=70 cross WHILE GREEN, or a HARD RULE 7 thesis break, and nothing else; there is no price stop. A cross-sectional percentage IS NOT A THESIS BREAK. A thesis break is name-specific and evidence-based (a guidance cut, a fundamental downgrade, a broken business fact) -- never a relative-performance reading, however many names agree with it.",
+    "why_the_asymmetry_is_BY_DESIGN_not_an_oversight": "The entry gate is DISCRETIONARY and may decline on grade; the exit gate is MECHANICAL and forbids discretionary loss-taking. A cohort reading is a GRADE input, and grades govern entries only. Read it as symmetric and the book acquires exactly the discretionary price stop HARD RULE 5 was written to forbid -- the stop that 'turns a normal multi-week pullback into a realized loss'. This is the same shape as _THE_ENTRY_SLIPPAGE_FINDING_DOES_NOT_INVERT_INTO_AN_EXIT_TIMING_EDGE (2026-09-09), arriving through a different entry-side measurement: an entry-side finding does not invert into an exit rule merely because the arithmetic runs both ways.",
+    "the_out_of_sample_test_and_why_it_returns_NO_VERDICT": {
+      "what_became_available": "The FOMC resolved at 18:00Z, so the pre-event MA-stack discriminator that justified IBKR over USB/BAC/PNC is testable out-of-sample for the first time. It was tested. IT DOES NOT YET DISCRIMINATE EITHER WAY, and recording that is the honest output.",
+      "day_pct_vs_09_15_close_at_18_32Z": "IBKR -2.309 | BAC -2.352 | PNC -2.708 | USB -2.724 | FDX -1.788 | AMAT -1.117 | CVS -2.222 | WMB -0.670 | PFE -0.163 | XLF -0.879 | SPY +0.212 | QQQ +0.637",
+      "the_same_four_at_18_20Z": "IBKR -1.790 | BAC -2.041 | PNC -2.094 | USB -2.226",
+      "rank_stability": "IBKR is BEST OF THE FOUR in both reads. Its edge over the mean of the other three shrank only from +0.330 pts to +0.286 pts. Weakly consistent with the discriminator.",
+      "the_half_that_cuts_the_other_way": "In the 12-minute post-decision leg IBKR fell -0.528%, MORE than BAC (-0.317%) and more than XLF (-0.212%), and less than PNC (-0.627%) and USB (-0.510%). Its gap to BAC collapsed from 0.251 pts to 0.043. IBKR now underperforms its own sector ETF by 1.43 pts on the day.",
+      "verdict": "NONE, and deliberately. n=4 names over a 12-MINUTE window during a live presser is noise-scale; rank stability across two reads twelve minutes apart is not evidence. The discriminator is a PRE-EVENT cross-sectional fact and the post-event window is far too short to test it. DO NOT record a verdict either way, and do not let a later run inherit one -- the actual adjudicators are the HARD RULE 7 thesis check and the 2026-09-30 time stop."
+    },
+    "position_state_for_the_record": "IBKR 8.109516 sh @ 87.2999 (entered 16:24:37.62Z today), live bid 86.75 = -0.63% from the fill, about -$4.46 unrealized on an 18.3% position. RED, so the take-profit's GREEN precondition is shut; no target (96.14), no trail trigger (102.71), time stop 2026-09-30 (0 of 14 days). HOLD IS DETERMINATE, and would be determinate on the opposite measurement too.",
+    "honest_scope": "One session, one 12-minute window, n=4 names, and it changed no decision. The guardrail half is the durable content; the measurement half is explicitly inconclusive and is recorded so the NEXT run does not re-derive it and mistake a stable rank for a vindicated discriminator."
   }
 }
