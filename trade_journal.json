@@ -38144,6 +38144,39 @@
       ],
       "duties": "DAILY REPORT for 2026-09-16 is ON MASTER, written by the concurrent 19:15Z sibling (PR #1658); this run verified it covers all three books and Ryan's strangle, and did NOT rewrite it. Heartbeat stamped 13:40Z, not this run's to touch. Brief stamped 09-16. All nine IV rows written today; none owed. Calibration is Monday-only. HARD RULE 9 untouched: no flag created, cleared or adjudicated; no Ryan turn claimed, quoted or implied. Ryan notified once, out of band, on the ONE time-sensitive item only he can act on -- his GFD sell limit at 0.50 on the SPY 770C cannot fill against a 0.01 bid and dies at tonight's bell, with both legs expiring 09-17. That is a NEW fact (the order was placed 17:13Z, expiry is tomorrow), not a re-notification of the 09-15 strangle detection.",
       "concurrent_run_resolution": "Third same-slot collision on record and the first where the collided artifact was PROSE rather than an append-only ledger. The standing rule for a merge between two same-slot runs is UNION, never picking a side -- but daily_options_report.md is not unionable: it is one document, its COMMIT is the delivery, and a second push re-pages Ryan with duplicate content. So the file-specific rule wins over the general one: master's report stands untouched, and this run's unique contribution (the IBKR post-FOMC two-channel verdict) is preserved as a durable ledger key instead of being forced into the prose. trade_journal.json and holdings.json WERE unioned normally -- the journal by APPENDING this entry in master's existing order (a re-sort produced a 153-line diff for a 37-line change and was reverted, per the git-diff --stat rule), and holdings.json by adding only the two keys master lacked. Worth recording that the two drafts agreed INDEPENDENTLY on every material reading -- the board doubling 9 -> 19 names, LRCX declined on its sector-relative de-rating rather than on its clean technicals, zero A-grades, all three positions red with no exit firing, the strangle left alone. Two runs reaching the same verdict from separate quotes is cross-validation, which is the one genuinely useful thing a collision produces."
+    },
+    {
+      "run_utc": "2026-09-16T19:30:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-16",
+      "prompt_version": "v11",
+      "headline": "RECONCILIATION DRIFT, FIRST IN DAYS: Ryan bought 2 VLO 2026-09-18 390P for $510 in-app at 19:28Z, ninety seconds before this run began. Ledgered with both lots, ownership gate engaged, notified once. No desk trade in any book.",
+      "reconciliation": "Equities ZERO DRIFT (IBKR 8.109516 @ 87.2999, ABNB 6.573584 @ 169.5209, UNP 3.858199 @ 285.1071, all sellable; get_equity_orders >=2026-09-16 shows only the ledgered 16:24Z IBKR fill, sibling check clean). OPTIONS DRIFT REPAIRED: new user position VLO 390P x2 added to holdings.positions with lots[] carrying both fills ($2.80 and $2.30 on one option_id) and the three lot invariants asserted before commit. Both SPY 2026-09-17 legs present and untouched.",
+      "tape": {
+        "SPY": 751.68,
+        "QQQ": 702.22,
+        "VLO": 405.005,
+        "IBKR": 85.855,
+        "ABNB": 167.4,
+        "UNP": 280.95,
+        "quotes_utc": "2026-09-16T19:31:06-19:31:23Z"
+      },
+      "the_average_price_read": "get_option_positions returned average_price 255.0000 with trade_value_multiplier 100 on the VLO row, which reads at a glance as $25,500 of premium per contract -- impossible on a $3,727 account. The order record settles it in one call: two fills at 2.80 and 2.30 premium = $280 + $230 = $510, averaging $255 of COST per contract. average_price on this endpoint is dollars-per-contract, and CLAUDE.md's existing lot invariant (quantity x average_price == total cost basis) already disambiguates it correctly -- 2 x 255 = 510. No new rule needed; the existing one worked. Recorded here rather than as a new top-level key, because re-noticing a known condition is not a finding.",
+      "positions_verdict": {
+        "ABNB": "working-but-red. 167.36 bid vs 169.5209 (-1.27%). Thesis intact, 6d of 14, time stop 09-24. No exit fires.",
+        "UNP": "working-but-red. 280.90 bid vs 285.1071 (-1.48%). Thesis intact, 6d of 14, time stop 09-24. No exit fires.",
+        "IBKR": "working-but-red. 85.83 bid vs 87.2999 (-1.68%), entered today. Time stop 09-30. No exit fires.",
+        "VLO_390P_x2": "Ryan's. OWNERSHIP GATE -- detect/record/notify/wait, no management of any kind. Mark 2.10 (bid 1.80 / ask 2.40, spread 28.6% of mid) vs $2.55 cost = -17.6% at mark, -29.4% at the bid. 2 DTE, theta -$254/day on the pair, breakeven 387.90 needs VLO -4.22% while VLO is +2.01% today, chance_of_profit_long 0.179. Facts only; his trade, his call.",
+        "SPY_731P": "Ryan's. Mark 0.165 vs 0.28 cost. Expires tomorrow. Gated.",
+        "SPY_770C": "Ryan's. Mark 0.015 vs 0.27 cost. His 17:13Z sell-to-close limit at 0.50 still working and will not fill at this mark. Gated -- not cancelled, not re-priced, no notification owed."
+      },
+      "why_flat": {
+        "equities": "Exits: all three red at the bid, so the RSI2>=70 take-profit's GREEN precondition is shut on the cheapest possible test -- no RSI2 re-derivation needed. No target, no trail, no time stop in the warn window. Entries: CAPITAL declined it this run, a change from 18:30Z -- deployable $205.10 is under the $600 minimum, which is a hard bar. Rotation does not apply: it needs a candidate better than the weakest held, and the board has no A-grade name.",
+        "options": "No CORE thesis on the board; deployable cannot fund the $500-1,000 band; and 28 minutes to the bell is inside the closing window where the desk does not open. Three independent declines.",
+        "day_track": "Paper day 2 already closed at -1.00R this morning. One trade per day -- no re-entry. Nothing open for the 15:30 ET flat rule to close. Still PAPER: 2 days / 2 signals against 10 and 8."
+      },
+      "new_durable_finding": "holdings.json._A_USER_PLACED_FILL_DRAINS_THE_AGENTIC_BOOKS_DEPLOYABLE_CASH_AND_NO_GATE_SEES_IT_COMING_2026-09-16 -- Ryan's $510.08 of fills cut deployable from $709.39 to $205.10 (-71%) in one minute and shut the equity entry gate with no agentic decision. THE CAPITAL POLICY's one-pool clause models only outflows the desk itself causes. Detector: re-read get_portfolio immediately before sending any order, not once at the top of the run. Changed no decision this run, which is why it is creditable.",
+      "duties": "Heartbeat stamped 13:40Z. Brief stamped today. Daily report UPDATED (a fill is a MATERIAL event; the report's capital figures were superseded). Notification sent to Ryan once, per the ownership gate."
     }
   ]
 }
