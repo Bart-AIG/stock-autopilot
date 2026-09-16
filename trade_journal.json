@@ -37581,6 +37581,29 @@
       "duties": "Heartbeat stamped 13:40Z; brief stamped 13:46Z. IV sweep: complete for the 8 core names (rows dated 2026-09-16); no row added for USB, which was evaluated as an EQUITY candidate only -- no chain was quoted and no IV context is cited anywhere in this entry, so logging one would be inventing a reading rather than recording one. Daily report due at the first run >=19:15Z. Calibration is Monday-only.",
       "concurrent_run_union": "MERGE CONFLICT with the concurrent 15:15Z run, resolved as a UNION per the standing rule -- both journal entries kept in run_utc order, and the sibling's LEDGER work (its independent USB grade, its UPDATED note, its _current_state_run refresh) folded in rather than discarded. The two runs worked the same fresh 15:07Z report independently and AGREED: both declined USB on the same two grounds, both found zero drift, both left the cash hold live. Independently-fetched marks agree (USB 61.06 vs 61.0484, SPY 760.488 vs 760.60, QQQ 710.89 vs 710.875) -- cross-validation, not conflict. The sibling's grade is the BETTER of the two on one point and it is kept for that reason: it actually RAN the [ERN] calendar check on USB (66 events, not degraded-empty, no USB, Q3 mid-October). [ERN] is an absolute bar whose ABSENCE IS NOT PROOF, so this run declined USB on grounds that were sufficient without ever establishing the bar was clear.",
       "a_mistake_this_run_made_and_caught_before_pushing": "THE FIRST RESOLUTION OF THIS CONFLICT WAS WRONG AND WOULD HAVE DELETED THE SIBLING'S WORK. This run checked what the 15:15Z run had changed by diffing TOP-LEVEL keys only (found: none new) and then printing _last_entry_evaluation TRUNCATED TO 2,200 CHARACTERS -- and the sibling's USB grade sits past that cut. From a check that could not see the thing it was checking for, this run concluded the sibling had added nothing to the ledger and that its journal entry's pointer to '_last_entry_evaluation.grades.USB' was DANGLING. Both conclusions were false, the second was written into the union note as a finding about the sibling, and a `git checkout --ours` then discarded a genuinely better grade. Caught by diffing the sibling's commit against the base BEFORE pushing, and fully repaired. THE SHAPE IS THIS REPO'S MOST-REPEATED DEFECT, arriving in the conflict-resolution step rather than in a trade: a check that passes for the wrong reason -- here, an ABSENCE reported by an instrument that was truncated below the depth the claim required. It is the same family as the four measurement bugs already on file (spot price, ATM strike, wrong expiry board, modelled estimate vs quote): the reading was real, it just did not cover the claim built on it. DETECTOR, and it costs one line: when resolving a UNION, never characterise the other run's changes from a truncated print or a top-level key diff -- run `git diff <base> <theirs> -- <file>` and read the actual hunks. An absence is only evidence when the instrument could have shown the presence."
+    },
+    {
+      "run_utc": "2026-09-16T15:31:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-16",
+      "headline": "Re-verification. No trade in any book, nothing new found. No report newer than the 15:07Z intraday, so the board is the one the 15:19Z run graded name-by-name and is NOT re-argued.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 15:31Z. ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, both fully sellable. Options 2 long SPY 09-17 legs, placed_agent='user' (gate engaged). get_equity_orders(>=09-16) EMPTY -- broker read first, sibling check clean. total $3,870.38; cash == ubp == $1,609.52 (no margin); reserve $193.52, deployable $1,416.00.",
+      "tape_numbers_only": {
+        "SPY": 760.2,
+        "QQQ": 710.615,
+        "ABNB": 169.33,
+        "UNP": 285.01,
+        "quotes_utc": "15:30:5xZ",
+        "note": "Numbers only, no verdict. FOMC decision + dot plot 18:00Z."
+      },
+      "why_flat": {
+        "equity_exits": "None, DETERMINATE ON PRICE ALONE -- ABNB -0.113% and UNP -0.034% both RED, so the profit-banking price leg fails and RSI2>=70 cannot fire whatever it reads. No target hit; neither green-enough; time stop 09-24, outside the 3d warn.",
+        "equity_entries": "None. master re-fetched 15:30Z: 50fb402 / 15:07Z intraday still newest, board unchanged since the 15:19Z grade. Grounds in _last_entry_evaluation. Capital NOT binding (deployable $1,416.00).",
+        "options": "No entry. 0 of 3 slots, 0 of 3 entries, $0.00 vs -$400. FOMC vol in every 21-45 DTE board, crushes 18:00Z; macro is a sizing input under v11, not a bar -- no thesis worth that carry. No new name, so no IV row owed.",
+        "day_track": "Nothing owed. Paper day 2 SPENT: LONG QQQ 13:35Z, stopped 707.86 on the 13:36 bar, -1.00R. One trade/day. graduate() 2d/2 vs 10d/8 -> PAPER, Monday-only.",
+        "cash_hold": "LIVE, correctly un-dissolved -- trigger is the 18:00Z release. Not renewed."
+      },
+      "duties": "Heartbeat 13:40Z; brief stamped 09-16; throttles reset 13:40Z; IV sweep complete (13:30Z sibling); daily report due at the first run >=19:15Z; calibration Monday-only."
     }
   ]
 }
