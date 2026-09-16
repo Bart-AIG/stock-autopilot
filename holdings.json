@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-16T15:00:00Z",
+  "updated_utc": "2026-09-16T15:15:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-16",
     "realized_usd_options": 0.0,
@@ -175,9 +175,11 @@
       "BAC / GS / PNC": "C for TODAY -- declined on timing, not on quality. A 30%-of-account position with NO price stop (HARD RULE 5) in the single most rate-sensitive sector, opened 3.5 hours before an FOMC decision AND dot plot, is an undiagnosed binary the desk has no edge on. Note this is NOT the options CATALYST BAR being smuggled into the equity book -- v11 makes macro a sizing input there; it is that at 30% and unstopped the SIZE is what makes it unacceptable, which is the same logic the concentration policy uses to make [ERN] absolute. PNC additionally carries the report's recently-EXITED 2026-09-03 flag.",
       "FDX": "EXCLUDED on [ERN] -- and the flag's ABSENCE is not proof, which is why this was checked rather than assumed. get_earnings_calendar (09-16 +16d, high_market_cap, 59 events so NOT degraded-empty) returns no FDX. But the news tape shows four PT revisions clustered 09-04/08/08/09 (Evercore 323->350, HSBC 289.89->340, JPMorgan 460->400, BNP 269.76->269.80) with violent dispersion -- JPM cutting 60 points while HSBC raises 50 -- which is the signature of analysts repositioning immediately ahead of a print. FedEx's fiscal Q1 lands mid-to-late September. Under the ABSOLUTE bar, unresolved ambiguity excludes. SECOND independent ground: FDX is freight and the book already holds UNP, a Class I rail -- one transport idea, not two.",
       "RTX": "REJECT, and it is the instructive one. Technically it looks like the best name on the board -- RSI2 9.6, 200-day rising monotonically over 22 sessions with 0 downticks, mom12-1 +39.95%, no earnings in the window, uncorrelated with the book now that GD has time-stopped out. It fails on TWO of this repo's OWN written discriminators, applied rather than re-derived. (1) _THE_200DAY_GATE_CERTIFIES_DOWNTRENDS: spot 195.10 is BELOW the 20-day 206.15 (-5.36%) AND below the 50-day 208.18 (-6.28%), sitting on the 130-day (+0.07%), with the 50-day ABOVE the 20-day -- the classic downtrend stack. Mean reversion has no mean to revert toward. The 2026-08-31 run measured RTX 'above 50SMA 205.85 by only 0.64% -> passes narrowly'; it has since broken decisively through, so that finding's own prediction has played out. (2) _A_DECLINE_THROUGH_POSITIVE_NEWS_IS_STRONGER_THAN_A_NEWSLESS_DRIFT case (c): RTX has fallen through a DENSE stream of its own good news -- $22.9B Tomahawk award, $603M B-52 radar, $241M F135 modification, F135 ECU design review passed, Poland expansion, Hermeus license, the 09-16 Bharat Forge drone collaboration -- closing 200.79 -> 195.50 over seven sessions. The marginal buyer is absent at this price even when handed a reason. That is the FIRMEST of the three stand-downs, and it is the one most likely to be misread as a bargain because every headline is good.",
-      "PFE": "B -- and a B-GRADE GETS NO POSITION, NOT A SMALL ONE. This is the load-bearing half of Ryan's 2026-09-02 concentration rewrite and the clause a run is most tempted to shave. PFE PASSES the technical stack cleanly: RSI2 7.6, above the 50-day (+4.27%) and 130-day (+4.61%) with only a -1.94% dip below the 20-day and NO downtrend stack, 200-day rising monotonically, mom12-1 +12.10%, -5.68% off the high, no earnings in the window, uncorrelated with ABNB and UNP, non-oil. It fails the HARD RULE 7 thesis gate on the exact axis that made ABNB an A: analyst posture. FactSet average rating is HOLD (not overweight) and the mean PT is $28.49 -- only +3.4% above the 27.54 spot, and BELOW the report's own $28.95 target, so the screen's upside estimate exceeds the street's. Revisions are mixed-to-down (Guggenheim 35->31 on 08-07, BMO 34->30 on 07-13, against BMO 30->35 on 09-09), the mirror image of ABNB's monotonically RISING consensus through its decline. Structural overhang is live and expanding, not fading: the most-favored-nation drug-pricing regime now covers 26 companies with PFE a signatory, and the 6.15% dividend yield is the market pricing that. A 30%-of-account unstopped position needs a thesis with a reason to go UP; 'cheap and oversold with a HOLD rating' is not one."
+      "PFE": "B -- and a B-GRADE GETS NO POSITION, NOT A SMALL ONE. This is the load-bearing half of Ryan's 2026-09-02 concentration rewrite and the clause a run is most tempted to shave. PFE PASSES the technical stack cleanly: RSI2 7.6, above the 50-day (+4.27%) and 130-day (+4.61%) with only a -1.94% dip below the 20-day and NO downtrend stack, 200-day rising monotonically, mom12-1 +12.10%, -5.68% off the high, no earnings in the window, uncorrelated with ABNB and UNP, non-oil. It fails the HARD RULE 7 thesis gate on the exact axis that made ABNB an A: analyst posture. FactSet average rating is HOLD (not overweight) and the mean PT is $28.49 -- only +3.4% above the 27.54 spot, and BELOW the report's own $28.95 target, so the screen's upside estimate exceeds the street's. Revisions are mixed-to-down (Guggenheim 35->31 on 08-07, BMO 34->30 on 07-13, against BMO 30->35 on 09-09), the mirror image of ABNB's monotonically RISING consensus through its decline. Structural overhang is live and expanding, not fading: the most-favored-nation drug-pricing regime now covers 26 companies with PFE a signatory, and the 6.15% dividend yield is the market pricing that. A 30%-of-account unstopped position needs a thesis with a reason to go UP; 'cheap and oversold with a HOLD rating' is not one.",
+      "USB": "C for TODAY -- declined. USB is the ONLY name on the 15:07Z intraday board not covered by the 14:00Z eight-name grade (that refresh dropped GS/RTX/UNP and added USB). It PASSES the trigger and several gates: RSI2 5.1 (Wilder, own daily bars, live print substituted; 20.9 on the settled 09-15 close), above the 130-day +4.57%, non-oil, and CLEAN on [ERN] -- get_earnings_calendar(09-16 +21d, high_market_cap) returned 66 events so NOT degraded-empty, and no USB appears; its Q3 print is mid-October, outside a 14-day hold. It fails on TWO grounds. (1) THE SAME ground that declined BAC/GS/PNC at 14:00Z, applying MORE strongly: a regional bank is the most rate-sensitive name on the board -- NIM, deposit beta and CRE marks all reprice off the dot plot -- and a 30%-of-account position with NO price stop (HARD RULE 5) opened 2h40m before an FOMC decision AND dot plot is an undiagnosed binary the desk has no edge on. This is NOT the options CATALYST BAR smuggled into the equity book (v11 makes macro a sizing input there); it is that at 30% and unstopped the SIZE is what makes the binary unacceptable -- the same logic the concentration policy uses to make [ERN] absolute. Declining three banks at 14:00Z and buying a fourth at 15:15Z on identical logic would be inconsistency, not opportunism. (2) DOWNTREND STACK per this repo's own _THE_200DAY_GATE_CERTIFIES_DOWNTRENDS: spot 61.06 is below the 20-day 62.56 (-2.39%) AND below the 50-day 63.17 (-3.34%), with the 50-day ABOVE the 20-day. Milder than the RTX case (-5.4%/-6.3%) but the same sign structure -- mean reversion with no mean to revert toward. Corroborating, not load-bearing: USB is -1.86% today while SPY is +0.41% and QQQ +0.90%, i.e. falling against a rising tape into the event, which reads as sector de-risking rather than an idiosyncratic dip."
     },
-    "the_honest_summary": "The board's one technically-clean name fails the thesis gate and the board's one thesis-rich name fails the technical gate. Declining both is the correct output, not an absence of one. FEWER MUST MEAN MORE SELECTIVE, NEVER MERELY BIGGER -- concentration does not raise expected return, so filling a 30% slot with the best of a weak board adds variance for nothing."
+    "the_honest_summary": "The board's one technically-clean name fails the thesis gate and the board's one thesis-rich name fails the technical gate. Declining both is the correct output, not an absence of one. FEWER MUST MEAN MORE SELECTIVE, NEVER MERELY BIGGER -- concentration does not raise expected return, so filling a 30% slot with the best of a weak board adds variance for nothing.",
+    "UPDATED_2026-09-16T15:15Z": "A NEWER report landed after this key was written: latest_intraday.md 15:07Z (commit 50fb402). Its board is NOT identical to the 14:00Z morning-report grade -- it DROPS GS, RTX and UNP and ADDS USB. Every retained name keeps the ground recorded in .grades below; USB is graded fresh in .grades.USB. Outcome unchanged: NO ENTRY, and capital was not binding (deployable $1,416.00 vs the $600 minimum, 1-2 open slots of the 3-4 target, per-name cap $1,161.17)."
   },
   "_closed_positions": [
     {
@@ -911,38 +913,39 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-16T15:00:00Z",
+    "run_utc": "2026-09-16T15:15:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-16",
     "prompt": "v11 (stamp read on this run's own invocation)",
-    "reconciliation": "ZERO DRIFT both books vs broker at 15:01Z. ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, both fully sellable. Options 2 long SPY 2026-09-17 legs, placed_agent='user'. get_equity_orders(created_at_gte=2026-09-16) EMPTY.",
+    "reconciliation": "ZERO DRIFT both books vs broker at 15:16Z. ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, both fully sellable. Options 2 long SPY 2026-09-17 legs, placed_agent='user' (gate engaged). get_equity_orders(created_at_gte=2026-09-16) EMPTY -- no sibling fill.",
     "capital": {
-      "total_value": 3870.61196704,
+      "total_value": 3870.57385726,
       "cash": 1609.52,
       "unleveraged_buying_power": 1609.52,
       "buying_power": 1609.52,
-      "equity_value": 2213.09196704,
-      "options_value": 48.0,
+      "equity_value": 2210.05385726,
+      "options_value": 51.0,
       "operational_reserve_5pct": 193.53,
-      "deployable": 1415.99,
-      "per_name_cap_30pct": 1161.18,
+      "deployable": 1416.0,
+      "per_name_cap_30pct": 1161.17,
       "no_margin": "buying_power == unleveraged_buying_power exactly; FOUR LAWS #4 unambiguous."
     },
     "tape_numbers_only": {
-      "SPY": 760.5,
-      "QQQ": 710.915,
-      "ABNB": 169.84,
-      "UNP": 284.32,
-      "_note": "Numbers, not a verdict. FOMC decision + SEP 18:00Z can withdraw any label formed this morning."
+      "SPY": 760.488,
+      "QQQ": 710.89,
+      "ABNB": 169.41,
+      "UNP": 284.18,
+      "USB": 61.06,
+      "_note": "Numbers, not a verdict. FOMC decision + dot plot 18:00Z can withdraw any label formed this morning."
     },
-    "duties_this_run": "Re-verification only. Nothing new measured, no durable finding minted, no artifact rolled. Heartbeat/brief/cap/throttles owned by the 13:30-13:40Z run; IV sweep by the 13:30Z sibling; board grade by the 14:00Z run.",
+    "duties_this_run": "Graded the one genuinely new board name (USB) into _last_entry_evaluation. Heartbeat 13:40Z, brief stamped, throttles reset by the 13:40Z run, IV sweep by the 13:30Z sibling -- none owed here. Daily report due at the first run >=19:15Z.",
     "why_flat": {
-      "equities": "No entry -- origin/master re-fetched, still no report newer than 14:06Z be53ed2; board identical to the 14:00Z eight-name grade. Capital was NOT binding and must not be recorded as the reason.",
-      "equity_exit": "None fires and both are DETERMINATE at bid and ask. ABNB 53.7/55.3 (GREEN +0.188%, RSI2 leg unmet); UNP 44.9/53.0 (RED -0.276%, both legs fail). Neither green-enough; time stop 2026-09-24 for both.",
-      "options": "No CORE entry. 0 of 3 open, 0 of 3 entries. FOMC event vol sits in every 21-45 DTE board and crushes at 18:00Z; macro is a sizing input under v11, not a bar, and the desk still holds no thesis worth that carry.",
-      "day_track": "Done for the day -- one trade per trading day and the paper stop was hit at 13:36Z."
+      "equities": "No entry. Board re-read off the FRESH 15:07Z report rather than assumed identical to the 14:00Z grade -- USB was new and is declined on two stated grounds. Capital was NOT binding and must not be recorded as the reason.",
+      "equity_exit": "None fires. RSI2 Wilder off own bars with the live print: ABNB 49.1 (21.8 settled), UNP 33.0 (21.6) -- far under 70. BOTH RED (ABNB -0.065%, UNP -0.326%), so the profit-banking gate fails on the PRICE leg too, which is determinative regardless of RSI2. Neither green-enough (199.44 / 335.42). Time stop 2026-09-24 for both, outside the 3-day warn.",
+      "options": "No CORE entry. 0 of 3 open, 0 of 3 entries, $0.00 vs the -$400 cap. FOMC event vol sits in every 21-45 DTE board and crushes at 18:00Z; macro is a sizing input under v11, not a bar, and the desk holds no thesis worth that carry.",
+      "day_track": "Done for the day -- one trade per trading day and the paper stop was hit at 13:36Z (-1.00R). graduate() 2d/2 vs 10d/8 -> FALSE; phase is Monday-only."
     },
-    "cash_hold": "_cash_hold remains LIVE and correctly un-dissolved -- trigger is the 18:00Z release, which has not occurred. The FIRST run after it, or any run on/after 2026-09-17, DELETES it. Never renewed."
+    "cash_hold": "_cash_hold remains LIVE and correctly un-dissolved -- its trigger is the 18:00Z release, which has not occurred. The FIRST run after it, or any run on/after 2026-09-17, DELETES it. Never renewed."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
