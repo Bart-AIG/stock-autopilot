@@ -37901,6 +37901,36 @@
         "day_track": "Nothing owed. Paper day 2 spent and closed (-1.00R). One trade/day. Phase stays PAPER (2d/2 signals vs 10/8); earliest go-live is a Monday on or after 09-28 and no run promotes it mid-week."
       },
       "duties": "Heartbeat 13:40Z; brief 09-16; no new options name so no iv_history row owed; daily report due at the first run >=19:15Z. FLAG FOR THE FIRST RUN AT/AFTER 18:00Z: _cash_hold expires ON the FOMC release and must be DELETED, not renewed."
+    },
+    {
+      "run_utc": "2026-09-16T18:00:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-16",
+      "headline": "No trade in any book. ONE ACTION: the _cash_hold DISSOLVED and was DELETED on its own written mechanics -- this is the first run after the 18:00Z FOMC decision, and the release was verified from the tape rather than assumed from the clock. The re-grade it was waiting for is NOT yet performable, which is the new finding.",
+      "reconciliation": "BROKER FIRST per the 2026-08-28 rule. get_equity_positions: IBKR 8.109516 @ 87.30, ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, all fully sellable, zero held. get_option_positions: both SPY 2026-09-17 legs present (770C @ 27.00, 731P @ 28.00), placed_agent='user'. Ledger carries 5 rows = 3 equities + Ryan's 2 legs; matches the broker one-for-one. ZERO DRIFT both books. get_equity_orders(>=09-16): still only the ledgered 16:24:37Z IBKR fill -- sibling check clean. get_option_orders(>=09-16): only Ryan's own 17:13:38Z sell-to-close limit on the 770C (order 6aaace42, 0.50 credit, processed 0, still working) -- ownership gate engaged, no cancel, no re-price, no notification owed. Capital: total_value $3,853.09; cash == buying_power == unleveraged_buying_power == $901.56 (no margin, FOUR LAWS #4 unambiguous); equity_value $2,910.53, options_value $41.00; reserve 5% $192.65, DEPLOYABLE $708.91, per-name cap 30% $1,155.93. Throttles READ from _realized_options_pnl_today, not typed: equities 1 of 3, options 0 of 3, realized options P/L $0.00 vs the -$400 cap.",
+      "action_taken": {
+        "what": "_cash_hold DELETED and archived to _cash_hold_history_2026-09-14_to_2026-09-16. Not renewed, not extended, not re-argued -- renewal is unavailable to an unattended run and none is claimed.",
+        "authority": "The hold's OWN expiry_mechanics: 'dissolves immediately upon the 09-16 decision being released, or the first run on or after 2026-09-17, whichever comes first' and 'the first run after 18:00Z DELETES it'. The 17:30Z and 17:50Z runs both handed this forward explicitly. This run is the first after 18:00Z (prior entry 17:50Z).",
+        "release_verified_not_assumed": "The 18:00Z one-minute bar: SPY volume 283,880 against a 17:40-17:59Z twenty-bar mean of 19,816 = 14.3x, on a 1.457-pt range where prior bars ran ~0.15; QQQ 184,765 against 25,599 = 7.2x on a 1.630-pt range. That signature is the decision landing. The run did not infer the release from the wall clock -- it is 58 seconds past 18:00Z and a clock-only inference would have been a coin flip."
+      },
+      "tape_numbers_only": {
+        "SPY": 759.66,
+        "QQQ": 709.53,
+        "IBKR": 87.17,
+        "ABNB": 168.575,
+        "UNP": 283.41,
+        "quotes_utc": "2026-09-16T18:00:48-18:00:58Z",
+        "fomc_minute_bar": "SPY open 760.1816 / high 760.9789 / close 759.670 -- closed 0.5116 BELOW its own open, 164% of the pop given back. QQQ open 710.210 / high 711.070 / close 709.690, -0.520, 160% given back.",
+        "note": "Numbers, not a verdict. Per the 2026-08-28 Warsh finding a full retrace is evidence the event is UNRESOLVED, which is a statement about resolution and not about direction. Powell's press conference 18:30Z."
+      },
+      "why_flat": {
+        "equity_exits": "NO SALE, determinate on the cheapest leg alone: ALL THREE POSITIONS ARE RED at the live bid -- ABNB 168.44 vs 169.5209 (-0.64%), UNP 283.32 vs 285.1071 (-0.63%), IBKR 87.17 vs 87.2999 (-0.15%). The RSI2>=70 take-profit requires a GREEN position (2026-08-26 correction: an RSI2 print on an underwater name is an OPTIONAL exit-into-strength routed to thesis, never a mechanical loss-realization), so the GREEN precondition is shut on all three whatever RSI2 does. Time stops 2026-09-24 (ABNB, UNP -- 6 of 14 days, outside the 3-day warn) and 2026-09-30 (IBKR). Targets 183.08 / 298.32 / 96.14 and trail triggers 199.44 / 335.42 / 102.71: none near. No target hit, no time stop, no trail crossing.",
+        "equity_entries": "None. CAPITAL DECLINED NOTHING -- deployable $708.91 clears the $600 minimum and the 4th slot of the 3-4 target is open, and with the hold dissolved there is now no disclosure of any kind sitting on this capital. THE BAR declined it: the whole live board was graded earlier today with zero A-names (FDX B+ at 17:25Z closed the last deferral; BAC/USB bank-cohort de-rating; LRCX/AMAT B/B-; PFE/CVS pharma policy de-rating; WMB excluded on the oil-energy steer), the 17:50Z delta check found the ungraded delta ZERO, and the only report on master is the 17:35Z board computed BEFORE the decision. Entering off a pre-decision screen during an unresolved event minute is the artifact this ledger has recorded repeatedly.",
+        "options": "No entry. 0 of 3 slots, 0 of 3 entries, $0.00 vs the -$400 cap. Under v11 macro is a SIZING input and not a bar -- but 'not a bar' does not supply a thesis, and no CORE thesis exists. Opening premium 30 minutes before the press conference, on the day's widest spreads, with no setup, is the boredom entry the prompt forbids. TACTICAL is retired.",
+        "day_track": "Nothing owed. Paper day 2 spent and CLOSED at -1.00R; one trade per trading day. Phase stays PAPER -- 2 days / 2 signals against paper_min_days 10 and paper_min_signals 8, so the earliest arithmetically possible go-live is a Monday on or after 2026-09-28. A live v11 stamp is NOT a graduation, and no run promotes the phase mid-week."
+      },
+      "new_durable_finding": "_A_CASH_HOLDS_TRIGGER_AND_ITS_OPPORTUNITY_ARE_TWO_DIFFERENT_EVENTS_2026-09-16 -- named here, argued there. A hold's expiry trigger firing does not deliver the opportunity it was waiting for: the trigger was 'the decision is released' and the actionability condition is 'a post-decision report exists on master AND the tape has settled'. Both obvious readings are wrong -- treating dissolution as a green light manufactures an entry, treating the un-actionable opportunity as grounds to renew manufactures a floor.",
+      "duties": "Heartbeat stamped 13:40Z. Brief stamped 09-16. No new options name evaluated, so no iv_history row owed. Daily report due at the first run >=19:15Z -- not this run. Calibration is Monday-only. HARD RULE 9 untouched: no flag cleared, no Ryan turn claimed or quoted."
     }
   ]
 }
