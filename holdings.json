@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-16T14:31:00Z",
+  "updated_utc": "2026-09-16T14:45:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-16",
     "realized_usd_options": 0.0,
@@ -911,40 +911,38 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-16T14:00:00Z",
+    "run_utc": "2026-09-16T14:45:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-16",
     "prompt": "v11 (stamp read on this run's own invocation)",
-    "reconciliation": "ZERO DRIFT both books vs broker at 14:00Z. ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, both fully sellable. Options 2 long SPY 2026-09-17 legs (770C avg 27.00, 731P avg 28.00), placed_agent='user'. get_equity_orders(created_at_gte=2026-09-16) EMPTY.",
+    "reconciliation": "ZERO DRIFT both books vs broker at 14:45Z. ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, both fully sellable. Options 2 long SPY 2026-09-17 legs, placed_agent='user'. get_equity_orders(created_at_gte=2026-09-16) EMPTY.",
     "capital": {
-      "total_value": 3855.93366001,
+      "total_value": 3861.94849969,
       "cash": 1609.52,
       "unleveraged_buying_power": 1609.52,
       "buying_power": 1609.52,
-      "equity_value": 2204.41366001,
-      "options_value": 42.0,
-      "operational_reserve_5pct": 192.8,
-      "deployable": 1416.72,
-      "per_name_cap_30pct": 1156.78,
+      "equity_value": 2211.42849969,
+      "options_value": 41.0,
+      "operational_reserve_5pct": 193.1,
+      "deployable": 1416.42,
+      "per_name_cap_30pct": 1158.58,
       "no_margin": "buying_power == unleveraged_buying_power exactly; FOUR LAWS #4 unambiguous."
     },
     "tape_numbers_only": {
-      "SPY": 760.1101,
-      "SPY_pct": 0.36,
-      "QQQ": 710.01,
-      "QQQ_pct": 0.78,
-      "ABNB": 169.18,
-      "UNP": 283.11,
-      "_note": "Numbers, not a verdict. FOMC decision + SEP 18:00Z, so this is pre-event positioning and a directional read off it can fully invert before the next run fires."
+      "SPY": 759.86,
+      "QQQ": 710.06,
+      "ABNB": 169.355,
+      "UNP": 284.63,
+      "_note": "Numbers, not a verdict. FOMC decision + SEP 18:00Z; a directional read off a pre-event tape can fully invert before the next run fires."
     },
-    "duties_this_run": "DAY TRACK paper day 2 CLOSED at the stop (-1.00R) and the concurrent run's 14:00Z +2.44R ratchet SUPERSEDED with evidence, its record preserved. UNP armed take-profit RESOLVED against today's fresh report. Full equity board screened, every name graded. Three durable findings written. Heartbeat/brief/cap/throttles owned by the 13:30Z run, untouched.",
+    "duties_this_run": "Re-verification only. Nothing new measured, no durable finding minted, no artifact rolled. Heartbeat/brief/cap/throttles owned by the 13:30-13:40Z run; IV sweep owned by the 13:30Z sibling; board grade owned by the 14:00Z run.",
     "why_flat": {
-      "equities": "No entry -- see _last_entry_evaluation for all eight names graded. Capital was NOT binding and must not be recorded as the reason.",
-      "equity_exit": "None fires. UNP falsified against the fresh report; ABNB RSI2 45.1 and red. Neither green-enough; both time-stop 2026-09-24.",
-      "options": "No CORE entry. Declined on the merits: the FOMC decision + dot plot land 18:00Z, so every 21-45 DTE board carries event vol that mechanically crushes on the release. v11 makes macro a SIZING input rather than a bar, and the honest answer is still that buying premium hours before a known crush needs a thesis the desk does not have. Book 0 of 3 open, 0 of 3 entries, realized $0.00 vs the -$400 cap.",
-      "day_track": "Done for the day -- one trade per trading day and the stop was hit at 13:36Z. No re-entry on 2026-09-16."
+      "equities": "No entry -- board identical to the 14:00Z eight-name grade, no newer report. Capital was NOT binding and must not be recorded as the reason.",
+      "equity_exit": "None fires. ABNB RSI2 48.2 red, UNP RSI2 50.3 red -- both legs of the profit-banking gate fail. Neither green-enough; both time-stop 2026-09-24.",
+      "options": "No CORE entry. 0 of 3 open, 0 of 3 entries. The 21-45 DTE boards carry FOMC event vol that crushes on the 18:00Z release; v11 makes macro a sizing input rather than a bar, and the honest answer is still that the desk holds no thesis worth paying that carry for.",
+      "day_track": "Done for the day -- one trade per trading day and the stop was hit at 13:36Z."
     },
-    "cash_hold": "_cash_hold remains LIVE and correctly un-dissolved -- its trigger is the 18:00Z release, which has not occurred. The FIRST run after it, or any run on/after 2026-09-17, DELETES it. Never renewed."
+    "cash_hold": "_cash_hold remains LIVE and correctly un-dissolved -- trigger is the 18:00Z release, which has not occurred. The FIRST run after it, or any run on/after 2026-09-17, DELETES it. Never renewed."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
