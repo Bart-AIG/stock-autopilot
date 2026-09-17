@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-17T16:47:00Z",
+  "updated_utc": "2026-09-17T18:25:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-17",
     "realized_usd_options": -360.0,
@@ -737,16 +737,9 @@
     "_concurrent_run_note": "TWO CONCURRENT 19:15Z RUNS EACH OWNED AND WROTE THIS DUTY. The sibling's commit reached master first (PR #1658) and IS the delivery; the second run (19:20Z, PR #1659) discarded its own draft rather than rewriting the file, because the standing rule is exactly ONE report per day and every master push touching it re-notifies Ryan. The two drafts agreed independently on every material reading -- the board doubling 9 -> 19, LRCX declined on its sector-relative de-rating, zero A-grades, all three positions red with no exit firing -- which is cross-validation, not a conflict. The second run's unique contribution, the IBKR post-FOMC two-channel verdict, is preserved as a durable ledger key rather than forced into the report."
   },
   "_last_reconciliation": {
-    "utc": "2026-09-15T19:45:00Z",
-    "result": "ZERO DRIFT both books",
-    "equities": 2,
-    "options_positions": 2,
-    "options_all_user_placed": true,
-    "total_value": 3865.21,
-    "cash": 1609.52,
-    "unleveraged_buying_power": 1609.52,
-    "reserve_5pct": 193.26,
-    "deployable": 1416.26
+    "utc": "2026-09-17T18:18:45-18:19:55Z",
+    "result": "ZERO DRIFT both books vs broker.",
+    "detail": "get_accounts: 718757339 limited_margin / option_level_3 / agentic_allowed, unsettled_funds $149.90 (Ryan's VLO close proceeds; instant settlement, does not bind). get_equity_positions 3/3 exactly matching the ledger, all shares_available_for_sells == quantity, zero held. get_option_positions 2 contracts / 2 rows, qty 1.0 each at 0.27 / 0.28, all pending_* zero. get_equity_orders(created_at_gte=2026-09-17) EMPTY. get_option_orders(created_at_gte=2026-09-17) returns only Ryan's VLO 390P close 6aabff68 (2 @ 0.75, placed_agent='user') and its cancelled 1.30 predecessor -- NO sibling fill, no unexplained order. HEAD reset to origin/master 7ba371d before any read, per the stale-clone rule."
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
@@ -994,25 +987,26 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-17T16:20:00Z",
+    "run_utc": "2026-09-17T18:18:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-17",
     "capital": {
-      "total_value": 3439.0,
+      "total_value": 3440.52,
       "cash": 541.38,
       "unleveraged_buying_power": 541.38,
-      "equity_value": 2894.62,
+      "equity_value": 2896.14,
       "options_value": 3.0,
-      "operational_reserve_5pct": 171.95,
-      "deployable": 369.43,
-      "note": "cash == unleveraged_buying_power, so no margin is extended and FOUR LAWS #4 is unambiguous. Deployable $369.43 sits below BOTH the ~$600 CONCENTRATION-POLICY minimum entry and the $500-1,000 CORE options band, so both live books are shut on capital alone, before any other gate."
+      "operational_reserve_5pct": 172.03,
+      "deployable": 369.35,
+      "note": "cash == buying_power == unleveraged_buying_power, so no margin is extended and FOUR LAWS #4 is unambiguous. get_accounts reports unsettled_funds $149.90 -- the proceeds of Ryan's VLO 390P close; the account is limited_margin so settlement is instant and this does not bind. Deployable $369.35 is below BOTH the ~$600 CONCENTRATION-POLICY minimum entry and the $500-1,000 CORE options band, so both live books are shut on capital alone, before any other gate."
     },
     "books": {
-      "equities": "3 of the 3-4 target slots: ABNB / UNP / IBKR, all placed_agent='agentic'. No exit fired. IBKR is the only green name (+1.50%) and sits 2.03% below its 90.45 RSI2>=70 trigger, so the take-profit is unreachable this run; ABNB (-2.04%) and UNP (-1.49%) are underwater, where an RSI2 print is the OPTIONAL exit-into-strength routed to thesis, never a mechanical exit. Time stops 09-24 / 09-24 / 09-30, none due. No green-enough trail crossing (needs 199.44 / 335.42 / 102.71).",
-      "options": "2 ledger rows / 2 contracts, both placed_agent='user' (Ryan's SPY 2026-09-17 731P + 770C strangle), ownership gate engaged, notify-once discharged 2026-09-15. Both expire TODAY far OTM with SPY 762.24 -- 731P 31.24 OTM, 770C 7.76 OTM -- so they lapse worthless with no assignment risk and nothing owed operationally. Agentic book 0 of 3 CORE slots, 0 of 3 entries; closed for the day on the cap AND on capital.",
-      "day_track": "PAPER and PAUSED for the rest of the week (3 consecutive losing days AND week at -3.00R). Paper day 3 stopped at its stop 14:27Z at -1.00R; nothing open, the day's single trade is spent. graduate() -> FALSE (3d/3 trades of the 10d/8 gate). The v11 stop-authority lock is discharged; graduate() is the sole remaining lock and the phase is never promoted mid-week."
+      "equities": "3 of the 3-4 target slots: ABNB / UNP / IBKR, all placed_agent='agentic', all fully sellable, none held for sells. No exit fired on any of the three mechanisms. IBKR is the only green name (+1.53% at 88.64) and sits 2.04% below its 90.45 RSI2>=70 trigger; ABNB (-2.17% at 165.8479) and UNP (-1.06% at 282.09) are underwater, where an RSI2 print is the OPTIONAL exit-into-strength routed to thesis, never a mechanical exit. Time stops 09-24 / 09-24 / 09-30, none due or in the 3-day warn window. No green-enough trail crossing (needs 199.44 / 335.42 / 102.71).",
+      "options": "2 ledger rows / 2 contracts, both placed_agent='user' (Ryan's SPY 2026-09-17 731P + 770C strangle), all pending_* zero, ownership gate engaged, notify-once discharged 2026-09-15. Both expire TODAY far OTM with SPY at 762.87 -- 731P 31.87 OTM, 770C 7.13 OTM -- so they lapse worthless with no assignment risk and nothing owed operationally. Agentic book 0 of 3 CORE slots, 0 of 3 entries. Shut on CAPITAL ($369.35 < the $500 low end); the -$400 cap is 90% spent (-$360 realized, +$40 headroom, READ from _realized_options_pnl_today not typed) but NOT hit, so under FOUR LAWS #2 it gates nothing.",
+      "day_track": "PAPER and PAUSED through Friday 2026-09-19. Re-verified from the code this run rather than inherited: track_status(3440.52, [-1,-1,-1], [-1,-1,-1]) -> paused, '3 consecutive losing days -- rest of week'; graduate(3, [-1,-1,-1]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. Equity $3,440.52 is well above the $2,600 floor so that condition is not implicated. Paper day 3 stopped out 14:27Z; the day's one trade is spent and nothing is open to manage. The v11 stop-authority lock is discharged; graduate() is the sole remaining lock and is never promoted mid-week."
     },
-    "verdict": "FLAT all three books, no new decision and no new finding. This run fired ~3 minutes behind the 16:16Z one onto an unchanged tape (SPY identical at 762.24); its only contribution is the broker re-reconciliation, which is the one check always worth repeating because it is how an unauthorized fill or an assignment would surface."
+    "verdict": "FLAT all three books, no order in either live book, no exit reachable and no entry fundable. ONE piece of new work, and it is a repair rather than a trade: the DAY TRACK's canonical flat row fields (r_multiple / exit_reason / pnl_usd / entry) were absent from all five stored rows, leaving the pause and graduation gates readable only by hand -- and a defensive machine read UNPAUSED the track. Repaired additively across both stores and verified to reproduce the identical verdicts. See _THE_DAY_TRACKS_TWO_SAFETY_GATES_ARE_FED_BY_HAND_AND_THE_MACHINE_PATH_IS_BROKEN_OR_UNSAFE_2026-09-17.",
+    "duties": "Heartbeat stamped 13:33Z. market_brief stamped 13:35Z. iv_history carries a 2026-09-17 row for all eight core names (n=27 each). Daily report NOT due -- the v11 threshold is the first run at/after 2:15 PM CT = 19:15Z and this run is 18:18Z; master carries the 2026-09-16 report. Weekly calibration is Monday-only (today is Thursday); Friday review not due."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -5622,7 +5616,13 @@
         },
         "capital_note": "Paper only -- no order placed, none placeable: _DAY_TRACK.status is PAPER and LIVE additionally requires the v11 stamp, while this run was invoked with v10. Sizing used deployable $1,470.86 (unleveraged_buying_power $1,664.60 minus the 5% operational reserve $193.74). NOTE THE COLLISION AND THAT IT IS UNRESOLVED IN THE SPEC: $1,470.92 of that same cash is under the LIVE _cash_hold for the 2026-09-16 FOMC. _DAY_TRACK.capital_priority says the day trade claims deployable cash at its entry run, and a day-track position is flat by 15:30 ET the same session so it never spans the catalyst the hold is waiting on -- but the two rules have not been read against each other by anyone with authority to settle it. In PAPER this costs nothing. BEFORE THE TRACK GOES LIVE Ryan should say which claim wins; see holdings.json._DAY_TRACK_VS_CASH_HOLD_UNSETTLED_2026-09-15.",
         "quote_provenance": "Both venue timestamps are at/after 13:35Z, i.e. OUTSIDE the opening auction window, so this row satisfies the standing re-quote rule. The 13:31-13:33Z quotes taken earlier in the run were NOT used for it.",
-        "bugs_found_and_fixed_by_this_row": "Two, both in day_track.plan_entry, both caught only because this was the first SHORT signal the track ever produced. See holdings.json._DAY_TRACK_SHORT_SIDE_SIZED_IN_THE_WRONG_INSTRUMENT_2026-09-15."
+        "bugs_found_and_fixed_by_this_row": "Two, both in day_track.plan_entry, both caught only because this was the first SHORT signal the track ever produced. See holdings.json._DAY_TRACK_SHORT_SIDE_SIZED_IN_THE_WRONG_INSTRUMENT_2026-09-15.",
+        "entry": 26.195,
+        "exit_px": 26.1671,
+        "exit_reason": "stop level reached (day_track.manage -> 'close')",
+        "r_multiple": -1.0,
+        "pnl_usd": -1.56,
+        "_flat_field_provenance": "Flat canonical fields required by routine prompt v11 ('PAPER rows go to day_track_paper.json with the same shape plus phase' -> {date, direction, vehicle, entry, exit, exit_reason, r_multiple, pnl_usd}). They were ABSENT from every stored row, so a programmatic read by those names returned None. Added here as DERIVED ALIASES of the rich fields that were always present; nothing was recomputed and no rich field was altered. entry <- entry_px_vehicle (the instrument actually traded, matching 'vehicle'); exit_px <- exit.exit_px_vehicle; exit_reason <- exit.reason; r_multiple <- exit.r_realized; pnl_usd <- exit.pnl_usd. See holdings.json._THE_DAY_TRACKS_TWO_SAFETY_GATES_ARE_FED_BY_HAND_AND_THE_MACHINE_PATH_IS_BROKEN_OR_UNSAFE_2026-09-17."
       },
       {
         "phase": "paper",
@@ -5716,7 +5716,13 @@
           "SUPERSEDES_THE_14_00Z_RATCHET_AND_WHY": "The concurrent 13:45Z run's management pass (preserved in full in this row's 'management' array, and NOT deleted) ratcheted the stop 707.86 -> 708.95 at +2.44R and left status 'open'. That pass was correct in every step it took and is wrong in its conclusion, because the position it managed had already stopped 24 minutes earlier. A stop cannot ratchet after it has been hit, so the 708.95 level never existed and the row's outcome is -1.00R, not an open winner. The 2.44R figure, the ATR5 measurement and the finding it produced (_DAY_TRACK_EARLY_SESSION_ATR14_5MIN_IS_MOSTLY_YESTERDAY_2026-09-16) are all independently valid and are kept. Root cause, and it is the durable lesson: _DAY_TRACK_IN_PAPER_manage_MUST_BE_FED_THE_ADVERSE_EXTREME_SINCE_THE_LAST_PASS_NOT_THE_CURRENT_PRICE_2026-09-16.",
           "counterfactual_not_a_result": "QQQ traded 710.01 at 14:01:05Z. Had the stop not been taken the position would be ~+2.8R. THIS IS A LIVE MARK, NOT A RESULT. It is recorded only because it is the second consecutive paper day on which the DIRECTION was right and the stop was removed by sub-2-minute noise -- see _DAY_TRACK_BOTH_PAPER_SIGNALS_WERE_DIRECTIONALLY_RIGHT_AND_BOTH_STOPPED_INSIDE_TWO_MINUTES_2026-09-16.",
           "finding": "holdings.json._DAY_TRACK_IN_PAPER_manage_MUST_BE_FED_THE_ADVERSE_EXTREME_SINCE_THE_LAST_PASS_NOT_THE_CURRENT_PRICE_2026-09-16"
-        }
+        },
+        "entry": 708.43,
+        "exit_px": 707.86,
+        "exit_reason": "stop level reached (initial stop 707.86, breached 13:36Z)",
+        "r_multiple": -1.0,
+        "pnl_usd": -0.57,
+        "_flat_field_provenance": "Flat canonical fields required by routine prompt v11 ('PAPER rows go to day_track_paper.json with the same shape plus phase' -> {date, direction, vehicle, entry, exit, exit_reason, r_multiple, pnl_usd}). They were ABSENT from every stored row, so a programmatic read by those names returned None. Added here as DERIVED ALIASES of the rich fields that were always present; nothing was recomputed and no rich field was altered. entry <- entry_px_vehicle (the instrument actually traded, matching 'vehicle'); exit_px <- exit.exit_px_vehicle; exit_reason <- exit.reason; r_multiple <- exit.r_realized; pnl_usd <- exit.pnl_usd. See holdings.json._THE_DAY_TRACKS_TWO_SAFETY_GATES_ARE_FED_BY_HAND_AND_THE_MACHINE_PATH_IS_BROKEN_OR_UNSAFE_2026-09-17."
       }
     ],
     "graduation": {
@@ -6612,5 +6618,23 @@
       "honest_scope": "This changed no decision. BMY graded out to B on merit (tape divergence: -0.70% against SPY +1.09% and its own XLV +0.40%; weakest RSI2 on its own board at 8.7, behind the held ABNB at 7.8; 1.01% under a rising 50-day), and the equity book was shut on capital anyway with deployable $369.36 against a ~$600 minimum. A process finding is only creditable when the audit does not license a trade.",
       "not_a_new_gate": "This adds NO screen, filter or duty to the equity book. It is a note-taking rule about how a coverage claim is written."
     }
+  },
+  "_THE_DAY_TRACKS_TWO_SAFETY_GATES_ARE_FED_BY_HAND_AND_THE_MACHINE_PATH_IS_BROKEN_OR_UNSAFE_2026-09-17": {
+    "measured_utc": "2026-09-17T18:25:00Z",
+    "measured_by": "scheduled run 18:18Z 2026-09-17 (unattended, prompt v11), market-hours re-verification",
+    "headline": "The DAY TRACK's only two safety gates -- track_status() (the pause) and graduate() (the PAPER->LIVE lock) -- take R-multiple LISTS, and every run so far has hand-assembled those lists by reading prose. The canonical flat fields the v11 prompt names (r_multiple, exit_reason, pnl_usd, entry) were ABSENT from all five stored rows, so the machine-readable path was either broken or UNSAFE depending on how a run defended against the absence. Repaired additively; verdicts unchanged.",
+    "why_it_matters_now": "The PAPER gate was doubly locked and the prompt-version lock opened on 2026-09-15, leaving graduate() as the SOLE remaining lock on trading this track with real money and a resting broker stop. A gate that is the only gate should not be fed by transcription.",
+    "measured_three_read_paths": {
+      "A_flat_fields_as_v11_names_them": "[None, None, None] -- track_status RAISES TypeError (\"'<' not supported between instances of 'NoneType' and 'int'\"); graduate returns False but ONLY because the paper_days<10 short-circuit fires before it ever touches the R values. At the 10d/8-trade gate it raises too.",
+      "B_hand_assembled_from_exit_r_realized": "[-1.0, -1.0, -1.0] -- correct: paused, not graduated. This is what every run has actually been doing, by reading the prose in status_note.",
+      "C_the_natural_defensive_None_filter": "[] -- track_status returns {'paused': False, 'reason': 'active'}. THE PAUSE SILENTLY LIFTS. graduate stays False only incidentally, because dropping rows lowers the COUNT below the minimum, not because anything validated the values."
+    },
+    "the_asymmetry_which_is_the_transferable_part": "The two gates fail in OPPOSITE directions under the same defensive read. The graduation gate is count-based, so dropped rows make it MORE conservative -- it fails safe, for the wrong reason. The pause gate is content-based ('are the last 3 all negative', 'is the week's sum <= -3R'), so dropped LOSSES look like NO losses -- it fails OPEN. A run that hardens its parsing against a missing field therefore unpauses a track that three consecutive stop-outs had correctly halted. Demonstrated at the real gate size too: graduate(10, [1,1,1,1,1,-1,1,1]) -> go_live TRUE, so once the sample is large enough, dropping losers from the list flips the verdict.",
+    "class": "'Fails toward silence, not error' -- the family _A_KEY_RENAME_IN_A_TIME_SERIES_FAILS_TOWARD_SILENCE_NOT_ERROR already names, and the derived-field-set family of CLAUDE.md's lot-count rule. It is also the SECOND derived-field repair on these same rows: the 09-16 row already carries a stop_field_repair key from a prior run fixing stop_px_signal one field at a time. That run repaired a member; this one repairs the SET, which is what the lot-count rule actually asks for.",
+    "repair_applied": "ADDITIVE ONLY. All five rows (3 in day_track_paper.json, 2 in _DAY_TRACK.results) gained entry / exit_px / exit_reason / r_multiple / pnl_usd as derived aliases of the rich fields, each row carrying a _flat_field_provenance string naming the source field for every alias. No rich field was altered, nothing was recomputed, no row's outcome changed.",
+    "verified_after": "All three read paths now return [-1.0, -1.0, -1.0] and all three reproduce the SAME verdicts the hand-assembled numbers gave: track_status(3440.52, ...) -> paused, '3 consecutive losing days -- rest of week'; graduate(3, ...) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. THE REPAIR CHANGED HOW THE ROWS READ, NOT WHAT THEY SAY HAPPENED -- which is the only form this repair was allowed to take.",
+    "assert_before_committing_any_new_day_track_row": "len([r for r in rows if r.get('r_multiple') is not None]) == len([r for r in rows if isinstance(r.get('exit'), dict)]), and for each closed row r['r_multiple'] == r['exit']['r_realized'] and r['pnl_usd'] == r['exit']['pnl_usd']. Three lines of arithmetic; a human reading the row does not catch this, which is why five rows carried it past every reconciliation.",
+    "NOT_applied_and_why": "day_track.py was NOT hardened, though it could be: a None-guard in track_status that raised instead of returning a verdict would remove path C entirely. docs/day-track-spec.md forbids an unattended run editing the track's rules, and track_status is one of them -- a change there could in principle alter a pause outcome. RECOMMENDATION FOR RYAN / an interactive session: add an input assertion to track_status and graduate rejecting any list containing None. A short list must stay legal (len(tail)==PAUSE_CONSEC_LOSSES already handles an early sample correctly), so the guard is None-specific, not length-specific.",
+    "changed_no_decision_today": "The track is paused through Friday 2026-09-19 on both the old and the repaired read, graduate() is False on both, and nothing was placeable in any book this run. A safety gate's inputs can only be audited credibly on a run where the audit does not license anything -- the standard this repo holds every filter audit to."
   }
 }
