@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-17T13:25:00Z",
+  "updated_utc": "2026-09-17T14:20:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-17",
     "realized_usd_options": 0.0,
@@ -27,21 +27,23 @@
       "_note": "placed_agent='agentic' -- AUTONOMOUS equity entry under HARD RULE 6 / prompt v10 THE EQUITY BOOK, signal-sourced from the committed report on master (latest_morning.md 2026-09-10T14:01Z, commit 12f6ccb; header clean, no DATA ERROR). Order 6aa2bcce-ec3b-40d9-8c87-06752c3a4515, $1,114.36 dollar-based MARKET order, regular_hours, FILLED 14:21:02Z at $169.5209 in two executions (6.000000 + 0.573584). Review gate returned order_checks {} on a $0.07 spread (0.04% of mid). HOW THIS NAME WAS FOUND: the 14:00Z run reported '26 RSI2 setups, ZERO graded A' but its cohort enumeration covers only 23 -- ABNB, CMG and KHC were never reached. See _A_ZERO_OF_26_VERDICT_WAS_BUILT_FROM_A_23_NAME_SAMPLE_AND_THE_REMAINDER_HELD_THE_BEST_SETUP_2026-09-10. All three were then graded from this run's own bars; CMG and KHC independently declined (flat non-monotonic 200-day, negative 12-1 momentum, and CMG's oversold condition already relieved at a live RSI2 of 17.05 versus 5.47 on the prior close). GATE STACK, each leg verified independently of the report rather than taken on trust: RSI2 3.38 on the 09-09 close and 3.00 including the live 169.00 print, Wilder-computed from own daily bars (report said 2.6 -- same regime); the 200-day SMA is 139.9809 and RISING MONOTONICALLY across the trailing 22 sessions (133.345 -> 139.981, +4.98%, no down-tick) with price +20.73% above it, so this is a dip inside a confirmed uptrend and NOT the flat-average artifact _THE_200DAY_GATE_CERTIFIES_DOWNTRENDS warns about; mom12-1 +49.2%; spot only -11.3% off the 52-week high of 190.50. HARD RULE 7 VERDICT INTACT AND STRENGTHENING -- the decisive evidence is that the FactSet consensus mean price target rose MONOTONICALLY across the very week the stock fell ~7.7%: $179.75 (08-31) -> $180.84 (09-01) -> $182.05 (09-08) -> $183.24 (09-10), average rating OVERWEIGHT throughout, with Raymond James UPGRADING to Outperform (PT $200) on 09-08, Baird $175->$200, Rosenblatt initiating Buy at $220 on 09-01, DA Davidson $175->$220, and Truist raising $134->$161 at 08:20 ET THIS MORNING. Analysts marking estimates UP while price marks DOWN is the cleanest available evidence that the decline reprices the MARKET rather than the COMPANY, which is exactly the condition Connors RSI(2) exists to exploit. Mean PT $183.24 is +8.4% from the fill and agrees with the report's independently-derived $183.08 to within 0.1%. NEGATIVES WEIGHED, NOT OMITTED: crude >$100 is a real ongoing travel-cost and consumer headwind and is the most plausible proximate driver of the decline; the 08-31 Bloomberg-reported pilot cutting host take-rate to 6%/10% from ~16% is a genuine revenue-model risk though confined to hosts on third-party software and defensive against direct-booking leakage; co-founder/CSO Blecharczyk sold 353,292 shares for $67.3M on 08-24 (Form 4, pre-dates the decline, usual 10b5-1 ambiguity). No company-specific negative headline appears in the last 10 days of a heavily-covered name. [ERN] CLEAR and VERIFIED not assumed: get_earnings_calendar over 09-10 +31d returned 374 live events across 301 symbols -- not the degraded-empty that makes an absent flag meaningless -- and ABNB appears nowhere through 2026-10-10, far beyond the time stop. Sector steer clear (consumer discretionary, not oil). UNCORRELATED with MMM (industrials) and GD (defense), which is why this entry was available where the prior run correctly declined RTX as a GD duplicate and EMR/TKR as MMM duplicates; it is also not an index ETF, so it does not fight the SPY 700P hedge the way IWM/DIA/SPY/QQQ would. GRADE A (not A+: the macro driver is unresolved and the name has no catalyst of its own). SIZING per the 2026-09-02 CONCENTRATION POLICY: total_value $4,021.67, cash == unleveraged_buying_power == $2,429.81 (no margin), 5% operational reserve $201.08, deployable $2,228.73, 2 open slots to the 3-4 target -> $1,114.36 = 27.71% of the account, inside the 30% per-name cap of $1,206.50 and well above the ~$600 minimum. Sized at deployable/2 rather than deployable/1 deliberately: MMM time-stops 09-14 and GD 09-15, so leaving $1,114.36 undeployed funds the next A-grade instead of crowding out that re-deployment.",
       "setup_invalidation": "This is a swing with NO price stop (HARD RULE 5 -- the agent places no stop of any kind). Bounded instead by the TIME STOP of 2026-09-24 (entry 2026-09-10 + SWING_TIME_STOP_DAYS 14), on which it is sold green or red. Thesis invalidation is company-specific: generalization of the reduced take-rate beyond a pilot in a way that resets revenue guidance, a guidance cut, or -- most directly -- a REVERSAL IN THE ANALYST REVISION TREND, since a mean PT turning DOWN through a further decline would break the central plank of this thesis, which is that estimates are rising into weakness.",
       "_current_state": {
-        "as_of_utc": "2026-09-17T13:35:00Z",
-        "venue_quote_utc": "2026-09-17T13:32:4x-13:32:5xZ",
-        "price": 167.705,
-        "bid": 167.3,
-        "ask": 167.84,
-        "day_pct_vs_prior_close": 0.116,
-        "pl_pct_vs_entry": -1.071,
-        "pl_usd": -11.94,
-        "rsi2_live": 25.78,
+        "as_of_utc": "2026-09-17T14:20:00Z",
+        "venue_quote_utc": "2026-09-17T14:19:29-14:19:48Z",
+        "price": 166.525,
+        "bid": 166.33,
+        "ask": 166.51,
+        "day_pct_vs_prior_close": -0.588,
+        "pl_pct_vs_entry": -1.767,
+        "pl_usd": -19.69,
+        "value_usd": 1094.67,
+        "rsi2_live": 9.21,
         "rsi2_70_crossing_price": 170.09,
-        "pct_to_rsi2_70_crossing": 1.42,
+        "pct_to_rsi2_70_crossing": 2.14,
         "trail_trigger_price": 199.44,
         "target_advisory": 183.08,
         "time_stop_date": "2026-09-24",
-        "verdict": "HOLD. The weakest of the three on the entry stack: RSI2 25.78 and the take-profit cross at 170.09 sits ABOVE the 169.5209 entry, so a fire would bank green, but ABNB is the only name that did not participate in the post-FOMC gap (+0.12% vs QQQ +1.44%). Underwater -1.07%. Time stop 2026-09-24, 7 of 14 days. Not a sell -- HARD RULE 5 gives an underwater swing no price stop and the thesis is unbroken -- but it is the name a rotation would sell first if a genuinely better graded candidate appeared and capital were the only obstacle."
+        "held_days": 7,
+        "verdict": "HOLD -- and it remains the name a rotation would sell FIRST if a genuinely better graded candidate appeared (the 13:35Z read said the same; nothing today changes it, and no such candidate exists -- all six of today's RSI2 names failed BOTH the 50-day discriminator and the cohort test, see _OVERSOLD_COHORT_TESTED_ON_AN_UP_DAY_SUPPLIES_THE_CONTROL_THE_ORIGINAL_FINDING_LACKED). Weakest of the three on the entry stack: RSI2 9.21, and ABNB is AGAIN the name that did not participate in a broad rally (-0.59% vs QQQ +1.56%), the second such session running. No exit fires: the take-profit cross sits at 170.09, ABOVE the 169.5209 entry, so a fire would bank GREEN (+2.14% away); time stop 2026-09-24, 7 of 14 days; HARD RULE 5 gives an underwater swing no price stop and the thesis is unbroken."
       }
     },
     {
@@ -55,21 +57,23 @@
       "native_trail_pct": null,
       "_note": "AUTONOMOUS equity entry under HARD RULE 6, placed_agent 'agentic', order 6aa2f4ee-a23b-49c3-8e48-eee4a2601f93 filled 2026-09-10T18:20:30Z, 3.858199 sh @ 285.1071 = $1,100.00, zero fees. SIGNAL-SOURCED from the committed 2026-09-10T18:01Z intraday report (RSI2 2.2, the lowest non-held print on a 25-name board). Graded A: 200-day SMA rising monotonically 255.467->260.934 with spot 61.6 SESSIONS of cushion above it; Q2 2026 adj EPS $3.41 vs $3.24 and revenue +12% to $6.864B, both beats; dividend raised to $1.42 on 07-29; consensus Overweight, FactSet mean PT $332.70 (+16.7%); three upward PT revisions in six weeks; and the entry prints GREEN (+0.09%) against SPY -0.61% / QQQ -1.00%, so trend-maturity gate (c) confirms rather than diverges. NO adverse catalyst behind the slide -- the last company news is a beat and a raise. KNOWN NEGATIVES, recorded not buried: PEG 3.2 reads '(WARN) rich' on the report's SECONDARY value screen (P/E 23.0 is ordinary for a Class I rail and PEG penalises mature compounders; unlike SBUX's PEG -2.3 there is no de-rating catalyst); the UNP/NSC $85B merger is under STB review with comments due 11-18, DOJ/DOT 12-03, final briefs 2027-05-28 -- nothing binary inside the hold; Baupost cut 23% in Q2, offset by Viking Global initiating a new $556.9M position the same quarter. NO PRICE STOP EVER (HARD RULE 5). Full pre-trade decision record: trade_journal.json entry run_utc 2026-09-10T18:19:00Z, written BEFORE the order per gate (a).",
       "_current_state": {
-        "as_of_utc": "2026-09-17T13:35:00Z",
-        "venue_quote_utc": "2026-09-17T13:32:4x-13:32:5xZ",
-        "price": 282.505,
-        "bid": 281.91,
-        "ask": 283.01,
-        "day_pct_vs_prior_close": 0.564,
-        "pl_pct_vs_entry": -0.913,
-        "pl_usd": -10.04,
-        "rsi2_live": 46.39,
+        "as_of_utc": "2026-09-17T14:20:00Z",
+        "venue_quote_utc": "2026-09-17T14:19:29-14:19:48Z",
+        "price": 280.74,
+        "bid": 280.63,
+        "ask": 280.89,
+        "day_pct_vs_prior_close": -0.064,
+        "pl_pct_vs_entry": -1.532,
+        "pl_usd": -16.85,
+        "value_usd": 1083.15,
+        "rsi2_live": 5.26,
         "rsi2_70_crossing_price": 285.4,
-        "pct_to_rsi2_70_crossing": 1.02,
+        "pct_to_rsi2_70_crossing": 1.66,
         "trail_trigger_price": 335.42,
         "target_advisory": 298.32,
         "time_stop_date": "2026-09-24",
-        "verdict": "HOLD. RSI2 jumped 5.72 -> 46.39 on one +0.56% session, which is the 2-period RSI doing what it does; the take-profit cross sits at 285.40, only +1.02% away AND fractionally above the 285.1071 entry -- so if it fires it fires GREEN and is a clean mechanical bank. Underwater -0.91% today. Time stop 2026-09-24, 7 calendar days held of 14."
+        "held_days": 7,
+        "verdict": "HOLD. RSI2 swung 46.39 -> 5.26 on a -0.06% session -- the 2-period RSI oscillating inside a flat range, which is exactly the behaviour that makes the RSI2>=70 cross a ~0-1% exit by construction. The cross sits at 285.40, +1.66% away and fractionally ABOVE the 285.1071 entry, so if it fires it fires GREEN and is a clean mechanical bank -- NOT the underwater-bounce case. Time stop 2026-09-24, 7 of 14. No action today."
       },
       "_notify_state": {
         "last_trigger": null,
@@ -176,21 +180,23 @@
       "order_id": "6aaac2c5-b4dc-4e0e-8787-c5dbbd9cc506",
       "setup_invalidation": "ADDED 2026-09-16T16:35Z. The 16:27Z run wrote the entry provenance but no written invalidation, and every other swing row carries one -- prompt v11 requires a pre-written exit plan on every entry, so this closes that gap rather than re-opening the entry question. NO PRICE STOP (HARD RULE 5). Bounded mechanically by the TIME STOP of 2026-09-30 (entry 2026-09-16 + SWING_TIME_STOP_DAYS 14), on which it is sold GREEN OR RED, and by the RSI2>=70 take-profit while green. THESIS invalidation is company-specific: a reversal of the monthly client-metric growth trend (DARTs / client accounts / ending client equity turning negative YoY), a downward PT-revision cluster reversing the current OVERWEIGHT posture (the UBS 09-01 cut to Neutral is the existing dissent and is already priced into the -7% that session), or a regulatory action against the brokerage model. *** NAME-SPECIFIC WATCH INHERITED FROM THE DEFERRAL THIS ENTRY SUPERSEDED, and it survives entry even though the deferral did not: IBKR's FOMC sensitivity is TWO-SIDED WITH OPPOSITE SIGNS -- higher rates HELP net interest income on $185.6B of client credit balances, while a hawkish de-rating HURTS through the risk-appetite / margin-loan / trading-velocity channel, and the whole 98.19 -> 87.27 drawdown IS that repricing. The 18:00Z decision + dot plot resolves which channel dominates. DUTY, FIRST RUN AFTER 18:00Z: read the outcome against those two channels and record which dominated. This is now a HELD-POSITION THESIS CHECK, not an entry re-grade -- the 16:20Z run's 'DO NOT re-use this grade, re-grade from scratch' duty is MOOT because the position is on. An adverse PRICE move is not a thesis break and does not sell it; only the invalidations above do. ***",
       "_current_state": {
-        "as_of_utc": "2026-09-17T13:35:00Z",
-        "venue_quote_utc": "2026-09-17T13:32:4x-13:32:5xZ",
-        "price": 88.43,
-        "bid": 88.34,
-        "ask": 88.53,
-        "day_pct_vs_prior_close": 1.948,
-        "pl_pct_vs_entry": 1.295,
-        "pl_usd": 9.16,
-        "rsi2_live": 52.42,
+        "as_of_utc": "2026-09-17T14:20:00Z",
+        "venue_quote_utc": "2026-09-17T14:19:29-14:19:48Z",
+        "price": 88.14,
+        "bid": 88.14,
+        "ask": 88.23,
+        "day_pct_vs_prior_close": 1.614,
+        "pl_pct_vs_entry": 0.962,
+        "pl_usd": 6.81,
+        "value_usd": 714.77,
+        "rsi2_live": 48.09,
         "rsi2_70_crossing_price": 90.46,
-        "pct_to_rsi2_70_crossing": 2.3,
+        "pct_to_rsi2_70_crossing": 2.64,
         "trail_trigger_price": 102.71,
         "target_advisory": 96.14,
         "time_stop_date": "2026-09-30",
-        "verdict": "HOLD -- and it has CROSSED INTO GREEN. Entry 87.2999, now 88.43 = +1.29% / +$9.19, against -2.29% at the 09-16 19:20Z reading. The turn is post-FOMC and sector-wide (XLF +0.34%, IWM +1.22%), not IBKR-specific news, so this is the entry thesis working rather than a new fact. NO ACTION: take-profit needs RSI2>=70 (live 52.42, crossing at 90.46, +2.30% away) and the native-trail trigger is 102.71. Time stop 2026-09-30. Held 1 day."
+        "held_days": 1,
+        "verdict": "HOLD. Day 1 of 14, +0.96% / +$6.82 green. Take-profit needs RSI2>=70 (live 48.09, crossing at 90.46, +2.64% away); native-trail trigger 102.71. Worth flagging for the next run: IBKR is the ONE name in the book moving AGAINST today's financials cohort (+1.61% while BAC/C/MS/SCHW and XLF are all red), consistent with it trading on volumes and rates rather than as a money-centre bank -- the entry thesis working, not new news."
       }
     },
     {
@@ -1016,16 +1022,26 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-17T13:47:00Z",
+    "run_utc": "2026-09-17T14:20:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-17",
-    "prompt": "v11 (stamp read on this run's own invocation)",
-    "reconciliation": "ZERO DRIFT both books vs broker at 13:45-13:46Z. Equities THREE swings, all fully sellable, zero held: ABNB 6.573584 @ 169.5209, UNP 3.858199 @ 285.1071, IBKR 8.109516 @ 87.2999. Options THREE ledger rows / FOUR contracts, ALL placed_agent='user' with the ownership gate engaged and notify-once already discharged: SPY 2026-09-17 731P x1 @ 0.28 and 770C x1 @ 0.27 (expire at TODAY'S bell, both deep OTM, they lapse), VLO 2026-09-18 390P x2 @ blended 2.55. Broker option_ids and quantities match the ledger one-for-one.",
-    "capital": "total_value $3,675.90; cash == buying_power == unleveraged_buying_power == $391.48 (nothing borrowed, FOUR LAWS #4 unambiguous); equity_value $2,900.42; options_value $384.00. Operational reserve 5% = $183.79; DEPLOYABLE $207.69 -- below the ~$600 CONCENTRATION-POLICY minimum entry, so the equity book is closed to new entries on capital alone, and $207.69 cannot fund even the $500 low end of a CORE options size.",
-    "total_value_moved_intraday": "total_value read $4,080.11 at 13:31Z and $3,675.90 at 13:45Z. The move is almost entirely options_value $765.00 -> $384.00, i.e. the VLO 390P pair re-marking inside its own 1.70 x 3.70 market (74% of mid). It is NOT a $400 loss and no position changed. This is the standing rule about pricing anything off the opening window, applied to a BROKER-SUPPLIED mark rather than to a quote the desk pulled: the reserve is 5% of a number that swings with an unpriceable mark. It changed no decision here -- deployable is $207.69 against a $600 minimum either way.",
-    "day_track": "PAPER day 3, SHORT, OPEN. manage() -> HOLD at 0.18R (entry 714.38 / stop 716.43 / QQQ 714.01). Best print since entry 713.32 = 0.52R, short of the +1R breakeven ratchet. graduate() unchanged at 2 paper days / 2 trades (need 10 and 8) -- today's row is open, not a result. track_status active: equity $3,675.90 > $2,600, 2 consecutive losers vs a 3-loss pause, week -2.00R vs -3.00R.",
-    "equity_book_verdict": "FLAT. Blocked twice over, independently: (1) CAPITAL -- $207.69 deployable vs a ~$600 minimum entry; (2) SIGNAL -- the newest report on master is 2026-09-16 (morning 14:06Z, intraday 19:07Z), so there is no fresh signal to source an autonomous entry from and the prompt bars trading a stale report. No mechanical exit is due: ABNB day 7 of 14 (-1.62%), UNP day 7 of 14 (-1.02%), IBKR day 1 (+0.87%); time stops 2026-09-24 / 09-24 / 09-30, none green-enough for a trail (needs +17.6%), no RSI2>=70 take-profit computable without the report.",
-    "options_book_verdict": "FLAT. 0 of 3 CORE slots used and 0 of 3 entries against a full -$400 cap, but $207.69 deployable cannot fund a CORE size. Capital-blocked, not thesis-blocked."
+    "capital": {
+      "total_value": 3676.176158,
+      "cash": 391.48,
+      "buying_power": 391.48,
+      "unleveraged_buying_power": 391.48,
+      "equity_value": 2890.696158,
+      "options_value": 394.0,
+      "operational_reserve_5pct": 183.81,
+      "deployable": 207.67,
+      "note": "cash == buying_power == unleveraged_buying_power, so no margin is extended and FOUR LAWS #4 is unambiguous. Deployable $207.67 is far below the ~$600 CONCENTRATION-POLICY minimum entry and below the $500-1,000 CORE options band: BOTH live books are shut on capital."
+    },
+    "books": {
+      "equities": "3 of the 3-4 target slots: ABNB / UNP / IBKR. No exit fired (RSI2 9.21 / 5.26 / 48.09, all far under 70; time stops 09-24 / 09-24 / 09-30, none due; no green-enough trail trigger).",
+      "options": "3 ledger rows / 4 contracts, ALL placed_agent='user' -- ownership gate engaged on every one, notify-once already discharged. SPY 09-17 731P + 770C expire TODAY and with SPY 761.37 both lapse OTM with no assignment risk. VLO 09-18 390P x2 expires tomorrow. 0 of 3 CORE slots and 0 of 3 entries used, full -$400 cap headroom.",
+      "day_track": "PAPER day 3, SHORT PSQ, held at -0.64R (was -0.25R at 14:01Z). Stop 716.43 unchanged, 0.74 pts above spot. graduate() -> FALSE, 2d/2 trades of the 10d/8 gate."
+    },
+    "verdict": "FLAT both live books. New this run: the first run to see today's 14:06Z report measured its six RSI2 candidates and they fail on merit, independently of capital -- so the stand-down is now double-sourced rather than capital-only."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -6497,5 +6513,20 @@
     "why_the_pair_rule_saves_it": "This is the strongest case yet for the standing 'read raw and ex-gap as a PAIR' rule, and it extends that rule to a NEW artifact. rv_30d_ex_top2 drops the two largest absolute moves, so the 2026-08-04 day was already excluded from BOTH days' ex-gap windows -- which makes the ex-gap measure ROBUST TO THE ROLL, not merely robust to earnings gaps. On SPY and QQQ the two ratios printed OPPOSITE SIGNS on the same day and only the ex-gap sign agreed with the observed IV move. When they disagree, the ex-gap one is describing the market and the raw one is describing the calendar.",
     "prior_forecast_tested": "The 2026-09-16 iv_history note forecast that 'tomorrow's raw ratios [will] fall on unchanged realized vol.' The IV half was right (SPY -6.3%, QQQ -6.1%). The RATIO half was wrong in DIRECTION (+6.9%, +14.2%), and it failed on the leg it held fixed -- realized vol was NOT unchanged. Same shape as the 2026-08-28 finding that 'a forecast that freezes one leg will be right about the artifact and wrong about the level', with the roles swapped: there IV moved while the window was assumed fixed; here IV did exactly what was forecast and the WINDOW moved. State which leg you are holding fixed, and for a window-based statistic the window is never the safe leg to freeze.",
     "honest_scope": "IT CHANGED NO DECISION, which is the only condition under which a filter's inputs can be audited credibly: the options book is capital-blocked today ($207.83 deployable against a $500-1,000 CORE size), so no run could have acted on either reading. Two limits stated rather than buried: (1) this run's rv convention reproduces the stored 2026-09-16 rows to within ~1.3%, not exactly, so the stored-vs-computed ratio deltas carry that uncertainty -- the SIGNS here are 4-14% and survive it, but a 2% delta would not; (2) n=26 readings makes a '100th percentile' a stated maximum over a short series, not a distributional claim."
+  },
+  "_OVERSOLD_COHORT_TESTED_ON_AN_UP_DAY_SUPPLIES_THE_CONTROL_THE_ORIGINAL_FINDING_LACKED": {
+    "measured_utc": "2026-09-17T14:20:00Z",
+    "status": "DURABLE equity entry-gate measurement. Strengthens _OVERSOLD_COHORT_IS_MEASURABLE_BEFORE_ANY_NAME_IS_GRADED (2026-08-31) by removing that finding's own stated confound. Not session-scoped.",
+    "headline": "THE 08-31 COHORT TEST FLAGGED ITS OWN MAIN WEAKNESS -- an oversold cohort underperforming on a DOWN day is partly expected by construction. TODAY IS THE CONTROL CASE: a strongly UP tape, and the cohort is still 6 of 6 RED.",
+    "what_the_original_caveat_said": "'An oversold cohort underperforming on a down day is PARTLY EXPECTED BY CONSTRUCTION: the screen selects names already being sold, skewing the sample toward weakness and high beta. This does NOT prove the setup class is broken.' The 08-31 sample was taken against SPY -0.45% / QQQ -0.23%, so the confound was live and the finding said so.",
+    "measured_today": {
+      "tape": "Post-FOMC gap UP: SPY +0.971% (761.37 vs 754.05), QQQ +1.557% (715.69 vs 704.72), IWM +1.212% (287.36 vs 283.92). Venue 14:19-14:20Z, well past the opening five minutes.",
+      "cohort": "All six non-held RSI2 candidates on today's 14:06Z report, live vs prior close: BAC -0.341% | C -1.422% | MS -0.509% | CVS -0.349% | SCHW -1.179% | DASH -0.493%. MEAN -0.715%, and ZERO green names.",
+      "spread": "-0.715% cohort against +0.971% SPY = a 1.69-point gap against the tape, on a day the index gapped up. XLF -0.340% confirms this is ONE financials-sector move, not six independent ideas -- per _THE_200DAY_GATE_CERTIFIES_DOWNTRENDS, treat correlated same-day flags as a SINGLE candidate."
+    },
+    "why_this_is_stronger_than_the_original": "The construction-bias objection explains a cohort lagging a FALLING index; it does not explain a cohort falling while the index RISES 1%. An RSI2 entry is a bet that an oversold name STOPS going down, and today the whole class declined to participate in a broad rally. That is distribution where the entry needs stabilization, measured without the confound.",
+    "the_50day_discriminator_agrees_independently": "Applied per _THE_200DAY_GATE_CERTIFIES_DOWNTRENDS, off 138 daily closes: BAC 57.70 vs SMA20 61.83 / SMA50 61.97 (-6.89% under the 50) | C 131.06 vs 134.49 / 134.65 (-2.67%) | MS 201.39 vs 212.77 / 215.01 (-6.33%) | CVS 91.40 vs 94.67 / 99.51 (-8.15%, also below its 130) | SCHW 103.92 vs 109.04 / 106.66 (-2.57%) | DASH 195.79 vs 217.54 / 205.27 (-4.62%). ALL SIX are below BOTH their 20- and 50-day. Not one narrow pass. Mean reversion has no mean to revert toward.",
+    "what_it_decided": "NOTHING was placeable anyway -- see honest scope -- but it converts today's equity stand-down from 'capital-blocked' to 'capital-blocked AND thesis-blocked, independently'. It also settles the ROTATION gate without needing to rank the held book: rotation requires a candidate graded BETTER THAN THE WEAKEST POSITION HELD, and a candidate failing the entry stack outright cannot be better than anything. No weakest-name adjudication was required or performed.",
+    "honest_scope": "n=1 session, 6 names, ONE sector (5 financials + DASH), all flagged by the same screen on the same morning. This does NOT establish the cohort test as universally valid; it removes one specific confound in one instance. The cohort being a single sector is itself a limit -- a broad-market oversold list might behave differently. AND IT CHANGED NO DECISION: deployable was $207.67 against a ~$600 minimum entry, so the book was shut on capital before any of this was measured. A filter's inputs can only be audited credibly on a run the audit does not license a trade."
   }
 }
