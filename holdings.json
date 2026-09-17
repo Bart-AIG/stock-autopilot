@@ -992,25 +992,25 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-17T15:47:00Z",
+    "run_utc": "2026-09-17T16:05:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-17",
     "capital": {
-      "total_value": 3435.15,
+      "total_value": 3435.89,
       "cash": 541.38,
       "unleveraged_buying_power": 541.38,
-      "equity_value": 2890.77,
+      "equity_value": 2891.51,
       "options_value": 3.0,
-      "operational_reserve_5pct": 171.76,
-      "deployable": 369.62,
-      "note": "cash == unleveraged_buying_power, so no margin is extended and FOUR LAWS #4 is unambiguous. Deployable $369.62 is below the ~$600 CONCENTRATION-POLICY minimum entry and below the $500-1,000 CORE options band: BOTH live books shut on capital. Cash rose from $391.48 at 14:20Z on Ryan's own VLO close, not on any desk action."
+      "operational_reserve_5pct": 171.79,
+      "deployable": 369.59,
+      "note": "cash == unleveraged_buying_power, so no margin is extended and FOUR LAWS #4 is unambiguous. Deployable $369.59 is below BOTH the ~$600 CONCENTRATION-POLICY minimum entry and the $500-1,000 CORE options band, so both live books are shut on capital alone, before any other gate."
     },
     "books": {
-      "equities": "3 of the 3-4 target slots: ABNB / UNP / IBKR. No exit fired. RSI2 live 9.8 / 3.6 / 51.3, and the equivalent BID thresholds are 170.08 / 285.38 / 90.45 -- all FALSE by 2.07-2.42%, no straddle. Time stops 09-24 / 09-24 / 09-30, none due. No green-enough trail trigger (needs 199.44 / 335.42 / 102.71).",
-      "options": "2 ledger rows / 2 contracts, both placed_agent='user' (Ryan's SPY 09-17 731P + 770C strangle), ownership gate engaged, notify-once discharged 2026-09-15. Both expire TODAY far OTM with SPY 762.21 -- they lapse worthless, no assignment risk, nothing owed operationally. Agentic book 0 of 3 CORE slots, 0 of 3 entries.",
-      "day_track": "PAPER and PAUSED for the rest of the week (3 consecutive losing days AND week at -3.00R). Today's paper short closed at its stop 14:27Z at -1.00R; nothing open. graduate() -> FALSE (3d/3 trades of the 10d/8 gate). Phase is never promoted mid-week."
+      "equities": "3 of the 3-4 target slots: ABNB / UNP / IBKR, all placed_agent='agentic'. No exit fired -- RSI2 live 8.1 / 4.2 / 53.1 against a 70 trigger at 170.08 / 285.39 / 90.45, and the only GREEN name (IBKR, +1.35%) is 2.23% below its trigger, so the take-profit is unreachable this run. ABNB and UNP are underwater, where an RSI2 print would be the OPTIONAL exit-into-strength routed to thesis, not a mechanical exit. Time stops 09-24 / 09-24 / 09-30, none due. No green-enough trail crossing (needs 199.44 / 335.42 / 102.71).",
+      "options": "2 ledger rows / 2 contracts, both placed_agent='user' (Ryan's SPY 2026-09-17 731P + 770C strangle), ownership gate engaged, notify-once discharged 2026-09-15. Both expire TODAY far OTM with SPY 762.57 -- 731P 31.57 OTM, 770C 7.43 OTM -- so they lapse worthless with no assignment risk and nothing owed operationally. Agentic book 0 of 3 CORE slots, 0 of 3 entries; closed for the day on the cap AND on capital.",
+      "day_track": "PAPER and PAUSED for the rest of the week (3 consecutive losing days AND week at -3.00R). Paper day 3 stopped out at its stop 14:27Z at -1.00R; nothing open. graduate() -> FALSE (3d/3 trades of the 10d/8 gate). The v11 stop-authority lock is discharged; graduate() is the sole remaining lock and the phase is never promoted mid-week."
     },
-    "verdict": "FLAT all three books, no new decision. Work done this run: discharged the 2026-09-16 RSI2-threshold key's own validity clause by re-solving today's trigger prices (and adding IBKR), which measured the overnight drift at $1.50 on ABNB -- the clause is load-bearing, not boilerplate."
+    "verdict": "FLAT all three books, no new decision and no new finding. Every candidate on today's board was already graded to no-entry by the 15:20Z run (9 of 9), the rotation gate is closed, and this run's contribution is the independent RSI2 recomputation that cross-validates the 15:07Z report and re-confirms no exit is reachable."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
