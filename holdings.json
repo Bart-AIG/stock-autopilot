@@ -1,18 +1,19 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-17T14:50:00Z",
+  "updated_utc": "2026-09-17T15:01:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-17",
-    "realized_usd_options": 0.0,
-    "closing_trades_options": 0,
+    "realized_usd_options": -360.0,
+    "closing_trades_options": 1,
     "cap_options_usd": -400.0,
-    "cap_headroom_usd": -400.0,
+    "cap_headroom_usd": -40.0,
+    "cap_attribution": "APPLIED STRICTLY: this loss is Ryan's own (placed_agent='user' both legs of the round trip), and whether a USER position's realized loss counts against the DESK'S -$400 daily options cap has never been tested and is genuinely ambiguous in the documents -- see _USER_LOSS_AGAINST_THE_DESK_OPTIONS_CAP. The governance tie-breaker is 'where either is stricter, the stricter rule applies', so this run COUNTS it: headroom -$40, and the options book is treated as CLOSED to new entries for the rest of 2026-09-17. No run may resolve this the permissive way on its own authority.",
     "realized_usd_equities": 0.0,
     "closing_trades_equities": 0,
     "entry_throttle_options": "0 of 3 used",
     "entry_throttle_equities": "0 of 3 used",
-    "source": "RESET BY THE FIRST POST-BELL RUN of trading day 2026-09-17 (13:33Z), the only run entitled to roll it -- the UTC-rollover rule bars every post-close/pre-open run from resetting a cap or a throttle, and the 2026-08-27T09:18Z finding records four consecutive runs breaking exactly that clause by TYPING a zero. THESE ZEROS ARE VERIFIED, NOT TYPED: get_equity_orders(created_at_gte=2026-09-17) and get_option_orders(created_at_gte=2026-09-17) BOTH returned an EMPTY orders[] at 13:32Z, which is simultaneously the reset evidence and the HARD RULE / concurrent-run sibling check (no sibling had placed anything this session). The superseded 2026-09-16 object closed at realized $0.00 both books, options 0 of 3 entries, equities 1 of 3 (the IBKR autonomous entry, order 6aaac2c5, $707.96 filled 16:24:37Z).",
-    "day_track_note": "DAY TRACK is a separate one-trade-per-day limit tracked in _DAY_TRACK, not in these throttles. Paper day 3 today."
+    "source": "Reset by the first post-bell run (13:33Z) at $0.00 both books; UPDATED 15:01Z from the broker, not typed. get_option_orders(created_at_gte=2026-09-17) returns order 6aabff68 filled, processed_premium 150 against a $510 basis = -$360.00. get_equity_orders(created_at_gte=2026-09-17) still EMPTY, so equities realized $0.00 and both entry throttles remain genuinely 0 of 3 -- verified, per the 2026-08-27T09:18Z finding that four consecutive runs reported reset figures the ledger contradicted by TYPING a zero.",
+    "day_track_note": "DAY TRACK is a separate one-trade-per-day limit tracked in _DAY_TRACK, not in these throttles. Paper day 3 today, closed at -1.00R, track now PAUSED for the week."
   },
   "positions": [
     {
@@ -197,72 +198,6 @@
         "time_stop_date": "2026-09-30",
         "held_days": 1,
         "verdict": "HOLD. Day 1 of 14, +0.96% / +$6.82 green. Take-profit needs RSI2>=70 (live 48.09, crossing at 90.46, +2.64% away); native-trail trigger 102.71. Worth flagging for the next run: IBKR is the ONE name in the book moving AGAINST today's financials cohort (+1.61% while BAC/C/MS/SCHW and XLF are all red), consistent with it trading on volumes and rates rather than as a money-centre bank -- the entry thesis working, not new news."
-      }
-    },
-    {
-      "symbol": "VLO",
-      "sleeve": "options",
-      "track": "user",
-      "contract": "VLO 2026-09-18 390P",
-      "option_id": "b01e0ffa-f764-4ede-ae26-4da58d4acb19",
-      "contracts": 2,
-      "entry_date": "2026-09-16",
-      "entry_premium_blended": 2.55,
-      "total_cost_basis_usd": 510.0,
-      "max_loss_usd": 510.0,
-      "placed_agent": "user",
-      "lots": [
-        {
-          "qty": 1,
-          "premium": 2.8,
-          "cost_usd": 280.0,
-          "order_id": "6aaaedd3-71d6-4570-8292-4c3c77d7e637",
-          "execution_id": "6aaaedd3-53e8-4186-9645-51112081ce1b",
-          "filled_utc": "2026-09-16T19:28:19.763000Z"
-        },
-        {
-          "qty": 1,
-          "premium": 2.3,
-          "cost_usd": 230.0,
-          "order_id": "6aaaede7-9f00-468f-812b-2145edb95a27",
-          "execution_id": "6aaaede8-d823-42c1-bd79-0a446d025e9c",
-          "filled_utc": "2026-09-16T19:28:39.990000Z"
-        }
-      ],
-      "dte_at_entry": 2,
-      "_note": "placed_agent='user' -- RYAN PLACED THIS HIMSELF IN THE ROBINHOOD APP at 19:28Z, two minutes before this run started. OWNERSHIP GATE (HARD RULE 6 / prompt v11) FULLY ENGAGED: the desk NEVER closes, trims, rolls or re-prices this, and it does NOT count against the agentic options book (0 of 3 CORE slots remain free, 0 of 3 daily entries used). Detected, recorded, notified ONCE this run -- no further notification is owed on this position unless it materially changes. The DTE-7 floor, the sector steer (VLO is a refiner) and the CORE entry gates constrain the DESK'S entries and have no application to Ryan's own trade; nothing here is a criticism of it.",
-      "_current_state": {
-        "checked_utc": "2026-09-17T14:47:27Z",
-        "contract": "VLO 2026-09-18 390P x2",
-        "underlying_px": 404.12,
-        "underlying_chg_pct_day": 0.21,
-        "mark": 1.05,
-        "bid": 0.8,
-        "ask": 1.3,
-        "spread_pct_of_mid": 47.6,
-        "mark_value_usd": 210.0,
-        "net_at_bid_usd": 160.0,
-        "cost_basis_usd": 510.0,
-        "pl_at_mark_usd": -300.0,
-        "pl_at_bid_usd": -350.0,
-        "delta": -0.13585,
-        "theta_per_contract_per_day": -1.340843,
-        "iv": 0.64142,
-        "open_interest": 371,
-        "volume": 74,
-        "breakeven_underlying": 388.95,
-        "pct_move_needed_to_breakeven": -3.75,
-        "dte": 1,
-        "RYAN_HAS_A_WORKING_SELL_ON_THIS_placed_14_44_43Z": {
-          "order_id": "6aabfcdb-8673-4441-99e3-c73f97bdc516",
-          "placed_agent": "user",
-          "detail": "SELL-TO-CLOSE 2x, closing_strategy long_put, LIMIT 1.30 credit ($260 gross), GFD, regular_hours. State 'confirmed', processed_quantity 0, pending_quantity 2 as of 14:47Z. get_option_positions shows the matching pending_sell_quantity 2.0 on the position.",
-          "why_it_is_not_filling": "The 1.30 limit sits AT THE ASK on a 0.80 x 1.30 market (mark 1.05). He is offering at the top of the spread, so it fills only if a buyer lifts him -- it is not a marketable order. Nothing is wrong with it; it is a patient offer on a contract with 1 DTE.",
-          "desk_action": "NONE, AND NONE IS PERMITTED. placed_agent='user' -- the ownership gate forbids the desk cancelling, re-pricing, or racing this order, and equally forbids 'helping' by selling the position at market. Ryan is actively managing his own position; that is the whole point of the gate.",
-          "notification": "NOT sent, deliberately. The notify-once duty covers positions and incidents the desk DISCOVERS; paging Ryan to tell him about an order he placed himself 4 minutes ago is the noise the once-per-incident rule exists to prevent.",
-          "forward_note_for_the_next_run": "A FILL DOES NOT UNBLOCK THE EQUITY BOOK -- state this before re-deriving it. Filling at 1.30 nets ~$260, taking cash $391.48 -> ~$651, total_value ~$3,582, the 5% reserve ~$179 and DEPLOYABLE to ~$472. That is still below the ~$600 minimum entry, so the equity book remains capital-closed either way, and the options book remains far below the $500-1,000 CORE band. Do not read a fill as capital relief."
-        },
-        "verdict": "NO ACTION -- placed_agent='user', ownership gate, and Ryan now has his own working exit on it. Report the PAIR, never the mark alone (the 2026-08-27 unpriceable-quote finding): mark $210 vs $160 at the bid against a $510 basis, i.e. -$300 to -$350. The 74%-of-mid spread logged at 13:33Z has tightened to 47.6% but is still unpriceable in any honest sense. Needs VLO under 388.95 by tomorrow's close, -3.75% from 404.12, with theta -$2.68/day across the two. Notify-once discharged 2026-09-16; no re-notification owed."
       }
     }
   ],
@@ -693,6 +628,32 @@
       "note_the_14_00Z_run_DECLINED_this_same_exit": "Recorded because it is the substance of _CONCURRENT_RUNS_SPLIT_ON_A_DISCRETIONARY_EXIT_2026-09-14. The 14:00Z run evaluated this identical signal and DECLINED it on a HARD RULE 7 thesis-INTACT verdict, writing _GD_WARN_WINDOW_DECISION_2026-09-14 and a durable finding that the report's 'this bounce is likely the better exit price' clause is UNMEASURED and contradicted by both available measurements. A sibling took the opposite decision ~17 minutes later. Neither run was wrong on process; they simply disagreed, and the acting run wins by default because a fill is irreversible. No rule was broken -- HARD RULE 5 makes this exit OPTIONAL, which means both HOLD and SELL were permissible.",
       "THE_PLACING_RUNS_OWN_RATIONALE_SUPPLIED_2026-09-14T14_40Z": "The 14:25Z reconstruction invited this ('if the sibling's own ledger commit lands later and states a different reason'). Supplied by the run that actually placed the order. THE REASONING AT DECISION TIME: GD's 14-day time stop fires 2026-09-15 unconditionally (entry 09-01 + 14d, verified against report.py's own branch, which reads sleeve/entry_date/today and nothing else), so the SELL was already mandatory and only the PRICE appeared discretionary; RSI2 was independently verified at 78.73 (Wilder, own completed daily bars plus the live 358.11 tick, agreeing with the report's 80.87 at its 358.60 print) on GD's best relative-strength session in two weeks, +0.62% against SPY -0.53%. The reconstruction's classification was exactly right on every point and needs no correction. || THE VERDICT ON IT IS THAT IT WAS A PROCESS ERROR, and the placing run records that itself rather than leaving it to be inferred. The 14:00Z run had MEASURED this heuristic and DECLINED this sale seventeen minutes earlier; its commit had not reached master when the placing run branched, and the broker precheck was clean AND CORRECT because no order existed to see. Its finding governs: HARD RULE 5 and the 2026-08-26 correction give exactly ONE gate for selling an UNDERWATER equity -- a HARD RULE 7 thesis BREAK -- and GD's thesis was INTACT, so the gate was not met. The warn-window note is ADVICE ABOUT PRICE, not a third exit authority. The 'only the price is discretionary' framing ASSUMES the earlier price is better, which is precisely the unvalidated claim; MDLZ made the identical argument on 09-09 and gave up 1.26% against its forgone time-stop open. An inference lost to a measurement. || ONE THING THAT DOES STAND: the FOMC was never narrated as a reason to sell. The 14:00Z finding warns that 'GD's stop date is day one of the FOMC' is easy to narrate and unknowable; that argument was not made. The FOMC entered only as options-book regime context and was explicitly refused as an equity capital gate.",
       "PRE_REGISTERED_BENCHMARK_FOR_THE_THIRD_INSTANCE": "Fixed BEFORE the outcome is knowable, using the same convention as the MDLZ and PNC measurements so it cannot be re-narrated after the fact: compare GD's 2026-09-15 OPEN -- a mechanical time stop executes on the first post-bell run, ~13:35Z -- against the 358.0976 taken, with the 09-15 close as the generous secondary. OPENS ABOVE 358.0976 -> acting COST money and the warn-window heuristic is 0-for-3. OPENS BELOW -> 1-for-3 and still unvalidated. Record the result on _THE_WARN_WINDOW_EXIT_INTO_STRENGTH_HEURISTIC_IS_UNMEASURED_AND_BOTH_AVAILABLE_MEASUREMENTS_CONTRADICT_IT_2026-09-14, not in a new key. n=3 of single instances cannot validate the clause either way -- but an unmeasured first use quietly becoming doctrine is this file's most-repeated failure, and a pre-registered benchmark is the cheapest defence against it."
+    },
+    {
+      "symbol": "VLO",
+      "sleeve": "options",
+      "track": "user",
+      "contract": "VLO 2026-09-18 390P",
+      "option_id": "b01e0ffa-f764-4ede-ae26-4da58d4acb19",
+      "contracts": 2,
+      "entry_date": "2026-09-16",
+      "entry_premium_blended": 2.55,
+      "total_cost_basis_usd": 510.0,
+      "closed_utc": "2026-09-17T14:55:36.582000Z",
+      "closed_by": "user",
+      "placed_agent": "user",
+      "exit_reason": "RYAN CLOSED HIS OWN POSITION. Not a desk exit and not a desk decision: placed_agent='user' on BOTH the entry and the exit, so the ownership gate governed from end to end and the desk's only duties were to detect, record and stay out of the way. He cancelled his own 1.30 GFD limit (order 6aabfcdb, placed 14:44:43Z, never filled -- it sat AT THE ASK on a 0.80 x 1.30 market, a patient offer) at 14:55:36.534Z and crossed to a marketable 0.75 limit (order 6aabff68) that filled 0.048 seconds later. That is a holder deciding a 1-DTE put was not going to come back and taking the bid rather than waiting out the last session.",
+      "exit_order_id": "6aabff68-82c9-44cf-b79e-afee80b54fbd",
+      "exit_premium": 0.75,
+      "exit_contracts": 2,
+      "proceeds_gross_usd": 150.0,
+      "realized_pnl_usd": -360.0,
+      "realized_pnl_pct": -70.59,
+      "days_held": 1,
+      "dte_at_entry": 2,
+      "dte_at_exit": 1,
+      "broker_confirmation": "get_option_orders(created_at_gte=2026-09-17) at 15:01Z returns BOTH orders: 6aabff68 state 'filled', processed_quantity 2, processed_premium 150, one execution at 0.75 timestamped 2026-09-17T14:55:36.582Z, closing_strategy 'long_put', placed_agent 'user'; and 6aabfcdb state 'cancelled', canceled_quantity 2, processed_premium 0. get_option_positions(nonzero=true) at 15:01Z returns ONLY the two SPY 2026-09-17 contracts -- the VLO row is gone from the broker, which is what forced this ledger removal. Cash moved $391.48 -> $541.38, +$149.90, i.e. the $150.00 gross less $0.10 of fees.",
+      "desk_role": "NONE, correctly. The 14:50Z run detected the working 1.30 limit, wrote the pair (mark $210 vs $160 at the bid on a $510 basis) rather than the mark alone, deliberately did NOT notify -- paging Ryan about an order he placed himself four minutes earlier is the noise the once-per-incident rule prevents -- and deliberately did NOT cancel, re-price, race or 'help' by selling at market. Every one of those non-actions was the gate working as designed."
     }
   ],
   "_SIZING_NOTE": "REFRESHED 2026-08-28T16:19Z from the broker. The prior text was stamped 2026-08-24 and asserted 'CURRENT TRUTH: cash $3,023.56 ... DEPLOYABLE = $2,773.56' -- four days and $1,476.60 out of date, and it is the SECOND generation of this note to go stale while literally warning that a stale note 'would have been copied forward as truth.' A note that names the staleness risk is not thereby immune to it; re-read the broker. RULES (unchanged): $1,500 is a PER-TRADE maximum, there is NO total-sleeve cap, and total deployment across BOTH books is bounded by unleveraged_buying_power (2026-08-14 sizing amendment + the 2026-08-21 no-margin rule). CURRENT TRUTH: cash $1,546.96 == buying_power == unleveraged_buying_power, so no margin is extended and FOUR LAWS #4 is satisfied; unsettled_funds $0.0000. RESERVE CORRECTED 2026-08-28T23:18Z: the flat $250 reserve is RETIRED, superseded by the 5%-of-total_value OPERATIONAL RESERVE (Ryan 2026-08-29 policy on master), which SCALES and must be recomputed from get_portfolio.total_value every run -- never hard-coded. DEPLOYABLE = unleveraged_buying_power - 0.05 x total_value = 1546.96 - 198.03 = $1,348.93. The hedge's $749 basis does NOT reduce a new trade's allowance and occupies 0 of the 5 non-hedge slots. EQUITY SIZING IS NO LONGER BLOCKED -- CORRECTED 2026-08-28T23:18Z. This note previously read 'EQUITY SIZING IS SEPARATELY BLOCKED: the >=45% equity-book cash floor reads 44.9807% and the max compliant buy is -$0.67.' THAT FLOOR IS VOID (master commit 1322da9, 2026-08-28T20:42:36Z) and its arithmetic must not be quoted or re-derived. The equity book is OPEN from the 2026-08-31 open with 3 fresh throttle slots, funded from the same $1,348.93; the binding controls are now the A-GRADE-ONLY bar, per-name <=15-20%, spec sleeve <=25%, and rotation-beats-the-weakest once deployable cash falls below one normal position size (NOT yet -- $1,348.93 against ~$500 is ordinary cash). See _CAPITAL_POLICY_STATE, which governs. _CROSS_BOOK_CASH_COUPLING's floor arithmetic is likewise MOOT; its ONE-POOL truth survives -- an options entry still reduces equity capacity dollar-for-dollar, so cross-book competition is now explicit rather than mediated by a ratio. FOUND BY THE ARITHMETIC SWEEP prescribed in this run's journal entry and then actually executed: this is the FOURTH key carrying floor-derived state after the void, and the first three repairs were all targeted at keys whose SUBJECT was the floor. This one's subject is SIZING, which is why three careful sweeps walked past it. Search for the arithmetic (the 0.45 coefficient, 'compliant buy', 'cash floor'), never for the keys you expect to be affected. [DETECTOR REFINED 2026-08-29T00:18Z -- the prescription in the sentence above WORKED and was also INCOMPLETE. Searching holdings.json for the arithmetic tokens it names (the 0.45 coefficient, 'compliant buy', 'cash floor') surfaced the three keys already repaired; a SECOND sweep on the STATE-ASSERTION phrase 'book is closed' surfaced two more that the arithmetic sweep missed -- _EVENT_PREMIUM_IS_INVISIBLE_ON_THE_30DTE_BOARD.honest_scope and _DIVERSIFICATION_STATISTICS_ARE_FRAGILE.honest_scope, both annotated this run as the fourth and fifth instances. THE CLASS IS BROADER THAN ARITHMETIC: a repealed rule leaves behind both its NUMBERS and its CONCLUSIONS, and the conclusions are the more dangerous residue precisely because they carry no digits -- they read as ordinary present-tense state prose, so a numeric sweep walks straight past them and a human skim reads them as current. Sweep for BOTH: the arithmetic AND the sentence the arithmetic used to justify ('the book is closed', 'entries are frozen', 'no compliant entry exists'). Both survivors sat in honest_scope caveats, which is a systematically likely hiding place: a scope clause's job is to state what was true at the time, so it BAKES IN the then-current regime by design and ages badly by construction.]",
@@ -6575,5 +6536,20 @@
       "what_this_run_did_NOT_do": "It changed NO parameter (min_stop_atr, or_minutes, late_entry_frac, risk_pct, doji_body_frac) and added NO filter, screen or 'why now'. CLAUDE.md is explicit that no unattended run may add a gate to this track and that the KILL path is graduate() and the calibration, stated in numbers. n=3 is far too small to conclude anything about edge and is NOT presented as one. The pause is the designed response and it fired on its own.",
       "the_uncomfortable_half": "the pause stops the sample accruing, so a track that is losing takes LONGER to reach the 10-day/8-signal gate that would kill or confirm it. That is the spec working as written -- risk control outranks sample collection -- but it is worth Ryan knowing that a 3-day losing streak costs roughly a week of evidence."
     }
+  },
+  "_USER_LOSS_AGAINST_THE_DESK_OPTIONS_CAP": {
+    "found_utc": "2026-09-17T15:01:00Z",
+    "found_by": "scheduled run 15:00Z 2026-09-17 (unattended, prompt v11)",
+    "status": "OPEN -- A GOVERNANCE QUESTION ONLY RYAN CAN SETTLE. Applied strictly in the meantime. HARD RULE 9: no approval is claimed, quoted or implied, and no unattended run may resolve it the permissive way.",
+    "headline": "Ryan's own VLO round trip realized -$360.00 today, 90% of the DESK'S -$400 daily options loss cap, on a position the desk was forbidden to open, size, manage or close. The cap has never before been approached by a trade the desk did not make, so which book it belongs to has never had to be decided.",
+    "the_two_readings": {
+      "agentic_only": "CLAUDE.md's 2026-08-03 day-trading amendment is explicit that the sleeve accounting is agentic-only: 'the premium-at-risk accounting counts ONLY agentic-placed positions. Ryan's manually-placed options (placed_agent: \"user\") do NOT count against the automation's budget -- they're his book, tracked and flagged but not a lockout.' On this reading today's options cap is untouched at $0.00 of -$400. The purpose argument supports it: the cap exists so the DESK stops digging its own hole, and it cannot teach the desk anything about a trade the desk never made.",
+      "whole_account": "THE FOUR LAWS say only 'Daily realized loss cap -$400 on OPTIONS', with no ownership qualifier, and the amendment's agentic-only sentence is written about the BUDGET (premium at risk), not about the cap. The risk argument supports it: the account is one pool and it is down $360 of real money today either way, which is exactly the state a loss cap exists to respond to."
+    },
+    "applied": "THE STRICTER ONE -- counted, headroom -$40, options book closed to new entries for the rest of the day. Reason: the standing tie-breaker is 'where either is stricter, the stricter rule applies', and a run that picks the permissive reading of an untested ambiguity in order to keep its own trading authority alive is doing the exact thing the FOUR LAWS' closing clause warns about ('if you ever find yourself constructing an argument for why one of these shouldn't apply right now, that is the signal to stop').",
+    "why_it_cost_nothing_today": "IMMATERIAL IN EFFECT, and say so plainly rather than implying the desk gave something up. Deployable capital is $369.89 against a $500-1,000 CORE band, so the options book was already closed on capital before the cap was ever consulted. The strict reading was free today. It will NOT be free on a day when both a user loss and real capital are present, which is why it needs Ryan's ruling before that day arrives rather than after.",
+    "the_transferable_shape": "A RULE WRITTEN WHEN ONE ACTOR HELD A POWER ACQUIRES AN AMBIGUITY THE MOMENT A SECOND ACTOR CAN TRIGGER IT, AND THE AMBIGUITY IS INVISIBLE UNTIL THE SECOND ACTOR ACTUALLY DOES. The -$400 cap was written in an era when every option in this account was the desk's, so 'realized options loss today' had exactly one possible referent and no qualifier was needed. Ryan trading his own options through the same account silently created a second referent. Nothing errored, no document contradicted another, and the gap only became visible because a user trade finally came within $40 of the number. Same family as this file's most-repeated defect -- a check that passes for the wrong reason -- arriving through a change in WHO acts rather than a change in any rule.",
+    "recommended_ruling_for_ryan": "The desk's recommendation, offered as a recommendation and nothing more, is the AGENTIC-ONLY reading -- a cap is a feedback mechanism on the decision-maker it governs, and letting Ryan's own trades lock out the automation gives him a control he did not ask for and would probably not want. But it is his call, it is not urgent, and the strict reading stands until he makes it.",
+    "if_ryan_rules_agentic_only": "Add the ownership qualifier to the cap's wording in HARD RULE 8 and in the FOUR LAWS ('realized loss on AGENTIC-placed options'), so the next instance does not re-derive this from scratch, and set cap_headroom back to -$400 in _realized_options_pnl_today."
   }
 }
