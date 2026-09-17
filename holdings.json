@@ -1016,41 +1016,16 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-16T19:30:00Z",
+    "run_utc": "2026-09-17T13:47:00Z",
     "run_type": "market_hours_regular",
-    "trading_day_et": "2026-09-16",
+    "trading_day_et": "2026-09-17",
     "prompt": "v11 (stamp read on this run's own invocation)",
-    "reconciliation": "DRIFT FOUND AND REPAIRED -- the first non-zero reconciliation in days. A NEW user-placed options position appeared: VLO 2026-09-18 390P x2, $510 total, filled 19:28:19Z and 19:28:39Z as TWO separate orders on one option_id, placed_agent='user'. Ledgered this run with both lots and the invariants asserted (sum(qty)==contracts, sum(cost)==total==max_loss, total/contracts/100==blended). Equities ZERO DRIFT: IBKR 8.109516 @ 87.2999, ABNB 6.573584 @ 169.5209, UNP 3.858199 @ 285.1071, all fully sellable, get_equity_orders(>=2026-09-16) shows only the ledgered 16:24:37.62Z IBKR fill -- sibling check clean. Both SPY 2026-09-17 legs present; Ryan's 17:13:38Z sell-to-close limit on the 770C (0.50 credit) still working and untouched.",
-    "capital": {
-      "total_value": 3727.566920465,
-      "cash": 391.48,
-      "unleveraged_buying_power": 391.48,
-      "buying_power": 391.48,
-      "equity_value": 2879.086920465,
-      "options_value": 457.0,
-      "operational_reserve_5pct": 186.38,
-      "deployable": 205.1,
-      "per_name_cap_30pct": 1118.27,
-      "note": "Deployable fell $709.39 -> $205.10 on Ryan's $510.08 of VLO fills. BELOW the $600 minimum entry, so the equity book is shut on CAPITAL this run. buying_power == unleveraged_buying_power exactly; FOUR LAWS #4 unambiguous."
-    },
-    "tape_numbers_only": {
-      "SPY": 751.68,
-      "QQQ": 702.22,
-      "VLO": 405.005,
-      "IBKR": 85.855,
-      "ABNB": 167.4,
-      "UNP": 280.95,
-      "quotes_utc": "2026-09-16T19:31:06-19:31:23Z",
-      "note": "Numbers, not a verdict. Powell presser ~62 min old; SPY -0.75% on the day, QQQ -0.33%."
-    },
-    "actions": {
-      "equity_exits": "NONE, determinate on the cheapest leg. ALL THREE POSITIONS RED at the live bid: IBKR 85.83 vs 87.2999 (-1.68%), ABNB 167.36 vs 169.5209 (-1.27%), UNP 280.90 vs 285.1071 (-1.48%). The RSI2>=70 take-profit requires GREEN (2026-08-26 correction), so its precondition is shut on all three whatever RSI2 reads -- no RSI2 re-derivation needed or done. No target (96.14/183.08/298.32), no trail trigger (102.71/199.44/335.42), no time stop inside the 3-day warn (09-30/09-24/09-24). HARD RULE 5 forbids a price stop, so a red mark fires nothing.",
-      "equity_entries": "NONE, and this run CAPITAL declined it -- a change from 18:30Z. Deployable $205.10 is below the $600 minimum entry, which is a hard bar: a sub-$600 entry is a SKIPPED opportunity, not a small one. Rotation was considered and does not apply: it requires a candidate graded BETTER THAN THE WEAKEST HELD, and the board carries no A-grade name (unchanged from the 18:07Z report graded in full at 18:15/18:20/18:30Z, zero arrivals since). No candidate, no rotation.",
-      "options": "No agentic entry. 0 of 3 CORE slots (VLO and both SPY legs are Ryan's and do not consume slots), 0 of 3 entries, $0.00 realized vs the -$400 cap. Declined on three independent grounds: no CORE thesis on the board; deployable $205.10 cannot fund the $500-1,000 CORE band; and at 19:30Z the bell is 28 minutes out, inside the closing window where the desk does not open.",
-      "day_track": "NOTHING TO DO. Paper day 2 signal is CLOSED (-1.00R, stop reached 13:36Z) and the spec allows ONE trade per trading day -- no re-entry. Nothing open, so the 15:30 ET flat rule (fired at this run's own timestamp) has no position to close. Phase remains PAPER: graduate() needs 10 days / 8 signals against 2 and 2. Running tally 2 signals, -2.00R.",
-      "ownership_gate": "ENGAGED on VLO and both SPY legs. Detected, recorded, ONE notification sent to Ryan this run per the notify-once duty. No close, no trim, no roll, no re-price, and his working 770C sell limit left alone."
-    },
-    "duties": "Heartbeat already stamped 13:40Z. Brief stamped today. Daily report written 19:15Z and UPDATED this run -- a fill is explicitly a MATERIAL event under the do-not-rewrite rule, and the report's capital figures were superseded by the $510 outflow. Journal appended. New durable finding recorded and NAMED by the journal entry rather than re-argued."
+    "reconciliation": "ZERO DRIFT both books vs broker at 13:45-13:46Z. Equities THREE swings, all fully sellable, zero held: ABNB 6.573584 @ 169.5209, UNP 3.858199 @ 285.1071, IBKR 8.109516 @ 87.2999. Options THREE ledger rows / FOUR contracts, ALL placed_agent='user' with the ownership gate engaged and notify-once already discharged: SPY 2026-09-17 731P x1 @ 0.28 and 770C x1 @ 0.27 (expire at TODAY'S bell, both deep OTM, they lapse), VLO 2026-09-18 390P x2 @ blended 2.55. Broker option_ids and quantities match the ledger one-for-one.",
+    "capital": "total_value $3,675.90; cash == buying_power == unleveraged_buying_power == $391.48 (nothing borrowed, FOUR LAWS #4 unambiguous); equity_value $2,900.42; options_value $384.00. Operational reserve 5% = $183.79; DEPLOYABLE $207.69 -- below the ~$600 CONCENTRATION-POLICY minimum entry, so the equity book is closed to new entries on capital alone, and $207.69 cannot fund even the $500 low end of a CORE options size.",
+    "total_value_moved_intraday": "total_value read $4,080.11 at 13:31Z and $3,675.90 at 13:45Z. The move is almost entirely options_value $765.00 -> $384.00, i.e. the VLO 390P pair re-marking inside its own 1.70 x 3.70 market (74% of mid). It is NOT a $400 loss and no position changed. This is the standing rule about pricing anything off the opening window, applied to a BROKER-SUPPLIED mark rather than to a quote the desk pulled: the reserve is 5% of a number that swings with an unpriceable mark. It changed no decision here -- deployable is $207.69 against a $600 minimum either way.",
+    "day_track": "PAPER day 3, SHORT, OPEN. manage() -> HOLD at 0.18R (entry 714.38 / stop 716.43 / QQQ 714.01). Best print since entry 713.32 = 0.52R, short of the +1R breakeven ratchet. graduate() unchanged at 2 paper days / 2 trades (need 10 and 8) -- today's row is open, not a result. track_status active: equity $3,675.90 > $2,600, 2 consecutive losers vs a 3-loss pause, week -2.00R vs -3.00R.",
+    "equity_book_verdict": "FLAT. Blocked twice over, independently: (1) CAPITAL -- $207.69 deployable vs a ~$600 minimum entry; (2) SIGNAL -- the newest report on master is 2026-09-16 (morning 14:06Z, intraday 19:07Z), so there is no fresh signal to source an autonomous entry from and the prompt bars trading a stale report. No mechanical exit is due: ABNB day 7 of 14 (-1.62%), UNP day 7 of 14 (-1.02%), IBKR day 1 (+0.87%); time stops 2026-09-24 / 09-24 / 09-30, none green-enough for a trail (needs +17.6%), no RSI2>=70 take-profit computable without the report.",
+    "options_book_verdict": "FLAT. 0 of 3 CORE slots used and 0 of 3 entries against a full -$400 cap, but $207.69 deployable cannot fund a CORE size. Capital-blocked, not thesis-blocked."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
