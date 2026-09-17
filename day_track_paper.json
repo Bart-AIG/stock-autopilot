@@ -56,7 +56,13 @@
       },
       "capital_note": "Paper only -- no order placed, none placeable: _DAY_TRACK.status is PAPER and LIVE additionally requires the v11 stamp, while this run was invoked with v10. Sizing used deployable $1,470.86 (unleveraged_buying_power $1,664.60 minus the 5% operational reserve $193.74). NOTE THE COLLISION AND THAT IT IS UNRESOLVED IN THE SPEC: $1,470.92 of that same cash is under the LIVE _cash_hold for the 2026-09-16 FOMC. _DAY_TRACK.capital_priority says the day trade claims deployable cash at its entry run, and a day-track position is flat by 15:30 ET the same session so it never spans the catalyst the hold is waiting on -- but the two rules have not been read against each other by anyone with authority to settle it. In PAPER this costs nothing. BEFORE THE TRACK GOES LIVE Ryan should say which claim wins; see holdings.json._DAY_TRACK_VS_CASH_HOLD_UNSETTLED_2026-09-15.",
       "quote_provenance": "Both venue timestamps are at/after 13:35Z, i.e. OUTSIDE the opening auction window, so this row satisfies the standing re-quote rule. The 13:31-13:33Z quotes taken earlier in the run were NOT used for it.",
-      "bugs_found_and_fixed_by_this_row": "Two, both in day_track.plan_entry, both caught only because this was the first SHORT signal the track ever produced. See holdings.json._DAY_TRACK_SHORT_SIDE_SIZED_IN_THE_WRONG_INSTRUMENT_2026-09-15."
+      "bugs_found_and_fixed_by_this_row": "Two, both in day_track.plan_entry, both caught only because this was the first SHORT signal the track ever produced. See holdings.json._DAY_TRACK_SHORT_SIDE_SIZED_IN_THE_WRONG_INSTRUMENT_2026-09-15.",
+      "entry": 26.195,
+      "exit_px": 26.1671,
+      "exit_reason": "stop level reached (day_track.manage -> 'close')",
+      "r_multiple": -1.0,
+      "pnl_usd": -1.56,
+      "_flat_field_provenance": "Flat canonical fields required by routine prompt v11 ('PAPER rows go to day_track_paper.json with the same shape plus phase' -> {date, direction, vehicle, entry, exit, exit_reason, r_multiple, pnl_usd}). They were ABSENT from every stored row, so a programmatic read by those names returned None. Added here as DERIVED ALIASES of the rich fields that were always present; nothing was recomputed and no rich field was altered. entry <- entry_px_vehicle (the instrument actually traded, matching 'vehicle'); exit <- exit.exit_px_vehicle; exit_reason <- exit.reason; r_multiple <- exit.r_realized; pnl_usd <- exit.pnl_usd. See holdings.json._THE_DAY_TRACKS_TWO_SAFETY_GATES_ARE_FED_BY_HAND_AND_THE_MACHINE_PATH_IS_BROKEN_OR_UNSAFE_2026-09-17."
     },
     {
       "phase": "paper",
@@ -166,7 +172,13 @@
         "class": "Derived-field set repaired one member at a time. Same shape as CLAUDE.md's lot-count rule ('a lot-count change invalidates every derived field at once -- repair them as a SET'): the exit reconstruction invalidated the ratchet, one of the two places the ratchet lived was repaired, and the summary field was not. A reader taking stop_px_signal at face value re-derives a negative stop distance instead of 0.57.",
         "assert": "For any row: sign(entry - stop) must match direction (long -> stop < entry), and abs(entry - stop) must equal r_usd/shares and stop_dist_pct*entry/100. Day 2 now satisfies all three; day 1 (short, entry 708.10 / stop 708.855) already did.",
         "changed_no_outcome": "r_realized -1.00R, pnl -$0.57, status closed, and graduate()'s inputs are untouched. This repairs how the row READS, not what it says happened."
-      }
+      },
+      "entry": 708.43,
+      "exit_px": 707.86,
+      "exit_reason": "stop level reached (initial stop 707.86, breached 13:36Z)",
+      "r_multiple": -1.0,
+      "pnl_usd": -0.57,
+      "_flat_field_provenance": "Flat canonical fields required by routine prompt v11 ('PAPER rows go to day_track_paper.json with the same shape plus phase' -> {date, direction, vehicle, entry, exit, exit_reason, r_multiple, pnl_usd}). They were ABSENT from every stored row, so a programmatic read by those names returned None. Added here as DERIVED ALIASES of the rich fields that were always present; nothing was recomputed and no rich field was altered. entry <- entry_px_vehicle (the instrument actually traded, matching 'vehicle'); exit <- exit.exit_px_vehicle; exit_reason <- exit.reason; r_multiple <- exit.r_realized; pnl_usd <- exit.pnl_usd. See holdings.json._THE_DAY_TRACKS_TWO_SAFETY_GATES_ARE_FED_BY_HAND_AND_THE_MACHINE_PATH_IS_BROKEN_OR_UNSAFE_2026-09-17."
     },
     {
       "phase": "paper",
@@ -234,7 +246,13 @@
         "session_low_bar_utc": "2026-09-17T13:38:00Z",
         "manage_verdict": "CLOSED at the stop. Adverse extreme since the 14:20Z pass = 716.610 (14:28 bar high), first breach 14:27Z at 716.530, against the 716.430 OR-high stop. Chop rule was not live (10:27 ET < 12:00), flat rule not live (< 15:30 ET), no ratchet was ever armed (+1R needed a 712.33 print; best was 713.32 = 0.52R at 13:38Z).",
         "bars_source": "get_equity_historicals(QQQ+PSQ, interval='minute', bounds='regular') 13:30-14:18Z, 49 bars each, no hole signature. NOTE the 14:17/14:18 QQQ bars (vol 2069/400) carry the provisional low-volume signature, so the DECISION price is the live quote (715.6897, venue 14:19:50Z), not the last bar's close."
-      }
+      },
+      "entry": 25.965,
+      "exit_px": 25.8905,
+      "exit_reason": "stop level reached (day_track.manage fed the ADVERSE EXTREME per holdings.json._DAY_TRACK_IN_PAPER_manage_MUST_BE_FED_THE_ADVERSE_EXTREME_SINCE_THE_LAST_PASS_NOT_THE_CURRENT_PRICE_2026-09-16)",
+      "r_multiple": -1.0,
+      "pnl_usd": -0.52,
+      "_flat_field_provenance": "Flat canonical fields required by routine prompt v11 ('PAPER rows go to day_track_paper.json with the same shape plus phase' -> {date, direction, vehicle, entry, exit, exit_reason, r_multiple, pnl_usd}). They were ABSENT from every stored row, so a programmatic read by those names returned None. Added here as DERIVED ALIASES of the rich fields that were always present; nothing was recomputed and no rich field was altered. entry <- entry_px_vehicle (the instrument actually traded, matching 'vehicle'); exit <- exit.exit_px_vehicle; exit_reason <- exit.reason; r_multiple <- exit.r_realized; pnl_usd <- exit.pnl_usd. See holdings.json._THE_DAY_TRACKS_TWO_SAFETY_GATES_ARE_FED_BY_HAND_AND_THE_MACHINE_PATH_IS_BROKEN_OR_UNSAFE_2026-09-17."
     }
   ]
 }
