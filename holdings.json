@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-17T15:47:00Z",
+  "updated_utc": "2026-09-17T16:20:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-17",
     "realized_usd_options": -360.0,
@@ -992,25 +992,25 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-17T16:05:00Z",
+    "run_utc": "2026-09-17T16:20:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-17",
     "capital": {
-      "total_value": 3435.89,
+      "total_value": 3439.0,
       "cash": 541.38,
       "unleveraged_buying_power": 541.38,
-      "equity_value": 2891.51,
+      "equity_value": 2894.62,
       "options_value": 3.0,
-      "operational_reserve_5pct": 171.79,
-      "deployable": 369.59,
-      "note": "cash == unleveraged_buying_power, so no margin is extended and FOUR LAWS #4 is unambiguous. Deployable $369.59 is below BOTH the ~$600 CONCENTRATION-POLICY minimum entry and the $500-1,000 CORE options band, so both live books are shut on capital alone, before any other gate."
+      "operational_reserve_5pct": 171.95,
+      "deployable": 369.43,
+      "note": "cash == unleveraged_buying_power, so no margin is extended and FOUR LAWS #4 is unambiguous. Deployable $369.43 sits below BOTH the ~$600 CONCENTRATION-POLICY minimum entry and the $500-1,000 CORE options band, so both live books are shut on capital alone, before any other gate."
     },
     "books": {
-      "equities": "3 of the 3-4 target slots: ABNB / UNP / IBKR, all placed_agent='agentic'. No exit fired -- RSI2 live 8.1 / 4.2 / 53.1 against a 70 trigger at 170.08 / 285.39 / 90.45, and the only GREEN name (IBKR, +1.35%) is 2.23% below its trigger, so the take-profit is unreachable this run. ABNB and UNP are underwater, where an RSI2 print would be the OPTIONAL exit-into-strength routed to thesis, not a mechanical exit. Time stops 09-24 / 09-24 / 09-30, none due. No green-enough trail crossing (needs 199.44 / 335.42 / 102.71).",
-      "options": "2 ledger rows / 2 contracts, both placed_agent='user' (Ryan's SPY 2026-09-17 731P + 770C strangle), ownership gate engaged, notify-once discharged 2026-09-15. Both expire TODAY far OTM with SPY 762.57 -- 731P 31.57 OTM, 770C 7.43 OTM -- so they lapse worthless with no assignment risk and nothing owed operationally. Agentic book 0 of 3 CORE slots, 0 of 3 entries; closed for the day on the cap AND on capital.",
-      "day_track": "PAPER and PAUSED for the rest of the week (3 consecutive losing days AND week at -3.00R). Paper day 3 stopped out at its stop 14:27Z at -1.00R; nothing open. graduate() -> FALSE (3d/3 trades of the 10d/8 gate). The v11 stop-authority lock is discharged; graduate() is the sole remaining lock and the phase is never promoted mid-week."
+      "equities": "3 of the 3-4 target slots: ABNB / UNP / IBKR, all placed_agent='agentic'. No exit fired. IBKR is the only green name (+1.50%) and sits 2.03% below its 90.45 RSI2>=70 trigger, so the take-profit is unreachable this run; ABNB (-2.04%) and UNP (-1.49%) are underwater, where an RSI2 print is the OPTIONAL exit-into-strength routed to thesis, never a mechanical exit. Time stops 09-24 / 09-24 / 09-30, none due. No green-enough trail crossing (needs 199.44 / 335.42 / 102.71).",
+      "options": "2 ledger rows / 2 contracts, both placed_agent='user' (Ryan's SPY 2026-09-17 731P + 770C strangle), ownership gate engaged, notify-once discharged 2026-09-15. Both expire TODAY far OTM with SPY 762.24 -- 731P 31.24 OTM, 770C 7.76 OTM -- so they lapse worthless with no assignment risk and nothing owed operationally. Agentic book 0 of 3 CORE slots, 0 of 3 entries; closed for the day on the cap AND on capital.",
+      "day_track": "PAPER and PAUSED for the rest of the week (3 consecutive losing days AND week at -3.00R). Paper day 3 stopped at its stop 14:27Z at -1.00R; nothing open, the day's single trade is spent. graduate() -> FALSE (3d/3 trades of the 10d/8 gate). The v11 stop-authority lock is discharged; graduate() is the sole remaining lock and the phase is never promoted mid-week."
     },
-    "verdict": "FLAT all three books, no new decision and no new finding. Every candidate on today's board was already graded to no-entry by the 15:20Z run (9 of 9), the rotation gate is closed, and this run's contribution is the independent RSI2 recomputation that cross-validates the 15:07Z report and re-confirms no exit is reachable."
+    "verdict": "FLAT all three books, no new decision and no new finding. This run fired ~3 minutes behind the 16:16Z one onto an unchanged tape (SPY identical at 762.24); its only contribution is the broker re-reconciliation, which is the one check always worth repeating because it is how an unauthorized fill or an assignment would surface."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
