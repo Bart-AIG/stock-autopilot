@@ -38248,6 +38248,14 @@
       "headline": "6th post-close no-op. Market shut. Stand-down per POST-CLOSE RUN PROTOCOL; nothing changed since the 00:20Z run.",
       "reconciliation": "ZERO DRIFT both books vs broker. Options 3 rows / 4 contracts = VLO 2x 2026-09-18 390P @2.55 (invariants 2==2, $510==$510), SPY 1x 09-17 770C @0.27, SPY 1x 09-17 731P @0.28, all placed_agent=user, ownership gate engaged, notify-once discharged 2026-09-15. Equities 3 rows = IBKR 8.109516 @87.2999, ABNB 6.573584 @169.5209, UNP 3.858199 @285.1071. Cash $391.48 / total $3,757.66; deployable $203.60 after the 5% reserve, under the $600 entry minimum.",
       "actions": "NONE. No artifact rolled; trading day unchanged. Both SPY legs expire 09-17 and are Ryan's -- detect and wait, no re-notification (no new information)."
+    },
+    {
+      "run_utc": "2026-09-17T02:19:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-16",
+      "headline": "7th post-close no-op. Market shut. Stand-down per POST-CLOSE RUN PROTOCOL; nothing changed since the 01:19Z run.",
+      "reconciliation": "ZERO DRIFT both books vs broker. Options 4 contracts / 3 rows (SPY 2026-09-17 731P x1, 770C x1, VLO 2026-09-18 390P x2, all placed_agent='user'); VLO lot invariants assert clean (2==2, 510==510==510, 2.55==2.55). Equities 3 (ABNB 6.573584, UNP 3.858199, IBKR 8.109516). Cash/buying_power/unleveraged all $391.48, total_value $3,753.51. get_option_orders>=09-16 returns only the two user VLO fills and the 770C sell cancelled 20:30Z -- all three already ledgered.",
+      "actions": "NONE. No artifact rolled; trading day still 2026-09-16 (heartbeat 13:40Z, report 19:15Z, throttles equities 1 of 3 / options 0 of 3, options realized $0.00 vs -$400 cap). Deployable = 391.48 - 187.68 reserve = $203.80, below the ~$600 minimum entry."
     }
   ]
 }
