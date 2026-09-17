@@ -167,6 +167,47 @@
         "assert": "For any row: sign(entry - stop) must match direction (long -> stop < entry), and abs(entry - stop) must equal r_usd/shares and stop_dist_pct*entry/100. Day 2 now satisfies all three; day 1 (short, entry 708.10 / stop 708.855) already did.",
         "changed_no_outcome": "r_realized -1.00R, pnl -$0.57, status closed, and graduate()'s inputs are untouched. This repairs how the row READS, not what it says happened."
       }
+    },
+    {
+      "phase": "paper",
+      "trading_day_et": "2026-09-17",
+      "decided_utc": "2026-09-17T13:36:00Z",
+      "decided_by": "scheduled run 13:30Z 2026-09-17 (unattended, prompt v11) -- FIRST POST-BELL run, DAY TRACK paper day 3",
+      "action": "enter",
+      "signal_symbol": "QQQ",
+      "direction": "short",
+      "vehicle": "PSQ",
+      "opening_range": {
+        "high": 716.43,
+        "low": 714.06,
+        "open": 715.98,
+        "close": 714.115,
+        "bars": 5,
+        "range_pts": 2.37,
+        "range_pct_of_spot": 0.3317,
+        "body_pts": -1.865,
+        "body_frac_of_range": 0.7869,
+        "_bars_used": "Five ONE-MINUTE bars 13:30-13:34Z inclusive, bounds=regular, fetched at 13:35Z once the 13:34 bar had printed. Per spec the OR is built from 1-minute bars, never a 5-minute bucket."
+      },
+      "atr14_daily": 8.2514,
+      "entry_px_signal": 714.38,
+      "entry_px_signal_venue_utc": "2026-09-17T13:35:12.319361306Z",
+      "entry_px_vehicle": 25.965,
+      "entry_px_vehicle_venue_utc": "2026-09-17T13:35:12.127700336Z",
+      "stop_px_signal": 716.43,
+      "stop_px_vehicle": 25.8905,
+      "stop_dist_pct": 0.287,
+      "shares": 7,
+      "dollars": 181.75,
+      "r_usd": 0.52,
+      "bound_by": "cash",
+      "risk_pct_used": 5.0,
+      "late_entry_ok": true,
+      "status": "open",
+      "exit": null,
+      "capital_note": "CASH-BOUND, and by a wide margin: deployable $187.47 (cash $391.48 - 5% operational reserve $204.01 on total_value $4,080.11) against a risk budget of 5% x $4,080.11 = $204.01 which at a 0.287% stop would permit ~$71,000 of position. Cash binds at 1/380th of the risk cap. This is the standing arithmetic CLAUDE.md HARD RULE 4 already records for the DAY TRACK -- RISK_PCT is a CEILING, not a target, and at this account size it is nowhere near binding.",
+      "quote_provenance": "Entry quotes taken at 13:35:12Z venue time, i.e. OUTSIDE the first five minutes, satisfying the standing rule that no decision is priced off the opening auction print. The OR bars themselves are 13:30-13:34 by construction -- that is the signal, not a decision price.",
+      "sampling_bias_note": "THE SHORT SIDE WAS AFFORDABLE AND THE LONG SIDE WOULD NOT HAVE BEEN. At $187.47 deployable, one whole QQQ share costs $714.38, so a LONG signal returns 'cannot afford one whole share inside the caps' and logs a SKIP. This row is a genuine short signal (OR close 714.115 < OR open 715.98, body 78.7% of range, nowhere near the 10% doji cut), so it is NOT a case of the constraint selecting the direction -- but it is the third paper row and the third SHORT, and the paper sample remains structurally incapable of containing a long until deployable clears ~$715. See holdings.json._DAY_TRACK_THE_LONG_SIDE_IS_NOW_UNAFFORDABLE_SO_THE_PAPER_SAMPLE_WILL_SELECT_SHORTS_2026-09-17. graduate() counts days and trades, not direction balance, so a 10-day sample could go live on an all-short record."
     }
   ]
 }
