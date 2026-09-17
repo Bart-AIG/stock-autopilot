@@ -6482,6 +6482,38 @@
     "what_the_entry_window_run_should_do": "Run day_track.plan_entry EXACTLY as written and log whatever it returns, INCLUDING a skip. Do not substitute a fractional share, do not switch vehicle to make the long side fit, do not re-derive the reserve, and do not treat a capital skip as a signal. If the OR direction is SHORT the trade is sizable at ~7 PSQ shares and proceeds normally.",
     "for_the_monday_calibration_escalate_do_not_self_amend": "Read graduate() alongside the DIRECTION SPLIT of the paper rows, and count capital-skip days separately from doji/late-entry skips -- they are different causes with different implications. If the accumulated signals are one-sided by direction, that is a question for Ryan (the paper gate's sample is unrepresentative, and the remedies -- funding the track separately, sizing the long side in a cheaper vehicle, or extending the paper window -- are all design changes no unattended run may make)."
   },
+  "_THE_RAW_IV_RV_RATIO_ROSE_THROUGH_AN_IV_CRUSH_BECAUSE_A_3PCT_DAY_AGED_OUT_OF_THE_WINDOW_2026-09-17": {
+    "measured_utc": "2026-09-17T14:18:46Z",
+    "by": "scheduled run 14:15Z 2026-09-17 (unattended, prompt v11)",
+    "headline": "THE DENOMINATOR'S WINDOW ROLLS ON ITS OWN, AND ON SPY AND QQQ TODAY IT MOVED THE RAW iv_rv_ratio THE OPPOSITE WAY FROM THE EX-GAP RATIO AND FROM IMPLIED VOL ITSELF. The post-FOMC crush was real and the raw ratio still went UP. Check what AGES OUT of the realized window, not only what comes in.",
+    "measurement": {
+      "atm_iv_2026-09-16_to_09-17": {
+        "SPY": "0.136494 -> 0.127852 (-6.33%)",
+        "QQQ": "0.184402 -> 0.173077 (-6.14%)",
+        "NVDA": "-5.36%",
+        "MSFT": "-2.23%",
+        "AMD": "-0.34%",
+        "TSM": "-0.56%",
+        "TSLA": "-0.35%",
+        "AVGO": "+0.82%",
+        "_read": "The crush is concentrated in the INDEX names plus NVDA/MSFT. The high-vol semis barely moved -- the event premium was MACRO, and single-name vol is dominated by idiosyncratic risk. Do not expect an FOMC crush to show up in a high-IV single name."
+      },
+      "raw_ratio": {
+        "SPY": "1.4222 -> 1.5199 (+6.87%)",
+        "QQQ": "1.1611 -> 1.3260 (+14.20%)"
+      },
+      "ex_top2_ratio": {
+        "SPY": "1.8195 -> 1.7198 (-5.48%)",
+        "QQQ": "1.5623 -> 1.4930 (-4.44%)"
+      },
+      "the_roll": "Recomputed on ONE convention (31 log returns, both days, this run's method) so the comparison is apples to apples: QQQ rv 0.1568 -> 0.1305 (-16.7%), SPY rv 0.0960 -> 0.0841 (-12.3%). The window start moved 2026-08-04 -> 2026-08-05, i.e. exactly ONE return left it: 2026-08-04, +3.40% on QQQ and +1.80% on SPY. What came in was a +1.58% / +0.94% day. Nothing else changed.",
+      "percentile_effect": "SPY and QQQ both print the 100th percentile of their own 26-reading raw-ratio history today. That reading is manufactured by the roll, not by rich premium."
+    },
+    "the_rule": "A ratio has two moving parts and the DENOMINATOR moves even on a flat tape. Before quoting a raw iv_rv_ratio -- and always before FORECASTING one -- list the returns that AGE OUT of the window between the two dates, not just the one that comes in. A single ~3% day leaving a ~31-return window moves rv by double digits with nothing happening on the market.",
+    "why_the_pair_rule_saves_it": "This is the strongest case yet for the standing 'read raw and ex-gap as a PAIR' rule, and it extends that rule to a NEW artifact. rv_30d_ex_top2 drops the two largest absolute moves, so the 2026-08-04 day was already excluded from BOTH days' ex-gap windows -- which makes the ex-gap measure ROBUST TO THE ROLL, not merely robust to earnings gaps. On SPY and QQQ the two ratios printed OPPOSITE SIGNS on the same day and only the ex-gap sign agreed with the observed IV move. When they disagree, the ex-gap one is describing the market and the raw one is describing the calendar.",
+    "prior_forecast_tested": "The 2026-09-16 iv_history note forecast that 'tomorrow's raw ratios [will] fall on unchanged realized vol.' The IV half was right (SPY -6.3%, QQQ -6.1%). The RATIO half was wrong in DIRECTION (+6.9%, +14.2%), and it failed on the leg it held fixed -- realized vol was NOT unchanged. Same shape as the 2026-08-28 finding that 'a forecast that freezes one leg will be right about the artifact and wrong about the level', with the roles swapped: there IV moved while the window was assumed fixed; here IV did exactly what was forecast and the WINDOW moved. State which leg you are holding fixed, and for a window-based statistic the window is never the safe leg to freeze.",
+    "honest_scope": "IT CHANGED NO DECISION, which is the only condition under which a filter's inputs can be audited credibly: the options book is capital-blocked today ($207.83 deployable against a $500-1,000 CORE size), so no run could have acted on either reading. Two limits stated rather than buried: (1) this run's rv convention reproduces the stored 2026-09-16 rows to within ~1.3%, not exactly, so the stored-vs-computed ratio deltas carry that uncertainty -- the SIGNS here are 4-14% and survive it, but a 2% delta would not; (2) n=26 readings makes a '100th percentile' a stated maximum over a short series, not a distributional claim."
+  },
   "_OVERSOLD_COHORT_TESTED_ON_AN_UP_DAY_SUPPLIES_THE_CONTROL_THE_ORIGINAL_FINDING_LACKED": {
     "measured_utc": "2026-09-17T14:20:00Z",
     "status": "DURABLE equity entry-gate measurement. Strengthens _OVERSOLD_COHORT_IS_MEASURABLE_BEFORE_ANY_NAME_IS_GRADED (2026-08-31) by removing that finding's own stated confound. Not session-scoped.",
