@@ -203,13 +203,26 @@
       "bound_by": "cash",
       "risk_pct_used": 5.0,
       "late_entry_ok": true,
-      "status": "open",
-      "exit": null,
+      "status": "closed",
+      "exit": {
+        "exited_utc": "2026-09-17T14:35:00Z",
+        "exited_by": "scheduled run 14:30Z 2026-09-17 (unattended, prompt v11)",
+        "reason": "stop level reached (day_track.manage fed the ADVERSE EXTREME per holdings.json._DAY_TRACK_IN_PAPER_manage_MUST_BE_FED_THE_ADVERSE_EXTREME_SINCE_THE_LAST_PASS_NOT_THE_CURRENT_PRICE_2026-09-16)",
+        "triggered_on": "SIGNAL and VEHICLE both breached on the SAME minute -- 14:27Z. QQQ high 716.530 >= stop 716.430; PSQ low 25.885 <= vehicle stop 25.8905. The 14:28 bar extended the breach to 716.610.",
+        "trigger_minute_utc": "2026-09-17T14:27:00Z",
+        "exit_px_signal": 716.43,
+        "exit_px_vehicle": 25.8905,
+        "r_realized": -1.0,
+        "pnl_usd": -0.52,
+        "feed_integrity": "VERIFIED before acting. (a) 1-minute series fetched TWICE ~1 min apart, 14:20-14:29 byte-identical both times (only the in-progress 14:30 bar revised, 36,306->36,606 vol). (b) 5-minute bucket 14:25Z reports high 716.610 -- exactly the 1-minute max -- and volume 198,081 == the 1-minute sum 28,006+42,112+36,717+40,433+50,813, so no hole in either direction under the 2026-08-28 direction rule. (c) SPY clean at the same timestamps (38,958 / 48,937 on 14:27/14:28). (d) The breach bars carry healthy volume (36,717 / 40,433), no single-constituent or tiny-fraction signature.",
+        "what_a_LIVE_run_would_have_done": "The resting stop_market at PSQ 25.8905 would have filled at 14:27Z without the agent present. PAPER has no resting order, so the breach was recoverable only from the bars -- see the r_note.",
+        "r_note": "THE NAIVE CALL WOULD HAVE MISSED THIS. day_track.manage('short', 714.38, 716.43, price=716.17 (live quote 14:31:02Z), ...) returns {'action':'hold','reason':'working, -0.87R'} because manage()'s step 1 tests the stop against the price it is HANDED, and QQQ had already retraced to 716.17 by the time this run sampled. Fed the adverse extreme (716.610) instead, it returns {'action':'close','reason':'stop level reached','r':-1.0}. This is the first out-of-sample instance of the one-way bias the 2026-09-16 finding predicted, and it landed in the predicted direction: a breach followed by a recovery, which without the prescription becomes a live open position carried at -0.87R instead of a closed -1.00R loser."
+      },
       "capital_note": "CASH-BOUND, and by a wide margin: deployable $187.47 (cash $391.48 - 5% operational reserve $204.01 on total_value $4,080.11) against a risk budget of 5% x $4,080.11 = $204.01 which at a 0.287% stop would permit ~$71,000 of position. Cash binds at 1/380th of the risk cap. This is the standing arithmetic CLAUDE.md HARD RULE 4 already records for the DAY TRACK -- RISK_PCT is a CEILING, not a target, and at this account size it is nowhere near binding.",
       "quote_provenance": "Entry quotes taken at 13:35:12Z venue time, i.e. OUTSIDE the first five minutes, satisfying the standing rule that no decision is priced off the opening auction print. The OR bars themselves are 13:30-13:34 by construction -- that is the signal, not a decision price.",
       "sampling_bias_note": "THE SHORT SIDE WAS AFFORDABLE AND THE LONG SIDE WOULD NOT HAVE BEEN. At $187.47 deployable, one whole QQQ share costs $714.38, so a LONG signal returns 'cannot afford one whole share inside the caps' and logs a SKIP. This row is a genuine short signal (OR close 714.115 < OR open 715.98, body 78.7% of range, nowhere near the 10% doji cut), so it is NOT a case of the constraint selecting the direction -- but it is the third paper row and the third SHORT, and the paper sample remains structurally incapable of containing a long until deployable clears ~$715. See holdings.json._DAY_TRACK_THE_LONG_SIDE_IS_NOW_UNAFFORDABLE_SO_THE_PAPER_SAMPLE_WILL_SELECT_SHORTS_2026-09-17. graduate() counts days and trades, not direction balance, so a 10-day sample could go live on an all-short record.",
       "_manage_state": {
-        "checked_utc": "2026-09-17T14:20:00Z",
+        "checked_utc": "2026-09-17T14:35:00Z",
         "time_et": "10:19",
         "signal_px": 715.6897,
         "signal_px_venue_utc": "2026-09-17T14:19:50.870094677Z",
@@ -219,7 +232,7 @@
         "best_r_since_entry": 0.517,
         "session_low_since_entry": 713.32,
         "session_low_bar_utc": "2026-09-17T13:38:00Z",
-        "manage_verdict": "hold -- day_track.manage('short',714.38,716.43,715.6897,713.32,None,'10:19',2.05) -> {'action':'hold','stop':716.43,'reason':'working, -0.64R','r':-0.639}. The short kept deteriorating: -0.25R at 14:01Z, -0.64R now. QQQ has ground from the 713.32 low (13:38Z) back to 715.69, leaving only 0.74 pts of room to the 716.43 OR-high stop. Stop NOT breached -- max high since entry is 716.02 (14:14Z bar), 0.41 under it. No ratchet armed and none reachable from here (+1R breakeven needs a 712.33 print). Chop rule not live until 12:00 ET; flat rule 15:30 ET. PAPER -- no order exists, nothing to cancel or replace.",
+        "manage_verdict": "CLOSED at the stop. Adverse extreme since the 14:20Z pass = 716.610 (14:28 bar high), first breach 14:27Z at 716.530, against the 716.430 OR-high stop. Chop rule was not live (10:27 ET < 12:00), flat rule not live (< 15:30 ET), no ratchet was ever armed (+1R needed a 712.33 print; best was 713.32 = 0.52R at 13:38Z).",
         "bars_source": "get_equity_historicals(QQQ+PSQ, interval='minute', bounds='regular') 13:30-14:18Z, 49 bars each, no hole signature. NOTE the 14:17/14:18 QQQ bars (vol 2069/400) carry the provisional low-volume signature, so the DECISION price is the live quote (715.6897, venue 14:19:50Z), not the last bar's close."
       }
     }
