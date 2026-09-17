@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-17T19:19:00Z",
+  "updated_utc": "2026-09-17T20:30:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-17",
     "realized_usd_options": -360.0,
@@ -104,20 +104,18 @@
       "sellout_datetime": "2026-09-17T19:45:00+00:00",
       "_note": "placed_agent='user' -- RYAN PLACED THIS HIMSELF IN THE ROBINHOOD APP. OWNERSHIP GATE (HARD RULE 6 / prompt v11): the desk NEVER closes, trims or rolls it without his explicit go-ahead. It may detect a fired exit condition, record it, notify him ONCE, and wait. Per the 2026-08-03 agentic sub-sleeve rule, a user-placed option does NOT consume the agentic per-trade budget, the max-3-open CORE slots, or the daily options entry throttle -- the agentic book remains 0 of 3 CORE and 0 of 3 entries today. It is likewise NOT a HARD RULE 9 incident and must not be flagged as one: an unauthorized trade is an AGENTIC order nobody approved, and this is the account owner trading his own account, which needs no approval from anything. Nothing here is adjudicated in either direction. LEG: this is the PUT wing of a two-legged long STRANGLE Ryan opened 55 seconds apart (see the 770C row and _USER_PLACED_SPY_FOMC_STRANGLE_DETECTED_2026-09-15). The two legs are ONE trade in intent but TWO independent single-leg positions at the broker -- they are not a spread, carry no collateral relationship, and each can be closed alone.",
       "_current_state": {
-        "as_of_utc": "2026-09-17T13:33:07Z",
+        "as_of_utc": "2026-09-17T20:30:00Z",
         "contract": "SPY 2026-09-17 731P",
-        "mark": 0.005,
-        "bid": 0.0,
-        "ask": 0.01,
+        "status": "EXPIRED WORTHLESS -- SETTLEMENT CONFIRMED AGAINST THE OFFICIAL CLOSE. Pending broker processing.",
+        "spy_official_close": 762.64,
+        "close_source": "get_equity_quotes last_trade_price at 2026-09-17T19:59:59.97Z (the 20:00Z bell print)",
+        "finished_otm_by_usd": 31.64,
+        "broker_state_at_2030z": "quantity 1.0000, pending_expiration_quantity 1.0000 -- the expiration is in process, not yet booked.",
         "entry_premium": 0.28,
-        "pl_usd": -27.5,
-        "pl_pct": -98.21,
-        "delta": -0.002865,
-        "iv": 0.548288,
-        "dte": 0,
-        "underlying": 762.15,
-        "pct_otm": 4.09,
-        "verdict": "NO ACTION -- placed_agent='user'. OWNERSHIP GATE as above. EXPIRES TODAY, $31.15 OTM, bid 0.00 so it is not even closeable for a cent. Lapses worthless; no assignment risk. The strangle's two legs together cost $55 and are worth ~$4 -- Ryan bought convexity into the FOMC and the index moved +1.07% without reaching either wing."
+        "pl_usd": -28.0,
+        "pl_pct": -100.0,
+        "verdict": "NO ACTION, AND NONE WAS EVER AVAILABLE -- placed_agent='user', ownership gate engaged since 09-15 and notify-once long discharged. A LONG option finishing OTM simply lapses: there is NO exercise, NO assignment, and NO cash call on the account, which is the one materially bad overnight outcome this post-close reconciliation exists to rule out. Ruled out on the official close: SPY 762.64 sits BETWEEN the two wings, 31.64 below the 731 put strike and 7.36 below the 770 call strike. Never closeable -- its bid was 0.00 all session, so lapsing was the only available outcome.",
+        "next_run_duty": "REMOVE this row from positions[] on the first run whose get_option_positions shows quantity 0 (or the row absent). Do NOT remove it before the broker does -- the broker is the arbiter and at 20:30Z it still reports quantity 1.0. On removal, append to _closed_positions with exit_reason 'expired_worthless_otm', exit_premium 0.00, and realized -$28.00. Ryan's strangle then closes out at -$55.00 total on $55.00 of premium; it is HIS trade and HIS realized loss, and it does NOT touch the agentic -$400 daily options cap or either entry throttle."
       }
     },
     {
@@ -139,20 +137,18 @@
       "sellout_datetime": "2026-09-17T19:45:00+00:00",
       "_note": "placed_agent='user' -- RYAN PLACED THIS HIMSELF IN THE ROBINHOOD APP. OWNERSHIP GATE (HARD RULE 6 / prompt v11): the desk NEVER closes, trims or rolls it without his explicit go-ahead. It may detect a fired exit condition, record it, notify him ONCE, and wait. Per the 2026-08-03 agentic sub-sleeve rule, a user-placed option does NOT consume the agentic per-trade budget, the max-3-open CORE slots, or the daily options entry throttle -- the agentic book remains 0 of 3 CORE and 0 of 3 entries today. It is likewise NOT a HARD RULE 9 incident and must not be flagged as one: an unauthorized trade is an AGENTIC order nobody approved, and this is the account owner trading his own account, which needs no approval from anything. Nothing here is adjudicated in either direction. LEG: this is the CALL wing of the same two-legged long STRANGLE. See the 731P row.",
       "_current_state": {
-        "as_of_utc": "2026-09-17T13:33:08Z",
+        "as_of_utc": "2026-09-17T20:30:00Z",
         "contract": "SPY 2026-09-17 770C",
-        "mark": 0.035,
-        "bid": 0.03,
-        "ask": 0.04,
+        "status": "EXPIRED WORTHLESS -- SETTLEMENT CONFIRMED AGAINST THE OFFICIAL CLOSE. Pending broker processing.",
+        "spy_official_close": 762.64,
+        "close_source": "get_equity_quotes last_trade_price at 2026-09-17T19:59:59.97Z (the 20:00Z bell print)",
+        "finished_otm_by_usd": 7.36,
+        "broker_state_at_2030z": "quantity 1.0000, pending_expiration_quantity 1.0000 -- the expiration is in process, not yet booked.",
         "entry_premium": 0.27,
-        "pl_usd": -23.5,
-        "pl_pct": -87.04,
-        "delta": 0.026336,
-        "iv": 0.190213,
-        "dte": 0,
-        "underlying": 762.15,
-        "pct_otm": 1.03,
-        "verdict": "NO ACTION -- placed_agent='user'. OWNERSHIP GATE: Ryan's own trade, never closed, trimmed or rolled autonomously. EXPIRES TODAY and is $7.85 OTM with delta 0.026; on current prices it expires worthless. A long option finishing OTM simply lapses -- there is NO assignment or exercise risk and no cash call on the account, so nothing is owed operationally. Ryan's own GFD sell at 0.50 on 09-16 expired unfilled (order 6aaace42). Notify-once discharged 2026-09-15; decay into a known expiry is not new information and is not re-notified."
+        "pl_usd": -27.0,
+        "pl_pct": -100.0,
+        "verdict": "NO ACTION, AND NONE WAS EVER AVAILABLE -- placed_agent='user', ownership gate engaged since 09-15 and notify-once long discharged. A LONG option finishing OTM simply lapses: there is NO exercise, NO assignment, and NO cash call on the account, which is the one materially bad overnight outcome this post-close reconciliation exists to rule out. Ruled out on the official close: SPY 762.64 sits BETWEEN the two wings, 31.64 below the 731 put strike and 7.36 below the 770 call strike. The broker's own auto-liquidation attempt (order 6aac4341, placed_agent='expiring_option', sell-to-close 1 @ 0.01 GFD, created 19:45:05Z) was CANCELLED UNFILLED at 20:15:56Z -- no bid at a penny, so the contract lapses rather than being sold. That is the settled outcome of the third placed_agent value recorded by the 19:45Z run; nothing new is claimed here.",
+        "next_run_duty": "REMOVE this row from positions[] on the first run whose get_option_positions shows quantity 0 (or the row absent). Do NOT remove it before the broker does -- the broker is the arbiter and at 20:30Z it still reports quantity 1.0. On removal, append to _closed_positions with exit_reason 'expired_worthless_otm', exit_premium 0.00, and realized -$27.00. Ryan's strangle then closes out at -$55.00 total on $55.00 of premium; it is HIS trade and HIS realized loss, and it does NOT touch the agentic -$400 daily options cap or either entry throttle."
       },
       "_user_working_order": {
         "status": "RESOLVED -- CANCELLED UNFILLED AT THE CLOSE, exactly as the 17:15Z run predicted.",
