@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-17T18:30:00Z",
+  "updated_utc": "2026-09-17T18:35:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-17",
     "realized_usd_options": -360.0,
@@ -753,31 +753,31 @@
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
-    "utc": "2026-08-31T17:46:00Z",
-    "REPAIRED_THIS_RUN": "This key was carrying the VOID >=45% equity-book cash floor, three days after the 2026-08-28T20:42:36Z repeal, in fields named floor_minimum_pct / cash_floor_pct / max_compliant_buy_usd and a status line reading 'BOOK CLOSED to new equity entries on the floor.' Rewritten against the governing FULL-DEPLOYMENT capital policy. See _VOID_FLOOR_RESIDUE_CLASS instance 10 for how nine sweeps missed it.",
-    "source": "get_portfolio + get_equity_positions + get_equity_quotes, broker-read 17:45-17:46Z this run. Not inherited.",
-    "total_value": 3954.239904205,
-    "equity_book_value": 2374.279904205,
-    "options_value": 533.0,
-    "cash": 1046.96,
-    "unleveraged_buying_power": 1046.96,
-    "governing_rule": "FULL-DEPLOYMENT CAPITAL POLICY (CLAUDE.md Aug-Oct posture block, Ryan live turn 2026-08-29). Cash is the RESIDUAL OF QUALITY. There is NO percentage floor on either book -- do NOT re-derive one from this file's history.",
-    "operational_reserve_usd": 250.0,
-    "reserve_derivation": "max(0.05 x total_value = $197.71, the FOUR LAWS #4 flat $250) = $250.00. The flat $250 is the stricter of the two below a $5,000 account -- see _RESERVE_IS_THE_STRICTER_OF_TWO.",
-    "deployable_usd": 796.96,
-    "rotation_test_triggered": false,
-    "rotation_test_note": "Deployable $796.96 exceeds one normal position size (~$400-500), so the rotation-beats-the-weakest test is NOT triggered. Nothing has been declined on capital at any point today.",
+    "utc": "2026-09-17T18:35:00Z",
+    "REPAIRED_THIS_RUN": "This key was 17 DAYS STALE (last written 2026-08-31T17:46:00Z) and every substantive field in it was VOID: it quoted the '~15-20% per-name cap' that the 2026-09-02 CONCENTRATION POLICY replaced with 30%, the flat $250 operational reserve that the 2026-08-29 capital policy replaced with 5% of total_value, and a five-name book (MMM/MDLZ/LLY/ROST/PNC) of which the account now holds NONE. It is the ELEVENTH instance of _VOID_FLOOR_RESIDUE_CLASS, and note the shape: this key's own header records that it was repaired once before for exactly this reason, then went stale again. A key that must be hand-refreshed will go stale; only a key some run is OBLIGED to rewrite stays true.",
+    "source": "get_portfolio + get_equity_positions + get_equity_quotes, broker-read 18:30-18:31Z this run. Not inherited.",
+    "total_value": 3441.251998345,
+    "equity_book_value": 2896.871998345,
+    "options_value": 3.0,
+    "cash": 541.38,
+    "unleveraged_buying_power": 541.38,
+    "margin_check": "buying_power == unleveraged_buying_power == $541.38, so nothing is borrowed. FOUR LAWS #4 satisfied unambiguously.",
+    "governing_rule": "FULL-DEPLOYMENT CAPITAL POLICY (Ryan live turn 2026-08-29) + CONCENTRATION POLICY (Ryan live turn 2026-09-02). Cash is the RESIDUAL OF QUALITY; there is NO percentage cash floor on either book. Per-name cap 30% of total account value; target 3-4 concurrent swings (band 3-5); minimum entry ~$600; A/A+ only.",
+    "operational_reserve_usd": 172.06,
+    "reserve_derivation": "5% of total_value $3,441.25 = $172.06. Recomputed every run, never hard-coded. It SUPERSEDES the flat $250 that the stale version of this key carried.",
+    "deployable_usd": 369.32,
+    "rotation_test_triggered": true,
+    "rotation_test_note": "Deployable $369.32 is BELOW one normal position size (and below the ~$600 minimum entry), so the rotation-beats-the-weakest test IS triggered: a new idea is not an entry unless it grades BETTER THAN THE WEAKEST POSITION HELD. No candidate cleared that bar today -- BMY graded B at 17:20Z, LRCX C. Nothing was declined on capital ALONE.",
     "per_name": {
-      "basis": "live quotes 17:45-17:46Z; % of total_value $3,954.24. All five inside the ~15-20% per-name cap, none close to it.",
-      "MMM": "$497.83  12.59%  P/L -0.43%",
-      "MDLZ": "$496.93  12.57%  P/L -0.61%",
-      "LLY": "$486.01  12.29%  P/L -2.80%",
-      "ROST": "$455.56  11.52%  P/L -1.03%",
-      "PNC": "$437.94  11.08%  P/L -2.68%"
+      "basis": "live quotes 18:31:08-18:31:22Z; % of total_value $3,441.25. Cap is 30%.",
+      "ABNB": "$1,089.18   31.65%  P/L -2.26%   *** OVER THE 30% CAP ***",
+      "UNP": "$1,087.82   31.61%  P/L -1.11%   *** OVER THE 30% CAP ***",
+      "IBKR": "$718.62   20.88%  P/L +1.51%   inside"
     },
-    "speculative_sleeve": "$0.00 of the ~25% cap. None of the five is a spec name (no quantum/nuclear/uranium/space/eVTOL/drone/photonics/AI-infra small cap).",
-    "options_premium_at_risk": "Hedge only -- SPY 2026-11-20 700P, $749.00 cost basis, EXEMPT from premium backstops per the ownership gate. No agentic TACTICAL or CORE premium deployed.",
-    "WHY_THE_STALE_VERSION_WOULD_HAVE_MISLED": "Under the repealed floor the book now reads WORSE, not better: cash is 30.60% of the equity book against the void 45% minimum, so the dead rule would compute a NEGATIVE max compliant buy and freeze all five remaining entry slots for the rest of the posture. The repeal is what makes today's $796.96 deployable. A key literally named _book_concentration is where a future run looks to answer 'how much can the equity book take' -- stale capital policy is most dangerous in the artifact that advertises itself as the answer."
+    "CAP_BREACH_RULING": "TWO of three swings are over the 30% per-name cap, and the correct response is STOP ADDING, NOT SELL. See _THE_PER_NAME_CAP_IS_BREACHED_BY_THE_OTHER_BOOKS_LOSSES_2026-09-17 for the mechanism and the full ruling. In one line: the cap is a SIZING gate applied at entry (the same reading the 2026-08-28 cash-floor breach settled), HARD RULE 5 permits an equity sale only on a target hit / an RSI2>=70 cross while GREEN / a HARD RULE 7 thesis break, and neither name qualifies -- both are underwater, so an RSI2 exit would not even be a take-profit. The book is in any case already closed to entries on capital.",
+    "speculative_sleeve": "$0.00 of the ~25% cap. None of ABNB / UNP / IBKR is a spec name.",
+    "options_premium_at_risk": "$0.00 AGENTIC. Both open contracts (SPY 2026-09-17 731P, 770C) are Ryan's own placed_agent='user' strangle expiring tonight, marked $3.00 total; under the 2026-08-03 agentic sub-sleeve rule they consume no agentic slot, no per-trade budget and no entry throttle. The desk holds 0 of 3 CORE slots.",
+    "slots": "Equity book holds 3 of the 3-4 target swings. One open slot exists on the SLOT count and zero open slots exist on CAPITAL -- deployable $369.32 cannot fund the ~$600 minimum. Say which constraint binds; here it is capital."
   },
   "_track_tag_note": "Added 2026-08-24T01:19Z: the v4 dual-track routine prompt requires every options position to carry track:'tactical' or track:'core' so the max-2-tactical / max-3-core slot accounting can be read from the ledger instead of re-derived from journal prose. QQQ 680P and RBRK 90P are both CORE SWING (entered 2026-08-18, 1-4 week horizon, 21-45 DTE at entry) -- every weekend run had already been calling them track:core in its sleeve_state prose while the field itself stayed absent, which is the 'same issue every session' pattern CLAUDE.md says to fix at the root rather than restate. The SPY 2026-11-20 700P is tagged track:'hedge': it is the authorized defensive hedge, EXCLUDED from the 5-slot cap and exempt from premium backstops, so tagging it 'core' would wrongly consume a swing slot. Slot count as of this tag: 2 of 3 core used, 0 of 2 tactical.",
   "_BLOCKED_SETUP": {
@@ -6646,5 +6646,23 @@
     "assert_before_committing_any_new_day_track_row": "len([r for r in rows if r.get('r_multiple') is not None]) == len([r for r in rows if isinstance(r.get('exit'), dict)]), and for each closed row r['r_multiple'] == r['exit']['r_realized'] and r['pnl_usd'] == r['exit']['pnl_usd']. Three lines of arithmetic; a human reading the row does not catch this, which is why five rows carried it past every reconciliation.",
     "NOT_applied_and_why": "day_track.py was NOT hardened, though it could be: a None-guard in track_status that raised instead of returning a verdict would remove path C entirely. docs/day-track-spec.md forbids an unattended run editing the track's rules, and track_status is one of them -- a change there could in principle alter a pause outcome. RECOMMENDATION FOR RYAN / an interactive session: add an input assertion to track_status and graduate rejecting any list containing None. A short list must stay legal (len(tail)==PAUSE_CONSEC_LOSSES already handles an early sample correctly), so the guard is None-specific, not length-specific.",
     "changed_no_decision_today": "The track is paused through Friday 2026-09-19 on both the old and the repaired read, graduate() is False on both, and nothing was placeable in any book this run. A safety gate's inputs can only be audited credibly on a run where the audit does not license anything -- the standard this repo holds every filter audit to."
+  },
+  "_THE_PER_NAME_CAP_IS_BREACHED_BY_THE_OTHER_BOOKS_LOSSES_2026-09-17": {
+    "utc": "2026-09-17T18:35:00Z",
+    "measured_by": "scheduled run 18:30Z 2026-09-17 (unattended, prompt v11). Broker-read, not inherited.",
+    "headline": "THE 30% PER-NAME CAP IS DENOMINATED IN *TOTAL ACCOUNT VALUE*, WHICH INCLUDES THE OPTIONS BOOK -- SO A LOSS IN THE OTHER BOOK PUSHES EQUITY POSITIONS OVER THE CAP WITHOUT A SINGLE SHARE TRADING. TWO OF THREE SWINGS CROSSED IT TODAY AND NEITHER POSITION MOVED.",
+    "measurement": {
+      "now_1831Z": "total_value $3,441.25. ABNB $1,089.18 = 31.65%. UNP $1,087.82 = 31.61%. IBKR $718.62 = 20.88%. Cap is 30%: ABNB and UNP are OVER.",
+      "same_position_values_against_the_1333Z_denominator": "total_value was $4,080.11 at the 13:33Z heartbeat. The IDENTICAL position values read ABNB 26.69%, UNP 26.66%, IBKR 17.61% -- all comfortably inside.",
+      "denominator_change": "$4,080.11 -> $3,441.25 = -15.66% in one session.",
+      "position_change": "ABNB -2.26% from entry, UNP -1.11% from entry. Report prices at 18:07Z were ABNB 166.03 / UNP 281.19 against 165.69 / 281.95 now -- the positions are flat. THE CROSSING IS ~ENTIRELY DENOMINATOR.",
+      "what_moved_the_denominator": "Ryan's own VLO 2026-09-18 390P x2 round trip, closed BY HIM (placed_agent='user') at 14:55:36Z for $150 gross against a $510 basis = -$360 realized, plus his SPY 731P/770C strangle decaying from $15 to $3 into tonight's expiry. Both in the OPTIONS book. Both positions the desk has NO authority over under the ownership gate."
+    },
+    "the_mechanism": "A per-name cap written as a percentage of TOTAL account value has two moving parts, and only one of them is the position. This desk has now documented FOUR distinct ways a VOLUME denominator can be wrong (session-average too strict, trailing-local too easy in a decaying tape, post-flush inflated, closing-auction inflated) and treated that as a chart-reading problem. It is not: it is a property of every ratio the desk computes. Here the numerator was still and the denominator fell 15.66%, so the gate moved while the book slept.",
+    "the_sharp_edge": "THE PART OF THE DENOMINATOR THAT MOVED IS THE PART THE DESK CANNOT CONTROL. Ryan trades his own options in this same account, and the ownership gate means the desk can neither close nor size those positions. So an equity concentration gate can be breached -- or, just as easily, silently GRANTED HEADROOM -- by a book the desk is forbidden to touch. A run that reads '20% of account value, plenty of room' after Ryan closes a winner has not measured anything durable about its own position.",
+    "THE_RULING_TODAY": "STOP ADDING, NOT SELL -- and today that changes nothing, because both books are already closed on capital (deployable $369.32 vs the ~$600 minimum entry). Reasoning, so no later run re-derives it the other way: (1) the cap is a SIZING gate evaluated at entry, which is exactly how the 2026-08-28 cash-floor breach was settled ('the remedy for a floor already breached is NOT a sale'); (2) HARD RULE 5 permits an equity sale ONLY on a target hit, an RSI2>=70 cross while GREEN, or a HARD RULE 7 thesis break, and ABNB and UNP qualify on none -- both are UNDERWATER, so an RSI2 print would be an optional exit-into-strength routed to thesis, never a mechanical exit; (3) selling to cure a 1.65-point ratio overshoot pays a spread and a round trip to fix a rounding-scale number; (4) no thesis has broken -- the 18:07Z report has BOTH names at HOLD (thesis-watch) with an empty ACTION block.",
+    "THE_FORWARD_CONSEQUENCE_WHICH_IS_THE_REAL_ONE": "ABNB and UNP both hit their 14-day TIME STOP on 2026-09-24, which will free ~$2,177 at once. The run that sizes into that capital must NOT read the 30% cap as headroom it has: size = deployable / remaining open slots, and the cap is a CEILING checked against the denominator LIVE AT THE MOMENT OF THE ORDER, not against the denominator read at run start. That is the 2026-08-28 rule ('a gate computed at RUN START is stale by the time the order is sent') applied to concentration rather than to cash.",
+    "detector": "Compute per-name % of total_value EVERY run and write it to _book_concentration, not only when sizing an entry. It is three multiplications off numbers the reconciliation already fetched. No run on 2026-09-17 computed it before this one -- 41 journal entries, several of them explicitly reasoning about the concentration POLICY, and not one of them evaluated the concentration NUMBER. A policy cited is not a gate measured.",
+    "honest_scope": "THIS CHANGED NO DECISION. Both books were already shut on capital before the finding, nothing was placeable, and the ruling is STOP ADDING on a book that is already stopped. It is recorded because a gate's inputs can only be audited credibly on a run where the audit does not license or forbid a trade -- the standard this file applies to every filter audit. The breach is also small (1.65 and 1.61 points) and would be cured by a $175 rise in total_value or by the 09-24 time stops, whichever comes first."
   }
 }
