@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-18T14:50:00Z",
+  "updated_utc": "2026-09-18T16:20:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-18",
     "realized_usd_options": 0.0,
@@ -6912,5 +6912,66 @@
     "the_class": "Same shape as _THE_OPENING_DEFERRAL_HAS_NO_ENFORCEMENT: a correct prescription with no mechanism, sitting in a location the acting run has no reason to open. A finding is not a fix. The test of whether a lesson has been written back is not 'is it recorded' but 'would a run that has never heard of it be routed into it', and only CLAUDE.md (auto-loaded every session) and the stored prompt (Ryan's to edit) satisfy that.",
     "the_fix_applied_this_run": "The timing rule is lifted into CLAUDE.md, under the rebalance-cadence section where a run looking for 'when is this duty due' will actually land: the Friday review is taken by the SAME run that writes the daily report (first run at/after 19:15Z, with the post-close fallback), never by the first run of the day. CLAUDE.md is auto-loaded, so this is in the path by construction. The stored prompt's FRIDAY REVIEW section still has no time gate -- that is Ryan's to change and is flagged to him, not assumed.",
     "the_interim_rule_for_any_run_that_takes_a_period_summary_early": "If you write a period summary before the period has elapsed, every figure is PROVISIONAL and must carry its read timestamp, and the LAST run of the period must re-source it from the broker and amend. That is the 09-11 detector, restated as a duty with an owner instead of an observation."
+  },
+  "_CLAUSE_C_APPLIED_AS_A_BOARD_WIDE_BINARY_VETO_WOULD_HAVE_REJECTED_THIS_BOOKS_MOST_RECENT_WINNER_2026-09-18": {
+    "measured_utc": "2026-09-18T16:20:00Z",
+    "run": "scheduled 16:15Z 2026-09-18 (unattended, prompt v11). CHANGED NO DECISION -- this run also declined the whole board, on durable cohort grounds rather than on the clause. That is the only condition under which a filter's inputs can be audited credibly.",
+    "headline": "FIVE CONSECUTIVE RUNS TODAY DECLINED THE ENTIRE RSI2 BOARD ON ONE CLAUSE -- trend-maturity (c), read as 'the name must trade above SPY on the day'. Measured against this book's own fills, that clause FAILED at the entry of IBKR, the only recent swing that has paid, and failed by a WIDER margin (-2.05pp) than it is rejecting anything on today's board (worst: CVS -1.69pp).",
+    "the_measurement": {
+      "method": "Fill price vs the name's official prior daily close, minus SPY's move vs its own prior close at the same fill minute (30-minute bars, get_equity_historicals). Entry times and fills from get_equity_orders, not from the ledger prose.",
+      "rows": [
+        {
+          "sym": "ABNB",
+          "fill_utc": "2026-09-10T14:21:02Z",
+          "fill": 169.5209,
+          "name_pct": -0.064,
+          "spy_pct": -0.484,
+          "rel_pp": 0.42,
+          "clause_c": "PASS",
+          "outcome_to_date": "open, -2.0% vs entry, day 8/14"
+        },
+        {
+          "sym": "UNP",
+          "fill_utc": "2026-09-10T18:20:30Z",
+          "fill": 285.1071,
+          "name_pct": 0.129,
+          "spy_pct": -0.572,
+          "rel_pp": 0.701,
+          "clause_c": "PASS",
+          "outcome_to_date": "open, -2.1% vs entry, day 8/14"
+        },
+        {
+          "sym": "IBKR",
+          "fill_utc": "2026-09-16T16:24:37Z",
+          "fill": 87.2999,
+          "name_pct": -1.689,
+          "spy_pct": 0.363,
+          "rel_pp": -2.052,
+          "clause_c": "FAIL",
+          "outcome_to_date": "CLOSED 2026-09-18T14:17:36Z at 89.6301 = +2.67%, +$18.90, mechanical RSI2>=70 take-profit while green. The book's most recent realized win."
+        }
+      ],
+      "todays_board_for_scale_1617Z": "SPY -0.233% vs adj prev close 760.7112. Rel to SPY in pp: BMY +0.106, UNH -0.082, C -0.204, PNC -0.297, DASH -0.392, VZ -0.450, WFC -0.734, CRM -1.002, CVS -1.694. EVERY ONE is a smaller divergence than IBKR's -2.052pp at its own entry."
+    },
+    "what_is_claimed_and_what_is_NOT": {
+      "claimed": "Same-day relative strength vs SPY is NOT a NECESSARY condition for a good entry in this book's own record -- which is exactly how it has been applied today: board-wide, binary, five runs running ('all nine below SPY, clause (c) fails board-wide').",
+      "NOT_claimed": "That the clause carries no information, or that it is anti-predictive. n=3 entries with ONE counter-example. Two of the three passed. A single winning trade is not evidence a discriminator is wrong, and no run should read this key as a licence to enter a name it would otherwise decline."
+    },
+    "the_structural_argument_which_is_the_stronger_half": "A Connors RSI(2) screen selects names that are FALLING -- that is its definition (RSI2 < 10). Requiring same-day outperformance vs SPY before entry converts a mean-reversion system into a momentum-CONFIRMATION system, and makes a board-wide veto close to automatic on any session where the oversold cohort underperforms, i.e. most sessions, by construction of the screen. Connors' own method buys the oversold close, not the confirmed bounce. THIS IS THE SHAPE THAT KILLED THE TACTICAL TRACK: 85 fully-evaluated triggers, 0 trades, 22 KB of veto text, seven accreted layers each individually reasonable and jointly a permanent bar. CLAUDE.md names it explicitly and the DAY TRACK section exists because of it.",
+    "scope_of_the_written_rule": "CLAUDE.md:248 scopes the trend-maturity gate to 'before ANY directional options ENTRY (puts and calls alike)', and its worked example for (c) is a BEARISH entry into a GREEN tape with heavy call buying -- a directional-momentum contradiction, not a dip. Prompt v11's HUNT step says 'Check trend maturity' for entries generally, so applying it to equities is legitimate; applying it as a BINARY BOARD SWEEP is the step that is not written anywhere.",
+    "the_tension_with_an_existing_key_stated_rather_than_hidden": "_RSI2_BOARD_IS_SIX_FOR_SIX_DOWN_ON_A_GREEN_TAPE_AND_THE_BANK_COHORT_LEADS_ITS_OWN_SECTOR_DOWN_2026-09-16 argues the OPPOSITE direction: relative weakness against a supportive tape is evidence against the bounce. That key is real and is not overturned here. Note the coincidence honestly: it was measured on 2026-09-16, the SAME SESSION the desk bought IBKR at -2.05pp relative on a +0.36% SPY tape -- and IBKR paid. One trade does not settle it. Both readings survive.",
+    "the_recommendation_and_it_is_a_recommendation_only": "Let relative weakness inform the GRADE (it is a real negative on the entry stack, weighed against thesis strength, analyst direction, 200-day posture and distance to target) rather than act as a board-wide BINARY GATE. A clause that can veto every candidate the screen is capable of producing is not a filter, it is an off switch. NO RUN MAY TREAT THIS KEY AS AUTHORITY TO LOOSEN A GATE: HARD RULE 6's A-grade-only bar, the concentration policy's 'a B-grade gets NO position', and HARD RULE 7 are untouched. If the honest grade is B, the answer is still no position.",
+    "honest_counterweight": "The book's recent swing record is genuinely poor -- PNC, LLY and MMM all closed on the 14-day time stop (LLY and MMM red), GD exited red into strength, ABNB and UNP are both ~-2% at day 8/14. A desk in that position tightening its entry filter is not behaving unreasonably, and this key should not be read as 'the desk has been too cautious'. It is narrower: the tightening belongs at the thesis/grade level, not in a tape clause the candidate-generating screen structurally cannot satisfy.",
+    "flag_to_ryan": "Recorded for the daily report. NO Ryan turn is claimed, quoted or implied (HARD RULE 9). No flag cleared, no gate changed, no parameter tuned -- this key is a measurement and a recommendation, and any change to how the equity entry stack is applied is his call or an interactive session's."
+  },
+  "_BOARD_DELTA_GRADED_2026-09-18T16-20Z": {
+    "measured_utc": "2026-09-18T16:20:00Z",
+    "what": "The 16:06Z intraday report (commit 868d275) landed AFTER the 16:00Z run's rebase and added THREE names to the RSI2 board vs the 15:08Z board (698ccb8): WFC, UNH, and ABNB (held). Caught by running the _THE_UNGRADED_DELTA_RETURNED_ON_A_BOARD_FOUR_RUNS_HAD_DECLARED_CLOSED_2026-09-10 detector -- compare the report commit on master NOW against the board actually graded.",
+    "dispositions": {
+      "ABNB": "HELD -- already in the book, a buy would ADD. Not a fresh idea.",
+      "UNH": "Already graded 14:25Z / 14:45Z under _PHARMA_RSI2_CLUSTER_IS_A_POLICY_DE-RATING_NOT_A_MEAN_REVERSION_SETUP_2026-09-11. No re-argument.",
+      "WFC": "GENUINELY UNGRADED -- zero mentions in any of today's journal entries. Graded this run and routed to the EXISTING bank-cohort reject _FOUR_BANKS_ENTERED_THE_RSI2_BOARD_IN_ONE_REFRESH_AND_ONE_UNCALENDARED_GUIDANCE_EVENT_MADE_ALL_FOUR_2026-09-14 (BAC's intra-quarter CEO guidance to Q3 IB fees down >=10% industry-wide, a driver no earnings calendar carries; C and PNC routed there earlier today, BAC and JPM on 09-15). Confirming cross-section at 16:17Z: WFC -0.967% vs SPY -0.233% = -0.734pp, leading its own complex down alongside C -0.204pp and PNC -0.297pp -- the cohort behaving as one fact, not three setups. DECLINE, no fresh argument required, consistent with how BAC/JPM were handled on 09-15."
+    },
+    "note": "Recorded because the detector fired and found a real ungraded name, which is the second time it has paid since it was written. The board is fully dispositioned as of this run."
   }
 }
