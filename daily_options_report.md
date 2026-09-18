@@ -1,127 +1,143 @@
-# Daily report — trading day 2026-09-17 (Thursday, day after FOMC)
+# Daily report — trading day 2026-09-18 (Friday, quad-witching)
 
-*Written by the 19:15Z scheduled run (2:15 PM CT — the v11 threshold). Master carried the 2026-09-16 report, so this run owned the duty and took it rather than deferring. Quotes stamped 19:15–19:17Z, well past the opening auction.*
+*Written by the 19:15Z scheduled run (2:15 PM CT — the v11 threshold). Master carried the 2026-09-17 report, so this run owned the duty and took it. Quotes stamped 19:16–19:17Z, well past the opening auction.*
 
-**One line:** **The desk placed nothing today, in any of the three books, and for once the reason is almost entirely capital rather than judgment.** Deployable cash is **$369.12** against a **$600** minimum equity entry and a **$500** low-end options size — both live books were shut before any setup was graded. The day's three real events all came from outside the desk's authority or from its own paper track: **Ryan closed his VLO puts himself for −$360**, his **SPY 731P/770C strangle expires worthless at tonight's bell**, and the **DAY TRACK stopped out for the third straight paper day and has paused itself for the rest of the week.** Fifteen RSI(2) candidates were graded across the session; every one was declined on merit as well as on capital.
+**One line:** **The desk placed exactly one trade today — the IBKR take-profit at 14:17Z, +$18.88 — and that sale is the whole story of the session, because it changed the constraint the book has been operating under all week.** Before it, deployable cash was **$369** against a **$600** minimum entry and both live books were shut on capital alone. After it, deployable is **$1,095.92** and a compliant entry existed at $600–$1,034 for the rest of the day. **Nothing was bought, and for the first time this week the reason is merit rather than money.** Twelve RSI(2) names were cut down to one full workup (MA), which was declined on a standing veto. The DAY TRACK stayed paused. The options book is empty and stayed empty.
 
 ---
 
-## 1. DAY TRACK — paper day 3 of 10, now PAUSED
+## 1. DAY TRACK — PAUSED, no signal evaluated
 
 | | |
 |---|---|
-| **Phase** | PAPER (nothing placed, ever, this week) |
-| **QQQ opening range 09:30–09:35 ET** | high **716.43** / low **714.06**, open 715.98, close 714.115 |
-| **Direction** | **SHORT** — body 78.7% of range, well clear of the 10% doji filter |
-| **Vehicle / size** | PSQ, **7 shares** @ 25.965 — cash-bound, $181.75 of a then-$187.47 deployable |
-| **Stop** | 25.8905 (the opposite OR edge, translated into PSQ) → **R = $0.52** |
-| **Result** | **STOPPED OUT at −1.00R (−$0.52)**, closed 14:27Z |
-| **Week** | −1.00R, −1.00R, −1.00R = **−3.00R** |
+| **Phase** | PAPER (paper day 3 of 10 complete; nothing has ever been placed) |
+| **Status today** | **PAUSED** — `track_status(3445.95, [-1,-1,-1], [-1,-1,-1])` → `paused: True, "3 consecutive losing days — rest of week"` |
+| **Graduation** | `graduate(3, [-1,-1,-1])` → `go_live: False — "paper 3d / 3 trades; need 10d and 8 trades"` |
+| **Pause expires** | first run of **Monday 2026-09-22** |
 
-**The track has paused itself, by its own rule, and it tripped BOTH pause conditions at once** — three consecutive losing days *and* a week at −3.00R. `day_track.track_status()` returns `paused` and the pause expires at the first run of the next trading week, **Monday 2026-09-22**. No run promotes or un-pauses the phase mid-week; `day_track.graduate()` returns `go_live: false — "paper 3d / 3 trades; need 10d and 8 trades"`. **This was escalated to you by push notification earlier today** and is repeated here because the report is the durable copy.
+Both figures were **re-verified by running the code against this run's own equity**, not inherited from the ledger. No opening range was taken and no signal was evaluated, which is correct: the pause is a bar on *taking* a signal, and the spec forbids an unattended run promoting or un-pausing the phase mid-week.
 
-**What three losses actually tell us, stated honestly:** almost nothing about the edge. n=3 is noise, and the more interesting pattern is that **all three signals had the direction RIGHT and were stopped out anyway** — twice inside two minutes of entry. That points at the *stop*, not the *signal*: the opening-range edge on a 0.1–0.3%-wide range is so tight that ordinary first-minute chop reaches it. That is a hypothesis for the Monday calibration to test with numbers, not something for an unattended run to "fix" by adding a filter — and the spec explicitly forbids a mid-week rule change.
-
-**One structural problem worth your attention:** at $369 of deployable cash, **a long QQQ share costs $716, so the long side is literally unbuyable.** All three paper signals so far happen to have been shorts, and the direction was genuinely short on the bars each time — but the paper sample *cannot* contain a long at this account size, which means the ten-day graduation sample will be a shorts-only sample. That is a real defect in the evidence the graduation gate will read. Recorded in `holdings.json._DAY_TRACK_THE_LONG_SIDE_IS_NOW_UNAFFORDABLE_SO_THE_PAPER_SAMPLE_WILL_SELECT_SHORTS_2026-09-17`.
+**Nothing has changed since yesterday's report** on either the pause or the structural problem it flagged — at this account size a long QQQ share costs ~$719, so the long side remains unbuyable and the eventual ten-day graduation sample will be shorts-only. That defect is recorded and is for the Monday calibration to weigh, not for a scheduled run to patch.
 
 ---
 
-## 2. Positions
-
-### Equity swings — 3 of the 3–4 target slots
+## 2. Positions — 2 of the 3–4 target slots
 
 | Name | Entry | Now (19:16Z) | P/L | Held | Time stop | Why we own it |
 |---|---|---|---|---|---|---|
-| **ABNB** 6.5736 sh | 169.5209 (09-10) | 165.795 | **−$24.48 / −2.20%** | 7d of 14 | **09-24** | RSI(2) mean-reversion entry inside a rising 200-day uptrend. Thesis intact — the early-September softness has a named, non-structural driver (see 09-15 finding), not a thesis break. |
-| **UNP** 3.8582 sh | 285.1071 (09-10) | 282.58 | **−$9.75 / −0.89%** | 7d of 14 | **09-24** | Same RSI(2) setup, low-beta rail. Essentially flat; nothing has happened to the thesis. |
-| **IBKR** 8.1095 sh | 87.2999 (09-16) | 88.93 | **+$13.22 / +1.87%** | 1d of 14 | **09-30** | Yesterday's autonomous entry, taken ~95 min before the Fed decision on a two-channel thesis. The de-rating channel is the one that paid: IBKR is **+2.53% today** and the only green name in the book. |
+| **ABNB** 6.5736 sh | 169.5209 (09-10) | 166.900 | **−$17.23 / −1.55%** | 8d of 14 | **09-24** | RSI(2) mean-reversion entry inside a rising 200-day uptrend. Thesis intact — the September softness has a named, non-structural driver, not a thesis break. |
+| **UNP** 3.8582 sh | 285.1071 (09-10) | 280.000 | **−$19.70 / −1.79%** | 8d of 14 | **09-24** | Same RSI(2) setup, low-beta rail. Nothing has happened to the thesis; it is simply not working yet. |
 
-**No exit fired on any of the three, on any of the three mechanisms** — and I checked each against a live bid rather than an inherited number:
+**No exit fired on either, on any of the three mechanisms, and each was checked against a live bid rather than an inherited number:**
 
-- **RSI2 ≥ 70 take-profit:** the trigger is a fixed *price* for the session, re-solved this morning. **IBKR needs bid ≥ 90.45** (live 88.93, short by $1.52 / 1.71%); **ABNB needs ≥ 170.08** (live 165.77, short $4.31); **UNP needs ≥ 285.38** (live 282.51, short $2.87). All determinate — spreads are $0.02–$0.13, nowhere near the thresholds.
-- **Time stop (14 days):** due 09-24 / 09-24 / 09-30. None due, none inside the 3-day warning window.
-- **Green-enough trail:** needs 199.44 / 335.42 / 102.71. Nothing close, so no `SET TRAILING STOP` alert for you today.
+- **Take-profit (RSI2≥70 while GREEN):** unreachable by construction. Both names are underwater, and the trigger gates on `price > entry`. This is the 2026-08-26 correction doing its job — an RSI2≥70 print on an underwater position is an *optional* exit-into-strength routed to thesis, never a mechanical loss-realization.
+- **Time stop (14 days):** day 8 of 14 for both, firing **2026-09-24**. The 3-day warn window opens **Monday**, not today.
+- **Trailing stop:** not applicable. Green-enough triggers are ABNB $199.44 and UNP $335.42, both far away. The desk places no stop on a swing position (HARD RULE 5).
 
-### Options — 2 contracts, both yours, both expiring tonight
-
-| Contract | Qty | Basis | Now | Status |
-|---|---|---|---|---|
-| SPY 2026-09-17 **731P** | 1 | $0.28 | ~$0.00 | Expires worthless tonight — SPY 762.82, the put is **31.82 OTM** |
-| SPY 2026-09-17 **770C** | 1 | $0.27 | ~$0.03 | Expires worthless tonight — SPY 762.82, the call is **7.18 OTM** |
-
-Both are `placed_agent: "user"` — your FOMC strangle from 09-15. **The ownership gate means the desk does not close, roll or touch them**, and there is nothing to do operationally: total options book value is **$3**, and assignment would require SPY to rally 0.94% in the last ~40 minutes. The $55 of basis is a realized loss on your side of the book when they lapse.
-
-> **⏱️ SETTLED AFTER THE BELL — appended 2026-09-18T04:20Z, the first run that could see it.** Both legs lapsed and the broker has now **booked** them: `get_option_positions` returns empty and the options book is **$0**. SPY's official close of **762.64** finished between the wings (31.64 below the 731 put, 7.36 below the 770 call), so there was **no exercise, no assignment and no cash call** — the one materially bad overnight outcome, ruled out. Robinhood's own auto-liquidation attempt on the 770C (1 @ $0.01, GFD) was **cancelled unfilled** — there was no bid even at a penny, so lapsing was the only outcome available. Both rows are out of `positions[]` and into `_closed_positions`. **Your strangle closes at −$55.00 on $55.00 of premium.**
-
-**Agentic options book: 0 of 3 CORE slots, 0 of 3 entries used.**
+So the time stop is currently the only reachable exit on this book, which is the intended state for two sound-but-stalled theses.
 
 ---
 
-## 3. Actions taken today
+## 3. Actions taken today — one, and it is the week's only trade
 
-**By the desk: NONE.** No order was sent in any book — no equity entry, no equity exit, no option entry, no option exit, no day-track order (the track is in PAPER and additionally paused).
-
-**By you, in-app — two things, both recorded and reconciled:**
-
-1. **VLO 2026-09-18 390P ×2 CLOSED at 14:55:36Z for $0.75 (credit $150) against a $510 basis → −$360.00 realized.** You cancelled your own $1.30 ask-side limit at 14:44Z and crossed to the bid eleven minutes later. Broker-confirmed twice (`get_option_orders` order `6aabff68`, and `get_realized_pnl` = −$360.00 / 1 closing trade). The ledger row was removed at 15:01Z and the close is in `_closed_positions`.
-2. The strangle above decaying from ~$15 to $3 into tonight's expiry.
-
-**Why that matters to the desk even though it was your trade:** those two moves cut **total account value from $4,080.11 at the open to $3,445.25 now, −15.66% in one session, with the equity book flat.** That has a governance consequence you should know about, covered in §5.
-
-**One ledger repair, no trade:** the DAY TRACK's five stored paper rows were missing their canonical flat fields (`r_multiple`, `exit_reason`, `pnl_usd`, `entry`), which meant the pause and graduation gates were only readable by hand — and a machine read of them *un-paused* the track. Repaired additively across both stores and verified to reproduce the identical verdicts. `holdings.json._THE_DAY_TRACKS_TWO_SAFETY_GATES_ARE_FED_BY_HAND_AND_THE_MACHINE_PATH_IS_BROKEN_OR_UNSAFE_2026-09-17`.
-
----
-
-## 4. Candidates considered and SKIPPED — 15 graded, 0 taken
-
-The RSI(2) board churned all day (6 names at 14:06Z → 9 → 8 → 7 at 19:07Z). Every non-held name that appeared on any board today was graded. **The most important thing to say plainly: these were declined on MERIT first, with capital as a redundant second reason — not the other way round.**
-
-**The financials/consumer cluster (14:20Z, 6 names): BAC, C, MS, CVS, SCHW, DASH — all declined.**
-- **50-day discriminator: 0 of 6 passed.** Every one traded below *both* its 20- and its 50-day (BAC −6.89%, MS −6.33%, CVS −8.15%, DASH −4.62%, C −2.67%, SCHW −2.57% under the 50-day). A mean-reversion entry needs a mean to revert *toward*; below both averages the setup is a downtrend, not a dip.
-- **Cohort test: all 6 red (mean −0.715%) while SPY was +0.971%** — a 1.69-point gap against a rising tape, with no green exception to work. XLF at −0.34% marks it as **one financials move**, so the six were a single candidate, not six.
-
-**Later additions, each graded when it first appeared:** **PNC** (14:50Z, same financials cohort), **LRCX** grade **C** and **VZ** grade **B** (15:20Z), **BMY** grade **B** (17:20Z). None reached A-grade; under the concentration policy **a B-grade gets no position, not a small one.**
-
-**The rotation gate never needed adjudicating.** Under the capital policy, when deployable cash is below one position size a new idea must grade *better than the weakest position held*. A candidate that fails the entry stack outright cannot clear that bar, so no weakest-name ranking was required on any of the fifteen.
-
-**Options:** no CORE candidate was armed. Even setting thesis aside, **$369 of deployable cash cannot fund the $500–1,000 CORE band** — the book is capital-blocked, not thesis-blocked. **No spread specs handed to you today.**
-
----
-
-## 5. Sleeve state
+### IBKR — mechanical TAKE-PROFIT, +$18.88 (+2.67%) in 2 days
 
 | | |
 |---|---|
-| Total account value | **$3,445.25** (was $4,080.11 at the 13:33Z open — **−15.66%**, ~all of it your options book) |
-| Cash = buying power = **unleveraged** buying power | **$541.38** — identical, so **no margin is extended** and FOUR LAWS #4 is unambiguous |
-| Equity value / options value | $2,900.87 / **$3.00** |
-| Operational reserve (5% of total, recomputed) | **$172.26** |
-| **Deployable** | **$369.12** — below the **$600** minimum equity entry AND the **$500** options low end |
-| Premium at risk, agentic | **$0.00** (both open contracts are yours) |
-| Realized options P/L today vs the −$400 cap | **−$415.00** over **3** closing trades — **corrected after the bell, see the settlement note below**. On the strict reading this report adopts, the cap is **exceeded by $15.00**; it still gates nothing |
-| Realized equity P/L today | $0.00 (no equity order placed all day) |
-| Throttles | options **0 of 3**, equities **0 of 3**, day track 1 of 1 (paper, spent) |
-| Equity slots | **3 of the 3–4 target** |
+| Order | `6aad4800-7cdb-464f-bce8-8500fe86890b`, sell 8.109516 sh, market, regular hours, `placed_agent: agentic` |
+| Filled | **2026-09-18T14:17:36.796Z** at **$89.6301** |
+| Basis / proceeds | $707.96 → $726.86 gross, $0.02 fees |
+| Broker realized | **+$18.90 gross / +$18.88 net** |
+| Rule that fired it | RSI(2) ≥ 70 cross while GREEN — the Connors-pure take-profit |
 
-**Two governance items you should see, neither of which triggers an action:**
+**Why it was taken with no magnitude test, stated plainly because it looks small:** the 2026-09-02 rewrite VOIDED the "magnitude floor" heuristic. Measured across this whole book, the RSI2≥70 trigger sits a mean **0.84%** from the entry price, so the exit banks ~0–1% of position value *by construction* and no target-relative floor can ever be satisfied. The broker's own record says these small round trips are the edge, not noise: trades under ±$10 are 58% of all closes and net **+$90.48**. A +2.67% two-day close is comfortably above that band.
 
-**(a) The −$400 options loss cap has been applied to YOUR loss, strictly, and that is a judgment call the documents do not settle.** The VLO round trip was yours end to end. Whether a user-placed position's realized loss counts against the *desk's* daily cap has never been tested. The tie-breaker is "where either is stricter, the stricter rule applies", so the desk counted it — leaving $40 of headroom instead of the full $400. **Corrected after the bell:** the broker books an expiring long option as a *closing trade* on its expiration date, so your two lapsed SPY legs joined VLO in the day's total and `get_realized_pnl` now returns **−$415.00 over 3 closes**, all three `placed_agent: "user"`. The strict reading therefore ends the day **$15 through the cap** rather than $40 short of it — the same question, merely larger. **It changed nothing and gates nothing:** the cap gates new entries only, never exits; the desk opened zero options positions today, so it never traded against the cap at all; and the cap resets at tomorrow's open with a full −$400 and full throttles. One inconsistency was found and resolved while settling this — the strangle rows' own removal instructions asserted the *permissive* reading ("does not touch the cap") while this key had already applied the *strict* one to the identically-owned VLO loss. Recorded rather than silently picked, so the next run does not flip-flop. **This is a question for you, not for an unattended run to resolve the permissive way.** (`_USER_LOSS_AGAINST_THE_DESK_OPTIONS_CAP`.) Worth noting the cap was also carried with its headroom *sign inverted* for 18 minutes this afternoon before being caught and corrected at 16:47Z — wrong in sign, therefore wrong in consequence; fixed, with the mechanism written up.
+**The interesting part is what happened at the open, and it is already written up as a durable finding.** This same take-profit **fired and un-fired inside the opening auction**: at the 13:32Z auction print IBKR showed RSI2 **70.70** and green, and on the mandatory settled re-quote four minutes later it read **60.30**. The 13:33Z run did *not* take it — correctly, per the standing "never price a decision off the opening auction print" rule — and the trigger then re-formed properly later in the morning on a bid the desk could actually transact at. Two of today's durable findings come out of that sequence: `_THE_AUTONOMOUS_EQUITY_TAKE_PROFIT_FIRES_AND_UNFIRES_INSIDE_THE_OPENING_AUCTION_2026-09-18` and `_THE_BID_CLEARING_STANDARD_WITHHELD_A_FIRE_AND_THEN_PERMITTED_A_BETTER_ONE_SAME_SESSION_2026-09-18`. The discipline cost nothing and bought a better fill.
 
-**(b) Two of three swings are now over the 30% per-name cap, and not one share moved.** ABNB **31.63%**, UNP **31.65%**, IBKR 20.94%. Against this morning's $4,080 denominator the identical positions read 26.69% / 26.66% / 17.61% — comfortably inside. **The crossing is entirely denominator:** the cap is a percentage of *total* account value, which includes the options book, so your VLO loss and the decaying strangle pushed the equity book over a gate it never moved toward. The ruling is **STOP ADDING, NOT SELL** — the cap is a sizing gate, and HARD RULE 5 permits an equity sale only on a fired exit. Today that changes nothing, because the book was already shut on capital. **The sharp edge is worth remembering: the part of that denominator that moves is the part the desk is forbidden to touch.** (`_THE_PER_NAME_CAP_IS_BREACHED_BY_THE_OTHER_BOOKS_LOSSES_2026-09-17`.)
-
-**Weekly calibration (run 2026-09-14, Monday): NO CHANGE to any parameter, nothing escalated.** Broker-sourced, 69 closes. Equities read **66.67% hit rate, payoff 1.086, breakeven 47.94% → +18.73 points of margin, +$5.01/trade expectancy, +$255.68 net** — healthy. It was nonetheless **report-only**, because the in-regime gate blocked it: only **4 of 51** equity closes happened under the current (2026-09-02) exit and sizing parameters, against the 20 required. That sample is rebuilding as designed and the gate stays shut roughly another month. A healthy edge does not loosen anything, by design.
+**What the sale did to capital, which is why it matters more than $18.88:** it converted a shut book into an open one mid-session. That is the first time this week capital was not the binding constraint.
 
 ---
 
-## 6. Tomorrow's watchpoints (Friday 2026-09-18)
+## 4. Actions considered and SKIPPED — the educational section
 
-- **Both SPY legs lapse tonight.** Tomorrow the options book is empty and the desk holds no contracts at all.
-- **VLO 390P expires tomorrow** — already closed, so nothing outstanding, but it will show in the expiry ledger.
-- **DAY TRACK stays PAUSED all day Friday.** It does not compute or log a signal; the pause lifts at the first run Monday 2026-09-22, which is also the weekly-calibration run that will judge the three-loss sample in numbers.
-- **The Friday review is due tomorrow** — hit rate, payoff, margin over breakeven, split by book, plus the drift check.
-- **Capital is the binding constraint on everything.** At $369 deployable, nothing is fundable in either live book. It only changes if a position is exited or you add cash — and no exit is currently reachable: the nearest is **IBKR's RSI2 trigger at bid 90.45, 1.71% above spot**, and after that the **09-24 time stops on ABNB and UNP**, which will fire green or red and are the book's only mechanical loss discipline.
-- **Two time stops land together on 09-24** (ABNB and UNP, both entered 09-10). That is a single day that recycles two of three slots at once — worth expecting rather than being surprised by.
+Twelve names appeared on the RSI(2) board across the day's four report refreshes (13:3xZ, 15:08Z, 16:06Z, 19:06Z). **Every one is dispositioned; the 19:06Z board added zero ungraded names.** How the board was cut:
+
+| Bucket | Names | Reason |
+|---|---|---|
+| **Held** | ABNB | Already owned — a buy is an ADD, not a fresh idea. |
+| **Sector steer** | SLB | Oil energy. Excluded by Ryan's standing steer; no workup performed. |
+| **Bank cohort veto** | C, PNC, WFC | `_FOUR_BANKS_ENTERED_THE_RSI2_BOARD_IN_ONE_REFRESH_AND_ONE_UNCALENDARED_GUIDANCE_EVENT_MADE_ALL_FOUR` — BAC's intra-quarter guidance to Q3 IB fees down ≥10% industry-wide, a driver no earnings calendar carries. Four banks moving as one fact is not four setups. |
+| **Pharma/healthcare veto** | BMY, CVS, UNH | `_PHARMA_RSI2_CLUSTER_IS_A_POLICY_DE-RATING_NOT_A_MEAN_REVERSION_SETUP` — a policy de-rating does not mean-revert on a 2-period RSI. |
+| **Trend-maturity clause (c)** | MDLZ, CRM, VZ, DASH, ROKU | All still making relative lows against SPY — the dip is in progress, not relieved. Declined **at the screen**; these did not each get a full HARD RULE 7 news check, and saying so is more honest than implying they did. MDLZ additionally carries a re-entry flag (exited from this book 2026-09-09). |
+| **Full workup** | **MA** | The only name whose tape confirmed (+0.10% vs SPY −0.21%). |
+
+### MA — declined, grade B+
+
+Structure passed cleanly: 20 > 50 > 200, sitting on the 50-day, 200-day rising +0.108/day with ~321 sessions of cushion, an August golden cross, `[ERN]` verified clear against a 55-event calendar, and an analyst mean PT of $671.64 (+18.6%).
+
+It was declined on a **standing durable disqualifier**, `_A_DIFFUSE_STRUCTURAL_NARRATIVE_IS_NOT_A_CATALYST`, written 2026-09-08 when V was declined on the identical driver — the 09-01 twenty-one-bank stablecoin consortium, BankChain, and the agentic-unbundling thesis that knocked V/MA/AXP/DASH together. **The release condition is the headline stream stopping, and it has instead added legs** (UK domestic payments rail, renewed card-fee crackdown). MA's own RSI2 trigger had also independently decayed 9.61 → 27.64 by the time it was worked up. Full record: `_MA_DECLINED_2026-09-18_STANDING_PAYMENTS_COMPLEX_VETO`.
+
+Worth noting as process: the run cited the existing key rather than re-deriving a weaker objection, which is the failure `_A_DURABLE_REJECT_KEY_EXISTED_AND_THREE_RUNS_RE_DERIVED_A_WEAKER_OBJECTION_INSTEAD` names. It also discarded a search-aggregator claim that MA is "−25% over the past year" as incompatible with the measured rising 200-day and August golden cross — measured drawdown is −5.60% from the 08-24 high.
+
+### Options — nothing graded, and the reason is the vol tape
+
+The options book is **empty** and no CORE candidate reached a thesis. Index premium is genuinely expensive on our own measurements: **SPY IV/RV 1.4575 raw / 1.6869 ex-gap, 96.3rd percentile of its own history (n=27); QQQ 1.3088 / 1.5062, also 96.3rd.** Buying long index premium here is paying the richest relative level this file has on record.
+
+The divergence is the notable part and is written up as `_INDEX_VOL_IS_AT_ITS_96TH_PERCENTILE_WHILE_NVDA_SITS_AT_ITS_18TH__THE_BID_IS_FOR_MACRO_PROTECTION_NOT_FOR_STOCKS_2026-09-18`: **NVDA sits at 0.7715 raw / 1.0495 ex-gap, its 18.5th percentile.** The vol bid is for macro protection, not for single stocks. That is context, not a thesis — cheap vol supplies no reason to own anything, and no CORE name cleared the entry stack.
+
+**No `_cash_hold` was minted, deliberately.** There is no named opportunity being waited for; the book simply found nothing that grades A. Minting a hold here would be the void cash floor returning through the side door, which THE CAPITAL POLICY forbids.
 
 ---
 
-*Sources: `get_accounts`, `get_portfolio`, `get_equity_positions`, `get_option_positions`, `get_equity_orders`, `get_option_orders`, `get_realized_pnl`, `get_equity_quotes`, `get_equity_technical_indicators` on account 718757339, 19:15–19:17Z. Broker reconciliation: ZERO DRIFT in both books — 3 equity positions matching the ledger share-for-share, 2 option contracts matching contract-for-contract. All P&L figures are broker-sourced, never taken from `trade_journal.json`.*
+## 5. Sleeve state (19:16Z)
+
+| | |
+|---|---|
+| **Total account value** | **$3,445.95** |
+| Equity value / options value | $2,177.73 / **$0** |
+| Cash = buying power = **unleveraged** buying power | **$1,268.22** — identical, so **no margin is being extended** (FOUR LAWS #4 unambiguous) |
+| Operational reserve (5% of total) | **$172.30** |
+| **Deployable** | **$1,095.92** |
+| Per-name cap (30% of account) | **$1,033.79** |
+| Minimum entry | $600 — **clear**, a compliant entry exists |
+| Equity slots | **2 of the 3–4 target** filled; 1–2 open |
+| Options premium at risk | **$0.00**, CORE 0 of 3 open |
+| Realized options P/L today | **$0.00** vs the −$400 cap (0 closes; measured against the broker, not defaulted) |
+| Realized equities today | **+$18.88** (the IBKR take-profit) |
+| Throttles used | equities **0 of 3** entries, options **0 of 3** — the IBKR sale was an EXIT, and exits are never throttled |
+| Unsettled funds | $726.84 — the IBKR proceeds. On `limited_margin` these are spendable and are **already inside** the $1,268.22, not additive. |
+
+Account re-confirmed **718757339, `limited_margin`, `option_level_3`, agentic_allowed**. Reconciliation against the broker at 19:16–19:17Z: **ZERO DRIFT in both books** — ABNB 6.573584 and UNP 3.858199 fully sellable and matching the ledger, 0 option contracts against 0 ledger rows, and `get_equity_orders` showing exactly **one** order all day (the 14:17Z IBKR sale, agentic, already ledgered) — so no sibling run landed anything.
+
+---
+
+## 6. Friday review — final broker re-source
+
+The weekly review was written at 13:40Z and **amended at 14:50Z** after the IBKR close falsified three of its figures. This run performed the final re-source against the broker (`get_pnl_trade_history` span=week, read 19:17Z) and **the amended figures stand — no trade has printed since 14:17:36Z.**
+
+**The week, broker-sourced (2026-09-14 → 09-18):**
+
+| Book | Closes | Net |
+|---|---|---|
+| **Equities** | 3 — MMM −$30.96 (time stop), GD −$21.83 (warn-window exit-into-strength), IBKR **+$18.88** (take-profit) | **−$33.91** |
+| **Options** | 3 — VLO 390P ×2 −$360, SPY 731P lapsed −$28, SPY 770C lapsed −$27 | **−$415.00**, and **all three are `placed_agent: "user"`** — Ryan's own. The desk opened, sized, managed and closed none of them. |
+
+**Edge statistic, in-regime (post-2026-09-02 Connors-pure rewrite), n=7:** 2W/5L, win rate 28.6%, payoff ratio 0.58, breakeven 63.3%, **margin −34.71 pts**, expectancy −$9.50/trade.
+
+**`recommend()` returns REPORT ONLY — n=7 < 20. No parameter moves in either direction, and the KILL branch is not reachable** (it is exempt from the in-regime gate, *not* from the sample-size floor ahead of it). So nothing was tuned.
+
+**The honest reading of that margin, because a −34.71 looks alarming:** one $19 trade moved it **+42.19 points** and the payoff ratio **8.4×**. At n=7 the headline statistic has that sensitivity to a single small close. `MIN_TRADES_FOR_ACTION = 20` is not conservatism — it is the measured sensitivity of this statistic at this sample size. **Never quote a margin figure from a single-digit n without the n beside it.**
+
+**Watch item carried to Monday:** **five of the seven in-regime closes are the time stop or its warn window; two are the actual mean-reversion take-profit.** Elapsed time still closes more of this book than mean reversion does. If the take-profit share is still ~2-in-7 at n=20, it is the **ENTRY trigger** that needs review, not the exits.
+
+**Drift check: zero overrides logged this week.** The one action taken — the IBKR take-profit — is a gate being *obeyed*, not overridden. Stated honestly: the week was near-inactive, so a clean drift check reflects **inactivity as much as discipline**, and structure drift is untestable on an empty options book.
+
+---
+
+## 7. Tomorrow's watchpoints
+
+- **Monday 2026-09-22 is a big run.** It carries the **weekly calibration** (broker-sourced, both books split, in-regime gate applied), the **DAY TRACK pause expiry** and its `graduate()` re-evaluation, and the **monthly-cadence momentum items**.
+- **ABNB and UNP enter the time-stop warn window on Monday** (day 11 of 14), firing **2026-09-24**. Both are underwater, so the warn-window rule matters: a position about to be recycled anyway is better sold *into* a bounce than out of one.
+- **Capital is no longer the binding constraint.** $1,095.92 deployable, one to two open slots, 30% per-name cap at $1,033.79. The next A-grade setup is fundable at full size — which raises the cost of a bad entry rather than lowering the bar for one.
+- **Index premium at the 96th percentile** argues against opening long index vol; NVDA at its 18th is the divergence worth watching if a single-name CORE thesis appears.
+- **Quad-witching today** — treat today's closing prints and volumes as unrepresentative when Monday's run computes baselines off them.
