@@ -38879,6 +38879,14 @@
       "headline": "13th post-close no-op (04:20 ET). Market shut. Stand-down per POST-CLOSE RUN PROTOCOL; 19:15Z wrote the daily report, 04:20Z booked the SPY strangle expiration. Heartbeat NOT stamped, brief NOT rebuilt, throttles NOT reset -- the trading day is still 2026-09-17.",
       "reconciliation": "ZERO DRIFT both books vs broker. Options 0 contracts / 0 ledger rows (book now empty: VLO closed by Ryan, SPY strangle lapsed). Equities 3/3 -- ABNB 6.573584, UNP 3.858199, IBKR 8.109516, all fully sellable. get_equity_orders(>=09-17) EMPTY; get_option_orders returns only the three already-documented rows. Cash $391.48 -> $541.38 is Ryan's $149.90 VLO proceeds settling (get_accounts unsettled_funds now 0.0000) -- expected, fully explained, not a finding. total_value $3,450.59, unleveraged_buying_power == buying_power == $541.38 (no margin), reserve $172.53, deployable $368.85 -- below the $600 minimum entry.",
       "actions": "NONE. No artifact rolled; trading day unchanged. DAY TRACK remains PAPER and PAUSED through 2026-09-19 (3 consecutive losing days, week at -3.00R)."
+    },
+    {
+      "run_utc": "2026-09-18T09:20:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-17",
+      "headline": "14th post-close no-op (05:20 ET, pre-open Friday). Market shut. Stand-down per POST-CLOSE RUN PROTOCOL; 19:15Z wrote the daily report, 04:20Z booked the SPY strangle expiration and the corrected -$415 options P/L.",
+      "reconciliation": "ZERO DRIFT both books vs broker. Options book EMPTY -- get_option_positions 0 rows, options_value $0, matching the ledger's 0 options rows after the 09-17 VLO close and strangle lapse. Equities 3 swings one-for-one (ABNB 6.573584, UNP 3.858199, IBKR 8.109516), all fully sellable. cash == buying_power == unleveraged_buying_power $541.38, total_value $3,451.15; reserve $172.56, deployable $368.82 -- below the ~$600 minimum entry.",
+      "actions": "NONE. Heartbeat NOT stamped and brief NOT rebuilt (trading day is still 2026-09-17 until the 09:30 ET bell); loss cap and throttles NOT reset. DAY TRACK PAPER, no signal pre-open. Friday review and weekly calibration belong to the 09-18 session, not to this pre-open run."
     }
   ]
 }
