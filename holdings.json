@@ -963,48 +963,16 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-18T13:50:00Z",
-    "run_type": "first_post_open_of_trading_day",
+    "run_utc": "2026-09-18T14:45:00Z",
+    "run_note": "Third concurrent run of this slot. The 14:15Z and 14:25Z runs won the merges (PR #1738 IBKR fill, #1739 MA decline); this run reconciled the same fill independently off the broker before either had pushed, and its ledger arithmetic agrees to the cent ($18.88 / +2.666%) -- cross-validation, not a conflict. Its only additive contributions are the whole-board control amendment above and this state.",
     "trading_day_et": "2026-09-18",
-    "fired_pre_bell": "The scheduler fired this run at 13:19Z, ELEVEN MINUTES BEFORE the bell. It reconciled pre-open, waited out the opening-auction window rather than pricing anything inside it, and took the post-open duties at 13:36-13:40Z. Recorded so the next run does not read the 13:19Z run_utc as a pre-open no-op and re-take the duties.",
-    "owns_daily_report": "NO -- the 2026-09-18 report is owed by the first run at or after 19:15Z (2:15 PM CT), with the first post-close run as the unconditional fallback.",
-    "duties_discharged": [
-      "_current_state_run refreshed (the sibling left it on 2026-09-17T19:45Z)",
-      "additive amendment to the sibling's opening-auction exit finding: out-of-sample corroboration + the forward handoff",
-      "additive brief keys: full-breadth tape, measured structural levels, a today-dated earnings-calendar verification",
-      "independent full broker reconciliation, both books (13:19-13:21Z and 13:36Z)"
-    ],
-    "duties_owed_today": {
-      "iv_history_row": "2026-09-18 core-list row (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA). NOT written this run: an ATM-IV row six minutes after the bell is an upper bound, not a reading. OWED BY the first run at/after ~14:15Z.",
-      "friday_review": "DUE TODAY, owed by the first run at/after 19:15Z or the first post-close run. Not written at the open -- the week's last session had traded six minutes.",
-      "report_regrade": "Today's committed report lands ~14:05Z. The run holding it owns the equity re-grade AND the IBKR exit check below."
-    },
-    "capital": {
-      "total_value": 3429.43,
-      "cash": 541.38,
-      "unleveraged_buying_power": 541.38,
-      "equity_value": 2888.05,
-      "options_value": 0.0,
-      "operational_reserve_5pct": 171.47,
-      "deployable": 369.91,
-      "note": "Live marks 13:36:03-13:36:20Z. cash == buying_power == unleveraged_buying_power, nothing borrowed, FOUR LAWS #4 unambiguous. Deployable $369.91 is below BOTH the ~$600 CONCENTRATION-POLICY minimum entry and the $500 CORE options low end, so an outright entry is impossible in either book. The rotation gate is therefore the only live path, and it is not reachable this run: the report is stale, so there is no graded challenger to compare against the weakest holding."
-    },
-    "book": {
-      "equities": "3 swings, 3 of the 3-4 target slots. ABNB -2.43%, UNP -1.73%, IBKR +1.66%.",
-      "options": "EMPTY -- 0 broker contracts, options_value $0, 0 ledger rows.",
-      "day_track": "PAPER and PAUSED for the rest of the week; no signal taken, no opening range computed."
-    },
-    "concentration_live": {
-      "basis": "get_equity_quotes 13:36Z against total_value $3,429.43. Cap is 30% of TOTAL account value.",
-      "ABNB": "$1,087.34 = 31.71% -- OVER",
-      "UNP": "$1,080.99 = 31.52% -- OVER",
-      "IBKR": "$719.72 = 20.99% -- inside",
-      "ruling": "UNCHANGED from 09-17: a SIZING gate, so STOP ADDING, never SELL. The denominator shrank; the positions did not grow."
-    },
-    "exits_checked": "Wilder RSI2 computed from own daily bars (2026-08-20..2026-09-17) with the live 13:36Z print appended: ABNB 5.48, UNP 20.36, IBKR 60.31. All below 70. Crossing prices 169.06 / 283.94 / 89.42. Time stops 09-24 / 09-24 / 09-30, none due. Green-enough (entry/0.85) 199.44 / 335.42 / 102.71, none near. No thesis flag researched to broken. NOTHING FIRED.",
-    "why_flat": "Both books closed to entries on capital before grading; no exit trigger fired; the DAY TRACK is paused. A flat run is the correct output, not a missed one.",
-    "concurrent_run": "COLLISION, RESOLVED AS A UNION. A sibling run fired at 13:30Z and landed commit d4a3747 (PR #1734) while this run was writing. Both took the 'first post-bell' duties. The sibling won the merge and its work is KEPT WHOLE -- it stamped the heartbeat (13:33Z), rebuilt the brief (13:38Z), reset the cap and both throttles, shipped two root-cause fixes to calibrate.py and _DAY_TRACK, and wrote the Friday review. This run reset onto its commit and re-applied ONLY what is additive; it did NOT overwrite the heartbeat, the brief's existing keys, or the cap reset, and it did NOT mint a duplicate of the sibling's IBKR finding -- that key was AMENDED instead, per the CLAUDE.md rule that a superseding contribution edits the existing key rather than minting a container beside it.",
-    "duties_not_taken": "Heartbeat, brief rebuild, cap/throttle reset, Friday review, calibrate.py fixes -- ALL already discharged by the sibling. Re-doing any of them would be churn and would send Ryan a duplicate notification."
+    "books": "EQUITIES 2 swings (ABNB, UNP). OPTIONS empty. DAY TRACK paper + PAUSED (track_status -> '3 consecutive losing days'; graduate -> go_live False, 'paper 3d/3 trades; need 10d and 8').",
+    "capital": "Broker 14:21Z: total_value $3,436.46; cash $1,268.22 == buying_power == unleveraged_buying_power (no margin extended); equity_value $2,168.24; options_value $0; unsettled_funds $726.84 (= the IBKR proceeds, tradeable on limited_margin). Reserve 5% $171.82. DEPLOYABLE $1,096.40. Per-name cap 30% = $1,030.94.",
+    "capital_note": "The IBKR exit moved deployable from $369.49 -- below the $600 minimum entry, which shut both books on capital alone from 13:30Z to 14:17Z -- to $1,096.40, above it for the first time this week. The book is now open on capital and closed on QUALITY, which is a different and far better reason to be flat.",
+    "slot_math": "2 held against a 3-4 target. floor(1096.40 / 600) = 1 fundable slot, so a single entry sized min(deployable, cap) = $1,030.94 would land the book at 3, inside the target band. Filling 2 slots would be $548.20 each, below the $600 minimum -- which is precisely the split that minimum exists to forbid.",
+    "throttles": "Equity entries 0 of 3 used today (the IBKR sell is an EXIT; exits are never throttled). Options entries 0 of 3. Realized options P/L today $0.00 against the -$400 cap.",
+    "verdict": "NO ENTRY EITHER BOOK, on quality. No _cash_hold recorded and none is due: declining a board is not a deliberate hold and reserves nothing for a named opportunity.",
+    "duty_still_owed": "THE CORE-LIST IV SWEEP FOR 2026-09-18 IS STILL UNWRITTEN. iv_history.json's eight core tickers (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA) all end at 2026-09-17, n=27 each. The 13:52Z run correctly rejected the 13:30Z run's reason for skipping it ('an empty options book means a row decides nothing') on the grounds that the file's value IS continuity. Three runs have now passed on it. NEXT RUN: write it, before anything optional. Note AVGO +3.63% today (359.90 vs 347.30) -- the largest core-list move and the row most worth having."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -6870,7 +6838,23 @@
     "WHY_IT_IS_THE_SAME_MECHANISM_AS_THE_EXIT_FINDING": "A 2-period RSI has almost no memory -- two bars of gain/loss dominate it -- which is exactly why _RSI2_EXIT_TRIGGER_SITS_AT_THE_ENTRY_PRICE_BY_CONSTRUCTION and _RSI2_TAKE_PROFIT_DECAYED_80_TO_12_IN_THIRTY_MINUTES found the EXIT trigger collapsing onto the entry price and decaying inside half an hour. The repo had recorded that sensitivity three times on the exit side and never once on the ENTRY side, where it has the same magnitude and the opposite consequence: the exit case risks MISSING a fire, the entry case risks BUYING A SETUP THAT NO LONGER EXISTS.",
     "THE_RULE": "Before any autonomous equity entry, RE-DERIVE RSI2 AT THE LIVE PRICE and require it still to be oversold. The report's column certifies the name was oversold at the report's timestamp and price; it does not certify the setup is live now. This costs one arithmetic pass on bars the run already needs for the 200-day gate.",
     "scope_and_honesty": "It did NOT change this run's decision -- MA was independently disqualified by the standing payments-complex veto below, and the decline is recorded against that veto, not against this. That is the only condition under which a gate's inputs can be audited credibly. n=1: this is one name on one morning, and the direction of decay is not always adverse (a name falling further gets MORE oversold, not less). What is established is the MAGNITUDE of the sensitivity, which is large enough to flip the gate on a sub-1% move.",
-    "corollary": "It compounds with _REPORT_CRON_GAP_AT_THE_OPEN and _THE_CONFIRMATION_WINDOW_AND_THE_ENTRY_VIABILITY_WINDOW_OVERLAP_BY_LESS_THAN_THE_RUN_CADENCE: the report lands ~14:07Z off the prior close, and the opening-window rule defers the day's entry to at/after ~14:15Z. So the entry run is ALWAYS reading an RSI2 computed at a price that is already 40+ minutes stale, in the window where yesterday's oversold names get their reflexive bounce. The deferral is still right; it just means the re-derivation is mandatory rather than optional."
+    "corollary": "It compounds with _REPORT_CRON_GAP_AT_THE_OPEN and _THE_CONFIRMATION_WINDOW_AND_THE_ENTRY_VIABILITY_WINDOW_OVERLAP_BY_LESS_THAN_THE_RUN_CADENCE: the report lands ~14:07Z off the prior close, and the opening-window rule defers the day's entry to at/after ~14:15Z. So the entry run is ALWAYS reading an RSI2 computed at a price that is already 40+ minutes stale, in the window where yesterday's oversold names get their reflexive bounce. The deferral is still right; it just means the re-derivation is mandatory rather than optional.",
+    "AMENDED_2026-09-18T14:45Z_BY_THE_1418Z_RUN__THE_WHOLE_BOARD_CONTROL_THIS_KEY_ASKED_FOR": {
+      "why_this_is_an_amendment_and_not_a_new_key": "The 14:18Z run reached this same finding independently while grading the same board, and under the ledger-notes rule a contribution that NARROWS or EXTENDS an existing key edits that key rather than minting a rival one. Two runs converging on one mechanism by disjoint routes is cross-validation. The 14:15Z run owns the mechanism and the rule; this amendment supplies the CONTROL SAMPLE its own scope_and_honesty clause asked for ('n=1: this is one name on one morning') and one methodological refinement.",
+      "the_control_measurement": {
+        "method": "All TEN non-held names on the 14:07Z board, Wilder RSI2 re-derived from each name's own daily closes (get_equity_historicals 08-25..09-17) with the LIVE 14:22-14:25Z quote substituted as the newest close. Implementation validated against BOTH the report (MA 9.67 at 564.14 vs the report's printed 9.6) and the broker (settled 09-17 MA 14.644 vs get_equity_technical_indicators 14.544).",
+        "result_live_rsi2_vs_report": "C 1.6->2.26 armed | CVS 2.1->1.86 armed | BMY 3.2->3.70 armed | VZ 4.6->5.52 armed | MDLZ 5.1->4.77 armed | SLB 6.7->7.21 armed | CRM 8.6->8.56 armed | PNC 8.9->11.11 UN-FIRED | MA 9.6->29.00 UN-FIRED | ROKU 9.7->8.60 armed.",
+        "headline": "8 OF 10 STILL ARMED. The decay is REAL IN MAGNITUDE, exactly as this key measured on MA, but it is NOT SYSTEMATIC ACROSS THE BOARD. A run must not inherit 'the RSI2 column has probably expired by the time you read it' as a prior -- at an 80% arm rate that prior is false and acting on it would manufacture declines. The mandatory re-derivation this key prescribes is still right; what it catches is the OCCASIONAL name, not the usual one.",
+        "the_two_that_un-fired_did_so_by_a_hair": "PNC sits +0.15% and MA +0.36% ABOVE their own RSI2=10 crossing prices. Neither is a large move; MA's is the 0.38% this key already measured."
+      },
+      "the_refinement__RSI2_VALUE_IS_A_BAD_PROXY_FOR_ROBUSTNESS_USE_THE_CROSSING_PRICE": {
+        "problem_with_the_binary_test": "THE_RULE above prescribes 're-derive at the live price and require it still to be oversold' -- a binary pass/fail. That is necessary but it cannot rank. MA read 9.6 and was 0.36% from un-firing; CVS read 2.1 and sits 1.69% BELOW its crossing price. The binary test passes both identically, and the RSI2 VALUES (9.6 vs 2.1) suggest the wrong ordering of fragility, because a 2-period RSI's sensitivity near the threshold is enormous and entirely name-specific -- a function of each name's own recent bar structure, not of the indicator level.",
+        "the_measure_to_use": "THE PERCENT DISTANCE FROM THE LIVE PRICE TO THE NAME'S RSI2=10 CROSSING PRICE. Found by bisecting the name's own daily closes for the newest close that yields RSI2 = 10. Today's crossing prices: C 132.79, CVS 90.39, BMY 62.86, VZ 48.37, MDLZ 61.58, SLB 51.84, CRM 240.55, PNC 231.63, MA 564.32, ROKU 153.27.",
+        "cost": "ZERO extra API calls -- the daily bars are already fetched for the 200-day gate, and the bisection is ~100 local iterations.",
+        "the_general_form": "A 2-period RSI crossing a threshold IS A PRICE LEVEL. Hold the price level, not the indicator value -- on BOTH sides. That is the same conclusion the exit side reached three hours earlier in _THE_RSI2_TAKE_PROFIT_TESTS_A_PRICE_THE_DESK_CANNOT_TRANSACT_AT_THE_BID_NEVER_CLEARED_2026-09-18, which tests the BID against a computed 89.4220 crossing price rather than watching an RSI2 number. Entry and exit now use the same instrument."
+      },
+      "honest_scope_of_the_amendment": "Unlike the key it amends, this measurement DID change a decision: MA was the 14:18Z run's leading residual candidate and the crossing-price test disqualified it. That run had NOT found the standing payments-complex veto (it checked the durable bank and pharma reject keys and missed the payments one), so it would have declined MA on this alone -- the right verdict reached through the weaker of the two available reasons. Recorded because it is the exact failure _A_DURABLE_REJECT_KEY_EXISTED_AND_THREE_RUNS_RE_DERIVED_A_WEAKER_OBJECTION_INSTEAD names: SEARCH THE REJECT KEYS BY COMPLEX (banks, pharma, energy, PAYMENTS, defense) BEFORE grading, not only by ticker."
+    }
   },
   "_MA_DECLINED_2026-09-18_STANDING_PAYMENTS_COMPLEX_VETO": {
     "decided_utc": "2026-09-18T14:25:00Z",
