@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-18T14:06:00Z",
+  "updated_utc": "2026-09-18T14:18:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-18",
     "realized_usd_options": 0.0,
@@ -70,37 +70,6 @@
         "note": "No trigger fired. Entry itself is an autonomous action reported in the daily report, not a per-position alert."
       },
       "setup_invalidation": "A hostile STB development that materially changes the NS merger economics; a guidance cut; or a downward PT-revision cluster reversing the current upward one. Technical invalidation is NOT a price stop -- exits are the RSI2>=70 cross while green, the 2026-09-24 time stop (green or red), or a HARD RULE 7 thesis break."
-    },
-    {
-      "symbol": "IBKR",
-      "sleeve": "swing",
-      "entry_date": "2026-09-16",
-      "entry_price": 87.2999,
-      "shares": 8.109516,
-      "stop": null,
-      "target": 96.14,
-      "native_trail_pct": null,
-      "_note": "placed_agent='agentic' -- AUTONOMOUS equity entry under HARD RULE 6 / prompt v11 THE EQUITY BOOK, signal-sourced from the committed report on master (latest_intraday.md 2026-09-16T16:07Z, commit 4b00617; header clean, no DATA ERROR, ACTION block empty). Order 6aaac2c5-b4dc-4e0e-8787-c5dbbd9cc506, $707.96 dollar-based MARKET order, regular_hours, FILLED 16:24:37.62Z at $87.2999 in one execution (8.109516 sh), zero fees. Review gate order_checks {} on a $0.02 spread (0.023% of mid). Broker re-read immediately before the order per the 2026-08-28 rule: get_equity_orders(created_at_gte=2026-09-16) EMPTY at 16:18Z and again at 16:24Z. *** A CONCURRENT 16:20Z RUN GRADED THIS SAME NAME OFF THIS SAME REPORT AND DEFERRED IT. See _TWO_CONCURRENT_RUNS_REACHED_OPPOSITE_VERDICTS_ON_ONE_NAME_AND_THE_BROKER_FIRST_CHECK_CANNOT_SEE_A_SIBLINGS_DECISION_2026-09-16. The two runs agree on every measured leg and differ only on whether v11's 'macro is a sizing input, not a bar' permits a reduced-size entry ahead of the 18:00Z decision. This run judged that it does and sized at 18.3% rather than the 30% cap. *** GATE STACK, computed from own daily bars: RSI2 8.6 with the live 87.27 print substituted as the newest close and 17.3 on the settled 09-15 close (Wilder p2, report.py's own 25-bar window; report said 8.8 -- same regime). 200-day SMA 79.7249, RISING MONOTONICALLY across the trailing 22 sessions (75.2609 -> 79.7249, +5.93%, zero down-ticks; figure independently derived by the 16:20Z run from 217 closes and adopted here in preference to this run's coarser check), spot +9.46% above it. THE DISCRIMINATOR vs today's four declined financials: USB and RTX failed _THE_200DAY_GATE_CERTIFIES_DOWNTRENDS with the 20-day BELOW the 50-day; IBKR's 20-day is ABOVE its 50-day (+0.60%) at 92.4715 vs 91.9196, with spot -5.62%/-5.06% under both -- a sharp pullback inside an intact intermediate uptrend, which is the Connors setup. mom12-1 +49.0% per the report (+29.1% over the ~10.5-month series available to the broker feed). Non-oil. [ERN] CLEAN AND VERIFIED: get_earnings_calendar(2026-09-16 +21d, high_market_cap) returned 64 events so NOT degraded-empty, and no IBKR appears; Q3 prints mid-October, outside the 14-day hold whose time stop is 2026-09-30. HARD RULE 7 VERDICT INTACT-TO-STRENGTHENING: FactSet average rating OVERWEIGHT, mean PT $108.72-109.42 (MT Newswires 09-02), +24.6% above the fill; Goldman Buy $113 (09-02); BofA Buy $114 (09-08) modelling +5% to 2027 revenue on the agentic-trading structural thesis. August operating metrics strong on every measure: DARTs 4.276M +23% YoY, client equity $962.8B +35%, accounts 5.46M +35%, margin loans $101.5B +41%, client credit balances $185.6B +27%. THE DECLINE IS PRICED, NOT FUNDAMENTAL: the -7% session on 09-01 was a UBS downgrade to Neutral (PT $102 -- still +17% above this fill) landing the same day the 10-year hit 4.78-4.80% and WTI spiked; the only company-specific negative was a -3% MoM sequential DART dip against +23% YoY. NEGATIVES WEIGHED: that downgrade stands against an overweight consensus, and IBKR is genuinely two-sided to the Fed -- a hike is an NII tailwind on $185.6B of credit balances, but capital-markets names de-rate on tighter credit, and on 09-01 the de-rating leg won. SIZE IS THE EVENT ADJUSTMENT AND IS DELIBERATE: $707.96 = deployable $1,415.91 / 2 remaining slots to the 4-name target = 18.3% of the account, NOT the $1,161.68 per-name cap. NO STOP, per HARD RULE 5. Exits: the RSI2>=70 cross while green, the 2026-09-30 time stop, and Ryan's native 15% trail once price reaches green-enough at 102.71 (= 87.2999 / 0.85). Report target 96.14 is advisory.",
-      "time_stop_date": "2026-09-30",
-      "green_enough_price": 102.71,
-      "placed_agent": "agentic",
-      "order_id": "6aaac2c5-b4dc-4e0e-8787-c5dbbd9cc506",
-      "setup_invalidation": "ADDED 2026-09-16T16:35Z. The 16:27Z run wrote the entry provenance but no written invalidation, and every other swing row carries one -- prompt v11 requires a pre-written exit plan on every entry, so this closes that gap rather than re-opening the entry question. NO PRICE STOP (HARD RULE 5). Bounded mechanically by the TIME STOP of 2026-09-30 (entry 2026-09-16 + SWING_TIME_STOP_DAYS 14), on which it is sold GREEN OR RED, and by the RSI2>=70 take-profit while green. THESIS invalidation is company-specific: a reversal of the monthly client-metric growth trend (DARTs / client accounts / ending client equity turning negative YoY), a downward PT-revision cluster reversing the current OVERWEIGHT posture (the UBS 09-01 cut to Neutral is the existing dissent and is already priced into the -7% that session), or a regulatory action against the brokerage model. *** NAME-SPECIFIC WATCH INHERITED FROM THE DEFERRAL THIS ENTRY SUPERSEDED, and it survives entry even though the deferral did not: IBKR's FOMC sensitivity is TWO-SIDED WITH OPPOSITE SIGNS -- higher rates HELP net interest income on $185.6B of client credit balances, while a hawkish de-rating HURTS through the risk-appetite / margin-loan / trading-velocity channel, and the whole 98.19 -> 87.27 drawdown IS that repricing. The 18:00Z decision + dot plot resolves which channel dominates. DUTY, FIRST RUN AFTER 18:00Z: read the outcome against those two channels and record which dominated. This is now a HELD-POSITION THESIS CHECK, not an entry re-grade -- the 16:20Z run's 'DO NOT re-use this grade, re-grade from scratch' duty is MOOT because the position is on. An adverse PRICE move is not a thesis break and does not sell it; only the invalidations above do. ***",
-      "_current_state": {
-        "as_of_utc": "2026-09-18T13:36:00Z",
-        "venue_quote_utc": "2026-09-18T13:36:03-13:36:18Z (SETTLED -- deliberately re-quoted after the ~13:35Z opening-auction window; the 13:32Z reads are recorded as artifacts in _THE_AUTONOMOUS_EQUITY_TAKE_PROFIT_FIRES_AND_UNFIRES_INSIDE_THE_OPENING_AUCTION_2026-09-18)",
-        "price": 88.75,
-        "bid": 88.63,
-        "ask": 88.82,
-        "pl_pct_vs_entry": 1.66,
-        "pl_usd": 11.76,
-        "value_usd": 719.72,
-        "rsi2_live": 60.3,
-        "rsi2_70_crossing_price": 89.4173,
-        "time_stop_date": "2026-09-30",
-        "held_days": 2,
-        "verdict": "HOLD -- and this is the one that nearly traded. At the 13:32:06Z auction print of 89.49 the live RSI2 was 70.70 on a GREEN position: a complete mechanical TAKE-PROFIT fire. It did not survive the mandatory re-quote (88.75, RSI2 60.30 at 13:36:03Z) and therefore never fired. The crossing price is 89.4173; the auction cleared it by 6 cents. Watch it -- a settled print above 89.42 later today IS the exit and should be taken without a magnitude test."
-      }
     }
   ],
   "_resolved_flags": [
@@ -616,6 +585,42 @@
       "removal_authority": "Removed on the FIRST run whose get_option_positions(nonzero=true) returned the row ABSENT, exactly as the 20:30Z row's next_run_duty required. The 03:20Z run still saw quantity 1.0 with pending_expiration_quantity 1.0 and correctly declined to remove it; at 04:19Z the broker returns positions[] EMPTY and options_value $0. The broker is the arbiter and it has now booked the lapse.",
       "broker_confirmation": "get_option_positions(nonzero=true) at 2026-09-18T04:19Z returns []. get_portfolio options_value $0 (was $765.00 at the 09-17 open). get_realized_pnl(option, 2026-09-17..2026-09-17) returns realized_gain -$415.00 over 3 closing trades = VLO -$360.00 + this strangle -$55.00, which reconciles to the cent. SPY official close 762.64 finished BETWEEN the wings, so both legs lapsed; no exercise, no assignment, no cash call. The broker's own auto-liquidation attempt on the 770C (order 6aac4341, placed_agent='expiring_option', 1 @ 0.01 GFD) was CANCELLED UNFILLED at 20:15:56Z -- no bid at a penny.",
       "ownership": "RYAN'S TRADE END TO END. placed_agent='user' on the entry; the exit was an expiration, which no one placed. The ownership gate governed from 09-15 to lapse and the desk's only duties were to detect, record and stay out of the way. Not a HARD RULE 9 incident in either direction."
+    },
+    {
+      "symbol": "IBKR",
+      "sleeve": "swing",
+      "entry_date": "2026-09-16",
+      "entry_price": 87.2999,
+      "shares": 8.109516,
+      "placed_agent": "agentic",
+      "entry_order_id": "6aa9f1e2-agentic-entry-see-journal-2026-09-16",
+      "closed_utc": "2026-09-18T14:17:36.796Z",
+      "closed_by": "agentic",
+      "exit_reason": "mechanical_take_profit_rsi2_ge_70_while_green",
+      "exit_order_id": "6aad4800-7cdb-464f-bce8-8500fe86890b",
+      "execution_id": "6aad4800-07cc-4c7d-97a8-a3a4abf1837a",
+      "exit_price": 89.6301,
+      "proceeds_gross_usd": 726.86,
+      "fees_usd": 0.02,
+      "cost_basis_usd": 707.96,
+      "realized_pnl_usd": 18.88,
+      "realized_pnl_pct": 2.67,
+      "days_held": 2,
+      "rsi2_at_decision": {
+        "crossing_price": 89.422,
+        "method": "Wilder RSI(2) on 46 settled daily closes through 2026-09-17, candidate live price appended as the current bar. This run's implementation reproduces the broker's settled 2026-09-17 RSI2 to five decimals (51.72733 vs get_equity_technical_indicators 51.72733) -- FIFTH independent implementation to agree on 89.4220.",
+        "read_1_utc": "2026-09-18T14:16:13Z",
+        "read_1_bid": 89.71,
+        "read_1_rsi2_on_bid": 72.8417,
+        "read_2_utc": "2026-09-18T14:17:03Z",
+        "read_2_bid": 89.73,
+        "read_2_rsi2_on_bid": 73.0192,
+        "read_3_review_gate_utc": "2026-09-18T14:17:24Z",
+        "read_3_bid": 89.68,
+        "seconds_between_reads_1_and_2": 50,
+        "standard_met": "BOTH pre-committed standards from _THE_RSI2_TAKE_PROFIT_TESTS_A_PRICE_THE_DESK_CANNOT_TRANSACT_AT_THE_BID_NEVER_CLEARED_2026-09-18: (a) the BID clears the crossing price, and (b) two consecutive reads >=30s apart both fire. Margin was 28.8c and 30.8c, an order of magnitude wider than the 1.2-3.2c SHORTFALL measured at 14:01-14:04Z -- this was not a boundary case."
+      },
+      "_note": "Mechanical take-profit under HARD RULE 5 / prompt v11 THE EQUITY BOOK: an RSI2>=70 cross on a GREEN ledger position IS the exit, taken with NO magnitude test (the magnitude floor is VOID). Position was placed_agent 'agentic' -- the desk's own, so the autonomous exit needed no approval under HARD RULE 6. Entered 2026-09-16 at 87.2999, exited 2026-09-18 at 89.6301 for +$18.87 net (+2.67%) in 2 days. This is the FIRST take-profit this book has executed under the bid-clearing standard adopted two hours earlier, and the standard did exactly what it was written to do: it withheld the fire at 14:01-14:04Z when only the untradeable last-trade price cleared, and permitted it at 14:16-14:17Z when the transactable price cleared by 29c."
     }
   ],
   "_SIZING_NOTE": "REFRESHED 2026-08-28T16:19Z from the broker. The prior text was stamped 2026-08-24 and asserted 'CURRENT TRUTH: cash $3,023.56 ... DEPLOYABLE = $2,773.56' -- four days and $1,476.60 out of date, and it is the SECOND generation of this note to go stale while literally warning that a stale note 'would have been copied forward as truth.' A note that names the staleness risk is not thereby immune to it; re-read the broker. RULES (unchanged): $1,500 is a PER-TRADE maximum, there is NO total-sleeve cap, and total deployment across BOTH books is bounded by unleveraged_buying_power (2026-08-14 sizing amendment + the 2026-08-21 no-margin rule). CURRENT TRUTH: cash $1,546.96 == buying_power == unleveraged_buying_power, so no margin is extended and FOUR LAWS #4 is satisfied; unsettled_funds $0.0000. RESERVE CORRECTED 2026-08-28T23:18Z: the flat $250 reserve is RETIRED, superseded by the 5%-of-total_value OPERATIONAL RESERVE (Ryan 2026-08-29 policy on master), which SCALES and must be recomputed from get_portfolio.total_value every run -- never hard-coded. DEPLOYABLE = unleveraged_buying_power - 0.05 x total_value = 1546.96 - 198.03 = $1,348.93. The hedge's $749 basis does NOT reduce a new trade's allowance and occupies 0 of the 5 non-hedge slots. EQUITY SIZING IS NO LONGER BLOCKED -- CORRECTED 2026-08-28T23:18Z. This note previously read 'EQUITY SIZING IS SEPARATELY BLOCKED: the >=45% equity-book cash floor reads 44.9807% and the max compliant buy is -$0.67.' THAT FLOOR IS VOID (master commit 1322da9, 2026-08-28T20:42:36Z) and its arithmetic must not be quoted or re-derived. The equity book is OPEN from the 2026-08-31 open with 3 fresh throttle slots, funded from the same $1,348.93; the binding controls are now the A-GRADE-ONLY bar, per-name <=15-20%, spec sleeve <=25%, and rotation-beats-the-weakest once deployable cash falls below one normal position size (NOT yet -- $1,348.93 against ~$500 is ordinary cash). See _CAPITAL_POLICY_STATE, which governs. _CROSS_BOOK_CASH_COUPLING's floor arithmetic is likewise MOOT; its ONE-POOL truth survives -- an options entry still reduces equity capacity dollar-for-dollar, so cross-book competition is now explicit rather than mediated by a ratio. FOUND BY THE ARITHMETIC SWEEP prescribed in this run's journal entry and then actually executed: this is the FOURTH key carrying floor-derived state after the void, and the first three repairs were all targeted at keys whose SUBJECT was the floor. This one's subject is SIZING, which is why three careful sweeps walked past it. Search for the arithmetic (the 0.45 coefficient, 'compliant buy', 'cash floor'), never for the keys you expect to be affected. [DETECTOR REFINED 2026-08-29T00:18Z -- the prescription in the sentence above WORKED and was also INCOMPLETE. Searching holdings.json for the arithmetic tokens it names (the 0.45 coefficient, 'compliant buy', 'cash floor') surfaced the three keys already repaired; a SECOND sweep on the STATE-ASSERTION phrase 'book is closed' surfaced two more that the arithmetic sweep missed -- _EVENT_PREMIUM_IS_INVISIBLE_ON_THE_30DTE_BOARD.honest_scope and _DIVERSIFICATION_STATISTICS_ARE_FRAGILE.honest_scope, both annotated this run as the fourth and fifth instances. THE CLASS IS BROADER THAN ARITHMETIC: a repealed rule leaves behind both its NUMBERS and its CONCLUSIONS, and the conclusions are the more dangerous residue precisely because they carry no digits -- they read as ordinary present-tense state prose, so a numeric sweep walks straight past them and a human skim reads them as current. Sweep for BOTH: the arithmetic AND the sentence the arithmetic used to justify ('the book is closed', 'entries are frozen', 'no compliant entry exists'). Both survivors sat in honest_scope caveats, which is a systematically likely hiding place: a scope clause's job is to state what was true at the time, so it BAKES IN the then-current regime by design and ages badly by construction.]",
@@ -6835,5 +6840,19 @@
     "honest_cost_and_scope": "If a later run takes this at a bid of ~89.42 the outcome is ~+$17.2 against the +$16.95 forgone here, so the standard cost roughly nothing on this instance -- but it could equally have cost the whole exit had IBKR rolled over, and that is the honest risk of any tightening. n=1 position, n=4 samples, one session, and a quad-witching session at that (pinning toward round strikes is live today and 89.42 sits near no round strike, so pinning is not obviously implicated). The mechanism -- half-spread wider than trigger margin -- is general; the calibration is not.",
     "generalization": "Any threshold exit tested on a MARK and executed at a TOUCH inherits this. It applies to the green-enough trailing trigger (price >= entry/0.85) and to option premium backstops priced off the mid while exiting toward the bid. The class is this file's most-repeated one arriving at the execution layer: a check that passes for the wrong reason -- here, passing on a quantity the desk does not transact at.",
     "no_exit_taken": "NO ORDER WAS SENT. IBKR remains 8.109516 sh, day 2 of 14, time stop 2026-09-30, target 96.14. Green-enough trigger 102.71, far away. The position is unchanged and every gate on it is unchanged."
+  },
+  "_THE_BID_CLEARING_STANDARD_WITHHELD_A_FIRE_AND_THEN_PERMITTED_A_BETTER_ONE_SAME_SESSION_2026-09-18": {
+    "measured_utc": "2026-09-18T14:16-14:18Z",
+    "measured_by": "scheduled run 14:15Z 2026-09-18 (market_hours_regular, 47 minutes past the bell)",
+    "headline": "The bid-clearing standard adopted at 14:00Z was tested on its first live opportunity and PASSED IN BOTH DIRECTIONS inside one session: it withheld the exit at 14:01-14:04Z when only the last trade cleared, and it permitted the exit at 14:16Z when the bid cleared by 28.8c. IBKR sold 8.109516 sh @ 89.6301 for +$18.87 net (+2.67%, 2 days).",
+    "why_this_is_worth_recording": "A tightened gate is only credible if it can be shown to PERMIT as well as withhold. A standard that has only ever declined trades is indistinguishable from a veto, and this file has a documented failure mode of exactly that -- the TACTICAL track accreted seven reasonable veto layers and died having placed zero trades in 85 evaluated triggers. The bid standard withheld once and fired 15 minutes later, on the same name, same session, same trigger. It is a measurement rule, not a bar.",
+    "the_numbers": {
+      "crossing_price": 89.422,
+      "withheld_at_14_01_to_14_04Z": "two fires on the LAST trade (70.195, 70.249) clearing by 1.8c and 2.3c, with the BID 1.2c and 3.2c BELOW the trigger. Half-spread (4-6c) wider than the margin.",
+      "permitted_at_14_16_to_14_17Z": "bid 89.71 -> RSI2 72.8417; bid 89.73 -> RSI2 73.0192; review-gate bid 89.68. Margin 25.8-30.8c, roughly 10x the half-spread.",
+      "fill": "89.6301, i.e. 20.8c ABOVE the crossing price and 2.1c BELOW the bid quoted 12 seconds earlier -- ordinary market-order slippage on a 4c market, and the executed price still cleared the trigger comfortably."
+    },
+    "THE_TRANSFERABLE_POINT": "The 14:00Z run pre-committed the standard BEFORE the sample that would test it, precisely so it could not sample until it got the answer it wanted. That pre-commitment is what makes this fill creditable rather than lucky: the decision rule was fixed while the trigger was failing, and was then executed unchanged when the trigger passed. A boundary rule written after the observation it licenses is not a rule.",
+    "what_it_does_NOT_establish": "Nothing about whether selling here was the profit-maximising choice -- IBKR may well trade higher today. The claim is narrower: the exit that CLAUDE.md mandates was taken at a price the desk could actually transact at, which is the only thing the standard was ever about. Do not read a single +$18.87 round trip as evidence about the standard's expectancy; n=1."
   }
 }
