@@ -38871,6 +38871,14 @@
       "headline": "12th post-close no-op. Market shut (03:20 ET). Stand-down per POST-CLOSE RUN PROTOCOL.",
       "reconciliation": "ZERO DRIFT both books vs broker 07:19Z. Options EMPTY at broker and in ledger, options_value $0. Equities 3 swings share-for-share: ABNB 6.573584, UNP 3.858199, IBKR 8.109516, all sellable. Cash $541.38 == unleveraged_buying_power, total $3,451.23, unsettled $0.",
       "actions": "NONE. No artifact rolled; trading day unchanged. Heartbeat stays 2026-09-17 until the first run at/after 09:30 ET; options cap (-$415.00 realized, headroom $0) and both throttles reset at that open, not the UTC rollover. DAY TRACK PAPER, self-paused to 2026-09-22."
+    },
+    {
+      "run_utc": "2026-09-18T08:20:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-17",
+      "headline": "13th post-close no-op (04:20 ET). Market shut. Stand-down per POST-CLOSE RUN PROTOCOL; 19:15Z wrote the daily report, 04:20Z booked the SPY strangle expiration. Heartbeat NOT stamped, brief NOT rebuilt, throttles NOT reset -- the trading day is still 2026-09-17.",
+      "reconciliation": "ZERO DRIFT both books vs broker. Options 0 contracts / 0 ledger rows (book now empty: VLO closed by Ryan, SPY strangle lapsed). Equities 3/3 -- ABNB 6.573584, UNP 3.858199, IBKR 8.109516, all fully sellable. get_equity_orders(>=09-17) EMPTY; get_option_orders returns only the three already-documented rows. Cash $391.48 -> $541.38 is Ryan's $149.90 VLO proceeds settling (get_accounts unsettled_funds now 0.0000) -- expected, fully explained, not a finding. total_value $3,450.59, unleveraged_buying_power == buying_power == $541.38 (no margin), reserve $172.53, deployable $368.85 -- below the $600 minimum entry.",
+      "actions": "NONE. No artifact rolled; trading day unchanged. DAY TRACK remains PAPER and PAUSED through 2026-09-19 (3 consecutive losing days, week at -3.00R)."
     }
   ]
 }
