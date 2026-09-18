@@ -58,5 +58,31 @@
   "prompt_staleness": "prompt v11 step 8b still instructs the side=='sell' split in its own words. Reported, NOT resolved -- no run may edit the stored prompt or claim a Ryan turn (HARD RULE 9)."
  },
  "monthly_rebalance": "NOT DUE -- next on the first trading day of October 2026.",
- "iv_note": "NO IV SWEEP THIS RUN, stated plainly rather than silently skipped. The options book is empty and unfundable at $369.49 deployable against a $500 CORE low end, so a core-list IV row informs no decision today and the calls are better spent on the two root-cause fixes this run shipped. The duty resumes the moment the book can fund an entry. Last rows remain in iv_history.json; nothing was overwritten with a stale or partial reading."
+ "iv_note": "NO IV SWEEP THIS RUN, stated plainly rather than silently skipped. The options book is empty and unfundable at $369.49 deployable against a $500 CORE low end, so a core-list IV row informs no decision today and the calls are better spent on the two root-cause fixes this run shipped. The duty resumes the moment the book can fund an entry. Last rows remain in iv_history.json; nothing was overwritten with a stale or partial reading.",
+ "_amended_by_concurrent_run": "ADDITIVE ONLY. The 13:19Z sibling of the 13:30Z run that built this file appended the three keys below at 13:50Z and changed NOTHING that was already here. Its own independently-measured SPY/QQQ numbers agree with the regime block above, so the two runs cross-validate rather than conflict.",
+ "breadth_full_tape_1336Z": {
+  "_measured": "get_equity_quotes, venue timestamps 13:36:03-13:36:20Z -- six minutes post-bell, outside the auction window. All changes vs adjusted_previous_close, per the ex-dividend note in `regime`.",
+  "SMH": "564.82 vs 560.61, +0.75%",
+  "QQQ": "718.925 vs 716.92, +0.28%",
+  "NVDA": "219.22 vs 219.34, -0.05%",
+  "SPY": "760.66 vs 760.7112, -0.01%",
+  "DIA": "515.42 vs 517.1576, -0.34%",
+  "IWM": "283.885 vs 285.43, -0.54%",
+  "XLF": "55.51 vs 55.88, -0.66%",
+  "what_it_adds": "The regime block carries SPY and QQQ only, which reads as a mildly green tape. The full cross-section says something narrower: IWM is the WORST major and financials are worse still, while semis carry the entire Nasdaq bid. That is an INVERSION of yesterday's brief, which recorded small caps LEADING at +1.22% and called the move broad. Leadership narrowed to one complex in one session.",
+  "the_qualifier_that_keeps_it_honest": "NVDA is FLAT (-0.05%) while SMH is +0.75%, so the semi bid is not the mega-cap and 'semi-led' would overstate it. And six minutes of a quad-witching session is a reading, not a regime -- handed forward as NUMBERS, with no verdict attached, per the 2026-08-28T14:27Z finding."
+ },
+ "structural_levels_measured_1340Z": {
+  "QQQ_20d_SMA": 712.7095,
+  "QQQ_ATR14_daily_through_0917": 8.49,
+  "source": "Own computation from get_equity_historicals daily bars 2026-07-27..2026-09-17 (28 closes).",
+  "QQQ_50d_SMA": "NOT COMPUTED -- the pull holds only 28 closes. Reported as absent rather than computed from a short window.",
+  "read": "QQQ spot 718.925 sits 6.22 points (0.73 ATR) ABOVE its 20-day. No structural level is in play for any held name; recorded so the next run need not re-pull."
+ },
+ "earnings_window_verified_today": {
+  "_measured": "get_earnings_calendar(start 2026-09-18, days 8, high_market_cap), pulled 13:38Z.",
+  "held_names": "NO print for ABNB, UNP or IBKR anywhere in 2026-09-18..2026-09-25.",
+  "large_caps_next_week": "09-22 AZO/THO/MLKN am, KBH/WOR pm; 09-23 CTAS/PAYX/GIS/MANU am, FUL pm; 09-24 DRI/SNX/BB am, COST pm; 09-25 TBN am. None is a semis or AI-complex print.",
+  "why_this_is_additive_and_not_a_restatement": "The `catalysts_next_5_sessions` entry above says the held names print outside their time-stop windows 'verified at entry for each'. That is an entry-dated verification; this is a TODAY-dated one, and it carries the gap the other cannot: the window pulled ends 2026-09-25 while IBKR's time stop is 2026-09-30, so IBKR's final five days are UNVERIFIED. Per _A_PER_TICKER_EARNINGS_SERIES_CAN_BE_INTERNALLY_INCONSISTENT calendar silence is not proof either way. RE-CHECK IBKR before its time stop; do not treat this row as having cleared it."
+ }
 }
