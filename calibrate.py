@@ -19,9 +19,11 @@ Robinhood connector) fetches the trade history and feeds it in. That keeps this 
 testable offline and keeps the network in one place.
 
 Usage from a run:
-    from calibrate import edge_stats, recommend, format_report
-    eq = [t for t in broker_trades if t["side"] == "sell"]      # equities
-    print(format_report(recommend(edge_stats(eq), current_params)))
+    from calibrate import edge_stats, recommend, format_report, split_books
+    # Build option_closes from the BROKER, never from the `side` field — see split_books.
+    # option_closes = {(o["chain_symbol"], fill_date(o)) for o in filled_option_orders}
+    books = split_books(broker_trades, option_closes)
+    print(format_report(recommend(edge_stats(books["equities"]), current_params)))
 """
 
 from __future__ import annotations
@@ -141,6 +143,51 @@ def edge_stats(trades: list[dict], key: str = "realized_gain") -> EdgeStats | No
         breakeven_win_rate=breakeven, margin_pts=(win_rate - breakeven) * 100.0,
         mixed_book=mixed,
     )
+
+
+def split_books(trades: list[dict], option_closes: set, date_key: str = "timestamp") -> dict:
+    """Split a broker trade history into the EQUITY and OPTION books by BROKER MEMBERSHIP,
+    not by the `side` field. Returns {"equities": [...], "options": [...]}.
+
+    `option_closes` is a set of (symbol, "YYYY-MM-DD") pairs the CALLER builds from
+    get_option_orders(state="filled") — the broker's own record of which closes were
+    options. The module stays pure; the network stays in the run.
+
+    WHY THIS REPLACES THE `side` HEURISTIC (measured 2026-09-18, and it is decision-changing).
+    The documented split was `side == "sell"` -> equities, `side == ""` -> options. That is
+    wrong in one direction and the error is silent: `side == ""` identifies only an option
+    that EXPIRED (a lapse the broker books with no sell order). An option CLOSED BY AN
+    ACTUAL SELL ORDER carries `side == "sell"`, exactly like an equity sale, so it lands in
+    the equity bucket. Measured over the live 3-month history: 18 option closes worth
+    -$514.00 (VLO, SPY, QQQ, RBRK, WULF, TE, ZTS, CVS, ACHR, SMR, F) sat inside the
+    "equity" sample.
+
+    WHAT IT COSTS, on the real book: the contaminated equity sample reads margin -5.78 pts,
+    expectancy -$5.30/trade, and recommend() returns "EDGE GONE — halve size, pause new
+    entries, ESCALATE". Classified correctly the SAME window reads margin +11.96 pts,
+    expectancy +$3.42/trade, and correctly returns REPORT ONLY. A healthy equity book would
+    have been halved and frozen on a measurement artifact.
+
+    AND WHY THE EXISTING GUARD DOES NOT CATCH IT — this is the part worth keeping. The
+    2026-09-14 `mixed_book` flag fires when a sample carries BOTH kinds of `side`. After
+    splitting on `side`, the contaminated equity bucket is uniformly "sell", so mixed_book
+    is False and both numeric guards pass. The guard written to catch book contamination
+    certifies the contaminated sample as clean, because it was built around the LAPSE case
+    (side == "") and never the actively-closed case. A check that passes for the wrong reason.
+
+    WORSE, THE CONTAMINATION LANDS ON THE ONE BRANCH THAT IGNORES THE SAMPLE-QUALITY GATE.
+    Every other verdict is held back by the in-regime gate (the true equity sample correctly
+    returns REPORT ONLY — 0 of 48 closes happened under the current parameters). The KILL
+    branch is deliberately EXEMPT from that gate, because risk-off must never wait for a
+    clean sample. So the one verdict contamination can actually trigger is the one nothing
+    else stops. A sample-quality bug is most dangerous on the branch that skips sample checks.
+    """
+    eq, opt = [], []
+    for t in trades:
+        raw = str(t.get(date_key) or t.get("date") or "")
+        key = (t.get("symbol"), raw[:10])
+        (opt if key in option_closes else eq).append(t)
+    return {"equities": eq, "options": opt}
 
 
 def _clamp(name: str, value):
