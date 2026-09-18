@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-18T19:20:00Z",
+  "updated_utc": "2026-09-18T19:22:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-18",
     "realized_usd_options": 0.0,
@@ -24,19 +24,20 @@
       "_note": "placed_agent='agentic' -- AUTONOMOUS equity entry under HARD RULE 6 / prompt v10 THE EQUITY BOOK, signal-sourced from the committed report on master (latest_morning.md 2026-09-10T14:01Z, commit 12f6ccb; header clean, no DATA ERROR). Order 6aa2bcce-ec3b-40d9-8c87-06752c3a4515, $1,114.36 dollar-based MARKET order, regular_hours, FILLED 14:21:02Z at $169.5209 in two executions (6.000000 + 0.573584). Review gate returned order_checks {} on a $0.07 spread (0.04% of mid). HOW THIS NAME WAS FOUND: the 14:00Z run reported '26 RSI2 setups, ZERO graded A' but its cohort enumeration covers only 23 -- ABNB, CMG and KHC were never reached. See _A_ZERO_OF_26_VERDICT_WAS_BUILT_FROM_A_23_NAME_SAMPLE_AND_THE_REMAINDER_HELD_THE_BEST_SETUP_2026-09-10. All three were then graded from this run's own bars; CMG and KHC independently declined (flat non-monotonic 200-day, negative 12-1 momentum, and CMG's oversold condition already relieved at a live RSI2 of 17.05 versus 5.47 on the prior close). GATE STACK, each leg verified independently of the report rather than taken on trust: RSI2 3.38 on the 09-09 close and 3.00 including the live 169.00 print, Wilder-computed from own daily bars (report said 2.6 -- same regime); the 200-day SMA is 139.9809 and RISING MONOTONICALLY across the trailing 22 sessions (133.345 -> 139.981, +4.98%, no down-tick) with price +20.73% above it, so this is a dip inside a confirmed uptrend and NOT the flat-average artifact _THE_200DAY_GATE_CERTIFIES_DOWNTRENDS warns about; mom12-1 +49.2%; spot only -11.3% off the 52-week high of 190.50. HARD RULE 7 VERDICT INTACT AND STRENGTHENING -- the decisive evidence is that the FactSet consensus mean price target rose MONOTONICALLY across the very week the stock fell ~7.7%: $179.75 (08-31) -> $180.84 (09-01) -> $182.05 (09-08) -> $183.24 (09-10), average rating OVERWEIGHT throughout, with Raymond James UPGRADING to Outperform (PT $200) on 09-08, Baird $175->$200, Rosenblatt initiating Buy at $220 on 09-01, DA Davidson $175->$220, and Truist raising $134->$161 at 08:20 ET THIS MORNING. Analysts marking estimates UP while price marks DOWN is the cleanest available evidence that the decline reprices the MARKET rather than the COMPANY, which is exactly the condition Connors RSI(2) exists to exploit. Mean PT $183.24 is +8.4% from the fill and agrees with the report's independently-derived $183.08 to within 0.1%. NEGATIVES WEIGHED, NOT OMITTED: crude >$100 is a real ongoing travel-cost and consumer headwind and is the most plausible proximate driver of the decline; the 08-31 Bloomberg-reported pilot cutting host take-rate to 6%/10% from ~16% is a genuine revenue-model risk though confined to hosts on third-party software and defensive against direct-booking leakage; co-founder/CSO Blecharczyk sold 353,292 shares for $67.3M on 08-24 (Form 4, pre-dates the decline, usual 10b5-1 ambiguity). No company-specific negative headline appears in the last 10 days of a heavily-covered name. [ERN] CLEAR and VERIFIED not assumed: get_earnings_calendar over 09-10 +31d returned 374 live events across 301 symbols -- not the degraded-empty that makes an absent flag meaningless -- and ABNB appears nowhere through 2026-10-10, far beyond the time stop. Sector steer clear (consumer discretionary, not oil). UNCORRELATED with MMM (industrials) and GD (defense), which is why this entry was available where the prior run correctly declined RTX as a GD duplicate and EMR/TKR as MMM duplicates; it is also not an index ETF, so it does not fight the SPY 700P hedge the way IWM/DIA/SPY/QQQ would. GRADE A (not A+: the macro driver is unresolved and the name has no catalyst of its own). SIZING per the 2026-09-02 CONCENTRATION POLICY: total_value $4,021.67, cash == unleveraged_buying_power == $2,429.81 (no margin), 5% operational reserve $201.08, deployable $2,228.73, 2 open slots to the 3-4 target -> $1,114.36 = 27.71% of the account, inside the 30% per-name cap of $1,206.50 and well above the ~$600 minimum. Sized at deployable/2 rather than deployable/1 deliberately: MMM time-stops 09-14 and GD 09-15, so leaving $1,114.36 undeployed funds the next A-grade instead of crowding out that re-deployment.",
       "setup_invalidation": "This is a swing with NO price stop (HARD RULE 5 -- the agent places no stop of any kind). Bounded instead by the TIME STOP of 2026-09-24 (entry 2026-09-10 + SWING_TIME_STOP_DAYS 14), on which it is sold green or red. Thesis invalidation is company-specific: generalization of the reduced take-rate beyond a pilot in a way that resets revenue guidance, a guidance cut, or -- most directly -- a REVERSAL IN THE ANALYST REVISION TREND, since a mean PT turning DOWN through a further decline would break the central plank of this thesis, which is that estimates are rising into weakness.",
       "_current_state": {
-        "as_of_utc": "2026-09-18T13:36:00Z",
-        "venue_quote_utc": "2026-09-18T13:36:03-13:36:18Z (SETTLED -- deliberately re-quoted after the ~13:35Z opening-auction window; the 13:32Z reads are recorded as artifacts in _THE_AUTONOMOUS_EQUITY_TAKE_PROFIT_FIRES_AND_UNFIRES_INSIDE_THE_OPENING_AUCTION_2026-09-18)",
-        "price": 165.41,
-        "bid": 165.2,
-        "ask": 165.71,
-        "pl_pct_vs_entry": -2.43,
-        "pl_usd": -27.02,
-        "value_usd": 1087.34,
-        "rsi2_live": 5.3,
-        "rsi2_70_crossing_price": null,
+        "as_of_utc": "2026-09-18T19:20:00Z",
+        "venue_quote_utc": "2026-09-18T19:20:03-19:20:10Z (settled; well past the opening auction)",
+        "price": 166.7813,
+        "bid": 166.76,
+        "ask": 166.78,
+        "pl_pct_vs_entry": -1.62,
+        "pl_usd": -18.01,
+        "value_usd": 1096.35,
+        "rsi2_live": 40.91,
+        "rsi2_70_crossing_price": 169.06,
         "time_stop_date": "2026-09-24",
         "held_days": 8,
-        "verdict": "HOLD. Underwater -2.43%, RSI2 5.30 -- still deeply oversold, no bounce yet. Day 8 of 14; the time stop on 2026-09-24 is the binding exit and will sell it green or red. Remains the weakest of the three on the entry stack and the first name a rotation would sell, but no rotation candidate exists and no capital is available to rotate into one."
+        "verdict": "HOLD. Underwater -1.62%, RSI2 40.91. Day 8 of 14; the 2026-09-24 time stop is the binding exit and sells it green or red. NOTE the RSI2>=70 crossing price is 169.06, BELOW the entry of 169.5209 -- a bounce firing the trigger would fire it UNDERWATER, which is an OPTIONAL exit-into-strength routed to thesis, NOT a mechanical take-profit. Position is 31.82% of total account value, over the 30% per-name cap; ruling is STOP ADDING, not sell.",
+        "pct_of_total_value": 31.82
       }
     },
     {
@@ -50,19 +51,20 @@
       "native_trail_pct": null,
       "_note": "AUTONOMOUS equity entry under HARD RULE 6, placed_agent 'agentic', order 6aa2f4ee-a23b-49c3-8e48-eee4a2601f93 filled 2026-09-10T18:20:30Z, 3.858199 sh @ 285.1071 = $1,100.00, zero fees. SIGNAL-SOURCED from the committed 2026-09-10T18:01Z intraday report (RSI2 2.2, the lowest non-held print on a 25-name board). Graded A: 200-day SMA rising monotonically 255.467->260.934 with spot 61.6 SESSIONS of cushion above it; Q2 2026 adj EPS $3.41 vs $3.24 and revenue +12% to $6.864B, both beats; dividend raised to $1.42 on 07-29; consensus Overweight, FactSet mean PT $332.70 (+16.7%); three upward PT revisions in six weeks; and the entry prints GREEN (+0.09%) against SPY -0.61% / QQQ -1.00%, so trend-maturity gate (c) confirms rather than diverges. NO adverse catalyst behind the slide -- the last company news is a beat and a raise. KNOWN NEGATIVES, recorded not buried: PEG 3.2 reads '(WARN) rich' on the report's SECONDARY value screen (P/E 23.0 is ordinary for a Class I rail and PEG penalises mature compounders; unlike SBUX's PEG -2.3 there is no de-rating catalyst); the UNP/NSC $85B merger is under STB review with comments due 11-18, DOJ/DOT 12-03, final briefs 2027-05-28 -- nothing binary inside the hold; Baupost cut 23% in Q2, offset by Viking Global initiating a new $556.9M position the same quarter. NO PRICE STOP EVER (HARD RULE 5). Full pre-trade decision record: trade_journal.json entry run_utc 2026-09-10T18:19:00Z, written BEFORE the order per gate (a).",
       "_current_state": {
-        "as_of_utc": "2026-09-18T13:36:00Z",
-        "venue_quote_utc": "2026-09-18T13:36:03-13:36:18Z (SETTLED -- deliberately re-quoted after the ~13:35Z opening-auction window; the 13:32Z reads are recorded as artifacts in _THE_AUTONOMOUS_EQUITY_TAKE_PROFIT_FIRES_AND_UNFIRES_INSIDE_THE_OPENING_AUCTION_2026-09-18)",
-        "price": 280.18,
-        "bid": 280.17,
-        "ask": 280.3,
-        "pl_pct_vs_entry": -1.73,
-        "pl_usd": -19.01,
-        "value_usd": 1080.99,
-        "rsi2_live": 20.4,
-        "rsi2_70_crossing_price": null,
+        "as_of_utc": "2026-09-18T19:20:00Z",
+        "venue_quote_utc": "2026-09-18T19:20:03-19:20:10Z (settled; well past the opening auction)",
+        "price": 280.03,
+        "bid": 280.01,
+        "ask": 280.13,
+        "pl_pct_vs_entry": -1.78,
+        "pl_usd": -19.59,
+        "value_usd": 1080.41,
+        "rsi2_live": 19.64,
+        "rsi2_70_crossing_price": 283.94,
         "time_stop_date": "2026-09-24",
         "held_days": 8,
-        "verdict": "HOLD. Underwater -1.73%, RSI2 20.40. Day 8 of 14, time stop 2026-09-24. No exit fires; HARD RULE 5 gives an underwater swing no price stop and the thesis is unbroken."
+        "verdict": "HOLD. Underwater -1.78%, RSI2 19.64. Day 8 of 14; the 2026-09-24 time stop is the binding exit and sells it green or red. NOTE the RSI2>=70 crossing price is 283.94, BELOW the entry of 285.1071 -- a bounce firing the trigger would fire it UNDERWATER, which is an OPTIONAL exit-into-strength routed to thesis, NOT a mechanical take-profit. Position is 31.36% of total account value, over the 30% per-name cap; ruling is STOP ADDING, not sell.",
+        "pct_of_total_value": 31.36
       },
       "_notify_state": {
         "last_trigger": null,
@@ -719,31 +721,27 @@
   },
   "_realized_pnl_sourcing_note": "CORRECTED 2026-08-21T19:05Z -- SOURCED FROM THE BROKER, not asserted. get_realized_pnl(asset_classes=['option'], 2026-08-21..2026-08-21) returns +$53.00 on 1 closing trade. Identified via get_option_orders as Ryan's own ACHR 2028-01-21 5C LEAP sold to close at $3.00 at 13:55:50Z, placed_agent='user'. _realized_options_pnl_today stays 0.0 because it tracks AGENTIC-placed realized P/L, which is what the -$400 daily cap gates (2026-08-03 amendment: the accounting counts only agentic-placed positions). The cap was never at risk. The point of this note: every run today cited '$0.00 realized' correctly but WITHOUT calling the broker, and CLAUDE.md requires periodic P&L to be broker-sourced. Call get_realized_pnl once per day and cite it; do not copy the prior run's figure forward.",
   "_book_concentration": {
-    "utc": "2026-09-17T18:35:00Z",
-    "REPAIRED_THIS_RUN": "This key was 17 DAYS STALE (last written 2026-08-31T17:46:00Z) and every substantive field in it was VOID: it quoted the '~15-20% per-name cap' that the 2026-09-02 CONCENTRATION POLICY replaced with 30%, the flat $250 operational reserve that the 2026-08-29 capital policy replaced with 5% of total_value, and a five-name book (MMM/MDLZ/LLY/ROST/PNC) of which the account now holds NONE. It is the ELEVENTH instance of _VOID_FLOOR_RESIDUE_CLASS, and note the shape: this key's own header records that it was repaired once before for exactly this reason, then went stale again. A key that must be hand-refreshed will go stale; only a key some run is OBLIGED to rewrite stays true.",
-    "source": "get_portfolio + get_equity_positions + get_equity_quotes, broker-read 18:30-18:31Z this run. Not inherited.",
-    "total_value": 3441.251998345,
-    "equity_book_value": 2896.871998345,
-    "options_value": 3.0,
-    "cash": 541.38,
-    "unleveraged_buying_power": 541.38,
-    "margin_check": "buying_power == unleveraged_buying_power == $541.38, so nothing is borrowed. FOUR LAWS #4 satisfied unambiguously.",
-    "governing_rule": "FULL-DEPLOYMENT CAPITAL POLICY (Ryan live turn 2026-08-29) + CONCENTRATION POLICY (Ryan live turn 2026-09-02). Cash is the RESIDUAL OF QUALITY; there is NO percentage cash floor on either book. Per-name cap 30% of total account value; target 3-4 concurrent swings (band 3-5); minimum entry ~$600; A/A+ only.",
-    "operational_reserve_usd": 172.06,
-    "reserve_derivation": "5% of total_value $3,441.25 = $172.06. Recomputed every run, never hard-coded. It SUPERSEDES the flat $250 that the stale version of this key carried.",
-    "deployable_usd": 369.32,
-    "rotation_test_triggered": true,
-    "rotation_test_note": "Deployable $369.32 is BELOW one normal position size (and below the ~$600 minimum entry), so the rotation-beats-the-weakest test IS triggered: a new idea is not an entry unless it grades BETTER THAN THE WEAKEST POSITION HELD. No candidate cleared that bar today -- BMY graded B at 17:20Z, LRCX C. Nothing was declined on capital ALONE.",
-    "per_name": {
-      "basis": "live quotes 18:31:08-18:31:22Z; % of total_value $3,441.25. Cap is 30%.",
-      "ABNB": "$1,089.18   31.65%  P/L -2.26%   *** OVER THE 30% CAP ***",
-      "UNP": "$1,087.82   31.61%  P/L -1.11%   *** OVER THE 30% CAP ***",
-      "IBKR": "$718.62   20.88%  P/L +1.51%   inside"
+    "as_of_utc": "2026-09-18T19:20:00Z",
+    "measured_by": "scheduled run 19:18Z 2026-09-18 (unattended, prompt v11), per the detector in _THE_PER_NAME_CAP_IS_BREACHED_BY_THE_OTHER_BOOKS_LOSSES_2026-09-17 (\"compute per-name % of total_value EVERY run and write it to _book_concentration\"). This is the first run to honour that detector.",
+    "total_value": 3445.697632015,
+    "cap_pct": 30.0,
+    "cap_usd": 1033.71,
+    "positions": {
+      "ABNB": {
+        "value_usd": 1096.35,
+        "pct": 31.82,
+        "over_cap": true
+      },
+      "UNP": {
+        "value_usd": 1080.41,
+        "pct": 31.36,
+        "over_cap": true
+      }
     },
-    "CAP_BREACH_RULING": "TWO of three swings are over the 30% per-name cap, and the correct response is STOP ADDING, NOT SELL. See _THE_PER_NAME_CAP_IS_BREACHED_BY_THE_OTHER_BOOKS_LOSSES_2026-09-17 for the mechanism and the full ruling. In one line: the cap is a SIZING gate applied at entry (the same reading the 2026-08-28 cash-floor breach settled), HARD RULE 5 permits an equity sale only on a target hit / an RSI2>=70 cross while GREEN / a HARD RULE 7 thesis break, and neither name qualifies -- both are underwater, so an RSI2 exit would not even be a take-profit. The book is in any case already closed to entries on capital.",
-    "speculative_sleeve": "$0.00 of the ~25% cap. None of ABNB / UNP / IBKR is a spec name.",
-    "options_premium_at_risk": "$0.00 AGENTIC. Both open contracts (SPY 2026-09-17 731P, 770C) are Ryan's own placed_agent='user' strangle expiring tonight, marked $3.00 total; under the 2026-08-03 agentic sub-sleeve rule they consume no agentic slot, no per-trade budget and no entry throttle. The desk holds 0 of 3 CORE slots.",
-    "slots": "Equity book holds 3 of the 3-4 target swings. One open slot exists on the SLOT count and zero open slots exist on CAPITAL -- deployable $369.32 cannot fund the ~$600 minimum. Say which constraint binds; here it is capital."
+    "ruling": "STOP ADDING TO THESE NAMES, NOT SELL -- re-measured rather than inherited. Both crossings remain ~entirely DENOMINATOR: neither position traded, and total_value is $3,445.70 today against $4,080.11 at Wednesday 13:33Z. HARD RULE 5 permits an equity sale only on a target hit, an RSI2>=70 cross WHILE GREEN, or a thesis break, and both names qualify on none -- both are underwater, so an RSI2 print routes to the optional exit-into-strength path.",
+    "what_is_NEW_today_and_it_is_the_first_time_this_ruling_is_LOAD_BEARING": "On 2026-09-17 the ruling \"changed nothing\" because both books were shut on capital (deployable $369 vs the $600 minimum). The IBKR take-profit at 14:17:36Z freed $726.84, so deployable is $1,095.94 and the equity book is genuinely OPEN. The cap is PER NAME, so it does NOT bar a third position in an unrelated name -- it caps that entry at $1,033.71, still well above the $600 minimum. No entry was taken today because the board holds no A-grade, NOT because of this cap. Recorded so a later run does not mis-cite the cap as the reason the desk stood down -- the 09-18 daily report (PR #1765) states the same conclusion from the capital side without the concentration arithmetic behind it.",
+    "the_crossing_price_measurement_recorded_here_because_it_bears_on_the_same_names": "Computed from own daily bars at 19:20Z: the RSI2>=70 take-profit would fire at ~169.06 on ABNB and ~283.94 on UNP, BOTH BELOW their entries of 169.5209 and 285.1071. So neither position can currently produce a MECHANICAL take-profit at all -- any trigger print is an optional exit-into-strength routed to thesis. The binding exit for both is the 2026-09-24 time stop. This is the same family as _THE_RSI2_TAKE_PROFIT_TESTS_A_PRICE_THE_DESK_CANNOT_TRANSACT_AT_THE_BID_NEVER_CLEARED_2026-09-18: the trigger and the price it implies are two different things and only the second one decides whether an exit is even available.",
+    "self_cure": "Both time stops land 2026-09-24 and free ~$2,177 at once; alternatively a ~$175 rise in total_value cures the breach."
   },
   "_track_tag_note": "Added 2026-08-24T01:19Z: the v4 dual-track routine prompt requires every options position to carry track:'tactical' or track:'core' so the max-2-tactical / max-3-core slot accounting can be read from the ledger instead of re-derived from journal prose. QQQ 680P and RBRK 90P are both CORE SWING (entered 2026-08-18, 1-4 week horizon, 21-45 DTE at entry) -- every weekend run had already been calling them track:core in its sleeve_state prose while the field itself stayed absent, which is the 'same issue every session' pattern CLAUDE.md says to fix at the root rather than restate. The SPY 2026-11-20 700P is tagged track:'hedge': it is the authorized defensive hedge, EXCLUDED from the 5-slot cap and exempt from premium backstops, so tagging it 'core' would wrongly consume a swing slot. Slot count as of this tag: 2 of 3 core used, 0 of 2 tactical.",
   "_BLOCKED_SETUP": {
