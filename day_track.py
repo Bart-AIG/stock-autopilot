@@ -276,7 +276,16 @@ def track_status(equity: float, recent_results_r: list[float], week_results_r: l
     if equity < MIN_EQUITY_USD:
         return {"paused": True, "reason": f"equity ${equity:,.0f} < ${MIN_EQUITY_USD:,.0f} cushion"}
     tail = recent_results_r[-PAUSE_CONSEC_LOSSES:]
-    if len(tail) == PAUSE_CONSEC_LOSSES and all(x < 0 for x in tail):
+    # The streak is DETECTED across consecutive trading days (it may span a week boundary),
+    # but the spec scopes the pause to "the rest of THAT week". week_results_r is this week's
+    # results, so a non-empty list means the streak reaches into the current week and the
+    # pause is still running; an empty one means every loss in it belongs to a prior week and
+    # the pause has expired. Without this clause the branch reads the GLOBAL tail with no week
+    # boundary, so once three losses land it pauses forever: clearing it needs a new result,
+    # and producing one needs the track not to be paused. See
+    # holdings.json._DAY_TRACK_PAUSE_NEVER_EXPIRED_A_DEADLOCK.
+    if (len(tail) == PAUSE_CONSEC_LOSSES and all(x < 0 for x in tail)
+            and week_results_r):
         return {"paused": True, "reason": f"{PAUSE_CONSEC_LOSSES} consecutive losing days — rest of week"}
     if sum(week_results_r) <= PAUSE_WEEK_R:
         return {"paused": True, "reason": f"week at {sum(week_results_r):.2f}R <= {PAUSE_WEEK_R}R — rest of week"}
@@ -413,6 +422,16 @@ def _selftest() -> None:
     assert track_status(3884, [1, -1, 2], [1, -1, 2])["paused"] is False
     assert track_status(2400, [], [])["paused"]
     assert track_status(3884, [], [-1, -1.2, -0.9])["paused"]
+    # WEEK BOUNDARY — the case the fixtures above cannot catch, because every one of them
+    # passes a non-empty week_results_r and so encodes the same assumption as the bug.
+    # A 3-loss streak that happened ENTIRELY in a prior week must NOT pause the new week:
+    # measured 2026-09-19, the live track had sat on [-1,-1,-1] since 09-17 and would have
+    # returned paused=True on every future call forever.
+    assert track_status(3884, [-1, -1, -1], [])["paused"] is False
+    # ...but a streak that COMPLETES with a loss in the current week still pauses it.
+    assert track_status(3884, [-1, -1, -1], [-1])["paused"]
+    # and the week-R branch is unaffected by the new clause
+    assert track_status(3884, [1, 1], [-1, -1.2, -0.9])["paused"]
 
     assert graduate(5, [1] * 10)["go_live"] is False
     g = graduate(10, [1.5, -1, 2.0, -1, 0.8, -1, 1.2, 3.0])
