@@ -39593,6 +39593,17 @@
       "headline": "26th post-close no-op. Saturday, market shut (last bell 20:00Z Fri 09-18). Stand-down per POST-CLOSE RUN PROTOCOL.",
       "reconciliation": "ZERO DRIFT both books vs broker. Options 0 broker contracts / options_value $0 vs 0 ledger rows; equities ABNB 6.573584 @ 169.5209 + UNP 3.858199 @ 285.1071 match one-for-one, both fully sellable; total_value $3,438.75, cash == buying_power == unleveraged_buying_power == $1,268.22 (no margin extended; unsettled_funds $726.84 is instantly settled on a limited_margin account and does not bind).",
       "actions": "NONE. Nothing placeable. No artifact rolled: heartbeat stays 09-18, brief not rebuilt, cap/throttles unreset. No open flags. DAY TRACK PAPER, paused through 2026-09-19; Mon 09-21 owns the heartbeat, brief, throttle reset, WEEKLY CALIBRATION and day_track.graduate()."
+    },
+    {
+      "run_utc": "2026-09-19T22:25:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-18",
+      "headline": "27th post-close run, Saturday, market shut -- but NOT a no-op: found and fixed a DEADLOCK in day_track.track_status() that had killed the DAY TRACK permanently.",
+      "reconciliation": "ZERO DRIFT both books vs broker. Options 0 contracts / 0 ledger rows, options_value $0. Equities TWO swings matching exactly: ABNB 6.573584 @ 169.5209, UNP 3.858199 @ 285.1071, both fully sellable. IBKR's 09-18T14:17:36Z agentic take-profit (8.109516 @ 89.6301, +$18.88) is already recorded in _closed_positions -- the ledger led the heartbeat note, not the other way round. total_value $3,438.75, cash == buying_power == unleveraged_buying_power == $1,268.22 (no margin extended), equity_value $2,170.53; reserve 5% = $171.94, DEPLOYABLE $1,096.28 -- now ABOVE the ~$600 minimum entry for the first time this week, so Monday opens with a fundable slot.",
+      "finding": "_DAY_TRACK_PAUSE_NEVER_EXPIRED_A_DEADLOCK in holdings.json -- read it there, not re-argued here. One-line version: the consecutive-losses pause branch read the GLOBAL results tail with no week boundary, so on [-1,-1,-1] it returned paused=True forever; clearing it needed a new result and producing one needed it not to be paused. The spec says 'rest of that week' and was right; the code was wrong. Fixed by scoping the branch to the current week via the week_results_r argument that already carries the boundary. Three regression tests added, full self-test passes. Monday 09-21 now evaluates a signal instead of standing down forever.",
+      "actions": "NO TRADE -- market shut, nothing placeable in either book. No artifact rolled: heartbeat stays stamped 2026-09-18, market_brief stays 2026-09-18, daily report for 09-18 already written and nothing material happened since, loss cap and both throttles NOT reset (next open does that). Code + ledger changes only.",
+      "governance": "Repair to match an already-approved spec, not a spec edit and not a new gate -- an unattended run may do neither to this track and did neither. Phase untouched (PAPER); graduate() still 3d/3 against 10d/8, so LIVE is far off and this fix cannot reach it. No order placed, no gate loosened, no Ryan approval claimed or implied. HARD RULE 9 intact.",
+      "duties": "Weekly calibration is due on Monday's first run (09-21), not this run. DAY TRACK pause now genuinely expires that morning."
     }
   ]
 }
