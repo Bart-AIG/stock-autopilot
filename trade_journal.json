@@ -39604,6 +39604,15 @@
       "actions": "NO TRADE -- market shut, nothing placeable in either book. No artifact rolled: heartbeat stays stamped 2026-09-18, market_brief stays 2026-09-18, daily report for 09-18 already written and nothing material happened since, loss cap and both throttles NOT reset (next open does that). Code + ledger changes only.",
       "governance": "Repair to match an already-approved spec, not a spec edit and not a new gate -- an unattended run may do neither to this track and did neither. Phase untouched (PAPER); graduate() still 3d/3 against 10d/8, so LIVE is far off and this fix cannot reach it. No order placed, no gate loosened, no Ryan approval claimed or implied. HARD RULE 9 intact.",
       "duties": "Weekly calibration is due on Monday's first run (09-21), not this run. DAY TRACK pause now genuinely expires that morning."
+    },
+    {
+      "run_utc": "2026-09-19T23:20:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-18",
+      "headline": "28th post-close no-op. Saturday, market shut (last bell 20:00Z Fri 09-18). Stand-down per POST-CLOSE RUN PROTOCOL.",
+      "reconciliation": "ZERO DRIFT both books vs broker. Options 0 contracts, options_value $0. Equities TWO swings exact: ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, both fully sellable. total_value $3,438.75, cash == buying_power == unleveraged_buying_power == $1,268.22 (no margin), equity_value $2,170.53; reserve $171.94, deployable $1,096.28.",
+      "verification": "Re-ran day_track._selftest() against the 22:25Z deadlock fix (commit 5752271) -- PASS incl. the three new week-boundary fixtures. Confirmed the fix actually reaches Monday: _DAY_TRACK.results rows key their date as trading_day_et (2026-09-15/16/17, all in the week of Mon 09-14), so a caller partitioning by ISO week passes week_results_r=[] on 09-21 and track_status() returns paused=False. Note for that caller: the key is trading_day_et, NOT the bare 'date' that spec line 59's prose implies -- r.get('date') is None on every row.",
+      "actions": "NONE. No artifact rolled: heartbeat stays 2026-09-18, brief stays 2026-09-18, 09-18 daily report already written and nothing material since; loss cap and both throttles NOT reset (next open does that). Weekly calibration is Monday 09-21's first run, not this one."
     }
   ]
 }
