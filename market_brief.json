@@ -46,14 +46,14 @@
  "DAY_TRACK_today": {
   "status": "PAPER + PAUSED",
   "evaluated": false,
-  "pause": "day_track.track_status($3,437.77, [-1,-1,-1]) -> paused, '3 consecutive losing days -- rest of week'; the week also sits at -3.00R, so BOTH conditions hold. No signal may be taken through Friday 2026-09-19; the first run of Monday 2026-09-22 re-evaluates.",
+  "pause": "day_track.track_status($3,437.77, [-1,-1,-1]) -> paused, '3 consecutive losing days -- rest of week'; the week also sits at -3.00R, so BOTH conditions hold. No signal may be taken through Friday 2026-09-19; the first run of Monday 2026-09-21 re-evaluates.",
   "graduation": "day_track.graduate(3, [-1,-1,-1]) -> go_live FALSE, 'paper 3d / 3 trades; need 10d and 8 trades'. Earliest arithmetically possible go-live is a Monday on or after 2026-10-05.",
   "note": "_DAY_TRACK.results was DESYNCED from day_track_paper.json this morning (2 rows vs 3) and the stale array computed the pause as INACTIVE. Re-synced this run; both sources now return paused=True. See _RESULTS_ARE_THE_PAUSE_INPUT_AND_WERE_DESYNCED_FROM_THE_PAPER_LOG_2026-09-18."
  },
  "equity_entries_taken_today": [],
  "exits_taken_today": [],
  "weekly_calibration": {
-  "due": "Monday 2026-09-22 (first trading day of next week). NOT due today.",
+  "due": "Monday 2026-09-21 (first trading day of next week). NOT due today (this brief is stamped 2026-09-18).",
   "blocking_defect_fixed_this_run": "calibrate.split_books() now classifies by broker membership. The documented side=='sell' split filed 18 option closes (-$514) into the equity bucket; the contaminated sample reads margin -5.78 pts and fires 'EDGE GONE -- halve size, pause new entries', while the correctly-split equity book reads +11.96 pts and correctly returns REPORT ONLY (0 of 48 closes are in-regime). Monday MUST use split_books().",
   "prompt_staleness": "prompt v11 step 8b still instructs the side=='sell' split in its own words. Reported, NOT resolved -- no run may edit the stored prompt or claim a Ryan turn (HARD RULE 9)."
  },
