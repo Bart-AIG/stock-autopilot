@@ -39755,13 +39755,21 @@
     {
       "run_utc": "2026-09-20T17:25:00Z",
       "run_type": "post_close_overnight",
-      "trading_day_et": "2026-09-20",
+      "trading_day_et": "2026-09-18",
       "headline": "46th post-close no-op (Sun, market shut). Stand-down per POST-CLOSE RUN PROTOCOL, plus a one-line sweep of a corrected date into the artifact that still asserted the wrong one.",
       "reconciliation": "ZERO DRIFT both books vs broker. Options 0 positions (ledger 0). Equities ABNB 6.573584 / UNP 3.858199, both exact. Cash $1,268.22, total $3,438.75, unleveraged BP $1,268.22.",
       "action": "Patched market_brief.json: 'Monday 2026-09-22' -> 'Monday 2026-09-21' in weekly_calibration.due and DAY_TRACK_today.pause. 2026-09-22 is a TUESDAY. The ledger (_DAY_TRACK.status_note) and day_track.py were already corrected 2026-09-19/20; the brief was not swept, and its weekly_calibration.due read 'Monday 2026-09-22 ... NOT due today' -- an assertion that calibration is NOT due on the very Monday it IS due. No trading artifact touched; daily_options_report.md deliberately NOT rewritten (dated 09-18, superseded by Monday's own report, and a rewrite pushes Ryan a needless ntfy).",
       "verified_by_code_not_memory": "day_track.track_status(3438.75, [-1,-1,-1], []) -> {'paused': False, 'reason': 'active'} -- the pause DOES lift Monday 2026-09-21, because all three losing paper days belong to the week of 09-15 so week_results_r is empty. day_track.graduate(3, [-1,-1,-1]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. Track resumes Monday in PAPER, paper day 4, 0-for-3 at -1.00R each.",
       "monday_2026-09-21_carries": "Weekly calibration (MUST use calibrate.split_books(), per the defect fixed 09-18 -- the documented side=='sell' split contaminates the equity bucket with 18 option closes and falsely fires the KILL branch); DAY TRACK pause expiry + graduate() re-eval; ABNB/UNP enter the time-stop warn window (day 11 of 14, firing 2026-09-24).",
       "the_class_worth_keeping": "A corrected fact must be swept across every artifact that ASSERTS it, not just the one where it was found. Saturday's run fixed the code and the ledger and wrote the finding up; the brief kept telling the next run the opposite. Same shape as this file's most-repeated defect -- the correction passed review because the place it was checked was right."
+    },
+    {
+      "run_utc": "2026-09-20T18:20:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-18",
+      "headline": "47th post-close no-op. Market shut (Sun). Stand-down per POST-CLOSE RUN PROTOCOL.",
+      "reconciliation": "ZERO DRIFT both books vs broker. Options 0 positions / $0 vs 0 ledger rows. Equities ABNB 6.573584 @ 169.52 and UNP 3.858199 @ 285.11, exact, fully sellable, no holds. total_value $3,438.75; cash == buying_power == unleveraged_buying_power == $1,268.22 (no margin extended).",
+      "actions": "No trade, no artifact rolled, trading day unchanged. One field repaired: the 17:25Z entry carried trading_day_et '2026-09-20' (a Sunday) where the other 41 weekend entries carry '2026-09-18'. Between bells the trading day is the one whose bell rang, and that field is what date-filtered scans key on."
     }
   ]
 }
