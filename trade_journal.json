@@ -39613,6 +39613,16 @@
       "reconciliation": "ZERO DRIFT both books vs broker. Options 0 contracts, options_value $0. Equities TWO swings exact: ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, both fully sellable. total_value $3,438.75, cash == buying_power == unleveraged_buying_power == $1,268.22 (no margin), equity_value $2,170.53; reserve $171.94, deployable $1,096.28.",
       "verification": "Re-ran day_track._selftest() against the 22:25Z deadlock fix (commit 5752271) -- PASS incl. the three new week-boundary fixtures. Confirmed the fix actually reaches Monday: _DAY_TRACK.results rows key their date as trading_day_et (2026-09-15/16/17, all in the week of Mon 09-14), so a caller partitioning by ISO week passes week_results_r=[] on 09-21 and track_status() returns paused=False. Note for that caller: the key is trading_day_et, NOT the bare 'date' that spec line 59's prose implies -- r.get('date') is None on every row.",
       "actions": "NONE. No artifact rolled: heartbeat stays 2026-09-18, brief stays 2026-09-18, 09-18 daily report already written and nothing material since; loss cap and both throttles NOT reset (next open does that). Weekly calibration is Monday 09-21's first run, not this one."
+    },
+    {
+      "run_utc": "2026-09-20T00:22:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-18",
+      "headline": "29th post-close run, Sat 2026-09-19 ET. Market shut, stand-down -- but not a bare no-op: corrected the weekday in _DAY_TRACK.status_note that governs when the pause lifts.",
+      "reconciliation": "ZERO DRIFT both books vs broker. Options 0 contracts / options_value $0; equities 2 swings (ABNB 6.573584 @ 169.5209, UNP 3.858199 @ 285.1071) matching the ledger exactly; cash == buying_power == unleveraged_buying_power == $1,268.22 (no margin extended), total_value $3,438.75, unsettled $726.84 from the 09-18 IBKR close.",
+      "finding": "_DAY_TRACK.status_note said 'the first run of Monday 2026-09-22 re-evaluates'. 2026-09-22 is a TUESDAY; the Monday is 2026-09-21. Verified the deadlock fix from PR #1795 holds: day_track.track_status(3438.75, [-1,-1,-1], []) -> paused FALSE, because all three losing paper days (09-15/16/17) belong to the prior week so week_results_r is empty and sum([])=0 > -3.0R. The CODE resumes the track correctly on Monday; only the prose would have told a Monday run to wait another day. Patched in place, one-line diff.",
+      "actions": "NONE placed. Market shut. No artifact rolled -- heartbeat stays 2026-09-18, brief and throttles untouched; trading day is still the one whose bell rang Fri 09-18.",
+      "monday_watchpoints": "Mon 2026-09-21 is the week's first trading day: WEEKLY CALIBRATION due (broker get_pnl_trade_history span 3month, split books, in-regime gate), day_track.graduate() re-check (3 paper days / 3 signals of the required 10 and 8 -- not close), and the DAY TRACK resumes un-paused. Capital: deployable = 1268.22 - 0.05*3438.75 = $1,096.28, above the $600 minimum entry, so the equity book is open on capital for the first time since 09-18."
     }
   ]
 }
