@@ -39623,6 +39623,14 @@
       "finding": "_DAY_TRACK.status_note said 'the first run of Monday 2026-09-22 re-evaluates'. 2026-09-22 is a TUESDAY; the Monday is 2026-09-21. Verified the deadlock fix from PR #1795 holds: day_track.track_status(3438.75, [-1,-1,-1], []) -> paused FALSE, because all three losing paper days (09-15/16/17) belong to the prior week so week_results_r is empty and sum([])=0 > -3.0R. The CODE resumes the track correctly on Monday; only the prose would have told a Monday run to wait another day. Patched in place, one-line diff.",
       "actions": "NONE placed. Market shut. No artifact rolled -- heartbeat stays 2026-09-18, brief and throttles untouched; trading day is still the one whose bell rang Fri 09-18.",
       "monday_watchpoints": "Mon 2026-09-21 is the week's first trading day: WEEKLY CALIBRATION due (broker get_pnl_trade_history span 3month, split books, in-regime gate), day_track.graduate() re-check (3 paper days / 3 signals of the required 10 and 8 -- not close), and the DAY TRACK resumes un-paused. Capital: deployable = 1268.22 - 0.05*3438.75 = $1,096.28, above the $600 minimum entry, so the equity book is open on capital for the first time since 09-18."
+    },
+    {
+      "run_utc": "2026-09-20T01:25:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-18",
+      "headline": "30th post-close no-op. Sat 2026-09-19 ET, market shut (last bell 20:00Z Fri 09-18). Stand-down per POST-CLOSE RUN PROTOCOL.",
+      "reconciliation": "ZERO DRIFT both books vs broker. Options 0 contracts / options_value $0 vs 0 ledger rows; equities ABNB 6.573584 @ 169.5209 and UNP 3.858199 @ 285.1071 match one-for-one, both fully sellable; total_value $3,438.75, cash == buying_power == unleveraged_buying_power == $1,268.22 (no margin extended), reserve $171.94, deployable $1,096.28.",
+      "actions": "NONE. Nothing placeable. No artifact rolled: heartbeat stays 09-18, brief not rebuilt, cap/throttles unreset. No open flags. DAY TRACK PAPER and paused through the week of 09-14; Mon 2026-09-21 owns heartbeat, brief, throttle reset, WEEKLY CALIBRATION and day_track.graduate(). 09-18 daily report and Friday review both already on master."
     }
   ]
 }
