@@ -305,7 +305,8 @@
         "atr14_5min_used": 0.6765,
         "_two_pass_manage": "PASS 1 (breach): worst excursion since the 15:01Z pass = 735.770 (min low across the 15:01-15:18Z one-minute bars), which clears the live 734.6175 stop by 1.1525 pts -- comfortable, unlike the 4-cent survival at 15:01Z. PASS 2 (ratchet): manage('long', 729.2575, 734.6175, price=736.47, session_extreme=736.480, atr5=0.67650, '11:22', stop_dist=1.4375) -> {'action':'raise_stop','stop':735.4652,'reason':'ratchet at 5.02R'}. SIXTH ratchet of the day: 735.4652 = 736.480 - 1.5 x 0.67650, i.e. 6.2077 pts (4.3184R) above the 729.2575 entry. Locked +4.32R with +5.02R on the screen -- the best paper trade the track has produced by a wide margin (days 1-3 were -1R each). PAPER -- nothing sent; in LIVE this is the sixth cancel/replace of the resting stop_market.",
         "_session_extreme_is_bar_derived": "736.480 is the highest COMPLETED one-minute bar high since entry (the 15:18Z bar), superseding the 735.870 used at 15:01Z. Live last trade 736.47 (venue 15:19:34.381Z, bid 736.450 / ask 736.470), so the true extreme is at least 736.480 and this is a FLOOR. Bar-derived, never quote-derived.",
-        "_atr5_note": "0.67650 -- ATR14(5-minute) on the last COMPLETED bucket (15:10Z; the 15:15Z bucket was still in progress). FEED RECONCILED per the standing rule before use: the 15:10Z bucket reports volume 107,854 against a 1-minute sum (15:10-15:14) of 107,854 -- exact match, and its high/low reproduce the constituent extremes, so no hole propagated into the ATR. THE SERIES IS NOT FLAT, IT IS COMPRESSING: 1.3857 (entry) -> 0.8558 -> 0.83498 (15:01Z) -> 0.67650 now, a 51% fall from entry. The 15:01Z pass called it 'settled'; it was not -- the overnight-gap term had expired, but ordinary range compression in a grind-up kept pulling it down. See _DAY_TRACK_ATR_COMPRESSION_SHRANK_THE_TRAIL_ROOM_TO_THE_SESSIONS_OWN_P90_PULLBACK_2026-09-21."
+        "_atr5_note": "0.67650 -- ATR14(5-minute) on the last COMPLETED bucket (15:10Z; the 15:15Z bucket was still in progress). FEED RECONCILED per the standing rule before use: the 15:10Z bucket reports volume 107,854 against a 1-minute sum (15:10-15:14) of 107,854 -- exact match, and its high/low reproduce the constituent extremes, so no hole propagated into the ATR. THE SERIES IS NOT FLAT, IT IS COMPRESSING: 1.3857 (entry) -> 0.8558 -> 0.83498 (15:01Z) -> 0.67650 now, a 51% fall from entry. The 15:01Z pass called it 'settled'; it was not -- the overnight-gap term had expired, but ordinary range compression in a grind-up kept pulling it down. See _DAY_TRACK_ATR_COMPRESSION_SHRANK_THE_TRAIL_ROOM_TO_THE_SESSIONS_OWN_P90_PULLBACK_2026-09-21. *** UNION MERGE NOTE (PR #1847 into #1846): a CONCURRENT run measured atr5 0.69829 at 15:15Z over the 14 buckets 14:00Z..15:05Z, and its diagnosis is better than this one's and is kept: the 15:01Z pass called the series 'settled' at 0.83498 and it was not -- TWO independent compressions were running, the overnight-gap term expiring AND the trending 14:15-14:35Z buckets (1.18 / 0.60 / 0.46 pt ranges) rolling out of the 14-bucket window to be replaced by the quiet 15:05/15:10 buckets (0.34 / 0.32 pts). The first finishing does not mean the series is done. The 0.6765 above is the SAME quantity one bucket later (14:05Z..15:10Z), so the two readings agree and are not a conflict.",
+        "_union_merge": "Two runs executed this slot concurrently and BOTH performed the sixth ratchet: 15:15Z -> 735.3826 (atr5 0.69829, extreme 736.430) and 15:22Z -> 735.4652 (atr5 0.6765, extreme 736.480). Resolved by the ratchet-only invariant in day_track.manage(): the stop never moves down, so the HIGHER stop stands, and it is also the fresher and independently feed-reconciled reading. Both passes are preserved in _manage_log. The two runs' measurements CROSS-VALIDATE rather than conflict."
       },
       "entry": 729.2575,
       "exit_px": null,
@@ -386,6 +387,23 @@
           "feed_integrity": "The four newest 5-minute buckets (14:40/14:45/14:50/14:55Z) reconcile EXACTLY against their one-minute sums -- volume to the share (264,496 / 181,367 / 161,745 / 168,067) and high and low to the cent. No hole in either direction under the 2026-08-28 direction rule. SPY pulled in the same call as the free cross-symbol check and prints normally throughout.",
           "field_repair": "Repaired three disagreeing stop fields on this row before the pass -- see _stop_field_contract and holdings.json._DAY_TRACK_THREE_FIELDS_HELD_THE_LIVE_STOP_AND_THE_ENTRY_STOP_WAS_OVERWRITTEN_2026-09-21. It changed no decision: the breach test was run against 734.5774, the highest and therefore governing value, which is what the ratchet-up-only rule requires.",
           "paper": "PAPER -- nothing sent. In LIVE this is a cancel/replace of the resting stop_market."
+        },
+        {
+          "run_utc": "2026-09-21T15:15:00Z",
+          "action": "raise_stop",
+          "from": 734.6175,
+          "to": 735.3826,
+          "r_at_pass": 4.962,
+          "locked_r": 4.2609,
+          "inputs": {
+            "price_last": 736.39,
+            "session_extreme": 736.43,
+            "atr5": 0.69829,
+            "stop_dist": 1.4375
+          },
+          "breach_pass": "adverse extreme since the 15:01Z pass = 735.770 (min low of the 15:01-15:14Z one-minute bars) -> no breach, 1.1525 pts clear of the live 734.6175 stop",
+          "phase": "paper",
+          "_reconstructed": "Logged by the UNION merge of PR #1847 into #1846, not by the 15:15Z run itself -- that run updated _manage_state but appended no log row. Every figure here is taken verbatim from its _manage_state._two_pass_manage; nothing is inferred."
         },
         {
           "run_utc": "2026-09-21T15:22:00Z",
