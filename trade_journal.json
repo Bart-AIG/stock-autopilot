@@ -40490,6 +40490,58 @@
         "day_track": "One trade per day and today's is already open; managed, not re-entered."
       },
       "duties": "Heartbeat already stamped 13:40Z for this trading day. market_brief.json stamped today. Daily report is due on the first run at/after 19:15Z and is not this run's. Monday calibration was run by the 13:40Z run (_WEEKLY_CALIBRATION_2026-09-21) -- not repeated."
+    },
+    {
+      "run_utc": "2026-09-21T17:05:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-21",
+      "headline": "DAY TRACK paper day 4 CLOSED at the 738.5688 trail for +6.4774R (+$9.31) -- the track's FIRST WINNER, against -1R on each of the first three days. Breached by the 16:52Z one-minute bar (low 738.500) five minutes after the 16:47Z ratchet left the thinnest room of the session. No trade in either real book: deployable $97.67.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 17:02-17:04Z. OPTIONS EMPTY: get_option_positions(nonzero) returns [], options_value $0, 0 ledger rows. EQUITIES three swings, ledger == broker to six decimals and all fully sellable: ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, V 2.716801 @ 368.08. get_equity_orders(created_at_gte=2026-09-21) returns ONE order -- the V buy 6ab13deb, agentic, filled 14:23:39.46Z by an earlier sibling, already in the ledger. No unrecorded fill, no sibling entry since, and NO QQQ/PSQ order, which is correct for PAPER.",
+      "capital": "total_value $3,410.93; cash == buying_power == unleveraged_buying_power == $268.22 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $3,142.71. Reserve 5% = $170.55 -> DEPLOYABLE $97.67 -- far below the ~$600 minimum equity entry and below any CORE options size. Book holds 3 of the 3-4 target slots. No rotation considered: a rotation sell must be graded better than the weakest HELD position on the entry stack, and no candidate was graded today after V took the one fundable slot at 14:23Z.",
+      "tape": {
+        "QQQ": 738.9754,
+        "QQQ_bid": 738.98,
+        "QQQ_prev_close": 721.45,
+        "QQQ_vs_prev_close_pct": 2.43,
+        "QQQ_session_high_since_entry": 739.39,
+        "SPY": 772.49,
+        "SPY_vs_prev_close_pct": 1.42,
+        "ABNB": 166.58,
+        "UNP": 271.565,
+        "V": 368.12,
+        "atr14_5min_used": 0.54744
+      },
+      "day_track": {
+        "phase": "PAPER -- nothing sent to a broker; no stop existed to cancel.",
+        "action": "close",
+        "paper_day": 4,
+        "row": "day_track_paper.json rows[-1] (2026-09-21)",
+        "entry": 729.2575,
+        "exit": 738.5688,
+        "r_realized": 6.4774,
+        "pnl_usd": 9.3113,
+        "trigger_minute_utc": "2026-09-21T16:52:00Z",
+        "breach_pass": "PARTITIONED AT THE 16:47Z STOP CHANGE per _DAY_TRACK_THE_BREACH_WINDOW_MUST_BE_PARTITIONED_AT_EVERY_STOP_CHANGE_2026-09-21. Bars 16:45Z-16:46Z under the OLD 738.2624: min low 738.604, clear by 0.3416. Bars 16:47Z-17:01Z under the NEW 738.5688: min low 738.500 at 16:52Z -> BREACH by 0.0688, corroborated independently by the 16:53Z bar at 738.540. Thirteenth pass of the day, first to breach.",
+        "manage_call": "day_track.manage('long', 729.2575, 738.5688, price=738.500 [the ADVERSE EXTREME since the last pass, not the live bid, per _DAY_TRACK_IN_PAPER_manage_MUST_BE_FED_THE_ADVERSE_EXTREME..._2026-09-16], session_extreme=739.390, atr5=0.54744, time_et='13:04', stop_dist=1.4375) -> action 'close'.",
+        "feed_integrity": "VERIFIED BEFORE ACTING, both prescribed defences, because this pass CLOSES a trade. (1) An independently-fetched 5-minute series puts the 16:50Z bucket low at 738.500, identical to the one-minute extreme. That bucket is PARTIALLY HOLED on volume -- 27,178 == exactly its 16:52+16:53+16:54 constituents, missing 16:50 and 16:51 (true one-minute sum 64,309), with its high 738.720 correspondingly under the true 738.8895. Per the direction rule a bucket below its one-minute sum is the holed side, so the one-minute series governs and the two agree on the low that decides the trade. 16:45Z and 16:55Z buckets reconcile EXACTLY (73,324 / 56,079); SPY as cross-symbol control printed normally. (2) The one-minute window was fetched TWICE ~4 minutes apart (17:01Z and 17:05Z) and the 16:52Z and 16:53Z bars returned byte-identical on both reads. No revision.",
+        "was_the_trail_wrong": "NO, and the honest answer matters more than a tidy finding. The trail is extreme - 1.5 x atr5, so its give-back tolerance at the 16:47Z pass was 0.8212 pts; the pullback that closed the trade ran 739.390 -> 738.500 = 0.890 pts = 1.63 x atr5, genuinely beyond what the parameter buys. The 16:47Z 'thinnest room of the session, 0.1912 pts' warning was correct and was a SYMPTOM of price already sitting 0.63 under the high, not a mis-set stop. The trade banked 9.3113 of the 10.1325 pts available entry-to-high = 91.9% of peak.",
+        "post_exit": "Price RECOVERED to 738.98 by 17:01Z, back above the exit. That is the ordinary cost of a trailing stop and NOT a re-entry case: one trade per day, and the row is closed.",
+        "graduation": "day_track.graduate(4, [-1,-1,-1,6.4774]) -> go_live FALSE, 'paper 4d / 4 trades; need 10d and 8 trades'. SIX more paper days and FOUR more signals. Graduation remains the ONLY lock on the track -- the v11 stop-authority lock opened 2026-09-15 and graduates nothing. Only a Monday calibration flips the phase; today IS Monday but its calibration already ran at 13:40Z, so the next graduation review is 2026-09-28. No run promotes the phase mid-week and this run did not.",
+        "track_status": "track_status($3,410.93, [-1,-1,6.4774], [6.4774]) -> paused FALSE. The win breaks the consecutive-loss streak.",
+        "tally": "holdings.json._DAY_TRACK._PAPER_TALLY_AFTER_DAY_4_2026-09-21 -- named here, argued there. +3.4774R total, +0.869R/trade, and n=4 proves nothing."
+      },
+      "positions_verdict": {
+        "ABNB": "HOLD, working-but-underwater at 166.58 vs 169.5209 = -1.73%. Time stop 2026-09-24 (held 11d/14d, inside the 3-day warn window). No exit available: the RSI2>=70 take-profit requires GREEN by construction, and HARD RULE 5 forbids a price stop. Today's committed report agrees: HOLD (thesis-watch).",
+        "UNP": "HOLD, stalled at 271.565 vs 285.1071 = -4.75%, the weakest name in the book on P/L. Time stop 2026-09-24, same warn window. Thesis was researched to INTACT earlier today and no new cause surfaced this pass; a technical flag alone is never a sell. Note it re-screened as an RSI2 setup today marked HELD -- not an add: deployable is $97.67 and FOUR LAWS #3 bars adding to a loser without Ryan regardless.",
+        "V": "HOLD, flat at 368.12 vs 368.0799 = +0.01%, entered 14:23Z today by a sibling run. Time stop 2026-10-05. Nothing to judge on day one."
+      },
+      "why_flat": {
+        "equities": "No exit fired -- today's committed report (latest_intraday.md, 2026-09-21 16:08Z, fresh, no DATA ERROR) has an EMPTY ACTION block and marks all three positions HOLD. No entry possible: deployable $97.67 against a ~$600 minimum, and the day's 1-of-3 entry throttle was already spent on V at 14:23Z.",
+        "options": "Book empty and no entry priced. Deployable $97.67 is below any CORE size ($500-1,000 typical), so the sleeve is shut on capital before any thesis is reached. The 13:40Z calibration's KILL branch on this book was REVERSED at 14:05Z -- entries are NOT paused and the size multiplier is 1.0; the owning record is holdings.json._WEEKLY_CALIBRATION_2026-09-21.OPTIONS_BOOK.REVERSAL, never the heartbeat prose.",
+        "day_track": "One trade per day, taken and now closed. Flat rule at 15:30 ET is moot."
+      },
+      "duties": "Heartbeat already stamped 13:40Z for this trading day -- not re-stamped. Market brief already built today. Monday weekly calibration already run at 13:40Z (_WEEKLY_CALIBRATION_2026-09-21) -- not re-run. Daily report is due on the first run at/after 19:15Z and this run is 17:05Z, so it is not yet owed; today's day-track winner is the headline it will carry.",
+      "process_catch": "NEAR-MISS ON THIS RUN'S OWN LEDGER WRITE, caught before committing and worth recording because the safeguard that should have caught it did not. Closing the day-track row, this run first rebuilt the `_DAY_TRACK.results` mirror row instead of updating it in place: length stayed 4 == 4 so the 09-18 mirror assertion PASSED, while the row silently lost decided_utc / decided_by / action / shares / r_usd / _mirror_of and set `exit` to a float where the three prior rows carry it as an object. Found by reading `git diff --stat` and then the diff body; reverted with `git checkout origin/master -- holdings.json` and re-applied as an in-place update. The mirror assertion is now strengthened to compare FIELDS (trading_day_et, status, r_multiple, exit_px) and not merely length. Written back to holdings.json._RESULTS_ARE_THE_PAUSE_INPUT_AND_WERE_DESYNCED_FROM_THE_PAPER_LOG_2026-09-18 as a same-subject extension rather than a new key -- named here, argued there."
     }
   ]
 }
