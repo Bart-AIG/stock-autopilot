@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-21T14:26:00Z",
+  "updated_utc": "2026-09-21T14:45:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-21",
     "realized_usd_options": 0.0,
@@ -5537,7 +5537,7 @@
     "set_utc": "2026-09-14T22:30:00Z",
     "authority": "Ryan, REAL live turn 2026-09-14 (interactive session, typed turns): '1. Let's make the change. 2. Whichever you recommend is fine. 3. 5-20%. 4. Sure. 5. Let's do it.' -- answering the five design decisions in the autonomy-audit proposal. Spec: docs/day-track-spec.md. Code: day_track.py. Prompt carrying the duties: docs/routine-prompt-v11.md (PASTE-READY).",
     "status": "PAPER",
-    "status_note": "PAPER, ACTIVE, paper day 4 OPEN AND WORKING AT +4.11R -- by a wide margin the best trade the track has produced (the first three paper days were -1R each). *** Long QQQ from 729.2575 (OR 727.82/728.84, body 69.1% -> long), taken by the 13:37Z sibling run; 1 share, cash-bound, stop_dist 1.4375 pts = $1.44/R. *** 14:33Z: THIRD trail ratchet, 731.5264 -> 733.0714, locking +2.653R. manage(price=735.17, session_extreme=735.15, atr5=1.3857, stop_dist=1.4375) -> raise_stop at 4.113R. Breach pass first per the 09-16 adverse-extreme rule: worst excursion since the 14:20Z pass was 733.480, clear of the live stop by 1.6-2.0 pts on either reading of it, so the row is legitimately open. All twelve of today's 5-minute buckets reconcile EXACTLY against their one-minute sums. In LIVE all three ratchets would have been cancel/replace of the resting stop_market. *** SEE _DAY_TRACK_MANAGE_STATE_AND_MANAGE_LOG_DISAGREED_ON_THE_LIVE_STOP_2026-09-21 -- the 14:20Z pass left two different stop prices in this ledger; resolved, and it changed nothing today. *** GRADUATION UNCHANGED AND IT REMAINS THE ONLY LOCK: graduate(3, [-1.0,-1.0,-1.0]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. Today's row is still OPEN, so it counts toward neither the day count nor the trade count until it closes. The v11 stop-authority lock opened 2026-09-15 and graduates NOTHING; only a Monday calibration flips the phase, and no run promotes it mid-week.",
+    "status_note": "PAPER, ACTIVE, paper day 4 OPEN AND WORKING AT +3.96R -- by a wide margin the best trade the track has produced (the first three paper days were -1R each). *** Long QQQ from 729.2575 (OR 727.82/728.84, body 69.1% -> long), taken by the 13:37Z sibling run; 1 share, cash-bound, stop_dist 1.4375 pts = $1.44/R. *** 14:45Z: FOURTH trail ratchet, 733.0714 -> 734.5774, locking +3.700R. manage(price=734.95, session_extreme=735.8611, atr5=0.8558, stop_dist=1.4375) -> raise_stop at 3.96R. Breach pass first per the 09-16 adverse-extreme rule: worst excursion since the 14:33Z pass was 734.560, clear of the live stop by 1.4886 pts, so the row is legitimately open. All FIFTEEN of today's 5-minute buckets reconcile EXACTLY against their one-minute sums. *** THE RATCHET THAT MATTERS: atr5 fell 1.3857 -> 0.8558 (-38.2%) in twelve minutes with no change in the tape, because this is the pass on which the overnight-gap true range left the ATR14 window. The stop is now 0.373 pts (0.051%) under spot and BELOW a low printed four minutes ago -- a stop-out next pass is likely, and that is the spec executing. See _DAY_TRACK_THE_TRAIL_CARRIES_AN_OVERNIGHT_GAP_TERM_THAT_EXPIRES_AT_A_KNOWN_CLOCK_TIME_2026-09-21. *** GRADUATION UNCHANGED AND IT REMAINS THE ONLY LOCK: graduate(3, [-1.0,-1.0,-1.0]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. Today's row is still OPEN, so it counts toward neither the day count nor the trade count until it closes. The v11 stop-authority lock opened 2026-09-15 and graduates NOTHING; only a Monday calibration flips the phase, and no run promotes it mid-week.",
     "signal_symbol": "QQQ",
     "long_vehicle": "QQQ",
     "short_vehicle": "PSQ",
@@ -7305,5 +7305,56 @@
     "the_mechanism_to_carry_forward": "SESSION_EXTREME MUST BE BAR-DERIVED, NOT QUOTE-DERIVED. A quote is a point sample taken at the instant the run happens to fire; the extreme the trail is defined against is the MAXIMUM over the whole interval since entry. On a 15-minute cadence a run samples roughly one minute in fifteen, so a quote-derived extreme understates the true high essentially always, and therefore UNDER-RATCHETS the trail -- systematically, silently, and in the direction that gives back profit. Compute it as max(high) over the completed one-minute bars since entry, and treat the live last trade as evidence the true extreme is at least that high (a FLOOR, per the standing rule on quoting session extremes).",
     "honest_scope": "IT CHANGED NO DECISION TODAY, which is the only condition under which this desk credits an audit of its own inputs. The adverse extreme since the 14:20Z pass was 733.480 -- clear of BOTH candidate stops by 1.6-2.0 points -- so the row is legitimately open either way, and this run's ratchet to 733.0714 sits above both. The cost of the understated extreme was 34 cents of un-locked profit for thirteen minutes on a one-share paper position, i.e. nothing. It is recorded because the same arithmetic on a live 40-share PSQ position, or on a day that reversed into the gap between the two levels, is a real difference between a stopped-out trade and a running one.",
     "class": "Same family as the file's most-repeated defect -- a check that passes for the wrong reason -- arriving one field to the left of where anyone was looking. Both fields were written by the same careful pass in the same minute; neither is wrong on its own terms; only reading them TOGETHER shows the conflict. Detector, and it costs one line: before any manage pass, assert row['stop_px_signal'] == row['_manage_state']['stop_px_signal_current'] and repair the pair as a SET if they differ, exactly as the options lot-invariant rule already requires."
+  },
+  "_DAY_TRACK_THE_TRAIL_CARRIES_AN_OVERNIGHT_GAP_TERM_THAT_EXPIRES_AT_A_KNOWN_CLOCK_TIME_2026-09-21": {
+    "found_utc": "2026-09-21T14:45:00Z",
+    "found_by": "scheduled run 14:45Z 2026-09-21 (unattended, prompt v11), fourth management pass on the paper long",
+    "headline": "THE 2R TRAIL'S WIDTH CONTAINS A ONE-OFF OVERNIGHT-GAP TERM THAT EXPIRES AT A KNOWN CLOCK TIME -- THE SESSION'S 15TH FIVE-MINUTE BUCKET, ~10:45 ET. ON THAT PASS THE TRAIL TIGHTENS BY gap/14 WITH NOTHING HAPPENING ON THE TAPE. Measured: atr5 1.3857 -> 0.8558, -38.2% in twelve minutes, moving the stop 1.506 pts UP to within 0.051% of spot.",
+    "the_measurement": {
+      "atr5_by_pass": [
+        {
+          "pass_utc": "2026-09-21T14:05:00Z",
+          "today_buckets_in_window": 6,
+          "stale_buckets": 9,
+          "atr5": 1.2154
+        },
+        {
+          "pass_utc": "2026-09-21T14:20:00Z",
+          "today_buckets_in_window": 9,
+          "stale_buckets": 6,
+          "atr5": 1.2957
+        },
+        {
+          "pass_utc": "2026-09-21T14:33:00Z",
+          "today_buckets_in_window": 12,
+          "stale_buckets": 3,
+          "atr5": 1.3857
+        },
+        {
+          "pass_utc": "2026-09-21T14:45:00Z",
+          "today_buckets_in_window": 15,
+          "stale_buckets": 0,
+          "atr5": 0.8558
+        }
+      ],
+      "reproduction": "This run recomputed all four values independently from the 1-minute series and reproduced 1.2154, 1.2957 and 1.3857 to four decimals against what those runs recorded. The convention is therefore confirmed correct and stable, and the cliff at the fourth pass is a property of the DATA, not of anyone's arithmetic.",
+      "the_whole_move_is_one_true_range": "QQQ's 13:30Z bucket measured against Friday's 721.36 close gives TR = 7.48 pts (the overnight gap). 7.48 / 14 = 0.534. atr5 fell 0.5299. The gap TR is the entire difference; every other bar rotating in or out is noise beside it."
+    },
+    "the_mechanism": "day_track.atr() averages the true range of the last 15 buckets it is handed, and a session's FIRST bucket carries a true range measured against the PRIOR session's close -- i.e. the overnight gap. That bucket is one of the 14 TRs from the moment it prints until the session has 15 buckets of its own, which happens 75 minutes after the bell, ~10:45 ET. Until then the trail is widened by gap/14; at that instant it is not. Nothing about the tape changes at 10:45 ET; the DENOMINATOR'S COMPOSITION does.",
+    "why_it_is_not_a_bug_and_must_not_be_patched_by_a_run": "The 09-16 finding (_DAY_TRACK_EARLY_SESSION_ATR14_5MIN_IS_MOSTLY_YESTERDAY) and the 09-21T14:05Z resolution both settled that the SPANNING read is the spec, precisely because 'a run that silently swapped in a gap-free intraday ATR because it preferred the number would be re-importing exactly that failure'. This finding is the same instruction pointed forward in time: a run arriving at 10:45 ET and finding the trail suddenly tight must NOT reach for the wider stale-window number either. The DAY TRACK's governing clause is explicit -- no unattended run may add a gate, a filter or a smoothing term. The desk executes the spec and records what it costs.",
+    "what_it_cost_today": "The ratchet put the stop at 734.5774 with spot 734.95 -- 0.373 pts, 0.051% away, and 0.017 BELOW the 734.560 low printed at 14:43Z, four minutes earlier. On a 1-minute series whose typical bar range today is 0.2-0.4 pts, that is a stop sitting inside ordinary noise. The locked result if it fills is +3.700R ($5.32 on the 1-share paper position); the unrealized peak was +4.60R at the 735.8611 high.",
+    "the_transferable_shape": "A trailing stop derived from a rolling volatility estimate inherits that estimate's WINDOW COMPOSITION, so the stop can move sharply on a schedule rather than on price. This is the fourth distinct denominator-composition defect this repo has measured (session-average too strict at the open; trailing-local too easy in a decaying tape; post-flush too strict; closing-auction too easy in absolute terms) and the first to appear in an EXIT rather than in a confirmation filter. Same family, higher stakes: a confirmation filter that misreads its denominator declines a trade, while a stop that misreads its denominator closes one.",
+    "what_this_does_NOT_establish": "It does not show the tight stop is wrong. A 0.86-pt ATR is an honest reading of a tape whose last fifteen buckets averaged 0.86 pts of true range, and trailing close behind a quiet grind is what a volatility-scaled trail is FOR. The claim is narrower and firmer: the trail's width changed by 38% for a reason that has nothing to do with the tape, at a time that is predictable to the minute, and the next instance should expect it rather than re-derive it.",
+    "for_the_next_run": "On any DAY TRACK position still open at ~10:45 ET, expect a step-change tightening of the trail proportional to that morning's gap. State it in the manage log BEFORE it happens where possible (the gap TR is knowable at the open), exactly as the 08-27 IV-crush finding requires a run to state tomorrow's artifact in advance rather than rediscover it a day late."
+  },
+  "_THE_OPTIONS_KILL_REVERSAL_DID_NOT_REACH_THE_HEARTBEAT_AND_A_LATER_RUN_REPEATED_THE_PAUSE_2026-09-21": {
+    "found_utc": "2026-09-21T14:45:00Z",
+    "found_by": "scheduled run 14:45Z 2026-09-21 (unattended, prompt v11)",
+    "headline": "RYAN REVERSED THE OPTIONS KILL BRANCH AT 14:05Z. THE 14:33Z RUN, TWENTY-EIGHT MINUTES LATER, WROTE 'options are PAUSED by this morning's KILL branch' -- because the reversal was written to _WEEKLY_CALIBRATION_2026-09-21 and the PAUSE still sat, uncorrected, in automation_heartbeat.json's prose note where the first run of the day had recorded it.",
+    "operative_state_restated_once_so_it_is_unambiguous": "OPTIONS ENTRIES ARE NOT PAUSED. Size multiplier 1.0. Authority: _WEEKLY_CALIBRATION_2026-09-21.OPTIONS_BOOK.REVERSAL (Ryan, REAL live typed turn 2026-09-21). Every other options gate is unchanged: $1,500 per-trade max, -$400 daily cap, max 3 open CORE, DTE floor 7, full entry stack. Nothing here is a reason to size up -- the corrected pure-agentic slice is still negative at n=10 and is UNMEASURED, not healthy.",
+    "the_correction_applied": "This run amended the heartbeat note to point at the reversal instead of asserting the pause. The heartbeat is a per-day artifact that every run reads; leaving a superseded operative instruction in it is how the 14:33Z error happens again.",
+    "the_shape_and_it_is_this_file_s_most_repeated_one": "A decision was recorded correctly in ONE place and a stale COPY of the superseded state survived in another, so a later run reading the convenient copy restated a policy that had already been lifted. It is the session-key proliferation lesson (2026-08-25) and the lot-count sweep lesson (2026-08-23) arriving through a third container: when a state changes, REWRITE EVERY ARTIFACT THAT ASSERTS THE OLD STATE IN THE SAME RUN -- do not merely record the new one somewhere authoritative and trust the next reader to find it.",
+    "why_it_cost_nothing_today_and_why_that_is_not_the_point": "The options book holds 0 contracts and deployable cash is $97.78 against a $500-1,000 CORE size, so no entry was possible under either reading and the wrong belief blocked nothing. The failure mode is a run on a day with capital declining an A-grade options setup by citing a pause Ryan had already lifted -- a decision that would look perfectly well-governed in the journal.",
+    "detector": "Before citing ANY risk-off state (a pause, a halved multiplier, a circuit breaker, a flag), read the key that OWNS it -- here _WEEKLY_CALIBRATION_<date>.OPTIONS_BOOK -- and never a prose restatement of it in a heartbeat, a report or a prior journal entry. A restatement is a copy; only the owning key is the state."
   }
 }
