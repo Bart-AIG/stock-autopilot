@@ -6987,5 +6987,65 @@
     "also_corrected": "_DAY_TRACK.paused.expires read 'first run of the next trading week, 2026-09-22 ET'. 2026-09-22 is a TUESDAY; the next trading week begins Monday 2026-09-21. Harmless in itself because nothing reads the string -- but it is the same class of defect as the deadlock (a documented expiry that does not govern), and a human reading the record to decide whether the track should be trading would have been told the wrong day.",
     "what_this_does_NOT_do": "It does not promote the phase (still PAPER), does not touch RISK_PCT or any other parameter, does not loosen any gate, and places no order. Monday's first run will now evaluate a QQQ opening-range signal and, per the PAPER phase, LOG it to day_track_paper.json rather than trade it. graduate() remains 3d/3 trades against the 10d/8 requirement, so LIVE is untouched and far off.",
     "escalated": "Push notification to Ryan 2026-09-19. No approval claimed or implied -- HARD RULE 9 intact."
+  },
+  "_WEEKLY_CALIBRATION_2026-09-21": {
+    "measured_utc": "2026-09-21T10:35:00Z",
+    "status": "PRE-COMPUTED by the 10:19Z pre-open run, NOT yet 'confirmed' by a trading-day run. The first run of the 2026-09-21 trading day (at/after 09:30 ET) owns CONFIRMING this record, not redoing the pull -- the broker returns identical data pre-open and mid-session because no trades occur overnight. Same precedent as _WEEKLY_CALIBRATION_2026-09-08 and _WEEKLY_CALIBRATION_2026-09-14, both taken by pre-open runs for the same reason.",
+    "why_a_pre_open_run_did_it": "This run fired 10:19Z (06:19 ET Monday), so by the trading-day convention the ET trading day is still 2026-09-18 and it may NOT stamp the heartbeat, rebuild the brief, reset either throttle or the loss cap, or promote the DAY TRACK phase -- it did NONE of those. The calibration pull is broker-sourced and needs no live quotes, so doing it on a run that cannot trade spends a free run instead of the 09:35 ET run that owns the time-critical DAY TRACK entry window.",
+    "source": "BROKER, get_pnl_trade_history(span='3month') on 718757339, pulled 10:26Z: 70 closes. Book split by BROKER MEMBERSHIP via calibrate.split_books() using get_option_orders(state='filled', created_at_gte=2026-06-21) -> 17 filled option-close (symbol,date) keys, PLUS the one side=='' lapse key ('SPY','2026-09-17') the caller must add itself (see caller_duty below). Result: 49 equity closes, 21 option closes. NOT from trade_journal.json.",
+    "caller_duty_worth_keeping": "split_books() keys purely on the set of broker-filled option CLOSES the caller passes in. An option that LAPSED at expiry has no sell order, so it is absent from that set and lands in the EQUITY bucket unless the caller adds it. The correct caller set is (filled option closes) UNION (rows with side==''). Both SPY 2026-09-17 strangle legs lapse under one (symbol,date) key, so one added key covers both rows.",
+    "EQUITIES": {
+      "n": 49,
+      "wins": 32,
+      "losses": 17,
+      "scratches": 0,
+      "win_rate": "65.31%",
+      "mean_win": "+$13.70",
+      "mean_loss": "-$15.03",
+      "payoff_ratio": 0.9115,
+      "breakeven_win_rate": "52.32%",
+      "MARGIN_PTS": "+12.99",
+      "expectancy": "+$3.73/trade",
+      "net": "+$182.88",
+      "verdict": "REPORT ONLY -- only 7 of 49 closes happened under the current parameters (need 20). The IN-REGIME GATE blocked adjustment, exactly as designed. NO PARAMETER CHANGED.",
+      "in_regime_detail": "Connors-pure exits and the concentration sizing both went live 2026-09-02. SEVEN closes now sit under them, up from 4 on 09-14: ROST +$1.19 and PNC -$4.41 (09-03), MDLZ -$4.07 (09-09, time stop), LLY -$25.30 (09-10, time stop), MMM -$30.96 and GD -$21.83 (09-14, time stops), IBKR +$18.90 (09-18, RSI2>=70 take-profit). 7/20 -- the gate stays shut for roughly another three weeks at this rate.",
+      "week_over_week": "Margin +18.73 (09-14, n=51) -> +12.99 (today, n=49). The window rolled forward and the three 09-14/09-18 equity closes that entered it were two time-stop losers and one take-profit winner. Still comfortably positive, nowhere near the KILL line, and untouchable by the in-regime gate either way."
+    },
+    "OPTIONS": {
+      "n": 21,
+      "wins": 9,
+      "losses": 11,
+      "scratches": 1,
+      "win_rate": "45.00%",
+      "mean_win": "+$88.67",
+      "mean_loss": "-$124.55",
+      "payoff_ratio": 0.7119,
+      "breakeven_win_rate": "58.41%",
+      "MARGIN_PTS": "-13.41",
+      "expectancy": "-$27.24/trade",
+      "net": "-$572.00",
+      "verdict": "*** KILL BRANCH FIRED: 'EDGE GONE -- halve size, pause new entries, ESCALATE'. Risk-off never waits for a clean sample, so it is recorded as IN FORCE for the OPTIONS BOOK ONLY and Ryan is notified this run. The options book is currently EMPTY (0 contracts, options_value $0), so the practical effect is solely that NO NEW OPTIONS ENTRY may be opened pending Ryan's review -- strictly tightening, never loosening, and it takes nothing off the table that is on it.",
+      "why_this_is_NOT_an_artifact": "Interrogated on four independent cuts, per the standing 2026-09-11 finding that ONE insurance close can flip this bucket's sign. ALL FOUR ARE NEGATIVE and the hedge does not explain it: (A) as-bucketed, both owners, n=21, margin -13.41, exp -$27.24, net -$572 -> KILL. (B) hedge-stripped (the SPY 2026-09-11 -$247 insurance close removed), n=20, margin -8.51, exp -$16.25, net -$325 -> STILL KILL. (C) agentic-placed only, the desk's own record, n=10, margin -41.76, exp -$51.80, net -$518 -> REPORT ONLY on the n gate, but the WORST margin of the four. (D) agentic and hedge-stripped, identical to C. So stripping the hedge does not rescue it (unlike 09-11 and 09-14) and stripping Ryan's trades makes it worse, not better. The only reason the desk-only cut is not itself actionable is n=10 < 20.",
+      "honest_scope": "The KILL fires on the sample that MIXES OWNERS -- 11 of the 21 closes are placed_agent='user' (Ryan's VLO, QQQ, RBRK, ACHR, ZTS, TE, WULF, SMR and the SPY strangle/hedge). A desk parameter being paused on the strength of Ryan's discretionary trades is a real objection and it is recorded rather than argued away. It does not change the action, because cut (C) -- the desk alone -- is worse, so no owner-split reading rescues the book. What it DOES mean: the right resolution is Ryan's call, not a recalculation."
+    },
+    "DAY_TRACK": {
+      "pause": "EXPIRED. day_track.track_status(3440.62, [-1.0,-1.0,-1.0], []) -> {'paused': False, 'reason': 'active'}. All three losses belong to the week of 09-15; week_results_r is empty for the new week. The track is ACTIVE for signals again from today.",
+      "graduate": "day_track.graduate(3, [-1.0,-1.0,-1.0]) -> {'go_live': False, 'reason': 'paper 3d / 3 trades; need 10d and 8 trades'}. STATUS STAYS PAPER. No run promotes the phase mid-week and this run promoted nothing; the v11 prompt stamp (the other lock) has been satisfied since 09-15 and is NOT a graduation.",
+      "day_risk_pct": "UNCHANGED at 5.0. Only 3 paper results exist, far below MIN_TRADES_FOR_ACTION=20, so recommend() cannot move it inside its 5-20 band.",
+      "owner": "The 09:35 ET run evaluates today's QQQ opening-range signal in PAPER and logs it to day_track_paper.json. This run computed no signal -- the market is shut."
+    },
+    "changes_applied": "EXACTLY ONE, and it is risk-off: options-book new entries PAUSED and position size halved per the KILL branch, escalated to Ryan. NO tunable parameter moved -- swing_time_stop_days stays 14, target_positions 4, rsi2_oversold 10.0, day_risk_pct 5.0. The equity book is untouched and remains open for entries under the normal gates.",
+    "code_fix_this_run": "calibrate.py -- see _THE_MIXED_BOOK_GUARD_FALSE_POSITIVED_ON_A_CORRECTLY_SPLIT_BUCKET_AND_SUPPRESSED_A_KILL_2026-09-21. The options verdict above was UNREACHABLE before this run's fix: recommend() returned 'REFUSED -- blended sample' and returned early on a bucket that was correctly split."
+  },
+  "_THE_MIXED_BOOK_GUARD_FALSE_POSITIVED_ON_A_CORRECTLY_SPLIT_BUCKET_AND_SUPPRESSED_A_KILL_2026-09-21": {
+    "measured_utc": "2026-09-21T10:30:00Z",
+    "severity": "HIGH -- it suppressed a risk-off verdict, silently, for three days, and its own remediation text pointed the next caller back at a heuristic that had just been proven wrong.",
+    "what_happened": "calibrate.edge_stats() set mixed_book = ('sell' in sides) and ('' in sides). calibrate.recommend() refuses outright on mixed_book and RETURNS EARLY -- before the n gate, before the in-regime gate, before the KILL branch. Measured today on the live 3-month history: the options bucket, split CORRECTLY by broker membership, contains 17 actively-closed options (side=='sell') plus the SPY 2026-09-17 lapse (side==''), so mixed_book went True on a bucket that is pure. The options book could therefore produce NO verdict at all. With the guard keyed correctly it returns 'EDGE GONE -- halve size, pause new entries, ESCALATE' at margin -13.41 pts over n=21.",
+    "root_cause": "The guard inferred book membership from a PROXY (the `side` field) rather than from the fact the splitter actually used. That was sound when it was written on 2026-09-14, because split_books() ALSO split on `side` then -- proxy and truth agreed by construction, and the docstring's 'NON-BREAKING, verified byte-identical' claim was honest. On 2026-09-18 split_books() was fixed to split by BROKER MEMBERSHIP precisely because an actively-closed option carries side=='sell'. That fix made the proxy and the truth diverge, and nobody updated the guard that consumed the proxy.",
+    "the_transferable_shape": "A GUARD THAT INFERS A FACT MUST BE UPDATED WHEN THE PRODUCER OF THAT FACT CHANGES -- and the same commit should do both, because the two only look independent. This is the repo's most-repeated defect (a check that passes for the wrong reason) arriving in its most dangerous location: a FALSE REFUSE is indistinguishable from a safety guard working correctly. A guard that blocks everything looks exactly like discipline, which is the identical trap the 2026-08-25 volume-baseline audit recorded -- 'a filter that rejects everything must be audited on its BASELINE, not on its outcomes'. Nothing errored, no run complained, and the suppressed verdict was the one the system is least able to afford losing.",
+    "the_fix_and_the_fix_NOT_taken": "FIX APPLIED: split_books() now tags every row it assigns with _book, and edge_stats() computes mixed_book from those tags when present, falling back to the old `side` heuristic when absent so untagged callers are unchanged. The guard now keys on the SAME fact the split used. FIX DELIBERATELY NOT TAKEN: letting the KILL branch bypass the mixed_book refusal. That was the tempting one-line change and it would have RE-CREATED the 2026-09-18 bug -- that docstring measures a contaminated EQUITY sample reading -5.78 pts and firing a FALSE 'EDGE GONE' on a healthy book. A blended margin can fire KILL wrongly just as easily as it can suppress one, so the answer is to split properly, never to punch a hole in the guard. The guard's own note already said so: 'a real KILL signal survives the split'.",
+    "regression_tests_run": "Seven, all passing. T1 split_books does not mutate the caller's rows (shallow copy). T2 every returned row carries the correct _book tag. T3 row counts preserved 49+21=70. T4 the equity bucket stays mixed_book False (unchanged). T5 the options bucket flips True->False (the bug). T6 a DELIBERATELY blended sample (10 equity + 10 option rows) is STILL flagged and still REFUSED -- the guard's real job is intact. T7 an untagged blended sample still flags via the `side` fallback and T7b an untagged pure-equity sample stays clean, so no existing caller changes behaviour.",
+    "honest_scope": "The fix is decision-changing, and in the RISK-OFF direction -- it unblocked a KILL, it did not unblock a trade. It changed nothing about the EQUITY book, which was never affected (its bucket is uniformly side=='sell' and read mixed_book False before and after). And note what it does NOT establish: an unblocked KILL is a measurement, not a verdict on the strategy. Whether Ryan wants the options book paused on a sample that is half his own discretionary trades is his call -- see _WEEKLY_CALIBRATION_2026-09-21.OPTIONS.honest_scope.",
+    "how_long_it_was_latent": "THREE DAYS, 2026-09-18 to 2026-09-21 -- exactly one calibration cycle, so it suppressed exactly one options verdict and was caught on the first Monday after it was introduced. That is the good case and it was luck of the calendar, not a control: nothing in the run loop would have surfaced it, because a REFUSED verdict is a legitimate output and reads as the guard doing its job."
   }
 }

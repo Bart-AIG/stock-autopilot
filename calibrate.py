@@ -115,16 +115,46 @@ def edge_stats(trades: list[dict], key: str = "realized_gain") -> EdgeStats | No
     own that morning was +18.73 pts. So an insurance leg decaying exactly as designed
     would have tightened three parameters of a demonstrably healthy equity book.
 
-    `mixed_book` is set when the sample carries both kinds of `side` value, and
-    recommend() refuses to adjust on it. This is a NON-BREAKING guard: a per-book sample
-    is never mixed, so every compliant call is unaffected (verified — both books return
-    byte-identical verdicts before and after). When the trades carry no `side` key at all
-    the flag stays False, because the sample's provenance is then unknown rather than
-    known-bad."""
+    ⚠️ CORRECTED 2026-09-21 — THE GUARD FIRED A FALSE POSITIVE ON A *CORRECTLY* SPLIT
+    OPTIONS BUCKET AND REFUSED EVERY VERDICT ON IT, INCLUDING THE KILL BRANCH. The
+    paragraph above claims the guard is non-breaking because "a per-book sample is never
+    mixed", and that was TRUE of the `side` split it was written against (equities all
+    "sell", options all ""). split_books() replaced that split with BROKER MEMBERSHIP on
+    2026-09-18, precisely because an actively-closed option carries side == "sell". Under
+    the corrected split the options bucket legitimately holds BOTH kinds of row — measured
+    2026-09-21 on the live 3-month history, 17 actively-closed options plus the one SPY
+    2026-09-17 lapse — so `mixed_book` went True on a bucket that is pure, recommend()
+    returned "REFUSED" and returned EARLY, and the options book could produce no verdict
+    at all. Two compounding harms: the refusal preceded the KILL branch, which is
+    deliberately exempt from the in-regime gate so that risk-off never waits; and the
+    refusal's own remediation note told the next caller to go back to the `side` heuristic
+    that 09-18 had just proven wrong.
+
+    THE SHAPE, which is this repo's most-repeated one arriving inside a guard: A GUARD
+    THAT INFERS A FACT MUST BE UPDATED WHEN THE PRODUCER OF THAT FACT CHANGES. The guard
+    detected "mixed" by a PROXY (`side`) for the thing the splitter used (book
+    membership). While the splitter used the same proxy the two agreed by construction,
+    and the non-breaking verification above was honest. The moment the splitter was fixed,
+    the proxy and the truth diverged — and nothing errored, because a false REFUSE looks
+    exactly like a working safety guard. The fix is NOT to let KILL bypass the refusal:
+    a blended margin can fire KILL falsely too (the 09-18 docstring measures exactly
+    that), so bypassing would re-create the bug the guard exists to stop. The fix is to
+    key the guard on the SAME fact the split used.
+
+    `mixed_book` is therefore set from the `_book` tag split_books() now writes onto every
+    row: two distinct tags = genuinely blended. A sample with no tags falls back to the
+    old `side` heuristic, so an untagged caller keeps its previous behaviour, and a sample
+    carrying neither tag nor `side` stays False because its provenance is unknown rather
+    than known-bad."""
     if not trades:
         return None
-    sides = {t.get("side") for t in trades if "side" in t}
-    mixed = ("sell" in sides) and ("" in sides)
+    books = {t["_book"] for t in trades if "_book" in t}
+    if books:
+        # Authoritative: split_books() tagged every row with the book it assigned.
+        mixed = len(books) > 1
+    else:
+        sides = {t.get("side") for t in trades if "side" in t}
+        mixed = ("sell" in sides) and ("" in sides)
     g = [float(t[key]) for t in trades]
     w = [x for x in g if x > 0]
     l = [x for x in g if x < 0]
@@ -186,7 +216,15 @@ def split_books(trades: list[dict], option_closes: set, date_key: str = "timesta
     for t in trades:
         raw = str(t.get(date_key) or t.get("date") or "")
         key = (t.get("symbol"), raw[:10])
-        (opt if key in option_closes else eq).append(t)
+        book = "options" if key in option_closes else "equities"
+        # Tag the row with the book this split assigned it to. edge_stats() keys its
+        # purity guard on this tag rather than on `side`, because after THIS function
+        # replaced the `side` heuristic a correctly-split options bucket legitimately
+        # carries both "sell" (actively closed) and "" (lapsed) rows -- see the
+        # MIXED-BOOK DETECTION note in edge_stats(). Shallow-copy so the caller's
+        # trade dicts are not mutated.
+        row = dict(t, _book=book)
+        (opt if book == "options" else eq).append(row)
     return {"equities": eq, "options": opt}
 
 
@@ -239,8 +277,9 @@ def recommend(stats: EdgeStats | None, current: dict,
         out["verdict"] = "REFUSED — blended sample (equity + option closes in one bucket)"
         out["notes"].append(
             "The two books have opposite edges on this account, so a blended margin is "
-            "not a measurement of anything. Split on `side` ('sell' = equities, '' = "
-            "options), strip hedge legs from the options bucket using the ledger, and "
+            "not a measurement of anything. Split with split_books() -- by BROKER "
+            "MEMBERSHIP, never on `side`, which files an actively-closed option as an "
+            "equity -- strip hedge legs from the options bucket using the ledger, and "
             "re-run edge_stats() per book. This guard is NOT a reason to skip risk-off: "
             "a real KILL signal survives the split and arrives attributed to the book "
             "that actually produced it.")
