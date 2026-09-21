@@ -295,19 +295,23 @@
       "quote_provenance": "Signal and vehicle are the same instrument on a long, so one quote serves both: QQQ last_trade_price 729.2575, venue 13:37:33.970Z, bid 729.24 / ask 729.26 (spread $0.02). Taken 7.5 minutes after the bell, i.e. past the opening-auction window the standing rule warns about, and used only for sizing a paper row.",
       "sampling_bias_note": "FIRST LONG-SIDE PAPER SIGNAL SINCE 09-16 and it partly answers _DAY_TRACK_THE_LONG_SIDE_IS_NOW_UNAFFORDABLE_SO_THE_PAPER_SAMPLE_WILL_SELECT_SHORTS_2026-09-17: the long side is affordable again at exactly ONE share, because the IBKR take-profit returned $727 of cash on 09-18. The bias has not disappeared, it has narrowed -- a 1-share long quantizes horribly (any R is a whole $1.44 and slippage is not divisible), whereas the short side buys 40+ shares of a $25 vehicle. Quantization asymmetry between the two sides remains a live threat to the graduation sample's validity and should be named in the go-live review.",
       "_manage_state": {
-        "peak_px_signal": 729.2575,
-        "stop_px_signal_current": 727.82,
-        "r_now": 0.0,
-        "last_managed_utc": "2026-09-21T13:44:00Z",
-        "breakeven_armed": false,
-        "trail_armed": false
+        "peak_px_signal": 731.5,
+        "adverse_extreme_since_entry": 728.855,
+        "stop_px_signal_current": 729.2575,
+        "r_now": 1.435,
+        "last_managed_utc": "2026-09-21T13:50:00Z",
+        "breakeven_armed": true,
+        "trail_armed": false,
+        "_two_pass_manage": "Run per _DAY_TRACK_IN_PAPER_manage_MUST_BE_FED_THE_ADVERSE_EXTREME_SINCE_THE_LAST_PASS_NOT_THE_CURRENT_PRICE_2026-09-16. PASS 1 (breach test, the one that matters in PAPER because no stop is resting anywhere): manage(price=728.855, session_extreme=728.855) -> {'action': 'hold', 'r': -0.28}. 728.855 is the LOW of every one-minute bar from 13:37 (the entry minute) through 13:48, and it sits 1.035 points ABOVE the 727.82 stop, so the position was never breached and is legitimately open. PASS 2 (ratchet): manage(price=731.32, session_extreme=731.50) -> {'action': 'raise_stop', 'stop': 729.2575, 'reason': 'ratchet at 1.43R'}. Nothing sent to a broker; in LIVE this is a cancel/replace of the resting stop_market 727.82 -> 729.2575. Trail not armed (1.435R < 2.0R), and atr5 is None regardless: ATR14 on 5-minute bars needs 15 bars and the session has printed 4.",
+        "_quote_provenance": "Priced off the BID 731.32 (venue 13:47:18.563Z), not the 731.33 last and not the 731.34 ask \u2014 the conservative executable price for a long, same convention as the 09-16 pass. session_extreme 731.50 is the 13:48 one-minute bar high; the live quote alone would have understated it by 0.17 and the 5-minute series by 0.715, which matters only once the 2.0R trail arms. Both the 13:30-13:34 OR bars and the 13:37-13:48 bars were fetched twice and returned byte-identical, so no 1-minute revision is in play."
       },
       "entry": 729.2575,
       "exit_px": null,
       "exit_reason": null,
       "r_multiple": null,
       "pnl_usd": null,
-      "_flat_field_provenance": "entry/exit_px/exit_reason/r_multiple/pnl_usd are the flat mirror of the nested fields, kept for _DAY_TRACK.results. Populated on close. Do NOT count this row twice -- see _DAY_TRACK_PAPER_ROW_IS_STORED_TWICE_AND_THE_GRADUATION_SAMPLE_CAN_DOUBLE_COUNT_2026-09-15: day_track_paper.json is the source of truth and _DAY_TRACK.results mirrors it one row per trading day."
+      "_flat_field_provenance": "entry/exit_px/exit_reason/r_multiple/pnl_usd are the flat mirror of the nested fields, kept for _DAY_TRACK.results. Populated on close. Do NOT count this row twice -- see _DAY_TRACK_PAPER_ROW_IS_STORED_TWICE_AND_THE_GRADUATION_SAMPLE_CAN_DOUBLE_COUNT_2026-09-15: day_track_paper.json is the source of truth and _DAY_TRACK.results mirrors it one row per trading day.",
+      "_manage_note_2026-09-21": "BREAKEVEN ARMED 13 MINUTES AFTER THE PAPER ENTRY. Unrealized +$2.06 on the single share (+1.43R at the bid); worst excursion since entry was -0.28R. THE ENTRY WINDOW WAS NARROWER THAN THE RUN CADENCE, AND THAT IS THE ONE THING THIS DAY TEACHES: the 13:37Z sibling cleared the late-entry gate with 0.09 of a point to spare (729.2575 against a 729.35 ceiling = OR high 728.84 + 0.5 x the 1.02-point range), and by 13:45Z plan_entry() on the same OR returns action='skip', reason='late entry', because QQQ was 731.28 \u2014 2.44 points beyond the edge on a 1.02-point range. Both calls are correct. The spec allows entry across 09:35-09:50 ET, but a 1.02-point opening range on a tape running +1.2% keeps that window open for roughly EIGHT minutes, not fifteen. Nothing here needs changing: the gate refused to chase and the sibling that fired inside the window took the signal cleanly. It is logged because it bears on go-live scheduling, not because either decision was wrong."
     }
   ]
 }

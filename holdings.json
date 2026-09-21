@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-21T13:48:00Z",
+  "updated_utc": "2026-09-21T13:52:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-21",
     "realized_usd_options": 0.0,
@@ -957,16 +957,17 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-18T14:55:00Z",
-    "run_note": "Third concurrent run of this slot. The 14:15Z and 14:25Z runs won the merges (PR #1738 IBKR fill, #1739 MA decline); this run reconciled the same fill independently off the broker before either had pushed, and its ledger arithmetic agrees to the cent ($18.88 / +2.666%) -- cross-validation, not a conflict. Its only additive contributions are the whole-board control amendment above and this state.",
-    "trading_day_et": "2026-09-18",
-    "books": "EQUITIES 2 swings (ABNB, UNP). OPTIONS empty. DAY TRACK paper + PAUSED (track_status -> '3 consecutive losing days'; graduate -> go_live False, 'paper 3d/3 trades; need 10d and 8').",
-    "capital": "Broker 14:21Z: total_value $3,436.46; cash $1,268.22 == buying_power == unleveraged_buying_power (no margin extended); equity_value $2,168.24; options_value $0; unsettled_funds $726.84 (= the IBKR proceeds, tradeable on limited_margin). Reserve 5% $171.82. DEPLOYABLE $1,096.40. Per-name cap 30% = $1,030.94.",
-    "capital_note": "The IBKR exit moved deployable from $369.49 -- below the $600 minimum entry, which shut both books on capital alone from 13:30Z to 14:17Z -- to $1,096.40, above it for the first time this week. The book is now open on capital and closed on QUALITY, which is a different and far better reason to be flat.",
-    "slot_math": "2 held against a 3-4 target. floor(1096.40 / 600) = 1 fundable slot, so a single entry sized min(deployable, cap) = $1,030.94 would land the book at 3, inside the target band. Filling 2 slots would be $548.20 each, below the $600 minimum -- which is precisely the split that minimum exists to forbid.",
-    "throttles": "Equity entries 0 of 3 used today (the IBKR sell is an EXIT; exits are never throttled). Options entries 0 of 3. Realized options P/L today $0.00 against the -$400 cap.",
-    "verdict": "NO ENTRY EITHER BOOK, on quality. No _cash_hold recorded and none is due: declining a board is not a deliberate hold and reserves nothing for a named opportunity.",
-    "duty_still_owed": "DISCHARGED THIS RUN. The 2026-09-18 core-list IV sweep is WRITTEN -- all eight core tickers now carry a 2026-09-18 row (n=28 each) on the 2026-10-16 / 28-DTE board, quoted 14:30:50-14:30:52Z, outside the opening window. It had been skipped by four consecutive runs; the 13:30Z run's stated reason (an empty, unfundable options book means a core-list row decides nothing) was correctly rejected by the 13:52Z run on the grounds that this file's value IS continuity, and that argument is what got it written. Result recorded as _INDEX_VOL_IS_AT_ITS_96TH_PERCENTILE_WHILE_NVDA_SITS_AT_ITS_18TH. NOTHING further is owed by this run. Daily report remains due on the first run at/after 19:15Z."
+    "run_utc": "2026-09-21T13:52:00Z",
+    "run_type": "market_hours_regular",
+    "trading_day_et": "2026-09-21",
+    "run_note": "Sub-hourly cron run, ~15 min after the bell. Second run of the trading day; the 13:30Z run owned the heartbeat, the brief, the throttle resets and the Monday calibration, and a 13:37Z sibling opened the DAY TRACK paper position. This run's only action is the breakeven ratchet on that paper row.",
+    "books": "EQUITIES 2 swings (ABNB, UNP), both placed_agent='agentic', both red, day 11 of the 14-day time stop (fires Thu 2026-09-24, so the 3-day warn window is open). OPTIONS empty; entries are OPEN (this morning's calibration KILL was reversed at 14:05Z in a live session, size multiplier back to 1.0). DAY TRACK paper day 4 OPEN, long QQQ 1 share, +1.435R, stop at breakeven.",
+    "capital": "Broker 13:46Z: total_value $3,409.07; cash $1,268.22 == buying_power == unleveraged_buying_power (no margin extended); equity_value $2,140.85; options_value $0. Reserve 5% = $170.45. DEPLOYABLE $1,097.77. Per-name cap 30% = $1,022.72.",
+    "reconciliation": "ZERO DRIFT both books. get_option_positions(nonzero) empty vs 0 ledger rows; get_equity_positions returns ABNB 6.573584 @ 169.520 and UNP 3.858199 @ 285.110, both fully sellable, both matching the ledger exactly; get_equity_orders since 2026-09-21 EMPTY, so no sibling has placed a real order today in either book.",
+    "why_flat_equities": "No entry: the committed report is still Friday's (latest_intraday.md 2026-09-18T19:06Z, latest_morning.md 2026-09-18T14:07Z) and today's lands ~14:00-14:15Z. The opening-window deferral prefers taking the day's autonomous entry on the first run at/after ~14:15Z off TODAY's signals. Capital is NOT the constraint for the first time this week -- $1,097.77 deployable funds exactly one $600+ slot. No exit: both names are RED, so no RSI2>=70 take-profit is even available (that trigger is gated on price > entry), and neither reaches the time stop until 09-24.",
+    "why_flat_options": "Flat on the merits, not on a pause. CORRECTED AFTER A MERGE -- this field previously read 'PAUSED by the KILL branch'; the KILL was reversed at 14:05Z (see _ATTRIBUTE_AN_OPTIONS_CLOSE_BY_ITS_OPENING_ORDER_AND_STRIP_THE_HEDGE_2026-09-21) and entries are permitted. No CORE candidate exists: none was carried forward, iv_history.json has no row for 2026-09-21, and 13:50Z is inside the measured opening-window ATM inflation, so the IV-sanity leg of the entry stack could only be read off a knowingly-inflated quote. The reversal establishes the KILL was unsupported, NOT that the book is healthy -- pure agentic is -$141 / -17.44 pts over 10 closes, below the n=20 action threshold, i.e. UNMEASURED.",
+    "duties": "Heartbeat stamped 13:40Z by the 13:30Z run. Brief stamped 2026-09-21. Monday calibration done and escalated. Daily report due on the first run at/after 19:15Z. THE IV CORE-LIST ROW FOR 2026-09-21 IS NOT YET WRITTEN AND THIS RUN DEFERRED IT RATHER THAN SKIPPING IT: iv_history.json still carries 2026-09-18 for all eight core names, and the reason for waiting is the measured opening-window ATM inflation (-2.5% to -4.4% across four readings), which 13:50Z is squarely inside -- the 09-18 row was itself written at 14:30Z for exactly this reason. THE FIRST RUN AT OR AFTER 14:15Z OWNS IT, together with the day's equity entry off today's report. Naming the owner is the point: this file's own record shows four consecutive runs once deferred this duty into nobody's hands.",
+    "merge_note": "Union-merged with PR #1838 (14:05Z live session). Both new durable keys kept; the two fields the reversal falsified were rewritten rather than left standing."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
@@ -5493,7 +5494,7 @@
     "set_utc": "2026-09-14T22:30:00Z",
     "authority": "Ryan, REAL live turn 2026-09-14 (interactive session, typed turns): '1. Let's make the change. 2. Whichever you recommend is fine. 3. 5-20%. 4. Sure. 5. Let's do it.' -- answering the five design decisions in the autonomy-audit proposal. Spec: docs/day-track-spec.md. Code: day_track.py. Prompt carrying the duties: docs/routine-prompt-v11.md (PASTE-READY).",
     "status": "PAPER",
-    "status_note": "PAPER, and ACTIVE AGAIN as of Monday 2026-09-21. *** PAUSE EXPIRED: day_track.track_status(3434.45, [-1.0,-1.0,-1.0], []) -> {'paused': False, 'reason': 'active'}. The 3-consecutive-loss pause set 2026-09-17 was scoped to 'the rest of THAT week'; week_results_r is empty on the first day of the new week, so it lapsed on its own terms. Equity $3,434.45 is well above the $2,600 floor. This is the first live confirmation of the week-boundary clause added after _DAY_TRACK_PAUSE_NEVER_EXPIRED_A_DEADLOCK. *** GRADUATION UNCHANGED: day_track.graduate(3, [-1.0,-1.0,-1.0]) -> go_live FALSE, 'paper 3d / 3 trades; need 10d and 8 trades'. A lifted pause is NOT a graduation and the track places NOTHING. *** LIVE still requires (a) graduate() == go_live at a Monday calibration AND (b) the v11 stamp for stop authority. (b) has been satisfied since 2026-09-15T16:18Z; (a) is the only remaining lock and needs 7 more paper days and 5 more signals, so the earliest arithmetically possible go-live is a Monday on or after 2026-10-05. *** TODAY'S SIGNAL: plan_entry at 13:36Z returned action='wait', 'fewer than 5 one-minute bars yet' -- the 13:34Z OR bar had not published (two fetches, 13:34Z and 13:36Z, both returned exactly 4 bars). The 13:30Z run is STRUCTURALLY unable to take the signal: the OR does not close until 13:35Z and the feed lags it. The ~13:45Z run, inside the spec's 09:35-09:50 ET entry window, takes today's paper signal. PARTIAL OR AT 13:36Z, NUMBERS ONLY AND NO DIRECTIONAL VERDICT HANDED FORWARD (per the 2026-08-28 rule): bars 13:30-13:33 gave high 728.84 / low 727.82 / open 727.95; ATR14(daily, through 09-18) = 8.3193. RE-DERIVE THE OR FROM A FRESH FETCH -- do not inherit these four bars, and note that 1-minute bars are revised after they close.",
+    "status_note": "PAPER, ACTIVE, and paper day 4 is OPEN AND WORKING. *** TODAY: the 13:37Z sibling run took the long QQQ signal at 729.2575 (OR 727.82/728.84 from the five 13:30-13:34Z one-minute bars, body 69.1% of range -> long; stop = opposite OR edge 727.82; 1 share, cash-bound). The 13:45Z run MANAGED it rather than re-entering: plan_entry() at 731.28 correctly returns action='skip', reason='late entry', and manage() returns raise_stop to breakeven at +1.435R. See _DAY_TRACK_THE_ENTRY_WINDOW_WAS_NARROWER_THAN_THE_RUN_CADENCE_2026-09-21. *** PAUSE: expired at the week boundary as designed (track_status -> paused False); equity $3,409.07 is well clear of the $2,600 floor. *** GRADUATION UNCHANGED AND IT IS THE ONLY REMAINING LOCK: graduate(3, [-1.0,-1.0,-1.0]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. Today's row is still OPEN, so it counts toward neither day nor trade until it closes. The v11 stop-authority lock opened 2026-09-15 and does NOT graduate anything; only a Monday calibration flips the phase, and no run promotes it mid-week. Earliest arithmetically possible go-live remains a Monday on or after 2026-10-05.",
     "signal_symbol": "QQQ",
     "long_vehicle": "QQQ",
     "short_vehicle": "PSQ",
@@ -5767,7 +5768,7 @@
         "direction": "long",
         "vehicle": "QQQ",
         "entry": 729.2575,
-        "stop": 727.82,
+        "stop": 729.2575,
         "shares": 1,
         "r_usd": 1.44,
         "status": "open",
@@ -5775,7 +5776,8 @@
         "exit_reason": null,
         "r_multiple": null,
         "pnl_usd": null,
-        "_mirror_of": "day_track_paper.json rows[-1]; that file is the source of truth. Kept in sync per _RESULTS_ARE_THE_PAUSE_INPUT_AND_WERE_DESYNCED_FROM_THE_PAPER_LOG_2026-09-18 -- this array is the PAUSE INPUT and a stale copy fails OPEN."
+        "_mirror_of": "day_track_paper.json rows[-1]; that file is the source of truth. Kept in sync per _RESULTS_ARE_THE_PAUSE_INPUT_AND_WERE_DESYNCED_FROM_THE_PAPER_LOG_2026-09-18 -- this array is the PAUSE INPUT and a stale copy fails OPEN.",
+        "_managed": "13:50Z: stop ratcheted to BREAKEVEN (727.82 -> 729.2575) at +1.435R. Two-pass manage per the 09-16 adverse-extreme rule: breach pass on the 728.855 low since entry returned hold (-0.28R worst excursion, 1.035 pts clear of the stop), ratchet pass on the 731.32 bid returned raise_stop. PAPER -- nothing sent to a broker. Mirror of day_track_paper.json rows[-1]._manage_state, which is the source of truth."
       }
     ],
     "graduation": {
@@ -7146,6 +7148,28 @@
     "the_prescription": "On the first post-bell run, do NOT treat action='wait' as terminal. Do the run's other work (heartbeat, reconciliation, brief, Monday calibration) and RE-FETCH the minute bars before ending. plan_entry is pure and costs nothing to re-call; the whole cost is one extra get_equity_historicals. Only end on 'wait' if the bars are still incomplete after the run's other duties are done -- and then say so explicitly so the next run knows the signal is still unclaimed rather than already declined.",
     "what_it_does_NOT_license": "Building the OR from fewer than 5 bars, or from a 5-minute bucket. opening_range() returns None below OR_MINUTES precisely so a run must wait rather than guess, and the 5-minute bucket is separately banned (it is the interval this repo has measured holes in three times). The fix is to look again, never to lower the bar.",
     "todays_outcome": "Paper day 4 logged: LONG QQQ 1 share @ 729.2575, stop 727.82 (OR low), R $1.44, bound by cash. OR high 728.84 / low 727.82 / open 727.95 / close 728.655, body 69.1% of range."
+  },
+  "_DAY_TRACK_THE_ENTRY_WINDOW_WAS_NARROWER_THAN_THE_RUN_CADENCE_2026-09-21": {
+    "measured_utc": "2026-09-21T13:52:00Z",
+    "measured_by": "scheduled run 13:45Z 2026-09-21 (unattended, prompt v11), managing a paper position a sibling had opened eight minutes earlier.",
+    "headline": "The spec gives the DAY TRACK a fifteen-minute entry window (09:35-09:50 ET). On a small opening range in a fast tape that window is closed in about EIGHT minutes by the late-entry gate, which is shorter than the run cadence -- so whether the track gets its trade can turn on which minute a run happens to fire.",
+    "the_numbers": {
+      "or_high": 728.84,
+      "or_low": 727.82,
+      "or_range_pts": 1.02,
+      "late_entry_ceiling": 729.35,
+      "ceiling_formula": "OR high + LATE_ENTRY_FRAC (0.5) x OR range",
+      "entry_taken_1337z": 729.2575,
+      "headroom_at_entry_pts": 0.0925,
+      "price_1345z": 731.28,
+      "excess_over_ceiling_at_1345z_pts": 1.93,
+      "plan_entry_1345z": "action='skip', reason='late entry: price already > 0.5 x OR range beyond the edge'",
+      "qqq_day_pct_at_1345z": 1.47
+    },
+    "why_it_is_not_a_defect": "The gate is doing exactly the job it was written for: refusing to buy 2.44 points beyond the edge of a 1.02-point range. A wider LATE_ENTRY_FRAC would buy more fills at worse prices, which is the chase the rule exists to prevent. Both calls today were correct -- the 13:37Z entry and the 13:45Z skip -- and they disagree only because the tape moved between them.",
+    "what_it_actually_bears_on": "GO-LIVE SCHEDULING, not the rules. The window's width is roughly (0.5 x OR range) / (price velocity after the open), so it collapses precisely on the mornings with the tightest opening ranges -- which are also the mornings the stop is narrowest and the position size largest. A track that fires once every ~15 minutes will sometimes arrive after the window shut. The honest consequence is a sampling one: the paper sample is selected partly by run timing, so a graduation review must not read a missed day as 'no signal'.",
+    "honest_scope": "n=1, and it changed no decision -- the trade was already on when this run fired, and this run's only action was a breakeven ratchet it would have taken at any price above 730.70. Recorded now precisely because it cost nothing today; the measurement is only credible while it is not being used to argue for a fill. Do NOT widen LATE_ENTRY_FRAC on the strength of one morning, and do NOT add a gate -- the spec's standing instruction is that no unattended run adds a filter to this track.",
+    "transferable_shape": "A window expressed in CLOCK time and a gate expressed in PRICE time are not the same window. Whenever a spec states an action window in minutes but the action is actually bounded by a price condition, the binding width is the price one, and it varies day to day while the clock number stays reassuringly fixed."
   },
   "_ATTRIBUTE_AN_OPTIONS_CLOSE_BY_ITS_OPENING_ORDER_AND_STRIP_THE_HEDGE_2026-09-21": {
     "measured_utc": "2026-09-21T14:05:00Z",

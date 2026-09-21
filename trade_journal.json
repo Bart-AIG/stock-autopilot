@@ -39989,6 +39989,32 @@
       "duties": "Heartbeat STAMPED (first run at/after 09:30 ET). Brief REBUILT. Loss cap and both throttles ROLLED to 2026-09-21, measured from the broker rather than defaulted (newest trade of any kind is 2026-09-18T14:17:36Z IBKR, an EQUITY close, so 09-18 finished at $0.00 realized options). Monday calibration RUN and APPLIED. DAY TRACK evaluated and paper-logged. IV sweep DEFERRED past ~14:00Z with the reason stated in the brief -- a pre-14:00Z ATM row is a known upper bound and options entries are paused, so it would gate nothing; deferral, not omission. Daily report is NOT due until the first run at/after 19:15Z."
     },
     {
+      "run_utc": "2026-09-21T13:52:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-21",
+      "headline": "DAY TRACK paper day 4 MANAGED, not re-entered: stop ratcheted to breakeven at +1.435R. A 13:37Z sibling had already taken the long QQQ signal; plan_entry() at 13:45Z correctly returns 'skip: late entry'. No real order in either book.",
+      "reconciliation": "ZERO DRIFT both books at 13:46Z. Options 0 contracts / $0 vs 0 ledger rows. Equities ABNB 6.573584 @ 169.520 and UNP 3.858199 @ 285.110, both agentic, both fully sellable, both exact vs ledger. get_equity_orders since 2026-09-21 EMPTY -- no sibling has placed a real order today. total_value $3,409.07, cash == unleveraged_buying_power == $1,268.22, equity $2,140.85; reserve $170.45, deployable $1,097.77.",
+      "day_track": "Two-pass manage per the 09-16 adverse-extreme rule. BREACH pass on the 728.855 low of every 1-minute bar 13:37-13:48 (the entry minute onward): hold, worst excursion -0.28R, 1.035 pts clear of the 727.82 stop -- the row is legitimately open, not a recovered stop-out. RATCHET pass on the 731.32 bid with session_extreme 731.50: raise_stop 727.82 -> 729.2575 at +1.435R. PAPER, so nothing was sent; in LIVE this is a cancel/replace of the resting stop_market. Trail not armed (1.435R < 2.0R). Unrealized +$2.06 on 1 share. Graduation unchanged: today's row is still OPEN so it counts toward neither the 10 days nor the 8 signals.",
+      "tape": {
+        "qqq_last": 731.33,
+        "qqq_bid": 731.32,
+        "qqq_adj_prev_close": 720.6986,
+        "qqq_day_pct": 1.47,
+        "qqq_or": [
+          727.82,
+          728.84
+        ],
+        "abnb": 165.35,
+        "unp": 273.16,
+        "_note": "Numbers only, no verdict handed forward. QQQ is ex-dividend, so the 721.45 official close would read +1.37% instead of +1.47%."
+      },
+      "why_flat_equities": "No entry: today's report is not on master yet (latest_intraday.md is Friday 2026-09-18T19:06Z; today's lands ~14:00-14:15Z), and the opening-window deferral prefers the day's autonomous entry on the first run at/after 14:15Z off TODAY's signals. Capital is no longer the binding constraint -- $1,097.77 deployable funds exactly one slot above the $600 minimum, the first time this week. No exit: both names are RED, so the RSI2>=70 take-profit is not even available (it is gated on price > entry), and the 14-day time stop on both is Thu 2026-09-24, with the 3-day warn window now open.",
+      "why_flat_options": "Book empty, and NO entry taken. CORRECTED AFTER A MERGE: an earlier draft of this entry said new agentic options entries were PAUSED by this morning's calibration KILL branch. That KILL was REVERSED at 14:05Z in a live session (Ryan's typed turn; two attribution bugs found and fixed -- see holdings.json._ATTRIBUTE_AN_OPTIONS_CLOSE_BY_ITS_OPENING_ORDER_AND_STRIP_THE_HEDGE_2026-09-21), so entries are NOT paused and the size multiplier is back to 1.0. This run is flat on the merits instead: no CORE candidate was carried forward by the prior run, iv_history.json holds no row for today, and 13:50Z sits inside the measured opening-window ATM inflation, so any IV-sanity leg of the entry stack would be read off a knowingly-inflated quote. Opening a CORE position on that basis would be fitting a trade to the clock. The reversal also explicitly does NOT license sizing up: pure agentic is still -$141 / -17.44 pts over 10 closes, i.e. UNMEASURED, not healthy.",
+      "new_finding": "_DAY_TRACK_THE_ENTRY_WINDOW_WAS_NARROWER_THAN_THE_RUN_CADENCE_2026-09-21 in holdings.json -- the spec's 09:35-09:50 ET entry window was closed by the late-entry gate in ~8 minutes on a 1.02-point opening range. Named, not re-argued here. Changed no decision: the trade was already on.",
+      "duties": "Heartbeat, brief and Monday calibration all owned by the 13:30Z run. IV core-list row for 2026-09-21 DEFERRED, not skipped -- 13:50Z is inside the measured opening-window ATM inflation and the 09-18 row was written at 14:30Z for that reason; the first run at/after 14:15Z owns it alongside the equity entry. Daily report due at/after 19:15Z.",
+      "merge_note": "Concurrent-run union merge with the 14:05Z live session (PR #1838). Both entries kept, ordered by run_utc; both new holdings.json keys kept. The only field rewritten is why_flat_options, which the reversal falsified."
+    },
+    {
       "run_utc": "2026-09-21T14:05:00Z",
       "run_type": "live_user_turn_midrun",
       "trading_day_et": "2026-09-21",
