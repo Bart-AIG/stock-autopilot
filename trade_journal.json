@@ -40220,6 +40220,40 @@
       "new_durable_finding": "holdings.json._DAY_TRACK_THREE_FIELDS_HELD_THE_LIVE_STOP_AND_THE_ENTRY_STOP_WAS_OVERWRITTEN_2026-09-21 -- the 14:33Z two-stop fix did not survive one pass: the row carried three live-stop values 1.506 pts apart and the immutable entry stop (727.82, the OR edge) had been overwritten with a two-pass-stale live stop. Named there, not re-argued here. Repaired, assertions added and passing; it changed no decision today because both breach tests ran against the highest value, which the ratchet-up-only rule makes governing.",
       "why_flat": "Equities: $97.98 deployable against a $600 minimum entry, and the book is at 3 swings inside the 3-4 target band -- no rotation candidate grades better than any held name. Options: same capital bar; book empty. Day track: its one trade for the day is already open.",
       "duties": "Heartbeat stamped 13:40Z. market_brief stamped 2026-09-21. iv_history rows current for the core list. Monday calibration done this morning. Daily report due at the first run >= 19:15Z; not this run."
+    },
+    {
+      "run_utc": "2026-09-21T15:22:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-21",
+      "prompt_version": "v11",
+      "headline": "DAY TRACK sixth ratchet to 735.4652 (+4.32R locked, +5.02R open). No entry either book -- deployable $97.77, far below the $600 minimum. One new durable finding on the trail's room.",
+      "reconciliation": "ZERO DRIFT both books vs broker. Options 0 contracts / options_value $0 / 0 ledger rows. Equities 3, all placed_agent='agentic', all fully sellable: ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, V 2.716801 @ 368.08 -- ledger matches quantity for quantity.",
+      "capital": "total_value $3,408.98; cash == buying_power == unleveraged_buying_power == $268.22 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $3,140.76. Reserve 5% = $170.45. DEPLOYABLE $97.77.",
+      "tape": {
+        "QQQ": 736.47,
+        "QQQ_vs_prev_close_pct": 2.08,
+        "ABNB": 165.74,
+        "UNP": 272.165,
+        "V": 368.5871
+      },
+      "day_track": {
+        "phase": "PAPER, active, paper day 4, row OPEN",
+        "action": "raise_stop 734.6175 -> 735.4652 (sixth ratchet of the day)",
+        "r_open": 5.017,
+        "r_locked": 4.3184,
+        "two_pass": "breach pass fed 735.770 (min low 15:01-15:18Z 1-min bars) -> no breach, 1.1525 pts clear; ratchet pass fed price 736.470 / session_extreme 736.480 (bar-derived floor, 15:18Z bar) / atr5 0.6765 -> raise_stop.",
+        "feed_check": "15:10Z 5-min bucket volume 107,854 == its 1-minute sum 107,854, highs/lows reproduce the constituents -- clean, no hole propagated into the ATR.",
+        "row": "day_track_paper.json rows[-1]; holdings.json._DAY_TRACK.results[-1] is the mirror and was updated in the same pass.",
+        "graduation": "UNCHANGED and still the only lock: graduate(3, [-1.0,-1.0,-1.0]) -> go_live False ('paper 3d / 3 trades; need 10d and 8 trades'). Today's row is open and counts toward neither count until it closes. No run promotes the phase mid-week."
+      },
+      "new_durable_finding": "holdings.json._DAY_TRACK_ATR_COMPRESSION_SHRANK_THE_TRAIL_ROOM_TO_THE_SESSIONS_OWN_P90_PULLBACK_2026-09-21 -- named here, argued there. Room to the stop is now 1.0048 pts against a measured p90 one-minute drawdown-from-running-high of 0.980 and a session max of 1.301 across 102 bars since entry; at entry the same rule gave 2.0786 pts, above the session max. Applied manage() verbatim and changed nothing: v11 forbids an unattended run adding a gate to this track, and trail_atr_mult belongs to the Monday calibration or to Ryan.",
+      "equity_book": {
+        "verdicts": "ABNB working-but-underwater (-2.2%, held 11d, TIME STOP 2026-09-24); UNP working-but-underwater (-4.5%, held 11d, TIME STOP 2026-09-24); V flat (+0.14%, held 0d, TIME STOP 2026-10-05). Report judges all three HOLD (thesis-watch). No RSI2>=70 cross on a green position, no target hit, no time stop due -- no mechanical exit fired.",
+        "why_flat": "CAPITAL, not conviction. Deployable $97.77 vs the ~$600 minimum entry; a sub-$600 entry is a skipped opportunity, not a small one. Entry throttle 1 of 3 used (V at 14:23:39Z).",
+        "rotation_gate": "Deployable is below one position size, so the CAPITAL POLICY routes any new idea through rotation -- graded and DECLINED. The report's non-energy RSI2 board (CVS 1.0, DASH 3.5, PM 5.0, VZ 5.8, MO 7.7) offers nothing that beats ABNB or UNP on the ENTRY STACK, and both are sound underwater theses whose capital recycles mechanically on the 09-24 time stop in 3 days. Selling either to chase a fresher print is the churn HARD RULE 5 forbids. Energy names (SLB, OXY, CVX, COP) excluded on the sector steer."
+      },
+      "options_book": "EMPTY. No entry: deployable $97.77 against a $500-1,000 CORE band -- not fundable, so no candidate was worked past the capital gate. Realized options P/L today $0.00 against the -$400 cap; 0 of 3 option entries used. TACTICAL remains retired.",
+      "duties": "Heartbeat already stamped 13:40Z. market_brief.json stamped 2026-09-21. Monday calibration already run by the 13:40Z run (_WEEKLY_CALIBRATION_2026-09-21) -- not repeated. Daily report not yet due (first run at/after 19:15Z). iv_history: no options name evaluated past the capital gate, no row owed."
     }
   ]
 }

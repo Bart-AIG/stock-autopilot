@@ -5537,7 +5537,7 @@
     "set_utc": "2026-09-14T22:30:00Z",
     "authority": "Ryan, REAL live turn 2026-09-14 (interactive session, typed turns): '1. Let's make the change. 2. Whichever you recommend is fine. 3. 5-20%. 4. Sure. 5. Let's do it.' -- answering the five design decisions in the autonomy-audit proposal. Spec: docs/day-track-spec.md. Code: day_track.py. Prompt carrying the duties: docs/routine-prompt-v11.md (PASTE-READY).",
     "status": "PAPER",
-    "status_note": "PAPER, ACTIVE, paper day 4 OPEN AND WORKING AT +4.59R, locked +3.73R -- by a wide margin the best trade the track has produced (the first three paper days were -1R each). *** Long QQQ from 729.2575 (OR 727.82/728.84, body 69.1% -> long), taken by the 13:37Z sibling run; 1 share, cash-bound, stop_dist 1.4375 pts = $1.44/R. *** 15:01Z: FIFTH trail ratchet, 734.5774 -> 734.6175, locking +3.7287R. manage(price=735.86, session_extreme=735.870, atr5=0.83498, stop_dist=1.4375) -> raise_stop at 4.593R. *** THE 14:45Z PASS PREDICTED A STOP-OUT WAS LIKELY AND IT DID NOT HAPPEN -- BY FOUR CENTS. The breach pass fed the worst excursion since that pass, 734.620 (min low across the 14:45-14:59Z one-minute bars), which clears the 734.5774 stop by 0.0426 pts: the narrowest survival in the track's history. QQQ then ran to a 735.870 session high. The prediction was sound and the outcome was a coin-flip's width from the other side of it; nothing about the spec needs changing. *** atr5 has settled: 1.3857 -> 0.8558 -> 0.83498, flat, i.e. the ATR14 window is now composed entirely of today's bars and the overnight-gap term has finished expiring exactly as _DAY_TRACK_THE_TRAIL_CARRIES_AN_OVERNIGHT_GAP_TERM_THAT_EXPIRES_AT_A_KNOWN_CLOCK_TIME_2026-09-21 said it would. *** Row field repair this pass: three fields held the live stop and the ENTRY stop had been overwritten -- see _DAY_TRACK_THREE_FIELDS_HELD_THE_LIVE_STOP_AND_THE_ENTRY_STOP_WAS_OVERWRITTEN_2026-09-21. Changed no decision. *** GRADUATION UNCHANGED AND IT REMAINS THE ONLY LOCK: graduate(3, [-1.0,-1.0,-1.0]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. Today's row is still OPEN, so it counts toward neither the day count nor the trade count until it closes. The v11 stop-authority lock opened 2026-09-15 and graduates NOTHING; only a Monday calibration flips the phase, and no run promotes it mid-week.",
+    "status_note": "PAPER, ACTIVE, paper day 4 OPEN AND WORKING AT +5.02R, locked +4.32R -- by a wide margin the best trade the track has produced (the first three paper days were -1R each). *** Long QQQ from 729.2575 (OR 727.82/728.84, body 69.1% -> long), taken by the 13:37Z sibling run; 1 share, cash-bound, stop_dist 1.4375 pts = $1.44/R. *** 15:22Z: SIXTH trail ratchet, 734.6175 -> 735.4652. QQQ ground to a 736.480 session high; the worst excursion since the 15:01Z pass was a 735.770 low, which never came closer than 1.1525 pts to the live stop. *** THE TRAIL IS NOW TIGHTER THAN THE SESSION'S OWN TYPICAL REVERSAL: room to the stop is 1.0048 pts against a p90 one-minute drawdown-from-running-high of 0.980 and a session max of 1.301 -- measured, not estimated. At entry the same rule gave 2.079 pts of room, ABOVE the session max. Nothing in the spec is changed by this and manage() was applied exactly as written; the measurement is for the graduation review. See _DAY_TRACK_ATR_COMPRESSION_SHRANK_THE_TRAIL_ROOM_TO_THE_SESSIONS_OWN_P90_PULLBACK_2026-09-21. *** GRADUATION UNCHANGED AND IT REMAINS THE ONLY LOCK: graduate(3, [-1.0,-1.0,-1.0]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. Today's row is still OPEN, so it counts toward neither count until it closes. The v11 stop-authority lock opened 2026-09-15 and graduates NOTHING; only a Monday calibration flips the phase, and no run promotes it mid-week.",
     "signal_symbol": "QQQ",
     "long_vehicle": "QQQ",
     "short_vehicle": "PSQ",
@@ -5811,7 +5811,7 @@
         "direction": "long",
         "vehicle": "QQQ",
         "entry": 729.2575,
-        "stop": 729.2575,
+        "stop": 735.4652,
         "shares": 1,
         "r_usd": 1.44,
         "status": "open",
@@ -5820,7 +5820,7 @@
         "r_multiple": null,
         "pnl_usd": null,
         "_mirror_of": "day_track_paper.json rows[-1]; that file is the source of truth. Kept in sync per _RESULTS_ARE_THE_PAUSE_INPUT_AND_WERE_DESYNCED_FROM_THE_PAPER_LOG_2026-09-18 -- this array is the PAUSE INPUT and a stale copy fails OPEN.",
-        "_managed": "13:50Z: stop ratcheted to BREAKEVEN (727.82 -> 729.2575) at +1.435R. Two-pass manage per the 09-16 adverse-extreme rule: breach pass on the 728.855 low since entry returned hold (-0.28R worst excursion, 1.035 pts clear of the stop), ratchet pass on the 731.32 bid returned raise_stop. PAPER -- nothing sent to a broker. Mirror of day_track_paper.json rows[-1]._manage_state, which is the source of truth."
+        "_managed": "15:22Z: SIXTH trail ratchet, 734.6175 -> 735.4652, locking +4.3184R with +5.02R on the screen. Two-pass manage: breach pass on the 735.770 low since the 15:01Z pass returned no breach (1.1525 pts clear); ratchet pass returned raise_stop. atr5 0.67650 on the reconciled 15:10Z bucket. PAPER -- nothing sent to a broker. Mirror of day_track_paper.json rows[-1]._manage_state, which is the source of truth."
       }
     ],
     "graduation": {
@@ -7376,5 +7376,40 @@
     "the_transferable_shape": "THIS REPO ALREADY SOLVED THIS EXACT PROBLEM IN THE OPTIONS BOOK AND THE SOLUTION WAS NEVER CARRIED ACROSS. CLAUDE.md's lot-count rule says it in one line: a change to a primary value invalidates every derived field at once, so repair them as a SET and ASSERT the invariant rather than eyeballing it -- `sum(lots.qty) == contracts`, `sum(lots.cost) == total_cost_basis_usd`. Four careful runs missed the options version; two careful runs have now missed the day-track version, for the same reason: a stale field whose CONCLUSION is still roughly right is invisible to a check that only reads the conclusion. Both the 14:33Z and 14:45Z passes reported their stops correctly in prose and neither noticed the row disagreed with itself. The general form: WHEN A FIX CHANGES WHAT A FIELD MEANS, THE OLD FIELD IS NOT LEFT ALONE -- IT IS EITHER MIGRATED OR DELETED IN THE SAME PASS. A field that silently changes meaning is worse than a field that is wrong, because nothing downstream can detect it.",
     "honest_scope": "IT CHANGED NO DECISION TODAY, which is the only condition under which this kind of audit is creditable. The 14:45Z and 15:01Z breach tests were both run against 734.5774, the highest and therefore governing value under the ratchet-up-only rule, and both passed on their merits (1.4886 pts and 0.0426 pts clear). The row is still open and still in PAPER, so no broker order and no real money was ever exposed to the stale fields. The graduation-sample corruption described above was PREVENTED, not suffered -- the row had not yet closed.",
     "repaired": "day_track_paper.json rows[-1]: stop_px_signal and stop_px_vehicle restored to 727.82; _manage_state rewritten and synced to the live stop; _stop_field_contract added; assertions run before commit and passing."
+  },
+  "_DAY_TRACK_ATR_COMPRESSION_SHRANK_THE_TRAIL_ROOM_TO_THE_SESSIONS_OWN_P90_PULLBACK_2026-09-21": {
+    "measured_utc": "2026-09-21T15:22:00Z",
+    "run_type": "market_hours_regular (unattended, prompt v11)",
+    "headline": "The 1.5 x ATR14(5-min) trail tightens as a grind-up compresses realized range, so by the sixth ratchet the room to the stop had fallen to the P90 of the SAME SESSION'S own pullbacks. At entry it was above the session MAX.",
+    "measurement": {
+      "atr5_series": {
+        "at_entry_13:44Z": 1.3857,
+        "14:45Z": 0.8558,
+        "15:01Z": 0.83498,
+        "15:22Z": 0.6765,
+        "fall_from_entry_pct": 51.2
+      },
+      "trail_room_pts": {
+        "at_entry_rule_would_have_given": 2.0786,
+        "now_spot_minus_stop": 1.0048
+      },
+      "session_pullbacks_since_entry": {
+        "definition": "per one-minute bar, (running max high since entry) - (that bar's low)",
+        "bars": 102,
+        "window": "13:37Z-15:18Z",
+        "p50": 0.33,
+        "p90": 0.98,
+        "p95": 1.191,
+        "max": 1.301,
+        "bars_at_or_above_current_room": 10,
+        "distinct_episodes_at_or_above_current_room": 2
+      },
+      "corroborating_near_miss": "the 14:45Z pass survived by 0.0426 pts on a 1.25-pt pullback from the then-high -- an excursion LARGER than the room the trail now leaves"
+    },
+    "mechanism": "ATR14 on 5-minute bars is a TRAILING estimate of realized range. A steady one-directional grind is exactly the regime that compresses it, so the trail is calibrated on the QUIETEST part of a move while the pullback that ends such a move is drawn from the reversal distribution, not the grind distribution. The tighter the grind, the tighter the stop, and the reversal does not care.",
+    "reads_both_ways_and_this_half_matters": "This is NOT a claim the trail is mis-specified. The same tightening is what converted a +5.02R open trade into +4.32R of LOCKED profit, which is precisely the ratchet's job, and a wider trail on this trade would have given back real money. The finding is that the trail's room is a function of recent quiet, not of the move's actual reversal size -- a property to be aware of at graduation, not a defect to patch.",
+    "what_this_run_did_about_it": "NOTHING, deliberately. manage() returned raise_stop and it was applied verbatim. Prompt v11 and CLAUDE.md both forbid an unattended run adding a gate, filter or discretionary override to the DAY TRACK -- 'EXECUTE IT, DO NOT JUDGE IT' -- and the TACTICAL track died of exactly the accretion this finding could start. Any change to trail_atr_mult belongs to the Monday calibration inside calibrate.BANDS, or to Ryan.",
+    "honest_scope": "ONE trade, ONE session, n=1. QQQ ground up all morning with unusually low reversal; a choppier tape compresses ATR far less. The claim is about the RELATIONSHIP between the trail and the realized pullback distribution on this session, which is measurable and was measured. It is not evidence about expectancy, and it changed no decision -- the only condition under which a rule's inputs can be audited credibly.",
+    "next_step_for_the_graduation_review": "When >=8 paper trades exist, compute for each CLOSED trail-exited row: room-to-stop at each ratchet vs that session's realized pullback p90. If trail exits systematically fire inside the session's own noise band, trail_atr_mult (1.5) is the parameter to examine -- with the in-regime gate applied, and only at a Monday calibration."
   }
 }
