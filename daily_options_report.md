@@ -148,3 +148,37 @@ Twelve RSI(2) setups on the 14:07Z report. **Capital was not the binding constra
 ---
 
 *Delivery: committing this file to master IS the delivery — `eod-report-notify.yml` fires on any master push touching it. Exactly one run per trading day writes this file; a later run rewrites it only on a MATERIAL event (a fill, an exit, a new flag, a trigger firing), never to refresh closing marks.*
+
+---
+
+## ⚠️ AMENDMENT — appended 19:30Z by the concurrent 19:18Z run
+
+*Two scheduled runs fired past the 14:15 CT report threshold, both found master carrying Friday's report, and both wrote one. The report above is the 19:15Z run's and is kept **verbatim** — it is complete. This amendment carries the one finding it does not contain. Nothing above is retracted or contradicted.*
+
+### The day's only trade was graded two different ways, four minutes apart
+
+**V — the single trade this desk placed today, $1,000 = 29.29% of the account — was graded `B, "Good company, no setup"` and DECLINED by the 14:20Z run, and `A−, TAKEN` by its concurrent 14:24Z sibling, off the identical board** (`latest_morning.md` 14:07Z, commit `35b432a`). Neither run cites the other. None of the fifteen runs since noticed.
+
+**It is not a factual disagreement, which is what makes it worth your time.** Every number both runs quote is correct and they contradict each other nowhere:
+
+| | 14:20Z run (graded B, declined) | 14:24Z run (graded A−, bought) |
+|---|---|---|
+| **Oversold leg** | "RSI2 8.6 is the shallowest print on the board, RSI14 46.3 is not oversold at all" — **treated as capping the grade** | "the one leg of this entry that is merely adequate rather than strong" — **acknowledged, not decisive** |
+| **Trend leg** | not weighted | "**THE DECIDING LEG**" — +9.56% over a 200-day rising $0.1929/day, which cannot expire inside the 14-day hold |
+| **Verdict** | B — no setup | A− — the only non-energy name clearing *both* halves |
+
+They differ on exactly one thing: **which leg decides when another leg is merely adequate.**
+
+**The finding.** A single grade *letter* silently encodes a weighting across four independent legs — oversold depth, trend quality, thesis, analyst posture — and that weighting is nowhere written down. So two runs holding identical facts land a full grade band apart, and at this book's concentration a full band is the difference between **$0 and 29% of the account with no price stop.** The letter looks like a measurement and is a judgement wearing a measurement's clothes.
+
+**The proposed fix costs one line per candidate:** grade the *legs*, then the name — `oversold C+ / trend A / thesis A− / posture A− → A−`. A disagreement then surfaces as a disagreement about a *named* leg, which the next run can adjudicate, instead of as two incompatible letters neither of which can be argued with. The 14:24Z run was most of the way there already — it flagged the RSI2 leg as "merely adequate" *inside* the stack — and the information still did not survive into the letter.
+
+**The concurrent-run guards are not at fault.** The 14:24Z run ran the broker-first check (`get_equity_orders` → zero orders), re-fetched master, re-read the ledger and the throttle. All correct — because the sibling **placed nothing**, so there was nothing for any guard to see. The 2026-08-28 rule protects against two runs both *filling*; it is silent on two runs *reasoning* to opposite conclusions, where the only trace is prose neither run reads.
+
+**Honest scope: it changed no decision and probably would not have.** The position is sound on its merits and closed +0.36%. Had the B grade won, the day's outcome is "no entry" — not obviously better, with $1,097 idle against a policy that calls cash the residual of quality. And n=1. **What would make it expensive is the reverse sign:** a name whose *strong* leg is the oversold print and whose *weak* leg is the trend — exactly today's **CVS** (RSI2 1.0, 27 buy / 0 sell, 0.33% of 200-day cushion on an average rising $0.0594/day) — graded A− by a run that weights the technical print would put 30% of the account into a falling knife with no price stop. Today the two runs happened to disagree in the harmless direction.
+
+**This one needs you.** The grade rubric is not in `calibrate.BANDS`, so weighting the legs is a **RULES** change (CLAUDE.md or the stored prompt) and is yours to make, not an unattended run's. Full write-up: `holdings.json._THE_DAYS_ONLY_TRADE_WAS_GRADED_B_AND_DECLINED_BY_ONE_RUN_AND_A_MINUS_AND_TAKEN_BY_ITS_CONCURRENT_SIBLING_2026-09-21`.
+
+### Footnote on this amendment itself
+
+This run documented the concurrent-*grading* hazard and then immediately collided with a concurrent sibling on the *report* duty. Same root cause — redundant triggers firing one slot — presenting once in judgement and once in duty. Only the trigger configuration fixes it, and that is yours to change too.

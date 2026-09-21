@@ -40796,6 +40796,37 @@
       "why_flat": "EQUITIES: no mechanical exit -- the 19:06Z report's ACTION block is EMPTY and ABNB is back to plain HOLD (the 18:35Z RSI2 71.6 print faded); that gate is GREEN-ONLY and ABNB is -1.03%. No time stop until 2026-09-24. No entry: deployable $97.51 vs the ~$600 minimum, 1 of 3 equity entries spent. No rotation: three sound theses, two of them 3 days from a time stop that recycles their capital without a round trip. OPTIONS: empty, not paused (KILL reversed 14:05Z), but $97.51 funds no CORE vehicle. DAY TRACK: one-trade-per-day spent; paper day 4 closed 17:05Z at +6.4774R.",
       "duties": "DAILY REPORT for 2026-09-21 written and pushed -- covers all three books: the V fill with its full gate stack, the day track's first winner (+6.4774R / +$9.31, running +3.4774R over 4 paper days), the options KILL reversal and the two desk measurement bugs behind it, the 12-name board with CVS and DASH both failing the same rising-200-day test, and the ABNB/UNP 30%-cap-on-the-denominator ruling (STOP ADDING, NOT SELL). Heartbeat, brief, IV sweep and the Monday calibration were all owned earlier today and were not touched.",
       "repair": "_eod_report_written was STALE BY ONE TRADING DAY -- it read 2026-09-17 while master carried the 2026-09-18 report, so a run using it alone to decide whether the duty was spent would have mis-read it. Advanced to 2026-09-21 with the discrepancy recorded in the key's _prior_day field. Detector for the next run: cross-check the report FILE's own header date, never the key alone."
+    },
+    {
+      "run_utc": "2026-09-21T19:25:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-21",
+      "prompt_version": "v11 (line-1 stamp 'prompt v11, pasted 2026-09-14')",
+      "headline": "CONCURRENT with the 19:20Z sibling entry above -- BOTH are retained per the union rule. Both runs fired past the 14:15 CT threshold, both found master carrying the 2026-09-18 report, and both independently wrote a full daily report for 2026-09-21. The sibling landed first (PR #1866) and its report is KEPT VERBATIM; this run contributed ONE finding the sibling's report does not contain -- the day's only trade was graded B/declined and A-/taken by two concurrent runs off the same board.",
+      "collision": {
+        "what": "Same-slot collision on the DAILY REPORT duty, the redundant-trigger hazard the repo documents. Not a trading collision: neither run placed an order, so no cap, throttle or sizing gate was at risk.",
+        "resolution": "UNION, never pick a side. daily_options_report.md is ONE file overwritten daily, so it cannot hold two reports -- the sibling's was kept whole (it is complete: DAY TRACK first, positions with why-we-own-it and time-stop dates, the V gate stack, UNP and ABNB research, the KILL reversal, all 12 skipped names, sleeve state, calibration, watchpoints) and this run's unique finding was APPENDED as a marked amendment. holdings.json: sibling's base plus this run's one new key, with a merged _current_state_run naming both. This journal: both entries retained, ordered by run_utc.",
+        "why_not_replace": "Every master push touching daily_options_report.md sends Ryan another notification. Replacing a delivered report with a near-identical rewrite would have paid a second notification for no new information. Appending only the delta is what makes the second push honest."
+      },
+      "reconciliation": "ZERO DRIFT both books vs broker, 19:19-19:20Z, independently of the sibling. get_accounts confirms 718757339 agentic_allowed=true / limited_margin / option_level_3. get_option_positions(nonzero) EMPTY -- matches 0 ledger option rows. get_equity_positions returns exactly the 3 ledger rows, quantities identical to six decimals, all fully sellable, zero held shares. get_portfolio: total_value $3,411.5168, cash == buying_power == unleveraged_buying_power == $268.22. The two runs' independently-fetched figures agree, which is cross-validation rather than conflict.",
+      "new_finding": {
+        "key": "holdings.json._THE_DAYS_ONLY_TRADE_WAS_GRADED_B_AND_DECLINED_BY_ONE_RUN_AND_A_MINUS_AND_TAKEN_BY_ITS_CONCURRENT_SIBLING_2026-09-21",
+        "one_line": "A grade LETTER silently encodes an unwritten weighting across four legs (oversold depth / trend / thesis / posture), so two runs holding identical correct facts can land a full grade band apart -- and at this concentration a band is the difference between $0 and 29% of the account with no price stop.",
+        "named_not_re_argued": "The argument lives in the ledger key; this entry names it. Honest scope is recorded there: it changed no decision, the position is sound and closed +0.36%, n=1, and the expensive case is the REVERSE sign -- a strong oversold leg over a weak trend leg (today's CVS) graded A- would buy a falling knife at 30% of the account.",
+        "second_order_note": "This run documented the concurrent-grading hazard and then immediately collided with a concurrent sibling on the report duty. The two are the same root cause -- redundant triggers firing the same slot -- presenting once in JUDGEMENT and once in DUTY. Only the trigger config fixes it, and that is Ryan's to change."
+      },
+      "positions_verdict": {
+        "ABNB": "HOLD, thesis INTACT. -1.02%, -$11.38. Day 11 of 14; TIME STOP Thu 2026-09-24. The 19:06Z report has it back to plain HOLD; the 18:35Z exit-into-strength flag is gone on price and was optional regardless (green-only gate, position underwater). Not re-litigated -- notify-once.",
+        "UNP": "HOLD, thesis INTACT and explained: sector not name (JBHT 09-16 diesel warning de-rated freight; UNP's own newest news is the UBS upgrade to Buy, PT $339, citing rail pricing tailwind VERSUS truckload). -5.73%, -$63.01. Day 11 of 14; TIME STOP Thu 2026-09-24.",
+        "V": "WORKING. +0.36%, +$3.59, filled 14:23:39Z. Day 0 of 14; TIME STOP 2026-10-05. No price stop; green-enough trail trigger $433.04.",
+        "options": "No positions. Nothing to manage."
+      },
+      "why_flat": {
+        "equities": "No exit fires (ACTION block empty, no target hit, no RSI2>=70 cross on a GREEN name, no time stop before Thu, no thesis break). No entry possible: deployable $97.64 against the ~$600 minimum, and the per-run throttle is spent. Under the rotation gate a new idea would also have to grade better than ABNB, UNP or V, and nothing on today's board graded above B+.",
+        "options": "No entry. Not paused (KILL reversed 14:05Z) but $97.64 funds no CORE vehicle, and the 14:20Z IV sweep put long premium at the 89th-100th percentile of its own history on every name a CORE entry would use. Necessary-condition failure, not a thesis.",
+        "day_track": "Done -- paper day 4 closed 17:05Z at +6.4774R; one trade per trading day spent."
+      },
+      "duties": "Heartbeat stamped 13:40Z (not re-stamped). Brief built 13:46Z. Monday WEEKLY CALIBRATION spent 13:42Z. IV rows for today written by the 14:20Z sweep; this run evaluated no new name so added none. DAILY REPORT delivered by the sibling and AMENDED by this run. HARD RULE 9 intact: no flag cleared, no Ryan turn claimed or quoted by this run. No stop orders exist on any equity position -- the HARD RULE 5 exception is scoped to sleeve='day' and the day track is in PAPER with nothing at a broker."
     }
   ]
 }
