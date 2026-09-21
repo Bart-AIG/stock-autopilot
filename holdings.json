@@ -1,15 +1,16 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-18T19:22:00Z",
+  "updated_utc": "2026-09-21T13:48:00Z",
   "_realized_options_pnl_today": {
-    "trading_day_et": "2026-09-18",
+    "trading_day_et": "2026-09-21",
     "realized_usd_options": 0.0,
     "closing_trades_options": 0,
     "cap_options_usd": -400.0,
     "cap_headroom_usd": -400.0,
     "entry_throttle": "0 of 3 options entries used; 0 of 3 equity entries used",
-    "source": "RESET by the FIRST run at/after 09:30 ET of trading day 2026-09-18 (13:30Z), which is the only run permitted to roll it. Verified against the broker THIS RUN rather than defaulted: get_pnl_trade_history(span='week') shows NO trade with a 2026-09-18 timestamp -- the newest is 2026-09-17T20:00Z (the two SPY lapses). Zero is therefore MEASURED, not assumed. Per the UTC-rollover rule a reset value is wrong BY CONSTRUCTION on any post-close/pre-open run; this run is post-bell, so the roll is correct here.",
-    "_prior_day": "Trading day 2026-09-17 closed at realized options -$415.00 across 3 closes, ALL placed_agent='user' (Ryan's): VLO 2026-09-18 390P x2 closed at 0.75 = -$360.00, SPY 2026-09-17 731P x1 lapsed -$28.00, SPY 2026-09-17 770C x1 lapsed -$27.00. The desk opened, sized, managed and closed none of them."
+    "options_entries_PAUSED": "YES -- by the 2026-09-21 Monday calibration's KILL branch on the options book, NOT by the loss cap, which is untouched at full -$400 headroom. See _WEEKLY_CALIBRATION_2026-09-21. The throttle number below is the throttle; the pause is a separate and stricter gate.",
+    "source": "RESET by the FIRST run at/after 09:30 ET of trading day 2026-09-21 (13:30Z), the only run permitted to roll it. MEASURED, not defaulted: get_pnl_trade_history(span='3month') shows the newest trade of any kind is 2026-09-18T14:17:36Z (IBKR sell, an EQUITY close, +$18.90). There is no 2026-09-21 trade and no 2026-09-18 OPTION trade, so trading day 2026-09-18 finished at $0.00 realized options and today opens at zero.",
+    "_prior_day": "Trading day 2026-09-18 closed at realized options $0.00 / 0 closes. Its one realized trade was the EQUITY take-profit on IBKR 8.109516 sh @ 89.6305 = +$18.90, the desk's own mechanical RSI2>=70 exit (placed_agent='agentic'). Prior options day of record remains 2026-09-17 at -$415.00, all placed_agent='user'."
   },
   "positions": [
     {
@@ -24,20 +25,17 @@
       "_note": "placed_agent='agentic' -- AUTONOMOUS equity entry under HARD RULE 6 / prompt v10 THE EQUITY BOOK, signal-sourced from the committed report on master (latest_morning.md 2026-09-10T14:01Z, commit 12f6ccb; header clean, no DATA ERROR). Order 6aa2bcce-ec3b-40d9-8c87-06752c3a4515, $1,114.36 dollar-based MARKET order, regular_hours, FILLED 14:21:02Z at $169.5209 in two executions (6.000000 + 0.573584). Review gate returned order_checks {} on a $0.07 spread (0.04% of mid). HOW THIS NAME WAS FOUND: the 14:00Z run reported '26 RSI2 setups, ZERO graded A' but its cohort enumeration covers only 23 -- ABNB, CMG and KHC were never reached. See _A_ZERO_OF_26_VERDICT_WAS_BUILT_FROM_A_23_NAME_SAMPLE_AND_THE_REMAINDER_HELD_THE_BEST_SETUP_2026-09-10. All three were then graded from this run's own bars; CMG and KHC independently declined (flat non-monotonic 200-day, negative 12-1 momentum, and CMG's oversold condition already relieved at a live RSI2 of 17.05 versus 5.47 on the prior close). GATE STACK, each leg verified independently of the report rather than taken on trust: RSI2 3.38 on the 09-09 close and 3.00 including the live 169.00 print, Wilder-computed from own daily bars (report said 2.6 -- same regime); the 200-day SMA is 139.9809 and RISING MONOTONICALLY across the trailing 22 sessions (133.345 -> 139.981, +4.98%, no down-tick) with price +20.73% above it, so this is a dip inside a confirmed uptrend and NOT the flat-average artifact _THE_200DAY_GATE_CERTIFIES_DOWNTRENDS warns about; mom12-1 +49.2%; spot only -11.3% off the 52-week high of 190.50. HARD RULE 7 VERDICT INTACT AND STRENGTHENING -- the decisive evidence is that the FactSet consensus mean price target rose MONOTONICALLY across the very week the stock fell ~7.7%: $179.75 (08-31) -> $180.84 (09-01) -> $182.05 (09-08) -> $183.24 (09-10), average rating OVERWEIGHT throughout, with Raymond James UPGRADING to Outperform (PT $200) on 09-08, Baird $175->$200, Rosenblatt initiating Buy at $220 on 09-01, DA Davidson $175->$220, and Truist raising $134->$161 at 08:20 ET THIS MORNING. Analysts marking estimates UP while price marks DOWN is the cleanest available evidence that the decline reprices the MARKET rather than the COMPANY, which is exactly the condition Connors RSI(2) exists to exploit. Mean PT $183.24 is +8.4% from the fill and agrees with the report's independently-derived $183.08 to within 0.1%. NEGATIVES WEIGHED, NOT OMITTED: crude >$100 is a real ongoing travel-cost and consumer headwind and is the most plausible proximate driver of the decline; the 08-31 Bloomberg-reported pilot cutting host take-rate to 6%/10% from ~16% is a genuine revenue-model risk though confined to hosts on third-party software and defensive against direct-booking leakage; co-founder/CSO Blecharczyk sold 353,292 shares for $67.3M on 08-24 (Form 4, pre-dates the decline, usual 10b5-1 ambiguity). No company-specific negative headline appears in the last 10 days of a heavily-covered name. [ERN] CLEAR and VERIFIED not assumed: get_earnings_calendar over 09-10 +31d returned 374 live events across 301 symbols -- not the degraded-empty that makes an absent flag meaningless -- and ABNB appears nowhere through 2026-10-10, far beyond the time stop. Sector steer clear (consumer discretionary, not oil). UNCORRELATED with MMM (industrials) and GD (defense), which is why this entry was available where the prior run correctly declined RTX as a GD duplicate and EMR/TKR as MMM duplicates; it is also not an index ETF, so it does not fight the SPY 700P hedge the way IWM/DIA/SPY/QQQ would. GRADE A (not A+: the macro driver is unresolved and the name has no catalyst of its own). SIZING per the 2026-09-02 CONCENTRATION POLICY: total_value $4,021.67, cash == unleveraged_buying_power == $2,429.81 (no margin), 5% operational reserve $201.08, deployable $2,228.73, 2 open slots to the 3-4 target -> $1,114.36 = 27.71% of the account, inside the 30% per-name cap of $1,206.50 and well above the ~$600 minimum. Sized at deployable/2 rather than deployable/1 deliberately: MMM time-stops 09-14 and GD 09-15, so leaving $1,114.36 undeployed funds the next A-grade instead of crowding out that re-deployment.",
       "setup_invalidation": "This is a swing with NO price stop (HARD RULE 5 -- the agent places no stop of any kind). Bounded instead by the TIME STOP of 2026-09-24 (entry 2026-09-10 + SWING_TIME_STOP_DAYS 14), on which it is sold green or red. Thesis invalidation is company-specific: generalization of the reduced take-rate beyond a pilot in a way that resets revenue guidance, a guidance cut, or -- most directly -- a REVERSAL IN THE ANALYST REVISION TREND, since a mean PT turning DOWN through a further decline would break the central plank of this thesis, which is that estimates are rising into weakness.",
       "_current_state": {
-        "as_of_utc": "2026-09-18T19:20:00Z",
-        "venue_quote_utc": "2026-09-18T19:20:03-19:20:10Z (settled; well past the opening auction)",
-        "price": 166.7813,
-        "bid": 166.76,
-        "ask": 166.78,
-        "pl_pct_vs_entry": -1.62,
-        "pl_usd": -18.01,
-        "value_usd": 1096.35,
-        "rsi2_live": 40.91,
-        "rsi2_70_crossing_price": 169.06,
+        "as_of_utc": "2026-09-21T13:48:00Z",
+        "venue_quote_utc": "2026-09-21T13:34:17-13:34:19Z (4+ minutes after the bell; NOT the opening auction print)",
+        "price": 165.615,
+        "bid": 165.27,
+        "ask": 165.96,
+        "pl_pct_vs_entry": -2.3,
+        "pl_usd": -25.68,
+        "value_usd": 1088.68,
         "time_stop_date": "2026-09-24",
-        "held_days": 8,
-        "verdict": "HOLD. Underwater -1.62%, RSI2 40.91. Day 8 of 14; the 2026-09-24 time stop is the binding exit and sells it green or red. NOTE the RSI2>=70 crossing price is 169.06, BELOW the entry of 169.5209 -- a bounce firing the trigger would fire it UNDERWATER, which is an OPTIONAL exit-into-strength routed to thesis, NOT a mechanical take-profit. Position is 31.82% of total account value, over the 30% per-name cap; ruling is STOP ADDING, not sell.",
-        "pct_of_total_value": 31.82
+        "held_days": 11,
+        "verdict": "HOLD. Underwater, so the mechanical RSI2>=70 TAKE-PROFIT is UNAVAILABLE BY CONSTRUCTION -- it is a profit-banking authority gated on price > entry (2026-08-26 correction), and an RSI2>=70 print on an underwater position is an OPTIONAL exit-into-strength routed to thesis, never a mechanical loss-realization. No price stop exists (HARD RULE 5). The live exit is therefore the 14-day TIME STOP on 2026-09-24 -- 3 sessions away, inside TIME_STOP_WARN_DAYS(3), so from the next report onward the alert should annotate it."
       }
     },
     {
@@ -51,20 +49,18 @@
       "native_trail_pct": null,
       "_note": "AUTONOMOUS equity entry under HARD RULE 6, placed_agent 'agentic', order 6aa2f4ee-a23b-49c3-8e48-eee4a2601f93 filled 2026-09-10T18:20:30Z, 3.858199 sh @ 285.1071 = $1,100.00, zero fees. SIGNAL-SOURCED from the committed 2026-09-10T18:01Z intraday report (RSI2 2.2, the lowest non-held print on a 25-name board). Graded A: 200-day SMA rising monotonically 255.467->260.934 with spot 61.6 SESSIONS of cushion above it; Q2 2026 adj EPS $3.41 vs $3.24 and revenue +12% to $6.864B, both beats; dividend raised to $1.42 on 07-29; consensus Overweight, FactSet mean PT $332.70 (+16.7%); three upward PT revisions in six weeks; and the entry prints GREEN (+0.09%) against SPY -0.61% / QQQ -1.00%, so trend-maturity gate (c) confirms rather than diverges. NO adverse catalyst behind the slide -- the last company news is a beat and a raise. KNOWN NEGATIVES, recorded not buried: PEG 3.2 reads '(WARN) rich' on the report's SECONDARY value screen (P/E 23.0 is ordinary for a Class I rail and PEG penalises mature compounders; unlike SBUX's PEG -2.3 there is no de-rating catalyst); the UNP/NSC $85B merger is under STB review with comments due 11-18, DOJ/DOT 12-03, final briefs 2027-05-28 -- nothing binary inside the hold; Baupost cut 23% in Q2, offset by Viking Global initiating a new $556.9M position the same quarter. NO PRICE STOP EVER (HARD RULE 5). Full pre-trade decision record: trade_journal.json entry run_utc 2026-09-10T18:19:00Z, written BEFORE the order per gate (a).",
       "_current_state": {
-        "as_of_utc": "2026-09-18T19:20:00Z",
-        "venue_quote_utc": "2026-09-18T19:20:03-19:20:10Z (settled; well past the opening auction)",
-        "price": 280.03,
-        "bid": 280.01,
-        "ask": 280.13,
-        "pl_pct_vs_entry": -1.78,
-        "pl_usd": -19.59,
-        "value_usd": 1080.41,
-        "rsi2_live": 19.64,
-        "rsi2_70_crossing_price": 283.94,
+        "as_of_utc": "2026-09-21T13:48:00Z",
+        "venue_quote_utc": "2026-09-21T13:34:17-13:34:19Z (4+ minutes after the bell; NOT the opening auction print)",
+        "price": 274.27,
+        "bid": 274.36,
+        "ask": 274.98,
+        "pl_pct_vs_entry": -3.8,
+        "pl_usd": -41.81,
+        "value_usd": 1058.19,
         "time_stop_date": "2026-09-24",
-        "held_days": 8,
-        "verdict": "HOLD. Underwater -1.78%, RSI2 19.64. Day 8 of 14; the 2026-09-24 time stop is the binding exit and sells it green or red. NOTE the RSI2>=70 crossing price is 283.94, BELOW the entry of 285.1071 -- a bounce firing the trigger would fire it UNDERWATER, which is an OPTIONAL exit-into-strength routed to thesis, NOT a mechanical take-profit. Position is 31.36% of total account value, over the 30% per-name cap; ruling is STOP ADDING, not sell.",
-        "pct_of_total_value": 31.36
+        "held_days": 11,
+        "verdict": "HOLD. Underwater, so the mechanical RSI2>=70 TAKE-PROFIT is UNAVAILABLE BY CONSTRUCTION -- it is a profit-banking authority gated on price > entry (2026-08-26 correction), and an RSI2>=70 print on an underwater position is an OPTIONAL exit-into-strength routed to thesis, never a mechanical loss-realization. No price stop exists (HARD RULE 5). The live exit is therefore the 14-day TIME STOP on 2026-09-24 -- 3 sessions away, inside TIME_STOP_WARN_DAYS(3), so from the next report onward the alert should annotate it.",
+        "divergence_flag": "UNP is -1.83% on a +0.63% SPY / +1.19% QQQ tape -- roughly 2.5 points of relative underperformance at the open. Stated as a NUMBER, not a verdict; no news check was run this run. The run that takes today's report should do the HARD RULE 7 research, because a BROKEN verdict changes the exit from 'time stop 09-24' to 'sell now', and 3 sessions of a falling name is what the time stop exists to bound."
       },
       "_notify_state": {
         "last_trigger": null,
@@ -5497,7 +5493,7 @@
     "set_utc": "2026-09-14T22:30:00Z",
     "authority": "Ryan, REAL live turn 2026-09-14 (interactive session, typed turns): '1. Let's make the change. 2. Whichever you recommend is fine. 3. 5-20%. 4. Sure. 5. Let's do it.' -- answering the five design decisions in the autonomy-audit proposal. Spec: docs/day-track-spec.md. Code: day_track.py. Prompt carrying the duties: docs/routine-prompt-v11.md (PASTE-READY).",
     "status": "PAPER",
-    "status_note": "PAPER, and now PAUSED for the rest of this week. *** PAUSE: day_track.track_status(3656.87, [-1.0,-1.0,-1.0], [-1.0,-1.0,-1.0]) -> {'paused': True, 'reason': '3 consecutive losing days -- rest of week'}. BOTH pause conditions fired on the same close: three consecutive losing days AND the week at -3.00R (<= the -3.00R limit). The 2026-09-17T13:36Z run predicted exactly this ('one more losing day from BOTH pause conditions at once') and paper day 3 stopped out at 14:27Z. Equity $3,656.87 is still well above the $2,600 floor, so that third condition is NOT implicated. NO NEW DAY TRACK SIGNAL may be taken through Friday 2026-09-19; the first run of Monday 2026-09-21 re-evaluates (VERIFIED 2026-09-20T00:22Z: day_track.track_status(equity, [-1,-1,-1], []) -> paused FALSE, because all three losses belong to the week of 09-15 and week_results_r is empty; an earlier draft of this note said 09-22, which is a TUESDAY). *** GRADUATION: day_track.graduate(3, [-1.0,-1.0,-1.0]) -> go_live FALSE, 'paper 3d / 3 trades; need 10d and 8 trades'. The pause pushes the earliest arithmetically possible go-live out by a full week -- at best a Monday on or after 2026-10-05, since no signals accrue while paused. *** LIVE requires (a) graduate() == go_live at a Monday calibration AND (b) the v11 stamp for stop authority. (b) has been satisfied since 2026-09-15T16:18Z; (a) is the only remaining lock and it is not close. A LIVE PROMPT STAMP IS NOT A GRADUATION, and no run promotes the phase itself mid-week.",
+    "status_note": "PAPER, and ACTIVE AGAIN as of Monday 2026-09-21. *** PAUSE EXPIRED: day_track.track_status(3434.45, [-1.0,-1.0,-1.0], []) -> {'paused': False, 'reason': 'active'}. The 3-consecutive-loss pause set 2026-09-17 was scoped to 'the rest of THAT week'; week_results_r is empty on the first day of the new week, so it lapsed on its own terms. Equity $3,434.45 is well above the $2,600 floor. This is the first live confirmation of the week-boundary clause added after _DAY_TRACK_PAUSE_NEVER_EXPIRED_A_DEADLOCK. *** GRADUATION UNCHANGED: day_track.graduate(3, [-1.0,-1.0,-1.0]) -> go_live FALSE, 'paper 3d / 3 trades; need 10d and 8 trades'. A lifted pause is NOT a graduation and the track places NOTHING. *** LIVE still requires (a) graduate() == go_live at a Monday calibration AND (b) the v11 stamp for stop authority. (b) has been satisfied since 2026-09-15T16:18Z; (a) is the only remaining lock and needs 7 more paper days and 5 more signals, so the earliest arithmetically possible go-live is a Monday on or after 2026-10-05. *** TODAY'S SIGNAL: plan_entry at 13:36Z returned action='wait', 'fewer than 5 one-minute bars yet' -- the 13:34Z OR bar had not published (two fetches, 13:34Z and 13:36Z, both returned exactly 4 bars). The 13:30Z run is STRUCTURALLY unable to take the signal: the OR does not close until 13:35Z and the feed lags it. The ~13:45Z run, inside the spec's 09:35-09:50 ET entry window, takes today's paper signal. PARTIAL OR AT 13:36Z, NUMBERS ONLY AND NO DIRECTIONAL VERDICT HANDED FORWARD (per the 2026-08-28 rule): bars 13:30-13:33 gave high 728.84 / low 727.82 / open 727.95; ATR14(daily, through 09-18) = 8.3193. RE-DERIVE THE OR FROM A FRESH FETCH -- do not inherit these four bars, and note that 1-minute bars are revised after they close.",
     "signal_symbol": "QQQ",
     "long_vehicle": "QQQ",
     "short_vehicle": "PSQ",
@@ -5761,6 +5757,25 @@
         "r_multiple": -1.0,
         "pnl_usd": -0.52,
         "_flat_field_provenance": "Flat canonical fields required by routine prompt v11 ('PAPER rows go to day_track_paper.json with the same shape plus phase' -> {date, direction, vehicle, entry, exit, exit_reason, r_multiple, pnl_usd}). They were ABSENT from every stored row, so a programmatic read by those names returned None. Added here as DERIVED ALIASES of the rich fields that were always present; nothing was recomputed and no rich field was altered. entry <- entry_px_vehicle (the instrument actually traded, matching 'vehicle'); exit <- exit.exit_px_vehicle; exit_reason <- exit.reason; r_multiple <- exit.r_realized; pnl_usd <- exit.pnl_usd. See holdings.json._THE_DAY_TRACKS_TWO_SAFETY_GATES_ARE_FED_BY_HAND_AND_THE_MACHINE_PATH_IS_BROKEN_OR_UNSAFE_2026-09-17."
+      },
+      {
+        "phase": "paper",
+        "trading_day_et": "2026-09-21",
+        "decided_utc": "2026-09-21T13:44:00Z",
+        "decided_by": "scheduled run 13:30Z 2026-09-21 (unattended, prompt v11) -- FIRST POST-BELL run, DAY TRACK paper day 4",
+        "action": "enter",
+        "direction": "long",
+        "vehicle": "QQQ",
+        "entry": 729.2575,
+        "stop": 727.82,
+        "shares": 1,
+        "r_usd": 1.44,
+        "status": "open",
+        "exit": null,
+        "exit_reason": null,
+        "r_multiple": null,
+        "pnl_usd": null,
+        "_mirror_of": "day_track_paper.json rows[-1]; that file is the source of truth. Kept in sync per _RESULTS_ARE_THE_PAUSE_INPUT_AND_WERE_DESYNCED_FROM_THE_PAPER_LOG_2026-09-18 -- this array is the PAUSE INPUT and a stale copy fails OPEN."
       }
     ],
     "graduation": {
@@ -6989,53 +7004,90 @@
     "escalated": "Push notification to Ryan 2026-09-19. No approval claimed or implied -- HARD RULE 9 intact."
   },
   "_WEEKLY_CALIBRATION_2026-09-21": {
-    "measured_utc": "2026-09-21T10:35:00Z",
-    "status": "PRE-COMPUTED by the 10:19Z pre-open run, NOT yet 'confirmed' by a trading-day run. The first run of the 2026-09-21 trading day (at/after 09:30 ET) owns CONFIRMING this record, not redoing the pull -- the broker returns identical data pre-open and mid-session because no trades occur overnight. Same precedent as _WEEKLY_CALIBRATION_2026-09-08 and _WEEKLY_CALIBRATION_2026-09-14, both taken by pre-open runs for the same reason.",
-    "why_a_pre_open_run_did_it": "This run fired 10:19Z (06:19 ET Monday), so by the trading-day convention the ET trading day is still 2026-09-18 and it may NOT stamp the heartbeat, rebuild the brief, reset either throttle or the loss cap, or promote the DAY TRACK phase -- it did NONE of those. The calibration pull is broker-sourced and needs no live quotes, so doing it on a run that cannot trade spends a free run instead of the 09:35 ET run that owns the time-critical DAY TRACK entry window.",
-    "source": "BROKER, get_pnl_trade_history(span='3month') on 718757339, pulled 10:26Z: 70 closes. Book split by BROKER MEMBERSHIP via calibrate.split_books() using get_option_orders(state='filled', created_at_gte=2026-06-21) -> 17 filled option-close (symbol,date) keys, PLUS the one side=='' lapse key ('SPY','2026-09-17') the caller must add itself (see caller_duty below). Result: 49 equity closes, 21 option closes. NOT from trade_journal.json.",
-    "caller_duty_worth_keeping": "split_books() keys purely on the set of broker-filled option CLOSES the caller passes in. An option that LAPSED at expiry has no sell order, so it is absent from that set and lands in the EQUITY bucket unless the caller adds it. The correct caller set is (filled option closes) UNION (rows with side==''). Both SPY 2026-09-17 strangle legs lapse under one (symbol,date) key, so one added key covers both rows.",
-    "EQUITIES": {
-      "n": 49,
-      "wins": 32,
-      "losses": 17,
-      "scratches": 0,
-      "win_rate": "65.31%",
-      "mean_win": "+$13.70",
-      "mean_loss": "-$15.03",
-      "payoff_ratio": 0.9115,
-      "breakeven_win_rate": "52.32%",
-      "MARGIN_PTS": "+12.99",
-      "expectancy": "+$3.73/trade",
-      "net": "+$182.88",
-      "verdict": "REPORT ONLY -- only 7 of 49 closes happened under the current parameters (need 20). The IN-REGIME GATE blocked adjustment, exactly as designed. NO PARAMETER CHANGED.",
-      "in_regime_detail": "Connors-pure exits and the concentration sizing both went live 2026-09-02. SEVEN closes now sit under them, up from 4 on 09-14: ROST +$1.19 and PNC -$4.41 (09-03), MDLZ -$4.07 (09-09, time stop), LLY -$25.30 (09-10, time stop), MMM -$30.96 and GD -$21.83 (09-14, time stops), IBKR +$18.90 (09-18, RSI2>=70 take-profit). 7/20 -- the gate stays shut for roughly another three weeks at this rate.",
-      "week_over_week": "Margin +18.73 (09-14, n=51) -> +12.99 (today, n=49). The window rolled forward and the three 09-14/09-18 equity closes that entered it were two time-stop losers and one take-profit winner. Still comfortably positive, nowhere near the KILL line, and untouchable by the in-regime gate either way."
+    "run_utc": "2026-09-21T13:42:00Z",
+    "run_by": "scheduled run 13:30Z 2026-09-21 (unattended, prompt v11) -- FIRST POST-BELL run of the trading day, which is the run that owns the Monday calibration.",
+    "authority": "Ryan's standing grant 2026-09-02 (bounded parameter autonomy inside calibrate.BANDS). No new trading authority; no gate loosened.",
+    "source": "THE BROKER IS THE LEDGER OF RECORD. get_pnl_trade_history(account 718757339, span='3month') -> 70 closing rows, 2026-06-22..2026-09-18, net -$389.12. trade_journal.json was NOT used for any P&L figure.",
+    "method": "calibrate.split_books() by BROKER MEMBERSHIP, per the 2026-09-18 fix -- the documented side=='sell' split is wrong and files an actively-closed option as an equity. option_closes was built from get_option_orders(state='filled', created_at_gte=2026-06-20): 46 orders, 17 distinct (symbol,date) CLOSE pairs. ONE ADDITION THE DOCSTRING DOES NOT COVER AND THE NEXT RUN SHOULD REUSE: a LAPSED option has no order at all, so it appears in no order-derived set -- it is identifiable only by side=='' on the pnl row. Here that is ('SPY','2026-09-17'), Ryan's two expiring strangle legs (-$27 / -$28). Union the lapse-derived pairs into option_closes or two option rows are booked as equities.",
+    "split": {
+      "equities": {
+        "n": 49,
+        "net_usd": 182.88
+      },
+      "options": {
+        "n": 21,
+        "net_usd": -572.0
+      }
     },
-    "OPTIONS": {
-      "n": 21,
-      "wins": 9,
-      "losses": 11,
-      "scratches": 1,
-      "win_rate": "45.00%",
-      "mean_win": "+$88.67",
-      "mean_loss": "-$124.55",
-      "payoff_ratio": 0.7119,
-      "breakeven_win_rate": "58.41%",
-      "MARGIN_PTS": "-13.41",
-      "expectancy": "-$27.24/trade",
-      "net": "-$572.00",
-      "verdict": "*** KILL BRANCH FIRED: 'EDGE GONE -- halve size, pause new entries, ESCALATE'. Risk-off never waits for a clean sample, so it is recorded as IN FORCE for the OPTIONS BOOK ONLY and Ryan is notified this run. The options book is currently EMPTY (0 contracts, options_value $0), so the practical effect is solely that NO NEW OPTIONS ENTRY may be opened pending Ryan's review -- strictly tightening, never loosening, and it takes nothing off the table that is on it.",
-      "why_this_is_NOT_an_artifact": "Interrogated on four independent cuts, per the standing 2026-09-11 finding that ONE insurance close can flip this bucket's sign. ALL FOUR ARE NEGATIVE and the hedge does not explain it: (A) as-bucketed, both owners, n=21, margin -13.41, exp -$27.24, net -$572 -> KILL. (B) hedge-stripped (the SPY 2026-09-11 -$247 insurance close removed), n=20, margin -8.51, exp -$16.25, net -$325 -> STILL KILL. (C) agentic-placed only, the desk's own record, n=10, margin -41.76, exp -$51.80, net -$518 -> REPORT ONLY on the n gate, but the WORST margin of the four. (D) agentic and hedge-stripped, identical to C. So stripping the hedge does not rescue it (unlike 09-11 and 09-14) and stripping Ryan's trades makes it worse, not better. The only reason the desk-only cut is not itself actionable is n=10 < 20.",
-      "honest_scope": "The KILL fires on the sample that MIXES OWNERS -- 11 of the 21 closes are placed_agent='user' (Ryan's VLO, QQQ, RBRK, ACHR, ZTS, TE, WULF, SMR and the SPY strangle/hedge). A desk parameter being paused on the strength of Ryan's discretionary trades is a real objection and it is recorded rather than argued away. It does not change the action, because cut (C) -- the desk alone -- is worse, so no owner-split reading rescues the book. What it DOES mean: the right resolution is Ryan's call, not a recalculation."
+    "EQUITY_BOOK": {
+      "edge_stats": {
+        "n": 49,
+        "wins": 32,
+        "losses": 17,
+        "win_rate": 0.6531,
+        "mean_win": 13.7,
+        "mean_loss": -15.03,
+        "payoff_ratio": 0.9115,
+        "breakeven_win_rate": 0.5232,
+        "margin_pts": 12.99,
+        "expectancy_usd": 3.73,
+        "net_usd": 182.88,
+        "mixed_book": false
+      },
+      "in_regime_trades": 7,
+      "in_regime_detail": "Equity closes on/after 2026-09-02, when the CONCENTRATION POLICY was set and SWING_TIME_STOP_DAYS=14 was first actually wired up: IBKR 09-18, GD 09-14, MMM 09-14, LLY 09-10, MDLZ 09-09, ROST 09-03, PNC 09-03. Seven of 49, against MIN_TRADES_FOR_ACTION=20.",
+      "verdict": "REPORT ONLY -- only 7 of 49 trades closed under the current parameters (need 20).",
+      "changes_applied": "NONE.",
+      "params_unchanged": {
+        "swing_time_stop_days": 14,
+        "target_positions": 4,
+        "rsi2_oversold": 10.0
+      },
+      "reading": "The equity book's measured edge is GOOD and has improved: margin +12.99 pts over a 52.3% breakeven implied by a 0.911 payoff, expectancy +$3.73/trade, net +$182.88 across 49 closes. It is NOT actionable, and that is the in-regime gate working exactly as designed -- 42 of those 49 closes predate the parameters a calibration would move, so the sample carries no evidence about them. Tuning on it would be superstition. Evidence rebuilds at roughly one close per week; 20 in-regime closes is a Q4 date, not an October one. Note also the asymmetry rule: even at 20 in-regime closes a HEALTHY reading may only lengthen the time stop, never loosen the entry trigger."
+    },
+    "OPTIONS_BOOK": {
+      "edge_stats": {
+        "n": 21,
+        "wins": 9,
+        "losses": 11,
+        "scratches": 1,
+        "win_rate": 0.45,
+        "mean_win": 88.67,
+        "mean_loss": -124.55,
+        "payoff_ratio": 0.7119,
+        "breakeven_win_rate": 0.5841,
+        "margin_pts": -13.41,
+        "expectancy_usd": -27.24,
+        "net_usd": -572.0,
+        "mixed_book": false
+      },
+      "verdict": "EDGE GONE -- halve size, pause new entries, ESCALATE.",
+      "changes_applied": {
+        "options_position_size_multiplier": 0.5,
+        "new_options_entries": "PAUSED"
+      },
+      "gate_exemption": "The KILL branch is DELIBERATELY EXEMPT from the in-regime gate. n=21 >= 20 and margin -13.41 <= KILL_MARGIN_PTS(0.0), so it fires on its own terms. 'These trades predate the current settings' is not a reason to keep sizing into a book that is losing money. RISK-OFF NEVER WAITS FOR A CLEAN SAMPLE.",
+      "PURITY_CHECK_AND_IT_CUTS_THE_OTHER_WAY": "recommend()'s own docstring says to strip hedge/owner legs from the options bucket before believing a KILL, and the 2026-09-18 split_books finding is precisely a case where a contaminated sample fired a FALSE kill. So this run tested the same hypothesis here -- that the KILL is really Ryan's discretionary trades -- and it is REFUTED, decisively and in the direction that removes the excuse. Partitioned by placed_agent on the closing order: AGENTIC-ONLY n=10, net -$518.00, margin -41.76 pts, expectancy -$51.80/trade, win rate 0.333, payoff 0.332. USER-ONLY n=11, net -$54.00, margin -1.85 pts, expectancy -$4.91/trade. Ryan's book is roughly SCRATCH; the desk's own options book is where every dollar of the loss lives. Stripping the owner rows makes the reading THREE TIMES WORSE, not better. The agentic subsample alone returns REPORT ONLY only because n=10 < 20 -- it is not evidence of health, it is a sample too small to act on, sitting under a blended sample that is large enough and says the same thing louder.",
+      "worst_agentic_rows": "RBRK 07-21 -$300, WULF 07-16 -$130, CVS 08-11 -$108, WULF 07-24 -$67, SPY 08-26 -$16 net across three legs.",
+      "what_the_pause_does_and_does_not_do": "DOES: no new agentic options entry may be opened until Ryan reviews. DOES NOT: block or delay any EXIT, touch the equity book, touch the DAY TRACK, or alter the -$400 daily loss cap (untouched, full headroom). OPERATIONAL COST TODAY IS ZERO AND SAYING SO IS PART OF THE HONESTY: the options book holds 0 contracts and the desk has not opened an options position since 2026-08-26. This pause formalises a four-week abstention rather than imposing a new one -- which is an argument for its cheapness, NOT an argument that it is unimportant.",
+      "ESCALATION_TO_RYAN": "Trailing 21 option closes show a -13.4 pt margin over the 58% breakeven win rate implied by a 0.71 payoff; expectancy -$27.24/trade. Attributed to the desk's own trades it is -41.8 pts on 10 closes. The options strategy is not currently profitable. Position size halved and new agentic options entries PAUSED pending your review. No approval is claimed or implied by this run (HARD RULE 9); this is a measurement and a risk-off action the calibration grant authorises, reported for your decision."
     },
     "DAY_TRACK": {
-      "pause": "EXPIRED. day_track.track_status(3440.62, [-1.0,-1.0,-1.0], []) -> {'paused': False, 'reason': 'active'}. All three losses belong to the week of 09-15; week_results_r is empty for the new week. The track is ACTIVE for signals again from today.",
-      "graduate": "day_track.graduate(3, [-1.0,-1.0,-1.0]) -> {'go_live': False, 'reason': 'paper 3d / 3 trades; need 10d and 8 trades'}. STATUS STAYS PAPER. No run promotes the phase mid-week and this run promoted nothing; the v11 prompt stamp (the other lock) has been satisfied since 09-15 and is NOT a graduation.",
-      "day_risk_pct": "UNCHANGED at 5.0. Only 3 paper results exist, far below MIN_TRADES_FOR_ACTION=20, so recommend() cannot move it inside its 5-20 band.",
-      "owner": "The 09:35 ET run evaluates today's QQQ opening-range signal in PAPER and logs it to day_track_paper.json. This run computed no signal -- the market is shut."
+      "phase": "PAPER -- unchanged. No run promotes the phase mid-week and this run does not.",
+      "graduate": {
+        "call": "day_track.graduate(3, [-1.0,-1.0,-1.0])",
+        "go_live": false,
+        "reason": "paper 3d / 3 trades; need 10d and 8 trades"
+      },
+      "pause_status": {
+        "call": "day_track.track_status(3434.45, [-1.0,-1.0,-1.0], [])",
+        "paused": false,
+        "reason": "active",
+        "explanation": "The 3-consecutive-loss pause set on 2026-09-17 was scoped to 'the rest of that week'. week_results_r is empty at the start of this new week, so the pause has EXPIRED and the track is ACTIVE. This is the clause added by _DAY_TRACK_PAUSE_NEVER_EXPIRED_A_DEADLOCK working as intended, confirmed live for the first time. Equity $3,434.45 is comfortably above the $2,600 floor."
+      },
+      "day_risk_pct": "UNCHANGED at 5.0. recommend() may move it only while the track is LIVE and only on in-regime evidence; the track is PAPER and the paper sample is 3 trades."
     },
-    "changes_applied": "EXACTLY ONE, and it is risk-off: options-book new entries PAUSED and position size halved per the KILL branch, escalated to Ryan. NO tunable parameter moved -- swing_time_stop_days stays 14, target_positions 4, rsi2_oversold 10.0, day_risk_pct 5.0. The equity book is untouched and remains open for entries under the normal gates.",
-    "code_fix_this_run": "calibrate.py -- see _THE_MIXED_BOOK_GUARD_FALSE_POSITIVED_ON_A_CORRECTLY_SPLIT_BUCKET_AND_SUPPRESSED_A_KILL_2026-09-21. The options verdict above was UNREACHABLE before this run's fix: recommend() returned 'REFUSED -- blended sample' and returned early on a bucket that was correctly split."
+    "prompt_staleness_REPORTED_NOT_RESOLVED": "prompt v11 step 8b still describes the split as \"equities (side=='sell') from options (side=='')\". That split is measurably wrong (2026-09-18 finding) and this run used split_books() instead, as CLAUDE.md requires. Reported to Ryan; agents cannot edit the stored prompt and no run may claim a Ryan turn (HARD RULE 9)."
   },
   "_THE_MIXED_BOOK_GUARD_FALSE_POSITIVED_ON_A_CORRECTLY_SPLIT_BUCKET_AND_SUPPRESSED_A_KILL_2026-09-21": {
     "measured_utc": "2026-09-21T10:30:00Z",
@@ -7047,5 +7099,16 @@
     "regression_tests_run": "Seven, all passing. T1 split_books does not mutate the caller's rows (shallow copy). T2 every returned row carries the correct _book tag. T3 row counts preserved 49+21=70. T4 the equity bucket stays mixed_book False (unchanged). T5 the options bucket flips True->False (the bug). T6 a DELIBERATELY blended sample (10 equity + 10 option rows) is STILL flagged and still REFUSED -- the guard's real job is intact. T7 an untagged blended sample still flags via the `side` fallback and T7b an untagged pure-equity sample stays clean, so no existing caller changes behaviour.",
     "honest_scope": "The fix is decision-changing, and in the RISK-OFF direction -- it unblocked a KILL, it did not unblock a trade. It changed nothing about the EQUITY book, which was never affected (its bucket is uniformly side=='sell' and read mixed_book False before and after). And note what it does NOT establish: an unblocked KILL is a measurement, not a verdict on the strategy. Whether Ryan wants the options book paused on a sample that is half his own discretionary trades is his call -- see _WEEKLY_CALIBRATION_2026-09-21.OPTIONS.honest_scope.",
     "how_long_it_was_latent": "THREE DAYS, 2026-09-18 to 2026-09-21 -- exactly one calibration cycle, so it suppressed exactly one options verdict and was caught on the first Monday after it was introduced. That is the good case and it was luck of the calendar, not a control: nothing in the run loop would have surfaced it, because a REFUSED verdict is a legitimate output and reads as the guard doing its job."
+  },
+  "_DAY_TRACK_THE_OR_IS_NOT_FETCHABLE_ON_THE_1330Z_RUN_2026-09-21": {
+    "measured_utc": "2026-09-21T13:46:00Z",
+    "measured_by": "scheduled run 13:30Z 2026-09-21 (unattended, prompt v11)",
+    "status": "NEW DURABLE FINDING. It CHANGED NO OUTCOME -- this run held itself open past the latency and logged paper day 4 correctly. Recorded because the next run to hit it may not, and because a filter's timing can only be audited credibly on a run where the audit costs nothing.",
+    "headline": "THE FIFTH ONE-MINUTE OPENING-RANGE BAR IS NOT RELIABLY PUBLISHED WHEN THE 13:30Z RUN LOOKS FOR IT, AND THE LATENCY IS VARIABLE ACROSS DAYS. A run that calls plan_entry once, reads 'wait', and ends has not deferred the day's signal -- it has GAMBLED it on the next run firing.",
+    "measurement": "The OR closes at 13:35:00Z (bars 13:30-13:34 inclusive). get_equity_historicals(QQQ, interval='minute') returned exactly FOUR bars at 13:34Z and again at 13:36:xxZ; the 13:34 bar had published by the 13:44Z fetch. So the 5th bar was at least ~1.5 minutes late and possibly ~9. Contrast the three prior paper days, every one of which decided at 13:35-13:36Z off a complete 5-bar OR (09-15 13:35:20Z, 09-16 13:36:00Z, 09-17 13:36:00Z, the last of which explicitly records 'fetched at 13:35Z once the 13:34 bar had printed'). THE LATENCY IS NOT A CONSTANT AND IS NOT PREDICTABLE FROM PRIOR DAYS.",
+    "why_it_is_not_merely_an_annoyance": "The track needs SIGNALS to graduate -- 8 of them, and it has 4. Each lost signal pushes go-live out by a day AND biases the surviving sample toward whichever days happened to have a fast feed. That is a silent selection effect on the exact dataset the go-live decision is computed from, which is worse than the delay itself. Note the shape: this is the same family as every other denominator finding in this file -- a sample that looks complete because nothing errored.",
+    "the_prescription": "On the first post-bell run, do NOT treat action='wait' as terminal. Do the run's other work (heartbeat, reconciliation, brief, Monday calibration) and RE-FETCH the minute bars before ending. plan_entry is pure and costs nothing to re-call; the whole cost is one extra get_equity_historicals. Only end on 'wait' if the bars are still incomplete after the run's other duties are done -- and then say so explicitly so the next run knows the signal is still unclaimed rather than already declined.",
+    "what_it_does_NOT_license": "Building the OR from fewer than 5 bars, or from a 5-minute bucket. opening_range() returns None below OR_MINUTES precisely so a run must wait rather than guess, and the 5-minute bucket is separately banned (it is the interval this repo has measured holes in three times). The fix is to look again, never to lower the bar.",
+    "todays_outcome": "Paper day 4 logged: LONG QQQ 1 share @ 729.2575, stop 727.82 (OR low), R $1.44, bound by cash. OR high 728.84 / low 727.82 / open 727.95 / close 728.655, body 69.1% of range."
   }
 }
