@@ -40149,6 +40149,34 @@
       "why_only_one_entry": "Not a judgement -- arithmetic. Deployable $1,097.49 (unleveraged BP 1268.22 minus the 5% / $170.73 operational reserve). After a $1,000 entry the residual is $97.49, far below the ~$600 minimum entry. Under the CONCENTRATION POLICY a sub-$600 entry is a SKIPPED opportunity, not a small one, so the second candidate could not have been funded at any grade. The per-run throttle (1) also binds.",
       "options_book": "NO ENTRY. Book is empty and the KILL-branch pause on new agentic options entries was lifted at 14:05Z by an earlier run on a re-measurement of a mis-attributed sample. This run did not revisit that reversal and takes no position on it -- it neither relies on the pause being lifted (no options entry was sought) nor disturbs it. CORE requires a full stack (technical + thesis + IV sanity + liquidity + trend maturity + written exit plan) and nothing on today's list reached it; the equity book was the better use of the same single cash pool.",
       "duties": "Heartbeat already stamped 13:40Z. market_brief built 13:46Z. Monday weekly calibration already run 13:40Z (equity HEALTHY +12.99 pts n=49 but only 7 in-regime -> report only, no parameter changed; options KILL fired then was reversed at 14:05Z; day track graduate() -> go_live FALSE). Daily report is due from the first run at/after 19:15Z -- NOT this run."
+    },
+    {
+      "run_utc": "2026-09-21T14:33:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-21",
+      "prompt_version": "v11",
+      "headline": "DAY TRACK third ratchet: stop 731.5264 -> 733.0714, locking +2.653R with the paper long at +4.11R -- the best trade the track has produced. No trade in either real book: options are PAUSED by this morning's KILL branch, and the equity book is at 3 swings with $97.62 deployable against a $600 minimum entry.",
+      "reconciliation": "ZERO DRIFT both books vs broker. Options 0 contracts / options_value $0 / 0 ledger rows. Equities THREE swings, all placed_agent='agentic', all fully sellable: ABNB 6.573584 @ 169.5209, UNP 3.858199 @ 285.1071, V 2.716801 @ 368.0799. The V row was filled 14:23:39Z by a SIBLING run (order 6ab13deb, $1,000 market, PR #1842) and is already on master -- broker-first check per the 2026-08-28 concurrent-run rule found it before anything else.",
+      "capital": "total_value $3,412.07; cash == buying_power == unleveraged_buying_power == $268.22 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $3,143.85. Reserve 5% = $170.60, DEPLOYABLE $97.62. The V entry took the book from $1,096.50 deployable to $97.62, which is correct and intended under the full-deployment capital policy -- cash is the residual of quality, and three concurrent swings is inside the 3-4 target band.",
+      "day_track": {
+        "phase": "PAPER, paper day 4, ACTIVE",
+        "position": "long QQQ 1 sh from 729.2575, stop_dist 1.4375 pts ($1.44/R)",
+        "pass": "Two-pass manage per the 09-16 adverse-extreme rule. BREACH: worst excursion since the 14:20Z pass was 733.480 (low of the 14:21Z minute bar), clear of the live stop by 1.6-2.0 pts -> the row is legitimately open. RATCHET: manage(price=735.17, session_extreme=735.15, atr5=1.3857) -> raise_stop 733.0714 at 4.113R, locking +2.653R = $3.81 on the single share; unrealized $5.91.",
+        "feed_integrity": "All twelve of today's 5-minute buckets reconcile EXACTLY against their one-minute sums -- volume to the share, high and low to the cent. No hole in either direction.",
+        "graduation": "UNCHANGED and still the only lock: graduate(3, [-1,-1,-1]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. Today's row is OPEN and counts toward neither until it closes. No run promotes the phase mid-week."
+      },
+      "new_durable_finding": "holdings.json._DAY_TRACK_MANAGE_STATE_AND_MANAGE_LOG_DISAGREED_ON_THE_LIVE_STOP_2026-09-21 -- the open row carried two different live stops 34 cents apart because the 14:20Z ratchet was fed a QUOTE-derived session extreme (733.47) where the spec means the BAR-derived one (733.81). Resolved to the higher stop; superseded by this run's 733.0714 in any case; changed no decision today. The key argues it -- this entry only names it.",
+      "position_verdicts": {
+        "ABNB": "HOLD (thesis-watch). 166.46 vs 169.5209 entry, -1.81%. Held 11d of 14 -- TIME STOP 2026-09-24. Underwater, so no RSI2>=70 take-profit is available to it and HARD RULE 5 forbids a price stop; the time stop is its only mechanical exit and it is three days out.",
+        "UNP": "HOLD (thesis-watch). 272.76 vs 285.1071 entry, -4.33%, and -2.37% TODAY on no signal of its own -- the report re-screens it at RSI2 4.6, i.e. it is getting more oversold rather than breaking. Held 11d of 14 -- TIME STOP 2026-09-24. No exit fires: a technical flag alone is never a sell, and the time stop will take it in three sessions green or red. Worth a fresh HARD RULE 7 read before that date, not a reaction to one red session.",
+        "V": "WORKING, entered TODAY at 14:23:39Z by a sibling. 367.515 vs 368.0799, -0.15%. Nothing to manage on day zero; TIME STOP 2026-10-05."
+      },
+      "why_flat": {
+        "options": "PAUSED, not declined. This morning's Monday calibration fired the calibrate.py KILL branch on the options book (-13.41 pts margin over breakeven, n=21, expectancy -$27.24/trade): size halved and NEW AGENTIC OPTIONS ENTRIES PAUSED pending Ryan's review, already escalated in _WEEKLY_CALIBRATION_2026-09-21. No options hunt this run, and the book is empty so there is nothing to exit. The KILL branch is exempt from the in-regime gate by design -- risk-off does not wait for a clean sample.",
+        "equities": "Capital, not conviction. Deployable $97.62 against the ~$600 minimum entry, so no size exists that is an entry rather than a skipped opportunity. The rotation gate is the live question and it fails cleanly: today's board is 12 RSI2 setups of which 5 are Energy (excluded by the sector steer) and V is already taken; nothing remaining grades ABOVE ABNB or UNP on the entry stack, and both of those are three days from a mechanical time stop that will free their capital anyway. Rotating out of a sound thesis 3 days early to fund a fresher signal is the churn the rotation rule explicitly forbids.",
+        "day_track": "One trade per day and it is already open and working. Managed, not re-entered."
+      },
+      "duties": "Heartbeat already stamped 13:40Z by the first post-bell run; brief already rebuilt today; daily report is due from the first run at/after 19:15Z, not this one. Monday calibration already run. IV sweep not repeated -- the core list was logged this morning and nothing was evaluated for entry this run (options paused), so there is no name to log a row for."
     }
   ]
 }
