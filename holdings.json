@@ -8,7 +8,7 @@
     "cap_options_usd": -400.0,
     "cap_headroom_usd": -400.0,
     "entry_throttle": "0 of 3 options entries used; 0 of 3 equity entries used",
-    "options_entries_PAUSED": "YES -- by the 2026-09-21 Monday calibration's KILL branch on the options book, NOT by the loss cap, which is untouched at full -$400 headroom. See _WEEKLY_CALIBRATION_2026-09-21. The throttle number below is the throttle; the pause is a separate and stricter gate.",
+    "options_entries_PAUSED": "NO -- the pause is LIFTED as of 2026-09-21T14:05Z. It was applied at 13:42Z by a KILL branch that fired on a mis-attributed sample (attributed by the CLOSING order and with the authorized hedge never stripped) and was reversed on Ryan's live turn plus an independent re-measurement. See _WEEKLY_CALIBRATION_2026-09-21.OPTIONS_BOOK.REVERSAL and _ATTRIBUTE_AN_OPTIONS_CLOSE_BY_ITS_OPENING_ORDER_AND_STRIP_THE_HEDGE_2026-09-21.",
     "source": "RESET by the FIRST run at/after 09:30 ET of trading day 2026-09-21 (13:30Z), the only run permitted to roll it. MEASURED, not defaulted: get_pnl_trade_history(span='3month') shows the newest trade of any kind is 2026-09-18T14:17:36Z (IBKR sell, an EQUITY close, +$18.90). There is no 2026-09-21 trade and no 2026-09-18 OPTION trade, so trading day 2026-09-18 finished at $0.00 realized options and today opens at zero.",
     "_prior_day": "Trading day 2026-09-18 closed at realized options $0.00 / 0 closes. Its one realized trade was the EQUITY take-profit on IBKR 8.109516 sh @ 89.6305 = +$18.90, the desk's own mechanical RSI2>=70 exit (placed_agent='agentic'). Prior options day of record remains 2026-09-17 at -$415.00, all placed_agent='user'."
   },
@@ -7062,15 +7062,51 @@
         "mixed_book": false
       },
       "verdict": "EDGE GONE -- halve size, pause new entries, ESCALATE.",
-      "changes_applied": {
-        "options_position_size_multiplier": 0.5,
-        "new_options_entries": "PAUSED"
-      },
+      "changes_applied": "REVERSED -- no change stands. options_position_size_multiplier back to 1.0; new agentic options entries NOT paused.",
       "gate_exemption": "The KILL branch is DELIBERATELY EXEMPT from the in-regime gate. n=21 >= 20 and margin -13.41 <= KILL_MARGIN_PTS(0.0), so it fires on its own terms. 'These trades predate the current settings' is not a reason to keep sizing into a book that is losing money. RISK-OFF NEVER WAITS FOR A CLEAN SAMPLE.",
       "PURITY_CHECK_AND_IT_CUTS_THE_OTHER_WAY": "recommend()'s own docstring says to strip hedge/owner legs from the options bucket before believing a KILL, and the 2026-09-18 split_books finding is precisely a case where a contaminated sample fired a FALSE kill. So this run tested the same hypothesis here -- that the KILL is really Ryan's discretionary trades -- and it is REFUTED, decisively and in the direction that removes the excuse. Partitioned by placed_agent on the closing order: AGENTIC-ONLY n=10, net -$518.00, margin -41.76 pts, expectancy -$51.80/trade, win rate 0.333, payoff 0.332. USER-ONLY n=11, net -$54.00, margin -1.85 pts, expectancy -$4.91/trade. Ryan's book is roughly SCRATCH; the desk's own options book is where every dollar of the loss lives. Stripping the owner rows makes the reading THREE TIMES WORSE, not better. The agentic subsample alone returns REPORT ONLY only because n=10 < 20 -- it is not evidence of health, it is a sample too small to act on, sitting under a blended sample that is large enough and says the same thing louder.",
       "worst_agentic_rows": "RBRK 07-21 -$300, WULF 07-16 -$130, CVS 08-11 -$108, WULF 07-24 -$67, SPY 08-26 -$16 net across three legs.",
       "what_the_pause_does_and_does_not_do": "DOES: no new agentic options entry may be opened until Ryan reviews. DOES NOT: block or delay any EXIT, touch the equity book, touch the DAY TRACK, or alter the -$400 daily loss cap (untouched, full headroom). OPERATIONAL COST TODAY IS ZERO AND SAYING SO IS PART OF THE HONESTY: the options book holds 0 contracts and the desk has not opened an options position since 2026-08-26. This pause formalises a four-week abstention rather than imposing a new one -- which is an argument for its cheapness, NOT an argument that it is unimportant.",
-      "ESCALATION_TO_RYAN": "Trailing 21 option closes show a -13.4 pt margin over the 58% breakeven win rate implied by a 0.71 payoff; expectancy -$27.24/trade. Attributed to the desk's own trades it is -41.8 pts on 10 closes. The options strategy is not currently profitable. Position size halved and new agentic options entries PAUSED pending your review. No approval is claimed or implied by this run (HARD RULE 9); this is a measurement and a risk-off action the calibration grant authorises, reported for your decision."
+      "ESCALATION_TO_RYAN": "Trailing 21 option closes show a -13.4 pt margin over the 58% breakeven win rate implied by a 0.71 payoff; expectancy -$27.24/trade. Attributed to the desk's own trades it is -41.8 pts on 10 closes. The options strategy is not currently profitable. Position size halved and new agentic options entries PAUSED pending your review. No approval is claimed or implied by this run (HARD RULE 9); this is a measurement and a risk-off action the calibration grant authorises, reported for your decision.",
+      "STATUS": "WITHDRAWN. See REVERSAL below. The KILL branch fired on a mis-attributed sample and is REVERSED; the figures preserved in this block are the ORIGINAL, WRONG ones, kept so the error is auditable.",
+      "REVERSAL": {
+        "reversed_utc": "2026-09-21T14:05:00Z",
+        "authority": "Ryan, REAL live turn 2026-09-21 (genuinely interactive session, typed user turn): \"Don't kill options most of the negative plays were actually made by me\". He is the principal and lifting a risk-off restriction is his call. He was ALSO substantially right on the facts, and the desk verified that independently before acting rather than deferring to the instruction alone.",
+        "TWO_MEASUREMENT_BUGS_BOTH_MINE": [
+          "ATTRIBUTED BY THE CLOSING ORDER. The morning run partitioned the options bucket on placed_agent of the CLOSE. The ownership gate is defined on the OPEN ('check who opened it -- placed_agent on the fill'). Every position one party opened and the other closed was filed to the wrong side. Misfiled: SPY 700P hedge (agentic open 08-06, user close 09-11) counted as USER; ZTS 70P -$87 (agentic open, user close) counted as USER; SMR 8P +$34 (agentic open, user close) counted as USER.",
+          "THE HEDGE WAS NEVER STRIPPED. recommend()'s own docstring instructs stripping hedge legs from the options bucket before believing a KILL, and CLAUDE.md exempts the authorized defensive hedge from every premium backstop because it is INSURANCE EXPECTED TO DECAY in a melt-up. The SPY 2026-11-20 700P at -$247 is the LARGEST SINGLE LOSS in the sample and is not an edge measurement at all. Including it is a category error, and it alone is 43% of the -$572 that triggered the KILL."
+        ],
+        "corrected_partition_by_OPENING_order_hedge_stripped": {
+          "pure_agentic": {
+            "n": 10,
+            "net_usd": -141.0,
+            "margin_pts": -17.44,
+            "expectancy_usd": -14.1,
+            "win_rate": 0.444
+          },
+          "pure_user": {
+            "n": 6,
+            "net_usd": -40.0,
+            "margin_pts": -2.53,
+            "expectancy_usd": -6.67,
+            "win_rate": 0.5
+          },
+          "mixed_desk_opened_ryan_added": {
+            "n": 4,
+            "net_usd": -144.0,
+            "margin_pts": -10.06,
+            "expectancy_usd": -36.0
+          },
+          "hedge_excluded": {
+            "n": 1,
+            "net_usd": -247.0
+          }
+        },
+        "the_two_rows_quoted_at_ryan_as_the_desks_worst_are_MIXED": "RBRK 90C -$300 (agentic open 07-20, RYAN ADDED 07-21, closed 07-21) and WULF 24C -$130 (agentic open 07-14, RYAN ADDED 07-15, closed 07-16 -- the manual_hold_override incident). Both were presented to him as purely the desk's. That was wrong and he caught it.",
+        "verdict_on_every_corrected_cut": "recommend() returns REPORT ONLY on pure-agentic (n=10 < 20) and on agentic+mixed hedge-stripped (n=14 < 20). NO corrected bucket reaches MIN_TRADES_FOR_ACTION. The KILL fired on a sample artifact.",
+        "what_is_NOT_established_and_saying_so_is_the_point": "The corrected pure-agentic slice is STILL NEGATIVE: -$141 over 10 closes, margin -17.44 pts, expectancy -$14.10. The reversal establishes that the KILL was UNSUPPORTED, not that the desk's options book is healthy. It is UNMEASURED at n=10. Do not read this key as a clean bill of health, and do not let the reversal become a reason to size up.",
+        "operative_state": "Options entries are NOT paused. Size multiplier 1.0. Every other gate unchanged: $1,500 per-trade max, -$400 daily cap, max 3 open CORE, DTE floor 7, full entry stack."
+      }
     },
     "DAY_TRACK": {
       "phase": "PAPER -- unchanged. No run promotes the phase mid-week and this run does not.",
@@ -7110,5 +7146,17 @@
     "the_prescription": "On the first post-bell run, do NOT treat action='wait' as terminal. Do the run's other work (heartbeat, reconciliation, brief, Monday calibration) and RE-FETCH the minute bars before ending. plan_entry is pure and costs nothing to re-call; the whole cost is one extra get_equity_historicals. Only end on 'wait' if the bars are still incomplete after the run's other duties are done -- and then say so explicitly so the next run knows the signal is still unclaimed rather than already declined.",
     "what_it_does_NOT_license": "Building the OR from fewer than 5 bars, or from a 5-minute bucket. opening_range() returns None below OR_MINUTES precisely so a run must wait rather than guess, and the 5-minute bucket is separately banned (it is the interval this repo has measured holes in three times). The fix is to look again, never to lower the bar.",
     "todays_outcome": "Paper day 4 logged: LONG QQQ 1 share @ 729.2575, stop 727.82 (OR low), R $1.44, bound by cash. OR high 728.84 / low 727.82 / open 727.95 / close 728.655, body 69.1% of range."
+  },
+  "_ATTRIBUTE_AN_OPTIONS_CLOSE_BY_ITS_OPENING_ORDER_AND_STRIP_THE_HEDGE_2026-09-21": {
+    "measured_utc": "2026-09-21T14:05:00Z",
+    "status": "NEW DURABLE FINDING, and unlike most in this file it DID change a decision -- it reversed a risk-off action taken three hours earlier on this same trading day.",
+    "headline": "PARTITIONING AN OPTIONS SAMPLE BY THE PLACED_AGENT OF THE *CLOSING* ORDER IS WRONG, AND THE AUTHORIZED HEDGE MUST BE STRIPPED BEFORE ANY EDGE STATISTIC IS COMPUTED. Getting either wrong inflates the desk's measured losses; getting both wrong fired a KILL branch that no corrected cut supports.",
+    "rule_1": "ATTRIBUTE BY THE OPENING ORDER. CLAUDE.md's ownership gate says 'check who opened it -- placed_agent on the fill'. A position the desk opened and Ryan closed is the DESK's; one Ryan opened and the desk closed is RYAN's. The closing order's agent answers 'who pressed the button last', which is not the question an edge measurement asks.",
+    "rule_2": "STRIP THE HEDGE. recommend()'s docstring already says so and it was not done. The defensive hedge is insurance whose expected P&L in a rising tape is NEGATIVE BY DESIGN -- CLAUDE.md exempts it from every premium backstop for exactly that reason. Scoring it as a directional trade guarantees a downward-biased options edge in any up market, i.e. the bias is SYSTEMATIC and points at risk-off, not random.",
+    "rule_3": "A MIXED POSITION IS NOT THE DESK'S. Where the desk opened and Ryan ADDED lots (RBRK 90C, WULF 24C, QQQ 680P, RBRK 90P), the close realizes both parties' basis. Bucket it MIXED and say so; do not silently file it to either side. Four of 21 rows here are mixed and they carry -$144.",
+    "the_arithmetic": "Filed as of 13:42Z: agentic -$518 / -41.76 pts on 10 closes, presented to Ryan as proof the loss was the desk's own. Corrected: pure agentic -$141 / -17.44 pts on 10 closes; hedge -$247 excluded entirely; mixed -$144; pure user -$40. The hedge alone is 43% of the -$572 that tripped the KILL.",
+    "the_transferable_shape": "This file's most-repeated defect, arriving inside the purity check written to prevent it. The morning run DID run a purity check -- it explicitly tested 'is this really Ryan's trades?' and reported the answer as decisive. The check used the wrong key and excluded nothing, so it returned a confident, precise, wrong number and the confidence came from having checked at all. A PURITY CHECK THAT PARTITIONS ON THE WRONG FIELD IS NOT A WEAKER CHECK, IT IS A LICENCE: it converts an unexamined assumption into a measured-looking fact.",
+    "second_shape_worth_keeping": "The KILL branch is deliberately exempt from the in-regime gate so risk-off never waits for a clean sample. That exemption means the KILL is the ONE verdict no sample-quality gate protects -- which the 2026-09-18 split_books finding already said in terms ('a sample-quality bug is most dangerous on the branch that skips sample checks') and which has now happened a second time, through a different field, three days later. THE GENERAL RULE: before firing the KILL, re-derive the sample by a SECOND independent key and require both to agree. Risk-off does not wait for a clean sample; it does not follow that it may run on an uninspected one.",
+    "what_this_does_NOT_license": "Reading the reversal as a health verdict. Pure agentic is -$141 / -17.44 pts / expectancy -$14.10 over 10 closes -- negative, and simply below the n=20 threshold for action. The honest state is UNMEASURED. It is not a reason to size up, and a future run must not cite this key as evidence the options book works."
   }
 }
