@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-21T16:03:00Z",
+  "updated_utc": "2026-09-21T16:19:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-21",
     "realized_usd_options": 0.0,
@@ -5550,7 +5550,7 @@
     "set_utc": "2026-09-14T22:30:00Z",
     "authority": "Ryan, REAL live turn 2026-09-14 (interactive session, typed turns): '1. Let's make the change. 2. Whichever you recommend is fine. 3. 5-20%. 4. Sure. 5. Let's do it.' -- answering the five design decisions in the autonomy-audit proposal. Spec: docs/day-track-spec.md. Code: day_track.py. Prompt carrying the duties: docs/routine-prompt-v11.md (PASTE-READY).",
     "status": "PAPER",
-    "status_note": "PAPER, ACTIVE, paper day 4 OPEN AND WORKING AT +6.28R, locked +5.84R -- by a wide margin the best trade the track has produced (the first three paper days were -1R each). *** Long QQQ from 729.2575 (OR 727.82/728.84, body 69.1% -> long), taken by the 13:37Z sibling run; 1 share, cash-bound, stop_dist 1.4375 pts = $1.44/R. *** 16:19Z: TENTH trail ratchet, 737.6535 (was 737.1305). Breach pass clean -- min low since the 16:03Z pass was 737.370, clearing the live stop by 0.2395. QQQ printed a new session high of 738.360 on the completed 16:11Z bar and the bid is 738.29, so room widened to 0.6365 pts and the trail is PLACEABLE again after the 16:03Z pass left it above the market. *** LEDGER REPAIR THIS RUN: the 16:03Z pass ratcheted _manage_state.stop_px_signal_current to 737.1305 but left the top-level `stop` at 736.4524 and appended no _manage_log row, breaking two of the three equalities its own _stop_field_contract states. Both repaired; the ninth-ratchet log row is reconstructed verbatim from commit 32c7333 and marked _reconstructed. The contract is now EXECUTABLE -- day_track.assert_row_invariants() -- see _THE_STOP_FIELD_CONTRACT_WAS_PROSE_AND_THE_NEXT_PASS_BROKE_IT_2026-09-21. *** GRADUATION UNCHANGED AND IT REMAINS THE ONLY LOCK: graduate(3, [-1.0,-1.0,-1.0]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. Today's row is still OPEN, so it counts toward neither count until it closes. The v11 stop-authority lock opened 2026-09-15 and graduates NOTHING; only a Monday calibration flips the phase, and no run promotes it mid-week. *** Flat rule fires at 15:30 ET (19:30Z), ~3.2h away.",
+    "status_note": "PAPER, ACTIVE, paper day 4 OPEN AND WORKING AT +6.28R, locked +5.84R -- by a wide margin the best trade the track has produced (the first three paper days were -1R each). *** Long QQQ from 729.2575 (OR 727.82/728.84, body 69.1% -> long), taken by the 13:37Z sibling run; 1 share, cash-bound, stop_dist 1.4375 pts = $1.44/R. *** 16:19Z: TENTH trail ratchet, 737.6885 (was 737.1305). Breach pass clean -- min low since the 16:03Z pass was 737.370, clearing the live stop by 0.2395. QQQ printed a new session high of 738.360 on the completed 16:11Z bar and the bid is 738.29, so room widened to 0.6365 pts and the trail is PLACEABLE again after the 16:03Z pass left it above the market. *** LEDGER REPAIR THIS RUN: the 16:03Z pass ratcheted _manage_state.stop_px_signal_current to 737.1305 but left the top-level `stop` at 736.4524 and appended no _manage_log row, breaking two of the three equalities its own _stop_field_contract states. Both repaired; the ninth-ratchet log row is reconstructed verbatim from commit 32c7333 and marked _reconstructed. The contract is now EXECUTABLE -- day_track.assert_row_invariants() -- see _THE_STOP_FIELD_CONTRACT_WAS_PROSE_AND_THE_NEXT_PASS_BROKE_IT_2026-09-21. *** GRADUATION UNCHANGED AND IT REMAINS THE ONLY LOCK: graduate(3, [-1.0,-1.0,-1.0]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. Today's row is still OPEN, so it counts toward neither count until it closes. The v11 stop-authority lock opened 2026-09-15 and graduates NOTHING; only a Monday calibration flips the phase, and no run promotes it mid-week. *** Flat rule fires at 15:30 ET (19:30Z), ~3.2h away. *** UNION 16:18Z/16:19Z: two concurrent runs took this slot, agreed exactly on atr5 0.47099, and differed only in the session extreme (738.395 vs 738.360) because one had two more completed bars. Union takes the higher, so the tenth ratchet is 737.6885 and +5.865R is locked. The 16:18Z pass additionally found that the breach window spans the 16:03Z stop change -- see _DAY_TRACK_THE_BREACH_WINDOW_MUST_BE_PARTITIONED_AT_EVERY_STOP_CHANGE_2026-09-21.",
     "signal_symbol": "QQQ",
     "long_vehicle": "QQQ",
     "short_vehicle": "PSQ",
@@ -5824,7 +5824,7 @@
         "direction": "long",
         "vehicle": "QQQ",
         "entry": 729.2575,
-        "stop": 737.1305,
+        "stop": 737.6885,
         "shares": 1,
         "r_usd": 1.44,
         "status": "open",
@@ -5833,7 +5833,7 @@
         "r_multiple": null,
         "pnl_usd": null,
         "_mirror_of": "day_track_paper.json rows[-1]; that file is the source of truth. Kept in sync per _RESULTS_ARE_THE_PAUSE_INPUT_AND_WERE_DESYNCED_FROM_THE_PAPER_LOG_2026-09-18 -- this array is the PAUSE INPUT and a stale copy fails OPEN.",
-        "_managed": "16:03Z: NINTH trail ratchet, 736.4524 -> 737.1305, locking +7.8730 pts = +5.4769R with +5.66R on the screen. Two-pass manage: breach pass on the 736.940 min low since the 15:46Z pass -> no breach, 0.4876 clear; ratchet pass on the SECOND quote (737.400) -> raise_stop. THE FIRST QUOTE OF THIS RUN PUT THE TRAIL ABOVE THE MARKET and a single-quote run would have closed the trade at +5.43R -- see finding_4 of _DAY_TRACK_THE_ATR_TRAIL_CONVERGES_ON_PRICE_WHEN_VOLATILITY_COMPRESSES_2026-09-21. atr5 0.48635 on the 14 completed buckets 14:50Z..15:55Z; all six recent buckets reconciled EXACTLY to their 1-minute sums. PAPER -- nothing sent to a broker. Mirror of day_track_paper.json rows[-1]._manage_state, which is the source of truth."
+        "_managed": "16:03Z: NINTH trail ratchet, 736.4524 -> 737.1305, locking +7.8730 pts = +5.4769R with +5.66R on the screen. Two-pass manage: breach pass on the 736.940 min low since the 15:46Z pass -> no breach, 0.4876 clear; ratchet pass on the SECOND quote (737.400) -> raise_stop. THE FIRST QUOTE OF THIS RUN PUT THE TRAIL ABOVE THE MARKET and a single-quote run would have closed the trade at +5.43R -- see finding_4 of _DAY_TRACK_THE_ATR_TRAIL_CONVERGES_ON_PRICE_WHEN_VOLATILITY_COMPRESSES_2026-09-21. atr5 0.48635 on the 14 completed buckets 14:50Z..15:55Z; all six recent buckets reconciled EXACTLY to their 1-minute sums. PAPER -- nothing sent to a broker. Mirror of day_track_paper.json rows[-1]._manage_state, which is the source of truth. | UNION of the concurrent 16:18Z/16:19Z passes: extreme 738.360 -> 738.395, stop 737.6535 -> 737.6885, +5.865R locked"
       }
     ],
     "graduation": {
@@ -7463,5 +7463,44 @@
     "the_consequence_if_it_had_been_live": "The breach test and (in LIVE) the cancel/replace read `stop`. A stale-LOW stop fails OPEN -- it would have left a resting stop 0.68 pts below where the ratchet said it should be, giving back ~0.47R of locked profit on a stop-out. Not a catastrophe, and that is the point: it is exactly the size of error that survives review.",
     "the_fix": "day_track.assert_row_invariants(row) -- pure, raises AssertionError, called before committing any paper or live row. Its self-tests are the two real defects (stale `stop`, stale log row) plus the 14:45Z overwritten-entry-stop case and a short-side row. Also added day_track.stop_is_placeable(direction, stop, price): manage() ratchets on session_extreme -/+ 1.5 x atr5 with no guard against returning a stop on the wrong side of the market, which is what produced the 16:01Z near-close. BOTH ARE BOOKKEEPING: no gate, no filter, no spec change, and manage() is NOT wired to either. The spec is edited only by an interactive session with a real Ryan turn.",
     "for_the_graduation_review": "stop_is_placeable is the measurement, not the remedy. A trail that converges past spot in a volatility compression is a genuine property of a fixed 1.5x ATR trail on a decaying ATR, and whether the right answer is a floor on the trail, a minimum room, or simply closing the trade at that point is a SPEC question for Ryan. Measured today: atr5 fell 1.3857 -> 0.47099 (-66%) across one session and the trail crossed the market once."
+  },
+  "_DAY_TRACK_THE_BREACH_WINDOW_MUST_BE_PARTITIONED_AT_EVERY_STOP_CHANGE_2026-09-21": {
+    "measured_utc": "2026-09-21T16:18:00Z",
+    "measured_by": "scheduled run 16:18Z 2026-09-21 (unattended, prompt v11), concurrent with the 16:19Z run; resolved as a UNION, neither side discarded.",
+    "headline": "A RATCHET DECIDED AT TIME T OFF BARS ENDING AT T-k LEAVES A k-MINUTE ORPHAN WINDOW THAT BELONGS TO THE **OLD** STOP. Test that window against the NEW stop and you fabricate a stop-out; start the window at T and you never test it at all. Both shortcuts were live today, one in each concurrent run.",
+    "the_mechanism": "The 2026-09-16 rule says: in PAPER, feed manage() the adverse extreme over the interval SINCE THE LAST PASS. That rule is right and is not amended here. What it does not say is that a pass has TWO timestamps: the 16:03Z pass tested bars only up to 15:59Z and then set a new stop. The bars 16:00Z-16:02Z therefore traded under the OLD stop and were breach-tested by nobody. A window that SPANS a stop change cannot be tested against a single stop.",
+    "the_measurement": {
+      "position": "DAY TRACK paper day 4, long QQQ 1 share from 729.2575, stop_dist 1.4375.",
+      "stop_history": {
+        "15:46Z_eighth": 736.4524,
+        "16:03Z_ninth": 737.1305,
+        "16:18Z_tenth_union": 737.6885
+      },
+      "last_bar_breach_tested_by_the_16:03Z_pass": "15:59Z",
+      "orphan_window_16:00-16:02Z": {
+        "lows": [
+          736.9401,
+          737.01,
+          737.09
+        ],
+        "vs_OLD_stop_736.4524": "clear by 0.4877",
+        "vs_NEW_stop_737.1305": "BREACHES by 0.1904 -- but that stop did not exist yet"
+      },
+      "post_ratchet_window_16:03-16:17Z": {
+        "min_low": 737.37,
+        "bar": "16:07Z",
+        "vs_737.1305": "clear by 0.2395"
+      },
+      "naive_single_window": "min low 16:00Z-16:17Z = 736.9401 vs 737.1305 -> manage() returns {'action':'close','reason':'stop level reached'} -> the row closes at +5.4769R.",
+      "what_the_16:19Z_run_did": "Started its window at 16:03Z and cleared correctly -- the right answer, reached by using the pass TIMESTAMP as the boundary rather than the pass's DATA CUTOFF. That happens to be the correct partition boundary, but it drops the orphan bars silently, so a real breach of the OLD stop inside such a window would go unexamined. Correct today, unsafe as a general rule.",
+      "cost_of_the_naive_reading": "0.7R of open profit deleted and, worse, an exit row written with reason 'stop level reached' that never happened, feeding day_track.graduate() a fabricated close."
+    },
+    "the_rule": "PARTITION THE NEVER-TESTED WINDOW AT EVERY STOP CHANGE INSIDE IT AND TEST EACH SUB-WINDOW AGAINST THE STOP THAT WAS LIVE DURING IT. The window starts where the last test ENDED, not where the last pass RAN; its threshold changes wherever the stop did. Neither shortcut is safe: testing the whole window against the new stop fabricates stop-outs, and starting at the pass timestamp leaves real breaches of the old stop unexamined -- the 2026-09-16 loser-deleting bias through a side door.",
+    "when_it_can_bite": "ONLY when a ratchet lands ABOVE a price traded in the orphan window -- exactly the condition the 16:03Z run flagged when the trail crossed above the live market for the first time, which is itself produced by the ATR-trail convergence in _DAY_TRACK_THE_ATR_TRAIL_CONVERGES_ON_PRICE_WHEN_VOLATILITY_COMPRESSES_2026-09-21. THREE FINDINGS CHAIN: the trail tightens toward prevailing volatility -> it prints above recently-traded prices -> the orphan window then contains prices below the new stop. On a normally-trailing position the new stop sits under everything in the orphan window and both shortcuts give the same answer, which is why this survived nine ratchets.",
+    "the_bias_runs_OPPOSITE_to_the_2026-09-16_one": "The 09-16 defect (handing manage() the current quote) deletes LOSERS -- a breach followed by a recovery becomes an open winner. This one deletes WINNERS' upside, converting a working trade into an early mechanical close. They do NOT cancel inside day_track.graduate(), which tests the win rate against the breakeven implied by the payoff ratio: one defect inflates the win rate, the other truncates the payoff. Distorting both legs of that comparison in opposite directions is worse than distorting either alone.",
+    "read_with_its_sibling": "_THE_STOP_FIELD_CONTRACT_WAS_PROSE_AND_THE_NEXT_PASS_BROKE_IT_2026-09-21 (the 16:19Z run) covers the other defect this run also found: day_track_paper.json's `stop` field still held the EIGHTH ratchet while _manage_state held the ninth. That run's fix -- day_track.assert_row_invariants(), executable rather than prose -- is the right one and is not duplicated here. WORTH RECORDING BECAUSE IT EXPLAINS WHY NEITHER WAS VISIBLE: THE TWO DEFECTS CANCELLED. A run obeying the prose contract reads the STALE 736.4524, tests the naive window's 736.9401 against it, and finds no breach -- the RIGHT answer from the WRONG stop. This repo's most-repeated shape, a check that passes for the wrong reason, arriving as two bugs that hid each other.",
+    "what_this_run_did": "NOTHING to the spec. day_track.manage() was applied exactly as written; no parameter, gate or filter was added or changed. The fix is to WHICH NUMBERS the function is asked about -- the same class of fix as the 2026-09-16 prescription, which v11 and CLAUDE.md permit an unattended run to make, unlike a rule change.",
+    "for_the_graduation_review": "manage() has no notion of WHEN its stop was placed, so the breach window has to be reconstructed by hand every pass and two concurrent runs reconstructed it two different ways. The cheapest honest fix is to carry the stop's placement timestamp alongside its level in _manage_log (the rows already have run_utc -- derive the boundary from it), making the partition mechanical. Code change, interactive session with a real Ryan turn, not an unattended run's to make.",
+    "honest_scope": "ONE instance. It did NOT change today's outcome -- the concurrent 16:19Z run reached the same no-breach verdict by a different route, and the union row stays open either way -- so this is an audit that cost nothing and licensed nothing. What it establishes is the general rule, which is arithmetic rather than judgement: 736.9401 printed at 16:00Z and the 737.1305 stop was not placed until 16:03Z."
   }
 }
