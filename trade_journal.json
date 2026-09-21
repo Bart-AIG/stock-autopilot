@@ -40025,6 +40025,32 @@
       "action": "Options pause LIFTED, size multiplier back to 1.0. No other gate touched. Equity book unchanged (still REPORT ONLY on the in-regime gate). No trade placed.",
       "honest_limit": "The reversal establishes the KILL was UNSUPPORTED, not that the options book is healthy. Pure agentic is still negative and simply below the action threshold. Recorded so no future run cites this as a clean bill of health.",
       "durable_key": "holdings.json._ATTRIBUTE_AN_OPTIONS_CLOSE_BY_ITS_OPENING_ORDER_AND_STRIP_THE_HEDGE_2026-09-21"
+    },
+    {
+      "run_utc": "2026-09-21T14:05:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-21",
+      "headline": "DAY TRACK: the 2R trail armed for the first time ever -- paper stop ratcheted 729.2575 -> 730.8469, +1.106R locked, and the ratchet resolved a five-day-old disagreement about the atr5 input. EQUITIES: UNP -6.20% idiosyncratic with no findable cause; HARD RULE 7 research returns INTACT-but-unexplained, NOT broken, so HOLD to the 09-24 time stop. No trade either book.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 14:01-14:03Z. Options book EMPTY (options_value $0, 0 ledger rows). Equities TWO swings, both placed_agent='agentic', both fully sellable: ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11 -- exact ledger match. get_equity_orders(created_at_gte=2026-09-21) returns ZERO orders, so no sibling fill and no unauthorized trade.",
+      "capital": "total_value $3,413.01; cash == buying_power == unleveraged_buying_power == $1,268.22 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $2,144.79. Operational reserve 5% = $170.65; DEPLOYABLE $1,097.57, above the ~$600 minimum entry.",
+      "tape": "SPY 767.63 +0.78%, QQQ 732.61 +1.55%. Rails: UNP 273.05 -6.20%, NSC 309.94 -1.34%, CSX 46.22 -1.87%, IYT 79.38 -1.11%. Numbers only, no regime verdict.",
+      "day_track": {
+        "phase": "PAPER",
+        "action": "MANAGE -> raise_stop",
+        "detail": "Two-pass manage per the 09-16 prescription. PASS 1 breach test on the adverse extreme since the last pass (731.07, the min low across 13:49-13:59) -> hold, 1.261R, never within 1.8 points of the live stop. PASS 2 ratchet on the bid 732.58 with session_extreme 732.67 and atr5 1.2154 -> raise_stop to 730.8469 at 2.311R. Nothing placed (PAPER); in LIVE this is a cancel/replace of the resting stop_market.",
+        "first_ever": "No prior paper trade had reached +2R -- the three before this one stopped out inside two minutes or were managed below the threshold -- so manage() had never dereferenced atr5 until this pass.",
+        "finding": "_DAY_TRACK_atr5_WAS_READ_TWO_WAYS_AND_THE_DIFFERENCE_ONLY_SURFACES_AT_2R_2026-09-21 (holdings.json). The 13:50Z run recorded atr5 as None by counting only today's bars; the 09-16 finding had already measured ATR14(5-min) from a series spanning the prior session and defended executing it as written. The spanning read governs. Immaterial at 13:50Z (r was 1.435R, below the 2.0 gate); decisive now.",
+        "graduation": "graduate(3, [-1.0,-1.0,-1.0]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. Today's row is still open and counts toward neither until it closes. No phase promoted -- only a Monday calibration does that."
+      },
+      "equities": {
+        "ABNB": "HOLD. 165.77, -2.21% vs entry 169.5209, -$24.66. Held 11d, time stop 2026-09-24. Underwater so the RSI2>=70 take-profit is unavailable by construction. No price stop (HARD RULE 5). Nothing fired.",
+        "UNP": "HOLD, and it is the decision of this run. 273.05, -4.23% vs entry 285.1071, -$46.52. Held 11d, time stop 2026-09-24 (3 sessions, inside TIME_STOP_WARN_DAYS). HARD RULE 7 research run in full because the 13:48Z run explicitly assigned it: verdict INTACT on fundamentals, UNEXPLAINED on the tape, NOT BROKEN. Evidence and the honest information gap are written to holdings.json.positions[UNP]._current_state.hard_rule_7_research rather than re-argued here.",
+        "entry": "NONE. The committed report on master is still Friday's (latest_morning.md 2026-09-18T14:07Z / latest_intraday.md 2026-09-18T19:06Z); today's Actions scan has not landed. v11 requires signal-sourcing from the current committed report, and the opening-window deferral independently prefers the first run at/after ~14:15Z. Capital was NOT the binding constraint today ($1,097.57 deployable, above the $600 floor) -- the report was."
+      },
+      "options": "NO ENTRY, and none is permissible: this morning's Monday calibration fired the KILL branch on the options book (-13.41 pts margin over breakeven, n=21, expectancy -$27.24/trade), halving size and PAUSING new agentic options entries pending Ryan's review. Book is empty, so no exits to run either. Entry throttle untouched.",
+      "why_flat": "Day track: already in a position, and plan_entry() returns skip/late-entry anyway; one trade per day. Equities: no current committed report to source a signal from. Options: paused by the KILL branch.",
+      "notification": "ONE push sent to Ryan at 14:06Z covering the UNP divergence and the hold decision. First notification of this incident; a later run re-notifies only on a material worsening or a surfaced cause.",
+      "duties": "Heartbeat already stamped 13:40Z by the first post-bell run -- not re-stamped. Market brief already built today. Monday calibration already run by that same run (_WEEKLY_CALIBRATION_2026-09-21); not re-run. Daily report not due until the first run at/after 19:15Z. No IV row logged: no options candidate was evaluated under the KILL pause."
     }
   ]
 }
