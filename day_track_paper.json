@@ -280,8 +280,8 @@
       "entry_px_signal_venue_utc": "2026-09-21T13:37:33.970378250Z",
       "entry_px_vehicle": 729.2575,
       "entry_px_vehicle_venue_utc": "2026-09-21T13:37:33.970378250Z",
-      "stop_px_signal": 733.0714,
-      "stop_px_vehicle": 733.0714,
+      "stop_px_signal": 727.82,
+      "stop_px_vehicle": 727.82,
       "stop_dist_pct": 0.1971,
       "shares": 1,
       "dollars": 729.26,
@@ -295,17 +295,17 @@
       "quote_provenance": "Signal and vehicle are the same instrument on a long, so one quote serves both: QQQ last_trade_price 729.2575, venue 13:37:33.970Z, bid 729.24 / ask 729.26 (spread $0.02). Taken 7.5 minutes after the bell, i.e. past the opening-auction window the standing rule warns about, and used only for sizing a paper row.",
       "sampling_bias_note": "FIRST LONG-SIDE PAPER SIGNAL SINCE 09-16 and it partly answers _DAY_TRACK_THE_LONG_SIDE_IS_NOW_UNAFFORDABLE_SO_THE_PAPER_SAMPLE_WILL_SELECT_SHORTS_2026-09-17: the long side is affordable again at exactly ONE share, because the IBKR take-profit returned $727 of cash on 09-18. The bias has not disappeared, it has narrowed -- a 1-share long quantizes horribly (any R is a whole $1.44 and slippage is not divisible), whereas the short side buys 40+ shares of a $25 vehicle. Quantization asymmetry between the two sides remains a live threat to the graduation sample's validity and should be named in the go-live review.",
       "_manage_state": {
-        "peak_px_signal": 735.15,
+        "peak_px_signal": 735.87,
         "adverse_extreme_since_entry": 728.855,
-        "stop_px_signal_current": 733.0714,
-        "r_now": 4.113,
-        "last_managed_utc": "2026-09-21T14:33:00Z",
+        "stop_px_signal_current": 734.6175,
+        "r_now": 4.593,
+        "last_managed_utc": "2026-09-21T15:01:00Z",
         "breakeven_armed": true,
         "trail_armed": true,
-        "atr14_5min_used": 1.3857,
-        "_two_pass_manage": "PASS 1 (breach test, per _DAY_TRACK_IN_PAPER_manage_MUST_BE_FED_THE_ADVERSE_EXTREME_SINCE_THE_LAST_PASS): the worst excursion since the 14:20Z pass is 733.480 (low of the 14:21Z one-minute bar, the minimum low across 14:20-14:30Z). That sits 1.954 points above the 731.5264 stop the log carried and 1.614 above the 731.8664 _manage_state carried, so the row is legitimately open under EITHER reading of the live stop and the discrepancy recorded below changed nothing today. PASS 2 (ratchet): manage(price=735.17, session_extreme=735.15, atr5=1.3857, stop_dist=1.4375) -> {'action':'raise_stop','stop':733.0714,'reason':'ratchet at 4.11R'}. THIRD ratchet of the day and the highest R the track has reached: 733.0714 = 735.15 - 1.5 x 1.3857, which is 3.8139 points (2.653R) above the 729.2575 entry. The trade is now locked at +2.65R with +4.11R on the screen. PAPER -- nothing sent; in LIVE this is the third cancel/replace of the resting stop_market.",
-        "_session_extreme_is_bar_derived": "735.15 is the highest COMPLETED one-minute bar high since entry (the 14:30Z bar). The live last trade is 735.17, so the true session high is at least 735.17 and the extreme fed here is a FLOOR, per CLAUDE.md's rule on quoting session extremes. Using the settled bar is the conservative choice: it produces a lower stop (733.0714 vs 733.0914) and can never ratchet on a print that a later fetch revises away.",
-        "_atr5_note": "1.3857, recomputed this run on 14 completed 5-minute buckets ending 14:25Z -- 10 from the 2026-09-18 tail plus today's 12, taking the last 14. Same cross-session composition convention the 09-16 finding established and the 14:05Z/14:20Z passes used; only the window slid forward. ATR has risen 1.2154 -> 1.2957 -> 1.3857 across the three passes as today's wider bars displace Friday's placid close, which loosens the trail slightly on each pass -- the same sign as noted at 14:05Z."
+        "atr14_5min_used": 0.83498,
+        "_two_pass_manage": "PASS 1 (breach, per _DAY_TRACK_IN_PAPER_manage_MUST_BE_FED_THE_ADVERSE_EXTREME_SINCE_THE_LAST_PASS): worst excursion since the 14:45Z pass = 734.620 (min low across the 14:45-14:59Z one-minute bars). That clears the live 734.5774 stop by 0.0426 pts -- FOUR AND A QUARTER CENTS, by a wide margin the narrowest survival the track has recorded. manage() fed 734.620 returns raise_stop, not close, so the row is legitimately open. The 14:45Z pass predicted a stop-out was likely; it did not happen, and the margin says how nearly it did. PASS 2 (ratchet): manage('long', 729.2575, 734.5774, price=735.86, session_extreme=735.870, atr5=0.83498, '11:01', stop_dist=1.4375) -> {'action':'raise_stop','stop':734.6175,'reason':'ratchet at 4.59R'}. FIFTH ratchet of the day: 734.6175 = 735.870 - 1.5 x 0.83498, i.e. 5.3600 pts (3.7287R) above the 729.2575 entry. Locked +3.73R with +4.59R on the screen. PAPER -- nothing sent; in LIVE this is the fifth cancel/replace of the resting stop_market.",
+        "_session_extreme_is_bar_derived": "735.870 is the highest COMPLETED one-minute bar high since entry (the 14:58Z bar; the 14:35Z 5-minute bucket's 735.8611 is now superseded). Live last trade 735.86, so the true extreme is at least 735.87 and this is a FLOOR. Bar-derived, never quote-derived, per _DAY_TRACK_MANAGE_STATE_AND_MANAGE_LOG_DISAGREED_ON_THE_LIVE_STOP_2026-09-21.",
+        "_atr5_note": "0.83498 -- the ATR14(5-minute) published on the last COMPLETED bucket (14:50Z). The 14:55Z bucket was still in progress at 15:01Z and reads 0.83784; using the completed value is the standing convention and is also the conservative choice here, since the lower ATR produces the HIGHER (tighter) stop by 0.0042. The overnight-gap cliff documented at 14:45Z has finished playing out: atr5 has gone 1.3857 -> 0.8558 -> 0.83498 and is now flat, i.e. the series has settled onto today's own bars, exactly as _DAY_TRACK_THE_TRAIL_CARRIES_AN_OVERNIGHT_GAP_TERM_THAT_EXPIRES_AT_A_KNOWN_CLOCK_TIME_2026-09-21 predicted."
       },
       "entry": 729.2575,
       "exit_px": null,
@@ -368,9 +368,28 @@
           "atr5_note": "0.8558 -- DOWN 38.2% from the 1.3857 of twelve minutes ago, and NOT because the tape calmed. This is the pass on which the session printed its 15th five-minute bucket, so the ATR14 window is for the first time composed entirely of today's bars and the overnight-gap true range (7.48 pts, the 13:30Z bucket measured against Friday's 721.36 close) has rolled out of it. 7.48/14 = 0.534, which is the entire move. See _DAY_TRACK_THE_TRAIL_CARRIES_AN_OVERNIGHT_GAP_TERM_THAT_EXPIRES_AT_A_KNOWN_CLOCK_TIME_2026-09-21.",
           "honest_note": "The new stop sits 0.373 pts (0.051%) under spot and 0.017 BELOW the 734.560 low printed at 14:43Z, four minutes before this pass. A stop-out on the next pass is likely. That is the spec executing as written, not a judgement call, and the ratchet was applied without modification per the DAY TRACK's execute-do-not-judge clause.",
           "paper": "PAPER -- nothing sent. In LIVE this is a cancel/replace of the resting stop_market."
+        },
+        {
+          "run_utc": "2026-09-21T15:01:00Z",
+          "action": "raise_stop",
+          "from": 734.5774,
+          "to": 734.6175,
+          "r_at_pass": 4.593,
+          "locked_r": 3.7287,
+          "inputs": {
+            "price_last": 735.86,
+            "session_extreme": 735.87,
+            "atr5": 0.83498,
+            "stop_dist": 1.4375
+          },
+          "breach_pass": "adverse extreme since the 14:45Z pass = 734.620 (min low of the 14:45-14:59Z one-minute bars) -> clears the live 734.5774 stop by 0.0426 pts. Legitimately open, not a recovered stop-out -- but by four cents, the narrowest margin in the track's history.",
+          "feed_integrity": "The four newest 5-minute buckets (14:40/14:45/14:50/14:55Z) reconcile EXACTLY against their one-minute sums -- volume to the share (264,496 / 181,367 / 161,745 / 168,067) and high and low to the cent. No hole in either direction under the 2026-08-28 direction rule. SPY pulled in the same call as the free cross-symbol check and prints normally throughout.",
+          "field_repair": "Repaired three disagreeing stop fields on this row before the pass -- see _stop_field_contract and holdings.json._DAY_TRACK_THREE_FIELDS_HELD_THE_LIVE_STOP_AND_THE_ENTRY_STOP_WAS_OVERWRITTEN_2026-09-21. It changed no decision: the breach test was run against 734.5774, the highest and therefore governing value, which is what the ratchet-up-only rule requires.",
+          "paper": "PAPER -- nothing sent. In LIVE this is a cancel/replace of the resting stop_market."
         }
       ],
-      "stop": 734.5774
+      "stop": 734.6175,
+      "_stop_field_contract": "ONE LIVE STOP, ONE ENTRY STOP, AND AN ASSERTION. `stop` is the ONLY live stop and is what the breach test and (in LIVE) the cancel/replace read. `stop_px_signal` / `stop_px_vehicle` are the IMMUTABLE ENTRY stop -- 727.82, the opposite OR edge per day_track.initial_stop(OR, 'long', atr14_daily=8.3193): range 1.02 > 0.1 x 8.3193, so the edge stands unadjusted, and 729.2575 - 727.82 = 1.4375 == stop_dist. They were ratcheted in place through the 14:33Z pass and left at 733.0714 when the 14:45Z pass introduced `stop`; restored here. `_manage_state.stop_px_signal_current` MIRRORS `stop` and every pass must rewrite it. ASSERT BEFORE COMMITTING: stop == _manage_state.stop_px_signal_current == _manage_log[-1]['to'], and round(entry_px_signal - stop_px_signal, 4) == stop_dist for a long. See holdings.json._DAY_TRACK_THREE_FIELDS_HELD_THE_LIVE_STOP_AND_THE_ENTRY_STOP_WAS_OVERWRITTEN_2026-09-21."
     }
   ]
 }
