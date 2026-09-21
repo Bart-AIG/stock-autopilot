@@ -40051,6 +40051,53 @@
       "why_flat": "Day track: already in a position, and plan_entry() returns skip/late-entry anyway; one trade per day. Equities: no current committed report to source a signal from. Options: paused by the KILL branch.",
       "notification": "ONE push sent to Ryan at 14:06Z covering the UNP divergence and the hold decision. First notification of this incident; a later run re-notifies only on a material worsening or a surfaced cause.",
       "duties": "Heartbeat already stamped 13:40Z by the first post-bell run -- not re-stamped. Market brief already built today. Monday calibration already run by that same run (_WEEKLY_CALIBRATION_2026-09-21); not re-run. Daily report not due until the first run at/after 19:15Z. No IV row logged: no options candidate was evaluated under the KILL pause."
+    },
+    {
+      "run_utc": "2026-09-21T14:24:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-21",
+      "prompt_version": "v11 (line-1 stamp 'prompt v11, pasted 2026-09-14')",
+      "headline": "EQUITY FILL: V 2.716801 sh @ $368.0799 = $1,000.00, the day's 1 autonomous entry. Day track paper trail ratchets a second time to +1.815R locked. UNP's unexplained weakness is now explained and the thesis holds.",
+      "regime": "SPY 768.43 (+0.88% on the day, adjusted prior close 761.69), QQQ 733.69 (+1.80%), both at session highs. Rails are the day's outlier on the other side: UNP -2.24%, CSX -1.89%, NSC -1.41%.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 14:19-14:21Z, pre-trade. Options book EMPTY (0 positions, options_value $0, 0 ledger rows). Equities: ABNB 6.573584 @ 169.52 and UNP 3.858199 @ 285.11, both fully sellable, both placed_agent='agentic'. total_value $3,414.5746; cash == buying_power == unleveraged_buying_power == $1,268.22 (no margin extended).",
+      "day_track": {
+        "phase": "PAPER (day 4 of the >=10 required; 4 signals of the >=8 required)",
+        "action": "raise_stop 730.8469 -> 731.8664, locking +1.815R. Nothing sent -- PAPER.",
+        "state": "QQQ long, paper entry 729.2575 (13:37Z sibling fill), r_now 3.077 at the 733.68 bid, peak 733.81, ATR14(5-min) 1.2957.",
+        "note": "Row is in day_track_paper.json; this entry names it rather than re-arguing it. Feed reconciliation clean on all three newest 5-minute buckets (exact match to 1-minute sums)."
+      },
+      "positions_verdict": {
+        "ABNB": "WORKING-ish / stalled. 166.22 vs entry 169.5209 = -1.95%. HOLD (thesis-watch). No price stop per HARD RULE 5. TIME STOP 2026-09-24, 3 days out -- inside TIME_STOP_WARN_DAYS, so an RSI2 bounce between now and Thursday is better sold INTO than out of.",
+        "UNP": "STALLED, thesis INTACT and now EXPLAINED -- this closes the open question the 2c07262 run left as 'intact-but-unexplained'. 273.105 vs entry 285.1071 = -4.21%, and -2.24% today against a +0.88% SPY. The move is SECTOR, not name-specific: CSX -1.89% and NSC -1.41% on the same tape, and the driver is the J.B. Hunt profit warning of 09-16 (JBHT -13%, its worst day since March 2020) on diesel at $6.31/gal, +70.5% y/y, which de-rated freight broadly. Newest UNP-specific news is 09-16 and it is BULLISH: UBS upgraded Neutral -> BUY, PT $310 -> $339, on 3.5% 2027 volume growth, intermodal +6-7%, and explicit pricing tailwind VERSUS THE TRUCKLOAD MARKET -- i.e. the very diesel shock selling the rails is a relative POSITIVE for rail economics. Consensus mean PT $334.04 (overweight) vs spot 273.11 = +22%. Verdict INTACT; no thesis_checked write, because the report has UNP on the HOLD/underwater path, not the below_200ma / out_of_decile THESIS CHECK path whose reason keys that field suppresses. TIME STOP 2026-09-24.",
+        "V": "NEW, filled this run. See holdings.json.V._entry_gate_stack."
+      },
+      "entry_taken": {
+        "symbol": "V",
+        "side": "buy",
+        "order_id": "6ab13deb-802c-4d3c-bcab-c8af0f71b85c",
+        "filled_utc": "2026-09-21T14:23:39.46Z",
+        "shares": 2.716801,
+        "avg_price": 368.0799,
+        "dollars": 1000.0,
+        "placed_agent": "agentic",
+        "pct_of_account": "29.29%",
+        "time_stop": "2026-10-05",
+        "why": "Only non-energy candidate clearing BOTH the RSI2 (<10) and the rising-200-day gates with real margin. Grade A-, with the shallow oversold leg (RSI2 8.6) stated as the weak leg rather than dressed up.",
+        "broker_first": "get_equity_orders(created_at_gte=2026-09-21) returned ZERO orders immediately before placing, then origin/master re-fetched (35b432a) and holdings.json re-read: 2 positions, throttle '0 of 3 equity entries'. No sibling had landed an entry. Review gate order_checks {}."
+      },
+      "grades_considered": {
+        "_universe": "12 RSI2 setups on latest_morning.md 2026-09-21T14:07Z (commit 35b432a, header clean, no DATA ERROR).",
+        "SLB/OXY/CVX/COP/XOM": "EXCLUDED before grading -- standing de-emphasized-energy sector steer. 5 of 12, and the report itself flagged the cluster.",
+        "CVS": "B. The strongest-LOOKING candidate and declined on measurement: RSI2 1.0 (deepest on the list), 27 buy / 3 hold / 0 sell, mean PT $114.58 = +30.9% upside, and NO adverse company news across a -10% three-week slide (all neutral-to-positive: Aetna oncology prior-auth expansion 09-17, Bernstein holding Outperform at $106-112). Benzinga's own 09-21 piece lists CVS with STE and BAX as oversold healthcare, so it is a sector drawdown, not a broken name. DECLINED ON THE TREND GATE: own-measured SMA200 87.2432 vs spot 87.53 = a 0.33% buffer, with the average rising +$0.0594/day, so it crosses the entry price inside the 14-day hold. At 30% size with no price stop, that is the one leg that cannot be marginal. See _THE_RISING_200DAY_CAN_EXPIRE_THE_SETUP_DURING_THE_HOLD_SO_MEASURE_ITS_SLOPE_NOT_ONLY_ITS_SIDE_2026-09-21.",
+        "DASH": "C. RSI2 3.9, 37 buy / 11 hold, mean PT $261.23 = +36%. FAILS the trend gate outright on SLOPE: SMA200 188.62710 -> 188.60805 -> 188.54485 across 09-16/17/18, i.e. FALLING. 'Above a rising 200-day' is two tests and this passes only the first. Also the most correlated with the held ABNB (consumer discretionary).",
+        "V": "A-. TAKEN. Full stack in the ledger.",
+        "VZ": "C. RSI2 4.0 but analyst conviction is the weakest on the list -- 10 buy vs 18 HOLD, mean PT $50.64 = +5.3% upside over spot 48.10, and it was +0.02% on the day (no actual dip to buy).",
+        "PM": "C. RSI2 7.2, +11.9% to a mean PT whose coverage last updated 2026-07-26 -- two months stale, so the posture leg is unverifiable at decision time.",
+        "MDLZ": "C. RSI2 4.4 and +13.8% to PT, but the book EXITED MDLZ on 2026-09-09, 12 days ago, and the report flags it as a re-entry. No articulable reason why this entry differs from the hold that just failed, and inventing one to justify a re-buy is the churn the flag exists to catch."
+      },
+      "why_only_one_entry": "Not a judgement -- arithmetic. Deployable $1,097.49 (unleveraged BP 1268.22 minus the 5% / $170.73 operational reserve). After a $1,000 entry the residual is $97.49, far below the ~$600 minimum entry. Under the CONCENTRATION POLICY a sub-$600 entry is a SKIPPED opportunity, not a small one, so the second candidate could not have been funded at any grade. The per-run throttle (1) also binds.",
+      "options_book": "NO ENTRY. Book is empty and the KILL-branch pause on new agentic options entries was lifted at 14:05Z by an earlier run on a re-measurement of a mis-attributed sample. This run did not revisit that reversal and takes no position on it -- it neither relies on the pause being lifted (no options entry was sought) nor disturbs it. CORE requires a full stack (technical + thesis + IV sanity + liquidity + trend maturity + written exit plan) and nothing on today's list reached it; the equity book was the better use of the same single cash pool.",
+      "duties": "Heartbeat already stamped 13:40Z. market_brief built 13:46Z. Monday weekly calibration already run 13:40Z (equity HEALTHY +12.99 pts n=49 but only 7 in-regime -> report only, no parameter changed; options KILL fired then was reversed at 14:05Z; day track graduate() -> go_live FALSE). Daily report is due from the first run at/after 19:15Z -- NOT this run."
     }
   ]
 }
