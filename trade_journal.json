@@ -40542,6 +40542,30 @@
       },
       "duties": "Heartbeat already stamped 13:40Z for this trading day -- not re-stamped. Market brief already built today. Monday weekly calibration already run at 13:40Z (_WEEKLY_CALIBRATION_2026-09-21) -- not re-run. Daily report is due on the first run at/after 19:15Z and this run is 17:05Z, so it is not yet owed; today's day-track winner is the headline it will carry.",
       "process_catch": "NEAR-MISS ON THIS RUN'S OWN LEDGER WRITE, caught before committing and worth recording because the safeguard that should have caught it did not. Closing the day-track row, this run first rebuilt the `_DAY_TRACK.results` mirror row instead of updating it in place: length stayed 4 == 4 so the 09-18 mirror assertion PASSED, while the row silently lost decided_utc / decided_by / action / shares / r_usd / _mirror_of and set `exit` to a float where the three prior rows carry it as an object. Found by reading `git diff --stat` and then the diff body; reverted with `git checkout origin/master -- holdings.json` and re-applied as an in-place update. The mirror assertion is now strengthened to compare FIELDS (trading_day_et, status, r_multiple, exit_px) and not merely length. Written back to holdings.json._RESULTS_ARE_THE_PAUSE_INPUT_AND_WERE_DESYNCED_FROM_THE_PAPER_LOG_2026-09-18 as a same-subject extension rather than a new key -- named here, argued there."
+    },
+    {
+      "run_utc": "2026-09-21T17:20:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-21",
+      "headline": "Re-verification. Nothing changed in either real book, nothing new found. DAY TRACK done for the day -- paper day 4 closed 17:05Z at +6.4774R, one-trade-per-day spent.",
+      "reconciliation": "ZERO DRIFT both books vs broker 17:15-17:17Z. Options EMPTY ([], $0, 0 rows). Equities 3 swings == broker to six decimals, all sellable, all agentic: ABNB 6.573584 @ 169.520, UNP 3.858199 @ 285.110, V 2.716801 @ 368.080. get_equity_orders(2026-09-21) = ONE order, the V buy 6ab13deb filled 14:23:39.46Z, already in the ledger. No sibling fill since; no QQQ/PSQ order (correct for PAPER).",
+      "tape": {
+        "spy": 772.7,
+        "spy_prev_close": 761.69,
+        "qqq": 738.945,
+        "qqq_prev_close": 721.45,
+        "abnb": 166.64,
+        "unp": 271.61,
+        "unp_prev_close": 279.37,
+        "v": 368.41,
+        "total_value": 3412.1325,
+        "cash": 268.22,
+        "unleveraged_buying_power": 268.22,
+        "reserve_5pct": 170.61,
+        "deployable": 97.61
+      },
+      "why_flat": "EQUITIES: report (17:07Z, clean, ACTION empty) judges all three HOLD -- no RSI2>=70 cross on a green name, no time stop until 2026-09-24, no thesis flag. UNP -2.78% on an up tape is the condition already researched INTACT at 14:05Z and magnitude-corrected at 16:19Z; re-noticing it is not a finding, so no re-research, no re-notification. No entry: deployable $97.61 vs the ~$600 minimum, 1 of 3 equity entries spent. No rotation -- ABNB/UNP are sound theses 3 days from a time stop that recycles the capital without a round trip. OPTIONS: empty and unfundable at $97.61; 0 of 3 used.",
+      "duties": "Heartbeat 13:40Z, brief stamped today, core IV rows present, daily report not due (19:15Z; master correctly still carries 2026-09-18). No notification -- nothing new since the 17:05Z push."
     }
   ]
 }
