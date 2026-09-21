@@ -40325,6 +40325,43 @@
       "positions_verdict": "ABNB working-underwater -2.2%, UNP working-underwater -4.7% (still RSI2 4.2, oversold not a >=70 exit) -- both held 11d/14d, TIME STOP 2026-09-24, no price stop per HARD RULE 5, no thesis break researched; V day-0 -0.0%, TIME STOP 2026-10-05. All three HOLD. Options book empty.",
       "why_flat": "EQUITIES: report fresh (latest_intraday.md 15:06Z, header clean) with an EMPTY ACTION block -- no take-profit, time stop or thesis flag fired, so there is no autonomous exit. On entry, deployable $97.89 leaves ROTATION as the only path and it is declined on the MERITS, not on cash: the book is at 3 of the 3-4 target slots (a correct fully-deployed state) and the only names a rotation could fund from, ABNB and UNP, are sound theses 3 days from a mechanical TIME STOP that recycles them anyway -- selling either to chase CVS/DASH/VZ is the churn THE CAPITAL POLICY names, and 'weakest' means the entry stack, never the biggest loser. OPTIONS: capital is the sole binding gate; the KILL branch was REVERSED at 14:05Z (owning record _WEEKLY_CALIBRATION_2026-09-21.OPTIONS_BOOK.REVERSAL), entries are NOT paused.",
       "duties": "Heartbeat stamped 13:40Z; brief built 13:46Z; Monday calibration done by the 13:30Z run. Daily report due on the first run at/after 19:15Z -- not this run."
+    },
+    {
+      "run_utc": "2026-09-21T16:03:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-21",
+      "headline": "DAY TRACK ninth trail ratchet 736.4524 -> 737.1305 (+5.48R locked, +5.66R open). The trail crossed ABOVE the live price for the first time and the second-quote rule is the only reason the row is still open. No trade in either real book: deployable $98.00, far under the $600 minimum entry.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 16:00Z. Options EMPTY (0 positions, options_value $0, 0 ledger rows). Equities 3 of 3 exact, all placed_agent='agentic', all fully sellable: ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, V 2.716801 @ 368.08. get_equity_orders(created_at_gte=2026-09-21) returns ONE order, the V buy this desk placed at 14:23:39Z -- no sibling fill, and no QQQ/PSQ order, correct for PAPER.",
+      "capital": "total_value $3,404.42; cash == buying_power == unleveraged_buying_power == $268.22 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $3,136.20. Reserve 5% = $170.22 -> DEPLOYABLE $98.00.",
+      "tape": {
+        "QQQ": 737.4,
+        "QQQ_vs_prev_close_pct": 2.21,
+        "SPY": 770.61,
+        "ABNB": 165.58,
+        "UNP": 271.81,
+        "V": 367.8078
+      },
+      "day_track": {
+        "phase": "PAPER, active, paper day 4, row OPEN",
+        "action": "raise_stop 736.4524 -> 737.1305 (ninth ratchet)",
+        "r_open": 5.664,
+        "r_locked": 5.4769,
+        "pnl_open_usd": 8.14,
+        "two_pass": "breach pass fed 736.940 (min low of the completed 15:45-15:59Z 1-min bars) -> no breach, 0.4876 clear; ratchet pass fed price 737.400 / session_extreme 737.860 / atr5 0.48635 -> raise_stop 737.1305.",
+        "feed_check": "All six 5-minute buckets 15:30Z..15:55Z reconcile EXACTLY to their 1-minute sums (119,719 / 236,869 / 133,805 / 185,094 / 218,402 / 166,237) and their highs/lows reproduce the constituents. No hole propagated into the ATR or into the 737.860 session extreme.",
+        "the_near_close": "On this run's FIRST quote (16:01:02Z, QQQ 737.070 / bid 737.060) the computed trail 737.1305 sat 0.0605 ABOVE the market -- a stop there triggers on submission, so the single-quote reading was 'trail hit, close at +5.43R'. Confirmed on a second quote per the standing rule: 16:02:48Z QQQ 737.400 / bid 737.410, trail 0.2695 BELOW price and placeable. Ratcheted, not closed. LIVE this was never in doubt -- the resting broker stop was 736.4524 and the session's min low since was 736.940.",
+        "room": "0.2695 pts, against this session's p90 one-minute drawdown-from-running-high of 0.980 and max 1.301; the new stop also sits 0.1905 ABOVE a low traded four minutes earlier. Expect this row to close on an ordinary pullback rather than on the 19:30Z flat rule.",
+        "row": "day_track_paper.json rows[-1]; holdings.json._DAY_TRACK.results[-1] is the mirror and was updated in the same pass.",
+        "graduation": "UNCHANGED and still the only lock: graduate(3, [-1.0,-1.0,-1.0]) -> go_live False ('paper 3d / 3 trades; need 10d and 8 trades'). Today's row is open and counts toward neither. track_status($3,404.42, [-1,-1,-1], []) -> paused False."
+      },
+      "positions_verdict": "ABNB working-underwater -2.3% (11d/14d, TIME STOP 2026-09-24), UNP working-underwater -4.7% (11d/14d, TIME STOP 2026-09-24, RSI2 4.2 -- oversold, not a >=70 exit), V day-0 -0.07% (TIME STOP 2026-10-05). All three HOLD: no price stop per HARD RULE 5, no thesis break researched, and NO take-profit is even reachable because all three are RED and the RSI2>=70 exit requires a GREEN position. Options book EMPTY.",
+      "why_flat": {
+        "equities": "No entry. Deployable $98.00 is far under the ~$600 CONCENTRATION-POLICY minimum, and a sub-minimum entry is a SKIPPED opportunity, not a small one. Today's autonomous entry was already taken anyway (V, 14:23:39Z) -- 1 of 3 daily, 1 of 1 per run. The 15:06Z report's ACTION block is EMPTY, so no exit signal fired; 6 of its 15 RSI2 setups are Energy and excluded by the sector steer regardless.",
+        "options": "No entry. Book empty and deployable $98.00 is under any CORE size ($500-1,000 typical). The 2026-09-21 KILL branch was REVERSED at 14:05Z -- options entries are NOT paused and the size multiplier is 1.0; the owning record is _WEEKLY_CALIBRATION_2026-09-21.OPTIONS_BOOK.REVERSAL, not the heartbeat prose. Capital, not governance, is what binds today.",
+        "day_track": "One trade per day and it is open. No re-entry."
+      },
+      "duties": "Heartbeat stamped 13:40Z. market_brief stamped 2026-09-21. Weekly calibration taken by the 13:40Z first run. Daily report due on the first run at/after 19:15Z -- not this run (16:03Z). New durable finding written to holdings.json._DAY_TRACK_THE_ATR_TRAIL_CONVERGES_ON_PRICE_WHEN_VOLATILITY_COMPRESSES_2026-09-21.finding_4 (extended the existing key rather than minting a new one).",
+      "prompt_version": "v11"
     }
   ]
 }
