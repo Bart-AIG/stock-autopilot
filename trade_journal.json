@@ -40414,6 +40414,47 @@
       ],
       "why_flat": "EQUITIES: deployable $97.62 vs a $600 minimum entry -- arithmetically impossible, and 1 of 3 daily entries is already used (V). OPTIONS: same $97.62 against a CORE band starting at $500; book empty, 0 of 3 entries used, realized $0.00 against the -$400 cap. DAY TRACK: today's one trade is already open and being managed.",
       "duties": "Heartbeat stamped by the 13:40Z run. market_brief stamped today. Monday calibration done by the 13:42Z run (and its options KILL reversed at 14:05Z -- left untouched by this run, which is unattended and does not adjudicate a Ryan-turn claim in either direction). Daily report due on the first run at/after 19:15Z. iv_history: nothing evaluated, no row owed."
+    },
+    {
+      "run_utc": "2026-09-21T16:31:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-21",
+      "headline": "DAY TRACK eleventh trail ratchet 737.6885 -> 738.2624 (+6.26R locked, +6.73R open) on a new session high of 739.000. One new durable finding: the atr5 series turned UP for the first time today, and because the ratchet is up-only a rising ATR can only STALL the trail, never hand room back. No trade in either real book: deployable $97.57, far under the $600 minimum entry.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 16:30Z. Options EMPTY (0 positions, options_value $0, 0 ledger rows). Equities 3 of 3 exact, all placed_agent='agentic', all fully sellable: ABNB 6.573584 @ 169.520, UNP 3.858199 @ 285.110, V 2.716801 @ 368.080. get_equity_orders(created_at_gte=2026-09-21) returns ONE order -- the V buy 6ab13deb, agentic, filled 14:23:39.46Z by an earlier sibling and already in the ledger. No sibling fill since, and no QQQ/PSQ order, which is correct for PAPER.",
+      "capital": "total_value $3,412.98; cash == buying_power == unleveraged_buying_power == $268.22 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $3,144.76. Reserve 5% = $170.65 -> DEPLOYABLE $97.57.",
+      "tape": {
+        "QQQ": 738.945,
+        "QQQ_bid": 738.93,
+        "QQQ_vs_prev_close_pct": 2.43,
+        "SPY": 771.82,
+        "ABNB": 166.375,
+        "UNP": 272.39,
+        "V": 368.08
+      },
+      "day_track": {
+        "phase": "PAPER, active, paper day 4, row OPEN",
+        "action": "raise_stop 737.6885 -> 738.2624 (eleventh ratchet)",
+        "r_open": 6.729,
+        "r_locked": 6.2643,
+        "pnl_open_usd": 9.67,
+        "inputs": {
+          "price_bid": 738.93,
+          "session_extreme": 739.0,
+          "atr5": 0.49173,
+          "stop_dist": 1.4375
+        },
+        "two_pass": "Breach window PARTITIONED at the 16:19Z stop change. Orphan bar 16:18Z (never tested by any run; the union pass saw bars only through 16:17Z) low 738.040 vs the OLD 737.1305 stop -> clear by 0.9095. Bars 16:19Z-16:29Z min low 738.110 vs the NEW 737.6885 -> clear by 0.4215. No breach either half. Ratchet pass: manage(...) -> raise_stop 738.2624, 'ratchet at 6.73R'.",
+        "feed_integrity": "All SEVEN 5-minute buckets 15:55Z..16:25Z reconcile EXACTLY to their one-minute sums (166237/152506/239135/106255/123168/152755/170491), every bucket high/low equals the one-minute extreme, SPY clean as a cross-symbol control. The 16:15Z one-minute bar's 3,658 volume carries the tiny-fraction signature and is NOT a hole -- its bucket reconciles to the byte.",
+        "placeable": "True -- 0.6676 pts of room; day_track.stop_is_placeable('long', 738.2624, 738.930).",
+        "invariants": "day_track.assert_row_invariants() passes: stop == _manage_state.stop_px_signal_current == _manage_log[-1]['to'] == 738.2624, and entry - entry_stop == stop_dist.",
+        "graduation": "UNCHANGED and still the only lock. graduate(3, [-1,-1,-1]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8'. Today's row is open and counts toward neither until it closes. Flat rule 19:30Z."
+      },
+      "finding": "holdings.json._DAY_TRACK_THE_ATR_TRAIL_CONVERGES_ON_PRICE_WHEN_VOLATILITY_COMPRESSES_2026-09-21.finding_5 -- added to the existing key rather than minted as a new one, per the ledger's session-key-proliferation rule. Named here, not re-argued.",
+      "why_flat": {
+        "equities": "No exit fired: the committed report (latest_intraday.md, 16:08Z today, no DATA ERROR) judges ABNB and UNP HOLD (thesis-watch, underwater, time stop in 3d at 14d held) and V HOLD. No entry possible: deployable $97.57 vs the ~$600 minimum, and 1 of 3 daily equity entries is already used. No rotation graded -- a rotation sell must be graded better than the weakest held position on the entry stack, and no candidate was worked after V took the one fundable slot this morning.",
+        "options": "Book empty. Deployable $97.57 is far below any CORE size ($500-1,000 typical). 0 of 3 options entries used; realized options P/L today $0.00 against the -$400 cap. Entries are NOT paused -- the 13:42Z KILL branch was reversed at 14:05Z; see _WEEKLY_CALIBRATION_2026-09-21.OPTIONS_BOOK.REVERSAL."
+      },
+      "duties": "Heartbeat already stamped 13:40Z. market_brief stamped today. Daily report due on the first run at/after 19:15Z -- not this run. Monday calibration done by the 13:30Z run."
     }
   ]
 }
