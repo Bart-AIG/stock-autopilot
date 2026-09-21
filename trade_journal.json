@@ -40051,6 +40051,57 @@
       "why_flat": "Day track: already in a position, and plan_entry() returns skip/late-entry anyway; one trade per day. Equities: no current committed report to source a signal from. Options: paused by the KILL branch.",
       "notification": "ONE push sent to Ryan at 14:06Z covering the UNP divergence and the hold decision. First notification of this incident; a later run re-notifies only on a material worsening or a surfaced cause.",
       "duties": "Heartbeat already stamped 13:40Z by the first post-bell run -- not re-stamped. Market brief already built today. Monday calibration already run by that same run (_WEEKLY_CALIBRATION_2026-09-21); not re-run. Daily report not due until the first run at/after 19:15Z. No IV row logged: no options candidate was evaluated under the KILL pause."
+    },
+    {
+      "run_utc": "2026-09-21T14:20:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-21",
+      "headline": "The deferred-entry run: today's report landed 14:07Z and this run owned the day's autonomous equity entry. Graded the whole board and DECLINED -- the two best names fail the SAME test the Connors setup is built on, an actual uptrend under the dip. Core-list IV sweep written (the duty deferred to this run). DAY TRACK ratcheted to +1.578R locked. No order in either book.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 14:16-14:18Z, checked BEFORE any decision per the 2026-08-28 concurrent-run rule. Options EMPTY (options_value $0, 0 ledger rows). Equities TWO swings, both placed_agent='agentic', both fully sellable, exact ledger match: ABNB 6.573584 @ 169.520, UNP 3.858199 @ 285.110. get_equity_orders(created_at_gte=2026-09-21) returns ZERO -- no sibling fill, no unauthorized trade.",
+      "capital": "total_value $3,411.87; cash == buying_power == unleveraged_buying_power == $1,268.22 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $2,143.65. Reserve 5% = $170.59; DEPLOYABLE $1,097.63; per-name cap 30% = $1,023.56; ONE fundable slot at the ~$600 minimum.",
+      "tape": {
+        "spy": 768.385,
+        "spy_day_pct": 0.88,
+        "qqq": 733.69,
+        "qqq_day_pct": 1.8,
+        "qqq_adj_prev_close": 720.6986,
+        "amd": 609.98,
+        "amd_day_pct": 8.96,
+        "tsla": 375.87,
+        "tsla_day_pct": 3.18,
+        "nvda": 223.402,
+        "managed_care_pct": {
+          "CVS": -1.58,
+          "HUM": -1.68,
+          "ELV": -0.87,
+          "UNH": -0.62,
+          "CI": -0.35,
+          "XLV": 0.46
+        },
+        "_note": "Numbers only, no verdict handed forward. QQQ is ex-dividend -- the day change is off the ADJUSTED close, not the 721.45 official one."
+      },
+      "day_track": {
+        "phase": "PAPER",
+        "action": "MANAGE -> raise_stop, the second ratchet of the day",
+        "detail": "Two-pass per the 09-16 adverse-extreme rule. PASS 1 breach test on 732.090 (min low of the 14:00-14:15Z one-minute bars, everything since the 14:05Z pass) -> hold at 1.97R, 1.243 pts clear of the live 730.8469 stop, so the row is legitimately open. PASS 2 ratchet on bid 733.45, session_extreme 733.47, atr5 1.2957 -> raise_stop 731.5264 at 2.917R, locking +1.578R. Nothing sent (PAPER); in LIVE a cancel/replace of the resting stop_market.",
+        "feed_integrity": "5-minute buckets 14:00/14:05/14:10 reconcile EXACTLY to their 1-minute sums (336,910 / 260,648 / 240,060) -- no hole in either direction, so the direction rule never had to fire.",
+        "atr5": "1.2957, off the 5-minute series spanning the prior session (24 bars from 09-18 18:00Z + 9 today) per the convention resolved at 14:05Z. That pass used 1.2154 off a shorter fetch; only the window start moved, not the rule.",
+        "graduation": "graduate(3, [-1.0,-1.0,-1.0]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. Today's row is OPEN and counts toward neither until it closes. No phase promoted -- only a Monday calibration does that."
+      },
+      "equities": {
+        "entry": "NO ENTRY, on the merits. Capital was NOT the binding constraint today ($1,097.63 deployable, one fundable slot) -- the BAR was. Full grades for all 12 setups, the sizing arithmetic and the reasoning are in holdings.json._EQUITY_BOARD_GRADED_AND_DECLINED_NO_UPTREND_UNDER_THE_BEST_TWO_2026-09-21; NAMED here, not re-argued.",
+        "one_line_verdicts": "CVS B (best print RSI2 1.0 + best analyst file on the board, but 0.22% above a rising 200-day and the worst name in a red managed-care complex on a +0.88% SPY tape). DASH B+ (clean positive news, +36% consensus upside, but its 200-day has stopped rising). VZ B- (+5.7% upside, 18 holds). PM B (analyst file stale since July). V B (RSI14 46.3, not oversold). SLB/OXY/CVX/COP/XOM excluded on the oil steer. UNP excluded as HELD (FOUR LAWS #3). MDLZ excluded inside the 14-day re-entry window.",
+        "not_a_cash_hold": "No _cash_hold written and none is due -- this is cash as the residual of quality, not a decision to wait for a named catalyst. Inventing a trigger to justify idle cash would be the void 45% floor returning through the side door.",
+        "exits": "NONE fired. Both names RED, so the RSI2>=70 take-profit is unavailable BY CONSTRUCTION (gated on price > entry): ABNB 166.14 = -1.99%, UNP 272.64 = -4.37%. Both held 11d against the 14-day TIME STOP on 2026-09-24, inside the 3-day warn window. UNP's HARD RULE 7 research was completed at 14:05Z -- INTACT on fundamentals, UNEXPLAINED on the tape, NOT broken -- so it holds to the time stop rather than being sold early."
+      },
+      "options": {
+        "entry": "NO ENTRY, and NOT gated -- this morning's calibration KILL was reversed at 14:05Z in a live session, so the pause is lifted and this is a decline on the merits.",
+        "why_flat": "No CORE candidate was carried forward and none graded out. The equity report's RSI2 names are the same set now measured twice at near-zero options tradeability, and nothing else presented a thesis. There was no trade to have -- IV is not what stopped it.",
+        "iv_sanity": "Full core-list sweep written to iv_history.json (2026-10-16 monthly, 25 DTE, quoted 14:20Z outside the opening-window inflation). Long premium sits at the rich end of this file's own record on exactly the names a CORE entry would use: SPY 89.3rd pct, QQQ 92.9th, MSFT 96.4th, AMD 100.0th. The only sub-1.0 raw ratios (NVDA 0.7708, AVGO 0.9520) are single-gap artifacts reading 1.0414 / 1.1323 ex-gap. This independently rules out the reflexive trade -- buying index or AMD premium on a strong-tape morning -- without being a thesis either way.",
+        "honest_note": "The 14:05Z reversal establishes the KILL was UNSUPPORTED, not that the options book is healthy. Pure agentic is still -$141 over 10 closes: below the action threshold, i.e. UNMEASURED. No run should cite it as a clean bill of health."
+      },
+      "new_findings": "TWO holdings.json keys, both NAMED not re-argued: _EQUITY_BOARD_GRADED_AND_DECLINED_NO_UPTREND_UNDER_THE_BEST_TWO_2026-09-21, and _IV_THE_INDEX_BOARDS_AND_AMD_ARE_AT_THE_RICH_END_OF_THEIR_OWN_HISTORY_2026-09-21 -- the latter carries the forward projection the 2026-08-27 rule requires: AMD's +8.96% gap is not yet inside the trailing window, so tomorrow's raw ratio reads ~1.0122 against today's 1.1131 on UNCHANGED IV (IV is the leg held fixed, per the 08-28 correction, so the actual print will most likely land lower). Flagged a day early so the next run inherits the warning rather than the artifact.",
+      "duties": "Heartbeat, brief and Monday calibration owned by the 13:30Z run -- not touched. IV core-list row DONE (deferred to this run by the 13:52Z run). Daily report due on the first run at/after 19:15Z, not this one. No flag touched (HARD RULE 9)."
     }
   ]
 }
