@@ -39902,6 +39902,14 @@
       "calibration_result": "EQUITIES n=49, margin +12.99 pts, expectancy +$3.73/trade, net +$182.88 -> REPORT ONLY, 7 of 49 closes in-regime (need 20). No parameter changed. OPTIONS n=21, margin -13.41 pts, expectancy -$27.24/trade, net -$572.00 -> KILL BRANCH: halve size, pause new entries, ESCALATE. Verified NOT an artifact on four cuts -- hedge-stripped n=20 is still -8.51 (so the 2026-09-11 'one insurance close flips the sign' objection does NOT apply this time), and the desk's own agentic-only record is WORSE at -41.76 (n=10, below the action threshold). DAY TRACK: pause EXPIRED (new week, track_status -> active), graduate() still go_live FALSE at 3 paper days / 3 trades, status stays PAPER.",
       "actions": "calibrate.py fix + two holdings.json keys pushed to master. Options-book new entries PAUSED pending Ryan's review (risk-off never waits; the book is empty so nothing was liquidated and nothing that was on the table came off). Equity book untouched and still open under the normal gates. Ryan notified once, per the KILL branch's ESCALATE.",
       "handoff_numbers_not_verdicts": "For the first run of the 2026-09-21 trading day: it owns the heartbeat, the brief rebuild, the throttle/loss-cap reset, CONFIRMING (not redoing) the calibration above, and the 09:35 ET DAY TRACK paper signal. Capital as of 10:26Z, PROVISIONAL -- these are Friday-close marks and equity_value moves at the open: deployable = 1268.22 - 0.05*3440.62 = $1,096.19; per-name cap 30% = $1,032.19. Two of the 3-4 target swing slots are filled, so at target 3 one slot remains and a single entry is bounded by the CAP at $1,032.19 (deployable exceeds it), while at target 4 two slots give $548 each -- BELOW the ~$600 minimum entry. Arithmetic, not a recommendation: today the equity book can fund exactly ONE entry, or none. Re-derive off live numbers before sizing anything."
+    },
+    {
+      "run_utc": "2026-09-21T11:25:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-18",
+      "headline": "64th pre-open run (Mon 07:25 ET, market shut). Stand-down per POST-CLOSE RUN PROTOCOL. Monday calibration already pre-computed (_WEEKLY_CALIBRATION_2026-09-21); the first run at/after 09:30 ET CONFIRMS it and owns heartbeat, brief, throttles and the QQQ DAY TRACK signal.",
+      "reconciliation": "ZERO DRIFT both books. Options 0 contracts / $0 vs 0 ledger rows. Equities 2 of 2 exact (ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, fully sellable); no order since the logged agentic IBKR take-profit. cash $1,268.22 / equity $2,175.56 / total $3,443.78; unleveraged == buying_power (no margin).",
+      "actions": "NONE. No artifact rolled. Options KILL pause stands as recorded, not re-adjudicated. Swings day 11 calendar; time stop due 2026-09-24, so the 3-day warn window opens today."
     }
   ]
 }
