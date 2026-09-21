@@ -39942,6 +39942,51 @@
       "headline": "68th pre-open no-op (Mon 09:25 ET, 5 min to the bell). Stand-down per POST-CLOSE RUN PROTOCOL. Monday calibration already pre-computed and escalated (_WEEKLY_CALIBRATION_2026-09-21); the first run at/after 09:30 ET owns confirming it plus heartbeat, brief, throttle resets and the QQQ DAY TRACK paper signal.",
       "reconciliation": "ZERO DRIFT both books vs broker. Options 0 contracts / options_value $0 vs 0 ledger rows; get_equity_orders since 09-19 EMPTY. Equities 2 of 2 exact (ABNB 6.573584 @ 169.520, UNP 3.858199 @ 285.110, fully sellable, 0 held). cash $1,268.22 == buying_power == unleveraged_buying_power (no margin); equity $2,165.33, total $3,433.55; reserve 5% $171.68, deployable $1,096.54.",
       "actions": "NONE. No artifact rolled; heartbeat still 2026-09-18 (only a run at/after 09:30 ET may stamp today's). Options KILL pause stands as recorded, not re-adjudicated or re-notified. DAY TRACK PAPER 3 of 10 days; pause was week-scoped and expired with the week of 09-15. Swings day 11, time stop Thu 2026-09-24 (3-day warn window open)."
+    },
+    {
+      "run_utc": "2026-09-21T13:48:00Z",
+      "run_type": "first_post_open_of_trading_day",
+      "trading_day_et": "2026-09-21",
+      "prompt_version": "v11 (line-1 stamp 'prompt v11, pasted 2026-09-14')",
+      "headline": "FIRST POST-BELL run of Monday 2026-09-21. Owns the heartbeat, the brief rebuild, the throttle/loss-cap roll, and THE MONDAY WEEKLY CALIBRATION. Calibration KILLED the options book (size halved, new entries PAUSED, escalated to Ryan) and left the equity book untouched on the in-regime gate. DAY TRACK pause expired; paper day 4 logged LONG QQQ. No real order placed in either book.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 13:31-13:33Z. Options: 0 contracts / options_value $0 / 0 ledger rows. Equities: ABNB 6.573584 @ 169.52 and UNP 3.858199 @ 285.11, both placed_agent='agentic', both fully sellable, both present in the ledger and nowhere else. total_value $3,434.45, cash == buying_power == unleveraged_buying_power == $1,268.22 (no margin extended), equity_value $2,166.23.",
+      "capital": "Reserve 5% = $171.72; DEPLOYABLE $1,096.50. First morning since 2026-09-11 that clears the ~$600 minimum equity entry -- the IBKR take-profit returned $727 of cash on 09-18. 2 swings held against a 3-4 target.",
+      "tape": {
+        "spy_last": 766.47,
+        "spy_adj_prev_close": 761.69,
+        "spy_day_pct": 0.63,
+        "qqq_last": 729.2575,
+        "qqq_adj_prev_close": 720.6986,
+        "qqq_day_pct": 1.19,
+        "abnb": 165.615,
+        "unp": 274.27,
+        "_note": "NUMBERS ONLY, no verdict handed forward. QQQ is ex-dividend: computing off the 721.45 official close would read +1.08% instead of +1.19%."
+      },
+      "WEEKLY_CALIBRATION": {
+        "source": "BROKER ONLY -- get_pnl_trade_history(span='3month'), 70 closes, net -$389.12. trade_journal.json used for no P&L figure.",
+        "split": "calibrate.split_books() by broker membership. option_closes = 17 (symbol,date) CLOSE pairs from get_option_orders(state='filled') UNION 1 LAPSE pair identified by side=='' (SPY 2026-09-17). Equities n=49 / +$182.88; options n=21 / -$572.00.",
+        "equities": "margin +12.99 pts over a 52.3% breakeven (payoff 0.911, win rate 65.3%), expectancy +$3.73/trade. Only 7 of 49 closes are in-regime -> REPORT ONLY. NO PARAMETER CHANGED. swing_time_stop_days 14, target_positions 4, rsi2_oversold 10.0 all stand.",
+        "options": "margin -13.41 pts over a 58.4% breakeven (payoff 0.712, win rate 45.0%), expectancy -$27.24/trade, n=21 >= 20 -> KILL BRANCH. APPLIED: options position size multiplier 0.5, new agentic options entries PAUSED. ESCALATED to Ryan. The KILL branch is exempt from the in-regime gate by design -- risk-off never waits for a clean sample.",
+        "purity_check": "TESTED THE OBVIOUS EXCUSE AND IT FAILED. Partitioned by placed_agent: AGENTIC-ONLY n=10 / -$518 / -41.76 pts / expectancy -$51.80; USER-ONLY n=11 / -$54 / -1.85 pts. Ryan's discretionary options book is roughly scratch; every dollar of the loss is the desk's own. Stripping the owner rows makes the reading 3x WORSE. The agentic subsample returns REPORT ONLY only because n=10 < 20, which is a sample-size fact, not a health fact.",
+        "day_track": "graduate(3, [-1,-1,-1]) -> go_live FALSE ('paper 3d / 3 trades; need 10d and 8'). PAPER retained; no run promotes the phase mid-week. day_risk_pct unchanged at 5.0 (recommend() may move it only while LIVE).",
+        "prompt_staleness": "prompt v11 step 8b still describes the side=='sell' split, which is measurably wrong. Reported, not resolved; HARD RULE 9 intact.",
+        "key": "holdings.json._WEEKLY_CALIBRATION_2026-09-21"
+      },
+      "DAY_TRACK": {
+        "pause": "EXPIRED. track_status(3434.45, [-1,-1,-1], []) -> paused FALSE. First live confirmation of the week-boundary clause added after _DAY_TRACK_PAUSE_NEVER_EXPIRED_A_DEADLOCK.",
+        "signal": "plan_entry -> ENTER LONG QQQ, 1 share @ 729.2575, stop 727.82 (OR low), stop_dist 0.1971%, R $1.44, bound by cash. OR high 728.84 / low 727.82 / open 727.95 / close 728.655, body 69.1% of range, ATR14(daily) 8.3193.",
+        "phase": "PAPER -- logged to day_track_paper.json rows[-1] and mirrored to _DAY_TRACK.results. NOTHING PLACED.",
+        "new_durable_finding": "holdings.json._DAY_TRACK_THE_OR_IS_NOT_FETCHABLE_ON_THE_1330Z_RUN_2026-09-21 -- the 5th one-minute OR bar had not published at 13:34Z or 13:36Z (two fetches, four bars each) and plan_entry correctly returned 'wait'. It published before 13:44Z. This run did NOT end on 'wait': it did its other duties and re-fetched, which is the prescription written into that key. Prior paper days all decided at 13:35-13:36Z, so the latency is variable and a run that checks once gambles the day's signal -- and a lost signal biases the graduation sample toward fast-feed days."
+      },
+      "position_verdicts": {
+        "equities": "ABNB -2.30% (-$25.68), UNP -3.80% (-$41.81), both day 11 of 14, time stop 2026-09-24. BOTH HOLD. Both are underwater, so the mechanical RSI2>=70 take-profit is unavailable by construction (it is gated on price > entry); there is no price stop; the live exit is the time stop in 3 sessions, now inside TIME_STOP_WARN_DAYS. UNP additionally flagged: -1.83% on a +0.63% SPY tape, a ~2.5 pt relative divergence, recorded as a number with no thesis verdict attached and handed to the run that takes today's report.",
+        "options": "No positions. Nothing to manage."
+      },
+      "why_flat": {
+        "equities": "Capital is available for the first time in a week, but the committed report on master is FRIDAY's (latest_intraday.md 2026-09-18T19:06Z; today's lands ~14:00-14:15Z) and autonomous equity entries are SIGNAL-SOURCED ONLY -- a stale report is not a source. This also coincides with the opening-window deferral, which prefers taking the day's entry at/after ~14:15Z off TODAY's report. NOT a capital decline and not a quality decline: no board was screened, because no current board exists yet.",
+        "options": "New entries PAUSED by this run's own calibration. No candidate work performed and none appropriate."
+      },
+      "duties": "Heartbeat STAMPED (first run at/after 09:30 ET). Brief REBUILT. Loss cap and both throttles ROLLED to 2026-09-21, measured from the broker rather than defaulted (newest trade of any kind is 2026-09-18T14:17:36Z IBKR, an EQUITY close, so 09-18 finished at $0.00 realized options). Monday calibration RUN and APPLIED. DAY TRACK evaluated and paper-logged. IV sweep DEFERRED past ~14:00Z with the reason stated in the brief -- a pre-14:00Z ATM row is a known upper bound and options entries are paused, so it would gate nothing; deferral, not omission. Daily report is NOT due until the first run at/after 19:15Z."
     }
   ]
 }

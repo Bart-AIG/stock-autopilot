@@ -1,61 +1,65 @@
 {
  "_comment": "Daily market brief for the options automation. Built by the first post-open run of each TRADING day (ET), never by a post-close/pre-open firing. Refresh intraday only on a genuine shock (VIX +15%, an index breaking a listed level, a major headline).",
- "date": "2026-09-18",
- "built_utc": "2026-09-18T13:38:00Z",
- "built_by": "scheduled run 13:30Z 2026-09-18 (unattended, prompt v11) -- first post-bell run of the trading day",
+ "date": "2026-09-21",
+ "built_utc": "2026-09-21T13:46:00Z",
+ "built_by": "scheduled run 13:30Z 2026-09-21 (unattended, prompt v11) -- first post-bell run of the trading day",
  "regime": {
-  "label": "MILDLY RISK-ON AT THE OPEN, MEASURED NOT INTERPRETED",
+  "label": "GAP-UP OPEN, MEASURED NOT INTERPRETED",
   "spy": {
-   "last": 761.34,
-   "adjusted_previous_close": 760.7112,
-   "day_pct": 0.08,
-   "official_prior_close": 762.6,
-   "_note": "official close 762.60 vs adjusted_previous_close 760.7112 -- SPY has gone ex-dividend, so the day change MUST be computed off the ADJUSTED figure. Using the official close would misreport the tape as -0.17% instead of +0.08%, i.e. the WRONG SIGN."
+   "last": 766.47,
+   "adjusted_previous_close": 761.69,
+   "day_pct": 0.63
   },
   "qqq": {
-   "last": 718.72,
-   "adjusted_previous_close": 716.92,
-   "day_pct": 0.25
+   "last": 729.2575,
+   "adjusted_previous_close": 720.6986,
+   "day_pct": 1.19,
+   "_note": "QQQ official prior close 721.45 vs adjusted_previous_close 720.6986 -- QQQ has gone ex-dividend, so the day change must be computed off the ADJUSTED figure (721.45 would read +1.08% instead of +1.19%). Same trap SPY set on 09-18."
   },
-  "as_of_utc": "2026-09-18T13:33:27Z",
-  "_discipline": "NUMBERS ONLY, no directional verdict handed forward. Per the 2026-08-28 rule a mid-session cross-asset READ inverts within minutes and the next run must not inherit a frame -- hand forward the levels, never the conclusion. These are also OPENING-WINDOW prints and are an upper bound on nothing: re-measure before they decide anything.",
-  "quad_witching": "2026-09-18 is the THIRD FRIDAY of a quarter-end month -- quarterly index/options/futures expiry (quad witching). Expect inflated volume and pinning toward round strikes into the close; a volume baseline computed today is NOT comparable to an ordinary session, which is a fourth distinct way the denominator can be wrong on top of the three already recorded."
+  "as_of_utc": "2026-09-21T13:37:33Z",
+  "_discipline": "NUMBERS ONLY, no directional verdict handed forward (2026-08-28 rule: a mid-session cross-asset read inverts within minutes and the next run must not inherit a frame). These are also opening-window prints -- re-measure before they decide anything.",
+  "divergence_to_watch": "UNP -1.83% (274.27 vs 279.37) on a +0.63% SPY tape -- a ~2.5 pt relative underperformance on a held swing that reaches its 14-day time stop on 2026-09-24. Stated as a NUMBER, not a thesis. No news check was run this run; the run that takes today's report should look at it, because a thesis-break verdict would change the exit from 'time stop on 09-24' to 'sell now'."
  },
  "catalysts_next_5_sessions": [
-  "2026-09-18 (today): quarterly quad-witching expiry. Not a directional catalyst; a liquidity/positioning event.",
-  "FOMC decision of 2026-09-16/17 is RESOLVED -- it is no longer a forward catalyst and must not be cited as one.",
-  "Next week: no scheduled binary event on any held name. ABNB, UNP and IBKR all print outside their time-stop windows (verified at entry for each)."
+  "No scheduled binary event on either held name (ABNB, UNP) inside its remaining hold window -- both reach the 14-day time stop 2026-09-24, verified at entry.",
+  "FOMC 2026-09-16/17 is RESOLVED and must not be cited as a forward catalyst.",
+  "Under the 2026-09-14 narrowed CATALYST BAR, macro calendar events are a SIZING input for CORE options, never a bar. Moot this week regardless -- see options_book_status."
  ],
  "watchlist": {
   "core_options_candidates": [],
   "equity_candidates": [],
-  "_why_empty": "NO CANDIDATE WORK WAS DONE THIS RUN, and the reason is capital, not the tape. Deployable is $369.49 against a ~$600 hard minimum equity entry and a $500 CORE options low end, so there is no size at which any candidate could be taken. Screening names the desk cannot fund is the research-constrained failure the 2026-08-14 SOURCING fix was written to end. The committed report on master is also yesterday's (latest_intraday.md 2026-09-17T19:07Z); today's lands ~14:00-14:15Z, so no fresh signal is sourceable at 13:30Z regardless."
+  "_why_empty": "Two separate reasons, and they should not be conflated. OPTIONS: new agentic entries are PAUSED by this morning's calibration KILL branch, so there is no candidate work to do. EQUITIES: capital is available for the first time in a week ($1,096.50 deployable vs a $600 minimum), but the committed report on master is FRIDAY's (latest_intraday.md 2026-09-18T19:06Z) and today's lands ~14:00-14:15Z. Autonomous equity entries are SIGNAL-SOURCED ONLY and a stale report is not a source. The first run at/after ~14:15Z screens today's board -- which is also what the opening-window deferral prefers."
  },
  "constraints_today": {
-  "total_value": 3437.77,
-  "cash": 541.38,
-  "unleveraged_buying_power": 541.38,
-  "operational_reserve_5pct": 171.89,
-  "deployable": 369.49,
+  "total_value": 3434.45,
+  "cash": 1268.22,
+  "unleveraged_buying_power": 1268.22,
+  "operational_reserve_5pct": 171.72,
+  "deployable": 1096.5,
   "minimum_equity_entry": 600.0,
   "core_options_low_end": 500.0,
-  "verdict": "BOTH BOOKS CLOSED TO NEW ENTRIES ON CAPITAL ALONE. Deployable $369.49 < $600 minimum. Per the CONCENTRATION POLICY a sub-minimum entry is a SKIPPED opportunity, not a small one -- do not size down to be busy.",
-  "margin": "buying_power == unleveraged_buying_power == $541.38; no margin extended. FOUR LAWS #4 satisfied with no ambiguity.",
-  "equity_slots": "3 of the 3-4 target filled; the 4th is unfundable."
+  "verdict": "EQUITY BOOK IS FUNDABLE TODAY -- deployable $1,096.50 clears the ~$600 minimum with room for one entry (2 swings held against a 3-4 target; size = deployable / remaining slots). This is the first fundable morning since 2026-09-11 and it exists because the IBKR take-profit returned $727 on 09-18. OPTIONS BOOK IS CLOSED TO NEW ENTRIES -- by the calibration, not by capital.",
+  "margin": "buying_power == unleveraged_buying_power == $1,268.22; no margin extended. FOUR LAWS #4 satisfied with no ambiguity.",
+  "equity_slots": "2 of the 3-4 target filled.",
+  "cash_hold": "NONE ACTIVE. The last one dissolved on its own expiry 2026-09-16 and no successor was written; an unattended run cannot renew one."
  },
  "DAY_TRACK_today": {
-  "status": "PAPER + PAUSED",
-  "evaluated": false,
-  "pause": "day_track.track_status($3,437.77, [-1,-1,-1]) -> paused, '3 consecutive losing days -- rest of week'; the week also sits at -3.00R, so BOTH conditions hold. No signal may be taken through Friday 2026-09-19; the first run of Monday 2026-09-21 re-evaluates.",
-  "graduation": "day_track.graduate(3, [-1,-1,-1]) -> go_live FALSE, 'paper 3d / 3 trades; need 10d and 8 trades'. Earliest arithmetically possible go-live is a Monday on or after 2026-10-05.",
-  "note": "_DAY_TRACK.results was DESYNCED from day_track_paper.json this morning (2 rows vs 3) and the stale array computed the pause as INACTIVE. Re-synced this run; both sources now return paused=True. See _RESULTS_ARE_THE_PAUSE_INPUT_AND_WERE_DESYNCED_FROM_THE_PAPER_LOG_2026-09-18."
+  "status": "PAPER + ACTIVE (the 3-consecutive-loss pause expired at the week boundary)",
+  "evaluated": true,
+  "signal": "ENTER LONG QQQ, 1 share @ 729.2575, stop 727.82 (OR low), R $1.44, bound by cash. Paper day 4 -- logged, nothing placed.",
+  "opening_range": "high 728.84 / low 727.82 / open 727.95 / close 728.655, body 69.1% of range, from five 1-minute bars 13:30-13:34Z.",
+  "pause": "day_track.track_status(3434.45, [-1,-1,-1], []) -> paused FALSE, 'active'. First live confirmation of the week-boundary clause from _DAY_TRACK_PAUSE_NEVER_EXPIRED_A_DEADLOCK.",
+  "graduation": "day_track.graduate(4-days-after-today, ...) still far off: as of this row it is 4 paper days / 4 signals against a 10-day / 8-signal minimum. Earliest arithmetically possible go-live remains a Monday on or after 2026-10-05.",
+  "note": "The OR's 5th one-minute bar published LATE today -- see holdings.json._DAY_TRACK_THE_OR_IS_NOT_FETCHABLE_ON_THE_1330Z_RUN_2026-09-21."
  },
  "equity_entries_taken_today": [],
  "exits_taken_today": [],
  "weekly_calibration": {
-  "due": "Monday 2026-09-21 (first trading day of next week). NOT due today (this brief is stamped 2026-09-18).",
-  "blocking_defect_fixed_this_run": "calibrate.split_books() now classifies by broker membership. The documented side=='sell' split filed 18 option closes (-$514) into the equity bucket; the contaminated sample reads margin -5.78 pts and fires 'EDGE GONE -- halve size, pause new entries', while the correctly-split equity book reads +11.96 pts and correctly returns REPORT ONLY (0 of 48 closes are in-regime). Monday MUST use split_books().",
-  "prompt_staleness": "prompt v11 step 8b still instructs the side=='sell' split in its own words. Reported, NOT resolved -- no run may edit the stored prompt or claim a Ryan turn (HARD RULE 9)."
+  "due": "TODAY, Monday 2026-09-21 -- RUN AND APPLIED by this run. See holdings.json._WEEKLY_CALIBRATION_2026-09-21.",
+  "equity_verdict": "REPORT ONLY (margin +12.99 pts, n=49, but only 7 in-regime). No parameter changed.",
+  "options_verdict": "EDGE GONE -- size halved, new entries PAUSED, escalated to Ryan.",
+  "day_track_verdict": "PAPER retained; graduate() go_live FALSE. day_risk_pct unchanged at 5.0.",
+  "prompt_staleness": "prompt v11 step 8b still instructs the side=='sell' split, which is measurably wrong. Reported, NOT resolved -- no run may edit the stored prompt or claim a Ryan turn (HARD RULE 9)."
  },
  "monthly_rebalance": "NOT DUE -- next on the first trading day of October 2026.",
  "iv_note": "NO IV SWEEP THIS RUN, stated plainly rather than silently skipped. The options book is empty and unfundable at $369.49 deployable against a $500 CORE low end, so a core-list IV row informs no decision today and the calls are better spent on the two root-cause fixes this run shipped. The duty resumes the moment the book can fund an entry. Last rows remain in iv_history.json; nothing was overwritten with a stale or partial reading.",
@@ -84,5 +88,7 @@
   "held_names": "NO print for ABNB, UNP or IBKR anywhere in 2026-09-18..2026-09-25.",
   "large_caps_next_week": "09-22 AZO/THO/MLKN am, KBH/WOR pm; 09-23 CTAS/PAYX/GIS/MANU am, FUL pm; 09-24 DRI/SNX/BB am, COST pm; 09-25 TBN am. None is a semis or AI-complex print.",
   "why_this_is_additive_and_not_a_restatement": "The `catalysts_next_5_sessions` entry above says the held names print outside their time-stop windows 'verified at entry for each'. That is an entry-dated verification; this is a TODAY-dated one, and it carries the gap the other cannot: the window pulled ends 2026-09-25 while IBKR's time stop is 2026-09-30, so IBKR's final five days are UNVERIFIED. Per _A_PER_TICKER_EARNINGS_SERIES_CAN_BE_INTERNALLY_INCONSISTENT calendar silence is not proof either way. RE-CHECK IBKR before its time stop; do not treat this row as having cleared it."
- }
+ },
+ "options_book_status": "NEW ENTRIES PAUSED and position size halved, by the 2026-09-21 Monday calibration's KILL branch (options margin -13.41 pts over a 58% breakeven, n=21, expectancy -$27.24/trade; attributed to the desk's own trades alone it is -41.76 pts on 10 closes). EXITS ARE NOT AFFECTED and the book is empty anyway. Escalated to Ryan. See holdings.json._WEEKLY_CALIBRATION_2026-09-21.",
+ "iv_sweep": "DEFERRED to a run past ~14:00Z, deliberately and with the reason stated. The opening-window ATM inflation finding says any pre-14:00Z ATM row is an UPPER BOUND that must be re-measured before it decides anything; writing a knowingly-inflated row into iv_history.json would hand the next run a number it has to discount. With options entries PAUSED there is also nothing the row could gate today. Deferral, not omission -- the duty stands and a later run owns it."
 }
