@@ -295,17 +295,17 @@
       "quote_provenance": "Signal and vehicle are the same instrument on a long, so one quote serves both: QQQ last_trade_price 729.2575, venue 13:37:33.970Z, bid 729.24 / ask 729.26 (spread $0.02). Taken 7.5 minutes after the bell, i.e. past the opening-auction window the standing rule warns about, and used only for sizing a paper row.",
       "sampling_bias_note": "FIRST LONG-SIDE PAPER SIGNAL SINCE 09-16 and it partly answers _DAY_TRACK_THE_LONG_SIDE_IS_NOW_UNAFFORDABLE_SO_THE_PAPER_SAMPLE_WILL_SELECT_SHORTS_2026-09-17: the long side is affordable again at exactly ONE share, because the IBKR take-profit returned $727 of cash on 09-18. The bias has not disappeared, it has narrowed -- a 1-share long quantizes horribly (any R is a whole $1.44 and slippage is not divisible), whereas the short side buys 40+ shares of a $25 vehicle. Quantization asymmetry between the two sides remains a live threat to the graduation sample's validity and should be named in the go-live review.",
       "_manage_state": {
-        "peak_px_signal": 739.0,
+        "peak_px_signal": 739.39,
         "adverse_extreme_since_entry": 728.855,
-        "stop_px_signal_current": 738.2624,
-        "r_now": 6.729,
-        "last_managed_utc": "2026-09-21T16:31:00Z",
+        "stop_px_signal_current": 738.5688,
+        "r_now": 6.61,
+        "last_managed_utc": "2026-09-21T16:47:00Z",
         "breakeven_armed": true,
         "trail_armed": true,
-        "atr14_5min_used": 0.49173,
-        "_two_pass_manage": "PASS 1 (breach), PARTITIONED AT THE 16:19Z STOP CHANGE per _DAY_TRACK_THE_BREACH_WINDOW_MUST_BE_PARTITIONED_AT_EVERY_STOP_CHANGE_2026-09-21. Bars 16:18Z (the one bar that traded under the OLD 737.1305 stop and was never tested, because the union pass saw bars only through 16:17Z): low 738.040, clear by 0.9095. Bars 16:19Z-16:29Z under the NEW 737.6885 stop: min low 738.110 (16:19Z bar), clear by 0.4215. NO BREACH on either half. PASS 2 (ratchet): manage('long', 729.2575, 737.6885, price=738.93, session_extreme=739.000, atr5=0.49173, time_et='12:31', stop_dist=1.4375) -> {'action':'raise_stop','stop':738.2624,'reason':'ratchet at 6.73R'}. ELEVENTH ratchet of the day: 738.2624 = 739.000 - 1.5 x 0.49173, locking +9.0049 pts = +6.264R with +6.729R on the screen ($9.67 on the single share). PAPER -- nothing sent to a broker.",
-        "_decision_price_is_the_bid": "738.930 is the BID (venue 16:31:09.794Z); a long is sold into the bid, so the bid is the executable price and the conservative input. Last trade 738.945, immaterially different.",
-        "_session_extreme_is_bar_derived": "739.000 -- the highest COMPLETED one-minute bar high since entry (16:28Z bar), superseding the 738.395 used by the 16:19Z union pass. CROSS-CONFIRMED by the independently-fetched 5-minute 16:25Z bucket, whose high is also 739.000. Bar-derived floor, never quote-derived.",
+        "atr14_5min_used": 0.54744,
+        "_two_pass_manage": "PASS 1 (breach), PARTITIONED AT THE 16:31Z STOP CHANGE per _DAY_TRACK_THE_BREACH_WINDOW_MUST_BE_PARTITIONED_AT_EVERY_STOP_CHANGE_2026-09-21. Bars 16:29Z-16:30Z traded under the OLD 737.6885 stop: min low 738.740, clear by 1.0515. Bars 16:31Z-16:44Z under the 738.2624 stop set at 16:31Z: min low 738.480 (16:39Z bar), clear by 0.2176. NO BREACH on either half. PASS 2 (ratchet): manage('long', 729.2575, 738.2624, price=738.760, session_extreme=739.390, atr5=0.54744, time_et='12:47', stop_dist=1.4375) -> {'action':'raise_stop','stop':738.5688,'reason':'ratchet at 6.61R'}. TWELFTH ratchet of the day: 738.5688 = 739.390 - 1.5 x 0.54744, locking +9.3113 pts = +6.4774R with +6.6104R on the screen ($9.50 on the single share). PAPER -- nothing sent to a broker.",
+        "_decision_price_is_the_bid": "738.760 is the BID (venue 16:46:20.052Z) and equals the last trade; a long is sold into the bid, so the bid is the executable price and the conservative input.",
+        "_session_extreme_is_bar_derived": "739.390 -- the highest COMPLETED one-minute bar high since entry (16:33Z bar), superseding the 739.000 (16:28Z) used by the 16:31Z pass. CROSS-CONFIRMED by the independently-fetched 5-minute 16:30Z bucket, whose high is also 739.390. A bar-derived extreme is a FLOOR on the true session high; the trail ratchets up-only, so a floor is the safe input.",
         "_atr5_note": "0.49173 -- ATR14(5-minute) over the 14 true ranges from the 15 completed buckets 15:15Z..16:25Z, aggregated in-run from one-minute bars. THE COMPRESSION HAS ENDED AND REVERSED: 1.3857 (entry) -> 0.8558 -> 0.83498 -> 0.67650 -> 0.59969 -> 0.48635 -> 0.47099 -> 0.49173, the FIRST rise in the series (+4.4%), driven by the 16:05Z bucket's 0.810-point range and the 16:25Z bucket's 0.465. Two earlier passes called the series settled and were wrong in the falling direction; this one is the first to turn, which matters because a RISING atr5 LOWERS the trail and is the one direction the ratchet cannot follow (up-only). Ex-the-two-freshest buckets atr5 is 0.47206 -> stop 738.2919; the all-completed number is used because that is the convention every prior pass today applied, and it is also the more conservative of the two (lower stop, 0.0295 more room).",
         "_room_note": "Room is 0.6676 pts (bid 738.930 - stop 738.2624), essentially unchanged from the 0.6365 the 16:19Z pass left: price advanced 0.640 and the bar-derived extreme advanced 0.605, so the trail tracked the move almost exactly. day_track.stop_is_placeable('long', 738.2624, 738.930) is True -- placeable at the broker, unlike the 16:03Z pass. The session's p90 one-minute drawdown-from-running-high still exceeds this room, so an ordinary pullback of that size closes the trade; that is the trail working as designed at +6.7R, not a defect.",
         "_feed_integrity": "VERIFIED BEFORE ANY NUMBER WAS USED, and in the DIRECTION the 2026-08-28 rule requires. All SEVEN 5-minute buckets 15:55Z..16:25Z reconcile EXACTLY to their one-minute sums -- 166237/152506/239135/106255/123168/152755/170491, zero discrepancy in either direction -- and every bucket high/low equals the one-minute extreme. SPY pulled in the same call as a cross-symbol control printed normally at every timestamp. NOTE the 16:15Z one-minute bar's volume of 3,658 against neighbours of 16,524 and 27,968: that carries the tiny-fraction signature this repo teaches you to suspect, and it is NOT a hole -- its bucket reconciles to the byte, so the minute was genuinely quiet. The signature is a prompt to reconcile, never a verdict on its own."
@@ -511,9 +511,27 @@
           "breach_pass": "PASS 1 (breach), PARTITIONED AT THE 16:19Z STOP CHANGE per _DAY_TRACK_THE_BREACH_WINDOW_MUST_BE_PARTITIONED_AT_EVERY_STOP_CHANGE_2026-09-21. Bars 16:18Z (the one bar that traded under the OLD 737.1305 stop and was never tested, because the union pass saw bars only through 16:17Z): low 738.040, clear by 0.9095. Bars 16:19Z-16:29Z under the NEW 737.6885 stop: min low 738.110 (16:19Z bar), clear by 0.4215. NO BREACH on either half.",
           "placeability": "PLACEABLE. day_track.stop_is_placeable('long', 738.2624, 738.930) is True -- 0.6676 pts of room.",
           "phase": "paper"
+        },
+        {
+          "run_utc": "2026-09-21T16:47:00Z",
+          "action": "raise_stop",
+          "from": 738.2624,
+          "to": 738.5688,
+          "r_at_pass": 6.61,
+          "locked_r": 6.4774,
+          "inputs": {
+            "price_bid": 738.76,
+            "session_extreme": 739.39,
+            "atr5": 0.54744,
+            "stop_dist": 1.4375
+          },
+          "breach_pass": "PASS 1 (breach), PARTITIONED AT THE 16:31Z STOP CHANGE per _DAY_TRACK_THE_BREACH_WINDOW_MUST_BE_PARTITIONED_AT_EVERY_STOP_CHANGE_2026-09-21. Bars 16:29Z-16:30Z traded under the OLD 737.6885 stop: min low 738.740, clear by 1.0515. Bars 16:31Z-16:44Z under the 738.2624 stop set at 16:31Z: min low 738.480 (16:39Z bar), clear by 0.2176. NO BREACH on either half.",
+          "placeability": "PLACEABLE but by the THINNEST margin of the session: day_track.stop_is_placeable('long', 738.5688, 738.760) is True with 0.1912 pts of room (0.0259% of spot), against 0.6676 at the eleventh ratchet. Reported, not overridden -- see finding_5b of _DAY_TRACK_THE_ATR_TRAIL_CONVERGES_ON_PRICE_WHEN_VOLATILITY_COMPRESSES_2026-09-21.",
+          "feed_check": "All 15 five-minute buckets 15:30Z..16:40Z were built by aggregating the ONE-MINUTE series in-run AND cross-checked against an independently-fetched 5-minute series: volume, high and low agree EXACTLY on all 15. No hole in either direction, so the 2026-08-28 direction rule has nothing to arbitrate.",
+          "phase": "paper"
         }
       ],
-      "stop": 738.2624,
+      "stop": 738.5688,
       "_stop_field_contract": "ONE LIVE STOP, ONE ENTRY STOP, AND AN ASSERTION. `stop` is the ONLY live stop and is what the breach test and (in LIVE) the cancel/replace read. `stop_px_signal` / `stop_px_vehicle` are the IMMUTABLE ENTRY stop -- 727.82, the opposite OR edge per day_track.initial_stop(OR, 'long', atr14_daily=8.3193): range 1.02 > 0.1 x 8.3193, so the edge stands unadjusted, and 729.2575 - 727.82 = 1.4375 == stop_dist. They were ratcheted in place through the 14:33Z pass and left at 733.0714 when the 14:45Z pass introduced `stop`; restored here. `_manage_state.stop_px_signal_current` MIRRORS `stop` and every pass must rewrite it. ASSERT BEFORE COMMITTING: stop == _manage_state.stop_px_signal_current == _manage_log[-1]['to'], and round(entry_px_signal - stop_px_signal, 4) == stop_dist for a long. See holdings.json._DAY_TRACK_THREE_FIELDS_HELD_THE_LIVE_STOP_AND_THE_ENTRY_STOP_WAS_OVERWRITTEN_2026-09-21."
     }
   ]

@@ -40455,6 +40455,41 @@
         "options": "Book empty. Deployable $97.57 is far below any CORE size ($500-1,000 typical). 0 of 3 options entries used; realized options P/L today $0.00 against the -$400 cap. Entries are NOT paused -- the 13:42Z KILL branch was reversed at 14:05Z; see _WEEKLY_CALIBRATION_2026-09-21.OPTIONS_BOOK.REVERSAL."
       },
       "duties": "Heartbeat already stamped 13:40Z. market_brief stamped today. Daily report due on the first run at/after 19:15Z -- not this run. Monday calibration done by the 13:30Z run."
+    },
+    {
+      "run_utc": "2026-09-21T16:47:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-21",
+      "headline": "DAY TRACK twelfth trail ratchet 738.2624 -> 738.5688 (+6.48R locked, +6.61R open) on a new session high of 739.390. One new durable finding: the trail TIGHTENED 0.31 pts on the same pass that atr5 rose 11.3%, which refines the 16:31Z claim that a rising ATR can only stall it. No trade in either real book: deployable $97.65, far under the $600 minimum entry.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 16:45-16:46Z. OPTIONS: options_value $0, no ledger rows. EQUITIES three swings, all fully sellable, matching the ledger to six decimals: ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, V 2.716801 @ 368.08. CAPITAL: total_value $3,411.48, cash == buying_power == unleveraged_buying_power == $268.22 (no margin extended), equity_value $3,143.26; reserve 5% = $170.57, DEPLOYABLE $97.65.",
+      "tape": {
+        "qqq_bid": 738.76,
+        "qqq_last": 738.76,
+        "qqq_prev_close": 721.45,
+        "qqq_session_high_since_entry": 739.39,
+        "qqq_1min_low_16:31Z_16:44Z": 738.48,
+        "atr5_15:30Z_16:40Z": 0.54744
+      },
+      "day_track": {
+        "action": "raise_stop",
+        "from": 738.2624,
+        "to": 738.5688,
+        "locked_r": 6.4774,
+        "open_r": 6.6104,
+        "pnl_usd_on_one_share": 9.5,
+        "breach_pass": "partitioned at the 16:31Z stop change; 16:29Z-16:30Z clear the old 737.6885 by 1.0515, 16:31Z-16:44Z clear 738.2624 by 0.2176. No breach.",
+        "feed_check": "all 15 five-minute buckets 15:30Z..16:40Z reconcile EXACTLY to their one-minute sums on volume, high and low; no hole in either direction.",
+        "placeability": "PLACEABLE with 0.1912 pts of room (0.0259% of spot), the thinnest of the session. Reported, not overridden.",
+        "phase": "PAPER -- nothing sent to a broker. graduate(3, [-1,-1,-1]) -> go_live False ('paper 3d / 3 trades; need 10d and 8'); today's row is still open and counts toward neither.",
+        "flat_rule": "15:30 ET (19:30Z), ~2.7h away."
+      },
+      "durable_finding": "holdings.json._DAY_TRACK_THE_ATR_TRAIL_CONVERGES_ON_PRICE_WHEN_VOLATILITY_COMPRESSES_2026-09-21.finding_5b_a_rising_atr_still_tightened_the_trail_measured_16:47Z -- named here, argued there. In one line: the trail is extreme - 1.5 x atr, so it moves by d(extreme) - 1.5 x d(atr); a rising ATR buys room at only 1.5x its own increase and on a tape making new highs the extreme leg outruns it. 'Rising volatility stalls the trail' describes a TERM, not the STOP.",
+      "why_flat": {
+        "equities": "No exit fired: the committed report (latest_intraday.md, 16:08Z today, header clean, ACTION block EMPTY) judges ABNB and UNP HOLD (thesis-watch, underwater, time stop 2026-09-24 at 14d held) and V HOLD. No entry: deployable $97.65 is 16% of the ~$600 CONCENTRATION-POLICY minimum, and a sub-minimum entry is a SKIPPED opportunity, not a small one; 1 of 3 daily equity entries is already spent (V, 14:23:39Z). No rotation graded -- the book sits at 3 of the 3-4 target slots, a correct fully-deployed state, and a rotation sell must be graded better than the weakest held name on the ENTRY STACK, which no candidate was worked against after V took the one fundable slot.",
+        "options": "Book empty, 0 of 3 entries used, realized options P/L today $0.00 against the -$400 cap. Entries are NOT paused -- the 13:42Z KILL branch was REVERSED at 14:05Z; owning record is _WEEKLY_CALIBRATION_2026-09-21.OPTIONS_BOOK.REVERSAL. Capital is the sole binding gate: $97.65 deployable cannot fund any CORE size ($500-1,000 typical).",
+        "day_track": "One trade per day and today's is already open; managed, not re-entered."
+      },
+      "duties": "Heartbeat already stamped 13:40Z for this trading day. market_brief.json stamped today. Daily report is due on the first run at/after 19:15Z and is not this run's. Monday calibration was run by the 13:40Z run (_WEEKLY_CALIBRATION_2026-09-21) -- not repeated."
     }
   ]
 }
