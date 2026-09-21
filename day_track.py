@@ -42,6 +42,7 @@ feeds them in. `python3 day_track.py` runs the self-tests.
 
 from __future__ import annotations
 
+import json
 import math
 from dataclasses import dataclass, asdict
 
@@ -315,6 +316,61 @@ def graduate(paper_days: int, paper_trades_r: list[float]) -> dict:
             "reason": "criteria met" if ok else "expectancy or margin not positive"}
 
 
+def assert_row_invariants(row: dict) -> None:
+    """Assert the ledger invariants on ONE day-track row (paper or live). Raises AssertionError.
+
+    WHY THIS IS CODE AND NOT PROSE. day_track_paper.json has carried a `_stop_field_contract`
+    string since 2026-09-21 spelling out exactly these equalities and ending "ASSERT BEFORE
+    COMMITTING" -- and the very next management pass (16:03Z) broke two of them: it ratcheted
+    `_manage_state.stop_px_signal_current` to 737.1305 but left the top-level `stop` at 736.4524
+    and appended no `_manage_log` row. The 15:15Z pass had already skipped its log row the same
+    way. A contract a run has to REMEMBER to check gets checked when nothing is happening and
+    skipped when the pass is interesting. Three fields hold one number; call this before
+    committing and the stale one cannot survive.
+
+    BOOKKEEPING ONLY. It gates no trade, adds no filter and changes no decision -- the spec
+    (docs/day-track-spec.md) is untouched and manage() is not wired to it.
+    """
+    d = row["direction"]
+    assert d in ("long", "short"), f"bad direction {d!r}"
+    ms = row.get("_manage_state") or {}
+    log = row.get("_manage_log") or []
+
+    # 1. the ENTRY stop is immutable and defines stop_dist
+    entry, entry_stop = row["entry_px_signal"], row["stop_px_signal"]
+    span = (entry - entry_stop) if d == "long" else (entry_stop - entry)
+    assert span > 0, f"entry stop {entry_stop} is on the wrong side of entry {entry} for a {d}"
+    if "stop_dist" in row:
+        assert round(span, 4) == round(row["stop_dist"], 4), \
+            f"entry - entry stop = {span:.4f} != stop_dist {row['stop_dist']}"
+
+    # 2. the LIVE stop is one number held in three places
+    live = row.get("stop")
+    if live is not None:
+        cur = ms.get("stop_px_signal_current")
+        assert cur is None or round(cur, 4) == round(live, 4), \
+            f"stop {live} != _manage_state.stop_px_signal_current {cur}"
+        if log:
+            last = log[-1].get("to")
+            assert last is None or round(last, 4) == round(live, 4), \
+                f"stop {live} != last _manage_log row's 'to' {last}"
+        # 3. the live stop only ratchets in the trade's favour, never back past the entry stop
+        assert (live >= entry_stop) if d == "long" else (live <= entry_stop), \
+            f"live stop {live} is worse than the entry stop {entry_stop} for a {d}"
+
+
+def stop_is_placeable(direction: str, stop: float, price: float) -> bool:
+    """True when a resting stop_market at `stop` would NOT trigger on submission.
+
+    A sell stop must sit BELOW the market and a buy stop ABOVE it. manage() ratchets purely on
+    session_extreme -/+ 1.5 x atr5 and has no such guard, so in a volatility compression the
+    trail can converge past spot: measured 2026-09-21T16:01Z, the computed trail sat 0.0605
+    ABOVE the live bid -- in LIVE that is an immediate stop-out, not a stop. Reported for the
+    graduation review; NOT used to override manage(), whose output the run applies as written.
+    """
+    return stop < price if direction == "long" else stop > price
+
+
 # ---------------------------------------------------------------------------
 # self-tests
 # ---------------------------------------------------------------------------
@@ -438,6 +494,43 @@ def _selftest() -> None:
     assert g["go_live"] and g["expectancy_r"] > 0, g
     g = graduate(10, [-1, -1, 0.3, -1, 0.2, -1, -1, 0.1])
     assert g["go_live"] is False
+    # ledger invariants (bookkeeping, not a gate)
+    good = {"direction": "long", "entry_px_signal": 729.2575, "stop_px_signal": 727.82,
+            "stop_dist": 1.4375, "stop": 737.6535,
+            "_manage_state": {"stop_px_signal_current": 737.6535},
+            "_manage_log": [{"to": 737.6535}]}
+    assert_row_invariants(good)
+
+    def _must_fail(row, what):
+        try:
+            assert_row_invariants(row)
+        except AssertionError:
+            return
+        raise SystemExit(f"invariant missed {what}")
+
+    # the EXACT 16:03Z defect: _manage_state ratcheted, `stop` and the log row left behind
+    stale = json.loads(json.dumps(good))
+    stale["_manage_state"]["stop_px_signal_current"] = 737.1305
+    _must_fail(stale, "a stale `stop` field")
+    # and the other half: the log row never appended (also the 15:15Z pass)
+    stale2 = json.loads(json.dumps(good))
+    stale2["_manage_log"][-1]["to"] = 736.4524
+    _must_fail(stale2, "a stale _manage_log row")
+    # the entry stop must not be overwritten by a ratchet (the 14:45Z defect)
+    over = json.loads(json.dumps(good))
+    over["stop_px_signal"] = 733.0714
+    _must_fail(over, "an overwritten entry stop")
+
+    short = {"direction": "short", "entry_px_signal": 100.0, "stop_px_signal": 101.0,
+             "stop_dist": 1.0, "stop": 99.0,
+             "_manage_state": {"stop_px_signal_current": 99.0}, "_manage_log": [{"to": 99.0}]}
+    assert_row_invariants(short)
+
+    assert stop_is_placeable("long", 737.1305, 737.410)
+    assert stop_is_placeable("long", 737.1305, 737.060) is False   # measured 2026-09-21T16:01Z
+    assert stop_is_placeable("short", 101.0, 100.0)
+    assert stop_is_placeable("short", 99.0, 100.0) is False
+
     print("day_track selftest OK")
 
 
