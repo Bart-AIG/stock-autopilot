@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-21T13:52:00Z",
+  "updated_utc": "2026-09-21T14:06:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-21",
     "realized_usd_options": 0.0,
@@ -49,18 +49,39 @@
       "native_trail_pct": null,
       "_note": "AUTONOMOUS equity entry under HARD RULE 6, placed_agent 'agentic', order 6aa2f4ee-a23b-49c3-8e48-eee4a2601f93 filled 2026-09-10T18:20:30Z, 3.858199 sh @ 285.1071 = $1,100.00, zero fees. SIGNAL-SOURCED from the committed 2026-09-10T18:01Z intraday report (RSI2 2.2, the lowest non-held print on a 25-name board). Graded A: 200-day SMA rising monotonically 255.467->260.934 with spot 61.6 SESSIONS of cushion above it; Q2 2026 adj EPS $3.41 vs $3.24 and revenue +12% to $6.864B, both beats; dividend raised to $1.42 on 07-29; consensus Overweight, FactSet mean PT $332.70 (+16.7%); three upward PT revisions in six weeks; and the entry prints GREEN (+0.09%) against SPY -0.61% / QQQ -1.00%, so trend-maturity gate (c) confirms rather than diverges. NO adverse catalyst behind the slide -- the last company news is a beat and a raise. KNOWN NEGATIVES, recorded not buried: PEG 3.2 reads '(WARN) rich' on the report's SECONDARY value screen (P/E 23.0 is ordinary for a Class I rail and PEG penalises mature compounders; unlike SBUX's PEG -2.3 there is no de-rating catalyst); the UNP/NSC $85B merger is under STB review with comments due 11-18, DOJ/DOT 12-03, final briefs 2027-05-28 -- nothing binary inside the hold; Baupost cut 23% in Q2, offset by Viking Global initiating a new $556.9M position the same quarter. NO PRICE STOP EVER (HARD RULE 5). Full pre-trade decision record: trade_journal.json entry run_utc 2026-09-10T18:19:00Z, written BEFORE the order per gate (a).",
       "_current_state": {
-        "as_of_utc": "2026-09-21T13:48:00Z",
-        "venue_quote_utc": "2026-09-21T13:34:17-13:34:19Z (4+ minutes after the bell; NOT the opening auction print)",
-        "price": 274.27,
-        "bid": 274.36,
-        "ask": 274.98,
-        "pl_pct_vs_entry": -3.8,
-        "pl_usd": -41.81,
-        "value_usd": 1058.19,
+        "as_of_utc": "2026-09-21T14:05:00Z",
+        "venue_quote_utc": "2026-09-21T14:01:02.253Z",
+        "price": 273.05,
+        "bid": 272.97,
+        "ask": 273.11,
+        "pl_pct_vs_entry": -4.23,
+        "pl_usd": -46.52,
+        "value_usd": 1053.48,
         "time_stop_date": "2026-09-24",
         "held_days": 11,
-        "verdict": "HOLD. Underwater, so the mechanical RSI2>=70 TAKE-PROFIT is UNAVAILABLE BY CONSTRUCTION -- it is a profit-banking authority gated on price > entry (2026-08-26 correction), and an RSI2>=70 print on an underwater position is an OPTIONAL exit-into-strength routed to thesis, never a mechanical loss-realization. No price stop exists (HARD RULE 5). The live exit is therefore the 14-day TIME STOP on 2026-09-24 -- 3 sessions away, inside TIME_STOP_WARN_DAYS(3), so from the next report onward the alert should annotate it.",
-        "divergence_flag": "UNP is -1.83% on a +0.63% SPY / +1.19% QQQ tape -- roughly 2.5 points of relative underperformance at the open. Stated as a NUMBER, not a verdict; no news check was run this run. The run that takes today's report should do the HARD RULE 7 research, because a BROKEN verdict changes the exit from 'time stop 09-24' to 'sell now', and 3 sessions of a falling name is what the time stop exists to bound."
+        "verdict": "HOLD. Thesis INTACT on every fundamental leg; the price action is UNEXPLAINED and that is stated as a gap in the desk's information, not as a verdict. Exit remains the 14-day TIME STOP on 2026-09-24, three sessions away and inside TIME_STOP_WARN_DAYS(3).",
+        "hard_rule_7_research": {
+          "run_utc": "2026-09-21T14:02-14:04Z",
+          "trigger": "The 13:48Z run measured UNP at -1.83% on a rising tape, declined to call it, and explicitly assigned the news check to the next run. By 14:01Z the divergence had roughly tripled.",
+          "verdict": "INTACT (fundamentals) / UNEXPLAINED (tape). NOT BROKEN -- and under HARD RULE 7 and the v11 THESIS SELLS clause a price move alone is never a sell, however large.",
+          "evidence_for": [
+            "Most recent analyst action is an UPGRADE, five sessions old: UBS (Thomas Wadewitz) Neutral -> BUY, PT $310 -> $339 on 2026-09-16, on a second year of strong volume growth (total +3.5% in 2027 after +3.9% in 2026, intermodal +6-7%) and rail pricing catching up to truckload. UBS EPS $13.41 (2026) / $14.90 (2027) vs Street $13.06 / $14.15. [MT Newswires 2026-09-16]",
+            "Consensus unchanged and positive: 19 buy / 7 hold / 2 sell, mean PT $333.35, high $375 / low $245 (get_equity_analyst_ratings). FactSet mean $334.04 as of 09-16. Spot 273.05 is ~22% below consensus.",
+            "Q2 2026 adj EPS $3.41 vs $3.24 and revenue +12% to $6.864B, both beats; dividend raised to $1.42 on 2026-07-29. Unchanged since entry.",
+            "NSC merger on its procedural schedule -- STB comments due 2026-11-18, DOJ/DOT 12-03, final briefs 2027-05-28, close guided Q3/Q4 2027. NOTHING BINARY INSIDE A HOLD ENDING 09-24.",
+            "No company-specific news item exists between 2026-09-17 and 2026-09-21 in the Robinhood feed (12 articles pulled) or in two web searches."
+          ],
+          "evidence_against": [
+            "-6.20% on the session (279.37 -> 273.05) against SPY +0.78% and QQQ +1.55% -- roughly 7 points of relative underperformance in one session.",
+            "IDIOSYNCRATIC, NOT SECTOR: NSC -1.34%, CSX -1.87%, IYT -1.11% on the same tape. UNP is 4.3-4.9 points worse than its own merger counterparty. A deal-break would normally punish the TARGET hardest, and it has not.",
+            "NOT A GAP, WHICH MAKES IT WORSE NOT BETTER: UNP opened at 279.20 against Friday's 279.37 close -- essentially flat -- and then sold from the bell, 279.20 -> 273.58 inside the first five minutes on 54,511 shares, with 48k / 70k / 51k in the following buckets and no bounce attempt. Sustained, participated distribution rather than a headline repricing.",
+            "Cumulative: -4.23% from entry, and this is the second consecutive week the name has gone the wrong way."
+          ],
+          "the_honest_gap": "A 6.2% single-session idiosyncratic move on a $170B mega-cap almost always has a cause. The desk could not find one in the news feed, in two web searches, in the analyst tape or in the peer complex. THE CORRECT INFERENCE IS THAT THE DESK'S INFORMATION IS INCOMPLETE, NOT THAT THE MOVE IS NOISE -- the repo already records the inverse error (an after-hours print dismissed as 'thin' that the next open confirmed within six cents). Reported to Ryan rather than resolved, because he may see a headline this desk cannot.",
+          "why_the_rules_still_say_hold": "The v11 THESIS SELLS clause requires research reaching BROKEN with sources; it is not reached, and the same clause says a technical flag alone is HOLD/REVIEW. HARD RULE 5 forbids a price stop. The mechanical TAKE-PROFIT is unavailable by construction on an underwater name (profit-banking authority, gated on price > entry, 2026-08-26 correction). So the only live exit is the TIME STOP, and it fires in three sessions REGARDLESS of what the price does -- which is precisely the bounding function the time stop was wired up for on 2026-09-02. Selling today on a price move would be substituting a discretionary loss-stop for the rule that already covers this case.",
+          "no_thesis_checked_written": "Deliberately. thesis_checked with verdict 'intact' is the 30-day SUPPRESSION mechanism for report-generated THESIS CHECK flags; UNP carries no such flag (the report has it at HOLD thesis-watch), and writing one here would suppress a signal on a name whose tape the desk has just admitted it cannot explain. Suppression is for questions that are ANSWERED."
+        },
+        "divergence_flag": "UNP -6.20% vs SPY +0.78% / QQQ +1.55% / NSC -1.34% / CSX -1.87%. Stated as numbers. Escalated to Ryan by push notification at 14:06Z -- the one notification this incident gets (HARD RULE 9 notify-once discipline); a further run finding the same unexplained decline re-notifies only if it materially worsens or a cause surfaces."
       },
       "_notify_state": {
         "last_trigger": null,
@@ -5494,7 +5515,7 @@
     "set_utc": "2026-09-14T22:30:00Z",
     "authority": "Ryan, REAL live turn 2026-09-14 (interactive session, typed turns): '1. Let's make the change. 2. Whichever you recommend is fine. 3. 5-20%. 4. Sure. 5. Let's do it.' -- answering the five design decisions in the autonomy-audit proposal. Spec: docs/day-track-spec.md. Code: day_track.py. Prompt carrying the duties: docs/routine-prompt-v11.md (PASTE-READY).",
     "status": "PAPER",
-    "status_note": "PAPER, ACTIVE, and paper day 4 is OPEN AND WORKING. *** TODAY: the 13:37Z sibling run took the long QQQ signal at 729.2575 (OR 727.82/728.84 from the five 13:30-13:34Z one-minute bars, body 69.1% of range -> long; stop = opposite OR edge 727.82; 1 share, cash-bound). The 13:45Z run MANAGED it rather than re-entering: plan_entry() at 731.28 correctly returns action='skip', reason='late entry', and manage() returns raise_stop to breakeven at +1.435R. See _DAY_TRACK_THE_ENTRY_WINDOW_WAS_NARROWER_THAN_THE_RUN_CADENCE_2026-09-21. *** PAUSE: expired at the week boundary as designed (track_status -> paused False); equity $3,409.07 is well clear of the $2,600 floor. *** GRADUATION UNCHANGED AND IT IS THE ONLY REMAINING LOCK: graduate(3, [-1.0,-1.0,-1.0]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. Today's row is still OPEN, so it counts toward neither day nor trade until it closes. The v11 stop-authority lock opened 2026-09-15 and does NOT graduate anything; only a Monday calibration flips the phase, and no run promotes it mid-week. Earliest arithmetically possible go-live remains a Monday on or after 2026-10-05.",
+    "status_note": "PAPER, ACTIVE, paper day 4 OPEN AND WORKING AT +2.31R. *** Long QQQ from 729.2575 (OR 727.82/728.84, body 69.1% -> long), taken by the 13:37Z sibling run; 1 share, cash-bound. *** 14:05Z: THE 2R TRAIL ARMED FOR THE FIRST TIME IN THE TRACK'S HISTORY -- manage(price=732.58 bid, session_extreme=732.67, atr5=1.2154) -> raise_stop 729.2575 -> 730.8469, locking +1.106R. In LIVE that is a cancel/replace of the resting stop_market. This also RESOLVED a five-day-old disagreement about the atr5 input: see _DAY_TRACK_atr5_WAS_READ_TWO_WAYS_AND_THE_DIFFERENCE_ONLY_SURFACES_AT_2R_2026-09-21. *** PAUSE expired at the week boundary as designed; equity $3,413.01 well clear of the $2,600 floor. *** GRADUATION UNCHANGED AND IT IS THE ONLY REMAINING LOCK: graduate(3, [-1.0,-1.0,-1.0]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. Today's row is still OPEN, so it counts toward neither day nor trade until it closes. The v11 stop-authority lock opened 2026-09-15 and does NOT graduate anything; only a Monday calibration flips the phase, and no run promotes it mid-week. Earliest arithmetically possible go-live remains a Monday on or after 2026-10-05.",
     "signal_symbol": "QQQ",
     "long_vehicle": "QQQ",
     "short_vehicle": "PSQ",
@@ -7182,5 +7203,26 @@
     "the_transferable_shape": "This file's most-repeated defect, arriving inside the purity check written to prevent it. The morning run DID run a purity check -- it explicitly tested 'is this really Ryan's trades?' and reported the answer as decisive. The check used the wrong key and excluded nothing, so it returned a confident, precise, wrong number and the confidence came from having checked at all. A PURITY CHECK THAT PARTITIONS ON THE WRONG FIELD IS NOT A WEAKER CHECK, IT IS A LICENCE: it converts an unexamined assumption into a measured-looking fact.",
     "second_shape_worth_keeping": "The KILL branch is deliberately exempt from the in-regime gate so risk-off never waits for a clean sample. That exemption means the KILL is the ONE verdict no sample-quality gate protects -- which the 2026-09-18 split_books finding already said in terms ('a sample-quality bug is most dangerous on the branch that skips sample checks') and which has now happened a second time, through a different field, three days later. THE GENERAL RULE: before firing the KILL, re-derive the sample by a SECOND independent key and require both to agree. Risk-off does not wait for a clean sample; it does not follow that it may run on an uninspected one.",
     "what_this_does_NOT_license": "Reading the reversal as a health verdict. Pure agentic is -$141 / -17.44 pts / expectancy -$14.10 over 10 closes -- negative, and simply below the n=20 threshold for action. The honest state is UNMEASURED. It is not a reason to size up, and a future run must not cite this key as evidence the options book works."
+  },
+  "_DAY_TRACK_atr5_WAS_READ_TWO_WAYS_AND_THE_DIFFERENCE_ONLY_SURFACES_AT_2R_2026-09-21": {
+    "found_utc": "2026-09-21T14:05:00Z",
+    "found_by": "scheduled run 14:00Z 2026-09-21 (unattended, prompt v11), performing the first management pass in the day track's history on a position that had reached +2R",
+    "headline": "TWO RUNS OF THE SAME TRACK READ ATR14(5-MINUTE) TWO DIFFERENT WAYS, AND THE DISAGREEMENT WAS INVISIBLE UNTIL A TRADE REACHED +2R. The 09-16 run fed atr() a series spanning the prior session and got a number; today's 13:50Z run counted only the current session's bars, concluded 'needs 15, the session has printed 4', and recorded atr5 = None. Both runs followed the spec as they read it; only one can be right.",
+    "which_is_right_and_why": "THE SPANNING READ. day_track.atr() is a pure function that averages the true range of WHATEVER list it is handed -- nothing in the code or the spec restricts the series to the current session. _DAY_TRACK_EARLY_SESSION_ATR14_5MIN_IS_MOSTLY_YESTERDAY_2026-09-16 measured the composition explicitly (6 bars from that day, 9 from the prior session's tail), quantified the consequence, and stated the governing principle in terms that decide this case: 'a run that silently swapped in a gap-free intraday ATR because it preferred the number would be re-importing exactly that failure'. Reading atr5 as None before 10:45 ET is the same substitution wearing different clothes -- it replaces the specified input with the desk's preference for same-session data, and it does so by suppressing the trail entirely rather than by recomputing it.",
+    "measured_today": {
+      "atr14_5min_as_spec": 1.2154,
+      "bars_consumed": "15 five-minute buckets, 2026-09-18T19:15Z .. 2026-09-21T13:55Z -- 9 stale + 6 today, the exact composition the 09-16 finding describes at this hour.",
+      "atr5_today_only_gap_free": 1.05,
+      "trail_level_as_spec": 730.8469,
+      "stop_before": 729.2575,
+      "locked_in_r_before": 0.0,
+      "locked_in_r_after": 1.106,
+      "r_at_the_time": 2.311,
+      "sensitivity_to_the_just_closed_bar": "Excluding the provisional 13:55 bucket gives ATR14 = 1.1875 and a trail of 730.8887, 0.03R tighter. Same action."
+    },
+    "WHY_IT_STAYED_HIDDEN_FOR_FIVE_DAYS": "atr5 is consumed at exactly ONE place in manage(): `if r >= TRAIL_START_R and atr5`. Below +2R the value is never read, so None and 1.2154 are observationally identical. Every prior paper trade stopped out inside two minutes (_DAY_TRACK_BOTH_PAPER_SIGNALS_WERE_DIRECTIONALLY_RIGHT_AND_BOTH_STOPPED_INSIDE_TWO_MINUTES_2026-09-16) or was managed below the threshold, so no run had ever dereferenced it. TODAY IS THE FIRST TIME THE TRACK HAS HELD A TRADE TO +2R. A disagreement about an input can sit between two runs indefinitely while the guard in front of it keeps evaluating false -- and when it finally resolves, it resolves on a live decision rather than in review.",
+    "THE_TRANSFERABLE_SHAPE": "This is the repo's most-repeated defect one layer down: not a check that passes for the wrong reason, but a DISAGREEMENT that never gets adjudicated because the code path that would expose it is gated. The detector is cheap and general: when a durable finding MEASURES an input, a later run that reports that same input as UNAVAILABLE is contradicting a measurement, and the contradiction -- not the input -- is the thing to resolve first. Grep the ledger for the input's name before recording that it cannot be computed.",
+    "AND_THE_SIGN_OF_THE_CONTAMINATION_IS_NOT_STABLE": "The 09-16 finding measured stale prior-session bars DRAGGING ATR DOWN (that prior afternoon was exceptionally quiet at 0.2-0.4 point ranges) and tightening the trail, and titled itself around that direction. TODAY THE SIGN IS REVERSED: today-only gap-free ATR5 is 1.05 against the as-spec 1.2154, so the stale Friday-afternoon bars RAISE the average and LOOSEN the trail by 0.25 points. The 09-16 write-up did not claim the direction was stable, but a reader inheriting one observation would reasonably assume it. n=2, opposite signs: the composition problem is real and its direction is a coin flip on the prior afternoon's tape.",
+    "status": "NO PARAMETER CHANGED, NO GATE ADDED, NO SPEC EDITED -- an unattended run may not touch this track's rules. What changed is that the stop was ratcheted per the formula as written, which is execution, not judgment. Recorded for the Monday calibration and for Ryan."
   }
 }
