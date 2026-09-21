@@ -280,8 +280,8 @@
       "entry_px_signal_venue_utc": "2026-09-21T13:37:33.970378250Z",
       "entry_px_vehicle": 729.2575,
       "entry_px_vehicle_venue_utc": "2026-09-21T13:37:33.970378250Z",
-      "stop_px_signal": 727.82,
-      "stop_px_vehicle": 727.82,
+      "stop_px_signal": 731.5264,
+      "stop_px_vehicle": 731.5264,
       "stop_dist_pct": 0.1971,
       "shares": 1,
       "dollars": 729.26,
@@ -315,7 +315,27 @@
       "r_multiple": null,
       "pnl_usd": null,
       "_flat_field_provenance": "entry/exit_px/exit_reason/r_multiple/pnl_usd are the flat mirror of the nested fields, kept for _DAY_TRACK.results. Populated on close. Do NOT count this row twice -- see _DAY_TRACK_PAPER_ROW_IS_STORED_TWICE_AND_THE_GRADUATION_SAMPLE_CAN_DOUBLE_COUNT_2026-09-15: day_track_paper.json is the source of truth and _DAY_TRACK.results mirrors it one row per trading day.",
-      "_manage_note_2026-09-21": "BREAKEVEN ARMED 13 MINUTES AFTER THE PAPER ENTRY. Unrealized +$2.06 on the single share (+1.43R at the bid); worst excursion since entry was -0.28R. THE ENTRY WINDOW WAS NARROWER THAN THE RUN CADENCE, AND THAT IS THE ONE THING THIS DAY TEACHES: the 13:37Z sibling cleared the late-entry gate with 0.09 of a point to spare (729.2575 against a 729.35 ceiling = OR high 728.84 + 0.5 x the 1.02-point range), and by 13:45Z plan_entry() on the same OR returns action='skip', reason='late entry', because QQQ was 731.28 \u2014 2.44 points beyond the edge on a 1.02-point range. Both calls are correct. The spec allows entry across 09:35-09:50 ET, but a 1.02-point opening range on a tape running +1.2% keeps that window open for roughly EIGHT minutes, not fifteen. Nothing here needs changing: the gate refused to chase and the sibling that fired inside the window took the signal cleanly. It is logged because it bears on go-live scheduling, not because either decision was wrong. *** 14:05Z UPDATE: the 2R trail ARMED and the stop ratcheted 729.2575 -> 730.8469 (+1.106R locked). QQQ bid 732.58, +2.31R, peak 732.67. Also note the sign flip against the 09-16 finding: there the stale prior-session bars DRAGGED ATR DOWN (placid close) and tightened the trail; today they RAISE it (today-only gap-free ATR5 is 1.05 against the as-spec 1.2154), loosening it. The contamination's DIRECTION is not stable, which the 09-16 write-up did not claim but a reader could easily infer from its single observation."
+      "_manage_note_2026-09-21": "BREAKEVEN ARMED 13 MINUTES AFTER THE PAPER ENTRY. Unrealized +$2.06 on the single share (+1.43R at the bid); worst excursion since entry was -0.28R. THE ENTRY WINDOW WAS NARROWER THAN THE RUN CADENCE, AND THAT IS THE ONE THING THIS DAY TEACHES: the 13:37Z sibling cleared the late-entry gate with 0.09 of a point to spare (729.2575 against a 729.35 ceiling = OR high 728.84 + 0.5 x the 1.02-point range), and by 13:45Z plan_entry() on the same OR returns action='skip', reason='late entry', because QQQ was 731.28 \u2014 2.44 points beyond the edge on a 1.02-point range. Both calls are correct. The spec allows entry across 09:35-09:50 ET, but a 1.02-point opening range on a tape running +1.2% keeps that window open for roughly EIGHT minutes, not fifteen. Nothing here needs changing: the gate refused to chase and the sibling that fired inside the window took the signal cleanly. It is logged because it bears on go-live scheduling, not because either decision was wrong. *** 14:05Z UPDATE: the 2R trail ARMED and the stop ratcheted 729.2575 -> 730.8469 (+1.106R locked). QQQ bid 732.58, +2.31R, peak 732.67. Also note the sign flip against the 09-16 finding: there the stale prior-session bars DRAGGED ATR DOWN (placid close) and tightened the trail; today they RAISE it (today-only gap-free ATR5 is 1.05 against the as-spec 1.2154), loosening it. The contamination's DIRECTION is not stable, which the 09-16 write-up did not claim but a reader could easily infer from its single observation.",
+      "_manage_log": [
+        {
+          "run_utc": "2026-09-21T14:20:00Z",
+          "action": "raise_stop",
+          "from": 730.8469,
+          "to": 731.5264,
+          "r_at_pass": 2.917,
+          "locked_r": 1.578,
+          "inputs": {
+            "price_bid": 733.45,
+            "session_extreme": 733.47,
+            "atr5": 1.2957,
+            "stop_dist": 1.4375
+          },
+          "breach_pass": "adverse extreme since the 14:05Z pass = 732.090 (min low of the 14:00-14:15Z one-minute bars) -> hold at 1.97R, 1.243 pts clear of the live 730.8469 stop. The row is legitimately open, not a recovered stop-out.",
+          "feed_integrity": "5-minute buckets 14:00/14:05/14:10 reconcile EXACTLY against their 1-minute sums (336910/260648/240060) -- no hole in either direction, so the bars behind this pass are sound.",
+          "atr5_note": "1.2957, recomputed this run on the 5-minute series SPANNING the prior session (24 bars from 2026-09-18 18:00Z + today's 9), per the resolution recorded at 14:05Z. The 14:05Z pass used 1.2154 off a shorter fetch; the input convention is unchanged, only the window start moved.",
+          "paper": "PAPER -- nothing sent. In LIVE this is a cancel/replace of the resting stop_market."
+        }
+      ]
     }
   ]
 }
