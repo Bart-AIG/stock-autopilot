@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-21T19:00:00Z",
+  "updated_utc": "2026-09-21T19:20:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-21",
     "realized_usd_options": 0.0,
@@ -758,13 +758,14 @@
     }
   },
   "_eod_report_written": {
-    "trading_day_et": "2026-09-17",
-    "written_utc": "2026-09-17T19:15:00Z",
-    "written_by": "scheduled run 19:15Z 2026-09-17 (unattended, prompt v11) -- the FIRST run at/after the 2:15 PM CT threshold. Master carried the 2026-09-16 report, so the duty was owned rather than deferred.",
+    "trading_day_et": "2026-09-21",
+    "written_utc": "2026-09-21T19:20:00Z",
+    "written_by": "scheduled run 19:15Z 2026-09-21 (unattended, prompt v11) -- the FIRST run at/after the 2:15 PM CT threshold. Master carried the 2026-09-18 report, so the duty was owned rather than deferred.",
     "file": "daily_options_report.md",
     "delivery": "The commit to master IS the delivery (eod-report-notify.yml fires on any master push touching this file). A push notification was also sent from this run.",
     "do_not_rewrite": "Exactly ONE run per trading day writes this file. A later run may rewrite it ONLY on a MATERIAL event -- a fill, an exit, a new flag, a trigger firing. Refreshing closing marks or restating 'still flat' is NOT material and sends Ryan a duplicate notification.",
-    "contents_summary": "Zero orders in all three books. DAY TRACK paper day 3 stopped at -1.00R and the track PAUSED for the week on both conditions. Ryan closed VLO 390P x2 himself at 14:55Z for -$360 (placed_agent='user'); his SPY 731P/770C strangle lapses worthless tonight. 15 RSI2 candidates graded across the session, all declined on merit (0 of 6 passed the 50-day discriminator in the financials cluster; LRCX C, VZ B, BMY B later) as well as on capital. Two governance items surfaced without action: the -$400 options cap applied strictly to a USER loss (open question for Ryan), and ABNB 31.63% / UNP 31.65% now over the 30% per-name cap entirely on the denominator -- ruling STOP ADDING, NOT SELL."
+    "contents_summary": "Three state changes, all reported with the reasoning. (1) EQUITY FILL: V 2.716801 sh @ 368.0799 = $1,000.00 (order 6ab13deb, 14:23:39Z), grade A- with the shallow RSI2 8.6 named as the weak leg; the day's 1 of 3 entries, and the residual $97.49 made a second unfundable. (2) DAY TRACK paper day 4 closed at the 738.5688 trail for +6.4774R / +$9.31 -- the track's FIRST WINNER after three -1R days; running +3.4774R over 4 days, graduate() still go_live FALSE (need 10d/8 signals, next review 09-28). (3) The morning calibration's options KILL was REVERSED at 14:05Z after Ryan challenged the attribution: two desk measurement bugs found (attributed by the CLOSING order, and the authorized hedge never stripped -- the -$247 SPY 700P alone was 43% of the -$572 that fired it); no corrected bucket reaches n=20, so REPORT ONLY, pause lifted, size multiplier 1.0. Also carried: ABNB's first RSI2>=70 print in a week did NOT fire the take-profit (underwater, gate is green-only) and was researched INTACT; UNP's weakness explained as sector (JBHT diesel warning de-rated freight) against a BULLISH 09-16 UBS upgrade to Buy PT $339; the whole 12-name board graded with CVS and DASH both failing the SAME rising-200-day test; ABNB 32.3% / UNP 30.4% over the 30% per-name cap purely on the denominator -- ruling STOP ADDING, NOT SELL. Watchpoint #1 is Thursday 09-24: both time stops fire green or red, and they are also the only funding event that reopens either book.",
+    "_prior_day": "The 2026-09-17 stamp this key carried was STALE BY ONE TRADING DAY -- the 2026-09-18 report was written and committed (it is the file this run replaced) but this key was never advanced. Repaired here. A run reading this key to decide whether the duty is spent must cross-check the report file's own header date, not this field alone."
   },
   "_last_reconciliation": {
     "utc": "2026-09-17T19:45:20-19:47:00Z",
@@ -1013,15 +1014,16 @@
     }
   },
   "_current_state_run": {
-    "run_utc": "2026-09-21T19:00:00Z",
+    "run_utc": "2026-09-21T19:20:00Z",
     "run_type": "market_hours_regular",
     "trading_day_et": "2026-09-21",
-    "run_note": "Sub-hourly cron run, ~3.5h after the bell. Re-verification only: no order in either book, no artifact rolled. OVERWRITTEN IN PLACE -- the prior contents were the 13:52Z snapshot, five hours stale, and still described a TWO-name equity book and a pending KILL pause; both were superseded the same morning (V filled 14:23:39Z; the KILL was reversed 14:05Z). Per the ledger-notes rule this object is overwritten every run that reads it, never appended to.",
-    "books": "EQUITIES 3 swings, all placed_agent='agentic': ABNB 6.573584 @ 169.5209 (167.22, -1.36%), UNP 3.858199 @ 285.1071 (269.695, -5.41%), V 2.716801 @ 368.0799 (369.235, +0.31%). ABNB/UNP are day 11 of the 14-day time stop (fires Thu 2026-09-24); V entered today. OPTIONS empty, 0 rows, entries OPEN (the morning calibration KILL was reversed 14:05Z, size multiplier 1.0). DAY TRACK still PAPER: day 4 entered 13:44Z long QQQ, closed 17:05Z on the trail at +6.4774R; one trade/day spent.",
-    "capital": "total_value $3,411.17; cash == buying_power == unleveraged_buying_power == $268.22 (no margin extended); equity_value $3,142.95; 5% operational reserve $170.56; DEPLOYABLE $97.66 -- far below the ~$600 minimum entry, so the equity book is closed on capital and no CORE options vehicle is fundable.",
-    "throttles": "1 of 3 equity entries used (V); 0 of 3 options entries used; realized options P/L today $0.00 against the -$400 cap.",
-    "open_exit_conditions": "ABNB carries the report's EXIT-INTO-STRENGTH flag (RSI2 71.6) -- OPTIONAL only, because the position is underwater and the mechanical take-profit gate is GREEN-ONLY; researched INTACT at 18:45Z (_ABNB_EXIT_INTO_STRENGTH_RESEARCHED_INTACT_2026-09-21) and held. No other exit condition live in either book.",
-    "next_duty": "Daily report to Ryan: the FIRST run at or after 19:15Z owns it. Not due at 19:00Z."
+    "run_note": "The 2:15 PM CT run -- OWNED AND WROTE the daily report for trading day 2026-09-21 (master carried 2026-09-18). No order placed in either book. OVERWRITTEN IN PLACE per the ledger-notes rule.",
+    "books": "EQUITIES 3 swings, all placed_agent='agentic': ABNB 6.573584 @ 169.5209 (167.770, -1.03%), UNP 3.858199 @ 285.1071 (269.430, -5.50%), V 2.716801 @ 368.0799 (369.420, +0.36%). ABNB/UNP day 11 of the 14-day time stop (fires Thu 2026-09-24); V entered today, time stop 2026-10-05. OPTIONS empty, 0 rows, entries OPEN (KILL reversed 14:05Z, multiplier 1.0). DAY TRACK PAPER: day 4 closed 17:05Z on the trail at +6.4774R, one trade/day spent.",
+    "capital": "total_value $3,414.23; cash == buying_power == unleveraged_buying_power == $268.22 (no margin extended); equity_value $3,146.01; 5% operational reserve $170.71; DEPLOYABLE $97.51 -- far below the ~$600 minimum entry, so both live books are closed on capital alone.",
+    "concentration": "ABNB 32.3% / UNP 30.4% of account value are BOTH over the 30% per-name cap, entirely on the DENOMINATOR (neither position grew; the account fell). V 29.4%, inside. Ruling per the 2026-09-17 precedent: STOP ADDING, NOT SELL -- the cap is a sizing gate, and HARD RULE 5 permits a sale only on a target hit, a GREEN RSI2 bounce, or a thesis break. Thursday's time stops resolve it without a round trip.",
+    "throttles": "1 of 3 equity entries used (V); 0 of 3 options entries used; realized options P/L today $0.00 against the -$400 cap; day track 1 of 1 (paper).",
+    "open_exit_conditions": "ABNB's EXIT-INTO-STRENGTH flag (RSI2 71.6) is OPTIONAL only -- the position is underwater and the mechanical take-profit gate is GREEN-ONLY; researched INTACT 18:45Z and held. WATCH: if ABNB prints RSI2>=70 with price ABOVE 169.5209 (+1.05% from 167.770) the same flag becomes a MECHANICAL take-profit and executes autonomously with no magnitude test. No other exit condition live in either book.",
+    "next_duty": "Daily report DONE for 2026-09-21 -- do NOT rewrite without a MATERIAL event. Next scheduled duties: Thursday 2026-09-24 time stops on ABNB and UNP (fire green or red, and they are the only funding event); Monday 2026-09-28 weekly calibration + day-track graduation review."
   },
   "_PARTICIPATION_IS_A_VETO_NOT_A_GREEN_LIGHT": {
     "found_utc": "2026-08-28T18:00:00Z",
