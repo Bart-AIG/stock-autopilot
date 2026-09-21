@@ -40362,6 +40362,40 @@
       },
       "duties": "Heartbeat stamped 13:40Z. market_brief stamped 2026-09-21. Weekly calibration taken by the 13:40Z first run. Daily report due on the first run at/after 19:15Z -- not this run (16:03Z). New durable finding written to holdings.json._DAY_TRACK_THE_ATR_TRAIL_CONVERGES_ON_PRICE_WHEN_VOLATILITY_COMPRESSES_2026-09-21.finding_4 (extended the existing key rather than minting a new one).",
       "prompt_version": "v11"
+    },
+    {
+      "run_utc": "2026-09-21T16:18:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-21",
+      "headline": "DAY TRACK tenth trail ratchet 737.1305 -> 737.6885 (+5.87R locked, +6.17R open). The breach window SPANNED the 16:03Z stop change and a single-window test would have closed this row on a phantom stop-out at +5.48R; partitioned at the stop change it is clear on both halves. Two ledger defects found and repaired, and they had cancelled. No trade in either real book: deployable $97.61, far under the $600 minimum entry.",
+      "reconciliation": "ZERO DRIFT both books vs broker at 16:18Z. Options EMPTY (options_value $0, 0 ledger rows). Equities 3 of 3 exact and all fully sellable: ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, V 2.716801 @ 368.08. get_equity_orders(created_at_gte=2026-09-21) returns ONE order -- the V buy this desk placed at 14:23:39Z, placed_agent='agentic'. No sibling fill, and no QQQ/PSQ order, which is correct for PAPER.",
+      "capital": "total_value $3,412.15; cash == buying_power == unleveraged_buying_power == $268.22 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $3,143.93. Reserve 5% = $170.61 -> DEPLOYABLE $97.61.",
+      "tape": {
+        "QQQ": 738.13,
+        "QQQ_bid": 738.12,
+        "QQQ_vs_prev_close_pct": 2.31,
+        "SPY": 771.53,
+        "ABNB": 166.43,
+        "UNP": 271.94,
+        "V": 368.2
+      },
+      "day_track": {
+        "phase": "PAPER, active, paper day 4, row OPEN",
+        "action": "raise_stop 737.1305 -> 737.6885 (tenth ratchet)",
+        "r_open": 6.172,
+        "r_locked": 5.865,
+        "pnl_open_usd": 8.87,
+        "breach_pass": "PARTITIONED AT THE STOP CHANGE (see the named finding). Never-tested window 16:00Z-16:17Z spans the 16:03Z ratchet: (a) 16:00-16:02Z vs the then-live 736.4524 -> min low 736.9401, clear 0.4877; (b) 16:03-16:17Z vs 737.1305 -> min low 737.370, clear 0.2395. No breach.",
+        "ratchet_pass": "price 738.130 / session_extreme 738.395 (16:17Z completed 1-min bar high, bar-derived floor) / atr5 0.47099 -> 738.395 - 1.5 x 0.47099 = 737.6885.",
+        "trail_state": "0.4415 BELOW the 738.12 bid -- back under the market, so the 16:03Z crossing did not persist and this stop is placeable. Room 0.7065 pts, still under 1R (atr5 0.48635 -> 0.47099).",
+        "feed_check": "buckets 15:55Z/16:00Z/16:05Z/16:10Z reconcile EXACTLY to their 1-minute sums (166,237 / 152,506 / 239,135 / 106,255), highs and lows reproduce their constituents; SPY pulled in the same call as the free cross-symbol check. No hole either direction.",
+        "atr_gotcha": "day_track.atr(bars, 14) needs 15 bars for 14 true ranges and returns None on 14 -- a silent no-ratchet. Fed the 15 completed buckets 15:00Z..16:10Z.",
+        "repairs": "day_track_paper.json rows[-1].stop held the EIGHTH ratchet 736.4524 while _manage_state and the holdings mirror held the ninth; the ninth was missing from _manage_log. Both repaired, ninth retro-filled from _manage_state, three-field assertion now holds at 737.6885.",
+        "graduation": "UNCHANGED, still the only lock: graduate(3, [-1,-1,-1]) -> go_live False ('paper 3d / 3 trades; need 10d and 8 trades'). Today's row is OPEN and counts toward neither until it closes. No run promotes the phase mid-week."
+      },
+      "positions_verdict": "All three HOLD, matching the 16:08Z committed report, whose ACTION block is empty. ABNB -1.8% (11d held, TIME STOP 2026-09-24), UNP -4.6% (11d held, TIME STOP 2026-09-24), V +0.0% (day 0, TIME STOP 2026-10-05). No RSI2>=70 cross on any green name, no time stop due, no thesis flag researched to broken. No price stops per HARD RULE 5. Options book empty.",
+      "why_flat": "EQUITIES: deployable $97.61 vs the $600 CONCENTRATION-POLICY minimum entry -- the book is fundable only after an exit, and the rotation gate does not apply because no candidate was graded against the held three. OPTIONS: the same $97.61 is under any CORE size ($500-1,000 typical), so no entry was priced. DAY TRACK: one trade per day and today's is already open.",
+      "duties": "Heartbeat already stamped 13:40Z. market_brief stamped today. Daily report due on the first run at/after 19:15Z -- not yet. Monday calibration was done by the 13:40Z run. New durable finding: holdings.json._DAY_TRACK_THE_RATCHET_ORPHAN_WINDOW_AND_A_STALE_STOP_FIELD_CANCELLED_2026-09-21."
     }
   ]
 }
