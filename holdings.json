@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-21T15:15:00Z",
+  "updated_utc": "2026-09-21T15:31:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-21",
     "realized_usd_options": 0.0,
@@ -5537,7 +5537,7 @@
     "set_utc": "2026-09-14T22:30:00Z",
     "authority": "Ryan, REAL live turn 2026-09-14 (interactive session, typed turns): '1. Let's make the change. 2. Whichever you recommend is fine. 3. 5-20%. 4. Sure. 5. Let's do it.' -- answering the five design decisions in the autonomy-audit proposal. Spec: docs/day-track-spec.md. Code: day_track.py. Prompt carrying the duties: docs/routine-prompt-v11.md (PASTE-READY).",
     "status": "PAPER",
-    "status_note": "PAPER, ACTIVE, paper day 4 OPEN AND WORKING AT +5.02R, locked +4.32R -- by a wide margin the best trade the track has produced (the first three paper days were -1R each). *** Long QQQ from 729.2575 (OR 727.82/728.84, body 69.1% -> long), taken by the 13:37Z sibling run; 1 share, cash-bound, stop_dist 1.4375 pts = $1.44/R. *** 15:22Z: SIXTH trail ratchet, 734.6175 -> 735.4652. QQQ ground to a 736.480 session high; the worst excursion since the 15:01Z pass was a 735.770 low, which never came closer than 1.1525 pts to the live stop. *** THE TRAIL IS NOW TIGHTER THAN THE SESSION'S OWN TYPICAL REVERSAL: room to the stop is 1.0048 pts against a p90 one-minute drawdown-from-running-high of 0.980 and a session max of 1.301 -- measured, not estimated. At entry the same rule gave 2.079 pts of room, ABOVE the session max. Nothing in the spec is changed by this and manage() was applied exactly as written; the measurement is for the graduation review. See _DAY_TRACK_THE_ATR_TRAIL_CONVERGES_ON_PRICE_WHEN_VOLATILITY_COMPRESSES_2026-09-21, which now carries BOTH concurrent runs' measurements of this. *** GRADUATION UNCHANGED AND IT REMAINS THE ONLY LOCK: graduate(3, [-1.0,-1.0,-1.0]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. Today's row is still OPEN, so it counts toward neither count until it closes. The v11 stop-authority lock opened 2026-09-15 and graduates NOTHING; only a Monday calibration flips the phase, and no run promotes it mid-week. *** SIXTH RATCHET WAS PERFORMED TWICE BY TWO CONCURRENT RUNS (735.3826 at 15:15Z, 735.4652 at 15:22Z); the ratchet-only invariant resolves it to the higher stop.",
+    "status_note": "PAPER, ACTIVE, paper day 4 OPEN AND WORKING AT +5.21R, locked +4.48R -- by a wide margin the best trade the track has produced (the first three paper days were -1R each). *** Long QQQ from 729.2575 (OR 727.82/728.84, body 69.1% -> long), taken by the 13:37Z sibling run; 1 share, cash-bound, stop_dist 1.4375 pts = $1.44/R. *** 15:31Z: SEVENTH trail ratchet, 735.4652 -> 735.7005. QQQ ground to a 736.600 bar high (live bid 736.750); the worst excursion since the 15:22Z pass was a 736.200 low, never closer than 0.7348 pts to the live stop. *** THE TRAIL REMAINS TIGHTER THAN THE SESSION'S OWN TYPICAL REVERSAL: room 1.0495 pts against a p90 one-minute drawdown-from-running-high of 0.980 and a session max of 1.301. Note it WIDENED from 1.0048 despite atr5 falling a further 11% -- see finding_3 in _DAY_TRACK_THE_ATR_TRAIL_CONVERGES_ON_PRICE_WHEN_VOLATILITY_COMPRESSES_2026-09-21. Nothing in the spec is changed and manage() was applied exactly as written. *** GRADUATION UNCHANGED AND IT REMAINS THE ONLY LOCK: graduate(3, [-1.0,-1.0,-1.0]) -> go_live False, 'paper 3d / 3 trades; need 10d and 8 trades'. Today's row is still OPEN, so it counts toward neither count until it closes. The v11 stop-authority lock opened 2026-09-15 and graduates NOTHING; only a Monday calibration flips the phase, and no run promotes it mid-week. *** Flat rule fires at 15:30 ET (19:30Z), ~4h away.",
     "signal_symbol": "QQQ",
     "long_vehicle": "QQQ",
     "short_vehicle": "PSQ",
@@ -5811,7 +5811,7 @@
         "direction": "long",
         "vehicle": "QQQ",
         "entry": 729.2575,
-        "stop": 735.4652,
+        "stop": 735.7005,
         "shares": 1,
         "r_usd": 1.44,
         "status": "open",
@@ -5820,7 +5820,7 @@
         "r_multiple": null,
         "pnl_usd": null,
         "_mirror_of": "day_track_paper.json rows[-1]; that file is the source of truth. Kept in sync per _RESULTS_ARE_THE_PAUSE_INPUT_AND_WERE_DESYNCED_FROM_THE_PAPER_LOG_2026-09-18 -- this array is the PAUSE INPUT and a stale copy fails OPEN.",
-        "_managed": "15:22Z: SIXTH trail ratchet, 734.6175 -> 735.4652, locking +4.3184R with +5.02R on the screen. Two-pass manage: breach pass on the 735.770 low since the 15:01Z pass returned no breach (1.1525 pts clear); ratchet pass returned raise_stop. atr5 0.67650 on the reconciled 15:10Z bucket. PAPER -- nothing sent to a broker. Mirror of day_track_paper.json rows[-1]._manage_state, which is the source of truth. UNION MERGE of two concurrent runs' sixth ratchets (15:15Z -> 735.3826, 15:22Z -> 735.4652); the ratchet-only invariant keeps the higher stop and both passes are in day_track_paper.json rows[-1]._manage_log."
+        "_managed": "15:31Z: SEVENTH trail ratchet, 735.4652 -> 735.7005, locking +4.4821R with +5.21R on the screen. Two-pass manage: breach pass on the 736.200 low since the 15:22Z pass returned no breach (0.7348 pts clear); ratchet pass returned raise_stop. atr5 0.59969 on the 14 completed buckets 14:20Z..15:25Z, both recent buckets reconciled EXACTLY to their 1-minute sums. PAPER -- nothing sent to a broker. Mirror of day_track_paper.json rows[-1]._manage_state, which is the source of truth. No sibling run had landed at the time of writing (origin/master == HEAD at 8062b85), so this pass is not a union merge."
       }
     ],
     "graduation": {
@@ -7414,6 +7414,13 @@
       "honest_scope": "n=1 trade, 1 session, on a tape that ground up with unusually low reversal. The claim is about the measured RELATIONSHIP between the trail and this session's realized pullback distribution -- not about expectancy. It changed no decision.",
       "next_step_for_the_graduation_review": "at >=8 paper trades, for each CLOSED trail-exited row compare room-to-stop at each ratchet against that session's realized pullback p90. If trail exits systematically fire inside the session's own noise band, trail_atr_mult (1.5) is the lever -- with the in-regime gate, only at a Monday calibration."
     },
-    "why_two_runs_found_it_at_once": "the concurrent-run collision the ledger already documents. Here it cost nothing and paid something: two independent measurements of one phenomenon, from different angles, agreeing. Recorded as cross-validation, not as a conflict."
+    "why_two_runs_found_it_at_once": "the concurrent-run collision the ledger already documents. Here it cost nothing and paid something: two independent measurements of one phenomenon, from different angles, agreeing. Recorded as cross-validation, not as a conflict.",
+    "finding_3_the_room_can_WIDEN_while_ATR_keeps_falling_measured_15:31Z": {
+      "what": "The two findings above both measure the trail room SHRINKING as ATR compresses, and read together they invite the inference that the room falls monotonically until the stop is taken. THE SEVENTH RATCHET FALSIFIES THAT: atr5 fell a further 11% (0.67650 -> 0.59969) and the room WIDENED, 1.0048 -> 1.0495 pts.",
+      "the_arithmetic_so_nobody_re_derives_it": "Room = price - (extreme - 1.5 x atr5). Between passes the decision price rose 0.280 (736.470 -> 736.750) and the bar-derived extreme rose 0.120 (736.480 -> 736.600), while 1.5 x atr5 fell 0.1152 (1.0148 -> 0.8995). Net: +0.280 - 0.120 + 0.1152 = +0.0447. ROOM IS A THREE-TERM QUANTITY -- price advance, extreme advance, and ATR change -- and ATR is only one of them. A compressing ATR tightens the trail ONLY when price is not advancing faster than the extreme plus the ATR relief.",
+      "why_it_is_worth_a_line": "Not because the room is comfortable -- 1.0495 pts is still barely above the session's own p90 one-minute drawdown-from-running-high of 0.980, so finding_2's conclusion STANDS and this trade is still running on a stop roughly one typical pullback away. The correction is to the MECHANISM, not the verdict: a later reader inheriting findings 1 and 2 alone would predict the room to keep falling and would misread a widening as evidence the compression had ended. It had not -- ATR fell on this very pass. This file's most-repeated shape, arriving inside a finding written nine minutes earlier: a quantity that moved one way twice is not a trend, and a two-term explanation of a three-term quantity will be right until the third term moves.",
+      "measured_by": "scheduled run 15:31Z 2026-09-21 (unattended, prompt v11), the seventh ratchet pass.",
+      "changes_nothing": "No gate added, no parameter touched, manage() applied exactly as written. day_track.py is unmodified. Recorded for the graduation review, where the question is whether a 1.5 x ATR5 trail is the right shape for this track -- not for any in-session decision, which an unattended run has no authority to make about the spec."
+    }
   }
 }
