@@ -565,6 +565,40 @@
       ],
       "stop": 738.5688,
       "_stop_field_contract": "ONE LIVE STOP, ONE ENTRY STOP, AND AN ASSERTION. `stop` is the ONLY live stop and is what the breach test and (in LIVE) the cancel/replace read. `stop_px_signal` / `stop_px_vehicle` are the IMMUTABLE ENTRY stop -- 727.82, the opposite OR edge per day_track.initial_stop(OR, 'long', atr14_daily=8.3193): range 1.02 > 0.1 x 8.3193, so the edge stands unadjusted, and 729.2575 - 727.82 = 1.4375 == stop_dist. They were ratcheted in place through the 14:33Z pass and left at 733.0714 when the 14:45Z pass introduced `stop`; restored here. `_manage_state.stop_px_signal_current` MIRRORS `stop` and every pass must rewrite it. ASSERT BEFORE COMMITTING: stop == _manage_state.stop_px_signal_current == _manage_log[-1]['to'], and round(entry_px_signal - stop_px_signal, 4) == stop_dist for a long. See holdings.json._DAY_TRACK_THREE_FIELDS_HELD_THE_LIVE_STOP_AND_THE_ENTRY_STOP_WAS_OVERWRITTEN_2026-09-21."
+    },
+    {
+      "phase": "paper",
+      "trading_day_et": "2026-09-22",
+      "decided_utc": "2026-09-22T13:38:00Z",
+      "decided_by": "scheduled run 13:38Z 2026-09-22 (unattended, prompt v11)",
+      "action": "skip",
+      "skip_reason": "cannot afford one whole share inside the caps (day_track.plan_entry)",
+      "signal_symbol": "QQQ",
+      "direction": "long",
+      "vehicle": "QQQ (not bought)",
+      "opening_range": {
+        "high": 743.45,
+        "low": 740.97,
+        "open": 740.98,
+        "close": 743.45,
+        "bars": 5,
+        "range": 2.48,
+        "body_frac": 0.996
+      },
+      "atr14_daily": 9.5586,
+      "entry_px_signal_would_have_been": 743.73,
+      "entry_px_signal_venue_utc": "2026-09-22T13:36:11.490172309Z",
+      "late_entry_ok": true,
+      "shares": 0,
+      "dollars": 0.0,
+      "r_usd": 0.0,
+      "bound_by": "cash",
+      "risk_pct_used": 5.0,
+      "status": "skipped",
+      "capital_note": "Deployable $97.40 (cash $268.22 minus the 5% operational reserve $170.82 on total_value $3,416.37) against one QQQ share at $743.73. PSQ at $24.905 WOULD have been affordable (3 shares), so the block is direction-dependent -- see holdings.json._DAY_TRACK_IS_NOW_CAPITAL_BLOCKED_ON_LONGS_ONLY_AND_THAT_BIASES_THE_PAPER_SAMPLE_2026-09-22.",
+      "counts_toward_graduation": "NO -- neither paper_days nor paper_trades increments on a skip. This matches the convention the existing record already follows: paper started 2026-09-15 and 2026-09-22 is the 6th trading day since, but only 4 rows are TRADES and graduate() has been called with 4 days / 4 trades throughout (2026-09-18 was likewise a non-counting day). Stated explicitly so no later run 'fixes' the counter by counting skip rows.",
+      "feed_integrity": "VERIFIED although it decided nothing. The 13:30-13:34Z one-minute window was fetched TWICE (13:36Z and 13:37Z) and returned byte-identical OHLCV on both reads, so the bars are settled and not a revision artifact; SPY pulled in the same call as a cross-symbol control printed normally across the identical timestamps. Recorded with the honest caveat that TODAY'S SKIP WAS DECIDED BY THE CASH BALANCE, NOT BY THE BARS -- the verification protects the recorded OR, not the decision.",
+      "quote_provenance": "QQQ 743.73 and PSQ 24.905 from get_equity_quotes at 13:36:11Z; portfolio re-read at 13:36Z."
     }
   ]
 }

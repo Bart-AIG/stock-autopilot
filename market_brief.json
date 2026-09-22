@@ -1,24 +1,25 @@
 {
  "_comment": "Daily market brief for the options automation. Built by the first post-open run of each TRADING day (ET), never by a post-close/pre-open firing. Refresh intraday only on a genuine shock (VIX +15%, an index breaking a listed level, a major headline).",
- "date": "2026-09-21",
+ "date": "2026-09-22",
  "built_utc": "2026-09-21T13:46:00Z",
  "built_by": "scheduled run 13:30Z 2026-09-21 (unattended, prompt v11) -- first post-bell run of the trading day",
  "regime": {
-  "label": "GAP-UP OPEN, MEASURED NOT INTERPRETED",
+  "label": "NUMBERS ONLY -- no directional verdict handed forward",
   "spy": {
-   "last": 766.47,
-   "adjusted_previous_close": 761.69,
-   "day_pct": 0.63
+   "last": 774.8,
+   "adjusted_previous_close": 773.5,
+   "day_pct": 0.168
   },
   "qqq": {
-   "last": 729.2575,
-   "adjusted_previous_close": 720.6986,
-   "day_pct": 1.19,
-   "_note": "QQQ official prior close 721.45 vs adjusted_previous_close 720.6986 -- QQQ has gone ex-dividend, so the day change must be computed off the ADJUSTED figure (721.45 would read +1.08% instead of +1.19%). Same trap SPY set on 09-18."
+   "last": 744.02,
+   "adjusted_previous_close": 741.47,
+   "day_pct": 0.344,
+   "_note": "QQQ previous_close and adjusted_previous_close agree at 741.47 today, so no ex-dividend adjustment trap this session (09-21 had one)."
   },
-  "as_of_utc": "2026-09-21T13:37:33Z",
-  "_discipline": "NUMBERS ONLY, no directional verdict handed forward (2026-08-28 rule: a mid-session cross-asset read inverts within minutes and the next run must not inherit a frame). These are also opening-window prints -- re-measure before they decide anything.",
-  "divergence_to_watch": "UNP -1.83% (274.27 vs 279.37) on a +0.63% SPY tape -- a ~2.5 pt relative underperformance on a held swing that reaches its 14-day time stop on 2026-09-24. Stated as a NUMBER, not a thesis. No news check was run this run; the run that takes today's report should look at it, because a thesis-break verdict would change the exit from 'time stop on 09-24' to 'sell now'."
+  "vix": null,
+  "_vix_note": "VIX was requested in the same get_equity_quotes call and returned NO row -- it is an index, not an equity, and needs get_index_quotes. Recorded as a null rather than silently dropped so the next run does not re-discover it.",
+  "as_of_utc": "2026-09-22T13:37:24Z",
+  "_discipline": "NUMBERS ONLY (2026-08-28 rule: a mid-session cross-asset read inverts within minutes and the next run must not inherit a frame). These are also opening-window prints -- re-measure before they decide anything."
  },
  "catalysts_next_5_sessions": [
   "No scheduled binary event on either held name (ABNB, UNP) inside its remaining hold window -- both reach the 14-day time stop 2026-09-24, verified at entry.",
@@ -26,9 +27,23 @@
   "Under the 2026-09-14 narrowed CATALYST BAR, macro calendar events are a SIZING input for CORE options, never a bar. Moot this week regardless -- see options_book_status."
  ],
  "watchlist": {
+  "_source_caveat": "Built off the 2026-09-21 committed report -- TODAY'S REPORT HAD NOT LANDED at 13:38Z (the Actions cron writes latest_morning.md ~14:00-14:07Z). These are CANDIDATES ONLY and none is fundable today; the run that takes today's report must re-grade off it.",
+  "equity_candidates_non_energy": [
+   "CVS",
+   "DASH",
+   "VZ",
+   "MDLZ",
+   "PM"
+  ],
+  "equity_excluded_sector_steer": [
+   "SLB",
+   "OXY",
+   "CVX",
+   "COP",
+   "XOM"
+  ],
   "core_options_candidates": [],
-  "equity_candidates": [],
-  "_why_empty": "Two separate reasons, and they should not be conflated. OPTIONS: new agentic entries are PAUSED by this morning's calibration KILL branch, so there is no candidate work to do. EQUITIES: capital is available for the first time in a week ($1,096.50 deployable vs a $600 minimum), but the committed report on master is FRIDAY's (latest_intraday.md 2026-09-18T19:06Z) and today's lands ~14:00-14:15Z. Autonomous equity entries are SIGNAL-SOURCED ONLY and a stale report is not a source. The first run at/after ~14:15Z screens today's board -- which is also what the opening-window deferral prefers."
+  "_fundability": "NONE fundable. Deployable $97.40 vs a ~$600 equity minimum entry and a $500-1,000 CORE options band. Both books are closed on capital until the 09-24 time stops free ~$2,150."
  },
  "constraints_today": {
   "total_value": 3434.45,
@@ -90,5 +105,9 @@
   "why_this_is_additive_and_not_a_restatement": "The `catalysts_next_5_sessions` entry above says the held names print outside their time-stop windows 'verified at entry for each'. That is an entry-dated verification; this is a TODAY-dated one, and it carries the gap the other cannot: the window pulled ends 2026-09-25 while IBKR's time stop is 2026-09-30, so IBKR's final five days are UNVERIFIED. Per _A_PER_TICKER_EARNINGS_SERIES_CAN_BE_INTERNALLY_INCONSISTENT calendar silence is not proof either way. RE-CHECK IBKR before its time stop; do not treat this row as having cleared it."
  },
  "options_book_status": "NOT PAUSED. The 13:42Z KILL branch was REVERSED at 14:05Z on Ryan's live turn plus an independent re-measurement: the sample was partitioned by the CLOSING order's placed_agent instead of the OPENING order's, and the authorized SPY 2026-11-20 700P hedge (-$247, 43% of the loss that triggered it) was never stripped. Corrected, pure-agentic is -$141 over 10 closes and every corrected cut returns REPORT ONLY (n < 20). Size multiplier 1.0; all other gates unchanged. NOT a health verdict -- the desk's options edge is UNMEASURED at this sample size. See holdings.json._ATTRIBUTE_AN_OPTIONS_CLOSE_BY_ITS_OPENING_ORDER_AND_STRIP_THE_HEDGE_2026-09-21.",
- "iv_sweep": "DEFERRED to a run past ~14:00Z, deliberately and with the reason stated. The opening-window ATM inflation finding says any pre-14:00Z ATM row is an UPPER BOUND that must be re-measured before it decides anything; writing a knowingly-inflated row into iv_history.json would hand the next run a number it has to discount. With options entries PAUSED there is also nothing the row could gate today. Deferral, not omission -- the duty stands and a later run owns it."
+ "iv_sweep": {
+  "status": "OWED, NOT RUN THIS RUN -- and flagged rather than skipped silently.",
+  "why": "Two reasons, the second load-bearing. (1) No options entry is fundable at $97.40 deployable, so no IV row would decide anything today. (2) This run fired at 13:38Z and CLAUDE.md's own measurement says a pre-14:00Z ATM row is an INFLATED UPPER BOUND (-2.5% to -4.4% across four re-measures), so rows written now would have to be re-measured before use anyway.",
+  "owed_to": "the first run at/after ~14:00Z today: SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA."
+ }
 }

@@ -41028,6 +41028,50 @@
       "headline": "19th pre-open no-op (Tue 2026-09-22 09:19 ET; the ET trading day is still 2026-09-21 until the 13:30Z bell). Stand-down per POST-CLOSE RUN PROTOCOL; nothing is placeable and no daily artifact rolls before the open.",
       "reconciliation": "ZERO DRIFT both books vs broker 13:16-13:18Z. Options 0 positions / options_value $0 / 0 ledger rows; get_equity_orders(created_at_gte=2026-09-22) EMPTY, so no sibling fill. Equities 3 of 3 to six decimals, all sellable (ABNB 6.573584, UNP 3.858199, V 2.716801). total_value $3,433.75; cash == buying_power == unleveraged_buying_power == $268.22 (no margin extended); reserve $171.69, deployable $96.53 -- 16% of the ~$600 minimum entry, so the equity book is closed on capital.",
       "actions": "NONE. Heartbeat NOT stamped (still 2026-09-21), brief NOT rebuilt, loss cap and both throttles NOT reset -- the first run at/after 13:30Z owns all four. DAY TRACK PAPER; today's QQQ signal belongs to the first run at/after 13:35Z."
+    },
+    {
+      "run_utc": "2026-09-22T13:38:00Z",
+      "run_type": "first_post_open_of_trading_day",
+      "trading_day_et": "2026-09-22",
+      "headline": "First post-bell run of 2026-09-22. Owned the heartbeat, the brief rebuild and both throttle resets. BOTH BOOKS FLAT ON CAPITAL ($97.40 deployable). DAY TRACK produced its cleanest signal yet -- a long, body 99.6% of the OR range -- and SKIPPED IT ON CAPITAL, which is the run's durable finding.",
+      "reconciliation": "ZERO DRIFT both books vs broker (13:19-13:20Z, re-read 13:36Z). Options 0 positions / options_value $0 / 0 ledger rows. Equities 3 of 3 to six decimals (ABNB 6.573584, UNP 3.858199, V 2.716801), all sellable, all placed_agent 'agentic'. get_equity_orders and get_option_orders for 2026-09-22 both EMPTY -- broker checked FIRST, no sibling fill. total_value $3,416.37; cash == buying_power == unleveraged_buying_power == $268.22 (no margin); reserve $170.82; deployable $97.40.",
+      "tape": {
+        "spy": 774.8,
+        "spy_adj_prev_close": 773.5,
+        "spy_day_pct": 0.168,
+        "qqq": 744.02,
+        "qqq_adj_prev_close": 741.47,
+        "qqq_day_pct": 0.344,
+        "as_of_utc": "2026-09-22T13:37:24Z",
+        "_discipline": "numbers only, no verdict handed forward; opening-window prints, re-measure before use"
+      },
+      "day_track": {
+        "action": "skip",
+        "direction_signalled": "long",
+        "opening_range": {
+          "high": 743.45,
+          "low": 740.97,
+          "open": 740.98,
+          "close": 743.45,
+          "range": 2.48,
+          "body_frac": 0.996,
+          "bars": 5
+        },
+        "atr14_daily": 9.5586,
+        "price_now": 743.73,
+        "late_entry_ok": true,
+        "reason": "day_track.plan_entry -> 'cannot afford one whole share inside the caps', bound_by 'cash'. Deployable $97.40 vs one QQQ share $743.73.",
+        "counters": "unchanged at 4 paper days / 4 trades; a skip increments neither. graduate -> go_live FALSE.",
+        "finding": "holdings.json._DAY_TRACK_IS_NOW_CAPITAL_BLOCKED_ON_LONGS_ONLY_AND_THAT_BIASES_THE_PAPER_SAMPLE_2026-09-22 -- PSQ was affordable and QQQ was not, so the block filters the paper sample by DIRECTION. Escalated to Ryan; nothing adjusted."
+      },
+      "position_verdicts": {
+        "ABNB": "working/underwater, THESIS INTACT (RBC Outperform $195 PT, hotel TAM +~1M rooms; watch-item: RBC's AI-agent marketplace risk). Holds to the 09-24 time stop. No early sell.",
+        "UNP": "working/underwater, THESIS INTACT AND ARGUABLY STRENGTHENED -- the -5% is a sector diesel shock (diesel $6.31/gal +70.5% y/y, JBHT -13% on 09-16 dragging CSX/WM), and UBS UPGRADED UNP into it 09-16 (Neutral->Buy, PT $310->$339). Consensus mean PT $333.35 vs $270.80. Holds to the 09-24 time stop. This discharges the assignment the 09-21 brief left open.",
+        "V": "working, day 1, consensus mean PT $423.54 vs $368.0799 entry."
+      },
+      "why_flat": "EQUITIES: capital. $97.40 deployable vs a ~$600 minimum entry; 0 of 3 entries used. Separately the committed report is still the 09-21 pair (today's lands ~14:00-14:07Z), so signal-sourcing and the opening-window deferral both point at a later run. ROTATION CONSIDERED AND DECLINED ON THE MERITS: the book holds 3 of a 3-4 target so the gate is not binding; and both rotation candidates hit a mandatory time stop in 2 days, freeing ~$2,150 for two full-size entries off a fresh report -- rotating today realizes the same exit early, on a stale board, against two theses just re-verified INTACT. OPTIONS: book empty, capital, and entries are NOT paused (09-21 KILL branch reversed 14:05Z that day).",
+      "near_miss_recorded": "Researched ABNB/UNP to INTACT and then did NOT write the thesis_checked{} block the playbook prescribes, because it would have suppressed nothing -- report.py:503 reaches 'HOLD (thesis-watch)' via the UNDERWATER path while thesis_confirmation() only covers below_200ma / out_of_decile. Writing it would have looked like a discharged duty while being inert. See holdings.json._WHY_NO_thesis_checked_BLOCK_WAS_WRITTEN_2026-09-22.",
+      "duties": "Heartbeat stamped 2026-09-22; brief rebuilt (numbers only); options loss cap and BOTH entry throttles reset to 0. IV sweep DEFERRED past 14:00Z on purpose (pre-14:00Z ATM rows are inflated upper bounds) and recorded as owed in market_brief.iv_sweep. Daily report owed at/after 19:15Z."
     }
   ]
 }
