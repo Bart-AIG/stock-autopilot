@@ -565,6 +565,46 @@
       ],
       "stop": 738.5688,
       "_stop_field_contract": "ONE LIVE STOP, ONE ENTRY STOP, AND AN ASSERTION. `stop` is the ONLY live stop and is what the breach test and (in LIVE) the cancel/replace read. `stop_px_signal` / `stop_px_vehicle` are the IMMUTABLE ENTRY stop -- 727.82, the opposite OR edge per day_track.initial_stop(OR, 'long', atr14_daily=8.3193): range 1.02 > 0.1 x 8.3193, so the edge stands unadjusted, and 729.2575 - 727.82 = 1.4375 == stop_dist. They were ratcheted in place through the 14:33Z pass and left at 733.0714 when the 14:45Z pass introduced `stop`; restored here. `_manage_state.stop_px_signal_current` MIRRORS `stop` and every pass must rewrite it. ASSERT BEFORE COMMITTING: stop == _manage_state.stop_px_signal_current == _manage_log[-1]['to'], and round(entry_px_signal - stop_px_signal, 4) == stop_dist for a long. See holdings.json._DAY_TRACK_THREE_FIELDS_HELD_THE_LIVE_STOP_AND_THE_ENTRY_STOP_WAS_OVERWRITTEN_2026-09-21."
+    },
+    {
+      "phase": "paper",
+      "trading_day_et": "2026-09-22",
+      "decided_utc": "2026-09-22T13:37:00Z",
+      "decided_by": "scheduled run 13:30Z 2026-09-22 (unattended, prompt v11) -- first post-bell run of the trading day",
+      "action": "skip",
+      "skip_reason": "cannot afford one whole share inside the caps (day_track.plan_entry -> action='skip')",
+      "signal_symbol": "QQQ",
+      "direction": "long",
+      "vehicle": "QQQ (not bought)",
+      "opening_range": {
+        "high": 743.45,
+        "low": 740.97,
+        "open": 740.98,
+        "close": 743.45,
+        "bars": 5,
+        "window_utc": "13:30:00Z-13:34:59Z",
+        "body_frac_of_range": 0.996,
+        "_note": "2.47 of 2.48 points. The most decisive opening range the track has printed -- the doji gate (body < 10%) is not remotely in play, and the direction is unambiguous."
+      },
+      "atr14_daily": 9.5586,
+      "entry_px_signal_would_have_been": 743.87,
+      "entry_px_signal_venue_utc": "2026-09-22T13:36:43.859195077Z",
+      "stop_px_signal": 740.97,
+      "stop_dist_pct": 0.3898,
+      "late_entry_ok": true,
+      "late_entry_arithmetic": "OR high 743.45 + 0.5 x range 2.48 = 744.69 ceiling; spot 743.87 sits 0.82 under it. The late-entry gate PASSED -- this skip is capital, not chasing.",
+      "shares": 0,
+      "dollars": 0.0,
+      "r_usd": 0.0,
+      "bound_by": "cash",
+      "risk_pct_used": 5.0,
+      "status": "skipped -- no position, paper or otherwise",
+      "r_multiple": null,
+      "pnl_usd": null,
+      "capital_note": "Deployable $96.59 = unleveraged_buying_power $268.22 - the 5% operational reserve $171.63, against a ~$743.87 minimum ticket for ONE whole QQQ share. Short of the minimum by a factor of 7.7. day_track.size() returned shares=0, bound_by='cash', and plan_entry converted that to action='skip' by its own rule -- no judgement was applied and none was permitted.",
+      "quote_provenance": "QQQ 1-minute bars (bounds=regular) fetched 13:36:33Z, all five OR bars 13:30-13:34 present and settled; the 13:30 bar was re-read three times across the run (13:31Z close 742.115 -> 13:33Z close 742.200, an in-progress revision that settled before the OR was computed). Live QQQ quote 743.87 at venue time 13:36:43.859Z; PSQ 24.9099 at 13:36:35.271Z. Capital from get_portfolio at 13:31Z.",
+      "counts_toward_graduation": "This increments PAPER DAYS (5) but NOT SIGNALS (still 4). That gap is exactly what the two-part gate -- 10 days AND 8 trades -- exists to expose, and it is now doing real work: the day-count will reach 10 while the signal-count lags, which is the correct and honest representation of a track that is being prevented from trading rather than choosing not to.",
+      "finding": "holdings.json._DAY_TRACK_THE_LONG_SIDE_COSTS_30X_THE_SHORT_SIDE_SO_CAPITAL_FILTERS_THE_PAPER_SAMPLE_BY_DIRECTION_2026-09-22"
     }
   ]
 }
