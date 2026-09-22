@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-21T19:30:00Z",
+  "updated_utc": "2026-09-22T13:44:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-22",
     "realized_usd_options": 0.0,
@@ -8,8 +8,9 @@
     "cap_options_usd": -400.0,
     "cap_headroom_usd": -400.0,
     "entry_throttle": "0 of 3 options entries used; 0 of 3 equity entries used.",
-    "options_entries_PAUSED": "NO. The 2026-09-21 13:42Z KILL-branch pause was REVERSED at 14:05Z that day; the owning record is _WEEKLY_CALIBRATION_2026-09-21.OPTIONS_BOOK.REVERSAL. Do not re-derive the pause from the heartbeat prose or from this file's history.",
-    "_reset_by": "Reset by the first post-bell run of 2026-09-22 (13:38Z). Per the UTC-rollover rule these figures are reset AT THE OPEN, never at 00:00Z -- and per the 2026-08-27 finding a run must READ them rather than type a default: both books are genuinely at zero today because nothing has been placed since the bell (get_equity_orders and get_option_orders for 2026-09-22 both EMPTY at 13:36Z)."
+    "options_entries_PAUSED": "NO. The pause that briefly existed on 2026-09-21 was applied at 13:42Z by a KILL branch firing on a mis-attributed sample and was REVERSED at 14:05Z the same day; size multiplier 1.0. Owning record: _WEEKLY_CALIBRATION_2026-09-21.OPTIONS_BOOK.REVERSAL and _ATTRIBUTE_AN_OPTIONS_CLOSE_BY_ITS_OPENING_ORDER_AND_STRIP_THE_HEDGE_2026-09-21. Do not restate the pause -- today the options book is closed on CAPITAL alone ($96.59 deployable vs a $500 CORE low end), which is a different and much simpler reason.",
+    "source": "RESET by the FIRST run at/after 09:30 ET of trading day 2026-09-22 (fired 13:30:23Z), the only run permitted to roll it. MEASURED, NOT DEFAULTED, per _THE_CLAUSE_THAT_BREAKS_SILENTLY: get_pnl_trade_history(span='week') at 13:35Z returns four trades, the newest being 2026-09-18T14:17:36Z (IBKR sell, an EQUITY close, +$18.90), then two SPY option closes 2026-09-17T20:00:00Z (-$27, -$28) and VLO 2026-09-17T14:55:36Z (-$360). There is NO trade of any class dated 2026-09-21, and get_option_orders(created_at_gte=2026-09-21) is EMPTY. So trading day 2026-09-21 finished at $0.00 realized options and 2026-09-22 opens at zero on both counters.",
+    "_prior_day": "Trading day 2026-09-21 closed at $0.00 realized options across 0 closing option trades, with 1 of 3 equity entries used (V, order 6ab13deb-802c-4d3c-bcab-c8af0f71b85c, filled 14:23:39.46Z, $1,000.00) and 0 of 3 options entries used."
   },
   "positions": [
     {
@@ -35,8 +36,7 @@
         "time_stop_date": "2026-09-24",
         "held_days": 11,
         "verdict": "HOLD. Recovered 0.5% since the 13:48Z mark (165.615 -> 166.435) but still underwater, so the mechanical RSI2>=70 TAKE-PROFIT stays unavailable by construction -- it is a profit-banking authority gated on price > entry (2026-08-26 correction). No price stop (HARD RULE 5). Live exit is the 14-day TIME STOP on 2026-09-24, 3 sessions out and inside TIME_STOP_WARN_DAYS(3); the 16:08Z report annotates it correctly."
-      },
-      "_thesis_verdict_2026-09-22": "THESIS CHECKED 2026-09-22 (13:30Z) -- VERDICT INTACT. Holds to its 14-day TIME STOP on 2026-09-24. EVIDENCE: RBC Outperform, $195 PT, note 09-21 -- ABNB could add ~1M rooms to its TAM by year-end, with more hotel properties added in August than July and further growth in September, heading toward ~8,000-9,000 hotel properties; 'category-leading brand monetization story with hotels as a strong first step'. Consensus 26 buy / 18 hold / 3 sell, mean PT $185.58 vs ~$167.25 spot = +11%. GENUINE WATCH-ITEM, not a break: RBC flags that Meta/Instinct AI-agent technology raises structural risk for digital travel marketplaces and says ABNB is only 'somewhat better protected' -- worth re-reading if the name is re-entered after the time stop. Two insider sales (CAO Bernstein $251,537 on 09-15; Blecharczyk $2,346,728 on 09-14) are routine-scale for officers of this size and are not read as a signal on their own."
+      }
     },
     {
       "symbol": "UNP",
@@ -88,8 +88,7 @@
         "last_notified_utc": null,
         "note": "No trigger fired. Entry itself is an autonomous action reported in the daily report, not a per-position alert."
       },
-      "setup_invalidation": "A hostile STB development that materially changes the NS merger economics; a guidance cut; or a downward PT-revision cluster reversing the current upward one. Technical invalidation is NOT a price stop -- exits are the RSI2>=70 cross while green, the 2026-09-24 time stop (green or red), or a HARD RULE 7 thesis break.",
-      "_thesis_verdict_2026-09-22": "THESIS CHECKED 2026-09-22 (13:21-13:30Z) -- VERDICT INTACT, ARGUABLY STRENGTHENED. NOT an early sell; holds to its 14-day TIME STOP on 2026-09-24. This discharges the assignment the 2026-09-21 brief left open ('UNP -1.83% on a +0.63% SPY tape ... a thesis-break verdict would change the exit from time stop to sell now'). EVIDENCE: the drawdown is a SECTOR FUEL SHOCK, not a company break -- national diesel $6.31/gal, +70.5% y/y (AAA); JBHT warned Q3 profit -5 to -10% sequentially on ~$10M fuel + ~$25M driver cost and fell 13% on 09-16, its worst day since March 2020, dragging the whole complex (CSX RSI 21.9, WM RSI 25.1 -- Benzinga 09-22). UNP was UPGRADED INTO that weakness: UBS (Wadewitz) Neutral->Buy 09-16, PT $310->$339, on 2027 volume +3.5%, intermodal +6-7%, and a pricing tailwind that COMES FROM truckload pain ('the time lag of rail pricing to truck points to stronger pricing'); EPS est raised to $13.41 (2026) / $14.90 (2027) vs street $13.06 / $14.15, plus NSC-merger optionality at $19.40-21.90 EPS in 2030. Consensus 19 buy / 7 hold / 2 sell, mean PT $333.35 (FactSet $334.04) vs ~$270.80 spot = +23%. Viking Global opened a NEW 2,047,332-share ($556.9M) UNP position in Q2. COUNTER-EVIDENCE, recorded not suppressed: Baupost CUT UNP ~23% in Q2; the stock is -13% over a month with a 52-week low of $215.53. Net: no guidance cut, no miss, no regulatory setback -- a fuel-cost de-rating of the whole freight complex, which for a RAILROAD is a relative tailwind (rail is far more fuel-efficient per ton-mile than truck and carries fuel surcharges)."
+      "setup_invalidation": "A hostile STB development that materially changes the NS merger economics; a guidance cut; or a downward PT-revision cluster reversing the current upward one. Technical invalidation is NOT a price stop -- exits are the RSI2>=70 cross while green, the 2026-09-24 time stop (green or red), or a HARD RULE 7 thesis break."
     },
     {
       "symbol": "V",
@@ -124,8 +123,7 @@
         "time_stop_date": "2026-10-05",
         "held_days": 0,
         "verdict": "HOLD. Entered 14:23:39Z at 368.0799 by the sibling run; flat on the session (-0.02% vs the 368.29 prior close) and +0.03% on the fill, i.e. no drift worth marking. Exit stack unchanged: RSI2>=70 while green, the 2026-10-05 time stop, target 383.06 advisory. Green-enough native-trail alert at $432.98."
-      },
-      "_thesis_verdict_2026-09-22": "Day 1. Working. Consensus 38 buy / 4 hold / 1 sell, mean PT $423.54 vs $368.0799 entry = +15%. No news check escalation needed this run; entered 2026-09-21 off that day's committed report."
+      }
     }
   ],
   "_resolved_flags": [
@@ -5551,7 +5549,7 @@
     "set_utc": "2026-09-14T22:30:00Z",
     "authority": "Ryan, REAL live turn 2026-09-14 (interactive session, typed turns): '1. Let's make the change. 2. Whichever you recommend is fine. 3. 5-20%. 4. Sure. 5. Let's do it.' -- answering the five design decisions in the autonomy-audit proposal. Spec: docs/day-track-spec.md. Code: day_track.py. Prompt carrying the duties: docs/routine-prompt-v11.md (PASTE-READY).",
     "status": "PAPER",
-    "status_note": "PAPER, ACTIVE. 2026-09-22: a clean LONG signal fired (OR 740.97-743.45, body 99.6% of range -- the strongest body fraction the track has recorded) and was SKIPPED ON CAPITAL: plan_entry -> {'action':'skip','reason':'cannot afford one whole share inside the caps','bound_by':'cash'}, deployable $97.40 vs one QQQ share at $743.73. NOT a late-entry skip (threshold 744.69, price 743.73). *** THE SKIP IS DIRECTION-DEPENDENT AND THAT IS THE FINDING: PSQ at $24.905 was affordable (3 shares), so the track can still take SHORTS and can no longer take LONGS -- the paper sample is being filtered by direction, and the only winner the track has ever produced was a LONG. See _DAY_TRACK_IS_NOW_CAPITAL_BLOCKED_ON_LONGS_ONLY_AND_THAT_BIASES_THE_PAPER_SAMPLE_2026-09-22. ESCALATED to Ryan; no gate touched, no counter adjusted, no parameter changed. *** COUNTERS UNCHANGED: a skip increments neither paper_days nor paper_trades, matching the existing 4-rows/4-days record (2026-09-18 was likewise uncounted). graduate(4, [-1,-1,-1,6.4774]) -> go_live FALSE, 'paper 4d / 4 trades; need 10d and 8 trades' -- SIX more paper days and FOUR more signals, and the capital block above is now the main threat to ever reaching them. *** track_status(3416.37, [-1,-1,6.4774], [6.4774]) -> paused FALSE, active. *** Graduation remains the ONLY lock on going live (the v11 stop-authority lock opened 2026-09-15 and graduates nothing); only a Monday calibration flips the phase and no run promotes it mid-week. Next graduation review 2026-09-28. *** No trade remains today (one trade per day); the 15:30 ET flat rule is moot.",
+    "status_note": "PAPER, ACTIVE, paper day 5 -- SIGNAL SKIPPED ON CAPITAL, the track's first. *** OR 740.97-743.45 (open 740.98, close 743.45, body 99.6% of range) from five clean 1-minute bars 13:30-13:34Z -> direction LONG, unambiguous; late-entry gate PASSED (spot 743.87 vs a 744.69 ceiling). day_track.plan_entry -> action='skip', 'cannot afford one whole share inside the caps': deployable $96.59 against a ~$743.87 one-share QQQ ticket, size() shares=0 bound_by='cash'. No judgement was applied and none was permitted. *** A SHORT on the identical tape would have funded ~3 PSQ at 24.91 and traded. That 30x asymmetry is the finding: see _DAY_TRACK_THE_LONG_SIDE_COSTS_30X_THE_SHORT_SIDE_SO_CAPITAL_FILTERS_THE_PAPER_SAMPLE_BY_DIRECTION_2026-09-22. Escalated to Ryan; NOT fixed by this run, because fixing it means editing the spec and no unattended run may. *** COUNTS: paper DAYS 5, SIGNALS still 4. graduate(4, [-1,-1,-1,6.4774]) -> go_live FALSE, 'paper 4d / 4 trades; need 10d and 8 trades' -- and note graduate() is called with the SIGNAL count, not the day count, so a skip day does not move it. Graduation remains the ONLY lock (the v11 stop-authority lock opened 2026-09-15 and graduates nothing) and only a Monday calibration may flip the phase; today is Tuesday, so the next graduation review is 2026-09-28. *** track_status(3432.68, [-1,-1,6.4774], []) -> paused FALSE, 'active'. *** One trade per day: today is DONE either way; the 15:30 ET flat rule is moot with no position.",
     "signal_symbol": "QQQ",
     "long_vehicle": "QQQ",
     "short_vehicle": "PSQ",
@@ -5932,7 +5930,9 @@
       "margin_over_breakeven_pts": 11.63,
       "verdict": "POSITIVE EXPECTANCY FOR THE FIRST TIME (+0.869R/trade) -- AND IT PROVES NOTHING YET. n=4 against the calibration module's MIN_TRADES_FOR_ACTION of 20 and the graduation bar of 8 signals. One row supplies 100% of the gains, which is the textbook shape of a sample too small to read. REPORT ONLY; no parameter moves, no phase change.",
       "shape_note": "Worth recording because it is the OPPOSITE shape to the swing book and the two must never be pooled. Swing equities: 72% win rate, payoff 1.02 -- a HIT-RATE engine. The day track so far: 25% win rate, payoff 6.48 -- a PAYOFF engine, three small losses paid for by one large win. That is what an opening-range trend-follower is supposed to look like, and it is exactly why the calibration measures margin over the PAYOFF-IMPLIED breakeven rather than a raw win rate against a fixed number: at payoff 6.48 the breakeven win rate is 13.4%, so 25% is a +11.6 pt margin, whereas a fixed 50% threshold would call this strategy broken. At n=4 the payoff ratio is itself ONE observation."
-    }
+    },
+    "paper_days_elapsed": 5,
+    "paper_signals_taken": 4
   },
   "_TACTICAL_TRACK_RETIRED_2026-09-14": {
     "retired_utc": "2026-09-14T22:30:00Z",
@@ -7600,71 +7600,44 @@
     "why_it_matters_this_week": "Three swings carry NO price stop by policy (HARD RULE 5), so the connector IS the only exit mechanism they have. ABNB and UNP both entered 2026-09-10, so SWING_TIME_STOP_DAYS=14 lands their TIME STOP on 2026-09-24 (Thu) -- a mechanical sell, green or red, that cannot be executed without the connector. A multi-day outage is therefore not merely a monitoring gap.",
     "the_process_point": "The six-key post-close schema's 'reconciliation' field is the one check the POST-CLOSE RUN PROTOCOL says is ALWAYS worth repeating, so the tempting move is to fill it from the 22:19Z run's numbers, which are certainly still true. DO NOT. That is this file's most-repeated defect -- a number typed from a default or an inherited read, inside a check that then reads as passing (cf. the four runs that wrote a reset loss cap the ledger contradicted, 2026-08-27). An unperformed check is reported as unperformed."
   },
-  "_WHY_NO_thesis_checked_BLOCK_WAS_WRITTEN_2026-09-22": {
+  "_DAY_TRACK_THE_LONG_SIDE_COSTS_30X_THE_SHORT_SIDE_SO_CAPITAL_FILTERS_THE_PAPER_SAMPLE_BY_DIRECTION_2026-09-22": {
     "found_utc": "2026-09-22T13:38:00Z",
-    "status": "DURABLE, SMALL, AND A NEAR-MISS WORTH RECORDING -- a mechanism was nearly cargo-culted.",
-    "headline": "ABNB and UNP were researched to an INTACT verdict this run, and the obvious next step -- write the thesis_checked{} block CLAUDE.md prescribes so the flag stops re-firing -- WOULD HAVE SUPPRESSED NOTHING.",
-    "mechanism": "report.py:503 reaches action 'HOLD (thesis-watch)' via the UNDERWATER path. thesis_confirmation() (report.py:279-293) only suppresses the REVIEW KEYS 'below_200ma' and 'out_of_decile' (set at :430 and :433). Neither name is flagged for either reason -- they are flagged for being underwater with a time stop pending. So a thesis_checked block on these two rows is inert: it silences a channel they do not fire on.",
-    "why_it_matters": "Not because the write would have done harm -- it is inert, so it would have done nothing at all. That IS the harm: it would have LOOKED like the suppression duty was discharged, and a later run seeing a dated intact verdict on the row could reasonably infer the alert had been handled. An inert control that reads as an active one is this file's most-repeated defect (a check that passes for the wrong reason), arriving as a write rather than a read.",
-    "what_was_done_instead": "The verdicts are recorded as _thesis_verdict_2026-09-22 prose on each position and in the journal, which is where they are actually useful -- they decide whether to sell EARLY, before the 09-24 time stop. The answer is no for both.",
-    "rule": "Before writing a suppression record, confirm the name is actually firing on a reason key that record covers. thesis_checked is for below_200ma / out_of_decile ONLY; it is not a general-purpose 'I did the research' stamp."
-  },
-  "_DAY_TRACK_IS_NOW_CAPITAL_BLOCKED_ON_LONGS_ONLY_AND_THAT_BIASES_THE_PAPER_SAMPLE_2026-09-22": {
-    "found_utc": "2026-09-22T13:38:00Z",
-    "status": "DURABLE, NEW, AND IT CHANGES WHAT THE PAPER RECORD MEANS. Measured on a day the track produced its cleanest signal yet and could not take it.",
-    "headline": "The DAY TRACK is no longer gated by its signal -- it is gated by SHARE PRICE. At $97.40 deployable, one QQQ share ($743.73) is unaffordable while one PSQ share ($24.905) is not, so the track can still take SHORT signals and can no longer take LONG ones. The paper sample is therefore being filtered by DIRECTION, and graduate() cannot see that.",
-    "measured_today": {
-      "opening_range": {
-        "high": 743.45,
-        "low": 740.97,
-        "open": 740.98,
-        "close": 743.45,
-        "bars": 5,
-        "range": 2.48,
-        "body_frac": 0.996
-      },
-      "direction": "long",
-      "body_frac_note": "0.996 -- the STRONGEST body fraction the track has recorded (gate is 0.10). This was not a marginal signal.",
-      "atr14_daily": 9.5586,
-      "price_now": 743.73,
-      "quote_venue_utc": "2026-09-22T13:36:11.49Z",
-      "late_entry_ok": true,
-      "late_entry_arithmetic": "threshold = OR high 743.45 + 0.5 x range 2.48 = 744.69; price 743.73 is 0.96 inside it, so the skip is NOT a late-entry skip.",
-      "plan_entry": {
-        "action": "skip",
-        "reason": "cannot afford one whole share inside the caps",
-        "size": {
-          "shares": 0,
-          "dollars": 0.0,
-          "risk_usd": 0.0,
-          "r_usd": 0.0,
-          "bound_by": "cash"
-        }
-      },
-      "deployable_usd": 97.4,
-      "qqq_one_share_usd": 743.73,
-      "psq_one_share_usd": 24.905,
-      "psq_shares_affordable": 3
+    "found_by": "scheduled run 13:30Z 2026-09-22 (unattended, prompt v11) -- first post-bell run, on the track's FIRST capital-blocked signal",
+    "headline": "The DAY TRACK's long vehicle (QQQ, ~$744/share) costs ~30x its short vehicle (PSQ, ~$24.91/share), and the spec requires WHOLE shares. So the minimum ticket to take a LONG is ~$744 and the minimum to take a SHORT is ~$25. Whenever deployable cash sits between those two numbers the track is fundable on ONE SIDE ONLY -- and which side is decided by the swing book's deployment, which has nothing whatever to do with the day-track signal.",
+    "todays_instance": "OR 740.97-743.45 from five clean 1-minute bars, open 740.98, close 743.45 -- body 2.47 of 2.48 points = 99.6% of range, the most decisive opening range the track has printed. Direction LONG, unambiguous. The late-entry gate PASSED (spot 743.87 against a 744.69 ceiling). day_track.size() returned shares=0 bound_by='cash' and plan_entry returned action='skip' -- 'cannot afford one whole share inside the caps'. Deployable was $96.59, short of one QQQ share by a factor of 7.7. A SHORT signal on the identical tape would have funded ~3 PSQ shares and traded.",
+    "why_it_is_structural_and_not_bad_luck": "The whole-share requirement is LOAD-BEARING, not incidental: a fractional position cannot carry a resting broker stop, and the resting stop is the day track's entire risk control while the agent is absent 14 of every 15 minutes (HARD RULE 5's one exception exists precisely for it). So the minimum ticket cannot be reduced by going fractional without destroying the thing that makes the track safe. The asymmetry is therefore a permanent property of the vehicle pair at this account size, not a transient cash-flow accident.",
+    "the_cross_day_gap_that_actually_causes_it": "docs/day-track-spec.md line 31 gives the DAY TRACK capital priority -- 'the DAY TRACK claims deployable cash at its entry run; swing-book entries that day happen AFTER the day trade is flat or was skipped.' That priority is WITHIN a day and has no cross-day teeth. Yesterday's 14:23Z V entry spent $1,000.00 of the $1,096.50 that was deployable on 09-21, and it was a fully compliant entry under every gate. Today's day trade then found $96.59. The swing book did nothing wrong; the priority rule simply does not reach backwards across the bell.",
+    "measurement_conservative": {
+      "method": "Scanned every 2026-09 trade_journal.json entry for reported 'deployable' figures and took each trading day's PEAK -- deliberately the most generous reading, since peak overstates what was actually available at the 13:35-13:50Z entry window.",
+      "days_whose_PEAK_deployable_never_reached_one_QQQ_share": [
+        "2026-09-02 (peak $552.10)",
+        "2026-09-11 (peak $523.64)",
+        "2026-09-17 (peak $541.38)",
+        "2026-09-22 (peak $97.96)"
+      ],
+      "rate": "4 of the 15 September trading days measured = ~27%, and that is a FLOOR because peak-of-day beats entry-window in most cases.",
+      "near_miss_confirming_the_mechanism": "2026-09-17 peaked at $541.38 and the signal that day was SHORT -- it funded 1 PSQ at 25.965 and traded to a -1.00R stop. Had the same day printed a LONG it would have been skipped. The mechanism has been live for a week; today is simply the first day the coin landed the other way."
     },
-    "the_bias_and_why_it_is_not_cosmetic": "The paper record to date is 2 shorts (-1.00R, -1.00R) and 2 longs (-1.00R, +6.4774R). THE ONLY WINNER THE TRACK HAS EVER PRODUCED WAS A LONG. If capital continues to admit shorts and refuse longs, the sample that graduate() reads will skew toward the side that has so far lost every time -- and the track could be KILLED by a statistic manufactured by the cash balance rather than by the edge. n=4 is far too small to claim a real long/short asymmetry, and this key does NOT claim one; the point is that the FILTER is non-random with respect to the outcome, which is enough to corrupt the sample whatever the true edge is.",
-    "why_this_is_new": "The track has been capital-comfortable until now. The 2026-09-21 signal sized 1 QQQ share against $1,096.50 deployable and fit. The three equity entries since (ABNB, UNP, V) plus the 09-21 V buy took cash to $268.22, and the 5% operational reserve takes deployable under one QQQ share for the first time.",
-    "when_it_clears": "2026-09-24, when ABNB and UNP hit their 14-day time stops and free roughly $2,150 -- unless that capital is immediately redeployed into swings, which under the full-deployment capital policy is the DEFAULT behaviour. So this can recur indefinitely and is not self-healing.",
-    "what_this_run_did_NOT_do": "It did not adjust the counters, relax a gate, size a fractional share, or log a trade that could not be taken. The prompt is explicit that the DAY TRACK is EXECUTED, NOT JUDGED, and that no unattended run may add a gate or a filter to it; the mirror of that rule is that no unattended run may REMOVE one either. plan_entry() returned skip and skip is what was recorded.",
-    "ESCALATED_TO_RYAN": "YES -- flagged in the daily report and by notification. This needs a decision no unattended run may take, and there are at least three options, none of them obviously right: (a) exempt the DAY TRACK's one-share requirement from the operational reserve; (b) let the track trade a fractional QQQ share and give up the resting stop (which would gut the one risk control the track has, and is probably wrong); (c) reserve capital for the day track ahead of swing entries. HARD RULE 9: no approval is claimed or implied here, and no parameter was changed."
+    "why_it_matters_and_it_is_not_the_missed_trade": "The missed trade is worth ~nothing -- it is PAPER, and one row either way is noise. The cost is to the GRADUATION STATISTIC, which is the thing Ryan actually authorized. day_track.graduate() requires >= 10 paper days AND >= 8 signals with expectancy > 0 and a win rate above the payoff-implied breakeven. Skipped days advance the day-count and not the signal-count, so the sample fills up SLOWER; worse, the signals that survive are filtered BY DIRECTION. Shorts clear a $25 bar and longs clear a $744 bar, so a capital-constrained stretch silently selects a short-heavy sample. If the strategy's edge is direction-dependent at all, the sample that decides go-live is not representative of the strategy -- and nothing in graduate() can see that it happened, because a skipped day leaves no trade row to count.",
+    "current_sample_stated_honestly": "4 signals: 09-15 SHORT -1.00R, 09-16 LONG -1.00R, 09-17 SHORT -1.00R, 09-21 LONG +6.4774R. 2 long / 2 short, so the sample is NOT yet biased -- the filter has selected against exactly one signal, today's, and it happened to be a long. n=4 is far too small for any directional claim and none is made here. The finding is about the MECHANISM, which is arithmetic and certain, not about a bias already visible in the data.",
+    "what_this_run_did_NOT_do": "Did not change the vehicle, the sizing, the spec, the params, or graduate(). CLAUDE.md is explicit that no unattended run may add a gate, a filter or a screen to this track, and that docs/day-track-spec.md is edited only by an interactive session with a real Ryan turn. Nor did this run reserve capital for the day track or decline a swing entry to protect it -- that would be inventing a cross-day reservation rule, which is precisely the kind of self-granted mechanic HARD RULE 9 exists to prevent. Measured, recorded, escalated. Nothing else.",
+    "options_for_Ryan_NOT_chosen_by_this_run": [
+      "ACCEPT IT -- treat direction-filtered skip days as the honest cost of a $3.4k account and let graduation take longer. Costs nothing, but the short-selection risk stays unmeasured.",
+      "RESERVE a day-track float (~$800, one QQQ share plus slack) that swing entries may not spend. Directly fixes it; costs the swing book roughly one position slot's worth of capacity, which at a 3-4 name target is material.",
+      "CHEAPER LONG VEHICLE -- e.g. QQQM tracks the same index at roughly 40% of QQQ's share price, so the long ticket falls to ~$300 while still being a whole share that can carry a resting stop. Narrows the asymmetry without reserving anything; needs a liquidity check on QQQM's spread before it could be used, which this run did NOT perform.",
+      "LOG SKIPPED SIGNALS AS COUNTERFACTUALS -- record what the skipped trade would have returned, kept OUT of graduate()'s live statistic but available to the Monday calibration, so the directional filter is at least measurable instead of invisible."
+    ],
+    "status": "OPEN -- escalated to Ryan 2026-09-22. No approval is claimed or implied; no Ryan turn is asserted (HARD RULE 9). A later run finding this key should NOT re-notify unless the situation materially changes (notify-once-per-incident).",
+    "_INDEPENDENTLY_CONFIRMED_BY_A_CONCURRENT_RUN_2026-09-22T13:38Z": "CROSS-VALIDATION, NOT A SECOND OPINION -- and it is worth more than either measurement alone. A concurrent run (fired 13:18Z, wrote 13:38Z, PR #1890) reached this finding INDEPENDENTLY, never having seen this key: it read the same spec, ran day_track.plan_entry() on its own separately-fetched bars and its own quotes, and derived the same direction-dependent block from scratch. The numbers agree EXACTLY where they should and differ only where they must: OR high 743.45, OR low 740.97, open 740.98, close 743.45, body_frac 0.996, atr14_daily 9.5586, late-entry ceiling 744.69, action 'skip', bound_by 'cash' -- all identical. The two spot quotes differ (743.73 at 13:36:11Z vs 743.87 at 13:36:43Z) and both sit inside the ceiling, so the late-entry gate passes on both reads. Deployable differed on the mark ($97.40 vs $96.59, total_value $3,416.37 vs $3,432.68) and one QQQ share is unaffordable by ~7.7x on either figure. Per the concurrent-run protocol this is recorded as an ANNOTATION on the existing key rather than as a second key: the finding is preserved, the duplicate container is not. The concurrent run's own draft key (_DAY_TRACK_IS_NOW_CAPITAL_BLOCKED_ON_LONGS_ONLY_...) was DISCARDED in favour of this one, which frames the mechanism better (the ~30x vehicle price ratio is the cause; the one-sided fundability is the symptom)."
   },
-  "_RUN_2026-09-22": {
-    "_current_state": {
-      "run_utc": "2026-09-22T13:38:00Z",
-      "trading_day_et": "2026-09-22",
-      "run_type": "first_post_open_of_trading_day",
-      "reconciliation": "ZERO DRIFT both books. Options 0 positions / options_value $0 / 0 ledger rows. Equities 3 of 3 to six decimals (ABNB 6.573584, UNP 3.858199, V 2.716801), all sellable. get_equity_orders and get_option_orders for 2026-09-22 both EMPTY -- no sibling fill, broker checked FIRST per the 2026-08-28 rule.",
-      "capital": "total_value $3,416.37; cash == buying_power == unleveraged_buying_power == $268.22 (no margin extended); equity_value $3,148.15; reserve 5% = $170.82; DEPLOYABLE $97.40.",
-      "books_flat_because": "CAPITAL, not conviction. $97.40 deployable vs a ~$600 equity minimum entry and a $500-1,000 CORE options band. Neither book can fund anything.",
-      "rotation_considered_and_DECLINED": "Declined on the merits, not skipped. The book holds 3 swings against a 3-4 target (band 3-5), so it is not full and the rotation gate is not even the binding constraint -- capital is. Had it been, the rotation candidates would have been ABNB and UNP, and selling either is wrong for a specific reason: BOTH hit their mandatory 14-day time stop on 2026-09-24, which frees ~$2,150 for two full-size entries off a fresh report. Rotating out today realizes the identical exit two days early, at a worse information set (today's report had not landed at 13:38Z), to fund a candidate graded off a STALE board. And the weakest-on-the-entry-stack test does not select them anyway: both were re-researched to INTACT this run. Selling a sound underwater thesis to chase a fresher signal is the exact churn HARD RULE 5 forbids.",
-      "equity_entry": "NONE. 0 of 3 used. Blocked on capital, and separately the committed report on master is still the 2026-09-21 pair -- today's lands ~14:00-14:07Z. Signal-sourced-only plus the opening-window deferral both point at a later run regardless.",
-      "options_entry": "NONE. 0 of 3 used. Book empty, blocked on capital. Entries are NOT paused (the 09-21 KILL branch was reversed 14:05Z that day).",
-      "day_track": "Clean LONG signal, SKIPPED ON CAPITAL. See _DAY_TRACK_IS_NOW_CAPITAL_BLOCKED_ON_LONGS_ONLY_AND_THAT_BIASES_THE_PAPER_SAMPLE_2026-09-22.",
-      "duties_owed_later_today": "IV sweep of the core list (deferred past 14:00Z on purpose -- pre-14:00Z ATM rows are inflated upper bounds); the daily report at/after 19:15Z; re-grade the equity book off today's report once it lands."
-    }
+  "_A_thesis_checked_BLOCK_ON_AN_UNDERWATER_NAME_IS_INERT_2026-09-22": {
+    "found_utc": "2026-09-22T13:38:00Z",
+    "found_by": "concurrent run 13:18Z 2026-09-22 (unattended, prompt v11), PR #1890",
+    "status": "DURABLE, SMALL, AND PRE-EMPTIVE -- recorded as a trap avoided, NOT as a defect found. Verified: NO position in this ledger currently carries a thesis_checked block, so nothing is broken right now.",
+    "headline": "Researching an underwater name to an INTACT verdict does NOT make thesis_checked{} the right place to record it. On a name flagged only for being underwater, that block suppresses nothing.",
+    "mechanism": "report.py:503 reaches action 'HOLD (thesis-watch)' via the UNDERWATER path. thesis_confirmation() (report.py:279-293) only suppresses the REVIEW KEYS 'below_200ma' and 'out_of_decile', set at :430 and :433. ABNB and UNP are flagged for neither -- they are flagged for being underwater with a time stop pending. A thesis_checked block on those rows would be inert: it silences a channel they do not fire on.",
+    "why_it_is_worth_writing_down": "Not because the write would do harm -- being inert, it would do nothing. That IS the harm. A dated INTACT verdict sitting in the canonical suppression field reads, to any later run, as a discharged duty on a handled alert. An inert control that presents as an active one is this file's most-repeated defect (a check that passes for the wrong reason), arriving as a WRITE rather than a read. The playbook's instruction 'when you ANSWER a THESIS CHECK, record the verdict' is correct and is aimed at the review-key channel; applied to the underwater channel it produces a convincing no-op.",
+    "rule": "Before writing a suppression record, name the reason key the position is actually firing on and confirm the record covers it. thesis_checked is for below_200ma / out_of_decile ONLY -- it is not a general-purpose 'I did the research' stamp. For an underwater name the verdict belongs in the position's _current_state verdict and the journal, which is where it is actually used: it decides whether to sell EARLY, ahead of the time stop.",
+    "todays_application": "ABNB and UNP were both re-researched to INTACT this run (independently reproducing the 09-21 findings: UNP's drawdown is the sector diesel shock -- diesel $6.31/gal +70.5% y/y, JBHT -13% on 09-16 dragging CSX/WM -- against a UBS upgrade INTO the weakness, Neutral->Buy, PT $310->$339, consensus mean PT $333.35 vs ~$270.80 spot; ABNB on RBC Outperform $195 PT with AI-agent marketplace risk as a watch-item). Neither is an early sell. No thesis_checked block was written, deliberately."
   }
 }

@@ -1,113 +1,67 @@
 {
  "_comment": "Daily market brief for the options automation. Built by the first post-open run of each TRADING day (ET), never by a post-close/pre-open firing. Refresh intraday only on a genuine shock (VIX +15%, an index breaking a listed level, a major headline).",
  "date": "2026-09-22",
- "built_utc": "2026-09-21T13:46:00Z",
- "built_by": "scheduled run 13:30Z 2026-09-21 (unattended, prompt v11) -- first post-bell run of the trading day",
+ "built_utc": "2026-09-22T13:42:00Z",
+ "built_by": "scheduled run 13:30Z 2026-09-22 (unattended, prompt v11) -- first post-bell run of the trading day",
  "regime": {
-  "label": "NUMBERS ONLY -- no directional verdict handed forward",
+  "label": "OPENING WINDOW, MEASURED NOT INTERPRETED",
   "spy": {
-   "last": 774.8,
+   "last": 774.305,
    "adjusted_previous_close": 773.5,
-   "day_pct": 0.168
+   "day_pct": 0.1
   },
   "qqq": {
-   "last": 744.02,
+   "last": 742.115,
    "adjusted_previous_close": 741.47,
-   "day_pct": 0.344,
-   "_note": "QQQ previous_close and adjusted_previous_close agree at 741.47 today, so no ex-dividend adjustment trap this session (09-21 had one)."
+   "day_pct": 0.09
   },
-  "vix": null,
-  "_vix_note": "VIX was requested in the same get_equity_quotes call and returned NO row -- it is an index, not an equity, and needs get_index_quotes. Recorded as a null rather than silently dropped so the next run does not re-discover it.",
-  "as_of_utc": "2026-09-22T13:37:24Z",
-  "_discipline": "NUMBERS ONLY (2026-08-28 rule: a mid-session cross-asset read inverts within minutes and the next run must not inherit a frame). These are also opening-window prints -- re-measure before they decide anything."
+  "as_of_utc": "2026-09-22T13:31:03Z",
+  "_ex_div_check": "Performed, and CLEAN today: QQQ previous_close 741.47 == adjusted_previous_close 741.47, and SPY 773.50 == 773.50. The 09-21 brief had to compute QQQ's day change off the adjusted figure because QQQ went ex-dividend; that adjustment is NOT live today and must not be carried forward.",
+  "_discipline": "NUMBERS ONLY, no directional verdict handed forward (2026-08-28 rule: a mid-session or mid-event cross-asset read can invert within minutes and the next run must not inherit a frame). These are also opening-window prints taken ~90 seconds after the bell, so they are the least settled quotes of the day -- per the standing rule, re-quote at least ~5 minutes after 13:30Z before any of this decides anything.",
+  "_context_not_a_verdict": "QQQ closed 09-21 at 741.47 after a +1.9% session (727.89 open -> 741.47 close, high 743.22), the largest single-day advance in the visible daily series. Today opens essentially flat against that. Stated as a fact about the prior bar, not as a read on continuation or exhaustion."
  },
  "catalysts_next_5_sessions": [
-  "No scheduled binary event on either held name (ABNB, UNP) inside its remaining hold window -- both reach the 14-day time stop 2026-09-24, verified at entry.",
+  "No scheduled binary event on any of the three held names (ABNB, UNP, V) inside its remaining hold window. ABNB and UNP reach the 14-day time stop 2026-09-24; V was entered 09-21 and runs to 2026-10-05.",
   "FOMC 2026-09-16/17 is RESOLVED and must not be cited as a forward catalyst.",
-  "Under the 2026-09-14 narrowed CATALYST BAR, macro calendar events are a SIZING input for CORE options, never a bar. Moot this week regardless -- see options_book_status."
+  "Under the 2026-09-14 narrowed CATALYST BAR, macro calendar events are a SIZING input for CORE options, never a bar. Moot today regardless -- the options book is closed on capital, not on catalyst."
  ],
  "watchlist": {
-  "_source_caveat": "Built off the 2026-09-21 committed report -- TODAY'S REPORT HAD NOT LANDED at 13:38Z (the Actions cron writes latest_morning.md ~14:00-14:07Z). These are CANDIDATES ONLY and none is fundable today; the run that takes today's report must re-grade off it.",
-  "equity_candidates_non_energy": [
-   "CVS",
-   "DASH",
-   "VZ",
-   "MDLZ",
-   "PM"
-  ],
-  "equity_excluded_sector_steer": [
-   "SLB",
-   "OXY",
-   "CVX",
-   "COP",
-   "XOM"
-  ],
   "core_options_candidates": [],
-  "_fundability": "NONE fundable. Deployable $97.40 vs a ~$600 equity minimum entry and a $500-1,000 CORE options band. Both books are closed on capital until the 09-24 time stops free ~$2,150."
+  "equity_candidates": [],
+  "_why_empty": "ONE reason today, not two, and it is worth stating cleanly because yesterday's brief had to separate them. BOTH books are closed on CAPITAL: $96.59 deployable against a $600 equity minimum and a $500 CORE options low end. Separately, the committed report on master is still YESTERDAY's (latest_intraday.md 2026-09-21T19:06Z) and today's lands ~14:00-14:15Z; autonomous equity entries are SIGNAL-SOURCED ONLY and a stale report is not a source. Either fact alone closes the entry side, so no candidate work was done and none would have changed the answer."
  },
  "constraints_today": {
-  "total_value": 3434.45,
-  "cash": 1268.22,
-  "unleveraged_buying_power": 1268.22,
-  "operational_reserve_5pct": 171.72,
-  "deployable": 1096.5,
+  "total_value": 3432.68,
+  "cash": 268.22,
+  "unleveraged_buying_power": 268.22,
+  "operational_reserve_5pct": 171.63,
+  "deployable": 96.59,
   "minimum_equity_entry": 600.0,
   "core_options_low_end": 500.0,
-  "verdict": "EQUITY BOOK IS FUNDABLE TODAY -- deployable $1,096.50 clears the ~$600 minimum with room for one entry (2 swings held against a 3-4 target; size = deployable / remaining slots). This is the first fundable morning since 2026-09-11 and it exists because the IBKR take-profit returned $727 on 09-18. OPTIONS BOOK IS CLOSED TO NEW ENTRIES -- by the calibration, not by capital.",
-  "margin": "buying_power == unleveraged_buying_power == $1,268.22; no margin extended. FOUR LAWS #4 satisfied with no ambiguity.",
-  "equity_slots": "2 of the 3-4 target filled.",
-  "cash_hold": "NONE ACTIVE. The last one dissolved on its own expiry 2026-09-16 and no successor was written; an unattended run cannot renew one."
+  "verdict": "BOTH BOOKS ARE CLOSED ON CAPITAL TODAY. Deployable $96.59 is 16% of the ~$600 minimum equity entry and 19% of the $500 CORE options low end. Neither book can fund an entry at any grade, so no screen result can change today's answer on the ENTRY side.",
+  "why_this_is_not_a_breach": "Under THE CAPITAL POLICY cash is the RESIDUAL OF QUALITY, not a target, and being ~97% deployed is an explicitly correct state. The book holds 3 concurrent swings inside the 3-4 target. Yesterday opened at $1,096.50 deployable and this run opens at $96.59 for exactly one reason: the 14:23Z V entry spent $1,000.00 of it. Nothing leaked and no gate was missed.",
+  "the_live_gate_is_ROTATION": "With deployable below one normal position size, THE CAPITAL POLICY's rotation clause governs the moment today's report lands: a new idea is not queued, it must be graded BETTER THAN THE WEAKEST POSITION HELD on the ENTRY STACK (thesis strength, setup quality, distance to target) -- never merely against the biggest loser. If it is better, sell that one and buy this one and write BOTH sides of the comparison to the journal. If it is not, the correct output is 'no entry', said plainly.",
+  "rotation_candidates_ranked_weakest_first_PROVISIONAL": "UNP (-4.93%, day 12 of 14, time stop 09-24) is the weakest on P/L but NOT necessarily on the entry stack, and the distinction is the one the rule exists to enforce. UNP is 2 sessions from being recycled by the time stop anyway, so rotating out of it buys ~2 sessions of capital and pays a round trip to do it. ABNB is day 12 of 14 on the same clock. V is day 1 and +0.88%. A later run doing this comparison for real must re-derive it off today's report rather than inheriting this ordering.",
+  "margin": "buying_power == unleveraged_buying_power == $268.22; no margin extended. FOUR LAWS #4 satisfied with no ambiguity about which field bounds the budget.",
+  "no_cash_hold": "holdings.json._cash_hold is null. No deliberate hold is in force and none is needed -- the capital is absent, not withheld, so there is nothing here that requires a named catalyst and an expiry."
  },
  "DAY_TRACK_today": {
-  "status": "PAPER + ACTIVE (the 3-consecutive-loss pause expired at the week boundary)",
-  "evaluated": true,
-  "signal": "ENTER LONG QQQ, 1 share @ 729.2575, stop 727.82 (OR low), R $1.44, bound by cash. Paper day 4 -- logged, nothing placed.",
-  "opening_range": "high 728.84 / low 727.82 / open 727.95 / close 728.655, body 69.1% of range, from five 1-minute bars 13:30-13:34Z.",
-  "pause": "day_track.track_status(3434.45, [-1,-1,-1], []) -> paused FALSE, 'active'. First live confirmation of the week-boundary clause from _DAY_TRACK_PAUSE_NEVER_EXPIRED_A_DEADLOCK.",
-  "graduation": "day_track.graduate(4-days-after-today, ...) still far off: as of this row it is 4 paper days / 4 signals against a 10-day / 8-signal minimum. Earliest arithmetically possible go-live remains a Monday on or after 2026-10-05.",
-  "note": "The OR's 5th one-minute bar published LATE today -- see holdings.json._DAY_TRACK_THE_OR_IS_NOT_FETCHABLE_ON_THE_1330Z_RUN_2026-09-21."
+  "status": "PAPER + ACTIVE (paper day 5; the 3-consecutive-loss pause expired at the 09-21 week boundary and the 09-21 winner broke the streak outright)",
+  "evaluated": false,
+  "signal": "NOT COMPUTABLE THIS RUN. At 13:39Z the minute feed had published only the 13:30 bar; the opening range needs all five 1-minute bars 13:30-13:34Z, so day_track.plan_entry() returns action='wait' ('fewer than 5 one-minute bars yet') by construction rather than by judgement.",
+  "owner": "The first run at/after ~13:45Z takes today's signal -- the same hand-off that worked on 09-21, where the 13:30Z run saw 4 of 5 bars and the 13:45Z run took the trade.",
+  "capital_note_for_that_run": "Deployable is $96.59. A LONG signal cannot afford one whole QQQ share at ~742 and day_track.plan_entry will return action='skip' ('cannot afford one whole share inside the caps'). A SHORT signal is affordable -- PSQ quotes 24.96/24.97, so ~3 shares fit. Pass the PSQ quote as vehicle_px on a short; sizing a PSQ trade off the QQQ price is the documented 2026-09-15 bug that bought 2 shares instead of 56.",
+  "graduation": "day_track.graduate(4, [-1,-1,-1,6.4774]) -> go_live FALSE, 'paper 4d / 4 trades; need 10d and 8 trades'. SIX more paper days and FOUR more signals. Graduation is decided ONLY by a Monday calibration; today is Tuesday, so no run may promote the phase. The v11 stop-authority lock opened 2026-09-15 and graduates nothing."
  },
  "equity_entries_taken_today": [],
  "exits_taken_today": [],
  "weekly_calibration": {
-  "due": "TODAY, Monday 2026-09-21 -- RUN AND APPLIED by this run. See holdings.json._WEEKLY_CALIBRATION_2026-09-21.",
-  "equity_verdict": "REPORT ONLY (margin +12.99 pts, n=49, but only 7 in-regime). No parameter changed.",
-  "options_verdict": "KILL fired at 13:42Z and was REVERSED at 14:05Z as unsupported. No parameter change stands on either book this week. The corrected options sample cannot reach n=20 in any clean cut.",
-  "day_track_verdict": "PAPER retained; graduate() go_live FALSE. day_risk_pct unchanged at 5.0.",
-  "prompt_staleness": "prompt v11 step 8b still instructs the side=='sell' split, which is measurably wrong. Reported, NOT resolved -- no run may edit the stored prompt or claim a Ryan turn (HARD RULE 9)."
+  "due": "NOT DUE -- ran Monday 2026-09-21. See holdings.json._WEEKLY_CALIBRATION_2026-09-21. Next review Monday 2026-09-28.",
+  "standing_result": "No parameter change stands on either book. Equity REPORT ONLY (margin +12.99 pts, n=49, only 7 in-regime). Options KILL fired 13:42Z 09-21 and was REVERSED 14:05Z the same day as unsupported -- entries NOT paused, size multiplier 1.0. day_risk_pct unchanged at 5.0.",
+  "prompt_staleness": "prompt v11 step 8b still instructs the side=='sell' split, which is measurably wrong for attributing an options close. Reported by prior runs, NOT resolved -- no run may edit the stored prompt or claim a Ryan turn (HARD RULE 9)."
  },
  "monthly_rebalance": "NOT DUE -- next on the first trading day of October 2026.",
- "iv_note": "NO IV SWEEP THIS RUN, stated plainly rather than silently skipped. The options book is empty and unfundable at $369.49 deployable against a $500 CORE low end, so a core-list IV row informs no decision today and the calls are better spent on the two root-cause fixes this run shipped. The duty resumes the moment the book can fund an entry. Last rows remain in iv_history.json; nothing was overwritten with a stale or partial reading.",
- "_amended_by_concurrent_run": "ADDITIVE ONLY. The 13:19Z sibling of the 13:30Z run that built this file appended the three keys below at 13:50Z and changed NOTHING that was already here. Its own independently-measured SPY/QQQ numbers agree with the regime block above, so the two runs cross-validate rather than conflict.",
- "breadth_full_tape_1336Z": {
-  "_measured": "get_equity_quotes, venue timestamps 13:36:03-13:36:20Z -- six minutes post-bell, outside the auction window. All changes vs adjusted_previous_close, per the ex-dividend note in `regime`.",
-  "SMH": "564.82 vs 560.61, +0.75%",
-  "QQQ": "718.925 vs 716.92, +0.28%",
-  "NVDA": "219.22 vs 219.34, -0.05%",
-  "SPY": "760.66 vs 760.7112, -0.01%",
-  "DIA": "515.42 vs 517.1576, -0.34%",
-  "IWM": "283.885 vs 285.43, -0.54%",
-  "XLF": "55.51 vs 55.88, -0.66%",
-  "what_it_adds": "The regime block carries SPY and QQQ only, which reads as a mildly green tape. The full cross-section says something narrower: IWM is the WORST major and financials are worse still, while semis carry the entire Nasdaq bid. That is an INVERSION of yesterday's brief, which recorded small caps LEADING at +1.22% and called the move broad. Leadership narrowed to one complex in one session.",
-  "the_qualifier_that_keeps_it_honest": "NVDA is FLAT (-0.05%) while SMH is +0.75%, so the semi bid is not the mega-cap and 'semi-led' would overstate it. And six minutes of a quad-witching session is a reading, not a regime -- handed forward as NUMBERS, with no verdict attached, per the 2026-08-28T14:27Z finding."
- },
- "structural_levels_measured_1340Z": {
-  "QQQ_20d_SMA": 712.7095,
-  "QQQ_ATR14_daily_through_0917": 8.49,
-  "source": "Own computation from get_equity_historicals daily bars 2026-07-27..2026-09-17 (28 closes).",
-  "QQQ_50d_SMA": "NOT COMPUTED -- the pull holds only 28 closes. Reported as absent rather than computed from a short window.",
-  "read": "QQQ spot 718.925 sits 6.22 points (0.73 ATR) ABOVE its 20-day. No structural level is in play for any held name; recorded so the next run need not re-pull."
- },
- "earnings_window_verified_today": {
-  "_measured": "get_earnings_calendar(start 2026-09-18, days 8, high_market_cap), pulled 13:38Z.",
-  "held_names": "NO print for ABNB, UNP or IBKR anywhere in 2026-09-18..2026-09-25.",
-  "large_caps_next_week": "09-22 AZO/THO/MLKN am, KBH/WOR pm; 09-23 CTAS/PAYX/GIS/MANU am, FUL pm; 09-24 DRI/SNX/BB am, COST pm; 09-25 TBN am. None is a semis or AI-complex print.",
-  "why_this_is_additive_and_not_a_restatement": "The `catalysts_next_5_sessions` entry above says the held names print outside their time-stop windows 'verified at entry for each'. That is an entry-dated verification; this is a TODAY-dated one, and it carries the gap the other cannot: the window pulled ends 2026-09-25 while IBKR's time stop is 2026-09-30, so IBKR's final five days are UNVERIFIED. Per _A_PER_TICKER_EARNINGS_SERIES_CAN_BE_INTERNALLY_INCONSISTENT calendar silence is not proof either way. RE-CHECK IBKR before its time stop; do not treat this row as having cleared it."
- },
- "options_book_status": "NOT PAUSED. The 13:42Z KILL branch was REVERSED at 14:05Z on Ryan's live turn plus an independent re-measurement: the sample was partitioned by the CLOSING order's placed_agent instead of the OPENING order's, and the authorized SPY 2026-11-20 700P hedge (-$247, 43% of the loss that triggered it) was never stripped. Corrected, pure-agentic is -$141 over 10 closes and every corrected cut returns REPORT ONLY (n < 20). Size multiplier 1.0; all other gates unchanged. NOT a health verdict -- the desk's options edge is UNMEASURED at this sample size. See holdings.json._ATTRIBUTE_AN_OPTIONS_CLOSE_BY_ITS_OPENING_ORDER_AND_STRIP_THE_HEDGE_2026-09-21.",
- "iv_sweep": {
-  "status": "OWED, NOT RUN THIS RUN -- and flagged rather than skipped silently.",
-  "why": "Two reasons, the second load-bearing. (1) No options entry is fundable at $97.40 deployable, so no IV row would decide anything today. (2) This run fired at 13:38Z and CLAUDE.md's own measurement says a pre-14:00Z ATM row is an INFLATED UPPER BOUND (-2.5% to -4.4% across four re-measures), so rows written now would have to be re-measured before use anyway.",
-  "owed_to": "the first run at/after ~14:00Z today: SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA."
- }
+ "iv_note": "IV SWEEP DEFERRED THIS RUN, stated rather than silently skipped, for the reason the opening-window ATM inflation finding gives: any pre-14:00Z ATM row is an UPPER BOUND and writing one to iv_history.json hands the next run a number it must discount. With the options book unfundable at $96.59 the row also gates no decision today. Deferral, not omission -- the duty stands and a later run owns it. iv_history.json holds 29 rows per core name through 2026-09-21; nothing was overwritten.",
+ "options_book_status": "EMPTY and UNFUNDABLE. 0 positions, options_value $0, 0 ledger rows, no orders since before 09-21. NOT paused -- the 09-21 KILL branch was reversed the same day and the size multiplier is 1.0. Today's constraint is capital alone: $96.59 deployable against a $500 CORE low end. Do not restate the pause; it does not exist.",
+ "iv_sweep": "DEFERRED to a run past ~14:00Z. See iv_note for the reason and the precedent."
 }
