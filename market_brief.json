@@ -46,12 +46,15 @@
   "no_cash_hold": "holdings.json._cash_hold is null. No deliberate hold is in force and none is needed -- the capital is absent, not withheld, so there is nothing here that requires a named catalyst and an expiry."
  },
  "DAY_TRACK_today": {
-  "status": "PAPER + ACTIVE (paper day 5; the 3-consecutive-loss pause expired at the 09-21 week boundary and the 09-21 winner broke the streak outright)",
-  "evaluated": false,
-  "signal": "NOT COMPUTABLE THIS RUN. At 13:39Z the minute feed had published only the 13:30 bar; the opening range needs all five 1-minute bars 13:30-13:34Z, so day_track.plan_entry() returns action='wait' ('fewer than 5 one-minute bars yet') by construction rather than by judgement.",
-  "owner": "The first run at/after ~13:45Z takes today's signal -- the same hand-off that worked on 09-21, where the 13:30Z run saw 4 of 5 bars and the 13:45Z run took the trade.",
-  "capital_note_for_that_run": "Deployable is $96.59. A LONG signal cannot afford one whole QQQ share at ~742 and day_track.plan_entry will return action='skip' ('cannot afford one whole share inside the caps'). A SHORT signal is affordable -- PSQ quotes 24.96/24.97, so ~3 shares fit. Pass the PSQ quote as vehicle_px on a short; sizing a PSQ trade off the QQQ price is the documented 2026-09-15 bug that bought 2 shares instead of 56.",
-  "graduation": "day_track.graduate(4, [-1,-1,-1,6.4774]) -> go_live FALSE, 'paper 4d / 4 trades; need 10d and 8 trades'. SIX more paper days and FOUR more signals. Graduation is decided ONLY by a Monday calibration; today is Tuesday, so no run may promote the phase. The v11 stop-authority lock opened 2026-09-15 and graduates nothing."
+  "status": "PAPER + ACTIVE, paper day 5",
+  "evaluated": true,
+  "action": "SKIP -- on CAPITAL, not on the signal",
+  "signal": "LONG QQQ. Opening range 740.97-743.45 (open 740.98, close 743.45) from five clean 1-minute bars 13:30-13:34Z; body 2.47 of 2.48 points = 99.6% of range, the most decisive OR the track has printed. Late-entry gate PASSED -- spot 743.87 against a 744.69 ceiling. day_track.plan_entry -> action='skip', 'cannot afford one whole share inside the caps': $96.59 deployable against a ~$743.87 one-share QQQ ticket, size() shares=0 bound_by='cash'.",
+  "_supersedes": "An earlier draft of this key, written at 13:42Z, said the signal was NOT COMPUTABLE because only the 13:30 bar had published. That was true when written and became false four minutes later when the feed caught up; the same run then computed the signal and is correcting its own key in place rather than leaving a stale 'not computable' for the report-writing run to inherit. Same staleness class the repo documents for the brief's regime label.",
+  "counts": "Paper DAYS 5, SIGNALS still 4 -- a skip advances the day-count and not the signal-count. day_track.graduate(4, [-1,-1,-1,6.4774]) -> go_live FALSE, 'paper 4d / 4 trades; need 10d and 8 trades'. Graduation is the ONLY remaining lock and only a Monday calibration may flip the phase; today is Tuesday, next review 2026-09-28.",
+  "pause": "day_track.track_status(3432.68, [-1,-1,6.4774], []) -> paused FALSE, 'active'.",
+  "FOR_THE_DAILY_REPORT_RUN": "This skip is not routine -- it produced a NEW DURABLE FINDING that belongs in today's report and is ESCALATED to Ryan: holdings.json._DAY_TRACK_THE_LONG_SIDE_COSTS_30X_THE_SHORT_SIDE_SO_CAPITAL_FILTERS_THE_PAPER_SAMPLE_BY_DIRECTION_2026-09-22. In one line: the long vehicle costs ~30x the short vehicle and whole shares are load-bearing for the resting stop, so capital can fund one SIDE and not the other and the graduation sample gets filtered BY DIRECTION where graduate() cannot see it. Four remedies are listed in the key; the run that writes the report should surface it and must NOT choose one.",
+  "day_complete": "YES -- one trade per trading day, and today's was skipped. The 15:30 ET flat rule is moot with no position."
  },
  "equity_entries_taken_today": [],
  "exits_taken_today": [],
