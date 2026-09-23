@@ -649,7 +649,45 @@
       "quote_provenance": "QQQ 1-minute bars (bounds=regular) fetched 13:45:3xZ and RE-FETCHED at 13:47Z: all five OR bars byte-identical across both reads, so the bars are settled and no revision propagated into the OR (the 2026-08-26 provisional-bar detector, applied because this signal decides a trade). Live QQQ 744.43 at venue 13:46:02.726Z; PSQ 24.6212 at venue 13:45:40.024Z. Capital from get_portfolio at 13:45Z.",
       "counts_toward_graduation": "Increments BOTH paper days (6) and signals (5). graduate(6, [-1,-1,-1,6.4774]) -> go_live False, 'paper 6d / 4 trades; need 10d and 8 trades' -- the completed-trade list is unchanged because today's row is still open. track_status(3348.20, [-1,-1,6.4774], []) -> paused False, 'active'.",
       "_THE_ASYMMETRY_CONFIRMED_FROM_THE_OTHER_SIDE": "This is the first signal since the long/short capital asymmetry was escalated on 2026-09-22, and it lands on the SHORT side -- which funds. Same deployable cash (~$100) that could not buy ONE QQQ share yesterday bought FOUR PSQ shares today. The escalated finding predicted exactly this and it is now observed in both directions rather than argued in one: the track's ability to trade is currently decided by the SIGNAL'S DIRECTION, not by the signal's quality. Do not read today's fill as the capital problem having eased -- nothing about capital changed, the coin landed the other way.",
-      "_note_on_size": "Honest scope: $98.48 notional and $0.36 of risk is a real trade in SHAPE and a trivial one in SIZE. It is a valid paper sample for direction, stop, timing and the manage() ladder -- which is what the paper phase measures -- and it is NOT evidence about what this strategy does at fundable size."
+      "_note_on_size": "Honest scope: $98.48 notional and $0.36 of risk is a real trade in SHAPE and a trivial one in SIZE. It is a valid paper sample for direction, stop, timing and the manage() ladder -- which is what the paper phase measures -- and it is NOT evidence about what this strategy does at fundable size.",
+      "_manage_state": {
+        "last_managed_utc": "2026-09-23T14:00:00Z",
+        "time_et": "10:01",
+        "signal_px_used": 743.5,
+        "signal_px_note": "The QQQ ASK, not the 743.48 bid/last. This is a SHORT signal expressed by holding PSQ LONG, so the position is covered by buying QQQ back / selling PSQ into ITS bid -- the ask is the conservative side for a short and is what r is computed on.",
+        "signal_px_venue_utc": "2026-09-23T14:01:17.242019341Z",
+        "vehicle_px_psq_bid": 24.66,
+        "stop_px_signal": 747.12,
+        "stop_dist_pts": 2.69,
+        "r_now": 0.346,
+        "best_r_since_entry": 0.602,
+        "session_low_since_entry": 742.81,
+        "session_low_bar_utc": "2026-09-23T13:56:00Z",
+        "adverse_extreme_since_entry": 744.46,
+        "adverse_extreme_bar_utc": "2026-09-23T13:46:00Z",
+        "unrealized_usd_paper": 0.16,
+        "breakeven_armed": false,
+        "trail_armed": false,
+        "manage_verdict": "HOLD. Two-pass per _DAY_TRACK_IN_PAPER_manage_MUST_BE_FED_THE_ADVERSE_EXTREME: pass 1 at the adverse extreme 744.46 returns hold at -0.011R (the stop 747.12 sits 2.66 points above anything QQQ has printed since entry, so no breach is even close); pass 2 at the live 743.50 returns hold at 0.346R. Neither ratchet arms -- breakeven needs +1.0R (QQQ 741.74) and the trail needs +2.0R (QQQ 739.05). Chop rule not yet reachable (10:01 ET < 12:00); flat rule 15:30 ET.",
+        "feed_integrity": "Not re-fetched, and the reason is stated rather than skipped silently: the decision is hold on BOTH passes and the nearest threshold (breakeven at 741.74) is 1.74 points from the live print, while the stop is 2.66 points the other way. No plausible bar revision reaches either, so nothing hinges on bar precision this pass. The next pass that approaches a threshold owes the re-fetch."
+      },
+      "_manage_log": [
+        {
+          "run_utc": "2026-09-23T14:00:00Z",
+          "action": "hold",
+          "r_at_pass": 0.346,
+          "stop_unchanged": 747.12,
+          "inputs": {
+            "price_ask": 743.5,
+            "adverse_extreme": 744.46,
+            "session_low": 742.81,
+            "atr5": null,
+            "stop_dist": 2.69,
+            "time_et": "10:01"
+          },
+          "note": "First management pass on this row. day_track.manage() -> {'action': 'hold', 'reason': 'working, 0.35R'}."
+        }
+      ]
     }
   ]
 }
