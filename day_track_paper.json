@@ -673,7 +673,10 @@
         "breakeven_armed": true,
         "trail_armed": false,
         "manage_verdict": "RAISE_STOP to breakeven 744.43 (PSQ 24.6212). Two-pass per _DAY_TRACK_IN_PAPER_manage_MUST_BE_FED_THE_ADVERSE_EXTREME: pass 1 at the adverse extreme 744.46 (max 1-minute high since the 13:46:02Z entry) returns hold at -0.011R, so no breach happened between passes and the row is legitimately open; pass 2 at the live 739.21 ask returns raise_stop 'ratchet at 1.94R'. First ratchet in the DAY TRACK's history on the SHORT side. PAPER: no cancel/replace sent, nothing placed. The trail does NOT arm -- see _DAY_TRACK_THE_RATCHET_IS_CADENCE_SAMPLED_BY_DESIGN_2026-09-23. Chop rule not reachable (10:20 ET < 12:00); flat rule 15:30 ET.",
-        "feed_integrity": "Re-fetch owed and performed, because this pass crosses a threshold. All six of today's 5-minute buckets 13:45Z-14:10Z reconcile EXACTLY to their 1-minute sums (delta 0.00% on every one), so neither the bucket nor the 1-minute series is holed per the 2026-08-28 direction rule, and the ATR14 and session-low inputs are clean. The 739.04 session low sits on the 14:18Z one-minute bar, the newest printed bar, which is the one most exposed to revision -- it is load-bearing ONLY for the best_r_since_entry statistic (2.004 vs 2.000), never for the action, which is raise_stop on the live quote either way."
+        "feed_integrity": "Re-fetch owed and performed, because this pass crosses a threshold. All six of today's 5-minute buckets 13:45Z-14:10Z reconcile EXACTLY to their 1-minute sums (delta 0.00% on every one), so neither the bucket nor the 1-minute series is holed per the 2026-08-28 direction rule, and the ATR14 and session-low inputs are clean. The 739.04 session low sits on the 14:18Z one-minute bar, the newest printed bar, which is the one most exposed to revision -- it is load-bearing ONLY for the best_r_since_entry statistic (2.004 vs 2.000), never for the action, which is raise_stop on the live quote either way.",
+        "placeability": "PLACEABLE, tested in the VEHICLE frame per day_track.stop_is_placeable's docstring (this track is never short anything; the protective order is a SELL stop on PSQ and must sit BELOW the market on both sides). stop_is_placeable('long', 24.6212, 24.790) is True with 0.1688 of room (0.68% of price). Breakeven in the signal frame IS breakeven in the vehicle frame: stop_dist_pct collapses to 0, so vehicle_stop returns the PSQ entry 24.6212 exactly. Diagnostic only -- it does not override manage().",
+        "prior_pass_same_slot": "CONCURRENT-RUN COLLISION, resolved as a UNION per CLAUDE.md: the 14:18Z and 14:20Z runs executed the same slot and each performed this row's management pass independently, two minutes apart. Both reached the SAME action and the SAME stop from independently-fetched quotes (14:18Z: ask 739.46 -> 1.848R; 14:20Z: ask 739.21 -> 1.941R; both -> raise_stop 744.43), which is cross-validation, not a conflict. Known class, already recorded as _DAY_TRACK_A_SECOND_CONCURRENT_RUN_DECIDED_THE_SAME_PAPER_DAY_2026-09-16 -- re-noticing it is not a new finding.",
+        "session_low_since_entry_note": "739.04 is the low of the 14:18Z COMPLETED one-minute bar -- BAR-derived, per _DAY_TRACK_MANAGE_STATE_AND_MANAGE_LOG_DISAGREED_ON_THE_LIVE_STOP_2026-09-21 ('session_extreme must be BAR-derived, not QUOTE-derived'). The 14:18Z sibling pass fed the live 739.44 print and noted the substitution; it reached the same action, and the bar that settled afterwards put the true extreme 0.40 points lower. That difference is exactly what carries best_r across the +2R line (1.855 -> 2.004) without changing the ratchet, which is the subject of _DAY_TRACK_THE_RATCHET_IS_CADENCE_SAMPLED_BY_DESIGN_2026-09-23."
       },
       "_manage_log": [
         {
@@ -692,6 +695,25 @@
           "note": "First management pass on this row. day_track.manage() -> {'action': 'hold', 'reason': 'working, 0.35R'}."
         },
         {
+          "run_utc": "2026-09-23T14:18:00Z",
+          "action": "raise_stop",
+          "from": 747.12,
+          "to": 744.43,
+          "r_at_pass": 1.848,
+          "locked_r": 0.0,
+          "inputs": {
+            "price_ask": 739.46,
+            "session_extreme": 739.44,
+            "atr5": 1.0437,
+            "stop_dist": 2.69,
+            "time_et": "10:18"
+          },
+          "breach_pass": "Window is entry 13:46Z -> 14:16Z against the ORIGINAL 747.12 stop; no partitioning needed because this pass IS the first stop change on the row. Adverse extreme = max one-minute high since entry = 744.460 (13:46Z bar) -> clear by 2.660 points. NO BREACH.",
+          "ratchet": "day_track.manage('short', 744.43, 747.12, price=739.46, session_extreme=739.44, atr5=1.0437, time_et='10:18', stop_dist=2.69) -> {'action':'raise_stop','stop':744.43,'reason':'ratchet at 1.85R'}. BREAKEVEN_R=1.0 satisfied; TRAIL_START_R=2.0 is not (best 1.855).",
+          "placeability": "PLACEABLE in the vehicle frame -- stop_is_placeable('long', 24.6212, 24.790) is True, 0.1688 of room.",
+          "phase": "paper"
+        },
+        {
           "run_utc": "2026-09-23T14:20:00Z",
           "action": "raise_stop",
           "r_at_pass": 1.941,
@@ -705,7 +727,7 @@
             "stop_dist": 2.69,
             "time_et": "10:20"
           },
-          "note": "day_track.manage('short', 744.43, 747.12, 739.21, 739.04, 1.0437, '10:20', 2.69) -> {'action': 'raise_stop', 'stop': 744.43, 'reason': 'ratchet at 1.94R', 'r': 1.941}. Breakeven arm only; risk on the trade is now zero at the stop and 1.94R is open. PAPER -- no order."
+          "note": "day_track.manage('short', 744.43, 747.12, 739.21, 739.04, 1.0437, '10:20', 2.69) -> {'action': 'raise_stop', 'stop': 744.43, 'reason': 'ratchet at 1.94R', 'r': 1.941}. Breakeven arm only; risk on the trade is now zero at the stop and 1.94R is open. PAPER -- no order. Same-slot sibling pass at 14:18Z reached the identical action and stop from an independent quote (1.848R)."
         }
       ],
       "stop": 744.43,
