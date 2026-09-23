@@ -926,6 +926,24 @@
           "gates": "CHOP re-tested and clears widely (13:00 ET past the 12:00 gate; live ask 739.41 is 3.675 pts below the 743.085 line). TRAIL still NOT armed: arms at 2.0R = ask <= 739.05, ask is 739.41, so 0.36 pts away -- marginally WIDER than the 0.32 of the prior pass, r having eased 1.881 -> 1.866 as QQQ ticked 739.37 -> 739.41. FLAT rule at the first run >= 19:30Z.",
           "feed_integrity": "All three 5-minute buckets newly used for ATR14 reconciled against their 1-minute constituents: 16:45Z 141,584 vs 141,584; 16:50Z 187,662 vs 187,662; 16:55Z 107,301 vs 107,301. Exact on all three, and the 16:45Z bucket high 740.050 equals the max of its five 1-minute highs, so neither a volume hole nor a single-constituent OHLC defect propagated into the ATR or the breach scan.",
           "what_changed": "Nothing that moves a gate. ATR14(5-min) compressed a third consecutive pass, 0.6086 -> 0.5812, which NARROWS the projected trail room at arm time from 0.0539 pts to 0.0129 -- see _DAY_TRACK_THE_ATR_TRAIL_CONVERGES_ON_PRICE_WHEN_VOLATILITY_COMPRESSES_2026-09-21.finding_3, which already owns this mechanism; this pass only supplies the crossover threshold it did not state (atr5 < 0.5727 puts the trail BELOW the arm price). Session low unchanged at 738.191, now 2h35m old."
+        },
+        {
+          "run_utc": "2026-09-23T17:15:00Z",
+          "action": "hold",
+          "r_at_pass": 1.993,
+          "stop_unchanged": 744.43,
+          "inputs": {
+            "price_ask": 739.07,
+            "adverse_extreme_since_last_ratchet": 739.735,
+            "session_low": 738.191,
+            "atr5": 0.6587,
+            "stop_dist": 2.69,
+            "time_et": "13:17"
+          },
+          "breach_pass": "Window still PARTITIONED at the 14:20Z ratchet. Eleventh consecutive pass with the window maximum unchanged at 742.635: the fifteen new 1-minute bars 17:00Z-17:14Z topped at 739.735 (17:01Z), far under it. Clearance to the 744.43 breakeven stop 1.795 pts. manage() evaluated AT that extreme returns hold, so no intrabar breach is hidden between passes.",
+          "gates": "CHOP re-tested and clears widely (13:17 ET past the 12:00 gate; ask 739.07 is 4.015 pts below the 743.085 line). TRAIL still NOT armed but this is the CLOSEST the row has come: arm needs ask <= 739.05 and the ask is 739.07 -- 0.02 pts, against 0.36 at 17:00Z and 1.525 at 16:30Z. FLAT rule at the first run >= 19:30Z.",
+          "feed_integrity": "All three 5-minute buckets newly used for ATR14 reconciled EXACTLY against their 1-minute constituents: 17:00Z 239,082 vs 239,082; 17:05Z 151,818 vs 151,818; 17:10Z 168,559 vs 168,559. The 17:00Z bucket high 739.735 also equals the max of its five 1-minute highs, so neither a volume hole nor a single-constituent OHLC defect propagated into the ATR or the breach scan.",
+          "what_changed": "r 1.866 -> 1.993 as QQQ ticked 739.41 -> 739.07, the largest favourable pass since 16:45Z. ATR14(5-min) EXPANDED 0.5812 -> 0.6587, reversing three consecutive passes of compression -- the 17:00Z bucket's 1.475-pt true range is the widest since 14:50Z. Consequence for the owned convergence mechanism (_DAY_TRACK_THE_ATR_TRAIL_CONVERGES_ON_PRICE_WHEN_VOLATILITY_COMPRESSES_2026-09-21.finding_3): the trail at arm is now 738.191 + 1.5*0.6587 = 739.1791, i.e. ~0.129 pts of room above the 739.05 arm price, against the 0.0129 pts projected one pass ago. A ten-fold widening from a single volatile bucket, in the direction the finding predicts -- a RE-NOTICE of an owned mechanism, not a new finding, so no new key is minted."
         }
       ],
       "stop": 744.43,
