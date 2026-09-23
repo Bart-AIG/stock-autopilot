@@ -5569,7 +5569,7 @@
     "set_utc": "2026-09-14T22:30:00Z",
     "authority": "Ryan, REAL live turn 2026-09-14 (interactive session, typed turns): '1. Let's make the change. 2. Whichever you recommend is fine. 3. 5-20%. 4. Sure. 5. Let's do it.' -- answering the five design decisions in the autonomy-audit proposal. Spec: docs/day-track-spec.md. Code: day_track.py. Prompt carrying the duties: docs/routine-prompt-v11.md (PASTE-READY).",
     "status": "PAPER",
-    "status_note": "PAPER, ACTIVE, paper day 6 -- TODAY'S SIGNAL TAKEN (paper), WORKING ON A PERMANENT BREAKEVEN STOP. State as of the 19:20Z pass (OVERWRITTEN IN PLACE per the ledger-notes rule; per-pass history is day_track_paper.json rows[-1]._manage_log and is not duplicated here). *** SIGNAL (13:45Z): OR 745.085-747.12 from five settled 1-minute bars 13:30-13:34Z, body 92.6% of range -> SHORT. PSQ 4 @ 24.6212 = $98.48; ENTRY 744.43 signal / stop 747.12 signal (2.69 pts = 0.3614%), r_usd $0.36, bound_by 'cash'. NO ORDER PLACED -- phase is PAPER. *** CURRENT: stop 744.43 signal / 24.6212 PSQ = BREAKEVEN, armed at the 14:18Z/14:20Z passes and permanent (a short's stop only ratchets down), so the row cannot lose. 19:20Z pass -> HOLD at 1.368R on the live 740.75 QQQ ask. *** WHAT CHANGED: the give-back reversed (1.242R -> 1.368R) and ATR14(5-min) flattened at 0.5016 (was 0.5049, -0.7%) after four consecutive contractions. This no longer matters: THE EXIT IS THE 15:30 ET FLAT RULE, which fires at 19:30Z, TEN MINUTES after this pass. The 2.0R trail arm at QQQ 739.05 was never reached and now cannot be. *** THE NEXT RUN AT/AFTER 19:30Z CLOSES THIS ROW: sell 4 PSQ at the bid in paper terms, exit_reason 'flat rule (>= 15:30 ET)', append the result to _DAY_TRACK.results, and re-run graduate() -- the completed-trade list becomes [-1,-1,-1,6.4774,<today>] (5 trades of the 8 needed) and paper days stays 6 of 10. *** DAILY REPORT: written for trading day 2026-09-23 by the SIBLING 19:15Z run (PR #1971), not by the 19:20Z run -- both fired the same duty slot and the 19:20Z run discarded its own draft and kept the sibling's verbatim rather than re-notifying Ryan for a 0.026R difference. The report says plainly that this row is still open; the flat-rule close IS material and is the one sanctioned rewrite. *** graduate(6, [-1,-1,-1,6.4774]) -> go_live False, 'paper 6d / 4 trades; need 10d and 8 trades'. track_status(3312.11, [-1,-1,6.4774], []) -> active.",
+    "status_note": "PAPER, ACTIVE, paper day 6 -- TODAY'S SIGNAL IS CLOSED. State as of the 19:30Z FLAT-RULE pass (OVERWRITTEN IN PLACE per the ledger-notes rule; per-pass history is day_track_paper.json rows[-1]._manage_log). *** SIGNAL (13:45Z): OR 745.085-747.12 from 1-minute bars, body 92.6% of range, direction SHORT unambiguous. ENTRY 744.43 QQQ-terms / 4 PSQ at 24.6212 = $98.48, stop 747.12 (opposite OR edge), r_usd $0.36, bound_by cash. *** CLOSED 19:30Z on the FLAT RULE at QQQ ask 740.79 / PSQ bid 24.75: +1.353R, +$0.5152. The stop was never threatened -- it sat at a permanent breakeven 744.43 from 14:20Z and the session high after entry was 742.635, 1.8 points clear. *** THIS IS THE TRACK'S SECOND PAPER WINNER AND ITS FIRST SHORT-SIDE WIN.",
     "signal_symbol": "QQQ",
     "long_vehicle": "QQQ",
     "short_vehicle": "PSQ",
@@ -5869,12 +5869,27 @@
         "_mirror_of": "day_track_paper.json rows[-1]; that file is the source of truth. Kept in sync per _RESULTS_ARE_THE_PAUSE_INPUT_AND_WERE_DESYNCED_FROM_THE_PAPER_LOG_2026-09-18 -- this array is the PAUSE INPUT and a stale copy fails OPEN.",
         "_managed": "CLOSED 17:05Z on the THIRTEENTH management pass, after twelve trail ratchets. The 16:52Z one-minute bar printed low 738.500 against the 738.5688 trail set at 16:47Z -- a breach of 0.0688 -- corroborated independently by the 16:53Z bar at 738.540; bars 16:45Z-16:46Z, which traded under the OLD 738.2624, cleared it by 0.3416, so the breach belongs unambiguously to the post-16:47Z partition. Feed verified on BOTH prescribed defences before acting: an independently-fetched 5-minute series agrees the low is 738.500 (its 16:50Z bucket is partially holed on VOLUME -- 27,178 == exactly its 16:52-16:54 constituents against a true one-minute sum of 64,309 -- so per the direction rule the one-minute series governs, and the two agree on the low that decides the trade), and the window was fetched twice ~4 minutes apart with byte-identical bars. THE TRAIL WAS NOT MIS-SET: tolerance was 1.5 x atr5 = 0.8212 pts and the pullback ran 0.890 = 1.63 x atr5. Banked 9.3113 of the 10.1325 pts entry-to-high = 91.9% of peak. Price recovered above the exit to 738.98 by 17:01Z -- the ordinary cost of a trail, not a re-entry case. PAPER: nothing sent to a broker, no stop to cancel. Mirror of day_track_paper.json rows[-1], which is the source of truth.",
         "exit_px": 738.5688
+      },
+      {
+        "date": "2026-09-23",
+        "direction": "short",
+        "vehicle": "PSQ",
+        "entry": 744.43,
+        "exit": 740.79,
+        "exit_reason": "flat rule (>= 15:30 ET)",
+        "r_multiple": 1.353,
+        "pnl_usd": 0.5152,
+        "phase": "paper"
       }
     ],
     "graduation": {
       "evaluated_utc": null,
       "verdict": null,
-      "note": "Written ONLY by the Monday calibration via day_track.graduate(). Never promoted mid-week, never by an unattended run's own judgment."
+      "note": "Written ONLY by the Monday calibration via day_track.graduate(). Never promoted mid-week, never by an unattended run's own judgment. Standing at 6 paper days / 5 completed trades against the 10-day / 8-trade bar.",
+      "measured_this_run_not_binding": {
+        "go_live": false,
+        "reason": "paper 6d / 5 trades; need 10d and 8 trades"
+      }
     },
     "capital_priority": "The day trade claims deployable cash at its entry run; swing-book entries that day wait until it is flat or was skipped. A swing position is never sold to fund a day trade.",
     "what_this_is_not": "Not a judgment track. No news check, regime label, volume clause, catalyst screen or 'why now'. An unattended run may not add a gate. If the edge is absent, graduate() and the calibration KILL branch say so in numbers.",
@@ -5882,7 +5897,7 @@
       "version": "v11",
       "first_observed_utc": "2026-09-15T16:18:00Z",
       "precondition": "(b) stop-order authority -- SATISFIED",
-      "remaining_gate": "(a) day_track.graduate() go-live at a Monday calibration. Paper days elapsed: 1 of 10. Signals: 1 of 8."
+      "remaining_gate": "(a) day_track.graduate() go-live at a Monday calibration. Paper days elapsed: 6 of 10. Signals: 5 of 8."
     },
     "_paper_day_3_2026-09-17": {
       "logged_utc": "2026-09-17T13:36:00Z",
@@ -5951,8 +5966,30 @@
       "verdict": "POSITIVE EXPECTANCY FOR THE FIRST TIME (+0.869R/trade) -- AND IT PROVES NOTHING YET. n=4 against the calibration module's MIN_TRADES_FOR_ACTION of 20 and the graduation bar of 8 signals. One row supplies 100% of the gains, which is the textbook shape of a sample too small to read. REPORT ONLY; no parameter moves, no phase change.",
       "shape_note": "Worth recording because it is the OPPOSITE shape to the swing book and the two must never be pooled. Swing equities: 72% win rate, payoff 1.02 -- a HIT-RATE engine. The day track so far: 25% win rate, payoff 6.48 -- a PAYOFF engine, three small losses paid for by one large win. That is what an opening-range trend-follower is supposed to look like, and it is exactly why the calibration measures margin over the PAYOFF-IMPLIED breakeven rather than a raw win rate against a fixed number: at payoff 6.48 the breakeven win rate is 13.4%, so 25% is a +11.6 pt margin, whereas a fixed 50% threshold would call this strategy broken. At n=4 the payoff ratio is itself ONE observation."
     },
-    "paper_days_elapsed": 5,
-    "paper_signals_taken": 4
+    "paper_days_elapsed": 6,
+    "paper_signals_taken": 5,
+    "_DAY_TRACK_SIGNAL_R_AND_VEHICLE_R_DISAGREE_ON_THE_SHORT_SIDE_AND_GRADUATION_EATS_THE_SIGNAL_ONE_2026-09-23": {
+      "measured_utc": "2026-09-23T19:32:00Z",
+      "headline": "The first short-side paper row ever to close at a NON-(-1) R, so the first chance to compare the R the track RECORDS against the R the vehicle would actually have PAID. They differ by 6.9%: signal-terms +1.3532R, vehicle-terms +1.4472R. graduate() and the calibration consume the SIGNAL number.",
+      "arithmetic": {
+        "qqq_entry": 744.43,
+        "qqq_exit_ask": 740.79,
+        "qqq_move_pct": -0.489,
+        "psq_entry": 24.6212,
+        "psq_exit_bid": 24.75,
+        "psq_move_pct": 0.5231,
+        "ratio_psq_to_minus1x_qqq": 1.0697,
+        "signal_r": 1.3532,
+        "vehicle_r": 1.4472,
+        "risk_usd_vehicle": 0.356,
+        "pnl_usd": 0.5152,
+        "hold": "5h44m, 13:46Z entry to 19:30Z flat rule"
+      },
+      "why_the_three_stop_outs_could_not_show_this": "2026-09-15, 09-16 and 09-17 all closed at exactly -1.00R BY CONSTRUCTION -- a stop-out defines R. Any divergence between the instruments was absorbed into the definition and was unmeasurable. It takes a close that is NOT at the stop to see it at all, and this is the first one on the short side.",
+      "it_CONFIRMS_the_09_15_reading_rather_than_contradicting_it": "_DAY_TRACK_THE_PSQ_STOP_IS_2_79_TICKS_WIDE... measured 1.34x over a TEN-MINUTE hold and concluded the gap was price RESOLUTION, not tracking failure. That prediction is now tested over a 5h44m hold and a 0.49% move: the ratio falls to 1.07x, which is what a quantization artifact does as the move grows and exactly what a real tracking defect would NOT do. PSQ's $0.01 tick on a ~$24.62 price is 0.0406%, so half-tick rounding alone spans +/-0.0203 pct points against an observed 0.0341 -- roughly 60% of the gap, with the rest inside an inverse ETF's ordinary intraday drift. NO TRACKING FAILURE IS EVIDENCED. The finding is the MEASUREMENT CONVENTION, not a defect in PSQ.",
+      "why_it_matters_anyway": "Expectancy is the number that decides graduation, and it is computed in an instrument the short side does not trade in. At 1.07x on one row it is immaterial -- it moves the 5-row mean from 0.9661R to ~0.9849R and changes no verdict. It is recorded so the bias is KNOWN AND SIGNED rather than discovered later: on this sample the signal-terms R UNDERSTATES the short side. Do not correct for it -- n=1, the sign could flip, and a correction fitted to one row is worse than a known, quantified, uncorrected bias.",
+      "honest_scope": "n=1. One direction, one session, one vehicle. It changed no decision: the flat rule fires on the clock regardless of R, and graduate() returns go_live False at 6 days / 5 trades on either number."
+    }
   },
   "_TACTICAL_TRACK_RETIRED_2026-09-14": {
     "retired_utc": "2026-09-14T22:30:00Z",
