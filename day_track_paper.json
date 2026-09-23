@@ -763,6 +763,24 @@
           "breach_pass": "Window still PARTITIONED at the 14:20Z ratchet (the stop has not moved since). Max one-minute high 14:20Z-14:44Z = 740.475 (14:35Z bar), combining the prior pass's 739.580 for 14:20-14:29 with this pass's own 14:25-14:44 bars -> clear of the 744.43 stop by 3.955 points. NO BREACH.",
           "ratchet": "Breakeven already armed. TRAIL_START_R=2.0 not satisfied on the handed price (1.491) and now not satisfied on the excursion either at the moment of the pass -- the excursion statistic 2.3193 is unchanged because no new session low printed (every low 14:30Z-14:44Z >= 738.58).",
           "note": "FIRST PASS ON THIS ROW WHERE r FELL rather than rose: 1.944 -> 1.491 as QQQ retraced 2.23 points off the low. The three prior passes all argued the cadence-sampled trail as forgone upside; this pass can measure it. Counterfactual A (trail armed at the 14:20Z pass on the 739.04 low -> stop 740.6056): NOT touched, max high 740.475, so that trade is STILL OPEN at the same 1.491R with a 1.42R floor. Counterfactual B (trail armed on the 738.191 low -> stop 739.7566): CROSSED at the 14:33Z bar (high 739.90), so that trade is FLAT at +1.737R. Actual: open at 1.491R with a 0.00R floor. So the arithmetic that matters is +0.246R, not the 1.42R the key recorded, and only counterfactual B differs in OUTCOME at all."
+        },
+        {
+          "run_utc": "2026-09-23T15:00:00Z",
+          "action": "hold",
+          "r_at_pass": 0.844,
+          "stop_unchanged": 744.43,
+          "inputs": {
+            "price_ask": 742.16,
+            "adverse_extreme_since_last_ratchet": 742.6,
+            "session_low": 738.191,
+            "atr5": 1.0437,
+            "stop_dist": 2.69,
+            "time_et": "11:00"
+          },
+          "breach_pass": "Window still PARTITIONED at the 14:20Z ratchet (stop unmoved since). Max one-minute high 14:20Z-14:59Z = 742.600 (14:59Z bar), combining the prior passes' 740.475 for 14:20-14:44 with this pass's 14:45-14:59 bars -> clear of the 744.43 stop by 1.830 points. NO BREACH -- but this is the NARROWEST clearance of the row, down from 3.955 one pass ago and 4.850 two passes ago.",
+          "ratchet": "Breakeven already armed and, for a short, the stop only ever ratchets DOWN -- so the 744.43 floor is permanent and this row can no longer lose. TRAIL_START_R=2.0 not satisfied on the handed price (0.844) and the excursion statistic is unchanged at 2.3193 (no new session low; every low 14:45Z-14:59Z >= 739.35).",
+          "note": "SECOND CONSECUTIVE FALLING PASS and the first below +1R: 1.944 -> 1.491 -> 0.844 as QQQ rallied from the 738.191 low to a 742.600 high. THE NEW FACT WORTH HANDING FORWARD IS A LEVEL, NOT AN OPINION: the CHOP RULE becomes testable at the first run at/after 12:00 ET (16:00Z), and it closes this row when |r| < 0.5, i.e. at a QQQ ask ABOVE 744.43 - 0.5 x 2.69 = 743.085. Above 744.43 the stop-level branch fires first at 0.00R. So the whole outcome space at 16:00Z is: ask < 743.085 -> hold at >= 0.50R; 743.085..744.43 -> CHOP CLOSE at 0.00-0.50R; >= 744.43 -> stop close at 0.00R. Spot is 742.16, i.e. 0.93 points below the chop line. Counterfactual B (the trail armed on the 738.191 low) remains FLAT at +1.737R and its margin over the actual row has now widened from +0.246R to +0.893R -- recorded as arithmetic, not as an argument to arm a trail the rule does not authorise.",
+          "phase": "paper"
         }
       ],
       "stop": 744.43,
