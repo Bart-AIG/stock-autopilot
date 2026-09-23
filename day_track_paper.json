@@ -651,14 +651,14 @@
       "_THE_ASYMMETRY_CONFIRMED_FROM_THE_OTHER_SIDE": "This is the first signal since the long/short capital asymmetry was escalated on 2026-09-22, and it lands on the SHORT side -- which funds. Same deployable cash (~$100) that could not buy ONE QQQ share yesterday bought FOUR PSQ shares today. The escalated finding predicted exactly this and it is now observed in both directions rather than argued in one: the track's ability to trade is currently decided by the SIGNAL'S DIRECTION, not by the signal's quality. Do not read today's fill as the capital problem having eased -- nothing about capital changed, the coin landed the other way.",
       "_note_on_size": "Honest scope: $98.48 notional and $0.36 of risk is a real trade in SHAPE and a trivial one in SIZE. It is a valid paper sample for direction, stop, timing and the manage() ladder -- which is what the paper phase measures -- and it is NOT evidence about what this strategy does at fundable size.",
       "_manage_state": {
-        "last_managed_utc": "2026-09-23T16:15:00Z",
-        "time_et": "12:15",
-        "signal_px_used": 740.85,
-        "signal_px_note": "QQQ ASK at venue 16:15:49.069Z (bid 740.82 / last 740.82). The short is expressed long-PSQ so the cover is a PSQ sale into its bid; the QQQ ask is the conservative side and is the price r is computed on, unchanged in method from every prior pass on this row.",
-        "signal_px_venue_utc": "2026-09-23T16:15:49.069142249Z",
-        "vehicle_bid": 24.75,
-        "r_multiple_live": 1.331,
-        "unrealized_usd_at_bid": 0.5152,
+        "last_managed_utc": "2026-09-23T16:20:00Z",
+        "time_et": "12:19",
+        "signal_px_used": 740.32,
+        "signal_px_note": "QQQ ASK at venue 16:19:46.259Z (bid 740.29 / last 740.312). The short is expressed long-PSQ so the cover is a PSQ sale into its bid; the QQQ ask is the conservative side and is the price r is computed on, unchanged in method from every prior pass on this row.",
+        "signal_px_venue_utc": "2026-09-23T16:19:46.25888792Z",
+        "vehicle_bid": 24.76,
+        "r_multiple_live": 1.528,
+        "unrealized_usd_at_bid": 0.5552,
         "stop_px_signal_current": 744.43,
         "stop_px_vehicle_current": 24.6212,
         "action": "hold",
@@ -855,6 +855,23 @@
           },
           "breach_pass": "Window still PARTITIONED at the 14:20Z ratchet. Max 1-minute high 14:20Z-16:14Z = 742.635 (15:01Z bar), UNCHANGED across SIX consecutive passes; the thirty bars 15:45Z-16:14Z topped at 741.620. Clearance to the 744.43 breakeven stop 1.795 pts. manage() evaluated AT that extreme returns hold/0.667R, so no intrabar breach is hiding between passes.",
           "chop_watch": "CHOP RULE DISCHARGED A SECOND TIME AND ON BOTH PASSES. 12:15 ET is past the 12:00 gate, so the rule is live, not pending: it closes this row only at a QQQ ask ABOVE 743.085. Live ask 740.85 clears by 2.235 pts (1.331R); the adverse extreme 742.635 clears by 0.450 pts (0.667R). Both sides of the two-pass are >= 0.5R, so the rule cannot fire on a fill that happened between runs. From here the chop test simply repeats every run until the 19:30Z flat rule."
+        },
+        {
+          "run_utc": "2026-09-23T16:20:00Z",
+          "action": "hold",
+          "r_at_pass": 1.528,
+          "stop_unchanged": 744.43,
+          "inputs": {
+            "price_ask": 740.32,
+            "adverse_extreme_since_last_ratchet": 742.635,
+            "session_low": 738.191,
+            "atr5": 0.6788,
+            "stop_dist": 2.69,
+            "time_et": "12:19"
+          },
+          "breach_pass": "Window still PARTITIONED at the 14:20Z ratchet. Max 1-minute high 14:20Z-16:19Z = 742.635 (15:01Z bar), UNCHANGED across SEVEN consecutive passes; the twenty-four bars 15:55Z-16:19Z topped at 740.930. Clearance to the 744.43 breakeven stop 1.795 pts. manage() evaluated AT that extreme returns hold/0.667R, so no intrabar breach is hidden between passes.",
+          "gates": "CHOP re-tested and clears again (12:19 ET past the 12:00 gate; live ask 740.32 is 2.765 pts below the 743.085 line, adverse extreme 742.635 clears by 0.450). TRAIL still NOT armed -- 2.0R needs ask <= 739.045, now 1.275 pts away (was 1.805 at 16:15Z). FLAT rule unchanged: first run >= 19:30Z.",
+          "atr5_note": "ATR14 on 5-minute bars recomputed this pass = 0.6788, down from the 1.0437 carried since the 14:20Z ratchet -- the afternoon range has compressed. It gates nothing yet (the 1.5xATR trail arms only at 2.0R), but if the trail does arm it would sit tighter than earlier passes implied: session_low 738.191 + 1.5 x 0.6788 = 739.209 rather than 739.757."
         }
       ],
       "stop": 744.43,
