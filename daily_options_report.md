@@ -2,11 +2,13 @@
 
 *Written by the 19:15Z scheduled run (2:15 PM CT — the v11 threshold). Master carried the 2026-09-22 report, so this run owned the duty and took it. Quotes stamped 19:15:39–19:15:41Z venue time, well past the opening auction.*
 
-**One line:** **The DAY TRACK took its signal and is winning it; both money books stood down on capital for a third straight session — and tomorrow is the day that ends.** The opening range gave a 92.6%-body SHORT, which is the side that funds at $100 of deployable cash, so the paper row exists at all: **4 PSQ @ 24.6212, now +1.34R on a permanent breakeven stop.** The equity book graded four candidates and topped out at **B** — no A-grade, no rotation, correctly no trade. **Thursday 2026-09-24 is the event:** ABNB and UNP both hit their 14-day time stops and are sold green or red, which unfreezes ~$2,060.
+***Amended once, by the 19:30Z run, for the one MATERIAL event the 19:15Z version could not carry: the DAY TRACK flat rule fired and CLOSED the row.** The 19:15Z text predicted "it books ≈ +1.3R"; the settled number is **+1.353R**. Nothing else is rewritten — §2–§7 stand as written, and a refresh of closing marks is explicitly not a reason to touch this file again today.*
+
+**One line:** **The DAY TRACK took its signal and is winning it; both money books stood down on capital for a third straight session — and tomorrow is the day that ends.** The opening range gave a 92.6%-body SHORT, which is the side that funds at $100 of deployable cash, so the paper row exists at all: **4 PSQ @ 24.6212, CLOSED on the 15:30 ET flat rule at +1.353R / +$0.5152** — the track's second paper winner and its first on the short side. The equity book graded four candidates and topped out at **B** — no A-grade, no rotation, correctly no trade. **Thursday 2026-09-24 is the event:** ABNB and UNP both hit their 14-day time stops and are sold green or red, which unfreezes ~$2,060.
 
 ---
 
-## 1. DAY TRACK — paper day 6, signal 5, the row is working
+## 1. DAY TRACK — paper day 6, signal 5, CLOSED +1.353R
 
 | | |
 |---|---|
@@ -25,7 +27,20 @@
 | Late-entry gate | **PASSED by 0.3625 points** — the narrowest clearance the track has recorded. Three minutes later on the same drift it would have skipped. |
 | Sizing | `bound_by='cash'` — risk at the stop is 0.011% of the account against a 5% ceiling. **Cash binds ~450× before RISK_PCT does.** |
 
-**Management, 15:15 ET:** QQQ **740.82** (ask) → **+1.342R**. `manage()` → **hold**. The stop has been at **744.43 = breakeven since the 14:18Z pass**, and a short's stop only ratchets down, so **this row can no longer close red.** The 2.0R trail arm sits at 739.04, **1.78 points (~3.5 ATRs) away with 15 minutes left** — it will not arm. **The exit is the flat rule:** the first run at/after 19:30Z closes the row and it books ≈ +1.3R.
+**CLOSE, 15:30 ET — the flat rule (written by the 19:30Z run).** `manage('short', 744.43, stop 744.43, price 740.79, time_et '15:30')` → **`close` — "flat rule (>= 15:30 ET)", r 1.353**. The flat branch sits *above* every ratchet branch in `manage()`, which is the rule's whole point: **the clock outranks the ladder.**
+
+| | |
+|---|---|
+| Exit (signal terms) | QQQ **ask 740.79**, venue 19:30:57.026Z — a short buys back at the ask |
+| Exit (vehicle) | PSQ **bid 24.75**, venue 19:30:56.659Z — selling hits the bid |
+| Result | **+1.353R, +$0.5152** on $0.356 of risk |
+| Hold | 5h44m (13:46Z → 19:30Z) |
+| Breach pass | **No breach.** 1-minute bars 19:19–19:31Z, max high **740.957** against the 744.43 stop — clear by **3.47 points**. The row closed on the clock, never on the stop. |
+| Placed | **Nothing.** PHASE=PAPER. In LIVE this run would have sent a sell-to-close market order for 4 PSQ *and cancelled the resting stop in the same minute.* |
+
+**The stop was never in play after 14:18Z.** It sat at a permanent breakeven 744.43 and a short's stop only ratchets down, so the row could not close red from that minute on. The 2.0R trail arm at 739.04 was never reached — QQQ's session low was 738.191 but the *ask at each 15-minute pass* never printed below 740.20, which is the cadence-sampling the track already documents (`_DAY_TRACK_THE_RATCHET_IS_CADENCE_SAMPLED_BY_DESIGN_2026-09-23`).
+
+**Tally after 5 completed paper trades:** −1.0, −1.0, −1.0, +6.4774, +1.353 → **total +4.8304R, mean +0.9661R, 2 wins of 5 (40%)**. Payoff 3.92 implies a 20.3% breakeven, so the margin is **+19.7 points** — a healthy-looking number that is **dominated by one 6.48R day** and sits at **n=5 against the `MIN_TRADES_FOR_ACTION` bar of 20**. Report it, never act on it. `graduate(6, …)` → **`go_live: False` — "paper 6d / 5 trades; need 10d and 8 trades."**
 
 **The afternoon in one number:** five direction changes between 18:02Z and 19:15Z inside a 741.53–740.20 band (1.208R → 1.346 → 1.186 → 1.364 → 1.398 → 1.242 → 1.342). That is chop above the chop rule's reach — the rule only bites at |R| < 0.5 and this row cleared 1.0R by 14:18Z.
 
