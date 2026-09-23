@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-23T17:30:00Z",
+  "updated_utc": "2026-09-23T18:19:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-23",
     "realized_usd_options": 0.0,
@@ -28,17 +28,17 @@
       "_note": "placed_agent='agentic' -- AUTONOMOUS equity entry under HARD RULE 6 / prompt v10 THE EQUITY BOOK, signal-sourced from the committed report on master (latest_morning.md 2026-09-10T14:01Z, commit 12f6ccb; header clean, no DATA ERROR). Order 6aa2bcce-ec3b-40d9-8c87-06752c3a4515, $1,114.36 dollar-based MARKET order, regular_hours, FILLED 14:21:02Z at $169.5209 in two executions (6.000000 + 0.573584). Review gate returned order_checks {} on a $0.07 spread (0.04% of mid). HOW THIS NAME WAS FOUND: the 14:00Z run reported '26 RSI2 setups, ZERO graded A' but its cohort enumeration covers only 23 -- ABNB, CMG and KHC were never reached. See _A_ZERO_OF_26_VERDICT_WAS_BUILT_FROM_A_23_NAME_SAMPLE_AND_THE_REMAINDER_HELD_THE_BEST_SETUP_2026-09-10. All three were then graded from this run's own bars; CMG and KHC independently declined (flat non-monotonic 200-day, negative 12-1 momentum, and CMG's oversold condition already relieved at a live RSI2 of 17.05 versus 5.47 on the prior close). GATE STACK, each leg verified independently of the report rather than taken on trust: RSI2 3.38 on the 09-09 close and 3.00 including the live 169.00 print, Wilder-computed from own daily bars (report said 2.6 -- same regime); the 200-day SMA is 139.9809 and RISING MONOTONICALLY across the trailing 22 sessions (133.345 -> 139.981, +4.98%, no down-tick) with price +20.73% above it, so this is a dip inside a confirmed uptrend and NOT the flat-average artifact _THE_200DAY_GATE_CERTIFIES_DOWNTRENDS warns about; mom12-1 +49.2%; spot only -11.3% off the 52-week high of 190.50. HARD RULE 7 VERDICT INTACT AND STRENGTHENING -- the decisive evidence is that the FactSet consensus mean price target rose MONOTONICALLY across the very week the stock fell ~7.7%: $179.75 (08-31) -> $180.84 (09-01) -> $182.05 (09-08) -> $183.24 (09-10), average rating OVERWEIGHT throughout, with Raymond James UPGRADING to Outperform (PT $200) on 09-08, Baird $175->$200, Rosenblatt initiating Buy at $220 on 09-01, DA Davidson $175->$220, and Truist raising $134->$161 at 08:20 ET THIS MORNING. Analysts marking estimates UP while price marks DOWN is the cleanest available evidence that the decline reprices the MARKET rather than the COMPANY, which is exactly the condition Connors RSI(2) exists to exploit. Mean PT $183.24 is +8.4% from the fill and agrees with the report's independently-derived $183.08 to within 0.1%. NEGATIVES WEIGHED, NOT OMITTED: crude >$100 is a real ongoing travel-cost and consumer headwind and is the most plausible proximate driver of the decline; the 08-31 Bloomberg-reported pilot cutting host take-rate to 6%/10% from ~16% is a genuine revenue-model risk though confined to hosts on third-party software and defensive against direct-booking leakage; co-founder/CSO Blecharczyk sold 353,292 shares for $67.3M on 08-24 (Form 4, pre-dates the decline, usual 10b5-1 ambiguity). No company-specific negative headline appears in the last 10 days of a heavily-covered name. [ERN] CLEAR and VERIFIED not assumed: get_earnings_calendar over 09-10 +31d returned 374 live events across 301 symbols -- not the degraded-empty that makes an absent flag meaningless -- and ABNB appears nowhere through 2026-10-10, far beyond the time stop. Sector steer clear (consumer discretionary, not oil). UNCORRELATED with MMM (industrials) and GD (defense), which is why this entry was available where the prior run correctly declined RTX as a GD duplicate and EMR/TKR as MMM duplicates; it is also not an index ETF, so it does not fight the SPY 700P hedge the way IWM/DIA/SPY/QQQ would. GRADE A (not A+: the macro driver is unresolved and the name has no catalyst of its own). SIZING per the 2026-09-02 CONCENTRATION POLICY: total_value $4,021.67, cash == unleveraged_buying_power == $2,429.81 (no margin), 5% operational reserve $201.08, deployable $2,228.73, 2 open slots to the 3-4 target -> $1,114.36 = 27.71% of the account, inside the 30% per-name cap of $1,206.50 and well above the ~$600 minimum. Sized at deployable/2 rather than deployable/1 deliberately: MMM time-stops 09-14 and GD 09-15, so leaving $1,114.36 undeployed funds the next A-grade instead of crowding out that re-deployment.",
       "setup_invalidation": "This is a swing with NO price stop (HARD RULE 5 -- the agent places no stop of any kind). Bounded instead by the TIME STOP of 2026-09-24 (entry 2026-09-10 + SWING_TIME_STOP_DAYS 14), on which it is sold green or red. Thesis invalidation is company-specific: generalization of the reduced take-rate beyond a pilot in a way that resets revenue guidance, a guidance cut, or -- most directly -- a REVERSAL IN THE ANALYST REVISION TREND, since a mean PT turning DOWN through a further decline would break the central plank of this thesis, which is that estimates are rising into weakness.",
       "_current_state": {
-        "as_of_utc": "2026-09-23T14:47:00Z",
-        "venue_quote_utc": "2026-09-23T14:45:51-14:45:53Z",
-        "price": 154.3659,
-        "bid": 154.28,
-        "ask": 154.38,
-        "pl_pct_vs_entry": -8.94,
-        "pl_usd": -99.6,
-        "value_usd": 1014.71,
+        "as_of_utc": "2026-09-23T18:19:00Z",
+        "venue_quote_utc": "2026-09-23T18:18:54-18:18:57Z",
+        "price": 151.68,
+        "bid": 151.67,
+        "ask": 151.74,
+        "pl_pct_vs_entry": -10.53,
+        "pl_usd": -117.34,
+        "value_usd": 997.08,
         "time_stop_date": "2026-09-24",
         "held_days": 13,
-        "verdict": "HOLD -- and the exit is now MECHANICAL AND ONE SESSION AWAY. Down 4.60% today alone (161.81 prior close -> 154.366), the worst single session of the hold, and -8.94% from entry. No mechanical exit fires TODAY: RSI2>=70 take-profit is unavailable by construction on a RED position (it is a profit-banking authority gated on price > entry, 2026-08-26 correction), and HARD RULE 5 forbids a price stop. The 14-day TIME STOP fires TOMORROW 2026-09-24, green or red, on its own alert line.",
+        "verdict": "HOLD -- exit is MECHANICAL AND ONE SESSION AWAY. -6.26% on the day (161.81 prior close -> 151.68), the worst session of the hold, and -10.53% from entry. No mechanical exit fires TODAY: the RSI2>=70 take-profit is unavailable BY CONSTRUCTION on a RED position (it is a profit-banking authority gated on price > entry, 2026-08-26 correction), and HARD RULE 5 forbids a price stop. The 14-day TIME STOP fires TOMORROW 2026-09-24, green or red. HARD RULE 7 was re-researched at 17:45Z this session -> WEAKENED, NOT BROKEN (sector-wide agentic-commerce de-rating, RBC reiterating Outperform at $195, no guidance cut or downgrade); that research is NOT re-derived here, see _thesis_research_2026-09-23 on this position.",
         "hard_rule_7_recheck_2026-09-23": "PERFORMED THIS RUN because the move is large, and the verdict is INTACT-BUT-WEAKENED, NOT broken -- so no autonomous thesis sell. Evidence, get_equity_news 14:47Z, 8 most recent articles: the newest item is 2026-09-22 (Instacart grocery delivery live for US guests, Canada to follow) and is neutral-to-positive; 09-21 RBC reiterated OUTPERFORM with a $195 PT, estimating the hotel push could add ~1M rooms to TAM by year-end and calling ABNB a 'category-leading brand monetization story'; 09-15 the company announced a $250M housing initiative; 09-11 Gordon Haskett raised its PT to $180 from $146 against a FactSet mean PT of $183.24 at average rating OVERWEIGHT. THERE IS NO GUIDANCE CUT, NO DOWNGRADE, NO REGULATORY ACTION AND NO COMPANY-SPECIFIC CATALYST IN THE WINDOW. The only bear datum is inside the RBC note itself and is SECTOR-level, not company-level: new AI-agent technologies from Meta and Instinct raise disruption risk for digital marketplaces including travel, with RBC judging ABNB 'somewhat better protected than many other online marketplaces'. Two insider sales (Blecharczyk $2.35M on 09-14, Bernstein $252k on 09-15) are routine Form 4s, not evidence. A de-rating with no company news is price action, which is what the entry thesis was built to buy -- it is NOT a HARD RULE 7 break, and a technical decline alone is never sufficient for an autonomous sell.",
         "why_this_changes_no_decision_and_is_recorded_anyway": "The time stop closes this position tomorrow whatever the verdict, so an 'intact' finding and a 'broken' finding differ here by ONE SESSION of exposure. It is recorded because the reverse case is the dangerous one: a run that let a -4.60% day stand as an implicit thesis break would have sold on the technical alone, which the rules forbid. No thesis_checked field is written -- ABNB fires no THESIS CHECK alert (it is ~20% above a rising 200-day and inside the momentum universe), so there is no reason key to cover and an 'intact' verdict against a flag that is not firing would be a suppression with nothing to suppress."
       },
@@ -67,17 +67,17 @@
       "native_trail_pct": null,
       "_note": "AUTONOMOUS equity entry under HARD RULE 6, placed_agent 'agentic', order 6aa2f4ee-a23b-49c3-8e48-eee4a2601f93 filled 2026-09-10T18:20:30Z, 3.858199 sh @ 285.1071 = $1,100.00, zero fees. SIGNAL-SOURCED from the committed 2026-09-10T18:01Z intraday report (RSI2 2.2, the lowest non-held print on a 25-name board). Graded A: 200-day SMA rising monotonically 255.467->260.934 with spot 61.6 SESSIONS of cushion above it; Q2 2026 adj EPS $3.41 vs $3.24 and revenue +12% to $6.864B, both beats; dividend raised to $1.42 on 07-29; consensus Overweight, FactSet mean PT $332.70 (+16.7%); three upward PT revisions in six weeks; and the entry prints GREEN (+0.09%) against SPY -0.61% / QQQ -1.00%, so trend-maturity gate (c) confirms rather than diverges. NO adverse catalyst behind the slide -- the last company news is a beat and a raise. KNOWN NEGATIVES, recorded not buried: PEG 3.2 reads '(WARN) rich' on the report's SECONDARY value screen (P/E 23.0 is ordinary for a Class I rail and PEG penalises mature compounders; unlike SBUX's PEG -2.3 there is no de-rating catalyst); the UNP/NSC $85B merger is under STB review with comments due 11-18, DOJ/DOT 12-03, final briefs 2027-05-28 -- nothing binary inside the hold; Baupost cut 23% in Q2, offset by Viking Global initiating a new $556.9M position the same quarter. NO PRICE STOP EVER (HARD RULE 5). Full pre-trade decision record: trade_journal.json entry run_utc 2026-09-10T18:19:00Z, written BEFORE the order per gate (a).",
       "_current_state": {
-        "as_of_utc": "2026-09-23T14:47:00Z",
-        "venue_quote_utc": "2026-09-23T14:45:24-14:45:54Z",
-        "price": 275.39,
-        "bid": 275.29,
-        "ask": 275.65,
-        "pl_pct_vs_entry": -3.41,
-        "pl_usd": -37.49,
-        "value_usd": 1062.54,
+        "as_of_utc": "2026-09-23T18:19:00Z",
+        "venue_quote_utc": "2026-09-23T18:18:40Z",
+        "price": 276.6301,
+        "bid": 276.49,
+        "ask": 276.79,
+        "pl_pct_vs_entry": -2.97,
+        "pl_usd": -32.72,
+        "value_usd": 1067.31,
         "time_stop_date": "2026-09-24",
         "held_days": 13,
-        "verdict": "HOLD. +0.36% on the day (274.41 prior close). RED versus entry, so the RSI2>=70 take-profit is unavailable by construction; no price stop (HARD RULE 5). The 14-day TIME STOP fires TOMORROW 2026-09-24, green or red. No thesis flag is firing and none was researched this run -- the report's per-name action is HOLD (thesis-watch), not THESIS CHECK."
+        "verdict": "HOLD, and the STRONGEST of the three today: +0.81% on the day (274.41 prior close), the only holding green on the session. Still RED versus entry, so the RSI2>=70 take-profit is unavailable by construction; no price stop (HARD RULE 5). The 14-day TIME STOP fires TOMORROW 2026-09-24, green or red. No thesis flag is firing -- the committed 18:07Z report judges it HOLD (thesis-watch), not THESIS CHECK."
       },
       "_notify_state": {
         "last_trigger": null,
@@ -108,17 +108,17 @@
       "_sizing": "CONCENTRATION POLICY (HARD RULE 4, 2026-09-02). total_value $3,414.5746; operational reserve 5% = $170.7287; unleveraged_buying_power $1,268.22 == buying_power (no margin extended, FOUR LAWS #4 unambiguous); DEPLOYABLE = 1268.22 - 170.73 = $1,097.49. Book held 2 of the 3-4 target slots, so size = deployable / 1 remaining slot = $1,097.49, CAPPED by the 30% per-name limit at 0.30 x 3414.5746 = $1,024.37. Sized $1,000.00 rather than $1,024.37 deliberately: the cap is a fraction of a MOVING total_value, so sizing exactly at it breaches on any account decline -- $1,000 is 29.29% now and stays inside the cap until total_value falls below $3,333 (-2.4%). Above the ~$600 minimum entry. A second entry was arithmetically impossible: the remaining $97.49 of deployable is far below the $600 floor, which is the clause that makes today a one-entry day.",
       "_exit_plan": "Three mechanisms, no price stop. (1) TAKE-PROFIT: RSI2>=70 cross while green -- execute it, no magnitude test. (2) TIME STOP 2026-10-05: sold green or red if it has neither hit target nor printed the bounce. (3) TARGET $383.06 (+4.06%) -- advisory, banks if hit. Invalidation for the thesis leg: a close below the rising SMA200 (~336 and rising), or a HARD RULE 7 break. Green-enough native-trail alert at $432.98.",
       "_current_state": {
-        "as_of_utc": "2026-09-23T14:47:00Z",
-        "venue_quote_utc": "2026-09-23T14:45:50-14:45:52Z",
-        "price": 363.415,
-        "bid": 363.31,
-        "ask": 363.46,
-        "pl_pct_vs_entry": -1.27,
-        "pl_usd": -12.67,
-        "value_usd": 987.32,
+        "as_of_utc": "2026-09-23T18:19:00Z",
+        "venue_quote_utc": "2026-09-23T18:18:56-18:18:57Z",
+        "price": 361.6325,
+        "bid": 361.64,
+        "ask": 361.7,
+        "pl_pct_vs_entry": -1.75,
+        "pl_usd": -17.52,
+        "value_usd": 982.48,
         "time_stop_date": "2026-10-05",
         "held_days": 2,
-        "verdict": "HOLD. +0.38% on the day (362.04 prior close), -1.27% versus entry, day 2 of 14. RED, so no take-profit is available; no price stop. Still the freshest thesis in the book and the report re-prints it as an active RSI2 setup at 9.6 -- which is why it is NOT the weakest position on the entry stack for rotation purposes."
+        "verdict": "HOLD. -0.11% on the day (362.04 prior close), -1.75% versus entry, day 2 of 14. RED, so no take-profit is available; no price stop. The report re-prints it as an active RSI2 setup at 8.9, so it is NOT the weakest position on the entry stack for rotation purposes -- see _THE_ROTATION_GATE_WAS_ANSWERED_ON_THE_MERITS_2026-09-23."
       }
     }
   ],
@@ -5559,7 +5559,7 @@
     "set_utc": "2026-09-14T22:30:00Z",
     "authority": "Ryan, REAL live turn 2026-09-14 (interactive session, typed turns): '1. Let's make the change. 2. Whichever you recommend is fine. 3. 5-20%. 4. Sure. 5. Let's do it.' -- answering the five design decisions in the autonomy-audit proposal. Spec: docs/day-track-spec.md. Code: day_track.py. Prompt carrying the duties: docs/routine-prompt-v11.md (PASTE-READY).",
     "status": "PAPER",
-    "status_note": "PAPER, ACTIVE, paper day 6 -- TODAY'S SIGNAL TAKEN (paper) AND WORKING ON A PERMANENT BREAKEVEN STOP. State as of the 18:02Z pass (OVERWRITTEN IN PLACE each run per the ledger-notes rule; per-pass history is day_track_paper.json rows[-1]._manage_log and is not duplicated here). *** SIGNAL (13:45Z): OR 745.085-747.12 from five settled 1-minute bars 13:30-13:34Z, body 92.6% of range -> SHORT. PSQ 4 @ 24.6212 = $98.48; ENTRY 744.43 signal / stop 747.12 signal (2.69 pts = 0.3614%), r_usd $0.36, bound_by 'cash'. NO ORDER PLACED -- phase is PAPER. *** CURRENT: stop 744.43 signal / 24.6212 PSQ = BREAKEVEN, armed at the 14:18Z/14:20Z passes and permanent (a short's stop only ratchets down), so the row cannot lose. 18:02Z pass -> HOLD at 1.208R on the live 741.18 QQQ ask. *** WHAT CHANGED THIS PASS: a THIRD consecutive give-back -- 1.978R -> 1.454R -> 1.208R as QQQ ground 739.11 -> 741.18 -- and the 2.0R trail arm receded monotonically across the same three passes, 0.06 -> 1.47 -> 2.13 pts. Stated plainly because three earlier passes read '0.06 pts from arming' and a reader inheriting them would expect convergence; the row is moving away from the trail, not toward it. ATR14(5-min) CONTRACTED 0.8379 -> 0.8006 (-4.5%), ending three expansions; projected trail-at-arm 739.3919 is still 0.342 pts above the 739.05 arm price. Feed clean: all three 5-minute buckets spanning the pass reconcile EXACTLY to their 1-minute sums. *** NEXT TESTS, in order: trail arm needs ask <= 739.05; chop re-tested every run (needs ask <= 743.085, clearing by 1.905 pts); flat rule at the first run >= 19:30Z, which on this drift remains the exit most likely to actually close this row. graduate(6, [-1,-1,-1,6.4774]) -> go_live False, 'paper 6d / 4 trades; need 10d and 8 trades'. track_status(3320.49, [-1,-1,6.4774], []) -> active.",
+    "status_note": "PAPER, ACTIVE, paper day 6 -- TODAY'S SIGNAL TAKEN (paper), WORKING ON A PERMANENT BREAKEVEN STOP. State as of the 18:19Z pass (OVERWRITTEN IN PLACE per the ledger-notes rule; per-pass history is day_track_paper.json rows[-1]._manage_log and is not duplicated here). *** SIGNAL (13:45Z): OR 745.085-747.12 from five settled 1-minute bars 13:30-13:34Z, body 92.6% of range -> SHORT. PSQ 4 @ 24.6212 = $98.48; ENTRY 744.43 signal / stop 747.12 signal (2.69 pts = 0.3614%), r_usd $0.36, bound_by 'cash'. NO ORDER PLACED -- phase is PAPER. *** CURRENT: stop 744.43 signal / 24.6212 PSQ = BREAKEVEN, armed at the 14:18Z/14:20Z passes and permanent (a short's stop only ratchets down), so the row cannot lose. 18:19Z pass -> HOLD at 1.186R on the live 741.24 QQQ ask. *** WHAT CHANGED: a FOURTH consecutive give-back (1.978R -> 1.454R -> 1.208R -> 1.186R) and a second consecutive ATR contraction (0.8006 -> 0.7341, -8.3%). The 2.0R trail arm has receded on every one of those four passes and now sits 2.19 pts away. THE REALISTIC EXIT IS THE 15:30 ET FLAT RULE, NOT THE TRAIL -- said plainly because several earlier passes read '0.06 pts from arming' and a reader inheriting those would expect convergence. Feed clean: all three 5-minute buckets spanning the pass reconcile EXACTLY to their 1-minute sums. *** graduate(6, [-1,-1,-1,6.4774]) -> go_live False, 'paper 6d / 4 trades; need 10d and 8 trades'. track_status(3315.66, [-1,-1,6.4774], []) -> active.",
     "signal_symbol": "QQQ",
     "long_vehicle": "QQQ",
     "short_vehicle": "PSQ",
@@ -7838,5 +7838,73 @@
     "why_this_is_the_first_run_to_notice": "Paper days 1-3 all stopped out before 12:00 ET (13:47Z, 14:20Z, 14:35Z). Day 4 ran to a trail exit at 17:05Z but was at 6.48R, nowhere near the chop band. Day 5 was a skip. Today is the first open position to be alive at 12:00 ET inside a range where the clause is even reachable. A clause can sit in the code for six paper days without any run having a reason to read it carefully.",
     "the_transferable_shape": "A handover note names the DECISION a run must make; it does not always name whether that decision RECURS. When writing 'THE_ONE_THING_THE_NEXT_RUN_OWNS', say whether the item is spent on use or re-arms \u2014 a one-shot and a standing condition read identically in a handover and diverge completely one run later. Same family as this file's most-repeated defect: a check that passes for the wrong reason, here arriving as a check that is not run at all because it was believed already passed.",
     "changed_no_decision_today": "HONEST SCOPE, the standard this file holds its own audits to: this changed nothing. The ask cleared the band by 2.635 points, so the verdict is HOLD under either reading, and the phase is PAPER so no order existed either way. Recorded because a rule's mechanics can only be audited credibly on a run where the audit does not move the answer."
+  },
+  "_THE_ROTATION_GATE_WAS_ANSWERED_ON_THE_MERITS_2026-09-23": {
+    "measured_utc": "2026-09-23T18:19:00Z",
+    "measured_by": "scheduled run 18:18Z 2026-09-23 (unattended, prompt v11)",
+    "headline": "For three sessions the equity stand-down has been reported as CAPITAL-BLOCKED and no candidate had been graded at all. Under the CAPITAL POLICY that answer is INCOMPLETE BY CONSTRUCTION: once deployable cash is below one position size the live gate is ROTATION, and a rotation gate cannot be answered without a grade. This run graded the board. The answer is still NO -- but it is now a JUDGEMENT, not an arithmetic excuse.",
+    "why_this_is_a_finding_and_not_bookkeeping": "'No capital' and 'no idea worth the capital' are different claims with different consequences. The first expires the moment capital arrives -- and ~$2,060 arrives TOMORROW when the ABNB and UNP time stops fire. A run inheriting only the capital answer would reach 2026-09-24 with two funded slots, no gradings, and pressure to deploy. This is the same shape the file already names as a check that passes for the wrong reason: the stand-down was correct, and correct for a reason that was about to stop being true.",
+    "the_board": "The committed 18:07Z report lists 9 RSI2 setups. ABNB and V are HELD (an entry would be an ADD, not a new slot). VLO, MPC and PSX are excluded unread on the standing de-emphasized-oil sector steer. That leaves FOUR gradable names: BMY, BAC, UNH, JPM.",
+    "the_deciding_measurement_TREND_CUSHION_AT_THE_TIME_STOP": {
+      "method": "Own-computed SMA200 from 222 daily closes per name, its slope over the trailing 21 sessions, and the cushion PROJECTED FORWARD 14 CALENDAR DAYS to the time-stop date. This is the V-entry precedent ('the uptrend qualification CANNOT expire during the intended hold') applied as a number rather than as a sentence.",
+      "rows": {
+        "BMY": {
+          "spot": 61.52,
+          "sma200": 58.9876,
+          "slope_per_day": 0.0881,
+          "sma_at_stop": 60.221,
+          "cushion_now_pct": 4.29,
+          "cushion_at_stop_pct": 2.16,
+          "trend_30d_pct": -7.1
+        },
+        "BAC": {
+          "spot": 56.0,
+          "sma200": 55.2704,
+          "slope_per_day": 0.0409,
+          "sma_at_stop": 55.842,
+          "cushion_now_pct": 1.32,
+          "cushion_at_stop_pct": 0.28,
+          "trend_30d_pct": -8.9
+        },
+        "UNH": {
+          "spot": 370.13,
+          "sma200": 354.7514,
+          "slope_per_day": 0.3221,
+          "sma_at_stop": 359.26,
+          "cushion_now_pct": 4.34,
+          "cushion_at_stop_pct": 3.03,
+          "trend_30d_pct": -4.4
+        },
+        "JPM": {
+          "spot": 338.13,
+          "sma200": 320.896,
+          "slope_per_day": 0.2298,
+          "sma_at_stop": 324.113,
+          "cushion_now_pct": 5.37,
+          "cushion_at_stop_pct": 4.32,
+          "trend_30d_pct": -3.29
+        }
+      },
+      "the_BAC_case_is_why_the_measurement_earns_its_keep": "BAC PASSES the written trend gate cleanly -- SMA200 rising MONOTONICALLY, zero down-ticks in 22 sessions, price 1.32% above it. It is nonetheless disqualified: the average rises 0.0409/day while the cushion is 0.73 points, so by the 14-day time stop the cushion is 0.28% and the 'confirmed uptrend' the entry is premised on has EXPIRED INSIDE THE HOLD. A monotonic rising average is not the same fact as a durable one. This is the operative form of the standing _THE_200DAY_GATE_CERTIFIES_DOWNTRENDS warning, and it is cheap: one slope, one multiplication."
+    },
+    "grades": {
+      "BAC": "C -- EXCLUDED. Trend cushion expires inside the hold (1.32% -> 0.28%). -8.90% over 30 sessions, a -4.6% gap on 09-14 and lower lows since. Also correlated with the held V (financials) and with JPM.",
+      "BMY": "C -- EXCLUDED. -7.10% over 30 sessions in a continuous staircase of lower lows, not a dip. Cushion 2.16% at the stop. A sustained de-rating is the condition under which a mean-reversion screen selects the name being de-rated.",
+      "UNH": "B -- NO POSITION. Best of a weak board on nothing in particular: cushion adequate (3.03% at stop), decline less steep (-4.40%). No catalyst, no revision evidence gathered, nothing that answers 'why NOW'. Under the CONCENTRATION POLICY a B-grade gets NO position, not a small one.",
+      "JPM": "B -- NO POSITION. Best trend cushion on the board (4.32% at the stop) and the shallowest decline (-3.29%). Disqualified on CORRELATION: the book already holds V (payments/financials) and JPM/BAC are the same money-center complex, so this concentrates rather than diversifies. Its -3.4% session on 09-22 (352 -> 340) is a one-day sector repricing, the same shape as ABNB's -- an oversold print taken FROM a re-rating, which the ABNB research this session explicitly warns not to re-grade as a fresh mean-reversion entry."
+    },
+    "verdict": "ZERO A-GRADES, so the rotation gate FAILS ON THE MERITS and no sell is warranted. The weakest position on the ENTRY STACK is ABNB (thesis researched to WEAKENED this session -- a structural agentic-commerce de-rating the market cannot resolve quickly), and nothing on the board beats it. Note the arithmetic that makes this easy today and will NOT be true tomorrow: ABNB's 14-day TIME STOP fires 2026-09-24 regardless, so rotating into it today would buy ~18 hours of acceleration -- which is worth approximately nothing and would spend a slot on a B-grade the day before two slots open on their own.",
+    "honest_scope": "This grades ONE DAY'S BOARD. It is NOT a claim about the entry trigger's edge. The observation that all four gradable setups and all three held positions sit in multi-week declines is suggestive of a de-rating tape in which an RSI2 screen selects falling names rather than noisy ones -- but n=3 open positions is not a sample, and the question 'is the entry trigger degraded' belongs to Monday's calibration, computed from the BROKER's per-trade record under the IN-REGIME gate. Flagged there deliberately; not acted on here, and no parameter is touched.",
+    "what_the_next_run_inherits": "The 2026-09-24 run that executes the ABNB and UNP time stops will hold ~$2,060 of fresh deployable cash and two open slots. It should RE-GRADE from that day's report rather than reusing these grades -- prices and cushions both move -- but it inherits the METHOD (project the trend cushion to the time-stop date, not just to today) and the standing exclusions (oil steer; JPM/BAC correlate with the held V; ABNB is not re-enterable on a post-de-rating RSI2 print)."
+  },
+  "_A_UNION_MERGE_DEDUP_KEY_SILENTLY_DROPPED_FOUR_HISTORICAL_ENTRIES_2026-09-23": {
+    "measured_utc": "2026-09-23T18:26:00Z",
+    "measured_by": "scheduled run 18:18Z 2026-09-23 (unattended, prompt v11), resolving the PR #1967 / #1966 collision",
+    "headline": "CLAUDE.md's concurrent-run rule says to resolve a same-slot conflict as a UNION and 'keep both trade_journal.json entries'. It does not say what makes two entries the SAME entry. The obvious key -- (run_utc, headline) -- is WRONG, and using it collapsed the merge from 1,800 entries to 1,796, silently deleting four pieces of August history that no run in this collision wrote.",
+    "the_mechanism": "trade_journal.json legitimately contains FOUR PAIRS of entries that share a run_utc and carry no headline: 2026-08-13T18:30Z, 2026-08-13T23:29Z, 2026-08-14T17:15Z and 2026-08-14T19:15Z. Those pairs exist BECAUSE of this very rule -- they are earlier same-slot collisions resolved as unions (the PR #210 precedent). So the union rule manufactures exactly the duplicate-looking records that a naive union key then destroys. The failure is self-inflicted and compounding: each collision resolved with a timestamp key would eat the pairs left by every previous one.",
+    "why_it_would_not_have_been_caught": "The merge SUCCEEDS, both of the current run's entries survive, the file parses, the invariants pass, and `git diff --stat` shows an ordinary-looking journal change -- the 4 deletions are buried in a file with 1,800 records and would read as merge noise. Nothing errors. This is the file's most-repeated shape (a check that passes for the wrong reason) arriving inside the conflict-resolution procedure rather than inside a trading decision.",
+    "the_fix_use_a_THREE_WAY_union_keyed_on_CONTENT": "Do not dedup the two sides against each other. Take `git merge-base HEAD origin/master`, read the journal at that BASE, and append only entries whose exact serialization (json.dumps(e, sort_keys=True)) is absent from the base. Base history is then carried through untouched by construction, and each side contributes exactly what it added. ASSERT IT, DON'T READ IT: len(out) == len(base) + (entries added by theirs) + (added by mine). On this collision that is 1798 + 1 + 1 = 1800; the timestamp key gave 1796 and looked fine.",
+    "generalises_beyond_the_journal": "Any append-only artifact merged this way needs the same treatment -- day_track_paper.json's _manage_log included. That log happens to be safe under a run_utc key today only because two passes in one slot have never yet shared a timestamp to the minute; that is luck, not a property. Prefer the base-diff union everywhere and reserve timestamp keys for objects that are overwritten in place (_manage_state, _current_state), where the LATER pass legitimately wins.",
+    "second_finding_in_the_same_merge": "The sibling 18:15Z row advanced `r_multiple` to 1.346 and appended its _manage_log entry but left `_manage_state.checked_utc` stamped 18:02Z -- the overwrite-in-place summary disagreeing with the field it summarises. Repaired by this union (both now read 18:19Z / 1.186). Standing assertion for any day-track write: _manage_state.checked_utc == _manage_log[-1].run_utc AND _manage_state.r_now == row.r_multiple."
   }
 }
