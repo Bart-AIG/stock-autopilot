@@ -1118,6 +1118,18 @@
           "what_changed": "Give-back resumed and the trail moved FURTHER out of reach on BOTH terms. 1.398R -> 1.242R on a 740.67 -> 741.09 ask; trail-arm gap widened 1.62 -> 2.04 pts. ATR14(5-min) WAS re-measured this pass (the 18:31Z/18:47Z passes carried 0.6366 forward): 0.5049, a fourth consecutive contraction and -20.7% from the carried value. The two move the same way, so the gap in ATR terms deteriorated from ~2.5 ATRs at 18:47Z to ~4.0 ATRs now, with 29 minutes left. THE EXIT IS THE 15:30 ET FLAT RULE; the trail arming is no longer a realistic path."
         },
         {
+          "run_utc": "2026-09-23T19:15:00Z",
+          "time_et": "15:15",
+          "manage": "hold -- 'working, 1.34R'",
+          "signal_px_ask": 740.82,
+          "signal_px_venue_utc": "2026-09-23T19:15:41.893652791Z",
+          "vehicle_px_psq_bid": 24.74,
+          "r": 1.342,
+          "stop_in_force": 744.43,
+          "atr5": 0.5016,
+          "note": "THIS RUN OWNS THE DAILY REPORT (first run at/after 14:15 CT). Row unchanged by it. 1.242R -> 1.342R: the 19:01Z give-back reversed again, the fifth direction change of the afternoon inside a 741.53-740.20 band. Trail arm 739.04 is 1.78 pts away (~3.5 ATRs) with 15 minutes left, so the trail will not arm -- THE EXIT IS THE FLAT RULE and the next run at/after 19:30Z closes the row."
+        },
+        {
           "run_utc": "2026-09-23T19:20:00Z",
           "action": "hold",
           "r_at_pass": 1.368,
@@ -1139,7 +1151,8 @@
       "stop": 744.43,
       "stop_px_vehicle_current": 24.6212,
       "_stop_field_convention": "Per _DAY_TRACK_THREE_FIELDS_HELD_THE_LIVE_STOP_AND_THE_ENTRY_STOP_WAS_OVERWRITTEN_2026-09-21: `stop_px_signal` 747.12 and `stop_px_vehicle` 24.5322 are the IMMUTABLE ENTRY stop and are never ratcheted; the LIVE stop is `stop` (signal terms) and `stop_px_vehicle_current` (PSQ terms), and `_manage_state.stop_px_signal_current` must equal `stop` at all times. Breach tests run against `stop`.",
-      "_union_note": "CONCURRENT-RUN UNION, PR #1967 over #1966. Two scheduled runs executed adjacent slots and both did genuine, non-overlapping manage passes: 18:15Z (1.346R) and 18:19Z (1.186R). Both log entries are kept, ordered by run_utc; _manage_state and r_multiple carry the LATER pass (18:19Z) per the resolve-as-a-union rule. No side was discarded. NOTE THE DRIFT THIS SURFACED AND FIXED: the 18:15Z row advanced r_multiple to 1.346 and appended its log entry but left _manage_state stamped checked_utc 18:02Z -- the overwrite-in-place object disagreeing with the field it summarises, which is the stale-derived-field class this ledger already documents. The union re-stamps _manage_state to 18:19Z so the two agree again. Assert, don't read: _manage_state.checked_utc must equal the newest _manage_log[-1].run_utc, and _manage_state.r_now must equal row.r_multiple."
+      "_union_note": "CONCURRENT-RUN UNION, PR #1967 over #1966. Two scheduled runs executed adjacent slots and both did genuine, non-overlapping manage passes: 18:15Z (1.346R) and 18:19Z (1.186R). Both log entries are kept, ordered by run_utc; _manage_state and r_multiple carry the LATER pass (18:19Z) per the resolve-as-a-union rule. No side was discarded. NOTE THE DRIFT THIS SURFACED AND FIXED: the 18:15Z row advanced r_multiple to 1.346 and appended its log entry but left _manage_state stamped checked_utc 18:02Z -- the overwrite-in-place object disagreeing with the field it summarises, which is the stale-derived-field class this ledger already documents. The union re-stamps _manage_state to 18:19Z so the two agree again. Assert, don't read: _manage_state.checked_utc must equal the newest _manage_log[-1].run_utc, and _manage_state.r_now must equal row.r_multiple.",
+      "_union_note_19-15_19-20": "CONCURRENT-RUN UNION, PR #1972 over #1971. Two scheduled runs executed adjacent slots (19:15Z and 19:20Z) and both did genuine, non-overlapping manage passes: 19:15Z (1.342R, ask 740.82, atr5 not carried) and 19:20Z (1.368R, ask 740.75, atr5 0.5016). BOTH log entries are kept, ordered by run_utc; r_multiple and _manage_state carry the LATER pass (19:20Z) per the resolve-as-a-union rule. No side was discarded. THE DAILY REPORT WAS NOT UNIONED AND MUST NOT BE: it is a single per-day artifact and the 19:15Z run discharged the duty FIRST, so the 19:20Z run DISCARDED its own report draft and kept the sibling's verbatim. A rewrite for a 0.026R difference is not material and every master push touching that file notifies Ryan again -- 'exactly ONE run per day writes this file' outranks 'my numbers are five minutes fresher'."
     }
   ]
 }
