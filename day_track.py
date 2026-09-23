@@ -362,13 +362,32 @@ def assert_row_invariants(row: dict) -> None:
 def stop_is_placeable(direction: str, stop: float, price: float) -> bool:
     """True when a resting stop_market at `stop` would NOT trigger on submission.
 
-    A sell stop must sit BELOW the market and a buy stop ABOVE it. manage() ratchets purely on
-    session_extreme -/+ 1.5 x atr5 and has no such guard, so in a volatility compression the
-    trail can converge past spot: measured 2026-09-21T16:01Z, the computed trail sat 0.0605
-    ABOVE the live bid -- in LIVE that is an immediate stop-out, not a stop. Reported for the
-    graduation review; NOT used to override manage(), whose output the run applies as written.
+    Pass the VEHICLE's stop and the VEHICLE's price (i.e. what vehicle_stop() returned and
+    what the vehicle actually quotes). `direction` is the SIGNAL direction and is accepted
+    only so callers can pass plan_entry()'s dict straight through; it does not change the
+    test, and that is the whole point of this docstring.
+
+    THIS TRACK IS NEVER SHORT ANYTHING. A short SIGNAL is expressed by buying PSQ -- held
+    LONG, exactly like QQQ on a long signal. So the protective order is a SELL stop on BOTH
+    sides and must sit BELOW the market on BOTH sides, which is precisely what vehicle_stop()
+    computes: `px * (1 - d)` for long and short alike.
+
+    Until 2026-09-23 this function read `stop < price if direction == "long" else stop > price`
+    -- the buy-stop rule, correct for an actual short sale and wrong for every trade this
+    track takes. Measured on the 2026-09-23 short signal: the real setup (PSQ 24.6212, stop
+    24.5322) returned False, calling a perfectly valid stop unplaceable, while a stop ABOVE
+    the long entry (24.7000) returned True -- the genuinely broken case, reported as healthy.
+    Inverted in both directions on every short day. It is the SAME bug vehicle_stop()'s
+    docstring records being fixed ("psq_stop = psq_entry * (1 + d) ... puts the stop ABOVE a
+    long entry -- unplaceable"), surviving in the checker written to catch that class, because
+    the self-tests asserted it with abstract numbers (101.0/100.0) that encode the assumption
+    rather than vehicle numbers that would contradict it -- the identical trap the CONNECTOR
+    SCHEMA fixture above exists to avoid for _bf.
+
+    Still diagnostic only: reported for the graduation review, NOT used to override manage(),
+    whose output the run applies as written.
     """
-    return stop < price if direction == "long" else stop > price
+    return stop < price
 
 
 # ---------------------------------------------------------------------------
@@ -528,8 +547,15 @@ def _selftest() -> None:
 
     assert stop_is_placeable("long", 737.1305, 737.410)
     assert stop_is_placeable("long", 737.1305, 737.060) is False   # measured 2026-09-21T16:01Z
-    assert stop_is_placeable("short", 101.0, 100.0)
-    assert stop_is_placeable("short", 99.0, 100.0) is False
+    # SHORT SIDE: vehicle numbers, not abstract ones. PSQ is held LONG, so its stop sits
+    # BELOW the vehicle price exactly as on the long side. Both cases measured on the real
+    # 2026-09-23 short signal; the abstract 101.0/100.0 fixtures these replace asserted the
+    # buy-stop rule and so encoded the very bug they were supposed to catch.
+    assert stop_is_placeable("short", 24.5322, 24.6212)            # valid: stop below PSQ
+    assert stop_is_placeable("short", 24.7000, 24.6212) is False   # broken: stop above PSQ
+    # vehicle_stop() must agree with the checker on both sides -- the regression that matters.
+    for _d, _px in (("long", 744.43), ("short", 24.6212)):
+        assert stop_is_placeable(_d, vehicle_stop(_d, _px, 0.3614), _px)
 
     print("day_track selftest OK")
 
