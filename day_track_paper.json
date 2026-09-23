@@ -651,18 +651,25 @@
       "_THE_ASYMMETRY_CONFIRMED_FROM_THE_OTHER_SIDE": "This is the first signal since the long/short capital asymmetry was escalated on 2026-09-22, and it lands on the SHORT side -- which funds. Same deployable cash (~$100) that could not buy ONE QQQ share yesterday bought FOUR PSQ shares today. The escalated finding predicted exactly this and it is now observed in both directions rather than argued in one: the track's ability to trade is currently decided by the SIGNAL'S DIRECTION, not by the signal's quality. Do not read today's fill as the capital problem having eased -- nothing about capital changed, the coin landed the other way.",
       "_note_on_size": "Honest scope: $98.48 notional and $0.36 of risk is a real trade in SHAPE and a trivial one in SIZE. It is a valid paper sample for direction, stop, timing and the manage() ladder -- which is what the paper phase measures -- and it is NOT evidence about what this strategy does at fundable size.",
       "_manage_state": {
-        "last_managed_utc": "2026-09-23T17:00:00Z",
-        "time_et": "13:00",
-        "signal_px_used": 739.41,
-        "signal_px_note": "QQQ ASK at venue 17:00:45.303Z (bid 739.39 / last 739.40). The short is expressed long-PSQ so the cover is a PSQ sale into its bid; the QQQ ask is the conservative side and is the price r is computed on, unchanged in method from every prior pass on this row.",
-        "signal_px_venue_utc": "2026-09-23T17:00:45.302598329Z",
+        "last_managed_utc": "2026-09-23T17:20:00Z",
+        "time_et": "13:20",
+        "signal_px_used": 740.02,
+        "signal_px_note": "QQQ ASK at venue 17:19:37.254Z (bid 740.00 / last 740.011). Unchanged in method from every prior pass on this row: the short is expressed long-PSQ, the cover is a PSQ sale into its bid, and the QQQ ask is the conservative side r is computed on.",
+        "signal_px_venue_utc": "2026-09-23T17:19:37.253769655Z",
+        "vehicle_px_live": 24.7813,
+        "vehicle_px_venue_utc": "2026-09-23T17:19:10.708351735Z",
         "stop_px_signal_current": 744.43,
         "stop_px_vehicle_current": 24.6212,
-        "r_multiple_open": 1.866,
-        "action": "hold",
-        "vehicle_quote": "PSQ bid 24.79 / ask 24.80 at venue 17:00:43.413Z; entry 24.6212, so the paper row marks +0.68% on the vehicle.",
-        "atr5": 0.5812,
-        "session_low_since_entry": 738.191
+        "session_extreme_used": 738.191,
+        "atr5_used": 0.6587,
+        "manage_result": {
+          "action": "hold",
+          "stop": 744.43,
+          "reason": "working, 1.64R",
+          "r": 1.639
+        },
+        "r_multiple_live": 1.639,
+        "clearance_to_stop_pts": 4.41
       },
       "_manage_log": [
         {
@@ -944,6 +951,23 @@
           "gates": "CHOP re-tested and clears widely (13:17 ET past the 12:00 gate; ask 739.07 is 4.015 pts below the 743.085 line). TRAIL still NOT armed but this is the CLOSEST the row has come: arm needs ask <= 739.05 and the ask is 739.07 -- 0.02 pts, against 0.36 at 17:00Z and 1.525 at 16:30Z. FLAT rule at the first run >= 19:30Z.",
           "feed_integrity": "All three 5-minute buckets newly used for ATR14 reconciled EXACTLY against their 1-minute constituents: 17:00Z 239,082 vs 239,082; 17:05Z 151,818 vs 151,818; 17:10Z 168,559 vs 168,559. The 17:00Z bucket high 739.735 also equals the max of its five 1-minute highs, so neither a volume hole nor a single-constituent OHLC defect propagated into the ATR or the breach scan.",
           "what_changed": "r 1.866 -> 1.993 as QQQ ticked 739.41 -> 739.07, the largest favourable pass since 16:45Z. ATR14(5-min) EXPANDED 0.5812 -> 0.6587, reversing three consecutive passes of compression -- the 17:00Z bucket's 1.475-pt true range is the widest since 14:50Z. Consequence for the owned convergence mechanism (_DAY_TRACK_THE_ATR_TRAIL_CONVERGES_ON_PRICE_WHEN_VOLATILITY_COMPRESSES_2026-09-21.finding_3): the trail at arm is now 738.191 + 1.5*0.6587 = 739.1791, i.e. ~0.129 pts of room above the 739.05 arm price, against the 0.0129 pts projected one pass ago. A ten-fold widening from a single volatile bucket, in the direction the finding predicts -- a RE-NOTICE of an owned mechanism, not a new finding, so no new key is minted."
+        },
+        {
+          "run_utc": "2026-09-23T17:20:00Z",
+          "action": "hold",
+          "r_at_pass": 1.639,
+          "stop_unchanged": 744.43,
+          "inputs": {
+            "price_ask": 740.02,
+            "adverse_extreme_since_last_ratchet": 740.02,
+            "session_low": 738.191,
+            "atr5": 0.6587,
+            "stop_dist": 2.69,
+            "time_et": "13:20"
+          },
+          "breach_pass": "Window still PARTITIONED at the 14:20Z ratchet. Twelfth consecutive pass with the window maximum unchanged at 742.635: the six 1-minute bars 17:14Z-17:19Z topped at 739.635 (17:18Z) and the live ask is 740.02, both far under it. Clearance to the 744.43 breakeven stop 4.41 pts. manage() evaluated AT that extreme returns hold, so no intrabar breach is hidden between passes.",
+          "gates": "CHOP re-tested and clears widely (13:20 ET past the 12:00 gate; ask 740.02 is 3.065 pts below the 743.085 line). TRAIL NOT armed and moved AWAY: arm needs ask <= 739.05 and the ask is 740.02, a gap of 0.97 pts against 0.02 one pass ago. FLAT rule 2h10m out.",
+          "what_changed": "The row came within 0.02 pts of arming the 1.5xATR trail at 17:15Z and did not arm; QQQ has since bounced 739.07 -> 740.02 and r retreated 1.993 -> 1.639, the largest single-pass give-back on this row. Nothing is at risk in it: the stop is permanently at breakeven 744.43, so the row's worst case remains 0.0R, and the only thing forgone is the tighter trail the arm would have installed."
         }
       ],
       "stop": 744.43,
