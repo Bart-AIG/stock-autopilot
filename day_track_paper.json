@@ -643,7 +643,7 @@
       "bound_by": "cash",
       "risk_pct_used": 5.0,
       "status": "open -- paper only, NO ORDER PLACED (phase=PAPER)",
-      "r_multiple": 1.208,
+      "r_multiple": 1.346,
       "pnl_usd": null,
       "capital_note": "Deployable $100.81 = unleveraged_buying_power $268.22 - the 5% operational reserve $167.41 (total_value $3,348.197). The $98.48 ticket fits with $2.33 to spare. size() returned bound_by='cash', not RISK_PCT: risk at the stop is $0.36, which is 0.011% of the account against a 5% ceiling -- cash binds ~450x before RISK_PCT does, exactly as the spec predicts at this account size.",
       "quote_provenance": "QQQ 1-minute bars (bounds=regular) fetched 13:45:3xZ and RE-FETCHED at 13:47Z: all five OR bars byte-identical across both reads, so the bars are settled and no revision propagated into the OR (the 2026-08-26 provisional-bar detector, applied because this signal decides a trade). Live QQQ 744.43 at venue 13:46:02.726Z; PSQ 24.6212 at venue 13:45:40.024Z. Capital from get_portfolio at 13:45Z.",
@@ -1023,6 +1023,26 @@
           "feed_integrity": "CLEAN. All three 5-minute buckets spanning this pass reconcile EXACTLY to their 1-minute sums: 17:45Z 107,343 vs 107,343; 17:50Z 98,443 vs 98,443; 17:55Z 106,050 vs 106,050. Zero discrepancy in either direction, so no hole propagated into the extreme, the session low or the ATR.",
           "atr_note": "ATR14(5-min) CONTRACTED 0.8379 -> 0.8006 (-4.5%), ending three consecutive expansions. Projected trail-at-arm 738.191 + 1.5 x 0.8006 = 739.3919, still 0.342 pts ABOVE the 739.05 arming price (was 0.398), so the arm-installs-with-room property holds but narrowed slightly.",
           "next_tests": "Trail arm needs ask <= 739.05, now 2.13 pts away and receding for a third pass. Chop rule needs ask <= 743.085 and clears by 1.905 pts. Flat rule at the first run >= 19:30Z."
+        },
+        {
+          "run_utc": "2026-09-23T18:15:00Z",
+          "action": "hold",
+          "r_at_pass": 1.346,
+          "stop_unchanged": 744.43,
+          "inputs": {
+            "price_ask": 740.81,
+            "price_ask_venue_utc": "2026-09-23T18:15:58.525158728Z",
+            "adverse_extreme_since_last_ratchet": 742.635,
+            "session_low": 738.191,
+            "atr5": 0.7341,
+            "stop_dist": 2.69,
+            "time_et": "14:15"
+          },
+          "breach_pass": "No breach. Max 1-minute high since the LAST PASS (18:02Z-18:15Z) is 741.030 on the 18:02Z bar; manage() evaluated there returns hold at 1.264R, so nothing is hidden between passes. Max 1-minute high since the 14:20Z breakeven ratchet is unchanged at 742.635 (15:00Z bucket), SIXTEENTH consecutive pass at that value; clearance to the 744.43 stop is 1.795 pts on that extreme and 3.620 pts on the live ask.",
+          "feed_integrity": "Reconciled per the direction rule BEFORE any number was used: the three 5-minute buckets feeding this pass match their 1-minute sums EXACTLY -- 18:00Z 193,506 == 193,506; 18:05Z 149,765 == 149,765; 18:10Z 79,607 == 79,607. No hole, so no substitution.",
+          "trail_arithmetic": "Trail would sit at session_low 738.191 + 1.5 x ATR14(5-min) 0.7341 = 739.2922, BELOW the 744.43 breakeven stop, so it would not ratchet even if armed. Moot regardless: arming needs 2.0R = QQQ 739.05 and the ask is 740.81, so the arm is 1.76 pts away. FOURTH consecutive pass short of it (1.978R -> 1.454R -> 1.208R -> 1.346R); this pass arrested the give-back, recovering 0.14R.",
+          "serialization_note": "This file is indent=2 / ensure_ascii=True / trailing newline -- established by ROUND-TRIPPING the bytes, not by reading the rule's numbers. An earlier write this run guessed indent=1 and git diff --stat caught it at 1,051 insertions / 1,021 deletions for a one-object append; reverted and rewritten. The stat line is the detector, exactly as CLAUDE.md says.",
+          "result": "hold, 'working, 1.35R'"
         }
       ],
       "stop": 744.43,
