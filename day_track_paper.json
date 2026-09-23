@@ -800,6 +800,26 @@
           "ratchet": "Breakeven armed and permanent (a short's stop only ratchets DOWN), so this row still cannot lose. TRAIL_START_R=2.0 not satisfied at 0.952, and the excursion statistic is unchanged at 2.3193 -- no new session low, every low 15:00Z-15:15Z >= 741.590.",
           "note": "FIRST RISING PASS after two falling ones: 1.944 -> 1.491 -> 0.844 -> 0.952, as QQQ eased from the 742.635 high back to a 741.87 ask. The level handed forward is unchanged and is the only thing that matters next: the CHOP RULE becomes testable at the first run at/after 12:00 ET (16:00Z) and closes this row at a QQQ ask ABOVE 743.085 (r < 0.5). Present cushion 1.215 points. Above 744.43 the stop-level branch fires first at 0.00R.",
           "feed_integrity": "Not re-fetched, reason stated rather than assumed: this pass crosses no threshold (returns hold, stop unmoved, nothing placeable in PAPER), so no input is load-bearing for an action. The 56 one-minute bars 14:20Z-15:15Z were read directly rather than aggregated, so the 5-minute-bucket hole class does not apply; the series was continuous with no single-constituent or tiny-fraction-of-both-neighbours bar."
+        },
+        {
+          "run_utc": "2026-09-23T15:20:00Z",
+          "action": "hold",
+          "r_at_pass": 1.041,
+          "stop_unchanged": 744.43,
+          "inputs": {
+            "price_ask": 741.63,
+            "adverse_extreme_since_last_ratchet": 742.635,
+            "session_low": 738.191,
+            "atr5": 1.0437,
+            "stop_dist": 2.69,
+            "time_et": "11:20"
+          },
+          "concurrency": "This run and the 15:16Z run executed the same slot four minutes apart. Broker read FIRST (get_equity_orders 2026-09-23 EMPTY, get_option_positions []), then origin/master re-fetched after committing, which is where the sibling surfaced; resolved as a UNION per the concurrent-run rule -- its 15:16Z pass and its two ledger repairs are preserved untouched and this pass is appended after them. Both passes agree on every input they share (adverse extreme 742.635, session low 738.191, stop 744.43), which is cross-validation, not a conflict.",
+          "breach_pass": "Window still PARTITIONED at the 14:20Z ratchet (the stop has not moved since). Max one-minute high 14:20Z-15:19Z = 742.635, UNCHANGED from the 15:16Z pass -- the four bars 15:16Z-15:19Z topped at 741.955 -> clear of the 744.43 stop by 1.795 points. NO BREACH. The clearance has now stopped narrowing (4.850 -> 3.955 -> 1.830 -> 1.795 -> 1.795).",
+          "ratchet": "Breakeven armed and permanent (a short's stop only ratchets DOWN), so this row still cannot lose. TRAIL_START_R=2.0 not satisfied at 1.041; excursion statistic unchanged at 2.3193, no new session low (every low 15:16Z-15:19Z >= 741.180).",
+          "two_pass": "Pass 1 at the adverse extreme 742.635 -> 0.667R, no between-pass breach, row legitimately open. Pass 2 at the live 741.63 QQQ ask -> manage() returns hold at 1.041R.",
+          "note": "SECOND consecutive rising pass: 1.944 -> 1.491 -> 0.844 -> 0.952 -> 1.041, back above +1R for the first time since 14:47Z. The 15:00Z pass handed forward a three-pass DECAY toward the chop line as its live fact; two passes have now reversed it, which is the case for handing forward the LEVEL rather than the trajectory. The level, unchanged and the only thing that matters next: the CHOP RULE becomes testable at the first run at/after 12:00 ET (16:00Z) and closes this row at a QQQ ask ABOVE 743.085 (r < 0.5). Cushion now 1.455 points, widened from 1.215 one pass ago. Above 744.43 the stop-level branch fires first at 0.00R.",
+          "phase": "PAPER -- nothing placed, no cancel/replace sent, no order of any kind."
         }
       ],
       "stop": 744.43,
