@@ -1026,6 +1026,26 @@
           "next_tests": "Trail arm needs ask <= 739.05, now 2.13 pts away and receding for a third pass. Chop rule needs ask <= 743.085 and clears by 1.905 pts. Flat rule at the first run >= 19:30Z."
         },
         {
+          "run_utc": "2026-09-23T18:15:00Z",
+          "action": "hold",
+          "r_at_pass": 1.346,
+          "stop_unchanged": 744.43,
+          "inputs": {
+            "price_ask": 740.81,
+            "price_ask_venue_utc": "2026-09-23T18:15:58.525158728Z",
+            "adverse_extreme_since_last_ratchet": 742.635,
+            "session_low": 738.191,
+            "atr5": 0.7341,
+            "stop_dist": 2.69,
+            "time_et": "14:15"
+          },
+          "breach_pass": "No breach. Max 1-minute high since the LAST PASS (18:02Z-18:15Z) is 741.030 on the 18:02Z bar; manage() evaluated there returns hold at 1.264R, so nothing is hidden between passes. Max 1-minute high since the 14:20Z breakeven ratchet is unchanged at 742.635 (15:00Z bucket), SIXTEENTH consecutive pass at that value; clearance to the 744.43 stop is 1.795 pts on that extreme and 3.620 pts on the live ask.",
+          "feed_integrity": "Reconciled per the direction rule BEFORE any number was used: the three 5-minute buckets feeding this pass match their 1-minute sums EXACTLY -- 18:00Z 193,506 == 193,506; 18:05Z 149,765 == 149,765; 18:10Z 79,607 == 79,607. No hole, so no substitution.",
+          "trail_arithmetic": "Trail would sit at session_low 738.191 + 1.5 x ATR14(5-min) 0.7341 = 739.2922, BELOW the 744.43 breakeven stop, so it would not ratchet even if armed. Moot regardless: arming needs 2.0R = QQQ 739.05 and the ask is 740.81, so the arm is 1.76 pts away. FOURTH consecutive pass short of it (1.978R -> 1.454R -> 1.208R -> 1.346R); this pass arrested the give-back, recovering 0.14R.",
+          "serialization_note": "This file is indent=2 / ensure_ascii=True / trailing newline -- established by ROUND-TRIPPING the bytes, not by reading the rule's numbers. An earlier write this run guessed indent=1 and git diff --stat caught it at 1,051 insertions / 1,021 deletions for a one-object append; reverted and rewritten. The stat line is the detector, exactly as CLAUDE.md says.",
+          "result": "hold, 'working, 1.35R'"
+        },
+        {
           "run_utc": "2026-09-23T18:19:00Z",
           "action": "hold",
           "r_at_pass": 1.186,
@@ -1047,7 +1067,8 @@
       ],
       "stop": 744.43,
       "stop_px_vehicle_current": 24.6212,
-      "_stop_field_convention": "Per _DAY_TRACK_THREE_FIELDS_HELD_THE_LIVE_STOP_AND_THE_ENTRY_STOP_WAS_OVERWRITTEN_2026-09-21: `stop_px_signal` 747.12 and `stop_px_vehicle` 24.5322 are the IMMUTABLE ENTRY stop and are never ratcheted; the LIVE stop is `stop` (signal terms) and `stop_px_vehicle_current` (PSQ terms), and `_manage_state.stop_px_signal_current` must equal `stop` at all times. Breach tests run against `stop`."
+      "_stop_field_convention": "Per _DAY_TRACK_THREE_FIELDS_HELD_THE_LIVE_STOP_AND_THE_ENTRY_STOP_WAS_OVERWRITTEN_2026-09-21: `stop_px_signal` 747.12 and `stop_px_vehicle` 24.5322 are the IMMUTABLE ENTRY stop and are never ratcheted; the LIVE stop is `stop` (signal terms) and `stop_px_vehicle_current` (PSQ terms), and `_manage_state.stop_px_signal_current` must equal `stop` at all times. Breach tests run against `stop`.",
+      "_union_note": "CONCURRENT-RUN UNION, PR #1967 over #1966. Two scheduled runs executed adjacent slots and both did genuine, non-overlapping manage passes: 18:15Z (1.346R) and 18:19Z (1.186R). Both log entries are kept, ordered by run_utc; _manage_state and r_multiple carry the LATER pass (18:19Z) per the resolve-as-a-union rule. No side was discarded. NOTE THE DRIFT THIS SURFACED AND FIXED: the 18:15Z row advanced r_multiple to 1.346 and appended its log entry but left _manage_state stamped checked_utc 18:02Z -- the overwrite-in-place object disagreeing with the field it summarises, which is the stale-derived-field class this ledger already documents. The union re-stamps _manage_state to 18:19Z so the two agree again. Assert, don't read: _manage_state.checked_utc must equal the newest _manage_log[-1].run_utc, and _manage_state.r_now must equal row.r_multiple."
     }
   ]
 }
