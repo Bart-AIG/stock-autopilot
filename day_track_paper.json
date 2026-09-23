@@ -643,7 +643,7 @@
       "bound_by": "cash",
       "risk_pct_used": 5.0,
       "status": "open -- paper only, NO ORDER PLACED (phase=PAPER)",
-      "r_multiple": 1.242,
+      "r_multiple": 1.368,
       "pnl_usd": null,
       "capital_note": "Deployable $100.81 = unleveraged_buying_power $268.22 - the 5% operational reserve $167.41 (total_value $3,348.197). The $98.48 ticket fits with $2.33 to spare. size() returned bound_by='cash', not RISK_PCT: risk at the stop is $0.36, which is 0.011% of the account against a 5% ceiling -- cash binds ~450x before RISK_PCT does, exactly as the spec predicts at this account size.",
       "quote_provenance": "QQQ 1-minute bars (bounds=regular) fetched 13:45:3xZ and RE-FETCHED at 13:47Z: all five OR bars byte-identical across both reads, so the bars are settled and no revision propagated into the OR (the 2026-08-26 provisional-bar detector, applied because this signal decides a trade). Live QQQ 744.43 at venue 13:46:02.726Z; PSQ 24.6212 at venue 13:45:40.024Z. Capital from get_portfolio at 13:45Z.",
@@ -651,13 +651,13 @@
       "_THE_ASYMMETRY_CONFIRMED_FROM_THE_OTHER_SIDE": "This is the first signal since the long/short capital asymmetry was escalated on 2026-09-22, and it lands on the SHORT side -- which funds. Same deployable cash (~$100) that could not buy ONE QQQ share yesterday bought FOUR PSQ shares today. The escalated finding predicted exactly this and it is now observed in both directions rather than argued in one: the track's ability to trade is currently decided by the SIGNAL'S DIRECTION, not by the signal's quality. Do not read today's fill as the capital problem having eased -- nothing about capital changed, the coin landed the other way.",
       "_note_on_size": "Honest scope: $98.48 notional and $0.36 of risk is a real trade in SHAPE and a trivial one in SIZE. It is a valid paper sample for direction, stop, timing and the manage() ladder -- which is what the paper phase measures -- and it is NOT evidence about what this strategy does at fundable size.",
       "_manage_state": {
-        "checked_utc": "2026-09-23T19:01:00Z",
-        "time_et": "15:00",
-        "manage_returned": "hold -- 'working, 1.24R'",
-        "signal_px_ask": 741.09,
-        "signal_px_venue_utc": "2026-09-23T19:01:04.457728413Z",
-        "vehicle_px_psq_bid": 24.74,
-        "r_now": 1.242,
+        "checked_utc": "2026-09-23T19:20:00Z",
+        "time_et": "15:20",
+        "manage_returned": "hold -- 'working, 1.37R'",
+        "signal_px_ask": 740.75,
+        "signal_px_venue_utc": "2026-09-23T19:19:47.422152646Z",
+        "vehicle_px_psq_bid": 24.75,
+        "r_now": 1.368,
         "stop_in_force": 744.43,
         "stop_px_signal_current": 744.43,
         "stop_px_vehicle_current": 24.6212,
@@ -666,7 +666,9 @@
         "atr5_provenance": "RE-MEASURED this pass from 15 settled 5-minute buckets 17:45-18:55Z (prior two passes carried 0.6366 forward). Still gates nothing: atr5 enters manage() only inside the r >= 2.0 trail branch and this pass is 1.242R, so manage() is ATR-independent here. NOTE the 18:15Z bucket remains the known HOLED one (25,226 reported vs a 68,997 one-minute sum, -63.4%, flagged at 18:31Z) and its OHLC is inside this ATR window; left uncorrected and labelled because no ATR value in any plausible range changes a HOLD at 1.24R.",
         "trail_arm_price": 739.05,
         "trail_arm_gap_pts": 2.04,
-        "flat_rule": "First run at/after 19:30Z (15:30 ET) closes it. 29 minutes out at this pass."
+        "flat_rule": "First run at/after 19:30Z (15:30 ET) closes it. 29 minutes out at this pass.",
+        "atr5_latest": 0.5016,
+        "minutes_to_flat_rule": 10
       },
       "_manage_log": [
         {
@@ -1114,6 +1116,24 @@
           },
           "breach_pass": "No breach, both windows named. SINCE-LAST-PASS (18:47Z-19:00Z, 14 settled 1-minute bars): max high 741.180 on the 18:50Z bar -- manage() evaluated there returns hold at 1.21R, so nothing is hidden between passes. SINCE-RATCHET (14:20Z breakeven onward): adverse extreme unchanged at 742.635 (15:00Z bucket), 1.795 pts clear of the 744.43 stop.",
           "what_changed": "Give-back resumed and the trail moved FURTHER out of reach on BOTH terms. 1.398R -> 1.242R on a 740.67 -> 741.09 ask; trail-arm gap widened 1.62 -> 2.04 pts. ATR14(5-min) WAS re-measured this pass (the 18:31Z/18:47Z passes carried 0.6366 forward): 0.5049, a fourth consecutive contraction and -20.7% from the carried value. The two move the same way, so the gap in ATR terms deteriorated from ~2.5 ATRs at 18:47Z to ~4.0 ATRs now, with 29 minutes left. THE EXIT IS THE 15:30 ET FLAT RULE; the trail arming is no longer a realistic path."
+        },
+        {
+          "run_utc": "2026-09-23T19:20:00Z",
+          "action": "hold",
+          "r_at_pass": 1.368,
+          "stop_unchanged": 744.43,
+          "inputs": {
+            "price_ask": 740.75,
+            "price_ask_venue_utc": "2026-09-23T19:19:47.422152646Z",
+            "adverse_extreme_since_last_ratchet": 742.635,
+            "session_low": 738.191,
+            "atr5": 0.5016,
+            "stop_dist": 2.69,
+            "time_et": "15:20"
+          },
+          "breach_pass": "No breach, both windows named. SINCE-LAST-PASS (19:01Z-19:18Z, 18 settled 1-minute bars): max high 741.5296 on the 19:08Z bar -- 2.90 pts clear of the 744.43 stop, and manage() evaluated there returns hold at 1.08R, so nothing is hidden between passes. SINCE-RATCHET (14:20Z breakeven onward): adverse extreme unchanged at 742.635 (15:00Z bucket), 1.795 pts clear.",
+          "what_changed": "Give-back reversed again: 1.242R -> 1.368R on a 741.09 -> 740.75 ask. ATR14(5-min) re-measured off the 14 settled buckets through 19:10Z = 0.5016 (was 0.5049 at 19:01Z, -0.7%) -- the contraction has flattened rather than continued. The 2.0R trail arm sits at QQQ 739.05, 1.70 pts below spot; it is IRRELEVANT NOW, because the 15:30 ET FLAT RULE fires at 19:30Z, ten minutes out. The 19:15Z bucket was deliberately EXCLUDED from the ATR window as provisional (it had been open ~5 minutes at fetch time), per the settled-bar discipline.",
+          "_note_this_pass_also_wrote_the_daily_report": "This is the first run at/after 19:15Z, so it owns the v11 DAILY REPORT duty and took it. The report states explicitly that this row is STILL OPEN and that its closing R belongs to the flat-rule run -- that close is MATERIAL and is the one sanctioned reason to rewrite daily_options_report.md today."
         }
       ],
       "stop": 744.43,
