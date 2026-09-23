@@ -651,25 +651,29 @@
       "_THE_ASYMMETRY_CONFIRMED_FROM_THE_OTHER_SIDE": "This is the first signal since the long/short capital asymmetry was escalated on 2026-09-22, and it lands on the SHORT side -- which funds. Same deployable cash (~$100) that could not buy ONE QQQ share yesterday bought FOUR PSQ shares today. The escalated finding predicted exactly this and it is now observed in both directions rather than argued in one: the track's ability to trade is currently decided by the SIGNAL'S DIRECTION, not by the signal's quality. Do not read today's fill as the capital problem having eased -- nothing about capital changed, the coin landed the other way.",
       "_note_on_size": "Honest scope: $98.48 notional and $0.36 of risk is a real trade in SHAPE and a trivial one in SIZE. It is a valid paper sample for direction, stop, timing and the manage() ladder -- which is what the paper phase measures -- and it is NOT evidence about what this strategy does at fundable size.",
       "_manage_state": {
-        "last_managed_utc": "2026-09-23T14:00:00Z",
-        "time_et": "10:01",
-        "signal_px_used": 743.5,
-        "signal_px_note": "The QQQ ASK, not the 743.48 bid/last. This is a SHORT signal expressed by holding PSQ LONG, so the position is covered by buying QQQ back / selling PSQ into ITS bid -- the ask is the conservative side for a short and is what r is computed on.",
-        "signal_px_venue_utc": "2026-09-23T14:01:17.242019341Z",
-        "vehicle_px_psq_bid": 24.66,
-        "stop_px_signal": 747.12,
+        "last_managed_utc": "2026-09-23T14:20:00Z",
+        "time_et": "10:20",
+        "signal_px_used": 739.21,
+        "signal_px_note": "QQQ ASK at 14:19:25.197Z. Short expressed long-PSQ, so the cover is a QQQ buy-back / PSQ sale into its bid; the ask is the conservative side and is what r is computed on, unchanged from the 14:00Z pass.",
+        "signal_px_venue_utc": "2026-09-23T14:19:25.197009111Z",
+        "vehicle_px_psq_bid": 24.8,
+        "stop_px_signal_entry_immutable": 747.12,
+        "stop_px_signal_current": 744.43,
+        "stop_px_vehicle_current": 24.6212,
         "stop_dist_pts": 2.69,
-        "r_now": 0.346,
-        "best_r_since_entry": 0.602,
-        "session_low_since_entry": 742.81,
-        "session_low_bar_utc": "2026-09-23T13:56:00Z",
+        "r_now": 1.941,
+        "best_r_since_entry": 2.004,
+        "session_low_since_entry": 739.04,
+        "session_low_bar_utc": "2026-09-23T14:18:00Z",
         "adverse_extreme_since_entry": 744.46,
         "adverse_extreme_bar_utc": "2026-09-23T13:46:00Z",
-        "unrealized_usd_paper": 0.16,
-        "breakeven_armed": false,
+        "atr14_5min": 1.0437,
+        "atr14_5min_note": "As-spec spanning read per _DAY_TRACK_atr5_WAS_READ_TWO_WAYS: 14 true ranges over 15 five-minute buckets 2026-09-22T19:25Z..2026-09-23T14:10Z (9 from yesterday's tail, 6 from today), NOT a same-session gap-free ATR. Not dereferenced this pass -- manage() reads atr5 only at r >= 2.0 and the live r is 1.941.",
+        "unrealized_usd_paper": 0.72,
+        "breakeven_armed": true,
         "trail_armed": false,
-        "manage_verdict": "HOLD. Two-pass per _DAY_TRACK_IN_PAPER_manage_MUST_BE_FED_THE_ADVERSE_EXTREME: pass 1 at the adverse extreme 744.46 returns hold at -0.011R (the stop 747.12 sits 2.66 points above anything QQQ has printed since entry, so no breach is even close); pass 2 at the live 743.50 returns hold at 0.346R. Neither ratchet arms -- breakeven needs +1.0R (QQQ 741.74) and the trail needs +2.0R (QQQ 739.05). Chop rule not yet reachable (10:01 ET < 12:00); flat rule 15:30 ET.",
-        "feed_integrity": "Not re-fetched, and the reason is stated rather than skipped silently: the decision is hold on BOTH passes and the nearest threshold (breakeven at 741.74) is 1.74 points from the live print, while the stop is 2.66 points the other way. No plausible bar revision reaches either, so nothing hinges on bar precision this pass. The next pass that approaches a threshold owes the re-fetch."
+        "manage_verdict": "RAISE_STOP to breakeven 744.43 (PSQ 24.6212). Two-pass per _DAY_TRACK_IN_PAPER_manage_MUST_BE_FED_THE_ADVERSE_EXTREME: pass 1 at the adverse extreme 744.46 (max 1-minute high since the 13:46:02Z entry) returns hold at -0.011R, so no breach happened between passes and the row is legitimately open; pass 2 at the live 739.21 ask returns raise_stop 'ratchet at 1.94R'. First ratchet in the DAY TRACK's history on the SHORT side. PAPER: no cancel/replace sent, nothing placed. The trail does NOT arm -- see _DAY_TRACK_THE_RATCHET_IS_CADENCE_SAMPLED_BY_DESIGN_2026-09-23. Chop rule not reachable (10:20 ET < 12:00); flat rule 15:30 ET.",
+        "feed_integrity": "Re-fetch owed and performed, because this pass crosses a threshold. All six of today's 5-minute buckets 13:45Z-14:10Z reconcile EXACTLY to their 1-minute sums (delta 0.00% on every one), so neither the bucket nor the 1-minute series is holed per the 2026-08-28 direction rule, and the ATR14 and session-low inputs are clean. The 739.04 session low sits on the 14:18Z one-minute bar, the newest printed bar, which is the one most exposed to revision -- it is load-bearing ONLY for the best_r_since_entry statistic (2.004 vs 2.000), never for the action, which is raise_stop on the live quote either way."
       },
       "_manage_log": [
         {
@@ -686,8 +690,27 @@
             "time_et": "10:01"
           },
           "note": "First management pass on this row. day_track.manage() -> {'action': 'hold', 'reason': 'working, 0.35R'}."
+        },
+        {
+          "run_utc": "2026-09-23T14:20:00Z",
+          "action": "raise_stop",
+          "r_at_pass": 1.941,
+          "stop_before": 747.12,
+          "stop_after": 744.43,
+          "inputs": {
+            "price_ask": 739.21,
+            "adverse_extreme": 744.46,
+            "session_low": 739.04,
+            "atr5": 1.0437,
+            "stop_dist": 2.69,
+            "time_et": "10:20"
+          },
+          "note": "day_track.manage('short', 744.43, 747.12, 739.21, 739.04, 1.0437, '10:20', 2.69) -> {'action': 'raise_stop', 'stop': 744.43, 'reason': 'ratchet at 1.94R', 'r': 1.941}. Breakeven arm only; risk on the trade is now zero at the stop and 1.94R is open. PAPER -- no order."
         }
-      ]
+      ],
+      "stop": 744.43,
+      "stop_px_vehicle_current": 24.6212,
+      "_stop_field_convention": "Per _DAY_TRACK_THREE_FIELDS_HELD_THE_LIVE_STOP_AND_THE_ENTRY_STOP_WAS_OVERWRITTEN_2026-09-21: `stop_px_signal` 747.12 and `stop_px_vehicle` 24.5322 are the IMMUTABLE ENTRY stop and are never ratcheted; the LIVE stop is `stop` (signal terms) and `stop_px_vehicle_current` (PSQ terms), and `_manage_state.stop_px_signal_current` must equal `stop` at all times. Breach tests run against `stop`."
     }
   ]
 }
