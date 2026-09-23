@@ -41926,6 +41926,31 @@
       "tape": "QQQ 739.085 last / 739.08 x 739.11, -1.12% vs the 747.46 close. SPY 767.22, ABNB 152.19 (-5.95%), UNP 276.66 (+0.82%), V 362.405 (+0.10%). ATR14(5-min, QQQ) 0.7516.",
       "why_flat": "EQUITIES: report 17:07Z fresh, ACTION block EMPTY -- no take-profit (all three RED, gate is green-only), no time stop (ABNB/UNP day 13 of 14, firing tomorrow; V day 2), no thesis break. Entries closed on capital: deployable $102.30 ($268.22 less the $165.92 reserve) vs a ~$600 minimum, and the rotation gate turns up nothing worth a round trip to accelerate by one session what tomorrow's time stop does free. OPTIONS: $102.30 vs a $500 CORE floor, unfundable, none armed. DAY TRACK: manage-only, one trade per day already taken in paper.",
       "duties": "Heartbeat 13:35Z, brief 13:36Z, all 8 core IV rows logged today, calibration done Monday 09-21; daily report due at the first run >= 19:15Z, not yet owed. ABNB's WEAKENED-not-broken verdict was researched by the 15:45Z run and is not re-litigated."
+    },
+    {
+      "run_utc": "2026-09-23T17:45:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-23",
+      "prompt_version": "v11",
+      "headline": "Day track 17:45Z manage pass: HOLD at 1.454R, the row gave back 0.52R and the trail arm moved AWAY. Both books flat on capital. ABNB researched ahead of tomorrow's time stop -- verdict WEAKENED, not broken.",
+      "reconciliation": "BROKER READ FIRST, ZERO DRIFT both books. Options empty (get_option_positions []). Equities three swings matching the ledger to six decimals, all fully sellable: ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, V 2.716801 @ 368.08. get_equity_orders(created_at_gte=2026-09-23) EMPTY -- no sibling fill, no user trade. total_value $3,320.53, cash == buying_power == unleveraged_buying_power == $268.22 (no margin extended).",
+      "capital": "Reserve 5% = $166.03; DEPLOYABLE $102.19. That is 17% of the ~$600 minimum equity entry and 20% of the $500 CORE options low end. BOTH BOOKS CLOSED ON CAPITAL, and the day track's long side would be too (one QQQ share is $740.52). Correct state under the CAPITAL POLICY, not a breach: 3 swings inside the 3-4 target, ~92% deployed. The live gate is ROTATION, and nothing on today's report grades better than a held position.",
+      "day_track": {
+        "phase": "PAPER, day 6, signals 5 (today's row still open)",
+        "manage_returned": "hold -- 'working, 1.45R'",
+        "r": 1.454,
+        "stop": "744.43 signal / 24.6212 PSQ -- permanent breakeven, so the row cannot lose",
+        "what_changed": "QQQ rallied 739.11 -> 740.52 on the 17:40Z bucket (209,158 shares, heaviest 5-minute print since 17:00Z), so r fell 1.978 -> 1.454 and the 2.0R trail arm went from 0.06 pts away to 1.47 pts away. Flagged explicitly because three consecutive passes read '0.06 pts from arming' and a reader would otherwise expect convergence.",
+        "atr_note": "ATR14(5-min) 0.7516 -> 0.8379, third consecutive expansion; projected trail-at-arm 739.4479 is 0.398 pts ABOVE the 739.05 arm price.",
+        "feed_integrity": "All three 5-minute buckets spanning the pass reconcile EXACTLY to their 1-minute sums (85,071 / 66,624 / 209,158). No hole propagated into the extreme, the session low or the ATR.",
+        "correction_logged": "The 17:30Z log quoted 'window maximum unchanged at 742.635' and 'clearance 4.42 pts' in one sentence; those are two different windows under one label (744.43 - 742.635 = 1.795). Decision unaffected -- both windows return hold -- but this pass names each window with its own number, per the standing rule that a trigger's figures must state the window they came from. Detail in day_track_paper.json rows[-1]._manage_log[-1].arithmetic_correction.",
+        "graduate": "go_live False -- 'paper 6d / 4 trades; need 10d and 8 trades'. track_status active. Graduation is the ONLY remaining gate; the v11 stop-authority lock is discharged and does not promote the phase."
+      },
+      "equity_book": "Committed report latest_intraday.md 17:07Z, FRESH (38 min), no DATA ERROR, ACTION block EMPTY. All three positions HOLD (thesis-watch), all RED on live prints -- ABNB 152.31 (-10.15%), UNP 276.66 (-2.96%), V 361.96 (-1.66%) -- so the RSI2>=70 take-profit cannot fire, which requires GREEN. None is near green-enough (199.44 / 335.42 / 433.04). TIME STOP: ABNB and UNP are day 13 of 14 and both fire TOMORROW 2026-09-24, green or red, on their own alert line; V is day 2 of 14 (runs to 2026-10-05). No entry: deployable $102.19 against a ~$600 minimum, and the 1-entry-per-run throttle is untouched at 0 of 3.",
+      "new_finding": "holdings.json.positions[ABNB]._thesis_research_2026-09-23 -- NAMED, not re-argued here. Verdict WEAKENED, not broken, so NOT an autonomous thesis sell and NOT written back as thesis_checked (only 'intact' may be). The -5.87% session is a SECTOR-WIDE agentic-commerce de-rating (ABNB and TRIP -4%+, EXPE -6%, BKNG pressured, per Benzinga 09-23), not company news; RBC reiterated OUTPERFORM with a $195 PT on 09-21 and judges ABNB better protected than most marketplaces. The forward-looking half: this is a re-rating of the business model, so tomorrow's RSI2 print of 1.6 must NOT be re-graded as a fresh entry on the pre-event grade.",
+      "options_book": "No entry considered. The book is empty and deployable $102.19 is a fifth of the CORE low end, so no candidate can be funded at any grade -- saying so is the correct output, not a veto dressed as analysis. Realized options P/L for trading day 2026-09-23 read from holdings.json._realized_options_pnl_today, not defaulted. IV sweep not run: no fundable entry means the row gates nothing today.",
+      "why_flat": "Day track is in PAPER so it places nothing by construction. Equity and options books are both closed on capital, not on conviction. No exit fired in either book.",
+      "duties": "Heartbeat already stamped 13:35Z by the first post-bell run -- not re-stamped. market_brief.json stamped today. Daily report is due at the first run >= 19:15Z; this run is 17:45Z, so not yet owned."
     }
   ]
 }
