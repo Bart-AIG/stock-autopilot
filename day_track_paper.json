@@ -643,7 +643,7 @@
       "bound_by": "cash",
       "risk_pct_used": 5.0,
       "status": "open -- paper only, NO ORDER PLACED (phase=PAPER)",
-      "r_multiple": 1.186,
+      "r_multiple": 1.364,
       "pnl_usd": null,
       "capital_note": "Deployable $100.81 = unleveraged_buying_power $268.22 - the 5% operational reserve $167.41 (total_value $3,348.197). The $98.48 ticket fits with $2.33 to spare. size() returned bound_by='cash', not RISK_PCT: risk at the stop is $0.36, which is 0.011% of the account against a 5% ceiling -- cash binds ~450x before RISK_PCT does, exactly as the spec predicts at this account size.",
       "quote_provenance": "QQQ 1-minute bars (bounds=regular) fetched 13:45:3xZ and RE-FETCHED at 13:47Z: all five OR bars byte-identical across both reads, so the bars are settled and no revision propagated into the OR (the 2026-08-26 provisional-bar detector, applied because this signal decides a trade). Live QQQ 744.43 at venue 13:46:02.726Z; PSQ 24.6212 at venue 13:45:40.024Z. Capital from get_portfolio at 13:45Z.",
@@ -651,23 +651,21 @@
       "_THE_ASYMMETRY_CONFIRMED_FROM_THE_OTHER_SIDE": "This is the first signal since the long/short capital asymmetry was escalated on 2026-09-22, and it lands on the SHORT side -- which funds. Same deployable cash (~$100) that could not buy ONE QQQ share yesterday bought FOUR PSQ shares today. The escalated finding predicted exactly this and it is now observed in both directions rather than argued in one: the track's ability to trade is currently decided by the SIGNAL'S DIRECTION, not by the signal's quality. Do not read today's fill as the capital problem having eased -- nothing about capital changed, the coin landed the other way.",
       "_note_on_size": "Honest scope: $98.48 notional and $0.36 of risk is a real trade in SHAPE and a trivial one in SIZE. It is a valid paper sample for direction, stop, timing and the manage() ladder -- which is what the paper phase measures -- and it is NOT evidence about what this strategy does at fundable size.",
       "_manage_state": {
-        "checked_utc": "2026-09-23T18:19:00Z",
-        "time_et": "14:19",
-        "manage_returned": "hold -- 'working, 1.19R'",
-        "signal_px_ask": 741.24,
-        "signal_px_venue_utc": "2026-09-23T18:18:58.300197946Z",
-        "vehicle_px_psq_bid": 24.74,
-        "r_now": 1.186,
+        "checked_utc": "2026-09-23T18:31:00Z",
+        "time_et": "14:31",
+        "manage_returned": "hold -- 'working, 1.36R'",
+        "signal_px_ask": 740.76,
+        "signal_px_venue_utc": "2026-09-23T18:30:48.505022981Z",
+        "vehicle_px_psq_bid": 24.75,
+        "r_now": 1.364,
         "stop_in_force": 744.43,
         "stop_px_signal_current": 744.43,
         "stop_px_vehicle_current": 24.6212,
-        "adverse_extreme_since_ratchet": 742.635,
-        "session_low_since_entry": 738.191,
-        "atr5_14": 0.7341,
-        "arm_price_r2": 739.05,
-        "projected_trail_at_arm": 739.2922,
-        "chop_price_r05": 743.085,
-        "note": "FOURTH consecutive give-back and the shallowest pass since the ratchet: 1.978R -> 1.454R -> 1.208R -> 1.186R as QQQ ground 739.11 -> 741.24. The 2.0R trail arm has now receded for a fourth pass (0.06 -> 1.47 -> 2.13 -> 2.19 pts away). Stated plainly because four earlier passes read 'a fraction of a point from arming' and a reader inheriting them would expect convergence: the row is moving AWAY from the trail, not toward it. The breakeven stop at 744.43 is permanent (a short's stop only ratchets down), so this row still cannot lose -- but the realistic exit is now the 15:30 ET flat rule, not the trail."
+        "stop_note": "PERMANENT BREAKEVEN. Armed at the 14:18Z/14:20Z passes; a short's stop only ratchets DOWN, so 744.43 can never be loosened and the row cannot close red.",
+        "atr5_used": 0.6366,
+        "trail_arm_gap_pts": 1.71,
+        "trail_level_if_armed": 739.146,
+        "flat_rule": "First run at/after 19:30Z (15:30 ET) closes it. 59 minutes out at this pass."
       },
       "_manage_log": [
         {
@@ -1063,6 +1061,24 @@
           "feed_integrity": "CLEAN. All three 5-minute buckets spanning this pass reconcile EXACTLY to their 1-minute sums: 18:00Z 193,506 vs 193,506; 18:05Z 149,765 vs 149,765; 18:10Z 79,607 vs 79,607. Zero discrepancy in either direction, so no hole propagated into the extreme, the session low or the ATR.",
           "atr_note": "ATR14(5-min) CONTRACTED AGAIN, 0.8006 -> 0.7341 (-8.3%), a second consecutive contraction and the sharpest of the session. Projected trail-at-arm 738.191 + 1.5 x 0.7341 = 739.2922, still 0.242 pts ABOVE the 739.05 arming price (was 0.342), so the arm-installs-with-room property holds but has narrowed for a second pass. Note the mechanism: a contracting ATR TIGHTENS the trail, so if the arm is ever reached the installed stop is closer than earlier passes projected.",
           "next_tests": "Trail arm needs ask <= 739.05, now 2.19 pts away and receding for a fourth pass. Chop rule re-tested every run (needs ask <= 743.085; clearing by 1.845 pts, so it cannot fire). Flat rule at the first run >= 19:30Z remains the exit most likely to close this row."
+        },
+        {
+          "run_utc": "2026-09-23T18:31:00Z",
+          "action": "hold",
+          "r_at_pass": 1.364,
+          "stop_unchanged": 744.43,
+          "inputs": {
+            "price_ask": 740.76,
+            "price_ask_venue_utc": "2026-09-23T18:30:48.505022981Z",
+            "adverse_extreme_since_last_ratchet": 742.635,
+            "session_low": 738.191,
+            "atr5": 0.6366,
+            "stop_dist": 2.69,
+            "time_et": "14:31"
+          },
+          "breach_pass": "No breach. SINCE-LAST-PASS (18:19Z-18:30Z): max 1-minute high 741.255 (the 18:19Z bar), 3.175 pts clear of the 744.43 stop. SESSION-SINCE-ENTRY: adverse extreme still 742.635, unchanged since the 15:4xZ passes.",
+          "what_changed": "The four-pass give-back REVERSED: 1.186R -> 1.364R, price 741.24 -> 740.76. The trail-arm gap narrowed for the first time today, 2.19 -> 1.71 pts. ATR14(5-min) contracted a THIRD consecutive pass, 0.8006 -> 0.7341 -> 0.6366 (-13.3%), which lowers the trail level to 739.146 (tighter if it ever arms) but does nothing to the arm threshold, which is fixed at 739.05 by 2.0R. The 18:19Z pass's read stands: THE REALISTIC EXIT IS THE 15:30 ET FLAT RULE, NOT THE TRAIL -- arming needs a further 1.71-pt (0.23%) decline, ~2.7 five-minute ATRs, in 59 minutes.",
+          "feed_integrity": "THE 18:15Z 5-MINUTE BUCKET IS HOLED and was reconciled out before it touched anything: reported volume 25,226 against a 1-minute sum of 68,997 (18:15-18:19), i.e. the bucket is 63.4% BELOW -> per the 2026-08-28 direction rule the BUCKET is the holed side and the 1-minute sum substitutes. It is a PARTIAL/SPLICED hole, a presentation not previously recorded: open 741.1575 is the 18:18Z one-minute OPEN while high/low/close 741.255/740.990/741.070 are the 18:19Z one-minute bar exactly -- two different constituent minutes spliced into one bucket, so neither the whole-bar-equals-one-constituent signature nor the equals-none-of-them signature fits. Adjacent buckets are clean to the cent (18:20Z 75,078 == 75,078; 18:25Z 57,949 == 57,949), so this is a hole, not an offset. CAUTION FOR THE NEXT READER: the holed bucket's HIGH (741.255) happened to equal the true 1-minute window high, so the breach check was unaffected -- that is COINCIDENCE, because the surviving constituent carried the high. A hole still systematically fails to show extremes; do not read this pass as evidence that holes are harmless to a breach check. Impact measured rather than assumed: ATR14 raw 0.6302 vs 1-minute-corrected 0.6366 (+1.02%), and manage() returns HOLD at 1.36R on BOTH, so nothing decided here rests on the defect."
         }
       ],
       "stop": 744.43,
