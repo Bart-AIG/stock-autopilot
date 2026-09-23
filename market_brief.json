@@ -29,29 +29,56 @@
  "watchlist": {
   "core_options_candidates": [],
   "_why_no_options_candidates": "Options book closed on CAPITAL: $100.49 deployable (total_value $3,354.59, cash == unleveraged_buying_power == $268.22, 5% reserve $167.73) against a $500 CORE low end. Not a thesis or catalyst decline -- no candidate was graded because none could be funded.",
-  "equity_candidates": [],
-  "_why_no_equity_candidates": "TWO independent bars, either sufficient. (1) CAPITAL: $100.49 deployable is 17% of the ~$600 minimum entry, and under the CONCENTRATION POLICY a sub-$600 entry is a SKIPPED opportunity, not a small one. With deployable below one position size the live gate is ROTATION -- a new idea must grade BETTER THAN THE WEAKEST POSITION HELD, and no idea has been graded at all. (2) REPORT FRESHNESS: at 13:36Z the newest committed report is latest_intraday.md 2026-09-22T19:08Z, i.e. YESTERDAY. Autonomous equity entries are signal-sourced from the CURRENT report; today's morning report lands ~14:07Z. This is also the OPENING-DEFERRAL preference (prefer the day's autonomous entry at/after ~14:15Z, once today's report is on master) -- but note it is not doing the work today, capital is."
+  "equity_candidates": [
+   {
+    "symbol": "BAC",
+    "rsi2": 5.9,
+    "grade": "C",
+    "reason": "EXCLUDED. Trend cushion EXPIRES inside the hold: SMA200 55.2704 rising 0.0409/day, so the 1.32% cushion becomes 0.28% by the 14-day time stop. -8.90% over 30 sessions. Correlated with the held V and with JPM."
+   },
+   {
+    "symbol": "BMY",
+    "rsi2": 2.8,
+    "grade": "C",
+    "reason": "EXCLUDED. -7.10% over 30 sessions in a staircase of lower lows -- a de-rating, not a dip. Cushion 2.16% at the stop."
+   },
+   {
+    "symbol": "UNH",
+    "rsi2": 7.2,
+    "grade": "B",
+    "reason": "NO POSITION. Cushion adequate (3.03% at stop), decline shallower (-4.40%), but nothing answers 'why NOW'. A B-grade gets NO position, not a small one."
+   },
+   {
+    "symbol": "JPM",
+    "rsi2": 8.1,
+    "grade": "B",
+    "reason": "NO POSITION. Best cushion on the board (4.32% at stop) but disqualified on CORRELATION with the held V and with BAC; its -3.4% session on 09-22 is a sector repricing, not a dip."
+   }
+  ],
+  "_why_no_equity_candidates": "SUPERSEDED AT 18:19Z -- THE BOARD HAS NOW BEEN GRADED AND THE ANSWER IS A JUDGEMENT, NOT AN ARITHMETIC EXCUSE. The 13:36Z text below was accurate when written and is retained for the record. The correction matters because the two answers expire differently: 'no capital' stops being true TOMORROW when the ABNB and UNP time stops free ~$2,060, whereas 'no A-grade on this board' is a verdict. GRADED THIS RUN: 9 RSI2 setups -> 2 HELD (ABNB, V), 3 excluded unread on the oil steer (VLO, MPC, PSX), 4 gradable -> ZERO A-grades (BAC C, BMY C, UNH B, JPM B). The rotation gate therefore FAILS ON THE MERITS: the weakest held position on the entry stack is ABNB (thesis WEAKENED) and nothing on the board beats it -- and ABNB's time stop fires tomorrow anyway, so a rotation today would buy ~18 hours of acceleration and spend a slot on a B-grade the day before two slots open by themselves. Full measurement and method: holdings.json._THE_ROTATION_GATE_WAS_ANSWERED_ON_THE_MERITS_2026-09-23. --- ORIGINAL 13:36Z TEXT --- TWO independent bars, either sufficient. (1) CAPITAL: $100.49 deployable is 17% of the ~$600 minimum entry, and under the CONCENTRATION POLICY a sub-$600 entry is a SKIPPED opportunity, not a small one. With deployable below one position size the live gate is ROTATION -- a new idea must grade BETTER THAN THE WEAKEST POSITION HELD, and no idea has been graded at all. (2) REPORT FRESHNESS: at 13:36Z the newest committed report is latest_intraday.md 2026-09-22T19:08Z, i.e. YESTERDAY. Autonomous equity entries are signal-sourced from the CURRENT report; today's morning report lands ~14:07Z. This is also the OPENING-DEFERRAL preference (prefer the day's autonomous entry at/after ~14:15Z, once today's report is on master) -- but note it is not doing the work today, capital is."
  },
  "constraints_today": {
-  "total_value_usd": 3354.59,
+  "total_value_usd": 3315.66,
   "cash_usd": 268.22,
   "unleveraged_buying_power_usd": 268.22,
-  "operational_reserve_usd": 167.73,
-  "deployable_usd": 100.49,
-  "equity_value_usd": 3086.37,
+  "operational_reserve_usd": 165.78,
+  "deployable_usd": 102.44,
+  "equity_value_usd": 3047.44,
   "options_premium_at_risk_usd": 0.0,
   "equity_slots_used": "3 of the 3-4 target (band 3-5)",
   "realized_options_pnl_today_usd": 0.0,
   "options_entries_used": "0 of 3",
   "equity_entries_used": "0 of 3",
-  "margin": "NONE. buying_power == unleveraged_buying_power == 268.22, so FOUR LAWS #4 is unambiguous today."
+  "margin": "NONE. buying_power == unleveraged_buying_power == 268.22, so FOUR LAWS #4 is unambiguous today.",
+  "_as_of_utc": "2026-09-23T18:18Z",
+  "_note": "Re-read from the broker at 18:18Z, not carried from the 13:36Z build. Reserve is 5% of a MOVING total_value and is recomputed, never hard-coded."
  },
- "DAY_TRACK_today": "PAPER, ACTIVE, paper day 6, signals 5. RESOLVED at 13:46Z by the 13:45Z run (the 13:30Z run could not compute the OR -- the window was not yet complete). OR 745.085-747.12 from five settled 1-minute bars (re-fetched byte-identical), body 92.6% of range -> SHORT. plan_entry -> 'enter': PSQ 4 @ 24.6212 = $98.48, stop 24.5322 (signal stop 747.12, 0.3614%), r_usd $0.36, bound_by cash. NO ORDER PLACED (PAPER); row is in day_track_paper.json. Late-entry gate passed with only 0.36 points of room. ONE TRADE PER DAY IS NOW SPENT -- later runs manage the paper row via day_track.manage() (fed the adverse extreme since the last pass) and the 15:30 ET flat rule closes it. The long/short capital asymmetry is CONFIRMED FROM THE OTHER SIDE: the same ~$100 deployable that bought zero QQQ shares on 09-22 bought four PSQ today. Direction changed, capital did not.",
+ "DAY_TRACK_today": "PAPER, ACTIVE, paper day 6, signals 5. Signal resolved 13:46Z: OR 745.085-747.12, body 92.6% -> SHORT; PSQ 4 @ 24.6212 = $98.48, stop 24.5322 (signal 747.12, 0.3614%), r_usd $0.36, bound_by cash. NO ORDER PLACED (PAPER). ONE TRADE PER DAY IS SPENT. 18:19Z manage pass -> HOLD at 1.186R on the live 741.24 ask; stop sits at BREAKEVEN 744.43 and is permanent, so the row cannot lose. FOURTH consecutive give-back and a second ATR contraction (0.8006 -> 0.7341): the 2.0R trail arm has receded on every pass and is 2.19 pts away, so THE REALISTIC EXIT IS THE 15:30 ET FLAT RULE, NOT THE TRAIL. The long/short capital asymmetry is unchanged -- the same ~$100 deployable that bought zero QQQ shares on 09-22 bought four PSQ today; direction changed, capital did not.",
  "equity_entries_taken_today": [],
  "exits_taken_today": [],
  "weekly_calibration": "NOT DUE. Today is Wednesday; the calibration is the first run of each Monday. Last run 2026-09-21 (_WEEKLY_CALIBRATION_2026-09-21, including the options KILL reversal at 14:05Z). Next 2026-09-28, which is also the next day_track.graduate() review.",
  "monthly_rebalance": "NOT DUE. Next on the first trading day of October 2026.",
- "iv_note": "IV sweep DEFERRED this run and the reason is stated rather than implied: pre-14:00Z ATM rows are an upper bound per the opening-window ATM inflation finding (-2.5% to -4.4% across four re-measures), and with the options book unfundable the row gates nothing today. A later market-hours run should take the core-list sweep if it has budget.",
+ "iv_note": "IV SWEEP STILL DEFERRED, NOW WITH A CHECKABLE EXPIRY RATHER THAN AN OPEN-ENDED ONE. The options book has been unfundable for three sessions ($102.44 deployable against a $500 CORE low end), so an IV row gates nothing and no options candidate has been evaluated -- the duty is 'one row per name EVALUATED', and zero were. TRIGGER TO RESUME: the 2026-09-24 ABNB and UNP time stops, which return ~$2,060 and make the book fundable again; the first run after those fills should take the full core-list sweep (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA). Stated with a date so this does not become a permanent deferral -- the same discipline the CAPITAL POLICY requires of a cash hold.",
  "options_book_status": "EMPTY. 0 positions, $0 premium at risk, 0 of 3 entries used, $0.00 realized against the -$400 cap.",
  "iv_sweep": {
   "status": "deferred",
