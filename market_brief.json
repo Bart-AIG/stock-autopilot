@@ -1,103 +1,61 @@
 {
  "_comment": "Daily market brief for the options automation. Built by the first post-open run of each TRADING day (ET), never by a post-close/pre-open firing. Refresh intraday only on a genuine shock (VIX +15%, an index breaking a listed level, a major headline).",
- "date": "2026-09-22",
- "built_utc": "2026-09-22T13:42:00Z",
- "built_by": "scheduled run 13:30Z 2026-09-22 (unattended, prompt v11) -- first post-bell run of the trading day",
+ "date": "2026-09-23",
+ "built_utc": "2026-09-23T13:36:00Z",
+ "built_by": "scheduled run 13:30Z 2026-09-23 (unattended, prompt v11) -- first post-bell run of the trading day",
  "regime": {
   "label": "OPENING WINDOW, MEASURED NOT INTERPRETED",
   "spy": {
-   "last": 774.305,
-   "adjusted_previous_close": 773.5,
-   "day_pct": 0.1
+   "last": 772.64,
+   "adjusted_previous_close": 773.38,
+   "day_pct": -0.1
   },
   "qqq": {
-   "last": 742.115,
-   "adjusted_previous_close": 741.47,
-   "day_pct": 0.09
+   "last": 746.03,
+   "adjusted_previous_close": 747.46,
+   "day_pct": -0.19
   },
-  "as_of_utc": "2026-09-22T13:31:03Z",
-  "_ex_div_check": "Performed, and CLEAN today: QQQ previous_close 741.47 == adjusted_previous_close 741.47, and SPY 773.50 == 773.50. The 09-21 brief had to compute QQQ's day change off the adjusted figure because QQQ went ex-dividend; that adjustment is NOT live today and must not be carried forward.",
-  "_discipline": "NUMBERS ONLY, no directional verdict handed forward (2026-08-28 rule: a mid-session or mid-event cross-asset read can invert within minutes and the next run must not inherit a frame). These are also opening-window prints taken ~90 seconds after the bell, so they are the least settled quotes of the day -- per the standing rule, re-quote at least ~5 minutes after 13:30Z before any of this decides anything.",
-  "_context_not_a_verdict": "QQQ closed 09-21 at 741.47 after a +1.9% session (727.89 open -> 741.47 close, high 743.22), the largest single-day advance in the visible daily series. Today opens essentially flat against that. Stated as a fact about the prior bar, not as a read on continuation or exhaustion."
+  "as_of_utc": "2026-09-23T13:31:04Z",
+  "_ex_div_check": "Performed and CLEAN: QQQ previous_close 747.46 == adjusted_previous_close 747.46, SPY 773.38 == 773.38. No dividend adjustment is live today; do not carry the 09-21 QQQ ex-div handling forward.",
+  "_discipline": "NUMBERS ONLY, no directional verdict handed forward (2026-08-28 rule: a cross-asset read can invert within minutes and the next run must not inherit a frame). These are opening-window prints taken ~60 seconds after the bell -- the least settled quotes of the day. Re-quote at least ~5 minutes after 13:30Z before any of this decides anything.",
+  "_context_not_a_verdict": "QQQ closed 09-22 at 747.46 after 741.47 on 09-21; SPY closed 773.38 after 773.50. Today opens marginally lower on both. Stated as a fact about the prior bars, not as a read on continuation."
  },
  "catalysts_next_5_sessions": [
-  "No scheduled binary event on any of the three held names (ABNB, UNP, V) inside its remaining hold window. ABNB and UNP reach the 14-day time stop 2026-09-24; V was entered 09-21 and runs to 2026-10-05.",
-  "FOMC 2026-09-16/17 is RESOLVED and must not be cited as a forward catalyst.",
-  "Under the 2026-09-14 narrowed CATALYST BAR, macro calendar events are a SIZING input for CORE options, never a bar. Moot today regardless -- the options book is closed on capital, not on catalyst."
+  "get_earnings_calendar(2026-09-23, 7d, high_market_cap) checked this run: NONE of ABNB, UNP or V appears, so no scheduled binary event falls inside any held name's remaining hold window.",
+  "Largest prints in the window: COST 09-24 pm, DRI/SNX/BB 09-24 am, CCL/JEF/MTN 09-28, KMX/CNXC 09-29. Today: PAYX, GIS, CTAS, CBRL (am, all reported), FUL and SCS (pm).",
+  "MECHANICAL, not a catalyst but the week's real event: the 14-day TIME STOP fires on BOTH ABNB and UNP tomorrow 2026-09-24, green or red. That is the next change in capital, not a new signal.",
+  "FOMC 2026-09-16/17 is RESOLVED and must not be cited as a forward catalyst. Under the 2026-09-14 narrowed CATALYST BAR macro events are a SIZING input for CORE options, never a bar -- moot today, the options book is closed on capital."
  ],
  "watchlist": {
   "core_options_candidates": [],
-  "_why_no_options_candidates": "Options book closed on CAPITAL: $97.83 deployable (total_value $3,407.82, cash == unleveraged_buying_power == $268.22, 5% reserve $170.39) against a $500 CORE low end. Not a catalyst or thesis decline -- no candidate was graded because none could be funded.",
+  "_why_no_options_candidates": "Options book closed on CAPITAL: $100.49 deployable (total_value $3,354.59, cash == unleveraged_buying_power == $268.22, 5% reserve $167.73) against a $500 CORE low end. Not a thesis or catalyst decline -- no candidate was graded because none could be funded.",
   "equity_candidates": [],
-  "_equity_screen_2026-09-22T14:20Z": "SUPERSEDES this key's earlier '_why_empty', which said today's report had not landed yet. IT HAS -- latest_morning.md 2026-09-22T14:07Z, commit bd8914f, header clean, NO DATA ERROR, and notably an EMPTY >>> ACTION <<< block (no BUY, SELL, TIME STOP, TRAILING STOP or THESIS CHECK line fired). The RSI2 setups TABLE is still a valid signal source (it is where ABNB was sourced on 09-10), so this run ran the screen the stale-report reason had deferred. RESULT: 14 setups, ZERO graded A, so there is NO entry and NO rotation -- and that verdict stands on GRADE, independently of the capital position.",
-  "screen_detail": {
-   "sector_steer_excluded": "8 of 14 are Energy (OXY, COP, CVX, XOM, EOG, VLO, DVN, MPC) -- excluded by Ryan's standing 2026-06-17 steer against new oil-energy entries, not graded.",
-   "graded_non_energy": "VZ, CRM, PM, MO, CVS, JNJ. Stack computed from own daily bars through the 09-21 close (308 sessions), Wilder RSI, 200-day SMA monotonicity over the trailing 22 sessions, 12-1 momentum, distance off the 52-week high.",
-   "VZ": "RSI2 3.82, 200MA 46.16 rising monotonic 22/22 (+2.28%/22d), px +3.3% above it, mom12-1 +13.7%, -7.3% off 52w high. B: shallow cushion, modest momentum.",
-   "PM": "RSI2 6.16, 200MA rising monotonic 22/22 (+2.31%/22d), px +6.5% above, mom12-1 +15.5%, -6.3% off high. BEST of the six and still B.",
-   "MO": "RSI2 7.32, 200MA rising monotonic (+1.80%/22d), px only +2.4% above, mom12-1 +1.8% -- barely positive momentum. B-minus.",
-   "CVS": "RSI2 1.02, deepest oversold on the board, mom12-1 +24.2%, 200MA rising monotonic -- BUT px is only +0.4% ABOVE the 200-day after a -20.8% drawdown from the 52-week high. That is a name sitting ON its 200-day, not a dip inside an uptrend. Declined on the trend cushion, not on the oversold reading.",
-   "CRM": "EXCLUDED ON THE TREND GATE. 200MA +0.11% over 22 sessions with only 17/22 up-ticks (NOT monotonic) and mom12-1 NEGATIVE -15.3%. Confirming instance of _THE_200DAY_GATE_CERTIFIES_DOWNTRENDS and _RSI2_SCREEN_TREND_FAILURE_IS_SYSTEMATIC -- no new key minted. The report's -13.5% suggested stop, 4x the board's median, is the same fact showing up in the stop column.",
-   "JNJ": "Report shows RSI2 9.4 at its 265.82 print; computed on the 09-21 CLOSE (269.47) it is 55.01. Both are correct -- the report's RSI2 is a snapshot at the report's price, per _THE_REPORTS_RSI2_COLUMN_IS_A_SNAPSHOT_AT_THE_REPORTS_PRICE_AND_THE_ENTRY_TRIGGER_DECAYS_AS_FAST_AS_THE_EXIT_ONE_2026-09-18 (confirming instance, no new key). The GRADING consequence is what matters: JNJ's oversold condition is ONE SESSION old, a weaker Connors setup than a name that has ground oversold for days. Trend stack is otherwise the strongest on the board (200MA +3.45%/22d monotonic, px +12.8% above, mom12-1 +53.4%, only -3.2% off its high). Carries earnings 2026-10-13 -- outside a 14-day time-stop window (ends 10-06) but inside a 3-week hold.",
-   "earnings_check": "get_earnings_calendar(2026-09-22, 21d, high_market_cap) returns NO print for VZ, CRM, PM, MO or CVS inside the window. JNJ 2026-10-13 sits just past the window end and is confirmed from the report's own Earnings column. No [ERN] bar applies to a 14-day hold on any graded name.",
-   "why_none_is_A": "Measured against this desk's own most recent A-grade entry, ABNB on 09-10: RSI2 3.0, 200MA rising +4.98%/22d, px +20.7% ABOVE the 200-day, mom12-1 +49.2%, only -11.3% off its 52-week high, and analyst price targets rising MONOTONICALLY through the decline. The best non-energy name today (PM) carries +15.5% momentum against that +49.2% and a +6.5% cushion against that +20.7%. These are defensive, low-momentum names oversold inside shallow uptrends. Under the CONCENTRATION POLICY a B-grade gets NO position, not a small one -- so no news/thesis workup was spent on names that cannot clear the size bar anyway."
-  },
-  "rotation_gate": "NO ROTATION, 16:20Z. Deployable $99.65 (unleveraged_buying_power $268.22 - 5% operational reserve $168.57 on total_value $3,371.32) is 17% of the ~$600 minimum equity entry, so under THE CAPITAL POLICY the live gate is ROTATION, not sizing: a new idea must grade BETTER THAN THE WEAKEST POSITION HELD. Every candidate on today's board grades B or is excluded -- MA, the last ungraded name, came in at C on NEGATIVE 12-1 momentum -- and all three holdings (ABNB, UNP, V) were A-grade entries, so no candidate clears. The CONCENTRATION POLICY's 'a B-grade gets NO position, not a small one' forecloses it independently. Forcing a rotation today would also be gratuitous: ABNB and UNP hit their 14-day TIME STOP on Thursday 2026-09-24 (day 12 of 14), which frees capital on its own in two sessions.",
-  "thursday_2026-09-24_capital_event": "ABNB and UNP both reach the 14-day TIME STOP on Thu 2026-09-24 and are sold green or red. At today's marks that recycles roughly $1,093 (ABNB 6.573584 x ~166.3) + $1,048 (UNP 3.858199 x ~271.6) = ~$2,141, taking the book to ONE swing (V) and opening two slots with real capital for the first time since 09-21. Today's screen is therefore forward-looking work, not an academic exercise -- but the grades above are measured on TODAY's bars and MUST be re-derived on Thursday's, not inherited.",
-  "_equity_screen_2026-09-22T15:20Z": "BOARD ROTATED SINCE THE 14:20Z SCREEN AND FOUR UNGRADED NON-ENERGY NAMES ENTERED -- so this run graded them rather than restating the earlier verdict. The 14:20Z screen graded the 14:07Z MORNING report (14 setups). The 15:08Z INTRADAY report (commit 4fdddd3, header clean, NO DATA ERROR, >>> ACTION <<< still EMPTY) carries 11: VZ, CRM, OXY, COP, PNC, BAC, EOG, KHC, ABNB[HELD], JPM, DVN. NEW vs the graded set: PNC, BAC, KHC, JPM. DROPPED: PM, MO, CVS, JNJ, CVX, XOM, VLO, MPC. RESULT UNCHANGED IN VERDICT, NEWLY EARNED IN EVIDENCE: still ZERO graded A, so no entry and no rotation.",
-  "screen_detail_2026-09-22T15:20Z": {
-   "method": "Own daily bars 2025-08-01..2026-09-21 close (286 sessions), Wilder RSI, 200-day SMA monotonicity over the trailing 22 sessions, 12-1 momentum, distance off the 52-week high. Same stack as the 14:20Z screen so the grades are comparable.",
-   "sector_steer_excluded": "OXY, COP, EOG, DVN (4 of 11) -- Ryan's standing 2026-06-17 steer against new oil-energy entries. Not graded.",
-   "already_graded_1420Z": "VZ (B, shallow cushion) and CRM (EXCLUDED on the trend gate) carry over unchanged. Their grades are canonical in _equity_screen_2026-09-22T14:20Z.",
-   "PNC": "RSI2 38.19 on the 09-21 close, RSI14 34.7. 200MA 227.21 rising monotonic 22/22 (+2.74%/22d), px only +2.7% above it, mom12-1 +17.1%, -9.9% off 52w high. B -- trend is real but the cushion is thin and momentum modest.",
-   "BAC": "RSI2 36.66, RSI14 31.2. 200MA 55.26 rising monotonic 22/22 (+1.71%/22d), px +4.9% above, mom12-1 +18.7%, -11.1% off high. BEST OF THE FOUR AND STILL B -- against this desk's own A benchmark (ABNB 09-10: +20.7% cushion, mom12-1 +49.2%) it is less than a quarter of the momentum and a quarter of the cushion.",
-   "KHC": "EXCLUDED ON THE TREND GATE. 200MA +0.12% over 22 sessions with only 12/22 up-ticks (NOT monotonic) and mom12-1 NEGATIVE -2.0%. Confirming instance of _THE_200DAY_GATE_CERTIFIES_DOWNTRENDS and _RSI2_SCREEN_TREND_FAILURE_IS_SYSTEMATIC -- no new key minted.",
-   "JPM": "EXCLUDED, and it is the instructive one. Trend stack is the strongest on the board (200MA 320.76 monotonic 22/22, px +9.8% above, mom12-1 +12.2%, only -3.9% off its high) -- but RSI2 on the 09-21 CLOSE is 81.18, i.e. OVERBOUGHT. The report's 9.8 exists ONLY because of today's -4.08% intraday plunge (352.04 -> 337.69). An RSI2 that travels 81 -> 10 inside ONE session is the weakest form of Connors setup: the oversold condition is hours old, not ground out over days. Confirming instance of _THE_REPORTS_RSI2_COLUMN_IS_A_SNAPSHOT_AT_THE_REPORTS_PRICE_AND_THE_ENTRY_TRIGGER_DECAYS_AS_FAST_AS_THE_EXIT_ONE_2026-09-18.",
-   "earnings_check": "get_earnings_calendar(2026-09-22, +21d, high_market_cap) returns NO entry for PNC, BAC, KHC or JPM. JPM's 2026-10-13 print (from the report's own Earnings column) sits past the window end and outside a 14-day hold, which ends 2026-10-06. NO [ERN] bar applies to any of the four. The gate is clear; the grades are what decline them.",
-   "the_live_sector_fact_that_gates_all_three_banks": "PNC, BAC and JPM are being de-rated in real time, TOGETHER, on a flat index: at 15:17Z JPM -4.08%, BAC -2.90%, PNC -2.59%, XLF -2.16% against SPY +0.00% and QQQ +0.47%. Three searches of JPM's feed produce NO single-name driver -- the flow is neutral-to-positive (Qatar Investment Authority $20B MOU, GIFT City expansion, Dimon AI remarks). So the HARD RULE 7 thesis gate returns UNKNOWN, not intact, and the standing discipline on uncertainty is do not trade. An RSI2 print manufactured by an unexplained same-day sector de-rating is a name falling with its sector, not a dip inside an uptrend.",
-   "confirming_instance_not_a_new_finding": "This is _FOUR_BANKS_ENTERED_THE_RSI2_BOARD_IN_ONE_REFRESH_AND_ONE_UNCALENDARED_GUIDANCE_EVENT_MADE_ALL_FOUR_2026-09-14 recurring, with ONE variation worth the line: on 09-14 the driver was IDENTIFIED (Moynihan's intra-quarter IB-fee guidance); today it is NOT. That is the key's own lesson arriving in its purest form -- 'names arriving together is not N opportunities; it is one unexplained fact' -- so NO new key is minted, per the do-not-duplicate-a-container rule.",
-   "book_correlation_note": "The book already holds V (payments/financials), which is -1.70% today inside this same de-rating. Adding any of PNC/BAC/JPM would concentrate INTO the move that is currently marking the book down.",
-   "cluster_warning_under_detects_again": "The report flags '4/11 setups are Energy' and is correct, but PNC+BAC+JPM = 3 of 11 financials goes unflagged -- the same under-detection the 14:25Z run recorded. Today it has teeth rather than being cosmetic, because that cluster is the one moving.",
-   "AMENDED_2026-09-22T15:25Z_BY_THE_1518Z_RUN__CUSHION_RE_MEASURED_ON_THE_LIVE_PRICE": "The PNC and BAC cushions above are CLOSE-BASIS and overstate the live trend margin; the grades stay declined, one changes its GROUND. Re-measured 15:22:46Z against the identical 200-day SMAs: PNC 227.3531 vs 227.21 = +0.06% (not +2.7%) -- at the price an entry would actually pay, PNC is sitting ON its 200-day, so it is EXCLUDED ON THE TREND GATE, the same ground that declined CVS at 14:20Z, rather than a thin-cushion B. BAC 56.1926 vs 55.26 = +1.69% (not +4.9%) -- still the best of the four, still B, and now less than a TENTH of the ABNB A-benchmark's +20.7% cushion rather than a quarter of it. This run's independently-computed stack otherwise AGREES with the grades above name for name (PNC mom12-1 +17.1%, BAC +18.7%, KHC trend gate fails on 11/21 up-ticks and negative momentum, JPM RSI2 81.18 on the settled close), so this is cross-validation with one basis correction, not a competing screen. Mechanism and detector: holdings.json._THE_REPORTS_RSI2_COLUMN_IS_A_SNAPSHOT_AT_THE_REPORTS_PRICE...2026-09-18, EXTENDED_2026-09-22T15:25Z. Verdict UNCHANGED: ZERO A, no entry, no rotation.",
-   "MA__appended_16:20Z": "EXCLUDED, and it is the second JPM-shaped name of the day. The 16:07Z INTRADAY report (commit 15eb4b6, header clean, NO DATA ERROR) rotated MA onto the board at RSI2 8.8 / px 554.79 -- the ONLY name on that board not already graded today. Computed from own daily bars (2025-08-01..2026-09-21 close, 286 sessions, Wilder RSI, same stack as the 14:20Z and 15:20Z screens so the grades are comparable): RSI2 on the 09-21 CLOSE is 62.71, RSI14 46.48 -- NOT OVERSOLD. The report's 8.8 exists only because of today's -2.05% intraday leg; including the live 556.005 print RSI2 is 9.58. An RSI2 that travels 62.71 -> 9.58 inside ONE session is the weakest form of Connors setup -- the oversold condition is hours old, not ground out over days. Confirming instance of _THE_REPORTS_RSI2_COLUMN_IS_A_SNAPSHOT_AT_THE_REPORTS_PRICE_AND_THE_ENTRY_TRIGGER_DECAYS_AS_FAST_AS_THE_EXIT_ONE_2026-09-18 (JPM did 81.18 -> 9.8 on this same board four hours ago). AND IT FAILS THE MOMENTUM LEG OUTRIGHT, which JPM did not: mom12-1 is NEGATIVE -0.60%. The 200-day 531.81 is rising monotonic 21/21 but only +0.68% over 22 sessions (ABNB's A-grade entry on 09-10 carried +4.98%), and the live cushion is +4.55% above it against ABNB's +20.73%. Off the 52-week high 601.23 by -7.52%. GRADE C -- excluded on the momentum gate, not merely declined on grade. SECOND, INDEPENDENT REASON, which would foreclose it even at an A: MA is a payments name and V -- already held at ~29% of the account -- is down -2.32% on the day in the SAME sector leg (MA -2.05%, XLF -1.89% at 16:19Z). Buying MA here doubles a sector bet the book already carries at maximum size. See _A_ONE_DAY_OLD_30PCT_POSITION_FELL_2_6PCT_ON_A_SECTOR_LEG_AND_THE_STANDING_SINGLE_NAME_VETO_IS_THE_WRONG_EXPLANATION_2026-09-22. CONCURRENT CROSS-VALIDATION: the overlapping 16:25Z run (PR #1904) declined MA the same session by a different route -- the screen's own ranking (#10, below the held V at #9) plus the payments-theme overlap, explicitly without a workup. Same verdict, independent evidence; this entry is the measured trend stack that the ranking route cannot see.",
-   "_board_1607Z": "The 16:07Z board (CVS, VZ, CRM, OXY, COP, PNC, KHC, BAC, V[HELD], MA, EOG) is fully covered: CVS/VZ/CRM graded 14:20Z, PNC/KHC/BAC graded 15:20Z, OXY/COP/EOG excluded on the oil steer, V is HELD, MA graded here. STILL ZERO A. No entry, no rotation."
-  }
+  "_why_no_equity_candidates": "TWO independent bars, either sufficient. (1) CAPITAL: $100.49 deployable is 17% of the ~$600 minimum entry, and under the CONCENTRATION POLICY a sub-$600 entry is a SKIPPED opportunity, not a small one. With deployable below one position size the live gate is ROTATION -- a new idea must grade BETTER THAN THE WEAKEST POSITION HELD, and no idea has been graded at all. (2) REPORT FRESHNESS: at 13:36Z the newest committed report is latest_intraday.md 2026-09-22T19:08Z, i.e. YESTERDAY. Autonomous equity entries are signal-sourced from the CURRENT report; today's morning report lands ~14:07Z. This is also the OPENING-DEFERRAL preference (prefer the day's autonomous entry at/after ~14:15Z, once today's report is on master) -- but note it is not doing the work today, capital is."
  },
  "constraints_today": {
-  "total_value": 3432.68,
-  "cash": 268.22,
-  "unleveraged_buying_power": 268.22,
-  "operational_reserve_5pct": 171.63,
-  "deployable": 96.59,
-  "minimum_equity_entry": 600.0,
-  "core_options_low_end": 500.0,
-  "verdict": "BOTH BOOKS ARE CLOSED ON CAPITAL TODAY. Deployable $96.59 is 16% of the ~$600 minimum equity entry and 19% of the $500 CORE options low end. Neither book can fund an entry at any grade, so no screen result can change today's answer on the ENTRY side.",
-  "why_this_is_not_a_breach": "Under THE CAPITAL POLICY cash is the RESIDUAL OF QUALITY, not a target, and being ~97% deployed is an explicitly correct state. The book holds 3 concurrent swings inside the 3-4 target. Yesterday opened at $1,096.50 deployable and this run opens at $96.59 for exactly one reason: the 14:23Z V entry spent $1,000.00 of it. Nothing leaked and no gate was missed.",
-  "the_live_gate_is_ROTATION": "With deployable below one normal position size, THE CAPITAL POLICY's rotation clause governs the moment today's report lands: a new idea is not queued, it must be graded BETTER THAN THE WEAKEST POSITION HELD on the ENTRY STACK (thesis strength, setup quality, distance to target) -- never merely against the biggest loser. If it is better, sell that one and buy this one and write BOTH sides of the comparison to the journal. If it is not, the correct output is 'no entry', said plainly.",
-  "rotation_candidates_ranked_weakest_first_PROVISIONAL": "UNP (-4.93%, day 12 of 14, time stop 09-24) is the weakest on P/L but NOT necessarily on the entry stack, and the distinction is the one the rule exists to enforce. UNP is 2 sessions from being recycled by the time stop anyway, so rotating out of it buys ~2 sessions of capital and pays a round trip to do it. ABNB is day 12 of 14 on the same clock. V is day 1 and +0.88%. A later run doing this comparison for real must re-derive it off today's report rather than inheriting this ordering.",
-  "margin": "buying_power == unleveraged_buying_power == $268.22; no margin extended. FOUR LAWS #4 satisfied with no ambiguity about which field bounds the budget.",
-  "no_cash_hold": "holdings.json._cash_hold is null. No deliberate hold is in force and none is needed -- the capital is absent, not withheld, so there is nothing here that requires a named catalyst and an expiry."
+  "total_value_usd": 3354.59,
+  "cash_usd": 268.22,
+  "unleveraged_buying_power_usd": 268.22,
+  "operational_reserve_usd": 167.73,
+  "deployable_usd": 100.49,
+  "equity_value_usd": 3086.37,
+  "options_premium_at_risk_usd": 0.0,
+  "equity_slots_used": "3 of the 3-4 target (band 3-5)",
+  "realized_options_pnl_today_usd": 0.0,
+  "options_entries_used": "0 of 3",
+  "equity_entries_used": "0 of 3",
+  "margin": "NONE. buying_power == unleveraged_buying_power == 268.22, so FOUR LAWS #4 is unambiguous today."
  },
- "DAY_TRACK_today": {
-  "status": "PAPER + ACTIVE, paper day 5",
-  "evaluated": true,
-  "action": "SKIP -- on CAPITAL, not on the signal",
-  "signal": "LONG QQQ. Opening range 740.97-743.45 (open 740.98, close 743.45) from five clean 1-minute bars 13:30-13:34Z; body 2.47 of 2.48 points = 99.6% of range, the most decisive OR the track has printed. Late-entry gate PASSED -- spot 743.87 against a 744.69 ceiling. day_track.plan_entry -> action='skip', 'cannot afford one whole share inside the caps': $96.59 deployable against a ~$743.87 one-share QQQ ticket, size() shares=0 bound_by='cash'.",
-  "_supersedes": "An earlier draft of this key, written at 13:42Z, said the signal was NOT COMPUTABLE because only the 13:30 bar had published. That was true when written and became false four minutes later when the feed caught up; the same run then computed the signal and is correcting its own key in place rather than leaving a stale 'not computable' for the report-writing run to inherit. Same staleness class the repo documents for the brief's regime label.",
-  "counts": "Paper DAYS 5, SIGNALS still 4 -- a skip advances the day-count and not the signal-count. day_track.graduate(4, [-1,-1,-1,6.4774]) -> go_live FALSE, 'paper 4d / 4 trades; need 10d and 8 trades'. Graduation is the ONLY remaining lock and only a Monday calibration may flip the phase; today is Tuesday, next review 2026-09-28.",
-  "pause": "day_track.track_status(3432.68, [-1,-1,6.4774], []) -> paused FALSE, 'active'.",
-  "FOR_THE_DAILY_REPORT_RUN": "This skip is not routine -- it produced a NEW DURABLE FINDING that belongs in today's report and is ESCALATED to Ryan: holdings.json._DAY_TRACK_THE_LONG_SIDE_COSTS_30X_THE_SHORT_SIDE_SO_CAPITAL_FILTERS_THE_PAPER_SAMPLE_BY_DIRECTION_2026-09-22. In one line: the long vehicle costs ~30x the short vehicle and whole shares are load-bearing for the resting stop, so capital can fund one SIDE and not the other and the graduation sample gets filtered BY DIRECTION where graduate() cannot see it. Four remedies are listed in the key; the run that writes the report should surface it and must NOT choose one.",
-  "day_complete": "YES -- one trade per trading day, and today's was skipped. The 15:30 ET flat rule is moot with no position."
- },
+ "DAY_TRACK_today": "PAPER, ACTIVE, paper day 6 (signals 4). OR NOT COMPUTABLE at 13:32Z -- the 13:30-13:35Z range is not yet complete, so plan_entry returns \"wait\" by construction. Today's signal belongs to the first run at/after ~13:45Z. CAPITAL NOTE CARRIED FORWARD: deployable $100.49 cannot fund one whole QQQ share ($746.03), so a LONG signal skips on capital for the second straight day, while a SHORT would fund ~4 PSQ ($24.58). The direction-dependent sampling bias is escalated and unfixed -- see holdings.json._DAY_TRACK_THE_LONG_SIDE_COSTS_30X_THE_SHORT_SIDE_SO_CAPITAL_FILTERS_THE_PAPER_SAMPLE_BY_DIRECTION_2026-09-22.",
  "equity_entries_taken_today": [],
  "exits_taken_today": [],
- "weekly_calibration": {
-  "due": "NOT DUE -- ran Monday 2026-09-21. See holdings.json._WEEKLY_CALIBRATION_2026-09-21. Next review Monday 2026-09-28.",
-  "standing_result": "No parameter change stands on either book. Equity REPORT ONLY (margin +12.99 pts, n=49, only 7 in-regime). Options KILL fired 13:42Z 09-21 and was REVERSED 14:05Z the same day as unsupported -- entries NOT paused, size multiplier 1.0. day_risk_pct unchanged at 5.0.",
-  "prompt_staleness": "prompt v11 step 8b still instructs the side=='sell' split, which is measurably wrong for attributing an options close. Reported by prior runs, NOT resolved -- no run may edit the stored prompt or claim a Ryan turn (HARD RULE 9)."
- },
- "monthly_rebalance": "NOT DUE -- next on the first trading day of October 2026.",
- "iv_note": "IV SWEEP DEFERRED THIS RUN, stated rather than silently skipped, for the reason the opening-window ATM inflation finding gives: any pre-14:00Z ATM row is an UPPER BOUND and writing one to iv_history.json hands the next run a number it must discount. With the options book unfundable at $96.59 the row also gates no decision today. Deferral, not omission -- the duty stands and a later run owns it. iv_history.json holds 29 rows per core name through 2026-09-21; nothing was overwritten.",
- "options_book_status": "EMPTY and UNFUNDABLE. 0 positions, options_value $0, 0 ledger rows, no orders since before 09-21. NOT paused -- the 09-21 KILL branch was reversed the same day and the size multiplier is 1.0. Today's constraint is capital alone: $96.59 deployable against a $500 CORE low end. Do not restate the pause; it does not exist.",
- "iv_sweep": "DEFERRED to a run past ~14:00Z. See iv_note for the reason and the precedent."
+ "weekly_calibration": "NOT DUE. Today is Wednesday; the calibration is the first run of each Monday. Last run 2026-09-21 (_WEEKLY_CALIBRATION_2026-09-21, including the options KILL reversal at 14:05Z). Next 2026-09-28, which is also the next day_track.graduate() review.",
+ "monthly_rebalance": "NOT DUE. Next on the first trading day of October 2026.",
+ "iv_note": "IV sweep DEFERRED this run and the reason is stated rather than implied: pre-14:00Z ATM rows are an upper bound per the opening-window ATM inflation finding (-2.5% to -4.4% across four re-measures), and with the options book unfundable the row gates nothing today. A later market-hours run should take the core-list sweep if it has budget.",
+ "options_book_status": "EMPTY. 0 positions, $0 premium at risk, 0 of 3 entries used, $0.00 realized against the -$400 cap.",
+ "iv_sweep": {
+  "status": "deferred",
+  "as_of_utc": null,
+  "rows": []
+ }
 }
