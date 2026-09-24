@@ -1,131 +1,57 @@
-# Daily report — trading day 2026-09-23 (Wednesday)
+# Daily report — trading day 2026-09-24 (Thursday)
 
-*Written by the 19:15Z scheduled run (2:15 PM CT — the v11 threshold). Master carried the 2026-09-22 report, so this run owned the duty and took it. Quotes stamped 19:15:39–19:15:41Z venue time, well past the opening auction.*
+*Written by the 19:15Z scheduled run (2:15 PM CT, the v11 threshold). Master carried the 2026-09-23 report, so this run owned the duty. Broker read at 19:15:33–35Z: zero drift in both books.*
 
-***Amended once, by the 19:30Z run, for the one MATERIAL event the 19:15Z version could not carry: the DAY TRACK flat rule fired and CLOSED the row.** The 19:15Z text predicted "it books ≈ +1.3R"; the settled number is **+1.353R**. Nothing else is rewritten — §2–§7 stand as written, and a refresh of closing marks is explicitly not a reason to touch this file again today.*
+## 1. DAY TRACK (PAPER, day 7)
+- **Opening range** (QQQ, 1-minute bars): 734.6301 – 736.02, open 735.29 / close 735.79, body 36% of range → **LONG**.
+- **Result: SKIP (late entry).** The anti-chase ceiling was 736.02 + 0.5 × 1.3899 = **736.7150**. Spot was 737.0759–737.20 when the bars first became readable (~13:46Z), 0.36–0.49 above the ceiling. No position, 0R.
+- Unlike the 09-22 skip, which was about capital, this one was about the setup. There was $2,164 deployable against a ~$737 share. The cause is the lag between the signal and the first run that can act on it: the OR closed at 13:35Z but was first readable at 13:46Z, and in those 11 minutes QQQ drifted +1.41, more than the 0.925 of headroom.
+- **Running tally:** 7 paper days, 5 signals taken (2 winners +6.48R / +1.35R, 3 losers −1R each), 2 skips. `graduate()` needs ≥10 days and ≥8 signals, and signals are the binding constraint. Next review is the Monday 2026-09-28 calibration. The track stays in PAPER.
 
-**One line:** **The DAY TRACK took its signal and is winning it; both money books stood down on capital for a third straight session — and tomorrow is the day that ends.** The opening range gave a 92.6%-body SHORT, which is the side that funds at $100 of deployable cash, so the paper row exists at all: **4 PSQ @ 24.6212, CLOSED on the 15:30 ET flat rule at +1.353R / +$0.5152** — the track's second paper winner and its first on the short side. The equity book graded four candidates and topped out at **B** — no A-grade, no rotation, correctly no trade. **Thursday 2026-09-24 is the event:** ABNB and UNP both hit their 14-day time stops and are sold green or red, which unfreezes ~$2,060.
+## 2. Positions
+| Name | Sleeve | Entry | Mark (19:15Z) | P/L | Held | Time stop | Why we own it |
+|---|---|---|---|---|---|---|---|
+| V | swing | 368.0799 × 2.716801 | 366.91 | −$3.18 / −0.32% | 3d | **2026-10-05** | RSI2 8.6 dip, 9.6% above a rising 200-day. Broad financials de-risk, not a company-specific drop. PT raises into the weakness (RBC $466, Wolfe $460). |
+| BMY | swing | 61.4439 × 11.734281 | 60.768 | −$7.93 / −1.10% | 0d | **2026-10-08** | Deepest oversold of the morning's list (RSI2 2.1). Dip inside a rising 200-day (+4.1% cushion). No company-specific news behind the −10% slide. Piper raised its PT to $82. Clean Phase 3 Sotyktu data. Earnings 10-29 fall outside the window. |
 
----
+Both are underwater, so the RSI2≥70 take-profit can't fire on either one; it only fires on green positions. Neither is green enough for a trail alert (V needs $432.98, BMY $72.29). No price stops (HARD RULE 5). Options book: **flat**.
 
-## 1. DAY TRACK — paper day 6, signal 5, CLOSED +1.353R
-
-| | |
-|---|---|
-| **Phase** | PAPER (day **6 of 10**; **5 signals of 8**). Nothing has ever been placed. `graduate()` → `go_live: False`. |
-| **Status** | ACTIVE — `track_status(3312.26, …)` → not paused. |
-| **Today** | **ENTER — SHORT**, `plan_entry` → `action='enter'` |
-
-**The signal (13:45Z run, five settled 1-minute bars 13:30–13:34Z, re-fetched and byte-identical):**
-
-| | |
-|---|---|
-| Opening range | 745.085 – 747.12 (2.035 pts) |
-| Body | **92.6% of range** → decisive SHORT (doji bar is <10%) |
-| Vehicle | **PSQ 4 shares @ 24.6212 = $98.48** (1x inverse; no margin, no borrow) |
-| Entry / stop (signal terms) | 744.43 / 747.12 → **2.69 pts = 0.3614%**, r = **$0.36** |
-| Late-entry gate | **PASSED by 0.3625 points** — the narrowest clearance the track has recorded. Three minutes later on the same drift it would have skipped. |
-| Sizing | `bound_by='cash'` — risk at the stop is 0.011% of the account against a 5% ceiling. **Cash binds ~450× before RISK_PCT does.** |
-
-**CLOSE, 15:30 ET — the flat rule (written by the 19:30Z run).** `manage('short', 744.43, stop 744.43, price 740.79, time_et '15:30')` → **`close` — "flat rule (>= 15:30 ET)", r 1.353**. The flat branch sits *above* every ratchet branch in `manage()`, which is the rule's whole point: **the clock outranks the ladder.**
-
-| | |
-|---|---|
-| Exit (signal terms) | QQQ **ask 740.79**, venue 19:30:57.026Z — a short buys back at the ask |
-| Exit (vehicle) | PSQ **bid 24.75**, venue 19:30:56.659Z — selling hits the bid |
-| Result | **+1.353R, +$0.5152** on $0.356 of risk |
-| Hold | 5h44m (13:46Z → 19:30Z) |
-| Breach pass | **No breach.** 1-minute bars 19:19–19:31Z, max high **740.957** against the 744.43 stop — clear by **3.47 points**. The row closed on the clock, never on the stop. |
-| Placed | **Nothing.** PHASE=PAPER. In LIVE this run would have sent a sell-to-close market order for 4 PSQ *and cancelled the resting stop in the same minute.* |
-
-**The stop was never in play after 14:18Z.** It sat at a permanent breakeven 744.43 and a short's stop only ratchets down, so the row could not close red from that minute on. The 2.0R trail arm at 739.04 was never reached — QQQ's session low was 738.191 but the *ask at each 15-minute pass* never printed below 740.20, which is the cadence-sampling the track already documents (`_DAY_TRACK_THE_RATCHET_IS_CADENCE_SAMPLED_BY_DESIGN_2026-09-23`).
-
-**Tally after 5 completed paper trades:** −1.0, −1.0, −1.0, +6.4774, +1.353 → **total +4.8304R, mean +0.9661R, 2 wins of 5 (40%)**. Payoff 3.92 implies a 20.3% breakeven, so the margin is **+19.7 points** — a healthy-looking number that is **dominated by one 6.48R day** and sits at **n=5 against the `MIN_TRADES_FOR_ACTION` bar of 20**. Report it, never act on it. `graduate(6, …)` → **`go_live: False` — "paper 6d / 5 trades; need 10d and 8 trades."**
-
-**The afternoon in one number:** five direction changes between 18:02Z and 19:15Z inside a 741.53–740.20 band (1.208R → 1.346 → 1.186 → 1.364 → 1.398 → 1.242 → 1.342). That is chop above the chop rule's reach — the rule only bites at |R| < 0.5 and this row cleared 1.0R by 14:18Z.
-
-**Honest scope, restated because the number flatters:** $98.48 notional and $0.36 of risk is a real trade in **shape** and a trivial one in **size**. +1.34R is ~$0.48. It is a valid paper sample for direction, stop, timing and the manage() ladder — which is what the paper phase measures — and it is **not** evidence about what this strategy does at fundable size.
-
-**⚠️ The escalated asymmetry, now observed from both sides.** The same ~$100 of deployable cash that could not buy **one** QQQ share on Tuesday's 99.6%-body LONG bought **four** PSQ shares on today's SHORT. Nothing about capital changed between the two days — the coin landed the other way. **The track's ability to trade is currently decided by the signal's DIRECTION, not its quality.** Fixing it means editing the spec, which no unattended run may do; it stays escalated to Ryan (`holdings.json._DAY_TRACK_THE_LONG_SIDE_COSTS_30X_THE_SHORT_SIDE…`).
-
----
-
-## 2. Positions — equity book (3 of the 3-4 target)
-
-| Name | Shares | Entry | Now (19:15Z) | P/L | Day held | Why we own it |
-|---|---|---|---|---|---|---|
-| **ABNB** | 6.573584 | 169.5209 | **151.80** | **−$116.49 / −10.45%** | **13 of 14** | RSI2 mean-reversion inside a rising 200-day. Thesis **WEAKENED, not broken** (researched today). |
-| **UNP** | 3.858199 | 285.1071 | **275.855** | −$35.70 / −3.25% | **13 of 14** | RSI2 dip in an uptrend; rail volumes and pricing intact. |
-| **V** | 2.716801 | 368.0799 | **361.49** | −$17.90 / −1.79% | 2 of 14 | RSI2 8.2 today — still oversold, thesis untouched. |
-
-**No exit fired today, and each of the three mechanisms was checked, not assumed:**
-- **Take-profit (RSI2 ≥ 70 while GREEN):** cannot fire — all three are RED. The trigger requires green; an underwater RSI2 bounce is an *optional* exit-into-strength routed to thesis, never a mechanical loss-realization.
-- **Time stop (14 days):** ABNB and UNP are day 13. **Both fire tomorrow.**
-- **Target hit:** none near.
-- **Green-enough trail trigger** (entry ÷ 0.85): ABNB 199.44, UNP 335.42, V 433.04 — all far away. No `SET TRAILING STOP` alert for Ryan.
-- **No stop orders exist on any of these** (HARD RULE 5). The DAY TRACK is the sole stop-carrying sleeve, and it is in PAPER, so nothing rests at the broker.
-
-### ABNB thesis research — volunteered, and the verdict matters for tomorrow
-No `THESIS CHECK` was flagged; the run did it anyway because ABNB fell **−6.2% on the session** with its time stop one day out. **Verdict: WEAKENED, NOT BROKEN.** It reads as a sector-wide agentic-commerce de-rating rather than a company break, and RBC still carries **OUTPERFORM, $195** against ~$151.85 spot. Two consequences, both deliberate:
-1. **No autonomous thesis sell.** A sell needs BROKEN with evidence; weakened is not that.
-2. **It was deliberately NOT written back as `thesis_checked: "intact"`**, because it isn't intact. Tomorrow's run therefore sells ABNB on the **TIME STOP as written** — green or red — and must not re-litigate it as a thesis decision. Evidence and sources: `holdings.json.positions[ABNB].thesis_research_2026-09-23`.
-
----
+**V thesis note:** today brought the proposed $167.5M Burke v. Visa ATM-fee settlement (V's share ~$88.8M, ~0.2% of annual revenue, one-time). I judged it immaterial: it belongs to the long-running antitrust overhang and isn't a new break, and V closed out the session up ~1.5% with the news already public.
 
 ## 3. Actions taken today
+**① TIME STOP / SELL — ABNB and UNP (autonomous, 13:37Z).** Both were entered 2026-09-10, so 2026-09-24 is day 14 exactly and `report.py`'s `days_held >= 14` branch fired. The 09-23 report had pre-announced both ("TIME STOP in 1d").
+- ABNB: 6.573584 sh @ 152.5273 → **−$111.73 (−10.02%)**, order 6ab5279c.
+- UNP: 3.858199 sh @ 274.5265 → **−$40.84 (−3.71%)**, order 6ab527a0.
+- Why it wasn't a judgment call: neither hit its target (183.08 / 298.32), and neither could print a green RSI2 bounce. HARD RULE 5 forbids price stops, so the 14-day time stop was the only exit either position could ever have had. That is exactly the case it was built for on 09-02. Quotes were re-taken at 13:37Z, after the opening auction. ABNB was +2% on the day at the fill, so the exit was sold *into* a bounce.
+- **Lesson written to the ledger (ABNB):** analysts raising targets into a decline is evidence the market is repricing the stock rather than the company getting worse. That read was correct, and the trade still lost 10%. Price targets are 12-month fundamental marks and say nothing about the timing of a 2-week mean-reversion trade.
+- Broker-confirmed realized P/L today: **−$152.53** across 2 closing trades (equity book; no options cap involved).
 
-**None, in any book.** Zero orders placed, zero fills, **$0.00 realized** (`get_realized_pnl` 09-23: 0 closing trades). The only position opened today is the DAY TRACK paper short, which places nothing by construction.
+**② BUY — BMY $721.00 (autonomous, 14:18Z).** 11.734281 sh @ 61.4439, order 6ab53133. Taken on the first run with both today's report on master and the clock past 14:15Z (the opening-deferral preference).
+- Sizing: deployable $2,163.62 ÷ 3 remaining slots = $721. Two slots would have meant $1,082, which breaches the 30% per-name cap ($998), so filling toward four slots was forced.
+- Contrary evidence was logged, not omitted: a bearish Dec 62.50 put sweep and a $403K CMO Form 4 sale. Both are small.
 
----
+## 4. Candidates considered and SKIPPED
+- **USB / JPM / SCHW / MS / BAC (banks), declined on HARD RULE 7 thesis.** The sector is being de-rated on named drivers: a hiking Fed read as negative for bank margins (10y ~4.98%), credit-quality worries, and the AI-agent payments disintermediation story. Jefferies cut JPM's PT this morning. Their 10-13..10-15 earnings fall *after* a 10-08 time stop, so the earnings flag is not the reason. Owning record: `holdings.json._WHY_THE_OVERSOLD_BANKS_ARE_A_HARD_RULE_7_DECLINE_NOT_A_CORRELATION_DECLINE_2026-09-24`.
+- **UNH, B, so no position.** The trend and the analysts are fine, but the intermediate structure is a downtrend rather than a dip (20-day < 50-day, −15% off the high in ~2 months).
+- **HPQ, C.** The demand thesis is weakened: planning for a mid-single-digit 2027 PC unit decline, the DRAM/NAND cost shock, and a mean PT 13% below spot.
+- **PATH, C.** AI-software name on the losing side of the same disintermediation story. **DIA:** index ETF, no thesis.
+- **FCEL, C (spec).** The stop is 17.9% wide on a high-beta speculative name. It does not merit concentrated sizing.
+- **EPD, excluded under the sector steer** (energy/midstream, de-emphasized oil complex). Reply to override.
+- **ABNB, re-entry flagged by the report (RSI2 3.6).** Not taken. It is the same stalled hold the time stop just recycled, and nothing has changed about why it stalled.
+- **Options (CORE):** no candidate answered "why now". Separately, today's IV sweep read **8 of 8 core names rich** on ex-gap IV/RV. The durable finding is that for nine sessions this came from realized vol draining, not from premium being bid. Owning record: `holdings.json._THE_CORE_LIST_HAS_READ_8_OF_8_RICH_FOR_NINE_SESSIONS_AND_THE_CAUSE_IS_THE_DENOMINATOR_NOT_THE_PREMIUM`.
 
-## 4. Candidates considered and SKIPPED — with the specific reason
+**The third equity slot was left open on grade, not on capital or throttle.** $1,443 deployable and 1 of 3 equity entries used both permitted it; the A-grade bar did not. That cash is what is left after funding every A-grade idea, and the capital policy treats that as a correct state. It is not a `_cash_hold`.
 
-**This is the section that changed character today.** For two sessions the equity stand-down was reported as capital-blocked with **nothing graded at all**. That is a weaker output than it looks — "we had no money" is not the same claim as "there was nothing worth buying", and only the second one is knowable. So the 18:19Z run graded the field properly. **The answer came back the same, for a better reason.**
+## 5. Book state (broker, 19:15Z)
+- Total value **$3,318.51**. Equity $1,709.50, options $0, cash = buying power = **unleveraged buying power $1,609.01** (no margin used).
+- Operational reserve 5% = **$165.93**. **Deployable $1,443.08**, enough for two ~$721 slots, above the $600 minimum.
+- Equity slots: **2 of the 3–4 target**. Throttles: equity 1/3, options 0/3. Options realized P/L $0.00 vs the −$400 cap.
+- Premium at risk: $0 (CORE). No hedge is currently held.
+- Calibration changes this week: none applied. Monday 09-28 is the next run, which is also the next `graduate()` review.
 
-Eleven RSI2 setups on the 19:07Z report; nine after removing the two HELD names:
-
-| Name | Grade | Why not |
-|---|---|---|
-| **JPM** | **B** | Best trend cushion (4.32% at the stop), shallowest decline — but **disqualified on correlation** with held V and with BAC, and its −3.4% on 09-22 is a sector repricing, not a dip. |
-| **UNH** | **B** | Cushion 3.03%, −4.40%/30d — but **nothing answers "why NOW"**. Also `[ERN 2026-10-13]`, inside the hold window. |
-| **BAC** | **C** | **The trend cushion expires inside the hold:** SMA200 55.2704 rising 0.0409/day turns a 1.32% cushion into 0.28% by the time-stop date. `[ERN 2026-10-14]`. |
-| **BMY** | **C** | −7.10%/30d staircase of lower lows. A downtrend, not a dip. |
-| **VLO, MPC, PSX, EPD** | — | **Excluded unread on Ryan's oil steer** (no new energy entries). Four of eleven setups were energy — a correlated cluster the report flagged itself. |
-
-**The rule that decides it: a B-grade gets NO position, not a small one.** Under the concentration policy the book runs 3–4 names at ~30% each, and that only pays if the top ideas are genuinely better than the rest. Filling a slot with a B is exactly the failure that policy was written to prevent.
-
-**Rotation gate, checked explicitly (it is the live gate, not sizing).** With deployable cash below one position size, a new idea must grade **better than the weakest position held**. Nothing graded above B; all three holdings have intact-or-weakened theses with sound entry stacks. **Selling a sound underwater thesis to chase a fresher signal is the churn the rules forbid** — and it would be pre-empting by one day a mechanical exit that fires on its own tomorrow. **No rotation.**
-
-**Options:** no entry, nothing priced. CORE needs $500–1,000 typical; deployable is $102.61. Pricing a chain the book cannot fund is the research-constrained failure the SOURCING fix warns against — the correct output is to say so and stop. The IV sweep was deferred for the same reason: a row that gates nothing today is not worth an upper-bound measurement.
-
----
-
-## 5. Sleeve state
-
-| | |
-|---|---|
-| Total account value | **$3,312.26** |
-| Equity value / options value | $3,044.04 / **$0.00** |
-| Cash = buying power = **unleveraged** buying power | **$268.22** — identical, so **no margin is being extended** (FOUR LAWS #4 unambiguous) |
-| Operational reserve (5% of total, recomputed) | **$165.61** |
-| **Deployable** | **$102.61** |
-| Options premium at risk | **$0.00** (book empty) |
-| Realized options P/L today | **$0.00** vs the −$400 cap |
-| Options entries used | **0 of 3** (0 of 1 this run) |
-| Equity entries used | **0 of 3** (0 of 1 this run) |
-| Open equity slots | 3 held of the **3–4 target** (band 3–5) |
-| Day-track trades | 1 of 1 (paper) |
-
-**Deployable $102.61 is 17% of the ~$600 minimum equity entry and 21% of the $500 CORE options low end, and below one QQQ share ($740.82).** Both money books are closed on capital; the day track's SHORT side is the one thing that fits.
-
-**This is a correct state, not a breach.** There is no cash floor — it was removed 2026-08-29. Cash is the residual of quality: ~92% deployed across three positions inside the target band is what a fully-deployed book looks like. **No calibration change was applied this week** (Monday 09-21's calibration stands; the options KILL branch that briefly appeared that morning was reversed at 14:05Z and options entries are **not** paused, multiplier 1.0).
-
----
-
-## 6. Tomorrow's watchpoints
-
-1. **THE EVENT — ABNB and UNP hit day 14 and are SOLD on the time stop, green or red.** At today's marks that is ≈ **$2,062** of proceeds, taking deployable from ~$103 to ~$2,165 and the book from 3 names to 1. It is the only mechanical loss discipline this book has, and it fires on its own alert line (`TIME STOP / SELL (stalled)`) — never as a take-profit. Expect ≈ **−$152** realized across the pair at current prices.
-2. **Then the book is UNDER the 3–4 target with real capital**, so the entry bar stops being "can we afford it" and goes back to being "is it A-grade". Today's field topped out at B — if that holds tomorrow, holding the cash is the right answer, but **any deliberate hold must name a catalyst and an expiry** or it is the deleted cash floor sneaking back in.
-3. **V is day 3 of 14** (time stop 2026-10-05), RSI2 8.2 — still the freshest thesis in the book.
-4. **Day track:** the 19:30Z run closes today's paper short on the flat rule at ≈ +1.3R, taking paper to **day 6 / 5 signals**. Graduation needs 10 days and 8 signals, so the earliest possible go-live decision is a Monday calibration two weeks out — and it remains `graduate()`'s call alone, never a mid-week promotion.
-5. **The long/short capital asymmetry is still open and still Ryan's to resolve.** Until it is, roughly half of all future signals are untradeable for a reason that has nothing to do with the signal.
+## 6. Tomorrow's watchpoints (Fri 2026-09-25)
+- **DAY TRACK:** compute the OR on the first run ≥13:45Z. Watch whether the signal-to-action lag skips the setup a second day running.
+- **V:** RSI2 is sitting near 69 (report 68.8) but the position is still underwater. The take-profit fires only on an RSI2≥70 cross *while green* (price > 368.08).
+- **BMY:** day 1 of 14. No catalyst until the 10-02 dividend record date.
+- **Friday review is due.** It belongs to the run that writes Friday's daily report (first run ≥19:15Z), not to the first run of the day. The week's P/L comes from the broker.
+- Time stops coming up: V 10-05, BMY 10-08.
