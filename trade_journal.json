@@ -42357,6 +42357,16 @@
       },
       "duties": "Heartbeat STAMPED for 2026-09-24 (first run at/after 09:30 ET, never early). market_brief REBUILT, with its watchlist explicitly marked STALE-FOR-ENTRY until today's report lands. Cap and both throttles RESET and MEASURED from get_pnl_trade_history (newest realizing trade of any class still 2026-09-18), not defaulted. Ledger updated: two positions removed, two _closed_positions rows appended with full fill provenance. IV sweep DEFERRED -- pre-14:00Z ATM rows are an upper bound per the opening-window inflation finding. Daily report is NOT due yet (first run at/after 19:15Z).",
       "finding": "The ABNB and UNP entry-thesis post-mortems are written into holdings.json._closed_positions[-2:].entry_thesis_outcome, NOT into a new top-level key -- the ledger already carries 343 top-level keys and its own rule says to preserve the FINDING, not the CONTAINER. The transferable one is ABNB: A RISING ANALYST REVISION TREND INTO A DECLINE IS EVIDENCE THE MARKET IS REPRICING RATHER THAN THE COMPANY -- AND THAT IS EXACTLY WHY IT DOES NOT PROTECT A MEAN-REVERSION SWING. Sell-side PTs are 12-month fundamental marks; a Connors swing is a 2-week reversion bet. The read was CORRECT and the trade still lost 10%, because the evidence was doing TIMING work it cannot do."
+    },
+    {
+      "run_utc": "2026-09-24T13:47:00Z",
+      "run_type": "first_post_open_of_trading_day",
+      "trading_day_et": "2026-09-24",
+      "headline": "DAY TRACK resolution for 2026-09-24, same run as the 13:38Z time-stop fills: SKIP on the LATE-ENTRY gate. Long signal, but spot had already cleared the ceiling.",
+      "day_track": "OR 734.6301-736.02 (open 735.29, close 735.79, body 36.0% of range) -> LONG, unambiguous, doji gate not in play. plan_entry() -> action='skip': ceiling = OR high 736.02 + 0.5 x 1.3899 = 736.7150; spot 737.20 sat 0.485 above it. ATR14 daily 9.5506. Row appended to day_track_paper.json (7 rows). NOT a capital skip like 09-22 -- $2,164.25 was deployable against a ~$737 ticket; this was declined on the SETUP. Cause is the 11-minute signal-to-action lag (OR closed 13:35:00Z at 735.79, first readable settled bars 13:46:34Z at 737.20) against a ceiling only 0.925 points wide, itself a consequence of the narrowest OR the track has logged. Entering anyway would have left the stop 2.57 points off with the edge spent -- the exact 'stop pushed back onto the trigger' failure the gate exists to prevent. The skip is the correct output.",
+      "graduation": "7 paper days / 5 signals vs >=10 and >=8. A skip advances days, not signals; signals bind.",
+      "process_note": "git diff --stat caught a real serialization mismatch before it landed: the first write of the paper row used indent=1 (inferred from market_brief.json/iv_history.json) and produced 1,214 insertions / 1,177 deletions for a ~37-line append. day_track_paper.json is indent=2. Reverted and rewrote -> 37 insertions / 0 deletions. This is the documented trap working as intended: there is no repo-wide indent, and the STAT LINE is the detector, not the parameter list in any rule.",
+      "duties": "Day track duty for 2026-09-24 is now DISCHARGED by this run. IV sweep still deferred (pre-14:00Z rows are an upper bound). Daily report not due until 19:15Z."
     }
   ]
 }
