@@ -1205,7 +1205,7 @@
         "bars": 5,
         "window_utc": "13:30:00Z-13:34:59Z",
         "body_frac_of_range": 0.3597,
-        "_note": "0.50 of 1.3899 points = 36.0% body, so the doji gate (body < 10%) is not in play and the direction is unambiguous LONG. But this is the NARROWEST opening range the track has recorded -- 1.39 points against 2.48 on 09-22 -- and a narrow range is exactly what makes the late-entry ceiling easy to breach, because that ceiling is a MULTIPLE OF THE RANGE."
+        "_note": "0.50 of 1.3899 points = 36.0% body, so the doji gate (body < 10%) is not in play and the direction is unambiguous LONG. *** CORRECTED TWICE, 13:52Z, by the concurrent 13:45Z run -- READ THE CORRECTION, IT INVERTS THE ORIGINAL POINT. The first draft of this note called 1.3899 'the NARROWEST opening range the track has recorded' and built a mechanism on it: that a narrow range makes the late-entry ceiling (a MULTIPLE of the range) easy to breach. The arithmetic of that mechanism is sound. The superlative was false, and so was the reviewing run's first correction of it ('second-narrowest'). MEASURED ACROSS ALL SEVEN PAPER DAYS, 1.3899 IS THE FOURTH-NARROWEST OF SEVEN. Three days were narrower and ALL THREE ENTERED, passing this exact gate: 09-16 at 0.93 (entered, -1.0R), 09-21 at 1.02 (entered, +6.4774R -- the track's best trade), 09-15 at 1.295 (entered, -1.0R). So a narrow opening range does NOT predict a late-entry skip, and the two widest ranges (09-22 2.48, 09-17 2.37) include the other skip. What actually breached the ceiling today was the ~11-minute lag between the OR closing and the first run able to read it, against a tape drifting +1.41 points in that window -- the timing_note below has it right. n=1; this is a measurement, not a proposal, and no unattended run may retune this track's gates. THE LESSON IS THE FILE'S MOST-REPEATED ONE: a superlative is a claim about the whole sample, so it must be computed over the whole sample -- two runs asserted a ranking in sequence without either one sorting the seven numbers they both had on disk."
       },
       "atr14_daily": 9.5506,
       "spot_at_decision": 737.2,
@@ -1222,7 +1222,18 @@
       "r_multiple": null,
       "pnl_usd": null,
       "timing_note": "THE GAP BETWEEN THE SIGNAL AND THE ABILITY TO ACT IS WHAT KILLED THIS TRADE, AND IT IS STRUCTURAL, NOT BAD LUCK. The OR completed at 13:35:00Z with QQQ at 735.79. By 13:46:34Z -- the first moment this run could read five settled 1-minute bars, per the 09-21/09-22 feed-lag observation -- spot was 737.20, +1.41 points (+0.19%). The late-entry ceiling sat only 0.925 points above the OR close, so an 11-minute lag at that drift rate was always going to breach it. The gate did its job: entering here would have put the stop 2.57 points (0.35%) away with the edge already spent, which is precisely the 'stop pushed backwards onto the trigger level' failure the late-entry detector exists to prevent. A skip is the correct output, not a missed trade.",
-      "paper_tally_after_this_row": "7 paper days, 5 signals taken (2 winners: 09-21 +6.4774R, 09-23 +1.353R; 3 losers at -1.0R each), 2 skips (09-22 capital, 09-24 late entry). day_track.graduate() needs >=10 paper days AND >=8 signals -- still short on BOTH, and a skip advances the day count but NOT the signal count, which is why the signal count is the binding one."
+      "paper_tally_after_this_row": "7 paper days, 5 signals taken (2 winners: 09-21 +6.4774R, 09-23 +1.353R; 3 losers at -1.0R each), 2 skips (09-22 capital, 09-24 late entry). day_track.graduate() needs >=10 paper days AND >=8 signals -- still short on BOTH, and a skip advances the day count but NOT the signal count, which is why the signal count is the binding one.",
+      "_or_ranges_all_days": {
+        "2026-09-16": 0.93,
+        "2026-09-21": 1.02,
+        "2026-09-15": 1.295,
+        "2026-09-24": 1.3899,
+        "2026-09-23": 2.035,
+        "2026-09-17": 2.37,
+        "2026-09-22": 2.48
+      },
+      "_cross_validation": "INDEPENDENTLY COMPUTED BY TWO CONCURRENT RUNS (the documented redundant-trigger collision) AND THEY AGREE ON EVERY DECISION INPUT. The 13:45Z run measured the OR as high 736.02 / low 734.6301 / open 735.29 / close 735.79 from its own get_equity_historicals pull and got the identical 736.7150 ceiling, direction LONG, action skip. The two runs quoted spot at different instants -- 737.0759 at 13:45:50.516Z and 737.20 at 13:46:34.059Z -- and BOTH sit above the ceiling, by 0.3609 and 0.485 respectively, so the verdict is robust to the 44-second gap rather than resting on one tick. ATR14 daily differed trivially (9.5586 vs 9.5506, different bar windows) and is not load-bearing here: ATR only floors the stop distance, and the stop is the OR low either way. NEITHER RUN PLACED AN ORDER -- the collision hazard this rule exists to catch (two runs each taking 'their' one entry) did not materialise, because both correctly skipped.",
+      "_or_range_rank_of_2026_09_24": "4 of 7 (ascending)"
     }
   ]
 }
