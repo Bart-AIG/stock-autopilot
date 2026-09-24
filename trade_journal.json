@@ -42306,6 +42306,57 @@
       "headline": "Twentieth pre-open run (09:21 ET, 9 min to the bell) and a duplicate of the 13:18Z slot. Stand-down per POST-CLOSE RUN PROTOCOL: nothing placeable, heartbeat NOT stamped (never early), no daily artifact rolled, nothing new measured. Broker read first per the collision rule: no sibling fill.",
       "reconciliation": "ZERO DRIFT both books vs broker. Options 0 positions / $0. Equities 3 swings matching the ledger to six decimals, all fully sellable: ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, V 2.716801 @ 368.08. get_equity_orders(gte=2026-09-23) EMPTY. total_value $3,313.14, cash == buying_power == unleveraged_buying_power == $268.22 (no margin extended), equity_value $3,044.92; reserve 5% = $165.66, deployable $102.56 -- 17% of the ~$600 minimum equity entry, so both books stay closed on capital.",
       "actions": "NONE. No artifact rolled; trading day unchanged. NOTE FOR THE FIRST POST-BELL RUN: ABNB and UNP are both day 14/14 today (entry 2026-09-10) -- the TIME STOP fires on both, green or red, and both are red. That is today's owned action."
+    },
+    {
+      "run_utc": "2026-09-24T13:38:00Z",
+      "run_type": "first_post_open_of_trading_day",
+      "trading_day_et": "2026-09-24",
+      "prompt_version": "v11 (line-1 stamp 'prompt v11, pasted 2026-09-14'). No staleness to report: the v10/v11 stop-authority conflict was discharged 2026-09-15.",
+      "headline": "FIRST POST-BELL run. THE 14-DAY TIME STOP FIRED ON ABNB AND UNP AND BOTH WERE EXECUTED -- the book's only mechanical loss discipline doing exactly the job it was written for. Combined realized -$152.57. Heartbeat stamped, brief rebuilt, cap/throttles reset. Deployable capital goes $102.56 -> $2,164.25 and both books are fundable again for the first time in three sessions. No ENTRY taken, deliberately.",
+      "reconciliation": "BROKER READ FIRST, pre-trade 13:31Z: ZERO DRIFT both books. Options [] / $0. Three swings matching the ledger to six decimals, all fully sellable. get_equity_orders(gte=2026-09-24) EMPTY at 13:31Z AND re-checked immediately before placing per the concurrent-run rule -- no sibling fill. POST-TRADE 13:38Z: one equity position remains, V 2.716801 @ 368.0799; cash $2,330.01.",
+      "actions": {
+        "ABNB": {
+          "action": "SELL / TIME STOP (stalled)",
+          "order_id": "6ab5279c-0592-4a31-b5d1-aa78bf75fe5e",
+          "filled_utc": "2026-09-24T13:37:32.336Z",
+          "shares": 6.573584,
+          "avg_price": 152.5273,
+          "gross_usd": 1002.65,
+          "fees_usd": 0.02,
+          "realized_usd": -111.73,
+          "realized_pct": -10.02,
+          "days_held": 14
+        },
+        "UNP": {
+          "action": "SELL / TIME STOP (stalled)",
+          "order_id": "6ab527a0-c7fe-4a93-9436-1c3a798461bc",
+          "filled_utc": "2026-09-24T13:37:36.754Z",
+          "shares": 3.858199,
+          "avg_price": 274.5265,
+          "gross_usd": 1059.18,
+          "fees_usd": 0.02,
+          "realized_usd": -40.84,
+          "realized_pct": -3.71,
+          "days_held": 14
+        }
+      },
+      "why_these_fired_and_why_it_was_not_a_judgement_call": "SWING_TIME_STOP_DAYS = 14, both entered 2026-09-10, and report.py computes days_held = (today - entered).days, firing on >= 14. 2026-09-24 - 2026-09-10 = 14 EXACTLY, so today is the first day the branch fires. Verified by reading the CODE (report.py:371-378), not by trusting prose -- and independently pre-announced by the committed 09-23 report, which printed 'TIME STOP in 1d (held 13d/14d)' for both names. The time stop fires GREEN OR RED and is not gated on thesis: neither name had hit its target (183.08 / 298.32) and neither could fire the RSI2>=70 take-profit, which is a PROFIT-BANKING authority unavailable BY CONSTRUCTION on a red position (2026-08-26 correction). Under HARD RULE 5 there is no price stop. So the time stop was the ONLY exit either position could ever have had -- the precise case it was wired up for on 2026-09-02, when it was found defined in report.py and read by nothing.",
+      "execution_discipline": "The run fired 13:30:23Z, AT the bell. The standing rule -- never price a decision off the opening auction print, re-quote >= ~5 minutes after 13:30Z -- was applied: quotes were re-taken at 13:37Z and both review_equity_order calls returned order_checks {} before anything was sent. Worth noting which way the bounce cut: ABNB was +2.05% on the day at the quote (prev close 149.58, last 152.64), so this exit was taken INTO an intraday bounce rather than out of one -- the exact framing TIME_STOP_WARN_DAYS exists to produce. Spreads were tight at the fill (ABNB 0.39% of mid, UNP 0.31%).",
+      "why_flat_on_entries": "NO equity entry and NO options entry this run, and the reason is a gate, not an absence of capital. (a) EQUITIES: the only committed reports on master are the 2026-09-23 morning and intraday reports. Today's report has not landed (morning report ~14:06Z). Prompt v11 requires autonomous equity entries to be SIGNAL-SOURCED from the committed report, and entering off yesterday's intraday signals would be trading a stale signal on the first day the capital exists to do it -- which is exactly when the temptation is highest. The standing opening-deferral preference points the same way: prefer the day's entry at/after ~14:15Z, once the session's own report is on master. (b) OPTIONS: fundable again at $2,164.25 deployable, but nothing is armed -- CORE needs the full entry stack plus a liquid monthly chain at target delta, and no candidate has been worked. A skipped trade is free.",
+      "capital": "total_value $3,315.20; cash == buying_power == unleveraged_buying_power == $2,330.01 (no margin extended, FOUR LAWS #4 unambiguous); equity_value $985.19; reserve 5% = $165.76; DEPLOYABLE $2,164.25, against $102.56 before the bell. Book is ONE swing (V) against the 3-4 target, so 2-3 slots are open. SIZING SHAPE FOR THE NEXT RUNS, computed now so it is not re-derived under time pressure: per-name cap is 30% of $3,315.20 = $994.56. deployable/3 slots = $721.42/name, comfortably above the ~$600 minimum and inside the cap. deployable/2 = $1,082.13 WOULD BREACH THE CAP -- so fill toward 4 slots, not 3. This is the concentration policy's own arithmetic binding before conviction does.",
+      "day_track": "PAPER, paper day 7 beginning. Today's signal NOT computable this run and that is BY CONSTRUCTION, not judgement: the 13:30-13:35Z opening range needs five completed 1-minute bars, so plan_entry() can only return 'wait' at 13:30Z. Per the 09-21/09-22 feed-lag observation the OR is reliably readable from ~13:45Z -- today's signal belongs to the first run at/after that. Graduation remains the ONLY gate and is NOT a function of the prompt version: 6 completed paper days and 5 signals against the >=10 days / >=8 signals day_track.graduate() requires.",
+      "tape": {
+        "spy_last": 764.92,
+        "spy_prev_close": 767.81,
+        "spy_day_pct": -0.38,
+        "qqq_last": 736.805,
+        "qqq_prev_close": 741.21,
+        "qqq_day_pct": -0.59,
+        "as_of_utc": "2026-09-24T13:37:07Z",
+        "_discipline": "Numbers only. No directional verdict handed forward."
+      },
+      "duties": "Heartbeat STAMPED for 2026-09-24 (first run at/after 09:30 ET, never early). market_brief REBUILT, with its watchlist explicitly marked STALE-FOR-ENTRY until today's report lands. Cap and both throttles RESET and MEASURED from get_pnl_trade_history (newest realizing trade of any class still 2026-09-18), not defaulted. Ledger updated: two positions removed, two _closed_positions rows appended with full fill provenance. IV sweep DEFERRED -- pre-14:00Z ATM rows are an upper bound per the opening-window inflation finding. Daily report is NOT due yet (first run at/after 19:15Z).",
+      "finding": "The ABNB and UNP entry-thesis post-mortems are written into holdings.json._closed_positions[-2:].entry_thesis_outcome, NOT into a new top-level key -- the ledger already carries 343 top-level keys and its own rule says to preserve the FINDING, not the CONTAINER. The transferable one is ABNB: A RISING ANALYST REVISION TREND INTO A DECLINE IS EVIDENCE THE MARKET IS REPRICING RATHER THAN THE COMPANY -- AND THAT IS EXACTLY WHY IT DOES NOT PROTECT A MEAN-REVERSION SWING. Sell-side PTs are 12-month fundamental marks; a Connors swing is a 2-week reversion bet. The read was CORRECT and the trade still lost 10%, because the evidence was doing TIMING work it cannot do."
     }
   ]
 }

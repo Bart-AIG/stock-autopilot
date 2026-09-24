@@ -1,24 +1,24 @@
 {
  "_comment": "Daily market brief for the options automation. Built by the first post-open run of each TRADING day (ET), never by a post-close/pre-open firing. Refresh intraday only on a genuine shock (VIX +15%, an index breaking a listed level, a major headline).",
- "date": "2026-09-23",
+ "date": "2026-09-24",
  "built_utc": "2026-09-23T13:36:00Z",
  "built_by": "scheduled run 13:30Z 2026-09-23 (unattended, prompt v11) -- first post-bell run of the trading day",
  "regime": {
   "label": "OPENING WINDOW, MEASURED NOT INTERPRETED",
   "spy": {
-   "last": 772.64,
-   "adjusted_previous_close": 773.38,
-   "day_pct": -0.1
+   "last": 764.92,
+   "adjusted_previous_close": 767.81,
+   "day_pct": -0.38
   },
   "qqq": {
-   "last": 746.03,
-   "adjusted_previous_close": 747.46,
-   "day_pct": -0.19
+   "last": 736.805,
+   "adjusted_previous_close": 741.21,
+   "day_pct": -0.59
   },
-  "as_of_utc": "2026-09-23T13:31:04Z",
-  "_ex_div_check": "Performed and CLEAN: QQQ previous_close 747.46 == adjusted_previous_close 747.46, SPY 773.38 == 773.38. No dividend adjustment is live today; do not carry the 09-21 QQQ ex-div handling forward.",
-  "_discipline": "NUMBERS ONLY, no directional verdict handed forward (2026-08-28 rule: a cross-asset read can invert within minutes and the next run must not inherit a frame). These are opening-window prints taken ~60 seconds after the bell -- the least settled quotes of the day. Re-quote at least ~5 minutes after 13:30Z before any of this decides anything.",
-  "_context_not_a_verdict": "QQQ closed 09-22 at 747.46 after 741.47 on 09-21; SPY closed 773.38 after 773.50. Today opens marginally lower on both. Stated as a fact about the prior bars, not as a read on continuation."
+  "as_of_utc": "2026-09-24T13:37:07Z",
+  "_ex_div_check": "Performed and CLEAN: QQQ previous_close 741.21 == adjusted_previous_close 741.21; SPY 767.81 == 767.81. No dividend adjustment live today.",
+  "_discipline": "NUMBERS ONLY, no directional verdict handed forward (2026-08-28 rule: a cross-asset read can invert within minutes and the next run must not inherit a frame). These are 13:37Z prints, taken ~7 minutes after the bell rather than in the auction, so they are usable -- but they are still an early-session reading and decide nothing on their own.",
+  "_context_not_a_verdict": "QQQ closed 09-23 at 741.21 and SPY at 767.81; both open lower, QQQ by more. Stated as a fact about the prints, not as a read on continuation or on breadth."
  },
  "catalysts_next_5_sessions": [
   "get_earnings_calendar(2026-09-23, 7d, high_market_cap) checked this run: NONE of ABNB, UNP or V appears, so no scheduled binary event falls inside any held name's remaining hold window.",
@@ -27,35 +27,23 @@
   "FOMC 2026-09-16/17 is RESOLVED and must not be cited as a forward catalyst. Under the 2026-09-14 narrowed CATALYST BAR macro events are a SIZING input for CORE options, never a bar -- moot today, the options book is closed on capital."
  ],
  "watchlist": {
-  "core_options_candidates": [],
-  "_why_no_options_candidates": "Options book closed on CAPITAL: $100.49 deployable (total_value $3,354.59, cash == unleveraged_buying_power == $268.22, 5% reserve $167.73) against a $500 CORE low end. Not a thesis or catalyst decline -- no candidate was graded because none could be funded.",
-  "equity_candidates": [
-   {
-    "symbol": "BAC",
-    "rsi2": 5.9,
-    "grade": "C",
-    "reason": "EXCLUDED. Trend cushion EXPIRES inside the hold: SMA200 55.2704 rising 0.0409/day, so the 1.32% cushion becomes 0.28% by the 14-day time stop. -8.90% over 30 sessions. Correlated with the held V and with JPM."
-   },
-   {
-    "symbol": "BMY",
-    "rsi2": 2.8,
-    "grade": "C",
-    "reason": "EXCLUDED. -7.10% over 30 sessions in a staircase of lower lows -- a de-rating, not a dip. Cushion 2.16% at the stop."
-   },
-   {
-    "symbol": "UNH",
-    "rsi2": 7.2,
-    "grade": "B",
-    "reason": "NO POSITION. Cushion adequate (3.03% at stop), decline shallower (-4.40%), but nothing answers 'why NOW'. A B-grade gets NO position, not a small one."
-   },
-   {
-    "symbol": "JPM",
-    "rsi2": 8.1,
-    "grade": "B",
-    "reason": "NO POSITION. Best cushion on the board (4.32% at stop) but disqualified on CORRELATION with the held V and with BAC; its -3.4% session on 09-22 is a sector repricing, not a dip."
-   }
+  "_status": "NOT REBUILT FROM TODAY'S SIGNALS -- and the reason is stated rather than left implicit: at 13:38Z today's report is not yet on master (the morning report lands ~14:06Z). The candidate list below is carried from the 2026-09-23 report and is explicitly STALE FOR ENTRY PURPOSES. The first run with today's report must rebuild this before grading anything.",
+  "equity_candidates_STALE_2026-09-23": [
+   "VZ",
+   "BMY",
+   "UNH",
+   "BAC",
+   "JPM"
   ],
-  "_why_no_equity_candidates": "SUPERSEDED AT 18:19Z -- THE BOARD HAS NOW BEEN GRADED AND THE ANSWER IS A JUDGEMENT, NOT AN ARITHMETIC EXCUSE. The 13:36Z text below was accurate when written and is retained for the record. The correction matters because the two answers expire differently: 'no capital' stops being true TOMORROW when the ABNB and UNP time stops free ~$2,060, whereas 'no A-grade on this board' is a verdict. GRADED THIS RUN: 9 RSI2 setups -> 2 HELD (ABNB, V), 3 excluded unread on the oil steer (VLO, MPC, PSX), 4 gradable -> ZERO A-grades (BAC C, BMY C, UNH B, JPM B). The rotation gate therefore FAILS ON THE MERITS: the weakest held position on the entry stack is ABNB (thesis WEAKENED) and nothing on the board beats it -- and ABNB's time stop fires tomorrow anyway, so a rotation today would buy ~18 hours of acceleration and spend a slot on a B-grade the day before two slots open by themselves. Full measurement and method: holdings.json._THE_ROTATION_GATE_WAS_ANSWERED_ON_THE_MERITS_2026-09-23. --- ORIGINAL 13:36Z TEXT --- TWO independent bars, either sufficient. (1) CAPITAL: $100.49 deployable is 17% of the ~$600 minimum entry, and under the CONCENTRATION POLICY a sub-$600 entry is a SKIPPED opportunity, not a small one. With deployable below one position size the live gate is ROTATION -- a new idea must grade BETTER THAN THE WEAKEST POSITION HELD, and no idea has been graded at all. (2) REPORT FRESHNESS: at 13:36Z the newest committed report is latest_intraday.md 2026-09-22T19:08Z, i.e. YESTERDAY. Autonomous equity entries are signal-sourced from the CURRENT report; today's morning report lands ~14:07Z. This is also the OPENING-DEFERRAL preference (prefer the day's autonomous entry at/after ~14:15Z, once today's report is on master) -- but note it is not doing the work today, capital is."
+  "_held_now": [
+   "V"
+  ],
+  "_just_closed_today_do_not_re-enter_blind": [
+   "ABNB",
+   "UNP"
+  ],
+  "_re_entry_note": "ABNB still printed RSI2 1.6 on the 09-23 intraday report and will likely re-appear as a setup TODAY. It was just time-stopped at -10.02%. report.py's recently-closed guard covers the SWING_TIME_STOP_DAYS window for exactly this case -- a name exited on elapsed time has NOT earned a fresh entry merely by still being oversold, because the oversold condition is WHY it was bought the first time and it did not revert. Re-entry needs a genuinely new reason, not the same signal again.",
+  "core_options_candidates": "Options book is empty and was unfundable for three sessions on capital; it is fundable again as of this run ($2,164.25 deployable). CORE needs the full entry stack and a liquid monthly chain at target delta -- nothing is armed."
  },
  "constraints_today": {
   "total_value_usd": 3315.66,
@@ -84,5 +72,6 @@
   "status": "deferred",
   "as_of_utc": null,
   "rows": []
- }
+ },
+ "_rebuilt_by": "First post-bell run of 2026-09-24 (13:30:23Z), which also executed the ABNB and UNP time stops."
 }
