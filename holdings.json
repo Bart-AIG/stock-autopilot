@@ -7930,5 +7930,30 @@
     "the_fix_use_a_THREE_WAY_union_keyed_on_CONTENT": "Do not dedup the two sides against each other. Take `git merge-base HEAD origin/master`, read the journal at that BASE, and append only entries whose exact serialization (json.dumps(e, sort_keys=True)) is absent from the base. Base history is then carried through untouched by construction, and each side contributes exactly what it added. ASSERT IT, DON'T READ IT: len(out) == len(base) + (entries added by theirs) + (added by mine). On this collision that is 1798 + 1 + 1 = 1800; the timestamp key gave 1796 and looked fine.",
     "generalises_beyond_the_journal": "Any append-only artifact merged this way needs the same treatment -- day_track_paper.json's _manage_log included. That log happens to be safe under a run_utc key today only because two passes in one slot have never yet shared a timestamp to the minute; that is luck, not a property. Prefer the base-diff union everywhere and reserve timestamp keys for objects that are overwritten in place (_manage_state, _current_state), where the LATER pass legitimately wins.",
     "second_finding_in_the_same_merge": "The sibling 18:15Z row advanced `r_multiple` to 1.346 and appended its _manage_log entry but left `_manage_state.checked_utc` stamped 18:02Z -- the overwrite-in-place summary disagreeing with the field it summarises. Repaired by this union (both now read 18:19Z / 1.186). Standing assertion for any day-track write: _manage_state.checked_utc == _manage_log[-1].run_utc AND _manage_state.r_now == row.r_multiple."
+  },
+  "_THE_CORE_LIST_HAS_READ_8_OF_8_RICH_FOR_NINE_SESSIONS_AND_THE_CAUSE_IS_THE_DENOMINATOR_NOT_THE_PREMIUM": {
+    "measured_utc": "2026-09-24T14:05:00Z",
+    "measured_by": "scheduled run (prompt v11), on the 14:02Z core-list IV sweep",
+    "one_line": "Every one of the eight core names has read ex-gap IV/RV above 1.0 for NINE consecutive sessions (09-14..09-24) after never once doing so in the sixteen sessions before -- but implied vol is FLAT across that break and it is realized vol that fell, so 'premium is rich everywhere' is a statement about a draining trailing window, not about anyone bidding for protection.",
+    "the_count": {
+      "sessions_with_all_8_ex_gap_readings": 25,
+      "2026-08-20_to_2026-09-11": "16 sessions, 6/8 or 7/8 above 1.0 every single day, never 8/8. AMD was the persistent sub-1.0 name the whole stretch (0.783-0.9926) and crossed on 09-16.",
+      "2026-09-14_to_2026-09-24": "9 sessions, 8/8 above 1.0 every single day. Mean ex-gap ratio stepped 1.1657 -> 1.3193 across the 09-11/09-14 boundary and has since eased to 1.2483.",
+      "today_2026-09-24": "8/8. min NVDA 1.0396, max SPY 1.5383, mean 1.2483. Raw-ratio percentiles vs own history: MSFT 93.5, QQQ 90.3, SPY 80.6, AMD 80.6, TSM 77.4, TSLA 67.7, AVGO 19.4, NVDA 16.1."
+    },
+    "the_decomposition_and_it_is_the_whole_point": {
+      "method": "mean across the eight names of atm_iv and of rv_30d_ex_top2, either side of the boundary. Both legs of a ratio move; reporting only the ratio hides which one did.",
+      "mean_atm_iv": "0.30392 (09-11) -> 0.31820 (09-14), +4.7% -- and 0.30753 today, i.e. essentially back to where it started. IMPLIED VOL DID NOT RISE.",
+      "mean_rv_30d_ex_top2": "0.27694 (09-11) -> 0.25981 (09-14), -6.2%, and kept falling to 0.25065 by 09-18. THE DENOMINATOR SHRANK.",
+      "verdict": "The nine-session unanimity is real and the reading is arithmetically correct. Its CAUSE is a quiet tape rolling large early-August moves out of the 30-day window, not premium being bid up. A quiet tape is a reason premium is FAIRLY priced for a quiet future -- it is not evidence that anyone is paying up, and it is not a warning signal."
+    },
+    "what_this_forbids_a_future_run_from_CLAIMING": [
+      "'Vol is being bid across the core list / the market is paying up for protection / something is coming.' Measured false: implied vol is flat over the nine sessions and sits where it did on 09-11.",
+      "Treating the ex-gap gauge as SELECTING among core names right now. A filter that returns the same verdict on all eight candidates for nine straight sessions has no discriminating power across that set -- it is a regime reading wearing a filter's clothes. It can still say 'long premium is uniformly disfavoured'; it cannot say WHICH name to prefer.",
+      "Reading NVDA's raw 0.7593 (16th percentile) as cheap. Its window carries an 8.738% single-day move; ex-gap it is 1.0396, i.e. fair. The 2026-10-16 board expires before NVDA's next print, so EX-GAP governs -- textbook instance of the read-them-as-a-pair rule."
+    ],
+    "what_it_does_NOT_change": "Nothing about today's decisions. The options book is flat because no candidate has a thesis or a 'why NOW', not because of vol; the equity hunt is deferred because today's report is not yet on master. A filter's inputs can only be audited credibly on a run where the audit changes no decision -- this is that run.",
+    "the_transferable_shape": "This is the DENOMINATOR-STALENESS class the repo has documented four times for VOLUME baselines (session-average too strict, trailing-local too easy in a decaying tape, closing-auction too easy, post-flush too strict), arriving in the IV gauge. The mechanism is identical: a trailing window drains, every ratio computed against it rises at once, and nothing errors. It survived because iv_history.json is read ONE ROW AT A TIME -- the same habit the 2026-08-25 'diff the series before quoting today's row' rule was written to break, which caught a four-session NVDA ramp and was likewise filed against one ticker. GENERAL RULE: whenever a ratio moves, say which LEG moved. A ratio reported without its decomposition is an observation that cannot be acted on.",
+    "cheap_detector": "When citing any IV/RV reading as a reason, quote atm_iv and rv_30d_ex_top2 alongside the ratio, and check the last ~10 sessions of BOTH. If the ratio moved and implied vol did not, the finding is about realized vol and must be stated that way."
   }
 }
