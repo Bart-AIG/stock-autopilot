@@ -42359,6 +42359,27 @@
       "finding": "The ABNB and UNP entry-thesis post-mortems are written into holdings.json._closed_positions[-2:].entry_thesis_outcome, NOT into a new top-level key -- the ledger already carries 343 top-level keys and its own rule says to preserve the FINDING, not the CONTAINER. The transferable one is ABNB: A RISING ANALYST REVISION TREND INTO A DECLINE IS EVIDENCE THE MARKET IS REPRICING RATHER THAN THE COMPANY -- AND THAT IS EXACTLY WHY IT DOES NOT PROTECT A MEAN-REVERSION SWING. Sell-side PTs are 12-month fundamental marks; a Connors swing is a 2-week reversion bet. The read was CORRECT and the trade still lost 10%, because the evidence was doing TIMING work it cannot do."
     },
     {
+      "run_utc": "2026-09-24T13:46:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-24",
+      "prompt_version": "v11",
+      "headline": "DAY TRACK paper day 7 DECIDED: SKIP on the late-entry gate. QQQ signalled LONG off a 1.3899-pt opening range; spot 737.0759 sat 0.3609 above the 736.7150 anti-chase ceiling. No position. Both hunts deferred to the first run with today's report on master.",
+      "reconciliation": "ZERO DRIFT, broker-first. Equities: one position, V 2.716801 @ 368.0799, matching holdings.json to six decimals and fully sellable. Options: none, $0. get_equity_orders(gte=2026-09-24) returns exactly the two agentic TIME STOP sells the 13:30Z run placed (ABNB 6ab5279c, UNP 6ab527a0) -- no QQQ/PSQ order, so no sibling took today's day trade. Capital: total_value $3,316.64, cash == buying_power == unleveraged_buying_power == $2,330.01 (no margin extended), equity_value $986.63; reserve 5% = $165.83, deployable $2,164.18.",
+      "day_track": "Decision belongs to this run by construction -- the 13:30:23Z run could only return 'wait' (the OR needs five completed 1-minute bars). OR 13:30-13:34:59Z: high 736.02 / low 734.6301 / open 735.29 / close 735.79, body 36.0% of range (doji gate clear), direction LONG. plan_entry -> skip: 736.02 + 0.5 x 1.3899 = 736.7150 ceiling vs a 13:45:50Z quote of 737.0759. Row = day_track_paper.json rows[6]; the cadence observation lives there and is n=1, measured not proposed. Graduation unmoved: 7 paper days of 10, 5 signals of 8.",
+      "why_flat": "EQUITIES: today's report is not yet on master -- the newest committed is the 09-23 19:07Z intraday, and the EQUITY BOOK rule bars an autonomous entry off a stale report. The 09-24 morning report lands ~14:06Z, and the standing opening-deferral preference independently says to prefer the day's entry at/after ~14:15Z. Deferred, not declined: one swing (V) against the 3-4 target leaves 2-3 slots open and $2,164.18 deployable, so at deployable/3 a ~$721 ticket clears the ~$600 minimum and sits inside the 30% per-name cap of $994.99. Note deployable/2 = $1,082 WOULD breach that cap -- fill toward 4 slots, not 3. OPTIONS: book empty, 0 of 3 CORE slots used, 0 of 3 entries. No CORE entry armed: a CORE entry needs IV sanity computed from iv_history.json and pre-14:00Z ATM rows are a documented upper bound (opening-window inflation, -2.5% to -4.4% across four measurements), so pricing one now would decide off a number known to be wrong. Deferred to the same post-14:15Z run.",
+      "tape": {
+        "qqq_last": 737.0759,
+        "qqq_prev_close": 741.21,
+        "qqq_day_pct": -0.56,
+        "spy_last_bar_close": 764.73,
+        "spy_prev_close": 767.81,
+        "spy_day_pct": -0.4
+      },
+      "duties": "Heartbeat already stamped 13:38Z by the first post-bell run (not re-stamped). market_brief.json already stamped 2026-09-24 (not rebuilt). Daily report due at the first run >= 19:15Z, not this one. Weekly calibration is Monday-only; today is Thursday. Options loss cap $0.00 realized of -$400 and throttles 0 of 3 / 0 of 3 READ from the ledger, not defaulted.",
+      "positions_verdict": "V (swing, entered 09-21, day 3 of 14, target 383.06, no price stop per HARD RULE 5): WORKING. Last 363.23 vs entry 368.0799 = -1.32%, underwater but well inside normal swing noise; no RSI2>=70 take-profit print, time stop not due until 2026-10-05, no thesis flag. HOLD, no action.",
+      "_concurrent_run_note": "UNION MERGE, not a duplicate. The sibling 13:30Z run computed the same DAY TRACK skip independently and landed it as PR #1996 while this run was writing; both entries are kept per the concurrent-run rule, and their agreement on every decision input (OR bounds, ceiling, direction, verdict) is cross-validation. The paper log keeps ONE row for 09-24 -- a second would corrupt the day and signal counts graduate() reads. CORRECTION THIS RUN OWES ITSELF: this entry's paper row originally called today's 1.3899 opening range 'the second-tightest, only 09-16 was tighter'. That is WRONG -- it is the FOURTH-narrowest of seven (09-16 0.93, 09-21 1.02, 09-15 1.295 are all narrower, and all three ENTERED). This run corrected the sibling's 'narrowest' superlative and then committed its own version of the identical error in the same edit. Both are now fixed in the paper row from the sorted set. No decision depended on the ranking -- the skip rests on the ceiling arithmetic, which both runs got right and which is unaffected."
+    },
+    {
       "run_utc": "2026-09-24T13:47:00Z",
       "run_type": "first_post_open_of_trading_day",
       "trading_day_et": "2026-09-24",
