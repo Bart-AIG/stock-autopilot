@@ -42280,6 +42280,16 @@
       "headline": "Seventeenth post-close no-op. Market shut (08:24 ET, 66 min to the bell). Stand-down per POST-CLOSE RUN PROTOCOL; heartbeat NOT stamped (never early) and no daily artifact rolled.",
       "reconciliation": "ZERO DRIFT both books vs broker, BROKER READ FIRST. Options 0 positions / $0. Equities 3 swings to six decimals: ABNB 6.573584 @ 169.52, UNP 3.858199 @ 285.11, V 2.716801 @ 368.08, all fully sellable. get_equity_orders(gte=2026-09-23) EMPTY. total_value $3,299.79, cash==buying_power==unleveraged_buying_power $268.22, reserve $164.99, deployable $103.23.",
       "actions": "NONE. No artifact rolled; trading day still 2026-09-23. Already-recorded condition carried, not re-derived: ABNB and UNP reach day 14 at today's open and their TIME STOPs fire for the first post-bell run."
+    },
+    {
+      "run_utc": "2026-09-24T13:03:00Z",
+      "run_type": "post_close_overnight",
+      "trading_day_et": "2026-09-23",
+      "headline": "Eighteenth pre-open run (09:00 ET, 30 min to the bell). Stand-down: nothing placeable, heartbeat NOT stamped, no daily artifact rolled. One NEW measurement recorded -- see finding.",
+      "reconciliation": "ZERO DRIFT both books, BROKER READ FIRST. Options 0 positions / $0. Equities 3 swings to six decimals, all fully sellable: ABNB 6.573584 @ 169.5209, UNP 3.858199 @ 285.1071, V 2.716801 @ 368.0799. get_equity_orders(gte=2026-09-23) EMPTY -- no sibling fill, no overnight user trade. total_value $3,310.88, cash == buying_power == unleveraged_buying_power $268.22 (no margin extended), reserve 5% $165.54, deployable $102.68.",
+      "finding": "OWNERSHIP OF TODAY'S TWO TIME-STOP EXITS IS NOW BROKER-CONFIRMED, NOT INFERRED. The ledger carried placed_agent=null on all three swings, which is AMBIGUOUS to the ownership gate -- the one gate that can block a mechanical exit, since a placed_agent='user' position is never sold autonomously. get_equity_orders(state='filled', gte=2026-09-09) resolves it: ABNB order 6aa2bcce filled 2026-09-10T14:21:02Z and UNP order 6aa2f4ee filled 2026-09-10T18:20:30Z are BOTH placed_agent='agentic' (V order 6ab13deb likewise). Written back onto each position with its order id and fill time, so the first post-bell run executes the time stop without re-deriving ownership under the open. Seventeen prior runs carried the time-stop date forward correctly and none had checked whether the sale was permitted.",
+      "todays_event": "ABNB and UNP reach day 14 of 14 today (entered 2026-09-10; report.py days_held is CALENDAR days, 2026-09-24 - 2026-09-10 = 14 >= SWING_TIME_STOP_DAYS). Both committed 09-23 reports say 'TIME STOP in 1d (held 13d/14d)' and neither carries DATA ERROR. The TIME STOP fires GREEN OR RED and both are red (ABNB ~-11%, UNP ~-3%); it is the book's only mechanical loss discipline and is NOT gated by the -$400 options cap, which is options-only and gates entries never exits. Proceeds ~$2,060 take deployable from $102.68 to ~$2,160 and reopen both books -- the first entry capacity since 09-21.",
+      "actions": "NONE. Market shut. No artifact rolled; trading day still 2026-09-23. Ledger: placed_agent + provenance written to 3 positions (git diff --stat 11 insertions / 5 deletions, scope-matched)."
     }
   ]
 }
