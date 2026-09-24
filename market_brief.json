@@ -1,8 +1,8 @@
 {
  "_comment": "Daily market brief for the options automation. Built by the first post-open run of each TRADING day (ET), never by a post-close/pre-open firing. Refresh intraday only on a genuine shock (VIX +15%, an index breaking a listed level, a major headline).",
  "date": "2026-09-24",
- "built_utc": "2026-09-23T13:36:00Z",
- "built_by": "scheduled run 13:30Z 2026-09-23 (unattended, prompt v11) -- first post-bell run of the trading day",
+ "built_utc": "2026-09-24T13:36:00Z",
+ "built_by": "scheduled run 13:30Z 2026-09-24 (unattended, prompt v11) -- first post-bell run of the trading day. SECTIONS BELOW REBUILT 14:34Z by the 14:32Z run: the 13:42Z rebuild updated `date` and `regime` but carried constraints_today, DAY_TRACK_today, watchlist, equity_entries_taken_today and exits_taken_today verbatim from 2026-09-23, and `built_utc`/`built_by` still read 09-23. See holdings.json._THE_MARKET_BRIEF_WAS_HALF_REBUILT_AND_ITS_DATE_FIELD_HID_IT_2026-09-24.",
  "regime": {
   "label": "OPENING WINDOW, MEASURED NOT INTERPRETED",
   "spy": {
@@ -27,43 +27,94 @@
   "FOMC 2026-09-16/17 is RESOLVED and must not be cited as a forward catalyst. Under the 2026-09-14 narrowed CATALYST BAR macro events are a SIZING input for CORE options, never a bar -- moot today, the options book is closed on capital."
  ],
  "watchlist": {
-  "_status": "NOT REBUILT FROM TODAY'S SIGNALS -- and the reason is stated rather than left implicit: at 13:38Z today's report is not yet on master (the morning report lands ~14:06Z). The candidate list below is carried from the 2026-09-23 report and is explicitly STALE FOR ENTRY PURPOSES. The first run with today's report must rebuild this before grading anything.",
-  "equity_candidates_STALE_2026-09-23": [
-   "VZ",
-   "BMY",
-   "UNH",
-   "BAC",
-   "JPM"
+  "_status": "REBUILT 14:34Z from the committed morning report on master (latest_morning.md 2026-09-24T14:07Z, commit e800ba0; header clean, no DATA ERROR). The prior content was the 2026-09-23 list, which the brief's own _status correctly flagged as STALE FOR ENTRY PURPOSES and told the first run with today's report to rebuild -- that instruction was not carried out by the 14:19Z or 14:26Z runs, so it is done here.",
+  "equity_candidates_2026-09-24": [
+   "BMY (TAKEN 14:18Z)",
+   "USB",
+   "FCEL",
+   "JPM",
+   "SCHW",
+   "MS"
   ],
+  "equity_candidates_graded": {
+   "BMY": "A -- TAKEN 14:18Z at 61.4439, $721.00. Deepest oversold of the six (RSI2 2.1), rising SMA200 +4.1% cushion, no earnings in window, uncorrelated with V.",
+   "USB_JPM_SCHW_MS": "EXCLUDED. The 14:19Z run graded these B on PORTFOLIO CONSTRUCTION (one correlated cluster, would stack a second financial beside V, shallower oversold at RSI2 6.6-8.7, two still falling). The 14:32Z run re-graded them on THESIS and reached a stronger verdict: the sector is being actively de-rated on three named drivers, so this is a falling-knife bounce, not a dip in an intact uptrend. See _WHY_THE_OVERSOLD_BANKS_ARE_A_HARD_RULE_7_DECLINE_NOT_A_CORRELATION_DECLINE_2026-09-24.",
+   "FCEL": "C -- EXCLUDED. SPEC-tagged, -18.0% stop width flagged by the report itself; volatility incompatible with a no-price-stop ~22%-of-account position. The spec sleeve is not a reason to lower the A-grade bar."
+  },
+  "momentum_decile_screened_2026-09-24": "SCREENED AND DECLINED WHOLESALE, first run to do so today. The top decile (22 of 229) is effectively ONE theme -- AI semis / optical / infra: MU, LITE, AAOI, AEHR, TSEM, INTC, DELL, VIAV, MRVL, COHR, NBIS, LRCX, AMAT, AMD, MTSI, GLW (+KLAC, CRDO just outside). Declined on three legs: (a) TREND MATURITY -- mom12-1 of +701% (MU), +617% (LITE), +526% (MRNA) is a 6-7x run, which the gate calls late-stage BY DEFAULT and needing extraordinary justification; (b) PRESENT TAPE DIVERGES for a long -- the AI complex is the source of today's weakness (NVDA -1.18%, MSFT -1.62%, AVGO -1.80%, QQQ -0.50%), and the Nasdaq 100 printed an intraday record on 09-22, so this is a distribution day in a mature run; (c) NO 'WHY NOW' -- RSI14 sits mid-range 49-58 on nearly all of them, i.e. no dip and no catalyst. VLO and MPC additionally excluded on the standing de-emphasized-energy steer (refiners).",
   "_held_now": [
-   "V"
+   "V",
+   "BMY"
   ],
-  "_just_closed_today_do_not_re-enter_blind": [
+  "_closed_today_do_not_re-enter_blind": [
    "ABNB",
    "UNP"
   ],
-  "_re_entry_note": "ABNB still printed RSI2 1.6 on the 09-23 intraday report and will likely re-appear as a setup TODAY. It was just time-stopped at -10.02%. report.py's recently-closed guard covers the SWING_TIME_STOP_DAYS window for exactly this case -- a name exited on elapsed time has NOT earned a fresh entry merely by still being oversold, because the oversold condition is WHY it was bought the first time and it did not revert. Re-entry needs a genuinely new reason, not the same signal again.",
-  "core_options_candidates": "Options book is empty and was unfundable for three sessions on capital; it is fundable again as of this run ($2,164.25 deployable). CORE needs the full entry stack and a liquid monthly chain at target delta -- nothing is armed."
+  "_re_entry_note": "MOOT for ABNB today: it did NOT appear among today's six RSI2 setups, so report.py's recently-closed guard was not even tested. The standing principle still holds -- a name exited on ELAPSED TIME has not earned a fresh entry merely by still being oversold, because the oversold condition is WHY it was bought and it did not revert.",
+  "core_options_candidates": "NONE ARMED, and the binding reason is THESIS ABSENCE, not capital -- the book is fundable again ($1,442.90 deployable). The report's options candidates are all thin mid-caps (LITE, MRNA, FCEL, BE / BYND, SMR, FIG, ZTS, NKE) measured twice at ~zero options tradeability at this account size; MU is liquid but is the +701% momentum name that fails the trend-maturity gate above. The core IV list reads 8/8 RICH on ex-gap IV/RV for a ninth session (a denominator artifact per the 14:05Z finding), and IV sanity is NEVER a thesis in either direction."
  },
  "constraints_today": {
-  "total_value_usd": 3315.66,
-  "cash_usd": 268.22,
-  "unleveraged_buying_power_usd": 268.22,
-  "operational_reserve_usd": 165.78,
-  "deployable_usd": 102.44,
-  "equity_value_usd": 3047.44,
+  "total_value_usd": 3322.28,
+  "cash_usd": 1609.01,
+  "unleveraged_buying_power_usd": 1609.01,
+  "operational_reserve_usd": 166.11,
+  "deployable_usd": 1442.9,
+  "equity_value_usd": 1713.27,
   "options_premium_at_risk_usd": 0.0,
-  "equity_slots_used": "3 of the 3-4 target (band 3-5)",
+  "equity_slots_used": "2 of the 3-4 target (band 3-5) -- V, BMY. 2 slots open.",
   "realized_options_pnl_today_usd": 0.0,
   "options_entries_used": "0 of 3",
-  "equity_entries_used": "0 of 3",
-  "margin": "NONE. buying_power == unleveraged_buying_power == 268.22, so FOUR LAWS #4 is unambiguous today.",
-  "_as_of_utc": "2026-09-23T18:18Z",
-  "_note": "Re-read from the broker at 18:18Z, not carried from the 13:36Z build. Reserve is 5% of a MOVING total_value and is recomputed, never hard-coded."
+  "equity_entries_used": "1 of 3 (BMY 14:18Z)",
+  "realized_equity_pnl_today_usd": -152.57,
+  "margin": "NONE. cash == buying_power == unleveraged_buying_power == 1609.01, so FOUR LAWS #4 is unambiguous today.",
+  "_as_of_utc": "2026-09-24T14:32Z",
+  "_note": "RE-READ FROM THE BROKER at 14:32Z. The values this replaced were the 2026-09-23T18:18Z snapshot (total_value 3315.66, cash 268.22, deployable 102.44, equity_value 3047.44, slots '3 of the 3-4 target') and were carried through today's 13:42Z rebuild. They were wrong in the direction that SUPPRESSES a trade: a run trusting them would read the book as FULL and unfundable at $102.44 deployable when $1,442.90 and two open slots actually exist. Reserve is 5% of a MOVING total_value and is recomputed every run, never hard-coded.",
+  "_sizing_shape_if_an_A_GRADE_APPEARS": "deployable/2 remaining slots = $721.45, which is above the ~$600 minimum and inside the 30% per-name cap of $996.68. So a third entry is fully fundable and compliant -- the ONLY thing withholding it today is that no candidate graded A."
  },
- "DAY_TRACK_today": "PAPER, ACTIVE, paper day 6, signals 5. Signal resolved 13:46Z: OR 745.085-747.12, body 92.6% -> SHORT; PSQ 4 @ 24.6212 = $98.48, stop 24.5322 (signal 747.12, 0.3614%), r_usd $0.36, bound_by cash. NO ORDER PLACED (PAPER). ONE TRADE PER DAY IS SPENT. 18:19Z manage pass -> HOLD at 1.186R on the live 741.24 ask; stop sits at BREAKEVEN 744.43 and is permanent, so the row cannot lose. FOURTH consecutive give-back and a second ATR contraction (0.8006 -> 0.7341): the 2.0R trail arm has receded on every pass and is 2.19 pts away, so THE REALISTIC EXIT IS THE 15:30 ET FLAT RULE, NOT THE TRAIL. The long/short capital asymmetry is unchanged -- the same ~$100 deployable that bought zero QQQ shares on 09-22 bought four PSQ today; direction changed, capital did not.",
- "equity_entries_taken_today": [],
- "exits_taken_today": [],
+ "DAY_TRACK_today": "PAPER, ACTIVE, paper day 7, signals 5. TODAY'S SIGNAL IS RESOLVED AND SPENT: **SKIP, LATE ENTRY**, computed 13:46:40Z. OR 734.6301-736.02 from 1-minute bars (range 1.3899, the track's narrowest), open 735.29 close 735.79, body 36.0% -> direction LONG, unambiguous. plan_entry() returned action='skip': late-entry ceiling = OR high 736.02 + 0.5 x 1.3899 = 736.7150 and spot was 737.20, i.e. 0.485 ABOVE it. NO POSITION, nothing to manage, one trade per day is spent. This skip differs from 09-22's and the difference matters: 09-22 skipped on CAPITAL (could not afford one share); this skipped on the SETUP, with $2,164.25 deployable against a ~$737 ticket. A SKIP ADVANCES THE DAY COUNT BUT NOT THE SIGNAL COUNT, so signals are the binding graduation constraint -- 5 of the >=8 needed, against 7 of >=10 days. Next graduate() review 2026-09-28.",
+ "equity_entries_taken_today": [
+  {
+   "symbol": "BMY",
+   "side": "buy",
+   "order_id": "6ab53133-5edd-4169-b576-bc5789b69a8c",
+   "filled_utc": "2026-09-24T14:18:27.99Z",
+   "shares": 11.734281,
+   "avg_price": 61.4439,
+   "usd": 721.0,
+   "placed_agent": "agentic",
+   "grade": "A",
+   "time_stop": "2026-10-08",
+   "_note": "Placed by the 14:19Z sibling run, not by the run that rebuilt this section."
+  }
+ ],
+ "exits_taken_today": [
+  {
+   "symbol": "ABNB",
+   "side": "sell",
+   "order_id": "6ab5279c-0592-4a31-b5d1-aa78bf75fe5e",
+   "filled_utc": "2026-09-24T13:37:32.336Z",
+   "shares": 6.573584,
+   "avg_price": 152.5273,
+   "gross_usd": 1002.65,
+   "pnl_usd": -111.73,
+   "pnl_pct": -10.02,
+   "exit_reason": "TIME STOP (14d, entered 2026-09-10) -- fires green or red",
+   "placed_agent": "agentic"
+  },
+  {
+   "symbol": "UNP",
+   "side": "sell",
+   "order_id": "6ab527a0-c7fe-4a93-9436-1c3a798461bc",
+   "filled_utc": "2026-09-24T13:37:36.754Z",
+   "shares": 3.858199,
+   "avg_price": 274.5265,
+   "gross_usd": 1059.18,
+   "pnl_usd": -40.84,
+   "pnl_pct": -3.71,
+   "exit_reason": "TIME STOP (14d, entered 2026-09-10) -- fires green or red",
+   "placed_agent": "agentic"
+  }
+ ],
  "weekly_calibration": "NOT DUE. Today is Wednesday; the calibration is the first run of each Monday. Last run 2026-09-21 (_WEEKLY_CALIBRATION_2026-09-21, including the options KILL reversal at 14:05Z). Next 2026-09-28, which is also the next day_track.graduate() review.",
  "monthly_rebalance": "NOT DUE. Next on the first trading day of October 2026.",
  "iv_note": "IV SWEEP STILL DEFERRED, NOW WITH A CHECKABLE EXPIRY RATHER THAN AN OPEN-ENDED ONE. The options book has been unfundable for three sessions ($102.44 deployable against a $500 CORE low end), so an IV row gates nothing and no options candidate has been evaluated -- the duty is 'one row per name EVALUATED', and zero were. TRIGGER TO RESUME: the 2026-09-24 ABNB and UNP time stops, which return ~$2,060 and make the book fundable again; the first run after those fills should take the full core-list sweep (SPY, QQQ, NVDA, AMD, TSM, AVGO, MSFT, TSLA). Stated with a date so this does not become a permanent deferral -- the same discipline the CAPITAL POLICY requires of a cash hold.",
