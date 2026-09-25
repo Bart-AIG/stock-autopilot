@@ -8072,5 +8072,24 @@
     "premium_at_risk_usd": 0.0,
     "paused": false,
     "note": "Recompute the live bucket each run as 0.20 x get_portfolio.total_value. The PAUSE is measured against start_bucket_usd: once realized_pnl_since_start_usd <= pause_threshold_realized_usd, no new option entries until Ryan's monthly review; exits still run. Update realized_pnl_since_start_usd from get_realized_pnl (options, since 2026-09-25) on every options close. Opened with 0 option positions (options_value 0 per get_portfolio 2026-09-24)."
+  },
+  "_EQUITY_BOOK_MARGIN_CROSSED_BELOW_ZERO_2026-09-25": {
+    "measured_utc": "2026-09-25T19:20:00Z",
+    "source": "BROKER: get_pnl_trade_history(span=3month) read 19:17Z; option rows removed by broker membership (VLO 09-17, SPY*, QQQ 08-24, RBRK x2 contracts, ACHR, CVS, ZTS, TE*, WULF*, F, SMR) per calibrate.split_books finding.",
+    "equity_book_3mo": {
+      "n": 50,
+      "wins": 31,
+      "losses": 19,
+      "win_rate": 0.62,
+      "payoff": 0.5915,
+      "breakeven_win_rate": 0.6283,
+      "margin_pts": -0.83,
+      "expectancy_usd": -0.29,
+      "net_usd": -14.54
+    },
+    "vs_2026-09-21": "+12.99 pts / n=49 / net +$182.88. Move = this week's 4 closes (ABNB -111.71, UNP -40.82, V -9.47, BMY +6.06 = -155.94) plus the window rolling off early-July winners.",
+    "consequence": "Monday's calibration KILL branch (margin <= 0, n >= 20, exempt from the in-regime gate) will fire on the equity book: halve size, pause new entries, escalate. Halved size (~$316) is below the $600 minimum entry, so KILL = no new equity entries.",
+    "why_not_applied_this_run": "Friday report run, not the calibration run; equity throttle already 3/3 so no entry is possible before Monday; Ryan went live with the grade process on 2026-09-24 evening with this same record in front of him (only -$3.41 of grade-process exits since). Escalated to Ryan by notification; NO Ryan decision is claimed (HARD RULE 9).",
+    "status": "OPEN -- Monday's first-run calibration owns it."
   }
 }
