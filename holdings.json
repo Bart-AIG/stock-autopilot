@@ -8059,5 +8059,19 @@
     "WHY_THE_ROW_WAS_NOT_OVERWRITTEN": "The IV method says overwrite today's row, and this run deliberately did not. The series is deliberately swept at a fixed ~14:02-14:03Z clock time (the 09-24 note says so explicitly, matching 09-23's 14:03Z) so that day-over-day IV diffs are not time-of-day artifacts. Replacing one day's value with a 15:01Z quote would buy a marginally better single number at the cost of silently breaking the comparability of a 32-reading series -- the exact class of silent methodology change this file keeps recording. The settled value is stored BESIDE the row as caveat_discharged_settled_remeasure, never in place of it. A duty that says 'overwrite' is about staleness within a run, not a licence to change the sampling clock.",
     "HONEST_SCOPE": "n=3, one session, one board, and only one of the three is uncontaminated by spot drift. It CHANGED NO DECISION: all three ex-gap ratios stay above 1.0 (1.5581 / 1.4551 / 1.0399), so long premium remains rich on the core list and the CORE track declines on IV sanity exactly as it did at 14:02Z, on top of the separate thesis decline. A filter's inputs can only be audited credibly on a run where the audit does not license a trade.",
     "OTHER_FIVE_STILL_UNDISCHARGED": "AMD, TSM, AVGO, MSFT and TSLA carry the same 14:02Z caveat text and were NOT re-measured this run. Their rows remain upper bounds as written. The per-name duty is unsatisfied for them and a later run may discharge them the same way."
+  },
+  "_OPTIONS_BUCKET": {
+    "set_utc": "2026-09-25T01:30:00Z",
+    "authority": "Ryan, live turn 2026-09-25: design approved, 20% options bucket, go live now (QUALITY-GRADE PROCESS, CLAUDE.md).",
+    "pct_of_total_value": 0.2,
+    "per_trade_max_pct_of_bucket": 0.5,
+    "pause_at_drawdown_pct_of_start": 0.4,
+    "start_total_value": 3318.67,
+    "start_bucket_usd": 663.73,
+    "pause_threshold_realized_usd": -265.49,
+    "realized_pnl_since_start_usd": 0.0,
+    "premium_at_risk_usd": 0.0,
+    "paused": false,
+    "note": "Recompute the live bucket each run as 0.20 x get_portfolio.total_value. The PAUSE is measured against start_bucket_usd: once realized_pnl_since_start_usd <= pause_threshold_realized_usd, no new option entries until Ryan's monthly review; exits still run. Update realized_pnl_since_start_usd from get_realized_pnl (options, since 2026-09-25) on every options close. Opened with 0 option positions (options_value 0 per get_portfolio 2026-09-24)."
   }
 }

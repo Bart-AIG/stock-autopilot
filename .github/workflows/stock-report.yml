@@ -106,6 +106,7 @@ jobs:
           setups = d.get('swing_setups', [])
           sells = d.get('sell_signals', [])
           time_stops = d.get('time_stop_signals', [])
+          grade_exits = d.get('grade_exit_signals', [])
           trails = d.get('trail_signals', [])
           monitor_trails = d.get('monitor_trail_signals', [])
           reviews = d.get('review_signals', [])
@@ -115,6 +116,14 @@ jobs:
               # Claude session. Order = manage the book first (take-profit, trail,
               # thesis-check), then new entries.
               lines = []
+              if grade_exits:
+                  # 2026-09-25: a held name that fell out of the top 25% of the quality
+                  # grade is sold, green or red — the reason to own it is gone.
+                  lines.append('GRADE EXIT / SELL: ' + ' | '.join(
+                      f"{r['symbol']} {r['price']} "
+                      f"({format(r['pnl'], '+.1%') if r.get('pnl') is not None else 'P/L unknown'}, "
+                      f"grade {r.get('grade')} {r.get('quality')}/12 #{r.get('quality_rank')})"
+                      for r in grade_exits[:10]))
               if time_stops:
                   # A stalled swing being recycled — NOT a take-profit, and it fires
                   # whether the position is green or red. Its own line so the pasted
@@ -158,7 +167,8 @@ jobs:
                           f.append('ERN ' + str(s.get('earnings_date') or '?'))
                       return f" [{'/'.join(f)}]" if f else ''
                   lines.append('BUY: ' + ' | '.join(
-                      f"{s['symbol']} {s['price']} stop {s['stop']} tgt {s['target']}{flags(s)}"
+                      f"{s['symbol']} {s['price']} {s.get('grade')} {s.get('quality')}/12 #{s.get('quality_rank')} "
+                      f"{s.get('trigger')} stop {s['stop']} tgt {s['target']}{flags(s)}"
                       for s in setups[:10]))
                   if len(setups) > 10:
                       lines.append(f"(+{len(setups) - 10} more in latest_{mode}.md)")
