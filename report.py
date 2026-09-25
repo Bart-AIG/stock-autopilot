@@ -44,6 +44,7 @@ from analyze import (
     analyze as momentum_analyze,
     compute_rsi, fmp_earnings_calendar, fmp_fundamentals, fmp_history, load_api_key, theme_of,
 )
+import grade as quality
 
 CACHE = LOGS / "history_cache.json"
 
@@ -130,7 +131,7 @@ TIME_STOP_WARN_DAYS = 3       # within this many days of the time stop, an under
                               # bounce is annotated as the likely better exit price
 
 
-def _exit_gate_phrase(days_held):
+def _exit_gate_phrase(days_held, graded: bool = False):
     """Name the exit gate that will ACTUALLY close a held position, per sleeve.
 
     Both hold branches used to end "cull/hold to monthly rebalance" unconditionally.
@@ -147,6 +148,10 @@ def _exit_gate_phrase(days_held):
     keeps the monthly wording. Callers reach here only when no sell fired, so
     days_held < SWING_TIME_STOP_DAYS and the countdown cannot print negative.
     """
+    if graded:
+        # Since 2026-09-25 the grade exit governs every scorable name, swing or momentum.
+        return (f"the GRADE EXIT (sold if its quality rank leaves the top "
+                f"{quality.HOLD_PCT:.0%})")
     if days_held is None:
         return "monthly rebalance"
     return (f"the TIME STOP in {SWING_TIME_STOP_DAYS - days_held}d "
@@ -299,7 +304,8 @@ def thesis_confirmation(pos: dict, review_keys: set, today) -> tuple[bool, str]:
 
 
 def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: dict,
-                       n_decile: int, today=None) -> tuple[list[dict], list[str]]:
+                       n_decile: int, today=None,
+                       grades: dict | None = None) -> tuple[list[dict], list[str]]:
     """Evaluate EVERY held position and assign a per-name action. No position is parked
     in a 'legacy' bucket — the whole book is judged on each run (BUY/SELL/HOLD style),
     treating the account as an income / grow-the-balance portfolio. Returns (rows, no_data).
@@ -329,8 +335,15 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
         with an intact thesis — NO price stop (thesis-managed, culled at monthly rebalance).
 
     A REVIEW/THESIS-CHECK already answered "intact" is not re-asked for
-    THESIS_CHECK_TTL_DAYS — see thesis_confirmation()."""
+    THESIS_CHECK_TTL_DAYS — see thesis_confirmation().
+
+    GRADE EXIT (2026-09-25, replaces the time stop): a held name whose quality rank
+    falls out of the top quality.HOLD_PCT (25%) is SOLD, green or red. The grade is
+    what justified owning it; when it is gone, so is the reason. The 14-day TIME STOP
+    now fires ONLY as a fail-safe for a held name the grade could not score (no/short
+    history) — it no longer recycles a leader that is simply basing."""
     today = today or datetime.now(timezone.utc).date()
+    grades = grades or {}
     rows, no_data = [], []
     for pos in holdings:
         sym = pos.get("symbol")
@@ -368,14 +381,22 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
         # its bounce inside the window had its chance and did not pay. Recycle the capital.
         # SWING ONLY — a momentum position is a multi-week trend hold judged on the
         # monthly re-rank, and time-stopping it would defeat its whole premise.
-        days_held, time_stop = None, False
+        g = grades.get(sym)
+        days_held, time_stop, grade_exit = None, False, False
+        if g and not g["keep"]:
+            grade_exit = True
+            sell_reasons.append(
+                f"GRADE EXIT — quality {g['score']}/{quality.N_TRAITS}, rank {g['rank']}/{g['n']} "
+                f"(top {g['pct']:.0%}) fell out of the top {quality.HOLD_PCT:.0%}: the reason to own "
+                f"it is gone ({format(pnl, '+.1%') if pnl is not None else 'P/L unknown'})")
         if sleeve == "swing" and pos.get("entry_date"):
             try:
                 entered = datetime.strptime(str(pos["entry_date"]), "%Y-%m-%d").date()
                 days_held = (today - entered).days
             except (TypeError, ValueError):
                 days_held = None  # unparseable -> fail OPEN (no time stop), never a phantom sell
-            if days_held is not None and days_held >= SWING_TIME_STOP_DAYS:
+            # Fail-safe only: the grade exit governs every name it can score.
+            if days_held is not None and days_held >= SWING_TIME_STOP_DAYS and not g:
                 time_stop = True
                 # Wording deliberately does NOT claim "no bounce printed": the branch
                 # tests elapsed time ONLY, and the one way a bounced name survives to
@@ -415,7 +436,7 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
                 # the merge's own edge cases (13d/14d/green-at-20d) all missed it
                 # because none combined underwater + bounce + past-stop, which is
                 # exactly what PNC, the first name to fire, is.
-                soon = (not time_stop and days_held is not None
+                soon = (not time_stop and not g and days_held is not None
                         and 0 <= SWING_TIME_STOP_DAYS - days_held <= TIME_STOP_WARN_DAYS)
                 sell_reasons.append(
                     f"RSI2 {rsi2} overbought but position UNDERWATER ({pnl:+.0%}) — "
@@ -466,7 +487,9 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
             # A TIME STOP is never "optional" and is never a "take-profit" — it is the
             # book's only mechanical loss discipline, so it outranks both other labels
             # and fires whether the position is green or red.
-            if time_stop:
+            if grade_exit:
+                action = "SELL / GRADE EXIT"
+            elif time_stop:
                 action = "SELL / TIME STOP (stalled)"
             elif underwater:
                 action = "EXIT-INTO-STRENGTH (underwater — optional)"
@@ -486,7 +509,7 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
         elif review:
             action = "REVIEW / THESIS-CHECK"
             note = review + ["sell only if the thesis is dead; else hold to "
-                             + _exit_gate_phrase(days_held)]
+                             + _exit_gate_phrase(days_held, g is not None)]
         elif green_enough and fractional:
             action = "MONITOR-TRAIL (fractional — native stop not placeable)"
             note = [f"winner {pnl:+.0%} — GREEN ENOUGH, but the position is {shares:g} sh "
@@ -502,7 +525,7 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
         elif pnl is not None and pnl < 0:
             action = "HOLD (thesis-watch)"
             note = [f"underwater {pnl:+.0%}; no price stop — sell only if the thesis breaks, "
-                    f"else " + _exit_gate_phrase(days_held)]
+                    f"else " + _exit_gate_phrase(days_held, g is not None)]
         else:
             action = "HOLD"
             note = [f"{('up '+format(pnl, '+.0%')) if pnl is not None else 'flat'}; "
@@ -512,6 +535,9 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
                      "pnl": pnl, "stop": stop, "new_stop": suggested, "native": native,
                      "shares": shares, "fractional": fractional,
                      "days_held": days_held, "time_stop_days": SWING_TIME_STOP_DAYS,
+                     "grade": g.get("grade") if g else None,
+                     "quality": g.get("score") if g else None,
+                     "quality_rank": g.get("rank") if g else None,
                      "action": action, "note": "; ".join(note)})
     return rows, no_data
 
@@ -677,7 +703,8 @@ def scan_intraday(key: str, _unused: list[str]) -> tuple[list[dict], list[dict]]
     return momentum, swings
 
 
-def pick_options_candidates(momentum: list[dict], max_each: int = 5) -> dict:
+def pick_options_candidates(momentum: list[dict], max_each: int = 5,
+                            grades: dict | None = None) -> dict:
     """From the momentum ranking, pick options-worthy UNDERLYINGS (not contracts).
 
       CALLS (bullish): strongest uptrends — above the 200-day MA and not already
@@ -690,6 +717,22 @@ def pick_options_candidates(momentum: list[dict], max_each: int = 5) -> dict:
     actual contract off the live chain (~30-45 DTE, ~0.35 delta, IV-sane, liquid) and
     gates each with the news/thesis check. See docs/options-strategy.md."""
     calls, puts = [], []
+    if grades:
+        # 2026-09-25: the grade drives the options book too. Calls only on A-grade
+        # leaders not already extended; puts only on the bottom 10% below the 200-day.
+        rsi14 = {r["symbol"]: r.get("rsi14") for r in momentum}
+        for sym, g in sorted(grades.items(), key=lambda kv: kv[1]["rank"]):
+            rsi = rsi14.get(sym)
+            if g["eligible"] and rsi is not None and rsi < 75 and len(calls) < max_each:
+                calls.append({"symbol": sym, "mom_12_1_pct": g["mom_12_1_pct"], "rsi14": rsi,
+                              "grade": g["grade"], "spec": sym in SPECULATIVE})
+        for sym, g in sorted(grades.items(), key=lambda kv: kv[1]["rank"], reverse=True):
+            rsi = rsi14.get(sym)
+            if (g["pct"] >= 0.90 and g["price"] < g["sma200"] and rsi is not None
+                    and 25 <= rsi < 55 and len(puts) < max_each):
+                puts.append({"symbol": sym, "mom_12_1_pct": g["mom_12_1_pct"], "rsi14": rsi,
+                             "grade": g["grade"], "spec": sym in SPECULATIVE})
+        return {"calls": calls, "puts": puts}
     for r in momentum:  # already sorted by momentum desc → strongest first
         rsi = r.get("rsi14")
         if r.get("above_ma200") and rsi is not None and rsi < 75 and len(calls) < max_each:
@@ -716,14 +759,37 @@ def _first_trading_day_of_month(d):
 
 def write_report(momentum: list[dict], swings: list[dict], mode: str,
                  value_data: dict | None = None,
-                 earnings_cal: dict | None = None) -> Path:
+                 earnings_cal: dict | None = None,
+                 grades: dict | None = None) -> Path:
     value_data = value_data or {}
+    grades = grades or {}
     # {SYMBOL: 'YYYY-MM-DD'} of upcoming reports; {} means UNKNOWN, not "none coming".
     earnings_cal = earnings_cal or {}
     momentum.sort(key=lambda r: r["mom_12_1_pct"], reverse=True)
     n_decile = max(1, int(len(momentum) * 0.10))
-    setups = [s for s in swings if s["is_setup"]]
-    setups.sort(key=lambda s: (s["rsi2"] if s["rsi2"] is not None else 99))
+    # ENTRIES (2026-09-25): the quality GRADE picks WHICH names may be bought (top 10%,
+    # >= 9/12 traits, beating SPY over 3 months); the pullback trigger picks WHEN (RSI2
+    # dip or a 21-EMA pullback). An RSI(2) dip on a non-leader is no longer a setup —
+    # it is listed as excluded so the reader can see what the grade filtered out.
+    setups, excluded_dips = [], []
+    for s in swings:
+        g = grades.get(s["symbol"])
+        if g:
+            s["grade"], s["quality"] = g["grade"], g["score"]
+            s["quality_rank"], s["quality_n"] = g["rank"], g["n"]
+        if s["price"] < MIN_PRICE:
+            continue
+        trig = quality.pullback_trigger(g, s["price"], s["rsi2"]) if g and g["eligible"] else None
+        if trig:
+            s["trigger"] = trig
+            s["is_setup"] = True
+            setups.append(s)
+        else:
+            if s["is_setup"]:
+                excluded_dips.append(s)   # the old RSI2 screen would have bought this
+            s["is_setup"] = False
+    setups.sort(key=lambda s: s.get("quality_rank") or 9999)
+    excluded_dips.sort(key=lambda s: (s["rsi2"] if s["rsi2"] is not None else 99))
     now = datetime.now(timezone.utc)
     stamp = now.strftime("%Y-%m-%d_%H%M")
 
@@ -750,7 +816,9 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     swing_by_sym = {s["symbol"]: s for s in swings}
     momentum_rank = {r["symbol"]: i for i, r in enumerate(momentum, 1)}
     holdings = load_holdings()
-    port, port_no_data = evaluate_portfolio(holdings, swing_by_sym, momentum_rank, n_decile)
+    port, port_no_data = evaluate_portfolio(holdings, swing_by_sym, momentum_rank, n_decile,
+                                            grades=grades)
+    grade_exits = [r for r in port if r["action"].startswith("SELL / GRADE EXIT")]
     # A time stop is a SELL but not a take-profit — it gets its own alert line so a
     # session pasting the notification is never told to "take profit" on a stalled
     # position it is closing for the opposite reason.
@@ -773,7 +841,7 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     # clean setup — see load_recent_exits().
     recent_exits = load_recent_exits(now.date())
     rotation = ([r["symbol"] for r in momentum[:n_decile] if r["symbol"] not in held_syms][:8]
-                if (sells or time_stops or reviews) else [])
+                if (sells or time_stops or grade_exits or reviews) else [])
 
     # Joint long-term port — buy/accumulate signals only (watch-only; never an exit
     # alert and never part of the ACTION trigger, which stays driven by the Agentic book).
@@ -782,7 +850,7 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     for r in lt_rows:  # attach the fundamental value snapshot (Phase 2) when available
         r["value"] = value_data.get(r["symbol"], {})
 
-    action = ("ACTION" if (setups or sells or time_stops or trailing or monitor_trails)
+    action = ("ACTION" if (setups or sells or time_stops or grade_exits or trailing or monitor_trails)
               else "NO ACTION (swing); momentum is informational")
 
     lines = []
@@ -813,12 +881,14 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     if port:
         lines.append("Each holding is judged on every run. Confirm with a live quote and approve any "
                      "action in-session.\n")
-        lines.append("| Ticker | Sleeve | Price | Entry | P/L | Action | Why |")
-        lines.append("|---|---|---|---|---|---|---|")
+        lines.append("| Ticker | Sleeve | Grade | Price | Entry | P/L | Action | Why |")
+        lines.append("|---|---|---|---|---|---|---|---|")
         for r in port:
             pnl = f"{r['pnl']:+.0%}" if r["pnl"] is not None else "—"
             entry = r["entry"] if r["entry"] is not None else "—"
-            lines.append(f"| {r['symbol']} | {r['sleeve']} | {r['price']} | {entry} | {pnl} | "
+            gr = (f"{r['grade']} {r['quality']}/{quality.N_TRAITS} #{r['quality_rank']}"
+                  if r.get("grade") else "—")
+            lines.append(f"| {r['symbol']} | {r['sleeve']} | {gr} | {r['price']} | {entry} | {pnl} | "
                          f"{r['action']} | {r['note']} |")
         if rotation:
             lines.append(f"\n- 🔄 **Better-play rotation:** top-decile momentum names you don't hold — "
@@ -830,7 +900,11 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
         lines.append(f"\n_No price data this run for held: {', '.join(s for s in port_no_data if s)} — not evaluated._")
     lines.append("")
 
-    lines.append("## Connors RSI(2) swing setups (1-3 week holds)")
+    if not grades:
+        lines.append("## ⚠️ QUALITY GRADE UNAVAILABLE — no entries this run")
+        lines.append("The grade could not be computed (missing history / SPY). Entries require a "
+                     "grade, so NO BUY signals are issued. Exits still run (time-stop fail-safe).\n")
+    lines.append("## Leader pullback setups — quality grade picks WHAT, the pullback picks WHEN")
     if setups:
         # Earnings gate. A missing date leaves the row unflagged exactly as before this
         # gate existed — absence of data is never read as absence of earnings.
@@ -844,16 +918,20 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
             s["recent_exit"] = None if s["held"] else recent_exits.get(s["symbol"])
             s["earnings_date"] = earnings_cal.get(s["symbol"])
             s["earnings_soon"] = bool(s["earnings_date"] and s["earnings_date"] <= blackout)
-        lines.append("Oversold (RSI2<10) inside a rising 200-day uptrend. Entry/stop/target are ESTIMATES.\n")
-        lines.append("| Ticker | Theme | Spec | Held | Earnings | Price | RSI2 | Entry | Stop | Target | Stop% |")
-        lines.append("|---|---|---|---|---|---|---|---|---|---|---|")
+        lines.append(f"Top {quality.ELIGIBLE_PCT:.0%} of the universe by quality grade "
+                     f"(>= {quality.MIN_ELIGIBLE_SCORE}/{quality.N_TRAITS} traits, beating SPY over 3 months), "
+                     "pulling back: RSI2<10 or a touch of the 21-day EMA. Entry/stop/target are ESTIMATES.\n")
+        lines.append("| Ticker | Grade | Q | Rank | Trigger | Theme | Spec | Held | Earnings | Price | RSI2 | Entry | Stop | Target | Stop% |")
+        lines.append("|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|")
         for s in setups:
             spec = "SPEC" if s["speculative"] else ""
             held = "HELD" if s["held"] else (f"EXITED {s['recent_exit']}" if s["recent_exit"] else "")
             wide = " ⚠" if abs(s["stop_pct"]) > 15 else ""
             ern = (f"⚠️ {s['earnings_date']}" if s["earnings_soon"]
                    else (s["earnings_date"] or ""))
-            lines.append(f"| {s['symbol']} | {s['theme']} | {spec} | {held} | {ern} | {s['price']} | {s['rsi2']} | "
+            lines.append(f"| {s['symbol']} | {s.get('grade')} | {s.get('quality')}/{quality.N_TRAITS} | "
+                         f"#{s.get('quality_rank')} | {s.get('trigger')} | "
+                         f"{s['theme']} | {spec} | {held} | {ern} | {s['price']} | {s['rsi2']} | "
                          f"{s['entry']} | {s['stop']} | {s['target']} | {s['stop_pct']}%{wide} |")
 
         # --- Concentration / correlation / sizing analysis ---
@@ -903,14 +981,33 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
         if wide_n:
             lines.append(f"- ⚠️ **{wide_n} have stops wider than 15%** (marked ⚠) — extreme volatility. Size so the "
                          "dollar-risk-to-stop is small, not the dollar position.")
-        lines.append("- ✅ **Discipline:** take the 1-2 highest-conviction, least-correlated names. Per-name cap "
-                     "30% of account value; target 3-4 concurrent swings, minimum entry ~$600 — a smaller "
-                     "entry is a SKIPPED opportunity, not a small one. A-grade only; a B-grade gets no "
-                     "position rather than a little one. The agent places NO stop (HARD RULE 5): exits are "
-                     f"the RSI2>={RSI2_OVERBOUGHT:.0f} cross, the {SWING_TIME_STOP_DAYS}-day time stop, and "
-                     "Ryan's native trail once green enough.")
+        lines.append("- ✅ **Discipline:** take the highest-ranked, least-correlated names. Per-name cap "
+                     "30% of account value; target 3-4 concurrent positions, minimum entry ~$600. Equity "
+                     "capital excludes the 20% options bucket and the 5% reserve. The agent places NO stop "
+                     f"(HARD RULE 5): exits are the RSI2>={RSI2_OVERBOUGHT:.0f} take-profit on a green "
+                     f"position, the GRADE EXIT (rank leaves the top {quality.HOLD_PCT:.0%}), and Ryan's "
+                     "native trail once green enough.")
     else:
-        lines.append("No swing setups today (nothing oversold inside an uptrend). Hold / wait — a 'no-trade' day is normal and correct.")
+        lines.append("No leader pullbacks today (no top-graded name is pulling back). Hold / wait — a "
+                     "'no-trade' day is normal and correct.")
+    if excluded_dips:
+        lines.append("\n**Excluded — RSI2 dips on names that are NOT leaders** (the old screen would have "
+                     "bought these; the grade filters them out): "
+                     + ", ".join(f"{s['symbol']} ({s.get('grade', '?')} {s.get('quality', '?')}/{quality.N_TRAITS})"
+                                 for s in excluded_dips[:15]))
+
+    # --- Quality ranking (the grade) ---
+    if grades:
+        top = sorted(grades.items(), key=lambda kv: kv[1]["rank"])[:25]
+        lines.append(f"\n## Quality ranking — top 25 of {len(grades)} (A = buyable, B = holdable)")
+        lines.append("| # | Ticker | Grade | Q | RS vs SPY 3M | Off 52W hi | Traits firing |")
+        lines.append("|---|---|---|---|---|---|---|")
+        for sym, g in top:
+            lines.append(f"| {g['rank']} | {sym} | {g['grade']} | {g['score']}/{quality.N_TRAITS} | "
+                         f"{g['rs_3m_pct']:+.1f}% | {g['off_high_pct']}% | {quality.trait_string(g)} |"
+                         if g['rs_3m_pct'] is not None else
+                         f"| {g['rank']} | {sym} | {g['grade']} | {g['score']}/{quality.N_TRAITS} | — | "
+                         f"{g['off_high_pct']}% | {quality.trait_string(g)} |")
 
     lines.append(f"\n## 12-1 momentum ranking (top decile = {n_decile} of {len(momentum)})")
     lines.append("Multi-week / monthly trend holds. Rebalance on a monthly cadence, not daily.\n")
@@ -964,11 +1061,12 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
                      "Normal; wait for a pullback._")
 
     # --- Options candidates (sleeve: options) — underlyings only, acted in-session ---
-    opts = pick_options_candidates(momentum)
+    opts = pick_options_candidates(momentum, grades=grades)
     lines.append("\n## Options candidates (sleeve: options — single-leg LONG)")
-    lines.append("Underlyings only. In-session: pick the contract off the live Robinhood "
-                 "chain (~30-45 DTE, ~0.35 delta, IV-sane, liquid), gate with news/thesis, "
-                 "≤$150/trade & ≤15% total. See docs/options-strategy.md.\n")
+    lines.append("Underlyings only, drawn from the quality grade: CALLS on top-graded leaders, PUTS on "
+                 "bottom-graded laggards. **Options bucket = 20% of account value; max 50% of the bucket "
+                 "per trade; paused if the bucket loses 40%** (see CLAUDE.md HARD RULE 8). Pick the "
+                 "contract off the live chain (~30-45 DTE, ~0.35 delta, IV-sane, liquid).\n")
     if opts["calls"]:
         lines.append("**Calls (bullish — strong uptrend > 200MA):**")
         lines.append("| Ticker | mom12-1% | RSI14 | Spec |")
@@ -997,6 +1095,12 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
                     "action": action, "swing_setups": setups,
                     "portfolio_review": port, "sell_signals": sells,
                     "time_stop_signals": time_stops,
+                    "grade_exit_signals": grade_exits,
+                    "excluded_dips": [{"symbol": s["symbol"], "grade": s.get("grade"),
+                                       "quality": s.get("quality"), "rsi2": s["rsi2"]}
+                                      for s in excluded_dips],
+                    "quality_top": [dict(symbol=k, **{kk: vv for kk, vv in v.items() if kk != "traits"})
+                                    for k, v in sorted(grades.items(), key=lambda kv: kv[1]["rank"])[:25]],
                     "trail_signals": trailing,
                     "monitor_trail_signals": monitor_trails,
                     "review_signals": reviews,
@@ -1033,14 +1137,21 @@ def main() -> None:
         shortlist = universe  # refresh live for all (intraday quote calls)
         momentum, swings = scan_intraday(key, shortlist)
 
-    setups = [s for s in swings if s["is_setup"]]
+    # Quality grade over the whole scanned universe (pure; no extra API calls).
+    histories = cache if args.mode == "morning" else _load_fresh_cache(key)
+    grades = quality.grade_universe(histories) if histories else {}
+    print(f"  graded {len(grades)} names")
+    eligible = {sym for sym, g in grades.items() if g["eligible"]}
+    setups = [s for s in swings
+              if s["symbol"] in eligible and s["price"] >= MIN_PRICE
+              and quality.pullback_trigger(grades[s["symbol"]], s["price"], s["rsi2"])]
     # Phase 2 value lens: fetch TTM fundamentals for the joint long-term candidates only.
     value_data = build_value_data(momentum, swings, key) if momentum else {}
     # Earnings gate for the swing setups: ONE market-wide call, only when there are
     # setups to gate. {} on any failure -> the screen degrades to earnings-blind.
     earnings_cal = (fmp_earnings_calendar(key, days=EARNINGS_BLACKOUT_DAYS + 7)
                     if setups else {})
-    path = write_report(momentum, swings, args.mode, value_data, earnings_cal)
+    path = write_report(momentum, swings, args.mode, value_data, earnings_cal, grades)
     print(f"\nRanked {len(momentum)} momentum, found {len(setups)} swing setup(s).")
     print(f"Wrote {path}")
     print("NOTE: read-only. No trades placed. No Robinhood access.")
