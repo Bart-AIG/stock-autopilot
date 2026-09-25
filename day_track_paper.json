@@ -1271,15 +1271,15 @@
       "r_usd": 2.25,
       "bound_by": "cash",
       "risk_pct_used": 5.0,
-      "status": "open",
-      "r_multiple": null,
-      "pnl_usd": null,
+      "status": "closed",
+      "r_multiple": -1.0,
+      "pnl_usd": -2.25,
       "capital_note": "Deployable $1442.5 = ubp $1,609.01 - 5% reserve $166.51 (total_value $3330.19). PAPER: no order placed, no cash consumed.",
       "_manage_state": {
         "stop_px_signal_current": 741.66,
         "session_high": 745.42,
-        "last_checked_utc": "2026-09-25T14:00:30Z",
-        "r_now": 0.361
+        "last_checked_utc": "2026-09-25T14:17:30Z",
+        "r_now": -1.0
       },
       "_manage_log": [
         {
@@ -1294,8 +1294,18 @@
           "adverse_low_since_last": 743.565,
           "action": "hold",
           "reason": "working, 0.36R"
+        },
+        {
+          "utc": "2026-09-25T14:05:00Z",
+          "px": 741.36,
+          "action": "close",
+          "reason": "stop hit: 14:05Z 1-min bar low 741.36 < stop 741.66 (detected by 14:17Z run from bars; 14:00:30Z pass saw low 743.565)",
+          "to": 741.66
         }
-      ]
+      ],
+      "exit_px": 741.66,
+      "exit_reason": "stop",
+      "exit_utc": "2026-09-25T14:05:00Z"
     }
   ]
 }
