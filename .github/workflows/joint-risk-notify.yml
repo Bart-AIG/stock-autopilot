@@ -1,0 +1,45 @@
+# Delivers the Joint risk watch report to Ryan's phone. Same pattern as
+# eod-report-notify.yml: Claude cloud sessions cannot reach ntfy.sh, so the routine
+# commits joint_risk_report.md to master and this runner sends it.
+name: Joint risk watch notify
+
+on:
+  push:
+    branches: [master]
+    paths: [joint_risk_report.md]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: joint-risk-notify
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+      - name: Send report
+        run: |
+          python3 - << 'PY'
+          import subprocess
+          body = open('joint_risk_report.md', encoding='utf-8').read()
+          first = body.splitlines()[0].lstrip('# ').strip() if body.strip() else 'RISK update'
+          tier = first.split()[1] if first.startswith('RISK ') and len(first.split()) > 1 else ''
+          prio = {'RED': 'urgent', 'ORANGE': 'high', 'YELLOW': 'default'}.get(tier, 'low')
+          url = 'https://github.com/Bart-AIG/stock-autopilot/blob/master/joint_risk_report.md'
+          if len(body.encode()) > 3800:
+              body = body.encode()[:3700].decode(errors='ignore') + '\n... full report: ' + url
+          r = subprocess.run(['curl', '-sS', '-w', '\n__HTTP__%{http_code}',
+                              '-H', f'Title: Joint {first}', '-H', f'Priority: {prio}',
+                              '-H', f'Click: {url}', '-d', body.encode(),
+                              'https://ntfy.sh/stk-ap-rb-9k4m7q2x'],
+                             capture_output=True, text=True)
+          print(r.stdout[-300:], r.stderr[-300:])
+          if not r.stdout.strip().endswith('200'):
+              raise SystemExit('ntfy delivery failed')
+          PY
