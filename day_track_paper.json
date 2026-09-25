@@ -1234,6 +1234,54 @@
       },
       "_cross_validation": "INDEPENDENTLY COMPUTED BY TWO CONCURRENT RUNS (the documented redundant-trigger collision) AND THEY AGREE ON EVERY DECISION INPUT. The 13:45Z run measured the OR as high 736.02 / low 734.6301 / open 735.29 / close 735.79 from its own get_equity_historicals pull and got the identical 736.7150 ceiling, direction LONG, action skip. The two runs quoted spot at different instants -- 737.0759 at 13:45:50.516Z and 737.20 at 13:46:34.059Z -- and BOTH sit above the ceiling, by 0.3609 and 0.485 respectively, so the verdict is robust to the 44-second gap rather than resting on one tick. ATR14 daily differed trivially (9.5586 vs 9.5506, different bar windows) and is not load-bearing here: ATR only floors the stop distance, and the stop is the OR low either way. NEITHER RUN PLACED AN ORDER -- the collision hazard this rule exists to catch (two runs each taking 'their' one entry) did not materialise, because both correctly skipped.",
       "_or_range_rank_of_2026_09_24": "4 of 7 (ascending)"
+    },
+    {
+      "phase": "paper",
+      "trading_day_et": "2026-09-25",
+      "decided_utc": "2026-09-25T13:37:00Z",
+      "decided_by": "first post-bell run 13:30Z 2026-09-25 (unattended, prompt v11), OR computed at 13:36Z once the 5 one-minute bars were complete",
+      "action": "enter",
+      "signal_symbol": "QQQ",
+      "direction": "long",
+      "vehicle": "QQQ",
+      "opening_range": {
+        "high": 743.68,
+        "low": 741.66,
+        "open": 742.86,
+        "close": 743.615,
+        "bars": 5,
+        "window_utc": "13:30:00Z-13:34:59Z",
+        "range_points": 2.02,
+        "body_points": 0.755,
+        "body_frac_of_range": 0.3738
+      },
+      "atr14_daily": 9.4339,
+      "entry_px_signal": 743.915,
+      "entry_px_signal_venue_utc": "2026-09-25T13:36:09.867Z",
+      "stop_px_signal": 741.66,
+      "stop_dist": 2.255,
+      "stop_dist_pct": 0.3031,
+      "stop": 741.66,
+      "late_entry_ok": true,
+      "late_entry_arithmetic": "OR high 743.68 + 0.5 x 2.02 = 744.69 ceiling; QQQ 743.915 is 0.775 below it -> PASS.",
+      "vehicle_px": 743.915,
+      "stop_px_vehicle": 741.66,
+      "shares": 1,
+      "dollars": 743.91,
+      "r_usd": 2.25,
+      "bound_by": "cash",
+      "risk_pct_used": 5.0,
+      "status": "open",
+      "r_multiple": null,
+      "pnl_usd": null,
+      "capital_note": "Deployable $1442.5 = ubp $1,609.01 - 5% reserve $166.51 (total_value $3330.19). PAPER: no order placed, no cash consumed.",
+      "_manage_state": {
+        "stop_px_signal_current": 741.66,
+        "session_high": 744.1,
+        "last_checked_utc": "2026-09-25T13:37:00Z",
+        "r_now": 0.0
+      },
+      "_manage_log": []
     }
   ]
 }
