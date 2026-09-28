@@ -23,7 +23,7 @@ SIGNALS = {
     ("SPY", "price_below_sma"): (1, "SPY closed under its 50-day: trend damage, early warning"),
     ("SPY", "price_below"):     (2, "SPY broke a price level"),     # 729 ~ -5%; 690 handled below
     ("QQQ", "price_below"):     (2, "QQQ broke its level: tech/growth de-rating (joint book is ~50% tech)"),
-    ("QQQ", "price_below_sma"): (1, "QQQ under its 50-day: tech trend damage, early warning"),
+    ("QQQ", "price_below_sma"): (1, "QQQ under a daily SMA (20 or 50): tech trend damage, early warning"),
     ("HYG", "price_below"):     (2, "High-yield credit selling off: credit stress leads equities"),
     ("KRE", "price_below"):     (2, "Regional banks breaking: funding/credit stress"),
     ("VIXY", "price_above"):    (2, "Volatility spiking: forced de-risking in the market"),
@@ -34,8 +34,14 @@ SIGNALS = {
 }
 # Deeper levels on the same symbol add weight (a regime break, not just a warning).
 DEEP_LEVEL_BONUS = {("SPY", "price_below"): (700.0, 1),   # below ~700 = -9%+: +1 more
-                    ("QQQ", "price_below"): (670.0, 1),   # ~200-day / July low = bear regime
                     ("IEF", "price_below"): (88.0, 1)}    # 87.35 alert = rates really moving
+
+# QQQ price levels are a LADDER (set 2026-09-28 with the de-risk plan, joint_derisk_plan.json):
+# a shallow level is worth less than a deep one, so a single flat weight mis-scores it.
+# (level_at_or_above, points), checked top-down: 733 range-top break = 1, 700 range-floor /
+# trend break = 2, 666 200-day / July-low = 3. Cumulative with the 20/50-day SMA alerts:
+# <733 -> 1 GREEN, <20d -> 2 YELLOW, <50d -> 3 YELLOW, <700 -> 5 ORANGE, <666 -> 8 RED.
+LEVEL_WEIGHTS = {("QQQ", "price_below"): [(720.0, 1), (690.0, 2), (0.0, 3)]}
 
 TIERS = [(0, "GREEN"), (2, "YELLOW"), (4, "ORANGE"), (7, "RED")]
 
@@ -67,8 +73,28 @@ def _is_triggered(a: dict, price: float | None, sma: float | None) -> bool:
     return False
 
 
-def grade(alerts: list[dict], prices: dict[str, float], smas: dict[str, float] | None = None) -> dict:
-    """alerts = get_alerts()['alerts'] (enabled ones); prices = {sym: last}; smas = {sym: 50d SMA}.
+def sma_period(a: dict) -> int:
+    """Period of an *_sma alert (Robinhood: condition.indicator.period); 50 if absent."""
+    ind = (a.get("condition") or {}).get("indicator") or {}
+    try:
+        return int(ind.get("period") or 50)
+    except (TypeError, ValueError):
+        return 50
+
+
+def _sma_for(smas: dict, sym: str, period: int) -> float | None:
+    """smas may be keyed {(sym, period): v} (preferred) or legacy {sym: 50d value}.
+    A legacy key is only trusted for the 50-day: it must never stand in for a 20-day."""
+    if (sym, period) in smas:
+        return smas[(sym, period)]
+    if f"{sym}:{period}" in smas:
+        return smas[f"{sym}:{period}"]
+    return smas.get(sym) if period == 50 else None
+
+
+def grade(alerts: list[dict], prices: dict[str, float], smas: dict | None = None) -> dict:
+    """alerts = get_alerts()['alerts'] (enabled ones); prices = {sym: last};
+    smas = {(sym, period): value} for every *_sma alert (e.g. ("QQQ", 20), ("QQQ", 50)).
     Returns score, tier, and a per-alert breakdown including distance to trigger."""
     smas = smas or {}
     rows, score = [], 0
@@ -76,9 +102,15 @@ def grade(alerts: list[dict], prices: dict[str, float], smas: dict[str, float] |
         if not a.get("enabled", True):
             continue
         sym, ct = a["symbol"], a["condition_type"]
-        price, sma = prices.get(sym), smas.get(sym)
+        is_sma = ct.endswith("_sma")
+        period = sma_period(a) if is_sma else None
+        price = prices.get(sym)
+        sma = _sma_for(smas, sym, period) if is_sma else None
         weight, meaning = SIGNALS.get((sym, ct), (1, "custom alert"))
-        tgt = sma if ct.endswith("_sma") else float(a["condition"].get("target_price") or 0)
+        tgt = sma if is_sma else float(a["condition"].get("target_price") or 0)
+        ladder = LEVEL_WEIGHTS.get((sym, ct))
+        if ladder and tgt:
+            weight = next(p for floor, p in ladder if tgt >= floor)
         hit = _is_triggered(a, price, sma)
         pts = 0
         if hit:
@@ -88,12 +120,27 @@ def grade(alerts: list[dict], prices: dict[str, float], smas: dict[str, float] |
                 pts += bonus[1]
         score += pts
         dist = (price / tgt - 1) * 100 if (price and tgt) else None
-        rows.append({"symbol": sym, "condition": ct, "level": round(tgt, 2) if tgt else None,
+        cond = f"{ct}_{period}d" if is_sma else ct
+        rows.append({"symbol": sym, "condition": cond, "level": round(tgt, 2) if tgt else None,
                      "price": price, "distance_pct": round(dist, 2) if dist is not None else None,
                      "triggered": hit, "points": pts, "meaning": meaning})
     tier = [name for floor, name in TIERS if score >= floor][-1]
     rows.sort(key=lambda r: (not r["triggered"], abs(r["distance_pct"] or 999)))
     return {"score": score, "tier": tier, "readings": rows}
+
+
+def derisk_stage(plan: dict, qqq_price: float, sma20: float | None, sma50: float | None) -> dict:
+    """Deepest de-risk stage and reinvest tranche QQQ has reached, from joint_derisk_plan.json.
+    Levels are live: 'sma20'/'sma50' resolve to today's values, numbers are fixed prices.
+    Stages are cumulative: reaching stage 3 means stages 1-3 all apply."""
+    def lvl(x):
+        return {"sma20": sma20, "sma50": sma50}.get(x, x) if isinstance(x, str) else x
+    hit = [s for s in plan["derisk_stages"] if lvl(s["qqq_below"]) and qqq_price < lvl(s["qqq_below"])]
+    buy = [t for t in plan["reinvest_tranches"] if qqq_price < t["qqq_below"]]
+    return {"derisk_stage": hit[-1]["stage"] if hit else 0,
+            "derisk_names": [s["name"] for s in hit],
+            "reinvest_tranche": buy[-1]["tranche"] if buy else 0,
+            "levels": {s["stage"]: lvl(s["qqq_below"]) for s in plan["derisk_stages"]}}
 
 
 def _yoy(fin: list[dict], i: int, key: str = "revenue") -> float | None:
