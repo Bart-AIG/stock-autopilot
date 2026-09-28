@@ -1,0 +1,62 @@
+{
+  "_note": "Joint-account de-risk + reinvest ladder tied to Ryan's QQQ alerts. Set 2026-09-28 (Ryan, live turn: 'add alerts to all those levels. And make me a plan to derisk and have cash to reinvest at each alert level'). ADVISORY ONLY: the agent never trades the joint account; Ryan places every order in-app. Stages are CUMULATIVE. $ figures are estimates at 2026-09-28 16:03Z prices (QQQ 735.32, net $93,075, margin $18,082); sell by SHARES/%, not by the $ estimate, since prices will be lower when a stage fires. Resolve live levels with risk_watch.derisk_stage().",
+  "set_utc": "2026-09-28T16:10:00Z",
+  "rules": [
+    "Margin goes to zero first and is never re-added on the way down (Ryan de-levered on 2026-08-05).",
+    "Core names (GOOGL, AMZN, META, NOW, ADBE, RBRK, V, JPM, QQQI) are trimmed, never sold out.",
+    "Tax: sell loss lots first. Sell ALL shares of a harvested name so lots bought in the last 30 days do not create a wash sale, and do not rebuy it for 31 days. Check get_equity_tax_lots for short vs long-term on every gain trim; prefer long-term lots.",
+    "A stage fires on a CLOSE below the level, or an intraday break that holds into the last hour. A touch that reverses is a watch, not a sale.",
+    "Reclaim rule: if QQQ closes 2 straight sessions back above its 50-day after stage 3 or 4 fired, buy back 50% of the core trims (never a name harvested for a loss within 31 days)."
+  ],
+  "derisk_stages": [
+    {"stage": 1, "name": "Range-top break", "qqq_below": 733, "alert_id": "9e26ef8d-f9af-4124-bb4f-b93913fbdd66",
+     "why": "QQQ loses the ~733-735 top of its range; first sign the rally is stalling.",
+     "sells": [
+       {"symbol": "CRCL", "shares": "all 40", "est_usd": 3442, "note": "loss -5.6%; 15 sh bought recently, so sell ALL to keep the harvest clean"},
+       {"symbol": "APP", "shares": "all 8", "est_usd": 2481, "note": "loss -5.1%"},
+       {"symbol": "VST", "shares": "all 12", "est_usd": 1643, "note": "loss -6.1%"},
+       {"symbol": "CI", "shares": "all 2.99", "est_usd": 807, "note": "loss -7.0%"},
+       {"symbol": "UBER", "shares": "all 10.08", "est_usd": 689, "note": "loss -7.0%"},
+       {"symbol": "BMEA", "shares": "all 500", "est_usd": 645, "note": "loss -26.7%, speculative"},
+       {"symbol": "LMT", "shares": "all 0.45", "est_usd": 234, "note": "loss -7.9%, sub-scale"}
+     ],
+     "est_raised_usd": 9941, "after": "margin ~$8.1k"},
+    {"stage": 2, "name": "Below 20-day SMA", "qqq_below": "sma20", "alert_id": "ff27e16e-4c47-4aa1-a4c6-f59bb420a3f9",
+     "why": "Short-term trend turns down (20-day ~720.9 on 2026-09-28).",
+     "sells": [
+       {"symbol": "MU", "shares": "8 of 17", "est_usd": 8346, "note": "gain +2.4%; takes MU from 19% to ~10% of net"}
+     ],
+     "est_raised_usd": 8346, "after": "margin ~0"},
+    {"stage": 3, "name": "Below 50-day SMA", "qqq_below": "sma50", "alert_id": "42608427-aec0-4c0c-b7fb-27177d7f67b4",
+     "why": "Intermediate trend damage (50-day ~712.7). High-beta names fall 2-3x QQQ from here.",
+     "sells": [
+       {"symbol": "AMD", "shares": "5 of 14.6", "est_usd": 3017, "note": "gain +74%: check lots, prefer long-term"},
+       {"symbol": "FIG", "shares": "all 127", "est_usd": 2576, "note": "flat/loss -0.7%"},
+       {"symbol": "MRVL", "shares": "9 of 19", "est_usd": 2264, "note": "gain +17%"},
+       {"symbol": "CRDO", "shares": "10 of 20.8", "est_usd": 1915, "note": "gain +19%"},
+       {"symbol": "TEM", "shares": "13 of 27.4", "est_usd": 1101, "note": "gain +12%"},
+       {"symbol": "HOOD", "shares": "all 6.01", "est_usd": 699, "note": "gain +31%, sub-scale"}
+     ],
+     "est_raised_usd": 11572, "after": "cash ~+$11.5k, ~12% of net"},
+    {"stage": 4, "name": "Range-floor / trend break", "qqq_below": 700, "alert_id": "a007aa5c-19f8-4c33-b94e-9538e0f2e8ab",
+     "why": "QQQ breaks the 700-703 range floor: the uptrend is broken, not just resting.",
+     "sells": [
+       {"symbol": "GOOGL", "shares": "14 of 55.2", "est_usd": 4767, "note": "core TRIM to ~15% of net; gain +12%"},
+       {"symbol": "MU", "shares": "3 more (6 left)", "est_usd": 3130, "note": "semis cluster to ~22%"},
+       {"symbol": "RBRK", "shares": "15 of 102", "est_usd": 1690, "note": "core TRIM to ~10%; gain +83%, check lots"},
+       {"symbol": "NOW", "shares": "8 of 76.9", "est_usd": 1047, "note": "core TRIM to ~10%"}
+     ],
+     "est_raised_usd": 10634, "after": "cash ~$20-22k, ~22% of net (lower prices by then)"}
+  ],
+  "reinvest_tranches": [
+    {"tranche": 1, "qqq_below": 666, "alert_id": "e73aa511-bc87-4176-85fb-586b35cdfadb",
+     "why": "200-day SMA (~665.6) and July low (661.1): the normal-correction buy zone.",
+     "deploy": "1/3 of cash raised", "buys": "QQQI first (~40% of the tranche, per CLAUDE.md), then core adds: GOOGL, NOW, ADBE, AMZN, META"},
+    {"tranche": 2, "qqq_below": 633, "alert_id": null,
+     "why": "~-15% from the ~745 high.",
+     "deploy": "next 1/3", "buys": "NVDA, META, AMD/MU buyback (only if not loss-harvested in the last 31 days)"},
+    {"tranche": 3, "qqq_below": 600, "alert_id": null,
+     "why": "~-20%: bear-market territory.",
+     "deploy": "final 1/3", "buys": "whatever grades A in report.py's quality ranking, core first"}
+  ]
+}
