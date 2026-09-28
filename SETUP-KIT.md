@@ -390,10 +390,51 @@ Present as a numbered to-do list. Secrets never go in the chat or the repo.
    claude.ai/code/routines → new routine → attach the repo and the Robinhood
    connector → paste the prompt block from `docs/routine-prompt-v1.md` → schedule
    (e.g. hourly, market hours, Mon-Fri).
-7. **Risk Watch routine** (if on): new routine → attach the repo and Robinhood →
-   prompt: *"Open docs/risk-watch-prompt.md on master and execute the prompt in
-   its code block, steps 0-6. Advisory only: never place, modify or cancel an
-   order."* → schedule hourly at :40, 13:40-19:40 UTC, Mon-Fri.
+7. **Risk Watch routine** (if on). A separate routine from the Autopilot, on purpose:
+   different account, advisory only, and one owner for the alert log's read state.
+   a. claude.ai/code/routines → **New routine**, name it "Risk watch".
+   b. **Attach the GitHub repo** `{{GITHUB_OWNER}}/{{REPO}}` with write access. *Ryan's
+      first runs saved nothing because no repo was attached; the runs "succeeded"
+      and wrote to nowhere.*
+   c. **Attach the Robinhood connector in the routine's settings yourself.** Claude
+      cannot attach connectors to a routine for you. Without it the routine has no
+      way to read alerts or positions.
+   d. **Schedule:** `40 13-19 * * 1-5` (UTC) = hourly at :40 past, market hours,
+      Mon-Fri. Optional extra run at 20:10 UTC after the close.
+   e. **Paste this launcher prompt** (the full instructions live in the repo so they
+      can be updated without re-pasting):
+      ```
+      RISK WATCH run (scheduled). ADVISORY ONLY: you must NEVER place, modify or
+      cancel an order on ANY Robinhood account.
+
+      Setup: work in the GitHub repo {{GITHUB_OWNER}}/{{REPO}}. If it is not already
+      in your working directory, attach it with add_repo (access: push) and clone
+      it. Then run: git fetch origin master && git checkout -B claude/risk-watch origin/master
+
+      Then open docs/risk-watch-prompt.md on master and execute the prompt inside its
+      code block exactly, steps 0 to 6. That file is the canonical instruction set;
+      always read the live copy. In short: read {{NAME}}'s Robinhood benchmark alerts
+      (get_alerts, get_alert_log), live quotes, and account {{JOINT_ACCOUNT_NUMBER}}
+      positions and portfolio; grade risk with risk_watch.grade(); check holdings
+      with risk_watch.holding_health(); resolve the ladder with
+      risk_watch.derisk_stage(); build sells with risk_watch.sell_plan() plus a quick
+      news check per name; update joint_risk_state.json every run; write and commit
+      joint_risk_report.md to master ONLY when the tier or ladder stage changed, a
+      new alert fired, a holding turned WEAK, or it is the first run of the trading
+      day while ORANGE/RED. Merge your change to master via a PR. Before committing,
+      git diff --stat origin/master must show only joint_risk_state.json (and
+      joint_risk_report.md when notifying).
+
+      If the Robinhood connector is missing or failing, change nothing and end.
+      Never claim {{NAME}} approved anything.
+      ```
+   f. **Verify it works:** run it once by hand ("Run now"). Success = a new commit to
+      `joint_risk_state.json` on master with a fresh `last_checked_utc`. No commit =
+      the repo is not attached (step b) or the connector is missing (step c).
+   g. **Phone delivery:** `.github/workflows/joint-risk-notify.yml` pushes
+      `joint_risk_report.md` to the ntfy topic whenever it changes on master (RED =
+      urgent, ORANGE = high priority). Test it with the workflow's "Run workflow"
+      button once a report exists.
 8. **Create the benchmark alerts** in Robinhood (Round 5 table), at levels set from
    today's prices. Claude can create them with `create_alert` after the user
    confirms the list. Moving-average alerts may not appear in the mobile app's
