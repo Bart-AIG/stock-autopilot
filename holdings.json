@@ -2,13 +2,11 @@
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
   "updated_utc": "2026-09-25T16:17:00Z",
   "_realized_options_pnl_today": {
-    "trading_day_et": "2026-09-25",
+    "trading_day_et": "2026-09-28",
     "realized_usd_options": 0.0,
     "closing_trades_options": 0,
     "cap_options_usd": -400.0,
-    "entry_throttle": "0 of 3 options entries used; 3 of 3 equity entries used (FCX 14:17Z, TGT 14:22Z, MRK 16:16Z) -- equity entries CLOSED for the day.",
-    "options_entries_PAUSED": "NO. Options now also bounded by _OPTIONS_BUCKET (20% of total_value, 50%/trade, -40% pause) per the QUALITY-GRADE PROCESS; bucket realized since start $0.00, not paused.",
-    "source": "RESET by the FIRST POST-BELL run of trading day 2026-09-25 (13:30Z). Broker: get_option_positions [] and no options activity 09-24 (09-24 row read $0.00/0 closes); get_equity_orders(gte 2026-09-25) EMPTY at 13:30Z. 2026-09-24 closed: options $0.00; equity -$152.57 (ABNB/UNP time stops), 1 equity entry (BMY)."
+    "entry_throttle": "0 of 3 options entries used; 0 of 3 equity entries used (equity entries PAUSED by _EQUITY_KILL_PAUSE)."
   },
   "positions": [
     {
@@ -5903,7 +5901,8 @@
       "note": "Written ONLY by the Monday calibration via day_track.graduate(). Never promoted mid-week, never by an unattended run's own judgment. Standing at 6 paper days / 5 completed trades against the 10-day / 8-trade bar.",
       "measured_this_run_not_binding": {
         "go_live": false,
-        "reason": "paper 6d / 5 trades; need 10d and 8 trades"
+        "reason": "paper 8d / 6 trades; need 10d and 8 trades",
+        "utc": "2026-09-28T13:33Z"
       }
     },
     "capital_priority": "The day trade claims deployable cash at its entry run; swing-book entries that day wait until it is flat or was skipped. A swing position is never sold to fund a day trade.",
@@ -5981,8 +5980,8 @@
       "verdict": "POSITIVE EXPECTANCY FOR THE FIRST TIME (+0.869R/trade) -- AND IT PROVES NOTHING YET. n=4 against the calibration module's MIN_TRADES_FOR_ACTION of 20 and the graduation bar of 8 signals. One row supplies 100% of the gains, which is the textbook shape of a sample too small to read. REPORT ONLY; no parameter moves, no phase change.",
       "shape_note": "Worth recording because it is the OPPOSITE shape to the swing book and the two must never be pooled. Swing equities: 72% win rate, payoff 1.02 -- a HIT-RATE engine. The day track so far: 25% win rate, payoff 6.48 -- a PAYOFF engine, three small losses paid for by one large win. That is what an opening-range trend-follower is supposed to look like, and it is exactly why the calibration measures margin over the PAYOFF-IMPLIED breakeven rather than a raw win rate against a fixed number: at payoff 6.48 the breakeven win rate is 13.4%, so 25% is a +11.6 pt margin, whereas a fixed 50% threshold would call this strategy broken. At n=4 the payoff ratio is itself ONE observation."
     },
-    "paper_days_elapsed": 6,
-    "paper_signals_taken": 5,
+    "paper_days_elapsed": 8,
+    "paper_signals_taken": 6,
     "_DAY_TRACK_SIGNAL_R_AND_VEHICLE_R_DISAGREE_ON_THE_SHORT_SIDE_AND_GRADUATION_EATS_THE_SIGNAL_ONE_2026-09-23": {
       "measured_utc": "2026-09-23T19:32:00Z",
       "headline": "The first short-side paper row ever to close at a NON-(-1) R, so the first chance to compare the R the track RECORDS against the R the vehicle would actually have PAID. They differ by 6.9%: signal-terms +1.3532R, vehicle-terms +1.4472R. graduate() and the calibration consume the SIGNAL number.",
@@ -8091,5 +8090,75 @@
     "consequence": "Monday's calibration KILL branch (margin <= 0, n >= 20, exempt from the in-regime gate) will fire on the equity book: halve size, pause new entries, escalate. Halved size (~$316) is below the $600 minimum entry, so KILL = no new equity entries.",
     "why_not_applied_this_run": "Friday report run, not the calibration run; equity throttle already 3/3 so no entry is possible before Monday; Ryan went live with the grade process on 2026-09-24 evening with this same record in front of him (only -$3.41 of grade-process exits since). Escalated to Ryan by notification; NO Ryan decision is claimed (HARD RULE 9).",
     "status": "OPEN -- Monday's first-run calibration owns it."
+  },
+  "_WEEKLY_CALIBRATION_2026-09-28": {
+    "run_utc": "2026-09-28T13:33:00Z",
+    "run_by": "scheduled run 13:30Z 2026-09-28 (unattended, prompt v12) -- FIRST POST-BELL run of the trading day; owns the Monday calibration.",
+    "authority": "Ryan's standing grant 2026-09-02 (bounded parameter autonomy). No new trading authority; no gate loosened. KILL branch per CLAUDE.md QUALITY-GRADE item 6: 'the KILL branch still applies immediately if the equity book's margin goes <= 0'.",
+    "source": "BROKER: get_pnl_trade_history(718757339, span='3month') -> 71 closing rows 2026-07-01..2026-09-25. The window ROLLED: the 06-22..06-30 rows that were in the 09-21 sample have aged out. trade_journal.json not used.",
+    "method": "calibrate.split_books() by broker membership, option_closes = the 09-21 run's 17 order-derived CLOSE pairs + the lapse pair ('SPY','2026-09-17'); no option orders since (options [] all week).",
+    "EQUITY_BOOK": {
+      "edge_stats": {
+        "n": 50,
+        "wins": 31,
+        "losses": 19,
+        "win_rate": 0.62,
+        "mean_win": 12.98,
+        "mean_loss": -21.94,
+        "payoff_ratio": 0.5915,
+        "breakeven_win_rate": 0.6283,
+        "margin_pts": -0.83,
+        "expectancy_usd": -0.29,
+        "net_usd": -14.54
+      },
+      "in_regime_trades": 2,
+      "in_regime_detail": "Closes under the QUALITY-GRADE PROCESS (live 2026-09-25): V -9.47, BMY +6.06.",
+      "verdict": "EDGE GONE -- halve size, pause new entries, ESCALATE (recommend() output).",
+      "why_it_moved": "09-21 read +12.99 pts on n=49. Two things moved it below zero: (1) the old-process time stops ABNB -111.71 / UNP -40.82 on 09-24 plus V -9.47; (2) the 3-month window rolling off late-June winners. The mean loss (-$21.94) is now 1.7x the mean win (+$12.98).",
+      "purity_check": "Does NOT rescue it. Autonomous-era slice (closes since 2026-08-26, all agentic): 11 closes, 3 wins, net -$222.42 -- worse than the blended sample.",
+      "gate_exemption": "KILL is exempt from the in-regime gate. The honest caveat -- 48 of 50 closes predate the grade process that replaced the failing screen -- is a reason for Ryan to consider lifting it, NOT a reason for an unattended run to skip it.",
+      "changes_applied": "APPLIED: equity position_size_multiplier 0.5; NEW autonomous equity entries PAUSED. Operative state lives in holdings._EQUITY_KILL_PAUSE. Exits (take-profit, grade exit, thesis, fail-safe time stop) unaffected.",
+      "escalated": "Ryan notified 2026-09-28 by push. Only a live Ryan turn lifts it (or a later calibration reading margin > 0)."
+    },
+    "OPTIONS_BOOK": {
+      "edge_stats": {
+        "n": 21,
+        "net_usd": -572.0,
+        "margin_pts": -13.41,
+        "expectancy_usd": -27.24
+      },
+      "verdict_raw": "EDGE GONE",
+      "applied": "NONE. Same 21 rows as 09-21, when Ryan (live turn) reversed the options KILL after the hedge/mixed-attribution correction. Options are now bounded by _OPTIONS_BUCKET (20%, -40% pause). No new options closes this week."
+    },
+    "DAY_TRACK": {
+      "graduate": {
+        "go_live": false,
+        "reason": "paper 8d / 6 trades; need 10d and 8 trades"
+      },
+      "status": "PAPER unchanged",
+      "paper_r": [
+        -1,
+        -1,
+        -1,
+        6.4774,
+        1.353,
+        -1
+      ],
+      "track_status": "active"
+    },
+    "params_unchanged": {
+      "swing_time_stop_days": 14,
+      "target_positions": 4,
+      "rsi2_oversold": 10.0
+    }
+  },
+  "_EQUITY_KILL_PAUSE": {
+    "set_utc": "2026-09-28T13:33:00Z",
+    "status": "ACTIVE",
+    "new_equity_entries": "PAUSED",
+    "position_size_multiplier": 0.5,
+    "trigger": "Weekly calibration 2026-09-28: equity margin -0.83 pts (n=50, broker 3-month). See _WEEKLY_CALIBRATION_2026-09-28.",
+    "scope": "Autonomous equity ENTRIES only. All equity exits run. Options (bucket rules) and the DAY TRACK (paper) unaffected.",
+    "lifts_when": "A live Ryan turn, or a Monday calibration reading equity margin > 0. No unattended run lifts it on its own judgment."
   }
 }
