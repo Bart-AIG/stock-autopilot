@@ -23,6 +23,7 @@ SIGNALS = {
     ("SPY", "price_below_sma"): (1, "SPY closed under its 50-day: trend damage, early warning"),
     ("SPY", "price_below"):     (2, "SPY broke a price level"),     # 729 ~ -5%; 690 handled below
     ("QQQ", "price_below"):     (2, "QQQ broke its level: tech/growth de-rating (joint book is ~50% tech)"),
+    ("QQQ", "price_below_sma"): (1, "QQQ under its 50-day: tech trend damage, early warning"),
     ("HYG", "price_below"):     (2, "High-yield credit selling off: credit stress leads equities"),
     ("KRE", "price_below"):     (2, "Regional banks breaking: funding/credit stress"),
     ("VIXY", "price_above"):    (2, "Volatility spiking: forced de-risking in the market"),
@@ -33,6 +34,7 @@ SIGNALS = {
 }
 # Deeper levels on the same symbol add weight (a regime break, not just a warning).
 DEEP_LEVEL_BONUS = {("SPY", "price_below"): (700.0, 1),   # below ~700 = -9%+: +1 more
+                    ("QQQ", "price_below"): (670.0, 1),   # ~200-day / July low = bear regime
                     ("IEF", "price_below"): (88.0, 1)}    # 87.35 alert = rates really moving
 
 TIERS = [(0, "GREEN"), (2, "YELLOW"), (4, "ORANGE"), (7, "RED")]
@@ -94,7 +96,65 @@ def grade(alerts: list[dict], prices: dict[str, float], smas: dict[str, float] |
     return {"score": score, "tier": tier, "readings": rows}
 
 
-def sell_plan(tier: str, positions: list[dict], cash: float, total_value: float) -> dict:
+def _yoy(fin: list[dict], i: int, key: str = "revenue") -> float | None:
+    """Year-over-year change of fin[i][key] vs the same fiscal quarter a year earlier.
+    Matched by (fiscal_year-1, fiscal_quarter), NOT by list offset: the feed skips
+    quarters (CRCL had no FY25 Q4 row on 2026-09-28), so fin[i+4] can be the wrong one."""
+    if i >= len(fin):
+        return None
+    cur = fin[i]
+    prior = next((f for f in fin if f.get("fiscal_quarter") == cur.get("fiscal_quarter")
+                  and f.get("fiscal_year") == (cur.get("fiscal_year") or 0) - 1), None)
+    try:
+        a, b = float(cur[key]), float(prior[key])
+    except (TypeError, ValueError, KeyError):
+        return None
+    return (a / b - 1) if b > 0 else None
+
+
+def holding_health(price: float, closes_desc: list[float], fin: list[dict] | None = None) -> dict:
+    """Per-holding health check for the JOINT account (set 2026-09-25, Ryan: "add something
+    that helps monitor the stocks in the joint risk monitor"). Two halves:
+      PRICE TREND (daily closes, newest first): under the 50-day (1), under the 200-day (2),
+        20%+ off the 1-year closing high (1; 30%+ = 2).
+      BUSINESS TREND (get_financials quarterly rows, newest first): latest quarter's revenue
+        DOWN year-over-year (2); revenue growth slowing two quarters running (1); net margin
+        down 5+ points year-over-year (1).
+    OK 0-1 / WATCH 2-3 / WEAK 4+. A WEAK name is the first sale when market risk rises and
+    a review item even at GREEN. Missing data scores nothing - it never invents a flag."""
+    flags, pts = [], 0
+    c = [x for x in closes_desc if x]
+    if len(c) >= 50 and price < sum(c[:50]) / 50:
+        flags.append("under 50-day"); pts += 1
+    if len(c) >= 200 and price < sum(c[:200]) / 200:
+        flags.append("under 200-day"); pts += 2
+    if c:
+        dd = price / max(c[:252]) - 1
+        if dd <= -0.30:
+            flags.append(f"{dd:.0%} off 1-yr high"); pts += 2
+        elif dd <= -0.20:
+            flags.append(f"{dd:.0%} off 1-yr high"); pts += 1
+    if fin:
+        g0, g1, g2 = _yoy(fin, 0), _yoy(fin, 1), _yoy(fin, 2)
+        if g0 is not None and g0 < 0:
+            flags.append(f"revenue {g0:+.0%} YoY"); pts += 2
+        elif None not in (g0, g1, g2) and g0 < g1 < g2:
+            flags.append(f"revenue growth slowing {g2:+.0%} -> {g1:+.0%} -> {g0:+.0%}"); pts += 1
+        try:
+            m0 = float(fin[0]["net_margin"])
+            prior = next(f for f in fin if f.get("fiscal_quarter") == fin[0].get("fiscal_quarter")
+                         and f.get("fiscal_year") == (fin[0].get("fiscal_year") or 0) - 1)
+            m1 = float(prior["net_margin"])
+            if m0 - m1 <= -5:
+                flags.append(f"net margin {m1:.0f}% -> {m0:.0f}%"); pts += 1
+        except (StopIteration, TypeError, ValueError, KeyError, IndexError):
+            pass
+    status = "WEAK" if pts >= 4 else ("WATCH" if pts >= 2 else "OK")
+    return {"status": status, "points": pts, "flags": flags}
+
+
+def sell_plan(tier: str, positions: list[dict], cash: float, total_value: float,
+              health: dict[str, dict] | None = None) -> dict:
     """positions = [{symbol, qty, price, cost}] for the JOINT account.
     Returns the dollars to raise and a ranked list of sell recommendations.
     Order of preference, cheapest-to-the-thesis first:
@@ -104,9 +164,12 @@ def sell_plan(tier: str, positions: list[dict], cash: float, total_value: float)
       3. trim concentration: single names over the tier cap, then the semis cluster
       4. RED only: high-beta non-core names to reach the cash target
     Core names are trimmed for concentration only, never sold out."""
+    health = health or {}
+    weak = [s for s, h in health.items() if h.get("status") == "WEAK"]
     if tier == "GREEN":
         m = max(0.0, -cash)
         return {"raise_usd": 0.0, "margin_usd": round(m), "recs": [],
+                "review": [{"symbol": s, "flags": health[s]["flags"]} for s in weak],
                 "note": (f"No risk action. NOTE: ${m:,.0f} of margin is in use, against the "
                          f"2026-08-05 decision to keep this account unlevered." if m
                          else "No action. Keep watching.")}
@@ -147,6 +210,13 @@ def sell_plan(tier: str, positions: list[dict], cash: float, total_value: float)
                 cut = min(excess, (val[s] - sold[s]) * 0.5)
                 add(s, cut, f"semis cluster {semis_v/eq:.0%}, over the {SEMIS_CAP[tier]:.0%} cap")
                 excess -= cut
+    # 0. WEAK holdings go first once risk is up: the market is telling us to raise cash and
+    #    these are the names whose own trend or business is already failing. Non-core = full
+    #    exit; core = half, since core names are trimmed but never sold out.
+    for s in sorted(weak, key=lambda s: -health[s]["points"]):
+        if s in val:
+            add(s, val[s] * (0.5 if s in CORE else 1.0),
+                "WEAK holding: " + ", ".join(health[s]["flags"]))
     # 1+2. margin / cash target funded by loss names first, then high-beta non-core
     losers = sorted((p for p in positions if p["symbol"] not in CORE and p.get("cost")
                      and p["price"] < p["cost"]), key=lambda p: p["price"] / p["cost"])
