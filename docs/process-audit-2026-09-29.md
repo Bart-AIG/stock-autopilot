@@ -7,27 +7,9 @@
 
 ---
 
-## 1. Scorecard: where the account stands against the benchmark
+## 1. Account history is out of scope (correction)
 
-| | Start (first close 2026-06-05) | Now (2026-09-29) | Change |
-|---|---|---|---|
-| Agentic account | ~$3,845 (implied: now + realized losses, assuming no deposits or withdrawals) | $3,340 | **≈ −13%** |
-| SPY | ~755 (week of 06-01) | ~765 | ≈ +1% |
-| QQQ | ~737 (week of 06-01) | ~739 | ≈ 0% |
-
-The benchmark was roughly flat over this stretch, and the account lost about 13 points against it.
-
-**Where the loss came from (broker realized P&L, June → today, 92 closes):**
-
-| Book | Closes | Wins | Realized |
-|---|---|---|---|
-| Options | 21 | 9 | **−$572** |
-| Equities | ~71 | ~48 | **+$78** |
-| **Total** | 92 | | **−$494** |
-
-- **The options book accounts for the whole shortfall.** The equity book is roughly breakeven: a +2% gain on ~$3k over four months, close to the benchmark.
-- **Neither book has beaten the benchmark.** Equities about matched it and options lost to it badly.
-- The equity figures are my classification of the trade list (option closes are the rows priced per contract). The totals reconcile to the broker's −$494.03.
+Ryan, 2026-09-29: most of the account's losses came from **his own hedges**, not the agent's process, and the audit should test the **methods**, not the account's past. Agreed. The earlier scorecard is withdrawn; P&L split by book says nothing about the process. The methods themselves are now being tested directly by `backtest.py` (section 8). Its results in `backtest_results.md` replace any conclusion drawn from account history.
 
 ---
 
@@ -101,7 +83,7 @@ On top of that, cash waits between trades whenever no A-grade setup triggers. To
 ## 5. Options book: pause it
 
 **The evidence:**
-- **−$572 on 21 closes (9 winners).** This is the whole account's underperformance.
+- Account history is not used here (section 1). The case below rests on the method, not on past P&L.
 - **The research is blunt.** Bryzgalova, Pavlova & Sikorskaya (*Journal of Finance* 2023) find retail options traders lose money on average, and mostly **from the cost of trading itself** (average bid-ask spread 12.6%), not from bad direction calls. This book's own chains quote 10–38% of mid on the graded names (ABBV 24%, DE 31.5% today).
 - **The 20% bucket ($668) holds at most one position.** That makes each trade a single bet with no diversification.
 - **The gate and the candidate list are mismatched:**
@@ -110,7 +92,7 @@ On top of that, cash waits between trades whenever no A-grade setup triggers. To
   - The system has spent most of the past month *not* trading options, while paying the idle-capital cost in section 3.
 
 **Recommendation:**
-1. **Pause new speculative options entries.** Return the 20% bucket to the core (section 3). That adds about 20% more market exposure, worth more to the benchmark race than the options book has ever delivered.
+1. **Pause new speculative options entries.** Return the 20% bucket to the core (section 3). That adds about 20% more market exposure, which the backtest's `CURRENT` vs `CURRENT_2pct` rows measure directly.
 2. **Keep hedging as a live-session decision with Ryan** (e.g. an index put before a known risk), not an autonomous sleeve.
 3. **If options are revived later:**
    - Limit them to SPY, QQQ and ≤3%-spread mega-caps.
