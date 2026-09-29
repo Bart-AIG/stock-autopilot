@@ -1404,15 +1404,15 @@
       "r_usd": 9.15,
       "bound_by": "cash",
       "risk_pct_used": 5.0,
-      "status": "open",
+      "status": "closed",
       "capital_note": "Deployable $1,937.08 = ubp $2,104.18 - 5% reserve $167.10 (total_value $3,341.98). PAPER: no order placed, no cash consumed.",
       "_manage_state": {
         "stop_px_signal_current": 740.5799,
         "session_low": 736.0,
-        "last_price": 737.2143,
-        "last_checked_utc": "2026-09-29T15:45:45Z",
-        "r_now": -0.042,
-        "action": "hold (-0.04R)"
+        "last_price": 737.025,
+        "last_checked_utc": "2026-09-29T16:00:44Z",
+        "r_now": 0.011,
+        "action": "close (chop rule)"
       },
       "_manage_log": [
         {
@@ -1468,8 +1468,27 @@
           "px": 737.2143,
           "action": "hold",
           "reason": "working, -0.04R; 1-min high since 15:41Z 737.59 < stop 740.5799; chop rule arms at 16:00Z"
+        },
+        {
+          "utc": "2026-09-29T16:00:44Z",
+          "px": 737.025,
+          "action": "close",
+          "reason": "chop rule at 12:00 ET, +0.01R; 1-min high since 15:45Z 737.88 < stop"
         }
-      ]
+      ],
+      "exit_reason": "chop",
+      "r_multiple": 0.011,
+      "pnl_usd": -1.54,
+      "exit_utc": "2026-09-29T16:00:44Z",
+      "exit": {
+        "exited_utc": "2026-09-29T16:00:44Z",
+        "exited_by": "scheduled run 16:00Z 2026-09-29 (unattended, prompt v12)",
+        "reason": "chop rule (>= 12:00 ET, |R| < 0.5) -- day_track.manage -> close, r +0.011",
+        "exit_px_signal": 737.025,
+        "exit_px_vehicle": 24.89,
+        "breach": "none; 1-min high 15:45-15:59Z 737.88 < stop 740.5799. PSQ exit at the 16:00:44Z bid 24.89 (sell side). Vehicle P/L -$1.54 vs +0.011R on the signal: PSQ spread/tracking.",
+        "nothing_placed": "PHASE=PAPER. No order sent."
+      }
     }
   ]
 }
