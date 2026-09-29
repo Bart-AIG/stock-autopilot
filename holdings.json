@@ -1,12 +1,12 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-29T13:33:00Z",
+  "updated_utc": "2026-09-29T17:48:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-29",
     "realized_usd_options": 0.0,
     "closing_trades_options": 0,
     "cap_options_usd": -400.0,
-    "entry_throttle": "0 of 3 options entries used; 0 of 3 equity entries used (equity entries PAUSED by _EQUITY_KILL_PAUSE)."
+    "entry_throttle": "0 of 3 options entries used; 1 of 3 equity entries used (DE 17:46Z; _EQUITY_KILL_PAUSE LIFTED 17:32Z)."
   },
   "positions": [
     {
@@ -34,6 +34,25 @@
       "grade_at_entry": "A+ 12/12 #10/236, trigger 21 EMA pullback (RSI2 27.0)",
       "_note": "placed_agent='agentic' -- AUTONOMOUS entry, signal-sourced from latest_intraday.md 2026-09-25T16:07Z. Order 6ab69e51-3c35-4f53-a639-2d0ef75cfd2e, $620.00 dollar MARKET regular_hours, FILLED 16:16:17.753Z @ $147.6199, 4.199975 sh, $0 fees; review order_checks {} on $0.04 spread. Size = equity deployable $1,251.84 (ubp 2086.56 - 5% reserve 166.94 - options bucket 667.78) / 2 open slots = $625.92 -> $620. Exits: RSI2>=70 take-profit while green; GRADE EXIT if rank leaves top 25%; native 15% trail once >= $173.67 (entry/0.85). No price stop (HARD RULE 5). Earnings not in calendar through 10-26.",
       "_thesis_check_pre_trade": "HARD RULE 7 written BEFORE order (trade_journal 16:16:30Z): FDA approval Welireg+Lenvima RCC 09-25; BRUNELLO met primary (safety signals noted, full data AAO ~10-10); WINREVAIR label expansion; UBS Buy PT 175, TD Cowen PT 155; 21B/9H/1S mean PT 153.76. Verdict INTACT. Healthcare, not oil."
+    },
+    {
+      "symbol": "DE",
+      "sleeve": "swing",
+      "entry_date": "2026-09-29",
+      "entry_price": 681.4499,
+      "shares": 0.930369,
+      "stop": null,
+      "target": 709.48,
+      "native_trail_pct": null,
+      "grade_at_entry": "A+ 12/12 #10/236 (latest_intraday.md 17:07Z), trigger RSI2 dip (report 8.8; live recompute 8.4 at 681.57)",
+      "_note": "placed_agent='agentic' -- AUTONOMOUS entry, signal-sourced from latest_intraday.md 2026-09-29T17:07Z; first entry after _EQUITY_KILL_PAUSE lift (master 17:32Z). Order 6abbf96d-dadb-49f1-8c46-57ceaba47978, $634.00 dollar MARKET regular_hours, FILLED 17:46:21.818Z @ $681.4499, 0.930369 sh, $0 fees; review order_checks {}. Size = equity deployable $1,269.69 (ubp 2104.18 - 5% reserve 166.90 - options bucket 667.59) / 2 open slots (target 4) = $634.85 -> $634. Exits: RSI2>=70 take-profit while green; GRADE EXIT if rank leaves top 25%; native 15% trail once >= $801.71 (entry/0.85). No price stop (HARD RULE 5). Earnings 2026-11-25 (verified), outside hold window. Ex-div 2026-09-30 $1.62.",
+      "_freshness_gate": {
+        "quote_asof": "2026-09-29T17:46:15Z (review_equity_order, bid 681.01/ask 681.46)",
+        "trigger_recheck": "RSI2 8.4 recomputed with live 681.57 as latest close, 17:45Z",
+        "news_check_asof": "2026-09-29T17:45Z",
+        "grade_asof": "latest_intraday.md 2026-09-29T17:07Z (39 min old)"
+      },
+      "_thesis_check_pre_trade": "HARD RULE 7 (this run, 17:45Z): FQ3 beat (EPS 5.10 vs 4.72 est), FY26 net income guide raised to $4.75-5.00B; Evercore upgrade to Outperform PT 813 (09-02); BofA PT 667->715 (09-24); consensus 17B/8H/2S mean PT 698.73. Today's -1.2% is a drift, no negative headline found. Verdict INTACT. Industrial/ag, not oil."
     }
   ],
   "_resolved_flags": [
