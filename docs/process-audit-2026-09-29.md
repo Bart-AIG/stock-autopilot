@@ -215,6 +215,44 @@ Simulated daily-reset leverage, 2007-08 → today. This includes the 2008 crisis
 
 ---
 
+## 11. Robustness batch (added 2026-09-29, `robust_results.md`)
+
+**Swing sleeve:**
+- **Settings.** It holds across one-at-a-time parameter changes: 12.8–14.2%/yr at 1× over 2007–2026 for every variant, against a 13.8% baseline. All three parts matter; removing IBS or TOM costs 4–5 pts.
+- **SPY.** The rules work on SPY too: 8.6%/yr at 1× with a −19% max drawdown, vs SPY buy & hold at 11.0% / −55%, and 15.7% at 2×.
+- **Execution timing is the real cost.** Deciding and trading at 15:50 ET on the live price, instead of the exact close, cuts the 2018–26 CAGR from 19.2% to 14.6% at 1× and from 37.1% to 26.8% at 2×. Most of the gap is in 2018–21. **The 15:50 numbers are the realistic ones.**
+
+**2000–02 crash:** ^NDX index history is not served on this FMP tier (and QQQ history starts 2006-11), so **the leveraged core has not been tested against 2000–02**. It remains the largest untested risk.
+
+**Core variants, real ETFs, 2007–2026 (CAGR / max DD):**
+
+| Core | 2007–26 | 2022 |
+|---|---|---|
+| QLD + 200d → T-bills (baseline) | 21.4% / −46% | −37% |
+| → TLT when out | 19.4% / −60% | −56% (bonds fell with stocks) |
+| → GLD when out | 24.0% / −47% | −40% |
+| → dual momentum (TLT/GLD/BIL) | 21.8% / −48% | −43% |
+| **Vol-target 25% (≤ 2×) + 200d → T-bills** | **18.0% / −42%** | **−20%** |
+| Vol-target 30% (≤ 2×) + 200d → T-bills | 19.9% / −44% | −24% |
+| QQQ buy & hold | 17.5% / −49% | −34% |
+
+**40 / 30 / 30 portfolio, 2018–2026** (QQQ: 20.0%/yr, −35% max DD, −32% worst year):
+
+| Core in the mix | Swing executed | CAGR | Max DD | Worst year |
+|---|---|---|---|---|
+| QLD + 200d → T-bills | close | 31.7% | −24% | −9.8% |
+| QLD + 200d → T-bills | 15:50 | 28.6% | −28% | −9.5% |
+| **Vol-target 25% + 200d → T-bills** | close | **29.2%** | **−16%** | **−1.7%** |
+| Vol-target 25% + 200d → dual momentum | 15:50 | 26.7% | −21% | −4.7% |
+
+**What the batch changes:**
+- **Make the core volatility-targeted.** Exposure = 25% ÷ QQQ's 20-day realized volatility, capped at 2×, still switched off below the 200-day SMA. It is held as a QQQ/QLD mix: e.g. 1.4× = 60% QLD + 40% QQQ. That gives up ~2 pts of return and **cuts the portfolio's max drawdown by about a third**.
+- **Keep T-bills as the "off" asset.** Bonds fell with stocks in 2022; gold and dual momentum added nothing reliable.
+- **Plan on the 15:50 swing numbers.**
+- **Realistic 2018–26 expectation for the plan:** about 26–29%/yr vs QQQ's 20%, with a max drawdown of about −16% to −21% vs −35%. Historical, not a promise.
+
+---
+
 ## 6. Limits of this evidence
 - **Survivorship bias:** the end-2018 pools still lose any names FMP no longer carries (small effect). The A1/A2 universes are heavily hindsight-biased and should not be used for decisions.
 - **One market history:** 2007–2026 is one path, mostly a strong Nasdaq era; 2000–02 is untested. Leveraged Nasdaq in a 2000–02-style decline with repeated whipsaws would be worse than anything shown here.
