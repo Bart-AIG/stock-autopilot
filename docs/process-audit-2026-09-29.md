@@ -1,188 +1,120 @@
-# Process audit — 2026-09-29
+# Process audit — 2026-09-29 (backtest-based)
 
-**Goal (Ryan):** grow the Agentic account as much as possible; the benchmark is SPY and QQQ.
-**Scope:** all three books (equity swing, options, day track), plus capital policy, measurement and operations.
-**Evidence:** the broker's full trade record (`get_pnl_trade_history span=all`, `get_realized_pnl`), live account state on 2026-09-29, SPY/QQQ weekly bars, the repo's code and rules, and published research.
-**Honest limit:** this environment cannot reach outside market data (Yahoo/Stooq are blocked; FMP is reachable only from GitHub Actions). None of the recommendations below is backtested yet. Section 8 lays out how to test them before switching anything.
+**Goal (Ryan):** grow the account as much as possible; the benchmark is SPY and QQQ.
 
----
+**Scope (Ryan's correction):** test the **methods**, not the account's past. The account's earlier losses were mostly Ryan's own hedges, so account history is not used here.
 
-## 1. Account history is out of scope (correction)
-
-Ryan, 2026-09-29: most of the account's losses came from **his own hedges**, not the agent's process, and the audit should test the **methods**, not the account's past. Agreed. The earlier scorecard is withdrawn; P&L split by book says nothing about the process. The methods themselves are now being tested directly by `backtest.py` (section 8). Its results in `backtest_results.md` replace any conclusion drawn from account history.
+**Evidence:** `backtest.py`, run on GitHub Actions with FMP's split- and dividend-adjusted daily data. Full numbers are in `backtest_results.md`. The code reuses the live `grade.py` and the live RSI function, grades every session, and replays each process day by day from 2019 to today. Fills are at the signal close ±5 bp; a `_lag1` variant fills at the next close.
 
 ---
 
-## 2. The most important finding: the system does not measure what you care about
+## 1. Verdict in one table
 
-- **You measure excess return; the system does not.** Your goal is to beat SPY and QQQ. The system's scoreboard (`calibrate.py`, the Friday review) measures **win rate over the breakeven win rate**. That is a health check on a trading rule, not on the account. A book can post a +22-point margin over breakeven and still trail QQQ by 20% a year. The 72%-win-rate equity book did roughly that: it won often, made little, and missed the rally.
-- **There is no benchmark tracking at all.** No run computes the account's return against SPY/QQQ over the same window, so nobody can say whether the system is working.
-
-**Fix (small, no strategy change):**
-- Add a daily `benchmark.json`: account total value (time-weighted, net of any deposits) vs SPY and QQQ total return since a fixed start date.
-- Print the gap at the top of every daily report.
-- Make **"excess return vs QQQ, rolling 3 months"** the primary metric the weekly calibration and the Friday review answer to. Keep margin-over-breakeven as a secondary health check per rule.
-
----
-
-## 3. Capital: about 25% of the account is structurally idle
-
-The capital policy always keeps **25% of the account out of the market**:
-- 20% is reserved for options, and it has held no position most days (today: $668 reserved, $0 used).
-- 5% is the operational reserve.
-
-On top of that, cash waits between trades whenever no A-grade setup triggers. Today, after the TGT buy, about $836 of the $3,340 (25%) is cash.
-
-**Why it matters for the benchmark:**
-- A fully invested QQQ holder has 100% exposure. This account has 60–75%.
-- In a rising market that alone guarantees underperformance, before any trade is taken.
-- It is the single easiest thing to fix.
-
-**Fix: make QQQ the default holding instead of cash.** This is the standard **core-satellite** structure used by active managers who are measured against an index.
-- Anything not assigned to a live A/A+ position sits in **QQQ**, the benchmark itself.
-- Keep a real **2% cash** buffer for fees. 5% is more than the account needs at this size, and nothing has ever needed it.
-- A new swing entry is funded by selling that amount of QQQ. An exit's proceeds go back into QQQ at the next run.
-- **Consequence:** "doing nothing" now **matches the benchmark** instead of lagging it. The trading book only has to add value *on top of* QQQ, instead of first earning back 25% of idle exposure.
-- **Trade-off:** it adds turnover (QQQ trades in and out), and on a taxable account those are short-term gains. QQQ's spread is about $0.01, so the dollar cost is trivial.
-
----
-
-## 4. Equity book: the entry and exit rules come from opposite strategies
-
-| | What it is | Where it comes from |
+| Question | Answer | Confidence |
 |---|---|---|
-| **Entry (since 09-25)** | Quality grade A/A+: 52-week high proximity, relative strength, 12-1 momentum, MA stack, then buy the pullback | **Momentum / trend-following.** The edge is that leaders keep leading (Jegadeesh & Titman 1993; George & Hwang 2004; the O'Neil / Minervini practitioner canon) |
-| **Main exit** | RSI(2) ≥ 70 take-profit, no magnitude test | **Short-term mean reversion** (Connors). The edge is a quick snap-back from oversold |
-| **Loss rule** | No price stop ever (HARD RULE 5) | Also from Connors, whose research shows stops *hurt* RSI(2) mean reversion |
-
-**Why the mismatch costs money:**
-- Momentum returns are made by a minority of big winners, the right tail. Momentum research consistently finds the return is concentrated in the names that keep trending for months.
-- An exit that fires on the first 2–3 day bounce sells every leader before it can become one of those winners.
-- The book's own record shows it:
-  - MRK was sold today for +1.0% while still A+ #8.
-  - TGT was sold 09-28 at $160.18 and bought back today at $157.03.
-  - The old measurement ("the RSI2 exit sits a mean 0.84% from entry", 72% win rate, payoff 1.02) is exactly what capping the right tail looks like: many small wins and no big ones.
-- The no-stop rule has the opposite problem. It was right for mean-reversion dips. For a momentum book, the discipline is the reverse: **cut losers fast, let winners run.** The ABNB (−$112) and UNP (−$41) time-stop sales on 09-24 are what a leader book with no loss control looks like.
-
-**Recommended rules for the leader book (needs Ryan's approval: it amends HARD RULE 5 for this book):**
-
-| Rule | Proposal | Rationale |
-|---|---|---|
-| Entry | Keep the grade + pullback trigger as is | The entry is sound |
-| Initial loss cut | Close below the 50-day SMA, **or** −8% from entry, whichever comes first | The standard momentum discipline; −7 to −8% is the O'Neil/Minervini norm |
-| Winner exit | Grade exit (rank leaves the top 25%) **or** a trailing stop (15% below the high, or a close below the 10-week MA) | Lets a leader run as long as it stays a leader |
-| RSI2 ≥ 70 take-profit | **Drop it** for A/A+ holdings | It truncates the right tail |
-| Rebalance | Monthly re-rank. Rotate the weakest holding if a clearly higher-ranked A+ name is available | Momentum portfolios are rebalanced monthly in the research |
-| Share count | Prefer whole shares so the 15% trail can rest at the broker. Where fractional (DE 0.93 sh), the report tracks the trail level and the agent sells when it is breached | Fractional positions cannot carry native trails |
-
-- **Stops are agent-monitored, not resting.** A resting stop would put an agent-placed stop on a swing position, which HARD RULE 5 forbids today. The rule change would allow either.
-- **What this will look like:** a lower win rate (probably 40–50% instead of 72%) with a much higher payoff ratio. That is normal and expected for momentum. **This is exactly why the scoreboard must move to excess return (section 2):** under the current win-rate metric a better strategy would look worse.
+| Does today's live equity process beat SPY/QQQ? | **No. It ranked last or near last in all four universes tested** (5–19%/yr vs QQQ 23.1%) | High |
+| Why? | **The RSI2 ≥ 70 take-profit.** It wins ~70% of trades but its average win is ~0.5–0.6× its average loss, with a 4-day hold. It sells leaders at the first bounce | High |
+| Does the quality grade pick winners? | **Somewhat, and only when leaders are held for weeks** (monthly rotation). It beat QQQ inside QQQ's own end-2018 pool by +3 to +6.5 pts/yr, but lost to SPY inside the S&P 100 pool, and 2 names made most of the profit | Low–moderate |
+| Does idle cash hurt? | Yes. A 25% idle reserve cost 1–8 pts/yr; holding QQQ with the spare cash always helped | High |
+| What reliably beats QQQ? | **2× Nasdaq (QLD) held only while QQQ is above its 200-day average**, T-bills otherwise. It beat QQQ over 2007–2026 (including 2008) **with a smaller worst drawdown than QQQ itself** | Moderate |
+| Day track? | The edge is real and positive net of costs over 2 years (paper rules +0.158R/trade). **Our added rules cut it by two-thirds.** At this account size it's worth about $250/yr | Moderate |
+| Options? | Not testable (no historical options data). Leverage is cheaper through QLD than through single-leg calls | — |
 
 ---
 
-## 5. Options book: pause it
+## 2. Equity process results
 
-**The evidence:**
-- Account history is not used here (section 1). The case below rests on the method, not on past P&L.
-- **The research is blunt.** Bryzgalova, Pavlova & Sikorskaya (*Journal of Finance* 2023) find retail options traders lose money on average, and mostly **from the cost of trading itself** (average bid-ask spread 12.6%), not from bad direction calls. This book's own chains quote 10–38% of mid on the graded names (ABBV 24%, DE 31.5% today).
-- **The 20% bucket ($668) holds at most one position.** That makes each trade a single bet with no diversification.
-- **The gate and the candidate list are mismatched:**
-  - The re-grade prices illiquid pullback names instead of liquid A+ names (NVDA, AMD, MSFT).
-  - The 20% payoff-at-target test uses equity mean-reversion targets (TGT: +4.7%) that an at-the-money call cannot meet.
-  - The system has spent most of the past month *not* trading options, while paying the idle-capital cost in section 3.
+Annual growth rate 2019-01-02 → 2026-09-29. QQQ = 23.1% (max drawdown −35%), SPY = 17.2% (−34%).
 
-**Recommendation:**
-1. **Pause new speculative options entries.** Return the 20% bucket to the core (section 3). That adds about 20% more market exposure, which the backtest's `CURRENT` vs `CURRENT_2pct` rows measure directly.
-2. **Keep hedging as a live-session decision with Ryan** (e.g. an index put before a known risk), not an autonomous sleeve.
-3. **If options are revived later:**
-   - Limit them to SPY, QQQ and ≤3%-spread mega-caps.
-   - Use a target suited to options (the implied move, not the equity swing target).
-   - Require the trade to beat simply holding the stock with the same dollars, over the same horizon, in a written comparison.
-   - Revive only after the equity book has shown excess return over at least 20 closes.
-
----
-
-## 6. Day track: do not go live Monday
-
-The track is a copy of Zarattini & Aziz's 5-minute QQQ opening-range breakout ("Can Day Trading Really Be Profitable?", SSRN 4416622), with three material differences:
-
-| | Paper | Our day track |
-|---|---|---|
-| Profit side | Target 10R, else **hold to the close** | Stop to breakeven at +1R, ATR trail from +2R, **close at 12:00 ET if under 0.5R** |
-| Hit rate / edge | 24% hit rate, **+0.13R per trade**. The edge is entirely the rare big winner | Same signal, but the exit rules cut off most of those winners |
-| Sizing | 1% risk, **up to 4× leverage** | Cash-bound: R ≈ $4 at this account size |
-| Costs | Commission only. **No spread, no slippage, no out-of-sample test**. An independent replication on five indices this month found the gross result reproduces but is **~zero net of costs** | — |
-
-**Our paper record matches the paper's shape:** 8 signals, total +6.47R, but **one trade (+6.48R on 09-21) is the entire result**; the other 7 net −0.01R. `graduate()` checks only total expectancy, so it will likely pass Monday on what is, statistically, one lucky trade.
-
-**Even at its best the dollars cannot move the account.** At +0.13R per trade and R ≈ $4, the expected gain is about **$0.50 per trading day**. Meanwhile it takes first claim on deployable cash each morning and is the most complex piece of the system.
-
-**Recommendation:** retire the day track, or at minimum keep it in paper, match the paper's exits exactly (no chop rule, no early breakeven) and require ≥50 signals **with the best trade removed** before any live vote. Phase 2 (TQQQ/SQQQ) is the only version that could matter in dollars, and it is also the version where a 0.13R edge that nets to zero after costs becomes a real loss.
-
----
-
-## 7. Operations: rule churn and file bloat are now risks in themselves
-
-- **Rule churn:**
-  - Prompts v12 → v15 went live in one day (2026-09-29).
-  - The rules changed three times this week.
-  - The calibration counts only trades made under the current parameters. **Every change resets the evidence to zero**, so the system cannot learn anything.
-  - In-regime closes since 09-25: **4**. Twenty is needed before any tuning.
-- **File bloat:**
-  - `CLAUDE.md` is **289 KB**, `holdings.json` **1.9 MB**, `trade_journal.json` **8.7 MB**.
-  - Every run (up to ~26/day) re-reads them.
-  - Most of `CLAUDE.md` is incident history; the rules that actually bind would fit in ~25 KB.
-  - The file documents the errors this causes itself (stale-clone overwrites of master, miscounted throttles, runs obeying a stale prompt description).
-- **Run cadence:** a 15-minute cadence made sense for options exits. With options paused and a monthly-rebalanced momentum book, **2–3 runs per day** suffice (open +45 min, midday, 30 min before the close). That is fewer tokens and fewer chances for a sibling-run collision.
-
-**Recommendation:**
-1. **Freeze the equity rules for ~20 closes** (roughly 6–8 weeks) once the section 4 decision is made.
-2. **Rewrite `CLAUDE.md` to the rules in force** (target ≤30 KB) and move the history to `docs/history/`.
-3. **Rotate the journal monthly.**
-4. **Cut the cadence.**
-
----
-
-## 8. How to validate before switching
-
-The data lives where the scheduled report runs: GitHub Actions has the FMP key. I propose `backtest.py` plus a manual `workflow_dispatch` workflow that:
-
-1. Rebuilds the 12-trait grade historically over the 236-name universe, 2019 → today, point-in-time. Survivorship bias is unavoidable with today's universe; that caveat must be stated.
-2. Uses the same grade + pullback entries, with four exit variants:
-   - (a) today's RSI2 ≥ 70 take-profit + grade exit;
-   - (b) grade exit + 15% trail + −8%/50-day loss cut;
-   - (c) (b) without the loss cut;
-   - (d) monthly top-4 rotation, no pullback trigger.
-3. For each variant, reports CAGR, max drawdown, turnover and **excess return vs SPY and QQQ**, with and without the QQQ core.
-4. Also reruns the day track on 1-minute QQQ with the paper's exact rules vs ours, net of a 1¢ spread.
-
-**Decision rule:**
-- Adopt (b) or (d) only if it beats (a) **and** QQQ net of costs in the backtest.
-- Then run it live, frozen, for 20 closes, judged on excess return.
-
----
-
-## 9. Priority order and expected effect
-
-| # | Change | Effort | Needs Ryan? | Expected effect vs benchmark |
+| Universe | Why it matters | CURRENT (live) | Best variant | Best variant vs QQQ |
 |---|---|---|---|---|
-| 1 | Benchmark tracking + excess-return scoreboard | small | no (measurement only) | Makes every later decision visible; no P&L effect by itself |
-| 2 | QQQ as the default holding (core-satellite); reserve 5% → 2% | small | **yes** (capital policy) | Removes the ~25% idle drag. Likely the largest single gain |
-| 3 | Pause speculative options; return the bucket to the core | small | **yes** | Stops the book that produced the whole shortfall |
-| 4 | Don't graduate the day track Monday; retire it or re-spec it | small | **yes** | Avoids a live bet on one lucky trade; removes complexity |
-| 5 | Backtest harness (section 8) | medium | no (read-only analysis) | Decides the exit question on evidence |
-| 6 | Leader-book exits (drop RSI2 TP, add loss cut + trail) | medium | **yes** (HARD RULE 5) | Lets winners run; this is where excess return would come from |
-| 7 | Freeze rules for 20 closes; slim `CLAUDE.md`; cut cadence | medium | yes for the freeze | Fewer errors, lower cost, a learnable system |
+| A1 today's scan list (236) | Built recently, so it contains this cycle's winners: **hindsight** | 18.8% | Top-ranked A/A+ held until they leave the top 25%: 81.8% | +59 (not credible) |
+| A2 same list minus 41 speculative names | Still hand-picked recently | 13.9% | Same: 59.6% | +37 (not credible) |
+| A3 **S&P 100 as of end-2018** | Fixed before the test period, **no hindsight** | 5.0% | Monthly top-4 rotation, spare cash in QQQ: 15.4% | **−7.7** |
+| A4 **Nasdaq-100 as of end-2018** | QQQ's own pool, **no hindsight** | 5.9% | Monthly top-4 rotation: 26.3% (29.6% lag-1, 24.5% at 25 bp costs) | **+3.2 (+1.4 to +6.5)** |
 
-**What not to do:** add more gates. Every past fix added a rule, and the TACTICAL options track died of that. The changes above remove more than they add.
-
-**A candid note on expectations:** most active strategies, professional ones included, do not beat QQQ over time (SPIVA scorecards; Barber & Odean on retail turnover). The structure above is designed so that *doing nothing* matches QQQ, and the strategy is only allowed to add risk where it has shown, in data, that it adds return. The only reliable way to *exceed* the index without skill is leverage (e.g. a trend-filtered TQQQ sleeve). It is not recommended here, because a leveraged ETF can lose 70–80% in a bear market (TQQQ in 2022). It is a legitimate option to discuss if you want more aggression than the stock-selection edge can deliver.
+- **What to take from it:** the huge A1/A2 numbers are what a hand-picked, hindsight watchlist produces. They say little about the method.
+- **Inside the unbiased pools:**
+  - The **CURRENT process loses to both benchmarks by 11–18 pts a year.**
+  - Holding leaders for about 2 months (monthly rotation) is consistently the best way to use the grade.
+  - Even that beats QQQ only inside QQQ's own pool, mostly from WDC and NVDA.
+  - Its 2023–26 edge in that pool is about zero.
 
 ---
+
+## 3. Index alternatives (real ETF prices, then a simulation back to 2007)
+
+Real funds, 2019 → today (fees and leverage decay included):
+
+| | Annual return | Worst drop |
+|---|---|---|
+| QQQ | 23.1% | −35% |
+| QQQ + 200-day filter | 19.5% | −22% |
+| QLD (2×) | 37.0% | −64% |
+| **QLD + 200-day filter** | **33.6%** | **−40%** |
+| TQQQ (3×) + 200-day filter | 46.3% | −55% |
+
+Simulated daily-reset leverage, 2007-08 → today. This includes the 2008 crisis. FMP's QQQ history starts 2006-11, so the 2000–02 crash is **not** covered. The simulation runs 1–3 pts/yr optimistic compared with the real QLD/TQQQ:
+
+| | 2007–2026 | 2007–09 crisis | 2010–2018 | 2019–2026 |
+|---|---|---|---|---|
+| 1× QQQ | 16.1% (−54%) | −18.3% | 15.3% | 22.9% |
+| **2× + 200-day filter** | **20.2% (−47%)** | **−19.0%** | **11.5%** | 34.6% |
+| 2× buy & hold | 24.2% (**−83%**) | −43.1% | 25.0% | 38.3% |
+| 3× + 200-day filter | 26.1% (−63%) | −29.6% | 13.4% | 48.0% |
+
+**What the 2× + filter row means:**
+- **Upside:** over 19 years it beat QQQ by about 4 pts a year (about 3 after the simulation's optimism), and its worst drop (−47%) was smaller than holding QQQ itself (−54%).
+- **Weak spot:** it **lagged QQQ for most of 2010–2018** (11.5% vs 15.3%). Choppy markets whipsaw the 200-day switch. Expect multi-year stretches of trailing QQQ. That is the price of this approach, not a malfunction.
+- **Unleveraged or unfiltered versions:** filtered 1× never beats QQQ. Unfiltered 2×/3× beats it but carries −83% / −95% drawdowns.
+- **Prior work:** this is the published "leverage + trend filter" approach (Gayed & Bilello, *Leverage for the Long Run*, 2016; the 200-day rule follows Faber 2007).
+
+---
+
+## 4. Day track
+
+2 years, 500 sessions, 5-minute bars (1-minute data is paywalled on this data plan), 1¢/side cost:
+
+| Rules | Trades | Win % | Net R/trade | Total net R | Excl. best trade |
+|---|---|---|---|---|---|
+| Paper (stop at opposite OR edge, 10R target, else hold to close) | 499 | 28% | **+0.158** | +78.8 | +68.8 |
+| **Ours** (breakeven at +1R, trail from +2R, 12:00 chop exit, 15:30 flat) | 462 | 29% | **+0.053** | +24.3 | +17.3 |
+
+- **Our exit rules cut the right tail the strategy lives on.** Revert to the paper's rules if the track is kept.
+- **Dollars:** at about $6.41 per R (a ~$2,500 cash-bound QQQ position), the paper's rules made about $250/yr. That is about 10%/yr on the cash it ties up during the day, **less than the same cash would expect in the core.** It only adds value on top of a core that can't use that cash.
+
+---
+
+## 5. Recommended setup (needs Ryan's approval: it replaces the swing, options and day-track mandates)
+
+| Sleeve | Weight | Rule | Why |
+|---|---|---|---|
+| **Core** | **~75%** | **QLD while QQQ closes above its 200-day SMA; otherwise SGOV/BIL (T-bills).** Checked once a day after 15:30 ET; switch at that close or the next | The only tested approach that beat QQQ across 2007–2026 with a smaller worst drawdown. Mechanical, ~4 switches a year |
+| **Satellite** | **~25%** | Monthly: hold the top-4 grade A/A+ names from a **liquid large-cap pool** (Nasdaq-100 + S&P 100, not the hand-picked speculative list). Sell only if a name leaves the top 25% at the monthly check. Spare cash → QQQ | The grade's best, most honest use. Keeps a measurable stock-picking track record against QQQ |
+| Cash | ~2% | Fees and plumbing | 25% idle cost 1–8 pts/yr |
+| **Retire** | — | The RSI2 swing process, autonomous options, the day track (or paper-only with the paper's rules) | Last in every test / not testable / worth less than the core |
+
+**Blended expectation:** 2019–26 about 32%/yr vs QQQ 23%, with a 2008-type drawdown of about −40 to −45%. **These are historical, not promised returns.**
+
+**Things Ryan must accept or reject:**
+1. **This is leverage.** QLD is 2× daily and can fall ~50% in a crash even with the filter. It uses no margin (the fund holds the leverage, and your account borrows nothing), but it moves twice as hard as QQQ. That is within the letter of the no-margin rule but is a real change in risk.
+2. **It can trail QQQ for years** (2010–2018 did), and a sharp one-day crash can land before the filter reacts.
+3. **Taxes:** in a taxable account every switch realizes gains, mostly short-term.
+4. **HARD RULE 5 is unaffected.** No stops are needed; the 200-day switch is the risk control.
+
+**Simpler operations:** 1–3 runs a day instead of ~26. `CLAUDE.md` can shrink from 289 KB to the rules above. The scoreboard becomes **account return vs QQQ**, reported daily. Freeze the rules for 6 months, then re-run `backtest.py` and review.
+
+---
+
+## 6. Limits of this evidence
+- **Survivorship bias:** the end-2018 pools still lose any names FMP no longer carries (small effect). The A1/A2 universes are heavily hindsight-biased and should not be used for decisions.
+- **One market history:** 2007–2026 is one path, mostly a strong Nasdaq era; 2000–02 is untested. Leveraged Nasdaq in a 2000–02-style decline with repeated whipsaws would be worse than anything shown here.
+- **Missing inputs:** no earnings calendar history, and fills are at closing prices. The day-track sample is only 2 years.
+- **Nothing here is a guarantee.** Re-run `backtest.py` whenever the rules change.
 
 ### Sources
-- Bryzgalova, Pavlova & Sikorskaya, *Retail Trading in Options and the Rise of the Big Three Wholesalers*, Journal of Finance 78 (2023) — https://onlinelibrary.wiley.com/doi/full/10.1111/jofi.13285
-- Zarattini & Aziz, *Can Day Trading Really Be Profitable?* (SSRN 4416622) — https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4416622
-- Independent five-index replication of the ORB paper (gross reproduced, net ≈ zero), 2026-09-25 — https://www.mql5.com/en/blogs/post/776235
-- Jegadeesh & Titman (1993) momentum; George & Hwang (2004) 52-week high (cited in CLAUDE.md's quality-grade section)
-- Broker data: `get_pnl_trade_history(span=all)` and `get_realized_pnl(span=year)` on account 718757339, read 2026-09-29 ~19:30Z
+- Backtest: `backtest.py`, results in `backtest_results.md` (Actions runs 2026-09-29).
+- Zarattini & Aziz, *Can Day Trading Really Be Profitable?* (SSRN 4416622).
+- Gayed & Bilello, *Leverage for the Long Run* (2016).
+- Faber, *A Quantitative Approach to Tactical Asset Allocation* (2007).
+- Bryzgalova, Pavlova & Sikorskaya, *Journal of Finance* 78 (2023) — retail options costs.
