@@ -8065,7 +8065,7 @@
     "set_utc": "2026-09-25T01:30:00Z",
     "authority": "Ryan, live turn 2026-09-25: design approved, 20% options bucket, go live now (QUALITY-GRADE PROCESS, CLAUDE.md).",
     "pct_of_total_value": 0.2,
-    "per_trade_max_pct_of_bucket": 0.5,
+    "per_trade_max_pct_of_bucket": null,
     "pause_at_drawdown_pct_of_start": 0.4,
     "start_total_value": 3318.67,
     "start_bucket_usd": 663.73,
@@ -8073,7 +8073,13 @@
     "realized_pnl_since_start_usd": 0.0,
     "premium_at_risk_usd": 0.0,
     "paused": false,
-    "note": "Recompute the live bucket each run as 0.20 x get_portfolio.total_value. The PAUSE is measured against start_bucket_usd: once realized_pnl_since_start_usd <= pause_threshold_realized_usd, no new option entries until Ryan's monthly review; exits still run. Update realized_pnl_since_start_usd from get_realized_pnl (options, since 2026-09-25) on every options close. Opened with 0 option positions (options_value 0 per get_portfolio 2026-09-24)."
+    "note": "Recompute the live bucket each run as 0.20 x get_portfolio.total_value. The PAUSE is measured against start_bucket_usd: once realized_pnl_since_start_usd <= pause_threshold_realized_usd, no new option entries until Ryan's monthly review; exits still run. Update realized_pnl_since_start_usd from get_realized_pnl (options, since 2026-09-25) on every options close. Opened with 0 option positions (options_value 0 per get_portfolio 2026-09-24).",
+    "per_trade_cap_removed": {
+      "set_utc": "2026-09-29T16:30:00Z",
+      "authority": "Ryan, live turn 2026-09-29: 'total options money is capped at 20% of account. no other rule on how much per trade.'",
+      "rule": "Only limit: total agentic premium at risk (hedge included) <= 0.20 x total_value. Entries graded by options_grade.grade_contract() on current quotes (combined A/A+ only); exits by options_grade.exit_check() every run.",
+      "measured": "2026-09-29T16:12Z: NVDA 2026-10-30 240C $480, AAPL 345C $500 (liquid ~0.35 delta) vs the old $333 per-trade cap."
+    }
   },
   "_EQUITY_BOOK_MARGIN_CROSSED_BELOW_ZERO_2026-09-25": {
     "measured_utc": "2026-09-25T19:20:00Z",

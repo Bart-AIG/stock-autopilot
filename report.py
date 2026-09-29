@@ -1064,9 +1064,10 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     opts = pick_options_candidates(momentum, grades=grades)
     lines.append("\n## Options candidates (sleeve: options — single-leg LONG)")
     lines.append("Underlyings only, drawn from the quality grade: CALLS on top-graded leaders, PUTS on "
-                 "bottom-graded laggards. **Options bucket = 20% of account value; max 50% of the bucket "
-                 "per trade; paused if the bucket loses 40%** (see CLAUDE.md HARD RULE 8). Pick the "
-                 "contract off the live chain (~30-45 DTE, ~0.35 delta, IV-sane, liquid).\n")
+                 "bottom-graded laggards. **Options bucket = 20% of account value, no per-trade cap; paused if "
+                 "the bucket loses 40%** (see CLAUDE.md HARD RULE 8). Pick the contract off the live chain "
+                 "(21-45 DTE, ~0.35 delta) and grade it with options_grade.grade_contract() on current quotes; "
+                 "only a combined A/A+ may enter.\n")
     if opts["calls"]:
         lines.append("**Calls (bullish — strong uptrend > 200MA):**")
         lines.append("| Ticker | mom12-1% | RSI14 | Spec |")
