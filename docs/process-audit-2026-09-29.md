@@ -106,6 +106,36 @@ Simulated daily-reset leverage, 2007-08 → today. This includes the 2008 crisis
 
 ---
 
+## 7. Day-trading strategies and the core/day split (added 2026-09-29, `intraday_results.md`, `combo_results.md`)
+
+**Intraday strategies, QQQ 5-minute bars, 2018 → today (2,179 sessions), after costs:**
+- **Opening-range breakout: lost money** on QQQ and SPY in every variant, including the paper's own risk sizing at up to 4×. **Retire the current day track.**
+- **Intraday momentum and the gap strategies:** no edge.
+- **Noise-area breakout (Zarattini, Aziz & Barbon 2024):** +8.7%/yr at 1×, and +25.3%/yr with a −30% max drawdown through a 3× fund. Positive in 8 of 9 years, including +43% (3×) in 2022. It was weak on SPY, though (+1.4%/yr at 1×).
+
+**Robustness of the noise-area sleeve (3×):**
+- Checking every **30 or 60 minutes works** across 10/14/20-day lookbacks (22–29%/yr). Checking every **15 minutes does not** (~7%/yr); the extra trades eat the edge.
+- **The edge is cost-sensitive:** doubling costs to 6 bp per side cuts it to 9%/yr.
+- **It is weaker in the second half** of the sample (about 15–21%/yr vs 29–40% in the first half).
+
+**Core (QLD + 200-day switch) / day (3× noise-area) splits, monthly rebalance, 2018 → today.** QQQ buy & hold: 20.0%/yr, −35% max drawdown, −32% worst year.
+
+| Split | CAGR | Max DD | Worst year | $3,340 → |
+|---|---|---|---|---|
+| 100 / 0 | 26.8% | −44% | −36% | $27.6k |
+| 70 / 30 | 28.8% | −34% | −16% | $31.2k |
+| **60 / 40** | **28.9%** | **−31%** | **−9%** | $31.5k |
+| **50 / 50** | **28.9%** | **−29%** | **−1.5%** | $31.2k |
+| 0 / 100 | 25.3% | −30% | −4% | $24.0k |
+| 100 core + overlay (day trade the core's idle cash when it is in T-bills) | 38.3% | −57% | −14% | $59.0k |
+
+- **The two sleeves are slightly negatively correlated** (−0.14 daily). Blending them keeps the return and roughly halves the bad years: every split from 70/30 to 40/60 beats QQQ by ~9 pts a year with a smaller worst drawdown than QQQ.
+- **The overlay earns the most but carries the deepest drawdown.** It runs the 3× day strategy in exactly the markets where the core has stepped aside.
+
+**Recommendation:** 50/50 or 60/40 core/day, rebalanced monthly. The day sleeve checks every 30–60 minutes; 60 minutes means fewer trades and less cost. **Paper-trade the day sleeve first.** The whole edge depends on real fills costing ≤ ~3 bp of capital per side. The agent must act within a few minutes of each :00/:30 bar close, through TQQQ/SQQQ. Limits: 8.7 years, no 2008 in the intraday data, the 3× fund modelled as exactly 3× QQQ, and taxes ignored.
+
+---
+
 ## 6. Limits of this evidence
 - **Survivorship bias:** the end-2018 pools still lose any names FMP no longer carries (small effect). The A1/A2 universes are heavily hindsight-biased and should not be used for decisions.
 - **One market history:** 2007–2026 is one path, mostly a strong Nasdaq era; 2000–02 is untested. Leveraged Nasdaq in a 2000–02-style decline with repeated whipsaws would be worse than anything shown here.
