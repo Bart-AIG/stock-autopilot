@@ -173,6 +173,26 @@ Simulated daily-reset leverage, 2007-08 → today. This includes the 2008 crisis
 
 ---
 
+## 9. Do last year's biggest winners keep winning? (added 2026-09-29, `winners_results.md`)
+
+**Universe:** the S&P 100 and Nasdaq-100 as of end-2018, years 2019–2026. FMP's point-in-time constituent history is paywalled (HTTP 402), so the end-2018 lists are used; they carry no hindsight for 2019 onward.
+
+| | S&P 100 pool | Nasdaq-100 pool |
+|---|---|---|
+| Rank correlation, last year's return vs this year's (7-year average) | **+0.06** (−0.49 to +0.38) | **−0.04** (−0.50 to +0.37) |
+| Last year's top 10: average next-year return | +25.7% vs SPY +18.4% | +22.6% vs QQQ +26.2% |
+| Top-10 hit rate vs the ETF | 51% | 39% |
+| Buy last year's top 10 each January (CAGR) | **24.4%** vs SPY 17.2% | **19.3%** vs QQQ 22.6% |
+| Buy last year's top 5 each January (CAGR) | 30.9% (worst year −4.7%) | 22.1% (worst year −35.5%) |
+| **Monthly: hold the 10 best trailing-12-month names** | **23.1% / −14% max DD** vs SPY 17.2% / −24% | **28.1% / −25%** vs QQQ 23.1% / −33% |
+
+- **Calendar-year winners are a coin flip for the next year.** The correlation averages about zero and swings wildly. Winners crashed in 2022 (the Nasdaq top 5 lost 35%), and in 2023 the prior year's *losers* led (+76% / +94% for the bottom decile).
+- **The standard monthly version works in both pools.** Refreshing the list every month means momentum reversals get sold within weeks instead of held for a year. It beat SPY and QQQ by about 5–6 pts a year with smaller drawdowns.
+- **This simple rule matched the 12-trait grade's monthly rotation** (28.1% vs 26.3% in the same Nasdaq-100 pool). The extra traits added nothing measurable.
+- **Limits:** 7 years, one fallback list per index, no 2008, and profits concentrated in a few names (NVDA, MU, LRCX, WDC).
+
+---
+
 ## 6. Limits of this evidence
 - **Survivorship bias:** the end-2018 pools still lose any names FMP no longer carries (small effect). The A1/A2 universes are heavily hindsight-biased and should not be used for decisions.
 - **One market history:** 2007–2026 is one path, mostly a strong Nasdaq era; 2000–02 is untested. Leveraged Nasdaq in a 2000–02-style decline with repeated whipsaws would be worse than anything shown here.
