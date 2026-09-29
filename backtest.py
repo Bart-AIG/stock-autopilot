@@ -595,6 +595,69 @@ def part_c(hist, out):
     out.append("")
 
 
+# ----------------------------------------------------------------------------- part D
+
+def part_d(key, hist, out, log):
+    """Long-history stress test for leverage: simulate 1x/2x/3x daily-reset QQQ from 1999, so
+    the 2000-02 (-83%) and 2008 crashes are included. Daily r_L = L*r - fee - (L-1)*financing.
+    Validated against the real QLD/TQQQ over their live overlap."""
+    data = None
+    if key:
+        data = _get(f"{BASE}/historical-price-eod/dividend-adjusted?symbol=QQQ&from=1999-03-10&to={date.today()}&apikey={key}")
+    if not isinstance(data, list) or not data:
+        out.append(f"## Part D — skipped (no long QQQ history: {str(data)[:120]})\n")
+        return
+    rows = sorted(({"date": r["date"][:10], "p": float(r.get("adjClose") or r["close"])} for r in data),
+                  key=lambda r: r["date"])
+    dates, q = [r["date"] for r in rows], [r["p"] for r in rows]
+    FEE, FIN = {1: 0.0020, 2: 0.0095, 3: 0.0086}, 0.025
+    def sim(L, filt):
+        eq, cur, curve = 1.0, True, []
+        for i in range(len(q)):
+            if i:
+                if cur:
+                    r = q[i] / q[i - 1] - 1
+                    eq *= 1 + L * r - FEE[L] / 252 - (L - 1) * FIN / 252
+                else:
+                    eq *= 1 + FIN / 252
+            if filt and i >= 200:
+                want = q[i] > sum(q[i - 199:i + 1]) / 200
+                if want != cur:
+                    eq *= 1 - COST_BP / 1e4
+                    cur = want
+            curve.append(eq)
+        return curve
+    first = next(i for i in range(len(dates)) if i >= 200)
+    periods = [("1999-2026 (all)", dates[first], dates[-1]), ("2000-2002 crash", "2000-03-01", "2002-12-31"),
+               ("2007-2009 crisis", "2007-10-01", "2009-06-30"), ("2010-2018", "2010-01-01", "2018-12-31"),
+               ("2019-2026", "2019-01-01", dates[-1])]
+    out.append(f"## Part D — leverage stress test: simulated daily-reset QQQ, {dates[first]} → {dates[-1]}\n")
+    out.append(f"Fees 0.20%/0.95%/0.86% a year for 1x/2x/3x; financing {FIN:.1%} a year on the borrowed part; "
+               "trend filter = hold while QQQ > 200-day SMA, else T-bills at the same rate. CAGR per period, max drawdown in brackets.\n")
+    out.append("| Strategy | " + " | ".join(p[0] for p in periods) + " |")
+    out.append("|---|" + "---|" * len(periods))
+    for L in (1, 2, 3):
+        for filt in (False, True):
+            c = sim(L, filt)
+            cells = []
+            for _, a, b in periods:
+                ix = [k for k in range(first, len(dates)) if a <= dates[k] <= b]
+                st = stats([c[k] for k in ix], [dates[k] for k in ix])
+                cells.append(f"{st['cagr']:.1%} ({st['mdd']:.0%})")
+            out.append(f"| {L}x QQQ{' + 200d filter' if filt else ''} | " + " | ".join(cells) + " |")
+    # validation against real funds
+    for fund, L in (("QLD", 2), ("TQQQ", 3)):
+        if fund in hist:
+            real = {r["date"]: r["price"] for r in hist[fund]}
+            c = sim(L, False)
+            ix = [k for k in range(len(dates)) if dates[k] >= "2019-01-02" and dates[k] in real]
+            if len(ix) > 20:
+                sim_c = stats([c[k] for k in ix], [dates[k] for k in ix])["cagr"]
+                real_c = stats([real[dates[k]] for k in ix], [dates[k] for k in ix])["cagr"]
+                out.append(f"\nValidation 2019→: simulated {L}x CAGR {sim_c:.1%} vs real {fund} {real_c:.1%}.")
+    out.append("")
+
+
 # ----------------------------------------------------------------------------- part B
 
 def fetch_minutes(key: str, log: list[str], interval: str = "1min") -> dict[str, list[dict]]:
@@ -780,6 +843,7 @@ def main() -> None:
     nd = [s for s in NDX100_2018 if s in hist] + ["SPY", "QQQ"]
     part_a(hist, out, "A4 Nasdaq-100 as of end-2018 (QQQ's own pool, no hindsight)", nd, CORE_SET, True)
     part_c(hist, out)
+    part_d(key, hist, out, log)
     if not a.skip_daytrack:
         part_b(key, hist.get("QQQ", []), out, log)
     out.append("## Data log\n")
