@@ -410,6 +410,19 @@ SP100_2018 = [  # S&P 100 constituents at end-2018 (tickers as they trade today 
     "VZ", "WBA", "WFC", "WMT", "XOM", "META", "BRK-B", "GOOG",
 ]
 
+NDX100_2018 = [  # Nasdaq-100 constituents at end-2018 (renamed tickers mapped). QQQ's own pool,
+    # chosen before the test period -- the fairest "can the grade beat QQQ from inside QQQ" test.
+    "AAL", "AAPL", "ADBE", "ADI", "ADP", "ADSK", "ALGN", "AMAT", "AMGN", "AMZN", "ASML", "AVGO",
+    "BIDU", "BIIB", "BKNG", "BMRN", "CDNS", "CHKP", "CHTR", "CMCSA", "COST", "CSCO", "CSX",
+    "CTAS", "TCOM", "CTSH", "DLTR", "EA", "EBAY", "EXPE", "FAST", "META", "FISV", "FOXA",
+    "GILD", "GOOGL", "HAS", "HOLX", "HSIC", "IDXX", "ILMN", "INCY", "INTC", "INTU", "ISRG",
+    "JBHT", "JD", "KHC", "KLAC", "LBTYA", "LRCX", "MAR", "MCHP", "MDLZ", "MELI", "MNST", "MSFT",
+    "MU", "NFLX", "NTAP", "NTES", "NVDA", "NXPI", "ORLY", "PAYX", "PCAR", "PEP", "PYPL", "QCOM",
+    "REGN", "ROST", "SBUX", "SIRI", "SNPS", "SWKS", "TMUS", "TSLA", "TTWO", "TXN", "UAL", "ULTA",
+    "VRSK", "VRTX", "WBA", "WDAY", "WDC", "WYNN", "XEL",
+]
+EXTRA = ["QLD", "TQQQ", "BIL"]
+
 CORE_SET = ["CURRENT", "CURRENT_2pct", "CURRENT_QQQcore", "LEADER", "LEADER_QQQcore", "GRADE_HOLD",
             "GRADE_HOLD_any", "ROTATE_MONTHLY", "ROTATE_MONTHLY_8", "ROTATE_MONTHLY_QQQcore"]
 LAG_SET = ("CURRENT", "LEADER", "GRADE_HOLD", "GRADE_HOLD_any", "ROTATE_MONTHLY", "ROTATE_MONTHLY_QQQcore")
@@ -528,6 +541,58 @@ def part_a(hist, out, label, syms, names, detail):
             out.append(f"- **{r['name']}** — {r['desc']}. Exits: {r['t'].get('reasons', {})}")
     out.append(f"\n_{label} compute: {time.time() - t0:.0f}s._\n")
 
+
+
+# ----------------------------------------------------------------------------- part C
+
+def part_c(hist, out):
+    """Index-based ways to beat QQQ, from real ETF closes (fees and leverage decay included).
+    Trend filter: hold the fund while QQQ closes above its 200-day SMA, else BIL (T-bills);
+    the switch fills at the NEXT close (no look-ahead)."""
+    need = ["QQQ", "QLD", "TQQQ", "BIL", "SPY"]
+    if any(n not in hist for n in need):
+        out.append("## Part C — skipped (missing " + ", ".join(n for n in need if n not in hist) + ")\n")
+        return
+    maps = {n: {r["date"]: r["price"] for r in hist[n]} for n in need}
+    dates = [d for d in (r["date"] for r in hist["QQQ"]) if all(d in maps[n] for n in need)]
+    q = [maps["QQQ"][d] for d in dates]
+    start = next(i for i, d in enumerate(dates) if d >= TRADE_FROM)
+    sig = [None] * len(dates)
+    for i in range(200, len(dates)):
+        sig[i] = q[i] > sum(q[i - 199:i + 1]) / 200
+    tdates = dates[start:]
+    rows = []
+    for fund in ("QQQ", "QLD", "TQQQ"):
+        f = [maps[fund][d] for d in dates]
+        b = [maps["BIL"][d] for d in dates]
+        bh = [f[i] / f[start] for i in range(start, len(dates))]
+        eq, cur, curve, switches, inv = 1.0, "fund", [], 0, 0
+        for i in range(start, len(dates)):
+            if i > start:
+                r = f[i] / f[i - 1] if cur == "fund" else b[i] / b[i - 1]
+                eq *= r
+            want = "fund" if sig[i] else "bil"
+            if want != cur:
+                eq *= 1 - COST_BP / 1e4
+                cur, switches = want, switches + 1
+            inv += cur == "fund"
+            curve.append(eq)
+        rows.append((f"{fund} buy & hold", stats(bh, tdates), yearly(bh, tdates), 1.0, 0))
+        rows.append((f"{fund} + 200d trend filter", stats(curve, tdates), yearly(curve, tdates),
+                     inv / len(curve), switches))
+    out.append(f"## Part C — index-based alternatives, {tdates[0]} → {tdates[-1]}\n")
+    out.append("Real ETF closes (expense ratios and daily-reset decay included). Trend filter: in the fund while "
+               "QQQ > its 200-day SMA, else T-bills (BIL); switches fill at the next close.\n")
+    out.append("| Strategy | CAGR | Max DD | Sharpe | Vol | Time invested | Switches |")
+    out.append("|---|---|---|---|---|---|---|")
+    for n, s_, _, inv, sw in rows:
+        out.append(f"| {n} | {s_['cagr']:.1%} | {s_['mdd']:.1%} | {s_['sharpe']:.2f} | {s_['vol']:.0%} | {inv:.0%} | {sw} |")
+    yrs = sorted(rows[0][2])
+    out.append("\n| Strategy | " + " | ".join(yrs) + " |")
+    out.append("|---|" + "---|" * len(yrs))
+    for n, _, yr, _, _ in rows:
+        out.append(f"| {n} | " + " | ".join(f"{yr.get(y, 0):.1%}" for y in yrs) + " |")
+    out.append("")
 
 
 # ----------------------------------------------------------------------------- part B
@@ -678,7 +743,7 @@ def main() -> None:
     scan = list(dict.fromkeys(UNIVERSE + joint + ["SPY", "QQQ"]))
     if a.limit:
         scan = scan[: a.limit] + ["SPY", "QQQ"]
-    syms = list(dict.fromkeys(scan + ([] if a.limit else SP100_2018)))
+    syms = list(dict.fromkeys(scan + ([] if a.limit else SP100_2018 + NDX100_2018 + EXTRA)))
     log: list[str] = []
     key = None
     if a.synthetic:
@@ -712,6 +777,9 @@ def main() -> None:
     part_a(hist, out, "A2 scan universe minus the 41 SPECULATIVE names", ex_spec, CORE_SET, False)
     sp = [s for s in SP100_2018 if s in hist] + ["SPY", "QQQ"]
     part_a(hist, out, "A3 S&P 100 as of end-2018 (no hindsight in the universe)", sp, CORE_SET, True)
+    nd = [s for s in NDX100_2018 if s in hist] + ["SPY", "QQQ"]
+    part_a(hist, out, "A4 Nasdaq-100 as of end-2018 (QQQ's own pool, no hindsight)", nd, CORE_SET, True)
+    part_c(hist, out)
     if not a.skip_daytrack:
         part_b(key, hist.get("QQQ", []), out, log)
     out.append("## Data log\n")
