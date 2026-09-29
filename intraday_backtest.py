@@ -51,6 +51,16 @@ START = "2018-01-01"
 COST = {1: 1e-4, 3: 3e-4}
 
 
+def fetch_unadjusted(sym: str, key: str) -> list[dict]:
+    """Raw (unadjusted) daily closes, to match the unadjusted intraday bars. Using the
+    dividend-adjusted series here manufactures a fake overnight gap every day."""
+    data = _get(f"{BASE}/historical-price-eod/full?symbol={sym}&from={START}&to={date.today()}&apikey={key}")
+    if not isinstance(data, list):
+        return []
+    return sorted(({"date": r["date"][:10], "price": float(r["close"])} for r in data if r.get("close")),
+                  key=lambda r: r["date"])
+
+
 def fetch_5min(sym: str, key: str, log: list[str]) -> dict[str, list[dict]]:
     days: dict[str, list[dict]] = {}
     d, end = date.fromisoformat(START), date.today()
@@ -88,23 +98,26 @@ def fetch_5min(sym: str, key: str, log: list[str]) -> dict[str, list[dict]]:
 # ----------------------------------------------------------------------------- strategies
 # each returns (gross return on capital for the day at 1x, number of round trips) or (0, 0)
 
-def orb(bars, k, prev_close, mode="both", trend_up=None):
+def orb(bars, k, prev_close, mode="both", trend_up=None, risk_cap=None):
+    """risk_cap=None -> 1x notional. Otherwise the paper's sizing: notional = 1% of
+    capital / stop distance, capped at risk_cap x capital. Returns (r, n, weight)."""
     n = k // 5
     rng_b, rest = bars[:n], bars[n:]
     hi, lo = max(b["h"] for b in rng_b), min(b["l"] for b in rng_b)
     op, cl = rng_b[0]["o"], rng_b[-1]["c"]
     if cl == op or hi <= lo:
-        return 0.0, 0
+        return 0.0, 0, 0
     long = cl > op
     if mode == "long" and not long:
-        return 0.0, 0
+        return 0.0, 0, 0
     if mode == "trend" and trend_up is not None and long != trend_up:
-        return 0.0, 0
+        return 0.0, 0, 0
     entry = rest[0]["o"]
     stop = lo if long else hi
     risk = abs(entry - stop)
     if risk <= 0:
-        return 0.0, 0
+        return 0.0, 0, 0
+    w = 1.0 if risk_cap is None else min(risk_cap, 0.01 / (risk / entry))
     tgt = entry + (10 * risk if long else -10 * risk)
     for b in rest:
         if (b["l"] <= stop) if long else (b["h"] >= stop):
@@ -115,7 +128,7 @@ def orb(bars, k, prev_close, mode="both", trend_up=None):
             break
     else:
         x = rest[-1]["c"]
-    return ((x / entry - 1) if long else (1 - x / entry)), 1
+    return ((x / entry - 1) if long else (1 - x / entry)), 1, w
 
 
 def imom(bars, prev_close):
@@ -205,6 +218,9 @@ def evaluate(sym, days, daily):
         "ORB-30": lambda s, b: orb(b, 30, prev.get(s)),
         "ORB-5 long-only": lambda s, b: orb(b, 5, prev.get(s), "long"),
         "ORB-5 with 200d trend": lambda s, b: orb(b, 5, prev.get(s), "trend", trend.get(s)),
+        "ORB-5 risk-sized, cap 1x (cash)": lambda s, b: orb(b, 5, prev.get(s), risk_cap=1.0),
+        "ORB-5 risk-sized, cap 3x (via 3x ETF)": lambda s, b: orb(b, 5, prev.get(s), risk_cap=3.0),
+        "ORB-5 risk-sized, cap 4x (paper)": lambda s, b: orb(b, 5, prev.get(s), risk_cap=4.0),
         "IMOM (15:30→close)": lambda s, b: imom(b, prev.get(s)),
         "NOISE-area breakout": None,
         "GAP_FADE >0.3%": lambda s, b: gap(b, prev.get(s), True),
@@ -223,7 +239,7 @@ def evaluate(sym, days, daily):
             if k == "NOISE-area breakout":
                 hist_s = sessions[max(0, i - 14):i]
                 if len(hist_s) < 14:
-                    res[k].append((s, 0.0, 0))
+                    res[k].append((s, 0.0, 0, 1.0))
                     continue
                 sig = {}
                 for bar in b:
@@ -232,26 +248,30 @@ def evaluate(sym, days, daily):
                         sig[bar["t"]] = sum(vals) / len(vals)
                 r, n = noise(b, p, sig)
             else:
-                r, n = f(s, b)
-            res[k].append((s, r, n))
-        res["OVERNIGHT (close→open)"].append((s, b[0]["o"] / p - 1, 1))
-        res["INTRADAY (open→close)"].append((s, b[-1]["c"] / b[0]["o"] - 1, 1))
-        res[f"{sym} buy & hold"].append((s, b[-1]["c"] / p - 1, 0))
+                o = f(s, b)
+                r, n = o[0], o[1]
+                if len(o) == 3:
+                    res[k].append((s, r, n, o[2]))
+                    continue
+            res[k].append((s, r, n, 1.0))
+        res["OVERNIGHT (close→open)"].append((s, b[0]["o"] / p - 1, 1, 1.0))
+        res["INTRADAY (open→close)"].append((s, b[-1]["c"] / b[0]["o"] - 1, 1, 1.0))
+        res[f"{sym} buy & hold"].append((s, b[-1]["c"] / p - 1, 0, 1.0))
     return res
 
 
 def summarize(rows, lev):
     eq, curve, dates = 1.0, [], []
-    traded = [r for _, r, n in rows if n]
-    for d, r, n in rows:
-        net = lev * r - (2 * COST[lev] * n if lev in COST else 0)
+    traded = [r for _, r, n, _ in rows if n]
+    for d, r, n, w in rows:
+        net = lev * w * r - 2 * COST[lev] * n * w
         eq *= 1 + net
         curve.append(eq)
         dates.append(d)
     st = stats(curve, dates)
     wins = [r for r in traded if r > 0]
     return st, yearly(curve, dates), {
-        "days": sum(1 for _, _, n in rows if n), "trades": sum(n for _, _, n in rows),
+        "days": sum(1 for _, _, n, _ in rows if n), "trades": sum(n for _, _, n, _ in rows),
         "win": len(wins) / len(traded) if traded else 0,
         "avg_bp": statistics.mean(traded) * 1e4 if traded else 0}
 
@@ -263,7 +283,7 @@ def main():
     log, out = [], [f"# Intraday strategy backtest — run {datetime.utcnow():%Y-%m-%d %H:%MZ}\n"]
     out.append(__doc__.split("Strategies")[0].strip().split("\n\n", 1)[1] + "\n")
     for sym in ("QQQ", "SPY"):
-        daily, _ = fetch_daily(sym, key, log)
+        daily = fetch_unadjusted(sym, key)
         days = fetch_5min(sym, key, log)
         if not days or not daily:
             out.append(f"## {sym}: no 5-minute data\n")
@@ -278,6 +298,11 @@ def main():
             s1, y1, m = summarize(rows, 1)
             if k.endswith("buy & hold"):
                 out.append(f"| **{k}** | {s1['cagr']:.1%} | {s1['mdd']:.1%} | {s1['sharpe']:.2f} | | | 100% | | | |")
+                yr_rows.append((k, y1))
+                continue
+            if "risk-sized" in k:
+                out.append(f"| {k} | {s1['cagr']:.1%} | {s1['mdd']:.1%} | {s1['sharpe']:.2f} | (sized) | | "
+                           f"{m['days'] / len(rows):.0%} | {m['trades']} | {m['win']:.0%} | {m['avg_bp']:+.1f} |")
                 yr_rows.append((k, y1))
                 continue
             s3, _, _ = summarize(rows, 3)
