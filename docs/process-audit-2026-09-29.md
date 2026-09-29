@@ -136,6 +136,43 @@ Simulated daily-reset leverage, 2007-08 → today. This includes the 2008 crisis
 
 ---
 
+## 8. Swing sleeve (overnight / multi-day) and three-sleeve splits (added 2026-09-29, `swing_results.md`)
+
+**Swing rules alone on QQQ, 2007-08 → today (includes 2008), CAGR / max drawdown.** QQQ buy & hold: 16.2% / −53%.
+
+| Rule | 1× | 2× | 3× | Time in market |
+|---|---|---|---|---|
+| Overnight (close→open), only above the 200-day | 6.9% / −19% | 13.0% / −36% | 18.4% / −50% | 80% of nights |
+| RSI(2) < 10 pullback, exit above the 5-day SMA | 5.5% / −13% | 9.4% / −25% | 12.6% / −37% | 16% |
+| IBS < 0.2 reversion | 8.0% / −16% | 14.4% / −30% | 20.1% / −44% | 32% |
+| Turn of the month | 4.5% / −24% | 7.0% / −46% | 8.5% / −62% | 24% |
+| **Union of RSI2 + IBS + turn-of-month** | **13.5% / −26%** | **25.5% / −49%** | **36.1% / −65%** | 52% |
+
+- **At 1×, the union made 13.5%/yr while in the market half the time,** with half of QQQ's drawdown. It lost only 1.6% through the 2008 crisis, when QQQ lost 18%.
+- **Leverage scales it up** but brings back 2008-sized drawdowns: −49% at 2×, −65% at 3×.
+
+**Three-sleeve portfolios, 2018 → today, monthly rebalance.** QQQ buy & hold: 20.0%/yr, −35% max drawdown, −32% worst year. The swing sleeve correlates +0.67 with the CORE and −0.06 with the DAY sleeve.
+
+| CORE / DAY / SWING | Swing via | CAGR | Max DD | Worst year | $3,340 → |
+|---|---|---|---|---|---|
+| 50 / 50 / 0 | — | 28.9% | −29% | −1.5% | $31.2k |
+| **40 / 30 / 30** | **2× (QLD)** | **31.7%** | **−24%** | **−9.8%** | **$38.0k** |
+| 34 / 33 / 33 | 2× | 31.9% | −22% | −6.9% | $38.5k |
+| 30 / 40 / 30 | 2× | 31.6% | −20% | −2.2% | $37.6k |
+| **34 / 33 / 33** | **3× (TQQQ)** | **37.8%** | **−24%** | **−10.3%** | **$56.6k** |
+| 30 / 40 / 30 | 3× | 37.0% | −22% | −5.5% | $53.6k |
+| 0 / 50 / 50 | 3× | 41.5% | −20% | +4.2% | $71.4k |
+
+- **The union swing sleeve adds about 3–9 pts/yr on top of the two-sleeve mix at a similar or smaller drawdown.** The overnight-only version added nothing on top of the core, because it overlaps the core too much.
+- **Why keep the core** even though 0/50/50 scored best in this window: it is the only sleeve with a 19-year record that includes 2008. The day sleeve has 8.7 years of data and weakened in its second half, and the 3× swing sleeve drew down −65% in 2008.
+
+**Implementation notes:**
+- **Timing:** the swing rules decide on the day's close. Live, the agent would check at about 15:50 ET with the live price and send a market order before the close. The small timing difference is not yet tested.
+- **Gaps in testing:** the swing rules have not been checked on SPY, and each rule's settings have not been varied (e.g. RSI 5 vs 10, IBS 0.15 vs 0.25).
+- **Taxes:** every sleeve trades often, so gains are mostly short-term.
+
+---
+
 ## 6. Limits of this evidence
 - **Survivorship bias:** the end-2018 pools still lose any names FMP no longer carries (small effect). The A1/A2 universes are heavily hindsight-biased and should not be used for decisions.
 - **One market history:** 2007–2026 is one path, mostly a strong Nasdaq era; 2000–02 is untested. Leveraged Nasdaq in a 2000–02-style decline with repeated whipsaws would be worse than anything shown here.
