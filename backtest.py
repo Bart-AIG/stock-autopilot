@@ -160,7 +160,7 @@ def run_strategy(cfg: dict, dates: list[str], px: dict[str, list[float | None]],
                  grades: list[dict], rsi2: dict[str, list[float | None]],
                  sma50: dict[str, list[float | None]]) -> dict:
     """Replay one process. px[sym][i] = close on dates[i] (None if not trading)."""
-    cost = COST_BP / 1e4
+    cost = cfg.get("cost_bp", COST_BP) / 1e4
     lag = cfg.get("lag", 0)
     slots = cfg.get("slots", 4)
     reserve = cfg.get("reserve", 0.02)
@@ -186,7 +186,8 @@ def run_strategy(cfg: dict, dates: list[str], px: dict[str, list[float | None]],
         fill = price(sym, i) or p.entry
         fill *= (1 - cost)
         cash += p.shares * fill
-        trades.append({"sym": sym, "ret": fill / p.entry - 1, "days": i - p.entry_i, "reason": reason})
+        trades.append({"sym": sym, "ret": fill / p.entry - 1, "days": i - p.entry_i, "reason": reason,
+                       "pnl": p.shares * (fill - p.entry), "date": dates[i]})
 
     def core_sell(i, amount):
         nonlocal cash, core_sh
@@ -394,10 +395,29 @@ STRATEGIES = [
 ]
 
 
-def part_a(hist: dict[str, list[dict]], out: list[str]) -> None:
+
+SP100_2018 = [  # S&P 100 constituents at end-2018 (tickers as they trade today where renamed).
+    # Chosen BEFORE the test period, so it carries no hindsight about 2019-2026 winners.
+    # Names acquired/delisted since (AGN, CELG, DWDP, UTX->RTX merger, WBA) drop out if FMP
+    # lacks their history -- a small residual survivorship bias, stated in the output.
+    "AAPL", "ABBV", "ABT", "ACN", "ADBE", "AIG", "ALL", "AMGN", "AMZN", "AXP", "BA", "BAC",
+    "BIIB", "BK", "BKNG", "BLK", "BMY", "C", "CAT", "CHTR", "CL", "CMCSA", "COF", "COP",
+    "COST", "CSCO", "CVS", "CVX", "DHR", "DIS", "DUK", "EMR", "EXC", "F", "FDX", "GD", "GE",
+    "GILD", "GM", "GOOGL", "GS", "HD", "HON", "IBM", "INTC", "JNJ", "JPM", "KHC", "KMI", "KO",
+    "LLY", "LMT", "LOW", "MA", "MCD", "MDLZ", "MDT", "MET", "MMM", "MO", "MRK", "MS", "MSFT",
+    "NEE", "NFLX", "NKE", "NVDA", "ORCL", "OXY", "PEP", "PFE", "PG", "PM", "PYPL", "QCOM",
+    "RTX", "SBUX", "SLB", "SO", "SPG", "T", "TGT", "TXN", "UNH", "UNP", "UPS", "USB", "V",
+    "VZ", "WBA", "WFC", "WMT", "XOM", "META", "BRK-B", "GOOG",
+]
+
+CORE_SET = ["CURRENT", "CURRENT_2pct", "CURRENT_QQQcore", "LEADER", "LEADER_QQQcore", "GRADE_HOLD",
+            "GRADE_HOLD_any", "ROTATE_MONTHLY", "ROTATE_MONTHLY_8", "ROTATE_MONTHLY_QQQcore"]
+LAG_SET = ("CURRENT", "LEADER", "GRADE_HOLD", "GRADE_HOLD_any", "ROTATE_MONTHLY", "ROTATE_MONTHLY_QQQcore")
+
+
+def build(hist, syms):
     dates = [r["date"] for r in hist["SPY"]]
     idx = {d: i for i, d in enumerate(dates)}
-    syms = [s for s in hist if hist[s]]
     px = {s: [None] * len(dates) for s in syms}
     vol = {s: [0.0] * len(dates) for s in syms}
     for s in syms:
@@ -405,7 +425,6 @@ def part_a(hist: dict[str, list[dict]], out: list[str]) -> None:
             i = idx.get(r["date"])
             if i is not None:
                 px[s][i], vol[s][i] = r["price"], r["volume"]
-
     t0 = time.time()
     grades, rsi2, sma50 = [], {s: [None] * len(dates) for s in syms}, {s: [None] * len(dates) for s in syms}
     start = next(i for i, d in enumerate(dates) if d >= TRADE_FROM)
@@ -426,66 +445,103 @@ def part_a(hist: dict[str, list[dict]], out: list[str]) -> None:
                 rsi2[s][i] = compute_rsi(closes, 2)
                 sma50[s][i] = sum(r["price"] for r in rows[:50]) / 50
         grades.append(quality.grade_universe(h) if "SPY" in h else {})
-        if i % 250 == 0:
+        if i % 500 == 0:
             print(f"  graded {dates[i]} ({len(h)} names) {time.time() - t0:.0f}s", flush=True)
-    tdates = dates[start:]
+    return dates, px, grades, rsi2, sma50, start
 
+
+def period_cagr(curve, tdates, a, b):
+    ix = [k for k, d in enumerate(tdates) if a <= d <= b]
+    if len(ix) < 20:
+        return None
+    return stats([curve[k] for k in ix], [tdates[k] for k in ix])["cagr"]
+
+
+def contributors(trades, n=5):
+    by = {}
+    for t in trades:
+        by[t["sym"]] = by.get(t["sym"], 0) + t["pnl"]
+    total = sum(by.values())
+    top = sorted(by.items(), key=lambda kv: -kv[1])[:n]
+    share = sum(v for _, v in top) / total if total > 0 else float("nan")
+    return top, share, len(by)
+
+
+def part_a(hist, out, label, syms, names, detail):
+    t0 = time.time()
+    dates, px, grades, rsi2, sma50, start = build(hist, syms)
+    tdates = dates[start:]
+    split = "2022-12-31"
     bench = {}
     for b in ("SPY", "QQQ"):
         c = [px[b][i] for i in range(start, len(dates))]
-        bench[b] = (stats(c, tdates), yearly(c, tdates))
-
+        bench[b] = (stats(c, tdates), yearly(c, tdates), period_cagr(c, tdates, tdates[0], split),
+                    period_cagr(c, tdates, "2023-01-01", tdates[-1]))
     results = []
     for name, desc, cfg in STRATEGIES:
-        for lag in (0, 1):
-            if lag and name not in ("CURRENT", "LEADER", "GRADE_HOLD", "ROTATE_MONTHLY", "ROTATE_MONTHLY_QQQcore"):
-                continue
-            c2 = dict(cfg, lag=lag)
+        if name not in names:
+            continue
+        variants = [(name, dict(cfg))]
+        if name in LAG_SET:
+            variants.append((name + "_lag1", dict(cfg, lag=1)))
+        if name in ("GRADE_HOLD_any", "ROTATE_MONTHLY") and detail:
+            variants.append((name + "_cost25bp", dict(cfg, cost_bp=25)))
+        for vname, c2 in variants:
             r = run_strategy(c2, dates, px, grades, rsi2, sma50)
             s = stats(r["curve"], tdates)
-            results.append((name + ("_lag1" if lag else ""), desc, s, yearly(r["curve"], tdates),
-                            trade_stats(r["trades"]), r["exposure"]))
-            print(f"  {name}{'_lag1' if lag else ''}: CAGR {s['cagr']:.1%} mdd {s['mdd']:.1%}", flush=True)
+            results.append({"name": vname, "desc": desc, "s": s, "yr": yearly(r["curve"], tdates),
+                            "t": trade_stats(r["trades"]), "ex": r["exposure"],
+                            "p1": period_cagr(r["curve"], tdates, tdates[0], split),
+                            "p2": period_cagr(r["curve"], tdates, "2023-01-01", tdates[-1]),
+                            "top": contributors(r["trades"])})
+            print(f"  [{label}] {vname}: CAGR {s['cagr']:.1%} mdd {s['mdd']:.1%}", flush=True)
 
-    yrs = sorted(bench["SPY"][1])
-    out.append(f"## Part A — equity process, {tdates[0]} → {tdates[-1]}\n")
-    out.append(f"Universe: {len(syms) - 2} names + SPY/QQQ (today's scan list — survivorship-biased, "
-               "so compare strategies to EACH OTHER first, to the benchmark second). "
-               f"Fills at the signal close ±{COST_BP} bp; `_lag1` fills at the next close.\n")
-    out.append("| Strategy | CAGR | vs SPY | vs QQQ | Max DD | Sharpe | Avg invested | Trades | Win % | Payoff | Avg hold (d) |")
-    out.append("|---|---|---|---|---|---|---|---|---|---|---|")
+    f = lambda x: "n/a" if x is None else f"{x:.1%}"
+    out.append(f"## Part A — {label}: {len(syms) - 2} names, {tdates[0]} → {tdates[-1]}\n")
+    out.append("| Strategy | CAGR | vs SPY | vs QQQ | 2019-22 CAGR | 2023-26 CAGR | Max DD | Sharpe | Invested | Trades | Win % | Payoff | Hold (d) | Top-5 names' share of profit |")
+    out.append("|---|---|---|---|---|---|---|---|---|---|---|---|---|---|")
     for b in ("SPY", "QQQ"):
         s = bench[b][0]
-        out.append(f"| **{b} buy & hold** | {s['cagr']:.1%} | | | {s['mdd']:.1%} | {s['sharpe']:.2f} | 100% | | | | |")
-    for name, _, s, _, t, ex in sorted(results, key=lambda r: -r[2]["cagr"]):
-        out.append(f"| {name} | {s['cagr']:.1%} | {s['cagr'] - bench['SPY'][0]['cagr']:+.1%} | "
-                   f"{s['cagr'] - bench['QQQ'][0]['cagr']:+.1%} | {s['mdd']:.1%} | {s['sharpe']:.2f} | {ex:.0%} | "
-                   f"{t.get('n', 0)} | {t.get('win', 0):.0%} | {t.get('payoff', 0):.2f} | {t.get('hold', 0):.0f} |")
-    out.append("\n### Calendar-year returns\n")
-    out.append("| Strategy | " + " | ".join(yrs) + " |")
-    out.append("|---|" + "---|" * len(yrs))
-    for b in ("SPY", "QQQ"):
-        out.append(f"| **{b}** | " + " | ".join(f"{bench[b][1].get(y, 0):.1%}" for y in yrs) + " |")
-    for name, _, _, yr, _, _ in results:
-        out.append(f"| {name} | " + " | ".join(f"{yr.get(y, 0):.1%}" for y in yrs) + " |")
-    out.append("\n### Exit mix and definitions\n")
-    for name, desc, _, _, t, _ in results:
-        out.append(f"- **{name}** — {desc}. Exits: {t.get('reasons', {})}")
-    out.append(f"\n_Part A compute: {time.time() - t0:.0f}s._\n")
+        out.append(f"| **{b} buy & hold** | {s['cagr']:.1%} | | | {f(bench[b][2])} | {f(bench[b][3])} | {s['mdd']:.1%} | {s['sharpe']:.2f} | 100% | | | | | |")
+    for r in sorted(results, key=lambda r: -r["s"]["cagr"]):
+        s, t = r["s"], r["t"]
+        out.append(f"| {r['name']} | {s['cagr']:.1%} | {s['cagr'] - bench['SPY'][0]['cagr']:+.1%} | "
+                   f"{s['cagr'] - bench['QQQ'][0]['cagr']:+.1%} | {f(r['p1'])} | {f(r['p2'])} | {s['mdd']:.1%} | "
+                   f"{s['sharpe']:.2f} | {r['ex']:.0%} | {t.get('n', 0)} | {t.get('win', 0):.0%} | "
+                   f"{t.get('payoff', 0):.2f} | {t.get('hold', 0):.0f} | {r['top'][1]:.0%} of {r['top'][2]} names |")
+    out.append("\n**Biggest contributors (realized P&L by name, per $100k start):**\n")
+    for r in results:
+        if r["name"].endswith(("_lag1", "_cost25bp")):
+            continue
+        out.append(f"- {r['name']}: " + ", ".join(f"{k} ${v:,.0f}" for k, v in r["top"][0]))
+    if detail:
+        yrs = sorted(bench["SPY"][1])
+        out.append("\n**Calendar-year returns:**\n")
+        out.append("| Strategy | " + " | ".join(yrs) + " |")
+        out.append("|---|" + "---|" * len(yrs))
+        for b in ("SPY", "QQQ"):
+            out.append(f"| **{b}** | " + " | ".join(f"{bench[b][1].get(y, 0):.1%}" for y in yrs) + " |")
+        for r in results:
+            out.append(f"| {r['name']} | " + " | ".join(f"{r['yr'].get(y, 0):.1%}" for y in yrs) + " |")
+        out.append("\n**Definitions and exit mix:**\n")
+        for r in results:
+            out.append(f"- **{r['name']}** — {r['desc']}. Exits: {r['t'].get('reasons', {})}")
+    out.append(f"\n_{label} compute: {time.time() - t0:.0f}s._\n")
+
 
 
 # ----------------------------------------------------------------------------- part B
 
-def fetch_minutes(key: str, log: list[str]) -> dict[str, list[dict]]:
-    """QQQ 1-minute bars by ET session date. FMP returns local exchange time."""
+def fetch_minutes(key: str, log: list[str], interval: str = "1min") -> dict[str, list[dict]]:
+    """QQQ intraday bars by ET session date. FMP returns local exchange time."""
     days: dict[str, list[dict]] = {}
     end = date.today()
     d = end - timedelta(days=730)
     while d < end:
         e = min(d + timedelta(days=4), end)
-        data = _get(f"{BASE}/historical-chart/1min?symbol=QQQ&from={d}&to={e}&apikey={key}")
+        data = _get(f"{BASE}/historical-chart/{interval}?symbol=QQQ&from={d}&to={e}&apikey={key}")
         if not isinstance(data, list):
-            log.append(f"1-min fetch {d}..{e} failed: {data}")
+            log.append(f"{interval} fetch {d}..{e} failed: {data}")
             if not days:
                 return {}
         else:
@@ -500,12 +556,12 @@ def fetch_minutes(key: str, log: list[str]) -> dict[str, list[dict]]:
     return days
 
 
-def orb_day(bars: list[dict], rules: str, atr_d: float | None) -> float | None:
-    """One session. Returns R multiple, or None (no trade)."""
+def orb_day(bars: list[dict], rules: str, atr_d: float | None, step: int = 1) -> float | None:
+    """One session. Returns R multiple, or None (no trade). step = bar size in minutes."""
     rth = [b for b in bars if "09:30" <= b["t"] <= "15:59"]
     orb = [b for b in rth if b["t"] < "09:35"]
     rest = [b for b in rth if b["t"] >= "09:35"]
-    if len(orb) < 5 or len(rest) < 30:
+    if len(orb) < 5 // step or len(rest) < 30 // step:
         return None
     hi, lo = max(b["h"] for b in orb), min(b["l"] for b in orb)
     op, cl = orb[0]["o"], orb[-1]["c"]
@@ -545,7 +601,8 @@ def orb_day(bars: list[dict], rules: str, atr_d: float | None) -> float | None:
             if r_now >= 1 and ((stop < entry) if long else (stop > entry)):
                 stop = entry
             if r_now >= 2:
-                agg = [five[j:j + 5] for j in range(0, len(five), 5)]
+                k = 5 // step
+                agg = [five[j:j + k] for j in range(0, len(five), k)]
                 trs = [max(x["h"] for x in a) - min(x["l"] for x in a) for a in agg[-14:] if a]
                 atr5 = statistics.mean(trs) if trs else risk
                 new = best - sgn * 1.5 * atr5
@@ -562,7 +619,9 @@ def part_b(key: str | None, daily_qqq: list[dict], out: list[str], log: list[str
     if not key:
         out.append("_Skipped: no API key (synthetic run)._\n")
         return
-    days = fetch_minutes(key, log)
+    step, days = 1, fetch_minutes(key, log)
+    if not days:
+        step, days = 5, fetch_minutes(key, log, "5min")
     if not days:
         out.append("_1-minute QQQ history is not available on this FMP tier — Part B could not run. "
                    "See the fetch log below._\n")
@@ -575,14 +634,15 @@ def part_b(key: str | None, daily_qqq: list[dict], out: list[str], log: list[str
         prior = [closes[x] for x in dl if x < d][-15:]
         atr_d = statistics.mean(abs(prior[j] - prior[j - 1]) for j in range(1, len(prior))) if len(prior) > 2 else None
         for rules in res:
-            r = orb_day(days[d], rules, atr_d)
+            r = orb_day(days[d], rules, atr_d, step)
             if r is not None:
                 res[rules].append((d, r))
         rth = [b for b in days[d] if "09:30" <= b["t"] < "09:35"]
-        if len(rth) == 5:
+        if len(rth) == 5 // step:
             risk_pts.append(max(b["h"] for b in rth) - min(b["l"] for b in rth))
     spread_R = (0.02 / statistics.mean(risk_pts)) if risk_pts else 0
-    out.append(f"Sessions with 1-minute data: {len(days)} ({min(days)} → {max(days)}). "
+    out.append(f"Bar size: {step}-minute (1-minute is paywalled on this FMP tier; the paper itself uses the first 5-minute bar). "
+               f"Sessions: {len(days)} ({min(days)} → {max(days)}). "
                f"Cost model: 1¢ per side = {spread_R:.3f}R per round trip at the average OR range "
                f"({statistics.mean(risk_pts):.2f} pts).\n")
     out.append("| Rules | Trades | Win % | Gross R/trade | Net R/trade | Total net R | Net R excl. best trade | Best trade R |")
@@ -615,9 +675,10 @@ def main() -> None:
     jp = HERE / "watchlist_joint.json"
     if jp.exists():
         joint = json.loads(jp.read_text()).get("symbols", [])
-    syms = list(dict.fromkeys(UNIVERSE + joint + ["SPY", "QQQ"]))
+    scan = list(dict.fromkeys(UNIVERSE + joint + ["SPY", "QQQ"]))
     if a.limit:
-        syms = syms[: a.limit] + ["SPY", "QQQ"]
+        scan = scan[: a.limit] + ["SPY", "QQQ"]
+    syms = list(dict.fromkeys(scan + ([] if a.limit else SP100_2018)))
     log: list[str] = []
     key = None
     if a.synthetic:
@@ -643,7 +704,14 @@ def main() -> None:
 
     out = [f"# Process backtest — run {datetime.utcnow():%Y-%m-%d %H:%MZ}\n",
            f"Data sources (daily): {src}. Names with history: {len(hist)}.\n"]
-    part_a(hist, out)
+    from analyze import SPECULATIVE
+    everything = [s for s in scan if hist.get(s)]
+    part_a(hist, out, "A1 FULL scan universe (today's list: survivorship-biased)",
+           everything, [n for n, _, _ in STRATEGIES], True)
+    ex_spec = [s for s in everything if s not in SPECULATIVE]
+    part_a(hist, out, "A2 scan universe minus the 41 SPECULATIVE names", ex_spec, CORE_SET, False)
+    sp = [s for s in SP100_2018 if s in hist] + ["SPY", "QQQ"]
+    part_a(hist, out, "A3 S&P 100 as of end-2018 (no hindsight in the universe)", sp, CORE_SET, True)
     if not a.skip_daytrack:
         part_b(key, hist.get("QQQ", []), out, log)
     out.append("## Data log\n")
