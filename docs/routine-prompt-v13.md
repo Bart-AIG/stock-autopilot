@@ -22,7 +22,9 @@ What changed from v12, in full:
 3. OPTIONS GRADE: every entry is graded by options_grade.grade_contract() on quotes
    no older than 120 s and never from 13:30-13:35Z; the grade combines the name's
    quality letter with the contract (spread, OI, DTE, delta, IV/RV, payoff at the
-   target, theta). Only a combined A/A+ enters.
+   target, theta). Only a combined A/A+ enters. EVERY input must be current as of
+   the run (Ryan, 2026-09-29: "current within minutes from the execution"), not the
+   morning's sweep or news check.
 4. OPTIONS EXIT: options_grade.exit_check() runs every run on every open agentic
    option (the 2026-08-05 exit engine as code).
 
@@ -329,7 +331,12 @@ THE OPTIONS BOOK — ONE TRACK. TACTICAL IS RETIRED (Ryan, 2026-09-14).
       long delta 0.25-0.60, no own earnings/binary event before expiry, cost
       <= bucket remaining, payoff at the thesis target >= 20% of premium; then
       a 0-10 score on spread, OI, ex-gap IV/RV, payoff and theta). A quote
-      older than 120 s or taken 13:30-13:35Z FAILS. Only tradeable=True with a
+      older than 120 s or taken 13:30-13:35Z FAILS. EVERY input is as-of THIS
+      run, never the morning's: underlying quote <=2 min, IV/RV recomputed
+      this run <=15 min, the news/thesis check done this run <=15 min, the
+      quality grade from the latest hourly report <=90 min — passed as asof;
+      missing or stale = FAIL. Exits: pass mark_asof; a stale mark returns
+      'requote', never a decision. Only tradeable=True with a
       combined A/A+ may enter. Log the full grade dict to the journal and the
       ledger row, with setup_invalidation, entry_dte and target.
     UNDERLYING: CALLS only on names the report grades A/A+ (its options

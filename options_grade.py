@@ -44,6 +44,18 @@ DTE_MIN, DTE_MAX = 21, 45         # CORE window
 ABS_DELTA_MIN, ABS_DELTA_MAX = 0.25, 0.60
 MIN_TARGET_PAYOFF_RATIO = 0.20    # at the thesis target the trade must return >= 20% of premium
 MAX_QUOTE_AGE_S = 120             # "current info": quote must be <= 2 min old when graded
+# Every OTHER input must be as-of THIS run too (Ryan, 2026-09-29: "options plays should always be
+# based off current data as of the time of each run. We cant use stale info from the morning, it
+# needs to be current within minutes from the execution"). Max age in seconds at grade time:
+MAX_INPUT_AGE_S = {
+    "spot": 120,                  # underlying quote
+    "iv_rv": 15 * 60,             # IV/RV recomputed THIS run, never the morning sweep's row
+    "news": 15 * 60,              # HARD RULE 7 news/thesis check done THIS run
+    "underlying_grade": 90 * 60,  # the report's quality grade: the latest hourly report on
+                                  # master. The ONE input a run cannot refresh itself (a run
+                                  # does not re-grade; the traits are daily-close based), so it
+                                  # gets the report cadence plus slack, never the morning's.
+}
 OPEN_WINDOW_UTC = ("13:30", "13:35")  # never grade/price off the opening auction
 HEDGE_SYMBOLS = ("SPY", "QQQ")
 
@@ -82,14 +94,16 @@ def grade_contract(*, symbol: str, side: str, underlying_letter: str | None,
                    legs: list[dict], spot: float, target: float, dte: int,
                    iv_rv_ex_gap: float | None, binary_event_before_expiry: bool,
                    event_is_thesis: bool = False, bucket_remaining: float,
-                   now: datetime | None = None) -> dict:
+                   asof: dict[str, str] | None = None, now: datetime | None = None) -> dict:
     """Grade one candidate trade on CURRENT data.
 
     side: 'call' or 'put' (direction of the long leg).
     legs: the raw get_option_quotes 'quote' dicts plus 'strike' and 'role' ('long' | 'short').
           One leg = single long option; two legs = debit vertical (same type/expiry).
     target: the thesis target on the underlying (the price the thesis says to bank at).
-    iv_rv_ex_gap: today's ex-gap IV/RV ratio from iv_history.json (None if not computed).
+    iv_rv_ex_gap: ex-gap IV/RV ratio COMPUTED THIS RUN (None if not computed).
+    asof: UTC timestamps of every non-quote input -- {'spot', 'iv_rv', 'news',
+          'underlying_grade'}. A missing or too-old one is a hard fail (MAX_INPUT_AGE_S).
 
     Returns {'tradeable', 'grade', 'underlying', 'option_score', 'fails', 'points', 'cost',
     'max_loss', 'payoff_at_target', 'breakeven'}. Only grade A/A+ with tradeable=True may enter.
@@ -119,6 +133,15 @@ def grade_contract(*, symbol: str, side: str, underlying_letter: str | None,
         age = _age_s(lg["updated_at"], now)
         if age > MAX_QUOTE_AGE_S:
             fails.append(f"{lg['role']} quote is {age:.0f}s old (> {MAX_QUOTE_AGE_S}s) -- re-quote")
+
+    asof = asof or {}
+    for key, max_age in MAX_INPUT_AGE_S.items():
+        if key not in asof:
+            fails.append(f"no as-of time for {key} -- must be measured this run")
+            continue
+        age = _age_s(asof[key], now)
+        if age > max_age:
+            fails.append(f"{key} is {age / 60:.0f} min old (> {max_age / 60:.0f}) -- refresh it")
 
     # --- 3. the CONTRACT -----------------------------------------------------------------
     if not DTE_MIN <= dte <= DTE_MAX:
@@ -202,11 +225,17 @@ def exit_check(*, entry_premium: float, mark: float, prior_close_mark: float | N
                runs_at_or_below_minus50: int = 0, thesis_recheck_failed: bool = False,
                earnings_next_session: bool = False, earnings_is_thesis: bool = False,
                placed_agent: str = "agentic", hedge: bool = False,
-               manual_hold_override: bool = False) -> dict:
+               manual_hold_override: bool = False, mark_asof: str | None = None,
+               now: datetime | None = None) -> dict:
     """One exit pass on one open option position (premiums per share; a vertical passes its
-    NET premium). Returns {'action': 'hold'|'alert'|'close'|'notify', 'reason', 'gain',
+    NET premium). Returns {'action': 'hold'|'alert'|'close'|'notify'|'requote', 'reason', 'gain',
     'peak_premium'}. 'close' on a placed_agent 'user' position becomes 'notify' -- the ownership
     gate. The caller persists peak_premium and runs_at_or_below_minus50 in _current_state."""
+    if mark_asof is not None:
+        age = _age_s(mark_asof, now or datetime.now(timezone.utc))
+        if age > MAX_QUOTE_AGE_S:
+            return {"action": "requote", "reason": f"mark is {age:.0f}s old -- re-quote before deciding",
+                    "gain": None, "peak_premium": peak_premium}
     gain = mark / entry_premium - 1
     peak = max(peak_premium, mark)
     peak_gain = peak / entry_premium - 1
@@ -273,49 +302,62 @@ def _selftest() -> None:
     mrk_1525c = {"role": "long", "strike": 152.5, "bid_price": "3.85", "ask_price": "4.25",
                  "delta": "0.401712", "theta": "-0.098808", "open_interest": 5,
                  "updated_at": "2026-09-29T16:12:15.572181065Z"}
+    fresh = {"spot": "2026-09-29T16:12:02Z", "iv_rv": "2026-09-29T16:10:00Z",
+             "news": "2026-09-29T16:05:00Z", "underlying_grade": "2026-09-29T15:07:00Z"}
     b = bucket(3330.52, 0.0)
     assert b["bucket"] == 666.1 and b["remaining"] == 666.1
 
     # NVDA single leg: liquid, A+ name, $480 now fits (no per-trade cap)
     g = grade_contract(symbol="NVDA", side="call", underlying_letter="A+", legs=[nvda_240c],
                        spot=230.275, target=255.0, dte=31, iv_rv_ex_gap=1.05,
-                       binary_event_before_expiry=False, bucket_remaining=b["remaining"], now=now)
+                       binary_event_before_expiry=False, bucket_remaining=b["remaining"], asof=fresh, now=now)
     assert g["cost"] == 480.0 and not any("bucket" in f for f in g["fails"]), g
     # the same trade with a target that barely clears the strike is the wrong vehicle
     g2 = grade_contract(symbol="NVDA", side="call", underlying_letter="A+", legs=[nvda_240c],
                         spot=230.275, target=242.0, dte=31, iv_rv_ex_gap=1.05,
-                        binary_event_before_expiry=False, bucket_remaining=666.1, now=now)
+                        binary_event_before_expiry=False, bucket_remaining=666.1, asof=fresh, now=now)
     assert not g2["tradeable"] and any("wrong vehicle" in f for f in g2["fails"])
     # vertical: net debit at the touch 4.80 - 2.07 = 2.73 -> $273, capped payoff
     v = grade_contract(symbol="NVDA", side="call", underlying_letter="A+", legs=[nvda_240c, nvda_250c],
                        spot=230.275, target=250.0, dte=31, iv_rv_ex_gap=1.05,
-                       binary_event_before_expiry=False, bucket_remaining=666.1, now=now)
+                       binary_event_before_expiry=False, bucket_remaining=666.1, asof=fresh, now=now)
     assert v["cost"] == 273.0 and v["payoff_at_target"] == 727.0, v
     # MRK: A+ stock, 5 contracts open -> a great name on an untradeable contract
     m = grade_contract(symbol="MRK", side="call", underlying_letter="A+", legs=[mrk_1525c],
                        spot=147.435, target=160.0, dte=31, iv_rv_ex_gap=1.0,
-                       binary_event_before_expiry=False, bucket_remaining=666.1, now=now)
+                       binary_event_before_expiry=False, bucket_remaining=666.1, asof=fresh, now=now)
     assert not m["tradeable"] and any("open interest" in f for f in m["fails"])
     # B-grade underlying never passes, however good the contract
     bb = grade_contract(symbol="NVDA", side="call", underlying_letter="B", legs=[nvda_240c],
                         spot=230.275, target=255.0, dte=31, iv_rv_ex_gap=0.9,
-                        binary_event_before_expiry=False, bucket_remaining=666.1, now=now)
+                        binary_event_before_expiry=False, bucket_remaining=666.1, asof=fresh, now=now)
     assert not bb["tradeable"] and bb["grade"] == "C"
     # stale quote fails: current info only
     late = datetime(2026, 9, 29, 16, 20, tzinfo=timezone.utc)
     s = grade_contract(symbol="NVDA", side="call", underlying_letter="A+", legs=[nvda_240c],
                        spot=230.275, target=255.0, dte=31, iv_rv_ex_gap=1.05,
-                       binary_event_before_expiry=False, bucket_remaining=666.1, now=late)
+                       binary_event_before_expiry=False, bucket_remaining=666.1, asof=fresh, now=late)
     assert any("re-quote" in f for f in s["fails"]) and not s["tradeable"]
+    # morning IV sweep / morning news / no as-of at all -> fail
+    stale = {**fresh, "iv_rv": "2026-09-29T14:47:00Z", "news": "2026-09-29T13:40:00Z"}
+    sm = grade_contract(symbol="NVDA", side="call", underlying_letter="A+", legs=[nvda_240c],
+                        spot=230.275, target=255.0, dte=31, iv_rv_ex_gap=1.05,
+                        binary_event_before_expiry=False, bucket_remaining=666.1, asof=stale, now=now)
+    assert not sm["tradeable"] and sum("refresh it" in f for f in sm["fails"]) == 2, sm["fails"]
+    na = grade_contract(symbol="NVDA", side="call", underlying_letter="A+", legs=[nvda_240c],
+                        spot=230.275, target=255.0, dte=31, iv_rv_ex_gap=1.05,
+                        binary_event_before_expiry=False, bucket_remaining=666.1, now=now)
+    assert not na["tradeable"] and any("no as-of" in f for f in na["fails"])
+    assert g["tradeable"], g["fails"]
     # own earnings before expiry fails
     e = grade_contract(symbol="NVDA", side="call", underlying_letter="A+", legs=[nvda_240c],
                        spot=230.275, target=255.0, dte=31, iv_rv_ex_gap=1.05,
-                       binary_event_before_expiry=True, bucket_remaining=666.1, now=now)
+                       binary_event_before_expiry=True, bucket_remaining=666.1, asof=fresh, now=now)
     assert not e["tradeable"]
     # cost above what's left of the bucket fails
     c = grade_contract(symbol="NVDA", side="call", underlying_letter="A+", legs=[nvda_240c],
                        spot=230.275, target=255.0, dte=31, iv_rv_ex_gap=1.05,
-                       binary_event_before_expiry=False, bucket_remaining=400.0, now=now)
+                       binary_event_before_expiry=False, bucket_remaining=400.0, asof=fresh, now=now)
     assert any("bucket remaining" in f for f in c["fails"])
 
     # exit engine
@@ -336,6 +378,8 @@ def _selftest() -> None:
                       placed_agent="user")["action"] == "notify"               # ownership gate
     assert exit_check(mark=1.0, hedge=True, **{**base, "setup_invalidation": None})["action"] == "hold"
     assert exit_check(mark=4.9, earnings_next_session=True, **base)["action"] == "close"
+    assert exit_check(mark=4.9, mark_asof="2026-09-29T16:00:00Z", now=now, **base)["action"] == "requote"
+    assert exit_check(mark=4.9, mark_asof="2026-09-29T16:12:30Z", now=now, **base)["action"] == "hold"
     print("options_grade selftest OK")
 
 
