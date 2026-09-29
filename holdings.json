@@ -8163,13 +8163,18 @@
   },
   "_EQUITY_KILL_PAUSE": {
     "set_utc": "2026-09-28T13:33:00Z",
-    "status": "ACTIVE",
-    "new_equity_entries": "PAUSED",
-    "position_size_multiplier": 0.5,
+    "status": "LIFTED",
+    "new_equity_entries": "ALLOWED",
+    "position_size_multiplier": 1.0,
     "trigger": "Weekly calibration 2026-09-28: equity margin -0.83 pts (n=50, broker 3-month). See _WEEKLY_CALIBRATION_2026-09-28.",
     "scope": "Autonomous equity ENTRIES only. All equity exits run. Options (bucket rules) and the DAY TRACK (paper) unaffected.",
-    "lifts_when": "A live Ryan turn, or a Monday calibration reading equity margin > 0. No unattended run lifts it on its own judgment."
+    "lifts_when": "A live Ryan turn, or a Monday calibration reading equity margin > 0. No unattended run lifts it on its own judgment.",
+    "lifted_utc": "2026-09-29",
+    "lifted_by": "Ryan, REAL live turn 2026-09-29 (interactive session, typed turn): \"Lift the equity kill pause and start calibration over from the new process ... set _EQUITY_KILL_PAUSE to status LIFTED, new_equity_entries ALLOWED, position_size_multiplier 1.0 ... Forget all trades before the quality-grade go-live.\"",
+    "lift_note": "Lifted by a live Ryan turn, the first condition in lifts_when. 48 of the 50 closes behind the 09-28 KILL predate the 09-25 quality-grade go-live; calibration now counts only closes on/after _CALIBRATION_REGIME_START. Full-size entries (deployable / open slots, $600 minimum) resume under every other gate."
   },
+  "_CALIBRATION_REGIME_START": "2026-09-25",
+  "_CALIBRATION_REGIME_START_note": "Ryan, REAL live turn 2026-09-29 (interactive session, typed turn): \"Lift the equity kill pause and start calibration over from the new process ... set _EQUITY_KILL_PAUSE to status LIFTED, new_equity_entries ALLOWED, position_size_multiplier 1.0 ... Forget all trades before the quality-grade go-live.\" The Monday calibration passes this date as split_books(..., regime_start=...) so BOTH books count only broker closes dated on/after the quality-grade go-live. Earlier closes are excluded from edge_stats() and from the KILL branch. Expect REPORT ONLY (n < 20) until the new regime builds 20 closes per book.",
   "_CONNECTOR_AUTH_LOST_2026-09-29": {
     "detected_utc": "2026-09-29T14:16:40Z",
     "status": "RESOLVED",
