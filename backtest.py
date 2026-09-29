@@ -632,6 +632,7 @@ def part_d(key, hist, out, log):
                ("2007-2009 crisis", "2007-10-01", "2009-06-30"), ("2010-2018", "2010-01-01", "2018-12-31"),
                ("2019-2026", "2019-01-01", dates[-1])]
     out.append(f"## Part D — leverage stress test: simulated daily-reset QQQ, {dates[first]} → {dates[-1]}\n")
+    out.append(f"(Earliest QQQ row FMP returned: {dates[0]}; periods before {dates[first]} show 'no data'.)\n")
     out.append(f"Fees 0.20%/0.95%/0.86% a year for 1x/2x/3x; financing {FIN:.1%} a year on the borrowed part; "
                "trend filter = hold while QQQ > 200-day SMA, else T-bills at the same rate. CAGR per period, max drawdown in brackets.\n")
     out.append("| Strategy | " + " | ".join(p[0] for p in periods) + " |")
@@ -642,6 +643,9 @@ def part_d(key, hist, out, log):
             cells = []
             for _, a, b in periods:
                 ix = [k for k in range(first, len(dates)) if a <= dates[k] <= b]
+                if len(ix) < 20:
+                    cells.append("no data")
+                    continue
                 st = stats([c[k] for k in ix], [dates[k] for k in ix])
                 cells.append(f"{st['cagr']:.1%} ({st['mdd']:.0%})")
             out.append(f"| {L}x QQQ{' + 200d filter' if filt else ''} | " + " | ".join(cells) + " |")
