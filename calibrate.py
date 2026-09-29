@@ -22,7 +22,8 @@ Usage from a run:
     from calibrate import edge_stats, recommend, format_report, split_books
     # Build option_closes from the BROKER, never from the `side` field — see split_books.
     # option_closes = {(o["chain_symbol"], fill_date(o)) for o in filled_option_orders}
-    books = split_books(broker_trades, option_closes)
+    # regime_start = holdings["_CALIBRATION_REGIME_START"]  (only closes on/after it count)
+    books = split_books(broker_trades, option_closes, regime_start=regime_start)
     print(format_report(recommend(edge_stats(books["equities"]), current_params)))
 """
 
@@ -175,9 +176,18 @@ def edge_stats(trades: list[dict], key: str = "realized_gain") -> EdgeStats | No
     )
 
 
-def split_books(trades: list[dict], option_closes: set, date_key: str = "timestamp") -> dict:
+def split_books(trades: list[dict], option_closes: set, date_key: str = "timestamp",
+                regime_start: str | None = None) -> dict:
     """Split a broker trade history into the EQUITY and OPTION books by BROKER MEMBERSHIP,
     not by the `side` field. Returns {"equities": [...], "options": [...]}.
+
+    `regime_start` ("YYYY-MM-DD", optional) drops every close dated BEFORE it from BOTH
+    books. Pass holdings.json["_CALIBRATION_REGIME_START"] (2026-09-25, the quality-grade
+    go-live). Ryan, live turn 2026-09-29: "Forget all trades before the quality-grade
+    go-live." Closes under the old RSI(2)-only process say nothing about the graded
+    process, and 48 of the 50 closes behind the 2026-09-28 KILL predated it. A row with
+    no parseable date is dropped when a regime_start is set, since it cannot be shown to
+    be in-regime.
 
     `option_closes` is a set of (symbol, "YYYY-MM-DD") pairs the CALLER builds from
     get_option_orders(state="filled") — the broker's own record of which closes were
@@ -215,7 +225,10 @@ def split_books(trades: list[dict], option_closes: set, date_key: str = "timesta
     eq, opt = [], []
     for t in trades:
         raw = str(t.get(date_key) or t.get("date") or "")
-        key = (t.get("symbol"), raw[:10])
+        day = raw[:10]
+        if regime_start and not (len(day) == 10 and day >= regime_start):
+            continue
+        key = (t.get("symbol"), day)
         book = "options" if key in option_closes else "equities"
         # Tag the row with the book this split assigned it to. edge_stats() keys its
         # purity guard on this tag rather than on `side`, because after THIS function
