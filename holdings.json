@@ -1,12 +1,12 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-29T17:48:00Z",
+  "updated_utc": "2026-09-29T18:03:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-29",
     "realized_usd_options": 0.0,
     "closing_trades_options": 0,
     "cap_options_usd": -400.0,
-    "entry_throttle": "0 of 3 options entries used; 1 of 3 equity entries used (DE 17:46Z; _EQUITY_KILL_PAUSE LIFTED 17:32Z)."
+    "entry_throttle": "0 of 3 options entries used; 2 of 3 equity entries used (DE 17:46Z, ABBV 18:01Z)."
   },
   "positions": [
     {
@@ -53,6 +53,26 @@
         "grade_asof": "latest_intraday.md 2026-09-29T17:07Z (39 min old)"
       },
       "_thesis_check_pre_trade": "HARD RULE 7 (this run, 17:45Z): FQ3 beat (EPS 5.10 vs 4.72 est), FY26 net income guide raised to $4.75-5.00B; Evercore upgrade to Outperform PT 813 (09-02); BofA PT 667->715 (09-24); consensus 17B/8H/2S mean PT 698.73. Today's -1.2% is a drift, no negative headline found. Verdict INTACT. Industrial/ag, not oil."
+    },
+    {
+      "symbol": "ABBV",
+      "sleeve": "swing",
+      "entry_date": "2026-09-29",
+      "entry_price": 263.6146,
+      "shares": 2.408819,
+      "stop": null,
+      "target": 266.28,
+      "native_trail_pct": null,
+      "placed_agent": "agentic",
+      "grade_at_entry": "A+ 12/12 #12/236 (latest_intraday.md 17:07Z), trigger 21 EMA pullback (live recompute: 0.74% above EMA21 261.79, SMA50 257.49, RSI2 27.0 at 263.73)",
+      "_note": "placed_agent='agentic' -- AUTONOMOUS entry, signal-sourced from latest_intraday.md 2026-09-29T17:07Z. Order 6abbfd05-601e-4b8c-bb4d-7c13dc47fdca, $635.00 dollar MARKET regular_hours, FILLED 18:01:41.986Z @ $263.6146, 2.408819 sh, $0 fees; review order_checks {}. Size = equity deployable $635.04 (ubp 1470.18 - 5% reserve 167.03 - options bucket 668.11) / 1 open slot (target 4) = $635. 19% of account < 30% cap. Book now 4 swings (FCX, MRK, DE, ABBV) = target filled. Correlation noted: MRK+ABBV both large-cap pharma (~38% of account); chosen over TGT #14 on rank and 12/12 vs 11/12 (TGT lacks 21 EMA UP). Exits: RSI2>=70 take-profit while green; GRADE EXIT if rank leaves top 25%; native 15% trail once >= $310.13 (entry/0.85). No price stop (HARD RULE 5). Report target 266.28 is an estimate. No ABBV earnings in the 2026-09-29..10-29 calendar window.",
+      "_freshness_gate": {
+        "quote_asof": "2026-09-29T18:01:35Z (review_equity_order, bid 263.58/ask 263.69); order sent 18:01:41Z",
+        "trigger_recheck": "21-EMA pullback recomputed with live 263.73 as latest close, 18:01Z: +0.74% vs EMA21, above SMA50, RSI2 27.0",
+        "news_check_asof": "2026-09-29T18:01Z",
+        "grade_asof": "latest_intraday.md 2026-09-29T17:07Z (55 min old)"
+      },
+      "_thesis_check_pre_trade": "HARD RULE 7 (this run, 18:01Z): FDA approved JUVMO (tavapadon, Parkinson's) 09-28; EC approved RINVOQ pJIA 09-22; Apogee acquisition closed 09-03 (EPS dilution -$0.14 2026 / -$0.46 2027, already priced); Iambic collaboration 09-21. Analysts 24B/7H/1S, mean PT 280 vs 263.6. Today's -1.0% is market-wide risk-off (10y ~5.17%, oil >$106), no ABBV-specific negative headline found. Verdict INTACT."
     }
   ],
   "_resolved_flags": [
