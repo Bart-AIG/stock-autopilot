@@ -193,6 +193,28 @@ Simulated daily-reset leverage, 2007-08 → today. This includes the 2008 crisis
 
 ---
 
+## 10. Factor horse race: which ranking signal picks winners inside SPY/QQQ? (added 2026-09-29, `factors_results.md`)
+
+**Setup:** 13 published signals, scored monthly 2019–2026 (93 months) in the end-2018 S&P 100 and Nasdaq-100 pools. Two measures: the IC (rank correlation with next month's return, t > 2 = real) and a monthly top-10 portfolio.
+
+| Signal | IC t-stat (S&P / NDX / pooled) | Top-10 vs ETF (S&P / NDX / pooled) |
+|---|---|---|
+| **12-month momentum** | +0.5 / +0.3 / +0.3 | **+5.8 / +4.1 / +7.7 pts/yr** |
+| 12-1 momentum | +0.2 / +0.2 / +0.1 | +3.8 / +1.4 / +4.1 |
+| Residual momentum | −0.0 / −0.0 / +0.1 | −2.5 / +1.0 / +4.4 |
+| Risk-adjusted momentum | +0.3 / +0.5 / +0.3 | +0.3 / −0.2 / +0.5 |
+| Earnings surprise | +1.0 / +1.0 / +1.1 | +0.6 / −0.2 / −4.2 |
+| Gross profitability | −0.2 / **+2.8** / +0.8 | −3.9 / −3.9 / −3.8 |
+| 52-week-high proximity | −0.0 / +0.1 / −0.1 | **−7.6 / −12.9 / −16.1** |
+| Low volatility | −1.1 / −1.0 / −1.1 | **−7.7 / −13.7 / −13.0** |
+
+- **No signal predicts the whole ranking reliably.** Every IC is near zero (−0.03 to +0.04), and only one of 39 t-stats clears 2. That one is profitability in the Nasdaq pool, and its top-10 portfolio still lost to QQQ. With 39 tries, one hit is about what luck produces.
+- **Plain 12-month momentum is still the most useful stock picker.** Its top 10 beat SPY and QQQ in all three pools by 4–8 pts/yr. But its IC is ~0, so the edge comes from catching a few big right-tail winners each year, not from a reliable correlation. Expect long flat stretches.
+- **The more sophisticated momentum versions added nothing** over the plain one (residual, smooth, risk-adjusted, composite).
+- **52-week-high proximity and low volatility were the worst signals.** The 52-week-high trait is part of the current 12-trait grade, which fits the grade adding nothing measurable (section 9).
+
+---
+
 ## 6. Limits of this evidence
 - **Survivorship bias:** the end-2018 pools still lose any names FMP no longer carries (small effect). The A1/A2 universes are heavily hindsight-biased and should not be used for decisions.
 - **One market history:** 2007–2026 is one path, mostly a strong Nasdaq era; 2000–02 is untested. Leveraged Nasdaq in a 2000–02-style decline with repeated whipsaws would be worse than anything shown here.
