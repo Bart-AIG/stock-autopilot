@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-30T14:17:00Z",
+  "updated_utc": "2026-09-30T20:16Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -8262,5 +8262,13 @@
     "risk": "Unattended runs cannot execute take-profit / grade exits or manage any position while auth is lost. No live day-track or options positions exist, so nothing is exposed to a missed stop.",
     "resolved_utc": "2026-09-29T14:47Z",
     "resolution": "Connector answered again at the 14:47Z run (portfolio/positions/orders/quotes/options all OK). Reconciled ZERO DRIFT. Nothing missed: no exits due during the gap, no live positions exposed."
+  },
+  "_SLEEVE_PROCESS": {
+    "start_utc": "2026-09-30T20:14Z",
+    "start_total_value": 3316.28,
+    "hwm": 3316.28,
+    "hwm_utc": "2026-09-30T20:14Z",
+    "qqq_start_close": 739.71,
+    "_note": "Created by the first v16-stamped run (post-close 2026-09-30T20:14Z, observed on its own invocation stamp 'prompt v16, pasted 2026-09-30'; no Ryan turn claimed, HARD RULE 9). start = broker total_value post-close; qqq_start_close = QQQ regular-session last trade 19:59:59Z. Drawdown escalation: -20% notify, -25% halt new sleeve buys. First decision window: 2026-10-01 15:20-15:52 ET."
   }
 }
