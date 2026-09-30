@@ -253,6 +253,35 @@ Simulated daily-reset leverage, 2007-08 → today. This includes the 2008 crisis
 
 ---
 
+## 12. Sleeves run on the monthly momentum picks (added 2026-09-30, `momentum_sleeves_results.md`)
+
+**Setup:** the monthly top 10 by 12-month return from the pooled end-2018 S&P 100 + Nasdaq-100 lists (114 different names over time). The core, day and swing rules are run on those names at 1× (no single-stock leverage, no margin, no shorting), 2019-01 → today. QQQ: 23.1%/yr, −35% max DD.
+
+| Sleeve (CAGR / max DD) | On the momentum picks, 1× | On QQQ, 1× | QQQ, current plan's leverage |
+|---|---|---|---|
+| Always held | **31.4% / −35%** | 23.1% / −35% | — |
+| Core (200-day switch) | 22.3% / −30% | 18.9% / −23% | vol-target: 26.1% / −26% |
+| **Swing (RSI2 + IBS + TOM)** | **30.0% / −21%** (2022: +11.9%) | 20.6% / −14% | 2×: 40.4% / −28% |
+| Day (noise-area), long-only | −6.1% / −42% | +0.2% / −14% | 3×: **−11.6% / −66%** |
+
+**40/30/30 portfolios:**
+
+| Portfolio | CAGR | Max DD |
+|---|---|---|
+| Current QQQ plan | **18.9%** | −16% |
+| Momentum plan at 1× | 15.7% | −19% |
+| Hybrids | 17–18% | −13% to −18% |
+| QQQ | 23.1% | −35% |
+
+**What it shows:**
+- **The swing rules work better on the momentum picks than on QQQ:** 30%/yr unleveraged, with a positive 2022. That is close to the 2× QQQ swing sleeve's return with less drawdown and no leverage.
+- **The DAY sleeve failed this run, and that is a red flag for the whole sleeve.** The same noise-area rules on QQQ with 30-minute bars (checked every 30 minutes, which is exactly the live plan) made ~0% at 1× and −11.6%/yr at 3×. The 5-minute version made +8.7% / +25%.
+  - A real edge should not vanish when the check interval and bar size are the ones we intend to trade.
+  - The 5-minute result is therefore not trustworthy enough to trade. That also explains why every 40/30/30 mix here lags QQQ: the day sleeve drags each one down.
+- **Next step:** drop the day sleeve (or keep it paper-only) and test core + momentum-picked swing (+ held momentum picks) portfolios. That needs daily data only.
+
+---
+
 ## 6. Limits of this evidence
 - **Survivorship bias:** the end-2018 pools still lose any names FMP no longer carries (small effect). The A1/A2 universes are heavily hindsight-biased and should not be used for decisions.
 - **One market history:** 2007–2026 is one path, mostly a strong Nasdaq era; 2000–02 is untested. Leveraged Nasdaq in a 2000–02-style decline with repeated whipsaws would be worse than anything shown here.
