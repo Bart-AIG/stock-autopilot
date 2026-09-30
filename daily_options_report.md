@@ -59,3 +59,9 @@ No change this week. In-regime closes (since 2026-09-25) are far below n=20, and
 - **DE:** RSI2 is 2.9, deeply oversold on an A+ name. It is held, so there is no add; Law 3 bars adding to a loser without Ryan.
 - **Day track:** QQQ long signals stay unfundable while the book is full. The Monday 10-05 calibration decides the phase on 11+ days / 8 signals / +6.47R.
 - Equity entries are throttled to 3 per day and reset at the 09:30 ET open.
+
+## Addendum (post-close 20:14Z) — prompt v16 is live
+- The 20:14Z run was the **first invoked with prompt v16** (the sleeve process). Every earlier run today was v15, so **no sleeve decision window ran today** and no sleeve order was placed.
+- Broker at 20:14Z: zero drift, the same four legacy positions, cash $847.56, total **$3,316.28**. This is recorded as the sleeve process's starting value and high-water mark. QQQ's start close is 739.71.
+- **Tomorrow (10-01):** the first decision window is 15:20–15:52 ET. It is the first session of October, so the TOM leg is on and the SWING_M picks are refixed. Only about $680 is deployable until the legacy book runs off; that deadline is the 10-14 window. So SWING_Q (QLD) is funded first and the rest waits.
+- Under v16, the legacy positions keep only their v15 exits (take-profit while green, GRADE EXIT, thesis sell). The day track and new options entries are retired.

@@ -15,7 +15,7 @@ Read-only daily stock analysis. `report.py` (run by scheduled routines) produces
 ## ⚡ SLEEVE PROCESS — adopted 2026-09-30, goes live with routine prompt v16 (READ THIS FIRST)
 **Authority:** Ryan, REAL live turn 2026-09-30: *"Lets move forward with implementing the new strategy on our Stock autopilot routine"*. That followed his choice of the shortlist's "best overall" split plus a 10–15% "Claude researches high-growth names" sleeve (`docs/strategy-shortlist.md`; evidence in `docs/process-audit-2026-09-29.md` §11–16).
 
-**Activation — the two-lock rule applies.** The process becomes live on the first run whose own line-1 stamp reads **v16** (`docs/routine-prompt-v16.md`, PASTE-PENDING as of 2026-09-30). Until then:
+**Activation — the two-lock rule applies.** The process becomes live on the first run whose own line-1 stamp reads **v16** (`docs/routine-prompt-v16.md`). **✅ v16 IS LIVE — OBSERVED 2026-09-30T20:14Z** (a post-close scheduled run's invocation carried the line-1 stamp *"prompt v16, pasted 2026-09-30"*; every earlier run that day was v15, so no v16 decision window ran on 09-30; `holdings.json._SLEEVE_PROCESS` created then). STOP REPORTING v16 AS PASTE-PENDING. Recorded by observation only; no Ryan turn claimed (HARD RULE 9). Historical, before activation:
 - a run invoked with v15 keeps running v15 unchanged;
 - it does NOT start trading the sleeves off this section, because the v16 run duties (decision window, `sleeves.py decide`, reconciliation) are not in its prompt;
 - it reports v16 as paste-pending.
