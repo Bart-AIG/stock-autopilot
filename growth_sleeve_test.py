@@ -5,7 +5,7 @@ high-growth names' sleeve to the split. Figure out where its ratio should be tak
 
 Runs on GitHub Actions (FMP key). Pure standard library.
 
-Base split = the shortlist's "best overall": CORE 0 / SWING_M 20 / SWING_Q 60 / ODTE 20
+Base split = the live no-0DTE split: CORE 0 / SWING_M 30 / SWING_Q 70 / ODTE 0 (first run used 0/20/60/20).
 (DAY is 0 everywhere since audit §15). The sleeves are rebuilt exactly as in mix_optimizer.py,
 optimistic and pessimistic versions.
 
@@ -42,7 +42,9 @@ from robust_backtest import arrays, combine, full_ohlc, swing
 
 HERE = Path(__file__).resolve().parent
 SLEEVES = ["CORE", "SWING_M", "SWING_Q", "ODTE", "GROWTH"]
-BASE = {"CORE": 0.0, "SWING_M": 0.20, "SWING_Q": 0.60, "ODTE": 0.20}
+# Re-run 2026-09-30 on the split actually going live (0DTE removed: not executable). The first
+# run (base 0/20/60/20 with ODTE) is in git history and audit section 16.
+BASE = {"CORE": 0.0, "SWING_M": 0.30, "SWING_Q": 0.70, "ODTE": 0.0}
 
 
 def donors(size):
@@ -50,6 +52,8 @@ def donors(size):
     for lab, take in (("from SWING_M", {"SWING_M": 1.0}), ("from SWING_Q", {"SWING_Q": 1.0}),
                       ("from ODTE", {"ODTE": 1.0}), ("half SWING_M / half SWING_Q", {"SWING_M": .5, "SWING_Q": .5}),
                       ("pro-rata from all", {k: v for k, v in BASE.items() if v})):
+        if any(BASE[k] < size * v / sum(take.values()) - 1e-9 for k, v in take.items()):
+            continue
         tot = sum(take.values())
         w = dict(BASE)
         for k, v in take.items():
@@ -153,7 +157,7 @@ def main():
         return curve_stats(pr, dates)
 
     out = [f"# High-growth research sleeve — where to fund it — run {datetime.utcnow():%Y-%m-%d %H:%MZ}\n",
-           f"Period {pd[0]} → {pd[-1]}. Base split CORE 0 / SWING_M 20 / SWING_Q 60 / ODTE 20, monthly rebalance.\n"]
+           f"Period {pd[0]} → {pd[-1]}. Base split CORE 0 / SWING_M 30 / SWING_Q 70 / ODTE 0 (no 0DTE), monthly rebalance.\n"]
     qs, qy, _ = curve_stats([qr[d] for d in pd], pd)
     out.append(f"**QQQ:** {qs['cagr']:.1%}/yr, max DD {qs['mdd']:.1%}, worst year {min(qy.values()):.1%}.\n")
 
