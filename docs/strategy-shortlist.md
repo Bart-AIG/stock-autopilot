@@ -26,5 +26,5 @@ QQQ buy & hold: 23.1%/yr, max drawdown −35%. Splits are CORE / SWING_M / SWING
 - Plan on the pessimistic column.
 
 **Open work (Ryan, 2026-09-30):**
-- a research-driven high-growth sleeve (10–15%);
+- a research-driven high-growth sleeve (10–15%): tested 2026-09-30 with stand-ins (audit §16). **Best overall + growth = CORE 0 / SWING_M 20 / SWING_Q 50 / DAY 0 / ODTE 20 / GROWTH 10**, funded from SWING_Q. Start at 10%, not 15%. Paper-track it against SWING_Q first;
 - ~~a re-calibrated day-trading sleeve~~: tested 2026-09-30 (stocks-in-play, exit plan fixed at entry, 15-minute monitoring). Every version was −1.6% to −5.6%/yr against QQQ's +22.8%. DAY stays at 0% (audit §15).

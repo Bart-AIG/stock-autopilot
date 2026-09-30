@@ -406,6 +406,47 @@ Simulated daily-reset leverage, 2007-08 → today. This includes the 2008 crisis
 
 ---
 
+## 16. Funding a 10–15% high-growth research sleeve (added 2026-09-30, `growth_results.md`)
+
+**The question.** Ryan wants to add a sleeve where Claude researches high-growth names, sized at 10–15%, to the "best overall" split (CORE 0 / SWING_M 20 / SWING_Q 60 / ODTE 20). Which sleeve should give up the room?
+
+**Why stand-ins.** The sleeve's future picks can't be backtested, so three stand-ins cover the range:
+
+| Stand-in | What it represents | CAGR | Max DD |
+|---|---|---|---|
+| ARKK | A real research-team growth fund, the honest bad case | 12.5% | −81% |
+| MOM5 | The research works: the 5 strongest large caps held and re-picked monthly | 38.2% | −42% |
+| CASH | The research adds nothing | 2.7% | 0% |
+
+Baseline without the sleeve: 39.7% / −17.4% as tested, 26.2% / −19.0% pessimistic.
+
+**Result at 10%.** Pessimistic CAGR / max DD for each stand-in:
+
+| Funded from | Split CORE/SW_M/SW_Q/ODTE/GROWTH | ARKK | MOM5 | CASH |
+|---|---|---|---|---|
+| **SWING_Q** | **0 / 20 / 50 / 20 / 10** | **25.2% / −22.6%** | **27.5% / −18.2%** | **23.5% / −15.8%** |
+| Pro-rata | 0 / 18 / 54 / 18 / 10 | 25.5% / −23.7% | 27.8% / −19.2% | 23.8% / −17.2% |
+| SWING_M | 0 / 10 / 60 / 20 / 10 | 25.7% / −25.4% | 28.1% / −20.3% | 24.0% / −19.1% |
+| ODTE | 0 / 20 / 60 / 10 / 10 | 26.1% / −25.7% | 28.4% / −21.0% | 24.4% / −19.4% |
+
+**Take it from SWING_Q.**
+- **Why it wins:**
+  - SWING_Q is QQQ held at 2× leverage. Every 10% moved out of it removes 20% of Nasdaq exposure, which offsets the growth sleeve's own risk.
+  - It had the best return-per-drawdown in every case and the smallest drawdown in the bad (ARKK) case.
+- **The other options are worse:**
+  - Taking it from SWING_M (the first guess) or from ODTE adds 3 points of drawdown.
+  - ODTE is the sleeve that cuts drawdowns.
+  - SWING_M is the diversifier, and it already overlaps the growth idea (correlation with MOM5 is 0.83).
+- **15% is worse than 10% for every funding choice** (return/|DD| 0.89–0.98 vs 1.02–1.12). Start at 10% and move to 15% only after the sleeve has a live track record.
+
+**What the sleeve actually buys, stated honestly:**
+- Even the good case (MOM5) only matches the baseline's return: 39.9% vs 39.7% as tested, 27.5% vs 26.2% pessimistic. That's because the sleeve replaces a strong leveraged QQQ swing.
+- If the research adds nothing, it costs about 2–4 points a year.
+- If it behaves like ARKK, it adds about 3–4 points of pessimistic drawdown.
+- It is a bet on Claude picking better than simple momentum. Paper-track it against SWING_Q's return before funding it with real money, and cut it back to 0% if it trails for 12 months.
+
+---
+
 ## 6. Limits of this evidence
 - **Survivorship bias:** the end-2018 pools still lose any names FMP no longer carries (small effect). The A1/A2 universes are heavily hindsight-biased and should not be used for decisions.
 - **One market history:** 2007–2026 is one path, mostly a strong Nasdaq era; 2000–02 is untested. Leveraged Nasdaq in a 2000–02-style decline with repeated whipsaws would be worse than anything shown here.
