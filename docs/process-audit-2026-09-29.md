@@ -445,6 +445,21 @@ Baseline without the sleeve: 39.7% / −17.4% as tested, 26.2% / −19.0% pessim
 - If it behaves like ARKK, it adds about 3–4 points of pessimistic drawdown.
 - It is a bet on Claude picking better than simple momentum. Paper-track it against SWING_Q's return before funding it with real money, and cut it back to 0% if it trails for 12 months.
 
+**Re-run on the live no-0DTE split (2026-09-30 19:46Z, `growth_results.md`).** Base: SWING_M 30 / SWING_Q 70, which returned 37.8% / −22.2% as tested and 27.7% / −22.7% pessimistic. The answer does not change: **fund the growth sleeve from SWING_Q, at 10%.** That gives SWING_M 30 / SWING_Q 60 / GROWTH 10.
+
+Pessimistic CAGR / max DD at 10%, for each stand-in and funding source:
+
+| Funded from | Research works (MOM5) | Fails like ARKK | Adds nothing (cash) |
+|---|---|---|---|
+| **SWING_Q** | **29.0% / −21.6%** | **26.6% / −26.0%** | **25.0% / −19.7%** |
+| Half and half | 29.2% / −22.6% | 26.9% / −27.4% | 25.3% / −21.3% |
+| SWING_M | 29.5% / −23.6% | 27.2% / −28.9% | 25.5% / −22.9% |
+
+- **Funding from SWING_Q still gives the smallest drawdown in every case** and the best return per drawdown (1.03 vs 0.95–1.01).
+- **Funding from SWING_M adds about 0.5 points of return** but costs about 3 points of drawdown in the ARKK case.
+- **15% is again worse than 10%** on return per drawdown for every funding source.
+- **The ARKK case's pessimistic drawdown (−26%) passes v16's −25% stop-new-buys line.** That is correct behaviour: it is a scenario where Ryan should be asked. It is also why GROWTH starts on paper.
+
 ---
 
 ## 6. Limits of this evidence
