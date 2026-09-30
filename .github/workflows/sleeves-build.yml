@@ -1,0 +1,62 @@
+name: Sleeves state build
+
+# Builds sleeves_state.json (the month's SWING_M picks and each sleeve symbol's leg state as
+# of the last completed session) for routine prompt v16. Needs the FMP key, so it runs here.
+# Read-only analysis: it never touches the ledger or any account.
+#
+# Three scheduled attempts each weekday morning (GitHub cron can be late, and a failed run
+# must not leave the routine without a state): 12:40, 13:40 and 16:10 UTC. The build is
+# idempotent, so a later run on the same day only rewrites the same file.
+
+on:
+  schedule:
+    - cron: '40 12 * * 1-5'
+    - cron: '40 13 * * 1-5'
+    - cron: '10 16 * * 1-5'
+  push:
+    branches: ['claude/**']
+    paths: ['sleeves.py', '.github/workflows/sleeves-build.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sleeves-build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Check the rules match the backtest
+        run: python test_sleeves.py
+      - name: Build state
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+        run: python sleeves.py build
+      - name: Commit sleeves_state.json
+        run: |
+          git config user.name 'stock-autopilot-bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add sleeves_state.json
+          git commit -m "sleeves: state $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "no change"; exit 0; }
+          for attempt in 1 2 3 4 5; do
+            if git pull --rebase --quiet && git push; then echo "pushed on attempt $attempt"; exit 0; fi
+            if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ]; then
+              if git checkout --theirs -- sleeves_state.json 2>/dev/null; then
+                git add sleeves_state.json
+                GIT_EDITOR=true git rebase --continue || git rebase --abort
+              else
+                git rebase --abort
+              fi
+            fi
+            sleep $((attempt * 3))
+          done
+          echo "::error::could not push sleeves_state.json"
+          exit 1
