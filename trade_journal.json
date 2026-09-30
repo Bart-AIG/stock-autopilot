@@ -44768,6 +44768,17 @@
       "tape": "Not measured: opening auction prints are not decision inputs.",
       "why_flat": "EQUITY: latest report on master is 2026-09-29 19:08Z (>90 min, freshness gate (d) fails) and equity deployable = 836.46 - 167.62 reserve - 670.47 bucket < 0; 4 of 3-4 slots filled; no exit fired (report: FCX/DE/ABBV HOLD, TGT unscored pending today's report). OPTIONS: NOT GRADED THIS RUN: 13:30-13:35Z auction window (quote gate fails by construction). DAY TRACK (PAPER): OR 09:30-09:35 ET incomplete at 13:30Z; plan_entry deferred to next run.",
       "duties": "Heartbeat stamped; market_brief.json NOT rebuilt (deferred to first post-13:35Z run - no auction-print regime label); IV sweep deferred likewise."
+    },
+    {
+      "run_utc": "2026-09-30T13:45:00Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-09-30",
+      "headline": "Brief rebuilt; DAY TRACK paper skip (cash); options re-graded, all fail; TGT RSI2>=70 take-profit DEFERRED to the first run with today's report (stale report = no autonomous equity trade).",
+      "reconciliation": "BROKER FIRST 13:45Z: ZERO DRIFT. Options 0; FCX 8.630265 / TGT 3.980133 / DE 0.930369 / ABBV 2.408819 = ledger; no orders today either book; cash=ubp $836.46, total $3,350.84, no margin.",
+      "tape": "13:45-13:47Z: SPY 766.48 (+0.30%), QQQ 741.52 (+0.49%), FCX 71.095, TGT 159.60 (+2.03%, +1.64% vs entry 157.03), DE 679.305, ABBV 264.29.",
+      "exit_pending": "TGT: live RSI2 76.5 (25 daily closes + 159.60 at 13:47:02Z) on a GREEN position = RSI2>=70 take-profit condition. NOT executed: latest report on master is 2026-09-29 19:08Z (18.6h old), and v15 says a stale report = no autonomous equity trades this run. NEXT RUN with today's report on master: if TGT still RSI2>=70 and green on a live quote, SELL ALL 3.980133 (placed_agent agentic). DE/FCX red; ABBV green, RSI2 ~48.6, hold.",
+      "why_flat": "EQUITY: 4/4 slots; deployable 836.46-167.54-670.17 < 0; report stale. OPTIONS: re-quoted 13:45:43-13:46:31Z, 2026-10-30 (30 DTE) calls: TGT 157.5C 6.05x7.45 spread 20.7% OI 114 d.59; TGT 160C 4.55x6.00 27.5% OI 27; ABBV 265C 6.70x9.40 33.5% OI 81 ($805 mid > bucket $670); ABBV 270C 4.55x6.75 38.9% OI 40; DE 690C 17x23 30% OI 37 ($2,000 > bucket); DE 700C 13.2x19 36% OI 9. All fail spread<=10%; name-grade input also stale (report >90 min). JNJ excluded without pricing (own earnings 10-13). No entry. DAY TRACK: OR 739.76-742.7493, LONG; plan_entry skip, cannot afford 1 QQQ share ($668.92 deployable) -- row in day_track_paper.json.",
+      "duties": "Heartbeat stamped 13:31Z; market_brief.json rebuilt; IV sweep deferred past 14:00Z; daily report due >=19:15Z."
     }
   ]
 }
