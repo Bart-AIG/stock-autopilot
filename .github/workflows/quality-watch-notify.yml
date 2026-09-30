@@ -1,0 +1,44 @@
+# Delivers the Quality @ 200-day report to Ryan's phone. Same pattern as
+# eod-report-notify.yml: Claude cloud sessions cannot reach ntfy.sh, so the routine
+# commits quality_watch_report.md to master and this runner sends it.
+name: Quality watch notify
+
+on:
+  push:
+    branches: [master]
+    paths: [quality_watch_report.md]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-watch-notify
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+      - name: Send report
+        run: |
+          python3 - << 'PY'
+          import subprocess
+          body = open('quality_watch_report.md', encoding='utf-8').read()
+          first = body.splitlines()[0].lstrip('# ').strip() if body.strip() else 'Quality @ 200-day update'
+          prio = 'default'
+          url = 'https://github.com/Bart-AIG/stock-autopilot/blob/master/quality_watch_report.md'
+          if len(body.encode()) > 3800:
+              body = body.encode()[:3700].decode(errors='ignore') + '\n... full report: ' + url
+          r = subprocess.run(['curl', '-sS', '-w', '\n__HTTP__%{http_code}',
+                              '-H', f'Title: {first}', '-H', f'Priority: {prio}',
+                              '-H', f'Click: {url}', '-d', body.encode(),
+                              'https://ntfy.sh/stk-ap-rb-9k4m7q2x'],
+                             capture_output=True, text=True)
+          print(r.stdout[-300:], r.stderr[-300:])
+          if not r.stdout.strip().endswith('200'):
+              raise SystemExit('ntfy delivery failed')
+          PY

@@ -17,6 +17,9 @@ Grading the live readings each run keeps the tier honest after the one-shot aler
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 # What each benchmark MEANS and how much it weighs. Keyed by (symbol, condition_type).
 # Weights: 1 = early warning, 2 = real stress, 3 = regime break. Unknown alerts count 1.
 SIGNALS = {
@@ -92,14 +95,30 @@ def _sma_for(smas: dict, sym: str, period: int) -> float | None:
     return smas.get(sym) if period == 50 else None
 
 
-def grade(alerts: list[dict], prices: dict[str, float], smas: dict | None = None) -> dict:
+def quality_watch_alert_ids(path: str | Path | None = None) -> set[str]:
+    """alert_ids the Quality @ 200-day routine created (quality_watch_state.json).
+    Those are per-stock buy-watch alerts, not market-risk benchmarks, and must never
+    score risk points (set 2026-09-30: unknown alerts count 1 each, so three of them
+    triggering would have pushed the tier to YELLOW on their own)."""
+    p = Path(path) if path else Path(__file__).with_name("quality_watch_state.json")
+    try:
+        managed = json.loads(p.read_text()).get("managed_alerts") or {}
+    except (OSError, ValueError):
+        return set()
+    return {m.get("alert_id") for m in managed.values() if m.get("alert_id")}
+
+
+def grade(alerts: list[dict], prices: dict[str, float], smas: dict | None = None,
+          ignore_ids: set[str] | None = None) -> dict:
     """alerts = get_alerts()['alerts'] (enabled ones); prices = {sym: last};
     smas = {(sym, period): value} for every *_sma alert (e.g. ("QQQ", 20), ("QQQ", 50)).
+    ignore_ids: alert_ids to skip; defaults to the Quality @ 200-day routine's alerts.
     Returns score, tier, and a per-alert breakdown including distance to trigger."""
     smas = smas or {}
+    ignore = quality_watch_alert_ids() if ignore_ids is None else ignore_ids
     rows, score = [], 0
     for a in alerts:
-        if not a.get("enabled", True):
+        if not a.get("enabled", True) or a.get("alert_id") in ignore:
             continue
         sym, ct = a["symbol"], a["condition_type"]
         is_sma = ct.endswith("_sma")
