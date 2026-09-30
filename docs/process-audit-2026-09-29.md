@@ -282,6 +282,46 @@ Simulated daily-reset leverage, 2007-08 → today. This includes the 2008 crisis
 
 ---
 
+## 13. Options-income sleeves: DIY QQQI covered call and QuantGlide-style 0DTE (added 2026-09-30, `options_income_results.md`)
+
+**The base these were added to:** 50% vol-targeted QQQ core + 50% swing rules on the momentum picks.
+- **Result:** 28.2%/yr, −16.8% max DD, −3.3% worst year (2019–2026), vs QQQ 23.1% / −35% / −33%.
+- **This is the strongest robust combination so far.** Caveat: the swing sleeve trades at the close here; the QQQ test lost ~25% of swing return trading at 15:50.
+
+**DIY QQQI (we sell the calls ourselves).** Modelled with Black-Scholes at 1.1× realized vol. The model matches the real QQQI within 1 pt: 19.9% model vs 20.7% real since 2024; for QYLD it overstates by ~2.6 pts. Results, 2019–2026:
+
+| Variant | CAGR / max DD | 2022 |
+|---|---|---|
+| QQQ | 23.1% / −35% | −33% |
+| 2% OTM + buy 6% OTM call (QQQI style) | 15.4% / −33% | −31% |
+| 2% OTM, fully covered | 18.3% / −22% | −18% |
+| ATM (QYLD style) | 13.7% / −19% | −16% |
+
+- **The QQQI structure keeps nearly all of the Nasdaq drawdown and gives up about a third of the upside.**
+- **Adding it to the base lowers returns without lowering drawdown:** 28.2% → 25.7% (20% sleeve) → 23.2% (40% sleeve).
+- **It is also not runnable here:** one QQQ contract is ~$74k of stock and one XND ~$25k, vs a ~$3.3k account. **Verdict: do not add.**
+
+**QuantGlide-style 0DTE credit spread** (structural test on SPY 5-minute bars, 2018–2026, ~185 trades/yr):
+
+| Short strike | Win rate | Max-loss days | Breakeven credit (% of width) |
+|---|---|---|---|
+| 1.5× expected move | ~98% | 20–22 | 2.0–2.3% |
+| 2.0× expected move | ~99.2% | 8–10 | 1.1–1.2% |
+| 2.5× expected move | ~99.6% | 3–5 | 0.8% |
+
+- **Everything hinges on the credit actually received,** which cannot be backtested without option prices.
+- **If QuantGlide's example credit (3% of width) is achievable at 2× the expected move,** the sleeve is strongly profitable: +42%/yr, −11% max DD at 10% of the sleeve risked per trade. As a 20% sleeve it lifts the base to **31.5% / −13%**.
+- **At a 2% credit** the sleeve earns 17.5%. **At 30% risk per trade** (QuantGlide's sizing) drawdowns reach −34% to −42% even when profitable.
+
+**Honest limits of the 0DTE test:**
+- The "expected move" is built from realized volatility, not the implied volatility that sets real strikes and credits.
+- Intraday gaps and fill slippage on a $0.45 credit (10–20% of premium) are not modelled.
+- It conflicts with the playbook: 0–1 DTE is banned, and the agentic API cannot place multi-leg orders. It would need XSP (mini-SPX) rather than SPX at this account size.
+
+**Recommended next step:** before any rule change, record live XSP 0DTE quotes at 10:35 ET for 2–4 weeks. That measures the real credit at 2× the expected move, the one number this sleeve depends on, at zero risk.
+
+---
+
 ## 6. Limits of this evidence
 - **Survivorship bias:** the end-2018 pools still lose any names FMP no longer carries (small effect). The A1/A2 universes are heavily hindsight-biased and should not be used for decisions.
 - **One market history:** 2007–2026 is one path, mostly a strong Nasdaq era; 2000–02 is untested. Leveraged Nasdaq in a 2000–02-style decline with repeated whipsaws would be worse than anything shown here.
