@@ -322,6 +322,41 @@ Simulated daily-reset leverage, 2007-08 → today. This includes the 2008 crisis
 
 ---
 
+## 14. Mix optimizer: 1,001 splits of the strongest sleeves (added 2026-09-30, `mix_results.md`)
+
+**Setup:** sleeves CORE / SWING_M / SWING_Q (QQQ swing 2×) / DAY (5-min, 3×) / ODTE (0DTE, 3% credit assumed), 2019–2026, monthly rebalance. Each winner is re-run in a **pessimistic** version: DAY on 30-minute bars, 0DTE at a 2% credit, SWING_Q traded at 15:50, and a 25% haircut on SWING_M. QQQ: 23.1% / −35%.
+
+**Sleeves alone (as tested → pessimistic):**
+
+| Sleeve | As tested | Pessimistic |
+|---|---|---|
+| CORE | 24.8% / −26% | 24.8% / −26% |
+| SWING_M | 30.0% / −21% | 23.1% / −16% |
+| SWING_Q | 40.4% / −28% | 28.9% / −32% |
+| **DAY** | 17.5% / −30% | **−11.6% / −66%** |
+| ODTE | 43.3% / −11% | 18.5% / −14% |
+
+- DAY and ODTE barely move with the others (correlation −0.14 to +0.11). The three trend/swing sleeves correlate +0.57 to +0.64.
+- **The optimizer keeps picking DAY for its diversification, but every DAY-heavy mix collapses in the pessimistic re-run** (e.g. 0/30/40/30/0: 31.7% → 15.0%). **Exclude DAY.**
+
+**Best mixes** (CORE / SWING_M / SWING_Q / DAY / ODTE):
+
+| Split | As tested (CAGR / DD / worst yr) | 2023–26 unseen* | Pessimistic |
+|---|---|---|---|
+| 50 / 50 / 0 / 0 / 0 | 28.2% / −17% / −3% | — | 24.6% / −15% |
+| **0 / 30 / 70 / 0 / 0** (walk-forward pick, no 0DTE) | 2019–22: 37.8% / −20% | **38.4% / −22%** | **27.7% / −23%** |
+| 30 / 30 / 20 / 0 / 20 | 34.2% / −13.6% / 0.0% | — | 24.8% / −13% |
+| **0 / 20 / 60 / 0 / 20** (walk-forward pick, 0DTE ≤ 20%) | 39.7% / −17% / −3% | **39.2% / −17%** | **26.4% / −19%** |
+
+*Chosen using 2019–22 data only, then scored on 2023–26.
+
+**Conclusions:**
+- SWING_Q + SWING_M carry the returns. 0DTE (if its credit holds) cuts drawdowns. CORE adds stability but gets crowded out in this 2019–26 window.
+- Plan on the pessimistic column: **~24–28%/yr with −13% to −23% drawdowns, vs QQQ 23.1% / −35%.**
+- The unconstrained optimum is ~80–100% 0DTE. That is an artifact of the assumed credit and must not be used.
+
+---
+
 ## 6. Limits of this evidence
 - **Survivorship bias:** the end-2018 pools still lose any names FMP no longer carries (small effect). The A1/A2 universes are heavily hindsight-biased and should not be used for decisions.
 - **One market history:** 2007–2026 is one path, mostly a strong Nasdaq era; 2000–02 is untested. Leveraged Nasdaq in a 2000–02-style decline with repeated whipsaws would be worse than anything shown here.
