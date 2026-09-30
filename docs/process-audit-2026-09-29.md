@@ -357,6 +357,55 @@ Simulated daily-reset leverage, 2007-08 → today. This includes the 2008 crisis
 
 ---
 
+## 15. Stocks-in-play day trades with the exit plan fixed at entry (added 2026-09-30, `sip_results.md`)
+
+**The test.** Ryan asked for a day-trade setup where each buy sets its own take-profit and stop at entry, from the variables measured then, and where every routine run re-checks the position.
+
+- **Universe:** 159 large caps (the end-2018 S&P 100 + Nasdaq-100 lists) with 5-minute data.
+- **Window:** 496 sessions, 2024-09-30 → 2026-09-29.
+- **Stock selection each day at 09:35:** rank by first-5-minute relative volume (RVOL), keep daily ATR ≥ $0.50.
+- **Entry:** buy-stop at the opening-range high.
+- **Plan fixed at entry:**
+  - Stop distance = 0.15–0.20 × ATR.
+  - Target = 2–4 × the stop distance. The multiple goes up when the trade agrees with the stock's own trend and with QQQ's opening direction.
+- **Monitoring every 15 minutes:**
+  - At +1R, move the stop to breakeven.
+  - At +2R, trail the stop.
+  - Exit if the stock loses VWAP, or if QQQ turns while the trade is below +1R.
+  - Flat by 15:50.
+- **Realism and costs:** the stop only rests at the broker from the first run after the fill. Costs are 4 bp per round trip.
+
+**Result: no edge in any version.** QQQ returned 22.8%/yr (−23% DD) over the same sessions.
+
+| Version | CAGR | Max DD | Year 1 | Year 2 | Win % |
+|---|---|---|---|---|---|
+| Published rules, ideal fills, long/short | −2.7% | −7% | −4.3% | −1.4% | 18% |
+| Published rules, long-only, ideal fills | +0.7% | −4% | −2.1% | +3.8% | 19% |
+| Realistic plain (top 10, long-only) | −1.7% | −11% | −7.6% | +4.6% | 20% |
+| **DYNAMIC plan + 15-min monitoring (the proposed setup)** | **−1.9%** | −6% | −1.9% | −1.8% | 37% |
+| DYNAMIC, top 5 | −5.6% | −13% | −5.3% | −5.8% | 35% |
+| DYNAMIC, RVOL ≥ 3 | −1.8% | −7% | −1.8% | −1.8% | 36% |
+| DYNAMIC, no VWAP exit | −1.6% | −6% | −1.8% | −1.4% | 37% |
+| DYNAMIC, no QQQ exit | −2.2% | −7% | −4.7% | +0.3% | 29% |
+| DYNAMIC, 30-min checks | −2.2% | −7% | −5.2% | +1.0% | 38% |
+
+**What the numbers say:**
+- **Exits aren't the problem, entries are.** The fixed plan and monitoring did their job:
+  - The win rate doubled from about 20% to 37%.
+  - Drawdowns stayed at −6%.
+  - Only 18% of trades were hit before the stop rested at the broker.
+- **Before costs the average trade makes about +2 bp; the 4 bp round-trip cost turns it negative.** Better stop and target rules can't fix an entry with no edge.
+- **Tightening the filter didn't help.** Stricter RVOL, fewer names, or dropping either exit rule all stay between −1.6% and −5.6%. Nothing is close to positive, so this isn't a tuning problem.
+- **Why the published result doesn't carry over:** the published stocks-in-play result draws from all US stocks. Most "in play" names there are small and mid caps with news. On a liquid large-cap universe, a high-RVOL opening range carries no edge in 2024–26.
+- **Limits:**
+  - Only 2 years, one universe.
+  - 5-minute bars, and a bar that touches both levels is assumed to hit the stop first.
+  - A small-cap universe was not tested. At this account size, those names would also have wider spreads, which the 4 bp cost doesn't cover.
+
+**Decision input:** this adds a second day-trading design that fails, after the noise-area breakout failed on 30-minute bars (§11). Keep DAY at 0% in every shortlist split. The capital is better used in SWING_M / SWING_Q, which have been the most consistent sleeves in every test.
+
+---
+
 ## 6. Limits of this evidence
 - **Survivorship bias:** the end-2018 pools still lose any names FMP no longer carries (small effect). The A1/A2 universes are heavily hindsight-biased and should not be used for decisions.
 - **One market history:** 2007–2026 is one path, mostly a strong Nasdaq era; 2000–02 is untested. Leveraged Nasdaq in a 2000–02-style decline with repeated whipsaws would be worse than anything shown here.
