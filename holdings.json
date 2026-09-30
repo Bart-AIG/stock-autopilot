@@ -1,12 +1,12 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-29T19:17:00Z",
+  "updated_utc": "2026-09-30T14:17:00Z",
   "_realized_options_pnl_today": {
-    "trading_day_et": "2026-09-29",
+    "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
     "closing_trades_options": 0,
     "cap_options_usd": -400.0,
-    "entry_throttle": "0 of 3 options entries used; 2 of 3 equity entries used (DE 17:46Z, ABBV 18:01Z)."
+    "entry_throttle": "0 of 3 options entries used; 1 of 3 equity entries used (MRK 14:16Z). Equity exits today: TGT take-profit 14:15Z (+$6.10)."
   },
   "positions": [
     {
@@ -62,24 +62,23 @@
       "_thesis_check_pre_trade": "HARD RULE 7 (this run, 18:01Z): FDA approved JUVMO (tavapadon, Parkinson's) 09-28; EC approved RINVOQ pJIA 09-22; Apogee acquisition closed 09-03 (EPS dilution -$0.14 2026 / -$0.46 2027, already priced); Iambic collaboration 09-21. Analysts 24B/7H/1S, mean PT 280 vs 263.6. Today's -1.0% is market-wide risk-off (10y ~5.17%, oil >$106), no ABBV-specific negative headline found. Verdict INTACT."
     },
     {
-      "symbol": "TGT",
+      "symbol": "MRK",
       "sleeve": "swing",
-      "entry_date": "2026-09-29",
-      "entry_price": 157.0299,
-      "shares": 3.980133,
+      "entry_date": "2026-09-30",
+      "entry_price": 147.8198,
+      "shares": 4.194296,
       "stop": null,
-      "target": 164.44,
+      "target": 152.34,
       "native_trail_pct": null,
       "placed_agent": "agentic",
-      "grade_at_entry": "A+ 11/12 #15/236 (latest_intraday.md 19:08Z), trigger 21 EMA pullback (live recompute at 157.10: -0.42% vs EMA21 157.76, above SMA50 154.52, RSI2 36.3)",
-      "_note": "placed_agent='agentic' -- AUTONOMOUS entry (3rd equity entry of 2026-09-29, 3 of 3), signal-sourced from latest_intraday.md 2026-09-29T19:08Z, funded by the MRK take-profit same run. Order 6abc0e99-f2e1-4c82-90e0-1064916ed8fd, $625.00 dollar MARKET regular_hours, FILLED 19:16:41.787Z @ $157.0299, 3.980133 sh, $0 fees; review order_checks {}. Size = equity deployable $626.32 (ubp 1461.46 - 5% reserve 167.03 - options bucket 668.11) / 1 open slot (target 4) = $625; 19% of account < 30% cap. Re-entry of a name taken profit 09-28 at 160.18 -- the rules are signal-based and it re-triggered on the 21-EMA pullback. JNJ (#22) excluded: earnings 2026-10-13 in window. Exits: RSI2>=70 take-profit while green; GRADE EXIT if rank leaves top 25%; native 15% trail once >= $184.74 (entry/0.85). No price stop (HARD RULE 5). Target 164.44 is an estimate. Next earnings ~mid-Nov, outside the hold window.",
+      "grade_at_entry": "A+ 12/12 #10/236 (latest_morning.md 14:06Z), trigger 21 EMA pullback (live recompute at 147.68: +0.31% vs EMA21 147.23, above SMA50 141.73, RSI2 20.5)",
+      "_note": "placed_agent='agentic' -- AUTONOMOUS entry (1 of 3 equity entries 2026-09-30), signal-sourced from latest_morning.md 2026-09-30T14:06Z, funded by the TGT take-profit same run. Order 6abd19d2-62cc-445d-894f-c26d34f8423c, $620.00 dollar MARKET regular_hours, FILLED 14:16:50.384Z @ $147.8198, 4.194296 sh, $0 fees; review order_checks {}. Size = equity deployable $623.61 (ubp 1467.56 - 5% reserve 168.79 - options bucket 675.16) / 1 open slot (target 4); 18% of account < 30% cap. Re-entry of a name taken profit 09-29 at 149.12 -- signal-based, it re-triggered on the 21-EMA pullback (same precedent as TGT 09-29). Correlation: MRK+ABBV both large-cap pharma (~37% of account). Exits: RSI2>=70 take-profit while green; GRADE EXIT if rank leaves top 25%; native 15% trail once >= $173.91 (entry/0.85). No price stop (HARD RULE 5). Target 152.34 is an estimate. Earnings 2026-10-29 am (verified, get_earnings_calendar) -- 29 days out, outside a 1-3 week hold; must be flat or re-assessed before then.",
       "_freshness_gate": {
-        "quote_asof": "2026-09-29T19:16:36Z (review_equity_order bid 156.89/ask 157.00); order sent 19:16:41Z",
-        "trigger_recheck": "21-EMA pullback recomputed with live 157.10 as latest close at 19:15Z: -0.42% vs EMA21 157.76, above SMA50 154.52, RSI2 36.3",
-        "news_check_asof": "2026-09-29T19:16Z",
-        "grade_asof": "latest_intraday.md 2026-09-29T19:08Z (8 min old)"
-      },
-      "_thesis_check_pre_trade": "HARD RULE 7 (this run, 19:16Z): dividend $1.16 declared 09-23; price cuts on ~2,000 home/apparel items ahead of holiday (margin watch, market took it +0.6% on 09-28); new CEO transition earlier in year; 38 analysts consensus Hold, mean PT $162.76 above spot. No broken-thesis headline. Retail, not oil. Verdict INTACT (margin-watch). Sources: stockanalysis.com/stocks/tgt, marketbeat.com TGT forecast, tipranks CEO announcement."
+        "quote_asof": "2026-09-30T14:16:45Z (review_equity_order bid 147.73/ask 147.87); order sent 14:16:50Z",
+        "trigger_recheck": "21-EMA pullback recomputed with live 147.68 as latest close at 14:16:22Z: +0.31% vs EMA21, above SMA50, RSI2 20.5",
+        "news_check": "2026-09-30T14:15Z this run: EMA CHMP positive opinion for KEYTRUDA+Padcev (MIBC) Sept 2026; $2.13B KRAS G12D licensing deal; voluntary withdrawal of one lung-cancer FDA filing (minor); stock near multi-decade high; 28 analysts avg Buy, PT ~$153. Verdict INTACT. Sources: stockanalysis.com/stocks/mrk, barchart.com MRK outlook, merck.com IR.",
+        "grade_asof": "latest_morning.md 2026-09-30T14:06Z (10 min old)"
+      }
     }
   ],
   "_resolved_flags": [
@@ -760,6 +759,23 @@
       "realized_pnl_usd": 6.3,
       "pnl_pct": 1.02,
       "_pnl_source": "get_realized_pnl day 2026-09-29: +$6.30 on 1 closing trade"
+    },
+    {
+      "symbol": "TGT",
+      "sleeve": "swing",
+      "entry_date": "2026-09-29",
+      "entry_price": 157.0299,
+      "shares": 3.980133,
+      "exit_date": "2026-09-30",
+      "exit_price": 158.5629,
+      "exit_reason": "TAKE-PROFIT: RSI2 74.3 >= 70 while green (latest_morning.md 2026-09-30T14:06Z SELL / TAKE-PROFIT); live recompute at 158.64 (14:15:32Z) RSI2 70.6, still >=70; mechanical exit, autonomous per HARD RULE 6",
+      "order_id": "6abd1999-113a-41db-b395-1e3d2ec91731",
+      "placed_agent": "agentic",
+      "filled_utc": "2026-09-30T14:15:53.896Z",
+      "fees": 0.0,
+      "realized_pnl_usd": 6.1,
+      "pnl_pct": 0.98,
+      "_pnl_source": "computed from fill vs broker average_buy_price 157.03; confirm against get_realized_pnl at EOD"
     }
   ],
   "_SIZING_NOTE": "REFRESHED 2026-08-28T16:19Z from the broker. The prior text was stamped 2026-08-24 and asserted 'CURRENT TRUTH: cash $3,023.56 ... DEPLOYABLE = $2,773.56' -- four days and $1,476.60 out of date, and it is the SECOND generation of this note to go stale while literally warning that a stale note 'would have been copied forward as truth.' A note that names the staleness risk is not thereby immune to it; re-read the broker. RULES (unchanged): $1,500 is a PER-TRADE maximum, there is NO total-sleeve cap, and total deployment across BOTH books is bounded by unleveraged_buying_power (2026-08-14 sizing amendment + the 2026-08-21 no-margin rule). CURRENT TRUTH: cash $1,546.96 == buying_power == unleveraged_buying_power, so no margin is extended and FOUR LAWS #4 is satisfied; unsettled_funds $0.0000. RESERVE CORRECTED 2026-08-28T23:18Z: the flat $250 reserve is RETIRED, superseded by the 5%-of-total_value OPERATIONAL RESERVE (Ryan 2026-08-29 policy on master), which SCALES and must be recomputed from get_portfolio.total_value every run -- never hard-coded. DEPLOYABLE = unleveraged_buying_power - 0.05 x total_value = 1546.96 - 198.03 = $1,348.93. The hedge's $749 basis does NOT reduce a new trade's allowance and occupies 0 of the 5 non-hedge slots. EQUITY SIZING IS NO LONGER BLOCKED -- CORRECTED 2026-08-28T23:18Z. This note previously read 'EQUITY SIZING IS SEPARATELY BLOCKED: the >=45% equity-book cash floor reads 44.9807% and the max compliant buy is -$0.67.' THAT FLOOR IS VOID (master commit 1322da9, 2026-08-28T20:42:36Z) and its arithmetic must not be quoted or re-derived. The equity book is OPEN from the 2026-08-31 open with 3 fresh throttle slots, funded from the same $1,348.93; the binding controls are now the A-GRADE-ONLY bar, per-name <=15-20%, spec sleeve <=25%, and rotation-beats-the-weakest once deployable cash falls below one normal position size (NOT yet -- $1,348.93 against ~$500 is ordinary cash). See _CAPITAL_POLICY_STATE, which governs. _CROSS_BOOK_CASH_COUPLING's floor arithmetic is likewise MOOT; its ONE-POOL truth survives -- an options entry still reduces equity capacity dollar-for-dollar, so cross-book competition is now explicit rather than mediated by a ratio. FOUND BY THE ARITHMETIC SWEEP prescribed in this run's journal entry and then actually executed: this is the FOURTH key carrying floor-derived state after the void, and the first three repairs were all targeted at keys whose SUBJECT was the floor. This one's subject is SIZING, which is why three careful sweeps walked past it. Search for the arithmetic (the 0.45 coefficient, 'compliant buy', 'cash floor'), never for the keys you expect to be affected. [DETECTOR REFINED 2026-08-29T00:18Z -- the prescription in the sentence above WORKED and was also INCOMPLETE. Searching holdings.json for the arithmetic tokens it names (the 0.45 coefficient, 'compliant buy', 'cash floor') surfaced the three keys already repaired; a SECOND sweep on the STATE-ASSERTION phrase 'book is closed' surfaced two more that the arithmetic sweep missed -- _EVENT_PREMIUM_IS_INVISIBLE_ON_THE_30DTE_BOARD.honest_scope and _DIVERSIFICATION_STATISTICS_ARE_FRAGILE.honest_scope, both annotated this run as the fourth and fifth instances. THE CLASS IS BROADER THAN ARITHMETIC: a repealed rule leaves behind both its NUMBERS and its CONCLUSIONS, and the conclusions are the more dangerous residue precisely because they carry no digits -- they read as ordinary present-tense state prose, so a numeric sweep walks straight past them and a human skim reads them as current. Sweep for BOTH: the arithmetic AND the sentence the arithmetic used to justify ('the book is closed', 'entries are frozen', 'no compliant entry exists'). Both survivors sat in honest_scope caveats, which is a systematically likely hiding place: a scope clause's job is to state what was true at the time, so it BAKES IN the then-current regime by design and ages badly by construction.]",
