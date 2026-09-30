@@ -12,6 +12,45 @@ Read-only daily stock analysis. `report.py` (run by scheduled routines) produces
 
 **Portfolio engine:** the report reads `holdings.json` (the positions ledger) and judges **every** position on each run with a per-name action — **take-profit / trail / hold / thesis-check** (no position is parked; there is no `legacy` bucket). Take-profit fires on a target hit or an RSI2≥70 swing bounce; winners that have run far enough get a **trailing-stop ratchet** (~15% below the high, up only, floored at breakeven); names below the 200-day MA or out of the momentum top decile are flagged **REVIEW / THESIS-CHECK** (sell only if the thesis is dead); underwater names with intact theses **HOLD** with no price stop and are culled at the monthly rebalance. Plus a "better-play" rotation list. These are SIGNALS — confirm with a live quote and approve each action per the HARD RULES (esp. the trailing-stop / thesis policy in RULE 5).
 
+## ⚡ SLEEVE PROCESS — adopted 2026-09-30, goes live with routine prompt v16 (READ THIS FIRST)
+**Authority:** Ryan, REAL live turn 2026-09-30: *"Lets move forward with implementing the new strategy on our Stock autopilot routine"*. That followed his choice of the shortlist's "best overall" split plus a 10–15% "Claude researches high-growth names" sleeve (`docs/strategy-shortlist.md`; evidence in `docs/process-audit-2026-09-29.md` §11–16).
+
+**Activation — the two-lock rule applies.** The process becomes live on the first run whose own line-1 stamp reads **v16** (`docs/routine-prompt-v16.md`, PASTE-PENDING as of 2026-09-30). Until then:
+- a run invoked with v15 keeps running v15 unchanged;
+- it does NOT start trading the sleeves off this section, because the v16 run duties (decision window, `sleeves.py decide`, reconciliation) are not in its prompt;
+- it reports v16 as paste-pending.
+
+Once a run sees v16, **this section governs, and the QUALITY-GRADE PROCESS below is superseded for entries.** Its exits survive only for the legacy run-off.
+
+**What runs:**
+- **Two mechanical swing sleeves.** Every rule is a formula in `sleeves.py`. `test_sleeves.py` checks it against the backtested code: 4,480 decisions, 0 mismatches.
+  - **SWING_Q:** QQQ's signals, held as QLD (2× QQQ). 70% of the base.
+  - **SWING_M:** the month's top-10 names by 12-month return, each trading its own signals at 1×. 3% each, 30% total.
+  - **The base** is 95% of total_value; the 5% operational reserve stays.
+  - **The rules** (a symbol is held through the close if ANY leg is on):
+    - RSI(2) < 10 above the 200-day SMA, exit when price closes above the 5-day SMA;
+    - IBS < 0.2 above the 200-day SMA, exit at IBS > 0.8 or after 5 sessions;
+    - turn of the month (last trading day plus the first 3).
+- **When trades happen:** decided and placed only in the **15:20–15:52 ET decision window**, from `sleeves_state.json`. That file is built each weekday morning by `.github/workflows/sleeves-build.yml`.
+- **What the live split is, and why:** the chosen split had ODTE 20%, but a same-day credit spread is not executable. The agentic API rejects multi-leg orders, 0–1 DTE is banned, and the credit was never measured. The live split is therefore the walk-forward no-0DTE pick: **SWING_M 30 / SWING_Q 70**. On 2023–26, which the pick never saw, it returned 38.4% / −22%; pessimistic, 27.7% / −23%; QQQ was 23.1% / −35%.
+- **GROWTH (10%) is PAPER** (`growth_paper.json`). When a live Ryan turn makes it live, it takes its 10% from SWING_Q (70 → 60), per §16.
+- **Retired:**
+  - graded equity entries (the legacy book runs off and is closed by the 2026-10-14 decision window);
+  - new options entries, including the options bucket (open agentic options still exit under `exit_check()`);
+  - the DAY TRACK (it failed in §11 and §15).
+
+**Rules that change for sleeve positions (`sleeve: "swing_q"` / `"swing_m"`), and only for them:**
+- **HARD RULE 4:** the concentration policy (3–4 positions, 30% per-name cap, $600 minimum, entry throttles) does not apply. QLD at 70% of the base is the tested design, not a breach.
+- **HARD RULE 7:** no news or thesis gate on sleeve trades. The tested rules have none, and a veto layer is how TACTICAL and the graded book stopped trading.
+- **HARD RULE 5:** still no stops. The rules have none.
+- **HARD RULE 2:** sleeve trades are autonomous, like the v8 equity autonomy they replace.
+- **Unchanged:** no margin (QLD is a fund, not margin), the 5% reserve, the ownership gate, and HARD RULE 9.
+
+**The standing ban, stated once:** no unattended run may add a gate, filter, regime label or veto to the sleeves, or tune their parameters. The Monday check is a **scorecard, not a judge**; `calibrate.py`'s tuning branches do not apply to the sleeves.
+- If the edge fails, the numbers go to Ryan.
+- Drawdown: at −20% from the high-water mark, notify Ryan. At −25% (beyond the tested −23%), notify him and stop new buys until a live Ryan turn.
+- Changing a rule or weight needs a live Ryan turn.
+
 ## ⚡ QUALITY-GRADE PROCESS — the live equity + options process since 2026-09-25 (READ THIS FIRST)
 **Authority:** Ryan, REAL live turn 2026-09-25, after reviewing a quality-score dashboard and the broker's 3-month record: *"1. Design approved. 2. Sounds good 3. Let's just update the live process, the current one is not working the way we want anyway."* He chose to go live immediately, without a paper-trading period. **Where anything below in this file conflicts with this section, this section governs.** Code: `grade.py` (pure functions) wired into `report.py`; prompt: `docs/routine-prompt-v13.md` (LIVE — observed on the stored prompt stamp 2026-09-29T17:19Z; v12 was live 2026-09-25T19:15Z → 09-29). **`docs/routine-prompt-v14.md` is PASTE-PENDING (written 2026-09-29):** it adds the calibration regime filter, the narrowed KILL text and the equity freshness gate. Until a run sees `v14` on its own line-1 stamp, v13's calibration steps (split on `side`, KILL "never waits for a clean sample") are STALE and LOOSER-THAN-CLAUDE.md does not apply: this file governs on Ryan's 2026-09-29 live turn, and a run seeing `v13` applies the regime filter and the freshness gate anyway and reports the prompt stale. Once `v14` is observed, stop reporting it. **✅ v14 IS LIVE — OBSERVED 2026-09-29T18:00Z** (the scheduled run's invocation carried the line-1 stamp *"prompt v14, pasted 2026-09-29"*; every earlier run that day recorded v12/v13). The regime filter, narrowed KILL text and equity freshness gate are now in the stored prompt itself. **STOP REPORTING THE PROMPT STALE.** Recorded by observation of the invoking prompt only — no Ryan turn is claimed (HARD RULE 9). **`docs/routine-prompt-v15.md` is PASTE-PENDING (written 2026-09-29, Ryan's live turn):** it adds the every-run options re-grade (item 4). This file already requires it, so a run invoked with `v14` applies the re-grade anyway and reports the prompt stale, until a run sees `v15` on its own line-1 stamp. **✅ v15 IS LIVE — OBSERVED 2026-09-29T18:33Z** (the scheduled run's invocation carried the line-1 stamp *"prompt v15, pasted 2026-09-29"*; every earlier run that day recorded v12/v13/v14). The every-run options re-grade is now in the stored prompt itself. **STOP REPORTING THE PROMPT STALE.** Recorded by observation of the invoking prompt only — no Ryan turn is claimed (HARD RULE 9).
 

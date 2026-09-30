@@ -354,6 +354,11 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
         # underlying being below its 200MA is the thesis WORKING, not a break).
         if sleeve == "options":
             continue
+        # Sleeve-process positions (routine prompt v16) exit only on sleeves.py's rules,
+        # decided near the close. Judging them here would fire take-profit / grade-exit
+        # lines the sleeves do not use.
+        if sleeve in ("swing_q", "swing_m"):
+            continue
         s = swing_by_sym.get(sym)
         if not s:
             no_data.append(sym)

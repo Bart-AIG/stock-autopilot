@@ -28,3 +28,7 @@ QQQ buy & hold: 23.1%/yr, max drawdown −35%. Splits are CORE / SWING_M / SWING
 **Open work (Ryan, 2026-09-30):**
 - a research-driven high-growth sleeve (10–15%): tested 2026-09-30 with stand-ins (audit §16). **Best overall + growth = CORE 0 / SWING_M 20 / SWING_Q 50 / DAY 0 / ODTE 20 / GROWTH 10**, funded from SWING_Q. Start at 10%, not 15%. Paper-track it against SWING_Q first;
 - ~~a re-calibrated day-trading sleeve~~: tested 2026-09-30 (stocks-in-play, exit plan fixed at entry, 15-minute monitoring). Every version was −1.6% to −5.6%/yr against QQQ's +22.8%. DAY stays at 0% (audit §15).
+
+**Implemented 2026-09-30 (Ryan: "Lets move forward with implementing the new strategy"):** routine prompt v16, `sleeves.py`, audit §11–16.
+- **Live split: SWING_M 30 / SWING_Q 70.** This is the walk-forward no-0DTE pick. 0DTE is not executable on the agentic API, and HARD RULE 6 bans it.
+- **GROWTH 10% runs on paper first.** It takes SWING_Q 70 → 60 once Ryan makes it live.
