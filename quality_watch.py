@@ -137,11 +137,40 @@ def quality_score(row: dict | None, fin: list[dict] | None = None) -> dict:
     return {"score": max(pts, 0), "flags": flags}
 
 
+# Composite tie-breaker (0-100): each trait scaled to its cap, then averaged. Caps
+# stop one outlier from dominating: RGLD's 115% revenue growth (a gold-price windfall)
+# and MA's 241% ROE (buybacks shrinking equity) would otherwise swamp everything else.
+COMPOSITE_CAPS = {
+    "fundamental.quarterlyRevenueGrowth": 0.40,
+    "fundamental.netProfitMargin": 0.40,
+    "fundamental.operatingMargin": 0.50,
+    "fundamental.grossMargin": 0.80,
+    "fundamental.returnOnEquity": 0.50,
+}
+
+
+def composite(row: dict | None) -> float:
+    """Continuous quality 0-100 used to rank names that share an integer score.
+    A missing field counts 0 (never guessed); negative FCF costs 10 points."""
+    r = row or {}
+    parts = [max(0.0, min((_f(r.get(k)) or 0.0) / cap, 1.0)) for k, cap in COMPOSITE_CAPS.items()]
+    score = 100 * sum(parts) / len(parts)
+    fcf = _f(r.get("fundamental.cashFlowFreePerShare"))
+    if fcf is not None and fcf <= 0:
+        score -= 10
+    return round(max(score, 0.0), 1)
+
+
+def letter(score: int) -> str:
+    """A+ = 8/8, A = 7/8 (the only two grades that qualify at MIN_QUALITY 7)."""
+    return "A+" if score >= 8 else ("A" if score >= 7 else "B" if score >= 5 else "C")
+
+
 def candidates(rows: list[dict], fins: dict[str, list] | None = None) -> list[dict]:
     """rows = [from_scan(r) ...]. Keeps names in the 200-day band scoring
     >= MIN_QUALITY and drops a second share class of the same company (GOOG/GOOGL,
-    HEI/HEI.A: same name, keep the one nearer the line). Sorted best quality first,
-    then closest to the line."""
+    HEI/HEI.A: same name, keep the one nearer the line). Ranked by integer score,
+    then the composite, then closeness to the line; each gets rank, grade, composite."""
     out, seen = [], set()
     for r in sorted(rows, key=lambda x: abs(x["dist"]) if x.get("dist") is not None else 9):
         if not in_band(r):
@@ -159,9 +188,12 @@ def candidates(rows: list[dict], fins: dict[str, list] | None = None) -> list[di
                     "sma200": round(r["sma200"], 2), "dist": d, "dist_pct": round(d * 100, 1),
                     "sma200_rising": r.get("sma200_rising"), "zone": zone,
                     "group": r.get("group"), "sector": r.get("sector"),
-                    "quality": q["score"], "quality_flags": q["flags"],
+                    "quality": q["score"], "grade": letter(q["score"]),
+                    "composite": composite(r), "quality_flags": q["flags"],
                     "alert": TOUCH if d > 0 else RECLAIM})
-    out.sort(key=lambda c: (-c["quality"], abs(c["dist"])))
+    out.sort(key=lambda c: (-c["quality"], -c["composite"], abs(c["dist"])))
+    for i, c in enumerate(out, 1):
+        c["rank"] = i
     return out
 
 
@@ -204,19 +236,21 @@ def report(cands: list[dict], plan: dict, asof: str, new_syms: set[str]) -> str:
     head = f"# QUALITY @ 200-DAY: {len(cands)} name(s) ({len(new_syms)} new)"
     lines = [head, "", f"As of {asof}. Joint account, advisory only. Quality = business "
              f"score >= {MIN_QUALITY}/8 (growth, margins, ROE, free cash flow); band = {BAND_BELOW:.0%} to "
-             f"+{BAND_ABOVE:.0%} vs the 200-day SMA.", ""]
+             f"+{BAND_ABOVE:.0%} vs the 200-day SMA. Rank = grade, then Comp (0-100 blend of growth, margins and "
+             "ROE, capped so one outlier can't dominate), then distance to the line.", ""]
     if not cands:
         lines.append("No high-quality names are near their 200-day right now.")
     else:
         alerted = {c["symbol"] for c in alert_set(cands)}
-        lines += ["| Ticker | Sector | Zone | Price | 200-day | Dist | 200d slope | Quality | Alert | Why |",
-                  "|---|---|---|---|---|---|---|---|---|---|"]
+        lines += ["| # | Ticker | Grade | Q | Comp | Sector | Zone | Price | 200-day | Dist | 200d slope | Alert | Why |",
+                  "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for c in cands:
             tag = " (new)" if c["symbol"] in new_syms else ""
             alert = ("touch" if c["alert"] == TOUCH else "reclaim") if c["symbol"] in alerted else "-"
-            lines.append(f"| {c['symbol']}{tag} | {c.get('sector') or ''} | {c['zone']} | {c['price']} | {c['sma200']} | "
+            lines.append(f"| {c['rank']} | {c['symbol']}{tag} | {c['grade']} | {c['quality']}/8 | {c['composite']:.0f} | "
+                         f"{c.get('sector') or ''} | {c['zone']} | {c['price']} | {c['sma200']} | "
                          f"{c['dist_pct']:+.1f}% | { {True: 'rising', False: 'FALLING'}.get(c['sma200_rising'], '?') } | "
-                         f"{c['quality']}/8 | {alert} | {', '.join(c['quality_flags'])} |")
+                         f"{alert} | {', '.join(c['quality_flags'])} |")
     lines += ["", f"Robinhood alerts: {len(plan['create'])} created, {len(plan['delete'])} removed, "
               f"{len(plan['keep'])} kept (touch = price drops through the 200-day; reclaim = "
               "price gets back above it). Max {MAX_ALERTS}, at most {MAX_PER_GROUP} per industry "

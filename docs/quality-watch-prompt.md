@@ -55,8 +55,10 @@ EACH RUN:
 
 3) SELECT: cands = quality_watch.candidates(rows, fins)
            plan  = quality_watch.plan_alerts(cands, state.managed_alerts)
-   Candidates are ranked best quality first, then closest to the line. Alerts go to the
-   first 15, max 3 per industry group (gold miners crowded out everything else on day 1).
+   Each candidate carries rank (#1..n), grade (A+ = 8/8, A = 7/8) and composite (0-100,
+   capped blend of growth, margins, ROE). Rank = grade, then composite, then closeness
+   to the line. Alerts go to the first 15 by rank, max 3 per industry group (gold
+   miners crowded out everything else on day 1).
 
 4) ALERTS — touch ONLY alerts listed in state.managed_alerts. Never Ryan's own.
    - get_alerts once. For each plan["delete"]: if that alert_id is in the live list,
@@ -112,6 +114,7 @@ valuation and thesis call before he buys.
 | `MIN_QUALITY` | 7 of 8 | 5 let 48 of 74 through on 2026-09-30; 7 leaves ~24 |
 | `MAX_ALERTS` | 15 | Keeps the alert list readable in the app |
 | `MAX_PER_GROUP` | 3 | 8 of 24 finalists were gold miners on day 1 |
+| `COMPOSITE_CAPS` | growth 40%, net margin 40%, op margin 50%, gross 80%, ROE 50% | Ranks names with the same grade; caps stop outliers (RGLD +115% revenue, MA 241% ROE) from dominating |
 
 Honest limits: the scanner's fundamentals are trailing (last reported quarter), not
 forward. `quarterlyRevenueGrowth` is one quarter's year-over-year number, so a lumpy
