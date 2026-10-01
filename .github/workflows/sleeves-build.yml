@@ -14,7 +14,7 @@ on:
     - cron: '40 13 * * 1-5'
     - cron: '10 16 * * 1-5'
   push:
-    branches: ['claude/**']
+    branches: ['claude/**', '!claude/joint-risk-watch**', '!claude/quality-watch**']  # advisory routines never trigger research jobs
     paths: ['sleeves.py', '.github/workflows/sleeves-build.yml']
   workflow_dispatch:
 
