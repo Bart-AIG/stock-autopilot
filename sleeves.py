@@ -192,14 +192,6 @@ def completed_only(o, now_utc: datetime):
 def build(key: str) -> dict:
     now = datetime.now(timezone.utc)
     names = pool()
-    closes: dict[str, tuple] = {}
-    for i, s in enumerate(names):
-        o = fetch_ohlc(s, key)
-        if o and len(o[0]) > 260:
-            closes[s] = completed_only(o, now)
-        if i % 40 == 0:
-            print(f"  {i}/{len(names)}", flush=True)
-        time.sleep(0.12)
     q = completed_only(fetch_ohlc(Q_SIGNAL, key), now)
     if not q or len(q[0]) < 260:
         raise SystemExit("QQQ history missing")
@@ -209,13 +201,55 @@ def build(key: str) -> dict:
     month_end = [d for d in qd if d[:7] < cur_month][-1]
     k = qd.index(month_end)
     base_day = qd[k - 252]
+
+    def usable(o) -> bool:
+        # A name ranks only with both anchor bars (month-end and the 12-month base); else a bad fetch.
+        return bool(o) and len(o[0]) > 260 and month_end in o[0] and base_day in o[0]
+
+    closes: dict[str, tuple] = {}
+    missing = list(names)
+    # 2026-10-01: a rebuild silently lost MRNA and MRVL (top-10 names) to bad fetches and swapped
+    # the month's picks. Retry every name whose data is unusable before ranking anything.
+    for attempt in range(3):
+        retry = []
+        for i, s in enumerate(missing):
+            o = fetch_ohlc(s, key)
+            o = completed_only(o, now) if o else None
+            if usable(o):
+                closes[s] = o
+            else:
+                retry.append(s)
+            if i % 40 == 0:
+                print(f"  pass {attempt + 1}: {i}/{len(missing)}", flush=True)
+            time.sleep(0.12 if attempt == 0 else 1.0)
+        missing = retry
+        if not missing:
+            break
+    if missing:
+        print(f"  no usable data after retries: {missing}", flush=True)
     ranked = []
     for s, (ds, C, _, _) in closes.items():
         ix = {d: j for j, d in enumerate(ds)}
-        if month_end in ix and base_day in ix and C[ix[month_end]] >= 5:
+        if C[ix[month_end]] >= 5:
             ranked.append((C[ix[month_end]] / C[ix[base_day]] - 1, s))
     ranked.sort(reverse=True)
     picks = [s for _, s in ranked[:N_PICKS]]
+    # The month's picks are fixed once (tested design). A later build in the same month keeps the
+    # picks already published; if one of them has no usable data now, fail rather than swap it.
+    try:
+        prev = json.loads(STATE.read_text())
+    except Exception:  # noqa: BLE001
+        prev = {}
+    if prev.get("month_end_ranked") == month_end and prev.get("picks"):
+        locked = [p["symbol"] for p in prev["picks"]]
+        lost = [s for s in locked if s not in closes]
+        if lost:
+            raise SystemExit(f"locked picks {lost} have no usable data; keeping the published state")
+        if locked != picks:
+            print(f"  picks locked for {cur_month}: {locked} (fresh ranking was {picks})", flush=True)
+        rmap = {s: r for r, s in ranked}
+        ranked = [(rmap[s], s) for s in locked] + [(r, s) for r, s in ranked if s not in locked]
+        picks = locked
     today = next_session(date.fromisoformat(as_of)).isoformat()
     syms = {}
     for s in [Q_SIGNAL] + picks:
