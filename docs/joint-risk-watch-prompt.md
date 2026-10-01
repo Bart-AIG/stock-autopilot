@@ -24,7 +24,11 @@ MUST NOT place any order on any account. Ryan executes everything in-app.
 
 EACH RUN:
 0) SYNC: git fetch origin master && git checkout -B <your branch> origin/master before
-   reading any file. Read joint_risk_state.json and CLAUDE.md (joint-account sections).
+   reading any file. Use a FRESH branch each run (e.g. claude/joint-risk-watch-<YYYYMMDD-HHMM>Z),
+   never a reused one: a push over a stale copy of a reused branch makes GitHub diff it against
+   that old copy and start every research backtest (13 runs on 2026-10-01). The backtest
+   workflows also ignore claude/joint-risk-watch** branches as a backstop.
+   Read joint_risk_state.json and CLAUDE.md (joint-account sections).
 
 1) READ (Robinhood connector, all read-only):
    - get_alerts -> Ryan's enabled benchmark alerts (he may add/change them; always use the
