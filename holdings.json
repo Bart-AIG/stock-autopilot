@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-09-30T20:16Z",
+  "updated_utc": "2026-10-01T14:21Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -9,19 +9,6 @@
     "entry_throttle": "0 of 3 options entries used; 1 of 3 equity entries used (MRK 14:16Z). Equity exits today: TGT take-profit 14:15Z (+$6.10)."
   },
   "positions": [
-    {
-      "symbol": "FCX",
-      "sleeve": "swing",
-      "entry_date": "2026-09-25",
-      "entry_price": 71.8402,
-      "shares": 8.630265,
-      "stop": null,
-      "target": 76.62,
-      "native_trail_pct": null,
-      "grade_at_entry": "A+ 12/12 #9/236, trigger 21 EMA pullback (RSI2 37.5)",
-      "_note": "placed_agent='agentic' -- AUTONOMOUS entry, first under the QUALITY-GRADE PROCESS, signal-sourced from latest_morning.md 2026-09-25T14:07Z. Order 6ab68269-71f7-4d65-bcb8-c68a7a30a6b9, $620.00 dollar MARKET regular_hours, FILLED 14:17:13.783Z @ $71.8402, 8.630265 sh, $0 fees; review order_checks {} on $0.02 spread. Size = equity deployable $2,494.92 (ubp 3326.56 - 5% reserve 166.33 - 20% options bucket 665.31) / 4 slots = $623.73 -> $620. Exits: RSI2>=70 take-profit while green; GRADE EXIT if rank leaves top 25%; native 15% trail once >= $84.52 (entry/0.85). No price stop (HARD RULE 5). Earnings 2026-10-22 am (unverified).",
-      "_thesis_check_pre_trade": "HARD RULE 7 written BEFORE order: FCX A+ 12/12 #9 (21 EMA pullback, RSI2 37.5, report 2026-09-25T14:07Z). News: copper at record ~$14.9k/t (09-10), 09-10 -7% on refined-copper tariff indecision (known overhang, not a thesis break); RBC PT 73->85 (09-16); dividend held (09-23). Analysts 21 buy/4 hold/1 sell, mean PT 74.41. Earnings 2026-10-22 am (27d, calendar unverified) -> outside a 1-3wk hold. Verdict INTACT. Not oil (materials)."
-    },
     {
       "symbol": "DE",
       "sleeve": "swing",
@@ -776,6 +763,23 @@
       "realized_pnl_usd": 6.1,
       "pnl_pct": 0.98,
       "_pnl_source": "computed from fill vs broker average_buy_price 157.03; confirm against get_realized_pnl at EOD"
+    },
+    {
+      "symbol": "FCX",
+      "sleeve": "swing",
+      "entry_date": "2026-09-25",
+      "entry_price": 71.8402,
+      "shares": 8.630265,
+      "exit_date": "2026-10-01",
+      "exit_price": 68.82,
+      "exit_reason": "GRADE EXIT (legacy v15 run-off under v16): latest_morning.md 2026-10-01T14:06Z grade C 5/12 #86/236, out of top 25%; sold green-or-red per rule. Live quote 68.79 @14:20:32Z.",
+      "order_id": "6abe6c36-72a1-4132-8052-e142a250891e",
+      "placed_agent": "agentic",
+      "filled_utc": "2026-10-01T14:20:38.461Z",
+      "fees": 0.02,
+      "realized_pnl_usd": -26.09,
+      "pnl_pct": -4.2,
+      "_pnl_source": "computed from fill vs entry; confirm against get_realized_pnl at EOD"
     }
   ],
   "_SIZING_NOTE": "REFRESHED 2026-08-28T16:19Z from the broker. The prior text was stamped 2026-08-24 and asserted 'CURRENT TRUTH: cash $3,023.56 ... DEPLOYABLE = $2,773.56' -- four days and $1,476.60 out of date, and it is the SECOND generation of this note to go stale while literally warning that a stale note 'would have been copied forward as truth.' A note that names the staleness risk is not thereby immune to it; re-read the broker. RULES (unchanged): $1,500 is a PER-TRADE maximum, there is NO total-sleeve cap, and total deployment across BOTH books is bounded by unleveraged_buying_power (2026-08-14 sizing amendment + the 2026-08-21 no-margin rule). CURRENT TRUTH: cash $1,546.96 == buying_power == unleveraged_buying_power, so no margin is extended and FOUR LAWS #4 is satisfied; unsettled_funds $0.0000. RESERVE CORRECTED 2026-08-28T23:18Z: the flat $250 reserve is RETIRED, superseded by the 5%-of-total_value OPERATIONAL RESERVE (Ryan 2026-08-29 policy on master), which SCALES and must be recomputed from get_portfolio.total_value every run -- never hard-coded. DEPLOYABLE = unleveraged_buying_power - 0.05 x total_value = 1546.96 - 198.03 = $1,348.93. The hedge's $749 basis does NOT reduce a new trade's allowance and occupies 0 of the 5 non-hedge slots. EQUITY SIZING IS NO LONGER BLOCKED -- CORRECTED 2026-08-28T23:18Z. This note previously read 'EQUITY SIZING IS SEPARATELY BLOCKED: the >=45% equity-book cash floor reads 44.9807% and the max compliant buy is -$0.67.' THAT FLOOR IS VOID (master commit 1322da9, 2026-08-28T20:42:36Z) and its arithmetic must not be quoted or re-derived. The equity book is OPEN from the 2026-08-31 open with 3 fresh throttle slots, funded from the same $1,348.93; the binding controls are now the A-GRADE-ONLY bar, per-name <=15-20%, spec sleeve <=25%, and rotation-beats-the-weakest once deployable cash falls below one normal position size (NOT yet -- $1,348.93 against ~$500 is ordinary cash). See _CAPITAL_POLICY_STATE, which governs. _CROSS_BOOK_CASH_COUPLING's floor arithmetic is likewise MOOT; its ONE-POOL truth survives -- an options entry still reduces equity capacity dollar-for-dollar, so cross-book competition is now explicit rather than mediated by a ratio. FOUND BY THE ARITHMETIC SWEEP prescribed in this run's journal entry and then actually executed: this is the FOURTH key carrying floor-derived state after the void, and the first three repairs were all targeted at keys whose SUBJECT was the floor. This one's subject is SIZING, which is why three careful sweeps walked past it. Search for the arithmetic (the 0.45 coefficient, 'compliant buy', 'cash floor'), never for the keys you expect to be affected. [DETECTOR REFINED 2026-08-29T00:18Z -- the prescription in the sentence above WORKED and was also INCOMPLETE. Searching holdings.json for the arithmetic tokens it names (the 0.45 coefficient, 'compliant buy', 'cash floor') surfaced the three keys already repaired; a SECOND sweep on the STATE-ASSERTION phrase 'book is closed' surfaced two more that the arithmetic sweep missed -- _EVENT_PREMIUM_IS_INVISIBLE_ON_THE_30DTE_BOARD.honest_scope and _DIVERSIFICATION_STATISTICS_ARE_FRAGILE.honest_scope, both annotated this run as the fourth and fifth instances. THE CLASS IS BROADER THAN ARITHMETIC: a repealed rule leaves behind both its NUMBERS and its CONCLUSIONS, and the conclusions are the more dangerous residue precisely because they carry no digits -- they read as ordinary present-tense state prose, so a numeric sweep walks straight past them and a human skim reads them as current. Sweep for BOTH: the arithmetic AND the sentence the arithmetic used to justify ('the book is closed', 'entries are frozen', 'no compliant entry exists'). Both survivors sat in honest_scope caveats, which is a systematically likely hiding place: a scope clause's job is to state what was true at the time, so it BAKES IN the then-current regime by design and ages badly by construction.]",
