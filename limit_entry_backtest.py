@@ -249,7 +249,7 @@ def main():
         unc = [x for x in lg if not x[1]]
         avg = lambda xs: sum(x[2] for x in xs) / len(xs) * 1e4 if xs else 0.0
         return (f"{len(lg) / years:.0f}/yr; {len(conf) / len(lg):.0%} confirmed "
-                f"(+{avg(conf):.0f} bp each) / {len(unc) / len(lg):.0%} not ({avg(unc):+.0f} bp each); "
+                f"({avg(conf):+.0f} bp each) / {len(unc) / len(lg):.0%} not ({avg(unc):+.0f} bp each); "
                 f"net {avg(lg):+.0f} bp per fill")
 
     years = (datetime.fromisoformat(pd[-1]) - datetime.fromisoformat(pd[0])).days / 365.25
@@ -286,7 +286,7 @@ def main():
     out.append("| Variant | Fills | SWING_Q (QLD, 2x) | SWING_M (per name) |\n|---|---|---|---|")
     out.extend(detail)
     out.append("\n*Confirmed* = the close kept the position (the gain is the entry below the close). "
-               "*Not* = the close did not confirm, sold at the close the same day (loss incl. two fees).")
+               "*Not* = the close did not confirm, sold at the close the same day (incl. two fees). Signs are the extra return vs buying at the close.")
     (HERE / "limit_entry_results.md").write_text("\n".join(out) + "\n")
     print("\n".join(out))
 
