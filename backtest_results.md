@@ -1,312 +1,312 @@
-# Process backtest — run 2026-09-29 21:14Z
+# Process backtest — run 2026-10-01 16:03Z
 
-Data sources (daily): {'historical-price-eod/dividend-adjusted': 295}. Names with history: 295.
+Data sources (daily): {'historical-price-eod/dividend-adjusted': 275, 'historical-price-eod/light': 7, 'none': 13}. Names with history: 282.
 
-## Part A — A1 FULL scan universe (today's list: survivorship-biased): 236 names, 2019-01-02 → 2026-09-29
+## Part A — A1 FULL scan universe (today's list: survivorship-biased): 225 names, 2019-01-02 → 2026-10-01
 
 | Strategy | CAGR | vs SPY | vs QQQ | 2019-22 CAGR | 2023-26 CAGR | Max DD | Sharpe | Invested | Trades | Win % | Payoff | Hold (d) | Top-5 names' share of profit |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| **SPY buy & hold** | 17.2% | | | 13.1% | 22.0% | -33.7% | 0.93 | 100% | | | | | |
+| **SPY buy & hold** | 15.4% | | | 11.2% | 20.3% | -34.1% | 0.84 | 100% | | | | | |
 | **QQQ buy & hold** | 23.1% | | | 15.3% | 32.3% | -35.1% | 0.99 | 100% | | | | | |
-| GRADE_HOLD_any_lag1 | 97.1% | +79.9% | +74.0% | 67.6% | 135.1% | -49.1% | 1.57 | 93% | 214 | 49% | 3.92 | 33 | 82% of 121 names |
-| GRADE_HOLD_any | 81.8% | +64.6% | +58.7% | 71.4% | 95.2% | -47.0% | 1.45 | 93% | 210 | 47% | 3.84 | 33 | 84% of 115 names |
-| GRADE_HOLD_any_cost25bp | 77.1% | +59.8% | +53.9% | 67.0% | 89.9% | -47.5% | 1.40 | 93% | 210 | 47% | 3.64 | 33 | 85% of 115 names |
-| ROTATE_MONTHLY_QQQcore_lag1 | 54.8% | +37.6% | +31.7% | 32.8% | 83.3% | -51.1% | 1.08 | 99% | 105 | 58% | 2.90 | 62 | 90% of 78 names |
-| ROTATE_MONTHLY_lag1 | 53.9% | +36.7% | +30.8% | 32.2% | 81.9% | -50.9% | 1.07 | 90% | 105 | 58% | 2.90 | 62 | 90% of 78 names |
-| ROTATE_MONTHLY_QQQcore | 52.5% | +35.3% | +29.4% | 36.0% | 72.9% | -52.8% | 1.05 | 99% | 107 | 59% | 2.40 | 61 | 101% of 80 names |
-| ROTATE_MONTHLY | 50.2% | +32.9% | +27.0% | 34.2% | 69.7% | -52.8% | 1.03 | 91% | 107 | 59% | 2.40 | 61 | 99% of 80 names |
-| ROTATE_MONTHLY_8 | 49.1% | +31.9% | +26.0% | 41.2% | 59.0% | -44.8% | 1.16 | 85% | 198 | 56% | 3.11 | 62 | 58% of 124 names |
-| ROTATE_MONTHLY_cost25bp | 48.2% | +30.9% | +25.0% | 32.5% | 67.4% | -52.8% | 1.00 | 91% | 107 | 57% | 2.50 | 61 | 101% of 80 names |
-| LEADER_lag1 | 32.4% | +15.2% | +9.3% | 31.5% | 34.0% | -36.4% | 1.13 | 91% | 386 | 42% | 2.84 | 18 | 72% of 168 names |
-| GRADE_HOLD_lag1 | 30.1% | +12.8% | +6.9% | 37.1% | 23.2% | -34.1% | 1.00 | 92% | 319 | 45% | 2.58 | 22 | 68% of 165 names |
-| OLD_CONNORS | 27.7% | +10.5% | +4.6% | 23.1% | 33.3% | -39.6% | 0.99 | 88% | 1110 | 79% | 0.39 | 6 | 36% of 222 names |
-| CURRENT_QQQcore | 26.8% | +9.5% | +3.6% | 24.0% | 29.9% | -34.9% | 1.03 | 99% | 1303 | 70% | 0.60 | 4 | 42% of 202 names |
-| LEADER_QQQcore | 26.3% | +9.1% | +3.2% | 26.8% | 26.3% | -44.1% | 0.92 | 100% | 387 | 34% | 3.39 | 18 | 85% of 173 names |
-| LEADER_nocut | 25.8% | +8.6% | +2.7% | 31.7% | 20.4% | -34.3% | 0.92 | 91% | 338 | 38% | 3.00 | 20 | 94% of 163 names |
-| CURRENT_2pct | 24.8% | +7.5% | +1.6% | 20.3% | 29.9% | -28.6% | 1.06 | 65% | 1303 | 70% | 0.60 | 4 | 43% of 202 names |
-| GRADE_HOLD | 24.7% | +7.5% | +1.6% | 34.3% | 15.5% | -30.4% | 0.90 | 91% | 313 | 40% | 2.86 | 22 | 70% of 157 names |
-| LEADER | 24.3% | +7.1% | +1.2% | 23.7% | 25.4% | -38.6% | 0.91 | 90% | 383 | 34% | 3.34 | 18 | 87% of 170 names |
-| CURRENT_lag1 | 20.5% | +3.2% | -2.6% | 21.4% | 19.6% | -21.8% | 1.13 | 51% | 1254 | 63% | 0.85 | 4 | 42% of 201 names |
-| CURRENT | 18.8% | +1.6% | -4.3% | 15.5% | 22.6% | -22.5% | 1.06 | 50% | 1303 | 70% | 0.60 | 4 | 39% of 202 names |
+| GRADE_HOLD_any | 71.7% | +56.2% | +48.6% | 53.9% | 93.5% | -46.6% | 1.37 | 94% | 216 | 49% | 3.39 | 32 | 93% of 117 names |
+| GRADE_HOLD_any_cost25bp | 67.7% | +52.3% | +44.6% | 49.6% | 90.1% | -47.1% | 1.32 | 94% | 216 | 48% | 3.31 | 32 | 94% of 116 names |
+| GRADE_HOLD_any_lag1 | 65.6% | +50.2% | +42.5% | 44.8% | 91.7% | -56.1% | 1.29 | 94% | 215 | 48% | 3.15 | 33 | 83% of 115 names |
+| ROTATE_MONTHLY_QQQcore_lag1 | 57.2% | +41.7% | +34.1% | 39.5% | 79.3% | -51.1% | 1.11 | 99% | 109 | 60% | 2.62 | 60 | 88% of 80 names |
+| ROTATE_MONTHLY_QQQcore | 56.0% | +40.6% | +32.9% | 39.1% | 76.8% | -50.8% | 1.10 | 99% | 110 | 59% | 2.49 | 59 | 107% of 82 names |
+| ROTATE_MONTHLY_lag1 | 55.4% | +40.0% | +32.3% | 37.7% | 77.7% | -50.9% | 1.10 | 90% | 109 | 60% | 2.62 | 60 | 88% of 80 names |
+| ROTATE_MONTHLY | 53.1% | +37.7% | +30.1% | 36.8% | 73.2% | -50.7% | 1.08 | 90% | 109 | 59% | 2.53 | 59 | 105% of 82 names |
+| ROTATE_MONTHLY_cost25bp | 51.1% | +35.6% | +28.0% | 35.1% | 70.6% | -50.7% | 1.05 | 90% | 109 | 57% | 2.63 | 59 | 106% of 82 names |
+| ROTATE_MONTHLY_8 | 45.5% | +30.1% | +22.4% | 33.3% | 60.5% | -44.8% | 1.11 | 85% | 203 | 55% | 2.94 | 61 | 63% of 120 names |
+| LEADER_lag1 | 27.5% | +12.1% | +4.4% | 27.8% | 27.4% | -41.5% | 1.02 | 91% | 399 | 43% | 2.50 | 17 | 64% of 162 names |
+| GRADE_HOLD_lag1 | 27.0% | +11.5% | +3.9% | 26.8% | 27.1% | -34.1% | 0.95 | 92% | 306 | 47% | 2.29 | 22 | 68% of 155 names |
+| LEADER_QQQcore | 26.8% | +11.3% | +3.7% | 24.4% | 29.6% | -40.5% | 0.95 | 99% | 389 | 35% | 3.29 | 18 | 67% of 164 names |
+| LEADER | 26.2% | +10.8% | +3.1% | 24.2% | 28.6% | -37.5% | 0.96 | 91% | 387 | 36% | 3.26 | 18 | 65% of 164 names |
+| CURRENT_QQQcore | 25.7% | +10.3% | +2.7% | 25.5% | 25.9% | -30.9% | 1.00 | 99% | 1291 | 71% | 0.58 | 4 | 47% of 192 names |
+| CURRENT_2pct | 24.3% | +8.9% | +1.2% | 22.4% | 26.4% | -23.0% | 1.06 | 64% | 1291 | 71% | 0.58 | 4 | 49% of 192 names |
+| OLD_CONNORS | 23.9% | +8.5% | +0.9% | 19.8% | 29.2% | -40.5% | 0.89 | 88% | 1098 | 78% | 0.39 | 6 | 33% of 213 names |
+| LEADER_nocut | 22.8% | +7.4% | -0.3% | 28.9% | 16.9% | -32.6% | 0.87 | 91% | 326 | 40% | 2.65 | 21 | 96% of 154 names |
+| GRADE_HOLD | 21.5% | +6.1% | -1.6% | 25.5% | 17.4% | -34.4% | 0.80 | 91% | 309 | 39% | 2.70 | 22 | 84% of 155 names |
+| CURRENT_lag1 | 19.2% | +3.8% | -3.9% | 21.0% | 17.3% | -21.1% | 1.07 | 50% | 1244 | 62% | 0.87 | 4 | 42% of 190 names |
+| CURRENT | 18.5% | +3.1% | -4.6% | 17.0% | 20.1% | -18.0% | 1.05 | 49% | 1291 | 71% | 0.58 | 4 | 45% of 192 names |
 
 **Biggest contributors (realized P&L by name, per $100k start):**
 
-- CURRENT: LASR $38,754, PLTR $23,919, KLAC $20,520, SNOW $14,396, DDOG $12,765
-- CURRENT_2pct: LASR $70,164, PLTR $41,383, KLAC $34,693, SNOW $27,260, GS $21,403
-- CURRENT_QQQcore: LASR $81,049, PLTR $45,384, KLAC $40,473, SNOW $30,867, DDOG $25,264
-- LEADER: TSEM $83,444, MRNA $79,892, AMAT $70,909, LASR $56,702, NET $45,269
-- LEADER_QQQcore: TSEM $91,706, AMAT $80,364, MRNA $77,232, LASR $60,742, NET $49,625
-- LEADER_nocut: TSEM $105,967, MRNA $96,079, AMAT $78,589, LASR $74,286, PLTR $61,613
-- GRADE_HOLD: LASR $67,594, NVDA $61,233, CRDO $52,163, GOOGL $49,402, PLTR $44,762
-- GRADE_HOLD_any: AAOI $3,675,058, AEHR $1,544,884, LITE $1,452,812, RKLB $792,068, ONDS $662,732
-- ROTATE_MONTHLY: LASR $814,371, LITE $679,649, RGTI $338,302, RKLB $233,373, IREN $214,031
-- ROTATE_MONTHLY_QQQcore: LASR $907,703, LITE $770,473, RGTI $383,940, RKLB $264,936, IREN $239,378
-- ROTATE_MONTHLY_8: LITE $307,787, VIAV $296,873, LASR $287,346, RGTI $153,036, APLD $137,493
-- OLD_CONNORS: CRWD $52,400, LAES $46,405, HIVE $46,256, RIVN $31,769, LRCX $28,081
+- CURRENT: LASR $39,827, PLTR $30,294, KLAC $20,612, CRDO $18,148, SHOP $14,375
+- CURRENT_2pct: LASR $72,448, PLTR $53,205, KLAC $34,946, CRDO $33,180, DDOG $23,492
+- CURRENT_QQQcore: LASR $81,291, PLTR $55,816, KLAC $40,038, CRDO $36,255, DDOG $27,298
+- LEADER: AMAT $69,382, LASR $63,445, NET $52,414, PLTR $52,348, NVDA $51,736
+- LEADER_QQQcore: AMAT $72,887, LASR $64,821, NVDA $55,412, NET $54,304, PLTR $53,469
+- LEADER_nocut: PLTR $101,865, LASR $67,210, NET $55,444, MRNA $50,553, GOOGL $40,833
+- GRADE_HOLD: SHOP $56,807, LASR $56,509, NVDA $53,547, GOOGL $40,828, CRDO $38,992
+- GRADE_HOLD_any: AAOI $2,464,300, LITE $922,836, AEHR $919,605, IREN $693,222, ONDS $431,405
+- ROTATE_MONTHLY: LASR $914,672, LITE $763,349, RGTI $349,253, PLTR $257,183, IREN $240,391
+- ROTATE_MONTHLY_QQQcore: LASR $1,043,891, LITE $886,061, RGTI $405,466, PLTR $296,230, IREN $275,293
+- ROTATE_MONTHLY_8: LITE $252,742, VIAV $243,031, LASR $229,990, APLD $141,912, RGTI $120,007
+- OLD_CONNORS: LAES $37,538, CRWD $37,538, RIVN $24,421, LRCX $22,624, PLTR $21,559
 
 **Calendar-year returns:**
 
 | Strategy | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 | 2026 |
 |---|---|---|---|---|---|---|---|---|
-| **SPY** | 31.1% | 18.3% | 28.7% | -18.2% | 26.2% | 24.9% | 17.7% | 12.9% |
-| **QQQ** | 38.4% | 48.6% | 27.4% | -32.6% | 54.9% | 25.6% | 20.8% | 20.5% |
-| CURRENT | 16.4% | 39.3% | 25.2% | -12.3% | 35.9% | 24.9% | 12.6% | 11.9% |
-| CURRENT_lag1 | 24.6% | 31.2% | 47.1% | -9.8% | 28.6% | 28.8% | 16.8% | 0.6% |
-| CURRENT_2pct | 21.6% | 53.5% | 33.5% | -16.1% | 48.7% | 33.0% | 16.2% | 15.4% |
-| CURRENT_QQQcore | 29.1% | 82.2% | 37.0% | -26.7% | 52.9% | 24.8% | 24.5% | 11.6% |
-| LEADER | 32.6% | 45.7% | 66.3% | -27.3% | 4.9% | 34.1% | 40.6% | 16.5% |
-| LEADER_lag1 | 38.8% | 68.0% | 76.5% | -27.6% | 11.7% | 36.5% | 57.3% | 23.0% |
-| LEADER_QQQcore | 37.2% | 49.0% | 77.0% | -28.6% | 7.7% | 28.2% | 42.3% | 20.4% |
-| LEADER_nocut | 36.7% | 55.5% | 61.5% | -12.5% | 18.3% | 34.4% | 22.5% | 1.4% |
-| GRADE_HOLD | 36.7% | 53.8% | 54.3% | -0.1% | -9.6% | 31.6% | 34.4% | 6.7% |
-| GRADE_HOLD_lag1 | 32.9% | 63.1% | 68.0% | -3.4% | -12.3% | 42.6% | 43.4% | 21.1% |
-| GRADE_HOLD_any | 45.9% | 362.5% | 39.0% | -8.3% | 41.8% | 200.1% | 23.3% | 126.8% |
-| GRADE_HOLD_any_lag1 | 45.5% | 304.4% | 34.6% | -0.8% | 45.7% | 210.0% | 143.8% | 121.2% |
-| GRADE_HOLD_any_cost25bp | 43.0% | 353.1% | 32.7% | -9.9% | 39.2% | 189.0% | 20.0% | 122.7% |
-| ROTATE_MONTHLY | 23.3% | 163.6% | -3.1% | 2.7% | 12.0% | 373.6% | -0.3% | 36.0% |
-| ROTATE_MONTHLY_lag1 | 41.7% | 147.9% | -17.8% | 5.5% | 15.5% | 397.6% | -5.4% | 69.8% |
-| ROTATE_MONTHLY_cost25bp | 21.3% | 161.7% | -5.1% | 2.0% | 10.5% | 365.1% | -1.6% | 34.9% |
-| ROTATE_MONTHLY_QQQcore | 26.5% | 168.1% | 1.2% | -0.5% | 18.6% | 380.8% | -0.5% | 35.6% |
-| ROTATE_MONTHLY_QQQcore_lag1 | 45.0% | 151.5% | -15.2% | 0.3% | 19.0% | 408.0% | -6.2% | 67.7% |
-| ROTATE_MONTHLY_8 | 18.6% | 188.8% | 14.0% | 1.7% | 16.1% | 160.7% | 21.7% | 50.8% |
-| OLD_CONNORS | 33.6% | 65.6% | -4.5% | 8.4% | 5.8% | 13.2% | 68.0% | 43.8% |
+| **SPY** | 28.7% | 16.2% | 27.0% | -19.5% | 24.3% | 23.3% | 16.4% | 11.5% |
+| **QQQ** | 38.4% | 48.6% | 27.4% | -32.6% | 54.9% | 25.6% | 20.8% | 20.4% |
+| CURRENT | 16.9% | 38.2% | 29.4% | -10.4% | 33.8% | 24.0% | 10.1% | 8.8% |
+| CURRENT_lag1 | 28.2% | 39.5% | 35.5% | -11.6% | 19.4% | 27.1% | 17.2% | 2.3% |
+| CURRENT_2pct | 22.3% | 52.0% | 39.3% | -13.6% | 45.8% | 31.8% | 12.9% | 11.2% |
+| CURRENT_QQQcore | 32.4% | 80.0% | 40.6% | -26.0% | 47.6% | 22.5% | 23.2% | 6.8% |
+| LEADER | 26.8% | 49.2% | 51.3% | -16.9% | 18.0% | 39.0% | 19.3% | 30.3% |
+| LEADER_lag1 | 34.2% | 72.9% | 56.1% | -26.6% | 2.4% | 36.3% | 37.4% | 28.7% |
+| LEADER_QQQcore | 31.6% | 53.3% | 56.1% | -24.0% | 20.2% | 39.6% | 19.5% | 30.9% |
+| LEADER_nocut | 38.2% | 57.4% | 51.1% | -16.2% | 2.2% | 54.9% | 4.5% | 7.7% |
+| GRADE_HOLD | 38.2% | 53.6% | 32.7% | -12.2% | -3.7% | 31.4% | 31.3% | 10.1% |
+| GRADE_HOLD_lag1 | 34.1% | 64.3% | 31.9% | -11.3% | 7.5% | 30.8% | 62.8% | 7.7% |
+| GRADE_HOLD_any | 44.0% | 218.0% | 32.0% | -7.7% | 39.6% | 145.2% | 66.5% | 106.4% |
+| GRADE_HOLD_any_lag1 | 40.1% | 191.2% | 17.5% | -8.7% | 43.3% | 168.5% | 41.8% | 108.1% |
+| GRADE_HOLD_any_cost25bp | 41.0% | 212.7% | 25.8% | -9.9% | 34.2% | 150.5% | 61.5% | 102.6% |
+| ROTATE_MONTHLY | 20.8% | 149.4% | 13.8% | 1.8% | 12.0% | 361.3% | 6.5% | 41.3% |
+| ROTATE_MONTHLY_lag1 | 39.2% | 151.0% | 0.8% | 1.9% | 15.5% | 340.3% | -5.4% | 76.2% |
+| ROTATE_MONTHLY_cost25bp | 18.9% | 147.8% | 11.5% | 1.1% | 10.5% | 351.4% | 5.2% | 40.1% |
+| ROTATE_MONTHLY_QQQcore | 23.9% | 157.9% | 18.6% | -1.4% | 18.6% | 372.1% | 6.4% | 40.9% |
+| ROTATE_MONTHLY_QQQcore_lag1 | 42.5% | 157.6% | 4.3% | -1.3% | 19.0% | 351.8% | -6.2% | 74.0% |
+| ROTATE_MONTHLY_8 | 17.4% | 137.5% | 11.8% | 1.0% | 16.6% | 154.0% | 27.2% | 53.7% |
+| OLD_CONNORS | 26.1% | 54.2% | -17.1% | 27.5% | -0.1% | 17.2% | 47.5% | 48.6% |
 
 **Definitions and exit mix:**
 
-- **CURRENT** — Live process: A/A+ + pullback trigger; exits RSI2>=70 (green) or grade exit; 25% of account idle (20% options bucket + 5% reserve). Exits: {'rsi2_tp': 901, 'grade_exit': 402}
-- **CURRENT_lag1** — Live process: A/A+ + pullback trigger; exits RSI2>=70 (green) or grade exit; 25% of account idle (20% options bucket + 5% reserve). Exits: {'rsi2_tp': 851, 'grade_exit': 403}
-- **CURRENT_2pct** — Same exits, only a 2% cash reserve (options bucket returned to stocks). Exits: {'rsi2_tp': 901, 'grade_exit': 402}
-- **CURRENT_QQQcore** — Same exits, idle cash parked in QQQ. Exits: {'rsi2_tp': 901, 'grade_exit': 402}
-- **LEADER** — Pullback entry; exits grade exit, 15% trail from high, -8% / below-50SMA loss cut; no RSI2 take-profit. Exits: {'loss_cut': 115, 'grade_exit': 246, 'trail': 22}
-- **LEADER_lag1** — Pullback entry; exits grade exit, 15% trail from high, -8% / below-50SMA loss cut; no RSI2 take-profit. Exits: {'loss_cut': 120, 'grade_exit': 243, 'trail': 23}
-- **LEADER_QQQcore** — LEADER with idle cash in QQQ. Exits: {'loss_cut': 113, 'grade_exit': 251, 'trail': 23}
-- **LEADER_nocut** — Grade exit + 15% trail, no loss cut. Exits: {'grade_exit': 303, 'trail': 35}
-- **GRADE_HOLD** — Pullback entry; only exit = grade exit (hold while top 25%). Exits: {'grade_exit': 313}
-- **GRADE_HOLD_lag1** — Pullback entry; only exit = grade exit (hold while top 25%). Exits: {'grade_exit': 319}
-- **GRADE_HOLD_any** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 210}
-- **GRADE_HOLD_any_lag1** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 214}
-- **GRADE_HOLD_any_cost25bp** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 210}
-- **ROTATE_MONTHLY** — Monthly: hold top-4 A/A+ names, sell only if out of top 25% at month start. Exits: {'grade_exit': 107}
-- **ROTATE_MONTHLY_lag1** — Monthly: hold top-4 A/A+ names, sell only if out of top 25% at month start. Exits: {'grade_exit': 105}
-- **ROTATE_MONTHLY_cost25bp** — Monthly: hold top-4 A/A+ names, sell only if out of top 25% at month start. Exits: {'grade_exit': 107}
-- **ROTATE_MONTHLY_QQQcore** — ROTATE_MONTHLY with idle cash in QQQ. Exits: {'grade_exit': 107}
-- **ROTATE_MONTHLY_QQQcore_lag1** — ROTATE_MONTHLY with idle cash in QQQ. Exits: {'grade_exit': 105}
-- **ROTATE_MONTHLY_8** — ROTATE_MONTHLY with 8 slots. Exits: {'grade_exit': 198}
-- **OLD_CONNORS** — Pre-2026-09-25 screen for reference: RSI2<10 above a rising 200SMA; RSI2>=70 TP; 14-day time stop. Exits: {'rsi2_tp': 881, 'time_stop': 229}
+- **CURRENT** — Live process: A/A+ + pullback trigger; exits RSI2>=70 (green) or grade exit; 25% of account idle (20% options bucket + 5% reserve). Exits: {'rsi2_tp': 900, 'grade_exit': 391}
+- **CURRENT_lag1** — Live process: A/A+ + pullback trigger; exits RSI2>=70 (green) or grade exit; 25% of account idle (20% options bucket + 5% reserve). Exits: {'rsi2_tp': 840, 'grade_exit': 404}
+- **CURRENT_2pct** — Same exits, only a 2% cash reserve (options bucket returned to stocks). Exits: {'rsi2_tp': 900, 'grade_exit': 391}
+- **CURRENT_QQQcore** — Same exits, idle cash parked in QQQ. Exits: {'rsi2_tp': 900, 'grade_exit': 391}
+- **LEADER** — Pullback entry; exits grade exit, 15% trail from high, -8% / below-50SMA loss cut; no RSI2 take-profit. Exits: {'loss_cut': 106, 'grade_exit': 256, 'trail': 25}
+- **LEADER_lag1** — Pullback entry; exits grade exit, 15% trail from high, -8% / below-50SMA loss cut; no RSI2 take-profit. Exits: {'loss_cut': 122, 'grade_exit': 255, 'trail': 22}
+- **LEADER_QQQcore** — LEADER with idle cash in QQQ. Exits: {'loss_cut': 106, 'grade_exit': 258, 'trail': 25}
+- **LEADER_nocut** — Grade exit + 15% trail, no loss cut. Exits: {'grade_exit': 295, 'trail': 31}
+- **GRADE_HOLD** — Pullback entry; only exit = grade exit (hold while top 25%). Exits: {'grade_exit': 309}
+- **GRADE_HOLD_lag1** — Pullback entry; only exit = grade exit (hold while top 25%). Exits: {'grade_exit': 306}
+- **GRADE_HOLD_any** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 216}
+- **GRADE_HOLD_any_lag1** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 215}
+- **GRADE_HOLD_any_cost25bp** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 216}
+- **ROTATE_MONTHLY** — Monthly: hold top-4 A/A+ names, sell only if out of top 25% at month start. Exits: {'grade_exit': 109}
+- **ROTATE_MONTHLY_lag1** — Monthly: hold top-4 A/A+ names, sell only if out of top 25% at month start. Exits: {'grade_exit': 109}
+- **ROTATE_MONTHLY_cost25bp** — Monthly: hold top-4 A/A+ names, sell only if out of top 25% at month start. Exits: {'grade_exit': 109}
+- **ROTATE_MONTHLY_QQQcore** — ROTATE_MONTHLY with idle cash in QQQ. Exits: {'grade_exit': 110}
+- **ROTATE_MONTHLY_QQQcore_lag1** — ROTATE_MONTHLY with idle cash in QQQ. Exits: {'grade_exit': 109}
+- **ROTATE_MONTHLY_8** — ROTATE_MONTHLY with 8 slots. Exits: {'grade_exit': 203}
+- **OLD_CONNORS** — Pre-2026-09-25 screen for reference: RSI2<10 above a rising 200SMA; RSI2>=70 TP; 14-day time stop. Exits: {'rsi2_tp': 867, 'time_stop': 231}
 
-_A1 FULL scan universe (today's list: survivorship-biased) compute: 197s._
+_A1 FULL scan universe (today's list: survivorship-biased) compute: 186s._
 
-## Part A — A2 scan universe minus the 41 SPECULATIVE names: 195 names, 2019-01-02 → 2026-09-29
-
-| Strategy | CAGR | vs SPY | vs QQQ | 2019-22 CAGR | 2023-26 CAGR | Max DD | Sharpe | Invested | Trades | Win % | Payoff | Hold (d) | Top-5 names' share of profit |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| **SPY buy & hold** | 17.2% | | | 13.1% | 22.0% | -33.7% | 0.93 | 100% | | | | | |
-| **QQQ buy & hold** | 23.1% | | | 15.3% | 32.3% | -35.1% | 0.99 | 100% | | | | | |
-| GRADE_HOLD_any_lag1 | 64.2% | +47.0% | +41.1% | 71.0% | 57.7% | -36.7% | 1.43 | 94% | 204 | 50% | 3.57 | 35 | 69% of 106 names |
-| GRADE_HOLD_any | 59.6% | +42.4% | +36.5% | 65.1% | 54.2% | -36.2% | 1.36 | 94% | 205 | 50% | 3.41 | 35 | 69% of 105 names |
-| ROTATE_MONTHLY_QQQcore_lag1 | 50.1% | +32.9% | +27.0% | 42.4% | 59.6% | -39.1% | 1.18 | 99% | 100 | 61% | 3.27 | 66 | 79% of 70 names |
-| ROTATE_MONTHLY_lag1 | 49.1% | +31.8% | +25.9% | 41.9% | 57.8% | -39.8% | 1.17 | 89% | 100 | 62% | 3.12 | 66 | 82% of 70 names |
-| ROTATE_MONTHLY_QQQcore | 48.9% | +31.7% | +25.8% | 45.1% | 53.9% | -40.7% | 1.16 | 99% | 103 | 61% | 2.88 | 65 | 81% of 72 names |
-| ROTATE_MONTHLY | 48.3% | +31.1% | +25.2% | 44.6% | 53.1% | -41.0% | 1.17 | 91% | 101 | 61% | 2.87 | 66 | 80% of 72 names |
-| ROTATE_MONTHLY_8 | 45.4% | +28.2% | +22.3% | 48.7% | 42.8% | -35.1% | 1.24 | 85% | 196 | 52% | 4.15 | 62 | 72% of 107 names |
-| LEADER_lag1 | 29.6% | +12.4% | +6.5% | 29.7% | 30.1% | -39.0% | 1.09 | 92% | 404 | 44% | 2.56 | 17 | 62% of 154 names |
-| GRADE_HOLD_lag1 | 28.8% | +11.6% | +5.7% | 36.0% | 22.0% | -26.9% | 1.03 | 93% | 337 | 47% | 2.32 | 21 | 67% of 152 names |
-| LEADER_QQQcore | 25.1% | +7.9% | +2.0% | 23.0% | 27.8% | -42.2% | 0.92 | 100% | 390 | 35% | 3.21 | 18 | 83% of 154 names |
-| LEADER | 24.5% | +7.3% | +1.4% | 21.5% | 28.2% | -38.7% | 0.93 | 92% | 388 | 36% | 3.16 | 18 | 79% of 151 names |
-| GRADE_HOLD | 24.4% | +7.2% | +1.3% | 31.3% | 18.0% | -33.2% | 0.89 | 93% | 328 | 41% | 2.70 | 21 | 89% of 148 names |
-| CURRENT_QQQcore | 20.6% | +3.4% | -2.5% | 24.8% | 16.5% | -28.5% | 0.86 | 99% | 1285 | 69% | 0.59 | 4 | 42% of 182 names |
-| CURRENT_2pct | 18.1% | +0.8% | -5.0% | 19.8% | 16.4% | -22.8% | 0.86 | 63% | 1285 | 69% | 0.59 | 4 | 43% of 182 names |
-| CURRENT_lag1 | 17.0% | -0.2% | -6.1% | 16.7% | 17.5% | -21.8% | 1.00 | 50% | 1248 | 63% | 0.84 | 4 | 37% of 183 names |
-| CURRENT | 13.9% | -3.3% | -9.2% | 15.2% | 12.7% | -17.6% | 0.85 | 48% | 1285 | 69% | 0.59 | 4 | 40% of 182 names |
-
-**Biggest contributors (realized P&L by name, per $100k start):**
-
-- CURRENT: SHOP $17,666, KLAC $16,364, PLTR $13,691, SOFI $12,022, SNOW $10,906
-- CURRENT_2pct: SHOP $26,950, KLAC $25,764, PLTR $23,041, SOFI $19,183, SNOW $18,703
-- CURRENT_QQQcore: KLAC $31,260, SHOP $31,179, PLTR $25,527, SOFI $22,923, SNOW $22,148
-- LEADER: NOK $84,272, MRNA $77,577, PLTR $62,450, AMAT $50,390, CRWD $42,809
-- LEADER_QQQcore: NOK $86,509, MRNA $83,558, PLTR $66,766, AMAT $54,130, CRWD $45,483
-- GRADE_HOLD: PLTR $116,296, CRDO $56,911, SHOP $54,904, AMAT $51,826, NVDA $45,964
-- GRADE_HOLD_any: AEHR $535,143, PLTR $490,682, LITE $487,120, MU $390,806, BE $331,887
-- ROTATE_MONTHLY: LITE $617,630, PLTR $269,387, BE $250,183, MU $219,765, COHR $195,379
-- ROTATE_MONTHLY_QQQcore: LITE $661,243, PLTR $286,383, BE $263,729, MU $235,012, COHR $208,608
-- ROTATE_MONTHLY_8: LITE $677,657, BE $153,340, AMAT $144,814, COHR $113,656, PLTR $107,156
-
-_A2 scan universe minus the 41 SPECULATIVE names compute: 175s._
-
-## Part A — A3 S&P 100 as of end-2018 (no hindsight in the universe): 96 names, 2019-01-02 → 2026-09-29
+## Part A — A2 scan universe minus the 41 SPECULATIVE names: 185 names, 2019-01-02 → 2026-10-01
 
 | Strategy | CAGR | vs SPY | vs QQQ | 2019-22 CAGR | 2023-26 CAGR | Max DD | Sharpe | Invested | Trades | Win % | Payoff | Hold (d) | Top-5 names' share of profit |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| **SPY buy & hold** | 17.2% | | | 13.1% | 22.0% | -33.7% | 0.93 | 100% | | | | | |
+| **SPY buy & hold** | 15.4% | | | 11.2% | 20.3% | -34.1% | 0.84 | 100% | | | | | |
 | **QQQ buy & hold** | 23.1% | | | 15.3% | 32.3% | -35.1% | 0.99 | 100% | | | | | |
-| ROTATE_MONTHLY_QQQcore | 15.4% | -1.8% | -7.7% | 21.5% | 9.8% | -25.8% | 0.69 | 99% | 120 | 45% | 3.13 | 58 | 105% of 68 names |
-| ROTATE_MONTHLY_QQQcore_lag1 | 14.8% | -2.5% | -8.3% | 22.4% | 7.6% | -25.8% | 0.67 | 99% | 121 | 50% | 2.59 | 58 | 101% of 68 names |
-| GRADE_HOLD_lag1 | 14.7% | -2.5% | -8.4% | 18.6% | 11.0% | -26.3% | 0.74 | 88% | 293 | 41% | 2.58 | 23 | 71% of 91 names |
-| ROTATE_MONTHLY | 13.8% | -3.4% | -9.3% | 20.6% | 7.7% | -26.0% | 0.65 | 94% | 123 | 45% | 3.16 | 58 | 103% of 69 names |
-| ROTATE_MONTHLY_lag1 | 13.8% | -3.5% | -9.3% | 21.4% | 6.6% | -26.0% | 0.65 | 93% | 121 | 50% | 2.59 | 58 | 99% of 68 names |
-| GRADE_HOLD | 13.8% | -3.5% | -9.4% | 18.5% | 9.1% | -25.8% | 0.70 | 88% | 287 | 37% | 2.88 | 23 | 69% of 91 names |
-| ROTATE_MONTHLY_8 | 12.4% | -4.8% | -10.7% | 16.0% | 9.4% | -24.6% | 0.68 | 85% | 215 | 47% | 2.67 | 59 | 70% of 84 names |
-| GRADE_HOLD_any_lag1 | 12.2% | -5.0% | -10.9% | 11.3% | 13.3% | -30.0% | 0.61 | 96% | 232 | 44% | 2.11 | 32 | 124% of 83 names |
-| ROTATE_MONTHLY_cost25bp | 11.9% | -5.3% | -11.2% | 19.0% | 5.6% | -26.2% | 0.58 | 94% | 123 | 44% | 2.94 | 58 | 114% of 68 names |
-| GRADE_HOLD_any | 11.9% | -5.3% | -11.2% | 12.9% | 10.9% | -27.0% | 0.60 | 97% | 232 | 44% | 2.11 | 32 | 126% of 83 names |
-| LEADER_QQQcore | 10.0% | -7.2% | -13.1% | 15.2% | 4.9% | -33.0% | 0.56 | 99% | 371 | 30% | 3.10 | 18 | 89% of 94 names |
-| CURRENT_QQQcore | 9.7% | -7.5% | -13.4% | 14.1% | 5.4% | -33.2% | 0.53 | 99% | 954 | 70% | 0.51 | 4 | 81% of 94 names |
-| LEADER_lag1 | 8.9% | -8.4% | -14.2% | 12.6% | 5.3% | -34.1% | 0.56 | 86% | 363 | 37% | 2.37 | 18 | 111% of 95 names |
-| GRADE_HOLD_any_cost25bp | 8.7% | -8.5% | -14.4% | 9.7% | 7.7% | -28.7% | 0.47 | 97% | 232 | 42% | 2.04 | 32 | 160% of 83 names |
-| LEADER | 6.8% | -10.4% | -16.3% | 10.6% | 3.1% | -35.6% | 0.46 | 87% | 373 | 30% | 3.00 | 18 | 104% of 94 names |
-| CURRENT_2pct | 6.4% | -10.9% | -16.8% | 11.6% | 1.1% | -21.7% | 0.47 | 49% | 954 | 70% | 0.51 | 4 | 81% of 94 names |
-| CURRENT_lag1 | 6.0% | -11.2% | -17.1% | 6.0% | 6.0% | -17.9% | 0.53 | 38% | 941 | 62% | 0.78 | 4 | 61% of 95 names |
-| CURRENT | 5.0% | -12.2% | -18.1% | 8.9% | 0.9% | -16.9% | 0.47 | 37% | 954 | 70% | 0.51 | 4 | 77% of 94 names |
+| ROTATE_MONTHLY_QQQcore_lag1 | 52.9% | +37.5% | +29.8% | 40.5% | 68.1% | -39.1% | 1.21 | 99% | 103 | 60% | 3.30 | 64 | 84% of 68 names |
+| ROTATE_MONTHLY_lag1 | 51.4% | +35.9% | +28.3% | 39.5% | 65.9% | -39.8% | 1.20 | 90% | 101 | 59% | 3.40 | 65 | 86% of 68 names |
+| GRADE_HOLD_any | 50.8% | +35.4% | +27.7% | 43.7% | 58.8% | -36.3% | 1.24 | 93% | 213 | 48% | 3.05 | 33 | 67% of 101 names |
+| ROTATE_MONTHLY_QQQcore | 49.8% | +34.3% | +26.7% | 39.7% | 62.1% | -40.7% | 1.18 | 99% | 105 | 57% | 3.32 | 64 | 91% of 71 names |
+| GRADE_HOLD_any_lag1 | 48.9% | +33.5% | +25.8% | 38.1% | 61.8% | -39.3% | 1.21 | 93% | 212 | 49% | 2.92 | 33 | 64% of 100 names |
+| ROTATE_MONTHLY | 48.0% | +32.5% | +24.9% | 37.5% | 60.7% | -41.0% | 1.16 | 91% | 103 | 57% | 3.23 | 65 | 89% of 71 names |
+| ROTATE_MONTHLY_8 | 42.3% | +26.9% | +19.2% | 35.1% | 51.3% | -33.9% | 1.19 | 85% | 198 | 53% | 3.83 | 62 | 78% of 105 names |
+| GRADE_HOLD_lag1 | 31.0% | +15.6% | +7.9% | 34.0% | 27.7% | -29.0% | 1.10 | 92% | 309 | 47% | 2.52 | 22 | 47% of 140 names |
+| LEADER_lag1 | 30.3% | +14.9% | +7.3% | 32.4% | 28.4% | -33.3% | 1.12 | 92% | 400 | 45% | 2.50 | 18 | 52% of 147 names |
+| GRADE_HOLD | 24.9% | +9.5% | +1.9% | 27.0% | 22.5% | -29.4% | 0.92 | 91% | 318 | 42% | 2.63 | 22 | 55% of 138 names |
+| LEADER_QQQcore | 23.6% | +8.2% | +0.5% | 21.3% | 26.4% | -42.2% | 0.89 | 100% | 392 | 36% | 3.09 | 18 | 64% of 146 names |
+| LEADER | 23.0% | +7.6% | -0.1% | 20.5% | 25.9% | -39.8% | 0.90 | 92% | 396 | 36% | 3.08 | 18 | 66% of 147 names |
+| CURRENT_QQQcore | 22.4% | +6.9% | -0.7% | 23.2% | 21.4% | -35.0% | 0.92 | 99% | 1248 | 69% | 0.61 | 4 | 42% of 172 names |
+| CURRENT_2pct | 20.0% | +4.6% | -3.1% | 19.5% | 20.5% | -29.6% | 0.94 | 61% | 1248 | 69% | 0.61 | 4 | 42% of 172 names |
+| CURRENT_lag1 | 18.5% | +3.0% | -4.6% | 17.0% | 20.1% | -19.9% | 1.09 | 48% | 1211 | 63% | 0.87 | 4 | 36% of 172 names |
+| CURRENT | 15.3% | -0.1% | -7.8% | 14.9% | 15.7% | -23.4% | 0.93 | 47% | 1248 | 69% | 0.61 | 4 | 41% of 172 names |
 
 **Biggest contributors (realized P&L by name, per $100k start):**
 
-- CURRENT: MMM $7,600, PYPL $7,570, GE $7,051, NVDA $6,899, T $6,323
-- CURRENT_2pct: MMM $11,059, PYPL $10,450, GE $10,129, NVDA $9,401, T $8,956
-- CURRENT_QQQcore: MMM $13,204, PYPL $12,631, GE $11,831, T $10,426, NVDA $10,244
-- LEADER: GOOGL $14,899, CVX $11,896, CAT $11,893, PYPL $10,687, GILD $9,960
-- LEADER_QQQcore: GOOGL $19,008, CAT $15,195, CVX $14,360, GE $12,447, MMM $12,080
-- GRADE_HOLD: GOOGL $29,166, NVDA $21,974, CAT $19,464, BK $18,306, MMM $17,505
-- GRADE_HOLD_any: NVDA $54,816, INTC $52,087, CAT $34,353, GE $23,270, OXY $16,864
-- ROTATE_MONTHLY: NVDA $86,884, CAT $45,256, META $22,630, MMM $20,209, COF $17,631
-- ROTATE_MONTHLY_QQQcore: NVDA $91,690, CAT $50,824, META $24,072, MMM $21,659, COF $19,023
-- ROTATE_MONTHLY_8: NVDA $45,336, CAT $19,464, META $18,319, GE $12,345, GOOGL $11,193
+- CURRENT: PLTR $20,453, SHOP $19,768, KLAC $18,799, SOFI $11,964, DDOG $11,411
+- CURRENT_2pct: PLTR $34,368, KLAC $30,544, SHOP $30,258, SOFI $19,108, DDOG $18,240
+- CURRENT_QQQcore: PLTR $37,323, KLAC $36,455, SHOP $34,259, DDOG $22,247, SOFI $21,995
+- LEADER: NOK $71,576, AMAT $44,571, PLTR $40,449, MRNA $36,817, CRWD $36,419
+- LEADER_QQQcore: NOK $73,676, AMAT $47,906, PLTR $42,403, CRWD $38,675, GOOGL $38,409
+- GRADE_HOLD: CRDO $48,567, AMAT $46,891, GOOGL $42,199, SPOT $38,613, NVDA $34,473
+- GRADE_HOLD_any: MU $316,167, AEHR $294,837, LITE $289,735, PLTR $236,245, BE $189,328
+- ROTATE_MONTHLY: LITE $593,102, BE $321,134, PLTR $220,448, MU $211,698, COHR $186,677
+- ROTATE_MONTHLY_QQQcore: LITE $665,689, BE $363,617, PLTR $246,256, MU $238,065, COHR $208,744
+- ROTATE_MONTHLY_8: LITE $495,450, VIAV $192,860, AEHR $134,367, BE $112,108, COHR $85,467
+
+_A2 scan universe minus the 41 SPECULATIVE names compute: 157s._
+
+## Part A — A3 S&P 100 as of end-2018 (no hindsight in the universe): 93 names, 2019-01-02 → 2026-10-01
+
+| Strategy | CAGR | vs SPY | vs QQQ | 2019-22 CAGR | 2023-26 CAGR | Max DD | Sharpe | Invested | Trades | Win % | Payoff | Hold (d) | Top-5 names' share of profit |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **SPY buy & hold** | 15.4% | | | 11.2% | 20.3% | -34.1% | 0.84 | 100% | | | | | |
+| **QQQ buy & hold** | 23.1% | | | 15.3% | 32.3% | -35.1% | 0.99 | 100% | | | | | |
+| ROTATE_MONTHLY_QQQcore | 14.2% | -1.3% | -8.9% | 21.8% | 7.0% | -26.0% | 0.65 | 99% | 124 | 44% | 3.04 | 57 | 113% of 68 names |
+| ROTATE_MONTHLY_QQQcore_lag1 | 13.8% | -1.6% | -9.2% | 21.9% | 6.3% | -25.8% | 0.64 | 99% | 122 | 49% | 2.47 | 57 | 100% of 67 names |
+| ROTATE_MONTHLY_lag1 | 13.5% | -2.0% | -9.6% | 21.8% | 5.7% | -25.9% | 0.64 | 93% | 122 | 49% | 2.47 | 57 | 99% of 67 names |
+| ROTATE_MONTHLY | 13.3% | -2.1% | -9.8% | 20.6% | 6.5% | -26.0% | 0.63 | 93% | 125 | 43% | 3.04 | 57 | 113% of 68 names |
+| GRADE_HOLD_any | 12.4% | -3.0% | -10.7% | 14.9% | 9.9% | -27.9% | 0.61 | 97% | 231 | 42% | 2.30 | 32 | 126% of 78 names |
+| ROTATE_MONTHLY_8 | 12.3% | -3.2% | -10.8% | 15.2% | 9.9% | -24.4% | 0.68 | 85% | 219 | 47% | 2.49 | 58 | 73% of 83 names |
+| GRADE_HOLD_any_lag1 | 11.9% | -3.5% | -11.2% | 13.5% | 10.3% | -27.1% | 0.59 | 95% | 229 | 44% | 2.17 | 32 | 131% of 77 names |
+| ROTATE_MONTHLY_cost25bp | 11.5% | -3.9% | -11.6% | 18.9% | 4.7% | -26.5% | 0.56 | 93% | 125 | 42% | 2.95 | 57 | 125% of 68 names |
+| GRADE_HOLD | 9.4% | -6.1% | -13.7% | 14.8% | 4.1% | -23.4% | 0.54 | 88% | 298 | 36% | 2.57 | 22 | 97% of 88 names |
+| GRADE_HOLD_any_cost25bp | 9.0% | -6.4% | -14.1% | 11.2% | 6.8% | -29.6% | 0.48 | 97% | 233 | 41% | 2.19 | 32 | 160% of 78 names |
+| CURRENT_QQQcore | 8.8% | -6.6% | -14.3% | 12.6% | 5.1% | -33.0% | 0.49 | 99% | 961 | 70% | 0.49 | 4 | 105% of 89 names |
+| GRADE_HOLD_lag1 | 8.8% | -6.6% | -14.3% | 14.0% | 3.7% | -25.6% | 0.51 | 88% | 303 | 40% | 2.18 | 22 | 109% of 88 names |
+| LEADER_QQQcore | 7.3% | -8.1% | -15.8% | 12.4% | 2.3% | -29.1% | 0.44 | 99% | 392 | 30% | 2.79 | 17 | 175% of 91 names |
+| LEADER_lag1 | 5.9% | -9.5% | -17.1% | 8.7% | 3.3% | -31.2% | 0.40 | 86% | 387 | 38% | 2.11 | 17 | 165% of 91 names |
+| CURRENT_lag1 | 5.7% | -9.7% | -17.3% | 6.8% | 4.7% | -19.1% | 0.53 | 38% | 947 | 61% | 0.77 | 4 | 64% of 91 names |
+| CURRENT_2pct | 4.8% | -10.7% | -18.3% | 9.2% | 0.3% | -23.0% | 0.38 | 49% | 961 | 70% | 0.49 | 4 | 97% of 89 names |
+| CURRENT | 3.8% | -11.6% | -19.3% | 7.1% | 0.4% | -17.9% | 0.37 | 37% | 961 | 70% | 0.49 | 4 | 92% of 89 names |
+| LEADER | 3.6% | -11.8% | -19.5% | 8.3% | -0.9% | -32.8% | 0.29 | 86% | 388 | 30% | 2.75 | 17 | 207% of 91 names |
+
+**Biggest contributors (realized P&L by name, per $100k start):**
+
+- CURRENT: PYPL $7,805, GE $7,196, T $6,283, GS $5,098, GILD $4,972
+- CURRENT_2pct: PYPL $10,710, GE $10,134, T $8,704, GS $7,121, GILD $6,445
+- CURRENT_QQQcore: PYPL $13,048, GE $12,303, T $10,452, GS $9,589, GM $8,178
+- LEADER: GOOGL $13,281, CVX $10,860, GE $10,267, PYPL $9,938, GILD $8,939
+- LEADER_QQQcore: GOOGL $16,045, CAT $11,564, GE $11,356, PYPL $11,150, META $10,457
+- GRADE_HOLD: NVDA $23,913, GOOGL $22,127, CAT $14,689, CVX $14,099, META $13,942
+- GRADE_HOLD_any: NVDA $63,152, INTC $55,384, GE $29,598, CAT $27,809, GOOGL $17,998
+- ROTATE_MONTHLY: NVDA $82,781, CAT $44,230, META $23,567, KMI $21,522, GE $21,202
+- ROTATE_MONTHLY_QQQcore: NVDA $86,188, CAT $47,305, META $24,444, KMI $22,933, GE $22,181
+- ROTATE_MONTHLY_8: NVDA $42,857, CAT $20,077, META $17,805, GE $16,393, GOOG $12,747
 
 **Calendar-year returns:**
 
 | Strategy | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 | 2026 |
 |---|---|---|---|---|---|---|---|---|
-| **SPY** | 31.1% | 18.3% | 28.7% | -18.2% | 26.2% | 24.9% | 17.7% | 12.9% |
-| **QQQ** | 38.4% | 48.6% | 27.4% | -32.6% | 54.9% | 25.6% | 20.8% | 20.5% |
-| CURRENT | 7.3% | 23.4% | 8.1% | -1.6% | 0.2% | 10.7% | -5.0% | -1.6% |
-| CURRENT_lag1 | 7.9% | 10.8% | 9.2% | -3.3% | 8.4% | 15.2% | 2.3% | -2.8% |
-| CURRENT_2pct | 9.5% | 31.1% | 10.4% | -2.4% | 0.1% | 14.0% | -6.7% | -2.2% |
-| CURRENT_QQQcore | 26.2% | 52.2% | 14.2% | -22.8% | 10.2% | 15.2% | -0.5% | -4.2% |
-| LEADER | 17.6% | 18.3% | 17.3% | -8.3% | -6.4% | 10.4% | 17.1% | -8.2% |
-| LEADER_lag1 | 19.7% | 22.7% | 21.2% | -9.8% | -0.0% | 12.0% | 19.5% | -10.1% |
-| LEADER_QQQcore | 29.5% | 30.0% | 15.8% | -9.7% | 1.1% | 11.4% | 16.9% | -9.9% |
-| GRADE_HOLD | 14.0% | 46.6% | 15.8% | 1.8% | 23.8% | 11.2% | 8.8% | -8.2% |
-| GRADE_HOLD_lag1 | 14.6% | 44.0% | 17.7% | 1.6% | 23.4% | 12.1% | 13.5% | -6.6% |
-| GRADE_HOLD_any | 19.2% | 26.5% | 7.2% | 0.4% | 18.9% | 9.3% | 14.0% | -0.9% |
-| GRADE_HOLD_any_lag1 | 18.0% | 26.5% | 9.0% | -5.9% | 25.0% | 5.7% | 11.5% | 8.1% |
-| GRADE_HOLD_any_cost25bp | 15.3% | 24.1% | 3.0% | -1.7% | 16.1% | 5.6% | 11.2% | -3.6% |
-| ROTATE_MONTHLY | 23.4% | 52.1% | -3.9% | 17.3% | 8.5% | 26.3% | 6.6% | -11.7% |
-| ROTATE_MONTHLY_lag1 | 26.0% | 51.6% | -3.5% | 17.4% | 10.1% | 22.4% | 1.3% | -8.2% |
-| ROTATE_MONTHLY_cost25bp | 21.8% | 50.9% | -6.0% | 15.9% | 6.8% | 24.2% | 4.3% | -13.6% |
-| ROTATE_MONTHLY_QQQcore | 29.4% | 56.9% | -2.2% | 9.5% | 13.2% | 31.7% | 6.7% | -12.2% |
-| ROTATE_MONTHLY_QQQcore_lag1 | 28.5% | 56.1% | -2.1% | 14.2% | 10.7% | 28.0% | 0.6% | -9.1% |
-| ROTATE_MONTHLY_8 | 17.0% | 39.0% | 7.9% | 3.1% | 17.4% | 11.8% | 13.5% | -8.2% |
+| **SPY** | 28.7% | 16.2% | 27.0% | -19.5% | 24.3% | 23.3% | 16.4% | 11.5% |
+| **QQQ** | 38.4% | 48.6% | 27.4% | -32.6% | 54.9% | 25.6% | 20.8% | 20.4% |
+| CURRENT | 6.4% | 20.6% | 6.9% | -4.0% | 0.0% | 5.8% | -1.4% | -3.0% |
+| CURRENT_lag1 | 9.7% | 14.2% | 7.7% | -3.7% | 7.9% | 12.3% | 2.1% | -4.1% |
+| CURRENT_2pct | 8.4% | 27.2% | 8.8% | -5.5% | -0.1% | 7.4% | -1.9% | -4.0% |
+| CURRENT_QQQcore | 24.9% | 47.7% | 13.3% | -23.1% | 10.6% | 10.8% | 2.3% | -4.6% |
+| LEADER | 17.0% | 11.7% | 15.9% | -9.4% | -5.1% | 4.1% | 16.8% | -16.9% |
+| LEADER_lag1 | 18.8% | 13.3% | 22.6% | -15.5% | 1.2% | 6.3% | 20.1% | -13.2% |
+| LEADER_QQQcore | 25.8% | 22.6% | 17.1% | -11.6% | 0.4% | 3.7% | 16.0% | -10.6% |
+| GRADE_HOLD | 9.9% | 29.0% | 17.6% | 4.1% | 10.1% | 2.9% | 15.7% | -12.1% |
+| GRADE_HOLD_lag1 | 11.7% | 29.2% | 23.6% | -5.4% | 9.6% | 4.2% | 20.9% | -17.6% |
+| GRADE_HOLD_any | 17.5% | 39.8% | 7.2% | -1.2% | 22.8% | 9.5% | 20.6% | -12.2% |
+| GRADE_HOLD_any_lag1 | 19.3% | 34.1% | 8.3% | -4.2% | 25.1% | 4.3% | 16.7% | -5.5% |
+| GRADE_HOLD_any_cost25bp | 13.6% | 38.8% | 3.3% | -6.1% | 20.3% | 5.6% | 17.7% | -14.6% |
+| ROTATE_MONTHLY | 24.3% | 64.9% | -8.0% | 12.0% | 13.0% | 23.4% | 2.7% | -13.1% |
+| ROTATE_MONTHLY_lag1 | 27.3% | 65.2% | -8.9% | 14.7% | 12.7% | 21.0% | -2.0% | -9.3% |
+| ROTATE_MONTHLY_cost25bp | 22.6% | 63.7% | -10.3% | 10.7% | 11.4% | 21.2% | 1.2% | -14.6% |
+| ROTATE_MONTHLY_QQQcore | 30.2% | 68.6% | -6.7% | 7.3% | 13.3% | 25.9% | 3.0% | -13.6% |
+| ROTATE_MONTHLY_QQQcore_lag1 | 29.9% | 67.7% | -6.8% | 8.7% | 13.2% | 23.7% | -1.7% | -10.1% |
+| ROTATE_MONTHLY_8 | 17.2% | 41.3% | 6.3% | -0.0% | 16.3% | 16.7% | 16.1% | -11.7% |
 
 **Definitions and exit mix:**
 
-- **CURRENT** — Live process: A/A+ + pullback trigger; exits RSI2>=70 (green) or grade exit; 25% of account idle (20% options bucket + 5% reserve). Exits: {'rsi2_tp': 668, 'grade_exit': 286}
-- **CURRENT_lag1** — Live process: A/A+ + pullback trigger; exits RSI2>=70 (green) or grade exit; 25% of account idle (20% options bucket + 5% reserve). Exits: {'rsi2_tp': 658, 'grade_exit': 283}
-- **CURRENT_2pct** — Same exits, only a 2% cash reserve (options bucket returned to stocks). Exits: {'rsi2_tp': 668, 'grade_exit': 286}
-- **CURRENT_QQQcore** — Same exits, idle cash parked in QQQ. Exits: {'rsi2_tp': 668, 'grade_exit': 286}
-- **LEADER** — Pullback entry; exits grade exit, 15% trail from high, -8% / below-50SMA loss cut; no RSI2 take-profit. Exits: {'loss_cut': 119, 'grade_exit': 251, 'trail': 3}
-- **LEADER_lag1** — Pullback entry; exits grade exit, 15% trail from high, -8% / below-50SMA loss cut; no RSI2 take-profit. Exits: {'loss_cut': 119, 'grade_exit': 241, 'trail': 3}
-- **LEADER_QQQcore** — LEADER with idle cash in QQQ. Exits: {'loss_cut': 119, 'grade_exit': 249, 'trail': 3}
-- **GRADE_HOLD** — Pullback entry; only exit = grade exit (hold while top 25%). Exits: {'grade_exit': 287}
-- **GRADE_HOLD_lag1** — Pullback entry; only exit = grade exit (hold while top 25%). Exits: {'grade_exit': 293}
-- **GRADE_HOLD_any** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 232}
-- **GRADE_HOLD_any_lag1** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 232}
-- **GRADE_HOLD_any_cost25bp** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 232}
-- **ROTATE_MONTHLY** — Monthly: hold top-4 A/A+ names, sell only if out of top 25% at month start. Exits: {'grade_exit': 123}
-- **ROTATE_MONTHLY_lag1** — Monthly: hold top-4 A/A+ names, sell only if out of top 25% at month start. Exits: {'grade_exit': 121}
-- **ROTATE_MONTHLY_cost25bp** — Monthly: hold top-4 A/A+ names, sell only if out of top 25% at month start. Exits: {'grade_exit': 123}
-- **ROTATE_MONTHLY_QQQcore** — ROTATE_MONTHLY with idle cash in QQQ. Exits: {'grade_exit': 120}
-- **ROTATE_MONTHLY_QQQcore_lag1** — ROTATE_MONTHLY with idle cash in QQQ. Exits: {'grade_exit': 121}
-- **ROTATE_MONTHLY_8** — ROTATE_MONTHLY with 8 slots. Exits: {'grade_exit': 215}
+- **CURRENT** — Live process: A/A+ + pullback trigger; exits RSI2>=70 (green) or grade exit; 25% of account idle (20% options bucket + 5% reserve). Exits: {'rsi2_tp': 668, 'grade_exit': 293}
+- **CURRENT_lag1** — Live process: A/A+ + pullback trigger; exits RSI2>=70 (green) or grade exit; 25% of account idle (20% options bucket + 5% reserve). Exits: {'rsi2_tp': 657, 'grade_exit': 290}
+- **CURRENT_2pct** — Same exits, only a 2% cash reserve (options bucket returned to stocks). Exits: {'rsi2_tp': 668, 'grade_exit': 293}
+- **CURRENT_QQQcore** — Same exits, idle cash parked in QQQ. Exits: {'rsi2_tp': 668, 'grade_exit': 293}
+- **LEADER** — Pullback entry; exits grade exit, 15% trail from high, -8% / below-50SMA loss cut; no RSI2 take-profit. Exits: {'loss_cut': 117, 'grade_exit': 267, 'trail': 4}
+- **LEADER_lag1** — Pullback entry; exits grade exit, 15% trail from high, -8% / below-50SMA loss cut; no RSI2 take-profit. Exits: {'loss_cut': 123, 'grade_exit': 260, 'trail': 4}
+- **LEADER_QQQcore** — LEADER with idle cash in QQQ. Exits: {'loss_cut': 118, 'grade_exit': 270, 'trail': 4}
+- **GRADE_HOLD** — Pullback entry; only exit = grade exit (hold while top 25%). Exits: {'grade_exit': 298}
+- **GRADE_HOLD_lag1** — Pullback entry; only exit = grade exit (hold while top 25%). Exits: {'grade_exit': 303}
+- **GRADE_HOLD_any** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 231}
+- **GRADE_HOLD_any_lag1** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 229}
+- **GRADE_HOLD_any_cost25bp** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 233}
+- **ROTATE_MONTHLY** — Monthly: hold top-4 A/A+ names, sell only if out of top 25% at month start. Exits: {'grade_exit': 125}
+- **ROTATE_MONTHLY_lag1** — Monthly: hold top-4 A/A+ names, sell only if out of top 25% at month start. Exits: {'grade_exit': 122}
+- **ROTATE_MONTHLY_cost25bp** — Monthly: hold top-4 A/A+ names, sell only if out of top 25% at month start. Exits: {'grade_exit': 125}
+- **ROTATE_MONTHLY_QQQcore** — ROTATE_MONTHLY with idle cash in QQQ. Exits: {'grade_exit': 124}
+- **ROTATE_MONTHLY_QQQcore_lag1** — ROTATE_MONTHLY with idle cash in QQQ. Exits: {'grade_exit': 122}
+- **ROTATE_MONTHLY_8** — ROTATE_MONTHLY with 8 slots. Exits: {'grade_exit': 219}
 
-_A3 S&P 100 as of end-2018 (no hindsight in the universe) compute: 93s._
+_A3 S&P 100 as of end-2018 (no hindsight in the universe) compute: 82s._
 
-## Part A — A4 Nasdaq-100 as of end-2018 (QQQ's own pool, no hindsight): 88 names, 2019-01-02 → 2026-09-29
+## Part A — A4 Nasdaq-100 as of end-2018 (QQQ's own pool, no hindsight): 85 names, 2019-01-02 → 2026-10-01
 
 | Strategy | CAGR | vs SPY | vs QQQ | 2019-22 CAGR | 2023-26 CAGR | Max DD | Sharpe | Invested | Trades | Win % | Payoff | Hold (d) | Top-5 names' share of profit |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| **SPY buy & hold** | 17.2% | | | 13.1% | 22.0% | -33.7% | 0.93 | 100% | | | | | |
+| **SPY buy & hold** | 15.4% | | | 11.2% | 20.3% | -34.1% | 0.84 | 100% | | | | | |
 | **QQQ buy & hold** | 23.1% | | | 15.3% | 32.3% | -35.1% | 0.99 | 100% | | | | | |
-| ROTATE_MONTHLY_lag1 | 29.6% | +12.4% | +6.5% | 26.0% | 33.9% | -33.3% | 0.96 | 94% | 111 | 49% | 4.11 | 63 | 102% of 61 names |
-| ROTATE_MONTHLY_QQQcore | 27.7% | +10.4% | +4.6% | 23.2% | 33.0% | -39.0% | 0.90 | 99% | 116 | 47% | 3.72 | 60 | 106% of 63 names |
-| ROTATE_MONTHLY_QQQcore_lag1 | 27.0% | +9.8% | +3.9% | 21.2% | 33.8% | -38.0% | 0.89 | 99% | 116 | 47% | 3.72 | 60 | 106% of 63 names |
-| ROTATE_MONTHLY | 26.3% | +9.1% | +3.2% | 20.9% | 32.6% | -38.8% | 0.88 | 94% | 116 | 47% | 3.72 | 60 | 106% of 63 names |
-| ROTATE_MONTHLY_cost25bp | 24.5% | +7.2% | +1.4% | 19.2% | 30.7% | -38.9% | 0.84 | 94% | 116 | 46% | 3.61 | 60 | 110% of 63 names |
-| GRADE_HOLD_any_lag1 | 24.5% | +7.2% | +1.3% | 7.4% | 45.5% | -40.0% | 0.87 | 94% | 211 | 41% | 3.30 | 33 | 119% of 78 names |
-| GRADE_HOLD_any | 22.2% | +5.0% | -0.9% | 4.0% | 44.9% | -47.6% | 0.81 | 94% | 213 | 36% | 3.88 | 33 | 121% of 78 names |
-| ROTATE_MONTHLY_8 | 21.6% | +4.4% | -1.5% | 19.7% | 24.1% | -30.6% | 0.84 | 86% | 205 | 45% | 3.46 | 61 | 92% of 77 names |
-| GRADE_HOLD_any_cost25bp | 19.4% | +2.1% | -3.8% | 1.5% | 41.7% | -50.1% | 0.73 | 94% | 212 | 36% | 3.59 | 33 | 130% of 78 names |
-| CURRENT_QQQcore | 16.8% | -0.4% | -6.3% | 13.5% | 20.7% | -48.5% | 0.76 | 99% | 902 | 70% | 0.51 | 4 | 142% of 88 names |
-| GRADE_HOLD | 14.9% | -2.3% | -8.2% | 20.2% | 9.6% | -46.2% | 0.66 | 85% | 279 | 36% | 3.05 | 23 | 117% of 81 names |
-| GRADE_HOLD_lag1 | 13.5% | -3.7% | -9.6% | 15.8% | 11.2% | -38.6% | 0.61 | 85% | 276 | 42% | 2.19 | 23 | 136% of 82 names |
-| LEADER_QQQcore | 11.6% | -5.6% | -11.5% | 9.4% | 14.1% | -48.4% | 0.55 | 99% | 392 | 31% | 2.82 | 16 | 190% of 86 names |
-| CURRENT_2pct | 7.4% | -9.8% | -15.7% | 8.2% | 6.8% | -41.7% | 0.47 | 47% | 902 | 70% | 0.51 | 4 | 116% of 88 names |
-| LEADER | 6.4% | -10.9% | -16.8% | 5.5% | 7.4% | -46.4% | 0.38 | 85% | 393 | 31% | 2.79 | 16 | 197% of 88 names |
-| CURRENT | 5.9% | -11.4% | -17.3% | 6.5% | 5.3% | -33.5% | 0.46 | 36% | 902 | 70% | 0.51 | 4 | 106% of 88 names |
-| LEADER_lag1 | 4.2% | -13.0% | -18.9% | 2.3% | 6.4% | -44.8% | 0.29 | 83% | 395 | 38% | 1.86 | 16 | 309% of 88 names |
-| CURRENT_lag1 | 3.2% | -14.0% | -19.9% | -0.1% | 7.1% | -32.5% | 0.29 | 37% | 875 | 60% | 0.75 | 4 | 128% of 88 names |
+| ROTATE_MONTHLY_lag1 | 30.5% | +15.0% | +7.4% | 25.8% | 36.0% | -33.3% | 0.98 | 93% | 112 | 46% | 4.71 | 61 | 104% of 62 names |
+| ROTATE_MONTHLY_QQQcore | 29.4% | +14.0% | +6.3% | 22.9% | 37.2% | -39.0% | 0.94 | 99% | 117 | 46% | 3.89 | 58 | 108% of 64 names |
+| ROTATE_MONTHLY | 28.1% | +12.6% | +5.0% | 20.8% | 36.6% | -38.8% | 0.92 | 92% | 116 | 47% | 3.91 | 59 | 107% of 63 names |
+| ROTATE_MONTHLY_QQQcore_lag1 | 28.0% | +12.5% | +4.9% | 20.9% | 36.3% | -38.0% | 0.91 | 99% | 117 | 44% | 4.17 | 58 | 109% of 64 names |
+| ROTATE_MONTHLY_cost25bp | 26.2% | +10.8% | +3.1% | 19.1% | 34.6% | -38.9% | 0.88 | 92% | 116 | 46% | 3.78 | 59 | 111% of 63 names |
+| GRADE_HOLD_any | 22.9% | +7.5% | -0.2% | 6.9% | 42.4% | -44.7% | 0.81 | 95% | 223 | 36% | 4.00 | 32 | 122% of 77 names |
+| ROTATE_MONTHLY_8 | 22.1% | +6.6% | -1.0% | 20.7% | 23.8% | -30.6% | 0.85 | 85% | 209 | 46% | 3.34 | 60 | 91% of 76 names |
+| GRADE_HOLD_any_cost25bp | 19.8% | +4.4% | -3.3% | 4.1% | 39.1% | -47.5% | 0.73 | 94% | 222 | 36% | 3.69 | 32 | 131% of 77 names |
+| GRADE_HOLD_any_lag1 | 19.6% | +4.2% | -3.5% | 5.8% | 36.2% | -47.7% | 0.73 | 94% | 226 | 40% | 3.11 | 31 | 125% of 77 names |
+| CURRENT_QQQcore | 18.3% | +2.9% | -4.8% | 16.4% | 20.6% | -43.2% | 0.81 | 99% | 875 | 70% | 0.52 | 4 | 112% of 85 names |
+| GRADE_HOLD_lag1 | 17.1% | +1.6% | -6.0% | 19.9% | 14.3% | -36.8% | 0.72 | 85% | 300 | 44% | 2.24 | 22 | 102% of 81 names |
+| GRADE_HOLD | 15.1% | -0.3% | -8.0% | 18.3% | 12.1% | -45.6% | 0.66 | 84% | 297 | 36% | 2.99 | 21 | 111% of 82 names |
+| LEADER_QQQcore | 9.2% | -6.2% | -13.8% | 8.7% | 10.0% | -48.3% | 0.47 | 99% | 403 | 30% | 2.85 | 16 | 352% of 85 names |
+| CURRENT_2pct | 8.6% | -6.8% | -14.5% | 10.2% | 7.0% | -35.0% | 0.53 | 45% | 875 | 70% | 0.52 | 4 | 93% of 85 names |
+| LEADER_lag1 | 8.6% | -6.9% | -14.5% | 5.2% | 12.4% | -42.1% | 0.47 | 82% | 401 | 40% | 2.04 | 15 | 154% of 85 names |
+| CURRENT | 6.7% | -8.7% | -16.4% | 7.9% | 5.5% | -27.8% | 0.53 | 34% | 875 | 70% | 0.52 | 4 | 88% of 85 names |
+| CURRENT_lag1 | 5.1% | -10.4% | -18.0% | 2.5% | 8.2% | -30.1% | 0.42 | 36% | 854 | 61% | 0.77 | 4 | 88% of 85 names |
+| LEADER | 3.1% | -12.3% | -20.0% | 3.9% | 2.5% | -51.2% | 0.25 | 83% | 404 | 29% | 2.77 | 15 | 513% of 85 names |
 
 **Biggest contributors (realized P&L by name, per $100k start):**
 
-- CURRENT: KLAC $19,205, AMAT $12,555, VRTX $10,345, WDC $8,716, NVDA $7,981
-- CURRENT_2pct: KLAC $27,686, AMAT $18,575, VRTX $14,659, WDC $12,824, NTAP $11,855
-- CURRENT_QQQcore: KLAC $40,887, AMAT $27,862, WDC $22,998, VRTX $17,893, NTAP $17,648
-- LEADER: AMAT $46,056, LRCX $13,720, GOOGL $13,356, PYPL $10,718, REGN $9,549
-- LEADER_QQQcore: AMAT $55,797, MU $25,612, GOOGL $15,981, LRCX $15,666, PYPL $11,521
-- GRADE_HOLD: AMAT $67,094, WDC $46,336, NVDA $32,973, LRCX $21,486, VRTX $18,779
-- GRADE_HOLD_any: WDC $219,482, NVDA $66,714, AMAT $42,674, MU $41,938, JD $18,565
-- ROTATE_MONTHLY: WDC $301,651, NVDA $102,065, MU $33,568, TSLA $28,949, JBHT $28,554
-- ROTATE_MONTHLY_QQQcore: WDC $328,264, NVDA $108,890, MU $36,533, JBHT $30,927, TSLA $30,260
-- ROTATE_MONTHLY_8: WDC $156,866, NVDA $74,043, AMAT $42,150, MU $18,914, JD $18,843
+- CURRENT: KLAC $16,770, AMAT $14,430, LRCX $10,788, VRTX $8,440, MU $7,934
+- CURRENT_2pct: KLAC $24,348, AMAT $21,378, LRCX $15,301, VRTX $11,783, MU $11,706
+- CURRENT_QQQcore: KLAC $37,149, AMAT $33,666, LRCX $22,215, WDC $17,983, MU $17,596
+- LEADER: AMAT $38,273, GOOGL $15,451, REGN $11,381, PYPL $10,593, AVGO $10,236
+- LEADER_QQQcore: AMAT $51,940, MU $26,174, GOOGL $19,082, AVGO $12,477, REGN $11,867
+- GRADE_HOLD: AMAT $67,531, WDC $50,665, GOOGL $23,439, JD $23,218, NVDA $20,261
+- GRADE_HOLD_any: WDC $239,570, NVDA $72,062, MU $48,115, AMAT $36,279, LRCX $27,089
+- ROTATE_MONTHLY: WDC $348,389, NVDA $128,695, MU $39,268, JBHT $30,511, TSLA $28,949
+- ROTATE_MONTHLY_QQQcore: WDC $373,331, NVDA $136,683, MU $42,932, JBHT $33,251, TSLA $30,260
+- ROTATE_MONTHLY_8: WDC $164,166, NVDA $75,386, AMAT $43,472, MU $19,442, JD $19,065
 
 **Calendar-year returns:**
 
 | Strategy | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 | 2026 |
 |---|---|---|---|---|---|---|---|---|
-| **SPY** | 31.1% | 18.3% | 28.7% | -18.2% | 26.2% | 24.9% | 17.7% | 12.9% |
-| **QQQ** | 38.4% | 48.6% | 27.4% | -32.6% | 54.9% | 25.6% | 20.8% | 20.5% |
-| CURRENT | 20.2% | 28.4% | 9.3% | -23.9% | 6.9% | 8.9% | 3.2% | 0.6% |
-| CURRENT_lag1 | 15.6% | 19.4% | -0.4% | -27.4% | 9.3% | 16.8% | -5.2% | 6.1% |
-| CURRENT_2pct | 27.0% | 38.2% | 12.1% | -30.4% | 8.9% | 11.5% | 4.0% | 0.7% |
-| CURRENT_QQQcore | 49.6% | 64.0% | 16.5% | -42.0% | 32.7% | 21.1% | 11.0% | 12.7% |
-| LEADER | 27.9% | 24.4% | 14.4% | -32.0% | 8.4% | 10.7% | -10.1% | 20.6% |
-| LEADER_lag1 | 21.8% | 12.9% | 15.3% | -31.0% | 1.5% | 16.3% | -10.2% | 18.4% |
-| LEADER_QQQcore | 34.3% | 39.8% | 22.7% | -37.9% | 12.7% | 11.3% | -4.0% | 35.8% |
-| GRADE_HOLD | 31.1% | 69.0% | 15.7% | -18.8% | -2.4% | 0.5% | -11.2% | 61.4% |
-| GRADE_HOLD_lag1 | 23.2% | 58.0% | 17.9% | -21.6% | 3.2% | 6.2% | -11.6% | 53.2% |
-| GRADE_HOLD_any | 35.0% | 42.5% | -2.2% | -37.9% | 18.0% | 24.0% | 36.6% | 102.1% |
-| GRADE_HOLD_any_lag1 | 35.7% | 37.3% | 7.7% | -33.8% | 16.3% | 25.8% | 37.8% | 102.9% |
-| GRADE_HOLD_any_cost25bp | 33.8% | 38.7% | -5.6% | -39.5% | 14.7% | 20.8% | 33.5% | 100.5% |
-| ROTATE_MONTHLY | 15.7% | 77.5% | 19.4% | -13.0% | -4.2% | 24.0% | 19.9% | 100.4% |
-| ROTATE_MONTHLY_lag1 | 16.4% | 112.6% | 16.7% | -12.7% | 1.0% | 20.8% | 21.8% | 99.2% |
-| ROTATE_MONTHLY_cost25bp | 13.5% | 75.6% | 17.7% | -14.0% | -5.9% | 21.8% | 18.2% | 99.1% |
-| ROTATE_MONTHLY_QQQcore | 19.7% | 81.4% | 22.0% | -13.2% | -3.1% | 25.0% | 18.4% | 101.3% |
-| ROTATE_MONTHLY_QQQcore_lag1 | 20.3% | 74.4% | 19.0% | -13.7% | 1.0% | 21.5% | 20.3% | 100.1% |
-| ROTATE_MONTHLY_8 | 20.5% | 69.5% | 18.7% | -15.6% | 4.2% | 14.2% | 11.9% | 67.0% |
+| **SPY** | 28.7% | 16.2% | 27.0% | -19.5% | 24.3% | 23.3% | 16.4% | 11.5% |
+| **QQQ** | 38.4% | 48.6% | 27.4% | -32.6% | 54.9% | 25.6% | 20.8% | 20.4% |
+| CURRENT | 19.9% | 25.7% | 9.3% | -17.7% | 7.3% | 5.1% | 4.8% | 3.2% |
+| CURRENT_lag1 | 16.4% | 26.6% | 1.5% | -26.3% | 9.0% | 11.8% | -2.5% | 12.1% |
+| CURRENT_2pct | 26.5% | 34.5% | 12.0% | -22.7% | 9.4% | 6.5% | 6.1% | 4.0% |
+| CURRENT_QQQcore | 47.8% | 64.3% | 19.1% | -36.6% | 34.8% | 12.4% | 12.2% | 17.9% |
+| LEADER | 27.0% | 24.6% | 8.4% | -32.1% | 0.4% | 7.2% | -11.5% | 14.4% |
+| LEADER_lag1 | 24.4% | 16.5% | 17.8% | -28.2% | 0.2% | 16.0% | -1.9% | 35.1% |
+| LEADER_QQQcore | 32.1% | 43.5% | 19.5% | -38.3% | 9.1% | 8.5% | -6.3% | 28.1% |
+| GRADE_HOLD | 26.0% | 64.9% | 9.6% | -14.2% | -12.8% | 6.9% | -7.7% | 77.4% |
+| GRADE_HOLD_lag1 | 22.2% | 75.5% | 18.7% | -18.9% | -7.5% | 17.9% | -6.8% | 61.3% |
+| GRADE_HOLD_any | 38.7% | 40.8% | 8.9% | -38.5% | 11.5% | 11.2% | 46.0% | 108.4% |
+| GRADE_HOLD_any_lag1 | 29.3% | 35.8% | 15.6% | -38.4% | 7.7% | -2.7% | 40.8% | 116.7% |
+| GRADE_HOLD_any_cost25bp | 35.3% | 37.6% | 5.1% | -40.1% | 7.9% | 7.4% | 42.6% | 109.0% |
+| ROTATE_MONTHLY | 15.7% | 77.5% | 19.0% | -13.0% | 12.4% | 24.0% | 17.1% | 95.9% |
+| ROTATE_MONTHLY_lag1 | 16.4% | 112.6% | 16.7% | -13.3% | 12.5% | 20.8% | 18.2% | 95.0% |
+| ROTATE_MONTHLY_cost25bp | 13.5% | 75.6% | 17.3% | -14.0% | 10.5% | 21.8% | 15.4% | 94.4% |
+| ROTATE_MONTHLY_QQQcore | 19.7% | 81.4% | 21.6% | -13.8% | 12.5% | 25.0% | 17.9% | 95.2% |
+| ROTATE_MONTHLY_QQQcore_lag1 | 20.3% | 74.4% | 18.3% | -14.0% | 13.2% | 21.5% | 18.2% | 94.9% |
+| ROTATE_MONTHLY_8 | 21.9% | 69.7% | 20.9% | -15.3% | 4.5% | 14.2% | 12.0% | 65.4% |
 
 **Definitions and exit mix:**
 
-- **CURRENT** — Live process: A/A+ + pullback trigger; exits RSI2>=70 (green) or grade exit; 25% of account idle (20% options bucket + 5% reserve). Exits: {'rsi2_tp': 628, 'grade_exit': 274}
-- **CURRENT_lag1** — Live process: A/A+ + pullback trigger; exits RSI2>=70 (green) or grade exit; 25% of account idle (20% options bucket + 5% reserve). Exits: {'rsi2_tp': 598, 'grade_exit': 277}
-- **CURRENT_2pct** — Same exits, only a 2% cash reserve (options bucket returned to stocks). Exits: {'rsi2_tp': 628, 'grade_exit': 274}
-- **CURRENT_QQQcore** — Same exits, idle cash parked in QQQ. Exits: {'rsi2_tp': 628, 'grade_exit': 274}
-- **LEADER** — Pullback entry; exits grade exit, 15% trail from high, -8% / below-50SMA loss cut; no RSI2 take-profit. Exits: {'loss_cut': 147, 'grade_exit': 235, 'trail': 11}
-- **LEADER_lag1** — Pullback entry; exits grade exit, 15% trail from high, -8% / below-50SMA loss cut; no RSI2 take-profit. Exits: {'loss_cut': 150, 'grade_exit': 236, 'trail': 9}
-- **LEADER_QQQcore** — LEADER with idle cash in QQQ. Exits: {'loss_cut': 145, 'grade_exit': 236, 'trail': 11}
-- **GRADE_HOLD** — Pullback entry; only exit = grade exit (hold while top 25%). Exits: {'grade_exit': 279}
-- **GRADE_HOLD_lag1** — Pullback entry; only exit = grade exit (hold while top 25%). Exits: {'grade_exit': 276}
-- **GRADE_HOLD_any** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 213}
-- **GRADE_HOLD_any_lag1** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 211}
-- **GRADE_HOLD_any_cost25bp** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 212}
+- **CURRENT** — Live process: A/A+ + pullback trigger; exits RSI2>=70 (green) or grade exit; 25% of account idle (20% options bucket + 5% reserve). Exits: {'rsi2_tp': 611, 'grade_exit': 264}
+- **CURRENT_lag1** — Live process: A/A+ + pullback trigger; exits RSI2>=70 (green) or grade exit; 25% of account idle (20% options bucket + 5% reserve). Exits: {'rsi2_tp': 578, 'grade_exit': 276}
+- **CURRENT_2pct** — Same exits, only a 2% cash reserve (options bucket returned to stocks). Exits: {'rsi2_tp': 611, 'grade_exit': 264}
+- **CURRENT_QQQcore** — Same exits, idle cash parked in QQQ. Exits: {'rsi2_tp': 611, 'grade_exit': 264}
+- **LEADER** — Pullback entry; exits grade exit, 15% trail from high, -8% / below-50SMA loss cut; no RSI2 take-profit. Exits: {'loss_cut': 144, 'grade_exit': 246, 'trail': 14}
+- **LEADER_lag1** — Pullback entry; exits grade exit, 15% trail from high, -8% / below-50SMA loss cut; no RSI2 take-profit. Exits: {'loss_cut': 142, 'grade_exit': 248, 'trail': 11}
+- **LEADER_QQQcore** — LEADER with idle cash in QQQ. Exits: {'loss_cut': 142, 'grade_exit': 248, 'trail': 13}
+- **GRADE_HOLD** — Pullback entry; only exit = grade exit (hold while top 25%). Exits: {'grade_exit': 297}
+- **GRADE_HOLD_lag1** — Pullback entry; only exit = grade exit (hold while top 25%). Exits: {'grade_exit': 300}
+- **GRADE_HOLD_any** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 223}
+- **GRADE_HOLD_any_lag1** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 226}
+- **GRADE_HOLD_any_cost25bp** — No pullback wait: buy the top-ranked A/A+ names as slots free; exit = grade exit. Exits: {'grade_exit': 222}
 - **ROTATE_MONTHLY** — Monthly: hold top-4 A/A+ names, sell only if out of top 25% at month start. Exits: {'grade_exit': 116}
-- **ROTATE_MONTHLY_lag1** — Monthly: hold top-4 A/A+ names, sell only if out of top 25% at month start. Exits: {'grade_exit': 111}
+- **ROTATE_MONTHLY_lag1** — Monthly: hold top-4 A/A+ names, sell only if out of top 25% at month start. Exits: {'grade_exit': 112}
 - **ROTATE_MONTHLY_cost25bp** — Monthly: hold top-4 A/A+ names, sell only if out of top 25% at month start. Exits: {'grade_exit': 116}
-- **ROTATE_MONTHLY_QQQcore** — ROTATE_MONTHLY with idle cash in QQQ. Exits: {'grade_exit': 116}
-- **ROTATE_MONTHLY_QQQcore_lag1** — ROTATE_MONTHLY with idle cash in QQQ. Exits: {'grade_exit': 116}
-- **ROTATE_MONTHLY_8** — ROTATE_MONTHLY with 8 slots. Exits: {'grade_exit': 205}
+- **ROTATE_MONTHLY_QQQcore** — ROTATE_MONTHLY with idle cash in QQQ. Exits: {'grade_exit': 117}
+- **ROTATE_MONTHLY_QQQcore_lag1** — ROTATE_MONTHLY with idle cash in QQQ. Exits: {'grade_exit': 117}
+- **ROTATE_MONTHLY_8** — ROTATE_MONTHLY with 8 slots. Exits: {'grade_exit': 209}
 
-_A4 Nasdaq-100 as of end-2018 (QQQ's own pool, no hindsight) compute: 83s._
+_A4 Nasdaq-100 as of end-2018 (QQQ's own pool, no hindsight) compute: 69s._
 
-## Part C — index-based alternatives, 2019-01-02 → 2026-09-29
+## Part C — index-based alternatives, 2019-01-02 → 2026-10-01
 
 Real ETF closes (expense ratios and daily-reset decay included). Trend filter: in the fund while QQQ > its 200-day SMA, else T-bills (BIL); switches fill at the next close.
 
@@ -314,47 +314,30 @@ Real ETF closes (expense ratios and daily-reset decay included). Trend filter: i
 |---|---|---|---|---|---|---|
 | QQQ buy & hold | 23.1% | -35.1% | 0.99 | 24% | 100% | 0 |
 | QQQ + 200d trend filter | 19.5% | -22.1% | 1.11 | 17% | 81% | 32 |
-| QLD buy & hold | 37.0% | -63.7% | 0.90 | 48% | 100% | 0 |
+| QLD buy & hold | 36.9% | -63.7% | 0.90 | 48% | 100% | 0 |
 | QLD + 200d trend filter | 33.6% | -40.2% | 1.01 | 35% | 81% | 32 |
-| TQQQ buy & hold | 45.0% | -81.7% | 0.89 | 71% | 100% | 0 |
+| TQQQ buy & hold | 45.0% | -81.7% | 0.88 | 71% | 100% | 0 |
 | TQQQ + 200d trend filter | 46.3% | -54.8% | 1.00 | 52% | 81% | 32 |
 
 | Strategy | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 | 2026 |
 |---|---|---|---|---|---|---|---|---|
-| QQQ buy & hold | 38.4% | 48.6% | 27.4% | -32.6% | 54.9% | 25.6% | 20.8% | 20.5% |
-| QQQ + 200d trend filter | 19.1% | 36.6% | 27.4% | -16.1% | 37.5% | 25.6% | 14.4% | 15.7% |
+| QQQ buy & hold | 38.4% | 48.6% | 27.4% | -32.6% | 54.9% | 25.6% | 20.8% | 20.4% |
+| QQQ + 200d trend filter | 19.1% | 36.6% | 27.4% | -16.1% | 37.5% | 25.6% | 14.4% | 15.6% |
 | QLD buy & hold | 80.2% | 88.8% | 54.7% | -60.5% | 117.8% | 42.8% | 30.4% | 35.4% |
 | QLD + 200d trend filter | 35.1% | 72.1% | 54.7% | -30.7% | 73.1% | 42.8% | 21.7% | 25.5% |
-| TQQQ buy & hold | 130.3% | 110.2% | 83.0% | -79.1% | 203.2% | 59.4% | 34.4% | 47.8% |
-| TQQQ + 200d trend filter | 52.2% | 105.7% | 83.0% | -42.8% | 116.8% | 59.4% | 27.0% | 32.5% |
+| TQQQ buy & hold | 130.3% | 110.2% | 83.0% | -79.1% | 203.2% | 59.4% | 34.4% | 47.7% |
+| TQQQ + 200d trend filter | 52.2% | 105.7% | 83.0% | -42.8% | 116.8% | 59.4% | 27.0% | 32.4% |
 
-## Part D — leverage stress test: simulated daily-reset QQQ, 2007-08-30 → 2026-09-29
-
-(Earliest QQQ row FMP returned: 2006-11-10; periods before 2007-08-30 show 'no data'.)
-
-Fees 0.20%/0.95%/0.86% a year for 1x/2x/3x; financing 2.5% a year on the borrowed part; trend filter = hold while QQQ > 200-day SMA, else T-bills at the same rate. CAGR per period, max drawdown in brackets.
-
-| Strategy | 1999-2026 (all) | 2000-2002 crash | 2007-2009 crisis | 2010-2018 | 2019-2026 |
-|---|---|---|---|---|---|
-| 1x QQQ | 16.1% (-54%) | no data | -18.3% (-54%) | 15.3% (-23%) | 22.9% (-35%) |
-| 1x QQQ + 200d filter | 12.5% (-25%) | no data | -8.2% (-25%) | 8.1% (-24%) | 19.4% (-22%) |
-| 2x QQQ | 24.2% (-83%) | no data | -43.1% (-83%) | 25.0% (-42%) | 38.3% (-64%) |
-| 2x QQQ + 200d filter | 20.2% (-47%) | no data | -19.0% (-47%) | 11.5% (-43%) | 34.6% (-40%) |
-| 3x QQQ | 27.4% (-95%) | no data | -64.9% (-95%) | 32.6% (-58%) | 47.9% (-82%) |
-| 3x QQQ + 200d filter | 26.1% (-63%) | no data | -29.6% (-63%) | 13.4% (-58%) | 48.0% (-55%) |
-
-Validation 2019→: simulated 2x CAGR 38.3% vs real QLD 37.0%.
-
-Validation 2019→: simulated 3x CAGR 47.9% vs real TQQQ 45.0%.
+## Part D — skipped (no long QQQ history: None)
 
 ## Part B — day track (QQQ 5-min opening-range breakout)
 
-Bar size: 5-minute (1-minute is paywalled on this FMP tier; the paper itself uses the first 5-minute bar). Sessions: 500 (2024-09-30 → 2026-09-28). Cost model: 1¢ per side = 0.011R per round trip at the average OR range (1.90 pts).
+Bar size: 5-minute (1-minute is paywalled on this FMP tier; the paper itself uses the first 5-minute bar). Sessions: 467 (2024-10-01 → 2026-09-30). Cost model: 1¢ per side = 0.011R per round trip at the average OR range (1.90 pts).
 
 | Rules | Trades | Win % | Gross R/trade | Net R/trade | Total net R | Net R excl. best trade | Best trade R |
 |---|---|---|---|---|---|---|---|
-| paper | 499 | 28% | +0.168 | +0.158 | +78.8 | +68.8 | +10.0 |
-| ours | 462 | 29% | +0.063 | +0.053 | +24.3 | +17.3 | +7.1 |
+| paper | 466 | 28% | +0.147 | +0.137 | +63.7 | +53.7 | +10.0 |
+| ours | 431 | 29% | +0.057 | +0.046 | +20.0 | +12.9 | +7.1 |
 
 `paper` = Zarattini & Aziz: stop at the opposite OR extreme, 10R target, else exit at the close. `ours` = docs/day-track-spec.md: body filter, late-entry gate, breakeven at +1R, 1.5×ATR(5-min) trail from +2R, 12:00 chop exit, 15:30 flat.
 
@@ -362,4 +345,14 @@ Dollar scale at this account: a cash-bound QQQ position of ~$2,500 on a typical 
 
 ## Data log
 
-- 1min fetch 2024-09-29..2024-10-03 failed: {'_http_error': 402}
+- 1min fetch 2024-10-01..2024-10-05 failed: None
+- 5min fetch 2024-12-30..2025-01-03 failed: None
+- 5min fetch 2025-01-04..2025-01-08 failed: None
+- 5min fetch 2025-05-19..2025-05-23 failed: None
+- 5min fetch 2025-05-24..2025-05-28 failed: None
+- 5min fetch 2025-10-31..2025-11-04 failed: None
+- 5min fetch 2025-11-05..2025-11-09 failed: None
+- 5min fetch 2026-02-08..2026-02-12 failed: None
+- 5min fetch 2026-02-13..2026-02-17 failed: None
+- 5min fetch 2026-08-12..2026-08-16 failed: None
+- 5min fetch 2026-08-17..2026-08-21 failed: None
