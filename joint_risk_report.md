@@ -1,50 +1,39 @@
-RISK GREEN (0) - SPY dipped under its 50-day at 17:03Z then reclaimed it; no sells, $17.5k margin still open
+RISK GREEN (1) - IEF broke 88.95 (yields up, 10yr 5.33% = highest since 2002); equities holding, no sells triggered
 
-**What fired / changed (as of 17:41Z, 2026-09-29)**
-- New alert: SPY below its 50-day SMA fired at 17:03Z at 762.41. SPY is back at 763.21 vs the 50-day at 762.01 (+0.16%). Live grade is GREEN (0), so this is a watch, not a sell.
-- CRCL health moved WATCH -> WEAK (crossed under its 200-day, -44% off its 1-yr high).
+**Fired since last run (for you to see, no action required at GREEN)**
+- IEF < 88.95: fired 11:15Z at 88.90. IEF now 88.73. Treasuries falling / yields rising.
+- SPY < 50-day: fired 09-30 19:59Z at 762.73, then reversed. SPY now 764.45 vs 50d 762.74 (+0.22%), so only a touch.
 
-**Benchmarks (nearest first)**
-| Alert | Level | Price | Distance |
+**Benchmarks (live 13:41Z)**
+| Alert | Level | Price | Dist |
 |---|---|---|---|
-| SPY < 50-day | 762.01 | 763.21 | +0.16% |
-| IEF < 88.95 | 88.95 | 89.26 | +0.35% |
-| QQQ < 733 | 733 | 736.47 | +0.47% |
-| TIP < 102.85 | 102.85 | 103.92 | +1.04% |
-| HYG < 76.35 | 76.35 | 77.21 | +1.12% |
-| QQQ < 20-day | 721.88 | 736.47 | +2.02% |
-| IEF < 87.35 | 87.35 | 89.26 | +2.19% |
-| KRE < 65.25 | 65.25 | 69.65 | +6.7% |
-| USO > 163.8 | 163.8 | 145.36 | -11.3% |
-| VIXY > 21.15 | 21.15 | 16.80 | -20.6% |
+| IEF below | 88.95 | 88.73 | FIRED |
+| SPY below 50d | 762.74 | 764.45 | +0.22% |
+| HYG below | 76.35 | 76.58 | +0.29% |
+| TIP below | 102.85 | 103.78 | +0.90% |
+| QQQ below | 733 | 742.90 | +1.35% |
+| IEF below | 87.35 | 88.73 | +1.58% |
+| QQQ 20d / 50d | 724.54 / 714.93 | 742.90 | +2.5% / +3.9% |
+| KRE below | 65.25 | 68.71 | +5.3% |
+| SPY below | 729 / 690 | 764.45 | +4.9% / +9.7% |
+| QQQ below | 700 / 666 | 742.90 | +5.8% / +11.5% |
+| USO above | 163.8 | 146.57 | -10.5% |
+| VIXY above | 21.15 | 16.99 | -19.7% |
 
-**Margin:** $17,468 in use (cash -$17,467.56 on $93,432 total). Account is meant to be unlevered; tier is GREEN, so no forced raise.
+**Ladder:** Stage 0, tranche 0. First de-risk level is QQQ 733 (1.35% away).
 
-**LADDER:** No stage reached (QQQ 736.47). Stage 1 at 733 is 0.47% away; 20-day 721.88, 50-day 713.48, floor 700.
+**Margin:** $14,197 in use (was $17,478 yesterday), total value $95,145. Against the 2026-08-05 unlevered decision. No forced sale at GREEN.
 
-**HOLDINGS HEALTH (WEAK, review only at GREEN, no sale recommended)**
-- CRCL (new): under 200-day, -44% off high. Down 8.0% on cost, a loss lot.
-- VST: under 50/200-day, -34% off high, revenue -5% YoY.
-- ADBE: under 50/200-day, -36% off high.
-- CEG: under 50/200-day, -35% off high, net margin 14% -> 7%.
-- FIG: under 50/200-day, -72% off high, net margin 11% -> -30%.
-- CRDO: under 50-day, -36% off high, revenue growth slowing +201% -> +157% -> +115%.
-- LDOS, NOC, LMT: under 50/200-day, -24% to -39% off high.
-- PGR: under 50/200-day, revenue growth slowing +12% -> +9% -> +7%.
-- BMEA: under 50/200-day, -53% off high. APP: under 50/200-day, -58% off high.
-- WATCH: NOW, EME, ACGL, CI, REGN.
+**Holdings health (carried from 09-30, not re-pulled this run):** WEAK review list, no sale recommended at GREEN: VST, CRCL, ADBE, CEG, FIG, CRDO, LDOS*, PGR*, BMEA, LMT*, NOC*, APP. (*not in current positions.) If tier reaches YELLOW these go first. Today CEG +5.9%, ADBE +2.4%, FIG +3.8%, CRDO +2.7% off yesterday's close.
 
-**SELL LIST:** none. No risk action at GREEN, so no news/thesis pass was run. If tier turns YELLOW, sell_plan puts the WEAK names first, and CRCL/VST/CI/BMEA/APP are loss names for harvest.
+**Sell list:** none. Nothing is placed; any trade is for you to place in-app.
 
-**AI CREDIT CRACK WATCH (read only, no trades)**
-- LQD/IEF: 5-day -0.74%, 20-day -0.09%. GREEN (above -0.5%).
-- HYG/IEF: 5-day +0.23%, 20-day +0.51%. GREEN. IEF fell 3.75% over 20 days (yields up well over 15 bps), which flatters this ratio.
-- 10-yr yield ~5.24% on 9/29: CAUTION (RED above 5.25%, one basis point away).
-- News: no pulled, downsized or sub-2x hyperscaler deal turned up. Reports put AI-related IG spreads near 115 bps (CAUTION band) and the Goldman AI datacenter HY basket at 353 bps. Median new-issue concession is about 12 bps. These are general sector reports, not dated to the last 24h, and the widening reads as SUPPLY (heavy issuance), not FUNDAMENTAL, so it does not count toward RED.
-- Divergence: not flagged (QQQ 1.5% below its 25-day high, but LQD/IEF is not RED).
-- Alert log, last 24h: SPY below 50-day SMA, 17:03Z, 762.41.
-- REDs: 0, so no "CRACK WATCH:" flag. Not an earnings week for hyperscalers.
+**AI CREDIT CRACK WATCH (read only)**
+- LQD/IEF: 5d -0.68%, 20d +0.14% = GREEN. HYG/IEF: 5d -0.17%, 20d +0.66% = GREEN (flattered: yields rose >15bp over the period).
+- 10yr yield 5.33% (LSEG, highest since 2002) = **RED** (>5.25%) per [CNBC](https://www.cnbc.com/2026/10/01/us-treasury-bond-yield.html) and [Bloomberg](https://www.bloomberg.com/news/articles/2026-10-01/treasury-10-year-yield-hits-highest-since-2002-on-rate-outlook-mup7ryq2).
+- Hyperscaler credit news: no deal pulled, downsized or sub-2x book found in the last 24h. Background: cover ratios fell from ~5x (Feb) to below 2x (July), median concession 12bp ([Yahoo](https://finance.yahoo.com/markets/stocks/articles/hyperscaler-debt-binge-pushes-yields-134825104.html)); Oracle Project Jupiter force majeure 09-25 ([Axios](https://axios.com/2026/09/25/oracle-debt-data-centers)). AI IG spread ~115bp = CAUTION, SUPPLY-tied (carried, not re-measured today).
+- Divergence: none (QQQ 0.6% under its 25-day high, LQD/IEF not RED).
+- Alerts fired in 24h: IEF <88.95 @88.90 (11:15Z), SPY <50d @762.73 (09-30 19:59Z). RMBS (Quality-watch alert) ignored here.
+- REDs: 1 of 3 checks, so no CRACK WATCH flag. Not an earnings week.
 
-**What moves the tier up or down:** SPY closing under 762 (50-day), QQQ under 733, or IEF under 88.95 would add points. Staying above them keeps GREEN.
-
-Advisory only. Nothing has been placed. Any trade is for you to place in-app.
+**What moves the tier up:** QQQ < 733 (stage 1), SPY < 762.74, HYG < 76.35, IEF < 87.35, TIP < 102.85. Back to a quiet GREEN needs IEF back above 88.95.
