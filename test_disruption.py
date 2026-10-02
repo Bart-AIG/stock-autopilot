@@ -64,6 +64,15 @@ def test_bank_ignores_forward_estimates_and_rate_driven_growth():
     assert out["metrics"]["fwd_growth_pct"] is None
 
 
+def test_boom_unwind_counts_once():
+    # MRNA shape: tiny, then a 300x spike, then most of it gone.
+    revs = [0.2, 0.1, 0.06, 0.8, 18.5, 19.3, 6.8, 3.2, 2.1, 2.0]
+    gms = [0.5, 0.5, 0.5, 0.7, 0.85, 0.82, 0.6, 0.55, 0.5, 0.5]
+    out = d.score(inc(revs, gms), [], "steady")
+    assert any("one-time boom" in e for e in out["evidence"])
+    assert out["label"] != "BEING DISRUPTED" and out["confidence"] == "LOW"
+
+
 def test_notes_move_label_one_step_and_expire():
     q = {"label": "STABLE", "evidence": [], "confidence": "HIGH"}
     today = date(2026, 10, 2)

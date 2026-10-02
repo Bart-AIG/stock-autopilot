@@ -609,6 +609,15 @@ def long_term_accumulation(momentum: list[dict], swing_by_sym: dict,
 VALUE_FETCH_CAP = 40   # bound the per-run valuation fetches for joint candidates
 
 
+def _sleeve_picks() -> list[str]:
+    """This month's SWING_M picks from sleeves_state.json (built each morning)."""
+    try:
+        st = json.loads((Path(__file__).resolve().parent / "sleeves_state.json").read_text(encoding="utf-8"))
+        return [p["symbol"] for p in st.get("picks", []) if p.get("symbol")]
+    except (OSError, ValueError, AttributeError, KeyError, TypeError):
+        return []
+
+
 def _quality_watch_symbols() -> list[str]:
     """Names on the Quality @ 200-day list, so its routine finds them valued."""
     try:
@@ -635,7 +644,7 @@ def build_value_data(momentum: list[dict], swings: list[dict], key: str,
     syms = [r["symbol"] for r in cands[:VALUE_FETCH_CAP]]
     if mode == "morning":
         top = sorted((grades or {}).items(), key=lambda kv: kv[1]["rank"])[:VALUE_TOP_GRADES]
-        syms += [s for s, _ in top] + _quality_watch_symbols()
+        syms += [s for s, _ in top] + _quality_watch_symbols() + _sleeve_picks()
     now = datetime.now(timezone.utc)
     cache = valuation.load_cache()
     rows = valuation.build(syms, key, cache=cache, today=now.strftime("%Y-%m-%d"))
@@ -1093,6 +1102,26 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
 
     # --- Options candidates (sleeve: options) — underlyings only, acted in-session ---
     opts = pick_options_candidates(momentum, grades=grades)
+    # --- SWING_M picks: grade context, DISPLAY ONLY (Ryan's choice 2026-10-02, option B).
+    # The sleeves are mechanical and the standing ban forbids unattended filters, so these
+    # columns never change a pick; they are here so Ryan sees what the sleeve is holding.
+    sleeve_picks = _sleeve_picks()
+    if sleeve_picks:
+        _sn, _vc = disruption.load_notes(), valuation.load_cache()
+        held_m = {p.get("symbol") for p in holdings if p.get("sleeve") == "swing_m"}
+        lines.append("\n## SWING_M picks — grade context (display only, never a filter)")
+        lines.append("This month's top-10 by 12-month return, traded mechanically by the sleeve. The "
+                     "valuation and disruption grades are shown for context only: the tested rules have "
+                     "no such filter and the standing ban forbids adding one without a live Ryan turn "
+                     "(see grades_filter_results.md for the backtest of using them as a filter).\n")
+        lines.append("| Ticker | Held now | Value | Disruption | Why |")
+        lines.append("|---|---|---|---|---|")
+        for sym in sleeve_picks:
+            v = value_data.get(sym) or _vc.get(sym)
+            d = disruption.for_row(v, _sn, now.date())
+            lines.append(f"| {sym} | {'yes' if sym in held_m else 'no'} | {valuation.short(v)} | "
+                         f"{disruption.cell(d)} | {disruption.why(d) or '—'} |")
+
     lines.append("\n## Options candidates (sleeve: options — single-leg LONG)")
     lines.append("Underlyings only, drawn from the quality grade: CALLS on top-graded leaders, PUTS on "
                  "bottom-graded laggards. **Options bucket = 20% of account value, no per-trade cap; paused if "
