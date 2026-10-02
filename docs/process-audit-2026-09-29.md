@@ -462,6 +462,28 @@ Pessimistic CAGR / max DD at 10%, for each stand-in and funding source:
 
 ---
 
+## 17. Valuation and disruption grades as SWING_M filters (added 2026-10-02, `grades_filter_results.md`)
+
+**The question.** Ryan, live turn 2026-10-02: *"lets test C to see if we learn anything interesting"*: would the new valuation grade (`valuation.py`) or disruption grade (`disruption.py`) improve SWING_M if used to skip names?
+
+**Setup.** SWING_M exactly as in `mix_optimizer.py` (monthly top-10 by 12-month return from the 159-name 2018 S&P 100 + Nasdaq 100 pool, SWING_UNION at 1x), 2019-01 to 2026-10. Grades computed **point in time** each month-end by the production functions, from annual statements filed by that date. Not available historically, so left out: analyst forecasts and targets, and research notes. A skipped name is replaced by the next-ranked one, so every variant holds 10.
+
+| Variant | CAGR | Max DD | Sharpe | 2019-22 | 2023-26 |
+|---|---|---|---|---|---|
+| BASE (live rule) | **29.8%** | -21.1% | **1.34** | 27.2% | **33.4%** |
+| skip BEING DISRUPTED | 26.3% | -18.5% | 1.24 | 26.4% | 27.0% |
+| skip AT RISK + BEING DISRUPTED | 27.4% | **-17.9%** | 1.32 | **30.4%** | 25.0% |
+| skip EXPENSIVE | 17.6% | -17.9% | 1.01 | 23.6% | 11.7% |
+| skip RICH + EXPENSIVE | 21.6% | -17.9% | 1.09 | 23.7% | 19.4% |
+| prefer cheapest of top 20 | 23.2% | -18.7% | 1.21 | 21.7% | 25.1% |
+
+**What it says.**
+- **Every filter lowers return.** The valuation filters cost the most (up to 12 points a year). Momentum leaders are almost always expensive against their own history: 643 of 950 picks graded EXPENSIVE. Filtering on that throws away the leaders.
+- **The disruption filters trim drawdown about 3 points but cost 2-4 points a year,** and they are not consistent: skipping AT RISK helped 2019-22 and hurt 2023-26.
+- **Forward returns by grade (next month, top-20 names, n=1,880):** names the quant layer called BEING DISRUPTED returned **+5.1%** on average (n=67), versus +2.1% overall. Many of these are turnarounds the market is re-rating, a sample too small to act on. DEEP VALUE and UNDERVALUED momentum names had the highest hit rates (64-68% positive), but there are too few of them to fill a sleeve.
+
+**Decision input.** Do not add either grade as a SWING_M filter: the tested rule stays. The grades remain what they were built for: context for the joint account, the Quality @ 200-day watch, and a display-only column next to the sleeve picks. Limits: one 7.7-year path, the quant layer only (no forecasts or notes), annual statements standing in for trailing-12-month numbers.
+
 ## 6. Limits of this evidence
 - **Survivorship bias:** the end-2018 pools still lose any names FMP no longer carries (small effect). The A1/A2 universes are heavily hindsight-biased and should not be used for decisions.
 - **One market history:** 2007–2026 is one path, mostly a strong Nasdaq era; 2000–02 is untested. Leveraged Nasdaq in a 2000–02-style decline with repeated whipsaws would be worse than anything shown here.

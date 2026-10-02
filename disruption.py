@@ -143,8 +143,16 @@ def score(income: list[dict], estimates: list[dict], profile: str = "steady",
         cagr_used = None
     else:
         cagr_used = cagr
+    # A one-time boom unwinding (MRNA: COVID vaccines, revenue ~$0.06B -> $18.5B -> ~$2B)
+    # is a spike fading, not a technology replacing the business: shrinkage counts once.
+    pk = rev.index(max(rev))
+    boom = (0 < pk < len(rev) - 1 and max(rev) >= 3 * min(rev[:pk])
+            and rev[-1] <= 0.5 * max(rev))
     if cagr_used is not None:
-        if cagr < 0:
+        if cagr < 0 and boom:
+            threat += 1; ev.append(f"revenue {cagr:+.0%}/yr, unwinding a one-time boom "
+                                   f"(peak {max(rev) / rev[-1]:.0f}x today's)")
+        elif cagr < 0:
             threat += 2; ev.append(f"revenue shrinking {cagr:+.0%}/yr over {span} yrs")
         elif cagr < 0.03:
             threat += 1; ev.append(f"revenue flat ({cagr:+.0%}/yr over {span} yrs)")
@@ -183,6 +191,8 @@ def score(income: list[dict], estimates: list[dict], profile: str = "steady",
                   "with normal margins")
 
     conf = "HIGH" if len(rev) >= 8 and fwd is not None else "MED"
+    if boom and cagr is not None and cagr < 0:
+        conf = "LOW"
     if commodity:
         conf = "LOW"
         ev.append("commodity producer: revenue and margins follow the commodity price, not competitors")
