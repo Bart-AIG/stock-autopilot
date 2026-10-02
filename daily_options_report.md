@@ -1,45 +1,55 @@
-# Daily report — trading day 2026-10-01 (Thursday) — FIRST v16 SLEEVE DAY
+# Daily report — trading day 2026-10-02 (Friday)
 
-*Written by the run that started 19:19Z (2:19 PM CT), invoked with **prompt v16**. This run was also the first decision-window run. All figures are from the broker.*
+*Written by the decision-window run that started 19:19:49Z (15:19:49 ET), invoked with **prompt v16**. All figures come from the broker. Prices are as of 19:20Z, not the close.*
 
 ## 1. Decision window (15:20–15:52 ET)
-- The run started at **15:19:18 ET**, 42 seconds before the window opened. It read the live data and ran `decide()`, then **waited until 15:20:03 ET** and sent every order between **15:20:06 and 15:20:22 ET**.
-- `sleeves_state.json` was fresh: decision_session 2026-10-01, built 19:00Z.
-- Live data as of 19:19:30Z. Total value **$3,288.86**, so the base (95%) is **$3,124.42**.
-- **Every target was on**, because today is the first session of October and the TOM leg runs over the first 3 sessions.
+- `sleeves_state.json` was fresh: decision_session 2026-10-02, built 18:39Z.
+- Live data as of 19:20:06Z. Total value was **$3,330.44**, so the base (95% of it) is **$3,163.92**.
+- `decide()` set every target to **hold through the close**. All 11 were already held. October's first session has passed, so no resize was due. **No orders were placed.**
 
-| Sleeve | Symbol | Legs on | Target | Fill | Shares |
+| Sleeve | Symbol | Legs on | Target | Value now | Unrealized |
 |---|---|---|---|---|---|
-| SWING_Q | **QLD** (QQQ signal) | IBS, TOM | $2,187.09 | 96.4399 | 22.678269 |
-| SWING_M | MRNA | TOM | $93.73 | 191.27 | 0.490040 |
-| SWING_M | MU | TOM | $93.73 | 1087.8917 | 0.086157 |
-| SWING_M | LITE | TOM | $93.73 | 1048.3399 | 0.089408 |
-| SWING_M | DELL | IBS, TOM | $93.73 | 539.65 | 0.173686 |
-| SWING_M | WDC | TOM | $93.73 | 456.8899 | 0.205147 |
-| SWING_M | AMD | TOM | $93.73 | 615.8199 | 0.152203 |
-| SWING_M | INTC | TOM | $93.73 | 120.2563 | 0.779418 |
-| SWING_M | VIAV | TOM | $93.73 | 45.06 | 2.080115 |
-| SWING_M | MRVL | TOM | $93.73 | 266.4581 | 0.351762 |
-| SWING_M | ILMN | TOM | $93.73 | 270.9699 | 0.345905 |
+| SWING_Q | **QLD** (QQQ signal) | IBS, TOM | $2,214.74 | $2,222.70 | +$35.61 (+1.63%) |
+| SWING_M | MRNA | IBS, TOM | $94.92 | $92.76 | −$0.97 |
+| SWING_M | MU | IBS, TOM | $94.92 | $92.54 | −$1.19 |
+| SWING_M | LITE | TOM | $94.92 | $97.01 | +$3.28 |
+| SWING_M | DELL | TOM | $94.92 | $98.14 | +$4.42 |
+| SWING_M | WDC | RSI2, TOM | $94.92 | $85.02 | −$8.70 (−9.29%) |
+| SWING_M | AMD | IBS, TOM | $94.92 | $96.31 | +$2.58 |
+| SWING_M | INTC | IBS, TOM | $94.92 | $93.40 | −$0.33 |
+| SWING_M | VIAV | TOM | $94.92 | $98.11 | +$4.38 |
+| SWING_M | MRVL | TOM | $94.92 | $96.20 | +$2.47 |
+| SWING_M | ILMN | IBS, TOM | $94.92 | $93.76 | +$0.03 |
 
-- QQQ at the decision: px 742.89, IBS 0.788 (on), RSI2 81.2, 5-day SMA 740.32, 200-day SMA 667.91.
-- **Execution fidelity:** 11 of 11 targets were executed exactly as `decide()` printed them, with no partials and no skips. Cash after the buys is **$164.47**, which equals the 5% reserve. **One deviation to note:** the run started 42 s before 15:20 ET, but every order was placed inside the window.
+- QQQ at the decision: price 749.02, IBS 0.212 (on), RSI2 94.2, 5-day SMA 741.06, 200-day SMA 668.60.
+- SWING_M in total is up **+$5.96 (+0.64%)**.
+- **Execution fidelity:** 11 of 11 targets were KEEP, and none was traded. Ten seconds before any decision, the broker showed no orders today, so no other run had already traded.
 
 ## 2. Legacy run-off
-Done. FCX was sold by GRADE EXIT at 14:20Z. DE, ABBV and MRK were sold at 17:02Z on Ryan's live approval, which moved the close-out up from the 10-14 deadline. The legacy book is empty.
+None left. The legacy book was emptied on 10-01.
 
 ## 3. Options
-No positions and no entries (the options bucket is retired).
+No positions and no entries.
 
 ## 4. Growth paper sleeve
-October notional fixed at **$328.89** (10% of $3,288.86). The book is empty. The first weekly research run is **Monday 2026-10-05**, after 10:30 ET.
+The book is empty, so there is nothing to mark. The October notional is $328.89. The first research run is **Monday 10-05**, after 10:30 ET.
 
-## 5. Account vs QQQ
-- **Account:** $3,287.86 at 19:21Z, vs $3,316.28 at the 2026-09-30 start (**−0.86%**). Most of that is the legacy close-out losses taken today.
-- **QQQ:** 742.89 vs 739.71 at the start (**+0.43%**).
-- **Drawdown from the high-water mark** of $3,324.46: **−1.10%**. The thresholds are −20% (notify) and −25% (halt buys).
+## 5. Account vs QQQ (as of 19:20Z)
+- **Today:** QQQ is up **+0.94%** (742.03 → 749.02).
+- **Since the 2026-09-30 start (and month to date):** the account went from $3,316.28 to $3,330.44 (**+0.43%**). QQQ went from 739.71 to 749.02 (**+1.26%**). The gap comes from realized legacy losses on 10-01.
+- **Drawdown from the high-water mark** of $3,367.53: **−1.10%**. The thresholds are −20% (notify Ryan) and −25% (halt new buys).
 
-## 6. Tomorrow
-- **TOM stays on** through 10-05, the third session of October, so every sleeve name should hold through tomorrow's window. The 10-02 window re-runs `decide()`. A symbol sells only if none of its legs is on.
-- Not due tomorrow: the month roll, or any legacy deadline.
-- **Monday 10-05:** the first weekly sleeve scorecard, and the first growth-paper research run.
+## 6. Friday review (week of 09-28)
+- **Realized from the broker:** **−$40.45** on 7 closes, all legacy. TGT +17.64, MRK +6.30, TGT +6.10, FCX −26.07, DE −17.69, ABBV −10.37, MRK −16.36. No sleeve position has closed yet.
+- **Execution fidelity:** there were 2 decision-window runs. Both executed `decide()` exactly as printed.
+  - 10-01: 11 buys, filled 15:20:06–15:20:22 ET.
+  - 10-02: 0 orders, all KEEP.
+  - No window was missed. Both runs started a few seconds before 15:20, but every order was sent inside the window.
+
+## 7. Monday 10-05
+- **TOM stays on** through 10-05, the third session of October, so the window should hold everything again.
+- **WDC also has RSI2 on.** It exits once price closes above its 5-day SMA, which is about 447.
+- **Due:**
+  - the first weekly sleeve scorecard (first run of the day);
+  - the first growth-paper research run (after 10:30 ET).
+- The legacy deadline of 10-14 no longer matters, because the legacy book is empty.
