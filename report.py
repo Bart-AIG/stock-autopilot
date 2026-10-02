@@ -46,6 +46,7 @@ from analyze import (
 )
 import grade as quality
 import valuation
+import disruption
 
 CACHE = LOGS / "history_cache.json"
 
@@ -851,11 +852,15 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     # alert and never part of the ACTION trigger, which stays driven by the Agentic book).
     joint_held = set(load_joint_watch())
     lt_rows = long_term_accumulation(momentum, swing_by_sym, joint_held, held_syms)
-    for r in lt_rows:  # attach the valuation grade (valuation.py) when available
+    dis_notes = disruption.load_notes()
+    for r in lt_rows:  # attach the valuation + disruption grades when available
         r["value"] = value_data.get(r["symbol"], {})
-    # Rank: oversold before dip (the technical signal stays primary), then cheaper vs its
-    # own history first (LOW-confidence grades rank as N/A), then the most oversold RSI14.
+        r["disruption"] = disruption.for_row(r["value"], dis_notes, now.date())
+    # Rank: oversold before dip (the technical signal stays primary), then names NOT
+    # threatened by disruption, then cheaper vs its own history (LOW-confidence valuation
+    # grades rank as N/A), then the most oversold RSI14.
     lt_rows.sort(key=lambda x: (0 if x["signal"].startswith("🟢") else 1,
+                                1 if disruption.threatened(x["disruption"]) else 0,
                                 valuation.rank_tier(x["value"]),
                                 x["rsi14"] if x["rsi14"] is not None else 999))
 
@@ -1009,14 +1014,17 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     if grades:
         top = sorted(grades.items(), key=lambda kv: kv[1]["rank"])[:25]
         lines.append(f"\n## Quality ranking — top 25 of {len(grades)} (A = buyable, B = holdable)")
-        lines.append("Value = valuation grade vs the name's own 10-yr multiples (industry-aware, see "
-                     "legend under the joint section). Display only: it does not change the grade.\n")
-        lines.append("| # | Ticker | Grade | Q | RS vs SPY 3M | Off 52W hi | Value | Traits firing |")
-        lines.append("|---|---|---|---|---|---|---|---|")
+        lines.append("Value = valuation grade vs the name's own 10-yr multiples; Disruption = is the business "
+                     "being disrupted or doing the disrupting (legends under the joint section). Display "
+                     "only: neither changes the grade.\n")
+        lines.append("| # | Ticker | Grade | Q | RS vs SPY 3M | Off 52W hi | Value | Disruption | Traits firing |")
+        lines.append("|---|---|---|---|---|---|---|---|---|")
+        _notes = disruption.load_notes()
         for sym, g in top:
             rs = f"{g['rs_3m_pct']:+.1f}%" if g['rs_3m_pct'] is not None else "—"
             lines.append(f"| {g['rank']} | {sym} | {g['grade']} | {g['score']}/{quality.N_TRAITS} | "
                          f"{rs} | {g['off_high_pct']}% | {valuation.short(value_data.get(sym))} | "
+                         f"{disruption.cell(disruption.for_row(value_data.get(sym), _notes, now.date()))} | "
                          f"{quality.trait_string(g)} |")
 
     lines.append(f"\n## 12-1 momentum ranking (top decile = {n_decile} of {len(momentum)})")
@@ -1042,21 +1050,26 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
         adds = [r for r in lt_rows if r["held_joint"]]
         ideas = [r for r in lt_rows if not r["held_joint"] and not r["held_agentic"]][:10]
         hdr = ("| Signal | Ticker | Theme | Price | RSI14 | RSI2 | vs 20d | vs 50d | mom12-1% "
-               "| Value | Fair | Analysts | Basis |")
-        sep = "|---|---|---|---|---|---|---|---|---|---|---|---|---|"
+               "| Value | Fair | Analysts | Disruption | Basis |")
+        sep = "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"
         def _fmt(x):
             return f"{x:.1f}" if isinstance(x, (int, float)) else "—"
         def _pct(x):
             return f"{x:+.1f}%" if isinstance(x, (int, float)) else "—"
         def _row(r):
             v = r.get("value") or {}
+            d = r.get("disruption")
             basis = v.get("profile", "")
             if v.get("flags"):
                 basis += ": " + "; ".join(v["flags"])
+            if disruption.why(d):
+                basis += " | disruption: " + disruption.why(d)
+            if disruption.value_trap(v, d):
+                basis = "**VALUE TRAP?** " + basis
             return (f"| {r['signal']} | {r['symbol']} | {r['theme']} | {r['price']} | {_fmt(r['rsi14'])} "
                     f"| {_fmt(r['rsi2'])} | {_pct(r['disc_ma20_pct'])} | {_pct(r['disc_ma50_pct'])} "
                     f"| {r['mom_12_1_pct']} | {valuation.short(v)} | {v.get('fair') or '—'} "
-                    f"| {valuation.analyst_cell(v)} | {basis or '—'} |")
+                    f"| {valuation.analyst_cell(v)} | {disruption.cell(d)} | {basis or '—'} |")
         if adds:
             lines.append("**Held in the joint port — ADD / average-in candidates (oversold within their uptrend):**")
             lines.append(hdr); lines.append(sep)
@@ -1068,10 +1081,12 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
         if not adds and not ideas:
             lines.append("_Qualifying names this run are all already held in the Agentic book — nothing new for the joint port._")
         lines.append("\n_The technical screen is the SIGNAL (oversold within an uptrend); the valuation "
-                     "grade says whether the price is cheap for that business. Confirm each with the "
+                     "grade says whether the price is cheap for that business, and the disruption grade says "
+                     "whether the business itself is under threat. Confirm each with the "
                      "news/thesis (HARD RULE 7) before buying: a name can sit below its own history "
                      "because its future really is worse._")
         lines.append("\n" + valuation.LEGEND)
+        lines.append("\n" + disruption.LEGEND)
     else:
         lines.append("_No long-term accumulation signals this run — no qualifying growth name is currently on sale. "
                      "Normal; wait for a pullback._")
