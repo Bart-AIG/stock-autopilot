@@ -1,4 +1,9 @@
-# Routine prompt: "Quality @ 200-day" (v1, 2026-09-30) — PASTE-READY
+# Routine prompt: "Quality @ 200-day" (v1, 2026-09-30; valuation note 2026-10-02) — PASTE-READY
+
+> **2026-10-02:** the valuation grade (`valuation.py`) is wired in through the code, not
+> the prompt: `candidates()` reads `valuation.json` and `report()` prints the Value, Fair
+> and Analysts columns. The stored v1 prompt keeps working unchanged; the text below
+> only documents it (step 3). Re-pasting is optional.
 
 Ryan, live turn 2026-09-30: *"I want to make a new routine to check for highly graded
 equities below their 200 day moving average or very close to it then I get alerted. Maybe
@@ -54,10 +59,16 @@ EACH RUN:
      nothing for that name; it is scored "consistency unverified", never dropped.
 
 3) SELECT: cands = quality_watch.candidates(rows, fins)
+   (candidates() reads valuation.json from master by itself: the valuation grade built
+   each morning by report.py. No extra call needed. A name not valued yet shows "—" and
+   ranks neutral.)
            plan  = quality_watch.plan_alerts(cands, state.managed_alerts)
-   Each candidate carries rank (#1..n), grade (A+ = 8/8, A = 7/8) and composite (0-100,
-   capped blend of growth, margins, ROE). Rank = grade, then composite, then closeness
-   to the line. Alerts go to the first 15 by rank, max 3 per industry group (gold
+   Each candidate carries rank (#1..n), grade (A+ = 8/8, A = 7/8), value (valuation
+   grade: DEEP VALUE / UNDERVALUED / FAIR / RICH / EXPENSIVE with the % gap to fair
+   value vs the stock's own 10-yr multiples, chosen by industry, plus confidence and the
+   analyst median target) and composite (0-100, capped blend of growth, margins, ROE).
+   Rank = grade, then valuation tier (cheaper first; LOW confidence counts as neutral),
+   then composite, then closeness to the line. Alerts go to the first 15 by rank, max 3 per industry group (gold
    miners crowded out everything else on day 1).
 
 4) ALERTS — touch ONLY alerts listed in state.managed_alerts. Never Ryan's own.
