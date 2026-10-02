@@ -16,6 +16,7 @@ data with the Robinhood connector and calls these.
 """
 from __future__ import annotations
 
+import disruption
 import valuation
 
 # Price band around the 200-day SMA, as price / sma200 - 1.
@@ -169,7 +170,7 @@ def letter(score: int) -> str:
 
 
 def candidates(rows: list[dict], fins: dict[str, list] | None = None,
-               vals: dict[str, dict] | None = None) -> list[dict]:
+               vals: dict[str, dict] | None = None, notes: dict[str, dict] | None = None) -> list[dict]:
     """rows = [from_scan(r) ...]. Keeps names in the 200-day band scoring
     >= MIN_QUALITY and drops a second share class of the same company (GOOG/GOOGL,
     HEI/HEI.A: same name, keep the one nearer the line). Ranked by integer score,
@@ -177,9 +178,15 @@ def candidates(rows: list[dict], fins: dict[str, list] | None = None,
     live turn), then the composite, then closeness to the line; each gets rank, grade,
     composite and value.
     vals = {sym: valuation.value() dict}; None reads valuation.json (built each morning
-    by report.py). A name not valued yet ranks as N/A: never promoted, never dropped."""
+    by report.py). A name not valued yet ranks as N/A: never promoted, never dropped.
+    Each name also carries its disruption grade (disruption.py, quant from valuation.json
+    plus any fresh research note from disruption_notes.json; notes=None reads that file).
+    Within a quality grade, names AT RISK / BEING DISRUPTED rank after the rest, ahead of
+    the valuation tier: a cheap stock whose business is under threat is a value trap."""
     if vals is None:
         vals = valuation.load_cache()
+    if notes is None:
+        notes = disruption.load_notes()
     out, seen = [], set()
     for r in sorted(rows, key=lambda x: abs(x["dist"]) if x.get("dist") is not None else 9):
         if not in_band(r):
@@ -200,9 +207,10 @@ def candidates(rows: list[dict], fins: dict[str, list] | None = None,
                     "quality": q["score"], "grade": letter(q["score"]),
                     "composite": composite(r), "quality_flags": q["flags"],
                     "value": vals.get(r["symbol"]),
+                    "disruption": disruption.for_row(vals.get(r["symbol"]), notes),
                     "alert": TOUCH if d > 0 else RECLAIM})
-    out.sort(key=lambda c: (-c["quality"], valuation.rank_tier(c["value"]),
-                            -c["composite"], abs(c["dist"])))
+    out.sort(key=lambda c: (-c["quality"], 1 if disruption.threatened(c["disruption"]) else 0,
+                            valuation.rank_tier(c["value"]), -c["composite"], abs(c["dist"])))
     for i, c in enumerate(out, 1):
         c["rank"] = i
     return out
@@ -250,20 +258,27 @@ def report(cands: list[dict], plan: dict, asof: str, new_syms: set[str]) -> str:
              f"+{BAND_ABOVE:.0%} vs the 200-day SMA. Rank = grade, then Comp (0-100 blend of growth, margins and "
              "ROE, capped so one outlier can't dominate), then distance to the line. "
              "Value = valuation grade vs the stock's own 10-year multiples (positive = undervalued "
-             "by that much); within a grade, cheaper names rank first.", ""]
+             "by that much). Disruption = is the business being disrupted or doing the disrupting. "
+             "Within a grade, names not under threat rank first, then cheaper names.", ""]
     if not cands:
         lines.append("No high-quality names are near their 200-day right now.")
     else:
         alerted = {c["symbol"] for c in alert_set(cands)}
-        lines += ["| # | Ticker | Grade | Q | Value | Fair | Analysts | Comp | Sector | Zone | Price | 200-day | Dist | 200d slope | Alert | Why |",
-                  "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+        lines += ["| # | Ticker | Grade | Q | Value | Fair | Analysts | Disruption | Comp | Sector | Zone | Price | 200-day | Dist | 200d slope | Alert | Why |",
+                  "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for c in cands:
             tag = " (new)" if c["symbol"] in new_syms else ""
             alert = ("touch" if c["alert"] == TOUCH else "reclaim") if c["symbol"] in alerted else "-"
             v = c.get("value") or {}
+            dz = c.get("disruption")
             why = c["quality_flags"] + [f"value: {f}" for f in v.get("flags", [])]
+            if disruption.why(dz):
+                why.append("disruption: " + disruption.why(dz))
+            if disruption.value_trap(v, dz):
+                why.insert(0, "**VALUE TRAP?**")
             lines.append(f"| {c['rank']} | {c['symbol']}{tag} | {c['grade']} | {c['quality']}/8 | "
                          f"{valuation.short(v)} | {v.get('fair') or '—'} | {valuation.analyst_cell(v)} | "
+                         f"{disruption.cell(dz)} | "
                          f"{c['composite']:.0f} | "
                          f"{c.get('sector') or ''} | {c['zone']} | {c['price']} | {c['sma200']} | "
                          f"{c['dist_pct']:+.1f}% | { {True: 'rising', False: 'FALLING'}.get(c['sma200_rising'], '?') } | "
@@ -275,5 +290,5 @@ def report(cands: list[dict], plan: dict, asof: str, new_syms: set[str]) -> str:
               "", "A FALLING 200-day means the long-term trend itself is rolling over: a touch "
               "there is weaker evidence than a touch of a rising line. Every name still needs "
               "the news/thesis check before a buy; '—' in Value = not valued yet (next morning's "
-              "report run values it).", "", valuation.LEGEND]
+              "report run values it).", "", valuation.LEGEND, "", disruption.LEGEND]
     return "\n".join(lines) + "\n"

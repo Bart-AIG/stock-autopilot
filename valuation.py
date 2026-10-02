@@ -57,6 +57,8 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+import disruption
+
 HERE = Path(__file__).resolve().parent
 CACHE_FILE = HERE / "valuation.json"
 BASE = "https://financialmodelingprep.com/stable"
@@ -350,6 +352,10 @@ def fetch_inputs(sym: str, key: str, pause: float = 0.2) -> dict | None:
     ra = _get(f"ratios?symbol={sym}&period=annual&limit=10", key) or []; time.sleep(pause)
     ka = _get(f"key-metrics?symbol={sym}&period=annual&limit=10", key) or []; time.sleep(pause)
     pt = first(_get(f"price-target-consensus?symbol={sym}", key)); time.sleep(pause)
+    # For the disruption grade (disruption.py): 10 yrs of revenue / gross margin / R&D
+    # and analysts' forward revenue.
+    inc = _get(f"income-statement?symbol={sym}&period=annual&limit=10", key) or []; time.sleep(pause)
+    est = _get(f"analyst-estimates?symbol={sym}&period=annual&limit=10", key) or []; time.sleep(pause)
     by_year = {}
     for r in (ra if isinstance(ra, list) else []) + (ka if isinstance(ka, list) else []):
         if isinstance(r, dict) and r.get("fiscalYear"):
@@ -360,22 +366,26 @@ def fetch_inputs(sym: str, key: str, pause: float = 0.2) -> dict | None:
     return {"symbol": sym, "sector": prof.get("sector"), "industry": prof.get("industry"),
             "price": prof.get("price"), "mcap": kt.get("marketCap") or prof.get("marketCap"),
             "ev": kt.get("enterpriseValueTTM"), "ttm": ttm, "annual": list(by_year.values()),
-            "target_median": pt.get("targetMedian") or pt.get("targetConsensus")}
+            "target_median": pt.get("targetMedian") or pt.get("targetConsensus"),
+            "income": inc if isinstance(inc, list) else [],
+            "estimates": est if isinstance(est, list) else []}
 
 
 def build(symbols, key: str, cache: dict | None = None, today: str | None = None) -> dict:
-    """Value each symbol, reusing today's cached rows. Returns {sym: value dict}."""
+    """Value each symbol (and attach its quant disruption grade under "disruption"),
+    reusing today's cached rows. Returns {sym: value dict}."""
     cache = cache or {}
     out = {}
     for sym in dict.fromkeys(s for s in symbols if s):
         row = cache.get(sym)
-        if row and today and row.get("asof") == today:
+        if row and today and row.get("asof") == today and "disruption" in row:
             out[sym] = row
             continue
         inp = fetch_inputs(sym, key)
         if inp is None:
             continue
         v = value(inp)
+        v["disruption"] = disruption.score(inp["income"], inp["estimates"], v["profile"], v)
         v["asof"] = today
         out[sym] = v
     return out
@@ -405,7 +415,9 @@ if __name__ == "__main__":   # python valuation.py NUE GOOGL JPM ... (needs FMP_
         if not v:
             print(s, "no data")
             continue
-        print(f"{s:6} {v['profile']:9} {short(v):28} fair {v['fair']} vs {v['price']} | "
+        d = disruption.score(i["income"], i["estimates"], v["profile"], v)
+        print(f"{s:6} {d['label']:16} T{d['threat']} I{d['innovator']} {'; '.join(d['evidence'])}")
+        print(f"{'':6} {v['profile']:9} {short(v):28} fair {v['fair']} vs {v['price']} | "
               f"analysts {analyst_cell(v)} | " + "; ".join(
                   f"{m['metric']} {m['now']} vs {m['median_10y']}" for m in v["metrics"])
               + (" | " + "; ".join(v["flags"]) if v["flags"] else ""))
