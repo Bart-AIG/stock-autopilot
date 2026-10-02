@@ -199,6 +199,9 @@ jobs:
           git config user.name 'stock-autopilot-bot'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add "latest_${{ steps.m.outputs.mode }}.md"
+          # valuation.json: the valuation grade cache (valuation.py). The Quality @ 200-day
+          # routine reads it from master, so it must be committed with the report.
+          [ -f valuation.json ] && git add valuation.json
           git commit -m "report: ${{ steps.m.outputs.mode }} $(date -u +%Y-%m-%dT%H:%MZ)" || echo "no change to commit"
           # A trading session may have pushed (e.g. holdings.json) while this run
           # was in flight — rebase on top so the push doesn't get rejected.
@@ -237,12 +240,16 @@ jobs:
               exit 0
             fi
             if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ]; then
-              echo "rebase conflicted; resolving $REPORT in favour of this run's board"
-              if git checkout --theirs -- "$REPORT" 2>/dev/null; then
-                git add "$REPORT"
+              # Both generated files resolve to THIS run's copy (valuation.json is
+              # rebuilt from the cache each run, so the newer one is a superset).
+              CONFLICTED="$(git diff --name-only --diff-filter=U)"
+              OTHER="$(echo "$CONFLICTED" | grep -vxF -e "$REPORT" -e valuation.json || true)"
+              if [ -n "$CONFLICTED" ] && [ -z "$OTHER" ]; then
+                echo "rebase conflicted on: $CONFLICTED; resolving in favour of this run"
+                for f in $CONFLICTED; do git checkout --theirs -- "$f" && git add "$f"; done
                 GIT_EDITOR=true git rebase --continue || git rebase --abort
               else
-                echo "conflict is not confined to $REPORT; aborting rebase"
+                echo "conflict is not confined to $REPORT / valuation.json; aborting rebase"
                 git rebase --abort
               fi
             fi

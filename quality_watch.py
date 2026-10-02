@@ -16,6 +16,8 @@ data with the Robinhood connector and calls these.
 """
 from __future__ import annotations
 
+import valuation
+
 # Price band around the 200-day SMA, as price / sma200 - 1.
 BAND_ABOVE = 0.05    # up to 5% above: "approaching" -> alert when it touches
 BAND_BELOW = -0.08   # down to 8% below: "at/under" -> alert when it reclaims
@@ -166,11 +168,18 @@ def letter(score: int) -> str:
     return "A+" if score >= 8 else ("A" if score >= 7 else "B" if score >= 5 else "C")
 
 
-def candidates(rows: list[dict], fins: dict[str, list] | None = None) -> list[dict]:
+def candidates(rows: list[dict], fins: dict[str, list] | None = None,
+               vals: dict[str, dict] | None = None) -> list[dict]:
     """rows = [from_scan(r) ...]. Keeps names in the 200-day band scoring
     >= MIN_QUALITY and drops a second share class of the same company (GOOG/GOOGL,
     HEI/HEI.A: same name, keep the one nearer the line). Ranked by integer score,
-    then the composite, then closeness to the line; each gets rank, grade, composite."""
+    then the VALUATION tier (cheaper vs its own history first; added 2026-10-02, Ryan's
+    live turn), then the composite, then closeness to the line; each gets rank, grade,
+    composite and value.
+    vals = {sym: valuation.value() dict}; None reads valuation.json (built each morning
+    by report.py). A name not valued yet ranks as N/A: never promoted, never dropped."""
+    if vals is None:
+        vals = valuation.load_cache()
     out, seen = [], set()
     for r in sorted(rows, key=lambda x: abs(x["dist"]) if x.get("dist") is not None else 9):
         if not in_band(r):
@@ -190,8 +199,10 @@ def candidates(rows: list[dict], fins: dict[str, list] | None = None) -> list[di
                     "group": r.get("group"), "sector": r.get("sector"),
                     "quality": q["score"], "grade": letter(q["score"]),
                     "composite": composite(r), "quality_flags": q["flags"],
+                    "value": vals.get(r["symbol"]),
                     "alert": TOUCH if d > 0 else RECLAIM})
-    out.sort(key=lambda c: (-c["quality"], -c["composite"], abs(c["dist"])))
+    out.sort(key=lambda c: (-c["quality"], valuation.rank_tier(c["value"]),
+                            -c["composite"], abs(c["dist"])))
     for i, c in enumerate(out, 1):
         c["rank"] = i
     return out
@@ -237,25 +248,32 @@ def report(cands: list[dict], plan: dict, asof: str, new_syms: set[str]) -> str:
     lines = [head, "", f"As of {asof}. Joint account, advisory only. Quality = business "
              f"score >= {MIN_QUALITY}/8 (growth, margins, ROE, free cash flow); band = {BAND_BELOW:.0%} to "
              f"+{BAND_ABOVE:.0%} vs the 200-day SMA. Rank = grade, then Comp (0-100 blend of growth, margins and "
-             "ROE, capped so one outlier can't dominate), then distance to the line.", ""]
+             "ROE, capped so one outlier can't dominate), then distance to the line. "
+             "Value = valuation grade vs the stock's own 10-year multiples (positive = undervalued "
+             "by that much); within a grade, cheaper names rank first.", ""]
     if not cands:
         lines.append("No high-quality names are near their 200-day right now.")
     else:
         alerted = {c["symbol"] for c in alert_set(cands)}
-        lines += ["| # | Ticker | Grade | Q | Comp | Sector | Zone | Price | 200-day | Dist | 200d slope | Alert | Why |",
-                  "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+        lines += ["| # | Ticker | Grade | Q | Value | Fair | Analysts | Comp | Sector | Zone | Price | 200-day | Dist | 200d slope | Alert | Why |",
+                  "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for c in cands:
             tag = " (new)" if c["symbol"] in new_syms else ""
             alert = ("touch" if c["alert"] == TOUCH else "reclaim") if c["symbol"] in alerted else "-"
-            lines.append(f"| {c['rank']} | {c['symbol']}{tag} | {c['grade']} | {c['quality']}/8 | {c['composite']:.0f} | "
+            v = c.get("value") or {}
+            why = c["quality_flags"] + [f"value: {f}" for f in v.get("flags", [])]
+            lines.append(f"| {c['rank']} | {c['symbol']}{tag} | {c['grade']} | {c['quality']}/8 | "
+                         f"{valuation.short(v)} | {v.get('fair') or '—'} | {valuation.analyst_cell(v)} | "
+                         f"{c['composite']:.0f} | "
                          f"{c.get('sector') or ''} | {c['zone']} | {c['price']} | {c['sma200']} | "
                          f"{c['dist_pct']:+.1f}% | { {True: 'rising', False: 'FALLING'}.get(c['sma200_rising'], '?') } | "
-                         f"{alert} | {', '.join(c['quality_flags'])} |")
+                         f"{alert} | {', '.join(why)} |")
     lines += ["", f"Robinhood alerts: {len(plan['create'])} created, {len(plan['delete'])} removed, "
               f"{len(plan['keep'])} kept (touch = price drops through the 200-day; reclaim = "
               "price gets back above it). Max {MAX_ALERTS}, at most {MAX_PER_GROUP} per industry "
               "group; '-' = qualifies but no slot.",
               "", "A FALLING 200-day means the long-term trend itself is rolling over: a touch "
               "there is weaker evidence than a touch of a rising line. Every name still needs "
-              "the news/thesis check and a valuation look before a buy."]
+              "the news/thesis check before a buy; '—' in Value = not valued yet (next morning's "
+              "report run values it).", "", valuation.LEGEND]
     return "\n".join(lines) + "\n"

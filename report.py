@@ -42,9 +42,10 @@ from pathlib import Path
 from analyze import (
     AI_COMPLEX, BASE, LOGS, MIN_PRICE, SPECULATIVE, UNIVERSE,
     analyze as momentum_analyze,
-    compute_rsi, fmp_earnings_calendar, fmp_fundamentals, fmp_history, load_api_key, theme_of,
+    compute_rsi, fmp_earnings_calendar, fmp_history, load_api_key, theme_of,
 )
 import grade as quality
+import valuation
 
 CACHE = LOGS / "history_cache.json"
 
@@ -551,7 +552,7 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
 # Long-term accumulation (joint port) thresholds. The PRIMARY signal is TECHNICAL —
 # a confirmed long-term uptrend (price > rising 200-day MA + positive 12-1 momentum)
 # currently OVERSOLD / pulled back on the technicals (RSI + moving averages). The
-# fundamental snapshot (P/E, P/FCF, PEG) is SECONDARY context, not the headline read.
+# valuation grade (valuation.py) is the second read: cheap vs its own history, by how much.
 LT_RSI_VALUE = 45.0      # RSI14 <= this = pulled back enough to be an accumulation entry
 LT_MA50_BAND = 1.01      # price at/under 50-day MA * this = "on sale" within the uptrend
 LT_RSI_OVERSOLD = 35.0   # RSI14 <= this (or RSI2 < 10) = genuinely oversold, not just a mild dip
@@ -573,8 +574,8 @@ def long_term_accumulation(momentum: list[dict], swing_by_sym: dict,
     50-day MA, OR RSI14 in a value zone (<=45). Candidates are RANKED by how oversold they
     are (RSI + distance below the moving averages), so the most washed-out dips surface first.
 
-    The technicals identify the oversold/undervalued entry; the fundamental snapshot
-    (P/E, P/FCF, PEG) is attached later as SECONDARY context, not the headline verdict."""
+    The technicals identify the oversold entry; the valuation grade (valuation.py, vs the
+    name's own 10-yr multiples, industry-aware) is attached later and breaks ties."""
     rows = []
     for r in momentum:  # momentum rows carry mom_12_1, rsi14, ma50/ma200, above_ma200, close
         sym = r["symbol"]
@@ -604,46 +605,44 @@ def long_term_accumulation(momentum: list[dict], swing_by_sym: dict,
     return rows
 
 
-# Fundamental VALUE lens (Phase 2). Rough thresholds — a transparent flag, not a model.
-# PEG is the PRIMARY read (P/E ÷ growth): ≤1.5 reasonably priced for the growth, >3 rich.
-# P/FCF is a FALLBACK only when PEG isn't meaningful (missing, or ≤0 = declining earnings),
-# because P/FCF is capex-distorted — e.g. a heavy-capex name (GOOGL) can show a high P/FCF
-# while its PEG says it's fairly priced. ≤25 cheap / >45 rich on the fallback.
-VALUE_FETCH_CAP = 40   # bound the per-run fundamentals calls (candidate list is small anyway)
+VALUE_FETCH_CAP = 40   # bound the per-run valuation fetches for joint candidates
 
 
-def value_verdict(f: dict) -> str:
-    """One-word value read from the TTM fundamentals. PEG-primary, P/FCF fallback. '' when no data."""
-    if not f:
-        return ""
-    peg, pfcf = f.get("peg"), f.get("pfcf")
-    if peg is not None and peg > 0:          # PEG is the cleaner 'value for growth' signal
-        if peg <= 1.5:
-            return "✅ value"
-        return "⚠️ rich" if peg > 3 else "—"
-    if pfcf is not None and pfcf > 0:        # fall back to P/FCF when PEG isn't meaningful
-        if pfcf <= 25:
-            return "✅ value"
-        return "⚠️ rich" if pfcf > 45 else "—"
-    return "—"
+def _quality_watch_symbols() -> list[str]:
+    """Names on the Quality @ 200-day list, so its routine finds them valued."""
+    try:
+        return json.loads((Path(__file__).resolve().parent / "quality_watch_state.json")
+                          .read_text(encoding="utf-8")).get("candidates", [])
+    except (OSError, ValueError, AttributeError):
+        return []
 
 
-def build_value_data(momentum: list[dict], swings: list[dict], key: str) -> dict:
-    """Fetch the TTM valuation snapshot (P/E, P/FCF, PEG) for the long-term (joint)
-    accumulation candidates ONLY — a small set (the names that pass the price gate),
-    so the extra fundamentals calls stay tiny. Degrades to {} per name if the data
-    tier doesn't expose the endpoint (the screen then runs price-only)."""
+VALUE_TOP_GRADES = 25   # the quality-ranking table's rows also get a valuation column
+
+
+def build_value_data(momentum: list[dict], swings: list[dict], key: str,
+                     grades: dict | None = None, mode: str = "morning") -> dict:
+    """Valuation grade (valuation.py) for the names the report shows it on:
+    joint accumulation candidates, the top of the quality ranking (morning), and the
+    Quality @ 200-day watch list (morning). Rows valued earlier today are reused from
+    valuation.json, so intraday runs only fetch new joint candidates. Saves the cache.
+    Returns {sym: valuation dict}; a name FMP can't value is simply absent."""
     swing_by_sym = {s["symbol"]: s for s in swings}
     joint_held = set(load_joint_watch())
     agentic_held = {p.get("symbol") for p in load_holdings()}
     cands = long_term_accumulation(momentum, swing_by_sym, joint_held, agentic_held)
-    out = {}
-    for r in cands[:VALUE_FETCH_CAP]:
-        f = fmp_fundamentals(r["symbol"], key)
-        if f:
-            out[r["symbol"]] = f
-        time.sleep(0.2)
-    return out
+    syms = [r["symbol"] for r in cands[:VALUE_FETCH_CAP]]
+    if mode == "morning":
+        top = sorted((grades or {}).items(), key=lambda kv: kv[1]["rank"])[:VALUE_TOP_GRADES]
+        syms += [s for s, _ in top] + _quality_watch_symbols()
+    now = datetime.now(timezone.utc)
+    cache = valuation.load_cache()
+    rows = valuation.build(syms, key, cache=cache, today=now.strftime("%Y-%m-%d"))
+    try:
+        valuation.save_cache({**cache, **rows}, now.strftime("%Y-%m-%dT%H:%MZ"))
+    except OSError:
+        pass
+    return rows
 
 
 def _load_fresh_cache(key: str) -> dict:
@@ -852,8 +851,13 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     # alert and never part of the ACTION trigger, which stays driven by the Agentic book).
     joint_held = set(load_joint_watch())
     lt_rows = long_term_accumulation(momentum, swing_by_sym, joint_held, held_syms)
-    for r in lt_rows:  # attach the fundamental value snapshot (Phase 2) when available
+    for r in lt_rows:  # attach the valuation grade (valuation.py) when available
         r["value"] = value_data.get(r["symbol"], {})
+    # Rank: oversold before dip (the technical signal stays primary), then cheaper vs its
+    # own history first (LOW-confidence grades rank as N/A), then the most oversold RSI14.
+    lt_rows.sort(key=lambda x: (0 if x["signal"].startswith("🟢") else 1,
+                                valuation.rank_tier(x["value"]),
+                                x["rsi14"] if x["rsi14"] is not None else 999))
 
     action = ("ACTION" if (setups or sells or time_stops or grade_exits or trailing or monitor_trails)
               else "NO ACTION (swing); momentum is informational")
@@ -1005,14 +1009,15 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
     if grades:
         top = sorted(grades.items(), key=lambda kv: kv[1]["rank"])[:25]
         lines.append(f"\n## Quality ranking — top 25 of {len(grades)} (A = buyable, B = holdable)")
-        lines.append("| # | Ticker | Grade | Q | RS vs SPY 3M | Off 52W hi | Traits firing |")
-        lines.append("|---|---|---|---|---|---|---|")
+        lines.append("Value = valuation grade vs the name's own 10-yr multiples (industry-aware, see "
+                     "legend under the joint section). Display only: it does not change the grade.\n")
+        lines.append("| # | Ticker | Grade | Q | RS vs SPY 3M | Off 52W hi | Value | Traits firing |")
+        lines.append("|---|---|---|---|---|---|---|---|")
         for sym, g in top:
+            rs = f"{g['rs_3m_pct']:+.1f}%" if g['rs_3m_pct'] is not None else "—"
             lines.append(f"| {g['rank']} | {sym} | {g['grade']} | {g['score']}/{quality.N_TRAITS} | "
-                         f"{g['rs_3m_pct']:+.1f}% | {g['off_high_pct']}% | {quality.trait_string(g)} |"
-                         if g['rs_3m_pct'] is not None else
-                         f"| {g['rank']} | {sym} | {g['grade']} | {g['score']}/{quality.N_TRAITS} | — | "
-                         f"{g['off_high_pct']}% | {quality.trait_string(g)} |")
+                         f"{rs} | {g['off_high_pct']}% | {valuation.short(value_data.get(sym))} | "
+                         f"{quality.trait_string(g)} |")
 
     lines.append(f"\n## 12-1 momentum ranking (top decile = {n_decile} of {len(momentum)})")
     lines.append("Multi-week / monthly trend holds. Rebalance on a monthly cadence, not daily.\n")
@@ -1030,24 +1035,28 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
                  "TECHNICAL:** a confirmed long-term uptrend (price above a RISING 200-day MA + positive "
                  "12-1 momentum) that is **oversold / pulled back** on the technicals (RSI + moving "
                  "averages), ranked most-oversold first. **Signal:** 🟢 oversold (RSI14 ≤ 35 or RSI2 < 10) "
-                 "/ 🟡 dip. The P/E, P/FCF, PEG columns are **secondary value context** — not the "
-                 "headline read (Val: ✅ cheap-for-growth / ⚠️ rich / — / blank = no data).\n")
+                 "/ 🟡 dip. **Value** = the valuation grade: how far the price sits from what the "
+                 "name's own 10-year multiples imply (positive = undervalued by that much), with the "
+                 "multiples chosen for its industry. Within each signal tier, cheaper names rank first.\n")
     if lt_rows:
         adds = [r for r in lt_rows if r["held_joint"]]
         ideas = [r for r in lt_rows if not r["held_joint"] and not r["held_agentic"]][:10]
         hdr = ("| Signal | Ticker | Theme | Price | RSI14 | RSI2 | vs 20d | vs 50d | mom12-1% "
-               "| P/E | P/FCF | PEG | Val |")
+               "| Value | Fair | Analysts | Basis |")
         sep = "|---|---|---|---|---|---|---|---|---|---|---|---|---|"
         def _fmt(x):
             return f"{x:.1f}" if isinstance(x, (int, float)) else "—"
         def _pct(x):
             return f"{x:+.1f}%" if isinstance(x, (int, float)) else "—"
         def _row(r):
-            f = r.get("value") or {}
+            v = r.get("value") or {}
+            basis = v.get("profile", "")
+            if v.get("flags"):
+                basis += ": " + "; ".join(v["flags"])
             return (f"| {r['signal']} | {r['symbol']} | {r['theme']} | {r['price']} | {_fmt(r['rsi14'])} "
                     f"| {_fmt(r['rsi2'])} | {_pct(r['disc_ma20_pct'])} | {_pct(r['disc_ma50_pct'])} "
-                    f"| {r['mom_12_1_pct']} | {_fmt(f.get('pe'))} | {_fmt(f.get('pfcf'))} "
-                    f"| {_fmt(f.get('peg'))} | {value_verdict(f)} |")
+                    f"| {r['mom_12_1_pct']} | {valuation.short(v)} | {v.get('fair') or '—'} "
+                    f"| {valuation.analyst_cell(v)} | {basis or '—'} |")
         if adds:
             lines.append("**Held in the joint port — ADD / average-in candidates (oversold within their uptrend):**")
             lines.append(hdr); lines.append(sep)
@@ -1058,9 +1067,11 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
             lines.extend(_row(r) for r in ideas)
         if not adds and not ideas:
             lines.append("_Qualifying names this run are all already held in the Agentic book — nothing new for the joint port._")
-        lines.append("\n_The technical screen is the SIGNAL (oversold within an uptrend); the value columns "
-                     "are context. Confirm each with the news/thesis (HARD RULE 7) and a real valuation "
-                     "before buying — an oversold name can keep falling if the thesis is broken._")
+        lines.append("\n_The technical screen is the SIGNAL (oversold within an uptrend); the valuation "
+                     "grade says whether the price is cheap for that business. Confirm each with the "
+                     "news/thesis (HARD RULE 7) before buying: a name can sit below its own history "
+                     "because its future really is worse._")
+        lines.append("\n" + valuation.LEGEND)
     else:
         lines.append("_No long-term accumulation signals this run — no qualifying growth name is currently on sale. "
                      "Normal; wait for a pullback._")
@@ -1151,8 +1162,8 @@ def main() -> None:
     setups = [s for s in swings
               if s["symbol"] in eligible and s["price"] >= MIN_PRICE
               and quality.pullback_trigger(grades[s["symbol"]], s["price"], s["rsi2"])]
-    # Phase 2 value lens: fetch TTM fundamentals for the joint long-term candidates only.
-    value_data = build_value_data(momentum, swings, key) if momentum else {}
+    # Valuation grade (valuation.py): industry-aware, vs each name's own 10-yr history.
+    value_data = build_value_data(momentum, swings, key, grades, args.mode) if momentum else {}
     # Earnings gate for the swing setups: ONE market-wide call, only when there are
     # setups to gate. {} on any failure -> the screen degrades to earnings-blind.
     earnings_cal = (fmp_earnings_calendar(key, days=EARNINGS_BLACKOUT_DAYS + 7)
