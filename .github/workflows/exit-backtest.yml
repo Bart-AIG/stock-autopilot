@@ -1,0 +1,50 @@
+name: Exit backtest
+
+# Runs exit_backtest.py on GitHub's runners (the only place with the FMP key) and
+# commits exit_results.md back to the branch that triggered it. Read-only
+# analysis: it never touches the ledger, the reports or any account.
+#
+# Fires on a push to a claude/* branch that changes backtest.py or this file,
+# or from the Actions tab (workflow_dispatch, once this file is on master).
+
+on:
+  push:
+    branches: ['claude/**', '!claude/joint-risk-watch**', '!claude/quality-watch**']  # advisory routines never trigger research jobs
+    paths: ['exit_backtest.py', '.github/workflows/exit-backtest.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: exit-backtest-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Run backtest
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+        run: python exit_backtest.py
+      - name: Upload data + results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: exit-backtest
+          path: |
+            exit_results.md
+          if-no-files-found: warn
+      - name: Commit results to the branch
+        run: |
+          git config user.name 'stock-autopilot-bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add exit_results.md
+          git commit -m "exit: results $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3; do git pull --rebase --quiet && git push && break; sleep 5; done
