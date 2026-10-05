@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: read
+  issues: write    # fallback: open an issue if the ntfy push fails
 
 concurrency:
   group: quality-watch-notify
@@ -24,21 +25,14 @@ jobs:
         with:
           ref: master
       - name: Send report
+        env:
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          python3 - << 'PY'
-          import subprocess
-          body = open('quality_watch_report.md', encoding='utf-8').read()
-          first = body.splitlines()[0].lstrip('# ').strip() if body.strip() else 'Quality @ 200-day update'
-          prio = 'default'
-          url = 'https://github.com/Bart-AIG/stock-autopilot/blob/master/quality_watch_report.md'
-          if len(body.encode()) > 3800:
-              body = body.encode()[:3700].decode(errors='ignore') + '\n... full report: ' + url
-          r = subprocess.run(['curl', '-sS', '-w', '\n__HTTP__%{http_code}',
-                              '-H', f'Title: {first}', '-H', f'Priority: {prio}',
-                              '-H', f'Click: {url}', '-d', body.encode(),
-                              'https://ntfy.sh/stk-ap-rb-9k4m7q2x'],
-                             capture_output=True, text=True)
-          print(r.stdout[-300:], r.stderr[-300:])
-          if not r.stdout.strip().endswith('200'):
-              raise SystemExit('ntfy delivery failed')
-          PY
+          # Quality @ 200-day pushes outrank the Stock Autopilot report pushes
+          # (Ryan, 2026-10-05), so they go out at high.
+          FIRST="$(head -n1 quality_watch_report.md | sed 's/^#* *//')"
+          [ -n "$FIRST" ] || FIRST='Quality @ 200-day update'
+          python3 .github/scripts/ntfy_send.py --title "$FIRST" --priority high \
+            --tags chart_with_upwards_trend --file quality_watch_report.md --fallback-issue \
+            --click https://github.com/Bart-AIG/stock-autopilot/blob/master/quality_watch_report.md

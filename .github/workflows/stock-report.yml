@@ -94,6 +94,7 @@ jobs:
       - name: Alert on ACTION + publish report
         env:
           MODE: ${{ steps.m.outputs.mode }}
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
         run: |
           python - <<'PY'
           import json, glob, os, shutil, subprocess
@@ -174,7 +175,9 @@ jobs:
                       lines.append(f"(+{len(setups) - 10} more in latest_{mode}.md)")
               title = f'Stock Autopilot {mode}: ACTION'
               msg = '\n'.join(lines)
-              priority = 'high'
+              # 'default', one step below the Joint risk and Quality @ 200-day pushes
+              # (Ryan, 2026-10-05: those two take priority over these).
+              priority = 'default'
           elif action == 'DATA ERROR':
               title = f'Stock Autopilot {mode}: DATA ERROR'
               msg = 'Scan failed to fetch data - report is INVALID, do not trade.'
@@ -184,11 +187,12 @@ jobs:
               # always means the job didn't run (broken), never "quietly fine".
               title = f'Stock Autopilot {mode}: no trades'
               msg = f'Report ran OK, no portfolio actions and {len(setups)} swing setups - nothing to do today. (heartbeat)'
-              priority = 'low'
+              priority = 'min'   # silent: it only proves the job ran
           # always alert; priority distinguishes act-now from heartbeat
-          subprocess.run(['curl', '-s', '-H', f'Title: {title}', '-H', f'Priority: {priority}',
-                          '-d', msg, 'https://ntfy.sh/stk-ap-rb-9k4m7q2x'], check=False)
-          print(f'alert sent ({priority}): {title}')
+          # --soft: a failed push shows as a workflow warning (it used to fail silently),
+          # but never blocks publishing the report below.
+          subprocess.run(['python3', '.github/scripts/ntfy_send.py', '--title', title,
+                          '--priority', priority, '--message', msg, '--soft'], check=False)
           # publish the human-readable report to a stable path for the phone session
           md = sorted(glob.glob(f'logs/report_*_{mode}.md'))[-1]
           shutil.copy(md, f'latest_{mode}.md')

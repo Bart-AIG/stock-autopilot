@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: read
+  issues: write    # fallback: open an issue if the ntfy push fails
 
 concurrency:
   group: joint-risk-notify
@@ -24,22 +25,18 @@ jobs:
         with:
           ref: master
       - name: Send report
+        env:
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          python3 - << 'PY'
-          import subprocess
-          body = open('joint_risk_report.md', encoding='utf-8').read()
-          first = body.splitlines()[0].lstrip('# ').strip() if body.strip() else 'RISK update'
-          tier = first.split()[1] if first.startswith('RISK ') and len(first.split()) > 1 else ''
-          prio = {'RED': 'urgent', 'ORANGE': 'high', 'YELLOW': 'default'}.get(tier, 'low')
-          url = 'https://github.com/Bart-AIG/stock-autopilot/blob/master/joint_risk_report.md'
-          if len(body.encode()) > 3800:
-              body = body.encode()[:3700].decode(errors='ignore') + '\n... full report: ' + url
-          r = subprocess.run(['curl', '-sS', '-w', '\n__HTTP__%{http_code}',
-                              '-H', f'Title: Joint {first}', '-H', f'Priority: {prio}',
-                              '-H', f'Click: {url}', '-d', body.encode(),
-                              'https://ntfy.sh/stk-ap-rb-9k4m7q2x'],
-                             capture_output=True, text=True)
-          print(r.stdout[-300:], r.stderr[-300:])
-          if not r.stdout.strip().endswith('200'):
-              raise SystemExit('ntfy delivery failed')
-          PY
+          # Risk pushes outrank the Stock Autopilot report pushes (Ryan, 2026-10-05):
+          # RED / ORANGE / CRACK WATCH = urgent, everything else = high.
+          FIRST="$(head -n1 joint_risk_report.md | sed 's/^#* *//')"
+          [ -n "$FIRST" ] || FIRST='RISK update'
+          TIER="$(echo "$FIRST" | awk '$1=="RISK"{print $2}')"
+          PRIO=high
+          case "$TIER" in RED|ORANGE) PRIO=urgent ;; esac
+          case "$FIRST" in *"CRACK WATCH"*) PRIO=urgent ;; esac
+          python3 .github/scripts/ntfy_send.py --title "Joint $FIRST" --priority "$PRIO" \
+            --tags rotating_light --file joint_risk_report.md --fallback-issue \
+            --click https://github.com/Bart-AIG/stock-autopilot/blob/master/joint_risk_report.md
