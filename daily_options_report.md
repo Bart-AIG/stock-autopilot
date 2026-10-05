@@ -1,27 +1,27 @@
 # Daily report — trading day 2026-10-05 (Monday)
 
-*Written by the run that started 19:18:57Z (15:18:57 ET), invoked with **prompt v16**. All figures come from the broker. Prices are as of 19:19Z, not the close. That run started **before** the 15:20–15:52 ET decision window, so it placed no sleeve orders. **The decision-window run amends section 1 below with today's decisions.***
+*Section 1 amended by the decision-window run (19:25:21Z). The rest was written by the run that started 19:18:57Z (15:18:57 ET), invoked with **prompt v16**. All figures come from the broker. Prices are as of 19:19Z, not the close. That run started **before** the 15:20–15:52 ET decision window, so it placed no sleeve orders. **The decision-window run amends section 1 below with today's decisions.***
 
-## 1. Decision window (15:20–15:52 ET) — PENDING
-- `sleeves_state.json` is fresh: decision_session 2026-10-05, built 14:15Z.
-- **Today is the last TOM session.** The turn-of-the-month leg covers Oct 1, 2 and 5, so it turns off at today's decision. Any name held only on TOM is due to be sold in today's window unless its RSI2 or IBS leg is on. The window run's `decide()` output decides this.
-- At 19:19Z the broker showed **no orders today**.
+## 1. Decision window (15:20–15:52 ET) — DONE
+The run that started **19:25:21Z (15:25 ET)** ran `sleeves.py decide` on live prices as of 19:25:35Z. `sleeves_state.json` was fresh (decision_session 2026-10-05). The turn-of-the-month leg turned off after today, the 3rd session of October. Every name held only on that leg was sold. No buys.
 
-| Sleeve | Symbol | Value 19:19Z | Unrealized |
-|---|---|---|---|
-| SWING_Q | **QLD** (QQQ signal) | $2,268.51 | +$81.42 |
-| SWING_M | MRNA | $99.84 | +$6.11 |
-| SWING_M | MU | $91.39 | −$2.34 |
-| SWING_M | LITE | $97.26 | +$3.53 |
-| SWING_M | DELL | $95.84 | +$2.11 |
-| SWING_M | WDC | $90.45 | −$3.28 |
-| SWING_M | AMD | $96.35 | +$2.62 |
-| SWING_M | INTC | $90.80 | −$2.93 |
-| SWING_M | VIAV | $97.93 | +$4.20 |
-| SWING_M | MRVL | $95.36 | +$1.63 |
-| SWING_M | ILMN | $101.96 | +$8.23 |
+| Sleeve | Symbol | Decision | Legs on | Fill | Realized |
+|---|---|---|---|---|---|
+| SWING_Q | **QLD** (QQQ RSI2 97.8, IBS 1.0) | **SOLD all 22.678269** | none | $100.0401 | **+$81.60** |
+| SWING_M | MRNA | SOLD | none | $203.5782 | +$6.03 |
+| SWING_M | LITE | SOLD | none | $1,085.0101 | +$3.28 |
+| SWING_M | AMD | SOLD | none | $632.8799 | +$2.60 |
+| SWING_M | VIAV | SOLD | none | $47.1601 | +$4.37 |
+| SWING_M | ILMN | SOLD | none | $293.6001 | +$7.83 |
+| SWING_M | MU | keep | IBS | — | — |
+| SWING_M | DELL | keep | IBS | — | — |
+| SWING_M | WDC | keep | RSI2 | — | — |
+| SWING_M | INTC | keep | IBS | — | — |
+| SWING_M | MRVL | keep | IBS | — | — |
 
-SWING_M in total is up **+$19.88**.
+All six market sells filled 19:25:54–19:26:01Z. Realized **+$105.71** (one $0.05 fee). These are the first sleeve closes since go-live.
+
+After the sells: cash **$3,027.43**, total **$3,491.10**, about 87% in cash. **QLD stays out until QQQ prints an RSI(2) < 10 or IBS < 0.2 entry, or TOM returns at the end of October.** This is the tested rule set behaving as designed, not a defensive call.
 
 ## 2. Legacy run-off
 None left. The legacy book was emptied on 10-01.
@@ -48,5 +48,5 @@ The paper book is worth **$330.59** against a cost of $328.89 (**+0.51%**).
 - **Drawdown:** **0%**. A new high-water mark was set at $3,491.78 (19:19Z).
 
 ## 6. Tomorrow (Tue 10-06)
-- TOM is **off**. Positions are held only on RSI2 or IBS legs.
+- TOM is **off**. MU, DELL, WDC, INTC and MRVL are held on RSI2/IBS legs. Each one leaves when its leg exits (IBS > 0.8 or 5 sessions; price > 5-day SMA). The account is mostly cash until a new entry fires.
 - No month roll and no legacy deadline. The legacy close-out date of 10-14 is moot because the legacy book is already empty.
