@@ -1,29 +1,21 @@
-RISK GREEN (0) - IEF fell through 88.95 (Treasuries/yields); nothing else near a trigger
+RISK GREEN (0) - nothing fired; 2 new WEAK holdings (MOD, WULF); $19,971 margin still in use
 
-**What fired:** IEF < 88.95 at 13:02Z (88.94); now 88.95. This is the first Treasury level and carries no score. Next IEF level: 87.35 (-1.8%). 10-yr yield about 5.26% (RED on the 5.25% line).
+Advisory only. No trade placed; anything below is for you to place in-app.
 
-| Benchmark | Level | Price | Distance |
-|---|---|---|---|
-| IEF below | 88.95 | 88.95 | 0.0% |
-| HYG below | 76.35 | 76.91 | 0.7% |
-| SPY under 50d | 763.70 | 770.61 | 0.9% |
-| TIP below | 102.85 | 104.03 | 1.1% |
-| QQQ below | 733 | 752.30 | 2.6% |
-| QQQ 20d / 50d | 727.78 / 716.82 | 752.30 | 3.3% / 4.7% |
+**Market risk: GREEN, score 0.** No benchmark alert fired. SPY 779.85 (50-day 764.42, +2.0%), QQQ 760.80 (20-day 729.64, 50-day 718.26, 733 level +3.8%). Closest triggers: IEF < 88.95 (89.16, 0.2% away), HYG < 76.35 (77.24, 1.2%), TIP < 102.85 (104.23, 1.3%). VIXY 16.09 vs 21.15, USO 144.43 vs 163.80.
 
-**Margin:** cash -$19,467 on $96.1k total. Raising that is the first de-risk step if the tier rises.
+**Ladder:** no de-risk stage (first is QQQ < 733), no reinvest tranche.
 
-**Ladder:** Stage 0, Tranche 0 (QQQ above 733).
+**Margin:** account value $98,722, cash -$19,971 (margin in use). GREEN means no risk-driven sales, but this is the margin you de-levered against on 2026-08-05.
 
-**Credit crack watch:** 1 RED (10-yr 5.26%), no crack panel.
-- LQD/IEF: 5d -0.07%, 20d +0.03% (GREEN).
-- HYG/IEF: 5d -0.17%, 20d +0.76% (GREEN, flattered by rising yields).
-- AI IG spreads about 115bp: CAUTION, supply-driven.
-- Amazon's $25B deal drew 1.6x coverage, but the report is not dated within 24h, so it is not counted.
-- No QQQ/credit divergence: QQQ is at its 25-day high.
+**Holdings health (price trend only this run, financials not re-pulled):**
+- WEAK, new since last run: MOD (under 200-day, -37% off high), WULF (under 50 and 200-day, -48% off high)
+- WEAK, unchanged: ADBE, APP (-62%), BMEA (-53%), CRCL, FIG (-69%)
+- WATCH: AUR (under 50-day, -32%), TLT (under 50 and 200-day)
+- Recovered to OK on today's rally: CEG, CRDO, VST, NOW
 
-**Holdings:** WEAK names are unchanged since the last run (VST, CEG, FIG, ADBE, APP, NOC, LMT, LDOS, BMEA, PGR, CRDO, CRCL). At GREEN they are review flags only, with no sell recommended.
+**Sell list:** none at GREEN. The WEAK names above go first if the tier reaches YELLOW.
 
-**What moves the tier up:** HYG under 76.35, IEF under 87.35, or SPY under 763.70.
+**Credit crack watch:** not re-run (not first run of the day). 5 Oct reading: 1 RED (10-yr 5.26%), LQD/IEF and HYG/IEF GREEN.
 
-No trade is placed; anything is for you to place in-app.
+What moves the tier up: QQQ below 733 or SPY below its 50-day (764.42), or IEF below 88.95.
