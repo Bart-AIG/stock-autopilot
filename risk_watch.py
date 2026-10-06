@@ -108,14 +108,30 @@ def quality_watch_alert_ids(path: str | Path | None = None) -> set[str]:
     return {m.get("alert_id") for m in managed.values() if m.get("alert_id")}
 
 
+def holding_support_alert_ids(path: str | Path | None = None) -> set[str]:
+    """alert_ids of the per-holding support alerts on the joint account
+    (joint_support_alerts.json, set 2026-10-06). Like the Quality @ 200-day alerts they
+    are per-stock price alerts, not market-risk benchmarks, so they never score points."""
+    p = Path(path) if path else Path(__file__).with_name("joint_support_alerts.json")
+    try:
+        alerts = json.loads(p.read_text()).get("alerts") or {}
+    except (OSError, ValueError):
+        return set()
+    return {a.get("alert_id") for a in alerts.values() if a.get("alert_id")}
+
+
 def grade(alerts: list[dict], prices: dict[str, float], smas: dict | None = None,
           ignore_ids: set[str] | None = None) -> dict:
     """alerts = get_alerts()['alerts'] (enabled ones); prices = {sym: last};
     smas = {(sym, period): value} for every *_sma alert (e.g. ("QQQ", 20), ("QQQ", 50)).
-    ignore_ids: alert_ids to skip; defaults to the Quality @ 200-day routine's alerts.
+    ignore_ids: alert_ids to skip; defaults to the Quality @ 200-day routine's alerts plus
+    the joint per-holding support alerts.
     Returns score, tier, and a per-alert breakdown including distance to trigger."""
     smas = smas or {}
-    ignore = quality_watch_alert_ids() if ignore_ids is None else ignore_ids
+    if ignore_ids is None:
+        ignore = quality_watch_alert_ids() | holding_support_alert_ids()
+    else:
+        ignore = ignore_ids
     rows, score = [], 0
     for a in alerts:
         if not a.get("enabled", True) or a.get("alert_id") in ignore:
