@@ -38,6 +38,10 @@ EACH RUN:
      (per-stock buy-watch alerts from the Quality @ 200-day routine, not risk benchmarks):
      do not grade them, do not relay them, do not mark their log events read.
      risk_watch.grade() already skips them by default.
+   - IGNORE the same way every alert_id in joint_support_alerts.json (per-holding
+     support alerts Ryan set 2026-10-06; he gets the normal Robinhood push when one fires).
+     grade() skips them too. You may mention a fired one in a report you are already
+     sending, but it never triggers a notification or scores risk.
    - get_equity_quotes for every alert symbol; for EACH *_sma alert, get the SMA at THAT
      alert's period (condition.indicator.period: QQQ has both a 20-day and a 50-day) via
      get_equity_technical_indicators(type=sma, period=<period>, interval=day, output=latest).
