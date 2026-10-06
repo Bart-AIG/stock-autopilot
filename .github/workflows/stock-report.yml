@@ -191,8 +191,15 @@ jobs:
           # always alert; priority distinguishes act-now from heartbeat
           # --soft: a failed push shows as a workflow warning (it used to fail silently),
           # but never blocks publishing the report below.
-          subprocess.run(['python3', '.github/scripts/ntfy_send.py', '--title', title,
-                          '--priority', priority, '--message', msg, '--soft'], check=False)
+          # 2026-10-06 (Ryan): the ACTION and no-trade heartbeat pushes are retired with the
+          # graded equity book (the sleeves trade in their own decision window). The report
+          # still runs hourly: it feeds valuation.json and the joint report. Only a DATA
+          # ERROR still pushes, because it means the data is invalid.
+          if action == 'DATA ERROR':
+              subprocess.run(['python3', '.github/scripts/ntfy_send.py', '--title', title,
+                              '--priority', priority, '--message', msg, '--soft'], check=False)
+          else:
+              print(f'ntfy push suppressed (retired): {title}')
           # publish the human-readable report to a stable path for the phone session
           md = sorted(glob.glob(f'logs/report_*_{mode}.md'))[-1]
           shutil.copy(md, f'latest_{mode}.md')

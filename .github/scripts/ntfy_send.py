@@ -27,7 +27,7 @@ MAX_BYTES = 3800
 
 
 def publish(title, body, priority, click, tags, token):
-    cmd = ['curl', '-sS', '-w', '\n__HTTP__%{http_code}',
+    cmd = ['curl', '-sS', '--max-time', '30', '-w', '\n__HTTP__%{http_code}',
            '-H', f'Title: {title}', '-H', f'Priority: {priority}']
     if click:
         cmd += ['-H', f'Click: {click}']
