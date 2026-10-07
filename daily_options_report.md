@@ -2,21 +2,20 @@
 
 *Written by the run that started 19:18:53Z (15:18:53 ET), invoked with **prompt v16**. All figures come from the broker. Prices are as of 19:19Z, not the close. This run started **before** the 15:20–15:52 ET decision window, so it placed no sleeve orders. The decision-window run amends Section 1.*
 
-## 1. Decision window (15:20–15:52 ET) — PENDING
-`sleeves_state.json` on master is fresh (decision_session 2026-10-07, built 19:04Z). This month's picks: MRNA, MU, LITE, DELL, WDC, AMD, INTC, VIAV, MRVL, ILMN. QLD is not held.
+## 1. Decision window (15:20–15:52 ET) — EXECUTED
+*Amended by the decision-window run that started 19:25:20Z (15:25 ET).* `decide()` ran on live quotes and today's 5-minute bars as of 19:25:33Z (total value $3,492.95). QQQ: RSI(2) 62.8, IBS 0.889, above its 5-day SMA, so QLD stays out (it was not held). Orders went out 19:25:49–19:25:52Z and all four filled:
 
-Held going into the window (SWING_M, all `placed_agent: agentic`):
-| Symbol | Shares | Cost | 19:19Z | P/L | Today |
-|---|---|---|---|---|---|
-| MU | 0.086157 | 1,087.89 | 1,083.36 | −0.42% | +3.62% |
-| DELL | 0.173686 | 539.65 | 580.67 | +7.60% | +1.16% |
-| WDC | 0.205147 | 456.89 | 402.75 | −11.85% | −2.02% |
-| INTC | 0.779418 | 120.26 | 112.64 | −6.34% | +0.12% |
-| MRVL | 0.351762 | 266.46 | 283.15 | +6.26% | −1.34% |
-| MRNA | 0.525224 | 189.50 | 195.84 | +3.34% | +4.47% |
-| ILMN | 0.361782 | 275.11 | 270.07 | −1.83% | −1.27% |
+| Symbol | Action | Shares | Cost | Fill | P/L | Why |
+|---|---|---|---|---|---|---|
+| MRNA | SELL all | 0.525224 | 189.50 | 195.92 | +$3.37 | IBS exit (0.93 > 0.8), no leg on |
+| MU | SELL all | 0.086157 | 1,087.89 | 1,080.78 | −$0.61 | IBS exit (0.89), no leg on |
+| DELL | SELL all | 0.173686 | 539.65 | 580.78 | +$7.14 | IBS exit (0.83), RSI2 87.8, no leg on |
+| MRVL | SELL all | 0.351762 | 266.46 | 283.63 | +$6.04 | IBS exit (0.83), no leg on |
+| WDC | KEEP | 0.205147 | 456.89 | | | RSI2 + IBS legs still on |
+| INTC | KEEP | 0.779418 | 120.26 | | | RSI2 + IBS legs on (RSI2 5.0) |
+| ILMN | KEEP | 0.361782 | 275.11 | | | IBS leg on |
 
-Positions are worth $664.77. Cash is $2,828.39, which equals unleveraged buying power. Total value is $3,493.27.
+Realized today: **+$15.94**. No buys were due (LITE, AMD, VIAV have no leg on). After the window: cash $3,225.05 (equals unleveraged buying power), positions $268.07, total value **$3,493.12**, drawdown −0.10% from the $3,496.56 high-water mark.
 
 ## 2. Legacy run-off
 None left. The legacy book was emptied on 10-01.
