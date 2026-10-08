@@ -1,9 +1,13 @@
 # Daily report — trading day 2026-10-08 (Thursday)
 
-*Written by the run that started 19:19:22Z (15:19:22 ET), invoked with **prompt v16**. All figures come from the broker. Prices are as of 19:19:35Z, not the close. This run started **before** the 15:20–15:52 ET decision window, so it placed no sleeve orders. The decision-window run amends Section 1.*
+*Written by the run that started 19:19:22Z (15:19:22 ET), invoked with **prompt v16**. All figures come from the broker. Prices are as of 19:19:35Z, not the close. This run started **before** the 15:20–15:52 ET decision window, so it placed no sleeve orders. Section 1 amended by the 15:25 ET decision-window run; Section 2 is the pre-trade snapshot.*
 
-## 1. Decision window (15:20–15:52 ET) — PENDING
-`sleeves_state.json` on master is fresh (decision_session 2026-10-08). The decision-window run decides on live quotes and records the orders here.
+## 1. Decision window (15:20–15:52 ET) — EXECUTED
+Run started 19:25:21Z (15:25 ET). `sleeves.py decide` on live quotes at 19:25:29Z (total value $3,484.49, $99.31 per SWING_M name):
+- **SWING_Q (QLD): out.** QQQ 747.02, RSI(2) 16.3, IBS 0.27, no TOM. No leg on.
+- **BUY (filled 19:25:47–51Z):** MU 0.095785 sh @ 1,036.80 (IBS 0.08); AMD 0.161089 sh @ 616.49 (IBS 0.09); VIAV 2.263738 sh @ 43.87 (IBS 0.16); MRVL 0.364558 sh @ 272.41 (IBS leg carried from yesterday). $99.31 each, $397.24 total.
+- **KEEP:** WDC (RSI2 + IBS), INTC (RSI2 4.6 + IBS), ILMN (IBS carry).
+- **Out, not held:** MRNA, LITE, DELL. No sells.
 
 ## 2. Sleeve positions (19:19Z)
 | Symbol | Sleeve | Shares | Cost | Last | Value | P/L % | Today |
