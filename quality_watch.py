@@ -292,3 +292,130 @@ def report(cands: list[dict], plan: dict, asof: str, new_syms: set[str]) -> str:
               "the news/thesis check before a buy; '—' in Value = not valued yet (next morning's "
               "report run values it).", "", valuation.LEGEND, "", disruption.LEGEND]
     return "\n".join(lines) + "\n"
+
+
+# ---------------------------------------------------------------------------
+# RE-BUY WATCH (set 2026-10-08, Ryan's live turn: "I'm going to sell circle, wulf and
+# apld but want to watch them for indicators that say to buy"). Names Ryan SOLD from
+# the joint account and may buy back. They are not quality-screen names (all three sit
+# under a falling-or-flat 200-day), so they live in their own list, file
+# rebuy_watch.json, with their own alerts that never count against MAX_ALERTS.
+#
+# The buy-back ladder, weakest to strongest signal:
+#   TURNING = daily MACD line above its signal line while price is still under the
+#             50-day (momentum has turned; the trend has not).
+#   EARLY   = price back above the 50-day, still under the 200-day (first trend repair).
+#   BUY     = price above both the 50-day and the 200-day (trend repaired).
+#   WAIT    = none of the above.
+# A watched name stays in the list until Ryan buys it back (it reappears in the joint
+# positions), the entry expires (REBUY_MAX_DAYS), or a live Ryan turn drops it.
+# ---------------------------------------------------------------------------
+from datetime import date, timedelta
+
+REBUY_MAX_DAYS = 120          # drop a name nobody has acted on after ~4 months
+WASH_SALE_DAYS = 30           # IRS window after a loss sale
+SMA50 = {"kind": "sma", "period": 50, "interval_secs": 86400}
+MACD_D = {"fast_period": 12, "slow_period": 26, "signal_period": 9, "interval_secs": 86400}
+REBUY_ALERTS = {              # key -> (condition_type, indicator)
+    "reclaim_50d": (RECLAIM, SMA50),
+    "reclaim_200d": (RECLAIM, SMA200),
+    "macd_turn": ("macd_above_signal", MACD_D),
+}
+REBUY_STAGES = ("WAIT", "TURNING", "EARLY", "BUY")
+
+
+def wash_clear(sold_date: str) -> str:
+    """First date a buy-back no longer disallows a loss taken on sold_date
+    (sale + 31 days). A buy inside the window is legal; the loss just moves into the
+    new shares' basis instead of being deductible now."""
+    return (date.fromisoformat(sold_date) + timedelta(days=WASH_SALE_DAYS + 1)).isoformat()
+
+
+def rebuy_status(price: float, sma50: float, sma200: float, macd_above: bool | None,
+                 sma50_rising: bool | None = None, rsi14: float | None = None,
+                 today: str | None = None, clear_date: str | None = None) -> dict:
+    """Stage + supporting signals for one watched name. Pure; the routine fetches the
+    inputs (quote, 50/200-day SMA, daily MACD vs signal, RSI14)."""
+    above50, above200 = price > sma50, price > sma200
+    if above50 and above200:
+        stage = "BUY"
+    elif above50:
+        stage = "EARLY"
+    elif macd_above:
+        stage = "TURNING"
+    else:
+        stage = "WAIT"
+    signals = [f"{'above' if above50 else 'below'} 50-day ({(price / sma50 - 1) * 100:+.1f}%)",
+               f"{'above' if above200 else 'below'} 200-day ({(price / sma200 - 1) * 100:+.1f}%)"]
+    if macd_above is not None:
+        signals.append("MACD above signal" if macd_above else "MACD below signal")
+    if sma50_rising is not None:
+        signals.append("50-day rising" if sma50_rising else "50-day falling")
+    if rsi14 is not None:
+        signals.append(f"RSI14 {rsi14:.0f}" + (" oversold" if rsi14 <= 30 else ""))
+    wash_open = bool(today and clear_date and today < clear_date)
+    return {"stage": stage, "signals": signals, "wash_sale_open": wash_open,
+            "clear_date": clear_date}
+
+
+def rebuy_wanted(price: float, sma50: float, sma200: float, macd_above: bool | None) -> set[str]:
+    """Alerts that still have something to tell Ryan: a reclaim alert only while price
+    is under that line, the MACD alert only while MACD is under its signal."""
+    want = set()
+    if price <= sma50:
+        want.add("reclaim_50d")
+    if price <= sma200:
+        want.add("reclaim_200d")
+    if not macd_above:
+        want.add("macd_turn")
+    return want
+
+
+def rebuy_plan(entry: dict, want: set[str], live_ids: set[str]) -> dict:
+    """Diff one watched name's alerts. entry["alerts"] = {key: {"alert_id", ...}};
+    live_ids = ids of ENABLED alerts from get_alerts. An owned alert missing from
+    live_ids has fired (or been removed) and is re-created if still wanted."""
+    owned = entry.get("alerts") or {}
+    create, delete, keep = [], [], []
+    for key, a in owned.items():
+        aid = a.get("alert_id")
+        if key in want and aid in live_ids:
+            keep.append(key)
+        elif aid in live_ids:
+            delete.append({"key": key, "alert_id": aid})
+        else:
+            delete.append({"key": key, "alert_id": None})   # already gone: just forget it
+    for key in sorted(want - set(keep)):
+        cond, ind = REBUY_ALERTS[key]
+        create.append({"key": key, "condition_type": cond, "indicator": ind})
+    return {"create": create, "delete": delete, "keep": sorted(keep)}
+
+
+def rebuy_alert_ids(watch: dict) -> set[str]:
+    """Every alert_id the re-buy watch owns (risk_watch skips these)."""
+    return {a.get("alert_id") for e in (watch or {}).values()
+            for a in (e.get("alerts") or {}).values() if a.get("alert_id")}
+
+
+def rebuy_report(rows: list[dict]) -> list[str]:
+    """Markdown section for quality_watch_report.md. rows: {symbol, price, status,
+    prev_stage, sold_price, held}."""
+    if not rows:
+        return []
+    out = ["## Re-buy watch (names you sold; buy-back signals)", "",
+           "| Ticker | Stage | Was | Price | Sold at | Signals | Wash-sale clear |",
+           "|---|---|---|---|---|---|---|"]
+    for r in rows:
+        s = r["status"]
+        stage = s["stage"] if not r.get("held") else "STILL HELD (sale not seen yet)"
+        changed = " ⬆" if (r.get("prev_stage") in REBUY_STAGES and s["stage"] in REBUY_STAGES
+                           and REBUY_STAGES.index(s["stage"]) > REBUY_STAGES.index(r["prev_stage"])) else ""
+        wash = s.get("clear_date") or "—"
+        if s.get("wash_sale_open"):
+            wash += " (open: buying now defers the loss)"
+        out.append(f"| {r['symbol']} | **{stage}**{changed} | {r.get('prev_stage') or '—'} | {r['price']} | "
+                   f"{r.get('sold_price') or '—'} | {', '.join(s['signals'])} | {wash} |")
+    out += ["", "Ladder: WAIT → TURNING (daily MACD crossed above signal, still under the 50-day) → "
+            "EARLY (back above the 50-day) → BUY (above the 50- and 200-day). A signal is a "
+            "technical trigger only: it still needs the news/thesis check before a buy.", ""]
+    return out
