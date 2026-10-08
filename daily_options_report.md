@@ -9,6 +9,11 @@ Run started 19:25:21Z (15:25 ET). `sleeves.py decide` on live quotes at 19:25:29
 - **KEEP:** WDC (RSI2 + IBS), INTC (RSI2 4.6 + IBS), ILMN (IBS carry).
 - **Out, not held:** MRNA, LITE, DELL. No sells.
 
+**Re-decide at 15:40 ET** (run started 19:40:20Z; live quotes 19:40:30Z, total value $3,482.46, $99.25 per name). Fresher prices changed two targets:
+- **SELL ILMN** 0.361782 sh @ 263.81 (filled 19:40:48Z): its IBS leg turned off (IBS 0.805 > 0.8). Realized −$4.09 vs entry 275.11.
+- **BUY LITE** 0.095373 sh @ 1,040.65, $99.25 (filled 19:40:50Z): IBS leg on (0.177), RSI(2) 16.6, above its 200-day.
+- Held into the close: MU, LITE, WDC, AMD, INTC, VIAV, MRVL. SWING_Q still out (QQQ 746.45, RSI(2) 15.7, IBS 0.23).
+
 ## 2. Sleeve positions (19:19Z)
 | Symbol | Sleeve | Shares | Cost | Last | Value | P/L % | Today |
 |---|---|---|---|---|---|---|---|
