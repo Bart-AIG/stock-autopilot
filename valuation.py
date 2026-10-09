@@ -301,6 +301,99 @@ def value(inp: dict) -> dict:
     return out
 
 
+# ---------------------------------------------------------------------------
+# Forward price target, the way a sell-side analyst builds one (set 2026-10-09)
+# ---------------------------------------------------------------------------
+# Ryan, live turn 2026-10-09: "look at financials and basically do exactly what a financial
+# analyst would do to determine what you think the price target is." A 12-month target is
+# a FORWARD estimate times a JUSTIFIED multiple: next fiscal year's consensus EPS / EBITDA /
+# revenue, times the multiple the stock has earned over its last 5 fiscal years (the recent
+# regime, not 10 years: AI-era re-ratings make a 10-year median stale). EV multiples go
+# through net debt to a per-share price. value() above answers "cheap vs its own past
+# today"; this answers "where should it trade on next year's numbers".
+
+FWD_YEARS = 5           # justified multiple = median of the last 5 fiscal years
+FWD_MIN_YEARS = 3       # needs at least this many valid years
+FWD_MIN_DAYS = 180      # use the first fiscal year ending at least ~6 months out
+FWD_CLIP = (0.4, 3.0)   # one leg can't imply less than 0.4x or more than 3x today's price
+FWD_LEGS = {            # profile -> {multiple: weight}; same industry logic as PROFILES
+    "steady":    {"pe": 1, "ev_ebitda": 1},
+    "utility":   {"pe": 1, "ev_ebitda": 1},
+    "bank":      {"pe": 1},
+    "insurer":   {"pe": 1},
+    "reit":      {"ev_ebitda": 1},
+    "growth":    {"pe": 1, "ev_ebitda": 1, "ev_sales": 1},
+    "cyclical":  {"ev_sales": 2, "ev_ebitda": 1},   # never P/E: cheapest-looking at the peak
+    "preprofit": {"ev_sales": 1},
+}
+FWD_EST = {"pe": ("epsAvg", "estimatedEpsAvg"),
+           "ev_ebitda": ("ebitdaAvg", "estimatedEbitdaAvg"),
+           "ev_sales": ("revenueAvg", "estimatedRevenueAvg")}
+
+
+def _est(row: dict, key: str) -> float | None:
+    for f in FWD_EST[key]:
+        v = _f(row.get(f))
+        if v is not None:
+            return v
+    return None
+
+
+def forward_target(inp: dict, v: dict, today: str | None = None) -> dict | None:
+    """Analyst-style 12-month target from next fiscal year's consensus estimates times the
+    stock's 5-year median multiples. inp = fetch_inputs() dict, v = value(inp).
+    Returns {target, upside_pct, fiscal_year_end, legs, confidence, basis} or None."""
+    from datetime import date, timedelta
+    price, mcap, ev = _f(inp.get("price")), _f(inp.get("mcap")), _f(inp.get("ev"))
+    if not (price and mcap and price > 0 and mcap > 0):
+        return None
+    shares, net_debt = mcap / price, (ev - mcap) if ev else 0.0
+    day0 = date.fromisoformat(today) if today else date.today()
+    cutoff = (day0 + timedelta(days=FWD_MIN_DAYS)).isoformat()
+    ests = sorted((e for e in inp.get("estimates") or [] if str(e.get("date"))[:10] >= cutoff),
+                  key=lambda e: str(e.get("date")))
+    if not ests:
+        return None
+    est = ests[0]
+    annual = sorted(inp.get("annual") or [], key=lambda r: str(r.get("fiscalYear")), reverse=True)[:FWD_YEARS]
+    legs_w = dict(FWD_LEGS.get(v.get("profile"), FWD_LEGS["steady"]))
+    if any(f.startswith(("PEAK", "TROUGH")) for f in v.get("flags", [])):
+        legs_w.pop("ev_ebitda", None)   # same rule as value(): no EBITDA multiple at a cycle extreme
+    parts, legs = [], []
+    for key, w in legs_w.items():
+        _, ann_f, _, cap = METRICS[key]
+        hist = [x for x in (_f(r.get(ann_f)) for r in annual) if x is not None and 0 < x <= cap]
+        if len(hist) < FWD_MIN_YEARS:
+            continue
+        mult, fwd = statistics.median(hist), _est(est, key)
+        if not fwd or fwd <= 0:
+            continue
+        tgt = mult * fwd if key == "pe" else (mult * fwd - net_debt) / shares
+        if tgt <= 0:
+            continue
+        r = min(max(tgt / price, FWD_CLIP[0]), FWD_CLIP[1])
+        parts.append((r, w))
+        legs.append({"metric": LABELS[key], "multiple_5y": round(mult, 2), "estimate": fwd,
+                     "implied": round(price * r, 2)})
+    if not parts:
+        return None
+    ratio = math.exp(sum(w * math.log(r) for r, w in parts) / sum(w for _, w in parts))
+    conf = 3 - (len(parts) == 1)
+    rs = [r for r, _ in parts]
+    if len(rs) > 1 and max(rs) / min(rs) > DISPERSION_MAX:
+        conf -= 1
+    n = _f(est.get("numAnalystsEps") or est.get("numAnalystsRevenue"))
+    if n is not None and n < 3:
+        conf -= 1
+    if v.get("profile") == "preprofit" or any(r in (FWD_CLIP[0], FWD_CLIP[1]) for r in rs):
+        conf = min(conf, 1)
+    return {"target": round(price * ratio, 2), "upside_pct": round((ratio - 1) * 100, 1),
+            "fiscal_year_end": str(est.get("date"))[:10], "legs": legs,
+            "confidence": {3: "HIGH", 2: "MED"}.get(conf, "LOW"),
+            "basis": f"FY ending {str(est.get('date'))[:10]} consensus x 5-yr median "
+                     + " / ".join(l["metric"] for l in legs)}
+
+
 LEGEND = ("_Valuation grade: DEEP VALUE >= +25% below fair | UNDERVALUED +10 to +25% | FAIR within "
           "10% | RICH 10-25% above | EXPENSIVE > 25% above. Fair = the price at the stock's own "
           "10-year median multiples, using the multiples that suit its industry: banks/insurers on "
@@ -378,7 +471,7 @@ def build(symbols, key: str, cache: dict | None = None, today: str | None = None
     out = {}
     for sym in dict.fromkeys(s for s in symbols if s):
         row = cache.get(sym)
-        if row and today and row.get("asof") == today and "disruption" in row:
+        if row and today and row.get("asof") == today and "disruption" in row and "fwd" in row:
             out[sym] = row
             continue
         inp = fetch_inputs(sym, key)
@@ -386,6 +479,7 @@ def build(symbols, key: str, cache: dict | None = None, today: str | None = None
             continue
         v = value(inp)
         v["disruption"] = disruption.score(inp["income"], inp["estimates"], v["profile"], v)
+        v["fwd"] = forward_target(inp, v, today)
         v["asof"] = today
         out[sym] = v
     return out
