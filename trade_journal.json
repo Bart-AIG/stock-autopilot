@@ -47224,6 +47224,27 @@
       "tape": "MU 1034.58 (prior close 1035.84, thesis-break 1017.00); QQQ 751.46 (+0.52%).",
       "why_flat": "Sleeves: decision window only. Legacy: none held. Options: MU 1160C exit_check(placed_agent=user) on 18:25:29Z quote 25.70x26.50 mark 26.10 -> hold, +4.4%, peak 26.10; no trigger, no notify.",
       "duties": "Heartbeat stamped 13:31Z. Daily report + Friday review due >=19:15Z. Decision window 19:20-19:52Z; deployable ~$144 (ubp $323.96 - 5% reserve $180.24)."
+    },
+    {
+      "run_utc": "2026-10-09T19:19:17Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-10-09",
+      "headline": "15:19 ET Fri (v16). Started 43s before the 15:20-15:52 ET decision window, so no sleeve orders (same as 10-05/10-07/10-08). Wrote daily report + Friday review; growth paper marked.",
+      "reconciliation": "ZERO DRIFT: options MU 2026-11-20 1160C x1 (user); 7 swing_m (INTC/MU/LITE/WDC/AMD/VIAV/MRVL) match ledger qty; cash=ubp $323.96, total $3,348.49; DD -7.11% vs HWM $3,604.85 (move is the user MU call 26.10->23.55).",
+      "tape": "QQQ 751.56 (+0.53%); MU 1027.66 (thesis-break 1017.00).",
+      "why_flat": "Sleeves: decision window only. Legacy: none. Options: MU 1160C exit_check(placed_agent=user) on 19:19:36Z quote 23.10x24.00 mark 23.55 -> hold, -5.8%, no trigger, no notify.",
+      "duties": "Daily report written (decision-window run to amend). Growth paper mark 330.85 (+0.59%).",
+      "friday_review": {
+        "source": "broker get_pnl_trade_history span=week + get_equity_orders filled >=10-05, read 19:19Z",
+        "sleeve_closes": "11 closes, +$117.61 realized: swing_q 1 (QLD +81.65); swing_m 10 (+35.96, 8W/2L). All: 9W/2L = 81.8% win, avg win $13.59 vs avg loss $2.35, payoff 5.78, breakeven 14.7%, margin +67 pts (n=11, scorecard only).",
+        "legacy_runoff": "none held this week; 0 closes.",
+        "growth_paper": "$330.85 vs $328.90 cost, +0.59% (PLTR +9.53%, NVDA -3.05%, NTRA -3.62%).",
+        "account_vs_qqq": "since 2026-09-30: $3,316.28 -> $3,348.49 = +0.97% vs QQQ 739.71 -> 751.56 = +1.60%. Ex Ryan's MU call (-$145 unrealized, opened today with $2,500 cash): +5.34%.",
+        "max_drawdown": "-7.11% at 19:19Z vs HWM $3,604.85 set 18:25Z today; driven by the user MU call mark, not the sleeves.",
+        "execution_fidelity": "Windows Mon-Thu each executed by the 15:25 ET run with a 15:40 ET re-decide; fills 19:25:47-19:26:01Z daily. Mon 6 sells/0 buys; Tue 2 buys; Wed 4 sells; Thu 4 buys + 15:40 re-decide sold ILMN (IBS 0.805) and bought LITE (IBS 0.177). No missed window, no order deviating from decide() reported. Friday's window still pending at this run.",
+        "best_execution": "Thu 15:40 re-decide caught two target changes on fresher prices (idempotent procedure working as designed).",
+        "worst_execution": "Thu ILMN: in on Tue's IBS, out at 15:40 Thu for -$4.09 after the 15:25 run kept it; the 15-minute re-decide is the only reason it was not carried another day. Not a deviation."
+      }
     }
   ]
 }
