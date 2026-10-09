@@ -132,17 +132,31 @@ def holding_support_alert_ids(path: str | Path | None = None) -> set[str]:
     return {a.get("alert_id") for a in alerts.values() if a.get("alert_id")}
 
 
+def option_watch_alert_ids(path: str | Path | None = None) -> set[str]:
+    """alert_ids on a monitored option position's underlying (holdings.json, each
+    position's `_alerts`; first used 2026-10-09 for Ryan's MU 2026-11-20 1160C). They are
+    per-position exit alerts, not market-risk benchmarks, so they never score points."""
+    p = Path(path) if path else Path(__file__).with_name("holdings.json")
+    try:
+        positions = json.loads(p.read_text()).get("positions") or []
+    except (OSError, ValueError):
+        return set()
+    return {a.get("alert_id") for pos in positions
+            for a in (pos.get("_alerts") or {}).values() if a.get("alert_id")}
+
+
 def grade(alerts: list[dict], prices: dict[str, float], smas: dict | None = None,
           ignore_ids: set[str] | None = None) -> dict:
     """alerts = get_alerts()['alerts'] (enabled ones); prices = {sym: last};
     smas = {(sym, period): value} for every *_sma alert (e.g. ("QQQ", 20), ("QQQ", 50)).
     ignore_ids: alert_ids to skip; defaults to the Quality @ 200-day routine's alerts, the
-    joint per-holding support alerts and the joint re-buy watch alerts.
+    joint per-holding support alerts, the joint re-buy watch alerts and the
+    monitored option positions' exit alerts.
     Returns score, tier, and a per-alert breakdown including distance to trigger."""
     smas = smas or {}
     if ignore_ids is None:
         ignore = (quality_watch_alert_ids() | holding_support_alert_ids()
-                  | rebuy_watch_alert_ids())
+                  | rebuy_watch_alert_ids() | option_watch_alert_ids())
     else:
         ignore = ignore_ids
     rows, score = [], 0

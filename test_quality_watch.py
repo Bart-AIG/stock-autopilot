@@ -52,6 +52,14 @@ def test_live_state_ids_are_skipped():
     assert "e260f480-fc1c-48e0-950b-479e2ea1b0fa" in ids   # CRCL macd_turn
 
 
+def test_risk_watch_skips_option_watch_alerts():
+    book = {"positions": [{"symbol": "MU", "_alerts": {"t1": {"alert_id": "o1"}}},
+                          {"symbol": "WDC"}]}
+    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as f:
+        json.dump(book, f)
+    assert risk_watch.option_watch_alert_ids(f.name) == {"o1"}
+
+
 def test_report_section():
     rows = [{"symbol": "CRCL", "price": 79.2, "prev_stage": "WAIT", "sold_price": 79.2,
              "status": qw.rebuy_status(84, 82.5, 86.1, False, clear_date="2026-11-08",

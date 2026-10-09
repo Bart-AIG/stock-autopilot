@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-09T17:55:00Z",
+  "updated_utc": "2026-10-09T18:15:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -145,8 +145,8 @@
       "filled_utc": "2026-10-09T17:44:35.250000Z",
       "entry_dte": 42,
       "dte_at_entry": 42,
-      "setup_invalidation": null,
-      "target": null,
+      "setup_invalidation": 1017.0,
+      "target": 1200.0,
       "entry_snapshot": {
         "asof_utc": "2026-10-09T17:45:58Z",
         "mu_spot": 1030.445,
@@ -176,7 +176,8 @@
         "pop_bank": "one-day gain >= +80% vs prior close mark",
         "review_21dte": "2026-10-30",
         "flat_by_dte2": "2026-11-18",
-        "all_actions": "NOTIFY Ryan; never auto-close (user-placed)"
+        "all_actions": "NOTIFY Ryan; never auto-close (user-placed)",
+        "backstop_minus65_mode": "ALERT ONLY (Ryan did not authorize an automatic sale; default ask-first stands)"
       },
       "_current_state": {
         "last_checked_utc": "2026-10-09T17:45:58Z",
@@ -188,7 +189,46 @@
       },
       "_notify_state": {
         "last_notified_trigger": null,
-        "last_notified_utc": null
+        "last_notified_utc": null,
+        "levels_notified": []
+      },
+      "setup_invalidation_note": "Ryan, live turn 2026-10-09: 'Price that breaks thesis is below the low of today.' Today's (2026-10-09) regular-session low measured 1017.00 at 15:25Z, read 18:10Z with the session still open. DUTY: the first run after the 2026-10-09 bell re-reads the day's low (get_equity_historicals day bar); if it is below 1017.00, set setup_invalidation to it and update_alert the thesis_break alert to the same price. A break = MU trading below this level on any run's live quote; exit_check returns close -> notify (user-placed, ask first).",
+      "_alerts": {
+        "thesis_break": {
+          "alert_id": "a822dda2-f3eb-4f9f-b900-e0fdb4667335",
+          "condition": "price_below",
+          "level": 1017.0
+        },
+        "profit_1100": {
+          "alert_id": "e782c45c-956c-4b21-9ed9-847f7e92f733",
+          "condition": "price_above",
+          "level": 1100.0
+        },
+        "profit_1150": {
+          "alert_id": "f5e5bf09-41ab-445b-9de0-fc306e662588",
+          "condition": "price_above",
+          "level": 1150.0
+        },
+        "profit_1187": {
+          "alert_id": "58fc68e7-12a7-48ae-b554-064d47061c27",
+          "condition": "price_above",
+          "level": 1187.0
+        },
+        "profit_1200": {
+          "alert_id": "f3a8fc41-624c-43ff-99fe-88de9a503a6a",
+          "condition": "price_above",
+          "level": 1200.0
+        }
+      },
+      "_profit_sell_levels": {
+        "set_by": "Ryan, live turn 2026-10-09: '4 alerts to sell for profit at 1187, 1100, 1150 and 1200'",
+        "mu_levels": [
+          1100.0,
+          1150.0,
+          1187.0,
+          1200.0
+        ],
+        "rule": "Robinhood price alerts created 2026-10-09T18:13Z (ids in _alerts) push to Ryan directly. Each run that sees MU at or above a level not yet notified sends ONE sell-for-profit recommendation with the live option mark, P/L and spread; record it in _notify_state.levels_notified. 1187 = the contract's breakeven at expiry. All sells are ask-first: the agent never sells this contract. Delete these 5 alerts and this row's ids when the position closes."
       }
     }
   ],
