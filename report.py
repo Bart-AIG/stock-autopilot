@@ -644,7 +644,9 @@ def build_value_data(momentum: list[dict], swings: list[dict], key: str,
     syms = [r["symbol"] for r in cands[:VALUE_FETCH_CAP]]
     if mode == "morning":
         top = sorted((grades or {}).items(), key=lambda kv: kv[1]["rank"])[:VALUE_TOP_GRADES]
-        syms += [s for s, _ in top] + _quality_watch_symbols() + _sleeve_picks()
+        # Every joint holding too: its forward target (valuation.forward_target) is the
+        # fundamental leg of the joint price-target alerts (price_targets.py, 2026-10-09).
+        syms += [s for s, _ in top] + _quality_watch_symbols() + _sleeve_picks() + sorted(joint_held)
     now = datetime.now(timezone.utc)
     cache = valuation.load_cache()
     rows = valuation.build(syms, key, cache=cache, today=now.strftime("%Y-%m-%d"))
