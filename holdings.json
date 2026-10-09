@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-09T19:27:00Z",
+  "updated_utc": "2026-10-09T20:30:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -132,23 +132,24 @@
         "backstop_minus65_mode": "ALERT ONLY (Ryan did not authorize an automatic sale; default ask-first stands)"
       },
       "_current_state": {
-        "last_checked_utc": "2026-10-09T19:40:48Z",
-        "mark": 22.45,
+        "last_checked_utc": "2026-10-09T19:59:59Z",
+        "mark": 23.6,
         "bid": 21.95,
         "ask": 22.95,
-        "gain_pct": -10.2,
+        "gain_pct": -5.6,
         "peak_premium": 26.1,
         "runs_at_or_below_minus50": 0,
         "status": "hold",
         "mu_spot": 1023.298,
-        "mu_session_low_so_far": 1017.0
+        "mu_session_low_so_far": 1017.0,
+        "mu_close": 1029.0
       },
       "_notify_state": {
         "last_notified_trigger": null,
         "last_notified_utc": null,
         "levels_notified": []
       },
-      "setup_invalidation_note": "Ryan, live turn 2026-10-09: 'Price that breaks thesis is below the low of today.' Today's (2026-10-09) regular-session low measured 1017.00 at 15:25Z, read 18:10Z with the session still open. DUTY: the first run after the 2026-10-09 bell re-reads the day's low (get_equity_historicals day bar); if it is below 1017.00, set setup_invalidation to it and update_alert the thesis_break alert to the same price. A break = MU trading below this level on any run's live quote; exit_check returns close -> notify (user-placed, ask first).",
+      "setup_invalidation_note": "Ryan, live turn 2026-10-09: 'Price that breaks thesis is below the low of today.' FINAL: the 2026-10-09 regular-session low is 1017.00 (15:25Z bar; confirmed after the bell from 5-minute and 30-minute bars, no later print below it; close 1029.00). The thesis_break alert already sits at 1017.00, so no post-bell update is needed. A break = MU trading below 1017.00 on any run's live quote; exit_check returns close -> notify (user-placed, ask first).",
       "_alerts": {
         "thesis_break": {
           "alert_id": "a822dda2-f3eb-4f9f-b900-e0fdb4667335",
