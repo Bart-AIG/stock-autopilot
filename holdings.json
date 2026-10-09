@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-08T19:42:00Z",
+  "updated_utc": "2026-10-09T17:55:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -122,6 +122,74 @@
       "target": null,
       "order_id": "6ac7f1c1-be27-44d5-bbf8-80149f4b9a12",
       "_note": "v16 decision window 2026-10-08, re-decide run started 19:40:20Z (15:40 ET); IBS 0.177 entry; $99.25 dollar market filled 19:40:50Z."
+    },
+    {
+      "symbol": "MU",
+      "sleeve": "options",
+      "track": "user_one_off",
+      "contract": "MU 2026-11-20 1160C",
+      "option_type": "call",
+      "side": "call",
+      "strike": 1160.0,
+      "expiration_date": "2026-11-20",
+      "option_id": "f9bf1097-13cc-4fa1-b989-ea1a896280a4",
+      "chain_id": "71a32c37-9be0-4247-882c-59ac1facabf0",
+      "contracts": 1,
+      "entry_date": "2026-10-09",
+      "entry_premium": 25.0,
+      "cost_basis_usd": 2500.0,
+      "max_loss": 2500.0,
+      "placed_agent": "user",
+      "order_id": "6ac92802-b179-4467-9f40-50552b4a5bd3",
+      "execution_id": "ae2eb3d9-adbd-4467-aba7-5391bf716aa4",
+      "filled_utc": "2026-10-09T17:44:35.250000Z",
+      "entry_dte": 42,
+      "dte_at_entry": 42,
+      "setup_invalidation": null,
+      "target": null,
+      "entry_snapshot": {
+        "asof_utc": "2026-10-09T17:45:58Z",
+        "mu_spot": 1030.445,
+        "bid": 24.2,
+        "ask": 25.05,
+        "mark": 24.625,
+        "spread_pct_of_mid": 3.45,
+        "delta": 0.265,
+        "theta_per_day_usd": -67.06,
+        "iv": 0.4726,
+        "open_interest": 606,
+        "breakeven": 1185.0,
+        "breakeven_move_pct": 15.0,
+        "chance_of_profit_long": 0.179,
+        "account_total_value": 3456.42,
+        "premium_pct_of_account": 72.3,
+        "cash_after": 323.96
+      },
+      "earnings_check": "get_earnings_calendar (high_market_cap) 2026-10-09..11-20 shows NO MU print before expiry (MU's next fiscal-Q1 report is normally mid/late December). Re-verify on the 21-DTE review.",
+      "_note": "Ryan, REAL live turn 2026-10-09 (interactive session): 'Just made a call option using the agent account monitor it as part of your stock option routine, this is a one off thing that won't be reoccurring'. ONE-OFF: not a strategy change, not a re-opening of the retired options bucket, and no future run may treat it as a precedent for new option entries. OWNERSHIP: placed_agent='user', so EVERY exit is ASK-FIRST. Run options_grade.exit_check(placed_agent='user', entry_premium=25.0, entry_dte=42, side='call', setup_invalidation=None until Ryan names one) on a <=2-min quote every market-hours run; any 'close' becomes 'notify'. The agent NEVER sells this contract without Ryan's explicit go-ahead in a live turn. Notify ONCE per trigger fire/unfire (silence otherwise). Remove this row and move it to _closed_positions only when get_option_positions(nonzero=true) no longer returns it.",
+      "_exit_ladder": {
+        "basis": "per-share premium, entry 25.00, 21-45 DTE tier until 2026-10-30, then the 7-21 DTE tier",
+        "minus50_recheck": 12.5,
+        "hard_backstop_minus65": 8.75,
+        "ratchet_arms_plus50": 37.5,
+        "ratchet_floor": "exit on a 40% giveback of peak gain once armed (e.g. peak 50.00 -> floor 40.00)",
+        "pop_bank": "one-day gain >= +80% vs prior close mark",
+        "review_21dte": "2026-10-30",
+        "flat_by_dte2": "2026-11-18",
+        "all_actions": "NOTIFY Ryan; never auto-close (user-placed)"
+      },
+      "_current_state": {
+        "last_checked_utc": "2026-10-09T17:45:58Z",
+        "mark": 24.625,
+        "gain_pct": -1.5,
+        "peak_premium": 25.0,
+        "runs_at_or_below_minus50": 0,
+        "status": "hold"
+      },
+      "_notify_state": {
+        "last_notified_trigger": null,
+        "last_notified_utc": null
+      }
     }
   ],
   "_resolved_flags": [
