@@ -1,27 +1,24 @@
-RISK GREEN (0) - IEF < 88.95 fired overnight (88.80) but reclaimed; no tier change, no sells
+RISK GREEN (0) - no benchmark alert fired, but OKLO and SMR are newly flagged WEAK
+(as of 2026-10-09 14:42Z; advisory only, for you to place in-app)
 
-**What fired (as of 11:00Z):** IEF fell below 88.95 (88.80, ~10-yr yield about 5.26%). Now IEF 89.085, back above by 0.15%. This is the line that went RED on 10-05, so it is the level to watch today.
+**What changed**
+- OKLO ($34.29, -0.6% vs cost $34.48) and SMR ($7.18, -2% vs cost $7.32) are now tracked and both grade WEAK: under the 50-day and 200-day, 80% and 87% off their 1-yr highs. Both are pre-revenue or near it (OKLO none, SMR $75k last quarter, net loss $47.5M). At GREEN this is a review flag, not a sell order.
+- CRCL ($85.97) crossed above its 50-day today and sits just under its 200-day ($86.04). It is still graded WEAK until it closes above.
 
-**Benchmarks (13:41Z)**
+**Benchmarks (all clear)**
 | Alert | Level | Price | Distance |
 |---|---|---|---|
-| IEF below | 88.95 | 89.085 | +0.15% |
-| HYG below | 76.35 | 77.09 | +0.97% |
-| SPY below 50d | 765.95 | 774.71 | +1.14% |
-| TIP below | 102.85 | 104.25 | +1.36% |
-| IEF below | 87.35 | 89.085 | +1.99% |
-| QQQ below 733 / 20d 733.78 | | 753.62 | +2.8% / +2.7% |
-| QQQ below 50d | 721.45 | 753.62 | +4.5% |
-| KRE below | 65.25 | 68.77 | +5.4% |
-| USO above 163.8 | | 149.01 | 9% away |
-| VIXY above 21.15 | | 16.37 | 23% away |
+| IEF below | 88.95 | 89.21 | 0.3% |
+| HYG below | 76.35 | 77.11 | 1.0% |
+| SPY below 50d | 766.84 | 776.16 | 1.2% |
+| TIP below | 102.85 | 104.32 | 1.4% |
+| QQQ below 20d | 735.72 | 749.47 | 1.9% |
+| QQQ below | 733 | 749.47 | 2.2% |
 
-**Ladder:** stage 0, tranche 0 (QQQ above all levels).
+**Ladder:** de-risk stage 0, reinvest tranche 0. Next level is QQQ 733.
+**Credit crack watch:** 0 reds (carried from 13:45Z). 10-yr yield borderline, about 5.2%.
+**Margin:** $25,738 of margin is in use (cash -$25,738 on $96,532 total). That is against the 2026-08-05 no-leverage decision. No raise is required at GREEN.
 
-**Credit check:** LQD/IEF 20d -0.01% GREEN; HYG/IEF 20d +0.78% GREEN (flattered by higher yields); 10-yr about 5.25% (inferred, borderline RED). No Oct hyperscaler bond news found. 1 RED of 5, crack watch OFF.
+**Review list (WEAK, no sale recommended at GREEN):** APLD, CRCL, WULF, FIG, MOD, OKLO, SMR.
 
-**Margin in use: $26,984** against net $97,727 (about 28%), up from $13.3k on 9-25. Nothing to sell today at GREEN, but this is the first thing to cut if risk rises (for you to place in-app).
-
-**Holdings:** health carried forward from yesterday. WEAK: APLD, CRCL, WULF, ADBE, FIG, BMEA, APP, MOD. AVGO broke its 200-day this morning (13:33Z), so it is one to watch. Review only, no sale recommended at GREEN.
-
-**Back above/stay GREEN:** IEF holding over 88.95, SPY over its 50-day (765.95).
+**Back to calm / what would raise risk:** IEF under 88.95, QQQ under 733, SPY under 766.84.
