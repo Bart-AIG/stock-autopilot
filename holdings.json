@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-09T18:15:00Z",
+  "updated_utc": "2026-10-09T19:27:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -76,54 +76,6 @@
       "_note": "v16 decision window 2026-10-08, run started 19:25:21Z (15:25 ET); $99.31 dollar market filled 19:25:48Z."
     },
     {
-      "symbol": "VIAV",
-      "sleeve": "swing_m",
-      "signal_symbol": "VIAV",
-      "entry_date": "2026-10-08",
-      "entry_price": 43.8699,
-      "shares": 2.263738,
-      "placed_agent": "agentic",
-      "legs_on": [
-        "IBS"
-      ],
-      "stop": null,
-      "target": null,
-      "order_id": "6ac7ee3e-0509-4001-9d0f-f337073676a2",
-      "_note": "v16 decision window 2026-10-08, run started 19:25:21Z (15:25 ET); $99.31 dollar market filled 19:25:50Z."
-    },
-    {
-      "symbol": "MRVL",
-      "sleeve": "swing_m",
-      "signal_symbol": "MRVL",
-      "entry_date": "2026-10-08",
-      "entry_price": 272.4116,
-      "shares": 0.364558,
-      "placed_agent": "agentic",
-      "legs_on": [
-        "IBS"
-      ],
-      "stop": null,
-      "target": null,
-      "order_id": "6ac7ee3f-b602-4106-b097-f9a9a0b5e865",
-      "_note": "v16 decision window 2026-10-08, run started 19:25:21Z (15:25 ET); $99.31 dollar market filled 19:25:51Z."
-    },
-    {
-      "symbol": "LITE",
-      "sleeve": "swing_m",
-      "signal_symbol": "LITE",
-      "entry_date": "2026-10-08",
-      "entry_price": 1040.6499,
-      "shares": 0.095373,
-      "placed_agent": "agentic",
-      "legs_on": [
-        "IBS"
-      ],
-      "stop": null,
-      "target": null,
-      "order_id": "6ac7f1c1-be27-44d5-bbf8-80149f4b9a12",
-      "_note": "v16 decision window 2026-10-08, re-decide run started 19:40:20Z (15:40 ET); IBS 0.177 entry; $99.25 dollar market filled 19:40:50Z."
-    },
-    {
       "symbol": "MU",
       "sleeve": "options",
       "track": "user_one_off",
@@ -180,13 +132,13 @@
         "backstop_minus65_mode": "ALERT ONLY (Ryan did not authorize an automatic sale; default ask-first stands)"
       },
       "_current_state": {
-        "last_checked_utc": "2026-10-09T19:19:36Z",
-        "mark": 23.55,
-        "gain_pct": -5.8,
+        "last_checked_utc": "2026-10-09T19:25:58Z",
+        "mark": 23.7,
+        "gain_pct": -5.2,
         "peak_premium": 26.1,
         "runs_at_or_below_minus50": 0,
         "status": "hold",
-        "mu_spot": 1027.66
+        "mu_spot": 1028.265
       },
       "_notify_state": {
         "last_notified_trigger": null,
@@ -1287,6 +1239,78 @@
         "IBS"
       ],
       "_exit_note": "v16 decision window 2026-10-08, re-decide run start 19:40:20Z (15:40 ET), decide asof 19:40:30Z. IBS 0.805 > 0.8 exit -> hold_through_close=false. Full-position market sell, filled 19:40:48Z @263.8097."
+    },
+    {
+      "symbol": "VIAV",
+      "sleeve": "swing_m",
+      "signal_symbol": "VIAV",
+      "entry_date": "2026-10-08",
+      "entry_price": 43.8699,
+      "shares": 2.263738,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6ac7ee3e-0509-4001-9d0f-f337073676a2",
+      "_note": "v16 decision window 2026-10-08, run started 19:25:21Z (15:25 ET); $99.31 dollar market filled 19:25:50Z.",
+      "exit_date": "2026-10-09",
+      "exit_price": 45.6324,
+      "exit_order_id": "6ac93fbe-f755-4ecb-8306-99e45a35a2af",
+      "realized_pnl": 3.99,
+      "legs_turned_off": [
+        "IBS"
+      ],
+      "_exit_note": "v16 decision window 2026-10-09, run start 19:25:17Z (15:25 ET), decide asof 19:25:32Z, tv 3363.84. hold_through_close=false (no leg on). Full-position market sell, filled 19:25:50Z @45.6324."
+    },
+    {
+      "symbol": "MRVL",
+      "sleeve": "swing_m",
+      "signal_symbol": "MRVL",
+      "entry_date": "2026-10-08",
+      "entry_price": 272.4116,
+      "shares": 0.364558,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6ac7ee3f-b602-4106-b097-f9a9a0b5e865",
+      "_note": "v16 decision window 2026-10-08, run started 19:25:21Z (15:25 ET); $99.31 dollar market filled 19:25:51Z.",
+      "exit_date": "2026-10-09",
+      "exit_price": 274.8701,
+      "exit_order_id": "6ac93fbf-0a14-43f0-b43d-123f166a771a",
+      "realized_pnl": 0.9,
+      "legs_turned_off": [
+        "IBS"
+      ],
+      "_exit_note": "v16 decision window 2026-10-09, run start 19:25:17Z (15:25 ET), decide asof 19:25:32Z, tv 3363.84. hold_through_close=false (no leg on). Full-position market sell, filled 19:25:51Z @274.8701."
+    },
+    {
+      "symbol": "LITE",
+      "sleeve": "swing_m",
+      "signal_symbol": "LITE",
+      "entry_date": "2026-10-08",
+      "entry_price": 1040.6499,
+      "shares": 0.095373,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6ac7f1c1-be27-44d5-bbf8-80149f4b9a12",
+      "_note": "v16 decision window 2026-10-08, re-decide run started 19:40:20Z (15:40 ET); IBS 0.177 entry; $99.25 dollar market filled 19:40:50Z.",
+      "exit_date": "2026-10-09",
+      "exit_price": 1117.0001,
+      "exit_order_id": "6ac93fbc-693d-492d-b5bb-f4d770c59ea7",
+      "realized_pnl": 7.28,
+      "legs_turned_off": [
+        "IBS"
+      ],
+      "_exit_note": "v16 decision window 2026-10-09, run start 19:25:17Z (15:25 ET), decide asof 19:25:32Z, tv 3363.84. hold_through_close=false (no leg on). Full-position market sell, filled 19:25:48Z @1117.0001."
     }
   ],
   "_SIZING_NOTE": "REFRESHED 2026-08-28T16:19Z from the broker. The prior text was stamped 2026-08-24 and asserted 'CURRENT TRUTH: cash $3,023.56 ... DEPLOYABLE = $2,773.56' -- four days and $1,476.60 out of date, and it is the SECOND generation of this note to go stale while literally warning that a stale note 'would have been copied forward as truth.' A note that names the staleness risk is not thereby immune to it; re-read the broker. RULES (unchanged): $1,500 is a PER-TRADE maximum, there is NO total-sleeve cap, and total deployment across BOTH books is bounded by unleveraged_buying_power (2026-08-14 sizing amendment + the 2026-08-21 no-margin rule). CURRENT TRUTH: cash $1,546.96 == buying_power == unleveraged_buying_power, so no margin is extended and FOUR LAWS #4 is satisfied; unsettled_funds $0.0000. RESERVE CORRECTED 2026-08-28T23:18Z: the flat $250 reserve is RETIRED, superseded by the 5%-of-total_value OPERATIONAL RESERVE (Ryan 2026-08-29 policy on master), which SCALES and must be recomputed from get_portfolio.total_value every run -- never hard-coded. DEPLOYABLE = unleveraged_buying_power - 0.05 x total_value = 1546.96 - 198.03 = $1,348.93. The hedge's $749 basis does NOT reduce a new trade's allowance and occupies 0 of the 5 non-hedge slots. EQUITY SIZING IS NO LONGER BLOCKED -- CORRECTED 2026-08-28T23:18Z. This note previously read 'EQUITY SIZING IS SEPARATELY BLOCKED: the >=45% equity-book cash floor reads 44.9807% and the max compliant buy is -$0.67.' THAT FLOOR IS VOID (master commit 1322da9, 2026-08-28T20:42:36Z) and its arithmetic must not be quoted or re-derived. The equity book is OPEN from the 2026-08-31 open with 3 fresh throttle slots, funded from the same $1,348.93; the binding controls are now the A-GRADE-ONLY bar, per-name <=15-20%, spec sleeve <=25%, and rotation-beats-the-weakest once deployable cash falls below one normal position size (NOT yet -- $1,348.93 against ~$500 is ordinary cash). See _CAPITAL_POLICY_STATE, which governs. _CROSS_BOOK_CASH_COUPLING's floor arithmetic is likewise MOOT; its ONE-POOL truth survives -- an options entry still reduces equity capacity dollar-for-dollar, so cross-book competition is now explicit rather than mediated by a ratio. FOUND BY THE ARITHMETIC SWEEP prescribed in this run's journal entry and then actually executed: this is the FOURTH key carrying floor-derived state after the void, and the first three repairs were all targeted at keys whose SUBJECT was the floor. This one's subject is SIZING, which is why three careful sweeps walked past it. Search for the arithmetic (the 0.45 coefficient, 'compliant buy', 'cash floor'), never for the keys you expect to be affected. [DETECTOR REFINED 2026-08-29T00:18Z -- the prescription in the sentence above WORKED and was also INCOMPLETE. Searching holdings.json for the arithmetic tokens it names (the 0.45 coefficient, 'compliant buy', 'cash floor') surfaced the three keys already repaired; a SECOND sweep on the STATE-ASSERTION phrase 'book is closed' surfaced two more that the arithmetic sweep missed -- _EVENT_PREMIUM_IS_INVISIBLE_ON_THE_30DTE_BOARD.honest_scope and _DIVERSIFICATION_STATISTICS_ARE_FRAGILE.honest_scope, both annotated this run as the fourth and fifth instances. THE CLASS IS BROADER THAN ARITHMETIC: a repealed rule leaves behind both its NUMBERS and its CONCLUSIONS, and the conclusions are the more dangerous residue precisely because they carry no digits -- they read as ordinary present-tense state prose, so a numeric sweep walks straight past them and a human skim reads them as current. Sweep for BOTH: the arithmetic AND the sentence the arithmetic used to justify ('the book is closed', 'entries are frozen', 'no compliant entry exists'). Both survivors sat in honest_scope caveats, which is a systematically likely hiding place: a scope clause's job is to state what was true at the time, so it BAKES IN the then-current regime by design and ages badly by construction.]",
