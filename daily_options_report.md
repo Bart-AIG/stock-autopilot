@@ -2,8 +2,17 @@
 
 *Written by the run that started 19:19:17Z (15:19:17 ET), invoked with **prompt v16**. All figures come from the broker. Prices are as of 19:19–19:20Z, not the close. This run started **before** the 15:20–15:52 ET decision window, so it placed no sleeve orders. The decision-window run amends Section 1.*
 
-## 1. Decision window (15:20–15:52 ET)
-Pending at the time of writing.
+## 1. Decision window (15:20–15:52 ET) — amended by the 15:25:17 ET run
+`decide()` ran on quotes from 19:25:32Z with total value $3,363.84. Every order matched its output:
+- **SOLD LITE** 0.095373 @ 1,117.00, **+$7.28** (+7.3%). No leg on: RSI(2) 67.6, IBS 0.611.
+- **SOLD VIAV** 2.263738 @ 45.63, **+$3.99** (+4.0%). No leg on: RSI(2) 54.0, IBS 0.559.
+- **SOLD MRVL** 0.364558 @ 274.87, **+$0.90** (+0.9%). Its IBS leg turned off (IBS 0.452).
+- **Kept:** MU (IBS leg), WDC (RSI(2) and IBS legs), AMD (IBS 0.077), INTC (RSI(2) 3.3). AMD's IBS leg re-armed today, and AMD was already held.
+- **SWING_Q:** off. QQQ RSI(2) 48.6, IBS 0.742. No QLD held.
+- No buys were needed, so the ~$378 of proceeds stays in cash.
+- MU 1160C at 19:25:58Z: 23.25 × 24.15, mark 23.70 (−5.2%). `exit_check` says **hold**.
+
+Today's realized sleeve P/L: **+$12.17**. The week's sleeve closes rise to 14.
 
 ## 2. Sleeve positions (19:19Z)
 | Symbol | Sleeve | Shares | Cost | Last | Value | P/L % | Today |
