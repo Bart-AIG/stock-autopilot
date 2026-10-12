@@ -11,6 +11,7 @@ Run started 19:25:21Z (15:25 ET). `sleeves.py decide` on quotes from 19:25:31Z, 
 - **Buy signals blocked by the drawdown halt (−25% rule, not placed):** QLD $1,675.79 (QQQ IBS 0.098), MRNA $71.82 (IBS 0.053), LITE $71.82 (IBS 0.057), VIAV $71.82 (IBS 0.017).
 - Off: DELL, MRVL, ILMN (none held).
 - **Update 19:27Z:** Ryan, live, ordered the QLD buy with available cash. Bought **6.262594 QLD @ $96.92 = $606.97** (deployable after the 5% reserve; target was $1,675.79). The halt stays on for other buys.
+- **Update 19:41Z (decision-window re-run, 15:40 ET):** on fresher prices QQQ had bounced to 745.97 against a day range of 744.85–749.79, so its IBS rose to **0.23**, above the 0.2 entry line (RSI2 23.4, not a turn-of-month day). `decide()` turned QLD **off** for tonight, and the rule for a held position that is off is to sell it. **Sold 6.262594 QLD @ $97.04 (+$0.73 after a $0.02 fee).** No other changes: MU and AMD (RSI2+IBS), INTC and WDC (RSI2) stay held; MRNA, LITE and VIAV signals stay blocked by the halt.
 
 ## 2. Sleeve positions (19:19Z)
 | Symbol | Sleeve | Shares | Cost | Last | Value | P/L % | Today |
@@ -20,7 +21,7 @@ Run started 19:25:21Z (15:25 ET). `sleeves.py decide` on quotes from 19:25:31Z, 
 | MU | swing_m | 0.095785 | 1,036.80 | 987.63 | $94.60 | −4.7% | −4.02% |
 | AMD | swing_m | 0.161089 | 616.49 | 589.90 | $95.03 | −4.3% | −2.99% |
 
-SWING_Q (QLD): not held. Legacy run-off: no positions left (the 2026-10-14 close-out has nothing to sell).
+SWING_Q (QLD): bought 19:27Z, sold 19:41Z (signal off at the re-run); not held into the close. Legacy run-off: no positions left (the 2026-10-14 close-out has nothing to sell).
 
 **Ryan's one-off option (ask-first, never sold by the agent):** MU 2026-11-20 1160C ×1, cost $25.00 ($2,500). Quote at 19:19:36Z: 14.00 × 14.60, mark 14.30 (**−42.8%, −$1,070**). 39 DTE, delta 0.18, theta −$54/day. MU 987.63 is **below the 1,017.00 thesis-break level**. `exit_check` says **notify** (setup break). This is the same trigger already sent to Ryan at 13:54Z, so no new notification. The −50% re-check level is 12.50 and the −65% alert-only backstop is 8.75.
 
