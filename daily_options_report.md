@@ -6,7 +6,11 @@
 Account value **$2,511.84** against a high-water mark of **$3,604.85** (2026-10-09) = **−30.3%**, beyond the −25% halt line. Under FOUR LAWS #4, **no new sleeve BUYS until a live Ryan turn**. Sells still run in the decision window. The loss is almost entirely Ryan's MU 1160C (−$1,070 vs cost); the sleeve equities total $347.85.
 
 ## 1. Decision window (15:20–15:52 ET)
-Pending: the decision-window run amends this section. Buys are halted; only sells of sleeve names whose legs turn off can execute.
+Run started 19:25:21Z (15:25 ET). `sleeves.py decide` on quotes from 19:25:31Z, total value $2,519.98.
+- **Held, kept (legs still on):** MU (RSI2 8.6 + IBS), AMD (RSI2 4.5 + IBS), INTC (RSI2 1.4 + IBS), WDC (RSI2 15.5, still in from the last close). **0 sells.**
+- **Buy signals blocked by the drawdown halt (−25% rule, not placed):** QLD $1,675.79 (QQQ IBS 0.098), MRNA $71.82 (IBS 0.053), LITE $71.82 (IBS 0.057), VIAV $71.82 (IBS 0.017).
+- Off: DELL, MRVL, ILMN (none held).
+- The SWING_Q signal fired today and the halt is the only thing that stopped it. Only a live Ryan turn lifts the halt.
 
 ## 2. Sleeve positions (19:19Z)
 | Symbol | Sleeve | Shares | Cost | Last | Value | P/L % | Today |
