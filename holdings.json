@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-09T20:30:00Z",
+  "updated_utc": "2026-10-12T13:58Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -132,21 +132,24 @@
         "backstop_minus65_mode": "ALERT ONLY (Ryan did not authorize an automatic sale; default ask-first stands)"
       },
       "_current_state": {
-        "last_checked_utc": "2026-10-09T19:59:59Z",
-        "mark": 23.6,
-        "bid": 21.95,
-        "ask": 22.95,
-        "gain_pct": -5.6,
+        "last_checked_utc": "2026-10-12T13:55:01Z",
+        "mark": 14.0,
+        "bid": 13.55,
+        "ask": 14.45,
+        "gain_pct": -44.0,
         "peak_premium": 26.1,
         "runs_at_or_below_minus50": 0,
-        "status": "hold",
-        "mu_spot": 1023.298,
+        "status": "notify: setup break (MU 986.215 < 1017.00)",
+        "mu_spot": 986.215,
         "mu_session_low_so_far": 1017.0,
-        "mu_close": 1029.0
+        "mu_close": 1029.0,
+        "delta": 0.1785,
+        "iv": 0.4806,
+        "dte": 39
       },
       "_notify_state": {
-        "last_notified_trigger": null,
-        "last_notified_utc": null,
+        "last_notified_trigger": "thesis_break_1017",
+        "last_notified_utc": "2026-10-12T13:58Z",
         "levels_notified": []
       },
       "setup_invalidation_note": "Ryan, live turn 2026-10-09: 'Price that breaks thesis is below the low of today.' FINAL: the 2026-10-09 regular-session low is 1017.00 (15:25Z bar; confirmed after the bell from 5-minute and 30-minute bars, no later print below it; close 1029.00). The thesis_break alert already sits at 1017.00, so no post-bell update is needed. A break = MU trading below 1017.00 on any run's live quote; exit_check returns close -> notify (user-placed, ask first).",
@@ -8831,6 +8834,15 @@
         "swing_m": 0
       },
       "note": "No sleeve position has closed since go-live 2026-09-30; win rate/payoff/margin n/a (n=0). The week's 6 realized closes were legacy run-off (MRK x2, ABBV, DE, FCX, TGT) net -$58.09. Account $3,316.28 -> $3,434.15 (+3.55%) vs QQQ 739.71 -> 749.26 (+1.29%) since start; HWM reset to $3,434.15 at the open, drawdown 0%. Scorecard only, no tuning."
+    },
+    "drawdown_halt": {
+      "status": "ACTIVE",
+      "set_utc": "2026-10-12T13:56Z",
+      "total_value": 2481.34,
+      "hwm": 3604.85,
+      "drawdown_pct": -31.2,
+      "rule": "v16 FOUR LAWS #4: at -25% from HWM, notify Ryan and place NO new sleeve BUYS until a live Ryan turn. Sells still run.",
+      "cause": "Mostly Ryan's MU 1160C (user-placed, $2,500 = 72% of account at entry): mark 14.00 vs 25.00 cost (-$1,100). Sleeve equities $349 (4 swing_m names). Only a live Ryan turn lifts this; an unattended run may not."
     }
   }
 }
