@@ -10,7 +10,7 @@ Run started 19:25:21Z (15:25 ET). `sleeves.py decide` on quotes from 19:25:31Z, 
 - **Held, kept (legs still on):** MU (RSI2 8.6 + IBS), AMD (RSI2 4.5 + IBS), INTC (RSI2 1.4 + IBS), WDC (RSI2 15.5, still in from the last close). **0 sells.**
 - **Buy signals blocked by the drawdown halt (−25% rule, not placed):** QLD $1,675.79 (QQQ IBS 0.098), MRNA $71.82 (IBS 0.053), LITE $71.82 (IBS 0.057), VIAV $71.82 (IBS 0.017).
 - Off: DELL, MRVL, ILMN (none held).
-- The SWING_Q signal fired today and the halt is the only thing that stopped it. Only a live Ryan turn lifts the halt.
+- **Update 19:27Z:** Ryan, live, ordered the QLD buy with available cash. Bought **6.262594 QLD @ $96.92 = $606.97** (deployable after the 5% reserve; target was $1,675.79). The halt stays on for other buys.
 
 ## 2. Sleeve positions (19:19Z)
 | Symbol | Sleeve | Shares | Cost | Last | Value | P/L % | Today |
