@@ -1,49 +1,38 @@
-# Daily report — trading day 2026-10-09 (Friday)
+# Daily report — trading day 2026-10-12 (Monday)
 
-*Written by the run that started 19:19:17Z (15:19:17 ET), invoked with **prompt v16**. All figures come from the broker. Prices are as of 19:19–19:20Z, not the close. This run started **before** the 15:20–15:52 ET decision window, so it placed no sleeve orders. The decision-window run amends Section 1.*
+*Written by the run that started 19:19:13Z (15:19:13 ET), invoked with **prompt v16**. All figures come from the broker, priced at 19:19–19:20Z (not the close). This run started **before** the 15:20–15:52 ET decision window, so it placed no sleeve orders. The decision-window run amends Section 1.*
 
-## 1. Decision window (15:20–15:52 ET) — amended by the 15:25:17 ET run
-`decide()` ran on quotes from 19:25:32Z with total value $3,363.84. Every order matched its output:
-- **SOLD LITE** 0.095373 @ 1,117.00, **+$7.28** (+7.3%). No leg on: RSI(2) 67.6, IBS 0.611.
-- **SOLD VIAV** 2.263738 @ 45.63, **+$3.99** (+4.0%). No leg on: RSI(2) 54.0, IBS 0.559.
-- **SOLD MRVL** 0.364558 @ 274.87, **+$0.90** (+0.9%). Its IBS leg turned off (IBS 0.452).
-- **Kept:** MU (IBS leg), WDC (RSI(2) and IBS legs), AMD (IBS 0.077), INTC (RSI(2) 3.3). AMD's IBS leg re-armed today, and AMD was already held.
-- **SWING_Q:** off. QQQ RSI(2) 48.6, IBS 0.742. No QLD held.
-- No buys were needed, so the ~$378 of proceeds stays in cash.
-- MU 1160C at 19:25:58Z: 23.25 × 24.15, mark 23.70 (−5.2%). `exit_check` says **hold**.
+## ⚠️ Drawdown halt is ACTIVE (since 13:56Z today)
+Account value **$2,511.84** against a high-water mark of **$3,604.85** (2026-10-09) = **−30.3%**, beyond the −25% halt line. Under FOUR LAWS #4, **no new sleeve BUYS until a live Ryan turn**. Sells still run in the decision window. The loss is almost entirely Ryan's MU 1160C (−$1,070 vs cost); the sleeve equities total $347.85.
 
-Today's realized sleeve P/L: **+$12.17**. The week's sleeve closes rise to 14.
+## 1. Decision window (15:20–15:52 ET)
+Pending: the decision-window run amends this section. Buys are halted; only sells of sleeve names whose legs turn off can execute.
 
 ## 2. Sleeve positions (19:19Z)
 | Symbol | Sleeve | Shares | Cost | Last | Value | P/L % | Today |
 |---|---|---|---|---|---|---|---|
-| WDC | swing_m | 0.205147 | 456.89 | 394.32 | $80.89 | −13.7% | +0.26% |
-| INTC | swing_m | 0.779418 | 120.26 | 105.31 | $82.08 | −12.4% | −1.65% |
-| MU | swing_m | 0.095785 | 1,036.80 | 1,027.60 | $98.43 | −0.9% | −0.80% |
-| AMD | swing_m | 0.161089 | 616.49 | 610.85 | $98.40 | −0.9% | −1.58% |
-| VIAV | swing_m | 2.263738 | 43.87 | 45.59 | $103.20 | +3.9% | +3.40% |
-| MRVL | swing_m | 0.364558 | 272.41 | 274.35 | $100.02 | +0.7% | −0.11% |
-| LITE | swing_m | 0.095373 | 1,040.65 | 1,116.49 | $106.48 | +7.3% | +6.47% |
+| WDC | swing_m | 0.205147 | 456.89 | 387.78 | $79.55 | −15.1% | −2.39% |
+| INTC | swing_m | 0.779418 | 120.26 | 100.93 | $78.67 | −16.1% | −3.60% |
+| MU | swing_m | 0.095785 | 1,036.80 | 987.63 | $94.60 | −4.7% | −4.02% |
+| AMD | swing_m | 0.161089 | 616.49 | 589.90 | $95.03 | −4.3% | −2.99% |
 
-SWING_Q (QLD): not held. Legacy run-off: no positions left.
+SWING_Q (QLD): not held. Legacy run-off: no positions left (the 2026-10-14 close-out has nothing to sell).
 
-**Ryan's one-off option (ask-first, never sold by the agent):** MU 2026-11-20 1160C ×1, bought at $25.00 ($2,500). Quote at 19:19:36Z: 23.10 × 24.00, mark 23.55 (−5.8%, −$145). 42 DTE. MU 1,027.66 against the 1,017.00 thesis-break level. `exit_check` says **hold**. No trigger fired, so no notification.
+**Ryan's one-off option (ask-first, never sold by the agent):** MU 2026-11-20 1160C ×1, cost $25.00 ($2,500). Quote at 19:19:36Z: 14.00 × 14.60, mark 14.30 (**−42.8%, −$1,070**). 39 DTE, delta 0.18, theta −$54/day. MU 987.63 is **below the 1,017.00 thesis-break level**. `exit_check` says **notify** (setup break). This is the same trigger already sent to Ryan at 13:54Z, so no new notification. The −50% re-check level is 12.50 and the −65% alert-only backstop is 8.75.
 
-## 3. Account
-- Total value **$3,348.49**. Cash and unleveraged buying power are both $323.96, so no margin is used. The option holds $2,355 of the account's value.
-- Today: the sleeve stocks are up +$6.22 (+0.93% of $669.51) vs QQQ +0.53% (747.58 → 751.56). The MU call is −$145 since Ryan bought it at 17:44Z.
-- Since 2026-09-30 (also month to date): $3,316.28 → $3,348.49 = **+0.97%** vs QQQ 739.71 → 751.56 = **+1.60%**. Excluding the MU call's −$145 the account is +5.34%.
-- Drawdown from the high-water mark ($3,604.85, set 18:25Z today on the call's 26.10 mark): **−7.11%**, almost all of it from the call. Escalation levels are −20% and −25%.
+## 3. Growth paper sleeve (mark 19:19Z)
+Book $324.14 vs cost $328.90 (**−1.45%**). NVDA −4.5%, PLTR +9.6%, NET −3.6%, CRWD −3.5%, NTRA −5.3%. The Monday exit check (14:39Z) found no exit: every name is above a rising 200-day SMA, none near −25%, no thesis-breaking news.
 
-## 4. Growth paper sleeve (no real orders)
-Mark at 19:19:57Z: $330.85 vs $328.90 cost = **+0.59%** (−2.95% yesterday). PLTR +9.53%, CRWD +0.47%, NET −0.37%, NVDA −3.05%, NTRA −3.62%. No name is near its −25% paper stop. Exits are checked on Mondays.
+## 4. Account vs QQQ
+| | Account | QQQ |
+|---|---|---|
+| Today (vs 10-09 close) | ≈ −$942 (option −$930, equities −$11.8) | −0.79% (745.31) |
+| Since 2026-09-30 (= month to date) | $3,316.28 → $2,511.84, **−24.3%** | 739.71 → 745.31, **+0.76%** |
+| Drawdown from HWM | **−30.3%** | — |
 
-## 5. Week in review (Friday, from the broker)
-- **Sleeve closes:** 11, realized **+$117.61**. SWING_Q: 1 (QLD +$81.65, sold Monday). SWING_M: 10 (+$35.96, 8 wins / 2 losses). Overall 82% win rate, payoff 5.8, breakeven 14.7%. n=11 is a scorecard, not evidence.
-- **Execution:** Monday to Thursday, each window ran at 15:25 ET with a re-decide at 15:40 ET. No window was missed and no order deviated from `decide()`. Thursday's re-decide caught two late changes (sold ILMN, bought LITE). Friday's window is still to come.
+Cash $733.99 (unleveraged buying power $733.99, no margin). A $100 deposit is pending.
 
-## 6. Monday / due
-- TOM leg: off. October's last trading day is 10-30, so the next TOM window is 10-30 → 11-04.
-- Legacy close-out deadline 10-14: nothing left to close.
-- Monday (10-12): weekly check and growth paper research.
-- MU call: 21-DTE review 2026-10-30. The first post-bell run today finalizes the day's low for the thesis-break level.
+## 5. Tomorrow
+- Turn of the month: off (the next TOM window starts 2026-10-30, the last trading day of October).
+- Legacy deadline 2026-10-14: nothing left to close.
+- The drawdown halt stays until a live Ryan turn. MU 1160C: Ryan's call; the agent will not sell it.
