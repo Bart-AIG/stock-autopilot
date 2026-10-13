@@ -1,43 +1,37 @@
-# Daily report — trading day 2026-10-12 (Monday)
+# Daily report — trading day 2026-10-13 (Tuesday)
 
-*Written by the run that started 19:19:13Z (15:19:13 ET), invoked with **prompt v16**. All figures come from the broker, priced at 19:19–19:20Z (not the close). This run started **before** the 15:20–15:52 ET decision window, so it placed no sleeve orders. The decision-window run amends Section 1.*
+*Written by the run that started 19:19:12Z (15:19:12 ET), invoked with **prompt v16**. All figures come from the broker, priced at 19:19–19:20Z (not the close). This run started one minute **before** the 15:20–15:52 ET decision window, so it placed no sleeve orders. The decision-window run amends Section 1.*
 
-## ⚠️ Drawdown halt is ACTIVE (since 13:56Z today)
-Account value **$2,511.84** against a high-water mark of **$3,604.85** (2026-10-09) = **−30.3%**, beyond the −25% halt line. Under FOUR LAWS #4, **no new sleeve BUYS until a live Ryan turn**. Sells still run in the decision window. The loss is almost entirely Ryan's MU 1160C (−$1,070 vs cost); the sleeve equities total $347.85.
+## ⚠️ Drawdown halt is still ACTIVE
+Account value **$1,960.95** against the high-water mark of **$3,604.85** (2026-10-09), which is **−45.6%**. That is past the −25% halt line, so **no new sleeve BUYS until a live Ryan turn**. Sells still run in the decision window. Most of the loss is Ryan's MU 1160C (−$1,617 vs cost). The sleeve stocks are worth $343.22.
 
 ## 1. Decision window (15:20–15:52 ET)
-Run started 19:25:21Z (15:25 ET). `sleeves.py decide` on quotes from 19:25:31Z, total value $2,519.98.
-- **Held, kept (legs still on):** MU (RSI2 8.6 + IBS), AMD (RSI2 4.5 + IBS), INTC (RSI2 1.4 + IBS), WDC (RSI2 15.5, still in from the last close). **0 sells.**
-- **Buy signals blocked by the drawdown halt (−25% rule, not placed):** QLD $1,675.79 (QQQ IBS 0.098), MRNA $71.82 (IBS 0.053), LITE $71.82 (IBS 0.057), VIAV $71.82 (IBS 0.017).
-- Off: DELL, MRVL, ILMN (none held).
-- **Update 19:27Z:** Ryan, live, ordered the QLD buy with available cash. Bought **6.262594 QLD @ $96.92 = $606.97** (deployable after the 5% reserve; target was $1,675.79). The halt stays on for other buys.
-- **Update 19:41Z (decision-window re-run, 15:40 ET):** on fresher prices QQQ had bounced to 745.97 against a day range of 744.85–749.79, so its IBS rose to **0.23**, above the 0.2 entry line (RSI2 23.4, not a turn-of-month day). `decide()` turned QLD **off** for tonight, and the rule for a held position that is off is to sell it. **Sold 6.262594 QLD @ $97.04 (+$0.73 after a $0.02 fee).** No other changes: MU and AMD (RSI2+IBS), INTC and WDC (RSI2) stay held; MRNA, LITE and VIAV signals stay blocked by the halt.
+*Pending. The run that starts inside the window runs `sleeves.py decide` and fills this in.* Tomorrow, 2026-10-14, is the legacy close-out deadline, but no legacy positions are left, so there is nothing to sell.
 
 ## 2. Sleeve positions (19:19Z)
 | Symbol | Sleeve | Shares | Cost | Last | Value | P/L % | Today |
 |---|---|---|---|---|---|---|---|
-| WDC | swing_m | 0.205147 | 456.89 | 387.78 | $79.55 | −15.1% | −2.39% |
-| INTC | swing_m | 0.779418 | 120.26 | 100.93 | $78.67 | −16.1% | −3.60% |
-| MU | swing_m | 0.095785 | 1,036.80 | 987.63 | $94.60 | −4.7% | −4.02% |
-| AMD | swing_m | 0.161089 | 616.49 | 589.90 | $95.03 | −4.3% | −2.99% |
+| WDC | swing_m | 0.205147 | 456.89 | 375.57 | $77.04 | −17.8% | −2.94% |
+| INTC | swing_m | 0.779418 | 120.26 | 102.29 | $79.72 | −14.9% | +0.92% |
+| MU | swing_m | 0.095785 | 1,036.80 | 939.26 | $89.97 | −9.4% | −5.03% |
+| AMD | swing_m | 0.161089 | 616.49 | 598.99 | $96.49 | −2.8% | +0.80% |
 
-SWING_Q (QLD): bought 19:27Z, sold 19:41Z (signal off at the re-run); not held into the close. Legacy run-off: no positions left (the 2026-10-14 close-out has nothing to sell).
+SWING_Q (QLD): not held. Legacy run-off: none left. Cash $734.72 (+$100 pending deposit), all of it unleveraged buying power.
 
-**Ryan's one-off option (ask-first, never sold by the agent):** MU 2026-11-20 1160C ×1, cost $25.00 ($2,500). Quote at 19:19:36Z: 14.00 × 14.60, mark 14.30 (**−42.8%, −$1,070**). 39 DTE, delta 0.18, theta −$54/day. MU 987.63 is **below the 1,017.00 thesis-break level**. `exit_check` says **notify** (setup break). This is the same trigger already sent to Ryan at 13:54Z, so no new notification. The −50% re-check level is 12.50 and the −65% alert-only backstop is 8.75.
+**Ryan's one-off option (ask-first, the agent never sells it):** MU 2026-11-20 1160C ×1, cost $25.00 ($2,500). Quote at 19:19:34Z: 8.55 × 9.10, mark 8.825 (**−64.7%, −$1,617.50**). 38 DTE, delta 0.12, theta −$43/day, chance of profit 8.5%. MU is at 939.26, **below the 1,017.00 thesis-break level**. `exit_check` returns **notify** (setup break). The −65% alert-only backstop is 8.75: the mark crossed below it at 17:25Z (Ryan was notified then) and is just above it now. Same incident, so no new notification.
 
-## 3. Growth paper sleeve (mark 19:19Z)
-Book $324.14 vs cost $328.90 (**−1.45%**). NVDA −4.5%, PLTR +9.6%, NET −3.6%, CRWD −3.5%, NTRA −5.3%. The Monday exit check (14:39Z) found no exit: every name is above a rising 200-day SMA, none near −25%, no thesis-breaking news.
+## 3. Growth paper sleeve (mark 19:19:58Z)
+Book $323.96 vs cost $328.90 (**−1.50%**). NVDA −3.9%, PLTR +9.7%, NET −3.9%, CRWD −4.1%, NTRA −5.3%. Exits are checked on Mondays. The last check (10-12) found none.
 
 ## 4. Account vs QQQ
 | | Account | QQQ |
 |---|---|---|
-| Today (vs 10-09 close) | ≈ −$942 (option −$930, equities −$11.8) | −0.79% (745.31) |
-| Since 2026-09-30 (= month to date) | $3,316.28 → $2,511.84, **−24.3%** | 739.71 → 745.31, **+0.76%** |
-| Drawdown from HWM | **−30.3%** | — |
+| Today (to 19:19Z) | n/a (intraday) | −0.42% (742.93 vs 746.04) |
+| Since 2026-09-30 / month to date | −40.9% ($1,960.95 vs $3,316.28) | +0.44% (vs 739.71) |
 
-Cash $733.99 (unleveraged buying power $733.99, no margin). A $100 deposit is pending.
+The account numbers include Ryan's MU option, which is 45% of the account's cost. Drawdown from the high-water mark: −45.6%.
 
 ## 5. Tomorrow
-- Turn of the month: off (the next TOM window starts 2026-10-30, the last trading day of October).
-- Legacy deadline 2026-10-14: nothing left to close.
-- The drawdown halt stays until a live Ryan turn. MU 1160C: Ryan's call; the agent will not sell it.
+- Turn of month: not in the TOM window (it opens on the last trading day of October, 10-30).
+- Legacy deadline 10-14: nothing to close.
+- The drawdown halt stays on until a live Ryan turn. Sells and option monitoring continue.
