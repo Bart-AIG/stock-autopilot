@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-13T19:26Z",
+  "updated_utc": "2026-10-13T19:30Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -74,6 +74,21 @@
       "target": null,
       "order_id": "6ac7ee3c-0730-483a-8fc4-b68393c49600",
       "_note": "v16 decision window 2026-10-08, run started 19:25:21Z (15:25 ET); $99.31 dollar market filled 19:25:48Z."
+    },
+    {
+      "symbol": "LITE",
+      "sleeve": "swing_m",
+      "signal_symbol": "LITE",
+      "entry_date": "2026-10-13",
+      "entry_price": 981.9999,
+      "shares": 0.05669,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6ace868c-75b8-4eaa-83ed-7e2021c6ba9d"
     },
     {
       "symbol": "MU",
@@ -8850,9 +8865,9 @@
     "last_decision_window": {
       "session": "2026-10-13",
       "run_start_utc": "2026-10-13T19:25:19Z",
-      "decide_asof_utc": "2026-10-13T19:25:32Z",
-      "tv": 1953.36,
-      "result": "No orders. QLD out (QQQ IBS 0.806, RSI2 14.9). MU/WDC/AMD/INTC kept (legs on). MRNA/LITE buys (IBS) blocked by the halt. DELL/VIAV/MRVL/ILMN off, not held."
+      "decide_asof_utc": "2026-10-13T19:28:36Z",
+      "tv": 1953.37,
+      "result": "19:25Z: MRNA/LITE blocked by the halt. Ryan lifted it ~19:27Z; re-ran decide on 19:28:36Z prices: MRNA off (IBS 0.83), LITE on (IBS 0.691) -> BOUGHT $55.67 = 0.05669 @ 981.9999 (19:29:17Z). MU/WDC/AMD/INTC kept. QLD out."
     },
     "last_weekly_check": {
       "run_utc": "2026-10-05T13:31:00Z",
@@ -8877,6 +8892,21 @@
         "utc": "2026-10-13T19:25Z",
         "total_value": 1953.36,
         "drawdown_pct": -45.8
+      },
+      "lifted_utc": "2026-10-13T19:28Z",
+      "lifted_by": "Ryan, REAL live turn 2026-10-13 ~19:27Z: \"if the account drawdown is because of me (which it is) no need to halt the sleeves\"; confirmed with \"approve\"."
+    },
+    "drawdown_basis": {
+      "rule": "Since 2026-10-13 (Ryan, live turn): drawdown = sleeve_value vs its own HWM, where sleeve_value = total_value - unrealized P/L of placed_agent 'user' positions - realized P/L of 'user' positions closed since 2026-10-13. Ryan's own trades never trip the -20% notice or -25% buy halt.",
+      "user_realized_pnl_since_2026-10-13": 0.0,
+      "hwm": 3604.85,
+      "hwm_note": "Carried from the total_value HWM 2026-10-09T18:25Z (MU 1160C opened 41 min earlier, P/L near zero then).",
+      "latest": {
+        "utc": "2026-10-13T19:29Z",
+        "total_value": 1953.37,
+        "user_unrealized_pnl": -1625.0,
+        "sleeve_value": 3578.37,
+        "drawdown_pct": -0.7
       }
     }
   }
