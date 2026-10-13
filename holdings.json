@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-13T19:21Z",
+  "updated_utc": "2026-10-13T19:26Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -8848,11 +8848,11 @@
     "qqq_start_close": 739.71,
     "_note": "Created by the first v16-stamped run (post-close 2026-09-30T20:14Z, observed on its own invocation stamp 'prompt v16, pasted 2026-09-30'; no Ryan turn claimed, HARD RULE 9). start = broker total_value post-close; qqq_start_close = QQQ regular-session last trade 19:59:59Z. Drawdown escalation: -20% notify, -25% halt new sleeve buys. First decision window: 2026-10-01 15:20-15:52 ET.",
     "last_decision_window": {
-      "session": "2026-10-12",
-      "run_start_utc": "2026-10-12T19:40:21Z",
-      "decide_asof_utc": "2026-10-12T19:40:39Z",
-      "tv": 2499.07,
-      "result": "Re-run on fresher prices: QQQ IBS 0.26 (0.228 at 19:41:02Z) > 0.2, QLD hold=false -> SOLD 6.262594 @ 97.0401 (+$0.73). MU/AMD (RSI2+IBS), INTC/WDC (RSI2) kept. MRNA/LITE/VIAV buys still blocked by the halt. DELL/MRVL/ILMN off, not held."
+      "session": "2026-10-13",
+      "run_start_utc": "2026-10-13T19:25:19Z",
+      "decide_asof_utc": "2026-10-13T19:25:32Z",
+      "tv": 1953.36,
+      "result": "No orders. QLD out (QQQ IBS 0.806, RSI2 14.9). MU/WDC/AMD/INTC kept (legs on). MRNA/LITE buys (IBS) blocked by the halt. DELL/VIAV/MRVL/ILMN off, not held."
     },
     "last_weekly_check": {
       "run_utc": "2026-10-05T13:31:00Z",
@@ -8874,9 +8874,9 @@
       "exception_2026-10-12": "Ryan, live turn ~19:27Z, ordered the QLD buy despite the halt (filled 6.262594 @ 96.9199 = $606.97). He did not lift the halt in general; other new sleeve buys stay blocked until he does.",
       "qld_round_trip_2026-10-12": "The QLD bought under the 19:27Z exception was sold at 19:41Z by the decision-window rule (QQQ IBS rose above 0.2). The exception covered that one buy; it does not authorize a re-buy.",
       "latest": {
-        "utc": "2026-10-13T18:19Z",
-        "total_value": 1967.87,
-        "drawdown_pct": -45.4
+        "utc": "2026-10-13T19:25Z",
+        "total_value": 1953.36,
+        "drawdown_pct": -45.8
       }
     }
   }
