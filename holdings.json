@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-12T19:45Z",
+  "updated_utc": "2026-10-13T13:37:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -132,25 +132,26 @@
         "backstop_minus65_mode": "ALERT ONLY (Ryan did not authorize an automatic sale; default ask-first stands)"
       },
       "_current_state": {
-        "last_checked_utc": "2026-10-12T19:19:36Z",
-        "mark": 14.3,
-        "bid": 14.0,
-        "ask": 14.6,
-        "gain_pct": -42.8,
+        "last_checked_utc": "2026-10-13T13:35:15Z",
+        "mark": 7.9,
+        "bid": 7.45,
+        "ask": 8.35,
+        "gain_pct": -68.4,
         "peak_premium": 26.1,
-        "runs_at_or_below_minus50": 0,
-        "status": "notify: setup break (MU 987.63 < 1017.00), same trigger as 13:54Z, already notified",
-        "mu_spot": 987.625,
+        "runs_at_or_below_minus50": 1,
+        "status": "notify: hard backstop -65% (mark 7.90 <= 8.75) + setup break (MU 931.20 < 1017). Alert-only, ask-first; backstop notified 13:37Z",
+        "mu_spot": 931.2,
         "mu_session_low_so_far": 1017.0,
-        "mu_close": 1029.0,
-        "delta": 0.181,
-        "iv": 0.483,
-        "dte": 39
+        "mu_close": 989.04,
+        "delta": 0.113,
+        "iv": 0.513,
+        "dte": 38
       },
       "_notify_state": {
-        "last_notified_trigger": "thesis_break_1017",
-        "last_notified_utc": "2026-10-12T13:58Z",
-        "levels_notified": []
+        "last_notified_trigger": "hard_backstop_minus65",
+        "last_notified_utc": "2026-10-13T13:37Z",
+        "levels_notified": [],
+        "backstop_notified_via": "Gmail to Ryan (no push tool in session)"
       },
       "setup_invalidation_note": "Ryan, live turn 2026-10-09: 'Price that breaks thesis is below the low of today.' FINAL: the 2026-10-09 regular-session low is 1017.00 (15:25Z bar; confirmed after the bell from 5-minute and 30-minute bars, no later print below it; close 1029.00). The thesis_break alert already sits at 1017.00, so no post-bell update is needed. A break = MU trading below 1017.00 on any run's live quote; exit_check returns close -> notify (user-placed, ask first).",
       "_alerts": {
@@ -8871,7 +8872,12 @@
       "rule": "v16 FOUR LAWS #4: at -25% from HWM, notify Ryan and place NO new sleeve BUYS until a live Ryan turn. Sells still run.",
       "cause": "Mostly Ryan's MU 1160C (user-placed, $2,500 = 72% of account at entry): mark 14.00 vs 25.00 cost (-$1,100). Sleeve equities $349 (4 swing_m names). Only a live Ryan turn lifts this; an unattended run may not.",
       "exception_2026-10-12": "Ryan, live turn ~19:27Z, ordered the QLD buy despite the halt (filled 6.262594 @ 96.9199 = $606.97). He did not lift the halt in general; other new sleeve buys stay blocked until he does.",
-      "qld_round_trip_2026-10-12": "The QLD bought under the 19:27Z exception was sold at 19:41Z by the decision-window rule (QQQ IBS rose above 0.2). The exception covered that one buy; it does not authorize a re-buy."
+      "qld_round_trip_2026-10-12": "The QLD bought under the 19:27Z exception was sold at 19:41Z by the decision-window rule (QQQ IBS rose above 0.2). The exception covered that one buy; it does not authorize a re-buy.",
+      "latest": {
+        "utc": "2026-10-13T13:35Z",
+        "total_value": 1854.88,
+        "drawdown_pct": -48.5
+      }
     }
   }
 }
