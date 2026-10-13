@@ -6,7 +6,12 @@
 Account value **$1,960.95** against the high-water mark of **$3,604.85** (2026-10-09), which is **−45.6%**. That is past the −25% halt line, so **no new sleeve BUYS until a live Ryan turn**. Sells still run in the decision window. Most of the loss is Ryan's MU 1160C (−$1,617 vs cost). The sleeve stocks are worth $343.22.
 
 ## 1. Decision window (15:20–15:52 ET)
-*Pending. The run that starts inside the window runs `sleeves.py decide` and fills this in.* Tomorrow, 2026-10-14, is the legacy close-out deadline, but no legacy positions are left, so there is nothing to sell.
+Run started **19:25:19Z (15:25 ET)**, inside the window. `sleeves.py decide` on live prices at 19:25:32Z, total value $1,953.36. **No orders placed.**
+- **SWING_Q (QQQ → QLD):** out. QQQ 743.16, RSI2 14.9, IBS 0.806, above the 200-day. No leg on, QLD not held.
+- **Held and kept (a leg is on):** MU (RSI2 3.4 + IBS 0.458), WDC (RSI2 7.2), AMD (RSI2), INTC (RSI2). None turned off, so nothing to sell.
+- **Would buy, blocked by the drawdown halt:** MRNA (IBS leg) and LITE (IBS leg), $55.67 each.
+- **Off, not held:** DELL, VIAV, MRVL, ILMN.
+- No legacy positions remain, so tomorrow's 10-14 close-out has nothing to sell.
 
 ## 2. Sleeve positions (19:19Z)
 | Symbol | Sleeve | Shares | Cost | Last | Value | P/L % | Today |
