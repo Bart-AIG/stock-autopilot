@@ -1,24 +1,24 @@
-RISK GREEN (0) - no benchmark alert fired, but OKLO and SMR are newly flagged WEAK
-(as of 2026-10-09 14:42Z; advisory only, for you to place in-app)
+RISK GREEN (0) - AUR flipped to WEAK; no benchmark alert fired, market risk unchanged
 
-**What changed**
-- OKLO ($34.29, -0.6% vs cost $34.48) and SMR ($7.18, -2% vs cost $7.32) are now tracked and both grade WEAK: under the 50-day and 200-day, 80% and 87% off their 1-yr highs. Both are pre-revenue or near it (OKLO none, SMR $75k last quarter, net loss $47.5M). At GREEN this is a review flag, not a sell order.
-- CRCL ($85.97) crossed above its 50-day today and sits just under its 200-day ($86.04). It is still graded WEAK until it closes above.
+**What changed (17:42Z, Oct 13):** AUR (100 sh, ~$556, 0.5% of the book) moved WATCH -> WEAK: under its 50- and 200-day, -34% off its 1-yr high. Your support alert at 5.56 fired at 13:30Z. Tier stays GREEN; the plan flags it for review, no sale is recommended at GREEN.
 
-**Benchmarks (all clear)**
-| Alert | Level | Price | Distance |
-|---|---|---|---|
-| IEF below | 88.95 | 89.21 | 0.3% |
-| HYG below | 76.35 | 77.11 | 1.0% |
-| SPY below 50d | 766.84 | 776.16 | 1.2% |
-| TIP below | 102.85 | 104.32 | 1.4% |
-| QQQ below 20d | 735.72 | 749.47 | 1.9% |
-| QQQ below | 733 | 749.47 | 2.2% |
+**Benchmarks (none triggered):**
+- QQQ 742.39: 20-day 739.38 (+0.4%), 733 (+1.3%), 50-day 725.68 (+2.3%), 700 (+6.1%)
+- SPY 777.50: 50-day 768.20 (+1.2%), 729 (+6.7%)
+- IEF 89.54: 88.95 (+0.7%) | HYG 77.05: 76.35 (+0.9%) | TIP 104.54: 102.85 (+1.6%)
+- KRE 68.96: 65.25 (+5.7%) | USO 152.02: 163.80 | VIXY 16.07: 21.15
 
-**Ladder:** de-risk stage 0, reinvest tranche 0. Next level is QQQ 733.
-**Credit crack watch:** 0 reds (carried from 13:45Z). 10-yr yield borderline, about 5.2%.
-**Margin:** $25,738 of margin is in use (cash -$25,738 on $96,532 total). That is against the 2026-08-05 no-leverage decision. No raise is required at GREEN.
+**Margin:** cash is -$18,315 on a $93,907 account, so margin is in use. You de-levered this account on 2026-08-05 and said not to re-margin; that is still the first dollar to raise if risk rises.
 
-**Review list (WEAK, no sale recommended at GREEN):** APLD, CRCL, WULF, FIG, MOD, OKLO, SMR.
+**Ladder:** stage 0 (QQQ above the 20-day and 733), no tranche reached.
 
-**Back to calm / what would raise risk:** IEF under 88.95, QQQ under 733, SPY under 766.84.
+**Crack watch:** OFF, 0 REDs. LQD/IEF 20-day 0.0%, HYG/IEF 20-day +0.1%, both GREEN. News and 10-year yield carried from Oct 12 (about 5.2%, borderline).
+
+**Holdings health (price trend only; financials not refreshed this run):**
+- WEAK (review, small): AUR, MOD, FIG, CRCL, APLD, OKLO, SMR, WULF
+- WATCH: MU (-23% off high, under 50-day; about 12.5% of the book), CRDO, ASND, SKHY
+- Improved to OK: TEM
+
+**Sell list:** none at GREEN. Nothing to place in-app.
+
+**What would raise the tier:** QQQ closing under 739.38 (20-day) adds 1 point, under 733 another, under 725.68 (50-day) another; IEF under 88.95 or HYG under 76.35.
