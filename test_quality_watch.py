@@ -1,6 +1,7 @@
 """Tests for the re-buy watch in quality_watch.py (set 2026-10-08). No network.
 Run: python test_quality_watch.py"""
 import json
+from pathlib import Path
 import tempfile
 
 import quality_watch as qw
@@ -48,8 +49,11 @@ def test_risk_watch_skips_rebuy_alerts():
 
 
 def test_live_state_ids_are_skipped():
-    ids = risk_watch.rebuy_watch_alert_ids()
-    assert "e260f480-fc1c-48e0-950b-479e2ea1b0fa" in ids   # CRCL macd_turn
+    # Checks the live file against itself, not a pinned id: the re-buy watch empties
+    # when names are bought back (2026-10-10), which broke a hard-coded CRCL id.
+    path = Path(risk_watch.__file__).with_name("rebuy_watch.json")
+    live = json.loads(path.read_text()).get("names") or {}
+    assert risk_watch.rebuy_watch_alert_ids() == qw.rebuy_alert_ids(live)
 
 
 def test_risk_watch_skips_option_watch_alerts():

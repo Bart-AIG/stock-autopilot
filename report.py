@@ -46,6 +46,7 @@ from analyze import (
 )
 import grade as quality
 import valuation
+import watchlists
 import disruption
 
 CACHE = LOGS / "history_cache.json"
@@ -263,7 +264,8 @@ def scan_universe() -> list[str]:
     rules) plus the JOINT watch-list names (coverage for the long-term buy screen)."""
     held = {p.get("symbol") for p in load_holdings()}
     joint = set(load_joint_watch())
-    return UNIVERSE + sorted(s for s in (held | joint) if s and s not in UNIVERSE)
+    themes = set(watchlists.theme_symbols())   # Ryan's theme watchlists (2026-10-13)
+    return UNIVERSE + sorted(s for s in (held | joint | themes) if s and s not in UNIVERSE)
 
 
 def thesis_confirmation(pos: dict, review_keys: set, today) -> tuple[bool, str]:
@@ -647,6 +649,7 @@ def build_value_data(momentum: list[dict], swings: list[dict], key: str,
         # Every joint holding too: its forward target (valuation.forward_target) is the
         # fundamental leg of the joint price-target alerts (price_targets.py, 2026-10-09).
         syms += [s for s, _ in top] + _quality_watch_symbols() + _sleeve_picks() + sorted(joint_held)
+        syms += watchlists.theme_symbols()
     now = datetime.now(timezone.utc)
     cache = valuation.load_cache()
     rows = valuation.build(syms, key, cache=cache, today=now.strftime("%Y-%m-%d"))
@@ -1123,6 +1126,23 @@ def write_report(momentum: list[dict], swings: list[dict], mode: str,
             d = disruption.for_row(v, _sn, now.date())
             lines.append(f"| {sym} | {'yes' if sym in held_m else 'no'} | {valuation.short(v)} | "
                          f"{disruption.cell(d)} | {disruption.why(d) or '—'} |")
+
+    # --- Ryan's theme watchlists (2026-10-13): his picks, graded for context. ---
+    themes = (watchlists.load_state().get("themes") or {}) if mode == "morning" else {}
+    if themes:
+        _sn, _vc = disruption.load_notes(), valuation.load_cache()
+        lines.append("\n## Theme watchlists — your picks, graded (display only)")
+        lines.append("Names on your Robinhood theme lists. Quality is grade.py's letter (A/A+ buyable, "
+                     "B holdable, C neither); value and disruption as above. Context, not signals.\n")
+        lines.append("| List | Ticker | Quality | Value | Disruption |")
+        lines.append("|---|---|---|---|---|")
+        for t in themes.values():
+            for sym in t.get("symbols") or []:
+                g = grades.get(sym) if grades else None
+                q = f"{g['grade']} {g['score']}/{quality.N_TRAITS} #{g['rank']}" if g else "not scanned"
+                v = value_data.get(sym) or _vc.get(sym)
+                d = disruption.for_row(v, _sn, now.date())
+                lines.append(f"| {t.get('name', '')} | {sym} | {q} | {valuation.short(v)} | {disruption.cell(d)} |")
 
     lines.append("\n## Options candidates (sleeve: options — single-leg LONG)")
     lines.append("Underlyings only, drawn from the quality grade: CALLS on top-graded leaders, PUTS on "
