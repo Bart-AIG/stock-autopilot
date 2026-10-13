@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-13T19:30Z",
+  "updated_utc": "2026-10-13T19:42:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -91,6 +91,21 @@
       "order_id": "6ace868c-75b8-4eaa-83ed-7e2021c6ba9d"
     },
     {
+      "symbol": "MRNA",
+      "sleeve": "swing_m",
+      "signal_symbol": "MRNA",
+      "entry_date": "2026-10-13",
+      "entry_price": 215.5654,
+      "shares": 0.25672,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6ace894a-9240-46c4-ab6e-7bcc1757fa66"
+    },
+    {
       "symbol": "MU",
       "sleeve": "options",
       "track": "user_one_off",
@@ -147,19 +162,19 @@
         "backstop_minus65_mode": "ALERT ONLY (Ryan did not authorize an automatic sale; default ask-first stands)"
       },
       "_current_state": {
-        "last_checked_utc": "2026-10-13T19:19:34Z",
-        "mark": 8.825,
-        "bid": 8.55,
-        "ask": 9.1,
-        "gain_pct": -64.7,
+        "last_checked_utc": "2026-10-13T19:41:09Z",
+        "mark": 8.625,
+        "bid": 8.2,
+        "ask": 9.05,
+        "gain_pct": -65.5,
         "peak_premium": 26.1,
-        "runs_at_or_below_minus50": 12,
-        "status": "notify: setup break (MU 939.26 < 1017) live; -65% backstop (8.75) not fired this run (mark 8.825). Same incident as 17:25Z notify; no re-notify.",
-        "mu_spot": 939.26,
+        "runs_at_or_below_minus50": 13,
+        "status": "notify: setup break (MU 940.90 < 1017) live; mark 8.625 back below the 8.75 -65% backstop (flapping around the line since 17:25Z). Same incident, no re-notify.",
+        "mu_spot": 940.9,
         "mu_session_low_so_far": 1017.0,
         "mu_close": 989.04,
-        "delta": 0.123,
-        "iv": 0.514,
+        "delta": 0.121,
+        "iv": 0.507,
         "dte": 38
       },
       "_notify_state": {
@@ -8867,7 +8882,7 @@
       "run_start_utc": "2026-10-13T19:25:19Z",
       "decide_asof_utc": "2026-10-13T19:28:36Z",
       "tv": 1953.37,
-      "result": "19:25Z: MRNA/LITE blocked by the halt. Ryan lifted it ~19:27Z; re-ran decide on 19:28:36Z prices: MRNA off (IBS 0.83), LITE on (IBS 0.691) -> BOUGHT $55.67 = 0.05669 @ 981.9999 (19:29:17Z). MU/WDC/AMD/INTC kept. QLD out."
+      "result": "19:25Z: MRNA/LITE blocked by the halt. Ryan lifted it ~19:27Z; re-ran decide on 19:28:36Z prices: MRNA off (IBS 0.83), LITE on (IBS 0.691) -> BOUGHT $55.67 = 0.05669 @ 981.9999 (19:29:17Z). MU/WDC/AMD/INTC kept. QLD out. 19:40Z re-run (decide asof 19:40:40Z, tv 1941.77): MRNA IBS 0.792 -> leg ON (carried in) -> BOUGHT $55.34 = 0.25672 @ 215.5654 (19:40:58Z, order 6ace894a). LITE/MU/WDC/AMD/INTC kept. QLD out (IBS 0.849). No sells due."
     },
     "last_weekly_check": {
       "run_utc": "2026-10-05T13:31:00Z",
