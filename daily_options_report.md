@@ -11,9 +11,10 @@ Account value **$1,960.95** against the high-water mark of **$3,604.85** (2026-1
 ## 1. Decision window (15:20–15:52 ET)
 - **19:25Z run:** decide said buy MRNA and LITE (IBS leg); the halt blocked both.
 - **19:28Z, after Ryan lifted the halt:** re-ran decide on 19:28:36Z prices. MRNA's IBS had risen to 0.83, so its leg was off. LITE still on (IBS 0.691). **BOUGHT LITE $55.67 = 0.05669 sh @ $982.00** (19:29:17Z).
-- **SWING_Q (QQQ → QLD):** out (RSI2 14.9, IBS 0.806).
-- **Kept (a leg is on):** MU (RSI2 + IBS), WDC, AMD, INTC (RSI2).
-- **Off, not held:** MRNA, DELL, VIAV, MRVL, ILMN.
+- **19:40Z re-run** on 19:40:40Z prices: MRNA's IBS fell back to 0.792, so its leg was on again. **BOUGHT MRNA $55.34 = 0.25672 sh @ $215.57** (19:40:58Z). Everything else unchanged.
+- **SWING_Q (QQQ → QLD):** out (RSI2 15.4, IBS 0.849 at 19:40Z).
+- **Kept (a leg is on):** MU (RSI2 + IBS), LITE (IBS), WDC, AMD, INTC (RSI2).
+- **Off, not held:** DELL, VIAV, MRVL, ILMN.
 - No legacy positions remain, so the 10-14 close-out has nothing to sell.
 
 ## 2. Sleeve positions (19:19Z)
