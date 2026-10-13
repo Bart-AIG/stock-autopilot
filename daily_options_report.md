@@ -2,16 +2,19 @@
 
 *Written by the run that started 19:19:12Z (15:19:12 ET), invoked with **prompt v16**. All figures come from the broker, priced at 19:19–19:20Z (not the close). This run started one minute **before** the 15:20–15:52 ET decision window, so it placed no sleeve orders. The decision-window run amends Section 1.*
 
-## ⚠️ Drawdown halt is still ACTIVE
+## ✅ Drawdown halt LIFTED at 19:28Z (Ryan, live turn)
+Ryan said the drawdown is his own MU option and should not halt the sleeves. Drawdown is now measured without his positions: $3,578.37 vs the $3,604.85 high-water mark = **−0.7%**.
+
+### Before the lift
 Account value **$1,960.95** against the high-water mark of **$3,604.85** (2026-10-09), which is **−45.6%**. That is past the −25% halt line, so **no new sleeve BUYS until a live Ryan turn**. Sells still run in the decision window. Most of the loss is Ryan's MU 1160C (−$1,617 vs cost). The sleeve stocks are worth $343.22.
 
 ## 1. Decision window (15:20–15:52 ET)
-Run started **19:25:19Z (15:25 ET)**, inside the window. `sleeves.py decide` on live prices at 19:25:32Z, total value $1,953.36. **No orders placed.**
-- **SWING_Q (QQQ → QLD):** out. QQQ 743.16, RSI2 14.9, IBS 0.806, above the 200-day. No leg on, QLD not held.
-- **Held and kept (a leg is on):** MU (RSI2 3.4 + IBS 0.458), WDC (RSI2 7.2), AMD (RSI2), INTC (RSI2). None turned off, so nothing to sell.
-- **Would buy, blocked by the drawdown halt:** MRNA (IBS leg) and LITE (IBS leg), $55.67 each.
-- **Off, not held:** DELL, VIAV, MRVL, ILMN.
-- No legacy positions remain, so tomorrow's 10-14 close-out has nothing to sell.
+- **19:25Z run:** decide said buy MRNA and LITE (IBS leg); the halt blocked both.
+- **19:28Z, after Ryan lifted the halt:** re-ran decide on 19:28:36Z prices. MRNA's IBS had risen to 0.83, so its leg was off. LITE still on (IBS 0.691). **BOUGHT LITE $55.67 = 0.05669 sh @ $982.00** (19:29:17Z).
+- **SWING_Q (QQQ → QLD):** out (RSI2 14.9, IBS 0.806).
+- **Kept (a leg is on):** MU (RSI2 + IBS), WDC, AMD, INTC (RSI2).
+- **Off, not held:** MRNA, DELL, VIAV, MRVL, ILMN.
+- No legacy positions remain, so the 10-14 close-out has nothing to sell.
 
 ## 2. Sleeve positions (19:19Z)
 | Symbol | Sleeve | Shares | Cost | Last | Value | P/L % | Today |
