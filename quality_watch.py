@@ -225,13 +225,13 @@ def candidates(rows: list[dict], fins: dict[str, list] | None = None,
 
 
 def setup_order(cands: list[dict]) -> list[dict]:
-    """The same names ranked by most bullish chart setup (Ryan, live turn 2026-10-14):
-    a live break above the pattern trigger first, then the setup score, then the
-    business-quality rank. Names not scored yet (no setups.json row) go last."""
+    """The same names ranked by PRE-BREAKOUT setup, most coiled first (Ryan, live turns
+    2026-10-14: grade on the 8 business variables first, then rank by chart, and
+    "thats what we should be looking for, ones before the breakout"). Ties go to the
+    business-quality rank; names not scored yet (no 'pre' in setups.json) go last."""
     def key(c):
-        s = c.get("setup")
-        live = setups.live_state(s, c.get("price"))
-        return (s is None, live != "BREAKING OUT NOW", -(s or {}).get("score", 0), c["rank"])
+        pre = (c.get("setup") or {}).get("pre")
+        return (pre is None, -(pre or 0), c["rank"])
     return sorted(cands, key=key)
 
 
@@ -279,23 +279,23 @@ def report(cands: list[dict], plan: dict, asof: str, new_syms: set[str]) -> str:
              "Value = valuation grade vs the stock's own 10-year multiples (positive = undervalued "
              "by that much). Disruption = is the business being disrupted or doing the disrupting. "
              "Within a grade, names not under threat rank first, then cheaper names. The first table "
-             "re-ranks the same names by chart setup (Q # = their business-quality rank).", ""]
+             "re-ranks the same names by pre-breakout chart setup (Q # = their business-quality rank).", ""]
     if not cands:
         lines.append("No high-quality names are near their 200-day right now.")
     else:
         alerted = {c["symbol"] for c in alert_set(cands)}
-        lines += ["## Ranked by chart setup score (highest first)", "",
-                  "**Backtest warning (setups_results.md, 2019-2026):** higher setup scores did NOT "
-                  "pick better names near the 200-day; they lagged (rank IC -0.11, t -3.1, negative in "
-                  "both 2019-22 and 2023-26). Read this table as a description of each chart, not as "
-                  "a buy order.", "",
-                  "| Setup # | Ticker | Setup | Pattern | Why | Grade | Value | Zone | Q # |",
+        lines += ["## Ranked by pre-breakout setup (most coiled first)", "",
+                  "Names that passed the business grade, re-ranked by how pulled back their chart is "
+                  "BEFORE a breakout. Backtest (setups_results.md, large caps near the 200-day): the "
+                  "most-coiled fifth beat the least-coiled fifth by ~2.8% vs SPY over the next 3 months "
+                  "on 2023-26 data the score was not built from. A ranking aid, not a buy order: every "
+                  "name still needs the news/thesis check.", "",
+                  "| # | Ticker | Pre-breakout | Traits | Pattern | Grade | Value | Zone | Q # |",
                   "|---|---|---|---|---|---|---|---|---|"]
         for i, c in enumerate(setup_order(cands), 1):
             s = c.get("setup")
-            lines.append(f"| {i} | {c['symbol']} | {setups.cell(s)} | "
-                         f"{setups.pattern_cell(s, c.get('price')) if s else '—'} | "
-                         f"{', '.join((s or {}).get('why', [])) or '—'} | {c['grade']} | "
+            lines.append(f"| {i} | {c['symbol']} | {setups.pre_cell(s)} | {setups.pre_why(s)} | "
+                         f"{setups.pattern_cell(s, c.get('price')) if s else '—'} | {c['grade']} | "
                          f"{valuation.short(c.get('value') or {})} | {c['zone']} | {c['rank']} |")
         lines += ["", "## Ranked by business quality (decides the alert slots)", "",
                   "| # | Ticker | Grade | Q | Value | Fair | Analysts | Disruption | Comp | Sector | Zone | Price | 200-day | Dist | 200d slope | Alert | Why |",

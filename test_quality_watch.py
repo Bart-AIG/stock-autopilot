@@ -72,6 +72,14 @@ def test_report_section():
     assert "EARLY" in md and "⬆" in md and "defers the loss" in md
 
 
+def test_setup_order_by_prebreakout():
+    cands = [{"symbol": "A", "rank": 1, "setup": {"pre": 20}},
+             {"symbol": "B", "rank": 2, "setup": {"pre": 71}},
+             {"symbol": "C", "rank": 3, "setup": None},
+             {"symbol": "D", "rank": 4, "setup": {"pre": 71}}]
+    assert [c["symbol"] for c in qw.setup_order(cands)] == ["B", "D", "A", "C"]
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
