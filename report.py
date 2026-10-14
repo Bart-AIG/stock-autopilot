@@ -1246,22 +1246,47 @@ def main() -> None:
     print("NOTE: read-only. No trades placed. No Robinhood access.")
 
 
+def fmp_ohlc(sym: str, key: str, days: int = 430) -> list[dict] | None:
+    """Full daily bars (open/high/low/close/volume), newest first, or None. The chart
+    scorer draws trendlines through highs and lows, which the light history lacks."""
+    to_d = datetime.now(timezone.utc).date()
+    url = (f"{BASE}/historical-price-eod/full?symbol={sym}"
+           f"&from={to_d - timedelta(days=days)}&to={to_d}&apikey={key}")
+    for attempt in range(2):
+        try:
+            with urllib.request.urlopen(url, timeout=20) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+                return data if isinstance(data, list) and data else None
+        except urllib.error.HTTPError as exc:
+            if exc.code == 429 and attempt == 0:
+                time.sleep(2)
+                continue
+            return None
+        except (urllib.error.URLError, TimeoutError, ValueError):
+            return None
+    return None
+
+
 def build_chart_setups(histories: dict, key: str) -> None:
-    """Write setups.json for the Quality @ 200-day names (fetching any history the
-    universe scan didn't cover) plus the joint watch-list. Never fails the report."""
+    """Write setups.json for the Quality @ 200-day names plus the joint watch-list,
+    from full OHLC bars (falls back to the scan's close-only history for a name the
+    full endpoint doesn't serve). Never fails the report."""
     try:
         syms = list(dict.fromkeys(_quality_watch_symbols() + load_joint_watch()))
-        hist = {}
+        hist, full = {}, 0
         for sym in syms:
-            rows = histories.get(sym)
-            if rows is None:
-                rows = fmp_history(sym, key)
-                time.sleep(0.2)
+            rows = fmp_ohlc(sym, key)
+            time.sleep(0.2)
+            if rows:
+                full += 1
+            else:
+                rows = histories.get(sym) or fmp_history(sym, key)
             if rows:
                 hist[sym] = rows
         blob = chart_setups.build(hist, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"))
         chart_setups.save_cache(blob)
-        print(f"  chart setups scored for {len(blob['rows'])} of {len(syms)} names")
+        print(f"  chart setups scored for {len(blob['rows'])} of {len(syms)} names "
+              f"({full} on full OHLC)")
     except Exception as exc:  # display-only: a failure here must not lose the report
         print(f"  chart setups skipped: {exc}")
 
