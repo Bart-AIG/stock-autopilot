@@ -344,13 +344,59 @@ def score_arrays(C, H, L, V) -> dict | None:
         flags.append("pen_falling_50d")
 
     pts = max(0, min(100, pts))
+    states = {p["state"] for p in found}
+    forming = [p for p in found if p["state"] in ("near", "forming")]
+    feat = {
+        "pattern_forming": bool(forming),
+        "pattern_broke_out": bool(states & {"fresh_breakout", "breakout"}),
+        "rsi_divergence": "rsi_divergence" in flags,
+        "fresh_60d_low": "pen_60d_low" in flags,
+        "rsi14_below_40": rsi[last] is not None and rsi[last] < 40,
+        "below_20d": price < e20[last],
+        "pullback_8pct": price / max(C[-60:]) - 1 <= -0.08,
+        "volume_drying": _mean(V[-10:]) < 0.85 * _mean(V[-50:]),
+        "higher_low": "higher_low" in flags,
+        "macd_cross": "macd_cross" in flags,
+        "macd_above": "macd_above" in flags,
+        "rising_20d": "rising_20d" in flags,
+        "up_volume": "up_volume" in flags,
+        "reclaim_50d": "reclaim_50d" in flags,
+        "below_falling_50d": "pen_falling_50d" in flags,
+    }
+    pre = prebreakout(feat)
     out = {"score": pts, "label": label_for(pts), "why": why, "flags": flags,
+           "feat": feat, "pre": pre, "pre_label": pre_label(pre),
            "price": round(price, 2)}
     if best:
         out["pattern"] = {"name": best["pattern"], "state": best["state"],
                           "trigger": round(best["trigger"], 2),
                           "support": round(best["support"], 2)}
     return out
+
+
+# PRE-BREAKOUT score (Ryan, live turn 2026-10-14: "thats what we should be looking for,
+# ones before the breakout"). The 2026-10-14 backtest showed the bullish-LOOKING chart
+# (breakouts, rising 20-day, up-volume) lagged and the pulled-back chart led. These are
+# the "before the breakout" traits, written down BEFORE the out-of-sample check
+# (setups_backtest.py fits nothing on 2023-26; see setups_results.md). Each is worth
+# one point; a broken-out pattern costs one (the move it promised has happened).
+PRE_WEIGHTS = {
+    "pattern_forming": 1, "rsi_divergence": 1, "fresh_60d_low": 1, "rsi14_below_40": 1,
+    "below_20d": 1, "pullback_8pct": 1, "volume_drying": 1, "pattern_broke_out": -1,
+}
+PRE_MAX = sum(w for w in PRE_WEIGHTS.values() if w > 0)
+
+
+def prebreakout(feat: dict, weights: dict | None = None) -> int:
+    """0-100: how far the chart sits in the 'pulled back, not yet broken out' state."""
+    w = weights or PRE_WEIGHTS
+    pos = sum(v for v in w.values() if v > 0) or 1
+    raw = sum(v for k, v in w.items() if feat.get(k))
+    return max(0, round(100 * raw / pos))
+
+
+def pre_label(pre: int) -> str:
+    return "COILED" if pre >= 60 else "PULLING BACK" if pre >= 35 else "MIXED" if pre >= 15 else "EXTENDED"
 
 
 def label_for(pts: int) -> str:
