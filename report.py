@@ -48,6 +48,7 @@ import grade as quality
 import valuation
 import watchlists
 import disruption
+import setups as chart_setups
 
 CACHE = LOGS / "history_cache.json"
 
@@ -1230,6 +1231,11 @@ def main() -> None:
               and quality.pullback_trigger(grades[s["symbol"]], s["price"], s["rsi2"])]
     # Valuation grade (valuation.py): industry-aware, vs each name's own 10-yr history.
     value_data = build_value_data(momentum, swings, key, grades, args.mode) if momentum else {}
+    # Chart-setup score (setups.py) for the Quality @ 200-day list and the joint
+    # watch-list, so the quality routine can rank its names by most bullish chart
+    # (Ryan, live turn 2026-10-14). Morning only; display/ranking, never a trade gate.
+    if args.mode == "morning" and not args.limit:
+        build_chart_setups(histories, key)
     # Earnings gate for the swing setups: ONE market-wide call, only when there are
     # setups to gate. {} on any failure -> the screen degrades to earnings-blind.
     earnings_cal = (fmp_earnings_calendar(key, days=EARNINGS_BLACKOUT_DAYS + 7)
@@ -1238,6 +1244,26 @@ def main() -> None:
     print(f"\nRanked {len(momentum)} momentum, found {len(setups)} swing setup(s).")
     print(f"Wrote {path}")
     print("NOTE: read-only. No trades placed. No Robinhood access.")
+
+
+def build_chart_setups(histories: dict, key: str) -> None:
+    """Write setups.json for the Quality @ 200-day names (fetching any history the
+    universe scan didn't cover) plus the joint watch-list. Never fails the report."""
+    try:
+        syms = list(dict.fromkeys(_quality_watch_symbols() + load_joint_watch()))
+        hist = {}
+        for sym in syms:
+            rows = histories.get(sym)
+            if rows is None:
+                rows = fmp_history(sym, key)
+                time.sleep(0.2)
+            if rows:
+                hist[sym] = rows
+        blob = chart_setups.build(hist, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"))
+        chart_setups.save_cache(blob)
+        print(f"  chart setups scored for {len(blob['rows'])} of {len(syms)} names")
+    except Exception as exc:  # display-only: a failure here must not lose the report
+        print(f"  chart setups skipped: {exc}")
 
 
 def _scan_full_list(key: str, names: list[str]):
