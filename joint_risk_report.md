@@ -1,37 +1,48 @@
-RISK YELLOW (3) - SPY just broke its 50-day (768.05 vs 768.60); QQQ still under 733 and 20-day
+RISK YELLOW (2) - QQQ 50-day alert fired 19:05Z then reversed; de-risk Stage 2 reached; margin $28.3k
 
-**What fired (13:41 ET / 17:41Z):** SPY under its 50-day SMA, fired 17:27Z at 768.50. New since the 15:45Z push. QQQ 728.43 is under 733 and under its 20-day (741.34), and 0.26% above its 50-day (726.55). Score 3 = QQQ<733 (1) + QQQ<20d (1) + SPY<50d (1). Tier unchanged at YELLOW, one point from ORANGE (4). Next point: QQQ closing under 726.55.
+**Advisory only. Nothing placed. For you to place in-app.** As of 19:50Z (3:50pm ET).
 
-**Crack watch: OFF.** Credit GREEN at 13:45Z (LQD/IEF -0.25%, HYG/IEF -0.24% over 20d). IEF 89.62, back above 88.95. News check not rerun.
+**What changed**
+- QQQ touched its 50-day (726.6 at 19:05Z) and bounced. Now 729.12 vs 50d 726.55 (+0.35%).
+- QQQ has stayed under 733 and its 20-day (741.34) into the last hour (-2.0% on the day). That makes **Stage 1 and Stage 2 reached** (was 0).
+- Stage 3 (close under the 50-day) is a **watch**, not a sale yet. It fires if QQQ closes below 726.55.
+- SPY is back above its 50-day (768.77 vs 768.60), so the score fell 3 to 2. Tier stays YELLOW.
+
+**Margin: $28,282 in use** (cash -28,282; $13.3k on 09-25). Account value $90,054. Against your 2026-08-05 no-margin decision, clearing it is the first priority at YELLOW.
+
+**LADDER: Stage 2 (Below 20-day SMA) reached.** From joint_derisk_plan.json:
+- Stage 1 names: CRCL is the only one still held (47 sh, about $3.7k, -3.4%). The others are already gone.
+- Stage 2: trim MU. The plan said 8 of 17; you now hold 22 sh ($20.3k, 17% of equity). Roughly 10-11 sh (~$9.5k) takes it to about half. MU is -0.7% vs cost, so little tax either way. You bought it back recently, so check lot dates.
+- Next: Stage 3 below 726.55 (FIG, MRVL, CRDO, TEM, HOOD trims); Stage 4 below 700.
+
+**Holdings health**
+- WEAK: FIG (under 50d and 200d, -66% off high), CRCL (under 50d and 200d, -42%).
+- WATCH: MU (under 50d), CRDO (under 50d), ASND (under 50d and 200d), CEG (under 200d).
+- Flags carried from 18:45Z; daily-bar flags do not change intraday.
+
+**Sell list (mechanical, risk_watch.sell_plan)**
+Need about $44k to clear margin. Priority:
+1. CRCL ~$3.7k, 100%, -3.4%. Loss, harvest. WEAK.
+2. FIG ~$5.9k, 100%, +1.3%. Gain, check lot term. WEAK.
+3. MU, per ladder: trim about 10 sh (~$9.5k). The mechanical plan wants 100%, but MU is core to your thesis. Ladder trim preferred.
+4. SPCX ~$3.8k (-7.3%) and TEM $96 (-13.9%): loss harvest candidates.
+5. The plan also lists MA ($10.2k, -0.7%) for a full sale as "non-core loss". MA is a quality name; I would not sell it at YELLOW. Your call.
+
+Thesis checks: a news search found nothing dated today, so verdicts are **price-action only, not researched**. Do not treat any name as "broken".
 
 **Benchmarks**
 | Alert | Level | Price | Distance |
 |---|---|---|---|
-| SPY < 50d | 768.60 | 768.05 | FIRED |
-| QQQ < 733 | 733 | 728.43 | FIRED |
-| QQQ < 20d | 741.34 | 728.43 | FIRED |
-| QQQ < 50d | 726.55 | 728.43 | +0.26% |
-| IEF < 88.95 | 88.95 | 89.62 | +0.75% |
-| HYG < 76.35 | 76.35 | 76.83 | +0.63% |
-| QQQI < 54.51 | 54.51 | 54.89 | +0.70% |
-| TIP < 102.85 | 102.85 | 104.76 | +1.8% |
-| QQQ < 700 | 700 | 728.43 | +4.1% |
+| QQQ < 733 | 733 | 729.12 | fired |
+| QQQ < 20d | 741.34 | 729.12 | fired |
+| QQQ < 50d | 726.55 | 729.12 | +0.35% (fired 19:05Z, reversed) |
+| SPY < 50d | 768.60 | 768.77 | +0.02% |
+| HYG < | 76.35 | 76.83 | +0.6% |
+| IEF < | 88.95 | 89.69 | +0.8% |
+| QQQI < | 54.51 | 54.94 | +0.8% |
+| KRE < | 65.25 | 68.31 | +4.7% |
+| QQQ < 700 | 700 | 729.12 | +4.2% |
 
-**Margin in use: $25,452** (account value $89,978; was $26.8k at 15:45Z). Raise this first.
+Credit check (CRACK WATCH): OFF. LQD/IEF and HYG/IEF were GREEN at 13:45Z; IEF 89.69 is above the 10-year yield trigger.
 
-**LADDER:** Stage 2 (below 20-day) reached INTRADAY only. Not confirmed: the plan needs a close below, or a break that holds into the last hour (about 3 PM ET). Stage 3 (50-day 726.55) is 1.9 points away. If QQQ closes under 726.55, stage 3 applies on top. The plan's stage 1-2 sells already done by you (APP, VST, CI, UBER, BMEA, LMT, AMD, MRVL/CRDO/TEM partial) are not repeated.
-Still on the stage list if it confirms: CRCL 35 sh (10 bought today, so sell all to keep the loss harvest clean), MU about 8-9 of 19.
-
-**HOLDINGS HEALTH** (carried from the 14:45Z run; 200-day levels not re-pulled this run)
-- WEAK: CRCL, FIG (both under 50 and 200-day), ASND is WATCH.
-- WATCH: MU (under 50-day), CEG (under 200-day 283.3 vs 285.5; now 279.88), CRDO (under 50-day), ASND.
-
-**SELL LIST** (for you to place in-app; nothing is placed by me)
-1. CRCL: sell all 35 (~$2,761), -5.5%, loss harvest. Check wash sale: 10 sh bought today. Thesis not checked this run.
-2. FIG: sell all 277 (~$5,864), +0.4%, WEAK. Thesis not checked this run.
-3. SPCX: sell all 25 (~$3,806), -7.3%, loss harvest.
-4. TEM: 1.39 sh (~$96), -14%, tiny, harvest.
-5. MU: trim per ladder stage 2 (about 8-9 of 19, ~$8k). The generic planner says all 19 (~$17.5k); I recommend a trim, not a full exit, to match your plan.
-Target: about $30k raised clears the $25.5k margin. Core names (GOOGL, AMZN, META, NOW, RBRK, MA, QQQI) are not on the list.
-
-**Back to GREEN needs:** QQQ back over 733 and its 20-day 741.34, SPY over its 50-day 768.60.
+**What moves it back down:** QQQ closes above 733 and the 20-day; SPY holds above 768.6.
