@@ -17,6 +17,7 @@ data with the Robinhood connector and calls these.
 from __future__ import annotations
 
 import disruption
+import setups
 import valuation
 
 # Price band around the 200-day SMA, as price / sma200 - 1.
@@ -170,7 +171,8 @@ def letter(score: int) -> str:
 
 
 def candidates(rows: list[dict], fins: dict[str, list] | None = None,
-               vals: dict[str, dict] | None = None, notes: dict[str, dict] | None = None) -> list[dict]:
+               vals: dict[str, dict] | None = None, notes: dict[str, dict] | None = None,
+               charts: dict[str, dict] | None = None) -> list[dict]:
     """rows = [from_scan(r) ...]. Keeps names in the 200-day band scoring
     >= MIN_QUALITY and drops a second share class of the same company (GOOG/GOOGL,
     HEI/HEI.A: same name, keep the one nearer the line). Ranked by integer score,
@@ -182,7 +184,12 @@ def candidates(rows: list[dict], fins: dict[str, list] | None = None,
     Each name also carries its disruption grade (disruption.py, quant from valuation.json
     plus any fresh research note from disruption_notes.json; notes=None reads that file).
     Within a quality grade, names AT RISK / BEING DISRUPTED rank after the rest, ahead of
-    the valuation tier: a cheap stock whose business is under threat is a value trap."""
+    the valuation tier: a cheap stock whose business is under threat is a value trap.
+    Each name also carries its chart-setup score (setups.py; charts=None reads
+    setups.json, built each morning by report.py). It does NOT change this order, which
+    decides the alert slots; setup_order() ranks the same names by chart setup."""
+    if charts is None:
+        charts = setups.load_cache()
     if vals is None:
         vals = valuation.load_cache()
     if notes is None:
@@ -208,12 +215,24 @@ def candidates(rows: list[dict], fins: dict[str, list] | None = None,
                     "composite": composite(r), "quality_flags": q["flags"],
                     "value": vals.get(r["symbol"]),
                     "disruption": disruption.for_row(vals.get(r["symbol"]), notes),
+                    "setup": charts.get(r["symbol"]),
                     "alert": TOUCH if d > 0 else RECLAIM})
     out.sort(key=lambda c: (-c["quality"], 1 if disruption.threatened(c["disruption"]) else 0,
                             valuation.rank_tier(c["value"]), -c["composite"], abs(c["dist"])))
     for i, c in enumerate(out, 1):
         c["rank"] = i
     return out
+
+
+def setup_order(cands: list[dict]) -> list[dict]:
+    """The same names ranked by most bullish chart setup (Ryan, live turn 2026-10-14):
+    a live break above the pattern trigger first, then the setup score, then the
+    business-quality rank. Names not scored yet (no setups.json row) go last."""
+    def key(c):
+        s = c.get("setup")
+        live = setups.live_state(s, c.get("price"))
+        return (s is None, live != "BREAKING OUT NOW", -(s or {}).get("score", 0), c["rank"])
+    return sorted(cands, key=key)
 
 
 def alert_set(cands: list[dict]) -> list[dict]:
@@ -259,12 +278,23 @@ def report(cands: list[dict], plan: dict, asof: str, new_syms: set[str]) -> str:
              "ROE, capped so one outlier can't dominate), then distance to the line. "
              "Value = valuation grade vs the stock's own 10-year multiples (positive = undervalued "
              "by that much). Disruption = is the business being disrupted or doing the disrupting. "
-             "Within a grade, names not under threat rank first, then cheaper names.", ""]
+             "Within a grade, names not under threat rank first, then cheaper names. The first table "
+             "re-ranks the same names by chart setup (Q # = their business-quality rank).", ""]
     if not cands:
         lines.append("No high-quality names are near their 200-day right now.")
     else:
         alerted = {c["symbol"] for c in alert_set(cands)}
-        lines += ["| # | Ticker | Grade | Q | Value | Fair | Analysts | Disruption | Comp | Sector | Zone | Price | 200-day | Dist | 200d slope | Alert | Why |",
+        lines += ["## Ranked by chart setup (most bullish first)", "",
+                  "| Setup # | Ticker | Setup | Pattern | Why | Grade | Value | Zone | Q # |",
+                  "|---|---|---|---|---|---|---|---|---|"]
+        for i, c in enumerate(setup_order(cands), 1):
+            s = c.get("setup")
+            lines.append(f"| {i} | {c['symbol']} | {setups.cell(s)} | "
+                         f"{setups.pattern_cell(s, c.get('price')) if s else '—'} | "
+                         f"{', '.join((s or {}).get('why', [])) or '—'} | {c['grade']} | "
+                         f"{valuation.short(c.get('value') or {})} | {c['zone']} | {c['rank']} |")
+        lines += ["", "## Ranked by business quality (decides the alert slots)", "",
+                  "| # | Ticker | Grade | Q | Value | Fair | Analysts | Disruption | Comp | Sector | Zone | Price | 200-day | Dist | 200d slope | Alert | Why |",
                   "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for c in cands:
             tag = " (new)" if c["symbol"] in new_syms else ""
@@ -285,12 +315,12 @@ def report(cands: list[dict], plan: dict, asof: str, new_syms: set[str]) -> str:
                          f"{alert} | {', '.join(why)} |")
     lines += ["", f"Robinhood alerts: {len(plan['create'])} created, {len(plan['delete'])} removed, "
               f"{len(plan['keep'])} kept (touch = price drops through the 200-day; reclaim = "
-              "price gets back above it). Max {MAX_ALERTS}, at most {MAX_PER_GROUP} per industry "
+              f"price gets back above it). Max {MAX_ALERTS}, at most {MAX_PER_GROUP} per industry "
               "group; '-' = qualifies but no slot.",
               "", "A FALLING 200-day means the long-term trend itself is rolling over: a touch "
               "there is weaker evidence than a touch of a rising line. Every name still needs "
               "the news/thesis check before a buy; '—' in Value = not valued yet (next morning's "
-              "report run values it).", "", valuation.LEGEND, "", disruption.LEGEND]
+              "report run values it).", "", setups.LEGEND, "", valuation.LEGEND, "", disruption.LEGEND]
     return "\n".join(lines) + "\n"
 
 
