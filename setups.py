@@ -1,4 +1,6 @@
-"""Chart-setup score: how bullish is the daily chart right now (set 2026-10-14).
+"""Chart-setup scores (set 2026-10-14). PRE-BREAKOUT (prebreakout(), the ranking in use)
+and the original bullish-chart score (score, kept as a description; it backtested
+INVERSELY).
 
 Ryan, live turn 2026-10-14, after a TrendSpider "falling wedges everywhere" post: *"rank
 the names selected in the quality stock watch routine by most bullish chart setups"*.
@@ -344,13 +346,59 @@ def score_arrays(C, H, L, V) -> dict | None:
         flags.append("pen_falling_50d")
 
     pts = max(0, min(100, pts))
+    states = {p["state"] for p in found}
+    forming = [p for p in found if p["state"] in ("near", "forming")]
+    feat = {
+        "pattern_forming": bool(forming),
+        "pattern_broke_out": bool(states & {"fresh_breakout", "breakout"}),
+        "rsi_divergence": "rsi_divergence" in flags,
+        "fresh_60d_low": "pen_60d_low" in flags,
+        "rsi14_below_40": rsi[last] is not None and rsi[last] < 40,
+        "below_20d": price < e20[last],
+        "pullback_8pct": price / max(C[-60:]) - 1 <= -0.08,
+        "volume_drying": _mean(V[-10:]) < 0.85 * _mean(V[-50:]),
+        "higher_low": "higher_low" in flags,
+        "macd_cross": "macd_cross" in flags,
+        "macd_above": "macd_above" in flags,
+        "rising_20d": "rising_20d" in flags,
+        "up_volume": "up_volume" in flags,
+        "reclaim_50d": "reclaim_50d" in flags,
+        "below_falling_50d": "pen_falling_50d" in flags,
+    }
+    pre = prebreakout(feat)
     out = {"score": pts, "label": label_for(pts), "why": why, "flags": flags,
+           "feat": feat, "pre": pre, "pre_label": pre_label(pre),
            "price": round(price, 2)}
     if best:
         out["pattern"] = {"name": best["pattern"], "state": best["state"],
                           "trigger": round(best["trigger"], 2),
                           "support": round(best["support"], 2)}
     return out
+
+
+# PRE-BREAKOUT score (Ryan, live turn 2026-10-14: "thats what we should be looking for,
+# ones before the breakout"). The 2026-10-14 backtest showed the bullish-LOOKING chart
+# (breakouts, rising 20-day, up-volume) lagged and the pulled-back chart led. These are
+# the "before the breakout" traits, written down BEFORE the out-of-sample check
+# (setups_backtest.py fits nothing on 2023-26; see setups_results.md). Each is worth
+# one point; a broken-out pattern costs one (the move it promised has happened).
+PRE_WEIGHTS = {
+    "pattern_forming": 1, "rsi_divergence": 1, "fresh_60d_low": 1, "rsi14_below_40": 1,
+    "below_20d": 1, "pullback_8pct": 1, "volume_drying": 1, "pattern_broke_out": -1,
+}
+PRE_MAX = sum(w for w in PRE_WEIGHTS.values() if w > 0)
+
+
+def prebreakout(feat: dict, weights: dict | None = None) -> int:
+    """0-100: how far the chart sits in the 'pulled back, not yet broken out' state."""
+    w = weights or PRE_WEIGHTS
+    pos = sum(v for v in w.values() if v > 0) or 1
+    raw = sum(v for k, v in w.items() if feat.get(k))
+    return max(0, round(100 * raw / pos))
+
+
+def pre_label(pre: int) -> str:
+    return "COILED" if pre >= 60 else "PULLING BACK" if pre >= 35 else "MIXED" if pre >= 15 else "EXTENDED"
 
 
 def label_for(pts: int) -> str:
@@ -410,12 +458,31 @@ def pattern_cell(s: dict | None, price: float | None = None) -> str:
     return txt + (f" **{live}**" if live else "")
 
 
-LEGEND = ("_Setup = how bullish the daily chart is, 0-100: STRONG >= 60, CONSTRUCTIVE 35-59, "
-          "NEUTRAL 15-34, WEAK < 15. Patterns: falling wedge (converging falling trendlines), "
-          "double bottom, bull flag; a close above the trigger (breakout) scores more than a "
-          "pattern still forming, more again on volume. Plus higher low / RSI divergence, MACD "
-          "cross, a rising 20-day, up-volume, a 50-day reclaim; minus a fresh 60-day low or a "
-          "falling 50-day. Built from the morning's closes; the trigger is re-checked against "
-          "the live price. BACKTESTED 2026-10-14 (setups_results.md): on large caps near their 200-day "
-          "the highest scores UNDERPERFORMED over the next 3 months (rank IC -0.11, t -3.1); the "
-          "pullback signs (fresh lows, still-forming patterns) did better. A description, not a buy signal._")
+PRE_WORDS = {"pattern_forming": "pattern forming", "rsi_divergence": "RSI divergence",
+             "fresh_60d_low": "fresh 60-day low", "rsi14_below_40": "RSI(14) < 40",
+             "below_20d": "below 20-day", "pullback_8pct": ">= 8% off 60-day high",
+             "volume_drying": "volume drying up", "pattern_broke_out": "already broke out (-1)"}
+
+
+def pre_cell(s: dict | None) -> str:
+    if not s or s.get("pre") is None:
+        return "—"
+    return f"{s['pre']} {s.get('pre_label') or pre_label(s['pre'])}"
+
+
+def pre_why(s: dict | None) -> str:
+    feat = (s or {}).get("feat") or {}
+    words = [PRE_WORDS[k] for k in PRE_WEIGHTS if feat.get(k)]
+    return ", ".join(words) or "—"
+
+
+LEGEND = ("_Pre-breakout = how far the chart sits in the 'pulled back, not yet broken out' state, "
+          "0-100: COILED >= 60, PULLING BACK 35-59, MIXED 15-34, EXTENDED < 15. One point each for "
+          "a pattern forming (falling wedge, double bottom, bull flag below its trigger), RSI "
+          "divergence, a fresh 60-day low, RSI(14) < 40, below the 20-day, >= 8% off the 60-day high, "
+          "volume drying up; minus one for a pattern that already broke out. Backtested 2026-10-14 "
+          "(setups_results.md): rank IC +0.093 (t 2.6) over 2019-2026, +0.097 (t 2.0) on 2023-26 data "
+          "it was not built from; the most-coiled fifth beat the least by ~2.8% vs SPY over 3 months. "
+          "The pattern itself adds little; most of the edge is the pullback (short-term mean "
+          "reversion). Built from the morning's daily bars; the pattern trigger is re-checked "
+          "against the live price._")

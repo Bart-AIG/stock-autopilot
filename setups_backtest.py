@@ -135,6 +135,7 @@ def samples(data: dict) -> list[dict]:
             if not s:
                 continue
             row = {"sym": sym, "date": D[t], "score": s["score"], "label": s["label"],
+                   "pre": s["pre"], "feat": [k for k, v in s["feat"].items() if v],
                    "flags": s["flags"], "dist": dist, "in_band": BAND[0] <= dist <= BAND[1]}
             for h in HORIZONS:
                 if t + h < len(rows) and D[t + h] in spy:
@@ -179,7 +180,7 @@ def bucket_table(rows: list[dict], key, buckets, title: str) -> list[str]:
     return lines + [""]
 
 
-def ranking(rows: list[dict], h: int = 63) -> dict:
+def ranking(rows: list[dict], h: int = 63, key: str = "score") -> dict:
     by_date = defaultdict(list)
     for r in rows:
         if f"x{h}" in r:
@@ -188,10 +189,10 @@ def ranking(rows: list[dict], h: int = 63) -> dict:
     ics, spreads = [], []
     for d in dates:
         v = by_date[d]
-        ic = spearman([r["score"] for r in v], [r[f"x{h}"] for r in v])
+        ic = spearman([r[key] for r in v], [r[f"x{h}"] for r in v])
         if ic is not None:
             ics.append((d, ic))
-        top = sorted(v, key=lambda r: -r["score"])[:3]
+        top = sorted(v, key=lambda r: -r[key])[:3]
         spreads.append((d, statistics.mean(r[f"x{h}"] for r in top)
                         - statistics.mean(r[f"x{h}"] for r in v)))
     # non-overlapping: dates at least h sessions apart (sampled every SAMPLE_STEP sessions)
@@ -224,12 +225,12 @@ def rank_lines(name: str, rk: dict) -> str:
             f"{pct(rk['non_top3'])} | {t(rk['non_top3_t'])} |")
 
 
-def quintile(rows: list[dict]):
-    sc = sorted(r["score"] for r in rows)
+def quintile(rows: list[dict], key: str = "score"):
+    sc = sorted(r[key] for r in rows)
     cuts = [sc[int(len(sc) * q / 5)] for q in range(1, 5)] if sc else []
 
     def q(r):
-        return f"Q{1 + sum(1 for c in cuts if r['score'] > c)}"
+        return f"Q{1 + sum(1 for c in cuts if r[key] > c)}"
     return q
 
 
@@ -292,6 +293,47 @@ def main() -> None:
         L.append(f"| {fl} | {len(w)} | {pct(mw)} | {len(wo)} | {pct(mo)} | {pct(mw - mo)} | "
                  f"{sum(1 for x in w if x > 0) / len(w):.1%} |")
     L.append("")
+
+    # ---------------- PRE-BREAKOUT score: train 2019-2022, untouched test 2023-2026
+    def feat_table(sub, title):
+        out = [f"### {title}", "", "| Trait | n with | 63d excess with | without | Difference | Beat SPY with |",
+               "|---|---|---|---|---|---|"]
+        diffs = {}
+        for fl in sorted(setups.PRE_WEIGHTS.keys() | {f for r in sub for f in r["feat"]}):
+            w = [r["x63"] for r in sub if "x63" in r and fl in r["feat"]]
+            wo = [r["x63"] for r in sub if "x63" in r and fl not in r["feat"]]
+            if len(w) < 20 or not wo:
+                continue
+            d = statistics.mean(w) - statistics.mean(wo)
+            diffs[fl] = d
+            out.append(f"| {fl} | {len(w)} | {pct(statistics.mean(w))} | {pct(statistics.mean(wo))} | "
+                       f"{pct(d)} | {sum(1 for x in w if x > 0) / len(w):.1%} |")
+        return out + [""], diffs
+
+    ft_train, train_diffs = feat_table(early, "Train 2019-2022 (in band)")
+    ft_test, _ = feat_table(late, "Test 2023-2026 (in band, never used to build anything)")
+    fitted = {k: (1 if d > 0.005 else -1) for k, d in train_diffs.items() if abs(d) > 0.005}
+    for r in rows:
+        r["pre_fit"] = setups.prebreakout(dict.fromkeys(r["feat"], True), fitted) if fitted else 0
+    L += ["## 4. PRE-BREAKOUT score (Ryan, 2026-10-14: rank the names BEFORE the breakout)", "",
+          "Two versions, both judged on 2023-2026, which neither was built from:",
+          "- **PRE (written in advance):** +1 each for pattern forming, RSI divergence, fresh 60-day "
+          "low, RSI(14) < 40, below the 20-day, >= 8% off the 60-day high, volume drying up; -1 for "
+          "a pattern already broken out (setups.PRE_WEIGHTS).",
+          "- **FIT (2019-2022 only):** +1 for every trait that beat by > 0.5% in 2019-2022, -1 for "
+          f"every trait that lagged by > 0.5%. Chosen weights: `{fitted}`.", "",
+          "| Score | Sample | Dates | IC mean | IC > 0 | Non-overlap dates | IC (non-overlap) | t | "
+          "Top 3 vs avg | Top 3 wins | Top 3 (non-overlap) | t |",
+          "|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    for key, nm in (("pre", "PRE"), ("pre_fit", "FIT"), ("score", "Old setup score")):
+        for pname, sub in (("Train 2019-22", early), ("**Test 2023-26**", late), ("All in band", band)):
+            L.append(rank_lines(f"{nm} | {pname}", ranking(sub, key=key)).replace("| ", "| ", 1))
+    L.append("")
+    L += bucket_table(late, quintile(late, "pre"), ["Q1", "Q2", "Q3", "Q4", "Q5"],
+                      "PRE score, TEST 2023-26 in band, by quintile (Q5 = most pulled back / coiled)")
+    L += bucket_table(early, quintile(early, "pre"), ["Q1", "Q2", "Q3", "Q4", "Q5"],
+                      "PRE score, TRAIN 2019-22 in band, by quintile")
+    L += ["### Each trait, by period", ""] + ft_train + ft_test
 
     L += ["## Honest limits", "",
           "- Samples overlap: a 63-session return sampled every "
