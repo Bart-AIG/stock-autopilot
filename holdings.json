@@ -108,133 +108,33 @@
     {
       "symbol": "MU",
       "sleeve": "options",
-      "track": "user_one_off",
-      "contract": "MU 2026-11-20 1160C",
+      "track": "user_own",
+      "contract": "MU 2026-12-18 1220C",
       "option_type": "call",
       "side": "call",
-      "strike": 1160.0,
-      "expiration_date": "2026-11-20",
-      "option_id": "f9bf1097-13cc-4fa1-b989-ea1a896280a4",
+      "strike": 1220.0,
+      "expiration_date": "2026-12-18",
+      "option_id": "d81bd8e1-f1f1-45d7-99a6-17f14bccca36",
       "chain_id": "71a32c37-9be0-4247-882c-59ac1facabf0",
       "contracts": 1,
-      "entry_date": "2026-10-09",
-      "entry_premium": 25.0,
-      "cost_basis_usd": 2500.0,
-      "max_loss": 2500.0,
+      "entry_date": "2026-10-14",
+      "entry_premium": 12.5,
+      "cost_basis_usd": 1250.0,
+      "max_loss": 1250.0,
       "placed_agent": "user",
-      "order_id": "6ac92802-b179-4467-9f40-50552b4a5bd3",
-      "execution_id": "ae2eb3d9-adbd-4467-aba7-5391bf716aa4",
-      "filled_utc": "2026-10-09T17:44:35.250000Z",
-      "entry_dte": 42,
-      "dte_at_entry": 42,
-      "setup_invalidation": 1017.0,
-      "target": 1200.0,
-      "entry_snapshot": {
-        "asof_utc": "2026-10-09T17:45:58Z",
-        "mu_spot": 1030.445,
-        "bid": 24.2,
-        "ask": 25.05,
-        "mark": 24.625,
-        "spread_pct_of_mid": 3.45,
-        "delta": 0.265,
-        "theta_per_day_usd": -67.06,
-        "iv": 0.4726,
-        "open_interest": 606,
-        "breakeven": 1185.0,
-        "breakeven_move_pct": 15.0,
-        "chance_of_profit_long": 0.179,
-        "account_total_value": 3456.42,
-        "premium_pct_of_account": 72.3,
-        "cash_after": 323.96
-      },
-      "earnings_check": "get_earnings_calendar (high_market_cap) 2026-10-09..11-20 shows NO MU print before expiry (MU's next fiscal-Q1 report is normally mid/late December). Re-verify on the 21-DTE review.",
-      "_note": "Ryan, REAL live turn 2026-10-09 (interactive session): 'Just made a call option using the agent account monitor it as part of your stock option routine, this is a one off thing that won't be reoccurring'. ONE-OFF: not a strategy change, not a re-opening of the retired options bucket, and no future run may treat it as a precedent for new option entries. OWNERSHIP: placed_agent='user', so EVERY exit is ASK-FIRST. Run options_grade.exit_check(placed_agent='user', entry_premium=25.0, entry_dte=42, side='call', setup_invalidation=None until Ryan names one) on a <=2-min quote every market-hours run; any 'close' becomes 'notify'. The agent NEVER sells this contract without Ryan's explicit go-ahead in a live turn. Notify ONCE per trigger fire/unfire (silence otherwise). Remove this row and move it to _closed_positions only when get_option_positions(nonzero=true) no longer returns it.",
-      "_exit_ladder": {
-        "basis": "per-share premium, entry 25.00, 21-45 DTE tier until 2026-10-30, then the 7-21 DTE tier",
-        "minus50_recheck": 12.5,
-        "hard_backstop_minus65": 8.75,
-        "ratchet_arms_plus50": 37.5,
-        "ratchet_floor": "exit on a 40% giveback of peak gain once armed (e.g. peak 50.00 -> floor 40.00)",
-        "pop_bank": "one-day gain >= +80% vs prior close mark",
-        "review_21dte": "2026-10-30",
-        "flat_by_dte2": "2026-11-18",
-        "all_actions": "NOTIFY Ryan; never auto-close (user-placed)",
-        "backstop_minus65_mode": "ALERT ONLY (Ryan did not authorize an automatic sale; default ask-first stands)"
-      },
+      "order_id": "6acfb4be-2bab-4c84-8c66-8d2185363d1f",
+      "filled_utc": "2026-10-14T16:58:49.976Z",
+      "entry_dte": 65,
+      "_note": "Opened by Ryan himself in-app 2026-10-14 (placed_agent user, agent_initiated false), 1 min after closing the 1160C. Detected by the 17:19Z run, recorded, Ryan notified once. Ryan's own option: detect, record, notify, NEVER close (v16). No exit levels set by Ryan for this contract; the 5 MU alerts from the 1160C are kept pending his word.",
       "_current_state": {
-        "last_checked_utc": "2026-10-14T16:25:30Z",
-        "mark": 7.075,
-        "bid": 6.75,
-        "ask": 7.4,
-        "gain_pct": -71.7,
-        "peak_premium": 26.1,
-        "runs_at_or_below_minus50": 19,
-        "status": "notify: setup break (MU 921.58 < 1017) live; mark 7.075 below the 8.75 -65% backstop. Same incident, no re-notify. RYAN'S OWN SELL-TO-CLOSE LIMIT 7.60 x1 (order 6acfaa03, user, gfd) still RESTING unfilled at 16:25Z; agent does not touch it.",
-        "mu_spot": 921.58,
-        "mu_session_low_so_far": 1017.0,
-        "mu_close": 953.19,
-        "delta": 0.103,
-        "iv": 0.525,
-        "dte": 37,
-        "pending_user_close_order": {
-          "order_id": "6acfaa03-25a5-4502-9a3c-eaebce4e8433",
-          "limit": 7.6,
-          "tif": "gfd",
-          "created_utc": "2026-10-14T16:12:51Z",
-          "state": "confirmed",
-          "seen_utc": "2026-10-14T16:25Z"
-        }
-      },
-      "_notify_state": {
-        "last_notified_trigger": "hard_backstop_minus65 (re-fire)",
-        "last_notified_utc": "2026-10-13T17:25Z",
-        "levels_notified": [],
-        "backstop_notified_via": "PushNotification"
-      },
-      "setup_invalidation_note": "Ryan, live turn 2026-10-09: 'Price that breaks thesis is below the low of today.' FINAL: the 2026-10-09 regular-session low is 1017.00 (15:25Z bar; confirmed after the bell from 5-minute and 30-minute bars, no later print below it; close 1029.00). The thesis_break alert already sits at 1017.00, so no post-bell update is needed. A break = MU trading below 1017.00 on any run's live quote; exit_check returns close -> notify (user-placed, ask first).",
-      "_alerts": {
-        "thesis_break": {
-          "alert_id": "a822dda2-f3eb-4f9f-b900-e0fdb4667335",
-          "condition": "price_below",
-          "level": 1017.0
-        },
-        "profit_1100": {
-          "alert_id": "e782c45c-956c-4b21-9ed9-847f7e92f733",
-          "condition": "price_above",
-          "level": 1100.0
-        },
-        "profit_1150": {
-          "alert_id": "f5e5bf09-41ab-445b-9de0-fc306e662588",
-          "condition": "price_above",
-          "level": 1150.0
-        },
-        "profit_1187": {
-          "alert_id": "58fc68e7-12a7-48ae-b554-064d47061c27",
-          "condition": "price_above",
-          "level": 1187.0
-        },
-        "profit_1200": {
-          "alert_id": "f3a8fc41-624c-43ff-99fe-88de9a503a6a",
-          "condition": "price_above",
-          "level": 1200.0
-        }
-      },
-      "_profit_sell_levels": {
-        "set_by": "Ryan, live turn 2026-10-09: '4 alerts to sell for profit at 1187, 1100, 1150 and 1200'",
-        "mu_levels": [
-          1100.0,
-          1150.0,
-          1187.0,
-          1200.0
-        ],
-        "rule": "Robinhood price alerts created 2026-10-09T18:13Z (ids in _alerts) push to Ryan directly. Each run that sees MU at or above a level not yet notified sends ONE sell-for-profit recommendation with the live option mark, P/L and spread; record it in _notify_state.levels_notified. 1187 = the contract's breakeven at expiry. All sells are ask-first: the agent never sells this contract. Delete these 5 alerts and this row's ids when the position closes."
-      },
-      "setup_invalidation_finalized": {
-        "utc": "2026-10-09T20:20Z",
-        "session_low": 1017.0,
-        "bar": "2026-10-09T15:29Z",
-        "source": "get_equity_historicals MU 1-minute, 390/390 regular-session bars",
-        "result": "low unchanged at 1017.00; setup_invalidation and the thesis_break alert (a822dda2) already at 1017.00, no update needed. MU close 1028.135. Duty discharged."
+        "last_checked_utc": "2026-10-14T17:19:56Z",
+        "mark": 11.85,
+        "bid": 11.55,
+        "ask": 12.15,
+        "gain_pct": -5.2,
+        "delta": 0.129,
+        "iv": 0.512,
+        "mu_spot": 927.06
       }
     }
   ],
@@ -1391,6 +1291,115 @@
         "IBS"
       ],
       "exit_reason": "Decision-window re-run 19:40:39Z: QQQ px 745.97, day hi 749.79 / lo 744.845, IBS 0.228 > 0.2 entry line; RSI2 23.4, not TOM. decide() hold_through_close=false, so held + false = SELL ALL per v16 step 3. The 19:27Z buy (Ryan live) was on IBS 0.12."
+    },
+    {
+      "symbol": "MU",
+      "sleeve": "options",
+      "track": "user_one_off",
+      "contract": "MU 2026-11-20 1160C",
+      "option_type": "call",
+      "side": "call",
+      "strike": 1160.0,
+      "expiration_date": "2026-11-20",
+      "option_id": "f9bf1097-13cc-4fa1-b989-ea1a896280a4",
+      "chain_id": "71a32c37-9be0-4247-882c-59ac1facabf0",
+      "contracts": 1,
+      "entry_date": "2026-10-09",
+      "entry_premium": 25.0,
+      "cost_basis_usd": 2500.0,
+      "max_loss": 2500.0,
+      "placed_agent": "user",
+      "order_id": "6ac92802-b179-4467-9f40-50552b4a5bd3",
+      "execution_id": "ae2eb3d9-adbd-4467-aba7-5391bf716aa4",
+      "filled_utc": "2026-10-09T17:44:35.250000Z",
+      "entry_dte": 42,
+      "dte_at_entry": 42,
+      "setup_invalidation": 1017.0,
+      "target": 1200.0,
+      "entry_snapshot": {
+        "asof_utc": "2026-10-09T17:45:58Z",
+        "mu_spot": 1030.445,
+        "bid": 24.2,
+        "ask": 25.05,
+        "mark": 24.625,
+        "spread_pct_of_mid": 3.45,
+        "delta": 0.265,
+        "theta_per_day_usd": -67.06,
+        "iv": 0.4726,
+        "open_interest": 606,
+        "breakeven": 1185.0,
+        "breakeven_move_pct": 15.0,
+        "chance_of_profit_long": 0.179,
+        "account_total_value": 3456.42,
+        "premium_pct_of_account": 72.3,
+        "cash_after": 323.96
+      },
+      "earnings_check": "get_earnings_calendar (high_market_cap) 2026-10-09..11-20 shows NO MU print before expiry (MU's next fiscal-Q1 report is normally mid/late December). Re-verify on the 21-DTE review.",
+      "_note": "Ryan, REAL live turn 2026-10-09 (interactive session): 'Just made a call option using the agent account monitor it as part of your stock option routine, this is a one off thing that won't be reoccurring'. ONE-OFF: not a strategy change, not a re-opening of the retired options bucket, and no future run may treat it as a precedent for new option entries. OWNERSHIP: placed_agent='user', so EVERY exit is ASK-FIRST. Run options_grade.exit_check(placed_agent='user', entry_premium=25.0, entry_dte=42, side='call', setup_invalidation=None until Ryan names one) on a <=2-min quote every market-hours run; any 'close' becomes 'notify'. The agent NEVER sells this contract without Ryan's explicit go-ahead in a live turn. Notify ONCE per trigger fire/unfire (silence otherwise). Remove this row and move it to _closed_positions only when get_option_positions(nonzero=true) no longer returns it.",
+      "_exit_ladder": {
+        "basis": "per-share premium, entry 25.00, 21-45 DTE tier until 2026-10-30, then the 7-21 DTE tier",
+        "minus50_recheck": 12.5,
+        "hard_backstop_minus65": 8.75,
+        "ratchet_arms_plus50": 37.5,
+        "ratchet_floor": "exit on a 40% giveback of peak gain once armed (e.g. peak 50.00 -> floor 40.00)",
+        "pop_bank": "one-day gain >= +80% vs prior close mark",
+        "review_21dte": "2026-10-30",
+        "flat_by_dte2": "2026-11-18",
+        "all_actions": "NOTIFY Ryan; never auto-close (user-placed)",
+        "backstop_minus65_mode": "ALERT ONLY (Ryan did not authorize an automatic sale; default ask-first stands)"
+      },
+      "setup_invalidation_note": "Ryan, live turn 2026-10-09: 'Price that breaks thesis is below the low of today.' FINAL: the 2026-10-09 regular-session low is 1017.00 (15:25Z bar; confirmed after the bell from 5-minute and 30-minute bars, no later print below it; close 1029.00). The thesis_break alert already sits at 1017.00, so no post-bell update is needed. A break = MU trading below 1017.00 on any run's live quote; exit_check returns close -> notify (user-placed, ask first).",
+      "_alerts": {
+        "thesis_break": {
+          "alert_id": "a822dda2-f3eb-4f9f-b900-e0fdb4667335",
+          "condition": "price_below",
+          "level": 1017.0
+        },
+        "profit_1100": {
+          "alert_id": "e782c45c-956c-4b21-9ed9-847f7e92f733",
+          "condition": "price_above",
+          "level": 1100.0
+        },
+        "profit_1150": {
+          "alert_id": "f5e5bf09-41ab-445b-9de0-fc306e662588",
+          "condition": "price_above",
+          "level": 1150.0
+        },
+        "profit_1187": {
+          "alert_id": "58fc68e7-12a7-48ae-b554-064d47061c27",
+          "condition": "price_above",
+          "level": 1187.0
+        },
+        "profit_1200": {
+          "alert_id": "f3a8fc41-624c-43ff-99fe-88de9a503a6a",
+          "condition": "price_above",
+          "level": 1200.0
+        }
+      },
+      "_profit_sell_levels": {
+        "set_by": "Ryan, live turn 2026-10-09: '4 alerts to sell for profit at 1187, 1100, 1150 and 1200'",
+        "mu_levels": [
+          1100.0,
+          1150.0,
+          1187.0,
+          1200.0
+        ],
+        "rule": "Robinhood price alerts created 2026-10-09T18:13Z (ids in _alerts) push to Ryan directly. Each run that sees MU at or above a level not yet notified sends ONE sell-for-profit recommendation with the live option mark, P/L and spread; record it in _notify_state.levels_notified. 1187 = the contract's breakeven at expiry. All sells are ask-first: the agent never sells this contract. Delete these 5 alerts and this row's ids when the position closes."
+      },
+      "setup_invalidation_finalized": {
+        "utc": "2026-10-09T20:20Z",
+        "session_low": 1017.0,
+        "bar": "2026-10-09T15:29Z",
+        "source": "get_equity_historicals MU 1-minute, 390/390 regular-session bars",
+        "result": "low unchanged at 1017.00; setup_invalidation and the thesis_break alert (a822dda2) already at 1017.00, no update needed. MU close 1028.135. Duty discharged."
+      },
+      "closed_utc": "2026-10-14T16:57:42Z",
+      "exit_premium": 7.6,
+      "exit_order_id": "6acfaa03-25a5-4502-9a3c-eaebce4e8433",
+      "proceeds_usd": 760.0,
+      "realized_pnl_usd": -1740.0,
+      "exit_by": "Ryan (placed_agent user, his own gfd limit 7.60)",
+      "_closed_note": "Closed by Ryan himself 2026-10-14. He rolled into MU 2026-12-18 1220C x1 one minute later (see positions). Agent never touched it."
     }
   ],
   "_SIZING_NOTE": "REFRESHED 2026-08-28T16:19Z from the broker. The prior text was stamped 2026-08-24 and asserted 'CURRENT TRUTH: cash $3,023.56 ... DEPLOYABLE = $2,773.56' -- four days and $1,476.60 out of date, and it is the SECOND generation of this note to go stale while literally warning that a stale note 'would have been copied forward as truth.' A note that names the staleness risk is not thereby immune to it; re-read the broker. RULES (unchanged): $1,500 is a PER-TRADE maximum, there is NO total-sleeve cap, and total deployment across BOTH books is bounded by unleveraged_buying_power (2026-08-14 sizing amendment + the 2026-08-21 no-margin rule). CURRENT TRUTH: cash $1,546.96 == buying_power == unleveraged_buying_power, so no margin is extended and FOUR LAWS #4 is satisfied; unsettled_funds $0.0000. RESERVE CORRECTED 2026-08-28T23:18Z: the flat $250 reserve is RETIRED, superseded by the 5%-of-total_value OPERATIONAL RESERVE (Ryan 2026-08-29 policy on master), which SCALES and must be recomputed from get_portfolio.total_value every run -- never hard-coded. DEPLOYABLE = unleveraged_buying_power - 0.05 x total_value = 1546.96 - 198.03 = $1,348.93. The hedge's $749 basis does NOT reduce a new trade's allowance and occupies 0 of the 5 non-hedge slots. EQUITY SIZING IS NO LONGER BLOCKED -- CORRECTED 2026-08-28T23:18Z. This note previously read 'EQUITY SIZING IS SEPARATELY BLOCKED: the >=45% equity-book cash floor reads 44.9807% and the max compliant buy is -$0.67.' THAT FLOOR IS VOID (master commit 1322da9, 2026-08-28T20:42:36Z) and its arithmetic must not be quoted or re-derived. The equity book is OPEN from the 2026-08-31 open with 3 fresh throttle slots, funded from the same $1,348.93; the binding controls are now the A-GRADE-ONLY bar, per-name <=15-20%, spec sleeve <=25%, and rotation-beats-the-weakest once deployable cash falls below one normal position size (NOT yet -- $1,348.93 against ~$500 is ordinary cash). See _CAPITAL_POLICY_STATE, which governs. _CROSS_BOOK_CASH_COUPLING's floor arithmetic is likewise MOOT; its ONE-POOL truth survives -- an options entry still reduces equity capacity dollar-for-dollar, so cross-book competition is now explicit rather than mediated by a ratio. FOUND BY THE ARITHMETIC SWEEP prescribed in this run's journal entry and then actually executed: this is the FOURTH key carrying floor-derived state after the void, and the first three repairs were all targeted at keys whose SUBJECT was the floor. This one's subject is SIZING, which is why three careful sweeps walked past it. Search for the arithmetic (the 0.45 coefficient, 'compliant buy', 'cash floor'), never for the keys you expect to be affected. [DETECTOR REFINED 2026-08-29T00:18Z -- the prescription in the sentence above WORKED and was also INCOMPLETE. Searching holdings.json for the arithmetic tokens it names (the 0.45 coefficient, 'compliant buy', 'cash floor') surfaced the three keys already repaired; a SECOND sweep on the STATE-ASSERTION phrase 'book is closed' surfaced two more that the arithmetic sweep missed -- _EVENT_PREMIUM_IS_INVISIBLE_ON_THE_30DTE_BOARD.honest_scope and _DIVERSIFICATION_STATISTICS_ARE_FRAGILE.honest_scope, both annotated this run as the fourth and fifth instances. THE CLASS IS BROADER THAN ARITHMETIC: a repealed rule leaves behind both its NUMBERS and its CONCLUSIONS, and the conclusions are the more dangerous residue precisely because they carry no digits -- they read as ordinary present-tense state prose, so a numeric sweep walks straight past them and a human skim reads them as current. Sweep for BOTH: the arithmetic AND the sentence the arithmetic used to justify ('the book is closed', 'entries are frozen', 'no compliant entry exists'). Both survivors sat in honest_scope caveats, which is a systematically likely hiding place: a scope clause's job is to state what was true at the time, so it BAKES IN the then-current regime by design and ages badly by construction.]",
@@ -8921,15 +8930,15 @@
     },
     "drawdown_basis": {
       "rule": "Since 2026-10-13 (Ryan, live turn): drawdown = sleeve_value vs its own HWM, where sleeve_value = total_value - unrealized P/L of placed_agent 'user' positions - realized P/L of 'user' positions closed since 2026-10-13. Ryan's own trades never trip the -20% notice or -25% buy halt.",
-      "user_realized_pnl_since_2026-10-13": 0.0,
+      "user_realized_pnl_since_2026-10-13": -1740.0,
       "hwm": 3604.85,
       "hwm_note": "Carried from the total_value HWM 2026-10-09T18:25Z (MU 1160C opened 41 min earlier, P/L near zero then).",
       "latest": {
-        "utc": "2026-10-14T16:25Z",
-        "total_value": 1772.46,
-        "user_unrealized_pnl": -1792.5,
-        "sleeve_value": 3564.96,
-        "drawdown_pct": -1.11
+        "utc": "2026-10-14T17:19Z",
+        "total_value": 1760.61,
+        "user_unrealized_pnl": -65.0,
+        "sleeve_value": 3565.61,
+        "drawdown_pct": -1.09
       }
     }
   }
