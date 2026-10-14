@@ -23,9 +23,13 @@ swing HIGHS and LOWS like a hand-drawn chart, breakouts are judged on the CLOSE)
   rising 20-day EMA, up-day volume > down-day volume, 50-day reclaimed.
   PENALTIES: a fresh 60-day closing low (falling knife); below a falling 50-day.
 
-HONEST LIMIT: no backtest. Pattern studies (Bulkowski, Encyclopedia of Chart Patterns)
-report these break upward more often than not, but this scorer's exact rules are
-unproven. It ranks a watch list for Ryan's eyes; it is NOT a gate or filter on the
+BACKTEST (setups_backtest.py -> setups_results.md, run 2026-10-14): on S&P 100 +
+Nasdaq-100 names within -8%/+5% of their 200-day, 2019-2026, the score was NEGATIVELY
+related to the next 63 sessions' excess return (non-overlapping rank IC -0.111, t -3.1;
+top-3 names lagged the average by 3.5%), in both 2019-22 and 2023-26. Breakouts, a rising
+20-day and up-volume lagged; fresh 60-day lows, RSI divergence and still-forming
+patterns led: short-term mean reversion, the same effect the RSI(2) sleeves trade. So
+the score DESCRIBES a chart; it does not rank expected return. It ranks a watch list for Ryan's eyes; it is NOT a gate or filter on the
 sleeves (the standing ban on unattended filters applies) and it never trades.
 """
 from __future__ import annotations
@@ -412,4 +416,6 @@ LEGEND = ("_Setup = how bullish the daily chart is, 0-100: STRONG >= 60, CONSTRU
           "pattern still forming, more again on volume. Plus higher low / RSI divergence, MACD "
           "cross, a rising 20-day, up-volume, a 50-day reclaim; minus a fresh 60-day low or a "
           "falling 50-day. Built from the morning's closes; the trigger is re-checked against "
-          "the live price. No backtest: a ranking aid, not a buy signal._")
+          "the live price. BACKTESTED 2026-10-14 (setups_results.md): on large caps near their 200-day "
+          "the highest scores UNDERPERFORMED over the next 3 months (rank IC -0.11, t -3.1); the "
+          "pullback signs (fresh lows, still-forming patterns) did better. A description, not a buy signal._")
