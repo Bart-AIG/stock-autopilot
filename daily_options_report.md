@@ -24,6 +24,8 @@
 - **ILMN:** off and not held.
 - Drawdown measured on sleeve value: $3,564.98, **−1.11%** from the high-water mark.
 
+**Re-run by the 19:40Z run (15:40 ET), total value $1,667.81:** `decide()` gave the same targets. No sells. QLD is held and still ON, so it is kept, not topped up (resizing only happens on a month's first session). The leftover deployable cash went to the first unfunded SWING_M pick: **bought DELL $2.11** (0.004166 @ 506.39). VIAV and MRVL stay unfunded.
+
 ## 2. Legacy run-off
 Today is the deadline. **No legacy (`sleeve: "swing"`) positions are open**, so there is nothing to close.
 
@@ -35,7 +37,7 @@ Today is the deadline. **No legacy (`sleeve: "swing"`) positions are open**, so 
 - The new contract is marked at **$1,130 (−$120)**. It is his position: the agent records it and never closes it.
 
 ## 4. Growth paper
-Unchanged today. The weekly research runs on Mondays.
+Marked at 19:41Z: **$312.98 on $328.90 cost (−4.84%)**. PLTR +5.9%, NTRA −4.7%, NVDA −6.9%, CRWD −8.0%, NET −10.5%. No exits (the checks run Mondays).
 
 ## 5. Account vs QQQ
 - **Total value: $1,703.95.**
