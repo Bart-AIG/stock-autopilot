@@ -16,7 +16,13 @@
 
 **SWING_Q:** flat (no QLD). QQQ is −2.05% today (728.31 vs 743.57), so the IBS and RSI(2) legs may switch on at the decision window. **Cash is $133.63.** Ryan's MU option buys took most of the shared cash, so the decision-window run can fund SWING_Q only up to about that amount: deployable = $133.63 − 5% × $1,703.95 ≈ **$48.43**, against a ~$1,190 QLD target. Per CLAUDE.md, SWING_Q gets funded first, and Ryan's position is never sold to fund a sleeve.
 
-*Decision window: pending (the 19:25Z run).*
+**Decision window — AMENDED by the 19:25Z run (15:25 ET). `decide()` ran on 19:25:34Z prices, total value $1,710.21:**
+- **SWING_Q: QLD BUY.** QQQ 729.03: RSI(2) 3.3 and IBS 0.187, both above the 200-day (673.92), so the target was $1,137.29. **Bought only $106.28** (1.147609 @ 92.6099, 19:25:58Z). That was all the deployable cash: $191.78 − $85.50 reserve. The other ~$1,031 is unfunded because Ryan's MU 1220C ($1,135) holds the shared cash.
+- **SWING_M: SOLD MRNA** 0.25672 @ 226.5001 (+$2.81). IBS 0.998 turned its leg off.
+- **Kept:** MU, LITE, AMD (RSI2 + IBS), WDC and INTC (RSI2).
+- **Signalled ON but NOT bought: DELL, VIAV, MRVL** ($48.74 each). No cash was left after QLD.
+- **ILMN:** off and not held.
+- Drawdown measured on sleeve value: $3,564.98, **−1.11%** from the high-water mark.
 
 ## 2. Legacy run-off
 Today is the deadline. **No legacy (`sleeve: "swing"`) positions are open**, so there is nothing to close.
