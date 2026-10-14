@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-14T14:20:00Z",
+  "updated_utc": "2026-10-14T16:20Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -162,20 +162,28 @@
         "backstop_minus65_mode": "ALERT ONLY (Ryan did not authorize an automatic sale; default ask-first stands)"
       },
       "_current_state": {
-        "last_checked_utc": "2026-10-14T15:25:35Z",
-        "mark": 8.2,
-        "bid": 7.95,
-        "ask": 8.45,
-        "gain_pct": -67.2,
+        "last_checked_utc": "2026-10-14T16:19:28Z",
+        "mark": 7.2,
+        "bid": 6.85,
+        "ask": 7.55,
+        "gain_pct": -71.2,
         "peak_premium": 26.1,
-        "runs_at_or_below_minus50": 17,
-        "status": "notify: setup break (MU 937.75 < 1017) live; mark 8.20 below the 8.75 -65% backstop. Same incident, no re-notify.",
-        "mu_spot": 937.75,
+        "runs_at_or_below_minus50": 18,
+        "status": "notify: setup break (MU 922.00 < 1017) live; mark 7.20 below the 8.75 -65% backstop. Same incident, no re-notify. RYAN'S OWN SELL-TO-CLOSE LIMIT 7.60 x1 (order 6acfaa03, placed_agent user, gfd, created 16:12:51Z) is RESTING, unfilled at 16:19Z; the agent does not touch it.",
+        "mu_spot": 922.0,
         "mu_session_low_so_far": 1017.0,
         "mu_close": 953.19,
-        "delta": 0.117,
-        "iv": 0.513,
-        "dte": 37
+        "delta": 0.104,
+        "iv": 0.526,
+        "dte": 37,
+        "pending_user_close_order": {
+          "order_id": "6acfaa03-25a5-4502-9a3c-eaebce4e8433",
+          "limit": 7.6,
+          "tif": "gfd",
+          "created_utc": "2026-10-14T16:12:51Z",
+          "state": "confirmed",
+          "seen_utc": "2026-10-14T16:19Z"
+        }
       },
       "_notify_state": {
         "last_notified_trigger": "hard_backstop_minus65 (re-fire)",
@@ -8917,11 +8925,11 @@
       "hwm": 3604.85,
       "hwm_note": "Carried from the total_value HWM 2026-10-09T18:25Z (MU 1160C opened 41 min earlier, P/L near zero then).",
       "latest": {
-        "utc": "2026-10-13T19:29Z",
-        "total_value": 1953.37,
-        "user_unrealized_pnl": -1625.0,
-        "sleeve_value": 3578.37,
-        "drawdown_pct": -0.7
+        "utc": "2026-10-14T16:19Z",
+        "total_value": 1786.1,
+        "user_unrealized_pnl": -1780,
+        "sleeve_value": 3566.1,
+        "drawdown_pct": -1.07
       }
     }
   }
