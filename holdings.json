@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-14T19:27:00Z",
+  "updated_utc": "2026-10-14T19:42:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -106,6 +106,23 @@
       "stop": null,
       "target": null,
       "order_id": "6ace868c-75b8-4eaa-83ed-7e2021c6ba9d"
+    },
+    {
+      "symbol": "DELL",
+      "sleeve": "swing_m",
+      "signal_symbol": "DELL",
+      "entry_date": "2026-10-14",
+      "entry_price": 506.3913,
+      "shares": 0.004166,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "RSI2",
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6acfdac9-f28f-46ec-b637-457f6ccc5f40",
+      "_note": "Partial fill: $2.11 of a $47.53 target, all deployable cash after the 19:25Z run (cash $85.50 - 5% x $1,667.81)."
     },
     {
       "symbol": "MU",
@@ -8925,7 +8942,13 @@
       "run_start_utc": "2026-10-14T19:25:25Z",
       "decide_asof_utc": "2026-10-14T19:25:34Z",
       "tv": 1710.21,
-      "result": "SELL MRNA 0.25672 @ 226.5001 (+$2.81, IBS 0.998 off). BUY QLD $106.28 = 1.147609 @ 92.6099 (RSI2 3.3 + IBS 0.187 on; target $1,137.29, underfunded). DELL/VIAV/MRVL ON ($48.74 each) NOT BOUGHT: no deployable cash after QLD. MU/LITE/WDC/AMD/INTC kept. ILMN off, not held."
+      "result": "SELL MRNA 0.25672 @ 226.5001 (+$2.81, IBS 0.998 off). BUY QLD $106.28 = 1.147609 @ 92.6099 (RSI2 3.3 + IBS 0.187 on; target $1,137.29, underfunded). DELL/VIAV/MRVL ON ($48.74 each) NOT BOUGHT: no deployable cash after QLD. MU/LITE/WDC/AMD/INTC kept. ILMN off, not held.",
+      "rerun": {
+        "run_start_utc": "2026-10-14T19:40:20Z",
+        "decide_asof_utc": "2026-10-14T19:40:39Z",
+        "tv": 1667.81,
+        "result": "Same targets as 19:25Z (QLD ON RSI2+IBS target $1,109.09; MRNA/ILMN off; MU/LITE/DELL/WDC/AMD/INTC/VIAV/MRVL on, $47.53 each). No sells. QLD held+true = KEEP (no resize mid-month). BUY DELL $2.11 = 0.004166 @ 506.3913 (all deployable: $85.50 - $83.39 reserve). VIAV/MRVL unfunded."
+      }
     },
     "last_weekly_check": {
       "run_utc": "2026-10-05T13:31:00Z",
