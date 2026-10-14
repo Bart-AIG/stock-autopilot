@@ -32,7 +32,7 @@ def wedge(n=90, top=100.0, breakout=False):
 def test_falling_wedge_found_and_breakout():
     base = uptrend(60, 80.0)
     xs = base + wedge(90)
-    w = setups.falling_wedge(xs, [1e6] * len(xs))
+    w = setups.falling_wedge(xs, xs, xs, [1e6] * len(xs))
     assert w and w["pattern"] == "falling wedge", w
     assert w["age"] is None
     xs_b = base + wedge(90, breakout=True)
@@ -50,9 +50,22 @@ def test_double_bottom():
     xs += [96.8 + i * 0.8 for i in range(10)]   # bounce to 104
     xs += [103.2 - i * 0.75 for i in range(10)]  # back down to ~96.45
     xs += [97.0 + i * 0.5 for i in range(6)]    # turning up
-    d = setups.double_bottom(xs)
+    d = setups.double_bottom(xs, xs, xs)
     assert d and d["pattern"] == "double bottom", d
     assert abs(d["trigger"] - max(xs[95:106])) < 1e-9
+
+
+def test_ohlc_rows():
+    """Full OHLC rows: highs/lows feed the trendlines, the close decides breakouts."""
+    base = uptrend(60, 80.0)
+    xs = base + wedge(90)
+    full = [{"close": c, "high": c * 1.01, "low": c * 0.99, "volume": 1e6} for c in xs][::-1]
+    C, H, L, V = setups._chrono(full)
+    assert H[-1] == xs[-1] * 1.01 and L[-1] == xs[-1] * 0.99 and C[-1] == xs[-1]
+    w = setups.falling_wedge(C, H, L, V)
+    assert w and w["pattern"] == "falling wedge", w
+    s = setups.score(full)
+    assert s and "flags" in s and s["pattern"]["name"] == "falling wedge", s
 
 
 def test_falling_knife_penalized():

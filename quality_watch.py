@@ -284,7 +284,11 @@ def report(cands: list[dict], plan: dict, asof: str, new_syms: set[str]) -> str:
         lines.append("No high-quality names are near their 200-day right now.")
     else:
         alerted = {c["symbol"] for c in alert_set(cands)}
-        lines += ["## Ranked by chart setup (most bullish first)", "",
+        lines += ["## Ranked by chart setup score (highest first)", "",
+                  "**Backtest warning (setups_results.md, 2019-2026):** higher setup scores did NOT "
+                  "pick better names near the 200-day; they lagged (rank IC -0.11, t -3.1, negative in "
+                  "both 2019-22 and 2023-26). Read this table as a description of each chart, not as "
+                  "a buy order.", "",
                   "| Setup # | Ticker | Setup | Pattern | Why | Grade | Value | Zone | Q # |",
                   "|---|---|---|---|---|---|---|---|---|"]
         for i, c in enumerate(setup_order(cands), 1):
