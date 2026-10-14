@@ -1,35 +1,44 @@
-RISK GREEN (1) - QQQ under its 20-day (741.34) and IEF dipped under 88.95 overnight; still GREEN
+RISK YELLOW (2) - QQQ broke 733 (fired 15:37Z at 732.99) and sits under its 20-day
+As of 15:42Z (11:42 ET), Oct 14. Advisory only: nothing is placed; every trade below is for you to place in-app.
 
-**Fired since last run (as of 13:42Z, Oct 14):**
-- QQQ below its 20-day SMA (alert 11:00Z): QQQ 739.28 vs 741.34 (-0.28%). +1 point.
-- IEF < 88.95 (12:43Z, 88.93): since reclaimed, IEF now 89.09. 10-yr yield ~5.25%, borderline RED on the crack-watch yield test.
-- SKHY moved WATCH -> WEAK (under 50 and 200-day, -23% off high).
-- Support alerts fired (not scored): SPCX, HOOD, CEG, WULF, NVDA, MRVL, BMEA.
+**What changed:** tier GREEN -> YELLOW. QQQ 732.20 is under 733 (+1 pt) and under its 20-day SMA 741.34 (+1 pt). Next: 50-day 726.55 (0.8% below), then 700.
+Credit check (CRACK WATCH): OFF, 0 REDs at 13:45Z (LQD/IEF -0.25% 20d, HYG/IEF -0.24% 20d). 10-yr near the 5.26% level (IEF 89.39 vs 88.95 trigger). News leg not re-run.
 
-**Benchmarks (nearest 10):**
-| Alert | Level | Price | Dist |
+**Benchmarks (price / level / distance)**
+| Alert | Price | Level | Dist |
 |---|---|---|---|
-| QQQ price_below_sma_20d | 741.34 | 739.28 | -0.28% FIRED |
-| IEF price_below | 88.95 | 89.09 | 0.16%  |
-| HYG price_below | 76.35 | 76.865 | 0.67%  |
-| QQQ price_below | 733.0 | 739.28 | 0.86%  |
-| SPY price_below_sma_50d | 768.6 | 775.69 | 0.92%  |
-| TIP price_below | 102.85 | 104.32 | 1.43%  |
-| QQQ price_below_sma_50d | 726.55 | 739.28 | 1.75%  |
-| IEF price_below | 87.35 | 89.09 | 1.99%  |
-| IEF price_above | 91.1 | 89.09 | -2.21%  |
-| KRE price_below | 65.25 | 68.18 | 4.49%  |
+| QQQ < 733 | 732.20 | 733 | FIRED -0.1% |
+| QQQ < 20d | 732.20 | 741.34 | FIRED -1.2% |
+| SPY < 50d | 770.51 | 768.60 | +0.25% |
+| IEF < 88.95 | 89.39 | 88.95 | +0.5% |
+| HYG < 76.35 | 76.82 | 76.35 | +0.6% |
+| QQQ < 50d | 732.20 | 726.55 | +0.8% |
+| QQQI < 54.51 | 55.15 | 54.51 | +1.2% |
+| TIP < 102.85 | 104.56 | 102.85 | +1.7% |
+| KRE < 65.25 | 68.82 | 65.25 | +5.5% |
+| QQQ < 700 | 732.20 | 700 | +4.6% |
+VIXY 16.27 (alert 21.15), USO 153.16 (alert 163.80).
 
-**Margin in use:** $26,819 (cash -26,819 on $93,012 account value, ~29%). Tier is GREEN so no sale is recommended. Clearing margin stays the first priority if the tier rises.
+**Margin:** $26,819 in use on net $90,608 (was ~$13.3k at the 09-25 baseline). Clearing it is the first dollar raised.
 
-**LADDER:** Stage 0. QQQ is under the stage-2 level (20-day, 741.34) intraday only. A stage fires on a close below it or a break that holds into the last hour. Next levels: 733 (stage 1 line), 726.55 (50-day), 700. Reinvest tranche 0.
+**Ladder:** Stage 1 (733) and Stage 2 (20-day) levels are broken INTRADAY ONLY. Your plan fires on a close below, or a break that holds into the last hour. Not confirmed yet; I will recheck on later runs. If confirmed, stage 1 sells (from plan): CRCL all, APP all (none held now), VST all 12, then stage 2: MU 8 of 24 shares (about $7.4k). Skip names already sold. Reinvest tranche 1 is QQQ < 666 (not close).
 
-**CRACK WATCH: OFF (0 REDs).** LQD/IEF 20d -0.25% GREEN, HYG/IEF 20d -0.24% GREEN (yields up, ratio flattered), no QQQ/credit divergence (QQQ 3.0% off 25-day high), 10-yr borderline. Bond news check not run this run.
+**Holdings health**
+- WEAK (under 50d and 200d): APLD, OKLO, SMR, CRCL, WULF, FIG, AUR, MOD, SKHY.
+- WATCH: VST (151.58 vs 200d 154.73), CEG (280.87 vs 285.46), MU (under 50d), CRDO (under 50d), ASND.
 
-**HOLDINGS HEALTH (technical only this run):**
-- WEAK (review, no sale advised at GREEN): APLD, OKLO, SMR, CRCL, WULF, FIG, AUR, MOD, SKHY (all under 50 and 200-day).
-- WATCH: MU (under 50-day, -22%), CRDO (-36%), ASND (under 50 and 200-day).
+**SELL LIST** (sell_plan at YELLOW; WEAK names first, then other underwater non-core names)
+Ticker | $ | % | P/L | tax
+- APLD $1,024 100% -14% loss, harvest
+- OKLO $892 100% -14% loss, harvest
+- SMR $593 100% -18% loss, harvest
+- CRCL $1,988 100% -6% loss, harvest
+- WULF $1,179 100% -14% loss, harvest
+- AUR $494 100% -11% loss, harvest
+- MOD $7,113 100% -12% loss, harvest
+- SKHY $2,250 100% -12% loss, harvest
+- FIG $5,843 100% 0% (check lot term)
+- TEM $97, SPCX $3,843, AFRM $2,458: underwater non-core, optional
+Total listed ~$27.8k vs $26.8k margin. Thesis/news check was NOT run this run (technical status only); do not treat this as a thesis verdict. Check wash-sale windows on any name you bought in the last 30 days.
 
-**What would lower risk:** QQQ back above 741.34 and holding; IEF above 89.5.
-
-No trade is placed; anything above is for you to place in-app.
+**Back to GREEN:** QQQ closes back above 733 and the 20-day (741.34).
