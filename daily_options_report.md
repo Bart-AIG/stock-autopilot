@@ -1,6 +1,6 @@
 # Daily report — trading day 2026-10-15 (Thursday)
 
-*Written by the run that started 19:19:12Z (15:19 ET), invoked with **prompt v16**. Figures are broker figures priced at 19:19Z, not the close. This run started one minute **before** the 15:20–15:52 ET decision window, so it placed no sleeve orders. The decision-window run amends Section 1.*
+*Written by the run that started 19:19:12Z (15:19 ET), invoked with **prompt v16**. Figures are broker figures priced at 19:19Z, not the close. This run started one minute **before** the 15:20–15:52 ET decision window, so it placed no sleeve orders. Section 1 amended by the 15:25 ET decision-window run.*
 
 ## 1. Sleeves
 **SWING_Q:** QLD 1.147609 sh = **$106.10** (−$0.18 vs cost; QLD −0.11% today, QQQ 728.49, −0.06%). It is still far below its ~$1,135 target because Ryan's MU 1220C holds the shared cash: cash is **$83.39**, below the 5% reserve ($85.34), so **deployable cash is $0**. The decision-window run can buy nothing unless a sell frees cash.
@@ -18,7 +18,7 @@
 
 Not held: MRNA (sold 10-14), VIAV, MRVL, ILMN. All orders today: none (broker, 19:19Z).
 
-**Decision window:** pending. The first run at or after 15:20 ET runs `decide()` and amends this section.
+**Decision window (run started 19:25Z, 15:25 ET; live quotes 19:25:43Z; total_value $1,715.48):** `decide()` says hold all 7 held names through the close, so there are **no sells**. QLD stays on the RSI2 leg (QQQ RSI2 3.1, above its 200-day). MU, LITE, WDC, AMD, INTC stay on RSI2; DELL stays on RSI2+IBS. MRNA and ILMN are off (RSI2 92.8 / 67.4) and not held. **VIAV and MRVL are on (RSI2 2.4 / 5.0) and not held: targets $48.89 each, NOT BOUGHT** because deployable cash is $83.39 − $85.77 reserve = **−$2.38**. No orders were placed (broker re-read: no equity orders today). No resizing: it is not the first session of the month.
 
 ## 2. Legacy run-off
 Done. No `sleeve: "swing"` positions remain.
