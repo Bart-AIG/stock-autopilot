@@ -1,44 +1,43 @@
-RISK ORANGE (5) - QQQ gapped under its 50-day (719.4 vs 726.7), SPY under its 50-day; margin $29.0k
+RISK YELLOW (3) - tier eased from ORANGE: SPY back above its 50-day, QQQI above 54.51; QQQ still under 733 / 20d / 50d
 
-**Advisory only. Nothing placed. For you to place in-app.** As of 13:45Z (9:45am ET), 15 min into the session. The market just opened, so levels can still recover.
+As of 15:45Z Oct 15. Advisory only: nothing is placed; every trade is for you to place in-app.
 
-**What fired / changed**
-- QQQ 50-day alert fired 11:00Z (premarket). QQQ now 719.42 (-1.3% today), 1.0% under its 50-day (726.66), 3.1% under its 20-day (742.55), 1.9% under 733.
-- SPY under its 50-day alert fired 11:00Z. SPY 767.01 vs 50d 768.57.
-- Score 2 -> 5, YELLOW -> ORANGE. QQQI also under its 54.51 alert (54.32).
-- Credit and rates are calm: HYG 76.92 (alert 76.35), IEF 90.55 (up from 89.7, yields down). CRACK WATCH off (0 REDs, carried from 10-14; news check not run).
+**What changed since 14:45Z**
+- SPY 770.21 is back above its 50-day 768.57 (+0.2%). Point removed.
+- QQQI 54.64 is back above 54.51. Point removed.
+- Still triggered (3 pts): QQQ 724.48 under 733, under 20d 742.55, under 50d 726.66.
+- Fired 14:56Z: TEM support alert 70 (69.88). Support alert, not scored.
 
 **Benchmarks**
-| Alert | Level | Price | Dist |
+| Alert | Level | Price | Distance |
 |---|---|---|---|
-| QQQ < 733 | 733 | 719.42 | broke |
-| QQQ < 20d | 742.55 | 719.42 | broke |
-| QQQ < 50d | 726.66 | 719.42 | broke |
-| SPY < 50d | 768.57 | 767.01 | broke |
-| QQQI < | 54.51 | 54.32 | broke |
-| QQQ < 700 | 700 | 719.42 | 2.8% away |
-| HYG < | 76.35 | 76.92 | 0.7% |
-| IEF < 88.95 | 88.95 | 90.55 | 1.8% |
-| TIP < 102.85 | 102.85 | 105.50 | 2.6% |
-| KRE < 65.25 | 65.25 | 69.03 | 5.8% |
+| QQQ < 50d | 726.66 | 724.48 | -0.3% (hit) |
+| QQQ < 733 | 733 | 724.48 | hit |
+| QQQ < 20d | 742.55 | 724.48 | hit |
+| QQQ < 700 | 700 | 724.48 | 3.4% away |
+| SPY < 50d | 768.57 | 770.21 | 0.2% away |
+| IEF < 88.95 | 88.95 | 90.31 | 1.5% away |
+| IEF > 91.1 | 91.1 | 90.31 | 0.9% away |
+| HYG < 76.35 | 76.35 | 77.05 | 0.9% away |
+| TIP < 102.85 | 102.85 | 105.28 | 2.4% away |
+| USO > 163.8 | 163.8 | 156.82 | 4.5% away |
+| KRE < 65.25 | 65.25 | 69.40 | 6.4% away |
 
-**Margin: $29,010 in use** (cash -29,009.86; account value $88,521). Against your 08-05 no-margin decision, clearing it is first at ORANGE.
+**Margin:** $29,911 in use (cash -29,911; account $90,813). It rose from about $23.6k an hour ago. Your positions show same-day buys (NFLX, APLD, WULF, AFRM, CRCL, SKHY, TSM, SPCX, CRDO). Plan from the earlier ladder: margin goes to zero first.
 
-**LADDER: Stage 2 confirmed; Stage 3 (Below 50-day) is breached intraday but NOT confirmed.** It fires on a close under 726.66 or a break that holds into the last hour. Watch the 3:00pm ET read. If it fires, the plan trims FIG, MRVL, CRDO, TEM, HOOD. Stage 4 is QQQ < 700. No reinvest tranche (first is 666).
-- Stage 1 and 2 names: CRCL (47 sh) is the only stage 1 name still held. MU is no longer in the account, so the stage 2 MU trim is already done.
+**Ladder:** Stage 3 (QQQ under 50d 726.66) is breached intraday but not confirmed. It fires on a close below or a hold into the last hour. Watch for it at 3:00 PM ET. Stage 4 = 700. No reinvest tranche reached.
 
-**HOLDINGS HEALTH (carried from the daily-bar run, not recomputed)**: WEAK: FIG (under 50d and 200d, -66% off high), CRCL (under 50d and 200d, -42%), SKHY (under both). Others on the list were not rechecked.
+**Holdings health:** WEAK: APLD, CRCL, WULF, FIG, SKHY. WATCH: CRDO, ASND. (Health carried from the earlier run; technicals not refreshed.)
 
-**SELL LIST** (sell_plan at ORANGE, needs $33.9k to clear margin plus 5% cash; thesis/news check NOT run this run, so verdicts are unmarked; confirm before selling):
-1. META: trim ~$8.7k (33%, ~12 sh). 22% of the book, over the 15% cap. About -0.3% vs cost (loss, check 30-day wash). Core name, trim only.
-2. CRCL: sell all 47 (~$3.7k). Loss -5.3%. WEAK.
-3. FIG: sell all 277 (~$6.0k). Gain +3.5%; check lot age. WEAK.
-4. SKHY: sell all 2 (~$282). Loss -4.1%. WEAK.
-5. TEM: sell all 1.39 (~$93). Loss -16.2%.
-6. SPCX: sell all 40 (~$5.7k). Loss -9.7%.
-7. AVGO: sell all 4 (~$1.35k). Loss -2.4%.
-8. CEG: sell all 11 (~$3.0k). Loss -1.7%.
-9. CRDO: sell all 30 (~$5.1k). Loss -1.7%.
-Total ~$34k. Loss lots first; wash-sale clock is 31 days on any name you sell at a loss.
+**Sell list (YELLOW, in order; for you to place in-app)**
+1. APLD all (~$484, -0.4%): WEAK, under 50d and 200d. Loss, check wash-sale.
+2. CRCL all (~$9,279, +4.1%): WEAK, under 50d and 200d. Gain, check holding period.
+3. WULF all (~$280, -0.2%): WEAK. Loss, check wash-sale.
+4. FIG all (~$6,322, +8.2%): WEAK. Gain, check holding period.
+5. SKHY all (~$7,493, +2.7%): WEAK. Gain, check holding period.
+6. TEM all (~$97, -12.9%): underwater non-core. Loss.
+7. SPCX all (~$5,906, -6.8%): underwater non-core. Loss.
+8. AVGO all (~$1,360, -1.9%): underwater non-core. Loss.
+Raises ~$31.2k vs margin $29.9k. Thesis/news check was NOT run this run, so treat these as technical-only. Several of these are positions you bought today, so check wash-sale and intent before acting.
 
-**What moves the tier back down:** QQQ back above 726.66 (50d) then 733, SPY above 768.57. Two closes back above the 50-day after Stage 3 triggers the reclaim rule.
+**Back to GREEN:** QQQ reclaims 733 and the 20-day 742.55.
