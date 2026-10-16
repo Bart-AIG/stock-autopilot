@@ -20,7 +20,7 @@
 
 Not held: MRNA (sold 10-14), VIAV, MRVL, ILMN. Orders today: none (broker, 19:19Z). The sleeves carry no stops; the rules exit on a close above the 5-day SMA, IBS > 0.8 or the 5-session IBS limit.
 
-**Decision window:** *(the 15:25 ET run fills this in)*
+**Decision window (run 15:25:22 ET, decide() at 19:25:30Z, TV $1,248.83):** every target ON. QLD kept (RSI2 0.7 + IBS 0.172; target $830.47, no mid-month resize). MU, LITE, DELL, WDC, AMD, INTC kept. No sells. MRNA, VIAV, MRVL, ILMN were ON ($35.59 target each) but not held; deployable cash was $20.95, so the run **bought MRNA $20.95 = 0.098275 sh @ $213.18** (first in pick order, IBS 0.137). VIAV, MRVL and ILMN are unfunded. Sleeve drawdown −1.97% vs HWM.
 
 ## 2. Legacy run-off
 Done. No `sleeve: "swing"` positions remain.
@@ -38,7 +38,7 @@ Marked at 19:19Z: **$293.19 on $328.90 cost (−10.86%)**. PLTR −2.02%, NVDA �
 - **Drawdown from the $3,604.85 high-water mark: −2.03%.**
 
 ## 6. Week (provisional; broker, read 19:19Z)
-Realized this week: **−$1,736.44 over 3 closes**. Ryan's MU 1160C made −$1,740 of that; the agent's closes made +$3.56 (MRNA and a 10-12 close). Sleeve orders this week came only from the 10-14 decision window (MRNA sell plus the legacy close-out). The 10-15 and 10-16 windows placed nothing, because deployable cash was below one dollar. The Friday review is in the journal; the decision-window run amends it.
+Realized this week: **−$1,736.44 over 3 closes**. Ryan's MU 1160C made −$1,740 of that; the agent's closes made +$3.56 (MRNA and a 10-12 close). Sleeve orders this week came only from the 10-14 decision window (MRNA sell plus the legacy close-out). The 10-15 window placed nothing (deployable cash below one dollar); the 10-16 window bought MRNA $20.95 with the only deployable cash. The Friday review is in the journal; the decision-window run amends it.
 
 ## 7. Next week
 - Turn-of-month leg: off until the last trading day of October (Oct 30).
