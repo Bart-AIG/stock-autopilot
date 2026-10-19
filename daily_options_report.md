@@ -1,6 +1,6 @@
 # Daily report — trading day 2026-10-19 (Monday)
 
-*Written by the run that started 19:19:24Z (15:19 ET), invoked with **prompt v16**. Figures are broker figures priced at 19:19Z, not the close. This run started before the 15:20–15:52 ET decision window, so it placed no sleeve orders. The decision-window run (~15:25 ET) amends Section 1 with its decisions.*
+*Written by the run that started 19:19:24Z (15:19 ET), invoked with **prompt v16**. Figures are broker figures priced at 19:19Z, not the close. This run started before the 15:20–15:52 ET decision window, so it placed no sleeve orders. The decision-window run (started 19:25:36Z, 15:25 ET) amended Section 1 with its orders below.*
 
 **Today in one line:** a rebound after Friday's sell-off. QQQ is +1.46% (720.13) and every sleeve name is up (WDC +5.0%, MRNA +5.0%, MU +3.5%). Drawdown on sleeve value is −1.63%, far from the −20% notice level.
 
@@ -19,7 +19,14 @@
 | MRNA | $22.49 | +$1.54 (+7.3%) | +4.97% |
 | DELL | $1.88 | −$0.23 (−10.7%) | +0.15% |
 
-Not held: VIAV, MRVL, ILMN (unfunded on Friday). Orders today: none (broker, 19:19Z). A rebound day is when the RSI2 leg can switch off (a close above the 5-day SMA), so today's window may sell some names.
+**Decision window (amended by the 15:25 ET run; decide() at 19:25:51Z on total value $1,525.39):**
+- QLD: ON (RSI2 + IBS legs), KEEP. No resize mid-month.
+- MU, LITE, DELL, AMD, INTC: ON, KEEP. WDC: ON (RSI2 leg only), KEEP.
+- **MRNA: no leg on → SOLD** 0.098275 sh @ $228.57 (+$1.51).
+- **VIAV (RSI2 leg) → BOUGHT** $43.47 = 1.24378 sh @ $34.95.
+- **MRVL (RSI2 + IBS) → BOUGHT** $43.47 = 0.181697 sh @ $239.24.
+- **ILMN (RSI2 leg) → BOUGHT** $21.96 = 0.083346 sh @ $263.48. Target was $43.47; this was all the deployable cash left ($184.91 cash − $76.01 reserve = $108.90).
+All four orders filled within 14 seconds. The SWING_M book is now 9 names.
 
 ## 2. Legacy run-off
 Done. No `sleeve: "swing"` positions remain.
