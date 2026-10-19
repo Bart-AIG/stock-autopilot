@@ -8961,13 +8961,28 @@
       "result": "All 11 targets hold_through_close=true. QLD ON (RSI2 0.7 + IBS 0.172) KEEP, target $830.47 (no mid-month resize). Held swing_m MU/LITE/DELL/WDC/AMD/INTC KEEP. Not held ON: MRNA (IBS 0.137), VIAV, MRVL, ILMN (RSI2) at $35.59 each. No sells. BUY MRNA $20.95 = 0.098275 @ 213.1772 (all deployable). VIAV/MRVL/ILMN unfunded."
     },
     "last_weekly_check": {
-      "run_utc": "2026-10-05T13:31:00Z",
-      "source": "broker get_pnl_trade_history span=week",
-      "sleeve_closes": {
-        "swing_q": 0,
-        "swing_m": 0
+      "run_utc": "2026-10-19T13:25:21Z",
+      "source": "broker get_pnl_trade_history span=month (sleeve closes since go-live 2026-09-30)",
+      "swing_q": {
+        "closes": 2,
+        "wins": 2,
+        "realized_usd": 82.4,
+        "note": "QLD 10-05 +81.65, 10-12 +0.75"
       },
-      "note": "No sleeve position has closed since go-live 2026-09-30; win rate/payoff/margin n/a (n=0). The week's 6 realized closes were legacy run-off (MRK x2, ABBV, DE, FCX, TGT) net -$58.09. Account $3,316.28 -> $3,434.15 (+3.55%) vs QQQ 739.71 -> 749.26 (+1.29%) since start; HWM reset to $3,434.15 at the open, drawdown 0%. Scorecard only, no tuning."
+      "swing_m": {
+        "closes": 14,
+        "wins": 12,
+        "losses": 2,
+        "win_rate_pct": 85.7,
+        "avg_win": 4.64,
+        "avg_loss": -2.35,
+        "payoff": 1.97,
+        "breakeven_win_rate_pct": 33.6,
+        "margin_pts": 52.1,
+        "realized_usd": 50.94
+      },
+      "vs_qqq": "Sleeve value (drawdown_basis rule, $100 deposit excluded) $3,548.40 vs start $3,316.28 = +7.0%; QQQ 739.71 -> 709.80 (10-16 close) = -4.0%.",
+      "note": "Scorecard only, no tuning (v16). n small (<3 months); no escalation condition met. Ryan's MU 1160C close (-$1,740) is user P/L and excluded."
     },
     "drawdown_halt": {
       "status": "LIFTED",
@@ -8993,12 +9008,15 @@
       "hwm": 3604.85,
       "hwm_note": "Carried from the total_value HWM 2026-10-09T18:25Z (MU 1160C opened 41 min earlier, P/L near zero then).",
       "latest": {
-        "utc": "2026-10-16T19:25Z",
-        "total_value": 1248.83,
-        "user_unrealized_pnl": -545.0,
-        "sleeve_value": 3533.83,
-        "drawdown_pct": -1.97
-      }
+        "utc": "2026-10-19T13:25Z",
+        "total_value": 1338.4,
+        "user_unrealized_pnl": -570.0,
+        "deposit_excluded": 100.0,
+        "sleeve_value": 3548.4,
+        "drawdown_pct": -1.57,
+        "note": "Cash 62.44 -> 162.45 over the weekend with pending_deposits $100: an external deposit, not return; excluded from sleeve_value."
+      },
+      "deposits_since_hwm_usd": 100.0
     }
   }
 }
