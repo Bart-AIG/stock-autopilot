@@ -1,40 +1,41 @@
-RISK ORANGE (5) - up from YELLOW: SPY slipped back under its 50d, QQQI under 54.51 again; QQQ still under 20d/50d, $34.5k margin in use
+RISK ORANGE (5) - daily reminder: QQQ 711 under 20d/50d/733, SPY under 50d, $34.5k margin; CRDO now WEAK
 
 ADVISORY ONLY. Nothing placed; every trade below is for you to place in-app.
-As of 2026-10-19 16:42Z. Tier YELLOW (3) -> ORANGE (5). No new alert fired in the log; the extra points are live readings crossing back (SPY 768.21 vs 50d 768.50, -0.04%; QQQI 54.45 vs 54.51). Both are razor-thin and could flip back within the hour.
+As of 2026-10-20T13:42Z. Tier ORANGE (5), unchanged from yesterday. Stage 3 of the QQQ ladder stays in force; stage 4 (QQQ 700) is 1.6% away.
 
 BENCHMARKS (live)
-- QQQ 721.54: under 50d 726.77 (-0.7%), under 20d 742.52 (-2.8%), under 733 (-1.6%); 700 is +3.1% away
-- SPY 768.21: under 50d 768.50 (-0.04%); 729 and 690 not close
-- QQQI 54.45 under your 54.51 alert (-0.1%)
-- IEF 90.06: 88.95 is +1.2% away; 91.10 is -1.1%
-- HYG 76.86 vs 76.35 (+0.7% away); TIP 105.28 vs 102.85 (+2.4%)
-- KRE 69.44 vs 65.25; TLT 79.48 vs 75.92; USO 161.05 vs 163.80; VIXY 16.99 vs 21.15
+- QQQ 711.48: under 50d 726.68 (-2.1%), under 20d 741.36 (-4.0%), under 733 (-2.9%); 700 is +1.6% away; 666 is +6.8%
+- SPY 765.24: under 50d 768.37 (-0.4%); 729 and 690 not close
+- QQQI 53.76 under your 54.51 alert (-1.4%)
+- IEF 90.33: 88.95 is +1.5% away; 91.10 is -0.8%
+- HYG 76.78 vs 76.35 (+0.6% away); TIP 105.56 vs 102.85 (+2.6%)
+- KRE 70.59 vs 65.25; TLT 80.14 vs 75.92; USO 161.86 vs 163.80; VIXY 17.41 vs 21.15
 
-LADDER: Stage 3 reached (range-top break, below 20d, below 50d); no change. Stage 4 = QQQ 700 (3.0% below the current price). Reinvest tranche 0. No reclaim-rule buyback (QQQ not back above the 50d).
+LADDER: Stage 3 reached (range-top break, below 20d, below 50d); no change. Reinvest tranche 0.
 
-MARGIN: $34,537 in use (account value about $90.1k). Your de-lever rule (2026-08-05) puts this first.
+MARGIN: $34,547 in use (account value $86.6k). Your 2026-08-05 de-lever rule puts clearing it first.
 
-CRACK WATCH: OFF (0 REDs), carried from 15:45Z. LQD/IEF and HYG/IEF both CAUTION; IEF above 88.95.
+CRACK WATCH: OFF (0 REDs). LQD/IEF -0.95% 20d (CAUTION); HYG/IEF -1.38% 20d (CAUTION, yields up so flattered); IEF above 88.95 (CAUTION); AI IG spreads ~115 bp (CAUTION edge, supply-driven); no pulled or downsized hyperscaler deal found; no equity/credit divergence.
 
-HOLDINGS HEALTH (price trend only, reused from 15:45Z; business half not refreshed, financials cache is from 10-07)
-WEAK: OKLO, SOXL, WULF, CRCL, AUR, NBIS (all under 50/200d), AVGO, SKHY (under 50/200d)
-WATCH: HOOD, TEM, CRDO, ASND
-OK: META, GOOGL, AMZN, NOW, RBRK, MRVL, TSM, SPCX, QQQ, QQQI
+HOLDINGS HEALTH (price trend only; business half not refreshed, financials cache is from 10-07)
+WEAK: OKLO, AVGO, CRCL, NBIS, WULF, CRDO (new, under 200d), AUR, SOXL
+WATCH: TEM, HOOD, MRVL, ASND, SKHY, SPCX (SKHY and SPCX have under 200 days of history)
+OK: META, GOOGL, AMZN, NOW, RBRK, TSM, QQQ, QQQI
+Alerts that fired overnight (CRCL under 81.08, AFRM, GOOG and ARGX vs 200d) are your per-name alerts, not benchmarks, and do not move the tier.
 
-SELL LIST (ORANGE: margin first, then WEAK names; thesis verdicts are technical-only this run, a news check is still needed before you act)
-Raise about $44.2k: $34.5k margin plus the ORANGE cash target (5%)
-1. OKLO ~$2,756 (all 100 sh), -4.3%, LOSS: harvest; 50 sh bought today, so the 31-day wash-sale window applies.
-2. CRCL ~$11,009 (all 134 sh), +0.2%; 25 sh bought today.
-3. NBIS ~$4,785 (all 28 sh), +3.7%.
-4. WULF ~$1,520 (all 125 sh), 0.0%; 100 sh bought today.
-5. AUR ~$994 (all 200 sh), +1.2%.
-6. SOXL ~$13,801 (all 135 sh), +2.8%, 3x semis ETF under 200d.
-7. AVGO ~$1,352 (all 4 sh), -2.4%, LOSS: harvest.
-8. SKHY ~$7,949 (all 55 sh), +3.1%.
-Check lot dates (short vs long-term) before selling the gain names.
+SELL LIST (ORANGE: margin first, then WEAK names; thesis verdicts are technical-only, a news check is still needed before you act; CRDO news: post-earnings guide selloff, analysts cut targets, balance sheet net cash, thesis weakened not broken)
+Raise about $39.4k: $34.5k margin plus the ORANGE 5% cash target
+1. OKLO ~$2,700 (all 100 sh), -6.2%, LOSS: harvest; 31-day wash-sale window applies to recent buys.
+2. AVGO ~$1,330 (all 4 sh), -4.2%, LOSS: harvest.
+3. CRCL ~$11,100 (all 134 sh), +1.0%; check lot dates.
+4. NBIS ~$4,520 (all 28 sh), -2.1%, LOSS: harvest.
+5. WULF ~$1,470 (all 125 sh), -3.1%, LOSS: harvest.
+6. CRDO ~$4,860 (all 30 sh), -7.0%, LOSS: harvest.
+7. AUR ~$960 (all 200 sh), -1.9%, LOSS: harvest.
+8. SOXL ~$12,430 (all 135 sh), -7.4%, LOSS: 3x semis ETF under 200d.
+Check lot dates and recent buys for wash sales before selling.
 
-WHAT MOVES IT BACK DOWN: SPY back above 768.50 and QQQI above 54.51 (that alone returns to YELLOW 3); QQQ reclaiming 726.77 (50d) and 733 lowers it further.
+WHAT MOVES IT BACK DOWN: SPY back above 768.37 and QQQI above 54.51 (returns to YELLOW 3); QQQ reclaiming 726.68 (50d), then 733 and 741.36 (20d).
 
 ---
 _Generated by [Claude Code](https://claude.ai/code)_
