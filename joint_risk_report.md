@@ -1,39 +1,38 @@
-RISK YELLOW (3) - eased from ORANGE: SPY back above its 50-day; QQQ still under 20d/50d/733, $34.5k margin
+RISK ORANGE (4) - SPY slipped under its 50-day (768.23 vs 768.37), QQQ already under 20/50-day and 733
+Run 2026-10-20T19:45:00Z. Tier YELLOW -> ORANGE on the live SPY reading; the margin is 0.02%, so a reclaim of 768.37 returns it to YELLOW. Advisory only; for you to place in-app.
 
-ADVISORY ONLY. Nothing placed; every trade below is for you to place in-app.
-As of 2026-10-20T14:50Z. Tier YELLOW (3), down from ORANGE (5). The drop is SPY 771.6 reclaiming its 50-day 768.37 (-1) and your QQQI support alert no longer scoring as a benchmark (-1). It fired at 14:30Z (54.50) and is a per-holding alert only.
+CRACK WATCH: off (0 REDs at 14:50Z, reused; LQD/IEF -0.8% and HYG/IEF -1.4% on 20 days, both CAUTION).
 
-CRACK WATCH: off (0 REDs). LQD/IEF 20d -0.80% CAUTION, HYG/IEF 20d -1.37% CAUTION (yields up >15 bps flatter it), 10-yr CAUTION. I found no hyperscaler bond deal today. The latest items are from August: Meta's El Paso deal drew thin coverage, Amazon's book was 1.6x, CleanSpark's HY deal priced at a discount. Not a RED.
+BENCHMARKS
+- SPY price_below_sma_50d 768.37 | now 768.23 | -0.02% | FIRED
+- QQQ price_below_sma_50d 726.68 | now 717.49 | -1.26% | FIRED
+- QQQ price_below 733.0 | now 717.49 | -2.12% | FIRED
+- QQQ price_below_sma_20d 741.36 | now 717.49 | -3.22% | FIRED
+- HYG price_below 76.35 | now 76.825 | +0.62% | ok
+- IEF price_above 91.1 | now 90.245 | -0.94% | ok
+- IEF price_below 88.95 | now 90.245 | +1.46% | ok
+- USO price_above 163.8 | now 160.72 | -1.88% | ok
+- QQQ price_below 700.0 | now 717.49 | +2.5% | ok
+- TIP price_below 102.85 | now 105.485 | +2.56% | ok
+- IEF price_below 87.35 | now 90.245 | +3.31% | ok
 
-LADDER: Stage 3 (below QQQ 50-day) stays in force. QQQ 721.5 vs 20d 741.36, 50d 726.68, 733. Stage 4 is QQQ 700 (-3.0%). No reinvest tranche (first is 666).
+MARGIN: $27,632 in use (cash -$27,632). Total value $89,515.
 
-BENCHMARKS (level / price / distance)
-- QQQ 50d 726.68 / 721.5 / below (hit); 733 hit; 20d 741.36 hit; 700 (+3.1%); 666 (+8.3%)
-- SPY 50d 768.37 / 771.6 / +0.4% above; 729 (+5.8%); 690 (+11.8%)
-- IEF 88.95 (+1.7%), 87.35 (+3.5%); IEF above 91.1 is -0.7% away
-- HYG 76.35 (+0.8%); KRE 65.25 (+8.5%); TIP 102.85 (+2.6%); USO 163.8 (-4.6%); VIXY 21.15 (-20%)
+LADDER: Stage 3 reached (below 50-day 726.68, 20-day 741.36, 733). Stage 4 = QQQ 700 (-2.5% away). Tranche 0.
+Check live positions against the plan: MU, AMD, FIG and CI/UBER/APP/VST no longer appear in the joint account, so the plan's named sells are mostly already done. Nothing named is left except the stage 3 names still held: MRVL, CRDO, TEM, HOOD.
 
-MARGIN: $34,547 in use against account value $90.6k. This is the first thing to clear on any de-risk step.
+SELL LIST (sell_plan, ORANGE: clear margin first, then raise to a 5% cash target, ~$37.8k in all)
+1. WULF: sell ~$1,516 (100%), P/L -0.3%, LOSS - harvest; check 30-day wash-sale. WEAK holding: under 50-day, under 200-day, -57% off 1-yr high, revenue -6% YoY, net margin -39% -> -2100%
+2. CRDO: sell ~$5,193 (100%), P/L -0.6%, LOSS - harvest; check 30-day wash-sale. WEAK holding: under 50-day, under 200-day, -42% off 1-yr high, revenue growth slowing +201% -> +157% -> +115%
+3. OKLO: sell ~$2,781 (100%), P/L -3.4%, LOSS - harvest; check 30-day wash-sale. WEAK holding: under 50-day, under 200-day, -83% off 1-yr high
+4. NBIS: sell ~$4,810 (100%), P/L +4.3%, GAIN - check lot holding period (short vs long-term). WEAK holding: under 50-day, under 200-day, -39% off 1-yr high
+5. AUR: sell ~$1,011 (100%), P/L +3.0%, GAIN - check lot holding period (short vs long-term). WEAK holding: under 50-day, under 200-day, -39% off 1-yr high
+6. SOXL: sell ~$13,402 (100%), P/L -0.1%, LOSS - harvest; check 30-day wash-sale. WEAK holding: under 50-day, under 200-day, -66% off 1-yr high
+7. AVGO: sell ~$1,341 (100%), P/L -3.3%, LOSS - harvest; check 30-day wash-sale. WEAK holding: under 50-day, under 200-day, -30% off 1-yr high
+8. SKHY: sell ~$7,701 (100%), P/L -0.1%, LOSS - harvest; check 30-day wash-sale. WEAK holding: under 50-day, under 200-day, -29% off 1-yr high
+These eight WEAK names total ~$37.8k. Their thesis checks were NOT re-researched this run; health flags are from this morning's data. Confirm news before selling.
+Wash-sale: a loss name sold here should not be rebought for 31 days. I could not read joint order history, so check recent buys in-app.
 
-HOLDINGS HEALTH
-- WEAK: WULF (8: under 50d/200d, -57% off high, revenue -6% YoY), CRDO (6: under 50d/200d, -42%, growth slowing), OKLO (5), NBIS (5), AUR (5), SOXL (5, 3x ETF, -66% off high), AVGO (4), SKHY (4, newly WEAK)
-- WATCH: HOOD, TEM, CRCL (improved from WEAK), MRVL, ASND, SPCX
-- OK: META, GOOGL, AMZN, NOW, RBRK, TSM, QQQ, QQQI
+HOLDINGS WATCH (not WEAK): HOOD, TEM, CRCL, MRVL, ASND, SPCX.
 
-SELL LIST (sell_plan at YELLOW: margin first, then WEAK names; for you to place in-app)
-Raise about $34.5k to clear margin. The WEAK names total about $38.3k:
-1. SOXL ~$13.6k (100%), gain +1.6%, 3x leveraged and 66% off its high, the best single margin-clearer
-2. SKHY ~$7.8k (100%), gain +0.9%
-3. CRDO ~$5.3k (100%), gain +0.6%
-4. NBIS ~$4.9k (100%), gain +5.5%
-5. OKLO ~$2.8k (100%), LOSS -2.4%, harvest, check the 30-day wash-sale window
-6. WULF ~$1.6k (100%), gain +3.1%
-7. AVGO ~$1.4k (100%), LOSS -2.2%, harvest, check the wash-sale window
-8. AUR ~$1.0k (100%), gain +3.6%
-Tax: check get_equity_tax_lots for short vs long-term before selling. Most of these positions look recently bought (cost close to price), so gains are probably short-term. WULF, CRCL and APLD were sold and re-watched on 10-08, so check wash-sale dates before any rebuy.
-Thesis check: current news search returned nothing usable per name, so verdicts are NOT confirmed. This is a technical and financial-trend flag only. Check news before selling any of them.
-Core trims (GOOGL, META, NOW, RBRK) are not triggered at YELLOW.
-
-WHAT MOVES THE TIER
-- Down to GREEN: QQQ back above 726.68 (50d), 733 and 741.4 (20d)
-- Up to ORANGE: SPY closes under 768.4 again, or QQQ under 700 (stage 4)
+WHAT MOVES IT BACK TO YELLOW: SPY back above 768.37 (50-day). Back to GREEN needs QQQ above 733.
