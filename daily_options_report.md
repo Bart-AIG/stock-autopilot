@@ -21,7 +21,15 @@
 | ILMN | $22.43 | +$0.47 (+2.1%) | +2.44% |
 | DELL | $1.93 | −$0.18 (−8.4%) | +1.98% |
 
-**Decision window:** pending, see the amendment below.
+**Decision window (amended by the run that started 19:25:16Z, 15:25 ET):** `sleeves.py decide` ran on live prices as of 19:25:28Z (QQQ 717.19; RSI(2) 38.3, IBS 0.55; still above both its 5-day and 200-day). Three SWING_M names had every leg off, so the run sold all three. The other seven names stay on.
+
+| Order | Qty | Fill | Realized P/L | Why it sold |
+|---|---|---|---|---|
+| SELL WDC | 0.205147 | $364.28 @ 19:25:51Z | **−$19.00** | It closed above its 5-day average, which ends the RSI(2) leg. IBS 0.91 is above 0.8, which ends the IBS leg. It is also under its 200-day, so it can't re-enter. |
+| SELL MRVL | 0.181697 | $241.42 @ 19:25:53Z | +$0.39 | It closed above its 5-day average (RSI(2) leg off) and IBS is 0.84 (IBS leg off). |
+| SELL ILMN | 0.083346 | $268.95 @ 19:25:54Z | +$0.46 | It closed above its 5-day average (RSI(2) leg off). RSI(2) is 76 and IBS 0.79, so neither leg triggers a new entry. |
+
+The three sells realized **−$18.15** in total. Still held: QLD (RSI2+IBS), MU, LITE, AMD and INTC (RSI2+IBS each), and DELL and VIAV (RSI2 only). MRNA is not held and has no leg on. No buys were due: QLD is already held, and resizing only happens on the first session of a month. After the sells: **cash $217.02, total value $1,464.87**. Sleeve value is about $3,546.87, which puts the drawdown at **−1.61%**. The order matched decide() exactly.
 
 ## 2. Legacy run-off
 Done. No `sleeve: "swing"` positions remain.
