@@ -20,7 +20,11 @@
 
 This month's picks not held: MRNA, WDC, MRVL, ILMN. They are bought only if decide() shows a leg on in the window.
 
-**Decision window:** pending; the ~15:25 ET run amends this section.
+**Decision window (AMENDED by the 19:25:17Z run, 15:25 ET).** decide() on live prices at 19:25:24Z, total value $1,578.72:
+- **Kept:** QLD (IBS leg on; target $1,049.85, held $105, no mid-month resize), MU and LITE (IBS leg on).
+- **Sold (no leg on):** DELL 0.004166 @ $486.00 (−$0.08); AMD 0.161089 @ $554.76 (−$9.94, IBS 0.894 > 0.8 turned it off); INTC 0.779418 @ $92.46 (−$21.66); VIAV 1.24378 @ $35.54 (+$0.73, now below its 200-day). Realized today: **−$30.95**.
+- **Bought:** MRVL $44.99 = 0.183653 @ $244.97 (IBS leg on, was not held).
+- Not bought (no leg on): MRNA, WDC, ILMN. All orders sent 19:25:40–19:25:51Z and filled. Cash after: ~$380; reserve $79.
 
 ## 2. Legacy run-off
 Done. No `sleeve: "swing"` positions remain.
