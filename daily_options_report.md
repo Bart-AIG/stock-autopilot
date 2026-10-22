@@ -1,6 +1,6 @@
 # Daily report — trading day 2026-10-22 (Thursday)
 
-*Written by the run that started 19:19:21Z (15:19 ET), invoked with **prompt v16**. Figures are broker figures priced at 19:19Z, not the close. This run started before the 15:20–15:52 ET decision window, so it placed no sleeve orders. The decision-window run (~15:25 ET) amends Section 1 with its orders.*
+*Written by the run that started 19:19:21Z (15:19 ET), invoked with **prompt v16**. Figures are broker figures priced at 19:19Z, not the close. This run started before the 15:20–15:52 ET decision window, so it placed no sleeve orders. The decision-window run (started 19:25:29Z, 15:25 ET) amended Section 1 with its orders.*
 
 **Today in one line:** a broad down day. QQQ is −2.96% (703.72) and QLD −5.93%. Every sleeve name is red: LITE −11.3%, MRVL −9.3%, MU −5.9%. Drawdown on sleeve value is −1.96%, far from the −20% notice level.
 
@@ -17,7 +17,11 @@
 
 The other picks are not held. They are bought only if decide() shows a leg on in the window.
 
-**Decision window:** pending (the ~15:25 ET run).
+**Decision window (run started 15:25:29 ET; decide() on quotes from 19:25:44Z, total value $1,495.63):**
+- **Kept:** QLD (QQQ IBS 0.092, so the IBS leg is on), MU, LITE, MRVL (IBS leg on for each).
+- **Bought (IBS leg on, not held before):** DELL $42.63 (0.09483 sh @ $449.54), AMD $42.63 (0.084177 sh @ $506.43), INTC **$14.61** (0.170521 sh @ $85.68). INTC's target was $42.63, but deployable cash ran out ($99.87), so it got partial funding in pick order.
+- **Off, not held:** MRNA, WDC, VIAV, ILMN (no leg on).
+- **No sells.** QLD stays far under its $994.59 target, because positions are resized only on the first session of a month.
 
 ## 2. Legacy run-off
 Done. No `sleeve: "swing"` positions remain.
