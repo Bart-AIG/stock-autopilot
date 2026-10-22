@@ -1,42 +1,43 @@
-RISK ORANGE (4) - SPY broke its 50-day (766.8 vs 768.34) and QQQ fell to 713.2 (-1.7% today); $30.8k margin still open
-Run 2026-10-22T13:50Z. Tier YELLOW -> ORANGE on live readings. Advisory only: nothing is placed; every sale is for you to place in-app.
+RISK ORANGE (4) - IEF crossed 91.10 (flight to safety); QQQ 707 is 1.0% above the 700 stage-4 level
 
-CRACK WATCH: off (0 REDs), but close. HYG/IEF 20d -2.33% (RED at -2.5%), LQD/IEF 20d -0.56% CAUTION, 10-yr CAUTION (IEF 90.72). QQQ is 6.1% off its 25-day high, so no equity/credit divergence. No October hyperscaler bond deal found in news; latest are July/Aug (Amazon ~1.6x cover, Meta ~1.6x).
+**New alert, 16:41Z:** IEF above 91.10 (triggered at 91.11). This is the flight-to-safety alert: Treasuries are bid, yields easing. It scores no risk points. Tier is unchanged from the last run.
 
-WHAT CHANGED (as of 13:41Z)
-- SPY 766.82 under its 50-day 768.34 (alert fired 11:00Z at 765.51).
-- QQQ 713.21 under 733, the 20-day 739.07 and the 50-day 726.75. Next level: 700 (-1.9%) = Stage 4.
-- Fired and unread: RBRK < 119.80 (now 121.15), SPCX < 154.44 (153.43), APP, AFRM support alerts; ARGX/ASND/CRDO/STX under 200-day. Per-holding alerts are not scored.
-- Big movers today: META -6.9% (649), SOXL -12.6% (90.26), MRVL -4.8%, CRDO -5.3%, AVGO -2.7%.
+**Benchmarks (16:41Z)**
+| Alert | Level | Price | Distance |
+|---|---|---|---|
+| SPY < 50d (triggered) | 768.34 | 763.27 | -0.7% |
+| QQQ < 50d (triggered) | 726.75 | 707.08 | -2.7% |
+| QQQ < 733 (triggered) | 733 | 707.08 | -3.5% |
+| QQQ < 20d (triggered) | 739.07 | 707.08 | -4.3% |
+| QQQ < 700 | 700 | 707.08 | 1.0% above |
+| HYG < 76.35 | 76.35 | 77.02 | 0.9% above |
+| USO > 163.8 | 163.8 | 161.72 | 1.3% below |
+| TIP < 102.85 | 102.85 | 106.16 | 3.2% above |
+| IEF < 88.95 | 88.95 | 91.10 | 2.4% above |
+| SPY < 729 | 729 | 763.27 | 4.5% above |
+| VIXY > 21.15 | 21.15 | 17.52 | 17% below |
 
-BENCHMARKS (price vs level)
-- QQQ 713.2: 50d 726.75 hit | 733 hit | 20d 739.07 hit | 700 (-1.9%) | 666 (-6.6%)
-- SPY 766.8: 50d 768.34 hit | 729 (-4.9%) | 690 (-10%)
-- IEF 90.72: 91.10 up-alert (+0.4%) | 88.95 (-2.0%) | 87.35 (-3.7%)
-- HYG 76.95: 76.35 (-0.8%) | TIP 105.95: 102.85 (-2.9%) | USO 162.82: 163.8 (+0.6%) | KRE 71.16: 65.25 (-8.3%) | VIXY 17.01: 21.15 (+24%)
+**Margin:** $39,583 in use (cash -$39,583, account value $83,901). Stage 1 is to clear it.
 
-MARGIN: $30,842 in use (cash -$30,842; equity $117.4k, net $86.6k). Clear this first.
+**LADDER:** Stage 3 reached (below 50-day). Stages 1-3 are cumulative. Stage 4 fires at QQQ 700 (1.0% away). No reinvest tranche reached (first is QQQ 666).
 
-LADDER: Stage 3 reached (Below 50-day). Cumulative with stages 1-2. Still held from the plan:
-- Stage 3: MRVL (14 sh, plan said sell about half = ~7), CRDO (30 sh, ~half = ~15), TEM (all 1.39), HOOD (all 6.01). AMD/FIG are no longer held.
-- Stage 1: CRCL (you hold 134 sh now, not the 40 in the plan; CRCL is on the re-buy watch, so check the wash-sale clear date first).
-- Stage 4 at QQQ 700: GOOGL trim (~14 sh), RBRK trim (~15 sh), NOW trim (~8 sh). MU is gone.
-- No reinvest tranche (first is QQQ 666).
+**CRACK WATCH:** 0 REDs, off. LQD/IEF and HYG/IEF both CAUTION as of 13:45Z (HYG/IEF 20d -2.33%, close to the -2.5% RED line).
 
-HOLDINGS HEALTH (from 10-21 data; not re-pulled this run)
-- WEAK: SOXL, WULF, OKLO, AVGO, NBIS, AUR, SKHY.
-- WATCH: HOOD, GOOGL, CRCL, QQQI, CRDO, ASND. META is OK on trend but today's -6.9% is on a new quarter: net margin fell 26% -> 15% (fiscal Q3), thesis check not confirmed by news.
+**Holdings health** (carried from the last full run, not recomputed): WEAK are OKLO, AVGO, NBIS, WULF, AUR, SKHY, SOXL. WATCH are HOOD, GOOGL, CRCL, QQQI, CRDO, ASND.
 
-SELL LIST (for you to place; sell_plan raises about $39.4k = margin + 5% cash). Thesis is a quick quantitative check only; I found no news for these names this run.
-1. SOXL ~$14,442, 100% (-8.0%): loss harvest. 3x leveraged semis, 12% of book. Verdict: weakened.
-2. SKHY ~$7,560, 100% (-2.0%): loss, 29% off high, under both averages. Weakened.
-3. CRCL ~$11,500, 100% (+4.6% vs your avg cost): non-core, on the plan's list. Check wash-sale window first.
-4. SPCX ~$6,137, 100% (-3.2%): loss, non-core. Its 154.44 alert already fired.
-5. NBIS ~$4,621, 100% (+0.2%): WEAK, under both averages.
-6. OKLO ~$2,703, 100% (-6.1%): WEAK, loss harvest, no revenue.
-7. WULF ~$1,558, 100% (+2.5%): WEAK, revenue -6% YoY, deep losses.
-8. AVGO ~$1,314, 100% (-5.2%): loss harvest, under both averages. Note: thesis may be intact (net margin 44%); sale is a risk-tier call.
-9. AUR ~$987, 100% (+0.5%); TEM ~$95, 100% (-14.9%, sub-scale).
-Order: margin cleared first, then harvest-loss names. Core names (GOOGL, AMZN, META, NOW, RBRK, QQQI) are not sold out. Check get_equity_tax_lots for short vs long-term on gain names.
+**SELL LIST** (sell_plan at ORANGE, for you to place in-app; thesis checks were not refreshed this run):
+1. Margin first: raise $39.6k, total target about $47.5k.
+2. META: trim about $885 (5%), over the 15% cap. Loss -4%.
+3. SOXL: sell all, about $11.8k. WEAK, loss -6.8%.
+4. SKHY: sell all, about $8.7k. WEAK, loss -4.0%.
+5. NBIS: sell all, about $6.6k. WEAK, loss -2.0%.
+6. SPCX: sell all, about $6.0k. Loss -5.9%.
+7. CRDO: sell all, about $4.9k. Loss -5.6%.
+8. TSM: about $4.1k. Loss -1.1%.
+9. MRVL: sell all, about $3.1k. Loss -5.0%.
+10. AUR: sell all, about $1.0k. WEAK, gain +0.1%, check lot holding period.
+11. QQQ (about $293) and TEM (about $86): sell all, harvest the loss.
 
-BACK TO YELLOW: SPY closing above 768.34 and QQQ back above 726.75 (50-day). Back to GREEN needs QQQ above 739.07 and 733.
+Loss names are harvest candidates. Sell all shares of a name so recent lots don't create a wash sale, and don't rebuy for 31 days.
+
+**What moves the tier down:** QQQ back above 726.75 (50-day) and 733, and SPY back above 768.34.
