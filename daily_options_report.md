@@ -23,6 +23,8 @@ The other picks are not held. They are bought only if decide() shows a leg on in
 - **Off, not held:** MRNA, WDC, VIAV, ILMN (no leg on).
 - **No sells.** QLD stays far under its $994.59 target, because positions are resized only on the first session of a month.
 
+**Second decision-window run (started 15:40:19 ET; decide() on quotes from 19:40:31Z, total value $1,423.11):** INTC had dropped to $85.05, below its 200-day SMA ($85.59), so its IBS leg could no longer turn on and decide() printed hold_through_close=false. **Sold INTC, all 0.170521 sh @ $85.0517 (−$0.11).** Every other target was unchanged (QLD, MU, LITE, DELL, AMD, MRVL kept; MRNA, WDC, VIAV, ILMN off). No buys.
+
 ## 2. Legacy run-off
 Done. No `sleeve: "swing"` positions remain.
 
