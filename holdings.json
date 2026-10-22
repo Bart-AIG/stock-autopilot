@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-21T19:27Z",
+  "updated_utc": "2026-10-22T17:20:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -68,26 +68,49 @@
       "expiration_date": "2026-12-18",
       "option_id": "d81bd8e1-f1f1-45d7-99a6-17f14bccca36",
       "chain_id": "71a32c37-9be0-4247-882c-59ac1facabf0",
-      "contracts": 1,
+      "contracts": 2,
       "entry_date": "2026-10-14",
-      "entry_premium": 12.5,
-      "cost_basis_usd": 1250.0,
-      "max_loss": 1250.0,
+      "entry_premium": 8.775,
+      "cost_basis_usd": 1755.0,
+      "max_loss": 1755.0,
       "placed_agent": "user",
       "order_id": "6acfb4be-2bab-4c84-8c66-8d2185363d1f",
       "filled_utc": "2026-10-14T16:58:49.976Z",
       "entry_dte": 65,
-      "_note": "Opened by Ryan himself in-app 2026-10-14 (placed_agent user, agent_initiated false), 1 min after closing the 1160C. Detected by the 17:19Z run, recorded, Ryan notified once. Ryan's own option: detect, record, notify, NEVER close (v16). No exit levels set by Ryan for this contract; the 5 MU alerts from the 1160C are kept pending his word.",
+      "_note": "Opened by Ryan himself in-app 2026-10-14 (placed_agent user, agent_initiated false), 1 min after closing the 1160C. Detected by the 17:19Z run, recorded, Ryan notified once. Ryan's own option: detect, record, notify, NEVER close (v16). No exit levels set by Ryan for this contract; the 5 MU alerts from the 1160C are kept pending his word. 2026-10-22T17:06:43Z: Ryan ADDED a second 1220C himself in-app at 5.05 (order 6ada42a2, placed_agent user, agent_initiated false; after 4.90 and 5.00 limits cancelled). Now 2 contracts, $1,755 basis, blended 8.775 (broker average_price 877.50). Detected by the 17:18Z run, recorded, Ryan notified once. Same rule: never closed by the agent.",
       "_current_state": {
-        "last_checked_utc": "2026-10-14T17:19:56Z",
-        "mark": 11.85,
-        "bid": 11.55,
-        "ask": 12.15,
-        "gain_pct": -5.2,
-        "delta": 0.129,
-        "iv": 0.512,
-        "mu_spot": 927.06
-      }
+        "last_checked_utc": "2026-10-22T17:18:59Z",
+        "mark": 5.325,
+        "bid": 5.2,
+        "ask": 5.45,
+        "value_usd": 1065.0,
+        "unrealized_usd": -690.0,
+        "gain_pct": -39.3,
+        "delta": 0.0703,
+        "iv": 0.5458,
+        "theta": -0.2254,
+        "prev_close": 8.5
+      },
+      "lots": [
+        {
+          "qty": 1,
+          "premium": 12.5,
+          "cost_usd": 1250.0,
+          "order_id": "6acfb4be-2bab-4c84-8c66-8d2185363d1f",
+          "filled_utc": "2026-10-14T16:58:49.976Z",
+          "placed_agent": "user"
+        },
+        {
+          "qty": 1,
+          "premium": 5.05,
+          "cost_usd": 505.0,
+          "order_id": "6ada42a2-e36c-4893-870e-2ce362aa5a47",
+          "filled_utc": "2026-10-22T17:06:43.340Z",
+          "placed_agent": "user"
+        }
+      ],
+      "entry_premium_blended": 8.775,
+      "total_cost_basis_usd": 1755.0
     },
     {
       "symbol": "MRVL",
@@ -9149,15 +9172,16 @@
       "hwm": 3604.85,
       "hwm_note": "Carried from the total_value HWM 2026-10-09T18:25Z (MU 1160C opened 41 min earlier, P/L near zero then).",
       "latest": {
-        "utc": "2026-10-19T13:25Z",
-        "total_value": 1338.4,
-        "user_unrealized_pnl": -570.0,
-        "deposit_excluded": 100.0,
-        "sleeve_value": 3548.4,
-        "drawdown_pct": -1.57,
-        "note": "Cash 62.44 -> 162.45 over the weekend with pending_deposits $100: an external deposit, not return; excluded from sleeve_value."
+        "utc": "2026-10-22T17:18Z",
+        "total_value": 1501.31,
+        "user_unrealized_pnl": -690.0,
+        "user_realized_pnl": -1740.0,
+        "deposit_excluded": 400.0,
+        "sleeve_value": 3531.31,
+        "drawdown_pct": -2.04,
+        "note": "New $300 pending deposit 2026-10-22 already in cash/buying power; excluded as external. Ryan's 2nd MU 1220C ($505) bought from the same cash pool."
       },
-      "deposits_since_hwm_usd": 100.0
+      "deposits_since_hwm_usd": 400.0
     }
   }
 }
