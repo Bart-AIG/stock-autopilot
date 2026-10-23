@@ -49139,6 +49139,28 @@
       "reconciliation": "ZERO DRIFT vs broker: QLD 1.147609; swing_m MU 0.095785, LITE 0.05669, MRVL 0.183653, DELL 0.09483, AMD 0.084177; Ryan's MU 2026-12-18 1220C x2 (user, options_value $1,206). Total $1,651.51, cash/UBP $89.28. Sleeve value ~$3,540.51 = -1.78% vs HWM 3,604.85.",
       "why_flat": "Sleeves: decide only in the 15:20-15:52 ET window. Legacy: closed 10-14. Options: only Ryan's user-owned MU calls (never closed by agent; no levels set). No agentic options.",
       "duties": "Heartbeat already stamped 14:24Z. Daily report due at first run >=19:15Z. Growth paper mark due first run after 15:00 ET. No drawdown notice (-1.78%)."
+    },
+    {
+      "run_utc": "2026-10-23T19:19Z",
+      "run_type": "market_hours_regular",
+      "trading_day_et": "2026-10-23",
+      "headline": "Run started 15:19:17 ET, ~43 s before the decision window; per v16 not a decision-window run, so no sleeve orders. Wrote the daily report and the growth-paper daily mark, and took the provisional Friday review.",
+      "reconciliation": "ZERO DRIFT vs broker: QLD 1.147609, MU 0.095785, LITE 0.05669, MRVL 0.183653, DELL 0.09483, AMD 0.084177; Ryan MU 1220C x2 (user, mark $1,170). Total $1,614.79, cash/UBP $89.28, deployable $8.54. Sleeve value $3,539.79, drawdown -1.80% vs HWM 3,604.85.",
+      "tape": "QQQ 704.985 (+0.07%), QLD 86.32 (+0.07%) at 19:19Z.",
+      "why_flat": "Sleeves: outside 15:20-15:52 window (the 19:25Z run decides). Legacy: none left. Options: no agentic options; MU 1220C is Ryan's.",
+      "duties": "Daily report written (decision-window run amends). Growth paper marked $311.51 / -5.29%.",
+      "friday_review_provisional": {
+        "read_utc": "2026-10-23T19:20Z",
+        "source": "get_realized_pnl 2026-10-19..23",
+        "realized_week_usd": -47.71,
+        "closes": 9,
+        "by_day": "Mon +1.51 (1), Tue -18.15 (3), Wed -30.96 (4), Thu -0.11 (1), Fri 0 so far",
+        "sleeve_trades": "10-20 window: sold WDC, MRVL, ILMN. 10-21: sold DELL, AMD, INTC, VIAV; bought MRVL. 10-22: bought DELL, AMD, INTC (partial); 15:40 re-run sold INTC (fell below 200d). 10-23 window: pending, 15:25 ET run.",
+        "execution_fidelity": "Mon-Thu windows each ran decide() at 15:25 ET with a 15:40 ET idempotent re-run; every printed target executed or was skipped only for lack of deployable cash (SWING_Q first, then pick order). Best execution: 10-22 15:40 re-run caught INTC dropping below its 200-day and sold it for -$0.11. Worst: none deviated; the standing gap is capital (Ryan's MU option holds the shared cash, so QLD sits at ~$99 vs a ~$1,000+ target).",
+        "account_vs_qqq": "sleeve +6.74% vs QQQ -4.69% since 09-30; max DD this week -1.96% (10-22).",
+        "growth_paper": "-5.29% vs cost; no exits (Monday checks).",
+        "amend": "The 15:25 ET decision-window run amends this review with today's window."
+      }
     }
   ]
 }

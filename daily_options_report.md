@@ -1,46 +1,43 @@
-# Daily report — trading day 2026-10-22 (Thursday)
+# Daily report — trading day 2026-10-23 (Friday)
 
-*Written by the run that started 19:19:21Z (15:19 ET), invoked with **prompt v16**. Figures are broker figures priced at 19:19Z, not the close. This run started before the 15:20–15:52 ET decision window, so it placed no sleeve orders. The decision-window run (started 19:25:29Z, 15:25 ET) amended Section 1 with its orders.*
+*Written by the run that started 19:19:17Z (15:19 ET), invoked with **prompt v16**. Figures are broker figures priced at 19:19Z, not the close. This run started before the 15:20–15:52 ET decision window, so it placed no sleeve orders. The decision-window run (expected ~19:25Z, 15:25 ET) amends Section 1 with its orders.*
 
-**Today in one line:** a broad down day. QQQ is −2.96% (703.72) and QLD −5.93%. Every sleeve name is red: LITE −11.3%, MRVL −9.3%, MU −5.9%. Drawdown on sleeve value is −1.96%, far from the −20% notice level.
+**Today in one line:** a quiet, flat day for QQQ (+0.07%, 704.99) after Thursday's drop. Every sleeve name is green: MU +2.5%, MRVL +2.5%, AMD +1.8%, LITE +1.5%, DELL +1.2%. Drawdown on sleeve value is −1.80%, far from the −20% notice level.
 
 ## 1. Sleeves
-**SWING_Q:** QLD 1.147609 sh = **$98.74** (−$7.54, −7.1% vs cost). Cash is **$174.65** ($300 deposit pending, not spendable). The 5% reserve is $75.76 on total value $1,515.21, so **deployable cash is $98.89** for the decision window.
+**SWING_Q:** QLD 1.147609 sh = **$99.06** (−$7.22, −6.8% vs cost). Cash is **$89.28**. The 5% reserve is $80.74 on total value $1,614.79, so **deployable cash is $8.54** for the decision window.
 
-**SWING_M (3 names, all `placed_agent: agentic`), $165.85 total:**
+**SWING_M (5 names, all `placed_agent: agentic`), $256.43 total:**
 
 | Name | Value | P/L vs cost | Today |
 |---|---|---|---|
-| MU | $82.31 | −$17.00 (−17.1%) | −5.95% |
-| LITE | $42.77 | −$12.90 (−23.2%) | −11.32% |
-| MRVL | $40.77 | −$4.22 (−9.4%) | −9.30% |
+| MU | $84.08 | −$15.23 (−15.3%) | +2.48% |
+| DELL | $43.48 | +$0.85 (+2.0%) | +1.23% |
+| AMD | $43.52 | +$0.89 (+2.1%) | +1.79% |
+| LITE | $43.30 | −$12.37 (−22.2%) | +1.50% |
+| MRVL | $42.05 | −$2.94 (−6.5%) | +2.45% |
 
-The other picks are not held. They are bought only if decide() shows a leg on in the window.
+The other picks (MRNA, WDC, INTC, VIAV, ILMN) are not held. They are bought only if decide() shows a leg on in the window, and only $8.54 is deployable.
 
-**Decision window (run started 15:25:29 ET; decide() on quotes from 19:25:44Z, total value $1,495.63):**
-- **Kept:** QLD (QQQ IBS 0.092, so the IBS leg is on), MU, LITE, MRVL (IBS leg on for each).
-- **Bought (IBS leg on, not held before):** DELL $42.63 (0.09483 sh @ $449.54), AMD $42.63 (0.084177 sh @ $506.43), INTC **$14.61** (0.170521 sh @ $85.68). INTC's target was $42.63, but deployable cash ran out ($99.87), so it got partial funding in pick order.
-- **Off, not held:** MRNA, WDC, VIAV, ILMN (no leg on).
-- **No sells.** QLD stays far under its $994.59 target, because positions are resized only on the first session of a month.
-
-**Second decision-window run (started 15:40:19 ET; decide() on quotes from 19:40:31Z, total value $1,423.11):** INTC had dropped to $85.05, below its 200-day SMA ($85.59), so its IBS leg could no longer turn on and decide() printed hold_through_close=false. **Sold INTC, all 0.170521 sh @ $85.0517 (−$0.11).** Every other target was unchanged (QLD, MU, LITE, DELL, AMD, MRVL kept; MRNA, WDC, VIAV, ILMN off). No buys.
+**Decision window:** *(to be amended by the decision-window run)*
 
 ## 2. Legacy run-off
 Done. No `sleeve: "swing"` positions remain.
 
 ## 3. Options
-No agentic options. Ryan's **MU 2026-12-18 1220C ×2** (`placed_agent: "user"`, $1,755 cost) is marked at **$1,076 (−$679, −39%)**, with MU at $859.33. It is his position: the agent records it and never closes it. He has set no exit levels for it.
+No agentic options. Ryan's **MU 2026-12-18 1220C ×2** (`placed_agent: "user"`, $1,755 cost) is marked at **$1,170 (−$585, −33%)**, with MU at $877.76. It is his position: the agent records it and never closes it. He has set no exit levels for it.
 
 ## 4. Growth paper
-Marked at 19:19Z: **$303.23 on $328.90 cost (−7.80%)**. PLTR +3.57%, NTRA −4.47%, NVDA −10.49%, CRWD −12.42%, NET −15.21%. Exits are checked on Mondays. NET is still the closest to its −25% paper exit (level $272.30, price $307.84).
+Marked at 19:19Z: **$311.51 on $328.90 cost (−5.29%)**, up from −7.80% yesterday. PLTR +3.42%, NTRA −2.52%, CRWD −6.24%, NET −10.45%, NVDA −10.64%. Exits are checked on Mondays. None is near its −25% paper exit (NET's level is $272.30 vs $325.12; NVDA's $177.83 vs $211.88).
 
 ## 5. Account vs QQQ
-- **Total value: $1,515.21.**
-- **Sleeve value: $3,534.21.** This is the drawdown basis. It leaves out Ryan's MU option P/L (−$679 unrealized, −$1,740 realized since 10-13) and $400 of deposits.
-- Since 2026-09-30, on sleeve value: **+6.57%**. QQQ: **−4.87%** (739.71 → 703.72). Today QQQ −2.96%.
-- **Drawdown from the $3,604.85 high-water mark: −1.96%.**
+- **Total value: $1,614.79.**
+- **Sleeve value: $3,539.79.** This is the drawdown basis. It leaves out Ryan's MU option P/L (−$585 unrealized, −$1,740 realized since 10-13) and $400 of deposits.
+- Since 2026-09-30, on sleeve value: **+6.74%**. QQQ: **−4.69%** (739.71 → 704.99). Today QQQ +0.07%.
+- **Drawdown from the $3,604.85 high-water mark: −1.80%.**
 
-## 6. Tomorrow
-- Turn-of-month leg: off until the last trading day of October (Oct 30).
-- No legacy deadline left.
-- Capital: the sleeves stay mostly unfunded while Ryan's MU options hold the cash. Nothing is sold to fund them. $98.89 is deployable for any buy the window decides; SWING_Q is funded first. The $300 deposit adds to it once it clears.
+## 6. Next week
+- Turn-of-month leg: on from the last trading day of October (Fri Oct 30) through the first 3 sessions of November.
+- Monday: weekly scorecard and the growth-paper research and exit check.
+- November's SWING_M picks are fixed on the first November session (Mon Nov 2), with the month-start resize.
+- Capital: the sleeves stay mostly unfunded while Ryan's MU options hold the cash. Nothing is sold to fund them.
