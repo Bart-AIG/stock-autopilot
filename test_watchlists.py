@@ -32,3 +32,9 @@ def test_diff_and_batches():
 def test_theme_symbols_dedupes():
     st = {"themes": {"a": {"symbols": ["RCAT", "KTOS"]}, "b": {"symbols": ["KTOS", "FCX"]}}}
     assert w.theme_symbols(st) == ["RCAT", "KTOS", "FCX"]
+
+
+def test_wash_sale_soonest_first():
+    st = {"lockouts": {"MU": {"clear": "2026-11-15"}, "PATH": {"clear": "2026-10-25"}, "META": {"clear": "2026-11-22"}}}
+    assert w.wash_sale(st) == ["PATH", "MU", "META"]
+    assert w.wash_sale({}) == []

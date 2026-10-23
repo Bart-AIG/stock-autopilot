@@ -12,6 +12,8 @@ list is never a second source of truth:
     rebuy           <- rebuy_watch.json names still being watched
     sleeves         <- sleeves_state.json: QQQ + its vehicle (QLD) + this month's SWING_M picks
     macro           <- fixed benchmarks the Joint risk watch grades
+    wash_sale       <- wash_sale_watch.json lockouts (names sold at a loss < 31 days ago;
+                       added 2026-10-23, Ryan's live turn)
 
 A watchlist does not notify anyone; the routines' Robinhood alerts do. The lists are
 visibility only. Pure functions, no network: the Quality @ 200-day routine (step 4d of
@@ -85,6 +87,12 @@ def sleeves(sstate: dict) -> list[str]:
     return seen
 
 
+def wash_sale(wstate: dict) -> list[str]:
+    """Names still inside their wash-sale window, soonest-clearing first."""
+    locks = wstate.get("lockouts") or {}
+    return sorted(locks, key=lambda s: (str((locks[s] or {}).get("clear", "")), s))
+
+
 def desired_all(joint_positions: list[dict]) -> dict[str, list[str]]:
     """Target contents for every managed list, from the repo state on disk."""
     return {
@@ -93,6 +101,7 @@ def desired_all(joint_positions: list[dict]) -> dict[str, list[str]]:
         "rebuy": rebuy(_read("rebuy_watch.json")),
         "sleeves": sleeves(_read("sleeves_state.json")),
         "macro": list(MACRO),
+        "wash_sale": wash_sale(_read("wash_sale_watch.json")),
     }
 
 
