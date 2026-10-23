@@ -147,6 +147,63 @@ def sell_traps(positions: list[dict], orders: list[dict], today: str) -> dict[st
     return {s: (d + timedelta(days=WINDOW_DAYS + 1)).isoformat() for s, d in sorted(last.items())}
 
 
+def lot_summary(lots: list[dict], price: float | None, today: str) -> dict:
+    """get_equity_tax_lots(...)["tax_lots"] for ONE joint holding, at the live price.
+
+    The lots are the broker's own record, so they show what this module otherwise has to
+    infer: which shares are short- vs long-term, which sit at a loss, and how many were
+    opened in the last 30 days (a loss sale now is washed by those). A lot whose
+    cost_per_share is well above what was paid already carries a washed loss from an earlier
+    sale (measured 2026-10-23: META lots bought at ~$652 on 10-22 show bases up to $862)."""
+    t0 = _d(today)
+    out = {"shares": 0.0, "st_shares": 0.0, "lt_shares": 0.0, "loss_shares": 0.0,
+           "loss_usd": 0.0, "gain_usd": 0.0, "recent_shares": 0.0, "next_lt": None}
+    for lot in lots or []:
+        q = float(lot.get("quantity_available") or lot.get("quantity") or 0)
+        if q <= 0:
+            continue
+        out["shares"] += q
+        st = (lot.get("term") or "st") == "st"
+        out["st_shares" if st else "lt_shares"] += q
+        od = _d(lot.get("open_date")) if lot.get("open_date") else None
+        if od and t0 and (t0 - od).days <= WINDOW_DAYS:
+            out["recent_shares"] += q
+        if st and od:
+            lt = od.replace(year=od.year + 1) + timedelta(days=1) if not (od.month == 2 and od.day == 29) else date(od.year + 1, 3, 1)
+            if out["next_lt"] is None or lt.isoformat() < out["next_lt"]:
+                out["next_lt"] = lt.isoformat()
+        cps = lot.get("cost_per_share")
+        if price and cps not in (None, ""):
+            pl = (price - float(cps)) * q
+            if pl < 0:
+                out["loss_shares"] += q
+                out["loss_usd"] += pl
+            else:
+                out["gain_usd"] += pl
+    for k in ("shares", "st_shares", "lt_shares", "loss_shares", "recent_shares"):
+        out[k] = round(out[k], 4)
+    out["loss_usd"], out["gain_usd"] = round(out["loss_usd"], 2), round(out["gain_usd"], 2)
+    return out
+
+
+def lot_line(sym: str, s: dict, trap_date: str | None) -> str:
+    """One report line per holding: '- META 30 sh (all short-term): 25 sh at a loss
+    (-$1,234), +$56 on the rest; 28 sh opened in the last 30 days, a loss sale before
+    2026-11-22 is washed.'"""
+    term = ("all short-term" if s["lt_shares"] == 0 else "all long-term" if s["st_shares"] == 0
+            else f"{s['lt_shares']:g} long-term / {s['st_shares']:g} short-term")
+    parts = [f"- {sym} {s['shares']:g} sh ({term})"]
+    if s["loss_shares"]:
+        parts.append(f": {s['loss_shares']:g} sh at a loss (-${-s['loss_usd']:,.0f}), +${s['gain_usd']:,.0f} on the rest")
+    elif s["gain_usd"]:
+        parts.append(f": all at a gain (+${s['gain_usd']:,.0f})")
+    if trap_date and s["recent_shares"]:
+        parts.append(f"; {s['recent_shares']:g} sh opened in the last 30 days, a loss sale before {trap_date} is washed")
+    if s["next_lt"] and s["st_shares"]:
+        parts.append(f"; first lot turns long-term {s['next_lt']}")
+    return "".join(parts) + "."
+
+
 def events(prev: dict[str, dict], now: dict[str, dict]) -> dict[str, list[str]]:
     """Names that ENTERED the lockout, CLEARED it, or had their date pushed out by a new
     loss sale since the last run."""
@@ -171,8 +228,9 @@ def load_state(path: Path = STATE) -> dict:
 
 
 def report(locks: dict[str, dict], hits: list[dict], traps: dict[str, str],
-           ev: dict[str, list[str]], today: str) -> str:
-    """Markdown section for quality_watch_report.md."""
+           ev: dict[str, list[str]], today: str, lots: dict[str, dict] | None = None) -> str:
+    """Markdown section for quality_watch_report.md. lots = {sym: lot_summary()} for the
+    joint holdings (optional; adds a per-holding lot line)."""
     lines = ["## Wash-sale watch (joint account)", ""]
     if ev.get("cleared"):
         lines.append("**Cleared, safe to buy again:** " + ", ".join(ev["cleared"]))
@@ -208,6 +266,9 @@ def report(locks: dict[str, dict], hits: list[dict], traps: dict[str, str],
     if traps:
         lines += ["", "**Sell trap:** these were bought in the last 30 days, so selling them at a loss "
                   "before the date is washed: " + ", ".join(f"{s} ({d})" for s, d in traps.items())]
+    if lots:
+        lines += ["", "**Your lots (broker tax lots, live price):**"]
+        lines += [lot_line(sym, lots[sym], traps.get(sym)) for sym in sorted(lots)]
     lines += ["", f"_As of {today}. A reminder, not tax advice: the 1099 decides. Options on a locked "
               "stock can also trigger a wash sale and are not checked._"]
     return "\n".join(lines) + "\n"

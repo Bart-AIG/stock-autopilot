@@ -61,3 +61,16 @@ def test_events_and_report():
     txt = ws.report(now, [], {"META": "2026-11-22"}, ev, TODAY)
     assert "Cleared, safe to buy again:** PATH" in txt and "| 2026-11-22 | META | $1,732 | 2 |" in txt
     assert ws.watchlist_symbols({"lockouts": now}) == ["EDGE", "AMZN", "META"]
+
+
+def test_lot_summary_and_line():
+    lots = [{"quantity_available": "5", "cost_per_share": "788.99", "open_date": "2026-10-22", "term": "st"},
+            {"quantity_available": "0.95", "cost_per_share": "635.63", "open_date": "2026-08-28", "term": "st"},
+            {"quantity_available": "2", "cost_per_share": "500", "open_date": "2024-05-01", "term": "lt"}]
+    s = ws.lot_summary(lots, 648.0, TODAY)
+    assert s["shares"] == 7.95 and s["st_shares"] == 5.95 and s["lt_shares"] == 2
+    assert s["loss_shares"] == 5 and s["loss_usd"] == -704.95 and s["recent_shares"] == 5
+    assert s["next_lt"] == "2027-08-29"
+    line = ws.lot_line("META", s, "2026-11-22")
+    assert line.startswith("- META 7.95 sh (2 long-term / 5.95 short-term): 5 sh at a loss (-$705)")
+    assert "before 2026-11-22 is washed" in line

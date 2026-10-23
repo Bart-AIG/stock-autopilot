@@ -48,6 +48,20 @@ LEVEL_WEIGHTS = {("QQQ", "price_below"): [(720.0, 1), (690.0, 2), (0.0, 3)]}
 
 TIERS = [(0, "GREEN"), (2, "YELLOW"), (4, "ORANGE"), (7, "RED")]
 
+# The REAL VIX (set 2026-10-23, Ryan's live turn: "build all 3 please"). Read each run with
+# get_index_quotes (the CBOE index itself), not inferred from VIXY. VIXY is a VIX-futures
+# fund: it decays and lags the index, so on 2026-10-23 VIXY sat 17% under its 21.15 alert
+# while the VIX itself was 20.25. Robinhood alerts cannot be set on an index, so the routine
+# reads the level every run. (level_at_or_above, points), checked top-down. VIX ~17-18 is its
+# long-run median; 22 = elevated, 26 = stress, 32 = panic-level de-risking.
+VIX_LEVELS = [(32.0, 3), (26.0, 2), (22.0, 1)]
+
+
+def vix_points(vix: float | None) -> int:
+    if vix is None:
+        return 0
+    return next((p for floor, p in VIX_LEVELS if vix >= floor), 0)
+
 # Joint-account policy inputs (CLAUDE.md, 2026-08-05 de-risk + 2026-07-29 mandate).
 CORE = {"MSFT", "GOOGL", "AMZN", "META", "NOW", "ADBE", "ZTS", "ISRG", "RBRK", "V", "JPM", "QQQI"}
 HIGH_BETA = {"MU", "AMD", "MRVL", "CRDO", "NVDA", "APP", "HOOD", "CRCL", "TEM", "FIG",
@@ -157,12 +171,15 @@ def option_watch_alert_ids(path: str | Path | None = None) -> set[str]:
 
 
 def grade(alerts: list[dict], prices: dict[str, float], smas: dict | None = None,
-          ignore_ids: set[str] | None = None) -> dict:
+          ignore_ids: set[str] | None = None, vix: float | None = None) -> dict:
     """alerts = get_alerts()['alerts'] (enabled ones); prices = {sym: last};
     smas = {(sym, period): value} for every *_sma alert (e.g. ("QQQ", 20), ("QQQ", 50)).
     ignore_ids: alert_ids to skip; defaults to the Quality @ 200-day routine's alerts, the
     joint per-holding support alerts, the joint re-buy watch alerts and the
     monitored option positions' exit alerts and the joint price-target alerts.
+    vix = the CBOE VIX level from get_index_quotes. When given it is scored on VIX_LEVELS,
+    and the VIXY alert and the VIX reading share ONE volatility slot (the larger of the
+    two counts), so the same fear is never scored twice.
     Returns score, tier, and a per-alert breakdown including distance to trigger."""
     smas = smas or {}
     if ignore_ids is None:
@@ -198,6 +215,16 @@ def grade(alerts: list[dict], prices: dict[str, float], smas: dict | None = None
         rows.append({"symbol": sym, "condition": cond, "level": round(tgt, 2) if tgt else None,
                      "price": price, "distance_pct": round(dist, 2) if dist is not None else None,
                      "triggered": hit, "points": pts, "meaning": meaning})
+    if vix is not None:
+        vixy = sum(r["points"] for r in rows if r["symbol"] == "VIXY")
+        vp = vix_points(vix)
+        score += max(vixy, vp) - vixy
+        nxt = next((floor for floor, _ in reversed(VIX_LEVELS) if vix < floor), None)
+        rows.append({"symbol": "VIX", "condition": "index_level", "level": nxt or VIX_LEVELS[0][0],
+                     "price": vix, "distance_pct": round((vix / nxt - 1) * 100, 2) if nxt else None,
+                     "triggered": vp > 0, "points": vp if vp > vixy else 0,
+                     "meaning": "CBOE VIX (real index): 22 elevated, 26 stress, 32 panic. Shares one "
+                                "slot with VIXY, the larger counts"})
     tier = [name for floor, name in TIERS if score >= floor][-1]
     rows.sort(key=lambda r: (not r["triggered"], abs(r["distance_pct"] or 999)))
     return {"score": score, "tier": tier, "readings": rows}

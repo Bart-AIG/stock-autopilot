@@ -17,6 +17,7 @@ data with the Robinhood connector and calls these.
 from __future__ import annotations
 
 import disruption
+import earnings
 import setups
 import valuation
 
@@ -52,6 +53,11 @@ SCAN_COLUMNS = {
     "fundamental.grossMargin": ("Gross margin",),
     "fundamental.returnOnEquity": ("Return on equity", "ROE"),
     "fundamental.cashFlowFreePerShare": ("FCF/share", "Free cash flow per share"),
+    # Display-only columns added to the saved scan 2026-10-23 (they never change the score):
+    "fundamental.forwardPeRatio": ("Forward P/E", "Fwd P/E"),
+    "fundamental.pegRatio": ("PEG",),
+    "fundamental.beta": ("Beta",),
+    "fundamental.earningsYmd": ("Earnings date",),
 }
 
 
@@ -216,6 +222,9 @@ def candidates(rows: list[dict], fins: dict[str, list] | None = None,
                     "value": vals.get(r["symbol"]),
                     "disruption": disruption.for_row(vals.get(r["symbol"]), notes),
                     "setup": charts.get(r["symbol"]),
+                    "fwd_pe": _f(r.get("fundamental.forwardPeRatio")),
+                    "beta": _f(r.get("fundamental.beta")),
+                    "earnings_ymd": r.get("fundamental.earningsYmd"),
                     "alert": TOUCH if d > 0 else RECLAIM})
     out.sort(key=lambda c: (-c["quality"], 1 if disruption.threatened(c["disruption"]) else 0,
                             valuation.rank_tier(c["value"]), -c["composite"], abs(c["dist"])))
@@ -269,8 +278,17 @@ def plan_alerts(cands: list[dict], managed: dict[str, dict]) -> dict:
     return {"create": create, "delete": delete, "keep": sorted(keep)}
 
 
-def report(cands: list[dict], plan: dict, asof: str, new_syms: set[str]) -> str:
-    """Markdown for quality_watch_report.md (the commit triggers the ntfy push)."""
+def _pe(x: float | None) -> str:
+    return f"{x:.1f}" if x and x > 0 else "—"
+
+
+def report(cands: list[dict], plan: dict, asof: str, new_syms: set[str],
+           earn: dict[str, dict] | None = None) -> str:
+    """Markdown for quality_watch_report.md (the commit triggers the ntfy push).
+    earn = {sym: earnings.next_report()} from get_earnings_results (verified dates); a name
+    without one falls back to the scanner's earningsYmd column (shown with "?")."""
+    earn = earn or {}
+    today = asof[:10]
     head = f"# QUALITY @ 200-DAY: {len(cands)} name(s) ({len(new_syms)} new)"
     lines = [head, "", f"As of {asof}. Joint account, advisory only. Quality = business "
              f"score >= {MIN_QUALITY}/8 (growth, margins, ROE, free cash flow); band = {BAND_BELOW:.0%} to "
@@ -298,8 +316,8 @@ def report(cands: list[dict], plan: dict, asof: str, new_syms: set[str]) -> str:
                          f"{setups.pattern_cell(s, c.get('price')) if s else '—'} | {c['grade']} | "
                          f"{valuation.short(c.get('value') or {})} | {c['zone']} | {c['rank']} |")
         lines += ["", "## Ranked by business quality (decides the alert slots)", "",
-                  "| # | Ticker | Grade | Q | Value | Fair | Analysts | Disruption | Comp | Sector | Zone | Price | 200-day | Dist | 200d slope | Alert | Why |",
-                  "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+                  "| # | Ticker | Grade | Q | Value | Fair | Analysts | Fwd P/E | Earnings | Disruption | Comp | Sector | Zone | Price | 200-day | Dist | 200d slope | Alert | Why |",
+                  "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for c in cands:
             tag = " (new)" if c["symbol"] in new_syms else ""
             alert = ("touch" if c["alert"] == TOUCH else "reclaim") if c["symbol"] in alerted else "-"
@@ -312,6 +330,8 @@ def report(cands: list[dict], plan: dict, asof: str, new_syms: set[str]) -> str:
                 why.insert(0, "**VALUE TRAP?**")
             lines.append(f"| {c['rank']} | {c['symbol']}{tag} | {c['grade']} | {c['quality']}/8 | "
                          f"{valuation.short(v)} | {v.get('fair') or '—'} | {valuation.analyst_cell(v)} | "
+                         f"{_pe(c.get('fwd_pe'))} | "
+                         f"{earnings.cell(earn.get(c['symbol']) or earnings.from_scan(c.get('earnings_ymd'), today))} | "
                          f"{disruption.cell(dz)} | "
                          f"{c['composite']:.0f} | "
                          f"{c.get('sector') or ''} | {c['zone']} | {c['price']} | {c['sma200']} | "
@@ -324,7 +344,8 @@ def report(cands: list[dict], plan: dict, asof: str, new_syms: set[str]) -> str:
               "", "A FALLING 200-day means the long-term trend itself is rolling over: a touch "
               "there is weaker evidence than a touch of a rising line. Every name still needs "
               "the news/thesis check before a buy; '—' in Value = not valued yet (next morning's "
-              "report run values it).", "", setups.LEGEND, "", valuation.LEGEND, "", disruption.LEGEND]
+              "report run values it). Fwd P/E = price over next year's consensus earnings (display only).",
+              "", earnings.LEGEND, "", setups.LEGEND, "", valuation.LEGEND, "", disruption.LEGEND]
     return "\n".join(lines) + "\n"
 
 
