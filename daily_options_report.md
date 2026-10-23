@@ -19,7 +19,21 @@
 
 The other picks (MRNA, WDC, INTC, VIAV, ILMN) are not held. They are bought only if decide() shows a leg on in the window, and only $8.54 is deployable.
 
-**Decision window:** *(to be amended by the decision-window run)*
+**Decision window (amended by the 15:25 ET run, decide() at 19:25:28Z):** every target printed `hold_through_close=false`, so **all six sleeve positions were sold and nothing was bought.** The sleeves go into the weekend in cash.
+
+- **Why QLD went flat:** QQQ's IBS leg reached its 5-session limit. The RSI(2) leg was already off (RSI2 20.5, not < 10) and the turn-of-month leg is not on yet.
+- **Why the picks went flat:** MU, MRVL and AMD also hit 5 sessions on the IBS leg. DELL was not in after Thursday's close. LITE, WDC and VIAV are below their 200-day, and no other pick had a leg on.
+
+| Sold | Shares | Fill | P/L |
+|---|---|---|---|
+| QLD | 1.147609 | 86.2918 | −$7.25 |
+| MU | 0.095785 | 878.8201 | −$15.13 |
+| LITE | 0.05669 | 763.77 | −$12.37 |
+| MRVL | 0.183653 | 228.2001 | −$3.08 |
+| DELL | 0.09483 | 458.6201 | +$0.86 |
+| AMD | 0.084177 | 516.6001 | +$0.86 |
+
+All six filled 19:26:07–19:26:15Z. Realized on the ledger: **−$36.11**. After the sells: total value **$1,624.68**, cash **$444.68**, sleeve value $3,539.68 (−1.81% from the high-water mark).
 
 ## 2. Legacy run-off
 Done. No `sleeve: "swing"` positions remain.
