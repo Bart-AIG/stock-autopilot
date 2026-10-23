@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-22T19:42Z",
+  "updated_utc": "2026-10-23T19:27Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -9,54 +9,6 @@
     "entry_throttle": "0 of 3 options entries used; 1 of 3 equity entries used (MRK 14:16Z). Equity exits today: TGT take-profit 14:15Z (+$6.10)."
   },
   "positions": [
-    {
-      "symbol": "QLD",
-      "sleeve": "swing_q",
-      "signal_symbol": "QQQ",
-      "entry_date": "2026-10-14",
-      "entry_price": 92.6099,
-      "shares": 1.147609,
-      "placed_agent": "agentic",
-      "legs_on": [
-        "RSI2",
-        "IBS"
-      ],
-      "stop": null,
-      "target": null,
-      "order_id": "6acfd746-08af-413c-939e-0c28cf516edb",
-      "_note": "Partial fill of a $1,137.29 target: deployable was only $106.28 (cash $191.78 - 5% reserve $85.50) because Ryan's MU option holds the shared cash."
-    },
-    {
-      "symbol": "MU",
-      "sleeve": "swing_m",
-      "signal_symbol": "MU",
-      "entry_date": "2026-10-08",
-      "entry_price": 1036.7999,
-      "shares": 0.095785,
-      "placed_agent": "agentic",
-      "legs_on": [
-        "IBS"
-      ],
-      "stop": null,
-      "target": null,
-      "order_id": "6ac7ee3b-26a6-490f-a130-0ced896b117c",
-      "_note": "v16 decision window 2026-10-08, run started 19:25:21Z (15:25 ET); $99.31 dollar market filled 19:25:47Z."
-    },
-    {
-      "symbol": "LITE",
-      "sleeve": "swing_m",
-      "signal_symbol": "LITE",
-      "entry_date": "2026-10-13",
-      "entry_price": 981.9999,
-      "shares": 0.05669,
-      "placed_agent": "agentic",
-      "legs_on": [
-        "IBS"
-      ],
-      "stop": null,
-      "target": null,
-      "order_id": "6ace868c-75b8-4eaa-83ed-7e2021c6ba9d"
-    },
     {
       "symbol": "MU",
       "sleeve": "options",
@@ -111,54 +63,6 @@
       ],
       "entry_premium_blended": 8.775,
       "total_cost_basis_usd": 1755.0
-    },
-    {
-      "symbol": "MRVL",
-      "sleeve": "swing_m",
-      "signal_symbol": "MRVL",
-      "entry_date": "2026-10-21",
-      "entry_price": 244.9723,
-      "shares": 0.183653,
-      "placed_agent": "agentic",
-      "legs_on": [
-        "IBS"
-      ],
-      "stop": null,
-      "target": null,
-      "order_id": "6ad911bf-706c-4fbb-9163-9a3c64ea6140",
-      "_note": "Decision window 2026-10-21 (run 19:25Z). Bought the full $44.99 target (IBS leg held from 10-20 close; was not held)."
-    },
-    {
-      "symbol": "DELL",
-      "sleeve": "swing_m",
-      "signal_symbol": "DELL",
-      "entry_date": "2026-10-22",
-      "entry_price": 449.54,
-      "shares": 0.09483,
-      "placed_agent": "agentic",
-      "legs_on": [
-        "IBS"
-      ],
-      "stop": null,
-      "target": null,
-      "order_id": "6ada635d-25a3-4bcf-bfcd-7eaacee60e5c",
-      "_note": "Decision window 2026-10-22 (run 19:25Z). IBS leg on (not held). Bought the full $42.63 target; deployable was $99.87 (UBP 174.65 - 5% of TV 1,495.63)."
-    },
-    {
-      "symbol": "AMD",
-      "sleeve": "swing_m",
-      "signal_symbol": "AMD",
-      "entry_date": "2026-10-22",
-      "entry_price": 506.4319,
-      "shares": 0.084177,
-      "placed_agent": "agentic",
-      "legs_on": [
-        "IBS"
-      ],
-      "stop": null,
-      "target": null,
-      "order_id": "6ada635f-705a-4491-a23d-973463e240c5",
-      "_note": "Decision window 2026-10-22 (run 19:25Z). IBS leg on (not held). Bought the full $42.63 target; deployable was $99.87 (UBP 174.65 - 5% of TV 1,495.63)."
     }
   ],
   "_resolved_flags": [
@@ -1680,6 +1584,157 @@
         "IBS"
       ],
       "exit_reason": "decide() 19:40:31Z (re-run in window): hold_through_close=false. INTC fell below its 200-day (85.05 < 85.59), so the IBS leg's entry condition failed; it was not in after the last close. The 19:25Z buy at 85.68 was made while INTC was above the 200-day."
+    },
+    {
+      "symbol": "QLD",
+      "sleeve": "swing_q",
+      "signal_symbol": "QQQ",
+      "entry_date": "2026-10-14",
+      "entry_price": 92.6099,
+      "shares": 1.147609,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "RSI2",
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6acfd746-08af-413c-939e-0c28cf516edb",
+      "_note": "Partial fill of a $1,137.29 target: deployable was only $106.28 (cash $191.78 - 5% reserve $85.50) because Ryan's MU option holds the shared cash.",
+      "exit_date": "2026-10-23",
+      "exit_price": 86.2918,
+      "exit_utc": "2026-10-23T19:26:07.972Z",
+      "exit_order_id": "6adbb4cf-e4cf-41ba-8a42-566133107538",
+      "realized_pnl": -7.25,
+      "legs_off": [
+        "RSI2",
+        "IBS"
+      ],
+      "exit_reason": "decide() 19:25:28Z (15:25 ET decision window): hold_through_close=false. QQQ IBS leg hit 5 sessions held (ibs_age 4 -> 5); RSI2 leg already off (QQQ 704.92 < SMA5 714.12, RSI2 20.5), TOM off."
+    },
+    {
+      "symbol": "MU",
+      "sleeve": "swing_m",
+      "signal_symbol": "MU",
+      "entry_date": "2026-10-08",
+      "entry_price": 1036.7999,
+      "shares": 0.095785,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6ac7ee3b-26a6-490f-a130-0ced896b117c",
+      "_note": "v16 decision window 2026-10-08, run started 19:25:21Z (15:25 ET); $99.31 dollar market filled 19:25:47Z.",
+      "exit_date": "2026-10-23",
+      "exit_price": 878.8201,
+      "exit_utc": "2026-10-23T19:26:09.522Z",
+      "exit_order_id": "6adbb4d1-536a-4f25-9610-e99c8aa76065",
+      "realized_pnl": -15.13,
+      "legs_off": [
+        "IBS"
+      ],
+      "exit_reason": "decide() 19:25:28Z (15:25 ET decision window): hold_through_close=false. IBS leg hit 5 sessions held; RSI2 47.1 / IBS 0.604, no leg on."
+    },
+    {
+      "symbol": "LITE",
+      "sleeve": "swing_m",
+      "signal_symbol": "LITE",
+      "entry_date": "2026-10-13",
+      "entry_price": 981.9999,
+      "shares": 0.05669,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6ace868c-75b8-4eaa-83ed-7e2021c6ba9d",
+      "exit_date": "2026-10-23",
+      "exit_price": 763.77,
+      "exit_utc": "2026-10-23T19:26:11.017Z",
+      "exit_order_id": "6adbb4d2-5f91-42e8-9da4-be8035964b2f",
+      "realized_pnl": -12.37,
+      "legs_off": [
+        "IBS"
+      ],
+      "exit_reason": "decide() 19:25:28Z (15:25 ET decision window): hold_through_close=false. IBS leg hit 5 sessions held; LITE 764.25 below its 200-day 788.08, so no leg can re-enter."
+    },
+    {
+      "symbol": "MRVL",
+      "sleeve": "swing_m",
+      "signal_symbol": "MRVL",
+      "entry_date": "2026-10-21",
+      "entry_price": 244.9723,
+      "shares": 0.183653,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6ad911bf-706c-4fbb-9163-9a3c64ea6140",
+      "_note": "Decision window 2026-10-21 (run 19:25Z). Bought the full $44.99 target (IBS leg held from 10-20 close; was not held).",
+      "exit_date": "2026-10-23",
+      "exit_price": 228.2001,
+      "exit_utc": "2026-10-23T19:26:12.396Z",
+      "exit_order_id": "6adbb4d4-24f4-43c1-a3f3-5f95cd6e2cd2",
+      "realized_pnl": -3.08,
+      "legs_off": [
+        "IBS"
+      ],
+      "exit_reason": "decide() 19:25:28Z (15:25 ET decision window): hold_through_close=false. IBS leg hit 5 sessions held; RSI2 37.9 / IBS 0.676, no leg on."
+    },
+    {
+      "symbol": "DELL",
+      "sleeve": "swing_m",
+      "signal_symbol": "DELL",
+      "entry_date": "2026-10-22",
+      "entry_price": 449.54,
+      "shares": 0.09483,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6ada635d-25a3-4bcf-bfcd-7eaacee60e5c",
+      "_note": "Decision window 2026-10-22 (run 19:25Z). IBS leg on (not held). Bought the full $42.63 target; deployable was $99.87 (UBP 174.65 - 5% of TV 1,495.63).",
+      "exit_date": "2026-10-23",
+      "exit_price": 458.6201,
+      "exit_utc": "2026-10-23T19:26:13.956Z",
+      "exit_order_id": "6adbb4d5-e2ff-4835-ac91-21d3a2437bb6",
+      "realized_pnl": 0.86,
+      "legs_off": [
+        "IBS"
+      ],
+      "exit_reason": "decide() 19:25:28Z (15:25 ET decision window): hold_through_close=false. Not in after the 10-22 close (IBS rose above 0.2 by the close); RSI2 41.2 / IBS 0.594, no leg on."
+    },
+    {
+      "symbol": "AMD",
+      "sleeve": "swing_m",
+      "signal_symbol": "AMD",
+      "entry_date": "2026-10-22",
+      "entry_price": 506.4319,
+      "shares": 0.084177,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6ada635f-705a-4491-a23d-973463e240c5",
+      "_note": "Decision window 2026-10-22 (run 19:25Z). IBS leg on (not held). Bought the full $42.63 target; deployable was $99.87 (UBP 174.65 - 5% of TV 1,495.63).",
+      "exit_date": "2026-10-23",
+      "exit_price": 516.6001,
+      "exit_utc": "2026-10-23T19:26:15.412Z",
+      "exit_order_id": "6adbb4d7-4ae4-471b-8c61-789ef12e3fdf",
+      "realized_pnl": 0.86,
+      "legs_off": [
+        "IBS"
+      ],
+      "exit_reason": "decide() 19:25:28Z (15:25 ET decision window): hold_through_close=false. IBS leg hit 5 sessions held; RSI2 36.7 / IBS 0.549, no leg on."
     }
   ],
   "_SIZING_NOTE": "REFRESHED 2026-08-28T16:19Z from the broker. The prior text was stamped 2026-08-24 and asserted 'CURRENT TRUTH: cash $3,023.56 ... DEPLOYABLE = $2,773.56' -- four days and $1,476.60 out of date, and it is the SECOND generation of this note to go stale while literally warning that a stale note 'would have been copied forward as truth.' A note that names the staleness risk is not thereby immune to it; re-read the broker. RULES (unchanged): $1,500 is a PER-TRADE maximum, there is NO total-sleeve cap, and total deployment across BOTH books is bounded by unleveraged_buying_power (2026-08-14 sizing amendment + the 2026-08-21 no-margin rule). CURRENT TRUTH: cash $1,546.96 == buying_power == unleveraged_buying_power, so no margin is extended and FOUR LAWS #4 is satisfied; unsettled_funds $0.0000. RESERVE CORRECTED 2026-08-28T23:18Z: the flat $250 reserve is RETIRED, superseded by the 5%-of-total_value OPERATIONAL RESERVE (Ryan 2026-08-29 policy on master), which SCALES and must be recomputed from get_portfolio.total_value every run -- never hard-coded. DEPLOYABLE = unleveraged_buying_power - 0.05 x total_value = 1546.96 - 198.03 = $1,348.93. The hedge's $749 basis does NOT reduce a new trade's allowance and occupies 0 of the 5 non-hedge slots. EQUITY SIZING IS NO LONGER BLOCKED -- CORRECTED 2026-08-28T23:18Z. This note previously read 'EQUITY SIZING IS SEPARATELY BLOCKED: the >=45% equity-book cash floor reads 44.9807% and the max compliant buy is -$0.67.' THAT FLOOR IS VOID (master commit 1322da9, 2026-08-28T20:42:36Z) and its arithmetic must not be quoted or re-derived. The equity book is OPEN from the 2026-08-31 open with 3 fresh throttle slots, funded from the same $1,348.93; the binding controls are now the A-GRADE-ONLY bar, per-name <=15-20%, spec sleeve <=25%, and rotation-beats-the-weakest once deployable cash falls below one normal position size (NOT yet -- $1,348.93 against ~$500 is ordinary cash). See _CAPITAL_POLICY_STATE, which governs. _CROSS_BOOK_CASH_COUPLING's floor arithmetic is likewise MOOT; its ONE-POOL truth survives -- an options entry still reduces equity capacity dollar-for-dollar, so cross-book competition is now explicit rather than mediated by a ratio. FOUND BY THE ARITHMETIC SWEEP prescribed in this run's journal entry and then actually executed: this is the FOURTH key carrying floor-derived state after the void, and the first three repairs were all targeted at keys whose SUBJECT was the floor. This one's subject is SIZING, which is why three careful sweeps walked past it. Search for the arithmetic (the 0.45 coefficient, 'compliant buy', 'cash floor'), never for the keys you expect to be affected. [DETECTOR REFINED 2026-08-29T00:18Z -- the prescription in the sentence above WORKED and was also INCOMPLETE. Searching holdings.json for the arithmetic tokens it names (the 0.45 coefficient, 'compliant buy', 'cash floor') surfaced the three keys already repaired; a SECOND sweep on the STATE-ASSERTION phrase 'book is closed' surfaced two more that the arithmetic sweep missed -- _EVENT_PREMIUM_IS_INVISIBLE_ON_THE_30DTE_BOARD.honest_scope and _DIVERSIFICATION_STATISTICS_ARE_FRAGILE.honest_scope, both annotated this run as the fourth and fifth instances. THE CLASS IS BROADER THAN ARITHMETIC: a repealed rule leaves behind both its NUMBERS and its CONCLUSIONS, and the conclusions are the more dangerous residue precisely because they carry no digits -- they read as ordinary present-tense state prose, so a numeric sweep walks straight past them and a human skim reads them as current. Sweep for BOTH: the arithmetic AND the sentence the arithmetic used to justify ('the book is closed', 'entries are frozen', 'no compliant entry exists'). Both survivors sat in honest_scope caveats, which is a systematically likely hiding place: a scope clause's job is to state what was true at the time, so it BAKES IN the then-current regime by design and ages badly by construction.]",
@@ -9229,14 +9284,14 @@
       "hwm": 3604.85,
       "hwm_note": "Carried from the total_value HWM 2026-10-09T18:25Z (MU 1160C opened 41 min earlier, P/L near zero then).",
       "latest": {
-        "utc": "2026-10-23T19:19Z",
-        "total_value": 1614.79,
-        "user_unrealized_pnl": -585,
+        "utc": "2026-10-23T19:27Z",
+        "total_value": 1624.68,
+        "user_unrealized_pnl": -575,
         "user_realized_pnl": -1740.0,
         "deposit_excluded": 400.0,
-        "sleeve_value": 3539.79,
-        "drawdown_pct": -1.8,
-        "note": "15:19 ET run 10-23; zero drift; Ryan's MU 1220C x2 mark $1,170."
+        "sleeve_value": 3539.68,
+        "drawdown_pct": -1.81,
+        "note": "15:25 ET decision-window run 10-23; all sleeves flat after window sells; Ryan's MU 1220C x2 mark $1,180."
       },
       "deposits_since_hwm_usd": 400.0
     }
