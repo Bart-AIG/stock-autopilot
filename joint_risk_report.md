@@ -1,42 +1,46 @@
-RISK ORANGE (6) - USO crossed 163.80 (oil 167) and IEF re-fired >91.10; QQQ 703.5 is 0.5% above the 700 stage-4 level
+RISK ORANGE (6) - IEF re-fired >91.10 (91.19); margin in use is $33.7k, up from $9.3k; QQQ 708 is 1.2% above the 700 stage-4 level
 
-**What changed (13:41Z, 9:41 ET):** score 4 -> 6, tier still ORANGE.
-- USO above 163.80 (price 167.17, +2.9% today): oil spike, +1 point.
-- IEF above 91.10 re-fired at 12:26Z (91.16 now): Treasuries bid, risk-off rotation, +1 point.
-- Per-holding support alerts also fired (RBRK < 119.80, AMZN < 247.71, AFRM, SNDK < 200d). Informational, no risk points.
+**What changed (13:42Z, 9:42 ET Mon):** tier still ORANGE, score 5 -> 6.
+- IEF above 91.10 fired again at 13:10Z (91.19 now): Treasuries bid, risk-off rotation, +1 point.
+- QQQ bounced to 708.33 (+0.6% on the day), still below its 20-day (735.23) and 50-day (725.81).
+- Oil eased: USO 165.71 (-2.2% today), still above the 163.80 trigger.
+- VIX 18.72, below the 22 line, 0 points.
+- Per-holding support alerts also fired (AMZN < 247.71, CRCL < 81.08, HOOD < 200d, META < 200d). Informational, no risk points.
 
-**Ladder: Stage 3 holds** (range-top break, below 20d 737.24, below 50d 726.37). **Stage 4 = QQQ 700, only 0.5% away.** No reinvest tranche (first is 666).
+**MARGIN CHECK:** the broker shows cash -$33,680 against account value $81,952 and holdings of about $115.6k. Friday's report said $9,264. The book now holds CDNS, MPWR, SNDK, ASND and AAOX that were not in Friday's list, so it looks like buys were added on margin. This account was de-levered on 2026-08-05 and the ladder says margin is never re-added on the way down. Confirm this is intended.
 
-**Credit crack watch: OFF (0 REDs).** LQD/IEF 20d -0.54% CAUTION. HYG/IEF 20d -2.46% CAUTION (RED line is -2.5%, on yesterday's close it was -2.65%, so this is the one to watch). No October hyperscaler bond deal found. QQQ is 7.4% below its 25-day high, no divergence flag.
+**Ladder: Stage 3 holds** (below 20d and 50d). **Stage 4 = QQQ 700, 1.2% away.** No reinvest tranche (first is 666).
+
+**Credit crack watch:** carried from 10-23, not re-run this run (0 REDs, HYG/IEF CAUTION). HYG 77.17, LQD 104.23, both firmer than Friday.
 
 **Benchmarks**
 | Alert | Level | Price | Distance |
 |---|---|---|---|
-| SPY < 50d (triggered) | 768.17 | 760.32 | -1.0% |
-| QQQ < 50d (triggered) | 726.37 | 703.47 | -3.2% |
-| QQQ < 733 (triggered) | 733 | 703.47 | -4.0% |
-| QQQ < 20d (triggered) | 737.24 | 703.47 | -4.6% |
-| USO > 163.80 (triggered) | 163.80 | 167.17 | +2.1% |
-| IEF > 91.10 (triggered) | 91.10 | 91.16 | +0.1% |
-| QQQ < 700 | 700 | 703.47 | 0.5% above |
-| HYG < 76.35 | 76.35 | 76.92 | 0.7% above |
-| IEF < 88.95 | 88.95 | 91.16 | 2.5% above |
+| SPY < 50d (triggered) | 767.81 | 763.07 | -0.6% |
+| QQQ < 50d (triggered) | 725.81 | 708.33 | -2.4% |
+| QQQ < 733 (triggered) | 733 | 708.33 | -3.4% |
+| QQQ < 20d (triggered) | 735.23 | 708.33 | -3.7% |
+| USO > 163.80 (triggered) | 163.80 | 165.71 | +1.2% |
+| IEF > 91.10 (triggered) | 91.10 | 91.19 | +0.1% |
+| QQQ < 700 | 700 | 708.33 | 1.2% above |
+| HYG < 76.35 | 76.35 | 77.17 | 1.1% above |
+| IEF < 88.95 | 88.95 | 91.19 | 2.5% above |
 
-**Margin in use: $9,264** (was $39,245 yesterday; you have already sold MU, AVGO, OKLO, WULF, MRVL, TSM, SKHY, IREN and TEM). Account value $82,464.
+**Holdings health** (flags carried from 10-23, not recomputed; CDNS, MPWR, SNDK, AAOX not scored)
+- WEAK: SOXL (-66% off high, under both averages), NBIS (-42%), AUR (-39%).
+- WATCH: HOOD, GOOGL, CRCL, QQQI, CRDO, ASND.
 
-**Holdings health** (price flags carried from yesterday's run, not recomputed; AAOX and EPIX^ not scored)
-- WEAK: SOXL (under 50d and 200d, -66% off high), NBIS (under 50d and 200d, -42%), AUR (under 50d and 200d, -39%).
-- WATCH: HOOD, GOOGL, CRCL, QQQI, CRDO (-10% since yesterday, 147.20), ASND.
-
-**SELL LIST** (for you to place in-app; no order has been placed)
+**SELL LIST** (for you to place in-app; no order has been placed). Order from sell_plan; it raises about $38.7k to clear the margin plus a 5% cash target, so the lower names are only needed if you want margin fully gone.
 | Ticker | Sell | % of position | P/L | Tax | Why |
 |---|---|---|---|---|---|
-| SOXL | ~$12,052 | 100% | -3.8% | loss, harvest, check 30-day wash-sale | 13% of book, over the 12% cap, WEAK |
-| NBIS | ~$7,333 | 100% | -2.1% | loss, harvest, check wash-sale | WEAK, under both averages |
-| META | ~$5,479 | 28% | -4.8% | loss, check wash-sale | 21% of book, over the 15% cap (core: trim only) |
-| CRCL | ~$2,436 | 18% | +5.9% | gain, check lot age | 15% of book, over the 12% cap |
-| AUR | ~$951 | 100% | -3.2% | loss, harvest | WEAK |
+| SOXL | ~$12,638 | 100% | +0.9% | gain, check lot age | WEAK, 11% of book |
+| NBIS | ~$6,997 | 100% | -6.6% | loss, harvest, check wash-sale | WEAK |
+| AUR | ~$957 | 100% | -2.5% | loss, harvest | WEAK |
+| META | ~$1,650 | 9% | -5.9% | loss, check wash-sale | 16% of book, over the 15% cap (core: trim only) |
+| CRDO | ~$3,750 | 100% | -8.8% | loss, harvest | non-core under water |
+| SPCX | ~$5,878 | 100% | -7.3% | loss, harvest | non-core under water |
+| MPWR | ~$6,864 | 100% | -1.8% | loss, harvest | non-core under water; recent buy, check wash-sale |
 
-Selling SOXL and NBIS alone more than clears the $9,264 margin. Thesis checks were not re-run this run (news on META/CRCL unchanged since yesterday's run); treat verdicts as carried forward, not refreshed.
+Thesis checks were not re-run this run; treat verdicts as carried forward, not refreshed. Several of these names are recent buys, so any loss sale may be a wash sale; see the Wash-Sale Lockout list.
 
-**What brings the tier down:** QQQ back above 726.37 (50d) and 737.24 (20d), SPY above 768.17, USO under 163.80.
+**To move the tier down:** QQQ back over 725.81 (50d) and SPY over 767.81; IEF back under 91.10; USO under 163.80.
