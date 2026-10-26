@@ -16,6 +16,11 @@ This month's SWING_M picks (fixed 10-01, from `sleeves_state.json`, current for 
 - MU, LITE, DELL, WDC, AMD, INTC, VIAV, MRVL: out (no leg on).
 - Trade approvals are off; both orders filled at once. Cash left ~$428.
 
+**Window re-run (amended by the 15:40 ET run, prices at 19:40:41Z, total value $2,030.80):** the procedure re-decides on fresher prices and corrects differences.
+- **MRNA: SOLD** 0.297068 sh @ $196.80 (order `6adfaccd`, filled 19:41:01Z), **+$0.30**. At $196.66 its RSI(2) read 10.4, just above the 10 threshold, so the RSI(2) leg no longer qualified and decide() put MRNA out for tonight. This is a borderline flip on a 15-minute-fresher price, not a judgment call.
+- **ILMN: KEPT** (IBS 0.126, still in; held ~$58 vs $57.88 target, no resize).
+- QLD and the other 8 picks: still out. Cash after the sell ~$487.
+
 ## 2. Legacy run-off
 Done. No `sleeve: "swing"` positions remain.
 
