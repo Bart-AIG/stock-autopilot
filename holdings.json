@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-23T19:27Z",
+  "updated_utc": "2026-10-26T19:27Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -63,6 +63,40 @@
       ],
       "entry_premium_blended": 8.775,
       "total_cost_basis_usd": 1755.0
+    },
+    {
+      "symbol": "MRNA",
+      "sleeve": "swing_m",
+      "signal_symbol": "MRNA",
+      "entry_date": "2026-10-26",
+      "entry_price": 195.7799,
+      "shares": 0.297068,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "RSI2"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6adfa953-e945-4e3d-8607-d9b28a3af3c8",
+      "entry_utc": "2026-10-26T19:26Z",
+      "cost_usd": 58.16
+    },
+    {
+      "symbol": "ILMN",
+      "sleeve": "swing_m",
+      "signal_symbol": "ILMN",
+      "entry_date": "2026-10-26",
+      "entry_price": 268.9499,
+      "shares": 0.216248,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6adfa956-2d2e-48a5-9c5d-02b33a2e0232",
+      "entry_utc": "2026-10-26T19:26Z",
+      "cost_usd": 58.16
     }
   ],
   "_resolved_flags": [
@@ -9285,14 +9319,14 @@
       "hwm": 3604.85,
       "hwm_note": "Carried from the total_value HWM 2026-10-09T18:25Z (MU 1160C opened 41 min earlier, P/L near zero then).",
       "latest": {
-        "utc": "2026-10-26T19:20Z",
-        "total_value": 2070.68,
-        "user_unrealized_pnl": -229,
+        "utc": "2026-10-26T19:25Z",
+        "total_value": 2040.68,
+        "user_unrealized_pnl": -259,
         "user_realized_pnl": -1740.0,
         "deposit_excluded": 500.0,
         "sleeve_value": 3539.68,
         "drawdown_pct": -1.81,
-        "note": "15:20 ET Mon pre-window; sleeves flat in cash; MU 1220C x2 mark $1,526 vs $1,755 cost (Ryan's)."
+        "note": "15:25 ET decision window; bought MRNA (RSI2) + ILMN (IBS) $58.16 each; MU 1220C x2 mark $1,496 (Ryan's)."
       },
       "deposits_since_hwm_usd": 500.0
     }

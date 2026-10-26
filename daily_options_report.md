@@ -9,7 +9,12 @@ Both sleeves hold **nothing**: everything was sold in Friday's decision window. 
 
 This month's SWING_M picks (fixed 10-01, from `sleeves_state.json`, current for today): MRNA, MU, LITE, DELL, WDC, AMD, INTC, VIAV, MRVL, ILMN.
 
-**Decision window:** pending, to be filled in by the 15:25 ET run from `sleeves.py decide`. On a +1.3% QQQ day the RSI(2) and IBS entry legs are unlikely to be on for QQQ; the turn-of-month leg starts Friday 10-30 (the last trading day of October).
+**Decision window (amended by the 15:25 ET run, prices at 19:25:40Z, total value $2,040.68):** `sleeves.py decide` put two SWING_M names in and everything else out.
+- **SWING_Q (QLD): OUT.** QQQ 713.40, RSI(2) 64.5, IBS 0.81, above its 200-day. No leg is on, so no QLD today.
+- **MRNA: BOUGHT $58.16**, 0.297068 sh @ $195.78 (order `6adfa953`, filled 19:26:12Z). RSI(2) leg: RSI(2) 9.7 < 10, price above the 200-day. Exits when price closes above its 5-day SMA (~$217).
+- **ILMN: BOUGHT $58.16**, 0.216248 sh @ $268.95 (order `6adfa956`, filled 19:26:14Z). IBS leg: IBS 0.195 < 0.2, above the 200-day. Exits at IBS > 0.8 or after 5 sessions.
+- MU, LITE, DELL, WDC, AMD, INTC, VIAV, MRVL: out (no leg on).
+- Trade approvals are off; both orders filled at once. Cash left ~$428.
 
 ## 2. Legacy run-off
 Done. No `sleeve: "swing"` positions remain.
