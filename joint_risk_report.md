@@ -1,46 +1,41 @@
-RISK ORANGE (6) - IEF re-fired >91.10 (91.19); margin in use is $33.7k, up from $9.3k; QQQ 708 is 1.2% above the 700 stage-4 level
+RISK ORANGE (5) - IEF >91.10 fired at 12:35Z (now 91.04, back under); margin still $39.6k; QQQ 716.96 is 2.4% above the 700 stage-4 level
 
-**What changed (13:42Z, 9:42 ET Mon):** tier still ORANGE, score 5 -> 6.
-- IEF above 91.10 fired again at 13:10Z (91.19 now): Treasuries bid, risk-off rotation, +1 point.
-- QQQ bounced to 708.33 (+0.6% on the day), still below its 20-day (735.23) and 50-day (725.81).
-- Oil eased: USO 165.71 (-2.2% today), still above the 163.80 trigger.
-- VIX 18.72, below the 22 line, 0 points.
-- Per-holding support alerts also fired (AMZN < 247.71, CRCL < 81.08, HOOD < 200d, META < 200d). Informational, no risk points.
+**What changed (13:50Z, 9:50 ET Tue):** tier ORANGE, score 5 (6 yesterday midday, 5 at the close). QQQ bounced +0.7% on the day but is still under its 20-day (734.02), 50-day (725.43) and 733.
+- IEF crossed above 91.10 at 12:35Z (Treasuries bid, risk-off), then slipped to 91.04. Fired alert, not a live reading right now.
+- VIX 17.74: 0 points. USO 165.24, still over 163.80 (+1 point). SPY 767.51 vs 50-day 767.59, a hair under.
+- Per-holding alerts fired (informational, no risk points): HOOD and META back above their 200-day, AFRM < 72.22, ASML < 200-day.
 
-**MARGIN CHECK:** the broker shows cash -$33,680 against account value $81,952 and holdings of about $115.6k. Friday's report said $9,264. The book now holds CDNS, MPWR, SNDK, ASND and AAOX that were not in Friday's list, so it looks like buys were added on margin. This account was de-levered on 2026-08-05 and the ladder says margin is never re-added on the way down. Confirm this is intended.
+**MARGIN:** cash -$39,604 against account value $85,276 (holdings about $124.9k). Up from $33.7k yesterday, so more was bought on margin. The account was de-levered on 2026-08-05 and the ladder says margin is not re-added on the way down. Confirm this is intended.
 
-**Ladder: Stage 3 holds** (below 20d and 50d). **Stage 4 = QQQ 700, 1.2% away.** No reinvest tranche (first is 666).
+**Ladder: Stage 3 holds.** Stage 4 = QQQ 700, 2.4% away. No reinvest tranche (first is 666).
 
-**Credit crack watch:** carried from 10-23, not re-run this run (0 REDs, HYG/IEF CAUTION). HYG 77.17, LQD 104.23, both firmer than Friday.
+**Credit crack watch (re-run today):** 0 REDs. LQD/IEF 20-day -0.45% (green, near the -0.5% line). HYG/IEF 20-day -2.07% (CAUTION; red line -2.5%; yields rose over the period, which flattens this ratio). 10-year CAUTION (carried). No new hyperscaler bond deal found. No equity/credit divergence.
 
 **Benchmarks**
 | Alert | Level | Price | Distance |
 |---|---|---|---|
-| SPY < 50d (triggered) | 767.81 | 763.07 | -0.6% |
-| QQQ < 50d (triggered) | 725.81 | 708.33 | -2.4% |
-| QQQ < 733 (triggered) | 733 | 708.33 | -3.4% |
-| QQQ < 20d (triggered) | 735.23 | 708.33 | -3.7% |
-| USO > 163.80 (triggered) | 163.80 | 165.71 | +1.2% |
-| IEF > 91.10 (triggered) | 91.10 | 91.19 | +0.1% |
-| QQQ < 700 | 700 | 708.33 | 1.2% above |
-| HYG < 76.35 | 76.35 | 77.17 | 1.1% above |
-| IEF < 88.95 | 88.95 | 91.19 | 2.5% above |
+| QQQ < 20d (triggered) | 734.02 | 716.96 | -2.3% |
+| QQQ < 733 (triggered) | 733 | 716.96 | -2.2% |
+| QQQ < 50d (triggered) | 725.43 | 716.96 | -1.2% |
+| SPY < 50d (triggered) | 767.59 | 767.51 | 0.0% |
+| USO > 163.80 (triggered) | 163.80 | 165.24 | +0.9% |
+| IEF > 91.10 (fired 12:35Z) | 91.10 | 91.04 | 0.1% under |
+| QQQ < 700 | 700 | 716.96 | 2.4% above |
+| HYG < 76.35 | 76.35 | 77.33 | 1.3% above |
+| IEF < 88.95 | 88.95 | 91.04 | 2.3% above |
+| TIP < 102.85 | 102.85 | 106.26 | 3.3% above |
 
-**Holdings health** (flags carried from 10-23, not recomputed; CDNS, MPWR, SNDK, AAOX not scored)
-- WEAK: SOXL (-66% off high, under both averages), NBIS (-42%), AUR (-39%).
-- WATCH: HOOD, GOOGL, CRCL, QQQI, CRDO, ASND.
+**Holdings health and earnings:** carried from 10-23/10-26, not refreshed this run. WEAK: SOXL, NBIS, AUR. WATCH: HOOD, GOOGL, CRCL, QQQI, CRDO, ASND.
 
-**SELL LIST** (for you to place in-app; no order has been placed). Order from sell_plan; it raises about $38.7k to clear the margin plus a 5% cash target, so the lower names are only needed if you want margin fully gone.
-| Ticker | Sell | % of position | P/L | Tax | Why |
-|---|---|---|---|---|---|
-| SOXL | ~$12,638 | 100% | +0.9% | gain, check lot age | WEAK, 11% of book |
-| NBIS | ~$6,997 | 100% | -6.6% | loss, harvest, check wash-sale | WEAK |
-| AUR | ~$957 | 100% | -2.5% | loss, harvest | WEAK |
-| META | ~$1,650 | 9% | -5.9% | loss, check wash-sale | 16% of book, over the 15% cap (core: trim only) |
-| CRDO | ~$3,750 | 100% | -8.8% | loss, harvest | non-core under water |
-| SPCX | ~$5,878 | 100% | -7.3% | loss, harvest | non-core under water |
-| MPWR | ~$6,864 | 100% | -1.8% | loss, harvest | non-core under water; recent buy, check wash-sale |
+**SELL LIST** (for you to place in-app; no order has been placed). Carried from the 10-26 plan, dollar amounts not re-priced; thesis checks not re-run, treat verdicts as carried forward. Raises about $38.7k to clear margin plus a 5% cash target.
+| Ticker | Sell | % of position | Why |
+|---|---|---|---|
+| SOXL | ~$12.6k | 100% | WEAK, 11% of book (gain, check lot age) |
+| NBIS | ~$7.0k | 100% | WEAK (loss, check wash-sale) |
+| AUR | ~$1.0k | 100% | WEAK (loss, harvest) |
+| META | ~$1.7k | 9% | over the 15% cap, core: trim only |
+| CRDO | ~$3.8k | 100% | non-core under water |
+| SPCX | ~$5.9k | 100% | non-core under water |
+| MPWR | ~$6.9k | 100% | non-core, recent buy, check wash-sale |
 
-Thesis checks were not re-run this run; treat verdicts as carried forward, not refreshed. Several of these names are recent buys, so any loss sale may be a wash sale; see the Wash-Sale Lockout list.
-
-**To move the tier down:** QQQ back over 725.81 (50d) and SPY over 767.81; IEF back under 91.10; USO under 163.80.
+**To move the tier down:** QQQ back over 725.43 (50-day), SPY over 767.59 and holding, IEF back under 91.10, USO under 163.80.
