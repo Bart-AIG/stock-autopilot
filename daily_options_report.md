@@ -10,7 +10,10 @@
 - Cash **$486.82**, total value **$2,353.34**, so the 5% reserve is $117.67 and **deployable cash is ~$369** for today's window.
 - This month's SWING_M picks (fixed 10-01): MRNA, MU, LITE, DELL, WDC, AMD, INTC, VIAV, MRVL, ILMN.
 
-**Decision window:** *(to be amended by the 15:20–15:52 ET run)*
+**Decision window (amended by the run that started 15:25 ET, prices 19:25:32Z):**
+- `decide()` put **every target out**. QQQ 721.68: RSI(2) 83.3, above its 5-day SMA (713.59), IBS 0.886, so **no QLD buy**. All 10 picks are overbought (RSI(2) 54–90) after today's rally; WDC and VIAV are also below their 200-day.
+- **ILMN SOLD:** IBS 0.849 > 0.8 turned the IBS leg off. 0.216248 sh @ **$279.595**, order `6ae0fabd`, filled 19:25:49Z, **+$2.30 realized (+4.0%)**.
+- The sleeves are now **all cash** ($547 after the sale, of which ~$430 is deployable). Trade approvals are OFF. No pending orders.
 
 ## 2. Legacy run-off
 Done. No `sleeve: "swing"` positions remain.
@@ -28,4 +31,4 @@ Marked at 19:19:58Z: **$319.48 vs $328.90 cost (−2.87%)**. NVDA $217.80 (−8.
 ## 6. Tomorrow and this week
 - **Turn of the month:** the TOM leg turns on at Friday 10-30's close (last trading day of October) and holds through the first 3 sessions of November. QLD and every SWING_M pick will be bought in Friday's window, as far as cash allows (~$370 deployable at today's values, so QLD gets funded first).
 - **Month roll:** new SWING_M picks are fixed on Monday 11-02 from the 10-30 closes.
-- **ILMN:** 5-session limit on the IBS leg ends after 11-02 if the IBS exit has not fired first.
+- **ILMN:** sold today on the IBS exit.
