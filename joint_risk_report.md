@@ -1,24 +1,25 @@
-RISK ORANGE (6) - USO >163.80 fired 14:36Z and IEF back over 91.10; margin still $39.6k; QQQ 716.99 is 2.4% above the 700 stage-4 level
+RISK YELLOW (3) - tier eased from ORANGE: IEF fell back under 91.10; QQQ still below 733 / 20d / 50d
 
-**What changed (14:42Z, 10:42 ET Tue):** tier ORANGE, score 6 (5 at 13:50Z). IEF is at 91.105, a hair over its 91.10 level again (+1). USO fired 163.80 at 14:36Z (now 164.49).
-- QQQ 716.99 is under its 20-day (734.02), 50-day (725.43) and 733. SPY 767.25 vs 50-day 767.59, a hair under. VIX 17.7: 0 points.
-- Cash -$39,604 on account value $85,280: **margin in use, still $39.6k.** The ladder says it is not re-added on the way down.
+Nothing new fired since 17:45Z. This is a 1-point drop, and IEF sits only 0.04% under its level, so the tier can flip back with a small move.
 
-**Ladder: Stage 3 holds.** Stage 4 = QQQ 700, 2.4% away. No reinvest tranche (first is 666).
-
-**Credit crack watch:** carried from 13:48Z (0 REDs; LQD/IEF 20d -0.45% green, HYG/IEF -2.07% CAUTION, no new hyperscaler deal found). LQD 104.19, HYG 77.35 today, no new stress.
-
-**Holdings health and earnings:** carried from the earlier runs, not refreshed. WEAK: SOXL, NBIS, AUR. WATCH: HOOD, GOOGL, CRCL, QQQI, CRDO, ASND.
-
-**SELL LIST** (for you to place in-app; no order has been placed). Carried from the 10-26 plan, dollar amounts not re-priced; thesis checks not re-run, treat verdicts as carried forward. Raises about $38.7k to clear margin plus a 5% cash target.
-| Ticker | Sell | % of position | Why |
+**Benchmarks (18:42Z)**
+| Alert | Level | Price | Distance |
 |---|---|---|---|
-| SOXL | ~$12.6k | 100% | WEAK, 11% of book (gain, check lot age) |
-| NBIS | ~$7.0k | 100% | WEAK (loss, check wash-sale) |
-| AUR | ~$1.0k | 100% | WEAK (loss, harvest) |
-| META | ~$1.7k | 9% | over the 15% cap, core: trim only |
-| CRDO | ~$3.8k | 100% | non-core under water |
-| SPCX | ~$5.9k | 100% | non-core under water |
-| MPWR | ~$6.9k | 100% | non-core, recent buy, check wash-sale |
+| QQQ < 733 | 733 | 720.40 | triggered |
+| QQQ < 20d SMA | 734.02 | 720.40 | triggered |
+| QQQ < 50d SMA | 725.43 | 720.40 | triggered |
+| IEF > 91.10 | 91.10 | 91.065 | 0.04% away (off) |
+| USO > 163.80 | 163.80 | 163.51 | 0.2% away |
+| SPY < 50d SMA | 767.59 | 769.07 | 0.2% above |
+| HYG < 76.35 | 76.35 | 77.53 | 1.5% |
+| QQQ < 700 | 700 | 720.40 | 2.8% |
+| VIX (22 level) | 22 | 17.76 | not triggered |
 
-**To move the tier down:** QQQ back over 725.43 (50-day), SPY over 767.59 and holding, IEF back under 91.10, USO under 163.80.
+**Ladder:** Stage 3 still holds. Stage 4 is QQQ 700 (-2.8%). No reinvest tranche reached.
+
+**Crack watch:** OFF (0 REDs as of 13:48Z). HYG/IEF 20d -2.07% is CAUTION, red line -2.5%.
+
+**What brings it back to ORANGE:** IEF back above 91.10, or USO above 163.80.
+**What brings it lower:** QQQ back above 725.43 / 733 / 734.02.
+
+No sell list change; holdings health carried from the 17:45Z run. No trade placed; anything is for you to place in-app.
