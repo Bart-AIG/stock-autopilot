@@ -1,30 +1,30 @@
-# Daily report — trading day 2026-10-28 (Wednesday)
+# Daily report — trading day 2026-10-29 (Thursday)
 
-*Written by the run that started 19:19Z (15:19 ET), invoked with **prompt v17**. Figures are broker figures priced at 19:19–19:20Z, not the close. This run ran `decide()` at the start of the decision window. A later run in the window re-decides on fresher prices and amends Section 1 if anything changes.*
+*Written by the run that started 19:19Z (15:19 ET), invoked with **prompt v17**. Figures are broker figures priced at 19:19–19:21Z, not the close. This run made the decision-window call. A later run in the window re-decides on fresher prices and amends Section 1 if anything changes.*
 
-**Today in one line:** QQQ up a little (722.91, +0.23%) and QLD 90.795 (+0.56%). The sleeves are all cash and `decide()` keeps them out. Drawdown on sleeve value is −1.74%, far from the −20% notice level.
+**Today in one line:** QQQ fell 1.7% (712.96) and MU fell 5.6%. The turn-of-month leg switched every sleeve target ON, but only $430.62 of cash was deployable, so all of it went into QLD and the SWING_M picks got nothing.
 
 ## 1. Sleeves
-- **Held: nothing.** ILMN was sold yesterday on its IBS exit.
-- **Decision (live prices 19:19:47Z, total value $3,747.28):** `decide()` put **every target out**, so **no orders**.
-  - **SWING_Q (QLD): out.** QQQ 722.91: RSI(2) 85.7, above its 5-day SMA (713.05), IBS 0.448. No leg is on.
-  - **SWING_M: all 10 out.** Every pick is overbought (RSI(2) 71–95). IBS ranges 0.42–0.93, none under 0.2. WDC and VIAV are also below their 200-day.
-- Cash **$547.28**, the 5% reserve is $187.36, so **deployable cash is ~$360**. Trade approvals: none pending. No orders today.
-- This month's SWING_M picks (fixed 10-01): MRNA, MU, LITE, DELL, WDC, AMD, INTC, VIAV, MRVL, ILMN.
+- **Decision (live prices 19:19:52Z, total value $2,333.28):** `decide()` put **all 11 targets IN**, because tomorrow (Fri 10-30) is October's last trading day and the TOM leg holds through it.
+  - **SWING_Q (QLD): IN on TOM.** QQQ 712.96: RSI(2) 29.4, IBS 0.207, below its 5-day SMA (715.28), above its 200-day (679.15). Target **$1,551.63**.
+  - **SWING_M: all 10 IN, $66.50 each.** TOM only: MRNA, LITE, WDC, VIAV, ILMN. IBS + TOM: MU, DELL, AMD, INTC, MRVL.
+- **Order: BUY QLD $430.62 → FILLED 4.883974 sh @ $88.17** at 19:20:14Z (order `6ae39c6e`). Trade approvals are off and nothing is pending.
+- **Unfunded:** QLD is $1,121 short of its target, and all 10 SWING_M buys ($665) were skipped. Cash was $547.28 and the 5% reserve is $116.66, so **$430.62 was deployable**, and step 3 funds SWING_Q first. The account's capital is in Ryan's MU calls (Section 3). The sleeves never sell his position to fund themselves.
 
 ## 2. Legacy run-off
 Done. No `sleeve: "swing"` positions remain.
 
 ## 3. Options
-No agentic options. Ryan's own **MU 2026-12-18 1220C ×2** (`placed_agent: "user"`): mark **$3,200** vs $1,755 cost (**+$1,445**). MU $979.46 (+5.5% today). It is his position: the agent records it and never closes it.
+No agentic options. Ryan's own **MU 2026-12-18 1220C ×2** (`placed_agent: "user"`): mark **$1,786** vs $1,755 cost (**+$31**), down from $3,200 yesterday. MU $928.59 (−5.6% today). It is his position: the agent records it and never closes it.
 
 ## 4. Growth paper sleeve (no real orders)
-Marked at 19:20:09Z: **$316.84 vs $328.90 cost (−3.67%)**. NVDA $215.59 (−9.1%), PLTR $193.84 (+2.5%), NET $320.85 (−11.6%), CRWD $265.06 (−2.7%), NTRA $427.29 (+2.6%). None is near its −25% exit. The 200-day checks and any swaps happen on Mondays.
+Marked at 19:20:30Z: **$311.56 vs $328.90 cost (−5.27%)**. NVDA $212.76 (−10.3%), PLTR $193.19 (+2.1%), NET $304.14 (−16.2%), CRWD $258.20 (−5.2%), NTRA $429.92 (+3.2%). None is at its −25% exit; NET is closest. The 200-day checks and any swaps happen on Mondays.
 
 ## 5. Account vs QQQ
-- Today: the account's move (+$1,394 on total value vs yesterday's $2,353) is almost all Ryan's MU call. The sleeves were in cash. QQQ +0.23%.
-- Sleeve value $3,542.28 vs high-water mark $3,604.85: **−1.74%**.
+- Today: total value fell from $3,747.28 to $2,333.28 (−$1,414). Almost all of that is Ryan's MU call; the sleeves were in cash until 19:20Z. QQQ −1.7%.
+- Sleeve value (Ryan's P/L excluded) $3,542.28 vs high-water mark $3,604.85: **−1.74%**.
 
 ## 6. Tomorrow and this week
-- **Turn of the month:** the TOM leg turns on at Friday 10-30's close (last trading day of October) and holds through the first 3 sessions of November. QLD and the SWING_M picks get bought in Friday's window as far as cash allows (~$360 deployable today, so QLD is funded first).
-- **Month roll:** new SWING_M picks are fixed on Monday 11-02 from the 10-30 closes.
+- **Fri 10-30:** TOM stays on, so the decision window keeps QLD and buys whatever SWING_M picks cash allows (none at today's cash). The run on the first November session re-sizes positions that are more than 25% off target.
+- **Month roll:** new SWING_M picks are fixed Monday 11-02 from the 10-30 closes. TOM holds through Wed 11-04.
+- **Cash constraint:** while Ryan's MU calls hold the account's capital, SWING_Q runs at about 28% of its target and SWING_M cannot fund. That gap is his call, not the sleeves'.
