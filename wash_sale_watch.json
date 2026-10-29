@@ -1,6 +1,6 @@
 {
   "_comment": "Wash-sale watch for the JOINT account (Ryan, live turn 2026-10-23: a Robinhood list the routine keeps current, plus a reminder). lockouts = joint names sold at a LOSS in the last 30 days; buying one before 'clear' (last loss sale + 31 days) defers that loss into the new shares, and a buy in an IRA loses it for good. Buys in ANY of Ryan's accounts count, including the Robinhood managed portfolios and the agentic sleeves. sell_traps = names held now that were bought in the last 30 days: a loss sale before the date is washed. Rebuilt every run of the Quality @ 200-day routine (step 4e, docs/quality-watch-prompt.md v6) from get_pnl_trade_history + get_equity_orders; mirrored to the Robinhood list 'Wash-Sale Lockout' (watchlists.json managed.wash_sale). Code: wash_sale.py. A reminder, not tax advice; stock trades only (options on a locked stock are not checked).",
-  "asof_utc": "2026-10-28T19:35Z",
+  "asof_utc": "2026-10-29T19:35Z",
   "seeded": "2026-10-23 live session, from get_pnl_trade_history (3month) and filled orders in all 7 accounts since 2026-04-23 (joint) / 2026-08-23 (others)",
   "accounts": {
     "116713985343": "joint_tenancy_with_ros",
@@ -221,6 +221,12 @@
       "last_loss_sale": "2026-10-28",
       "sales": 4,
       "clear": "2026-11-28"
+    },
+    "QQQI": {
+      "loss_usd": -18.27,
+      "last_loss_sale": "2026-10-28",
+      "sales": 1,
+      "clear": "2026-11-28"
     }
   },
   "buys_in_window": [
@@ -377,9 +383,9 @@
     {
       "symbol": "GOOGL",
       "account": "116713985343",
-      "buy_date": "2026-09-25",
-      "shares": 20.2054,
-      "after_sale": false,
+      "buy_date": "2026-10-28",
+      "shares": 30.2054,
+      "after_sale": true,
       "permanent": false,
       "recurring": false,
       "managed": false
@@ -397,8 +403,8 @@
     {
       "symbol": "META",
       "account": "116713985343",
-      "buy_date": "2026-10-28",
-      "shares": 78.0,
+      "buy_date": "2026-10-29",
+      "shares": 81.0,
       "after_sale": true,
       "permanent": false,
       "recurring": false,
@@ -527,9 +533,9 @@
     {
       "symbol": "QLD",
       "account": "718757339",
-      "buy_date": "2026-10-14",
-      "shares": 30.0885,
-      "after_sale": false,
+      "buy_date": "2026-10-29",
+      "shares": 34.9725,
+      "after_sale": true,
       "permanent": false,
       "recurring": false,
       "managed": true
@@ -537,8 +543,18 @@
     {
       "symbol": "QQQ",
       "account": "116713985343",
-      "buy_date": "2026-10-28",
-      "shares": 0.1838,
+      "buy_date": "2026-10-29",
+      "shares": 0.1908,
+      "after_sale": true,
+      "permanent": false,
+      "recurring": true,
+      "managed": false
+    },
+    {
+      "symbol": "QQQI",
+      "account": "116713985343",
+      "buy_date": "2026-10-29",
+      "shares": 0.093729,
       "after_sale": true,
       "permanent": false,
       "recurring": true,
@@ -662,14 +678,15 @@
     "AUR": "2026-11-16",
     "CDNS": "2026-11-23",
     "CRDO": "2026-11-26",
+    "GOOGL": "2026-11-28",
     "IONQ": "2026-11-28",
-    "META": "2026-11-28",
+    "META": "2026-11-29",
     "MPWR": "2026-11-23",
     "NBIS": "2026-11-22",
     "NOW": "2026-11-19",
     "OKLO": "2026-11-26",
-    "QQQ": "2026-11-28",
-    "QQQI": "2026-11-28",
+    "QQQ": "2026-11-29",
+    "QQQI": "2026-11-29",
     "SNDK": "2026-11-27",
     "SOXL": "2026-11-22",
     "SPCX": "2026-11-28",
@@ -677,17 +694,13 @@
   },
   "last_events": {
     "locked": [
-      "HOOD"
+      "QQQI"
     ],
-    "cleared": [
-      "UBER"
-    ],
-    "extended": [
-      "META"
-    ]
+    "cleared": [],
+    "extended": []
   },
   "lots_cache": {
-    "date": "2026-10-28",
+    "date": "2026-10-29",
     "data": {
       "IONQ": {
         "shares": 30.0,
@@ -713,9 +726,9 @@
         "shares": 46.8818,
         "st_shares": 46.8818,
         "lt_shares": 0.0,
-        "loss_shares": 0.0,
-        "loss_usd": 0.0,
-        "gain_usd": 1517.18,
+        "loss_shares": 46.8818,
+        "loss_usd": -343.57,
+        "gain_usd": 0.0,
         "recent_shares": 0.0,
         "next_lt": "2027-05-15"
       },
@@ -740,23 +753,23 @@
         "next_lt": "2027-10-27"
       },
       "META": {
-        "shares": 22.9824,
-        "st_shares": 22.9824,
+        "shares": 25.9824,
+        "st_shares": 25.9824,
         "lt_shares": 0.0,
-        "loss_shares": 12.9824,
-        "loss_usd": -554.1,
-        "gain_usd": 0.0,
-        "recent_shares": 22.0,
+        "loss_shares": 22.9824,
+        "loss_usd": -3733.97,
+        "gain_usd": 31.9,
+        "recent_shares": 25.0,
         "next_lt": "2027-08-29"
       },
       "GOOGL": {
-        "shares": 9.8489,
-        "st_shares": 2.8931,
+        "shares": 19.8489,
+        "st_shares": 12.8931,
         "lt_shares": 6.9557,
-        "loss_shares": 0.9535,
-        "loss_usd": -7.79,
-        "gain_usd": 994.45,
-        "recent_shares": 0.0,
+        "loss_shares": 12.8931,
+        "loss_usd": -415.44,
+        "gain_usd": 654.97,
+        "recent_shares": 10.0,
         "next_lt": "2026-12-09"
       },
       "AMZN": {
@@ -849,6 +862,7 @@
         "recent_shares": 200.0,
         "next_lt": "2027-10-17"
       }
-    }
+    },
+    "note": "META/GOOGL/NOW re-pulled 2026-10-29 at live prices; other holdings carried from the 2026-10-28 pull (no new lots)."
   }
 }
