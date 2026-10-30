@@ -65,3 +65,47 @@ Score: which scenario happened; Brier score on the 60% (3-week), 80% (3-month), 
 - Samples are small (29 episodes; 5-14 in the conditioned groups). The probabilities are judgment built on those base rates, not a fitted model.
 - The yields-falling evidence pulls in two directions: better 3-month outcomes, but deeper first legs since 2022. Scenario B's 38% carries that.
 - Data: Robinhood daily bars (QQQ 1999+, VIX 2002+, IEF 2002+). IEF price is a stand-in for the 10-yr yield. Two bad VIX prints (2023-01-09, 2023-11-02) were removed.
+
+---
+
+## Revision 1, same day (~12:45 CT): after checking Q3 earnings
+
+The original forecast above stays as written so both versions can be scored.
+
+### What the quarter showed
+
+| Company | EPS vs est | What mattered | Stock |
+|---|---|---|---|
+| META (10/21) | 7.40 vs 5.74, beat | Raised 2026 capex floor to $135-145B | +3% |
+| MSFT (10/28) | 4.89 vs 4.72, beat | Azure +48%, but **cut 2026 capex to $170B from $175B** | flat to −2% |
+| GOOGL (10/28) | 2.12 vs 2.99, miss (an $8.7B equity loss) | Cloud +103%; capex held at $195-205B, not raised; negative free cash flow | −12% |
+| AMZN (10/29) | 1.89 vs 1.97, miss | AWS +39% (fastest in ~5 yrs), $578B backlog; capex $77B vs $59B est; trailing FCF −$42B; weak Q4 guide | ~−7% |
+| INTC (10/29) | 0.52 vs 0.37, beat | Q4 guide $15-16B vs $17.1B est; PC slump through 1H27; memory shortage → PC market −12% | −21% to −28%; AMD −10%, NVDA −3% |
+| Others | ISRG, NFLX, TXN, TSLA, LRCX, CDNS, TMUS, KLAC all beat | | |
+
+Sources: CNBC 2026-10-29 (Google and Microsoft put off raising capex), CNBC/Investing.com (Intel), Yahoo, earnings briefs; EPS from Robinhood's earnings calendar.
+
+### Read
+
+1. **Current earnings are fine** (11 of 13 large QQQ names beat) and cloud demand is accelerating. This is not a 2000-style revenue collapse.
+2. **But the market now punishes the AI trade from both ends.** It sells the spenders for burning cash (AMZN, GOOGL) and sells the suppliers on any hint spending is levelling off (Microsoft's trim; Alphabet not raising). QQQ owns both sides. That squeeze is a real structural warning and the closest thing yet to the scenario C trigger.
+3. **Memory costs are squeezing hardware** (Intel's PC outlook; Apple warned on memory costs).
+4. **The decision point is now Nvidia on Nov 17 (after the close).** Structural corrections rarely bottom ahead of a known make-or-break event.
+
+Upcoming: AAPL + PLTR Nov 2, AMD Nov 3 (election day), QCOM + ARM Nov 4, jobs Nov 6, CPI Nov 10, AMAT + CSCO Nov 12, **NVDA Nov 17**, INTU Nov 19.
+
+### Revised forecast
+
+| Call | Original | Revised |
+|---|---|---|
+| A. Near the low already | 45% | **35%** |
+| B. Typical correction ($620-668) | 38% | **43%** |
+| C. Structural break (below $620) | 17% | **22%** |
+| Lowest close | ~$665, Nov 10-13 | **~$660, Nov 13-18** (around Nvidia) |
+| VIX closes >= 30 | 40% | **45%** |
+| Close below the 200-day before the low | 65% | **70%** |
+| Above $689 on 2026-11-20 | 60% | **55%** |
+| Above $689 on 2027-01-29 | 80% (median ~$740) | **75%** (median ~$730) |
+
+Toward C: Nvidia guides data-center growth down or flat; another hyperscaler trims capex; AMD/AMAT echo Intel's weak outlook; yields turn back up.
+Toward A: Apple and AMD reassure next week, Nvidia beats and raises, and yields keep falling.
