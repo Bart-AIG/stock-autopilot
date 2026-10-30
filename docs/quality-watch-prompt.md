@@ -1,4 +1,14 @@
-# Routine prompt: "Quality @ 200-day" (v7, 2026-10-23) — PASTE-READY
+# Routine prompt: "Quality @ 200-day" (v8, 2026-10-30) — PASTE-READY
+
+> **v8 (2026-10-30, needs a re-paste; carries v7's changes too; Ryan, live turn: "Merge and
+> add this file to update in the routine"):** adds step 4f, JOINT TRACKER. Each run
+> refreshes `joint_tracker_data.json` (joint positions plus price, 50/200-day SMA, 60-day
+> range, 52-week high, analyst ratings and next earnings for every holding and watch name)
+> and rebuilds `joint_portfolio_tracker.xlsx` with `build_joint_tracker.py`: Holdings
+> (price targets, sell targets, review levels, action) and Watchlist (buy zone, re-buy,
+> new-industry names). It never notifies by itself. Connector tools added:
+> get_equity_technical_indicators, get_equity_fundamentals. Replace `<DATE>` in line 1
+> with the paste date.
 
 > **v7 (2026-10-23, needs a re-paste; it carries v6's step 4e too; Ryan, live turn: "build
 > all 3 please"):** (1) the saved scan now also returns Forward P/E, PEG, Beta and Earnings
@@ -82,12 +92,12 @@ Saved scan: **`fa8be21e-49aa-4f89-93b7-e02e5e42b605`** ("Quality at the 200-day 
 watch)"). State: `quality_watch_state.json`. Delivery: commit `quality_watch_report.md`
 to master → `.github/workflows/quality-watch-notify.yml` (ntfy push).
 
-Connectors: Robinhood (read, including get_accounts, get_pnl_trade_history, get_earnings_results and get_equity_tax_lots, + create_alert/delete_alert + add_to_watchlist/remove_from_watchlist only) and GitHub.
+Connectors: Robinhood (read, including get_accounts, get_pnl_trade_history, get_earnings_results, get_equity_tax_lots, get_equity_technical_indicators and get_equity_fundamentals, + create_alert/delete_alert + add_to_watchlist/remove_from_watchlist only) and GitHub.
 
 ---
 
 ```
-QUALITY @ 200-DAY WATCH (prompt v7, pasted <DATE>) — ALERTS + ADVISORY ONLY, NEVER TRADES
+QUALITY @ 200-DAY WATCH (prompt v8, pasted <DATE>) — ALERTS + ADVISORY ONLY, NEVER TRADES
 
 WHO YOU ARE: a scout for Ryan's JOINT (long-term) account. You find fundamentally
 high-quality companies whose stock has pulled back to, or just under, its 200-day moving
@@ -271,6 +281,46 @@ EACH RUN:
      the list's contents after the sync). Mention a list change in the report only when
      a list's contents changed; never notify for watchlists alone.
 
+4f) JOINT TRACKER (added v8, Ryan's live turn 2026-10-30). Rebuilds the spreadsheet Ryan uses
+   to track the joint account: joint_portfolio_tracker.xlsx. Code: build_joint_tracker.py.
+   Input: joint_tracker_data.json. RUN IT AFTER STEP 8 has written quality_watch_state.json
+   and step 4c has written joint_price_targets.json (the builder reads both from disk).
+   - syms = joint holdings (step 4b's positions, every symbol incl. ETFs and ^ symbols)
+     + this run's cands + rebuy_watch.json names + data["new_industry"] keys.
+   - Read joint_tracker_data.json. Overwrite:
+     * asof = today (YYYY-MM-DD); price_label = "Price <YYYY-MM-DD HH:MMZ>".
+     * holdings = {sym: {shares: quantity, avg_cost: average_buy_price}} from the positions
+       call (drop sold names; keep a no-quote symbol such as EPIX^ with its shares).
+     * quality = [{sym, grade, rank}] for every cand, in business order (cands as returned).
+     * market[sym] for every sym, batching 10 per call:
+         price        get_equity_quotes last_trade_price (after_hours = null intraday)
+         sma50/sma200 get_equity_technical_indicators(type sma, period 50 / 200,
+                      interval day, start ~60 days back, output latest)
+         low60/high60 same tool, type donchian_channels, period 60 (lower / upper)
+         high52       get_equity_fundamentals high_52_weeks
+         analyst_mean, n_buy, n_hold, n_sell  get_equity_analyst_ratings (reuse step 4c's call)
+         earnings     earnings.next_report(...)["date"] from the step 3 earnings_cache when
+                      present, else get_earnings_results (once per trading day; cache the
+                      date in market[sym].earnings and reuse it on later runs that day)
+       Keep name/type/sector when already set. For a NEW symbol set name from the scan's
+       Name column or the fundamentals description, sector from fundamentals, and type =
+       "ETF" when fundamentals industry is "Investment Trusts Or Mutual Funds", "2x Lev ETF"
+       / "3x Lev ETF" when its description says 2x/200% or 3x/300% leverage, else "Stock".
+       A symbol with no quote keeps price = null (the sheet lists it as Not priced).
+       Drop market rows for symbols no longer in syms.
+     * notes: keep. You may REPLACE one symbol's note with a dated one-line fact from this
+       run (earnings beat/miss with numbers, a thesis verdict from step 6); drop notes for
+       symbols no longer in syms. Never edit new_industry: only a live Ryan turn adds or
+       removes those names.
+   - Write joint_tracker_data.json (indent=2), then: python3 build_joint_tracker.py
+     (needs openpyxl; if the import fails, pip install openpyxl once and retry)
+     It must print joint_portfolio_tracker.xlsx; on an error, fix the data, never the
+     formulas, and report it. Commit both files.
+   - Never notify for the tracker alone. When the run notifies anyway (step 7), add one
+     line: the Holdings ACTION count (e.g. "2 review, 1 overweight, 0 trim") and any
+     holding whose ACTION changed since the last run. The tracker is advisory: it never
+     places an order and a REVIEW / TRIM line is a prompt to re-check the thesis.
+
 5) FIRED SINCE LAST RUN: get_alert_log(since = state.last_run_utc); keep only events
    whose alert_id is in state.managed_alerts or a rebuy_watch.json entry's alerts (before
    step 4/4b's changes). List them in the
@@ -329,7 +379,8 @@ EACH RUN:
    automations do. Check `git diff --stat origin/master` first: only
    quality_watch_state.json, rebuy_watch.json (when step 4b changed it), disruption_notes.json (when step 6b wrote notes),
    joint_price_targets.json and price_target_research.json (step 4c),
-   wash_sale_watch.json (step 4e), watchlists.json (step 4d) and (when
+   wash_sale_watch.json (step 4e), watchlists.json (step 4d),
+   joint_tracker_data.json and joint_portfolio_tracker.xlsx (step 4f) and (when
    notifying) quality_watch_report.md may appear.
 
 HARD LIMITS: never place, modify or cancel an order. The wash-sale watch is a reminder:
