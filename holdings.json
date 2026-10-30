@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-29T19:21Z",
+  "updated_utc": "2026-10-30T19:27Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -82,6 +82,25 @@
       "target_usd": 1551.63,
       "funded_usd": 430.62,
       "_note": "Partial fund: deployable $430.62 (cash $547.28 - 5% reserve $116.66) vs decide() target $1,551.63. SWING_M (10 x $66.50, all TOM-on) unfunded: no cash left."
+    },
+    {
+      "symbol": "MRNA",
+      "sleeve": "swing_m",
+      "signal_symbol": "MRNA",
+      "entry_date": "2026-10-30",
+      "entry_price": 220.1599,
+      "shares": 0.179551,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "TOM"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6ae4ef57-1f3d-4abb-8898-c3d036c043e9",
+      "entry_utc": "2026-10-30T19:26:15Z",
+      "target_usd": 43.96,
+      "funded_usd": 39.53,
+      "_note": "Partial fund: deployable $39.53 (cash $116.66 - 5% reserve $77.13) vs target $43.96. Other 9 SWING_M targets (all hold_through_close) unfunded: no cash left. QLD held (RSI2+TOM), kept."
     }
   ],
   "_resolved_flags": [
@@ -9356,14 +9375,14 @@
       "hwm": 3604.85,
       "hwm_note": "Carried from the total_value HWM 2026-10-09T18:25Z (MU 1160C opened 41 min earlier, P/L near zero then).",
       "latest": {
-        "utc": "2026-10-30T19:19Z",
-        "total_value": 1504.41,
-        "user_unrealized_pnl": -765,
+        "utc": "2026-10-30T19:26Z",
+        "total_value": 1542.61,
+        "user_unrealized_pnl": -729,
         "user_realized_pnl": -1740.0,
         "deposit_excluded": 500.0,
-        "sleeve_value": 3509.41,
-        "drawdown_pct": -2.65,
-        "note": "Pre-window run (15:18 ET). QQQ -4.1% day; QLD mark $397.75. MU 1220C x2 options_value $990 vs $1,755 cost (Ryan's)."
+        "sleeve_value": 3511.61,
+        "drawdown_pct": -2.59,
+        "note": "Decision-window run (15:25 ET). QQQ 687.79 (-3.85%). MU 1220C x2 options_value $1,026 vs $1,755 (Ryan's)."
       },
       "deposits_since_hwm_usd": 500.0
     }
