@@ -118,13 +118,16 @@ def build(path="joint_portfolio_tracker.xlsx"):
         ("Position cap - stocks (% of portfolio)", 0.15, "Flags OVERWEIGHT above this.", "0%"),
         ("Position cap - leveraged ETFs", 0.05, "Leveraged ETFs lose value in choppy markets; keep them small.", "0%"),
         ("Earnings warning window (days)", 7, "Flags a holding reporting within this many days.", "0"),
+        ("Watchlist: buy zone low vs 200-day", -0.08, "Bottom of the buy zone. Below it the 200-day has failed: wait for a reclaim.", "0%"),
+        ("Watchlist: buy zone high vs 200-day", 0.05, "Top of the buy zone. Above it the name is extended: wait.", "0%"),
+        ("Watchlist: entry vs 200-day", 0.0, "Buy target = 200-day SMA x (1 + this). 0% = buy at the line.", "0%"),
     ]
     inp["A4"], inp["B4"], inp["C4"] = "Assumption", "Value", "What it does"
     for c in ("A4", "B4", "C4"):
         inp[c].font = WHITE_BOLD
         inp[c].fill = HEAD_IN
     names = ["AsOf", "PriceMode", "Trim1", "Stretch", "TrimSize", "Buffer", "MaxLoss", "MaxLossLev",
-             "Trail", "Cap", "CapLev", "ErnDays"]
+             "Trail", "Cap", "CapLev", "ErnDays", "ZoneLo", "ZoneHi", "EntryOff"]
     ref = {}
     for i, (label, val, note, fmt) in enumerate(rows):
         r = 5 + i
@@ -294,6 +297,8 @@ def build(path="joint_portfolio_tracker.xlsx"):
     ws.freeze_panes = ws.cell(first, 2)
     ws.auto_filter.ref = f"A{HR}:{get_column_letter(len(headers))}{last}"
 
+    add_watchlist(wb, ref)
+
     # ---------------- Method ----------------
     m = wb.create_sheet("Method")
     lines = [
@@ -309,6 +314,11 @@ def build(path="joint_portfolio_tracker.xlsx"):
         ("  Below it the trend has broken support: re-check the thesis and decide sell or hold. Not a stop order.", False),
         ("TRAILING STOP: shown once price >= cost / (1 - trail %), i.e. +17.6% at 15%. = 60-day high x (1 - trail), never below cost.", False),
         ("REWARD : RISK = (sell target 1 - price) / (price - review level). Above ~2 is a favourable hold.", False),
+        ("WATCHLIST (Watchlist sheet): the Quality @ 200-day routine's buy-zone names (business grade >= 7/8, near the 200-day),", False),
+        ("  ranked by pre-breakout chart setup (most pulled back first), plus the re-buy watch (MOD).", False),
+        ("  BUY TARGET = 200-day SMA x (1 + entry offset). BUY ZONE = 200-day -8% to +5%. Below the zone = trend failed, wait for a reclaim.", False),
+        ("  WATCH REVIEW LEVEL = bottom of the buy zone: where a new buy is wrong. UPSIDE / REWARD:RISK are measured from the buy target to the analyst mean target.", False),
+        ("  STATUS is a prompt to research, not a buy order: every name still needs a news/thesis check and a wash-sale check before buying.", False),
         ("", False),
         ("Sources", True),
         ("Positions, quotes, 50/200-day SMA, 60-day range, 52-wk high, earnings dates: Robinhood (pulled 2026-10-30).", False),
@@ -329,6 +339,134 @@ def build(path="joint_portfolio_tracker.xlsx"):
 
     wb.save(path)
     return path
+
+
+# Watchlist: Quality @ 200-day buy-zone names (quality_watch_report.md, 2026-10-29T19:30Z), ordered by
+# pre-breakout setup, plus the re-buy watch (rebuy_watch.json). Prices, SMAs and analyst targets: Robinhood,
+# 10/29 close. Columns: sym, company, list, held, grade, q_rank, setup, valuation, disruption, close, sma50,
+# sma200, analyst_mean, n_buy, n_hold, n_sell, next_earnings, wash_clear, note
+WATCH = [
+    ("AEM", "Agnico Eagle Mines", "Buy Zone", "", "A+", 3, "57 PULLING BACK", "RICH -23% (low)", "STABLE", 175.92, 193.80, 189.53, 225.40, 19, 4, 1, "Feb 11 (unverified)", None, "Falling wedge forming; tracks gold."),
+    ("STX", "Seagate", "Buy Zone", "", "A+", 4, "57 PULLING BACK", "EXPENSIVE -50% (low)", "DISRUPTOR", 700.47, 803.15, 690.92, 1062.55, 25, 5, 0, "Jan 26 (unverified)", None, "Falling wedge forming; -4.1% after hours."),
+    ("AVGO", "Broadcom", "Buy Zone", "", "A+", 7, "57 PULLING BACK", "EXPENSIVE -50% (med)", "DISRUPTOR", 345.00, 353.70, 367.78, 532.31, 53, 2, 0, date(2026, 12, 9), None, "Falling wedge forming; thesis intact 9/30. -3.7% after hours."),
+    ("NVDA", "NVIDIA", "Buy Zone", "", "A+", 1, "43 PULLING BACK", "FAIR +5% (med)", "DISRUPTOR", 213.66, 221.99, 204.28, 334.45, 69, 2, 1, date(2026, 11, 17), None, "#1 on business quality."),
+    ("WES", "Western Midstream", "Buy Zone", "", "A+", 6, "43 PULLING BACK", "RICH -19% (high)", "STABLE", 45.82, 46.50, 44.12, 49.54, 5, 10, 2, date(2026, 11, 4), None, "Double bottom near trigger 46.42. Analysts mostly Hold."),
+    ("SCCO", "Southern Copper", "Buy Zone", "", "A+", 8, "43 PULLING BACK", "EXPENSIVE -40% (high)", "INNOVATING", 191.75, 201.33, 189.09, 176.66, 1, 8, 10, "Jan 26 (unverified)", None, "Analyst mean target is BELOW price; 10 Sells."),
+    ("ASML", "ASML Holding", "Buy Zone", "", "A+", 9, "43 PULLING BACK", "EXPENSIVE -36% (med)", "DISRUPTOR", 1675.70, 1708.14, 1595.65, 2408.50, 37, 4, 2, date(2027, 1, 27), None, "Double bottom forming; -3.6% after hours."),
+    ("FNV", "Franco-Nevada", "Buy Zone", "", "A", 11, "43 PULLING BACK", "FAIR -3% (med)", "STABLE", 231.60, 252.44, 240.07, 287.68, 7, 3, 1, date(2026, 11, 11), None, "Gold royalty."),
+    ("HOOD", "Robinhood Markets", "Buy Zone", "HELD", "A", 14, "43 PULLING BACK", "N/A", "DISRUPTOR", 91.59, 108.69, 92.76, 133.63, 30, 5, 2, "Feb 9 (unverified)", None, "Held as a fractional leftover."),
+    ("NBIX", "Neurocrine Biosciences", "Buy Zone", "", "A", 18, "43 PULLING BACK", "DEEP VALUE +100% (low)", "DISRUPTOR", 146.38, 146.75, 147.32, 207.37, 27, 4, 0, date(2026, 11, 2), None, "Reports 11/2."),
+    ("ADBE", "Adobe", "Buy Zone", "", "A", 22, "43 PULLING BACK", "DEEP VALUE +100% (low)", "AT RISK", 248.12, 254.84, 250.71, 269.50, 11, 25, 5, "Dec 10 (unverified)", None, "VALUE TRAP? flag: AI design tools pressure; thesis weakened 10/23."),
+    ("META", "Meta Platforms", "Buy Zone", "HELD", "A+", 5, "29 MIXED", "RICH -14% (low)", "DISRUPTOR", 624.52, 668.60, 632.11, 850.51, 65, 6, 1, "Jan 27 (unverified)", None, "Already held (~15% of the joint account)."),
+    ("NEM", "Newmont", "Buy Zone", "", "A", 15, "29 MIXED", "EXPENSIVE -28% (low)", "STABLE", 111.80, 121.10, 112.49, 137.61, 24, 4, 2, "Feb 19 (unverified)", None, ""),
+    ("AMAT", "Applied Materials", "Buy Zone", "", "A", 17, "29 MIXED", "EXPENSIVE -50% (low)", "INNOVATING", 421.66, 459.67, 444.04, 651.64, 35, 5, 0, date(2026, 11, 12), None, "-4.5% after hours."),
+    ("RGLD", "Royal Gold", "Buy Zone", "", "A", 12, "14 EXTENDED", "FAIR +3% (high)", "STABLE", 236.83, 246.65, 241.42, 310.08, 11, 3, 1, "Nov 5 (unverified)", None, ""),
+    ("WDC", "Western Digital", "Buy Zone", "", "A", 13, "14 EXTENDED", "EXPENSIVE -50% (low)", "DISRUPTOR", 395.41, 423.52, 418.23, 621.78, 22, 8, 0, "Jan 28 (unverified)", None, "-4.5% after hours."),
+    ("PAC", "Grupo Aeroportuario del Pacifico", "Buy Zone", "", "A", 10, "0 EXTENDED", "DEEP VALUE +58% (med)", "DISRUPTOR", 227.47, 208.31, 236.65, 232.50, 6, 7, 0, "Feb 22 (unverified)", None, "Analyst target last updated 2020: stale."),
+    ("CDNS", "Cadence Design", "Buy Zone", "HELD", "A", 19, "0 EXTENDED", "RICH -13% (med)", "DISRUPTOR", 342.75, 320.24, 327.46, 415.04, 25, 3, 0, "Feb 17 (unverified)", None, "Already held (20 sh)."),
+    ("ISRG", "Intuitive Surgical", "Buy Zone", "", "A", 20, "0 EXTENDED", "DEEP VALUE +43% (high)", "AT RISK", 448.76, 400.30, 433.61, 489.57, 21, 8, 2, "Jan 22 (unverified)", None, "VALUE TRAP? flag from the quant grade; research says innovating."),
+    ("TROW", "T. Rowe Price", "Buy Zone", "", "A", 21, "0 EXTENDED", "DEEP VALUE +40% (med)", "AT RISK", 106.63, 105.77, 103.68, 102.83, 0, 10, 5, "Reported 10/29", None, "VALUE TRAP? Losing assets to passive funds. No Buy ratings."),
+    ("SKHY", "SK hynix (ADR)", "Buy Zone", "", "A+", 2, "n/a", "DEEP VALUE +100% (low)", "DISRUPTOR", 162.09, 169.17, 154.83, 263.91, 12, 2, 0, "Feb 13 (unverified)", None, "-5.3% after hours."),
+    ("PSA", "Public Storage", "Buy Zone", "", "A", 16, "n/a", "n/a", "n/a", 317.06, 298.61, 302.64, 330.06, 7, 16, 0, "Feb 11 (unverified)", None, ""),
+    ("KEYS", "Keysight", "Buy Zone", "", "A", 23, "n/a", "EXPENSIVE -40% (med)", "n/a", 329.84, 341.12, 316.26, 424.18, 13, 2, 0, date(2026, 11, 19), None, ""),
+    ("MOD", "Modine Manufacturing", "Re-buy", "", "n/a", None, "WAIT (re-buy stage)", "n/a", "n/a", 138.79, 175.88, 216.14, 282.48, 12, 0, 0, "check", date(2026, 11, 14), "Sold 10/14 @ 162.10 at a loss: do not rebuy before the wash-sale date."),
+]
+
+
+def add_watchlist(wb, ref):
+    ws = wb.create_sheet("Watchlist")
+    wb.move_sheet("Watchlist", offset=-(len(wb.sheetnames) - 2))
+    ws["A1"] = "Joint Watchlist - Quality @ 200-day Buy Zone + Re-buy Watch"
+    ws["A1"].font = Font(bold=True, size=14)
+    ws["A2"] = ("Ordered by pre-breakout chart setup (most pulled back first). Blue = inputs (10/29 close), "
+                "green headers = formulas. A status is a prompt to research, never a buy order.")
+    in_cols = [
+        ("Symbol", 8, None), ("Company", 24, None), ("List", 9, None), ("Held?", 7, None),
+        ("Quality Grade", 8, None), ("Quality Rank", 8, "0"), ("Chart Setup", 17, None), ("Valuation", 20, None),
+        ("Disruption", 12, None), ("Close", 10, "$#,##0.00"), ("50-day SMA", 10, "$#,##0.00"),
+        ("200-day SMA", 10, "$#,##0.00"), ("Analyst Mean Target", 11, "$#,##0.00"), ("# Buy", 6, "0"),
+        ("# Hold", 6, "0"), ("# Sell", 6, "0"), ("Next Earnings", 16, "yyyy-mm-dd"), ("Wash-Sale Clear", 11, "yyyy-mm-dd"),
+    ]
+    out_cols = [
+        ("vs 200-day", 8, "0.0%;[Red]-0.0%"), ("vs 50-day", 8, "0.0%;[Red]-0.0%"),
+        ("Buy Zone Low", 10, "$#,##0.00"), ("Buy Zone High", 10, "$#,##0.00"), ("BUY TARGET", 10, "$#,##0.00"),
+        ("Distance to Buy Target", 9, "0.0%;[Red]-0.0%"), ("Upside: Buy Tgt to Analyst", 10, "0.0%;[Red]-0.0%"),
+        ("WATCH REVIEW LEVEL", 10, "$#,##0.00"), ("Reward : Risk at Buy Tgt", 9, "0.0"), ("% Buy Ratings", 8, "0%"),
+        ("STATUS", 34, None),
+    ]
+    headers = in_cols + out_cols + [("Notes", 60, None)]
+    HR = 4
+    for j, (h, w, _) in enumerate(headers, start=1):
+        c = ws.cell(HR, j, h)
+        c.font = WHITE_BOLD
+        c.fill = HEAD_IN if j <= len(in_cols) or j == len(headers) else HEAD_OUT
+        c.alignment = Alignment(wrap_text=True, horizontal="center", vertical="center")
+        c.border = BOX
+        ws.column_dimensions[get_column_letter(j)].width = w
+    ws.row_dimensions[HR].height = 42
+    L = {h: get_column_letter(j) for j, (h, _, _) in enumerate(headers, start=1)}
+    first = HR + 1
+    last = first + len(WATCH) - 1
+    fmt_out = {h: f for h, _, f in out_cols}
+    for i, row in enumerate(WATCH):
+        r = first + i
+        for j, v in enumerate(row[:18], start=1):
+            c = ws.cell(r, j, v)
+            c.font = BLUE
+            c.fill = INPUT_FILL
+            c.border = BOX
+            if in_cols[j - 1][2] and v is not None:
+                c.number_format = in_cols[j - 1][2]
+        ws.cell(r, len(headers), row[18]).font = BLUE
+
+        def a(h):
+            return f"{L[h]}{r}"
+
+        P, S200, T, B = a("Close"), a("200-day SMA"), a("Analyst Mean Target"), a("BUY TARGET")
+        f = {
+            "vs 200-day": f"={P}/{S200}-1",
+            "vs 50-day": f"={P}/{a('50-day SMA')}-1",
+            "Buy Zone Low": f"={S200}*(1+{ref['ZoneLo']})",
+            "Buy Zone High": f"={S200}*(1+{ref['ZoneHi']})",
+            "BUY TARGET": f"={S200}*(1+{ref['EntryOff']})",
+            "Distance to Buy Target": f"={P}/{B}-1",
+            "Upside: Buy Tgt to Analyst": f'=IF(N({T})>0,{T}/{B}-1,"")',
+            "WATCH REVIEW LEVEL": f"={a('Buy Zone Low')}",
+            "Reward : Risk at Buy Tgt": f'=IFERROR(IF(N({T})>{B},({T}-{B})/({B}-{a("WATCH REVIEW LEVEL")}),""),"")',
+            "% Buy Ratings": f'=IFERROR({a("# Buy")}/({a("# Buy")}+{a("# Hold")}+{a("# Sell")}),"")',
+            "STATUS": (
+                f'=IF({a("Held?")}="HELD","HELD: see Holdings sheet",'
+                f'IF(IF(ISNUMBER({a("Wash-Sale Clear")}),{ref["AsOf"]}<{a("Wash-Sale Clear")},FALSE),'
+                f'"WASH-SALE LOCK until "&TEXT({a("Wash-Sale Clear")},"m/d"),'
+                f'IF({P}<{a("Buy Zone Low")},"BELOW ZONE: wait for 200-day reclaim",'
+                f'IF({P}>{a("Buy Zone High")},"ABOVE ZONE: extended, wait",'
+                f'IF(IF(ISNUMBER({a("Next Earnings")}),AND({a("Next Earnings")}>{ref["AsOf"]},'
+                f'{a("Next Earnings")}-{ref["AsOf"]}<={ref["ErnDays"]}),FALSE),"IN ZONE: earnings soon, wait",'
+                f'IF(N({T})<={P},"IN ZONE: analysts see no upside",'
+                f'IF({P}<={B},"IN ZONE: at/below buy target - research","IN ZONE: research")))))))'
+            ),
+        }
+        for h, formula in f.items():
+            c = ws[a(h)]
+            c.value = formula
+            if fmt_out[h]:
+                c.number_format = fmt_out[h]
+            c.border = BOX
+    st = f"{L['STATUS']}{first}:{L['STATUS']}{last}"
+    ws.conditional_formatting.add(st, FormulaRule(formula=[f'LEFT({L["STATUS"]}{first},7)="IN ZONE"'], fill=GREEN_FILL))
+    ws.conditional_formatting.add(st, FormulaRule(formula=[f'OR(LEFT({L["STATUS"]}{first},4)="WASH",ISNUMBER(SEARCH("earnings",{L["STATUS"]}{first})),ISNUMBER(SEARCH("no upside",{L["STATUS"]}{first})))'], fill=AMBER_FILL))
+    ws.conditional_formatting.add(st, FormulaRule(formula=[f'LEFT({L["STATUS"]}{first},5)="BELOW"'], fill=RED_FILL))
+    ws.conditional_formatting.add(f"{L['Disruption']}{first}:{L['Disruption']}{last}",
+                                  CellIsRule(operator="equal", formula=['"AT RISK"'], fill=AMBER_FILL))
+    tot = last + 2
+    ws.cell(tot, 1, "COUNT").font = BOLD
+    ws[f"{L['STATUS']}{tot}"] = (f'=COUNTIF({st},"IN ZONE*")&" in zone, "&COUNTIF({st},"BELOW*")&" below, "'
+                                 f'&COUNTIF({st},"ABOVE*")&" above"')
+    for j in range(1, len(headers) + 1):
+        ws.cell(tot, j).fill = TOTAL_FILL
+        ws.cell(tot, j).font = BOLD
+    ws.freeze_panes = ws.cell(first, 2)
+    ws.auto_filter.ref = f"A{HR}:{get_column_letter(len(headers))}{last}"
 
 
 if __name__ == "__main__":
