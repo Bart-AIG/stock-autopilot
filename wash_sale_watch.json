@@ -1,6 +1,6 @@
 {
   "_comment": "Wash-sale watch for the JOINT account (Ryan, live turn 2026-10-23: a Robinhood list the routine keeps current, plus a reminder). lockouts = joint names sold at a LOSS in the last 30 days; buying one before 'clear' (last loss sale + 31 days) defers that loss into the new shares, and a buy in an IRA loses it for good. Buys in ANY of Ryan's accounts count, including the Robinhood managed portfolios and the agentic sleeves. sell_traps = names held now that were bought in the last 30 days: a loss sale before the date is washed. Rebuilt every run of the Quality @ 200-day routine (step 4e, docs/quality-watch-prompt.md v6) from get_pnl_trade_history + get_equity_orders; mirrored to the Robinhood list 'Wash-Sale Lockout' (watchlists.json managed.wash_sale). Code: wash_sale.py. A reminder, not tax advice; stock trades only (options on a locked stock are not checked).",
-  "asof_utc": "2026-10-30T00:06Z",
+  "asof_utc": "2026-10-30T17:10Z",
   "seeded": "2026-10-23 live session, from get_pnl_trade_history (3month) and filled orders in all 7 accounts since 2026-04-23 (joint) / 2026-08-23 (others)",
   "accounts": {
     "116713985343": "joint_tenancy_with_ros",
@@ -583,9 +583,9 @@
     {
       "symbol": "SOXL",
       "account": "116713985343",
-      "buy_date": "2026-10-22",
-      "shares": 280.0,
-      "after_sale": false,
+      "buy_date": "2026-10-30",
+      "shares": 330.0,
+      "after_sale": true,
       "permanent": false,
       "recurring": false,
       "managed": false
@@ -672,7 +672,7 @@
     }
   ],
   "sell_traps": {
-    "AAOX": "2026-11-22",
+    "AAOX": "2026-11-30",
     "AMZN": "2026-11-29",
     "ASND": "2026-11-16",
     "AUR": "2026-11-16",
@@ -683,52 +683,59 @@
     "META": "2026-11-29",
     "MPWR": "2026-11-23",
     "NBIS": "2026-11-22",
-    "NOW": "2026-11-19",
+    "NOW": "2026-11-30",
     "OKLO": "2026-11-26",
     "QQQ": "2026-11-29",
     "QQQI": "2026-11-29",
     "SNDK": "2026-11-27",
-    "SOXL": "2026-11-22",
+    "SOXL": "2026-11-30",
     "SPCX": "2026-11-28",
     "VST": "2026-11-23"
   },
   "last_events": {
     "locked": [],
     "cleared": [],
-    "extended": [
-      "AMZN",
-      "QQQI"
-    ]
+    "extended": []
   },
   "lots_cache": {
-    "date": "2026-10-29",
+    "date": "2026-10-30",
     "data": {
-      "IONQ": {
-        "shares": 30.0,
-        "st_shares": 30.0,
+      "AMZN": {
+        "shares": 61.9167,
+        "st_shares": 61.9167,
         "lt_shares": 0.0,
-        "loss_shares": 0.0,
-        "loss_usd": 0.0,
-        "gain_usd": 0.0,
-        "recent_shares": 30.0,
-        "next_lt": "2027-10-29"
+        "loss_shares": 45.0,
+        "loss_usd": -815.4,
+        "gain_usd": 535.73,
+        "recent_shares": 45.0,
+        "next_lt": "2027-02-07"
       },
-      "HOOD": {
-        "shares": 0.0105,
-        "st_shares": 0.0105,
+      "META": {
+        "shares": 25.9824,
+        "st_shares": 25.9824,
         "lt_shares": 0.0,
-        "loss_shares": 0.0,
-        "loss_usd": 0.0,
+        "loss_shares": 22.9824,
+        "loss_usd": -3897.37,
+        "gain_usd": 10.56,
+        "recent_shares": 25.0,
+        "next_lt": "2027-08-29"
+      },
+      "GOOGL": {
+        "shares": 6.8489,
+        "st_shares": 6.8489,
+        "lt_shares": 0.0,
+        "loss_shares": 6.8489,
+        "loss_usd": -265.26,
         "gain_usd": 0.0,
-        "recent_shares": 0.0,
-        "next_lt": "2027-07-30"
+        "recent_shares": 6.8489,
+        "next_lt": "2027-10-29"
       },
       "NOW": {
         "shares": 46.8818,
         "st_shares": 46.8818,
         "lt_shares": 0.0,
         "loss_shares": 46.8818,
-        "loss_usd": -343.57,
+        "loss_usd": -565.32,
         "gain_usd": 0.0,
         "recent_shares": 0.0,
         "next_lt": "2027-05-15"
@@ -737,100 +744,30 @@
         "shares": 46.0,
         "st_shares": 46.0,
         "lt_shares": 0.0,
-        "loss_shares": 0.0,
-        "loss_usd": 0.0,
-        "gain_usd": 751.46,
+        "loss_shares": 46.0,
+        "loss_usd": -450.94,
+        "gain_usd": 0.0,
         "recent_shares": 46.0,
         "next_lt": "2027-10-17"
-      },
-      "OKLO": {
-        "shares": 100.0,
-        "st_shares": 100.0,
-        "lt_shares": 0.0,
-        "loss_shares": 100.0,
-        "loss_usd": -365.0,
-        "gain_usd": 0.0,
-        "recent_shares": 100.0,
-        "next_lt": "2027-10-27"
-      },
-      "META": {
-        "shares": 25.9824,
-        "st_shares": 25.9824,
-        "lt_shares": 0.0,
-        "loss_shares": 22.9824,
-        "loss_usd": -3733.97,
-        "gain_usd": 31.9,
-        "recent_shares": 25.0,
-        "next_lt": "2027-08-29"
-      },
-      "GOOGL": {
-        "shares": 19.8489,
-        "st_shares": 12.8931,
-        "lt_shares": 6.9557,
-        "loss_shares": 12.8931,
-        "loss_usd": -415.44,
-        "gain_usd": 654.97,
-        "recent_shares": 10.0,
-        "next_lt": "2026-12-09"
-      },
-      "AMZN": {
-        "shares": 76.9167,
-        "st_shares": 76.9167,
-        "lt_shares": 0.0,
-        "loss_shares": 40.0,
-        "loss_usd": -90.4,
-        "gain_usd": 868.53,
-        "recent_shares": 60.0,
-        "next_lt": "2027-02-07"
-      },
-      "SNDK": {
-        "shares": 3.0,
-        "st_shares": 3.0,
-        "lt_shares": 0.0,
-        "loss_shares": 0.0,
-        "loss_usd": 0.0,
-        "gain_usd": 334.47,
-        "recent_shares": 3.0,
-        "next_lt": "2027-10-24"
       },
       "SPCX": {
         "shares": 65.0,
         "st_shares": 65.0,
         "lt_shares": 0.0,
-        "loss_shares": 40.0,
-        "loss_usd": -529.7,
+        "loss_shares": 65.0,
+        "loss_usd": -1128.84,
         "gain_usd": 0.0,
         "recent_shares": 65.0,
         "next_lt": "2027-10-09"
       },
-      "CRDO": {
-        "shares": 25.0,
-        "st_shares": 25.0,
-        "lt_shares": 0.0,
-        "loss_shares": 25.0,
-        "loss_usd": -622.01,
-        "gain_usd": 0.0,
-        "recent_shares": 5.0,
-        "next_lt": "2027-09-17"
-      },
-      "ASND": {
-        "shares": 20.0,
-        "st_shares": 20.0,
+      "MPWR": {
+        "shares": 6.0,
+        "st_shares": 6.0,
         "lt_shares": 0.0,
         "loss_shares": 0.0,
         "loss_usd": 0.0,
-        "gain_usd": 457.2,
-        "recent_shares": 20.0,
-        "next_lt": "2027-10-17"
-      },
-      "VST": {
-        "shares": 35.0,
-        "st_shares": 35.0,
-        "lt_shares": 0.0,
-        "loss_shares": 0.0,
-        "loss_usd": 0.0,
-        "gain_usd": 72.8,
-        "recent_shares": 35.0,
+        "gain_usd": 117.6,
+        "recent_shares": 6.0,
         "next_lt": "2027-10-24"
       },
       "CDNS": {
@@ -839,31 +776,90 @@
         "lt_shares": 0.0,
         "loss_shares": 0.0,
         "loss_usd": 0.0,
-        "gain_usd": 430.0,
+        "gain_usd": 223.3,
         "recent_shares": 20.0,
         "next_lt": "2027-10-24"
       },
-      "MPWR": {
-        "shares": 6.0,
-        "st_shares": 6.0,
+      "HOOD": {
+        "shares": 0.0105,
+        "st_shares": 0.0105,
         "lt_shares": 0.0,
-        "loss_shares": 0.0,
-        "loss_usd": 0.0,
-        "gain_usd": 219.57,
-        "recent_shares": 6.0,
+        "loss_shares": 0.0105,
+        "loss_usd": -0.07,
+        "gain_usd": 0.0,
+        "recent_shares": 0.0,
+        "next_lt": "2027-07-30"
+      },
+      "OKLO": {
+        "shares": 100.0,
+        "st_shares": 100.0,
+        "lt_shares": 0.0,
+        "loss_shares": 100.0,
+        "loss_usd": -533.0,
+        "gain_usd": 0.0,
+        "recent_shares": 100.0,
+        "next_lt": "2027-10-27"
+      },
+      "IONQ": {
+        "shares": 30.0,
+        "st_shares": 30.0,
+        "lt_shares": 0.0,
+        "loss_shares": 30.0,
+        "loss_usd": -126.3,
+        "gain_usd": 0.0,
+        "recent_shares": 30.0,
+        "next_lt": "2027-10-29"
+      },
+      "VST": {
+        "shares": 35.0,
+        "st_shares": 35.0,
+        "lt_shares": 0.0,
+        "loss_shares": 35.0,
+        "loss_usd": -172.9,
+        "gain_usd": 0.0,
+        "recent_shares": 35.0,
         "next_lt": "2027-10-24"
+      },
+      "CRDO": {
+        "shares": 25.0,
+        "st_shares": 25.0,
+        "lt_shares": 0.0,
+        "loss_shares": 25.0,
+        "loss_usd": -1242.07,
+        "gain_usd": 0.0,
+        "recent_shares": 5.0,
+        "next_lt": "2027-09-17"
       },
       "AUR": {
         "shares": 200.0,
         "st_shares": 200.0,
         "lt_shares": 0.0,
         "loss_shares": 200.0,
-        "loss_usd": -26.0,
+        "loss_usd": -208.0,
         "gain_usd": 0.0,
         "recent_shares": 200.0,
         "next_lt": "2027-10-17"
+      },
+      "ASND": {
+        "shares": 20.0,
+        "st_shares": 20.0,
+        "lt_shares": 0.0,
+        "loss_shares": 0.0,
+        "loss_usd": 0.0,
+        "gain_usd": 510.4,
+        "recent_shares": 20.0,
+        "next_lt": "2027-10-17"
+      },
+      "SNDK": {
+        "shares": 3.0,
+        "st_shares": 3.0,
+        "lt_shares": 0.0,
+        "loss_shares": 3.0,
+        "loss_usd": -355.47,
+        "gain_usd": 0.0,
+        "recent_shares": 3.0,
+        "next_lt": "2027-10-24"
       }
-    },
-    "note": "META/GOOGL/NOW re-pulled 2026-10-29 at live prices; other holdings carried from the 2026-10-28 pull (no new lots)."
+    }
   }
 }
