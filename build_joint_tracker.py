@@ -370,18 +370,30 @@ WATCH = [
     ("PSA", "Public Storage", "Buy Zone", "", "A", 16, "n/a", "n/a", "n/a", 317.06, 298.61, 302.64, 330.06, 7, 16, 0, "Feb 11 (unverified)", None, ""),
     ("KEYS", "Keysight", "Buy Zone", "", "A", 23, "n/a", "EXPENSIVE -40% (med)", "n/a", 329.84, 341.12, 316.26, 424.18, 13, 2, 0, date(2026, 11, 19), None, ""),
     ("MOD", "Modine Manufacturing", "Re-buy", "", "n/a", None, "WAIT (re-buy stage)", "n/a", "n/a", 138.79, 175.88, 216.14, 282.48, 12, 0, 0, "check", date(2026, 11, 14), "Sold 10/14 @ 162.10 at a loss: do not rebuy before the wash-sale date."),
+    # New industries (added 2026-10-30): quality names scoring >= 7/8 on the same 8-point business test, found by a
+    # wider screen (5-20% ABOVE the 200-day). Most are extended: they are pullback candidates, not buys today.
+    ("SPG", "Simon Property Group", "New industry", "", "A", None, "Malls REIT", "FAIR -2% (high)", "STABLE", 215.72, 207.18, 205.72, 228.89, 7, 15, 0, date(2026, 11, 5), None, "Only new name already inside the buy zone. Analysts mostly Hold."),
+    ("MNST", "Monster Beverage", "New industry", "", "A", None, "Consumer staples", "RICH -11% (med)", "STABLE", 46.35, 44.75, 43.04, 50.69, 14, 13, 1, date(2026, 11, 5), None, "Rev +20%, net margin 23%. 2-for-1 split Aug 2026."),
+    ("INCY", "Incyte", "New industry", "", "A+", None, "Biotech", "DEEP VALUE (low conf.)", "INNOVATING", 116.80, 120.62, 107.99, 132.78, 14, 15, 2, "Reported 10/29", None, "Q3 GAAP loss -$3.86/sh from a one-time $1.23B Vega IPR&D charge; revenue +14%. Analysts split Buy/Hold."),
+    ("ANET", "Arista Networks", "New industry", "", "A+", None, "AI networking", "EXPENSIVE -32% (low)", "INNOVATING", 184.22, 195.57, 164.96, 248.54, 35, 0, 0, date(2026, 11, 3), None, "Fell ~18% from its 10/9 record on AI-debt worries. Still tied to AI capex like the chip names."),
+    ("UNP", "Union Pacific", "New industry", "", "A", None, "Railroad", "RICH -11% (high)", "AT RISK", 301.93, 287.39, 269.98, 334.65, 19, 8, 1, "Reported 10/22", None, "Norfolk Southern merger under STB review, close expected 2H 2027. Disruption quant flags AT RISK: check why."),
+    ("VRTX", "Vertex Pharmaceuticals", "New industry", "", "A", None, "Biotech", "RICH -11% (high)", "INNOVATING", 540.00, 522.64, 478.62, 575.96, 27, 6, 2, date(2026, 11, 2), None, "Cystic fibrosis franchise; $10B Crinetics deal pending."),
+    ("CPAY", "Corpay", "New industry", "", "A", None, "Payments", "n/a", "n/a", 397.97, 403.45, 355.07, 458.81, 16, 4, 0, date(2026, 11, 4), None, "Rev +21%, raised 2026 guidance in Aug."),
+    ("AFRM", "Affirm", "New industry", "", "A+", None, "Payments / BNPL", "N/A", "DISRUPTOR", 74.84, 73.08, 66.51, 99.18, 32, 7, 0, date(2026, 11, 5), date(2026, 11, 14), "Sold at a loss 10/14: wash-sale lock to 11/14. Missed EPS the last 3 quarters."),
+    ("AAPL", "Apple", "New industry", "", "A", None, "Consumer tech", "EXPENSIVE -37% (high)", "INNOVATING", 348.91, 332.27, 296.11, 334.65, 27, 14, 6, date(2026, 11, 2), None, "Analyst mean target is BELOW price."),
+    ("MA", "Mastercard", "New industry", "", "A", None, "Payments", "FAIR +4% (high)", "STABLE", 635.70, 584.94, 535.15, 695.83, 39, 4, 1, "Reported 10/29", None, "Q3 beat (adj EPS $5.31 vs $5.15, rev +14%). Near record high: 19% above its 200-day."),
 ]
 
 
 def add_watchlist(wb, ref):
     ws = wb.create_sheet("Watchlist")
     wb.move_sheet("Watchlist", offset=-(len(wb.sheetnames) - 2))
-    ws["A1"] = "Joint Watchlist - Quality @ 200-day Buy Zone + Re-buy Watch"
+    ws["A1"] = "Joint Watchlist - Quality @ 200-day Buy Zone, Re-buy Watch, New Industries"
     ws["A1"].font = Font(bold=True, size=14)
     ws["A2"] = ("Ordered by pre-breakout chart setup (most pulled back first). Blue = inputs (10/29 close), "
                 "green headers = formulas. A status is a prompt to research, never a buy order.")
     in_cols = [
-        ("Symbol", 8, None), ("Company", 24, None), ("List", 9, None), ("Held?", 7, None),
+        ("Symbol", 8, None), ("Company", 24, None), ("List", 12, None), ("Held?", 7, None),
         ("Quality Grade", 8, None), ("Quality Rank", 8, "0"), ("Chart Setup", 17, None), ("Valuation", 20, None),
         ("Disruption", 12, None), ("Close", 10, "$#,##0.00"), ("50-day SMA", 10, "$#,##0.00"),
         ("200-day SMA", 10, "$#,##0.00"), ("Analyst Mean Target", 11, "$#,##0.00"), ("# Buy", 6, "0"),
