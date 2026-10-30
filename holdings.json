@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-30T19:27Z",
+  "updated_utc": "2026-10-30T19:41:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -101,6 +101,26 @@
       "target_usd": 43.96,
       "funded_usd": 39.53,
       "_note": "Partial fund: deployable $39.53 (cash $116.66 - 5% reserve $77.13) vs target $43.96. Other 9 SWING_M targets (all hold_through_close) unfunded: no cash left. QLD held (RSI2+TOM), kept."
+    },
+    {
+      "symbol": "MU",
+      "sleeve": "swing_m",
+      "signal_symbol": "MU",
+      "entry_date": "2026-10-30",
+      "entry_price": 870.725,
+      "shares": 0.002032,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "IBS",
+        "TOM"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6ae4f2b8-3ad2-4df5-aea6-1a697aa86492",
+      "entry_utc": "2026-10-30T19:40:41Z",
+      "target_usd": 43.96,
+      "funded_usd": 1.77,
+      "_note": "15:40 ET window re-run: deployable $1.77 (cash $77.13 - 5% reserve $75.36 on total $1,507.18) funded the next pick in order. Separate from Ryan's own MU 1220C (user) in the ledger."
     }
   ],
   "_resolved_flags": [
