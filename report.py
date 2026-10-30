@@ -1267,12 +1267,27 @@ def fmp_ohlc(sym: str, key: str, days: int = 430) -> list[dict] | None:
     return None
 
 
+def _tracker_watch_symbols() -> list[str]:
+    """Names on the joint tracker's watchlist that the quality list may not cover:
+    the re-buy watch and the new-industry names (joint_tracker_data.json), so the
+    tracker's ranking has a chart-setup score for them too."""
+    out = []
+    for path, key in (("rebuy_watch.json", "names"), ("joint_tracker_data.json", "new_industry")):
+        try:
+            with open(path) as f:
+                out += list((json.load(f).get(key) or {}).keys())
+        except (OSError, ValueError, AttributeError):
+            pass
+    return out
+
+
 def build_chart_setups(histories: dict, key: str) -> None:
     """Write setups.json for the Quality @ 200-day names plus the joint watch-list,
     from full OHLC bars (falls back to the scan's close-only history for a name the
     full endpoint doesn't serve). Never fails the report."""
     try:
-        syms = list(dict.fromkeys(_quality_watch_symbols() + load_joint_watch()))
+        syms = list(dict.fromkeys(_quality_watch_symbols() + load_joint_watch()
+                                  + _tracker_watch_symbols()))
         hist, full = {}, 0
         for sym in syms:
             rows = fmp_ohlc(sym, key)
