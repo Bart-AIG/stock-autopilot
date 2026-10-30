@@ -1,12 +1,16 @@
 """Build joint_portfolio_tracker.xlsx: the joint account's holdings, price targets and sell targets.
 
-Inputs (blue) are a snapshot pasted from the broker and the repo's routine files.
+Inputs (blue) come from joint_tracker_data.json (refreshed by the Quality @ 200-day
+routine, step 4f) joined with joint_price_targets.json, valuation.json, setups.json,
+rebuy_watch.json and wash_sale_watch.json.
 Every output column is an Excel formula, so editing an input (price, target,
 an assumption on the Inputs sheet) recalculates the sheet.
 
-Refresh: update SNAPSHOT below (or edit the cells in Excel) and run
+Refresh: update joint_tracker_data.json (or edit the cells in Excel) and run
     python3 build_joint_tracker.py
 """
+import json
+import re
 from datetime import date
 
 from openpyxl import Workbook
@@ -15,72 +19,105 @@ from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 
-AS_OF = date(2026, 10, 29)  # official close used for "Close" prices
+DATA_FILE = "joint_tracker_data.json"
 
-# Sources: Robinhood joint account positions + quotes + daily SMA/Donchian/fundamentals
-# (pulled 2026-10-30 ~04:50Z); targets from joint_price_targets.json (2026-10-29T19:29Z);
-# valuation/disruption from valuation.json (2026-10-28/29); earnings from Robinhood calendar.
-# Columns: sym, name, type, sector, shares, avg_cost, close, after_hours, sma50, sma200,
-#          low60, high60, high52, tgt_fund, tgt_rh, tgt_analysts, final_tgt, agreement,
-#          valuation, disruption, next_earnings, note
-SNAPSHOT = [
-    ("META", "Meta Platforms", "Stock", "Internet", 25.982426, 631.15, 624.52, 618.49, 668.60, 632.11,
-     537.27, 779.82, 779.82, 890.02, 850.51, 840.00, 850.51, "HIGH", "RICH", "INNOVATING", "Not in next 30d", ""),
-    ("AMZN", "Amazon", "Stock", "Internet retail / cloud", 61.916672, 229.20, 243.79, 226.96, 254.89, 243.44,
-     244.30, 280.14, 287.20, 440.05, 333.68, 350.00, 350.00, "MED", "DEEP VALUE (low conf.)", "INNOVATING",
-     date(2026, 10, 29), "Q3 EPS 1.89 vs 1.97 est (miss); -6.9% after hours. Below 60-day low AH."),
-    ("SOXL", "Direxion Semis 3x Bull", "3x Lev ETF", "Semiconductors", 145, 86.37, 102.39, 87.39, 122.07, 124.17,
-     80.22, 169.83, 302.00, None, None, None, 122.07, "TECH (50-day)", "n/a", "n/a", "n/a",
-     "3x daily leverage, decays in chop. No analyst target: target = 50-day SMA (first resistance). -14.6% AH."),
-    ("SPCX", "SpaceX", "Stock", "Space / telecom / AI", 65, 154.95, 143.89, 140.71, 149.57, 147.94,
-     105.11, 176.42, 225.64, None, 256.00, 240.00, 248.00, "MED", "n/a", "n/a", "Not in next 30d", ""),
-    ("NBIS", "Nebius Group", "Stock", "AI cloud", 46, 162.87, 171.99, 164.33, 211.23, 177.28,
-     149.48, 280.83, 299.86, None, 286.71, 250.00, 268.36, "MED", "EXPENSIVE (low conf.)", "DISRUPTOR",
-     date(2026, 11, 10), "Earnings date unverified."),
-    ("MPWR", "Monolithic Power", "Stock", "Semiconductors", 6, 1165.40, 1198.81, 1190.01, 1276.92, 1315.16,
-     1126.57, 1491.64, 1714.09, 1870.20, 1807.46, None, 1838.83, "HIGH", "EXPENSIVE", "INNOVATING",
-     date(2026, 10, 29), "Q3 EPS 8.19 vs 7.56 est (beat)."),
-    ("CDNS", "Cadence Design", "Stock", "EDA software", 20, 316.43, 342.75, 337.94, 320.24, 327.46,
-     273.07, 361.91, 416.69, 593.26, 415.04, None, 504.15, "LOW", "RICH", "INNOVATING", "Not in next 30d",
-     "Target agreement LOW: fundamental and Robinhood targets 35% apart."),
-    ("ASND", "Ascendis Pharma", "Stock", "Biotech", 20, 226.14, 253.00, 253.00, 242.38, 237.93,
-     219.52, 272.47, 282.15, None, 302.81, 302.00, 302.40, "MED", "n/a", "DISRUPTOR",
-     date(2026, 11, 11), "Earnings date unverified."),
-    ("NOW", "ServiceNow", "Stock", "Software", 46.881838, 103.90, 109.67, 109.23, 139.99, 115.34,
-     111.80, 159.50, 192.97, None, 158.78, 195.50, 177.14, "MED", "DEEP VALUE (low conf.)", "DISRUPTOR",
-     "Not in next 30d", "Closed below its 60-day low on 10/29."),
-    ("VST", "Vistra", "Stock", "Power generation", 35, 140.54, 140.95, 137.85, 145.12, 153.77,
-     133.44, 168.75, 198.82, 234.71, 207.86, 224.00, 224.00, "HIGH", "EXPENSIVE", "STABLE",
-     date(2026, 11, 6), ""),
-    ("CRDO", "Credo Technology", "Stock", "Semiconductors", 25, 164.53, 165.29, 155.65, 190.17, 181.14,
-     142.89, 286.24, 308.67, 189.97, 281.59, 292.00, 281.59, "LOW", "EXPENSIVE", "DISRUPTOR",
-     "Not in next 30d", "-5.8% after hours."),
-    ("SNDK", "Sandisk", "Stock", "Memory", 3, 1278.16, 1330.05, 1309.34, 1568.40, 1255.73,
-     1163.09, 1909.48, 2354.39, None, 2287.38, 1737.50, 2012.44, "MED", "EXPENSIVE (low conf.)", "INNOVATING",
-     date(2026, 10, 29), "FQ1 EPS 49.51 vs 46.36 est (beat)."),
-    ("OKLO", "Oklo", "Stock", "Nuclear (pre-revenue)", 100, 26.73, 26.81, 25.78, 35.86, 54.21,
-     25.39, 49.48, 145.30, None, 62.83, 37.00, 49.91, "LOW", "n/a", "n/a", date(2026, 11, 6),
-     "At 52-week low. Targets disagree (52% spread)."),
-    ("AAOX", "AAOI 2x Leveraged ETF", "2x Lev ETF", "Optical networking", 500, 3.84, 5.10, 4.49, 9.57, 28.89,
-     3.60, 27.57, 103.00, None, None, None, 9.57, "TECH (50-day)", "n/a", "n/a", "n/a",
-     "2x daily leverage on one stock; -95% from 52-wk high. Target = 50-day SMA."),
-    ("GOOGL", "Alphabet", "Stock", "Internet", 6.848872, 297.58, 283.82, 282.23, 341.11, 341.14,
-     316.60, 364.17, 408.61, 367.54, 405.31, 425.00, 405.31, "HIGH", "RICH", "DISRUPTOR", "Not in next 30d",
-     "Well below 60-day low and both moving averages."),
-    ("IONQ", "IonQ", "Stock", "Quantum computing", 30, 33.21, 31.72, 30.81, 38.44, 42.15,
-     29.94, 47.95, 73.65, None, 65.77, None, 65.77, "LOW", "n/a", "n/a", date(2026, 11, 5),
-     "Only one target method available."),
-    ("AUR", "Aurora Innovation", "Stock", "Autonomous trucking", 200, 4.91, 4.405, 4.37, 5.73, 5.63,
-     4.40, 7.16, 8.57, None, 11.33, 12.50, 11.91, "MED", "n/a", "INNOVATING", "Not in next 30d",
-     "Sitting on its 60-day low."),
-    ("HOOD", "Robinhood Markets", "Stock", "Brokerage", 0.010482, 90.63, 91.59, 87.37, 108.69, 92.76,
-     89.15, 126.74, 150.47, None, 133.63, 145.00, 139.31, "MED", "n/a", "DISRUPTOR", "Not in next 30d",
-     "Fractional leftover (<$1)."),
-    ("QQQ", "Invesco QQQ", "ETF", "Nasdaq-100", 0.04204, 713.61, 715.34, 702.61, 725.61, 679.22,
-     700.00, 762.86, 762.86, None, None, None, None, "n/a", "n/a", "n/a", "n/a", "Fractional leftover (~$30)."),
-    ("QQQI", "NEOS Nasdaq-100 Income", "ETF", "Nasdaq-100 covered call", 0.567476, 53.83, 53.42, 52.61, 54.72, 54.18,
-     52.36, 56.84, 57.84, None, None, None, None, "n/a", "n/a", "n/a", "n/a", "Fractional leftover (~$30)."),
-]
+
+def _load(path, default=None):
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return default
+
+
+def _date(v):
+    """'YYYY-MM-DD' -> date (Excel date cell); anything else passes through as text."""
+    if isinstance(v, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", v):
+        return date.fromisoformat(v)
+    return v if v not in (None, "") else "n/a"
+
+
+def _val_text(v):
+    if not v or not v.get("grade") or v.get("grade") == "N/A":
+        return "n/a"
+    gap = v.get("gap_pct")
+    conf = (v.get("confidence") or "").lower()
+    return f"{v['grade']} {gap:+.0f}% ({conf})" if gap is not None else f"{v['grade']} ({conf})"
+
+
+def _setup_text(row):
+    if not row or row.get("pre") is None:
+        return None
+    return f"{row['pre']} {row.get('pre_label', '')}".strip()
+
+
+def holdings_rows(data, targets, vals):
+    """Rows for the Holdings sheet, biggest position first. Targets come from
+    joint_price_targets.json (the routine's 3-method target); a leveraged ETF with no
+    target uses its 50-day SMA; a plain ETF has none."""
+    mk, notes, out, skipped = data["market"], data.get("notes", {}), [], []
+    for sym, h in data["holdings"].items():
+        m = mk.get(sym) or {}
+        if not m.get("price"):
+            skipped.append(sym)
+            continue
+        t = (targets.get("rows") or {}).get(sym) or {}
+        meth = t.get("methods") or {}
+        final, agree = t.get("final"), t.get("agreement")
+        typ = m.get("type") or "Stock"
+        if final is None and "Lev" in typ and m.get("sma50"):
+            final, agree = m["sma50"], "TECH (50-day)"
+        v = (vals.get("rows") or {}).get(sym) or {}
+        out.append((
+            sym, m.get("name") or sym, typ, m.get("sector") or "", h["shares"], h["avg_cost"],
+            m["price"], m.get("after_hours"), m.get("sma50"), m.get("sma200"), m.get("low60"),
+            m.get("high60"), m.get("high52"), meth.get("fundamental"),
+            meth.get("robinhood", m.get("analyst_mean")), meth.get("analysts"), final, agree or "n/a",
+            _val_text(v), (v.get("disruption") or {}).get("label") or "n/a", _date(m.get("earnings")),
+            notes.get(sym, "")))
+    out.sort(key=lambda r: -(r[4] * r[6]))
+    return out, skipped
+
+
+def watch_rows(data, setups, rebuy, wash):
+    """Rows for the Watchlist sheet: the quality list ordered by pre-breakout setup
+    (most coiled first, then business rank), then the re-buy watch, then the
+    new-industry names curated in live turns."""
+    mk, notes, held = data["market"], data.get("notes", {}), set(data["holdings"])
+    srows = (setups or {}).get("rows") or {}
+    locks = (wash or {}).get("lockouts") or {}
+    rb = (rebuy or {}).get("names") or {}
+    out = []
+
+    def row(sym, lst, grade, rank, setup, clear, note):
+        m = mk.get(sym) or {}
+        if not m.get("price") or not m.get("sma200"):
+            return
+        v = data.get("_vals", {}).get(sym) or {}
+        out.append((
+            sym, m.get("name") or sym, lst, "HELD" if sym in held else "", grade or "n/a", rank,
+            setup or "n/a", _val_text(v), (v.get("disruption") or {}).get("label") or "n/a",
+            m["price"], m.get("sma50"), m["sma200"], m.get("analyst_mean"), m.get("n_buy"),
+            m.get("n_hold"), m.get("n_sell"), _date(m.get("earnings")),
+            _date(clear) if clear else None, note))
+
+    def pre(q):
+        p = (srows.get(q["sym"]) or {}).get("pre")
+        return (p is None, -(p or 0), q.get("rank") or 99)
+
+    for q in sorted(data.get("quality", []), key=pre):
+        sym = q["sym"]
+        row(sym, "Buy Zone", q.get("grade"), q.get("rank"), _setup_text(srows.get(sym)),
+            (locks.get(sym) or {}).get("clear"), notes.get(sym, ""))
+    for sym, e in rb.items():
+        row(sym, "Re-buy", None, None, f"{e.get('stage', '?')} (re-buy stage)",
+            e.get("wash_clear") or (locks.get(sym) or {}).get("clear"), notes.get(sym, ""))
+    for sym, e in data.get("new_industry", {}).items():
+        row(sym, "New industry", e.get("grade"), None,
+            _setup_text(srows.get(sym)) or e.get("industry"), (locks.get(sym) or {}).get("clear"),
+            (e.get("industry", "") + ". " if e.get("industry") else "") + notes.get(sym, ""))
+    return out
+
 
 BLUE = Font(color="0000FF")
 BOLD = Font(bold=True)
@@ -96,7 +133,14 @@ THIN = Side(style="thin", color="BFBFBF")
 BOX = Border(left=THIN, right=THIN, top=THIN, bottom=THIN)
 
 
-def build(path="joint_portfolio_tracker.xlsx"):
+def build(path="joint_portfolio_tracker.xlsx", data_path=DATA_FILE):
+    data = _load(data_path)
+    vals = _load("valuation.json", {})
+    data["_vals"] = vals.get("rows") or {}
+    SNAPSHOT, skipped = holdings_rows(data, _load("joint_price_targets.json", {}), vals)
+    WATCH = watch_rows(data, _load("setups.json", {}), _load("rebuy_watch.json", {}),
+                       _load("wash_sale_watch.json", {}))
+    AS_OF = date.fromisoformat(data["asof"])
     wb = Workbook()
 
     # ---------------- Inputs (assumptions) ----------------
@@ -106,8 +150,8 @@ def build(path="joint_portfolio_tracker.xlsx"):
     inp["A1"].font = Font(bold=True, size=14)
     inp["A2"] = "Blue on yellow = input. Change any of these and the Holdings sheet recalculates."
     rows = [
-        ("As-of date (close used)", AS_OF, "Date of the official close in the Close column.", "0"),
-        ("Price to use", "Close", "Close or After-hours. After-hours falls back to Close when blank.", None),
+        ("As-of date (prices)", AS_OF, "Date of the prices in the Price column (see the Holdings header).", "0"),
+        ("Price to use", "Price", "Price or After-hours. After-hours falls back to Price when blank.", None),
         ("Trim 1 trigger (% of final target)", 1.00, "Sell target 1 = final target x this. 100% = sell at the target.", "0%"),
         ("Trim 2 stretch above target", 0.15, "Sell target 2 = final target x (1 + this).", "0%"),
         ("Shares sold at each trim", 1 / 3, "Fraction of the position sold at T1 and again at T2. Last third rides the trail.", "0%"),
@@ -140,7 +184,7 @@ def build(path="joint_portfolio_tracker.xlsx"):
             c.number_format = "yyyy-mm-dd" if isinstance(val, date) else fmt
         inp.cell(r, 3, note)
         ref[names[i]] = f"Inputs!$B${r}"
-    dv = DataValidation(type="list", formula1='"Close,After-hours"', allow_blank=False)
+    dv = DataValidation(type="list", formula1='"Price,After-hours"', allow_blank=False)
     inp.add_data_validation(dv)
     dv.add("B6")
     inp.column_dimensions["A"].width = 38
@@ -157,13 +201,13 @@ def build(path="joint_portfolio_tracker.xlsx"):
                 "Sell targets are guides for Ryan; the agent never trades the joint account.")
     ws["A3"] = "Price used:"
     ws["B3"] = f"={ref['PriceMode']}"
-    ws["C3"] = "Close date:"
+    ws["C3"] = data.get("price_label", "Prices as of:")
     ws["D3"] = f"={ref['AsOf']}"
     ws["D3"].number_format = "yyyy-mm-dd"
 
     in_cols = [
         ("Symbol", 8, None), ("Company", 22, None), ("Type", 11, None), ("Sector", 20, None),
-        ("Shares", 10, "#,##0.0000"), ("Avg Cost", 10, "$#,##0.00"), ("Close", 10, "$#,##0.00"),
+        ("Shares", 10, "#,##0.0000"), ("Avg Cost", 10, "$#,##0.00"), ("Price", 10, "$#,##0.00"),
         ("After-hrs", 10, "$#,##0.00"), ("50-day SMA", 10, "$#,##0.00"), ("200-day SMA", 10, "$#,##0.00"),
         ("60-day Low", 10, "$#,##0.00"), ("60-day High", 10, "$#,##0.00"), ("52-wk High", 10, "$#,##0.00"),
         ("Tgt: Fundamental", 11, "$#,##0.00"), ("Tgt: Robinhood", 11, "$#,##0.00"),
@@ -221,13 +265,13 @@ def build(path="joint_portfolio_tracker.xlsx"):
         P = a("Price Used")
         T = a("FINAL Price Target")
         f = {
-            "Price Used": f'=IF(AND({ref["PriceMode"]}="After-hours",N({a("After-hrs")})>0),{a("After-hrs")},{a("Close")})',
+            "Price Used": f'=IF(AND({ref["PriceMode"]}="After-hours",N({a("After-hrs")})>0),{a("After-hrs")},{a("Price")})',
             "Market Value": f"={a('Shares')}*{P}",
             "Cost Basis": f"={a('Shares')}*{a('Avg Cost')}",
             "Unrealized P/L $": f"={a('Market Value')}-{a('Cost Basis')}",
             "P/L %": f'=IFERROR({a("Unrealized P/L $")}/{a("Cost Basis")},"")',
             "Weight": f"={a('Market Value')}/${L['Market Value']}${tot}",
-            "After-hrs Move": f'=IFERROR(IF(N({a("After-hrs")})>0,{a("After-hrs")}/{a("Close")}-1,""),"")',
+            "After-hrs Move": f'=IFERROR(IF(N({a("After-hrs")})>0,{a("After-hrs")}/{a("Price")}-1,""),"")',
             "vs 50-day": f'=IFERROR({P}/{a("50-day SMA")}-1,"")',
             "vs 200-day": f'=IFERROR({P}/{a("200-day SMA")}-1,"")',
             "Off 52-wk High": f'=IFERROR({P}/{a("52-wk High")}-1,"")',
@@ -297,7 +341,9 @@ def build(path="joint_portfolio_tracker.xlsx"):
     ws.freeze_panes = ws.cell(first, 2)
     ws.auto_filter.ref = f"A{HR}:{get_column_letter(len(headers))}{last}"
 
-    add_watchlist(wb, ref)
+    add_watchlist(wb, ref, WATCH)
+    if skipped:
+        ws.cell(3, 6, "Not priced (check in the app): " + ", ".join(skipped))
 
     # ---------------- Method ----------------
     m = wb.create_sheet("Method")
@@ -321,15 +367,15 @@ def build(path="joint_portfolio_tracker.xlsx"):
         ("  STATUS is a prompt to research, not a buy order: every name still needs a news/thesis check and a wash-sale check before buying.", False),
         ("", False),
         ("Sources", True),
-        ("Positions, quotes, 50/200-day SMA, 60-day range, 52-wk high, earnings dates: Robinhood (pulled 2026-10-30).", False),
-        ("Targets: joint_price_targets.json (2026-10-29). Valuation and disruption grades: valuation.json (2026-10-28/29).", False),
+        ("Positions, quotes, 50/200-day SMA, 60-day range, 52-wk high, analyst ratings, earnings dates: Robinhood, via joint_tracker_data.json.", False),
+        ("Targets: joint_price_targets.json. Valuation and disruption: valuation.json. Chart setups: setups.json. Re-buy: rebuy_watch.json. Wash-sale dates: wash_sale_watch.json.", False),
         ("", False),
         ("Not included", True),
-        ("EPIX^ (25 sh, $0 cost) has no quote: likely a delisted or escrowed position. Check it in the app.", False),
+        ("Holdings with no quote (e.g. EPIX^, 25 sh at $0 cost) are listed at the top of Holdings as Not priced.", False),
         ("Taxes: this is a taxable account. Check wash-sale lockouts (Robinhood list 'Wash-Sale Lockout') before selling at a loss and rebuying.", False),
         ("", False),
         ("Refresh", True),
-        ("Edit the blue cells, or update SNAPSHOT in build_joint_tracker.py and re-run it.", False),
+        ("The Quality @ 200-day routine (step 4f) refreshes joint_tracker_data.json and rebuilds this file each weekday. Edit blue cells for what-ifs; a rebuild overwrites them.", False),
     ]
     for i, (t, b) in enumerate(lines, start=1):
         c = m.cell(i, 1, t)
@@ -341,51 +387,7 @@ def build(path="joint_portfolio_tracker.xlsx"):
     return path
 
 
-# Watchlist: Quality @ 200-day buy-zone names (quality_watch_report.md, 2026-10-29T19:30Z), ordered by
-# pre-breakout setup, plus the re-buy watch (rebuy_watch.json). Prices, SMAs and analyst targets: Robinhood,
-# 10/29 close. Columns: sym, company, list, held, grade, q_rank, setup, valuation, disruption, close, sma50,
-# sma200, analyst_mean, n_buy, n_hold, n_sell, next_earnings, wash_clear, note
-WATCH = [
-    ("AEM", "Agnico Eagle Mines", "Buy Zone", "", "A+", 3, "57 PULLING BACK", "RICH -23% (low)", "STABLE", 175.92, 193.80, 189.53, 225.40, 19, 4, 1, "Feb 11 (unverified)", None, "Falling wedge forming; tracks gold."),
-    ("STX", "Seagate", "Buy Zone", "", "A+", 4, "57 PULLING BACK", "EXPENSIVE -50% (low)", "DISRUPTOR", 700.47, 803.15, 690.92, 1062.55, 25, 5, 0, "Jan 26 (unverified)", None, "Falling wedge forming; -4.1% after hours."),
-    ("AVGO", "Broadcom", "Buy Zone", "", "A+", 7, "57 PULLING BACK", "EXPENSIVE -50% (med)", "DISRUPTOR", 345.00, 353.70, 367.78, 532.31, 53, 2, 0, date(2026, 12, 9), None, "Falling wedge forming; thesis intact 9/30. -3.7% after hours."),
-    ("NVDA", "NVIDIA", "Buy Zone", "", "A+", 1, "43 PULLING BACK", "FAIR +5% (med)", "DISRUPTOR", 213.66, 221.99, 204.28, 334.45, 69, 2, 1, date(2026, 11, 17), None, "#1 on business quality."),
-    ("WES", "Western Midstream", "Buy Zone", "", "A+", 6, "43 PULLING BACK", "RICH -19% (high)", "STABLE", 45.82, 46.50, 44.12, 49.54, 5, 10, 2, date(2026, 11, 4), None, "Double bottom near trigger 46.42. Analysts mostly Hold."),
-    ("SCCO", "Southern Copper", "Buy Zone", "", "A+", 8, "43 PULLING BACK", "EXPENSIVE -40% (high)", "INNOVATING", 191.75, 201.33, 189.09, 176.66, 1, 8, 10, "Jan 26 (unverified)", None, "Analyst mean target is BELOW price; 10 Sells."),
-    ("ASML", "ASML Holding", "Buy Zone", "", "A+", 9, "43 PULLING BACK", "EXPENSIVE -36% (med)", "DISRUPTOR", 1675.70, 1708.14, 1595.65, 2408.50, 37, 4, 2, date(2027, 1, 27), None, "Double bottom forming; -3.6% after hours."),
-    ("FNV", "Franco-Nevada", "Buy Zone", "", "A", 11, "43 PULLING BACK", "FAIR -3% (med)", "STABLE", 231.60, 252.44, 240.07, 287.68, 7, 3, 1, date(2026, 11, 11), None, "Gold royalty."),
-    ("HOOD", "Robinhood Markets", "Buy Zone", "HELD", "A", 14, "43 PULLING BACK", "N/A", "DISRUPTOR", 91.59, 108.69, 92.76, 133.63, 30, 5, 2, "Feb 9 (unverified)", None, "Held as a fractional leftover."),
-    ("NBIX", "Neurocrine Biosciences", "Buy Zone", "", "A", 18, "43 PULLING BACK", "DEEP VALUE +100% (low)", "DISRUPTOR", 146.38, 146.75, 147.32, 207.37, 27, 4, 0, date(2026, 11, 2), None, "Reports 11/2."),
-    ("ADBE", "Adobe", "Buy Zone", "", "A", 22, "43 PULLING BACK", "DEEP VALUE +100% (low)", "AT RISK", 248.12, 254.84, 250.71, 269.50, 11, 25, 5, "Dec 10 (unverified)", None, "VALUE TRAP? flag: AI design tools pressure; thesis weakened 10/23."),
-    ("META", "Meta Platforms", "Buy Zone", "HELD", "A+", 5, "29 MIXED", "RICH -14% (low)", "DISRUPTOR", 624.52, 668.60, 632.11, 850.51, 65, 6, 1, "Jan 27 (unverified)", None, "Already held (~15% of the joint account)."),
-    ("NEM", "Newmont", "Buy Zone", "", "A", 15, "29 MIXED", "EXPENSIVE -28% (low)", "STABLE", 111.80, 121.10, 112.49, 137.61, 24, 4, 2, "Feb 19 (unverified)", None, ""),
-    ("AMAT", "Applied Materials", "Buy Zone", "", "A", 17, "29 MIXED", "EXPENSIVE -50% (low)", "INNOVATING", 421.66, 459.67, 444.04, 651.64, 35, 5, 0, date(2026, 11, 12), None, "-4.5% after hours."),
-    ("RGLD", "Royal Gold", "Buy Zone", "", "A", 12, "14 EXTENDED", "FAIR +3% (high)", "STABLE", 236.83, 246.65, 241.42, 310.08, 11, 3, 1, "Nov 5 (unverified)", None, ""),
-    ("WDC", "Western Digital", "Buy Zone", "", "A", 13, "14 EXTENDED", "EXPENSIVE -50% (low)", "DISRUPTOR", 395.41, 423.52, 418.23, 621.78, 22, 8, 0, "Jan 28 (unverified)", None, "-4.5% after hours."),
-    ("PAC", "Grupo Aeroportuario del Pacifico", "Buy Zone", "", "A", 10, "0 EXTENDED", "DEEP VALUE +58% (med)", "DISRUPTOR", 227.47, 208.31, 236.65, 232.50, 6, 7, 0, "Feb 22 (unverified)", None, "Analyst target last updated 2020: stale."),
-    ("CDNS", "Cadence Design", "Buy Zone", "HELD", "A", 19, "0 EXTENDED", "RICH -13% (med)", "DISRUPTOR", 342.75, 320.24, 327.46, 415.04, 25, 3, 0, "Feb 17 (unverified)", None, "Already held (20 sh)."),
-    ("ISRG", "Intuitive Surgical", "Buy Zone", "", "A", 20, "0 EXTENDED", "DEEP VALUE +43% (high)", "AT RISK", 448.76, 400.30, 433.61, 489.57, 21, 8, 2, "Jan 22 (unverified)", None, "VALUE TRAP? flag from the quant grade; research says innovating."),
-    ("TROW", "T. Rowe Price", "Buy Zone", "", "A", 21, "0 EXTENDED", "DEEP VALUE +40% (med)", "AT RISK", 106.63, 105.77, 103.68, 102.83, 0, 10, 5, "Reported 10/29", None, "VALUE TRAP? Losing assets to passive funds. No Buy ratings."),
-    ("SKHY", "SK hynix (ADR)", "Buy Zone", "", "A+", 2, "n/a", "DEEP VALUE +100% (low)", "DISRUPTOR", 162.09, 169.17, 154.83, 263.91, 12, 2, 0, "Feb 13 (unverified)", None, "-5.3% after hours."),
-    ("PSA", "Public Storage", "Buy Zone", "", "A", 16, "n/a", "n/a", "n/a", 317.06, 298.61, 302.64, 330.06, 7, 16, 0, "Feb 11 (unverified)", None, ""),
-    ("KEYS", "Keysight", "Buy Zone", "", "A", 23, "n/a", "EXPENSIVE -40% (med)", "n/a", 329.84, 341.12, 316.26, 424.18, 13, 2, 0, date(2026, 11, 19), None, ""),
-    ("MOD", "Modine Manufacturing", "Re-buy", "", "n/a", None, "WAIT (re-buy stage)", "n/a", "n/a", 138.79, 175.88, 216.14, 282.48, 12, 0, 0, "check", date(2026, 11, 14), "Sold 10/14 @ 162.10 at a loss: do not rebuy before the wash-sale date."),
-    # New industries (added 2026-10-30): quality names scoring >= 7/8 on the same 8-point business test, found by a
-    # wider screen (5-20% ABOVE the 200-day). Most are extended: they are pullback candidates, not buys today.
-    ("SPG", "Simon Property Group", "New industry", "", "A", None, "Malls REIT", "FAIR -2% (high)", "STABLE", 215.72, 207.18, 205.72, 228.89, 7, 15, 0, date(2026, 11, 5), None, "Only new name already inside the buy zone. Analysts mostly Hold."),
-    ("MNST", "Monster Beverage", "New industry", "", "A", None, "Consumer staples", "RICH -11% (med)", "STABLE", 46.35, 44.75, 43.04, 50.69, 14, 13, 1, date(2026, 11, 5), None, "Rev +20%, net margin 23%. 2-for-1 split Aug 2026."),
-    ("INCY", "Incyte", "New industry", "", "A+", None, "Biotech", "DEEP VALUE (low conf.)", "INNOVATING", 116.80, 120.62, 107.99, 132.78, 14, 15, 2, "Reported 10/29", None, "Q3 GAAP loss -$3.86/sh from a one-time $1.23B Vega IPR&D charge; revenue +14%. Analysts split Buy/Hold."),
-    ("ANET", "Arista Networks", "New industry", "", "A+", None, "AI networking", "EXPENSIVE -32% (low)", "INNOVATING", 184.22, 195.57, 164.96, 248.54, 35, 0, 0, date(2026, 11, 3), None, "Fell ~18% from its 10/9 record on AI-debt worries. Still tied to AI capex like the chip names."),
-    ("UNP", "Union Pacific", "New industry", "", "A", None, "Railroad", "RICH -11% (high)", "AT RISK", 301.93, 287.39, 269.98, 334.65, 19, 8, 1, "Reported 10/22", None, "Norfolk Southern merger under STB review, close expected 2H 2027. Disruption quant flags AT RISK: check why."),
-    ("VRTX", "Vertex Pharmaceuticals", "New industry", "", "A", None, "Biotech", "RICH -11% (high)", "INNOVATING", 540.00, 522.64, 478.62, 575.96, 27, 6, 2, date(2026, 11, 2), None, "Cystic fibrosis franchise; $10B Crinetics deal pending."),
-    ("CPAY", "Corpay", "New industry", "", "A", None, "Payments", "n/a", "n/a", 397.97, 403.45, 355.07, 458.81, 16, 4, 0, date(2026, 11, 4), None, "Rev +21%, raised 2026 guidance in Aug."),
-    ("AFRM", "Affirm", "New industry", "", "A+", None, "Payments / BNPL", "N/A", "DISRUPTOR", 74.84, 73.08, 66.51, 99.18, 32, 7, 0, date(2026, 11, 5), date(2026, 11, 14), "Sold at a loss 10/14: wash-sale lock to 11/14. Missed EPS the last 3 quarters."),
-    ("AAPL", "Apple", "New industry", "", "A", None, "Consumer tech", "EXPENSIVE -37% (high)", "INNOVATING", 348.91, 332.27, 296.11, 334.65, 27, 14, 6, date(2026, 11, 2), None, "Analyst mean target is BELOW price."),
-    ("MA", "Mastercard", "New industry", "", "A", None, "Payments", "FAIR +4% (high)", "STABLE", 635.70, 584.94, 535.15, 695.83, 39, 4, 1, "Reported 10/29", None, "Q3 beat (adj EPS $5.31 vs $5.15, rev +14%). Near record high: 19% above its 200-day."),
-]
-
-
-def add_watchlist(wb, ref):
+def add_watchlist(wb, ref, WATCH):
     ws = wb.create_sheet("Watchlist")
     wb.move_sheet("Watchlist", offset=-(len(wb.sheetnames) - 2))
     ws["A1"] = "Joint Watchlist - Quality @ 200-day Buy Zone, Re-buy Watch, New Industries"
@@ -395,7 +397,7 @@ def add_watchlist(wb, ref):
     in_cols = [
         ("Symbol", 8, None), ("Company", 24, None), ("List", 12, None), ("Held?", 7, None),
         ("Quality Grade", 8, None), ("Quality Rank", 8, "0"), ("Chart Setup", 17, None), ("Valuation", 20, None),
-        ("Disruption", 12, None), ("Close", 10, "$#,##0.00"), ("50-day SMA", 10, "$#,##0.00"),
+        ("Disruption", 12, None), ("Price", 10, "$#,##0.00"), ("50-day SMA", 10, "$#,##0.00"),
         ("200-day SMA", 10, "$#,##0.00"), ("Analyst Mean Target", 11, "$#,##0.00"), ("# Buy", 6, "0"),
         ("# Hold", 6, "0"), ("# Sell", 6, "0"), ("Next Earnings", 16, "yyyy-mm-dd"), ("Wash-Sale Clear", 11, "yyyy-mm-dd"),
     ]
@@ -434,7 +436,7 @@ def add_watchlist(wb, ref):
         def a(h):
             return f"{L[h]}{r}"
 
-        P, S200, T, B = a("Close"), a("200-day SMA"), a("Analyst Mean Target"), a("BUY TARGET")
+        P, S200, T, B = a("Price"), a("200-day SMA"), a("Analyst Mean Target"), a("BUY TARGET")
         f = {
             "vs 200-day": f"={P}/{S200}-1",
             "vs 50-day": f"={P}/{a('50-day SMA')}-1",
