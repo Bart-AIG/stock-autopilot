@@ -1,62 +1,129 @@
 {
   "_comment": "Joint price targets (set 2026-10-09, Ryan live turn). Three methods per joint holding: 1 fundamental (valuation.json fwd target, else history fair value at MED/HIGH), 2 Robinhood mean analyst target, 3 median of dated named-analyst targets (price_target_research.json). Final = median of three / average of two / one alone (LOW). One price_above alert per holding at the final target, managed by price_targets.plan_alerts(). ONLY alerts listed in managed_alerts may be created, moved or deleted by the routine; risk_watch.grade() skips them. reached = targets already hit (not re-armed until the target rises >3%). Advisory only: the agent never trades the joint account.",
-  "asof_utc": "2026-10-29T19:29Z",
+  "asof_utc": "2026-10-30T17:05Z",
   "rows": {
-    "AMZN": {
-      "price": 245.045,
+    "HOOD": {
+      "price": 83.56,
       "methods": {
-        "fundamental": 440.05,
-        "robinhood": 333.68,
+        "robinhood": 133.57,
+        "analysts": 145.0
+      },
+      "final": 139.28,
+      "agreement": "MED",
+      "upside_pct": 66.7,
+      "status": "BELOW TARGET",
+      "spread_pct": 8.2,
+      "alert": "set"
+    },
+    "META": {
+      "price": 621.11,
+      "methods": {
+        "fundamental": 968.68,
+        "robinhood": 850.51,
+        "analysts": 840.0
+      },
+      "final": 850.51,
+      "agreement": "MED",
+      "upside_pct": 36.9,
+      "status": "BELOW TARGET",
+      "spread_pct": 15.1,
+      "alert": "set"
+    },
+    "OKLO": {
+      "price": 24.9,
+      "methods": {
+        "robinhood": 62.83,
+        "analysts": 37.0
+      },
+      "final": 49.91,
+      "agreement": "LOW",
+      "upside_pct": 100.5,
+      "status": "BELOW TARGET",
+      "spread_pct": 51.7,
+      "alert": "set"
+    },
+    "IONQ": {
+      "price": 29.0,
+      "methods": {
+        "robinhood": 65.77
+      },
+      "final": 65.77,
+      "agreement": "LOW",
+      "upside_pct": 126.8,
+      "status": "BELOW TARGET",
+      "spread_pct": null,
+      "alert": "set"
+    },
+    "GOOGL": {
+      "price": 279.46,
+      "methods": {
+        "fundamental": 366.8,
+        "robinhood": 401.33,
+        "analysts": 425.0
+      },
+      "final": 401.33,
+      "agreement": "HIGH",
+      "upside_pct": 43.6,
+      "status": "BELOW TARGET",
+      "spread_pct": 14.5,
+      "alert": "set"
+    },
+    "AMZN": {
+      "price": 238.82,
+      "methods": {
+        "fundamental": 436.5,
+        "robinhood": 329.75,
         "analysts": 350.0
       },
       "final": 350.0,
       "agreement": "MED",
-      "upside_pct": 42.8,
+      "upside_pct": 46.6,
       "status": "BELOW TARGET",
-      "spread_pct": 30.4,
+      "spread_pct": 30.5,
       "alert": "set"
     },
-    "ASND": {
-      "price": 251.885,
+    "NOW": {
+      "price": 104.7,
       "methods": {
-        "robinhood": 302.81,
-        "analysts": 302.0
+        "robinhood": 158.11,
+        "analysts": 195.5
       },
-      "final": 302.4,
+      "final": 176.81,
       "agreement": "MED",
-      "upside_pct": 20.1,
+      "upside_pct": 68.9,
       "status": "BELOW TARGET",
-      "spread_pct": 0.3,
+      "spread_pct": 21.1,
       "alert": "set"
     },
-    "AUR": {
-      "price": 4.465,
+    "NBIS": {
+      "price": 153.0708,
       "methods": {
-        "robinhood": 11.33,
-        "analysts": 12.5
+        "robinhood": 286.71,
+        "analysts": 250.0
       },
-      "final": 11.91,
+      "final": 268.36,
       "agreement": "MED",
-      "upside_pct": 166.9,
+      "upside_pct": 75.3,
       "status": "BELOW TARGET",
-      "spread_pct": 9.8,
+      "spread_pct": 13.7,
       "alert": "set"
     },
-    "CDNS": {
-      "price": 343.22,
+    "VST": {
+      "price": 136.95,
       "methods": {
-        "fundamental": 593.26,
-        "robinhood": 415.04
+        "fundamental": 234.34,
+        "robinhood": 207.76,
+        "analysts": 224.0
       },
-      "final": 504.15,
-      "agreement": "LOW",
-      "upside_pct": 46.9,
+      "final": 224.0,
+      "agreement": "HIGH",
+      "upside_pct": 63.6,
       "status": "BELOW TARGET",
-      "spread_pct": 35.4,
+      "spread_pct": 11.9,
       "alert": "set"
     },
     "CRDO": {
-      "price": 162.855,
+      "price": 146.705,
       "methods": {
         "fundamental": 189.97,
         "robinhood": 281.59,
@@ -64,154 +131,87 @@
       },
       "final": 281.59,
       "agreement": "LOW",
-      "upside_pct": 72.9,
+      "upside_pct": 91.9,
       "status": "BELOW TARGET",
       "spread_pct": 36.2,
       "alert": "set"
     },
-    "GOOGL": {
-      "price": 283.17,
+    "AUR": {
+      "price": 4.18,
       "methods": {
-        "fundamental": 367.54,
-        "robinhood": 405.31,
-        "analysts": 425.0
+        "robinhood": 11.33,
+        "analysts": 12.5
       },
-      "final": 405.31,
-      "agreement": "HIGH",
-      "upside_pct": 43.1,
-      "status": "BELOW TARGET",
-      "spread_pct": 14.2,
-      "alert": "moved"
-    },
-    "HOOD": {
-      "price": 90.98,
-      "methods": {
-        "robinhood": 133.63,
-        "analysts": 145.0
-      },
-      "final": 139.31,
+      "final": 11.91,
       "agreement": "MED",
-      "upside_pct": 53.1,
+      "upside_pct": 185.0,
       "status": "BELOW TARGET",
-      "spread_pct": 8.2,
+      "spread_pct": 9.8,
       "alert": "set"
     },
-    "IONQ": {
-      "price": 31.415,
+    "ASND": {
+      "price": 251.66,
       "methods": {
-        "robinhood": 65.77
+        "robinhood": 302.63,
+        "analysts": 302.0
       },
-      "final": 65.77,
-      "agreement": "LOW",
-      "upside_pct": 109.4,
-      "status": "BELOW TARGET",
-      "spread_pct": null,
-      "alert": "set"
-    },
-    "META": {
-      "price": 628.22,
-      "methods": {
-        "fundamental": 890.02,
-        "robinhood": 850.51,
-        "analysts": 840.0
-      },
-      "final": 850.51,
-      "agreement": "HIGH",
-      "upside_pct": 35.4,
-      "status": "BELOW TARGET",
-      "spread_pct": 5.9,
-      "alert": "set"
-    },
-    "MPWR": {
-      "price": 1187.28,
-      "methods": {
-        "fundamental": 1870.2,
-        "robinhood": 1807.46
-      },
-      "final": 1838.83,
-      "agreement": "HIGH",
-      "upside_pct": 54.9,
-      "status": "BELOW TARGET",
-      "spread_pct": 3.4,
-      "alert": "set"
-    },
-    "NBIS": {
-      "price": 170.445,
-      "methods": {
-        "robinhood": 286.71,
-        "analysts": 250.0
-      },
-      "final": 268.36,
+      "final": 302.31,
       "agreement": "MED",
-      "upside_pct": 57.4,
+      "upside_pct": 20.1,
       "status": "BELOW TARGET",
-      "spread_pct": 13.7,
-      "alert": "set"
-    },
-    "NOW": {
-      "price": 109.43,
-      "methods": {
-        "robinhood": 158.78,
-        "analysts": 195.5
-      },
-      "final": 177.14,
-      "agreement": "MED",
-      "upside_pct": 61.9,
-      "status": "BELOW TARGET",
-      "spread_pct": 20.7,
-      "alert": "set"
-    },
-    "OKLO": {
-      "price": 26.79,
-      "methods": {
-        "robinhood": 62.83,
-        "analysts": 37.0
-      },
-      "final": 49.91,
-      "agreement": "LOW",
-      "upside_pct": 86.3,
-      "status": "BELOW TARGET",
-      "spread_pct": 51.7,
-      "alert": "set"
-    },
-    "SNDK": {
-      "price": 1332.2782,
-      "methods": {
-        "robinhood": 2287.38,
-        "analysts": 1737.5
-      },
-      "final": 2012.44,
-      "agreement": "MED",
-      "upside_pct": 51.1,
-      "status": "BELOW TARGET",
-      "spread_pct": 27.3,
+      "spread_pct": 0.2,
       "alert": "set"
     },
     "SPCX": {
-      "price": 143.7,
+      "price": 137.584,
       "methods": {
         "robinhood": 256.0,
         "analysts": 240.0
       },
       "final": 248.0,
       "agreement": "MED",
-      "upside_pct": 72.6,
+      "upside_pct": 80.3,
       "status": "BELOW TARGET",
       "spread_pct": 6.5,
       "alert": "set"
     },
-    "VST": {
-      "price": 140.72,
+    "CDNS": {
+      "price": 327.595,
       "methods": {
-        "fundamental": 234.71,
-        "robinhood": 207.86,
-        "analysts": 224.0
+        "fundamental": 593.26,
+        "robinhood": 415.04
       },
-      "final": 224.0,
-      "agreement": "HIGH",
-      "upside_pct": 59.2,
+      "final": 504.15,
+      "agreement": "LOW",
+      "upside_pct": 53.9,
       "status": "BELOW TARGET",
-      "spread_pct": 12.0,
+      "spread_pct": 35.4,
+      "alert": "set"
+    },
+    "MPWR": {
+      "price": 1185.0,
+      "methods": {
+        "fundamental": 1861.06,
+        "robinhood": 1816.46
+      },
+      "final": 1838.76,
+      "agreement": "HIGH",
+      "upside_pct": 55.2,
+      "status": "BELOW TARGET",
+      "spread_pct": 2.4,
+      "alert": "set"
+    },
+    "SNDK": {
+      "price": 1159.67,
+      "methods": {
+        "robinhood": 2186.42,
+        "analysts": 1737.5
+      },
+      "final": 1961.96,
+      "agreement": "MED",
+      "upside_pct": 69.2,
+      "status": "BELOW TARGET",
+      "spread_pct": 22.9,
       "alert": "set"
     }
   },
