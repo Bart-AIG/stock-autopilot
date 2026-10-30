@@ -50,3 +50,15 @@ def test_build_writes_workbook():
     json.dump(DATA, open(data_path, "w"))
     out = os.path.join(d, "t.xlsx")
     assert b.build(out, data_path) == out and os.path.getsize(out) > 0
+
+
+def test_rank_universe_dedupes_and_skips():
+    hold, _ = b.holdings_rows(DATA, TARGETS, {})
+    watch = b.watch_rows(dict(DATA, _vals={}), SETUPS, {"names": {}}, {})
+    ranked = b.rank_universe(hold, watch, SETUPS["rows"])
+    syms = [r[0] for r in ranked]
+    assert syms[0] == "AAA" and ranked[0][1] == "Held"  # held with a target, worth >= $100
+    assert "LEV" in syms and "ZZZ^" not in syms
+    assert syms.count("AAA") == 1  # also on the watchlist, ranked once
+    assert "CCC" not in syms  # no analyst target: nothing to rank growth on
+    assert dict((r[0], r[3]) for r in ranked)["BBB"] == 14

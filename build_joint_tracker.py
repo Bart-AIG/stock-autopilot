@@ -14,7 +14,7 @@ import re
 from datetime import date
 
 from openpyxl import Workbook
-from openpyxl.formatting.rule import CellIsRule, FormulaRule
+from openpyxl.formatting.rule import CellIsRule, ColorScaleRule, FormulaRule
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
@@ -141,6 +141,10 @@ def build(path="joint_portfolio_tracker.xlsx", data_path=DATA_FILE):
     WATCH = watch_rows(data, _load("setups.json", {}), _load("rebuy_watch.json", {}),
                        _load("wash_sale_watch.json", {}))
     AS_OF = date.fromisoformat(data["asof"])
+    setups = (_load("setups.json", {}) or {}).get("rows") or {}
+    RANKED = rank_universe(SNAPSHOT, WATCH, setups)
+    rank_rng = (f"'Rank Calc'!$A${RC_FIRST}:$A${RC_FIRST + max(len(RANKED), 1) - 1}",
+                f"'Rank Calc'!$P${RC_FIRST}:$P${RC_FIRST + max(len(RANKED), 1) - 1}")
     wb = Workbook()
 
     # ---------------- Inputs (assumptions) ----------------
@@ -165,13 +169,19 @@ def build(path="joint_portfolio_tracker.xlsx", data_path=DATA_FILE):
         ("Watchlist: buy zone low vs 200-day", -0.08, "Bottom of the buy zone. Below it the 200-day has failed: wait for a reclaim.", "0%"),
         ("Watchlist: buy zone high vs 200-day", 0.05, "Top of the buy zone. Above it the name is extended: wait.", "0%"),
         ("Watchlist: entry vs 200-day", 0.0, "Buy target = 200-day SMA x (1 + this). 0% = buy at the line.", "0%"),
+        ("Rank weight: expected growth (upside to target)", 0.40, "Share of the opportunity score from upside to the price target.", "0%"),
+        ("Rank weight: entry price (reward : risk now)", 0.35, "Share from upside vs. room down to the review level at today's price.", "0%"),
+        ("Rank weight: timing (pre-breakout chart setup)", 0.25, "Share from the 0-100 pre-breakout score (backtested over ~3 months).", "0%"),
+        ("Rank penalty: LOW target agreement", 0.15, "Score cut when the target methods disagree a lot.", "0%"),
+        ("Rank: setup score when not scored", 50, "Neutral value for a name with no chart-setup score yet.", "0"),
     ]
     inp["A4"], inp["B4"], inp["C4"] = "Assumption", "Value", "What it does"
     for c in ("A4", "B4", "C4"):
         inp[c].font = WHITE_BOLD
         inp[c].fill = HEAD_IN
     names = ["AsOf", "PriceMode", "Trim1", "Stretch", "TrimSize", "Buffer", "MaxLoss", "MaxLossLev",
-             "Trail", "Cap", "CapLev", "ErnDays", "ZoneLo", "ZoneHi", "EntryOff"]
+             "Trail", "Cap", "CapLev", "ErnDays", "ZoneLo", "ZoneHi", "EntryOff",
+             "WUp", "WEntry", "WSetup", "PenLow", "SetupNeutral"]
     ref = {}
     for i, (label, val, note, fmt) in enumerate(rows):
         r = 5 + i
@@ -225,7 +235,7 @@ def build(path="joint_portfolio_tracker.xlsx", data_path=DATA_FILE):
         ("Shares per Trim", 10, "#,##0.0000"), ("Proceeds at T1", 11, "$#,##0"),
         ("DOWNSIDE REVIEW LEVEL", 12, "$#,##0.00"), ("Cushion to Review", 9, "0.0%;[Red]-0.0%"),
         ("Trailing Stop (if green)", 12, "$#,##0.00"), ("Reward : Risk", 9, "0.0"),
-        ("ACTION", 30, None),
+        ("ACTION", 30, None), ("RANK", 6, "0"),
     ]
     note_col = ("Notes", 60, None)
     headers = in_cols + out_cols + [note_col]
@@ -297,6 +307,7 @@ def build(path="joint_portfolio_tracker.xlsx", data_path=DATA_FILE):
                 f'{a("Next Earnings")}-{ref["AsOf"]}<={ref["ErnDays"]}),FALSE),"HOLD: earnings soon",'
                 f'IF(N({T})=0,"HOLD: no target","HOLD")))))))'
             ),
+            "RANK": f'=IFERROR(INDEX({rank_rng[1]},MATCH($A{r},{rank_rng[0]},0)),"")',
         }
         for h, formula in f.items():
             c = ws[a(h)]
@@ -341,7 +352,8 @@ def build(path="joint_portfolio_tracker.xlsx", data_path=DATA_FILE):
     ws.freeze_panes = ws.cell(first, 2)
     ws.auto_filter.ref = f"A{HR}:{get_column_letter(len(headers))}{last}"
 
-    add_watchlist(wb, ref, WATCH)
+    wcol, wfirst = add_watchlist(wb, ref, WATCH, rank_rng)
+    add_rankings(wb, ref, RANKED, (col, first), (wcol, wfirst))
     if skipped:
         ws.cell(3, 6, "Not priced (check in the app): " + ", ".join(skipped))
 
@@ -365,6 +377,11 @@ def build(path="joint_portfolio_tracker.xlsx", data_path=DATA_FILE):
         ("  BUY TARGET = 200-day SMA x (1 + entry offset). BUY ZONE = 200-day -8% to +5%. Below the zone = trend failed, wait for a reclaim.", False),
         ("  WATCH REVIEW LEVEL = bottom of the buy zone: where a new buy is wrong. UPSIDE / REWARD:RISK are measured from the buy target to the analyst mean target.", False),
         ("  STATUS is a prompt to research, not a buy order: every name still needs a news/thesis check and a wash-sale check before buying.", False),
+        ("RANKINGS (Rankings tab): every held position worth >= $100 and every watchlist name with a price target, best first.", False),
+        ("  SCORE 0-100 = 40% growth (percentile of upside to the target) + 35% entry (percentile of upside / room down to the review", False),
+        ("  level, at today's price) + 25% timing (pre-breakout chart score; names not scored yet count 50). LOW target agreement cuts it 15%.", False),
+        ("  Weights are on the Inputs tab. Targets are ~12-month estimates, so 'shortest time' comes from the chart setup, whose", False),
+        ("  backtest edge was measured over ~3 months (setups_results.md). A rank is a research order: check STATUS, news and wash-sale locks.", False),
         ("", False),
         ("Sources", True),
         ("Positions, quotes, 50/200-day SMA, 60-day range, 52-wk high, analyst ratings, earnings dates: Robinhood, via joint_tracker_data.json.", False),
@@ -387,7 +404,7 @@ def build(path="joint_portfolio_tracker.xlsx", data_path=DATA_FILE):
     return path
 
 
-def add_watchlist(wb, ref, WATCH):
+def add_watchlist(wb, ref, WATCH, rank_rng):
     ws = wb.create_sheet("Watchlist")
     wb.move_sheet("Watchlist", offset=-(len(wb.sheetnames) - 2))
     ws["A1"] = "Joint Watchlist - Quality @ 200-day Buy Zone, Re-buy Watch, New Industries"
@@ -406,7 +423,7 @@ def add_watchlist(wb, ref, WATCH):
         ("Buy Zone Low", 10, "$#,##0.00"), ("Buy Zone High", 10, "$#,##0.00"), ("BUY TARGET", 10, "$#,##0.00"),
         ("Distance to Buy Target", 9, "0.0%;[Red]-0.0%"), ("Upside: Buy Tgt to Analyst", 10, "0.0%;[Red]-0.0%"),
         ("WATCH REVIEW LEVEL", 10, "$#,##0.00"), ("Reward : Risk at Buy Tgt", 9, "0.0"), ("% Buy Ratings", 8, "0%"),
-        ("STATUS", 34, None),
+        ("STATUS", 34, None), ("RANK", 6, "0"),
     ]
     headers = in_cols + out_cols + [("Notes", 60, None)]
     HR = 4
@@ -459,6 +476,7 @@ def add_watchlist(wb, ref, WATCH):
                 f'IF(N({T})<={P},"IN ZONE: analysts see no upside",'
                 f'IF({P}<={B},"IN ZONE: at/below buy target - research","IN ZONE: research")))))))'
             ),
+            "RANK": f'=IFERROR(INDEX({rank_rng[1]},MATCH($A{r},{rank_rng[0]},0)),"")',
         }
         for h, formula in f.items():
             c = ws[a(h)]
@@ -481,6 +499,126 @@ def add_watchlist(wb, ref, WATCH):
         ws.cell(tot, j).font = BOLD
     ws.freeze_panes = ws.cell(first, 2)
     ws.auto_filter.ref = f"A{HR}:{get_column_letter(len(headers))}{last}"
+    return L, first
+
+
+RC_FIRST = 5  # first data row on the Rank Calc sheet
+
+
+def rank_universe(hold, watch, setups, min_value=100.0):
+    """One row per symbol for the ranking: holdings worth >= $100 with a price target,
+    then watchlist names not already in (held dust such as HOOD ranks from its
+    watchlist row). Names with no target are left out (nothing to rank growth on).
+    Returns [(sym, source, index into hold/watch, setup score or None)]."""
+    out, seen = [], set()
+    for i, r in enumerate(hold):
+        sym, shares, price, target = r[0], r[4], r[6], r[16]
+        if target and price and shares * price >= min_value:
+            out.append((sym, "Held", i, (setups.get(sym) or {}).get("pre")))
+            seen.add(sym)
+    for i, r in enumerate(watch):
+        sym, target = r[0], r[12]
+        if sym in seen or not target:
+            continue
+        out.append((sym, r[2], i, (setups.get(sym) or {}).get("pre")))
+        seen.add(sym)
+    return out
+
+
+def add_rankings(wb, ref, ranked, hold_ref, watch_ref):
+    """'Rank Calc' scores every name with formulas; 'Rankings' lists them best first.
+    Score (0-100) = growth x upside percentile + entry x reward:risk percentile +
+    timing x pre-breakout score, cut for LOW target agreement."""
+    (hcol, hfirst), (wcol, wfirst) = hold_ref, watch_ref
+    rc = wb.create_sheet("Rank Calc")
+    rc["A1"] = "Rank Calc - every number here is a formula except the blue setup score"
+    rc["A1"].font = Font(bold=True, size=12)
+    rc["A2"] = ("Score = growth weight x percentile of upside + entry weight x percentile of reward:risk at "
+                "today's price + timing weight x pre-breakout score/100, x (1 - penalty) when target agreement is LOW.")
+    heads = [("Symbol", 8), ("Source", 12), ("Price", 10), ("Target", 10), ("Review Level", 10),
+             ("Agreement", 12), ("Setup Score", 8), ("Status", 34), ("Upside", 8), ("Room to Review", 9),
+             ("Reward : Risk", 8), ("Growth pct", 8), ("Entry pct", 8), ("Timing", 8), ("SCORE", 8), ("RANK", 6)]
+    HR = RC_FIRST - 1
+    for j, (h, w) in enumerate(heads, start=1):
+        c = rc.cell(HR, j, h)
+        c.font = WHITE_BOLD
+        c.fill = HEAD_IN if h in ("Symbol", "Setup Score") else HEAD_OUT
+        c.alignment = Alignment(wrap_text=True, horizontal="center")
+        rc.column_dimensions[get_column_letter(j)].width = w
+    n = max(len(ranked), 1)
+    a0, a1 = RC_FIRST, RC_FIRST + n - 1
+    rngI, rngK, rngO = (f"$I${a0}:$I${a1}", f"$K${a0}:$K${a1}", f"$O${a0}:$O${a1}")
+    for k, (sym, src, idx, setup) in enumerate(ranked):
+        r = RC_FIRST + k
+        if src == "Held":
+            sh, row, L = "Holdings", hfirst + idx, hcol
+            price, tgt, rev, agr, stat = (L["Price Used"], L["FINAL Price Target"],
+                                          L["DOWNSIDE REVIEW LEVEL"], L["Target Agreement"], L["ACTION"])
+        else:
+            sh, row, L = "Watchlist", wfirst + idx, wcol
+            price, tgt, rev, agr, stat = L["Price"], L["Analyst Mean Target"], L["Buy Zone Low"], None, L["STATUS"]
+        rc.cell(r, 1, sym).font = BLUE
+        rc.cell(r, 2, src)
+        rc.cell(r, 3, f"={sh}!{price}{row}").number_format = "$#,##0.00"
+        rc.cell(r, 4, f"={sh}!{tgt}{row}").number_format = "$#,##0.00"
+        rc.cell(r, 5, f"={sh}!{rev}{row}").number_format = "$#,##0.00"
+        rc.cell(r, 6, f"={sh}!{agr}{row}" if agr else "analyst mean")
+        c = rc.cell(r, 7, setup if setup is not None else "n/a")
+        c.font, c.fill = BLUE, INPUT_FILL
+        rc.cell(r, 8, f"={sh}!{stat}{row}")
+        rc.cell(r, 9, f'=IFERROR(D{r}/C{r}-1,0)').number_format = "0.0%;[Red]-0.0%"
+        rc.cell(r, 10, f'=IFERROR(1-E{r}/C{r},0)').number_format = "0.0%;[Red]-0.0%"
+        rc.cell(r, 11, f'=IF(J{r}<=0,0,MAX(I{r},0)/J{r})').number_format = "0.0"
+        rc.cell(r, 12, f'=IFERROR(PERCENTRANK({rngI},I{r}),0)').number_format = "0%"
+        rc.cell(r, 13, f'=IFERROR(PERCENTRANK({rngK},K{r}),0)').number_format = "0%"
+        rc.cell(r, 14, f'=IF(ISNUMBER(G{r}),G{r},{ref["SetupNeutral"]})/100').number_format = "0%"
+        rc.cell(r, 15, (f'=100*({ref["WUp"]}*L{r}+{ref["WEntry"]}*M{r}+{ref["WSetup"]}*N{r})'
+                        f'*IF(F{r}="LOW",1-{ref["PenLow"]},1)')).number_format = "0.0"
+        tie = f"+COUNTIF($O${a0}:O{r - 1},O{r})" if r > a0 else ""
+        rc.cell(r, 16, f"=RANK(O{r},{rngO}){tie}").number_format = "0"
+    rc.freeze_panes = rc.cell(RC_FIRST, 2)
+
+    # Rankings: the same rows, best first, looked up by rank
+    rk = wb.create_sheet("Rankings")
+    wb.move_sheet("Rankings", offset=-(len(wb.sheetnames) - 1))
+    wb.active = 0
+    rk["A1"] = "Ranked opportunities - best entry, most expected growth, soonest setup"
+    rk["A1"].font = Font(bold=True, size=14)
+    rk["A2"] = ("Score 0-100 (weights on the Inputs tab). Growth = upside to the price target (12-month analyst "
+                "horizon). Entry = upside vs. room down to the review level at today's price. Timing = pre-breakout "
+                "chart score. A rank is a research order, not a buy order: check the STATUS, news and wash-sale locks.")
+    cols = [("Rank", 6, "0"), ("Symbol", 8, None), ("Source", 12, None), ("SCORE", 8, "0.0"),
+            ("Price", 10, "$#,##0.00"), ("Target", 10, "$#,##0.00"), ("Upside", 8, "0.0%;[Red]-0.0%"),
+            ("Review Level", 10, "$#,##0.00"), ("Room to Review", 9, "0.0%;[Red]-0.0%"),
+            ("Reward : Risk", 8, "0.0"), ("Setup Score", 8, "0"), ("Agreement", 12, None), ("Status", 36, None)]
+    src = {"Symbol": "A", "Source": "B", "SCORE": "O", "Price": "C", "Target": "D", "Upside": "I",
+           "Review Level": "E", "Room to Review": "J", "Reward : Risk": "K", "Setup Score": "G",
+           "Agreement": "F", "Status": "M_STATUS"}
+    HR2 = 4
+    for j, (h, w, _) in enumerate(cols, start=1):
+        c = rk.cell(HR2, j, h)
+        c.font, c.fill = WHITE_BOLD, HEAD_OUT
+        c.alignment = Alignment(wrap_text=True, horizontal="center")
+        rk.column_dimensions[get_column_letter(j)].width = w
+    for k in range(len(ranked)):
+        r = HR2 + 1 + k
+        rk.cell(r, 1, k + 1).number_format = "0"
+        m = f"MATCH($A{r},'Rank Calc'!$P${a0}:$P${a1},0)"
+        for j, (h, _, fmt) in enumerate(cols[1:], start=2):
+            letter = "H" if h == "Status" else src[h]
+            c = rk.cell(r, j, f"=IFERROR(INDEX('Rank Calc'!${letter}${a0}:${letter}${a1},{m}),\"\")")
+            if fmt:
+                c.number_format = fmt
+            c.border = BOX
+    last = HR2 + len(ranked)
+    if ranked:
+        rk.conditional_formatting.add(f"D{HR2 + 1}:D{last}", ColorScaleRule(
+            start_type="min", start_color="F8CBAD", mid_type="percentile", mid_value=50,
+            mid_color="FFEB9C", end_type="max", end_color="C6EFCE"))
+        rk.conditional_formatting.add(f"M{HR2 + 1}:M{last}", FormulaRule(
+            formula=[f'OR(LEFT(M{HR2 + 1},4)="WASH",LEFT(M{HR2 + 1},6)="REVIEW",LEFT(M{HR2 + 1},5)="BELOW",ISNUMBER(SEARCH("earnings",M{HR2 + 1})))'],
+            fill=AMBER_FILL))
+    rk.freeze_panes = rk.cell(HR2 + 1, 3)
 
 
 if __name__ == "__main__":
