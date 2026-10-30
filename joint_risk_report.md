@@ -1,38 +1,28 @@
-RISK ORANGE (4) - Tier unchanged, but IEF fired, SPY 50d and USO flickered, GOOGL -13% and NOW -23% today, margin up to $39.5k.
+RISK RED (8) - QQQ 695.9 broke 704.88 and the 700 floor (Stage 4), SPY lost its 50-day, VIX 18.75
+As of 2026-10-30 13:42Z (9:42 ET), market just opened. Tier moved ORANGE (5) -> RED (8).
 
-**Changed since 10-28 19:42Z (as of 13:44Z):**
-- Fired and still on: IEF > 91.10 (91.25, flight to safety), QQQ under 733 / 20d 732.48 / 50d 725.42 (QQQ 715.04, 50d fired 11:00Z).
-- Fired then back off: SPY under its 50d (13:35Z; SPY 768.62 vs 767.63, only +0.1%), USO > 163.80 (13:34Z; now 163.68).
-- VIX 17.03: no points. Stage 3 holds. Stage 4 = QQQ 700 (-2.1%, was -3.2%).
-- Big movers: GOOGL 283.41 (-12.8%), NOW 115.30 (-23.2%), AMZN 244.87 (-3.8%), SOXL -5.8%. Cause NOT verified: web search found no coverage of today.
+WHAT CHANGED
+- QQQ 695.9 (-2.7% on the day): under 704.88 (Ryan's new alert), 733, 20d 731.1, 50d 725.4. Next: 666.
+- SPY 760.8 closed-basis trigger fired 11:00Z: under 50d 767.6 (-0.9%). Next: 729.
+- Also on: USO 169.9 > 163.8, IEF 91.5 > 91.1 (flight to safety).
+- Not hit: HYG 77.47 (76.35, +1.5%), KRE 72.8 (65.25), TIP, VIX 18.75 (22 = first point), VIXY 17.6.
+- Other alerts fired (not risk): NBIX over 200d, SCCO/ASML/STX under 200d.
 
-**Benchmarks:** QQQ 715.04 | SPY 768.62 (50d 767.63) | HYG 77.62 vs 76.35 | KRE 72.88 vs 65.25 | TIP 106.54 vs 102.85 | IEF 91.25 (88.95 / 87.35 below) | VIXY 17.10.
+LADDER: Stage 4 reached (Range-floor / trend break, QQQ < 700). It is an intraday break at 9:42 ET.
+Per the plan it fires on a close below 700 or a break that holds into the last hour; treat as WATCH until then.
+Stages 1-3 are already in force. Reinvest tranche 0 (first buy zone QQQ 666).
 
-**Margin:** $39,486 in use (account value $83,366, up from $36,986). Clearing it is the first dollar of any sell. Unlevered is the 2026-08-05 decision.
+MARGIN: $26,864 in use on $77,505 account value. Clear this first.
 
-**LADDER:** Stage 3 (Below 50-day SMA) reached, unchanged. Reclaim: QQQ 2 closes over 725.42.
+SELL LIST (for you to place in-app; ordered as the plan ranks it; I did NOT refresh thesis checks, health flags or tax lots this run - statuses are from 10-29)
+1. META  ~$11.5k (72%), -2.6%, 15% of book vs 12% cap, WEAK. Core name: trim, check wash-sale.
+2. AMZN  ~$2.3k (15%), +3.7% gain, over cap. Check lot term.
+3. SOXL  all 145 (~$11.9k), -5.2%, down 20% today, 2x leveraged semis. Loss harvest.
+4. GOOGL ~$1.0k (50%), -5.4%. Core, trim.
+5. NBIS all (~$7.3k) -2.2%; CRDO all (~$3.9k) -5.1%; AUR all (~$0.8k) -14.1%; SPCX all (~$9.0k) -10.8%; IONQ all (~$0.9k) -11.5%; OKLO all (~$2.5k) -6.4%; VST all (~$4.8k) -1.9% - all WEAK, loss lots.
+6. AAOX all (~$2.1k) +8.6%; MPWR all (~$7.4k) +6.5% - WEAK, gains: check short vs long-term.
+Plan raises ~$65k including margin; the first four lines alone clear about $26.7k, enough to wipe the margin.
+Earnings and wash-sale dates were not rechecked this run: check before placing.
 
-**HOLDINGS HEALTH** (price trend re-scored this run; business half NOT scored, financials only read by hand)
-- Newly WEAK: GOOGL (under 50/200d, -30% off high; margin 35% -> 21%), HOOD (-39%), META (under 50/200d, -20%), CRDO, MPWR, VST, SPCX, IONQ, OKLO.
-- Still WEAK: NBIS, AUR, SOXL, AAOX. WATCH: NOW (-39% off high; margin 15% -> 7%), QQQI, SNDK.
-- Check the "-95% off high" on AAOX and "-82%" on OKLO before relying on them.
-
-**SELL LIST** (sell_plan at ORANGE, for you to place in-app; thesis/news verdicts UNVERIFIED this run)
-1. SOXL all 145 sh (~$14.7k), gain +17%.
-2. SPCX all 65 sh (~$9.3k), loss -8%: harvest; no rebuy for 31 days.
-3. META trim half, ~13 sh (~$8.1k), loss -1.6%. Core: trim only.
-4. NBIS all 46 sh (~$7.9k), gain +5%.
-5. MPWR all 6 sh (~$7.1k), gain +1%.
-6. VST all 35 sh (~$5.0k), gain +2%.
-7. CRDO all 25 sh (~$4.2k), gain +2%.
-8. GOOGL trim half, ~9.9 sh (~$2.8k), gain +9%. Core: trim only. Down 13% on the day; selling into the drop is your call.
-9. OKLO all 100 sh (~$2.6k), loss -1%: harvest.
-10. AAOX all 500 sh (~$2.6k), gain +34%.
-11. AUR all 200 sh (~$1.0k), loss -2%: harvest.
-12. IONQ all 30 sh (~$0.9k), loss -6%: harvest.
-13. AMZN trim 2%, ~1.7 sh (~$0.4k), over the 15% cap. Core: trim only.
-Full list ~$66k. Margin plus 5% cash needs ~$44k, so work down the list in order and stop there. Check lot term (short vs long-term) and 30-day wash-sale on each.
-
-**Earnings:** calendar not refreshed this run.
-**Crack watch:** carried from 10-27 13:48Z (0 REDs, HYG/IEF CAUTION). Not refreshed.
-**Back to YELLOW/GREEN needs:** QQQ over 733.18 and 733, IEF under 91.10.
+MOVE BACK DOWN: QQQ back over 704.88, then 725 (50d). SPY over 767.6.
+Advisory only. No order placed. Ryan decides everything in-app.
