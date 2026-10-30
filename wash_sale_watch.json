@@ -1,6 +1,6 @@
 {
   "_comment": "Wash-sale watch for the JOINT account (Ryan, live turn 2026-10-23: a Robinhood list the routine keeps current, plus a reminder). lockouts = joint names sold at a LOSS in the last 30 days; buying one before 'clear' (last loss sale + 31 days) defers that loss into the new shares, and a buy in an IRA loses it for good. Buys in ANY of Ryan's accounts count, including the Robinhood managed portfolios and the agentic sleeves. sell_traps = names held now that were bought in the last 30 days: a loss sale before the date is washed. Rebuilt every run of the Quality @ 200-day routine (step 4e, docs/quality-watch-prompt.md v6) from get_pnl_trade_history + get_equity_orders; mirrored to the Robinhood list 'Wash-Sale Lockout' (watchlists.json managed.wash_sale). Code: wash_sale.py. A reminder, not tax advice; stock trades only (options on a locked stock are not checked).",
-  "asof_utc": "2026-10-29T19:35Z",
+  "asof_utc": "2026-10-30T00:06Z",
   "seeded": "2026-10-23 live session, from get_pnl_trade_history (3month) and filled orders in all 7 accounts since 2026-04-23 (joint) / 2026-08-23 (others)",
   "accounts": {
     "116713985343": "joint_tenancy_with_ros",
@@ -109,9 +109,9 @@
       "clear": "2026-11-15"
     },
     "MU": {
-      "loss_usd": -2402.8,
+      "loss_usd": -2390.25,
       "last_loss_sale": "2026-10-15",
-      "sales": 6,
+      "sales": 5,
       "clear": "2026-11-15"
     },
     "QLD": {
@@ -125,12 +125,6 @@
       "last_loss_sale": "2026-10-16",
       "sales": 3,
       "clear": "2026-11-16"
-    },
-    "AMZN": {
-      "loss_usd": -40.38,
-      "last_loss_sale": "2026-10-22",
-      "sales": 1,
-      "clear": "2026-11-22"
     },
     "AVGO": {
       "loss_usd": -159.67,
@@ -217,16 +211,22 @@
       "clear": "2026-11-28"
     },
     "META": {
-      "loss_usd": -3574.06,
+      "loss_usd": -3574.07,
       "last_loss_sale": "2026-10-28",
       "sales": 4,
       "clear": "2026-11-28"
     },
+    "AMZN": {
+      "loss_usd": -986.31,
+      "last_loss_sale": "2026-10-29",
+      "sales": 2,
+      "clear": "2026-11-29"
+    },
     "QQQI": {
-      "loss_usd": -18.27,
-      "last_loss_sale": "2026-10-28",
-      "sales": 1,
-      "clear": "2026-11-28"
+      "loss_usd": -140.48,
+      "last_loss_sale": "2026-10-29",
+      "sales": 2,
+      "clear": "2026-11-29"
     }
   },
   "buys_in_window": [
@@ -253,8 +253,8 @@
     {
       "symbol": "AMZN",
       "account": "116713985343",
-      "buy_date": "2026-10-27",
-      "shares": 80.0,
+      "buy_date": "2026-10-29",
+      "shares": 105.0,
       "after_sale": true,
       "permanent": false,
       "recurring": false,
@@ -673,7 +673,7 @@
   ],
   "sell_traps": {
     "AAOX": "2026-11-22",
-    "AMZN": "2026-11-27",
+    "AMZN": "2026-11-29",
     "ASND": "2026-11-16",
     "AUR": "2026-11-16",
     "CDNS": "2026-11-23",
@@ -693,11 +693,12 @@
     "VST": "2026-11-23"
   },
   "last_events": {
-    "locked": [
-      "QQQI"
-    ],
+    "locked": [],
     "cleared": [],
-    "extended": []
+    "extended": [
+      "AMZN",
+      "QQQI"
+    ]
   },
   "lots_cache": {
     "date": "2026-10-29",
