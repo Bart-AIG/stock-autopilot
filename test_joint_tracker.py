@@ -62,3 +62,21 @@ def test_rank_universe_dedupes_and_skips():
     assert syms.count("AAA") == 1  # also on the watchlist, ranked once
     assert "CCC" not in syms  # no analyst target: nothing to rank growth on
     assert dict((r[0], r[3]) for r in ranked)["BBB"] == 14
+
+
+def test_rec_rows_skip_held_watch_names():
+    hold, _ = b.holdings_rows(DATA, TARGETS, {})
+    watch = b.watch_rows(dict(DATA, _vals={}), SETUPS, {"names": {}}, {})
+    rows = b.rec_rows(hold, watch)
+    assert [s for s, _ in rows].count("Held") == len(hold)
+    assert all(watch[i][0] != "AAA" for s, i in rows if s == "Watch")  # held: covered by Holdings
+
+
+def test_recommendations_tab_is_first():
+    from openpyxl import load_workbook
+    d = tempfile.mkdtemp()
+    data_path = os.path.join(d, "data.json")
+    json.dump(DATA, open(data_path, "w"))
+    out = b.build(os.path.join(d, "t.xlsx"), data_path)
+    wb = load_workbook(out)
+    assert wb.sheetnames[0] == "Recommendations" and "Rec Calc" in wb.sheetnames

@@ -354,6 +354,8 @@ def build(path="joint_portfolio_tracker.xlsx", data_path=DATA_FILE):
 
     wcol, wfirst = add_watchlist(wb, ref, WATCH, rank_rng)
     add_rankings(wb, ref, RANKED, (col, first), (wcol, wfirst))
+    traps = (_load("wash_sale_watch.json", {}) or {}).get("sell_traps") or {}
+    add_recommendations(wb, ref, SNAPSHOT, WATCH, (col, first, tot), (wcol, wfirst), traps)
     if skipped:
         ws.cell(3, 6, "Not priced (check in the app): " + ", ".join(skipped))
 
@@ -377,6 +379,11 @@ def build(path="joint_portfolio_tracker.xlsx", data_path=DATA_FILE):
         ("  BUY TARGET = 200-day SMA x (1 + entry offset). BUY ZONE = 200-day -8% to +5%. Below the zone = trend failed, wait for a reclaim.", False),
         ("  WATCH REVIEW LEVEL = bottom of the buy zone: where a new buy is wrong. UPSIDE / REWARD:RISK are measured from the buy target to the analyst mean target.", False),
         ("  STATUS is a prompt to research, not a buy order: every name still needs a news/thesis check and a wash-sale check before buying.", False),
+        ("RECOMMENDATIONS (first tab): potential actions for Ryan, most urgent first, built by formula from the other tabs:", False),
+        ("  1 Review (below the review level: sell only if the thesis is broken), 2 Trim (at a sell target, or over the position cap),", False),
+        ("  3 Protect gain (green enough for a 15% trail), 4 Earnings (reports inside the warning window), 5-6 Buy idea (watchlist", False),
+        ("  name in the buy zone; 5 = at/below the buy target), 7 Wait (watchlist name under a wash-sale lock), 8 Tidy (under $100).", False),
+        ("  Ties break on the opportunity RANK. 'Check first' adds the wash-sale sell-trap date and an earnings date inside 2x the window.", False),
         ("RANKINGS (Rankings tab): every held position worth >= $100 and every watchlist name with a price target, best first.", False),
         ("  SCORE 0-100 = 40% growth (percentile of upside to the target) + 35% entry (percentile of upside / room down to the review", False),
         ("  level, at today's price) + 25% timing (pre-breakout chart score; names not scored yet count 50). LOW target agreement cuts it 15%.", False),
@@ -619,6 +626,169 @@ def add_rankings(wb, ref, ranked, hold_ref, watch_ref):
             formula=[f'OR(LEFT(M{HR2 + 1},4)="WASH",LEFT(M{HR2 + 1},6)="REVIEW",LEFT(M{HR2 + 1},5)="BELOW",ISNUMBER(SEARCH("earnings",M{HR2 + 1})))'],
             fill=AMBER_FILL))
     rk.freeze_panes = rk.cell(HR2 + 1, 3)
+
+
+REC_FIRST = 5  # first data row on the Rec Calc sheet
+REC_LABELS = ("1 Review", "2 Trim", "3 Protect gain", "4 Earnings", "5 Buy idea (at target)", "6 Buy idea (in zone)",
+              "7 Wait", "8 Tidy", "")
+
+
+def _num(ref, fmt):
+    """Excel text for a number cell, or n/a when the cell is blank or text."""
+    return f'IF(ISNUMBER({ref}),TEXT({ref},"{fmt}"),"n/a")'
+
+
+def rec_rows(hold, watch):
+    """Candidate rows for the Recommendations tab: every priced holding, then every
+    watchlist name not held (a held name's actions come from its Holdings row).
+    Returns [(source, index into hold/watch)]."""
+    held = {r[0] for r in hold}
+    return [("Held", i) for i in range(len(hold))] + [
+        ("Watch", i) for i, r in enumerate(watch) if r[0] not in held and r[3] != "HELD"]
+
+
+def add_recommendations(wb, ref, hold, watch, hold_ref, watch_ref, traps):
+    """'Rec Calc' turns each Holdings ACTION / Watchlist STATUS into a priority, a short
+    recommendation and the numbers behind it (all formulas); 'Recommendations' lists the
+    ones that need a decision, most urgent first. Advisory: Ryan places joint trades."""
+    (hcol, hfirst, htot), (wcol, wfirst) = hold_ref, watch_ref
+    rows = rec_rows(hold, watch)
+    rc = wb.create_sheet("Rec Calc")
+    rc["A1"] = "Rec Calc - priorities and wording for the Recommendations tab (formulas; blue = wash-sale input)"
+    rc["A1"].font = Font(bold=True, size=12)
+    heads = [("Symbol", 8), ("Source", 12), ("Priority", 8), ("Recommendation", 34), ("Details", 90),
+             ("Check first", 60), ("Opportunity rank", 8), ("Loss-sale washed until", 12), ("Sort key", 10),
+             ("Order", 6)]
+    HR = REC_FIRST - 1
+    for j, (h, w) in enumerate(heads, start=1):
+        c = rc.cell(HR, j, h)
+        c.font = WHITE_BOLD
+        c.fill = HEAD_IN if h in ("Symbol", "Loss-sale washed until") else HEAD_OUT
+        c.alignment = Alignment(wrap_text=True, horizontal="center")
+        rc.column_dimensions[get_column_letter(j)].width = w
+    n = max(len(rows), 1)
+    a0, a1 = REC_FIRST, REC_FIRST + n - 1
+    asof, ern = ref["AsOf"], ref["ErnDays"]
+    usd, usd0 = '"$#,##0.00"', '"$#,##0"'
+    for k, (src, idx) in enumerate(rows):
+        r = REC_FIRST + k
+        if src == "Held":
+            sym, hr = hold[idx][0], hfirst + idx
+
+            def h(name, hr=hr):
+                return f"Holdings!${hcol[name]}${hr}"
+            act, P, trail, E = h("ACTION"), h("Price Used"), h("Trailing Stop (if green)"), h("Next Earnings")
+            lev = f'ISNUMBER(SEARCH("Lev",{h("Type")}))'
+            cap = f'IF({lev},{ref["CapLev"]},{ref["Cap"]})'
+            over_sh = f'MAX(0,{h("Shares")}-{cap}*Holdings!${hcol["Market Value"]}${htot}/{P})'
+            pri = (f'=IF(LEFT({act},6)="REVIEW",1,IF(OR(LEFT({act},4)="TRIM",LEFT({act},4)="SELL",'
+                   f'LEFT({act},4)="OVER"),2,IF(LEFT({act},4)="DUST",8,IF(ISNUMBER({trail}),3,'
+                   f'IF({act}="HOLD: earnings soon",4,9)))))')
+            rec = (f'=CHOOSE(C{r},"Re-check the thesis: sell or hold",IF(LEFT({act},4)="OVER",'
+                   f'"Trim back to the position cap",IF(LEFT({act},4)="SELL","Sell the 2nd third, trail the rest",'
+                   f'"Trim 1/3 at the price target")),"Set or confirm a 15% trailing stop",'
+                   f'"Decide before earnings","","","","Tidy: sell or add to it","")')
+            det = (f'=CHOOSE(C{r},'
+                   f'A{r}&" at "&TEXT({P},{usd})&" is under its review level "&TEXT({h("DOWNSIDE REVIEW LEVEL")},{usd})'
+                   f'&" (60-day low or max loss). P/L "&TEXT({h("Unrealized P/L $")},"$#,##0;-$#,##0")&" ("'
+                   f'&TEXT({h("P/L %")},"0%;-0%")&"). Sell only if the thesis is broken; if intact, hold (no stop).",'
+                   f'IF(LEFT({act},4)="OVER","Weight "&TEXT({h("Weight")},"0.0%")&" vs a "&TEXT({cap},"0%")'
+                   f'&" cap: sell about "&TEXT({over_sh},"0.0")&" sh (~"&TEXT({over_sh}*{P},{usd0})&").",'
+                   f'IF(LEFT({act},4)="SELL","Above sell target 2 "&TEXT({h("SELL TARGET 2 (trim)")},{usd})'
+                   f'&": sell another "&TEXT({h("Shares per Trim")},"0.0")&" sh; trail the last third.",'
+                   f'"At or above sell target 1 "&TEXT({h("SELL TARGET 1 (trim)")},{usd})&": sell "'
+                   f'&TEXT({h("Shares per Trim")},"0.0")&" sh (~"&TEXT({h("Proceeds at T1")},{usd0})'
+                   f'&") and re-check the thesis.")),'
+                   f'"Up "&TEXT({h("P/L %")},"0%")&" from cost. A 15% trail sits near "&IFERROR(TEXT({trail},{usd}),"")'
+                   f'&" (never below cost); it moves up only.",'
+                   f'"Reports "&TEXT({E},"m/d")&". Upside to target "&{_num(h("Upside to Target"), "0%")}'
+                   f'&", cushion to review level "&{_num(h("Cushion to Review"), "0%")}'
+                   f'&". Choose: hold through it, trim first, or wait.","","","",'
+                   f'"Worth "&TEXT({h("Market Value")},{usd0})&": too small to matter either way.","")')
+            when = f'H{r}'
+            chk = (f'=IF(C{r}=9,"",IF(IF(ISNUMBER({when}),{when}>{asof},FALSE),"Bought in the last 30 days: a loss '
+                   f'sale before "&TEXT({when},"m/d")&" is a wash sale. ","")'
+                   f'&IF(IF(ISNUMBER({E}),AND({E}>={asof},{E}-{asof}<=2*{ern}),FALSE),"Earnings "&TEXT({E},"m/d")&". ","")'
+                   f'&"News/thesis check first.")')
+            rank = h("RANK")
+            trap = _date(traps.get(sym)) if traps.get(sym) else None
+        else:
+            sym, wr = watch[idx][0], wfirst + idx
+
+            def w(name, wr=wr):
+                return f"Watchlist!${wcol[name]}${wr}"
+            st, E = w("STATUS"), w("Next Earnings")
+            pri = (f'=IF(LEFT({st},4)="WASH",7,IF({st}="IN ZONE: at/below buy target - research",5,'
+                   f'IF({st}="IN ZONE: research",6,9)))')
+            rec = (f'=IF(C{r}=5,"Research a buy: at or below the buy target",IF(C{r}=6,"Research a buy: '
+                   f'in the buy zone",IF(C{r}=7,"Wait: wash-sale lock","")))')
+            det = (f'=IF(C{r}=7,"Sold at a loss in the last 30 days: buying before "&TEXT({w("Wash-Sale Clear")},"m/d")'
+                   f'&" defers that loss into the new shares.",IF(C{r}=9,"",{w("List")}&", grade "&{w("Quality Grade")}'
+                   f'&", setup "&{w("Chart Setup")}&". Price "&TEXT({w("Price")},{usd})&" vs buy target "'
+                   f'&TEXT({w("BUY TARGET")},{usd})&" ("&TEXT({w("Distance to Buy Target")},"+0.0%;-0.0%")'
+                   f'&"). Analyst upside "&{_num(w("Upside: Buy Tgt to Analyst"), "0%")}&", reward:risk "'
+                   f'&{_num(w("Reward : Risk at Buy Tgt"), "0.0")}&". Wrong below "'
+                   f'&TEXT({w("WATCH REVIEW LEVEL")},{usd})&". Valuation "&{w("Valuation")}&"."))')
+            chk = (f'=IF(C{r}=9,"",IF(IF(ISNUMBER({E}),AND({E}>={asof},{E}-{asof}<=2*{ern}),FALSE),'
+                   f'"Earnings "&TEXT({E},"m/d")&". ","")&IF(C{r}=7,"Wait for the date.",'
+                   f'"News/thesis and valuation check first; you set the size."))')
+            rank, trap = w("RANK"), None
+        rc.cell(r, 1, sym).font = BLUE
+        rc.cell(r, 2, "Held" if src == "Held" else watch[idx][2])
+        rc.cell(r, 3, pri).number_format = "0"
+        rc.cell(r, 4, rec)
+        rc.cell(r, 5, det)
+        rc.cell(r, 6, chk)
+        rc.cell(r, 7, f'=IFERROR(N({rank}),0)').number_format = "0"
+        c = rc.cell(r, 8, trap)
+        c.font, c.fill = BLUE, INPUT_FILL
+        if trap:
+            c.number_format = "yyyy-mm-dd"
+        rc.cell(r, 9, f'=C{r}*1000+IF(G{r}>0,G{r},999)+ROW()/10000').number_format = "0.0000"
+        rc.cell(r, 10, f"=RANK(I{r},$I${a0}:$I${a1},1)").number_format = "0"
+    rc.freeze_panes = rc.cell(REC_FIRST, 2)
+
+    rk = wb.create_sheet("Recommendations", 0)
+    wb.active = 0
+    rk["A1"] = "Recommendations - potential actions for the joint account, most urgent first"
+    rk["A1"].font = Font(bold=True, size=14)
+    rk["A2"] = ("Advisory only: you place every joint trade; the agent never does. Built from the Holdings ACTION and "
+                "Watchlist STATUS columns, so it updates when they do. A review is a thesis check, not a sell order; "
+                "a buy idea is a research prompt, not a buy order. Priority meanings are on the Method tab.")
+    rk["A2"].alignment = Alignment(wrap_text=True, vertical="top")
+    rk.merge_cells("A2:G2")
+    rk.row_dimensions[2].height = 45
+    cols = [("#", 5), ("Priority", 20), ("Symbol", 8), ("Source", 12), ("Recommendation", 34),
+            ("Details", 90), ("Check first", 60)]
+    src = ("C", "A", "B", "D", "E", "F")
+    HR2 = 4
+    for j, (hd, wd) in enumerate(cols, start=1):
+        c = rk.cell(HR2, j, hd)
+        c.font, c.fill = WHITE_BOLD, HEAD_OUT
+        c.alignment = Alignment(wrap_text=True, horizontal="center")
+        rk.column_dimensions[get_column_letter(j)].width = wd
+    rk["A3"] = f'=COUNTIF(\'Rec Calc\'!$C${a0}:$C${a1},"<9")&" potential actions"'
+    rk["A3"].font = BOLD
+    for k in range(len(rows)):
+        r = HR2 + 1 + k
+        m = f"MATCH({k + 1},'Rec Calc'!$J${a0}:$J${a1},0)"
+        pri = f"INDEX('Rec Calc'!$C${a0}:$C${a1},{m})"
+        rk.cell(r, 1, f'=IF(IFERROR({pri},9)<9,{k + 1},"")')
+        labels = ",".join(f'"{x}"' for x in REC_LABELS)
+        rk.cell(r, 2, f'=IFERROR(CHOOSE({pri},{labels}),"")')
+        for j, letter in enumerate(src[1:], start=3):
+            c = rk.cell(r, j, f"=IF(IFERROR({pri},9)<9,INDEX('Rec Calc'!${letter}${a0}:${letter}${a1},{m}),\"\")")
+            c.alignment = Alignment(wrap_text=True, vertical="top")
+        for j in range(1, len(cols) + 1):
+            rk.cell(r, j).border = BOX
+            if j < 5:
+                rk.cell(r, j).alignment = Alignment(vertical="top")
+    last = HR2 + max(len(rows), 1)
+    pr = f"B{HR2 + 1}:B{last}"
+    for prefix, fill in (('"1"', RED_FILL), ('"2"', AMBER_FILL), ('"3"', GREEN_FILL), ('"4"', AMBER_FILL),
+                         ('"5"', GREEN_FILL), ('"6"', GREEN_FILL)):
+        rk.conditional_formatting.add(pr, FormulaRule(formula=[f'LEFT(B{HR2 + 1},1)={prefix}'], fill=fill))
+    rk.freeze_panes = rk.cell(HR2 + 1, 4)
 
 
 if __name__ == "__main__":
