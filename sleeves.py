@@ -4,10 +4,12 @@ implementing the new strategy on our Stock autopilot routine").
 
 Tested in docs/process-audit-2026-09-29.md (sections 11, 12, 14, 16). Two live sleeves, both
 running the same rules, SWING_UNION:
-  SWING_Q  QQQ's signals, held as QLD (2x QQQ).                 70% of the investable base
+  SWING_Q  QQQ's signals, held as QLD (2x QQQ).                 50% of the investable base
+           (70% until 2026-11-01, when Ryan moved 20% to the BBW sleeves, bbw.py)
   SWING_M  each of the month's top-10 names by 12-month return, 1x.  30% (3% per name)
   GROWTH   Claude-researched high-growth names: PAPER ONLY until Ryan makes it live, then
-           10% taken from SWING_Q (-> 60%). Tracked in growth_paper.json, not here.
+           10% taken from SWING_Q (-> 40%). Tracked in growth_paper.json, not here.
+  BBW      15-minute Bollinger-squeeze strategies (bbw.py, bbw_state.json): 20% of the base.
 Investable base = 95% of total account value (the 5% operational reserve stays).
 
 SWING_UNION (per symbol, decided near the close, held close to close; "in" if ANY leg is on):
@@ -45,7 +47,7 @@ HERE = Path(__file__).resolve().parent
 STATE = HERE / "sleeves_state.json"
 
 INVEST_FRAC = 0.95                      # 5% operational reserve
-W_SWING_Q = 0.70                        # 0.60 once GROWTH is live
+W_SWING_Q = 0.50                        # 70 -> 50 on 2026-11-01: 20% moved to the BBW sleeves (bbw.py). 0.40 once GROWTH is live
 W_SWING_M = 0.30
 N_PICKS = 10
 Q_SIGNAL, Q_VEHICLE = "QQQ", "QLD"
