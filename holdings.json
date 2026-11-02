@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-10-30T19:41:00Z",
+  "updated_utc": "2026-11-02T18:17Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -20,28 +20,21 @@
       "expiration_date": "2026-12-18",
       "option_id": "d81bd8e1-f1f1-45d7-99a6-17f14bccca36",
       "chain_id": "71a32c37-9be0-4247-882c-59ac1facabf0",
-      "contracts": 2,
+      "contracts": 3,
       "entry_date": "2026-10-14",
-      "entry_premium": 8.775,
-      "cost_basis_usd": 1755.0,
-      "max_loss": 1755.0,
+      "entry_premium": 7.2,
+      "cost_basis_usd": 2160.0,
+      "max_loss": 2160.0,
       "placed_agent": "user",
       "order_id": "6acfb4be-2bab-4c84-8c66-8d2185363d1f",
       "filled_utc": "2026-10-14T16:58:49.976Z",
       "entry_dte": 65,
-      "_note": "Opened by Ryan himself in-app 2026-10-14 (placed_agent user, agent_initiated false), 1 min after closing the 1160C. Detected by the 17:19Z run, recorded, Ryan notified once. Ryan's own option: detect, record, notify, NEVER close (v16). No exit levels set by Ryan for this contract; the 5 MU alerts from the 1160C are kept pending his word. 2026-10-22T17:06:43Z: Ryan ADDED a second 1220C himself in-app at 5.05 (order 6ada42a2, placed_agent user, agent_initiated false; after 4.90 and 5.00 limits cancelled). Now 2 contracts, $1,755 basis, blended 8.775 (broker average_price 877.50). Detected by the 17:18Z run, recorded, Ryan notified once. Same rule: never closed by the agent.",
+      "_note": "Opened by Ryan himself in-app 2026-10-14 (placed_agent user, agent_initiated false), 1 min after closing the 1160C. Detected by the 17:19Z run, recorded, Ryan notified once. Ryan's own option: detect, record, notify, NEVER close (v16). No exit levels set by Ryan for this contract; the 5 MU alerts from the 1160C are kept pending his word. 2026-10-22T17:06:43Z: Ryan ADDED a second 1220C himself in-app at 5.05 (order 6ada42a2, placed_agent user, agent_initiated false; after 4.90 and 5.00 limits cancelled). Now 2 contracts, $1,755 basis, blended 8.775 (broker average_price 877.50). Detected by the 17:18Z run, recorded, Ryan notified once. Same rule: never closed by the agent. 2026-11-02T17:58:22Z: Ryan ADDED a third 1220C himself in-app at 4.05 (order 6ae8cf3e, placed_agent user, agent_initiated false; after a 4.00 limit cancelled). Now 3 contracts, $2,160 basis, blended 7.20 (broker average_price 720.00). Detected by the 18:16Z run (the 18:02Z run missed it), recorded, Ryan notified once. Same rule: never closed by the agent.",
       "_current_state": {
-        "last_checked_utc": "2026-10-22T17:18:59Z",
-        "mark": 5.325,
-        "bid": 5.2,
-        "ask": 5.45,
-        "value_usd": 1065.0,
-        "unrealized_usd": -690.0,
-        "gain_pct": -39.3,
-        "delta": 0.0703,
-        "iv": 0.5458,
-        "theta": -0.2254,
-        "prev_close": 8.5
+        "last_checked_utc": "2026-11-02T18:17Z",
+        "options_value_usd": 1239.0,
+        "unrealized_usd": -921.0,
+        "gain_pct": -42.6
       },
       "lots": [
         {
@@ -59,10 +52,18 @@
           "order_id": "6ada42a2-e36c-4893-870e-2ce362aa5a47",
           "filled_utc": "2026-10-22T17:06:43.340Z",
           "placed_agent": "user"
+        },
+        {
+          "qty": 1,
+          "premium": 4.05,
+          "cost_usd": 405.0,
+          "order_id": "6ae8cf3e-4413-44d3-b667-2dafc7a5c8fd",
+          "filled_utc": "2026-11-02T17:58:22.541Z",
+          "placed_agent": "user"
         }
       ],
-      "entry_premium_blended": 8.775,
-      "total_cost_basis_usd": 1755.0
+      "entry_premium_blended": 7.2,
+      "total_cost_basis_usd": 2160.0
     },
     {
       "symbol": "QLD",
