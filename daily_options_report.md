@@ -5,10 +5,10 @@
 **Today in one line:** QQQ **−0.44%** (687.49 vs 690.49), QLD **−0.93%** (81.82). This is the first session of November: the turn-of-month leg is on through Wed 11-04, the new SWING_M picks start today, and the BBW sleeve went live this morning (no trade yet).
 
 ## 1. Sleeves (swing)
-- **SWING_Q (QLD):** 4.883974 sh @ $88.17 cost, mark $81.82 = **$399.60 (−$31.02, −7.2%)**. Held on TOM.
+- **SWING_Q (QLD):** now 1.762333 sh @ $80.575 ($142.00), bought back at the window after Ryan sold the earlier 4.883974 sh at 14:55 ET.
 - **SWING_M:** MRNA 0.179551 sh (mark $223.80 = $40.18, +1.7%) and MU 0.002032 sh ($1.71, −3.2%). Both still in November's picks.
 - **November picks** (from the Oct 30 closes, 12-month return): MRNA, LITE, MU, DELL, WDC, ILMN, VLO, MPC, MRVL, VIAV. AMD and INTC dropped out; any October name not on this list is sold at the window (none are held).
-- **Due at the decision window today:** first-of-month resize check. The QLD target is about 0.95 × total × 50% ≈ $816, and the held $400 is more than 25% under it, so the window buys the difference with whatever is deployable. Cash is only $172.91 (5% reserve ≈ $86), so this is a small partial fill. *Pending decision-window amendment.*
+- **Decision window (amended by the 20:31Z / 15:31 ET run):** at 14:55 ET (19:55Z) **Ryan sold the sleeve's 4.883974 QLD himself** at $80.995 (−$35.04). `sleeves.py decide` at 15:31 ET (QQQ 682.53) still says hold through the close on all three legs (RSI2 5.7, IBS 0.005, TOM), target $787.80. The run bought back **1.762333 QLD @ $80.575 = $142.00** (order 6ae8f34f, filled 20:32:15Z) with all of deployable cash ($225.45 cash − $82.93 reserve). All 10 SWING_M picks also say hold (TOM on, $47.27 each), but no cash was left after SWING_Q, so MRNA and MU stay as held and the other 8 are unfunded. Ryan's MU 1220C ×4 holds most of the account ($1,392 of $1,659).
 
 ## 2. BBW sleeve (NVDL, 20% of the base): live since today's open
 - No position. `bbw.py decide` printed **no signal** on every 15-minute candle through the 14:00–14:15 ET candle (19:00Z). There were no trades and no late exits.
