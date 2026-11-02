@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-11-02T20:01Z",
+  "updated_utc": "2026-11-02T20:33Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -103,6 +103,27 @@
       "target_usd": 43.96,
       "funded_usd": 1.77,
       "_note": "15:40 ET window re-run: deployable $1.77 (cash $77.13 - 5% reserve $75.36 on total $1,507.18) funded the next pick in order. Separate from Ryan's own MU 1220C (user) in the ledger."
+    },
+    {
+      "symbol": "QLD",
+      "sleeve": "swing_q",
+      "signal_symbol": "QQQ",
+      "entry_date": "2026-11-02",
+      "entry_price": 80.575,
+      "shares": 1.762333,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "RSI2",
+        "IBS",
+        "TOM"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6ae8f34f-8068-4cb5-9b96-848790b35511",
+      "entry_utc": "2026-11-02T20:32:15Z",
+      "target_usd": 787.8,
+      "funded_usd": 142.0,
+      "_note": "Decision window 15:31 ET: deployable $142.52 (cash $225.45 - 5% reserve $82.93) vs target $787.80 after Ryan sold the prior QLD at 19:55Z. SWING_M unfunded beyond held MRNA/MU."
     }
   ],
   "_resolved_flags": [
@@ -9404,14 +9425,14 @@
       "hwm": 3604.85,
       "hwm_note": "Carried from the total_value HWM 2026-10-09T18:25Z (MU 1160C opened 41 min earlier, P/L near zero then).",
       "latest": {
-        "utc": "2026-11-02T20:01Z",
-        "total_value": 1679.23,
+        "utc": "2026-11-02T20:31Z",
+        "total_value": 1658.52,
         "user_unrealized_pnl": -1091,
         "user_realized_pnl": -1740.0,
         "deposit_excluded": 1000.0,
-        "sleeve_value": 3510.23,
-        "drawdown_pct": -2.62,
-        "note": "15:01 ET. QLD sold by Ryan (-$35.04 realized on an agentic position, counted in sleeve value). 4th MU 1220C recorded."
+        "sleeve_value": 3489.52,
+        "drawdown_pct": -3.2,
+        "note": "15:31 ET decision window. User option P/L carried from 20:01Z (options_value 1392 vs 1412). QLD rebought $142."
       },
       "deposits_since_hwm_usd": 600.0
     }
