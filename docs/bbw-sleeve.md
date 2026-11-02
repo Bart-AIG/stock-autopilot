@@ -49,22 +49,29 @@ the test window is 2026-02-23 → 2026-10-30.
 - **Does not generalize:** it failed on SOXL, TQQQ and QQQ. Ryan chose to run it with this on
   the table; the weekly search and monthly review exist to catch it if it stops working.
 
-## Cadence: cron-job.org MUST fire every 15 minutes, one minute after each candle closes
+## Cadence: the routine fires one minute after each 15-minute candle closes (LIVE 2026-11-02)
 
-Today's job fires at **:25 and :55** (every 30 minutes), which misses half the candles and
-evaluates them 10 minutes late. Change the "Options autopilot fire" job on cron-job.org:
+**Configured on cron-job.org by Ryan, 2026-11-02** (both jobs enabled, America/Chicago, same
+routine URL, headers and body):
 
-| Field | New value |
-|---|---|
-| Schedule | `1,16,31,46 8-14 * * 1-5` |
-| Timezone | America/Chicago |
-| Plus a second job (same URL, headers, body) | `1 15 * * 1-5` (the 3:01 PM CT run handles the day's last candle; its order queues for the next open, which is the tested fill) |
+| Job | Schedule | Fires/day |
+|---|---|---|
+| Options autopilot fire | `1,16,31,46 8-14 * * 1-5` (8:01 AM – 2:46 PM CT) | 28 |
+| Options autopilot fire 3:01pm | `1 15 * * 1-5` (last candle; its order queues for the next open, the tested fill) | 1 |
 
-That is 25 fires a day instead of ~14. The decision window (15:20–15:52 ET = 2:20–2:52 PM CT)
-still gets two fires (2:31 and 2:46 CT). Keep the routine's native hourly backstop. A missed
-fire is handled: the next run checks every candle it missed and exits late (and says so); it
-never enters on a stale signal. If routine runs start being rejected for volume, tell Ryan:
-the fallback is :01/:31 (every 30 minutes), which halves the BBW sleeve's precision.
+29 fires a day plus the routine's native hourly backstop. The 8:01 and 8:16 fires are
+pre-open (reconcile and stand down); the first fire with a completed candle is 8:46 CT. The
+decision window (15:20–15:52 ET = 2:20–2:52 PM CT) gets the 2:31 and 2:46 fires.
+
+What it replaced: the main job ran at **minute 25 only** (8:25 AM – 2:25 PM CT, i.e. hourly,
+not every 30 minutes as `docs/options-automation-setup.md` said), and a second job
+"Options autopilot fire (Copy)" fired at 2:40 PM CT as a decision-window backstop. That job was
+renamed to "Options autopilot fire 3:01pm" and re-scheduled; it was not left running, because a
+2:40 fire lands between the 2:31 and 2:46 runs (collision risk) and closes no new candle.
+
+A missed fire is handled: the next run checks every candle it missed and exits late (and says
+so); it never enters on a stale signal. If routine runs start being rejected for volume, tell
+Ryan: the fallback is :01/:31 (every 30 minutes), which halves the BBW sleeve's precision.
 
 ## Weekly search (Mondays, routine step 4b)
 
