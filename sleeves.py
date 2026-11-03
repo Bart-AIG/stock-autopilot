@@ -34,6 +34,7 @@ backtests used (robust_backtest.swing), checked by test_sleeves.py.
 
 from __future__ import annotations
 
+from zoneinfo import ZoneInfo
 import json
 import os
 import sys
@@ -184,7 +185,9 @@ def fetch_ohlc(sym: str, key: str, days: int = 460):
 def completed_only(o, now_utc: datetime):
     """Drop a bar for a session that has not closed yet (FMP can serve today's partial bar)."""
     dates, C, H, L = o
-    et_now = now_utc - timedelta(hours=4)          # EDT; a 1h error at DST edges only affects 15:00-16:00 ET
+    # Real America/New_York clock. The old fixed UTC-4 offset (EDT) let a 20:15Z build on
+    # 2026-11-03 (15:15 EST) keep the partial bar and publish decision_session = tomorrow.
+    et_now = now_utc.astimezone(ZoneInfo("America/New_York")).replace(tzinfo=None)
     today = et_now.date().isoformat()
     if dates and dates[-1] == today and (et_now.hour, et_now.minute) < (16, 5):
         return dates[:-1], C[:-1], H[:-1], L[:-1]

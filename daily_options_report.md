@@ -7,7 +7,8 @@
 ## 1. Sleeves (swing)
 - **SWING_Q (QLD):** 1.762333 sh @ $80.575, worth **$143.19 (+0.8%)**. Bought at yesterday's window.
 - **SWING_M:** MRNA 0.179551 sh, $40.85 (+3.3%). MU 0.002032 sh, $1.73 (−2.2%). Both are in November's picks (MRNA, LITE, MU, DELL, WDC, ILMN, VLO, MPC, MRVL, VIAV).
-- **Decision window:** pending. `sleeves_state.json` was built 19:48Z for decision_session 2026-11-03, so it is current. TOM is on, so every target holds through today's close. Cash is only $83.45, about $1 above the 5% reserve ($85.45), so there is essentially nothing to deploy beyond what is held.
+- **Decision window (amended by the 15:32 ET run, prompt v18):** decided at 20:33Z on live quotes ≤ 1 min old. `decide()`: **all 11 symbols hold through the close** (TOM on everywhere; QQQ also RSI2 + IBS). QLD, MRNA, MU held → **KEEP**. The other 8 picks need buys (~$49.85 each, QLD target $830.79), but deployable = $83.45 − 5% reserve $87.45 = **−$4.00**, so **no orders**. 0 equity orders today.
+- **State-build bug, fixed:** the 20:15Z "Sleeves state build" published `decision_session: 2026-11-04`, built off today's partial bar. Cause: `sleeves.completed_only()` used a fixed UTC−4 (EDT) offset, and DST ended Nov 1, so at 15:15 EST it thought the market had closed. This run decided from today's correct 19:48Z build (same picks), restored that file on master, and switched the function to the real America/New_York clock (`test_sleeves.py`: 4,480 decisions, 0 mismatches).
 
 ## 2. BBW sleeve (NVDL, 20% of the base)
 - No position. `bbw.py decide` found **no signal** on every 15-minute candle through the 15:00–15:15 ET candle (20:00Z). No trades, no late exits. NVDL is at 29.49 (+4.4% on the day).
