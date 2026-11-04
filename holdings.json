@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-11-04T19:33:00Z",
+  "updated_utc": "2026-11-04T20:33:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -81,6 +81,25 @@
       ],
       "entry_premium_blended": 7.2,
       "total_cost_basis_usd": 2160.0
+    },
+    {
+      "symbol": "QLD",
+      "sleeve": "swing_q",
+      "signal_symbol": "QQQ",
+      "entry_date": "2026-11-04",
+      "entry_price": 83.2499,
+      "shares": 1.564326,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6aeb964c-5441-4db5-8a8b-5651b0b7318f",
+      "entry_utc": "2026-11-04T20:32:12.485Z",
+      "target_usd": 590.12,
+      "funded_usd": 130.23,
+      "_note": "Decision window 15:31 ET: deployable $130.23 (cash $192.35 - 5% reserve $62.12) vs target $590.12, after Ryan sold the prior QLD himself at 19:23Z. SWING_M targets (MU, DELL, ILMN, VLO, MPC, MRVL at $35.41 each) unfunded: no cash left."
     }
   ],
   "_resolved_flags": [
