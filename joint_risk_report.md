@@ -1,19 +1,37 @@
-RISK ORANGE (6) - unchanged tier: QQQ 685.8 under 704.88 / 20d / 50d / 733 (Stage 4 in force), SPY under 50d, IEF re-crossed over 91.1
-As of 2026-11-03 14:41Z (9:41 ET), first run of the day. Daily ORANGE reminder plus IEF alert fired again 12:24Z (91.33). Real VIX 20.94 (22 = first point, not hit). No order placed; everything below is for you to place in-app.
+RISK RED (7) - QQQ under its 704.88 level + 20/50-day, SPY at its 50-day; margin $38.6k in use
 
-WHAT'S ON
-- QQQ 685.8 (+0.7% today): under 704.88 (-2.7%), 20d 724.4, 50d 724.4, 733. Next down: 666 (2.9% away).
-- SPY 753.6: under 50d 767.2 (-1.8%). Next: 729.
-- IEF 91.30 above 91.1 (flight to safety).
-- Not hit: HYG 76.94 (76.35, +0.8%), KRE 73.09 (65.25), TIP 106.25 (102.85), VIXY 18.48 (21.15), USO 157.67 (163.8).
-- Ladder: Stage 4 (Range-floor / trend break) unchanged. QQQ closed 681.1 Monday, under the 700 line. Reinvest tranche 0 (first buy zone 666).
+Wed 2026-11-04 ~14:45Z (9:45 ET). Tier moved ORANGE (6) -> RED (7). Borderline: QQQ is +1.5% today and SPY sits 0.11% under its 50-day (767.04); SPY reclaiming it drops the score to 6 (ORANGE). No benchmark alert fired since last run.
 
-CRACK WATCH: OFF (carried from 11-02: LQD/IEF 20d -0.39% GREEN, HYG/IEF 20d -2.25% CAUTION, 0 REDs).
+BENCHMARKS (price vs level)
+- QQQ 695.38: below 733 / 704.88 (2 pts) / 20d 720.71 / 50d 723.93; above 666 (+4.4%)
+- SPY 766.22: under 50d 767.04 (-0.1%); 729 is 5.1% down
+- IEF 91.32 above 91.10 (risk-off flag); HYG 77.32 (76.35 is 1.3% down); TIP 106.08; KRE 75.26; USO 152.97 (163.8)
+- VIX 17.34 (22 = elevated); VIXY 16.76
 
-MARGIN: about $31k in use as of the 11-02 report (not re-pulled this run). Clear this first.
+LADDER: Stage 4 (Range-floor / trend break, QQQ < 700) still reached, unchanged. No reinvest tranche (666).
+CRACK WATCH: not refreshed this run; carried from 2026-11-02 (0 REDs; HYG/IEF CAUTION -2.25%, RED line -2.5%).
 
-HOLDINGS HEALTH / EARNINGS: not refreshed this run (carried). WEAK: HOOD, META, GOOGL, NBIS, CRDO, AUR, SPCX, SOXL, AAOX, IONQ, MPWR, OKLO, VST.
+MARGIN: $38,597 borrowed against $76.4k equity (book $115.0k). Clearing it is the first dollar raised.
 
-SELL LIST: unchanged from the 11-02 report, whose order and sizes still stand: META trim to the 12% cap first, then AMZN trim, then loss harvests SPCX / NBIS / CRDO / AUR / OKLO / VST, then gain trims MPWR / AAOX / SOXL. Thesis checks not redone this run. Check the Wash-Sale Lockout list before any rebuy.
+HOLDINGS HEALTH (price trend only; business half not scored, financials cache empty)
+WEAK: HOOD, OKLO, GOOGL, NOW, NBIS, VST, CRDO, AUR, SPCX, SOXL, AAOX, NVDL
+WATCH: META, QQQI, CDNS, MPWR   OK: AMZN, QQQ
+(OKLO -81% and AAOX -97% off 1-yr high look like split/adjustment artifacts; verify before acting.)
 
-WHAT BRINGS THE TIER DOWN: QQQ back above 733 / 724 (three points), SPY above 767.2, IEF under 91.1.
+SELL LIST - for you to place in-app (RED cap rules, target cash 15% + margin; total ~$69k). Thesis/news check NOT run this pass: treat each as technical-only.
+1. META trim $12.0k (47%) - over 12% cap, +0.9%, gain: check lot term
+2. AMZN trim $9.5k (41%) - over 12% cap, +15.4%, gain: check lot term
+3. SPCX sell $10.2k - WEAK, -10.4%, loss harvest
+4. NBIS sell $10.0k - WEAK, -5.4%, loss harvest
+5. SOXL sell $5.2k - WEAK, -3.5%, loss harvest
+6. VST sell $4.5k - WEAK, -9.3%, loss harvest
+7. NVDL sell $4.0k - WEAK, +0.2%
+8. CRDO sell $3.7k - WEAK, -10.1%, loss harvest
+9. AAOX sell $3.5k - WEAK, -13.9%, loss harvest
+10. NOW trim $2.6k (50%) - WEAK, +6.6%
+11. OKLO sell $2.4k - WEAK, -10.6%, loss harvest
+12. GOOGL trim $1.0k (50%) - WEAK, -3.0%
+13. AUR sell $0.9k - WEAK, -11.6%, loss harvest
+Wash-sale: check wash_sale_watch.json before any loss sale (30-day window). Earnings dates not refreshed this run.
+
+TO STEP DOWN: SPY back above 767.04 (50d), QQQ above 704.88 and the 20/50-day (~721/724). No trade placed; nothing here is approved.
