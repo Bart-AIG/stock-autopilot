@@ -11,7 +11,9 @@
   - MRNA 0.179551 sh @ 245.01 at 19:23Z (+$4.46).
   - All three are now in `_closed_positions`. He was notified once, at 19:31Z.
 - **SWING_Q (QLD) and SWING_M:** flat. The account holds no equities.
-- **Decision window (pending):** the window run re-runs `decide()`. Any target that holds through the close (TOM is on today) is re-bought from deployable cash: $192.35 − the $61.37 reserve = **~$131**. SWING_Q is funded first. That cash is far below the targets.
+- **Decision window (ran 15:31 ET):** `decide()` kept SWING_Q **on** (QQQ 693.69, IBS leg on, above the 200-day) with a $590.12 target. SWING_M holds through the close for MU, DELL, ILMN, VLO, MPC and MRVL ($35.41 each); MRNA, LITE, WDC and VIAV are off.
+  - **Bought QLD $130.23** (order 6aeb964c): **filled 1.564326 sh @ 83.2499** at 20:32Z. That was all the deployable cash ($192.35 − $62.12 reserve). SWING_Q was funded first, per the rules.
+  - **SWING_M: unfunded.** There was no cash left for its six $35.41 targets.
 
 ## 2. BBW sleeve (NVDL, 20% of the base)
 - No position. `bbw.py decide` found **no signal** on every candle through the 15:00–15:15 ET candle (20:00Z). No trades and no late exits. NVDL is at 28.21 (−4.1%).
