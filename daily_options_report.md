@@ -7,7 +7,10 @@
 ## 1. Sleeves (swing)
 - **SWING_Q (QLD):** holds 1.564326 sh (cost 83.25, bought yesterday). At 73.15 it is worth **$114.43 (−$15.80, −12.1%)**.
 - **SWING_M:** flat. Yesterday's six names were never funded.
-- **Decision window (15:20–15:52 ET):** not yet run. With $0 of buying power, it can only sell (if QLD's legs are all off) or keep. It cannot buy.
+- **Decision window (ran 15:31 ET):** no orders placed.
+  - `sleeves.py decide` on live prices at 20:31Z: QQQ 649.45, so RSI(2) 9.1 and IBS 0.015. **QLD is a KEEP.** Its target is $650.59, but there's no mid-month resize.
+  - SWING_M wanted 7 names at $39.04 each: MRNA, MU, DELL, ILMN, VLO, MPC and MRVL. LITE, WDC and VIAV are off and weren't held.
+  - **Every buy went unfunded.** Deployable cash is $0 minus the 5% reserve, so it's below zero. No sell was due.
 
 ## 2. BBW sleeve (NVDL, 20% of the base)
 - No position. `bbw.py decide` found **no signal** on every candle today through 20:00Z (15:00–15:15 ET). No trades and no late exits.
