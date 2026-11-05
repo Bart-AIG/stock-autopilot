@@ -1,36 +1,31 @@
-RISK RED (7) - QQQ -2.7% to 673.49 and SPY under its 50-day; tier up from ORANGE
-As of 14:41Z (9:41 ET) 2026-11-05. Advisory only; nothing placed.
+RISK RED (11) - QQQ broke 666 (665.92 at 14:56Z, now 658.99): Tranche 1 reached, Stage 4 still on
 
-WHAT CHANGED
-- SPY 759.65 broke its 50-day (767.06): +1 point. QQQ 673.49 (-2.7% on the day), 1.1% above the 666 alert and the 200-day area.
-- Fired since last run: TEM <70 (69.89), FIG <20.85, FTNT/CDNS under 200-day, META/ADBE back above 200-day. Per-holding alerts only; no tier effect.
-- VIX 18.51 (22 = elevated). IEF 91.62 still above 91.10 (risk-off). HYG 77.40 (76.35 is 1.4% down).
+As of 15:41Z. Advisory only, for you to place in-app.
 
-LADDER: Stage 4 reached (QQQ < 700, 20-day 717.4, 50-day 723.6): all four stages apply. Reinvest tranche 1 (QQQ < 666) is 1.1% away, not yet reached.
-CRACK WATCH: carried from 2026-11-02 (0 REDs; HYG/IEF CAUTION). Not refreshed this run.
+**What changed since 14:45Z:** QQQ 666 alert fired (200-day / July-low zone), so reinvest TRANCHE 1 is reached. SPY 746.13 is 2.7% under its 50-day (767.06). VIX 24.19 (22 elevated, 26 stress). Credit and rates are calm: HYG 77.25 (76.35 is 1.2% away), IEF 91.77, TIP 106.12, KRE 74.27.
 
-MARGIN: $39,968 borrowed on $68.1k account value (book $108k). Clearing it is the first dollar raised.
+**Benchmarks:** QQQ<666 HIT (QQQ<633 next, 4.0% away); SPY<729 2.3% away; SPY<690 8% away; HYG<76.35 1.2%; IEF<88.95 3.2%; TIP<102.85 3.2%; USO>163.8 10.9%; KRE<65.25 13.8%.
 
-BENCHMARKS (level / price / distance)
-QQQ<666: 1.1% above | SPY<729: 4.2% | SPY<690: 10% | HYG<76.35: 1.4% | IEF<88.95: 3.0% | TIP<102.85: 3.1% | KRE<65.25: 15% | USO>163.8: 10% below
+**MARGIN: $37,649 in use** (cash -37,649; account value 63,172; positions 100,821). It was ~$13.3k at the baseline and you de-levered on 2026-08-05. Clear it first. Unleveraged buying power is $2,351.
 
-HOLDINGS HEALTH (carried from 2026-11-04 trend flags; price trend only, financials/earnings not refreshed this run)
-WEAK: HOOD, OKLO, NOW, NBIS, VST, CRDO, AUR, SPCX, SOXL, AAOX, NVDL. WATCH: META, QQQI, CDNS, MPWR. OK: AMZN.
-Note: ENPH, RUN, TLRY, CGC are new in the account (penny/speculative, not scored). OKLO -81% and AAOX -97% off high may be split artifacts.
+**LADDER:** Stage 4 (range-floor / trend break) reached; stages 1-4 are cumulative. Tranche 1 (QQQ<666): deploy 1/3 of cash raised, QQQI first (~40%), then core adds. Nothing is raised yet and margin is paid down first, so no tranche cash exists. Next: Tranche 2 at QQQ<633. The plan's named sells (GOOGL, MU, RBRK, CRCL, APP, VST...) are no longer in this account, so the list below is built from what you hold now.
 
-SELL LIST - for you to place in-app (RED: cap 12%, target cash 15% + clear margin; ~$66k to raise). Technical-only: thesis/news check NOT run this pass.
-1. META trim $12.5k (49%) - 24% of book; ~-0.5%, treat as loss harvest, check lots and 30-day wash window
-2. AMZN trim $10.4k (44%) - 22% of book, +15.6%, gain: check short vs long-term lots
-3. SPCX sell $9.6k - WEAK, -16%, loss
-4. NBIS sell $8.4k - WEAK, -20%, loss
-5. SOXL sell $4.9k - WEAK, -25%, loss
-6. VST sell $4.1k - WEAK, -17%, loss
-7. NVDL sell $3.5k - WEAK, -13%, loss
-8. CRDO sell $3.1k - WEAK, -24%, loss
-9. AAOX sell $2.8k - WEAK, -39%, loss
-10. NOW trim $2.5k (50%) - WEAK, +0.8%
-11. OKLO sell $2.1k - WEAK, -23%, loss
-12. AUR $0.8k, ENPH $0.8k, RUN $0.3k, TLRY $0.3k, CGC $0.1k - small speculative losses
-Sell ALL shares of a harvested name; check the 30-day wash-sale window (and Wash-Sale Lockout list) before any loss sale. Core names (META, AMZN, NOW) are trims, never full exits.
+**HOLDINGS HEALTH** (flags carried from 14:45Z, prices live): WEAK: HOOD, OKLO, NOW, NBIS, AUR, SPCX, SOXL, AAOX, NVDL (all under 50- and 200-day). WATCH: META, QQQI, CDNS, MPWR. Not scored: ENPH, RUN, TLRY, CGC.
 
-WHAT MOVES THE TIER BACK DOWN: SPY back above 767.06; QQQ back above 704.88 and its 20/50-day (717/724). Reclaim rule: 2 straight QQQ closes above the 50-day after stage 3/4.
+**SELL LIST** (sell_plan order; the news/thesis check was not run on this pass, so no verdicts):
+1. META ~$12.1k (50%, -5.3%): 24% of the book, over the 12% RED cap. Loss, harvest; check the 30-day wash-sale. Core: trim, never exit.
+2. AMZN ~$10.2k (46%, +10.6%): 22% of the book. Gain; check short vs long-term lots.
+3. SPCX all 100 ~$12.5k (-14.2%): over the 10% cap and WEAK. Loss.
+4. OKLO all 100 ~$1.95k (-27.1%): WEAK. Loss.
+5. NOW ~$2.5k (50%, +2.0%): WEAK, core trim.
+6. NBIS all 66 ~$7.9k (-24.6%): WEAK. Loss.
+7. AUR all ~$0.75k (-23.3%): WEAK. Loss.
+8. SOXL all 105 ~$5.0k (-30.9%): WEAK, leveraged. Loss.
+9. AAOX all 1,825 ~$3.2k (-42.8%): WEAK. Loss.
+10. NVDL all 138 ~$3.3k (-18.2%): WEAK, leveraged. Loss.
+
+Raise target ~$59.4k (margin plus the 15% cash target). On loss sales, sell ALL shares of a name to keep the harvest clean and do not rebuy for 31 days.
+
+Earnings: not refreshed this run. Crack watch: not refreshed (2026-11-02: 0 REDs, HYG/IEF CAUTION).
+
+**What moves the tier down:** QQQ back above 666, then 704.88 / 717 (20d) / 723.6 (50d); SPY back above 767; VIX under 22.
