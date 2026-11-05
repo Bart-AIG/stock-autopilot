@@ -1236,6 +1236,9 @@ def main() -> None:
     # (Ryan, live turn 2026-10-14). Morning only; display/ranking, never a trade gate.
     if args.mode == "morning" and not args.limit:
         build_chart_setups(histories, key)
+        # Rally quality flag for SPY / QQQ (rally_check.py; Ryan, live turn 2026-11-05).
+        # Read by the Joint risk watch. Advisory only, never a trade gate.
+        build_rally_check(key)
     # Earnings gate for the swing setups: ONE market-wide call, only when there are
     # setups to gate. {} on any failure -> the screen degrades to earnings-blind.
     earnings_cal = (fmp_earnings_calendar(key, days=EARNINGS_BLACKOUT_DAYS + 7)
@@ -1265,6 +1268,25 @@ def fmp_ohlc(sym: str, key: str, days: int = 430) -> list[dict] | None:
         except (urllib.error.URLError, TimeoutError, ValueError):
             return None
     return None
+
+
+def build_rally_check(key: str) -> None:
+    """Write rally_check.json: is the SPY / QQQ rally FRAGILE (light volume + narrow)?
+    Drops today's bar (a partial session understates volume). Never fails the report."""
+    try:
+        import rally_check
+        today = datetime.now(timezone.utc).date().isoformat()
+        def bars(sym):
+            rows = fmp_ohlc(sym, key, days=430) or []
+            return sorted((r for r in rows if r.get("date", "") < today), key=lambda r: r["date"])
+        results = {s: rally_check.check(bars(s), bars(e)) for s, e in rally_check.PAIRS.items()}
+        out = Path("rally_check.json")
+        prior = json.loads(out.read_text()) if out.exists() else {}
+        summary = rally_check.summary(results, prior)
+        out.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+        print(f"  rally check: {summary['flag']} since {summary['since']}")
+    except Exception as exc:  # noqa: BLE001 - advisory file, never block the report
+        print(f"  rally check skipped: {exc}")
 
 
 def _tracker_watch_symbols() -> list[str]:
