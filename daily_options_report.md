@@ -1,20 +1,17 @@
-# Daily report — trading day 2026-11-05 (Thursday)
+# Daily report — trading day 2026-11-06 (Friday)
 
-*Written by the run that started 20:16Z (15:16 ET, prompt v18). This is before the 15:20–15:52 ET decision window, so **the decision-window run will add today's sleeve orders to Section 1.** Figures are broker figures at 20:17Z, not the close.*
+*Written by the run that started 19:16Z (14:16 ET, prompt v18). This is before the 15:20–15:52 ET decision window, so **the decision-window run will add today's sleeve orders to Section 1.** Figures are broker figures at 19:17Z, not the close.*
 
-**Today in one line:** a sharp sell-off. QQQ is **−5.83%** (651.64 vs 691.95), NVDA about −8%. The account has **$0 cash**, so the sleeves can't make new buys today.
+**Today in one line:** a partial rebound after Thursday's sell-off. QQQ is **+1.80%** (658.67 vs 647.05). The account still has **$0 cash**.
 
 ## 1. Sleeves (swing)
-- **SWING_Q (QLD):** holds 1.564326 sh (cost 83.25, bought yesterday). At 73.15 it is worth **$114.43 (−$15.80, −12.1%)**.
-- **SWING_M:** flat. Yesterday's six names were never funded.
-- **Decision window (ran 15:31 ET):** no orders placed.
-  - `sleeves.py decide` on live prices at 20:31Z: QQQ 649.45, so RSI(2) 9.1 and IBS 0.015. **QLD is a KEEP.** Its target is $650.59, but there's no mid-month resize.
-  - SWING_M wanted 7 names at $39.04 each: MRNA, MU, DELL, ILMN, VLO, MPC and MRVL. LITE, WDC and VIAV are off and weren't held.
-  - **Every buy went unfunded.** Deployable cash is $0 minus the 5% reserve, so it's below zero. No sell was due.
+- **SWING_Q (QLD):** holds 1.564326 sh (cost 83.25). At 74.67 it is worth **$116.81 (−$13.42, −10.3%)**.
+- **SWING_M:** flat. Every pick has gone unfunded since 11-02.
+- **Decision window:** it hasn't run yet; the 15:31 ET run decides. TOM is off today, so a hold depends on the RSI2 and IBS legs. With $0 deployable, no buy can be funded.
 
 ## 2. BBW sleeve (NVDL, 20% of the base)
-- No position. `bbw.py decide` found **no signal** on every candle today through 20:00Z (15:00–15:15 ET). No trades and no late exits.
-- NVDL is at 22.83 (−17.4%). Even if a signal fires, there's no cash to fund it.
+- No position. `bbw.py decide` found **no signal** on every candle today through 19:00Z (14:00–14:15 ET).
+- NVDL is at 23.79 (+5.7%). Even if a signal fires, there's no cash to fund it.
 - The 11-02 search proposals (NVDU and NVDA) are still waiting for Ryan.
 
 ## 3. Legacy run-off
@@ -22,24 +19,28 @@ None open.
 
 ## 4. Options
 - There are no agentic options.
-- **Ryan's MU 2026-12-18 1220C ×8** (`placed_agent: "user"`): he added 3 more today at 1.90.
-  - Mark 1.585 (bid 1.47 / ask 1.70): worth **$1,268**, about **−$2,045** against a $3,313 basis.
-  - Delta 0.025, theta −$12.77/contract/day, and the broker puts the chance of profit at ~1.2%.
-  - It's his position: the agent only notifies (done earlier today) and never closes it.
+- **Ryan's MU 2026-12-18 1220C ×8** (user): marked at **$1,248**, about **−$2,065** against a $3,313 basis. It's his position, so the agent never closes it.
 
 ## 5. Growth paper sleeve
-- Mark at 20:01Z: **$260.30, −20.86%**.
-  - NVDA −8.0% on the day, PLTR −9.2%, NET −9.6%, CRWD −8.4%, NTRA −6.0%.
-  - **NET is −33.6%, past the −25% exit line. It is reviewed Monday 11-09.**
+- The paper book is marked on the first run after 15:00 ET.
+- NET is past its −25% exit line. It is reviewed Monday 11-09.
 
 ## 6. Account
-- Total value **$1,386.45**: options $1,272 (broker mark), QLD $114.45, cash $0.
-- **QQQ since 2026-09-30:** 739.77 → 651.64 = **−11.91%**. Month to date: **−5.63%** (vs 690.49 on 10-30).
-- **Sleeve drawdown** (Ryan's trades and $1,000 of deposits excluded): sleeve value ≈ $4,171. That is above the $3,604.85 high-water mark, so there's no −20% notice and no −25% halt.
-  - Caveat: today's MU add looks deposit-funded and isn't in `deposit_excluded` yet, so this figure is overstated. It doesn't change the result: on a real sleeve basis (QLD ≈ $114 plus about $0 cash) the sleeves are tiny.
-- About 92% of the account is Ryan's MU option. **The sleeves are effectively unfunded:** SWING_Q's target is ~$660 and BBW's is ~$263, against $0 cash.
+- Total value **$1,364.81**: options $1,248, QLD $116.81, cash $0.
+- **QQQ since 2026-09-30:** 739.77 → 658.67 = **−10.96%**. Week and month to date: **−4.61%** (vs 690.49 on 10-30).
+- **Sleeve drawdown** (Ryan's trades and $1,000 of deposits excluded): sleeve value ≈ $4,170, above the $3,604.85 high-water mark. So there's no notice and no halt.
+  - Caveat: `deposit_excluded` may be stale after Ryan's MU adds, so this figure is likely overstated.
 
-## 7. Tomorrow / due
-- **Fri 11-06:** TOM is off. Holds depend on the RSI2 and IBS legs only. After a −5.8% day QQQ may print RSI(2) < 10. The rules say buy only if price is still above the 200-day, and cash will still be $0 unless a deposit or a sale lands.
-- The Friday review is written by the 14:15 CT run.
+## 7. Friday review (provisional; broker, 19:17Z)
+- **Realized this week: −$25.99 over 4 closes.** All four were Ryan's own sales: QLD on 11-02 and 11-04, MRNA, and a MU sliver.
+- **Agentic trades:**
+  - QLD buy $142.00 on 11-02.
+  - QLD buy $130.23 on 11-04. Each time it rebought after Ryan sold the sleeve's QLD himself.
+- **Execution fidelity:** the decision window ran twice a day, 11-02 to 11-05.
+  - Every funded `decide()` target was executed as printed.
+  - Every unfunded buy was correctly skipped. The agent made no deviations.
+- **BBW:** no signal all week. There were no trades and no late exits, and no missed 15-minute slots were seen.
+- **The issue that matters:** with $0 cash, SWING_M (30%) and BBW (20%) couldn't trade at all this week, and SWING_Q holds about $117 against a ~$650 target. **The sleeves are not running at their tested size.**
+
+## 8. Next / due
 - **Mon 11-09:** growth paper exit check (NET), the weekly BBW search, and the weekly check.
