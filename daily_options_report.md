@@ -7,7 +7,10 @@
 ## 1. Sleeves (swing)
 - **SWING_Q (QLD):** holds 1.564326 sh (cost 83.25). At 74.67 it is worth **$116.81 (−$13.42, −10.3%)**.
 - **SWING_M:** flat. Every pick has gone unfunded since 11-02.
-- **Decision window:** it hasn't run yet; the 15:31 ET run decides. TOM is off today, so a hold depends on the RSI2 and IBS legs. With $0 deployable, no buy can be funded.
+- **Decision window (amended by the 15:31 ET run):** `decide()` on live prices (20:31Z):
+  - **SWING_Q:** QLD **HOLD** (RSI2 and IBS legs on; QQQ 658.91 is below its 200-day at 680.90). Kept, no resize. Target $682.49, held $116.83.
+  - **SWING_M:** hold signals on MU, DELL, ILMN, VLO, MPC and MRVL ($40.95 each). **All unfunded** at $0 deployable, so no buys. MRNA, LITE, WDC and VIAV are off. Nothing is held, so nothing to sell.
+  - **Orders today: none.**
 
 ## 2. BBW sleeve (NVDL, 20% of the base)
 - No position. `bbw.py decide` found **no signal** on every candle today through 19:00Z (14:00–14:15 ET).
@@ -22,7 +25,7 @@ None open.
 - **Ryan's MU 2026-12-18 1220C ×8** (user): marked at **$1,248**, about **−$2,065** against a $3,313 basis. It's his position, so the agent never closes it.
 
 ## 5. Growth paper sleeve
-- The paper book is marked on the first run after 15:00 ET.
+- Marked at 20:31Z: **$259.11 vs $328.90 cost (−21.22%)**. NTRA −24.49%, NET −25.71%.
 - NET is past its −25% exit line. It is reviewed Monday 11-09.
 
 ## 6. Account
