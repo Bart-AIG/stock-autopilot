@@ -51972,6 +51972,50 @@
       "headline": "2nd post-close no-op 16:19 ET Fri. Market shut. Stand-down per POST-CLOSE RUN PROTOCOL.",
       "reconciliation": "ZERO DRIFT vs broker: QLD 1.564326 sh only equity; MU 2026-12-18 1220C x8 (user); cash $0, UBP $0, total $1,316.20; no equity orders today.",
       "actions": "NONE. No artifact rolled; BBW 20:45Z candle already done by 21:01Z run; daily report + Friday review already written."
+    },
+    {
+      "run_utc": "2026-11-09T14:01Z",
+      "run_type": "pre_open",
+      "trading_day_et": "2026-11-09",
+      "headline": "Pre-open run 09:01 ET Mon. Market shut: no heartbeat stamp (before 09:30), no BBW, no decision window. WEEKLY CHECK done (first Monday run).",
+      "reconciliation": "ZERO DRIFT vs 11-06: QLD 1.564326 (swing_q agentic); Ryan's MU 2026-12-18 1220C x8 (user, avg 414.125). Pre-market total $3,281.93 (options $3,064 on pre-open mark), cash/UBP $100, pending deposit $100.",
+      "weekly_check": {
+        "source": "broker get_pnl_trade_history span=month, Ryan's MU 1160C option close excluded",
+        "week_2026-11-02": {
+          "SWING_Q": {
+            "closes": 2,
+            "wins": 1,
+            "net": -30.32
+          },
+          "SWING_M": {
+            "closes": 2,
+            "wins": 1,
+            "net": 4.33
+          },
+          "BBW_NVDL": {
+            "closes": 0,
+            "note": "no signal since go-live 11-02; trade_log empty"
+          }
+        },
+        "since_2026-10-09": {
+          "SWING_Q": {
+            "closes": 4,
+            "wins": 2,
+            "net": -36.82,
+            "avg_win": 2.73,
+            "avg_loss": -21.14
+          },
+          "SWING_M": {
+            "closes": 19,
+            "wins": 10,
+            "net": -66.83,
+            "avg_win": 1.47,
+            "avg_loss": -9.06
+          }
+        },
+        "verdict": "Scorecard only, no tuning. Process < 3 months old (since 2026-09-30), so no escalation test applies. SWING_M mostly unfunded since late Oct (UBP ~$0 with Ryan's MU options holding the cash)."
+      },
+      "actions": "NONE. No orders; no artifact rolled."
     }
   ]
 }
