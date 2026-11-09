@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-11-05T16:50:00Z",
+  "updated_utc": "2026-11-09T17:48:00Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -108,25 +108,6 @@
       ],
       "entry_premium_blended": 4.14125,
       "total_cost_basis_usd": 3313.0
-    },
-    {
-      "symbol": "QLD",
-      "sleeve": "swing_q",
-      "signal_symbol": "QQQ",
-      "entry_date": "2026-11-04",
-      "entry_price": 83.2499,
-      "shares": 1.564326,
-      "placed_agent": "agentic",
-      "legs_on": [
-        "IBS"
-      ],
-      "stop": null,
-      "target": null,
-      "order_id": "6aeb964c-5441-4db5-8a8b-5651b0b7318f",
-      "entry_utc": "2026-11-04T20:32:12.485Z",
-      "target_usd": 590.12,
-      "funded_usd": 130.23,
-      "_note": "Decision window 15:31 ET: deployable $130.23 (cash $192.35 - 5% reserve $62.12) vs target $590.12, after Ryan sold the prior QLD himself at 19:23Z. SWING_M targets (MU, DELL, ILMN, VLO, MPC, MRVL at $35.41 each) unfunded: no cash left."
     }
   ],
   "_resolved_flags": [
@@ -1962,6 +1943,32 @@
       "realized_pnl": 4.72,
       "legs_turned_off": [],
       "_exit_note": "SOLD BY RYAN HIMSELF in-app (placed_agent user, agent_initiated false), market, full position, 14:23 ET; not a sleeve signal exit. Detected by the 14:31 ET run."
+    },
+    {
+      "symbol": "QLD",
+      "sleeve": "swing_q",
+      "signal_symbol": "QQQ",
+      "entry_date": "2026-11-04",
+      "entry_price": 83.2499,
+      "shares": 1.564326,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6aeb964c-5441-4db5-8a8b-5651b0b7318f",
+      "entry_utc": "2026-11-04T20:32:12.485Z",
+      "target_usd": 590.12,
+      "funded_usd": 130.23,
+      "_note": "Decision window 15:31 ET: deployable $130.23 (cash $192.35 - 5% reserve $62.12) vs target $590.12, after Ryan sold the prior QLD himself at 19:23Z. SWING_M targets (MU, DELL, ILMN, VLO, MPC, MRVL at $35.41 each) unfunded: no cash left.",
+      "exit_date": "2026-11-09",
+      "exit_price": 78.84,
+      "exit_utc": "2026-11-09T17:44:20Z",
+      "exit_order_id": "6af20674-4061-4ddc-8f8b-8b9b63df1261",
+      "realized_pnl": -6.9,
+      "exit_by": "user",
+      "_exit_note": "SOLD BY RYAN in-app (placed_agent user, agent_initiated false) at 12:44 ET, not by the sleeve rules. Same pattern as 2026-11-02 19:55Z; MU option shows a pending buy of 1 contract. Detected 17:47Z run; the decision window decides SWING_Q on deployable cash as usual."
     }
   ],
   "_SIZING_NOTE": "REFRESHED 2026-08-28T16:19Z from the broker. The prior text was stamped 2026-08-24 and asserted 'CURRENT TRUTH: cash $3,023.56 ... DEPLOYABLE = $2,773.56' -- four days and $1,476.60 out of date, and it is the SECOND generation of this note to go stale while literally warning that a stale note 'would have been copied forward as truth.' A note that names the staleness risk is not thereby immune to it; re-read the broker. RULES (unchanged): $1,500 is a PER-TRADE maximum, there is NO total-sleeve cap, and total deployment across BOTH books is bounded by unleveraged_buying_power (2026-08-14 sizing amendment + the 2026-08-21 no-margin rule). CURRENT TRUTH: cash $1,546.96 == buying_power == unleveraged_buying_power, so no margin is extended and FOUR LAWS #4 is satisfied; unsettled_funds $0.0000. RESERVE CORRECTED 2026-08-28T23:18Z: the flat $250 reserve is RETIRED, superseded by the 5%-of-total_value OPERATIONAL RESERVE (Ryan 2026-08-29 policy on master), which SCALES and must be recomputed from get_portfolio.total_value every run -- never hard-coded. DEPLOYABLE = unleveraged_buying_power - 0.05 x total_value = 1546.96 - 198.03 = $1,348.93. The hedge's $749 basis does NOT reduce a new trade's allowance and occupies 0 of the 5 non-hedge slots. EQUITY SIZING IS NO LONGER BLOCKED -- CORRECTED 2026-08-28T23:18Z. This note previously read 'EQUITY SIZING IS SEPARATELY BLOCKED: the >=45% equity-book cash floor reads 44.9807% and the max compliant buy is -$0.67.' THAT FLOOR IS VOID (master commit 1322da9, 2026-08-28T20:42:36Z) and its arithmetic must not be quoted or re-derived. The equity book is OPEN from the 2026-08-31 open with 3 fresh throttle slots, funded from the same $1,348.93; the binding controls are now the A-GRADE-ONLY bar, per-name <=15-20%, spec sleeve <=25%, and rotation-beats-the-weakest once deployable cash falls below one normal position size (NOT yet -- $1,348.93 against ~$500 is ordinary cash). See _CAPITAL_POLICY_STATE, which governs. _CROSS_BOOK_CASH_COUPLING's floor arithmetic is likewise MOOT; its ONE-POOL truth survives -- an options entry still reduces equity capacity dollar-for-dollar, so cross-book competition is now explicit rather than mediated by a ratio. FOUND BY THE ARITHMETIC SWEEP prescribed in this run's journal entry and then actually executed: this is the FOURTH key carrying floor-derived state after the void, and the first three repairs were all targeted at keys whose SUBJECT was the floor. This one's subject is SIZING, which is why three careful sweeps walked past it. Search for the arithmetic (the 0.45 coefficient, 'compliant buy', 'cash floor'), never for the keys you expect to be affected. [DETECTOR REFINED 2026-08-29T00:18Z -- the prescription in the sentence above WORKED and was also INCOMPLETE. Searching holdings.json for the arithmetic tokens it names (the 0.45 coefficient, 'compliant buy', 'cash floor') surfaced the three keys already repaired; a SECOND sweep on the STATE-ASSERTION phrase 'book is closed' surfaced two more that the arithmetic sweep missed -- _EVENT_PREMIUM_IS_INVISIBLE_ON_THE_30DTE_BOARD.honest_scope and _DIVERSIFICATION_STATISTICS_ARE_FRAGILE.honest_scope, both annotated this run as the fourth and fifth instances. THE CLASS IS BROADER THAN ARITHMETIC: a repealed rule leaves behind both its NUMBERS and its CONCLUSIONS, and the conclusions are the more dangerous residue precisely because they carry no digits -- they read as ordinary present-tense state prose, so a numeric sweep walks straight past them and a human skim reads them as current. Sweep for BOTH: the arithmetic AND the sentence the arithmetic used to justify ('the book is closed', 'entries are frozen', 'no compliant entry exists'). Both survivors sat in honest_scope caveats, which is a systematically likely hiding place: a scope clause's job is to state what was true at the time, so it BAKES IN the then-current regime by design and ages badly by construction.]",
@@ -9512,14 +9519,14 @@
       "hwm": 3604.85,
       "hwm_note": "Carried from the total_value HWM 2026-10-09T18:25Z (MU 1160C opened 41 min earlier, P/L near zero then).",
       "latest": {
-        "utc": "2026-11-09T17:31Z",
-        "total_value": 1559.5,
-        "user_unrealized_pnl": -1977.0,
+        "utc": "2026-11-09T17:47Z",
+        "total_value": 1591.33,
+        "user_unrealized_pnl": -1945.0,
         "user_realized_pnl": -1740.0,
         "deposit_excluded": 1100.0,
-        "sleeve_value": 4176.5,
+        "sleeve_value": 4176.33,
         "drawdown_pct": null,
-        "note": "12:31 ET run. Above HWM; no drawdown action."
+        "note": "12:47 ET run. Above HWM; no drawdown action. Ryan sold sleeve QLD 17:44Z."
       },
       "deposits_since_hwm_usd": 600.0
     }
