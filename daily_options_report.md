@@ -7,10 +7,10 @@
 ## 1. Sleeves (swing)
 - **SWING_Q (QLD):** flat since 12:44 ET. **Ryan sold the sleeve's QLD himself in-app** (1.564326 sh @ 78.84, placed_agent user, −$6.90). That's the third time since 11-02. The decision window decides SWING_Q from deployable cash as usual.
 - **SWING_M:** flat. Every pick has gone unfunded since 11-02.
-- **Decision window:** pending (15:20–15:52 ET). Deployable is about $0: UBP $63.29 minus the 5% reserve of $78.31. So unless the $100 deposit clears, no buy can be funded.
+- **Decision window (run started 20:31Z / 15:31 ET, amended here):** `sleeves.py decide` at tv $1,611.29. SWING_Q: QLD **OFF** (QQQ 681.42, RSI2 72.1, above its 5-day SMA 672.36; no leg on), so with QLD already flat nothing to do. SWING_M targets ON: MRNA (IBS leg), MU, DELL, VLO, MPC (RSI2 leg), $45.92 each = $229.60. OFF: LITE, WDC, ILMN, MRVL, VIAV. **No order placed:** deployable = UBP $63.29 − reserve $80.56 = **−$17.27**, so none of the five buys can be funded (the $100 deposit is still pending). Nothing held to sell.
 
 ## 2. BBW sleeve (NVDL, 20% of the base)
-- No position. `bbw.py decide` found **no signal** on every candle today through 19:00Z (14:00–14:15 ET).
+- No position. `bbw.py decide` found **no signal** on every candle today through 20:15Z (15:15–15:30 ET).
 - NVDL is at 21.00 (**−11.4%** today, against QQQ up).
 - **Weekly search (15:33Z):** 8 more symbols cached (AMZU, GOOGL, GGLL, META, MSFT, MSFU, AVGO, PLTR). No new pass. NVDU and NVDA are still proposed and waiting for Ryan.
 
