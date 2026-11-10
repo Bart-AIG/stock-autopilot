@@ -1,38 +1,24 @@
-RISK RED (7) - big relief rally (QQQ 668.7, +1.9% today; VIX 21.95) lifts QQQ back over 666, but still under every other ladder level; margin $48k still in use
+RISK ORANGE (6) - down from RED 7: IEF back under 91.10 (91.08), VIX 20.99; QQQ 673 still under every ladder level; margin $48k in use
 
-**What changed:** score fell 11 -> 7 (RED starts at 7, so the tier holds). QQQ < 666 un-tripped (668.7, +0.4% above it), so **reinvest Tranche 1 is no longer reached**. VIX fell under 22. Stage 4 stays on (QQQ under 700). No benchmark alert fired since Friday; the four alerts that fired this morning (ADI, META, AU, B above 200-day) belong to the Quality @ 200-day routine and are not scored. Daily reminder: RED on the first run of the day.
+**What changed:** score 7 -> 6 (IEF-up alert un-tripped, though it fired at 14:36Z at 91.11 and is within 0.02 of re-tripping, so expect RED to flicker back). Stage 4/4 (range-floor) still reached. Reinvest tranche 0 (QQQ 673 is above the 666 line). Alerts that fired today for CDNS, AFRM, APP, B belong to the Quality @ 200-day routine and are not scored.
 
 | Benchmark | Level | Price | Dist |
 |---|---|---|---|
-| QQQ <666 | 666 | 668.73 | +0.4% (cleared) |
-| QQQ <700 / <704.88 | 704.88 | 668.73 | -5.1% (tripped) |
-| QQQ 20d / 50d | 707.6 / 721.0 | 668.73 | -5.5% / -7.3% |
-| QQQ <733 | 733 | 668.73 | -8.8% (tripped) |
-| SPY 50d | 765.7 | 745.57 | -2.6% |
-| SPY <729 | 729 | 745.57 | 2.3% to trigger |
-| VIX | 22 / 26 | 21.95 | just under elevated line |
-| HYG <76.35 | | 77.47 | +1.5% |
-| IEF >91.1 / <88.95 | | 91.97 | IEF-up alert still tripped (+1pt) |
-| TIP <102.85 | | 106.21 | +3.3% |
+| QQQ <704.88 | 704.88 | 673.05 | -4.5% (tripped) |
+| QQQ 20d / 50d | 704.3 / 720.2 | 673.05 | -4.4% / -6.5% (tripped) |
+| QQQ <733 | 733 | 673.05 | -8.2% (tripped) |
+| QQQ <666 | 666 | 673.05 | +1.1% to trigger |
+| SPY 50d | 765.3 | 748.05 | -2.3% (tripped) |
+| SPY <729 | 729 | 748.05 | 2.6% to trigger |
+| VIX | 22 | 20.99 | 4.8% under |
+| HYG <76.35 | | 77.17 | +1.1% |
+| IEF >91.1 | | 91.08 | 0.02% under |
+| TIP <102.85 | | 105.39 | +2.4% |
 
-**Margin:** $48,231 in use (cash -48,231, total value $73,895). Clearing it is the first priority. Today's rally is the chance to sell into strength: META +4.8%, AMZN +5.5%, SOXL +8%, BE +8% on the day (NVDL -11.5%, the odd one out).
+**Margin:** $48,241 in use (cash -48,241, total value $74,802). Clearing it is the first priority. QQQ is -0.9% today, so no sell-into-strength window yet.
 
-**LADDER:** Stage 4/4 (range-floor) still reached. Tranche 1 cleared for now (QQQ back above 666); tranche 2 at 633. Reclaim rule: no reinvestment until margin is cleared and QQQ closes above its 50-day (721).
+**Sell list (carried from the 11-09 plan; for you to place in-app):** margin first, then leveraged ETFs (SOXL 105 sh, NVDL 317 sh), then high-beta trims. Holding health and thesis checks were not refreshed this run.
 
-**SELL LIST (for you to place in-app; margin first, then concentration/WEAK, sized to clear margin + 15% cash, about $61k):**
-1. META ~$17.3k (54%), +3.2%, gain: check lot holding period. 26% of book, over 12% cap. Trim, not exit.
-2. SPCX ~$16.2k (100%), -1.2%, loss: harvest, check 30-day wash-sale. WEAK (under 50/200d, -32% off high).
-3. AMZN ~$9.1k (38%), +17.9%, gain: check short vs long term. 19% of book. Trim.
-4. NVDL ~$6.7k (100%), -18.8%, loss. WEAK leveraged ETF.
-5. SOXL ~$5.2k (100%), -7.7%, loss. WEAK leveraged ETF.
-6. AAOX ~$4.3k (100%), +3.3%, gain. WEAK.
-7. NOW ~$2.4k (50%), -1.6%, loss. WEAK.
-Thesis checks (news/analyst) were NOT refreshed this run; treat verdicts as unverified. Earnings dates and financials caches not refreshed either (health carried from last run).
+**Rally check:** OK (no fragile rally).
 
-**HOLDINGS HEALTH (carried, not refreshed):** WEAK: SPCX, NVDL, SOXL, AAOX, NOW. WATCH: META, CDNS, MPWR, QQQI.
-
-**RALLY CHECK:** OK (as of Nov 5; no fragile rally).
-
-**To step down to ORANGE:** QQQ above 704.88 and its 20-day (707.6), VIX staying under 22, SPY back over its 50-day (765.7).
-
-No trade placed. Everything above is for you to place in-app.
+**Back to YELLOW needs:** QQQ above 704.9 and the 20-day (704.3), SPY above its 50-day (765.3), margin cut.
