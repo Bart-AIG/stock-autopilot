@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger for report.py. The trading session maintains it: a buy APPENDS, a sell REMOVES. sleeve = swing|momentum (NO 'legacy' \u2014 every position is judged each run with a take-profit / trail / hold / thesis-check action; treat the book as an income / grow-the-balance portfolio). Stops are TRAILING: a winner carries a GTC stop ~15% below its running high, ratcheted UP only and never below entry, so it can only ever be sold for a locked-in gain; underwater names carry NO price stop and are thesis-managed (sell only if the thesis breaks, else cull at the monthly rebalance). Options positions (sleeve:'options') may carry a 'manual_hold_override' field to suspend ONLY the mechanical -50% price stop (see CLAUDE.md HARD RULE 8) \u2014 settable/clearable only by a genuinely interactive session with a real, live Ryan turn, never by an automated run (same bar as HARD RULE 9).",
-  "updated_utc": "2026-11-09T17:48:00Z",
+  "updated_utc": "2026-11-10T20:33Z",
   "_realized_options_pnl_today": {
     "trading_day_et": "2026-09-30",
     "realized_usd_options": 0.0,
@@ -110,6 +110,22 @@
       ],
       "entry_premium_blended": 4.14125,
       "total_cost_basis_usd": 3313.0
+    },
+    {
+      "symbol": "MRNA",
+      "sleeve": "swing_m",
+      "signal_symbol": "MRNA",
+      "entry_date": "2026-11-10",
+      "entry_price": 250.9794,
+      "shares": 0.008287,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6af37f3f-df3b-4e0b-a36d-1ae9597bb2f7",
+      "_note": "Decision window 2026-11-10 15:31 ET: decide() wanted $34.89; only $2.08 deployable (UBP $63.29 - 5% reserve $61.21)."
     }
   ],
   "_resolved_flags": [
@@ -9521,14 +9537,14 @@
       "hwm": 3604.85,
       "hwm_note": "Carried from the total_value HWM 2026-10-09T18:25Z (MU 1160C opened 41 min earlier, P/L near zero then).",
       "latest": {
-        "utc": "2026-11-10T19:17Z",
+        "utc": "2026-11-10T20:31Z",
         "total_value": 1224.29,
         "user_unrealized_pnl": -2312.0,
         "user_realized_pnl": -1740.0,
         "deposit_excluded": 1100.0,
         "sleeve_value": 4176.29,
         "drawdown_pct": null,
-        "note": "14:17 ET run. MU x9 basis $3,473, value $1,161. Above HWM; no drawdown action."
+        "note": "15:31 ET decision-window run. MU x9 value $1,161. Above HWM; no drawdown action."
       },
       "deposits_since_hwm_usd": 600.0
     }
