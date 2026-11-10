@@ -1,42 +1,37 @@
-# Daily report — trading day 2026-11-09 (Monday)
+# Daily report — trading day 2026-11-10 (Tuesday)
 
-*Written by the run that started 19:16Z (14:16 ET, prompt v18). This is before the 15:20–15:52 ET decision window, so **the decision-window run will add today's sleeve orders to Section 1.** Figures are broker figures at 19:17Z, not the close.*
+*Written by the run that started 19:16Z (14:16 ET, prompt v18). That's before the 15:20–15:52 ET decision window, so **the decision-window run will add today's sleeve orders to Section 1.** Figures are broker figures at 19:17Z, not the close.*
 
-**Today in one line:** a strong rebound. QQQ is **+3.26%** (677.47 vs 656.10). The account holds **$63.29 cash** plus a $100 deposit still pending.
+**Today in one line:** a down day. QQQ is **−1.19%** (671.29 vs 679.35). The account holds **$63.29 cash**, and the rest of its value is Ryan's MU calls.
 
 ## 1. Sleeves (swing)
-- **SWING_Q (QLD):** flat since 12:44 ET. **Ryan sold the sleeve's QLD himself in-app** (1.564326 sh @ 78.84, placed_agent user, −$6.90). That's the third time since 11-02. The decision window decides SWING_Q from deployable cash as usual.
-- **SWING_M:** flat. Every pick has gone unfunded since 11-02.
-- **Decision window (run started 20:31Z / 15:31 ET, amended here):** `sleeves.py decide` at tv $1,611.29. SWING_Q: QLD **OFF** (QQQ 681.42, RSI2 72.1, above its 5-day SMA 672.36; no leg on), so with QLD already flat nothing to do. SWING_M targets ON: MRNA (IBS leg), MU, DELL, VLO, MPC (RSI2 leg), $45.92 each = $229.60. OFF: LITE, WDC, ILMN, MRVL, VIAV. **No order placed:** deployable = UBP $63.29 − reserve $80.56 = **−$17.27**, so none of the five buys can be funded (the $100 deposit is still pending). Nothing held to sell.
+- **SWING_Q (QLD):** flat. The sleeve's QLD was sold in-app on 11-09. QLD is at 77.40 (−2.2% today).
+- **SWING_M:** flat. Every pick has gone unfunded since 11-02. This month's picks are MRNA, LITE, MU, DELL, WDC, ILMN, VLO, MPC, MRVL and VIAV.
+- **Decision window:** still to come. Deployable cash is about **$2** (UBP $63.29 minus the $61.21 reserve), so the window can fund at most a token order.
 
 ## 2. BBW sleeve (NVDL, 20% of the base)
-- No position. `bbw.py decide` found **no signal** on every candle today through 20:15Z (15:15–15:30 ET).
-- NVDL is at 21.00 (**−11.4%** today, against QQQ up).
-- **Weekly search (15:33Z):** 8 more symbols cached (AMZU, GOOGL, GGLL, META, MSFT, MSFU, AVGO, PLTR). No new pass. NVDU and NVDA are still proposed and waiting for Ryan.
+- No position. `bbw.py decide` found **no signal** on every candle today through the 19:00Z candle (14:00–14:15 ET).
+- NVDL is at 19.065 (**−11.9%** today), after falling 11.4% yesterday.
+- No search or review proposals are new today. NVDU and NVDA are still proposed and waiting for Ryan.
 
 ## 3. Legacy run-off
 None open.
 
 ## 4. Options
 - There are no agentic options.
-- **Ryan's MU 2026-12-18 1220C ×9** (user; he added a 9th contract @ 1.60 today): marked at **$1,503** against a $3,473 basis (about **−$1,970**). It's his position, so the agent never closes it.
+- **Ryan's MU 2026-12-18 1220C ×9** (user): marked at **$1,161** against a $3,473 basis, about **−$2,312**. MU is at 711.63 (−2.9% today). It's his position, so the agent never closes it.
 
 ## 5. Growth paper sleeve
-- **NVDA paper EXIT** at the Monday check: the 11-06 close of 186.64 was below its 200-day (204.67). Paper exit @ 179.605, **−24.25% (−$15.95)**. The slot is left empty.
-- **Held:** PLTR, NET, CRWD, NTRA. The PLTR and NET Q3 theses are intact.
-- **Note:** NET and NTRA were past −25% on the 11-06 closes but not on live quotes at the check. The −25% basis (close vs live) is flagged for clarification.
+- **Held:** PLTR, NET, CRWD, NTRA. The NVDA slot is still empty after Monday's paper exit.
 - The daily mark comes on the first run after 15:00 ET.
 
 ## 6. Account
-- Total value **$1,566.29**: options $1,503, cash $63.29, equities $0.
-- **QQQ since 2026-09-30:** 739.77 → 677.47 = **−8.42%**. Month to date: **−1.89%** (vs 690.49 on 10-30).
+- Total value **$1,224.29**: options $1,161, cash $63.29, equities $0.
+- **QQQ since 2026-09-30:** 739.77 → 671.29 = **−9.26%**. Month to date: **−2.78%** (vs 690.49 on 10-30).
 - **Sleeve drawdown** (Ryan's trades and $1,100 of deposits excluded): sleeve value ≈ $4,176, above the $3,604.85 high-water mark. So there's no notice and no halt.
 
-## 7. Weekly check (14:01Z, broker)
-- **Week of 11-02:** SWING_Q 2 closes, −$30.32. SWING_M 2 closes, +$4.33. BBW: no trades.
-- **Since 10-09:** SWING_Q 4 closes, −$36.82. SWING_M 19 closes, −$66.83.
-- This is a scorecard only: the process is under 3 months old, so no escalation test applies yet.
-- **The issue that matters:** cash is held in Ryan's MU options, and the sleeve QLD keeps being sold in-app. **So the sleeves are not running at their tested size.**
+## 7. The issue that matters
+**The sleeves can't run at their tested size.** About 95% of the account is in Ryan's MU calls, which leaves the sleeves about $2 of deployable cash. This won't change until cash comes in or Ryan's MU position is reduced. The agent never sells his position to fund a sleeve.
 
 ## 8. Next / due
 - TOM: not active (the month's last trading day is 11-30).
