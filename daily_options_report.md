@@ -7,10 +7,10 @@
 ## 1. Sleeves (swing)
 - **SWING_Q (QLD):** flat. The sleeve's QLD was sold in-app on 11-09. QLD is at 77.40 (−2.2% today).
 - **SWING_M:** flat. Every pick has gone unfunded since 11-02. This month's picks are MRNA, LITE, MU, DELL, WDC, ILMN, VLO, MPC, MRVL and VIAV.
-- **Decision window:** still to come. Deployable cash is about **$2** (UBP $63.29 minus the $61.21 reserve), so the window can fund at most a token order.
+- **Decision window (run started 15:31 ET):** QQQ 673.81 is below its 200-day SMA (681.41), so SWING_Q stays out of QLD. SWING_M wants five names held through the close at $34.89 each: MRNA (IBS leg, IBS 0.016), MU, DELL, ILMN and VLO (RSI2 leg). Only **$2.08** was deployable, so the one order was **BUY MRNA $2.08, filled 0.008287 sh @ 250.98** (order 6af37f3f). MU, DELL, ILMN and VLO went unfunded for lack of cash.
 
 ## 2. BBW sleeve (NVDL, 20% of the base)
-- No position. `bbw.py decide` found **no signal** on every candle today through the 19:00Z candle (14:00–14:15 ET).
+- No position. `bbw.py decide` found **no signal** on every candle today through the 20:15Z candle (15:15–15:30 ET).
 - NVDL is at 19.065 (**−11.9%** today), after falling 11.4% yesterday.
 - No search or review proposals are new today. NVDU and NVDA are still proposed and waiting for Ryan.
 
