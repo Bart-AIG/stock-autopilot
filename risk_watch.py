@@ -18,6 +18,7 @@ Grading the live readings each run keeps the tier honest after the one-shot aler
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 # What each benchmark MEANS and how much it weighs. Keyed by (symbol, condition_type).
@@ -157,6 +158,9 @@ def price_target_alert_ids(path: str | Path | None = None) -> set[str]:
     return {m.get("alert_id") for m in managed.values() if m.get("alert_id")}
 
 
+_UUID = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
+
+
 def option_watch_alert_ids(path: str | Path | None = None) -> set[str]:
     """alert_ids on a monitored option position's underlying (holdings.json, each
     position's `_alerts`; first used 2026-10-09 for Ryan's MU 2026-11-20 1160C). They are
@@ -166,8 +170,25 @@ def option_watch_alert_ids(path: str | Path | None = None) -> set[str]:
         positions = json.loads(p.read_text()).get("positions") or []
     except (OSError, ValueError):
         return set()
-    return {a.get("alert_id") for pos in positions
-            for a in (pos.get("_alerts") or {}).values() if a.get("alert_id")}
+    ids: set[str] = set()
+
+    def walk(v):
+        # Accept both shapes seen in the ledger: {name: {"alert_id": id}} and
+        # {"price_above": {"900": id, ...}, "set_utc": "...", ...} (2026-11-11 MU alerts).
+        if isinstance(v, dict):
+            if isinstance(v.get("alert_id"), str):
+                ids.add(v["alert_id"])
+            for x in v.values():
+                walk(x)
+        elif isinstance(v, list):
+            for x in v:
+                walk(x)
+        elif isinstance(v, str) and _UUID.fullmatch(v):
+            ids.add(v)
+
+    for pos in positions:
+        walk(pos.get("_alerts") or {})
+    return ids
 
 
 def grade(alerts: list[dict], prices: dict[str, float], smas: dict | None = None,
