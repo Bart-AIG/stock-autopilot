@@ -158,6 +158,17 @@ def price_target_alert_ids(path: str | Path | None = None) -> set[str]:
     return {m.get("alert_id") for m in managed.values() if m.get("alert_id")}
 
 
+def lev_ladder_alert_ids(path: str | Path | None = None) -> set[str]:
+    """alert_ids of the leveraged-ETF sell-ladder alerts (lev_sell_targets/alerts.json,
+    set 2026-11-12): per-holding upside rungs, not market-risk benchmarks."""
+    p = Path(path) if path else Path(__file__).parent / "lev_sell_targets" / "alerts.json"
+    try:
+        alerts = json.loads(p.read_text()).get("alerts") or {}
+    except (OSError, ValueError):
+        return set()
+    return {a.get("alert_id") for a in alerts.values() if a.get("alert_id")}
+
+
 _UUID = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
 
 
@@ -206,7 +217,7 @@ def grade(alerts: list[dict], prices: dict[str, float], smas: dict | None = None
     if ignore_ids is None:
         ignore = (quality_watch_alert_ids() | holding_support_alert_ids()
                   | rebuy_watch_alert_ids() | option_watch_alert_ids()
-                  | price_target_alert_ids())
+                  | price_target_alert_ids() | lev_ladder_alert_ids())
     else:
         ignore = ignore_ids
     rows, score = [], 0
