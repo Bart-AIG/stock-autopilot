@@ -23,3 +23,11 @@
 
 ## 6. Tomorrow
 - TOM (turn of the month) is off until the month-end window (the last trading day of November). Nothing else is due.
+
+---
+## Decision-window amendment (run started 20:25Z / 15:25 ET)
+`sleeves.py decide` on live quotes at 20:25:42Z (total value $2,730.30):
+- **SWING_Q (QLD): out.** QQQ 687.86, RSI(2) 68.9, IBS 0.55, no TOM. Nothing held, nothing bought.
+- **SWING_M:** **SOLD MRNA** 0.008287 sh @ $230.70 (filled 20:26:12Z, order 6af620e3; −$0.17). Its IBS leg reached the 5-session cap. **KEPT ILMN** 0.384363 sh (RSI(2) leg on, RSI2 16.2). The other 8 picks are out (LITE, WDC, MRVL and VIAV are below their 200-day; MU, DELL, VLO and MPC have no leg on).
+- **BBW NVDL:** no signal, flat.
+- Trade approvals are off. Every order filled.
