@@ -1,12 +1,14 @@
 # Daily report — trading day 2026-11-13 (Friday)
 
+> **Amended 2026-11-13T23:51Z:** routine runs failed from 20:18Z to 21:19Z on the usage limit (cause: an interactive research session). The decision window, the LEVX NIGHT slot and three BBW candles had no run. Nothing was due except one MRNA entry (about $72), which was not taken. BBW had no signal and LEVX's targets were 0.
+
 *Written by the run that started 20:16Z (15:16 ET, prompt v19). It is the first run at or after 2:15 PM CT and comes before the 15:20–15:52 ET decision window, so **the decision-window run will add today's sleeve orders and tonight's LEVX NIGHT decision.** Figures are broker figures at 20:16Z, not the close.*
 
 **Today in one line:** a risk-off day led by semis. QQQ is **−1.26%** (679.51 vs 688.17), SOXX **−3.72%** (149.23), NVDA's 2× fund NVDL **−4.0%** (17.82) and MU **−3.4%** (771.11). The agent has placed no orders so far today.
 
 ## 1. Sleeves (SWING_Q 40% / SWING_M 30%)
 - Held: ILMN 0.384363 sh (SWING_M, RSI(2) leg), now 208.10. No QLD.
-- **Decision window:** pending. The 15:20–15:52 ET run decides and amends this section.
+- **Decision window: DID NOT RUN (amended 2026-11-13T23:51Z by an interactive session).** The account's 5-hour usage limit was reached at about 20:18Z, so the 20:31Z and 20:46Z routine runs failed and no sleeve order was placed. At closing prices `decide()` would have bought about $72 of MRNA (RSI(2) 7.5, IBS 0.17) and kept ILMN; QLD stays flat (QQQ 679.90 is below its 200-day 682.24). No exit was missed. Monday's window decides again.
 
 ## 2. BBW sleeve (NVDL, 20%)
 - Flat all day. Every 15-minute candle through 20:00Z returned `none` (no signal). No trades and no late exits.
