@@ -1,15 +1,21 @@
 # LEVX sleeve: liquid leveraged index funds, held overnight and on intraday breakouts
 
-**Status: PROPOSED 2026-11-13. Not live.** Code `levx.py`, tests `test_levx.py`, state
+**Status: APPROVED 2026-11-13 at 10% of the base, funded from SWING_Q (50 to 40). It trades on
+the first routine run whose line-1 stamp reads v19.** Code `levx.py`, tests `test_levx.py`, state
 `levx_state.json`, daily inputs `levx_inputs.json` (built by `.github/workflows/levx-build.yml`),
-evidence `levx_results.md`, routine duties `docs/routine-prompt-v19.md` (paste-pending).
+evidence `levx_results.md`, routine duties `docs/routine-prompt-v19.md`.
 
 **Request (Ryan, REAL live turn 2026-11-13):** *"Lets work on a sleeve trade model that works
 with SOXL, AAOX, SPCM, LITX, COHX and others like these. It should be either a day trade, swing
 trade or you find the best way to trade it without limitations on the agent account. Backtest
 till you feel confident you have found a optimal method to make the most amount of money
-possible, with the funds we have in the agent account"*. That turn asked for the model. It did
-not approve a weight, so nothing here trades until he does.
+possible, with the funds we have in the agent account"*.
+
+**Approval (Ryan, REAL live turn 2026-11-13, after reading the results and the recommendation
+"start at 10% live from SWING_Q, both legs, then 20% once about 20 round trips per fund show
+costs within twice the assumption"):** *"merge pls. add the recommended sleeve, and i want to modify the routine today to be active"*.
+Weights are now SWING_Q 40 / SWING_M 30 / BBW 20 / LEVX 10. The step to 20% needs another live
+Ryan turn, with the measured costs in front of him.
 
 ## The rules
 
@@ -142,14 +148,14 @@ Total value $2,492 (2026-11-13), base 95% = $2,367.
 
 ## Going live
 
-| Step | Who | Effect |
+| Step | Who | Status |
 |---|---|---|
-| 1. Merge the branch to master | Ryan's OK | The "LEVX inputs build" Action starts writing `levx_inputs.json` each morning |
-| 2. Paste `docs/routine-prompt-v19.md` | Ryan | PAPER: every run does the full procedure and logs what it would have traded. No orders |
-| 3. Set the weight in a live turn | Ryan, then an interactive session | `levx.W_LEVX` is set and the funding sleeve's weight is cut in the same commit. `test_weights_fit_the_base` fails if the sleeves add to more than 100% |
+| 1. Merge the branch to master | Ryan's OK | Done 2026-11-13. The "LEVX inputs build" Action writes `levx_inputs.json` each morning |
+| 2. Set the weight | Ryan, live turn | Done 2026-11-13: `levx.W_LEVX` 0.10, `sleeves.W_SWING_Q` 0.50 to 0.40, same commit. `test_weights_fit_the_base` fails if the sleeves add to more than 100% |
+| 3. Routine prompt v19 | Ryan | LEVX runs from the first run whose line-1 stamp reads v19. With the weight set, that run trades real money |
+| 4. Step to 20% | Ryan, live turn | Open. Proposed once each fund has 20 round trips and `levx.py score` shows the cost check "ok" |
 
-Steps 2 and 3 can be done together. Paper measures timing and data problems. It cannot measure
-trading cost, which is the main risk, so a small live weight teaches more than a long paper run.
+A weight of 0 puts the sleeve back in paper mode (full procedure, no orders).
 
 ## Open items and limits
 

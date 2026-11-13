@@ -48,7 +48,7 @@ HERE = Path(__file__).resolve().parent
 STATE = HERE / "sleeves_state.json"
 
 INVEST_FRAC = 0.95                      # 5% operational reserve
-W_SWING_Q = 0.50                        # 70 -> 50 on 2026-11-01: 20% moved to the BBW sleeves (bbw.py). 0.40 once GROWTH is live
+W_SWING_Q = 0.40                        # 70 -> 50 on 2026-11-01 (20% to BBW, bbw.py); 50 -> 40 on 2026-11-13 (10% to LEVX, levx.py). 0.30 once GROWTH is live
 W_SWING_M = 0.30
 N_PICKS = 10
 Q_SIGNAL, Q_VEHICLE = "QQQ", "QLD"

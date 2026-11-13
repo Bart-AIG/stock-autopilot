@@ -1,8 +1,8 @@
 """
 LEVX sleeve: liquid leveraged index funds, owned overnight and on intraday breakouts.
 
-STATUS: PROPOSED 2026-11-13. W_LEVX is 0.0 until Ryan sets a weight in a live turn, and the
-routine only runs this module once a prompt that carries the LEVX duties is pasted.
+STATUS: APPROVED 2026-11-13 at 10% of the base, funded from SWING_Q (Ryan, live turn). It
+trades on the first routine run whose prompt carries the LEVX duties (v19).
 Evidence: levx_results.md. Spec: docs/levx-sleeve.md.
 
 Two legs, both rules are formulas (no stops, no targets, no news gate):
@@ -46,7 +46,7 @@ INPUTS = HERE / "levx_inputs.json"
 STATE = HERE / "levx_state.json"
 ET = ZoneInfo("America/New_York")
 
-W_LEVX = 0.0                 # share of the investable base. 0.0 = not live. Only a live Ryan turn changes it.
+W_LEVX = 0.10                # share of the investable base (0.0 = paper). Set 2026-11-13, from SWING_Q. Only a live Ryan turn changes it.
 INVEST_FRAC = 0.95           # same 5% operational reserve as sleeves.py
 FUNDS = {
     "TQQQ": {"index": "QQQ", "night_share": 0.5, "day": True},

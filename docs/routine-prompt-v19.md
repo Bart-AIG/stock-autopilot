@@ -1,21 +1,21 @@
-# Routine prompt v19: adds the LEVX sleeve (2026-11-13). PASTE-READY, NOT YET APPROVED
+# Routine prompt v19: adds the LEVX sleeve (2026-11-13). APPROVED, LIVE AT 10%
 
 Ryan pastes the block below the `---` divider into the "Options autopilot" routine,
-replacing the stored v18. Replace `<DATE>` in line 1 with the paste date.
+replacing the stored v18. Line 1 is stamped 2026-11-13; change the date if it goes in on another day.
 
 **No cron-job.org change.** LEVX uses the fires that already exist (:01 / :16 / :31 / :46).
 
-**Authority so far:** Ryan, REAL live turn 2026-11-13, asked for the model (the quote is in
-docs/levx-sleeve.md). He has NOT set a weight. Pasting this prompt starts LEVX in PAPER: every
-run does the full procedure and logs what it would have traded, and places no LEVX order.
-LEVX trades real money only after a live Ryan turn sets `levx.W_LEVX` (an interactive session
-makes that commit and cuts the funding sleeve's weight in the same commit).
+**Authority:** Ryan, REAL live turns 2026-11-13. He asked for the model (quote in
+docs/levx-sleeve.md), read the results and the recommendation (10% live from SWING_Q, both
+legs), and said: *"merge pls. add the recommended sleeve, and i want to modify the routine today to be active"*.
+`levx.W_LEVX` is 0.10 and `sleeves.W_SWING_Q` is 0.40 on master, so **a run on this prompt
+trades LEVX with real money.** (At a weight of 0 the same prompt runs LEVX in paper.)
 
 **What changed from v18, in full:**
 1. Line-1 stamp: v19.
 2. THE LEVX SLEEVE: TQQQ and SOXL held overnight while QQQ / SOXX is above its 200-day
    average, plus an intraday breakout leg on TQQQ (levx.py). Runs on every market-hours run.
-   Paper until Ryan sets the weight.
+   Live at 10% of the base (paper whenever the weight is 0).
 3. LEVX sells are a run's first orders and LEVX buys its last, so the swing sleeves and BBW
    are funded first.
 4. One automatic change: LEVX pauses its own entries at a 40% sleeve drawdown.
@@ -26,17 +26,13 @@ makes that commit and cuts the funding sleeve's weight in the same commit).
    "50 -> 40".
 
 **Two-lock activation:** a run invoked with v18 does not run LEVX (its prompt lacks the duty)
-and reports v19 as paste-pending. LEVX starts, in paper, on the first run whose own line-1
-stamp reads v19. It goes live only when `levx.W_LEVX` is above 0 on master.
-
-**Before pasting:** the branch must be on master, so that the "LEVX inputs build" Action is
-writing `levx_inputs.json` each morning. Without it every run reports stale inputs and LEVX
-does nothing.
+and reports v19 as paste-pending. LEVX starts on the first run whose own line-1 stamp reads
+v19, and trades real money because `levx.W_LEVX` is above 0 on master.
 
 ---
 
 ```
-SLEEVE PROCESS AUTOMATION RUN: RULES EXECUTED, NOT JUDGED (prompt v19, pasted <DATE>)
+SLEEVE PROCESS AUTOMATION RUN: RULES EXECUTED, NOT JUDGED (prompt v19, pasted 2026-11-13)
 
 WHO YOU ARE:
 You are one instance in a relay managing a ~$2,500 account. You have no memory of prior
@@ -75,8 +71,8 @@ SCOPE: Agentic account 718757339 only (agentic_allowed=true), via the Robinhood 
 
 THE SLEEVES (canonical code: sleeves.py; tested: docs/process-audit-2026-09-29.md):
   SWING_Q  signals computed on QQQ, position held in QLD (2x QQQ). Its share of the base
-           is sleeves.W_SWING_Q: 50% on 2026-11-13, and lower by LEVX's weight from the day
-           Ryan funds LEVX out of it. `sleeves.py decide` prints the dollars; use those. Do
+           is sleeves.W_SWING_Q: 40% since 2026-11-13 (50% before; Ryan moved 10% to
+           LEVX). `sleeves.py decide` prints the dollars; use those. Do
            not resize a held QLD mid-month; the first-session-of-month resize rule applies
            as usual.
   SWING_M  the month's top-10 names by 12-month return, from the large-cap pool. Each
@@ -177,10 +173,9 @@ spec: docs/levx-sleeve.md; evidence: levx_results.md).
   the other sleeves: NO unattended run adds a gate, filter, news check, earnings check,
   regime label or veto, changes a parameter, or adds a fund. No stop orders.
   MODE (printed by `levx.py decide`):
+    live    levx.W_LEVX is above 0 (10% of the base since 2026-11-13). Orders are real.
     paper   levx.W_LEVX is 0. PLACE NO ORDERS. Do every step and log what would have been
-            traded at the quote you saw. This is the state until Ryan sets a weight in a
-            live turn; never report it as a fault.
-    live    Ryan has set the weight. Orders are real.
+            traded at the quote you saw. Never report it as a fault.
     paused  sells only, until a live Ryan turn.
   WHEN: every market-hours run. Nothing after the 4:00 PM ET bell.
     09:31 and 09:46 ET       MORNING  sell last night's position, FIRST thing in the run
