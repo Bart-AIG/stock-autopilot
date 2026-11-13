@@ -361,8 +361,8 @@ def evaluate_portfolio(holdings: list[dict], swing_by_sym: dict, momentum_rank: 
             continue
         # Sleeve-process positions (routine prompt v16) exit only on sleeves.py's rules,
         # decided near the close. Judging them here would fire take-profit / grade-exit
-        # lines the sleeves do not use.
-        if sleeve in ("swing_q", "swing_m"):
+        # lines the sleeves do not use. LEVX positions (levx.py) exit on their own clock.
+        if sleeve in ("swing_q", "swing_m", "levx"):
             continue
         s = swing_by_sym.get(sym)
         if not s:

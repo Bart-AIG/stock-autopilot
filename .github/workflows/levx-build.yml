@@ -1,0 +1,61 @@
+name: LEVX inputs build
+
+# Builds levx_inputs.json for the LEVX sleeve (levx.py): each fund's 200-day inputs, its last
+# 20 overnight returns and TQQQ's 14-session time-of-day profile, as of the last completed
+# session. Needs the FMP key, so it runs here. Read-only analysis: it never touches the
+# ledger or any account. Harmless while levx.W_LEVX is 0.0 (the sleeve is not live).
+#
+# Three scheduled attempts each weekday morning, like the sleeves build. Idempotent.
+
+on:
+  schedule:
+    - cron: '45 12 * * 1-5'
+    - cron: '45 13 * * 1-5'
+    - cron: '15 16 * * 1-5'
+  push:
+    branches: ['claude/**', '!claude/joint-risk-watch**', '!claude/quality-watch**']
+    paths: ['levx.py', '.github/workflows/levx-build.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: levx-build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Check the live rules match the backtest
+        run: python test_levx.py
+      - name: Build inputs
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+        run: python levx.py build
+      - name: Commit levx_inputs.json
+        run: |
+          git config user.name 'stock-autopilot-bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add levx_inputs.json
+          git commit -m "levx: inputs $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "no change"; exit 0; }
+          for attempt in 1 2 3 4 5; do
+            if git pull --rebase --quiet && git push; then echo "pushed on attempt $attempt"; exit 0; fi
+            if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ]; then
+              if git checkout --theirs -- levx_inputs.json 2>/dev/null; then
+                git add levx_inputs.json
+                GIT_EDITOR=true git rebase --continue || git rebase --abort
+              else
+                git rebase --abort
+              fi
+            fi
+            sleep $((attempt * 3))
+          done
+          echo "::error::could not push levx_inputs.json"
+          exit 1
