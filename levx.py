@@ -19,7 +19,8 @@ Two legs, both rules are formulas (no stops, no targets, no news gate):
 
 Commands
   python levx.py build                      (GitHub Actions, FMP key) -> levx_inputs.json
-  python levx.py decide LIVE.json --now ISO-UTC [--tv TOTAL_VALUE]
+  python levx.py decide LIVE.json --now ISO-UTC [--tv SLEEVE_MONEY]
+        (--tv is sleeve money since 2026-11-13: total value minus Ryan's own positions, capital.py)
         LIVE.json = {"quotes": {"QQQ": px, "SOXX": px, "TQQQ": px, "SOXL": px},
                      "bars5": {"TQQQ": [Robinhood 5-minute bars for today]}}
         Prints the mode (paper / live / paused), the phase and each fund's target as a
@@ -223,6 +224,7 @@ def decide(inputs: dict, live: dict, now_utc: datetime) -> dict:
 
 
 def sleeve_usd(total_value: float) -> float:
+    """LEVX's dollars. Pass SLEEVE MONEY (capital.py), not total account value."""
     return INVEST_FRAC * W_LEVX * total_value
 
 

@@ -107,7 +107,8 @@ No change to cron-job.org. The existing fires are enough.
 | after 16:00 | nothing |
 
 Each run: quotes for QQQ, SOXX, TQQQ, SOXL; in the DAY window also today's TQQQ 5-minute bars;
-then `python3 levx.py decide LIVE.json --now <UTC> --tv <total value>`. It prints the mode, the
+then `python3 levx.py decide LIVE.json --now <UTC> --tv <sleeve money>` (sleeve money since
+2026-11-13: total value minus Ryan's own positions, `docs/sleeve-money.md`). It prints the mode, the
 phase and each fund's target in dollars. The run trades the difference: sells first, buys last.
 
 | If this goes wrong | What happens |
@@ -121,7 +122,8 @@ phase and each fund's target in dollars. The run trades the difference: sells fi
 
 ## Dollars at today's account size
 
-Total value $2,492 (2026-11-13), base 95% = $2,367.
+Total value $2,492 (2026-11-13), base 95% = $2,367. **Since the close of 2026-11-13 the base is 95%
+of sleeve money (about $1,719 that day), so the dollar columns below are about 0.73 times as large.**
 
 | Weight | Sleeve | NIGHT, each fund (at full size) | DAY (TQQQ) |
 |---|---|---|---|
@@ -159,7 +161,8 @@ A weight of 0 puts the sleeve back in paper mode (full procedure, no orders).
 
 ## Open items and limits
 
-- **Cash.** Sleeve targets are computed on total value, which includes Ryan's MU calls ($513).
+- **Cash. FIXED 2026-11-13: targets are sized on sleeve money and add up to the base
+  (`docs/sleeve-money.md`).** Before that, sleeve targets were computed on total value, which included Ryan's MU calls ($513).
   Deployable cash is about $1,775. At 30 / 30 / 20 / 20 the four sleeves want $2,367 when
   every signal is on, so the last in line (LEVX) is cut on those days.
 - **The $2,000 line.** Robinhood keeps a $2,000 minimum for margin accounts. The account is at
