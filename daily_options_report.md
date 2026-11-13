@@ -1,33 +1,32 @@
-# Daily report — trading day 2026-11-12 (Thursday)
+# Daily report — trading day 2026-11-13 (Friday)
 
-*Written by the run that started 20:16Z (15:16 ET, prompt v18), the first run at or after 2:15 PM CT. That's before the 15:20–15:52 ET decision window, so **the decision-window run will add today's sleeve orders.** Figures are broker figures at 20:16Z, not the close.*
+*Written by the run that started 20:16Z (15:16 ET, prompt v19). It is the first run at or after 2:15 PM CT and comes before the 15:20–15:52 ET decision window, so **the decision-window run will add today's sleeve orders and tonight's LEVX NIGHT decision.** Figures are broker figures at 20:16Z, not the close.*
 
-**Today in one line:** a down day for tech. QQQ is **−0.51%** (686.83 vs 690.38), NVDL is **−11.7%** (18.005) and MU is **−2.5%** (790.71). No orders so far today.
+**Today in one line:** a risk-off day led by semis. QQQ is **−1.26%** (679.51 vs 688.17), SOXX **−3.72%** (149.23), NVDA's 2× fund NVDL **−4.0%** (17.82) and MU **−3.4%** (771.11). The agent has placed no orders so far today.
 
-## 1. Sleeves (SWING_Q / SWING_M)
-- Held: ILMN 0.384363 sh (bought yesterday on the IBS leg) and MRNA 0.008287 sh (a remainder worth about $2), both SWING_M. There's no QLD position.
+## 1. Sleeves (SWING_Q 40% / SWING_M 30%)
+- Held: ILMN 0.384363 sh (SWING_M, RSI(2) leg), now 208.10. No QLD.
 - **Decision window:** pending. The 15:20–15:52 ET run decides and amends this section.
 
 ## 2. BBW sleeve (NVDL, 20%)
-- Flat all day. Every 15-minute candle through 20:00Z returned `none` (no signal). No trades, and no late exits.
+- Flat all day. Every 15-minute candle through 20:00Z returned `none` (no signal). No trades and no late exits.
 
-## 3. Ryan's own option (the agent never closes it)
-- MU 2026-12-18 1220C ×3 (basis $1,158), now valued at about **$750** (about −$408). MU is at 790.71. No change from him today.
+## 3. LEVX sleeve (10%): first live day (v19 observed 19:16Z)
+- **Mode: live.** Sleeve ≈ $236 (10% of the base).
+- **Last night:** no position (the sleeve wasn't live yet).
+- **DAY leg (TQQQ):** every check from 14:30 on (the first v19 run) was out. The 15:00 bar closed at about 57.5, ~7% under the band of max(open 59.91, prior close 59.88) × (1 + its 14-session average move). Nothing was bought, and nothing is held.
+- **Tonight's NIGHT decision:** this run doesn't make it. The 15:46 ET run does: TQQQ if QQQ is above its 200-day, SOXL if SOXX is above its 200-day. No action was late, skipped or left on a null target.
 
-## 4. Legacy book / options book / growth paper
-- The legacy book was closed out on 10-14. No agentic options are open. Growth paper was marked by the 15:01 ET run: the open book is **$223.18 on $263.12 (−15.18%)**.
+## 4. Ryan's own option (the agent never closes it)
+- MU 2026-12-18 1220C **×4**. Ryan added one contract @ 1.70 at 19:30:59Z, so the basis is now $1,327.67. It's valued at about **$692** (about −$636), with MU at 771.11.
 
-## 5. Account and drawdown
-- Total value is **$2,730.46**: cash $1,898, options $750, equity $82.
-- Sleeve value (measured without Ryan's own P/L and the deposits) is **$4,173.79**, which is **−0.05%** from its high-water mark. No drawdown action. The high-water mark was raised to $4,176 from yesterday's reading. It had been left at $3,604.85.
+## 5. Legacy book / options book / growth paper
+- The legacy book was closed out on 10-14. No agentic options are open. The 15:01 ET run (or the next run after 15:00) marks growth paper.
 
-## 6. Tomorrow
-- TOM (turn of the month) is off until the month-end window (the last trading day of November). Nothing else is due.
+## 6. Account and drawdown
+- Total value is **$2,501.91**: cash $1,729.87, options $692, equity $80.04. Total value was $2,730 at yesterday's window. Most of the fall is Ryan's $170 MU add, paid from cash, plus the option's mark.
+- Sleeve value (measured without Ryan's own P/L and the deposits) is **$4,172.91**, which is **−0.07%** from its $4,176 high-water mark. No drawdown action.
 
----
-## Decision-window amendment (run started 20:25Z / 15:25 ET)
-`sleeves.py decide` on live quotes at 20:25:42Z (total value $2,730.30):
-- **SWING_Q (QLD): out.** QQQ 687.86, RSI(2) 68.9, IBS 0.55, no TOM. Nothing held, nothing bought.
-- **SWING_M:** **SOLD MRNA** 0.008287 sh @ $230.70 (filled 20:26:12Z, order 6af620e3; −$0.17). Its IBS leg reached the 5-session cap. **KEPT ILMN** 0.384363 sh (RSI(2) leg on, RSI2 16.2). The other 8 picks are out (LITE, WDC, MRVL and VIAV are below their 200-day; MU, DELL, VLO and MPC have no leg on).
-- **BBW NVDL:** no signal, flat.
-- Trade approvals are off. Every order filled.
+## 7. Next session (Monday 11-16)
+- First run: sell any LEVX night position (09:31 ET), then the BBW weekly search and growth-paper research after 10:30 ET, and the weekly check.
+- TOM stays off until the last trading day of November.
