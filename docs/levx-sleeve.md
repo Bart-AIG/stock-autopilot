@@ -109,7 +109,7 @@ phase and each fund's target in dollars. The run trades the difference: sells fi
 | The 09:31 run is missed | The 09:46 run sells. Selling anywhere from the open to 10:00 tested at 52% to 62% a year, with no pattern |
 | A DAY check run is missed | No entry from that check. A missed exit is made by the next run and logged late |
 | The 15:46 run is missed | No night position that night. A DAY position still on (16% of sessions) is carried overnight at full size and sold next morning. Reported |
-| The morning inputs build fails | `decide` reports stale inputs: sells only that day, Ryan is told once |
+| The morning inputs build fails (FMP down, or a gap in the 5-minute history it needs) | The build stops rather than use partial data. `decide` reports stale inputs: sells only that day, Ryan is told once |
 | Robinhood returns incomplete 5-minute bars | The target is null: the position is left alone and nothing is opened |
 | Trade approvals are switched on | No LEVX buys (an approval after the bell would fill at the next open, the opposite of the rule). Sells still go |
 

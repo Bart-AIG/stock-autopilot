@@ -441,6 +441,12 @@ def build(key: str) -> dict:
             rec["sigma_sessions"] = [s["date"] for s in use]
             if len(rec["sigma"]) < len(CHECKS):
                 raise SystemExit(f"{f}: sigma profile incomplete ({len(rec['sigma'])} of {len(CHECKS)} checks)")
+            # a throttled 5-minute request leaves a silent hole: the profile must be the last
+            # SIGMA_N full sessions of the daily calendar, or the build fails (sells only that day)
+            want = [r["date"] for r in fd if r["date"] not in EARLY_CLOSE][-SIGMA_N:]
+            if rec["sigma_sessions"] != want:
+                missing = sorted(set(want) - set(rec["sigma_sessions"]))
+                raise SystemExit(f"{f}: 5-minute history has gaps, missing sessions {missing}")
         funds[f] = rec
     nxt = next_session(date.fromisoformat(asof)).isoformat()
     return {"built_utc": now.isoformat(timespec="seconds"), "asof": asof, "for_session": nxt,
