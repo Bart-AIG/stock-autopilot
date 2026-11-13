@@ -374,6 +374,7 @@ def decide_one(strat: dict, pos: dict | None, B: list[list]) -> dict:
 
 
 def target_usd(strat: dict, total_value: float, invest_frac: float = 0.95) -> float:
+    """Pass SLEEVE MONEY (capital.py) as total_value: the base is 95% of sleeve money since 2026-11-13."""
     return round(total_value * invest_frac * strat["weight"], 2)
 
 

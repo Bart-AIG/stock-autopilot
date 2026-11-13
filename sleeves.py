@@ -10,7 +10,8 @@ running the same rules, SWING_UNION:
   GROWTH   Claude-researched high-growth names: PAPER ONLY until Ryan makes it live, then
            10% taken from SWING_Q (-> 40%). Tracked in growth_paper.json, not here.
   BBW      15-minute Bollinger-squeeze strategies (bbw.py, bbw_state.json): 20% of the base.
-Investable base = 95% of total account value (the 5% operational reserve stays).
+Investable base = 95% of SLEEVE MONEY: total account value minus Ryan's own positions
+(capital.py, set 2026-11-13). The 5% operational reserve is 5% of sleeve money.
 
 SWING_UNION (per symbol, decided near the close, held close to close; "in" if ANY leg is on):
   RSI2 leg  enter: RSI(2) < 10 and price > 200-day SMA.  exit: price > 5-day SMA.
@@ -23,7 +24,7 @@ Two commands:
   python sleeves.py build            (GitHub Actions, FMP key) -> sleeves_state.json:
                                      the month's picks and each symbol's leg state as of
                                      the last completed session.
-  python sleeves.py decide LIVE.json [--tv TOTAL_VALUE]
+  python sleeves.py decide LIVE.json [--tv SLEEVE_MONEY]
                                      (the routine, no network) LIVE.json =
                                      {"asof_utc": "...", "SYM": {"px":.., "hi":.., "lo":..}, ...}
                                      with today's live price and session high/low so far.
