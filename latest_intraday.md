@@ -1,4 +1,4 @@
-# Strategy report - INTRADAY  (2026-11-16 18:07 UTC)
+# Strategy report - INTRADAY  (2026-11-16 18:17 UTC)
 
 ## >>> ACTION <<<
 
@@ -10,48 +10,48 @@ Top 10% of the universe by quality grade (>= 9/12 traits, beating SPY over 3 mon
 
 | Ticker | Grade | Q | Rank | Trigger | Theme | Spec | Held | Earnings | Price | RSI2 | Entry | Stop | Target | Stop% |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| TMO | A+ | 12/12 | #5 | 21 EMA pullback | Other |  |  |  | 697.75 | 17.2 | 697.75 | 663.93 | 721.63 | -4.8% |
-| EMR | A+ | 12/12 | #13 | RSI2 dip | Other |  |  |  | 161.26 | 4.1 | 161.26 | 152.81 | 170.74 | -5.2% |
-| VRTX | A+ | 12/12 | #14 | RSI2 dip | Other |  |  |  | 537.96 | 6.2 | 537.96 | 512.77 | 558.88 | -4.7% |
-| MRNA | A+ | 11/12 | #15 | RSI2 dip | Other |  |  |  | 216.01 | 4.4 | 216.01 | 181.65 | 267.57 | -15.9% ⚠ |
-| PFE | A+ | 11/12 | #23 | 21 EMA pullback | Other |  |  |  | 29.0 | 48.8 | 29.0 | 27.88 | 30.69 | -3.9% |
+| TMO | A+ | 12/12 | #5 | 21 EMA pullback | Other |  |  |  | 696.47 | 15.1 | 696.47 | 662.67 | 721.63 | -4.9% |
+| EMR | A+ | 12/12 | #13 | RSI2 dip | Other |  |  |  | 161.12 | 4.0 | 161.12 | 152.65 | 170.74 | -5.3% |
+| VRTX | A+ | 12/12 | #14 | RSI2 dip | Other |  |  |  | 537.59 | 5.7 | 537.59 | 512.41 | 558.88 | -4.7% |
+| MRNA | A+ | 11/12 | #15 | RSI2 dip | Other |  |  |  | 214.97 | 4.2 | 214.97 | 180.69 | 266.37 | -15.9% ⚠ |
+| PFE | A+ | 11/12 | #23 | 21 EMA pullback | Other |  |  |  | 28.96 | 41.1 | 28.96 | 27.84 | 30.64 | -3.9% |
 
 ### How to read this (concentration & sizing)
 - ⚠️ **1 have stops wider than 15%** (marked ⚠) — extreme volatility. Size so the dollar-risk-to-stop is small, not the dollar position.
 - ✅ **Discipline:** take the highest-ranked, least-correlated names. Per-name cap 30% of account value; target 3-4 concurrent positions, minimum entry ~$600. Equity capital excludes the 20% options bucket and the 5% reserve. The agent places NO stop (HARD RULE 5): exits are the RSI2>=70 take-profit on a green position, the GRADE EXIT (rank leaves the top 25%), and Ryan's native trail once green enough.
 
-**Excluded — RSI2 dips on names that are NOT leaders** (the old screen would have bought these; the grade filters them out): ZS (C 7/12), ILMN (C 5/12), TEM (B 8/12), GM (C 8/12), ROST (C 5/12), PLTR (C 3/12), RBRK (B 8/12), CRWD (C 5/12)
+**Excluded — RSI2 dips on names that are NOT leaders** (the old screen would have bought these; the grade filters them out): ZS (C 7/12), ILMN (C 5/12), TEM (B 8/12), GM (C 8/12), ROST (C 5/12), DE (B 8/12), PLTR (C 3/12), RBRK (B 8/12), CRWD (C 5/12)
 
 ## Quality ranking — top 25 of 236 (A = buyable, B = holdable)
 Value = valuation grade vs the name's own 10-yr multiples; Disruption = is the business being disrupted or doing the disrupting (legends under the joint section). Display only: neither changes the grade.
 
 | # | Ticker | Grade | Q | RS vs SPY 3M | Off 52W hi | Value | Disruption | Traits firing |
 |---|---|---|---|---|---|---|---|---|
-| 1 | MO | A+ | 12/12 | +24.2% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 2 | MAR | A+ | 12/12 | +22.6% | -0.6% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 3 | REGN | A+ | 12/12 | +21.8% | -1.3% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 4 | WBD | A+ | 12/12 | +21.7% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 5 | TMO | A+ | 12/12 | +21.7% | -3.3% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 6 | LLY | A+ | 12/12 | +21.2% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 7 | V | A+ | 12/12 | +21.1% | -1.7% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 8 | ABBV | A+ | 12/12 | +17.8% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 1 | MO | A+ | 12/12 | +24.1% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 2 | MAR | A+ | 12/12 | +22.7% | -0.6% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 3 | WBD | A+ | 12/12 | +21.8% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 4 | REGN | A+ | 12/12 | +21.8% | -1.3% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 5 | TMO | A+ | 12/12 | +21.7% | -3.4% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 6 | LLY | A+ | 12/12 | +21.1% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 7 | V | A+ | 12/12 | +21.0% | -1.8% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 8 | ABBV | A+ | 12/12 | +17.7% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
 | 9 | KO | A+ | 12/12 | +15.1% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 10 | AMGN | A+ | 12/12 | +13.3% | -2.2% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 11 | DLTR | A+ | 12/12 | +9.5% | -5.7% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 12 | EOG | A+ | 12/12 | +8.9% | -5.1% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 13 | EMR | A+ | 12/12 | +5.6% | -5.4% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 14 | VRTX | A+ | 12/12 | +5.3% | -3.5% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 15 | MRNA | A+ | 11/12 | +248.7% | -19.1% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 16 | PG | A+ | 11/12 | +24.0% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 17 | CME | A+ | 11/12 | +20.9% | -2.2% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 18 | MA | A+ | 11/12 | +19.2% | -1.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP |
-| 19 | DIS | A+ | 11/12 | +17.4% | -0.8% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 20 | LIN | A+ | 11/12 | +13.4% | -3.5% | — | — | 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 21 | MDLZ | A+ | 11/12 | +11.8% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP |
-| 22 | COP | A+ | 11/12 | +11.6% | -8.7% | — | — | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 23 | PFE | A+ | 11/12 | +9.7% | -5.8% | EXPENSIVE -28% (MED) | AT RISK [research: neutral] | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 24 | BLK | B | 11/12 | +7.4% | -1.9% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 25 | ABNB | B | 11/12 | +5.2% | -1.9% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP |
+| 10 | AMGN | A+ | 12/12 | +13.1% | -2.4% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 11 | DLTR | A+ | 12/12 | +9.7% | -5.5% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 12 | EOG | A+ | 12/12 | +8.8% | -5.2% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 13 | EMR | A+ | 12/12 | +5.5% | -5.6% | RICH -22% (HIGH) | STABLE | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 14 | VRTX | A+ | 12/12 | +5.1% | -3.7% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 15 | MRNA | A+ | 11/12 | +246.4% | -19.7% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 16 | PG | A+ | 11/12 | +23.9% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 17 | CME | A+ | 11/12 | +20.8% | -2.3% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 18 | MA | A+ | 11/12 | +19.2% | -1.1% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP |
+| 19 | DIS | A+ | 11/12 | +17.5% | -0.7% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 20 | LIN | A+ | 11/12 | +13.3% | -3.7% | — | — | 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 21 | MDLZ | A+ | 11/12 | +11.9% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP |
+| 22 | COP | A+ | 11/12 | +11.5% | -8.8% | — | — | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 23 | PFE | A+ | 11/12 | +9.6% | -5.9% | EXPENSIVE -28% (MED) | AT RISK [research: neutral] | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 24 | BLK | B | 11/12 | +7.4% | -2.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 25 | ABNB | B | 11/12 | +5.4% | -1.7% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP |
 
 ## 12-1 momentum ranking (top decile = 22 of 220)
 Multi-week / monthly trend holds. Rebalance on a monthly cadence, not daily.
@@ -59,31 +59,31 @@ Multi-week / monthly trend holds. Rebalance on a monthly cadence, not daily.
 | # | Ticker | mom12-1% | RSI14 | >200MA |
 |---|---|---|---|---|
 | 1 **TOP** | SNDK | 827.0 | 31.6 | F |
-| 2 **TOP** | MRNA | 738.2 | 47.8 | T |
-| 3 **TOP** | LITE | 400.2 | 34.7 | F |
-| 4 **TOP** | MU | 334.3 | 38.6 | F |
-| 5 **TOP** | DELL | 202.0 | 33.3 | F |
-| 6 **TOP** | VLO | 181.9 | 43.6 | T |
-| 7 **TOP** | ILMN | 175.0 | 32.9 | T |
+| 2 **TOP** | MRNA | 738.2 | 47.3 | T |
+| 3 **TOP** | LITE | 400.2 | 34.6 | F |
+| 4 **TOP** | MU | 334.3 | 38.5 | F |
+| 5 **TOP** | DELL | 202.0 | 33.2 | F |
+| 6 **TOP** | VLO | 181.9 | 43.4 | T |
+| 7 **TOP** | ILMN | 175.0 | 32.8 | T |
 | 8 **TOP** | MPC | 159.2 | 43.4 | T |
 | 9 **TOP** | MRVL | 159.0 | 32.9 | F |
-| 10 **TOP** | VIAV | 156.0 | 41.1 | F |
-| 11 **TOP** | INTC | 142.8 | 30.0 | F |
-| 12 **TOP** | AAOI | 136.7 | 32.3 | F |
-| 13 **TOP** | SOXL | 132.5 | 34.7 | F |
-| 14 **TOP** | AMD | 126.9 | 47.2 | T |
-| 15 **TOP** | PSX | 126.8 | 44.8 | T |
-| 16 **TOP** | COHR | 100.2 | 42.6 | F |
-| 17 **TOP** | NUE | 94.5 | 46.6 | T |
+| 10 **TOP** | VIAV | 156.0 | 41.0 | F |
+| 11 **TOP** | INTC | 142.8 | 29.9 | F |
+| 12 **TOP** | AAOI | 136.7 | 32.1 | F |
+| 13 **TOP** | SOXL | 132.5 | 34.6 | F |
+| 14 **TOP** | AMD | 126.9 | 47.0 | T |
+| 15 **TOP** | PSX | 126.8 | 44.7 | T |
+| 16 **TOP** | COHR | 100.2 | 42.5 | F |
+| 17 **TOP** | NUE | 94.5 | 46.5 | T |
 | 18 **TOP** | MTSI | 91.7 | 42.8 | F |
-| 19 **TOP** | CRWD | 87.7 | 38.9 | T |
-| 20 **TOP** | LRCX | 86.5 | 38.1 | F |
-| 21 **TOP** | AMAT | 81.9 | 39.3 | F |
-| 22 **TOP** | MRK | 72.1 | 50.3 | T |
+| 19 **TOP** | CRWD | 87.7 | 38.8 | T |
+| 20 **TOP** | LRCX | 86.5 | 38.0 | F |
+| 21 **TOP** | AMAT | 81.9 | 39.2 | F |
+| 22 **TOP** | MRK | 72.1 | 50.1 | T |
 | 23  | WBD | 70.1 | 75.2 | T |
-| 24  | TGT | 69.8 | 54.8 | T |
-| 25  | COP | 69.4 | 50.6 | T |
-| 26  | FCX | 68.9 | 31.9 | F |
+| 24  | TGT | 69.8 | 54.9 | T |
+| 25  | COP | 69.4 | 50.3 | T |
+| 26  | FCX | 68.9 | 31.7 | F |
 | 27  | PANW | 64.5 | 36.0 | T |
 
 ## Joint long-term port — accumulate signals (oversold within an uptrend)
@@ -93,16 +93,16 @@ Watch-only — the agent can't trade the joint account, so this surfaces BUY/ADD
 **New long-term ideas you don't hold (oversold uptrends):**
 | Signal | Ticker | Theme | Price | RSI14 | RSI2 | vs 20d | vs 50d | mom12-1% | Value | Fair | Analysts | Disruption | Basis |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 🟢 oversold | ROST | Other | 225.02 | 42.6 | 5.9 | -3.7% | -2.8% | 51.6 | FAIR -10% (HIGH) | 204.92 | +24% | STABLE [research: neutral] | steady | disruption: analysts see revenue +13% next year; research 2026-10-12: Off-price store chain gaining share from value-seeking shoppers (Deutsche Bank sees +210 bp off-price share in 2026); no sign online retail is eroding the treasure-hunt model, and no new market either. |
-| 🟢 oversold | GM | Other | 84.06 | 47.9 | 5.2 | -0.4% | +0.7% | 43.8 | FAIR +1% (MED) | 84.74 | +18% | STABLE | cyclical: TROUGH-CYCLE margins (8% vs 13% normal): earnings multiples ignored | disruption: cyclical: judged on 5-yr trends |
-| 🟢 oversold | PLTR | AI-software | 161.62 | 35.6 | 8.6 | -10.6% | -12.4% | 4.4 | EXPENSIVE -50% (LOW) | 81.28 | +52% | DISRUPTOR [research: disruptor] | preprofit: far from its own history: the market has re-rated it, find out why; analysts disagree | disruption: revenue +33%/yr over 3 yrs; analysts see revenue +90% next year; research 2026-11-02: AIP is opening a largely new enterprise market for operational AI (US commercial revenue +149% y/y to $764M in Q2 2026; FY26 guide ~$8.15B, +82%); Microsoft Fabric and frontier-model vendors (Anthropic) are named threats but have not dented reported growth. |
-| 🟢 oversold | CRWD | AI-software | 219.7 | 38.9 | 9.9 | -8.3% | -10.3% | 87.7 | EXPENSIVE -38% (LOW) | 136.42 | +14% | DISRUPTOR [research: innovating] | preprofit | disruption: revenue +29%/yr over 3 yrs; analysts see revenue +25% next year; research 2026-10-21: Endpoint security leader adding AI-agent security; Microsoft Defender/Security Copilot bundling is the standing competitive threat (CEO: 'Microsoft is always going to be a competitor'), not obsolescence. Evidence on new-market creation is thin. |
-| 🟢 oversold | RBRK | AI-infra | 105.94 | 40.2 | 9.5 | -10.4% | -7.1% | 45.6 | RICH -20% (LOW) | 85.58 | +3% | DISRUPTOR [research: innovating] | preprofit | disruption: revenue +30%/yr over 3 yrs; analysts see revenue +28% next year; research 2026-10-23: Cyber-resilience leader extending into AI-agent governance and recovery (Rubrik Agent Cloud, Bedrock/Copilot/Gemini integrations); cloud ARR +57%; rivals CrowdStrike and Palo Alto compete in AI security. |
-| 🟢 oversold | DE | Other | 662.36 | 48.5 | 7.0 | +0.0% | -0.8% | 40.0 | EXPENSIVE -44% (HIGH) | 375.53 | +11% | STABLE | cyclical | disruption: analysts expect revenue -7% next year; gross margin up 5 pts (36%) |
-| 🟡 dip | OXY | Energy | 58.09 | 44.1 | 45.0 | -3.6% | -2.7% | 52.5 | UNDERVALUED +21% (HIGH) | 69.7 | +22% | STABLE [research: neutral] | cyclical: analysts agree | disruption: commodity producer: revenue and margins follow the commodity price, not competitors; research 2026-11-05: Core is oil and gas (2026 capex cut 8%, ~1% production growth); Stratos direct-air-capture plant could open a carbon-removal market but has slipped to late 2026 and its economics are unproven without subsidies. |
-| 🟡 dip | SHOP | Other | 149.24 | 44.9 | 72.8 | -5.2% | -2.4% | 7.5 | UNDERVALUED +15% (MED) | 164.5 | +26% | DISRUPTOR (quant INNOVATING) [research: innovating] | growth: analysts agree | disruption: revenue +27%/yr over 3 yrs; analysts see revenue +30% next year; research 2026-11-06: Commerce platform positioned for AI agentic shopping: Q3 2026 saw the first delegated purchases by personal AI agents on its stack (shop.dev); AI-driven orders tripled YoY in Q2; agentic orders carry the same economics as online-store orders. Growth ~low 30s%. |
-| 🟡 dip | QCOM | Semis | 171.26 | 47.9 | 21.8 | -1.1% | -4.2% | 5.3 | FAIR -2% (HIGH) | 166.99 | +9% | INNOVATING (quant STABLE) [research: innovating] | cyclical | disruption: R&D 24% of revenue; cyclical: judged on 5-yr trends; research 2026-10-12: Losing Apple's modem business (~$5.7B+/yr at risk by 2027) but replacing it with data-center AI chips (Amazon deal of up to $60B, target $15B DC revenue by FY2029) and record automotive; the core handset business is being substituted, not made obsolete. |
-| 🟡 dip | PANW | AI-software | 312.7 | 36.0 | 10.1 | -10.4% | -14.8% | 64.5 | EXPENSIVE -50% (LOW) | 157.37 | +32% | DISRUPTOR (quant INNOVATING) [research: innovating] | growth: business changed (margin 13% vs 4% 10-yr median): its own history is a weak yardstick; far from its own history: the market has re-rated it, find out why; analysts disagree | disruption: revenue +19%/yr over 3 yrs; analysts see revenue +23% next year; research 2026-10-14: Platformization plus AI security products (AI Access, AI Runtime Security, AI-SPM) position it to gain from vendor consolidation; AI-native rivals (CrowdStrike, Zscaler, Wiz) are pushing into the same space, so margin pressure is the risk, not obsolescence. |
+| 🟢 oversold | ROST | Other | 225.18 | 42.7 | 5.8 | -3.7% | -2.7% | 51.6 | FAIR -10% (HIGH) | 204.92 | +24% | STABLE [research: neutral] | steady | disruption: analysts see revenue +13% next year; research 2026-10-12: Off-price store chain gaining share from value-seeking shoppers (Deutsche Bank sees +210 bp off-price share in 2026); no sign online retail is eroding the treasure-hunt model, and no new market either. |
+| 🟢 oversold | GM | Other | 84.02 | 47.8 | 5.0 | -0.5% | +0.7% | 43.8 | FAIR +1% (MED) | 84.74 | +18% | STABLE | cyclical: TROUGH-CYCLE margins (8% vs 13% normal): earnings multiples ignored | disruption: cyclical: judged on 5-yr trends |
+| 🟢 oversold | PLTR | AI-software | 161.47 | 35.5 | 8.4 | -10.7% | -12.5% | 4.4 | EXPENSIVE -50% (LOW) | 81.28 | +52% | DISRUPTOR [research: disruptor] | preprofit: far from its own history: the market has re-rated it, find out why; analysts disagree | disruption: revenue +33%/yr over 3 yrs; analysts see revenue +90% next year; research 2026-11-02: AIP is opening a largely new enterprise market for operational AI (US commercial revenue +149% y/y to $764M in Q2 2026; FY26 guide ~$8.15B, +82%); Microsoft Fabric and frontier-model vendors (Anthropic) are named threats but have not dented reported growth. |
+| 🟢 oversold | CRWD | AI-software | 219.52 | 38.8 | 9.9 | -8.4% | -10.4% | 87.7 | EXPENSIVE -38% (LOW) | 136.42 | +14% | DISRUPTOR [research: innovating] | preprofit | disruption: revenue +29%/yr over 3 yrs; analysts see revenue +25% next year; research 2026-10-21: Endpoint security leader adding AI-agent security; Microsoft Defender/Security Copilot bundling is the standing competitive threat (CEO: 'Microsoft is always going to be a competitor'), not obsolescence. Evidence on new-market creation is thin. |
+| 🟢 oversold | RBRK | AI-infra | 105.96 | 40.2 | 9.7 | -10.4% | -7.0% | 45.6 | RICH -20% (LOW) | 85.58 | +3% | DISRUPTOR [research: innovating] | preprofit | disruption: revenue +30%/yr over 3 yrs; analysts see revenue +28% next year; research 2026-10-23: Cyber-resilience leader extending into AI-agent governance and recovery (Rubrik Agent Cloud, Bedrock/Copilot/Gemini integrations); cloud ARR +57%; rivals CrowdStrike and Palo Alto compete in AI security. |
+| 🟢 oversold | EMR | Other | 161.23 | 45.7 | 4.0 | -2.4% | +0.9% | 24.9 | RICH -22% (HIGH) | 125.85 | +7% | STABLE | cyclical | disruption: gross margin up 4 pts (53%); cyclical: judged on 5-yr trends |
+| 🟢 oversold | DE | Other | 660.86 | 47.9 | 6.5 | -0.2% | -1.0% | 40.0 | EXPENSIVE -44% (HIGH) | 375.53 | +11% | STABLE | cyclical | disruption: analysts expect revenue -7% next year; gross margin up 5 pts (36%) |
+| 🟡 dip | OXY | Energy | 58.03 | 43.9 | 43.2 | -3.7% | -2.8% | 52.5 | UNDERVALUED +21% (HIGH) | 69.7 | +22% | STABLE [research: neutral] | cyclical: analysts agree | disruption: commodity producer: revenue and margins follow the commodity price, not competitors; research 2026-11-05: Core is oil and gas (2026 capex cut 8%, ~1% production growth); Stratos direct-air-capture plant could open a carbon-removal market but has slipped to late 2026 and its economics are unproven without subsidies. |
+| 🟡 dip | SHOP | Other | 149.31 | 44.9 | 73.3 | -5.1% | -2.3% | 7.5 | UNDERVALUED +15% (MED) | 164.5 | +26% | DISRUPTOR (quant INNOVATING) [research: innovating] | growth: analysts agree | disruption: revenue +27%/yr over 3 yrs; analysts see revenue +30% next year; research 2026-11-06: Commerce platform positioned for AI agentic shopping: Q3 2026 saw the first delegated purchases by personal AI agents on its stack (shop.dev); AI-driven orders tripled YoY in Q2; agentic orders carry the same economics as online-store orders. Growth ~low 30s%. |
+| 🟡 dip | QCOM | Semis | 171.29 | 47.9 | 21.4 | -1.1% | -4.2% | 5.3 | FAIR -2% (HIGH) | 166.99 | +9% | INNOVATING (quant STABLE) [research: innovating] | cyclical | disruption: R&D 24% of revenue; cyclical: judged on 5-yr trends; research 2026-10-12: Losing Apple's modem business (~$5.7B+/yr at risk by 2027) but replacing it with data-center AI chips (Amazon deal of up to $60B, target $15B DC revenue by FY2029) and record automotive; the core handset business is being substituted, not made obsolete. |
 
 _The technical screen is the SIGNAL (oversold within an uptrend); the valuation grade says whether the price is cheap for that business, and the disruption grade says whether the business itself is under threat. Confirm each with the news/thesis (HARD RULE 7) before buying: a name can sit below its own history because its future really is worse._
 
@@ -132,20 +132,20 @@ Underlyings only, drawn from the quality grade: CALLS on top-graded leaders, PUT
 **Calls (bullish — strong uptrend > 200MA):**
 | Ticker | mom12-1% | RSI14 | Spec |
 |---|---|---|---|
-| MO | 29.9 | 66.2 |  |
-| MAR | 35.0 | 69.9 |  |
+| MO | 29.9 | 66.1 |  |
+| MAR | 35.0 | 70.0 |  |
 | REGN | 13.8 | 69.0 |  |
 | TMO | 18.9 | 52.7 |  |
-| LLY | 22.9 | 70.0 |  |
+| LLY | 22.9 | 69.8 |  |
 
 **Puts (bearish — downtrend < 200MA):**
 | Ticker | mom12-1% | RSI14 | Spec |
 |---|---|---|---|
-| IREN | -44.5 | 30.2 | SPEC |
-| UUUU | -45.3 | 27.1 | SPEC |
-| ASTS | -33.8 | 33.2 | SPEC |
-| QBTS | -49.6 | 32.2 | SPEC |
-| APLD | -21.7 | 36.7 | SPEC |
+| IREN | -44.5 | 30.1 | SPEC |
+| UUUU | -45.3 | 27.0 | SPEC |
+| ASTS | -33.8 | 33.1 | SPEC |
+| QBTS | -49.6 | 32.1 | SPEC |
+| APLD | -21.7 | 36.6 | SPEC |
 
 ---
 _Read-only. No positions checked, no trades placed. Bring this into a session to act with live quotes and per-order approval._
