@@ -1,44 +1,51 @@
-RISK ORANGE (6) - QQQ back above 666 (667.93) intraday; score 9 -> 6. Not a close yet, stage 4 still owed
+RISK RED (9) - QQQ back under 666 (665.76); score 6 -> 9. Second break today, still not a close
 
-**16:42Z, Mon Nov 16.** QQQ is back over your 666 level, at **667.93** (−1.8% today; the low was under 665 around 15:40Z). Because the grade uses live prices, the 666 alert's 3 points drop off, so the score goes from **9 to 6 and the tier from RED to ORANGE**. No new alert fired since 15:41Z. SPY is 745.78 (−1.1%). The real VIX is **21.00**, still under 22.
+**17:42Z, Mon Nov 16.** QQQ has slipped back under your 666 level, to **665.76 (−2.1% today)**. At 16:42Z it was 667.93. The grade uses live prices, so the 666 alert's 3 points come back: the **score goes from 6 to 9 and the tier from ORANGE to RED**. No alert fired after 16:42Z; the 666 alert already fired once, at 15:00Z. SPY is 743.70 (−1.4%). The real VIX is **21.62**, still under 22.
 
-**Read this as a bounce, not an all-clear.** QQQ is only **0.3% above 666**. A close back under it puts the tier back to RED. The plan's levels count on a **close**, and QQQ is still under every other level on the ladder. **Stage 4 is still reached and still owed.** The tranche-1 reinvest reading has switched off (0), and it had $0 to deploy anyway.
+**QQQ is sitting right on 666.** It has crossed it three times today. The plan counts a **close** below the level, or a break that holds into the last hour (after ~19:00Z). Until then this is a watch. At 15:41Z I said a 666 print is a reason to finish the stage-4 sells, not to buy, and that still holds.
 
-**Margin:** cash is still **−$77,937**. Nothing has been sold since this morning. The account is worth **$69,058** against **$147.0k of stock**, about $2.13 of stock for each $1 of your own money. **Clearing the margin is still step 1.**
+**Tranche 1 (666, QQQI first):** reached intraday, but there is **$0 to deploy**. Tranche buys are 1/3 of the cash raised, and none has been raised. Cash is **−$77,937** against **$146.2k of stock**. The account is worth **$68,311**.
 
-**Benchmarks (16:42Z):**
+**Benchmarks (17:42Z):**
 | Alert | Level | Price | Distance |
 |---|---|---|---|
-| QQQ < 666 | 666.00 | 667.93 | **+0.3% (off again)** |
-| SPY < 50-day | 764.43 | 745.78 | −2.4% (on) |
-| QQQ < 20-day | 695.45 | 667.93 | −4.0% (on) |
-| QQQ < 704.88 | 704.88 | 667.93 | −5.2% (on) |
-| QQQ < 50-day | 717.87 | 667.93 | −7.0% (on) |
-| QQQ < 733 | 733.00 | 667.93 | −8.9% (on) |
-| HYG < 76.35 | 76.35 | 76.86 | +0.7% |
-| IEF > 91.10 | 91.10 | 90.17 | −1.0% |
-| IEF < 88.95 | 88.95 | 90.17 | +1.4% |
-| TIP < 102.85 | 102.85 | 104.61 | +1.7% |
-| SPY < 729 | 729.00 | 745.78 | +2.3% |
-| VIX (real) | 22 | 21.00 | −4.5% |
+| **QQQ < 666** | 666.00 | 665.76 | **−0.04% (on again)** |
+| SPY < 50-day | 764.43 | 743.70 | −2.7% (on) |
+| QQQ < 20-day | 695.45 | 665.76 | −4.3% (on) |
+| QQQ < 704.88 | 704.88 | 665.76 | −5.6% (on) |
+| QQQ < 50-day | 717.87 | 665.76 | −7.3% (on) |
+| QQQ < 733 | 733.00 | 665.76 | −9.2% (on) |
+| HYG < 76.35 | 76.35 | 76.81 | +0.6% |
+| IEF > 91.10 | 91.10 | 90.18 | −1.0% |
+| IEF < 88.95 | 88.95 | 90.18 | +1.4% |
+| TIP < 102.85 | 102.85 | 104.57 | +1.7% |
+| VIX (real) | 22 | 21.62 | −1.7% |
+| SPY < 729 | 729.00 | 743.70 | +2.0% |
+| SPY < 690 | 690.00 | 743.70 | +7.8% |
 
-**HOLDINGS HEALTH** (from 14:42Z; no status has improved):
+**Ladder:** stage 4 is reached and you still owe its sells. Clear the margin first, then make the semis/high-beta trims, then the core trims. Use the share counts in joint_derisk_plan.json and skip anything you've already sold. Your positions are the same as at 16:42Z, so none of it has been sold yet.
+
+**Change since Friday's close:** AAOX −15%, SOXL −13%, COHX −12%, NVDL −7%, BE −7%, CBRS −6%, MU −6% (729.81), MPWR −5%, STRL −5%, LASR −6%, CDNS −4%, AMZN −3%, MOD −3%, META −2%, QQQI −2%.
+
+**HOLDINGS HEALTH** (from the 14:42Z run; no changes):
 - WEAK: CDNS, COHX, MU, NVDL, SOXL, AAOX, STRL, BE, MOD, SPCX, NOW, BBAI, RUN, TLRY, CGC, LASR.
-- WATCH: META, MPWR, QQQI, CBRS. OK: AMZN.
+- WATCH: META, MPWR, QQQI, CBRS.
+- OK: AMZN.
 
-**SELL LIST (ORANGE: 15% single-name cap), for you to place in-app. Margin first ($77.9k), ~$81k to raise:**
-- **SPCX** ~$15.7k (all). WEAK, −4% (loss harvest).
-- **META**, trim ~$9.4k (30%). 21% of the book, +2%. Core: trim only, never sell out.
-- **CDNS** ~$6.3k (all, −1%).
-- **Semis and leveraged ETFs:** NVDL ~$5.4k (−34%, loss), SOXL ~$5.4k (−5%, loss), MU ~$5.1k (+7%), COHX ~$4.7k (+28%), AAOX ~$3.4k (−17%, loss).
-- **Other WEAK names:** BE ~$3.6k (+6%), NOW ~$2.4k (half, −2%), STRL ~$1.4k (−9%), MOD ~$1.3k (+22%), LASR ~$0.8k (+11%), BBAI, RUN, TLRY, CGC (under $500 each, all losses).
-- **QQQI**, trim ~$2.9k (12%). 17% of the book. **Wash sale:** 395 shares were bought Nov 13. A loss sale before Dec 14 is disallowed on the shares that match. Core: trim only.
-- **AMZN**, trim ~$0.6k (3%). 15% of the book, +12%. Core: trim only.
-- **CBRS** ~$1.0k (−7%). Bought Nov 13: a loss sale before Dec 14 is disallowed. **STRL** was bought Nov 12: its loss stays clean only if you don't rebuy it before Dec 13.
-- **Thesis checks** are carried from 14:42Z: **intact**, with the semis and leveraged ETFs **weakened** on price. The move is sector-wide, with no company-specific break found.
-- **Earnings:** no holding reports within 14 days.
+**SELL LIST (RED: 12% single-name cap, 15% cash target), for you to place in-app. Pay off the margin first ($77.9k), then:**
+- **META**: trim ~$13.8k (44%). It's 21% of the book, +1%. Core name: trim only, never sell out.
+- **QQQI**: trim ~$7.3k (29%). It's 17% of the book, −2%. **Wash sale:** you bought 395 shares on Nov 13, so a loss sale before Dec 14 is disallowed on the matching shares. Core name: trim only.
+- **AMZN**: trim ~$4.9k (22%). It's 15% of the book, +11%. Core name: trim only.
+- **SPCX**: sell all, ~$15.7k. WEAK, −4% (a loss to harvest).
+- **Semis and leveraged ETFs:** MU ~$5.1k (+6%), NVDL ~$5.2k (−36%, loss), SOXL ~$5.3k (−6%, loss), COHX ~$4.7k (+26%), AAOX ~$3.4k (−18%, loss).
+- **CDNS**: sell all, ~$6.2k (−2%).
+- **Other WEAK names:** BE ~$3.6k (+6%), NOW ~$2.4k (half, −2%), STRL ~$1.4k (−10%), MOD ~$1.3k (+23%), LASR ~$0.8k (+11%). BBAI, RUN, TLRY and CGC are under $500 each, all at a loss.
+- **CBRS**: ~$1.0k (−7%). You bought it Nov 13, so a loss sale before Dec 14 is disallowed. **STRL** was bought Nov 12: its loss stays clean only if you don't rebuy it before Dec 13.
+- **Thesis checks:** I'm carrying these from the 15:41Z run. There's still no company-specific break; this is a sector-wide drop. Verdicts: **intact**, with the semis and leveraged ETFs **weakened** on price.
+- **Earnings:** no holding reports within 14 days (MU Dec 16 pm, not verified).
 
-**Crack watch:** GREEN, 0 REDs (from 14:42Z). HYG −0.1%, IEF +0.1%. Credit is calm.
-**Rally check:** OK.
+**Crack watch:** GREEN, 0 REDs (from 14:42Z). Credit is steady: HYG −0.2%, IEF +0.2%. This is a stock selloff, not funding stress.
 
-**What moves the tier:** a QQQ close back under 666 puts it at RED 9. To move lower: QQQ above 695.45 (20-day), then 704.88, then SPY above 764.43.
+**Rally check:** OK, no fragile rally (rally_check.json as of Nov 13).
+
+**What brings the tier down:** QQQ back above 666 (the score drops to 6, ORANGE), then QQQ above 695.45 and 704.88, and SPY above 764.43.
