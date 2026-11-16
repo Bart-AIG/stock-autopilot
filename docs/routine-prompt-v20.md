@@ -3,6 +3,9 @@
 Ryan pastes the block below the `---` divider into the "Options autopilot" routine,
 replacing the stored v19. Line 1 is stamped 2026-11-13; change the date if it goes in on another day.
 
+**Status: PASTED.** Ryan, live turn 2026-11-16: *"its been pasted"*. Checked with `get_trigger`
+at 2026-11-16T18:22Z: the routine's stored prompt matches the block below word for word.
+
 **No cron-job.org change is needed for this prompt.**
 
 **Authority:** Ryan, REAL live turn 2026-11-13, answering the audit of the same day (finding 4:
