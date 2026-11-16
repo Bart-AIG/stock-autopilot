@@ -12,7 +12,7 @@
       "added": "2026-11-01",
       "added_by": "Ryan, REAL live turn 2026-11-01: 'just add this as a sleeve to the auto options routine' + '20%, from SWING_Q'",
       "evidence": "Backtest 2026-02-23..2026-10-30 (15-min candles from Robinhood 5-min bars): +92.9% vs buy-and-hold -5.0%, 23 trades, 39% wins, max DD -3.2%, +30.5% without its 3 best trades. Matches TrendSpider's published curve (~+95-100% same window). Weak points: same rules failed on SOXL/TQQQ/QQQ; profits concentrated; ~2-day holds carry overnight gap risk on a 2x fund.",
-      "last_candle": "2026-11-16T15:00:00+00:00"
+      "last_candle": "2026-11-16T15:15:00+00:00"
     }
   ],
   "positions": {},
@@ -49,16 +49,16 @@
     "TECL"
   ],
   "last_search": {
-    "run_utc": "2026-11-09T15:33Z",
+    "run_utc": "2026-11-16T15:35Z",
     "cache_refreshed": [
-      "AMZU",
-      "GOOGL",
-      "GGLL",
-      "META",
-      "MSFT",
-      "MSFU",
-      "AVGO",
-      "PLTR"
+      "PLTU",
+      "MU",
+      "QLD",
+      "SPY",
+      "SPXL",
+      "SMH",
+      "USD",
+      "TECL"
     ],
     "results": [
       {
@@ -90,11 +90,25 @@
         "why": "passes every rule"
       },
       {
+        "symbol": "USD",
+        "pass": false,
+        "variant": "hold30",
+        "score": 0.21601548018584293,
+        "why": "in-sample 24.1% does not beat buy-and-hold 26.0%; out-of-sample return -11.3% <= 0; without its 3 best trades it makes -14.7%"
+      },
+      {
         "symbol": "GGLL",
         "pass": false,
         "variant": "hold80",
         "score": 0.2138978886284737,
         "why": "out-of-sample return -6.7% <= 0; without its 3 best trades it makes -2.5%"
+      },
+      {
+        "symbol": "MU",
+        "pass": false,
+        "variant": "template",
+        "score": 0.1569926335629509,
+        "why": "in-sample return -23.1% <= 0; in-sample -23.1% does not beat buy-and-hold 85.8%; without its 3 best trades it makes -28.8%; drawdown -24.1% worse than -15%"
       },
       {
         "symbol": "AMD",
@@ -111,6 +125,13 @@
         "why": "in-sample 15.2% does not beat buy-and-hold 15.6%; out-of-sample return -1.4% <= 0; without its 3 best trades it makes -13.4%"
       },
       {
+        "symbol": "TECL",
+        "pass": false,
+        "variant": "hold80",
+        "score": 0.13321926696143138,
+        "why": "in-sample 24.3% does not beat buy-and-hold 59.4%; out-of-sample return -10.8% <= 0; without its 3 best trades it makes -30.7%; drawdown -22.2% worse than -15%"
+      },
+      {
         "symbol": "NVDA",
         "pass": true,
         "variant": "hold80",
@@ -125,11 +146,46 @@
         "why": "out-of-sample return -3.8% <= 0; without its 3 best trades it makes -6.2%"
       },
       {
+        "symbol": "PLTU",
+        "pass": false,
+        "variant": "hold30",
+        "score": 0.07646517269302966,
+        "why": "in-sample return -7.4% <= 0; without its 3 best trades it makes -23.5%"
+      },
+      {
+        "symbol": "SMH",
+        "pass": false,
+        "variant": "hold80",
+        "score": 0.0556117053566092,
+        "why": "in-sample return -1.2% <= 0; in-sample -1.2% does not beat buy-and-hold 26.6%; out-of-sample return -7.4% <= 0; without its 3 best trades it makes -24.3%; drawdown -21.0% worse than -15%"
+      },
+      {
+        "symbol": "QLD",
+        "pass": false,
+        "variant": "hold80",
+        "score": 0.04378286006859888,
+        "why": "in-sample 7.4% does not beat buy-and-hold 24.6%; out-of-sample return -6.6% <= 0; without its 3 best trades it makes -15.7%"
+      },
+      {
         "symbol": "QQQ",
         "pass": false,
         "variant": "macd12_26",
         "score": 0.03206334022937307,
         "why": "in-sample 4.4% does not beat buy-and-hold 13.8%; without its 3 best trades it makes -1.8%"
+      },
+      {
+        "symbol": "SPXL",
+        "pass": false,
+        "variant": "hold80",
+        "score": 0.023998948658854546,
+        "why": "in-sample return -6.9% <= 0; in-sample -6.9% does not beat buy-and-hold 24.3%; out-of-sample return -5.2% <= 0; without its 3 best trades it makes -14.5%"
+      },
+      {
+        "symbol": "SPY",
+        "pass": false,
+        "variant": "macd12_26",
+        "score": 0.013090573296964725,
+        "why": "in-sample return -0.2% <= 0; in-sample -0.2% does not beat buy-and-hold 9.6%; without its 3 best trades it makes -3.4%"
       },
       {
         "symbol": "META",
@@ -207,62 +263,6 @@
         "variant": "squeeze20",
         "score": -0.6774813270417566,
         "why": "out-of-sample 10.0% does not beat buy-and-hold 77.8%; without its 3 best trades it makes -3.3%"
-      },
-      {
-        "symbol": "PLTU",
-        "pass": false,
-        "variant": null,
-        "score": null,
-        "why": "no cached 15-min data yet"
-      },
-      {
-        "symbol": "MU",
-        "pass": false,
-        "variant": null,
-        "score": null,
-        "why": "no cached 15-min data yet"
-      },
-      {
-        "symbol": "QLD",
-        "pass": false,
-        "variant": null,
-        "score": null,
-        "why": "no cached 15-min data yet"
-      },
-      {
-        "symbol": "SPY",
-        "pass": false,
-        "variant": null,
-        "score": null,
-        "why": "no cached 15-min data yet"
-      },
-      {
-        "symbol": "SPXL",
-        "pass": false,
-        "variant": null,
-        "score": null,
-        "why": "no cached 15-min data yet"
-      },
-      {
-        "symbol": "SMH",
-        "pass": false,
-        "variant": null,
-        "score": null,
-        "why": "no cached 15-min data yet"
-      },
-      {
-        "symbol": "USD",
-        "pass": false,
-        "variant": null,
-        "score": null,
-        "why": "no cached 15-min data yet"
-      },
-      {
-        "symbol": "TECL",
-        "pass": false,
-        "variant": null,
-        "score": null,
-        "why": "no cached 15-min data yet"
       }
     ]
   },
