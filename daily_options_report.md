@@ -7,11 +7,15 @@
 - SOXX is **−5.35%** at 141.31.
 - NVDL is **−9.0%** at 16.23.
 
-The agent has placed no orders so far today.
+**Decision window (20:31Z run):** one order, SWING_M **BUY MRNA $51.29**, filled 0.237278 sh @ $216.16 at 20:32:09Z.
 
 ## 1. Sleeves (SWING_Q 40% / SWING_M 30%)
 - **Held:** ILMN 0.384363 sh (SWING_M) at 199.18, against a 215.76 cost (−$6.37). No QLD.
-- **Decision window:** not yet run. QQQ (661.09) is below its 200-day average (≈682.4), so SWING_Q's RSI(2) and IBS legs can't turn on today.
+- **Decision window (15:31 ET run, prices at 20:31:35Z):**
+  - **QLD: stay flat.** QQQ 661.76 is below its 200-day (682.44), so no leg can turn on (RSI(2) 10.8, IBS 0.106).
+  - **MRNA: BUY $51.29** (RSI(2) 4.4 and IBS legs on, above its 200-day). Filled 0.237278 sh @ 216.16. This is the entry the 11-13 outage missed; the signal was still on.
+  - **ILMN: keep** (RSI(2) 3.2 leg on). Held $76.65 against a $51.29 target; no resize mid-month.
+  - LITE, MU, DELL, WDC, MRVL, VIAV are below their 200-day; VLO and MPC have no leg on.
 
 ## 2. BBW sleeve (NVDL, 20%)
 - Flat all day. Every 15-minute candle through the 20:00Z one returned `none` (no signal). There were no trades and no late exits.

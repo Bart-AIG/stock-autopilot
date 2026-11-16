@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger. positions[] holds the sleeve positions (sleeve swing_q, swing_m, bbw, levx) and Ryan's own positions (placed_agent 'user': never sold by the agent). _closed_positions[] holds every closed position. _SLEEVE_PROCESS holds the sleeve process state, including the real-money drawdown reading (drawdown_real, written by capital.py). The agent places no stop orders. Notes from the earlier processes are in ledger_findings_archive.json.",
-  "updated_utc": "2026-11-13T23:55:00Z",
+  "updated_utc": "2026-11-16T20:33:00Z",
   "positions": [
     {
       "symbol": "MU",
@@ -161,6 +161,23 @@
       "target": null,
       "order_id": "6af4d0bc-8c75-4179-b499-a31180a385e5",
       "_note": "Decision window 2026-11-11 15:31 ET: decide() target $82.93 (IBS leg, ibs 0.076). Filled 20:31:56Z."
+    },
+    {
+      "symbol": "MRNA",
+      "sleeve": "swing_m",
+      "signal_symbol": "MRNA",
+      "entry_date": "2026-11-16",
+      "entry_price": 216.1599,
+      "shares": 0.237278,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "RSI2",
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6afb6848-b799-4725-a343-47974bc956c5",
+      "_note": "Decision window 2026-11-16 15:31 ET: decide() target $51.29 (RSI2 3-session-old signal still on, rsi2 4.4, ibs 0.444; was_in_after_last_close true, entry missed on 11-13 by the usage-limit outage). Filled 20:32:09Z."
     }
   ],
   "_resolved_flags": [
@@ -2131,22 +2148,22 @@
       "rule": "Since 2026-11-13 (Ryan, REAL live turn, audit finding 4: 'lets fix finding 4. 5.'). The sleeves' return on SLEEVE MONEY (total_value minus Ryan's own positions), written only by capital.py: index *= 1 + (change in sleeve P/L) / (sleeve money at the last reading). -20% from the high-water mark: notify Ryan once. -25%: notify him, no new sleeve buys until a live Ryan turn runs capital.py lift. His own trades and deposits never move it. Spec: docs/sleeve-money.md.",
       "start": "2026-09-30 close = 1.0",
       "seeded": "Index and high-water mark seeded 2026-11-13 from capital_backfill.py (daily closes 2026-09-30 to 11-12: high 1.022029 at the 2026-10-09 close, 0.909264 at the 2026-11-12 close), then stepped to the 2026-11-13 close on ILMN's move.",
-      "index": 0.9074136118259226,
+      "index": 0.9073581461380155,
       "hwm_index": 1.022029,
       "hwm_utc": "2026-10-09T20:00Z",
-      "drawdown_pct": -11.21,
+      "drawdown_pct": -11.22,
       "status": "ok",
       "notice_utc": null,
       "halt": null,
       "suspect": null,
       "last": {
-        "utc": "2026-11-16T20:20:00Z",
-        "sleeve_pnl": 26.47,
+        "utc": "2026-11-16T20:32:00Z",
+        "sleeve_pnl": 26.36,
         "realized": 32.64,
-        "unrealized": -6.17,
-        "sleeve_money": 1799.59,
-        "total_value": 2344.59,
-        "user_value": 545.0
+        "unrealized": -6.28,
+        "sleeve_money": 1799.54,
+        "total_value": 2299.54,
+        "user_value": 500.0
       },
       "marks": {
         "day": "2026-11-16",
