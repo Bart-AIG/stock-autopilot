@@ -9,6 +9,13 @@
 
 **Decision window (amended by the 15:31 ET run, 20:31Z):** SWING_M **bought VLO $51.25 and MPC $51.25** (IBS leg on each: IBS 0.181 and 0.163, both above their 200-day). Both filled at 20:32Z: VLO 0.14099 sh @ 363.50 (order 6afcb9d4), MPC 0.129791 sh @ 394.865 (order 6afcb9d6). ILMN and MRNA held. QLD stays flat.
 
+**Amended by the 15:46 ET run (20:46Z):**
+- **Decision-window re-check on fresher prices: SWING_M SOLD VLO and MPC.** At 15:46 their IBS read 0.277 and 0.262, above the 0.2 entry cut, so `decide()` no longer held them through the close. The procedure says a later window run corrects any difference, so both were sold at 20:47Z: VLO 0.14099 sh @ 364.5228 (+$0.14, order 6afcbd50), MPC 0.129791 sh @ 395.9878 (+$0.15, order 6afcbd52). ILMN (RSI2) and MRNA (RSI2 + IBS) are still held. QLD is still flat.
+- **LEVX NIGHT: no position tonight.** QQQ 654.06 is below its 200-day (682.58) and SOXX 139.72 is below its 200-day (160.63), so both targets are 0. Nothing was bought.
+- **BBW:** the 20:30Z candle returned `none`.
+- **You closed your MU 2026-12-18 1220C ×5 yourself** at 20:34:52Z, at 1.03 ($515 proceeds, −$919.67 on a $1,434.67 basis). It is now in `_closed_positions`. You hold no MU option now, so the MU price alerts kept from the 1160C (and the 900 / 983 / 1000 ones) can be removed whenever you say.
+- **Sleeve money is now the whole account, $2,313.44** (base $2,197.77, reserve $115.67, deployable $1,968.15), because you hold no positions of your own. Drawdown index 0.9069, **−11.26%** from the high-water mark: $228 of further sleeve loss reaches the −20% notice and $358 reaches the −25% halt.
+
 ## 1. Sleeves (SWING_Q 40% / SWING_M 30%)
 - **Held, both SWING_M:**
   - ILMN 0.384363 sh at 200.49 against a 215.76 cost (−$5.87).
