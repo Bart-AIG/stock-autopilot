@@ -7,13 +7,15 @@
 - SOXX is **−1.70%** at 138.83.
 - NVDL is **−4.0%** at 15.70.
 
-**Decision window:** still to come (it amends this section).
+**Decision window (amended by the 15:31 ET run, 20:31Z):** SWING_M **bought VLO $51.25 and MPC $51.25** (IBS leg on each: IBS 0.181 and 0.163, both above their 200-day). Both filled at 20:32Z: VLO 0.14099 sh @ 363.50 (order 6afcb9d4), MPC 0.129791 sh @ 394.865 (order 6afcb9d6). ILMN and MRNA held. QLD stays flat.
 
 ## 1. Sleeves (SWING_Q 40% / SWING_M 30%)
 - **Held, both SWING_M:**
   - ILMN 0.384363 sh at 200.49 against a 215.76 cost (−$5.87).
   - MRNA 0.237278 sh at 206.57 against a 216.16 cost (−$2.28).
-- **QLD: flat.** QQQ is below its 200-day (≈682), so no SWING_Q leg can turn on. The decision window confirms it.
+  - **New today:** VLO 0.14099 sh @ 363.50 and MPC 0.129791 sh @ 394.865 (IBS leg each, $51.25 each).
+- **Decision (15:31 ET, `sleeves.py decide`):** MRNA held on RSI2 + IBS (RSI2 2.1, IBS 0.118); ILMN held on RSI2 (202.50 still below its 5-day SMA 206.00). LITE, MU, DELL, WDC, MRVL and VIAV are below their 200-day, so out.
+- **QLD: flat, confirmed.** QQQ 654.07 is below its 200-day (682.58). RSI2 is 6.8, but the RSI2 and IBS legs need price above the 200-day.
 - **The month's picks:** MRNA, LITE, MU, DELL, WDC, ILMN, VLO, MPC, MRVL, VIAV.
 
 ## 2. BBW sleeve (NVDL, 20%)
@@ -22,7 +24,7 @@
 ## 3. LEVX sleeve (10%, live)
 - **Sleeve:** $170.77 (10% of the base, on sleeve money).
 - **Last night:** no position, so there was nothing to sell this morning.
-- **DAY leg (TQQQ):** every :00 and :30 check through 15:00 was out (the reference is 53.33), and nothing was bought. The 15:30 check is still to come.
+- **DAY leg (TQQQ):** every :00 and :30 check through 15:30 was out (the reference is 53.33), and nothing was bought.
 - **Tonight (preview; the 15:46 run decides):**
   - QQQ 652.52 is below its 200-day (≈682), so the TQQQ night target is 0.
   - SOXX 138.83 is below its 200-day (≈160), so the SOXL night target is 0.
