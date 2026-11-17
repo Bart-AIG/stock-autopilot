@@ -1,46 +1,51 @@
-RISK RED (10) - META turned WEAK (-20% off its high); QQQ 652, SPY nearing 729
+RISK RED (11) - SPY hit your 729 alert and the VIX is over 26; QQQ 652
 
-**15:42Z, Tue Nov 17 (10:42 ET).** The tier is still RED at 10, unchanged. This push is for one reason: **META moved from WATCH to WEAK.** At 618.30 it is **20.5% below its 777.59 closing high** (Sept 24), and it is under both its 50-day and its 200-day. This is an intraday reading, so check it again at the close. The market is selling off broadly: QQQ is at **652.06 (−1.5%)**, SPY at **731.55 (−1.1%)**, only **0.35% above your 729 alert**, and the real VIX is at **24.94** (up from 22.87; the 26 line adds a second point). I found no META-specific news today, so I'm reading this as the whole tape falling, not a META problem.
+**16:42Z, Tue Nov 17 (11:42 ET).** RED, up from 10 to 11. Two things changed since 15:42Z:
+- **SPY 729 fired at 15:47Z** (728.91). SPY is at **729.90** now, back just 0.1% above the level, so it scores nothing yet. A close under 729 is what counts.
+- **The real VIX is at 26.65**, over the 26 stress line (it was 24.94). That makes it 2 points instead of 1. VIXY (21.03) is 0.6% below its 21.15 alert.
 
-**Margin:** cash is **−$61,076** (unchanged) against $127.0k of stock; the account is worth **$66,040** (−$2.5k since 14:41Z).
+QQQ is at **652.00 (−1.5%)**, 19 points above tranche 2 (633). Credit is still calm: HYG 76.64 (flat), IEF up. Bonds are not confirming the selloff.
 
-**Benchmarks (15:42Z):**
+**Margin:** cash is **−$61,076** (unchanged) against $127.0k of stock. The account is worth **$65,872**.
+
+**Benchmarks (16:42Z):**
 | Alert | Level | Price | Distance |
 |---|---|---|---|
-| **QQQ < 666** | 666.00 | 652.06 | **−2.1% (on)** |
-| SPY < 50-day | 763.82 | 731.55 | −4.2% (on) |
-| QQQ < 20-day | 692.62 | 652.06 | −5.9% (on) |
-| QQQ < 704.88 | 704.88 | 652.06 | −7.5% (on) |
-| QQQ < 50-day | 716.72 | 652.06 | −9.0% (on) |
-| QQQ < 733 | 733.00 | 652.06 | −11.0% (on) |
-| VIX (real) | 22 / 26 | 24.94 | over 22 (1 pt) |
-| **SPY < 729** | 729.00 | 731.55 | **+0.35%** |
-| HYG < 76.35 | 76.35 | 76.72 | +0.5% |
-| IEF > 91.10 | 91.10 | 90.42 | −0.7% |
-| IEF < 88.95 | 88.95 | 90.42 | +1.7% |
-| TIP < 102.85 | 102.85 | 104.73 | +1.8% |
-| SPY < 690 | 690.00 | 731.55 | +6.0% |
+| QQQ < 666 | 666.00 | 652.00 | −2.1% (on) |
+| SPY < 50-day | 763.82 | 729.90 | −4.4% (on) |
+| QQQ < 20-day | 692.62 | 652.00 | −5.9% (on) |
+| QQQ < 704.88 | 704.88 | 652.00 | −7.5% (on) |
+| QQQ < 50-day | 716.72 | 652.00 | −9.0% (on) |
+| QQQ < 733 | 733.00 | 652.00 | −11.1% (on) |
+| **VIX (real)** | 26 / 32 | **26.65** | **over 26 (2 pts)** |
+| **SPY < 729** | 729.00 | 729.90 | **+0.1% (fired 15:47Z)** |
+| HYG < 76.35 | 76.35 | 76.64 | +0.4% |
+| VIXY > 21.15 | 21.15 | 21.03 | −0.6% |
+| IEF > 91.10 | 91.10 | 90.46 | −0.7% |
+| IEF < 88.95 | 88.95 | 90.46 | +1.7% |
+| TIP < 102.85 | 102.85 | 104.81 | +1.9% |
+| SPY < 690 | 690.00 | 729.90 | +5.8% |
 
-**Credit:** no crack (0 REDs, carried from 14:41Z). HYG is flat on the day and IEF is up, so bonds are not confirming the equity selloff.
+**Credit:** no crack (0 REDs, carried from 14:41Z).
 
-**Ladder:** stage 4 and tranche 1 are still reached. **Tranche 2 is at QQQ 633, 19 points away.** There is still **$0 to deploy**, because buys come from cash raised and the account is on margin. What remains of stage 4 is paying off the margin.
+**Ladder:** stage 4 and tranche 1 are still reached. Tranche 2 is at QQQ 633. There is still **$0 to deploy**: the account is on margin, so what's left of stage 4 is paying it off.
 
 **HOLDINGS HEALTH:**
-- WEAK: **META (new: −20% off its high, under its 50-day and 200-day)**, NOW (92.73, −6.7% today), BE (166.46, −6.1% today), SOXL, CDNS.
-- WATCH: QQQI, SPCX, AAOX, COHX, CBRS.
-- OK: AMZN, MPWR.
+- WEAK: META (615, −21% off its high), NOW (92.34, −7.1% today), BE (167.76, −5.4% today), SOXL, CDNS.
+- WATCH: QQQI, SPCX, AAOX, COHX, CBRS, **MPWR (new: under its 200-day, −21% off its high, though it's up today)**.
+- OK: AMZN.
 
-**SELL LIST (RED), for you to place in-app.** Pay off the $61.1k margin first, then:
-- **META**: trim ~$15.5k (50%). It's 24% of the book, about breakeven (−0.2%). Core name, thesis intact, so trim, don't sell out. **Wash sale:** you sold META at a loss through Oct 28, which locks it until Nov 28. Since 11-06 you've bought more, so a loss sale before Dec 6 washes on those shares.
-- **SPCX**: sell all, ~$17.4k (−2.3%, loss).
-- **QQQI**: trim ~$9.2k (38%), −3.9%. Wash sale until Dec 14 on the Nov 13 shares. Core name: trim only.
-- **AMZN**: trim ~$7.1k (32%), +10.6%. Core name: trim only.
-- **CDNS**: sell all, ~$7.0k (−3.7%). WEAK.
-- **BE**: sell all, ~$3.3k (−1.5%; was +5.6% this morning). WEAK.
-- **NOW**: trim ~$2.2k (50%), −10.8%. WEAK; core name, so trim only.
-- **AAOX** ~$1.3k (−26%), **SOXL** ~$1.0k (−1.8%), **CBRS** ~$1.0k (−7%), **QQQ** dust ($39).
-- Not on the list: COHX ($6.1k, +20%) and MPWR ($7.9k, +13%).
+**SELL LIST (RED), for you to place in-app.** Unchanged since 15:42Z. Pay off the $61.1k margin first, then:
+- **META**: trim ~$15.4k (50%). It's about breakeven (−0.7%). It's a core name and the thesis is intact, so trim, don't sell out. Wash sale: it's locked until Nov 28, and a loss sale before Dec 6 washes on the shares bought since 11-06.
+- **SPCX**: sell all, ~$17.6k (−1.2%).
+- **QQQI**: trim ~$9.2k (38%), −3.9%. A loss sale washes until Dec 14 on the Nov 13 shares. Core name: trim only.
+- **AMZN**: trim ~$6.9k (31%), +9.8%. Core name: trim only.
+- **CDNS**: sell all, ~$7.0k (−3.4%). WEAK.
+- **BE**: sell all, ~$3.4k (−0.7%). WEAK.
+- **NOW**: trim ~$2.2k (50%), −11.1%. WEAK; core name, so trim only.
+- **AAOX** ~$1.3k (−26%), **SOXL** ~$1.0k (+0.5%), **CBRS** ~$1.0k (−5.9%), **QQQ** dust ($39).
+- Not on the list: COHX ($6.0k, +18%) and MPWR ($8.0k, +14%).
 
-No holding reports earnings in the next 14 days.
+No holding reports earnings in the next 14 days (MU, which you hold elsewhere, reports Dec 16).
 
-**What moves the tier down:** QQQ back over 666 takes 3 points off. **The risk is up, not down:** if SPY closes under 729 it adds points, and a VIX above 26 adds one more.
+**What moves the tier down:** QQQ back over 666 takes 3 points off, and a VIX back under 26 takes 1 off. **What adds points:** a SPY close under 729, VIXY over 21.15 (it shares one slot with the VIX), or HYG under 76.35.
