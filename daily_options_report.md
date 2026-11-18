@@ -1,6 +1,6 @@
 # Daily report: trading day 2026-11-18 (Wednesday)
 
-*Written by the run that started at 20:16Z (15:16 ET, prompt v20). Section 1 was amended by the 15:31 ET decision-window run. **The 15:46 ET run makes tonight's LEVX NIGHT decision.** All figures are from the broker at 20:16Z, not the close.*
+*Written by the run that started at 20:16Z (15:16 ET, prompt v20). Section 1 was amended by the 15:31 ET decision-window run. Section 3 was amended by the 15:46 ET run with tonight's LEVX NIGHT decision. All figures are from the broker at 20:16Z, not the close.*
 
 **Today in one line:** a small up day for QQQ, a red day for semis and NVDL.
 - QQQ is **+0.28%** at 658.81 (prior close 656.95).
@@ -29,10 +29,11 @@
 - **Sleeve:** $57.21. That is 10% of the base, and the base is now much smaller (see the top of this report).
 - **Last night:** no position, so there was nothing to sell this morning.
 - **DAY leg (TQQQ):** every :00 and :30 check from 10:00 to 15:00 was out. The reference is 52.82 (today's open), and TQQQ closed no bar above its band. Nothing was bought.
-- **Tonight (preview; the 15:46 run decides):**
-  - QQQ 658.81 is below its 200-day (about 682), so the TQQQ night target is 0.
-  - SOXX 140.84 is below its 200-day (about 160), so the SOXL night target is 0.
-  - So no night position is expected.
+- **Tonight (decided by the 15:46 ET run, 20:46Z):**
+  - QQQ 659.06 is below its 200-day (682.81), so the TQQQ night target is 0.
+  - SOXX 141.18 is below its 200-day (160.77), so the SOXL night target is 0.
+  - No night position. Nothing to sell at tomorrow's 09:31 run.
+- **15:46 ET re-check:** sleeve money $276.78 (total $2,232.78 minus your options at $1,956.00), base $262.94, deployable $181.71. The swing decision re-run gave the same answer as 15:31 (hold MRNA, VLO, MPC; nothing else on), so no order was placed. Drawdown -11.3% from the high-water mark; $27.16 more sleeve loss reaches the -20% notice, $42.76 the -25% halt.
 - No action was late, skipped or left with a null target.
 
 ## 4. Your own options (the agent never closes them)
