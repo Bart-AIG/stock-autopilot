@@ -1,13 +1,13 @@
 # Daily report: trading day 2026-11-18 (Wednesday)
 
-*Written by the run that started at 20:16Z (15:16 ET, prompt v20). Section 1 was amended by the 15:31 ET decision-window run. Section 3 was amended by the 15:46 ET run with tonight's LEVX NIGHT decision. All figures are from the broker at 20:16Z, not the close.*
+*Written by the run that started at 20:16Z (15:16 ET, prompt v20). Section 1 was amended by the 15:31 ET decision-window run. Section 3 was amended by the 15:46 ET run with tonight's LEVX NIGHT decision. Sections 4 and 6 were amended by a post-close run at 21:19Z (16:19 ET) to add the MU contract you bought at 20:36Z. Section 6 figures are from the broker at 20:16Z unless marked as the close.*
 
 **Today in one line:** a small up day for QQQ, a red day for semis and NVDL.
 - QQQ is **+0.28%** at 658.81 (prior close 656.95).
 - SOXX is **−0.44%** at 140.84.
 - NVDL is **−5.9%** at 15.265.
 
-**The day's main event was your MU purchase, not an agent trade.** At 19:21–19:22Z you bought MU calls in the app (details in section 4). That cash came out of the same pool the sleeves use. **Sleeve money fell from $2,313 this morning to $602**, so every sleeve's target is now about a quarter of what it was. The agent's only orders today were the three SWING_M trades at 15:31 ET (section 1).
+**The day's main event was your MU purchase, not an agent trade.** At 19:21–19:22Z you bought MU calls in the app, and one more at 20:36Z (details in section 4). That cash came out of the same pool the sleeves use. **Sleeve money fell from $2,313 this morning to $276 at the close**, so every sleeve's target is now about a quarter of what it was. The agent's only orders today were the three SWING_M trades at 15:31 ET (section 1).
 
 ## 1. Sleeves (SWING_Q 40% / SWING_M 30%): decided at 15:31 ET
 *Amended by the decision-window run that started at 20:31Z (15:31 ET). `sleeves.py decide` ran on 20:31:32Z prices with sleeve money $601.90.*
@@ -40,9 +40,11 @@
 | Contract | Qty | Your cost | Bought (UTC) |
 |---|---|---|---|
 | MU 2027-01-15 1200C | 3 | $3.40 ($1,020) | 19:22:00 |
+| MU 2027-01-15 1200C | 1 | $3.25 ($325) | 20:36:05 |
 | MU 2026-12-18 1000C | 2 | $3.46 ($692) | 19:22:19 |
 
-- The two positions together cost $1,712. The broker marks them at **$1,614** (−$98).
+- The 1200C is now 4 contracts at a blended $3.3625 ($1,345).
+- All six contracts together cost $2,037. The broker marked them at **$1,888** after the close (−$149).
 - You were notified about them once, at 19:31Z.
 - You still have no price levels set for these contracts. The MU price alerts kept from earlier contracts are still on until you say to remove them.
 
@@ -58,7 +60,8 @@
   - cash $474.41
   - options $1,614 (all yours)
   - equity $127.76
-- **Sleeve money $602.17** (total minus your options):
+- **At the close (21:19Z):** total $2,164.27, cash $195.55, options $1,888 (all yours), equity $80.72. **Sleeve money $276.27**, base $262.46, deployable $181.74. Drawdown −11.35%; **$27** more sleeve loss reaches the −20% notice and **$43** the −25% halt.
+- **Sleeve money at 20:16Z, before your 20:36Z contract: $602.17** (total minus your options):
   - base $572.06
   - reserve $30.11
   - deployable $444.30
