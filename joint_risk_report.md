@@ -1,51 +1,50 @@
-RISK RED (11) - VIXY back over 21.15 (21.16); margin up to $70.6k as leveraged ETFs were added
+RISK RED (10) - SPY dipped under your 729 alert (fired 14:48Z); VIXY eased back under 21.15
 
-**14:42Z, Wed Nov 18 (09:42 ET), first run of the day.** Still RED, up from 10 to 11. What changed since yesterday's close:
-- **VIXY > 21.15 fired at 14:40Z** (21.17). It is at **21.16** now, right on the level, and scores 2. The real **VIX is 25.72**, just under the 26 stress line. VIXY and the VIX share one slot, so only the larger (2) counts.
-- **Margin went up by about $10.5k overnight.** Cash is **−$70,621** (it was −$60,056). The account is worth **$65,375**, so you now owe more than the account is worth net. In the account now that wasn't on the last report: **NVDL 160 sh, MUU 50 sh, SOXL 30 sh** (back after you sold it yesterday), and COHX grew to 1,150 sh. That is about $5k of new 2x/3x funds added on margin in a RED tier.
-- **AAOX is down 29% today** (0.99, was 1.395). It is −44% on your cost.
+**15:41Z, Wed Nov 18 (10:41 ET).** Still RED, at 10 (it was 11 at 14:42Z). What changed this hour:
+- **SPY < 729 fired at 14:48Z**, at 728.95. SPY is at **729.25** now, right on the level, so it scores nothing yet. A close under 729 adds a point.
+- **VIXY fell back to 20.87**, under 21.15, so that alert no longer scores. The real **VIX is 25.15** (it was 25.72), above 22 but under the 26 stress line, so it scores 1 point. That is the point that came off.
+- Your positions and margin have not changed since the 14:42Z report. Cash is **−$70,621** and the account is worth **$65,708**.
 
-QQQ is at **656.46 (−0.1%)**, 23 points above tranche 2 (633). SPY is at 731.05, 0.3% above your 729 alert. Credit is still calm: HYG 76.65 (flat) and IEF up to 90.62.
+QQQ is **656.21 (−0.1%)**, 23 points above tranche 2 (633). Credit is still calm: HYG 76.63 (flat), IEF 90.65 (up).
 
-**Benchmarks (14:42Z):**
+**Benchmarks (15:41Z):**
 | Alert | Level | Price | Distance |
 |---|---|---|---|
-| **VIXY > 21.15** | 21.15 | 21.16 | **+0.05% (on, fired 14:40Z)** |
-| QQQ < 666 | 666.00 | 656.46 | −1.4% (on) |
-| SPY < 50-day | 763.15 | 731.05 | −4.2% (on) |
-| QQQ < 20-day | 689.58 | 656.46 | −4.8% (on) |
-| QQQ < 704.88 | 704.88 | 656.46 | −6.9% (on) |
-| QQQ < 50-day | 715.49 | 656.46 | −8.3% (on) |
-| QQQ < 733 | 733.00 | 656.46 | −10.4% (on) |
-| VIX (real) | 22 / 26 / 32 | 25.72 | over 22 (shares the VIXY slot) |
-| SPY < 729 | 729.00 | 731.05 | +0.3% |
-| HYG < 76.35 | 76.35 | 76.65 | +0.4% |
-| IEF > 91.10 | 91.10 | 90.62 | −0.5% |
-| IEF < 88.95 | 88.95 | 90.62 | +1.9% |
-| TIP < 102.85 | 102.85 | 105.06 | +2.2% |
-| SPY < 690 | 690.00 | 731.05 | +6.0% |
+| QQQ < 666 | 666.00 | 656.21 | −1.5% (on) |
+| SPY < 50-day | 763.15 | 729.25 | −4.4% (on) |
+| QQQ < 20-day | 689.58 | 656.21 | −4.8% (on) |
+| QQQ < 704.88 | 704.88 | 656.21 | −6.9% (on) |
+| QQQ < 50-day | 715.49 | 656.21 | −8.3% (on) |
+| QQQ < 733 | 733.00 | 656.21 | −10.5% (on) |
+| VIX (real) | 22 / 26 / 32 | 25.15 | over 22, scores 1 |
+| **SPY < 729** | 729.00 | 729.25 | **+0.03% (fired 14:48Z, back above now)** |
+| HYG < 76.35 | 76.35 | 76.63 | +0.4% |
+| IEF > 91.10 | 91.10 | 90.65 | −0.5% |
+| VIXY > 21.15 | 21.15 | 20.87 | −1.3% (off) |
+| IEF < 88.95 | 88.95 | 90.65 | +1.9% |
+| TIP < 102.85 | 102.85 | 105.04 | +2.1% |
+| SPY < 690 | 690.00 | 729.25 | +5.7% |
 
-**Credit check (today's run):** no crack, 0 REDs. LQD/IEF is down 0.64% over 20 days, which is now CAUTION (it was GREEN). HYG/IEF −0.44% (GREEN). 10-yr yield about 5.1% (CAUTION). No news today of a pulled or weak hyperscaler bond deal; the widening on record is from heavy supply. QQQ is 9.9% under its 25-day high, so there is no stock/credit split. **Rally check:** OK (no fragile rally). The file is from 11-16, a day old.
+**Credit check (re-run):** no crack, 0 REDs. LQD/IEF is −0.57% over 20 days (CAUTION). HYG/IEF is −0.92% (still GREEN, but close to the −1.0% CAUTION line). The 10-year yield is about 5.1% (CAUTION). I found no reports today of a pulled or weak hyperscaler bond deal. Recent order books have been thinner (Amazon's last deal was under 2x covered), but that is supply, not a fundamental warning. **Rally check:** OK (as of 11-17).
 
-**Ladder:** stage 4 and tranche 1 are still reached. Tranche 2 is at QQQ 633. There is still **$0 to deploy**: what's left of stage 4 is paying off the margin, and the margin went up.
+**Ladder:** still at stage 4 and tranche 1. Tranche 2 is at QQQ 633. There is **$0 to deploy**: what's left of stage 4 is paying off the margin.
 
-**HOLDINGS HEALTH:**
-- WEAK: META (616.31), NOW (91.32), BE (172.13), CDNS (310.84). New and WEAK: **SOXL** (−84% off its 1-yr high), **NVDL** (−62%), **MUU** (−77%), all under their 50- and 200-day.
+**Holdings health (no change since 14:42Z):**
+- WEAK: META, NOW, BE, CDNS, SOXL, NVDL, MUU.
 - WATCH: QQQI, SPCX, AAOX, COHX, CBRS, MPWR.
 - OK: AMZN.
 
-**SELL LIST (RED), for you to place in-app.** Pay off the $70.6k margin first, then:
-- **META**: trim ~$15.4k (50%), about breakeven (−0.5%). Core name, thesis intact: trim, don't sell out. Wash sale: locked until Nov 28; a loss sale before Dec 6 washes on the shares bought since 11-06.
-- **SPCX**: sell all, ~$17.7k (−0.3%).
-- **QQQI**: trim ~$8.0k (33%), −4.4%. A loss sale washes until Dec 14 on the Nov 13 shares. Core name: trim only.
-- **AMZN**: trim ~$6.4k (28%), +12.6%. Core name: trim only.
-- **CDNS**: sell all, ~$7.1k (−1.5%). WEAK.
-- **BE**: sell all, ~$3.4k (+1.9%). WEAK.
-- **NOW**: trim ~$2.1k (50%), −12.1%. WEAK; core name, so trim only.
-- **NVDL** ~$2.6k (−7.5%), **SOXL** ~$1.4k (−7.5%), **MUU** ~$0.7k (−5.6%): WEAK leveraged funds bought on margin in the last day. If you sell at a loss, don't buy them back for 30 days or the loss is washed.
-- **AAOX** ~$1.0k (−44%), **CBRS** ~$1.0k (−11%), **QQQ** dust ($44).
-- Not on the list: COHX ($11.0k, +4.4%) and MPWR ($7.8k, +11.6%).
+**Sell list (RED), for you to place in-app.** Pay off the $70.6k margin first, then:
+- **META** (612.58): trim about $15k (50%), −1.1%. It is a core name with an intact thesis, so trim it, don't sell out. Wash sale: locked until Nov 28.
+- **QQQI**: trim about $7.9k (33%), −4.5%. Core name, so trim only. A loss sale washes until Dec 14 on the Nov 13 shares.
+- **AMZN**: trim about $6.6k (29%), +13.6%. Core name, so trim only.
+- **SPCX**: trim about $4.4k (24%), +1.3%. That brings it under the 10% cap.
+- **CDNS**: sell all, about $7.2k (−1.4%). WEAK.
+- **BE**: sell all, about $3.4k (+1.2%). WEAK.
+- **NOW**: trim about $2.1k (50%), −12.5%. WEAK, but a core name, so trim only.
+- **NVDL** about $2.5k (−11.7%), **SOXL** about $1.4k (−8.2%), **MUU** about $0.7k (−8.2%): WEAK leveraged funds. If you sell at a loss, don't buy them back for 30 days or the loss is washed.
+- **AAOX** about $1.0k (−42%), **CBRS** about $1.0k (−11%), and **QQQ** dust ($44).
 
-No holding reports earnings in the next 14 days. NVDA (what NVDL tracks) reported last night and beat; NVDL is flat today.
+No holding reports earnings in the next 14 days.
 
-**What moves the tier down:** QQQ back over 666 takes 3 points off; VIXY back under 21.15 with the VIX under 26 takes 1 off. **What adds points:** a SPY close under 729, VIX over 26 (no extra point while VIXY is on), or HYG under 76.35.
+**What moves the tier down:** QQQ back over 666 takes 3 points off, and the VIX under 22 takes 1 off. **What adds points:** a SPY close under 729, HYG under 76.35, or VIXY back over 21.15 / the VIX over 26.
