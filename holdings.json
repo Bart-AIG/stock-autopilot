@@ -1,23 +1,7 @@
 {
   "_comment": "Positions ledger. positions[] holds the sleeve positions (sleeve swing_q, swing_m, bbw, levx) and Ryan's own positions (placed_agent 'user': never sold by the agent). _closed_positions[] holds every closed position. _SLEEVE_PROCESS holds the sleeve process state, including the real-money drawdown reading (drawdown_real, written by capital.py). The agent places no stop orders. Notes from the earlier processes are in ledger_findings_archive.json.",
-  "updated_utc": "2026-11-18T19:31:00Z",
+  "updated_utc": "2026-11-18T20:35:00Z",
   "positions": [
-    {
-      "symbol": "ILMN",
-      "sleeve": "swing_m",
-      "signal_symbol": "ILMN",
-      "entry_date": "2026-11-11",
-      "entry_price": 215.7593,
-      "shares": 0.384363,
-      "placed_agent": "agentic",
-      "legs_on": [
-        "IBS"
-      ],
-      "stop": null,
-      "target": null,
-      "order_id": "6af4d0bc-8c75-4179-b499-a31180a385e5",
-      "_note": "Decision window 2026-11-11 15:31 ET: decide() target $82.93 (IBS leg, ibs 0.076). Filled 20:31:56Z."
-    },
     {
       "symbol": "MRNA",
       "sleeve": "swing_m",
@@ -112,6 +96,40 @@
         "delta": 0.06,
         "pnl_usd": 23.0
       }
+    },
+    {
+      "symbol": "VLO",
+      "sleeve": "swing_m",
+      "signal_symbol": "VLO",
+      "entry_date": "2026-11-18",
+      "entry_price": 342.87,
+      "shares": 0.050018,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "RSI2",
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6afe0b5b-1dc3-4c7e-b421-847f6fbceef0",
+      "_note": "Decision window 2026-11-18 15:31 ET: decide() target $17.15 (rsi2 6.3, ibs 0.09, above 200-day). Filled 20:32:27Z."
+    },
+    {
+      "symbol": "MPC",
+      "sleeve": "swing_m",
+      "signal_symbol": "MPC",
+      "entry_date": "2026-11-18",
+      "entry_price": 373.3559,
+      "shares": 0.045934,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "RSI2",
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6afe0b5c-813d-4108-81e5-f317d5f51acb",
+      "_note": "Decision window 2026-11-18 15:31 ET: decide() target $17.15 (rsi2 4.6, ibs 0.162, above 200-day). Filled 20:32:29Z."
     }
   ],
   "_resolved_flags": [
@@ -2197,6 +2215,30 @@
       "legs_turned_off": [
         "IBS (15:46 ET re-decide on fresher prices: ibs 0.262 >= 0.2 entry cut, hold_through_close false)"
       ]
+    },
+    {
+      "symbol": "ILMN",
+      "sleeve": "swing_m",
+      "signal_symbol": "ILMN",
+      "entry_date": "2026-11-11",
+      "entry_price": 215.7593,
+      "shares": 0.384363,
+      "placed_agent": "agentic",
+      "legs_on": [
+        "IBS"
+      ],
+      "stop": null,
+      "target": null,
+      "order_id": "6af4d0bc-8c75-4179-b499-a31180a385e5",
+      "_note": "Decision window 2026-11-11 15:31 ET: decide() target $82.93 (IBS leg, ibs 0.076). Filled 20:31:56Z.",
+      "exit_date": "2026-11-18",
+      "exit_price": 209.3841,
+      "exit_utc": "2026-11-18T20:31:55Z",
+      "order_id_exit": "6afe0b3b-fcde-4588-b09c-8afe7d128477",
+      "realized_pnl": -2.45,
+      "legs_turned_off": [
+        "IBS (ibs 0.785, below the 0.8 exit, but the IBS leg ran out its 5 sessions; hold_through_close false, rsi2 75.6)"
+      ]
     }
   ],
   "_findings_archive_pointer": "Notes and findings from the August and September 2026 processes live in ledger_findings_archive.json under their original key names (first move 2026-08-28; the rest moved 2026-11-13; nothing deleted). A holdings.json._KEY named in CLAUDE.md that is not in this file is there. Journal entries older than 30 days are in trade_journal_archive_YYYY-MM.json. Keep THIS file to the book plus live state.",
@@ -2282,22 +2324,22 @@
       "rule": "Since 2026-11-13 (Ryan, REAL live turn, audit finding 4: 'lets fix finding 4. 5.'). The sleeves' return on SLEEVE MONEY (total_value minus Ryan's own positions), written only by capital.py: index *= 1 + (change in sleeve P/L) / (sleeve money at the last reading). -20% from the high-water mark: notify Ryan once. -25%: notify him, no new sleeve buys until a live Ryan turn runs capital.py lift. His own trades and deposits never move it. Spec: docs/sleeve-money.md.",
       "start": "2026-09-30 close = 1.0",
       "seeded": "Index and high-water mark seeded 2026-11-13 from capital_backfill.py (daily closes 2026-09-30 to 11-12: high 1.022029 at the 2026-10-09 close, 0.909264 at the 2026-11-12 close), then stepped to the 2026-11-13 close on ILMN's move.",
-      "index": 0.9069478266186748,
+      "index": 0.9067068013848791,
       "hwm_index": 1.022029,
       "hwm_utc": "2026-10-09T20:00Z",
-      "drawdown_pct": -11.26,
+      "drawdown_pct": -11.28,
       "status": "ok",
       "notice_utc": null,
       "halt": null,
       "suspect": null,
       "last": {
-        "utc": "2026-11-18T20:21:00Z",
-        "sleeve_pnl": 26.37,
+        "utc": "2026-11-18T20:32:00Z",
+        "sleeve_pnl": 26.21,
         "realized": 32.93,
-        "unrealized": -6.56,
-        "sleeve_money": 602.06,
-        "total_value": 2222.06,
-        "user_value": 1620.0
+        "unrealized": -6.72,
+        "sleeve_money": 601.9,
+        "total_value": 2190.9,
+        "user_value": 1589.0
       },
       "marks": {
         "day": "2026-11-18",
