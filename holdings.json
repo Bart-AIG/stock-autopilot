@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger. positions[] holds the sleeve positions (sleeve swing_q, swing_m, bbw, levx) and Ryan's own positions (placed_agent 'user': never sold by the agent). _closed_positions[] holds every closed position. _SLEEVE_PROCESS holds the sleeve process state, including the real-money drawdown reading (drawdown_real, written by capital.py). The agent places no stop orders. Notes from the earlier processes are in ledger_findings_archive.json.",
-  "updated_utc": "2026-11-18T20:35:00Z",
+  "updated_utc": "2026-11-18T21:19:00Z",
   "positions": [
     {
       "symbol": "MRNA",
@@ -34,10 +34,10 @@
       "strike": 1200.0,
       "expiration_date": "2027-01-15",
       "option_id": "7c7d2335-a60b-4609-b7f6-97f40ed2bfa8",
-      "contracts": 3,
-      "entry_premium": 3.4,
-      "cost_basis_usd": 1020.0,
-      "max_loss": 1020.0,
+      "contracts": 4,
+      "entry_premium": 3.3625,
+      "cost_basis_usd": 1345.0,
+      "max_loss": 1345.0,
       "order_id": "6afdfad7-caa5-4c6e-a9ab-9cead99a5219",
       "filled_utc": "2026-11-18T19:22:00Z",
       "lots": [
@@ -46,9 +46,16 @@
           "price": 3.4,
           "cost_usd": 1020.0,
           "filled_utc": "2026-11-18T19:22:00Z"
+        },
+        {
+          "qty": 1,
+          "price": 3.25,
+          "cost_usd": 325.0,
+          "filled_utc": "2026-11-18T20:36:05Z",
+          "order_id": "6afe0c35-bc37-414d-ad65-312eec124f82"
         }
       ],
-      "_note": "Ryan's own in-app buy (placed_agent user), detected 2026-11-18T19:31Z. Agent detects, records, notifies once, NEVER closes. Counts as user value in capital.py.",
+      "_note": "Ryan's own in-app buy (placed_agent user), detected 2026-11-18T19:31Z. Agent detects, records, notifies once, NEVER closes. Counts as user value in capital.py. Lot 2 (1 @ 3.25, order 6afe0c35, 20:36:05Z) recorded 2026-11-18T21:19Z; earlier runs saw x4 at the broker but left this row at 3.",
       "_current_state": {
         "utc": "2026-11-18T19:31Z",
         "mark": 3.375,
@@ -56,7 +63,8 @@
         "ask": 3.5,
         "delta": 0.045,
         "pnl_usd": -7.5
-      }
+      },
+      "entry_premium_blended": 3.3625
     },
     {
       "symbol": "MU",
