@@ -1,24 +1,25 @@
 # Daily report: trading day 2026-11-18 (Wednesday)
 
-*Written by the run that started at 20:16Z (15:16 ET, prompt v20). This is the first run at or after 2:15 PM CT, and it comes before the 15:20–15:52 ET decision window. **The decision-window run will add today's sleeve orders, and the 15:46 ET run will make tonight's LEVX NIGHT decision.** All figures are from the broker at 20:16Z, not the close.*
+*Written by the run that started at 20:16Z (15:16 ET, prompt v20). Section 1 was amended by the 15:31 ET decision-window run. **The 15:46 ET run makes tonight's LEVX NIGHT decision.** All figures are from the broker at 20:16Z, not the close.*
 
 **Today in one line:** a small up day for QQQ, a red day for semis and NVDL.
 - QQQ is **+0.28%** at 658.81 (prior close 656.95).
 - SOXX is **−0.44%** at 140.84.
 - NVDL is **−5.9%** at 15.265.
 
-**The day's main event was your MU purchase, not an agent trade.** At 19:21–19:22Z you bought MU calls in the app (details in section 4). That cash came out of the same pool the sleeves use. **Sleeve money fell from $2,313 this morning to $602**, so every sleeve's target is now about a quarter of what it was. The agent placed no orders today, through 20:16Z.
+**The day's main event was your MU purchase, not an agent trade.** At 19:21–19:22Z you bought MU calls in the app (details in section 4). That cash came out of the same pool the sleeves use. **Sleeve money fell from $2,313 this morning to $602**, so every sleeve's target is now about a quarter of what it was. The agent's only orders today were the three SWING_M trades at 15:31 ET (section 1).
 
-## 1. Sleeves (SWING_Q 40% / SWING_M 30%)
-- **Held, both SWING_M:**
-  - ILMN 0.384363 sh at 209.85 against a 215.76 cost (−$2.27).
-  - MRNA 0.237278 sh at 198.49 against a 216.16 cost (−$4.19).
-- **QLD is flat.** QQQ 658.81 is below its 200-day (about 682), so neither the RSI2 leg nor the IBS leg can be on.
-- **Decision:** due in the 15:20–15:52 ET window, which follows this report. That run will amend this file.
+## 1. Sleeves (SWING_Q 40% / SWING_M 30%): decided at 15:31 ET
+*Amended by the decision-window run that started at 20:31Z (15:31 ET). `sleeves.py decide` ran on 20:31:32Z prices with sleeve money $601.90.*
+- **QLD stays flat.** QQQ 658.06 is below its 200-day (682.80), so neither the RSI2 leg nor the IBS leg can be on.
+- **SWING_M orders, all filled by 20:32:29Z:**
+  - **Sold ILMN**, 0.384363 sh at 209.38 (cost 215.76): **−$2.45** realized. Its IBS leg reached the 5-session limit (IBS 0.785, RSI2 75.6).
+  - **Bought VLO**, $17.15 = 0.050018 sh at 342.87. RSI2 6.3 and IBS 0.09, above its 200-day.
+  - **Bought MPC**, $17.15 = 0.045934 sh at 373.36. RSI2 4.6 and IBS 0.162, above its 200-day.
+  - **Kept MRNA**, 0.237278 sh. RSI2 1.1 and IBS 0.058, so both legs are on. No mid-month resize.
+- The other six picks (LITE, MU, DELL, WDC, MRVL, VIAV) are below their 200-day, so they are out.
+- Trade approvals are off, and both buys were tradable and fractional. A later run in the window may re-decide on fresher prices (yesterday's 15:46 ET re-decide sold MPC).
 - **The month's picks:** MRNA, LITE, MU, DELL, WDC, ILMN, VLO, MPC, MRVL, VIAV.
-- **Targets at today's sleeve money:**
-  - SWING_Q (QLD) ≈ $229.
-  - SWING_M ≈ $17 per name.
 
 ## 2. BBW sleeve (NVDL, 20%)
 - Flat all day. Every 15-minute candle from 14:30Z through 20:00Z returned `none` (no signal). There were no trades and no late exits.
