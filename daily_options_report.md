@@ -1,83 +1,64 @@
-# Daily report: trading day 2026-11-18 (Wednesday)
+# Daily report: trading day 2026-11-19 (Thursday)
 
-*Written by the run that started at 20:16Z (15:16 ET, prompt v20). Section 1 was amended by the 15:31 ET decision-window run. Section 3 was amended by the 15:46 ET run with tonight's LEVX NIGHT decision. Sections 4 and 6 were amended by a post-close run at 21:19Z (16:19 ET) to add the MU contract you bought at 20:36Z. Section 6 figures are from the broker at 20:16Z unless marked as the close.*
+*Written by the run that started at 20:16Z (15:16 ET, prompt v20), before the 15:20–15:52 ET decision window. The decision-window run amends section 1 with the swing sleeve orders. Figures are from the broker at 20:16Z.*
 
-**Today in one line:** a small up day for QQQ, a red day for semis and NVDL.
-- QQQ is **+0.28%** at 658.81 (prior close 656.95).
-- SOXX is **−0.44%** at 140.84.
-- NVDL is **−5.9%** at 15.265.
+**Today in one line:** a broad down day, led by tech and semis.
+- QQQ is **−2.02%** at 646.20 (prior close 659.51).
+- SOXX is **−2.39%** at 138.46.
+- NVDL is **−4.9%** at 14.50.
 
-**The day's main event was your MU purchase, not an agent trade.** At 19:21–19:22Z you bought MU calls in the app, and one more at 20:36Z (details in section 4). That cash came out of the same pool the sleeves use. **Sleeve money fell from $2,313 this morning to $276 at the close**, so every sleeve's target is now about a quarter of what it was. The agent's only orders today were the three SWING_M trades at 15:31 ET (section 1).
+No agent order has been placed today (the broker shows no equity orders since midnight UTC). Every BBW and LEVX check came back flat.
 
-## 1. Sleeves (SWING_Q 40% / SWING_M 30%): decided at 15:31 ET
-*Amended by the decision-window run that started at 20:31Z (15:31 ET). `sleeves.py decide` ran on 20:31:32Z prices with sleeve money $601.90.*
-- **QLD stays flat.** QQQ 658.06 is below its 200-day (682.80), so neither the RSI2 leg nor the IBS leg can be on.
-- **SWING_M orders, all filled by 20:32:29Z:**
-  - **Sold ILMN**, 0.384363 sh at 209.38 (cost 215.76): **−$2.45** realized. Its IBS leg reached the 5-session limit (IBS 0.785, RSI2 75.6).
-  - **Bought VLO**, $17.15 = 0.050018 sh at 342.87. RSI2 6.3 and IBS 0.09, above its 200-day.
-  - **Bought MPC**, $17.15 = 0.045934 sh at 373.36. RSI2 4.6 and IBS 0.162, above its 200-day.
-  - **Kept MRNA**, 0.237278 sh. RSI2 1.1 and IBS 0.058, so both legs are on. No mid-month resize.
-- The other six picks (LITE, MU, DELL, WDC, MRVL, VIAV) are below their 200-day, so they are out.
-- Trade approvals are off, and both buys were tradable and fractional. A later run in the window may re-decide on fresher prices (yesterday's 15:46 ET re-decide sold MPC).
+## 1. Sleeves (SWING_Q 40% / SWING_M 30%)
+*To be decided in the 15:20–15:52 ET window and amended here.*
+- **QLD is flat.** QQQ (646.20) is far below its 200-day (about 683), so neither the RSI2 leg nor the IBS leg can come on.
+- **SWING_M holdings going into the window:**
+
+  | Name | Shares | Cost | Now | P/L |
+  |---|---|---|---|---|
+  | MRNA | 0.237278 | 216.16 | 199.66 | −$3.92 (−7.6%) |
+  | VLO | 0.050018 | 342.88 | 340.98 | −$0.10 (−0.6%) |
+  | MPC | 0.045934 | 373.36 | 371.25 | −$0.10 (−0.6%) |
+
 - **The month's picks:** MRNA, LITE, MU, DELL, WDC, ILMN, VLO, MPC, MRVL, VIAV.
 
 ## 2. BBW sleeve (NVDL, 20%)
-- Flat all day. Every 15-minute candle from 14:30Z through 20:00Z returned `none` (no signal). There were no trades and no late exits.
-- NVDL is down 5.9% today, but the entry rule needs a pullback after a breakout plus MACD > 0, and neither held.
+- Flat all day. Every 15-minute candle through 20:00Z returned `none` (no signal). There were no trades and no late exits.
 
 ## 3. LEVX sleeve (10%, live)
-- **Sleeve:** $57.21. That is 10% of the base, and the base is now much smaller (see the top of this report).
+- **Sleeve:** $26.32 (10% of a $263 base).
 - **Last night:** no position, so there was nothing to sell this morning.
-- **DAY leg (TQQQ):** every :00 and :30 check from 10:00 to 15:00 was out. The reference is 52.82 (today's open), and TQQQ closed no bar above its band. Nothing was bought.
-- **Tonight (decided by the 15:46 ET run, 20:46Z):**
-  - QQQ 659.06 is below its 200-day (682.81), so the TQQQ night target is 0.
-  - SOXX 141.18 is below its 200-day (160.77), so the SOXL night target is 0.
-  - No night position. Nothing to sell at tomorrow's 09:31 run.
-- **15:46 ET re-check:** sleeve money $276.78 (total $2,232.78 minus your options at $1,956.00), base $262.94, deployable $181.71. The swing decision re-run gave the same answer as 15:31 (hold MRNA, VLO, MPC; nothing else on), so no order was placed. Drawdown -11.3% from the high-water mark; $27.16 more sleeve loss reaches the -20% notice, $42.76 the -25% halt.
+- **DAY leg (TQQQ):** every :00 and :30 check from 10:00 to 15:00 was out. The reference is 55.19 (today's open), and TQQQ fell all day to about 49, so it never closed a bar above its band. Nothing was bought.
+- **Tonight:** the 15:46 ET run decides. QQQ and SOXX are both below their 200-day averages, so both night targets are expected to be 0.
 - No action was late, skipped or left with a null target.
 
 ## 4. Your own options (the agent never closes them)
-| Contract | Qty | Your cost | Bought (UTC) |
-|---|---|---|---|
-| MU 2027-01-15 1200C | 3 | $3.40 ($1,020) | 19:22:00 |
-| MU 2027-01-15 1200C | 1 | $3.25 ($325) | 20:36:05 |
-| MU 2026-12-18 1000C | 2 | $3.46 ($692) | 19:22:19 |
-
-- The 1200C is now 4 contracts at a blended $3.3625 ($1,345).
-- All six contracts together cost $2,037. The broker marked them at **$1,888** after the close (−$149).
-- You were notified about them once, at 19:31Z.
-- You still have no price levels set for these contracts. The MU price alerts kept from earlier contracts are still on until you say to remove them.
+- MU 2027-01-15 1200C ×4 (avg $3.3625) and MU 2026-12-18 1000C ×2 (avg $3.46). They cost $2,037 and are marked at **$1,860** (−$177). MU is −1.7% at 693.56.
+- You have set no price levels for these contracts. The MU price alerts kept from earlier contracts stay on until you say to remove them.
 
 ## 5. Legacy book, options book, growth paper
 - **Legacy book:** closed out on 10-14.
 - **Options:** no agentic options are open.
-- **Growth paper** (marked at 15:16 ET): $167.07 on $197.34 cost (**−15.34%**, up from −19.87% yesterday).
-  - Open: PLTR −17.1%, NET −16.3%, CRWD −12.6%.
-  - None is near its −25% exit. Two slots are empty.
+- **Growth paper** (marked at 15:02 ET): $166.57 on $197.34 cost (**−15.59%**).
+  - Open: PLTR −18.5%, NET −17.0%, CRWD −11.3%.
+  - None is at its −25% exit. Two slots are empty.
 
 ## 6. Account and drawdown
-- **Total value $2,216.17:**
-  - cash $474.41
-  - options $1,614 (all yours)
-  - equity $127.76
-- **At the close (21:19Z):** total $2,164.27, cash $195.55, options $1,888 (all yours), equity $80.72. **Sleeve money $276.27**, base $262.46, deployable $181.74. Drawdown −11.35%; **$27** more sleeve loss reaches the −20% notice and **$43** the −25% halt.
-- **Sleeve money at 20:16Z, before your 20:36Z contract: $602.17** (total minus your options):
-  - base $572.06
-  - reserve $30.11
-  - deployable $444.30
-- **Drawdown** (real sleeve money, `capital.py`):
-  - The index is 0.9071 against a high-water mark of 1.0220 (2026-10-09): **−11.25%**. No action.
-  - In dollars, the notice and halt lines are now close because sleeve money is small: **$59** more of sleeve loss reaches the −20% notice, and **$93** reaches the −25% halt.
-  - Your option buy did not move the reading. Sleeve money left with it, so the percentage is unchanged.
+- **Total value $2,137.07:** cash $195.55, options $1,860 (all yours), equity $81.52.
+- **Sleeve money $277.07** (total minus your options): base $263.22, reserve $13.85, deployable $181.70.
+- **Drawdown** (real sleeve money, `capital.py`): index 0.9074 against a high-water mark of 1.0220 (2026-10-09), **−11.22%**. No action. **$27.41** more of sleeve loss reaches the −20% notice, and **$43.01** reaches the −25% halt.
 - **Sleeves vs QQQ:**
 
   | Period | Sleeves | QQQ |
   |---|---|---|
-  | Today | +0.01% | +0.28% |
-  | Month to date | −0.77% | not computed here |
-  | Since 2026-09-30 | −9.29% | −10.94% (739.71 → 658.81) |
+  | Today | +0.16% | −2.02% |
+  | Month to date | −0.74% | −6.41% (690.49 → 646.20) |
+  | Since 2026-09-30 | −9.26% | −12.64% (739.71 → 646.20) |
 
-## 7. Next session (Thursday 11-19)
+  The sleeves held only about $81 of stock today, so these returns are mostly cash sitting still while QQQ fell.
+
+## 7. Next session (Friday 11-20)
 - **09:31 ET:** sell any LEVX night position (none is expected).
 - **TOM** stays off until the last trading day of November (11-30).
+- **Friday review** is written by the 14:15 CT run.
 - **Proposals still waiting for you:** the BBW candidates NVDU and NVDA (from 11-02).
