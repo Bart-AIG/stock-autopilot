@@ -7,28 +7,33 @@
 - SOXX is **−2.39%** at 138.46.
 - NVDL is **−4.9%** at 14.50.
 
-No agent order has been placed today (the broker shows no equity orders since midnight UTC). Every BBW and LEVX check came back flat.
+One agent order today: the decision-window buy of ILMN ($7.89). Every BBW and LEVX check came back flat.
 
 ## 1. Sleeves (SWING_Q 40% / SWING_M 30%)
-*To be decided in the 15:20–15:52 ET window and amended here.*
-- **QLD is flat.** QQQ (646.20) is far below its 200-day (about 683), so neither the RSI2 leg nor the IBS leg can come on.
-- **SWING_M holdings going into the window:**
+*Decided by the 15:31 ET decision-window run (20:31Z), sleeve money $276.69.*
+- **QLD stays flat.** QQQ 644.85 is below its 200-day (683.00); RSI2 8.0 and IBS 0.016 would both be "on" but need price above the 200-day.
+- **Bought ILMN $7.89** (0.039407 sh @ 200.215, filled 20:31:55Z). IBS leg: IBS 0.038, above its 200-day (180.79).
+- **Kept MRNA, VLO, MPC** (each still in: MRNA RSI2+IBS, VLO RSI2+IBS, MPC RSI2+IBS). No resize mid-month.
+- LITE, MU, DELL, WDC, MRVL, VIAV are below their 200-day averages, so out.
+- Holdings at the decision:
 
   | Name | Shares | Cost | Now | P/L |
   |---|---|---|---|---|
-  | MRNA | 0.237278 | 216.16 | 199.66 | −$3.92 (−7.6%) |
-  | VLO | 0.050018 | 342.88 | 340.98 | −$0.10 (−0.6%) |
-  | MPC | 0.045934 | 373.36 | 371.25 | −$0.10 (−0.6%) |
+  | MRNA | 0.237278 | 216.16 | 198.54 | −$4.18 (−8.2%) |
+  | VLO | 0.050018 | 342.88 | 340.29 | −$0.13 (−0.8%) |
+  | MPC | 0.045934 | 373.36 | 370.28 | −$0.14 (−0.8%) |
+  | ILMN | 0.039407 | 200.22 | 200.10 | $0.00 |
 
+- Every target was executed as `decide()` printed it. Trade approvals are off; the order filled at once.
 - **The month's picks:** MRNA, LITE, MU, DELL, WDC, ILMN, VLO, MPC, MRVL, VIAV.
 
 ## 2. BBW sleeve (NVDL, 20%)
-- Flat all day. Every 15-minute candle through 20:00Z returned `none` (no signal). There were no trades and no late exits.
+- Flat all day. Every 15-minute candle through 20:15Z returned `none` (no signal). There were no trades and no late exits.
 
 ## 3. LEVX sleeve (10%, live)
 - **Sleeve:** $26.32 (10% of a $263 base).
 - **Last night:** no position, so there was nothing to sell this morning.
-- **DAY leg (TQQQ):** every :00 and :30 check from 10:00 to 15:00 was out. The reference is 55.19 (today's open), and TQQQ fell all day to about 49, so it never closed a bar above its band. Nothing was bought.
+- **DAY leg (TQQQ):** every :00 and :30 check from 10:00 to 15:30 was out. The reference is 55.19 (today's open), and TQQQ fell all day to about 49, so it never closed a bar above its band. Nothing was bought.
 - **Tonight:** the 15:46 ET run decides. QQQ and SOXX are both below their 200-day averages, so both night targets are expected to be 0.
 - No action was late, skipped or left with a null target.
 
