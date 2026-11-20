@@ -390,6 +390,38 @@ def fmp_history():
         print(sym, "saved", len(keep), "rows", keep[0] if keep else None, "..", keep[-1] if keep else None)
 
 
+def cboe_vix():
+    """Round 5: the official Cboe VIX history, to check FMP's VIX against the source."""
+    section("Cboe VIX history vs FMP")
+    out = Path(__file__).parent / "data" / "bottom" / "fmp"
+    st, body = get("https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv")
+    rows = []
+    for ln in body.strip().splitlines()[1:]:
+        p = ln.split(",")
+        try:
+            m, d, y = p[0].split("/")
+            rows.append((f"{y}-{int(m):02d}-{int(d):02d}", float(p[1]), float(p[2]), float(p[3]), float(p[4])))
+        except (ValueError, IndexError):
+            pass
+    rows.sort()
+    print("cboe status", st, "rows", len(rows), rows[0] if rows else None, rows[-1] if rows else None)
+    if len(rows) < 5000:
+        return
+    with open(out / "VIX_CBOE.csv", "w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["date", "open", "high", "low", "close", "volume"])
+        for r in rows:
+            w.writerow(list(r) + [0])
+    f = {r["date"]: float(r["close"]) for r in csv.DictReader(open(out / "VIX.csv"))}
+    c = {r[0]: r[4] for r in rows}
+    both = sorted(set(f) & set(c))
+    bad = [(d, c[d], f[d]) for d in both if abs(f[d] / c[d] - 1) > 0.003]
+    print("overlap", len(both), "| FMP close differs from Cboe by more than 0.3%:", len(bad))
+    print("largest:", sorted(bad, key=lambda x: -abs(x[2] / x[1] - 1))[:12])
+    print("by year:", sorted({y: sum(1 for b in bad if b[0][:4] == y) for y in {b[0][:4] for b in bad}}.items()))
+    print("Cboe dates missing from FMP since 1998:", sorted(d for d in set(c) - set(f) if d >= "1998-01-02")[:10],
+          "| FMP dates not in Cboe:", len(set(f) - set(c)))
+
+
 if __name__ == "__main__":
-    print("key present:", bool(KEY))
-    fmp_history()
+    cboe_vix()
