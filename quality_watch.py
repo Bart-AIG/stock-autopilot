@@ -457,7 +457,7 @@ def rebuy_report(rows: list[dict]) -> list[str]:
     prev_stage, sold_price, held}."""
     if not rows:
         return []
-    out = ["## Re-buy watch (names you sold; buy-back signals)", "",
+    out = ["## Re-buy watch (names you sold or want to buy on a turn; buy signals)", "",
            "| Ticker | Stage | Was | Price | Sold at | Signals | Wash-sale clear |",
            "|---|---|---|---|---|---|---|"]
     for r in rows:
@@ -469,7 +469,7 @@ def rebuy_report(rows: list[dict]) -> list[str]:
         if s.get("wash_sale_open"):
             wash += " (open: buying now defers the loss)"
         out.append(f"| {r['symbol']} | **{stage}**{changed} | {r.get('prev_stage') or '—'} | {r['price']} | "
-                   f"{r.get('sold_price') or '—'} | {', '.join(s['signals'])} | {wash} |")
+                   f"{r.get('sold_price') or ('dip watch' if r.get('watch_type') == 'dip_buy' else '—')} | {', '.join(s['signals'])} | {wash} |")
     out += ["", "Ladder: WAIT → TURNING (daily MACD crossed above signal, still under the 50-day) → "
             "EARLY (back above the 50-day) → BUY (above the 50- and 200-day). A signal is a "
             "technical trigger only: it still needs the news/thesis check before a buy.", ""]
