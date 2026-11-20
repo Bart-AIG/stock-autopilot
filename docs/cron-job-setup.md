@@ -132,3 +132,22 @@ Clone the Stock Report job and change three things:
 Headers and token stay the same as the Stock Report job (the token needs Actions
 read/write on this repository, which it already has). A good trigger returns **204**.
 On a half day the reading taken at 3:20 pm is still the confirmed one.
+
+**The request body is the setting a clone gets wrong.** The Stock Report job's body is
+`{"ref":"master","inputs":{"mode":"auto"}}`. The bottom watch has no `mode` input, so GitHub
+rejects that body with **422** `Unexpected inputs provided: ["mode"]` and creates no run
+(measured 2026-11-20 by sending that body to the bottom watch from a session). For this job
+the body must be exactly `{"ref":"master"}`.
+
+**Checking it.** A rejected request leaves no trace on GitHub, so from the repository a
+failed fire and a job that has not fired yet look the same. A failure shows only in the
+job's execution history in cron-job.org. Press TEST RUN there:
+
+- **204**, and a new "Bottom watch" run with event `workflow_dispatch` in the Actions tab
+  within seconds = the URL, the body and the token are right.
+- **422** = the body (above). **401/403** = the token. **404** = a typo in the URL.
+- A test after the close, on a day whose confirmed reading is already recorded, sends no
+  push and commits nothing: the run prints "The final reading for <date> is already
+  recorded. Nothing to do." and exits. The 204 and the new run are the only signs it worked.
+- A test does not prove the schedule or the timezone. Only a `workflow_dispatch` run that
+  starts at 3:20 pm Central on a weekday does.
