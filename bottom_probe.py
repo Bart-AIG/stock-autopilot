@@ -357,11 +357,4 @@ def vendor_check():
 
 if __name__ == "__main__":
     print("key present:", bool(KEY))
-    for fn in (vendor_check, fed_h6, finra_curl):
-        try:
-            fn()
-        except Exception as e:  # noqa: BLE001
-            print("section failed", fn.__name__, type(e).__name__, e)
-    section("FRED via curl")
-    fred_curl("M2SL", "M2.csv")
-    fred_curl("BOGZ1FL663067003Q", "BROKER_MARGIN_LOANS_Q.csv")
+    vendor_check()          # round 3: only the vendor comparison, so it is at the end of the log

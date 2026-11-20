@@ -1,6 +1,6 @@
 {
   "_comment": "Written by bottom_backtest.py. Do not edit by hand; changing the model needs a live Ryan turn and a re-run.",
-  "built_from_data_through": "2026-08-04",
+  "built_from_data_through": "2026-11-19",
   "features": [
     "vix_off",
     "dist200",
@@ -180,6 +180,72 @@
     ],
     "auc": 0.802
   },
+  "checkpoints": [
+    {
+      "label": "VIX 20% under its peak close",
+      "f": "vix_off",
+      "op": "<=",
+      "x": -0.2,
+      "hit": 0.785,
+      "miss": 0.422
+    },
+    {
+      "label": "VIX 40% under its peak close",
+      "f": "vix_off",
+      "op": "<=",
+      "x": -0.4,
+      "hit": 0.919,
+      "miss": 0.571
+    },
+    {
+      "label": "Close above the 20-day average",
+      "f": "above20",
+      "op": ">=",
+      "x": 1,
+      "hit": 0.822,
+      "miss": 0.467
+    },
+    {
+      "label": "Close above the 50-day average",
+      "f": "above50",
+      "op": ">=",
+      "x": 1,
+      "hit": 0.859,
+      "miss": 0.501
+    },
+    {
+      "label": "RSI(14) at 50 or more",
+      "f": "rsi14",
+      "op": ">=",
+      "x": 50,
+      "hit": 0.847,
+      "miss": 0.467
+    },
+    {
+      "label": "Half of the drop retraced",
+      "f": "retr",
+      "op": ">=",
+      "x": 0.5,
+      "hit": 0.963,
+      "miss": 0.54
+    },
+    {
+      "label": "Close above the 200-day average",
+      "f": "above200",
+      "op": ">=",
+      "x": 1,
+      "hit": 0.888,
+      "miss": 0.474
+    },
+    {
+      "label": "10 sessions without a new closing low",
+      "f": "days",
+      "op": ">=",
+      "x": 10,
+      "hit": 0.74,
+      "miss": 0.494
+    }
+  ],
   "oos": {
     "auc": 0.835,
     "skill": 0.305,
@@ -190,31 +256,31 @@
         "lo": 0,
         "hi": 0.25,
         "n": 482,
-        "actual": 0.143
+        "actual": 0.178
       },
       {
         "lo": 0.25,
         "hi": 0.5,
         "n": 766,
-        "actual": 0.298
+        "actual": 0.387
       },
       {
         "lo": 0.5,
         "hi": 0.7,
         "n": 458,
-        "actual": 0.498
+        "actual": 0.583
       },
       {
         "lo": 0.7,
         "hi": 0.85,
         "n": 884,
-        "actual": 0.681
+        "actual": 0.781
       },
       {
         "lo": 0.85,
         "hi": 1.0,
         "n": 1659,
-        "actual": 0.887
+        "actual": 0.925
       }
     ],
     "median_sessions_to_50": 2,

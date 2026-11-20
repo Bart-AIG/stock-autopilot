@@ -1,0 +1,89 @@
+name: Bottom watch
+
+# Is the low of the QQQ / SPY selloff in, and is the rebound holding? Read-only: FMP prices in,
+# a report and a phone push out. No broker connection and no trading. It runs here, not as a
+# Claude routine, so it cannot draw on the usage allowance the trading routine needs.
+#
+# Four readings each trading day, plus a backstop for the last one (GitHub cron can be late
+# or skipped):
+#   14:47, 17:07, 19:37 UTC  intraday, provisional (the live price stands in for the close)
+#   21:20 UTC                the confirmed after-close reading and the daily summary push
+#   22:50 UTC                repeats the after-close reading only if 21:20 did not record one
+# In winter that is 8:47 am, 11:07 am, 1:37 pm and 3:20 pm Central. In summer the clock times
+# are an hour later; every run still falls inside or after the session.
+#
+# A push goes out only when something changed (bottom_watch.decide): see docs in CLAUDE.md.
+
+on:
+  schedule:
+    - cron: '47 14 * * 1-5'
+    - cron: '7 17 * * 1-5'
+    - cron: '37 19 * * 1-5'
+    - cron: '20 21 * * 1-5'
+    - cron: '50 22 * * 1-5'
+  push:   # TEMPORARY: one end-to-end test from the session branch. Removed before merge.
+    branches: ['claude/beautiful-heisenberg-yoiwls']
+    paths: ['.github/workflows/bottom-watch.yml']
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Write a reading even if the final one for this session is already recorded'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  issues: write        # ntfy_send.py --fallback-issue opens an issue when a push cannot be delivered
+
+concurrency:
+  group: bottom-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Check the engine against its tests
+        run: python test_bottom_watch.py
+      - name: Reading
+        id: run
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+        run: python bottom_watch_run.py ${{ inputs.force && '--force' || '' }}
+      - name: Commit the report and state
+        run: |
+          git config user.name 'stock-autopilot-bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add bottom_watch.json bottom_watch_report.md 2>/dev/null || true
+          git commit -m "bottom watch: reading $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "no change"; exit 0; }
+          for attempt in 1 2 3 4 5; do
+            if git pull --rebase --quiet && git push; then echo "pushed on attempt $attempt"; exit 0; fi
+            if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ]; then git rebase --abort; fi
+            sleep $((attempt * 3))
+          done
+          echo "::error::could not push the bottom watch report"
+          exit 1
+      - name: Push to Ryan's phone
+        if: steps.run.outputs.notify == 'true'
+        env:
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          TITLE: ${{ steps.run.outputs.title }}
+          PRIO: ${{ steps.run.outputs.priority }}
+        run: |
+          python3 .github/scripts/ntfy_send.py --title "$TITLE" --priority "$PRIO" \
+            --tags chart_with_downwards_trend --file bottom_watch_push.txt --fallback-issue \
+            --click https://github.com/Bart-AIG/stock-autopilot/blob/master/bottom_watch_report.md
+      - name: Say so when the after-close reading fails
+        if: failure() && (github.event.schedule == '20 21 * * 1-5' || github.event.schedule == '50 22 * * 1-5')
+        env:
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 .github/scripts/ntfy_send.py --title "Bottom watch: the after-close reading failed" --priority default \
+            --tags warning --soft --message "No reading was produced for today. Run log: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"

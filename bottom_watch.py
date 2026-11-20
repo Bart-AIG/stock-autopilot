@@ -228,6 +228,8 @@ BANDS = ((0.25, "Low not in"), (0.50, "Low unlikely in"), (0.70, "Toss-up"),
 STAGE_TEXT = {"NEW LOW": "New closing low", "FAILED REBOUND": "Rebound failed, new closing low",
               "REBOUND": "Rebounding", "RETEST": "Retesting the low", "RECOVERED": "Recovered",
               "NO SELLOFF": "No selloff open"}
+LIVE_TEXT = {"NEW LOW": "Trading under the lowest close so far",
+             "FAILED REBOUND": "Rebound failing, trading under the lowest close so far"}
 RETEST_MIN, RETEST_KEEP = 0.04, 0.35     # a rebound of 4%+ that has given back 65% of itself is a retest
 BAND_MOVE = 0.05                         # a band change is pushed only after a 5-point move since the last push
 _MON = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split()
@@ -362,7 +364,7 @@ def plan_status(plan, bars, vix, since, provisional):
             if mi is not None and (met is None or B["d"][mi] < met[0]):
                 met = (B["d"][mi], sym)
         levels = " or ".join(f"{s} ${st[s]:,.0f}" for s in bars if s in st)
-        item = {"key": st["name"], "name": st["name"], "text": levels, "amount": st.get("amount", ""), "date": None}
+        item = {"key": f"{plan['set']}:{st['name']}", "name": st["name"], "text": levels, "amount": st.get("amount", ""), "date": None}
         if met:
             item["state"] = "met_provisional" if (provisional and met[0] == last_day) else "met"
             item["date"], item["sym"] = met
@@ -412,7 +414,7 @@ def plan_status(plan, bars, vix, since, provisional):
             text = (" or ".join(f"{s} closes above its 200-day (${m[s]:,.0f})" for s in m)
                     + f", with VIX closing under {cfg['vix_below']}")
         day = first(cond)
-        item = {"key": key, "name": name, "text": text, "amount": cfg.get("amount", ""), "date": day}
+        item = {"key": f"{plan['set']}:{key}", "name": name, "text": text, "amount": cfg.get("amount", ""), "date": day}
         if day:
             item["state"] = "met_provisional" if (provisional and day == last_day) else "met"
         else:
@@ -457,9 +459,11 @@ def decide(prev, readings, plan_items, session, final, late_day):
             once(f"recovered:{sym}:{ep}", f"{sym} is back within 3% of its high: the selloff is over")
             continue
         if r["stage"] == "FAILED REBOUND":
-            once(f"failed:{sym}:{session}", f"{sym} rebound failed: new closing low at ${r['close']:,.2f}")
+            once(f"failed:{sym}:{session}", (f"{sym} rebound failed: new closing low at ${r['close']:,.2f}" if final else
+                                             f"{sym} rebound is failing: ${r['close']:,.2f} is under its lowest close of the selloff"))
         elif r["stage"] == "NEW LOW" and was.get("stage") in ("REBOUND", "RETEST"):
-            once(f"newlow:{sym}:{session}", f"{sym} made a new closing low at ${r['close']:,.2f}")
+            once(f"newlow:{sym}:{session}", (f"{sym} made a new closing low at ${r['close']:,.2f}" if final else
+                                             f"{sym} is trading under its lowest close of the selloff (${r['close']:,.2f} now)"))
         elif r["stage"] == "RETEST" and was.get("stage") == "REBOUND":
             once(f"retest:{sym}:{r['low_date']}", f"{sym} is retesting its low: {r['reb']:.1%} above it after a {r['maxreb']:.1%} rebound")
         if (r.get("prob") is not None and was.get("prob") is not None and r["band"] != was.get("band")
@@ -484,6 +488,10 @@ def _day(s):
     return f"{_MON[int(s[5:7]) - 1]} {int(s[8:10])}"
 
 
+def stage_text(stage, final):
+    return STAGE_TEXT[stage] if final else LIVE_TEXT.get(stage, STAGE_TEXT[stage])
+
+
 def headline(readings):
     live = [f"{s} {r['prob']:.0%}" for s, r in readings.items() if r["stage"] != "NO SELLOFF" and r.get("prob") is not None]
     if not live:
@@ -491,20 +499,21 @@ def headline(readings):
     return "Bottom watch: chance the low is in, " + ", ".join(live)
 
 
-def _index_lines(r, was):
+def _index_lines(r, was, final=True):
     s = r["sym"]
     if r["stage"] == "NO SELLOFF":
         return [f"{s} ${r['close']:,.2f}: no selloff open. {-r['from_high']:.1%} under its 1-year high close; "
                 f"a reading starts at ${r['starts_at']:,.2f}."]
     prev = f" ({was['prob']:.0%} at the last push)" if was and was.get("prob") is not None and abs(was["prob"] - r["prob"]) >= 0.005 else ""
-    out = [f"{s} ${r['close']:,.2f}: {r['prob']:.0%} chance the low is in{prev}. {BANDS[r['band']][1]}."]
+    what = "this is the final low" if r["stage"] in ("NEW LOW", "FAILED REBOUND") else "the low is in"
+    out = [f"{s} ${r['close']:,.2f}: {r['prob']:.0%} chance {what}{prev}. {BANDS[r['band']][1]}."]
     base = f"{-r['ddclose']:.1%} under the {_day(r['peak_date'])} high close of ${r['peak']:,.2f}, session {r['sess_pk']} of the selloff"
     if r["stage"] in ("NEW LOW", "FAILED REBOUND"):
-        out.append(f"  {STAGE_TEXT[r['stage']]}. {base}.")
+        out.append(f"  {stage_text(r['stage'], final)}. {base}.")
     elif r["stage"] == "RECOVERED":
         out.append(f"  Recovered: back within 3% of the high. The low close was ${r['low']:,.2f} on {_day(r['low_date'])}.")
     else:
-        out.append(f"  {STAGE_TEXT[r['stage']]}: up {r['reb']:.1%} from the ${r['low']:,.2f} low close of {_day(r['low_date'])} "
+        out.append(f"  {stage_text(r['stage'], final)}: up {r['reb']:.1%} from the ${r['low']:,.2f} low close of {_day(r['low_date'])} "
                    f"({r['days']} session{'s' if r['days'] != 1 else ''} ago), best {r['maxreb']:.1%}. {base[0].upper() + base[1:]}.")
     if r["legs"]:
         out.append(f"  Failed rebounds so far: {r['legs']}.")
@@ -542,7 +551,7 @@ def push_text(readings, plan_items, why, when, final, pushed):
         L.append("Why this push: " + "; ".join(why) + ".")
     L.append("")
     for s, r in readings.items():
-        L += _index_lines(r, (pushed or {}).get(s))
+        L += _index_lines(r, (pushed or {}).get(s), final)
     live = [r for r in readings.values() if r["stage"] not in ("NO SELLOFF", "RECOVERED")]
     if live:
         L += [_vix_line(readings), ""]
@@ -571,13 +580,13 @@ def report(readings, plan_items, why, when, final, pushed, model):
         L.append("What changed: " + "; ".join(why) + ".")
     L.append("")
     for s, r in readings.items():
-        L += _index_lines(r, (pushed or {}).get(s))
+        L += _index_lines(r, (pushed or {}).get(s), final)
     live = [r for r in readings.values() if r["stage"] != "NO SELLOFF"]
     if live:
         L += [_vix_line(readings), "", "| | " + " | ".join(r["sym"] for r in live) + " |", "|---|" + "---|" * len(live)]
         row = lambda name, fn: L.append(f"| {name} | " + " | ".join(fn(r) for r in live) + " |")
         row("Chance the low is in", lambda r: f"**{r['prob']:.0%}**")
-        row("Stage", lambda r: STAGE_TEXT[r["stage"]])
+        row("Stage", lambda r: stage_text(r["stage"], final))
         row("Price", lambda r: f"${r['close']:,.2f}")
         row("High close", lambda r: f"${r['peak']:,.2f} ({_day(r['peak_date'])})")
         row("From the high", lambda r: f"{r['ddclose']:.1%}")
