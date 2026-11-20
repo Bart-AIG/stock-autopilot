@@ -13,6 +13,11 @@ When you hit a recurring problem, a stale artifact, a misleading signal, or anyt
 - **Detector:** in market hours, no "Options autopilot" commit on `origin/master` for more than 20 minutes, or `get_trigger(trig_01NzocNeZGHw31LmsJdbJ1Jy).last_run.failure_reason` = `ROUTINE_RUN_FAILURE_REASON_USAGE_LIMIT_REACHED`. The heartbeat cannot see this: it tests that one run happened, not that runs keep happening (the same blind spot as 2026-08-18).
 - **After an outage:** record it in the journal with what `sleeves.decide()` would have done at the close, tell Ryan, and place nothing. The next decision window decides again from that day's state. Never make up a missed swing order after the bell.
 
+## Intraday bar volume is not comparable to daily volume (measured 2026-11-20)
+`get_equity_historicals` 30-minute bars carry roughly a quarter to 40% of the consolidated volume on the daily bars (QQQ 2026-11-19: 28.3M summed from 30-minute bars against 71.5M on the daily bar; 2026-11-05: 37.6M against 130.7M), and 6 to 15 of the last 22 sessions, by symbol, had at least one holed bar. On 2026-11-20 an interactive session divided a morning's 30-minute volume by a daily average and told Ryan that a selloff day running at about 2.8x normal volume was running at 1.2x.
+- **Rule:** judge intraday volume only against the same bars on prior sessions (same feed, same time of day), then scale to a full-day figure with those sessions' daily-to-intraday ratio. Never divide an intraday sum by a daily average.
+- Drop sessions with a holed bar (a bar under a quarter of that day's median bar) from the baseline, and call the result an estimate.
+
 ## What this project is
 Read-only daily stock analysis. `report.py` (run by scheduled routines) produces reports through the trading day (a morning full scan then hourly intraday refreshes, ~09:00–14:00 CT, Mon–Fri — see `docs/cron-job-setup.md`) flagging Connors RSI(2) swing setups + a 12-1 momentum ranking (entries), **SELL/EXIT signals on positions in the `holdings.json` ledger**, and auto concentration/sizing analysis. The scripts NEVER trade.
 
