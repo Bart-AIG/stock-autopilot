@@ -296,7 +296,7 @@ def main():
     W = dict(zip(map(id, ALL), weights(ALL)))
     L = ["# Bottom watch: which variables say the low is in", "",
          f"Data through {last_bar}. Re-run with `python3 bottom_backtest.py`.", "",
-         f"- **Sample:** {len(ALL):,} days inside {n_eps} finished QQQ and SPY selloffs, 1999-09 to 2026, on closing prices. "
+         f"- **Sample:** {len(ALL):,} days inside {n_eps} finished QQQ and SPY selloffs, {min(r['peak_date'] for r in ALL)[:4]} to {last_bar[:4]}, on closing prices. "
          "A selloff starts when the close is 10% (QQQ) or 8% (SPY) under its 1-year closing high and ends when the close is back within 3% of it.",
          "- **Question on each day:** has the lowest close of this selloff already printed?",
          "- **Score:** 0.50 means the variable is useless and 1.00 means it separates the two perfectly "

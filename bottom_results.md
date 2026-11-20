@@ -2,7 +2,7 @@
 
 Data through 2026-11-19. Re-run with `python3 bottom_backtest.py`.
 
-- **Sample:** 5,296 days inside 54 finished QQQ and SPY selloffs, 1999-09 to 2026, on closing prices. A selloff starts when the close is 10% (QQQ) or 8% (SPY) under its 1-year closing high and ends when the close is back within 3% of it.
+- **Sample:** 5,296 days inside 54 finished QQQ and SPY selloffs, 1999 to 2026, on closing prices. A selloff starts when the close is 10% (QQQ) or 8% (SPY) under its 1-year closing high and ends when the close is back within 3% of it.
 - **Question on each day:** has the lowest close of this selloff already printed?
 - **Score:** 0.50 means the variable is useless and 1.00 means it separates the two perfectly (area under the ROC curve). "On the low day" is the same score using only days that made a new closing low, which is the hardest moment to call.
 
