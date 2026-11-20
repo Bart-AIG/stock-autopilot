@@ -226,21 +226,142 @@ def margin():
         save("MARGIN_DEBT.csv", rows)
 
 
+def curl(url, out, ua=UA, extra=()):
+    import subprocess
+    cmd = ["curl", "-sSL", "--compressed", "--max-time", "25", "-o", str(out), "-w", "%{http_code}", "-A", ua,
+           "-H", "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "-H", "Accept-Language: en-US,en;q=0.9"]
+    cmd += list(extra) + [url]
+    r = subprocess.run(cmd, capture_output=True, text=True)
+    size = Path(out).stat().st_size if Path(out).exists() else 0
+    return r.stdout.strip()[-3:], size
+
+
+def fred_curl(series, name):
+    tmp = Path("/tmp") / f"{series}.csv"
+    for ua in ("curl/8.5.0", UA):
+        code, size = curl(f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series}", tmp, ua=ua)
+        rows = []
+        if code == "200" and size > 50:
+            for ln in tmp.read_text(errors="replace").strip().splitlines()[1:]:
+                p = ln.split(",")
+                try:
+                    rows.append((p[0], float(p[1])))
+                except (ValueError, IndexError):
+                    pass
+        print("FRED curl", series, "ua", ua[:12], code, size, "rows", len(rows), "tail", rows[-2:], flush=True)
+        if rows:
+            save(name, rows)
+            return rows
+    return []
+
+
+def fed_h6():
+    section("Federal Reserve H.6 (M2)")
+    import zipfile
+    tmp = Path("/tmp/h6.zip")
+    code, size = curl("https://www.federalreserve.gov/datadownload/Output.aspx?rel=H6&filetype=zip", tmp)
+    print("zip", code, size)
+    if code != "200" or size < 1000:
+        return
+    try:
+        z = zipfile.ZipFile(tmp)
+    except Exception as e:  # noqa: BLE001
+        print("not a zip", type(e).__name__, tmp.read_bytes()[:200])
+        return
+    print("files", z.namelist())
+    for nm in z.namelist():
+        if not nm.lower().endswith(".xml") or "struct" in nm.lower():
+            continue
+        x = z.read(nm).decode("utf-8", "replace")
+        blocks = re.findall(r"<kf:Series\b([^>]*)>(.*?)</kf:Series>", x, flags=re.S)
+        print(nm, "series", len(blocks))
+        for attrs, body in blocks:
+            name = (re.search(r'SERIES_NAME="([^"]+)"', attrs) or [None, "?"])[1]
+            desc = (re.search(r"<common:AnnotationText>([^<]+)", body) or [None, ""])[1]
+            obs = re.findall(r'OBS_VALUE="([^"]+)"[^>]*TIME_PERIOD="([^"]+)"', body) or \
+                [(v, t) for t, v in re.findall(r'TIME_PERIOD="([^"]+)"[^>]*OBS_VALUE="([^"]+)"', body)]
+            print("   ", name, "|", desc[:70], "| obs", len(obs), "| last", obs[-1] if obs else None)
+            if re.match(r"^M2(_N)?\.M$", name) and obs:
+                rows = []
+                for v, t in obs:
+                    try:
+                        rows.append((t[:7] + "-01", float(v)))
+                    except ValueError:
+                        pass
+                save(f"M2__{name.replace('.', '_')}.csv", rows)
+
+
+def finra_curl():
+    section("FINRA margin debt via curl")
+    for i, u in enumerate(("https://www.finra.org/sites/default/files/2021-03/margin-statistics.xlsx",
+                           "https://www.finra.org/rules-guidance/key-topics/margin-accounts/margin-statistics",
+                           "https://www.finra.org/investors/learn-to-invest/advanced-investing/margin-statistics")):
+        tmp = Path(f"/tmp/finra{i}")
+        for ua in (UA, "curl/8.5.0"):
+            code, size = curl(u, tmp, ua=ua)
+            print(code, size, ua[:12], u, flush=True)
+            if code == "200" and size > 5000:
+                b = tmp.read_bytes()
+                if b[:2] == b"PK":
+                    try:
+                        import openpyxl
+                        ws = openpyxl.load_workbook(io.BytesIO(b), data_only=True).worksheets[0]
+                        rows = []
+                        for j, row in enumerate(ws.iter_rows(values_only=True)):
+                            if j < 3:
+                                print("   row", j, row[:4])
+                            if row and row[0] is not None and len(row) > 1 and isinstance(row[1], (int, float)):
+                                s0 = row[0].strftime("%Y-%m") if isinstance(row[0], datetime) else str(row[0]).strip()
+                                m = re.match(r"^(\d{4})-(\d{1,2})", s0)
+                                m2 = re.match(r"^([A-Za-z]{3})[A-Za-z]*[-\s'](\d{2,4})$", s0)
+                                if m:
+                                    rows.append((f"{m.group(1)}-{int(m.group(2)):02d}-01", float(row[1])))
+                                elif m2 and m2.group(1).lower() in MON:
+                                    y = int(m2.group(2))
+                                    y = y if y > 100 else (1900 + y if y >= 90 else 2000 + y)
+                                    rows.append((f"{y}-{MON[m2.group(1).lower()]:02d}-01", float(row[1])))
+                        if rows:
+                            save("MARGIN_DEBT.csv", rows)
+                            return
+                    except Exception as e:  # noqa: BLE001
+                        print("   xlsx fail", type(e).__name__, e)
+                else:
+                    page = b.decode("utf-8", "replace")
+                    print("   html title:", (re.search(r"<title>([^<]*)", page) or [None, ""])[1][:80],
+                          "| xlsx links:", sorted(set(re.findall(r'href="([^"]+\.xlsx?)"', page)))[:5])
+                break
+
+
+def vendor_check():
+    section("FMP vs the repo's Robinhood history")
+    today = datetime.now(timezone.utc).date()
+    for sym, fsym in (("QQQ", "QQQ"), ("SPY", "SPY"), ("VIX", "%5EVIX")):
+        st, body = get(f"{BASE}/historical-price-eod/full?symbol={fsym}&from=1999-01-01&to={today}&apikey={KEY}")
+        try:
+            d = json.loads(body)
+        except Exception:  # noqa: BLE001
+            d = []
+        f = {r["date"]: r for r in d if isinstance(r, dict)} if isinstance(d, list) else {}
+        base = {r["date"]: r for r in csv.DictReader(open(Path(__file__).parent / "data" / "bottom" / f"{sym}.csv"))}
+        both = sorted(set(f) & set(base))
+        diffs = [(dd, float(base[dd]["close"]), f[dd]["close"], round(f[dd]["close"] / float(base[dd]["close"]) - 1, 4)) for dd in both]
+        bad = [x for x in diffs if abs(x[3]) > 0.003]
+        only_f = sorted(set(f) - set(base))
+        only_b = sorted(x for x in set(base) - set(f) if f and x >= min(f))
+        print(sym, "status", st, "fmp rows", len(f), "from", min(f) if f else None, "| overlap", len(both),
+              "| closes off by >0.3%:", len(bad), bad[:6], "... last", bad[-3:])
+        print("    dates only in FMP:", len(only_f), only_f[:4], only_f[-3:], "| only in repo:", len(only_b), only_b[:6])
+        lo = [(dd, float(base[dd]["low"]), f[dd]["low"]) for dd in both if abs(f[dd]["low"] / float(base[dd]["low"]) - 1) > 0.01]
+        print("    lows off by >1%:", len(lo), lo[:5], flush=True)
+
+
 if __name__ == "__main__":
     print("key present:", bool(KEY))
-    for f in (fmp, yahoo, cboe):
+    for fn in (vendor_check, fed_h6, finra_curl):
         try:
-            f()
+            fn()
         except Exception as e:  # noqa: BLE001
-            print("section failed", f.__name__, type(e).__name__, e)
-    section("FRED")
-    fred("VIXCLS", None)
-    fred("M2SL", "M2.csv")
-    fred("BOGZ1FL663067003Q", "BROKER_MARGIN_LOANS_Q.csv")
-    fred("TCMDO", "TOTAL_DEBT_Q.csv")
-    fred("NCBEILQ027S", None)
-    for f in (cape, margin):
-        try:
-            f()
-        except Exception as e:  # noqa: BLE001
-            print("section failed", f.__name__, type(e).__name__, e)
+            print("section failed", fn.__name__, type(e).__name__, e)
+    section("FRED via curl")
+    fred_curl("M2SL", "M2.csv")
+    fred_curl("BOGZ1FL663067003Q", "BROKER_MARGIN_LOANS_Q.csv")
