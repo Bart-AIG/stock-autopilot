@@ -251,13 +251,16 @@ def _interp(x, xs, ys):
 def probability(model, f):
     """(chance 0-1 that the lowest close of the selloff is already in, basis).
 
-    f is one row from scan(). basis is "full", or "no_vix" when there is no VIX reading and
-    the two-variable fallback was used. The raw logistic output is mapped through the
-    calibration knots, so a stated 70% was right about 70% of the time out of sample.
+    f is one row from scan(). basis is "full"; "fallback" if a model input is missing and the
+    model file carries a fallback; (None, "missing") if it does not. The raw logistic output is
+    mapped through the calibration knots, so a stated 70% was right about 70% of the time out
+    of sample (per selloff; see bottom_results.md for the per-day figures).
     """
     use, basis = model, "full"
-    if f.get("vix_off") is None:
-        use, basis = model["fallback"], "no_vix"
+    if any(f.get(n) is None for n in model["features"]):
+        if not model.get("fallback"):
+            return None, "missing"
+        use, basis = model["fallback"], "fallback"
     z = use["intercept"]
     for name, mu, sd, beta in zip(use["features"], use["mean"], use["sd"], use["beta"]):
         x = f.get(name)
@@ -523,7 +526,7 @@ def _index_lines(r, was, final=True):
 def _vix_line(readings):
     r = next((x for x in readings.values() if x.get("vix") is not None), None)
     if not r:
-        return "VIX: no reading this run, so the estimate uses the 200-day and RSI only."
+        return "VIX: no reading this run."
     if r["vix_off"] > -0.005:
         return f"VIX {r['vix']:.1f}, its highest close of the selloff."
     return f"VIX {r['vix']:.1f}, {-r['vix_off']:.0%} under its peak close of {r['vix_peak']:.1f} on {_day(r['vix_peak_date'])}."
@@ -594,6 +597,7 @@ def report(readings, plan_items, why, when, final, pushed, model):
         row("Up from the low", lambda r: f"{r['reb']:.1%} in {r['days']} sessions")
         row("Best rebound, failed rebounds", lambda r: f"{r['maxreb']:.1%}, {r['legs']}")
         row("Close vs the 200-day", lambda r: f"{r['dist200']:.1%} (${r['sma200']:,.2f})")
+        row("Share of the drop retraced", lambda r: f"{r['retr']:.0%}")
         row("RSI(14)", lambda r: f"{r['rsi14']:.0f}")
         row("VIX vs its peak close", lambda r: "n/a" if r.get("vix_off") is None else f"{r['vix_off']:.0%} ({r['vix']:.1f} vs {r['vix_peak']:.1f})")
         L += ["", "**Rebound checkpoints.** \"Past odds\" is how often the low was already in on days when the checkpoint was met.", "",
@@ -611,8 +615,10 @@ def report(readings, plan_items, why, when, final, pushed, model):
         L += ["", "**Your buy-back levels** (advisory; you place the orders):"] + _plan_lines(plan_items)
     rel = model.get("oos", {}).get("reliability", [])
     if rel:
+        gaps = [round((x["actual"] - x["actual_days"]) * 100) for x in rel if x.get("actual") is not None and x.get("actual_days") is not None]
+        gap = f"{min(gaps)} to {max(gaps)}" if gaps else "several"
         L += ["", "**How to read the chance.** On past selloffs the model had not seen, the low really was in: " +
               "; ".join(f"{x['actual']:.0%} of the time at a reading of {x['lo']:.0%} to {x['hi']:.0%}" for x in rel if x.get("actual") is not None) +
-              ". Inside long bear markets those figures ran 4 to 10 points lower, because a bear-market rally looks like a final low early on. "
-              "Evidence: bottom_results.md."]
+              f". Counting every day equally, which gives long bear markets more weight, those figures were {gap} points lower: "
+              "a bear-market rally looks like a final low early on. Evidence: bottom_results.md."]
     return "\n".join(L).strip() + "\n"

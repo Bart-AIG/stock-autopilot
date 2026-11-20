@@ -117,13 +117,20 @@ def compute(bars, V, state, model, plan, session, final, late_day, when):
     live = [r for r in readings.values() if r["stage"] != "NO SELLOFF"]
     since = min((r["peak_date"] for r in live), default=plan["set"])
     items = bw.plan_status(plan, bars, V or {"d": [], "h": [], "c": []}, since, provisional=not final) if live or state.get("pushed") else []
+    mid = model_id(model)
+    if state.get("pushed") and state.get("model_id") != mid:
+        # The model was re-fitted since the last push. Restate what was pushed in the new model's
+        # terms, so a re-fit can never read as "the chance rose" or "fell".
+        state = dict(state)
+        state["pushed"] = {s: ({**v, "prob": round(readings[s]["prob"], 4), "band": readings[s]["band"]}
+                               if readings.get(s, {}).get("prob") is not None else v) for s, v in state["pushed"].items()}
     why, note, important = bw.decide(state, readings, items, session, final, late_day)
     pushed = state.get("pushed") or {}
     report = bw.report(readings, items, why, when, final, pushed, model)
     push = bw.push_text(readings, items, why, when, final, pushed)
     new = dict(state)
     new.update({
-        "updated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "session": session, "final": final,
+        "updated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "session": session, "final": final, "model_id": mid,
         "readings": {s: {k: (round(v, 4) if isinstance(v, float) else v) for k, v in r.items() if k not in ("checks", "trend")}
                      for s, r in readings.items()},
         "plan": [{k: it.get(k) for k in ("key", "name", "state", "date")} for it in items],
@@ -137,6 +144,10 @@ def compute(bars, V, state, model, plan, session, final, late_day, when):
                          for s, r in readings.items()}
         new["pushed"] = {s: v for s, v in new["pushed"].items() if v}
     return new, report, push, bw.headline(readings), why, important
+
+
+def model_id(model):
+    return "+".join(model["features"]) + f":{model['intercept']}:" + ",".join(str(b) for b in model["beta"])
 
 
 def main():
@@ -170,8 +181,8 @@ def main():
             V = daily("^VIX", key, today)
             merge_live(V, quote("^VIX", key))
             note = ""
-        except RuntimeError as e:                      # the estimate still works without the VIX, less well
-            V, note = None, f"VIX unavailable this run ({e}); using the 200-day and RSI only."
+        except RuntimeError as e:                      # the estimate does not use the VIX; the buy-back levels do
+            V, note = None, f"VIX unavailable this run ({e}). The chance is unaffected; the buy-back levels that need a VIX reading were not checked."
             print("::warning::" + note)
         session = max(bars[s]["d"][-1] for s in SYMS)
         traded_today = session == now.date().isoformat()

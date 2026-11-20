@@ -1,8 +1,12 @@
 """Backtest for bottom_watch.py. Run: python3 bottom_backtest.py
 
-Reads data/bottom/*.csv (daily QQQ, SPY, VIX, HYG, IEF, RSP; Robinhood history pulled
-2026-11-20) and data/bottom/macro/*.csv (monthly series). For every day inside every QQQ / SPY
-selloff since 1999 it asks "has the lowest close of this selloff already printed?", ranks each
+Reads data/bottom/*.csv and data/bottom/macro/*.csv. Daily QQQ, SPY, HYG, IEF and RSP bars are
+from FMP (the vendor the scheduled job reads); the VIX is the official Cboe history. Both were
+pulled on a GitHub runner on 2026-11-20. Do NOT rebuild them from Robinhood history: its daily
+bars carry bad prints (SPY 2008-11-20 closed 75.45, Robinhood has 81.00; its VIX before 2003-09
+is the old index, 49.48 against 42.13 on 2002-10-09) and the first fit on them overstated the VIX.
+
+For every day inside every QQQ / SPY selloff since 1999 it asks "has the lowest close of this selloff already printed?", ranks each
 candidate variable by how well it separates yes from no, fits a small logistic model, and
 checks it on selloffs it was not fitted on (every selloff that peaked in the same calendar
 year is held out together).
@@ -66,22 +70,26 @@ ASKED = {   # Ryan, live turn 2026-11-20: Shiller index, money supply, total deb
     "Margin debt": ["md_yoy", "md_3m", "md_dd", "md_spx_rel"],
 }
 SLOW = ("cape", "m2_yoy", "spx_m2_rel", "md_yoy", "md_dd", "md_spx_rel")     # tested against how deep each selloff went
-CLIP = {"vix_off": (-0.75, 0.0), "dist200": (-0.40, 0.15), "rsi14": (0.0, 100.0), "bb_z": (-3.5, 3.5), "bb_zmax": (-3.5, 3.5),
+CLIP = {"vix_off": (-0.75, 0.0), "dist200": (-0.40, 0.15), "rsi14": (0.0, 100.0), "retr": (0.0, 1.0), "reb_atr": (0.0, 15.0),
+        "dist50": (-0.30, 0.15), "bb_z": (-3.5, 3.5), "bb_zmax": (-3.5, 3.5),
         "bb_z_low": (-3.5, 3.5), "bb_width_off": (-0.9, 0.0), "cape": (10, 50), "cape_peak": (10, 50), "cape_rel10": (-0.6, 0.8),
         "m2_yoy": (-0.06, 0.28), "m2_6m": (-0.08, 0.40), "spx_m2_rel": (-0.5, 0.6), "md_yoy": (-0.5, 0.8), "md_3m": (-0.3, 0.3),
         "md_dd": (-0.5, 0.0), "md_spx_rel": (-0.5, 0.6)}
-FEATS = ["vix_off", "dist200", "rsi14"]
-FALLBACK = ["dist200", "rsi14"]            # when no VIX reading is available
+FEATS = ["dist200", "retr"]
+FIRST = ["vix_off", "dist200", "rsi14"]     # the first fit, made on Robinhood data whose VIX history was incomplete
 VARIANTS = {
-    "VIX off its peak only": ["vix_off"],
-    "+ close vs the 200-day": ["vix_off", "dist200"],
-    "+ RSI(14)  [chosen]": FEATS,
-    "+ share of the drop retraced": FEATS + ["retr"],
+    "Close vs the 200-day only": ["dist200"],
+    "+ share of the drop retraced  [chosen]": FEATS,
+    "+ RSI(14)": FEATS + ["rsi14"],
+    "+ VIX below its peak": FEATS + ["vix_off"],
+    "+ rebound in daily ranges": FEATS + ["reb_atr"],
+    "+ close vs the 50-day": FEATS + ["dist50"],
     "+ failed rebounds so far": FEATS + ["legs"],
     "+ direction of the 200-day": FEATS + ["slope200"],
-    "+ junk bonds vs Treasuries": FEATS + ["hy20"],
-    "11 variables": FEATS + ["retr", "legs", "reb_atr", "giveback", "days", "speed", "ddclose", "dist50"],
-    "No VIX: 200-day + RSI(14)": FALLBACK,
+    "+ junk bonds vs Treasuries (2007 on)": FEATS + ["hy20"],
+    "11 variables": FEATS + ["rsi14", "vix_off", "legs", "reb_atr", "giveback", "days", "speed", "ddclose", "dist50"],
+    "VIX below its peak, 200-day, RSI(14) (the first fit)": FIRST,
+    "VIX below its peak only": ["vix_off"],
 }
 CHECKS = [("VIX 20% under its peak close", "vix_off", "<=", -0.20), ("VIX 40% under its peak close", "vix_off", "<=", -0.40),
           ("Close above the 20-day average", "above20", ">=", 1), ("Close above the 50-day average", "above50", ">=", 1),
@@ -218,6 +226,20 @@ def oos(feats, rows):
     return rows, pred, y, w, {"n": len(rows), "auc": auc(pred, y), "skill": float(skill)}
 
 
+def evaluate(feats, rows):
+    """Out-of-sample score and skill, overall and for selloffs that peaked before / from 2010."""
+    rows, pred, y, w, m = oos(feats, rows)
+    early = np.array([r["peak_date"] < "2010" for r in rows])
+
+    def skill(k):
+        if not k.any():
+            return float("nan")
+        base = np.average(y[k], weights=w[k])
+        return float(1 - np.average((pred[k] - y[k]) ** 2, weights=w[k]) / np.average((base - y[k]) ** 2, weights=w[k]))
+    m.update({"early": skill(early), "late": skill(~early)})
+    return m
+
+
 def isotonic(pred, y, w):
     """Weighted pool-adjacent-violators, read off on a fixed grid. Returns [[raw, calibrated], ...]."""
     order = np.argsort(pred)
@@ -270,14 +292,12 @@ def main():
     OPEN_PEAK = min((R[0]["peak_date"] for R in OPEN.values()), default=None)
     for e in EPS:
         e.update(have["at"](e["peak_date"]))
-    VIXROWS = [r for r in ALL if r.get("vix_off") is not None]
     n_eps = len({(r["sym"], r["ep"]) for r in ALL})
     W = dict(zip(map(id, ALL), weights(ALL)))
     L = ["# Bottom watch: which variables say the low is in", "",
          f"Data through {last_bar}. Re-run with `python3 bottom_backtest.py`.", "",
          f"- **Sample:** {len(ALL):,} days inside {n_eps} finished QQQ and SPY selloffs, 1999-09 to 2026, on closing prices. "
-         "A selloff starts when the close is 10% (QQQ) or 8% (SPY) under its 1-year closing high and ends when the close is back within 3% of it. "
-         f"VIX history starts 2002-05, so models that use it are fitted on {len(VIXROWS):,} days.",
+         "A selloff starts when the close is 10% (QQQ) or 8% (SPY) under its 1-year closing high and ends when the close is back within 3% of it.",
          "- **Question on each day:** has the lowest close of this selloff already printed?",
          "- **Score:** 0.50 means the variable is useless and 1.00 means it separates the two perfectly "
          "(area under the ROC curve). \"On the low day\" is the same score using only days that made a new closing low, "
@@ -286,9 +306,15 @@ def main():
     # ---- every variable on its own
     rank = [(f,) + sc for f in NAMES for sc in [score(f, ALL)] if sc]
     rank.sort(key=lambda t: -abs(t[1] - 0.5))
-    L += ["## Each variable on its own", "", "| Variable | Score | Low more likely in when it is | On the low day | Days |", "|---|---|---|---|---|"]
+    EARLY, LATE = [r for r in ALL if r["peak_date"] < "2010"], [r for r in ALL if r["peak_date"] >= "2010"]
+    L += ["## Each variable on its own", "",
+          "The two middle columns split the selloffs by when they peaked. 1999-2009 holds the two long bear markets; a variable that only works after 2010 is a fair-weather one.", "",
+          "| Variable | Score | Low more likely in when it is | 1999-2009 | 2010-2026 | On the low day | Days |", "|---|---|---|---|---|---|---|"]
     for f, a, a0, n in rank:
+        flip = (lambda x: x) if a >= 0.5 else (lambda x: 1 - x)
+        ea, la = score(f, EARLY), score(f, LATE)
         L.append(f"| {NAMES[f]} | {max(a, 1 - a):.2f} | {'higher' if a >= 0.5 else 'lower'} | "
+                 f"{'n/a' if not ea else f'{flip(ea[0]):.2f}'} | {'n/a' if not la else f'{flip(la[0]):.2f}'} | "
                  f"{'n/a' if a0 != a0 else f'{max(a0, 1 - a0):.2f}'} | {n:,} |")
     d0 = [r for r in ALL if r["days"] == 0]
     w0 = np.array([W[id(r)] for r in d0])
@@ -298,35 +324,40 @@ def main():
           "they did not separate final lows from the rest.", ""]
 
     # ---- combinations
-    res = {name: oos(fs, [r for r in VIXROWS if all(r.get(f) is not None for f in fs)])[4] for name, fs in VARIANTS.items()}
-    chosen = res["+ RSI(14)  [chosen]"]
+    res = {}
+    for name, fs in VARIANTS.items():
+        sub = [r for r in ALL if all(r.get(f) is not None for f in fs)]
+        res[name] = evaluate(fs, sub)
+        res[name]["gain"] = res[name]["skill"] - evaluate(FEATS, sub)["skill"]
+    chosen = res["+ share of the drop retraced  [chosen]"]
     L += ["## Combining them (tested on selloffs the model had not seen)", "",
-          "| Model | Score | Better than always quoting the average |", "|---|---|---|"]
+          "\"Skill\" is how much better the forecast is than always quoting the average (0% = no better). "
+          "\"Against the chosen model\" compares on the same days, which matters where a variable has a shorter history.", "",
+          "| Model | Days | Score | Skill | Against the chosen model | Skill 1999-2009 | Skill 2010-2026 |", "|---|---|---|---|---|---|---|"]
     for name, m in res.items():
-        L.append(f"| {name} | {m['auc']:.3f} | {m['skill'] * 100:.1f}% |")
-    better = [n for n, m in res.items() if n.startswith("+ ") and len(VARIANTS[n]) > len(FEATS) and m["skill"] > chosen["skill"] + 0.005]
-    L += ["", ("Adding a fourth variable did not improve the out-of-sample result, so the model stops at three."
-               if not better else "These four-variable versions beat the chosen model by more than half a point: " + ", ".join(better) + "."), ""]
+        L.append(f"| {name} | {m['n']:,} | {m['auc']:.3f} | {m['skill'] * 100:.1f}% | {m['gain'] * 100:+.1f} points | {m['early'] * 100:.1f}% | {m['late'] * 100:.1f}% |")
+    better = [n for n, m in res.items() if n.startswith("+ ") and "chosen" not in n and m["gain"] > 0.01]
+    L += ["", ("No third variable added more than one point, so the model stops at two: the simplest version within a point of the best."
+               if not better else "These three-variable versions beat the chosen model by more than a point: " + ", ".join(better) + "."),
+          f"It is weaker in bear markets: skill {chosen['early'] * 100:.0f}% on the 1999-2009 selloffs against {chosen['late'] * 100:.0f}% since 2010.",
+          "The first fit (2026-11-20, before the data was corrected) put the VIX first. On complete and correct VIX history "
+          f"the VIX alone has skill {res['VIX below its peak only']['skill'] * 100:.0f}% and was worse than the average in 1999-2009 "
+          f"({res['VIX below its peak only']['early'] * 100:.0f}%): in a long bear market the VIX sits far under its peak while prices keep falling.", ""]
 
     # ---- the model
-    rows, pred, y, w, m = oos(FEATS, VIXROWS)
+    rows, pred, y, w, m = oos(FEATS, ALL)
     knots = isotonic(pred, y, w)
     cal = np.array([calibrate(p, knots) for p in pred])
-    _, X, yy, ww = design(FEATS, VIXROWS)
+    _, X, yy, ww = design(FEATS, ALL)
     mu, sd = X.mean(0), X.std(0)
     b = fit((X - mu) / sd, yy, ww)
-    _, Xf, yf, wf = design(FALLBACK, ALL)
-    muf, sdf = Xf.mean(0), Xf.std(0)
-    bf = fit((Xf - muf) / sdf, yf, wf)
-    _, predf, yf2, wf2, mf = oos(FALLBACK, ALL)
-    knots_f = isotonic(predf, yf2, wf2)
     rel = []
     for a, c in [(0, .25), (.25, .5), (.5, .7), (.7, .85), (.85, 1.01)]:
         k = (cal >= a) & (cal < c)
         rel.append({"lo": a, "hi": min(c, 1.0), "n": int(k.sum()),
                     "actual": round(float(np.average(y[k], weights=w[k])), 3) if k.sum() else None,      # every selloff counted equally
                     "actual_days": round(float(y[k].mean()), 3) if k.sum() else None})                  # every day counted equally
-    L += ["## The model", "", "Chance the low is in = a logistic blend of three readings, then adjusted so that the "
+    L += ["## The model", "", "Chance the low is in = a logistic blend of two readings, then adjusted so that the "
           "stated chance matches how often it was right out of sample.", "",
           "| Reading | Average in past selloffs | Weight (per standard deviation) |", "|---|---|---|"]
     for f, mm, bb_ in zip(FEATS, mu, b[1:]):
@@ -390,7 +421,7 @@ def main():
     L += ["", "## Bollinger bands, Shiller P/E, M2 and margin debt", "",
           "Ryan asked on 2026-11-20 whether these had been tested. They had not; this section is the test. "
           "\"Added to the model\" is the out-of-sample result with the variable as a fourth input "
-          f"(the three-variable model scores {chosen['skill'] * 100:.1f}%). The last column asks a different question of the slow series: "
+          f"(the chosen model scores {chosen['skill'] * 100:.1f}%; each comparison is on the same days). The last column asks a different question of the slow series: "
           "does the reading at the high say how deep the selloff goes (rank correlation with depth, QQQ / SPY; "
           "+1 would mean a higher reading always came with a deeper selloff, and anything inside about 0.4 either way is indistinguishable from none on this sample).", "",
           "| Group | Variable | Score alone | Added to the model | Reading at the high vs depth |", "|---|---|---|---|---|"]
@@ -401,11 +432,15 @@ def main():
             sc = score(f, ALL)
             if not sc:
                 continue
-            sub = [r for r in VIXROWS if r.get(f) is not None]
+            sub = [r for r in ALL if r.get(f) is not None]
             base_m = oos(FEATS, sub)[4]["skill"]
             mm = oos(FEATS + [f], sub)[4]["skill"]
             gain = (mm - base_m) * 100
-            best = gain if best is None else max(best, gain)
+            if best is None or gain > best[0]:
+                ex08 = [r for r in sub if not ("2007" <= r["peak_date"][:4] <= "2008")]
+                late = [r for r in sub if r["peak_date"] >= "2010"]
+                g = lambda rr: (oos(FEATS + [f], rr)[4]["skill"] - oos(FEATS, rr)[4]["skill"]) * 100
+                best = (gain, NAMES[f], g(ex08), g(late))
             cell = "n/a"
             if f in SLOW:
                 parts = []
@@ -421,12 +456,15 @@ def main():
     for grp, best in verdict.items():
         if best is None:
             L.append(f"- **{grp}:** no data, so no verdict.")
-        elif best > 1.0:
-            L.append(f"- **{grp}:** the best version added {best:.1f} points out of sample. Worth a closer look before adding it.")
-        elif best <= 0.05:
+        elif best[0] <= 0.05:
             L.append(f"- **{grp}:** every version left the out-of-sample result the same or worse. Not added to the model.")
+        elif best[0] <= 1.0:
+            L.append(f"- **{grp}:** the best version ({best[1]}) added {best[0]:.1f} points out of sample, inside the noise. Not added to the model.")
         else:
-            L.append(f"- **{grp}:** the best version added {best:.1f} points out of sample, inside the noise. Not added to the model.")
+            L.append(f"- **{grp}:** the best version ({best[1]}) added {best[0]:.1f} points out of sample, but {best[2]:+.1f} points with the "
+                     f"2007-09 bear market left out and {best[3]:+.1f} points on the selloffs since 2010. "
+                     + ("A gain that rests on one bear market is not evidence. Not added to the model." if best[2] < 0.5 or best[3] < 0.5
+                        else "It held up in both checks: worth a closer look before adding it."))
     L += ["", "Shiller P/E, M2 and margin debt are monthly and published weeks late, so within one selloff they barely move: "
           "they can describe the backdrop but cannot mark a day. Bollinger position is the 20-day average and RSI restated.", ""]
     if OPEN_PEAK:
@@ -449,8 +487,7 @@ def main():
         for s, R in OPEN.items():
             L += [f"**{s}**, high close ${R[0]['peak']:,.2f} on {R[0]['peak_date']}:", "", "| Date | Close | From the high | VIX vs its peak | Chance the low is in |", "|---|---|---|---|---|"]
             model_now = {"features": FEATS, "clip": {k: list(v) for k, v in CLIP.items()}, "mean": list(mu), "sd": list(sd),
-                         "intercept": float(b[0]), "beta": list(b[1:]), "calibration": knots,
-                         "fallback": {"features": FALLBACK, "mean": list(muf), "sd": list(sdf), "intercept": float(bf[0]), "beta": list(bf[1:]), "calibration": knots_f}}
+                         "intercept": float(b[0]), "beta": list(b[1:]), "calibration": knots}
             for r in R:
                 p = bw.probability(model_now, r)[0]
                 L.append(f"| {r['date']} | ${r['close']:,.2f} | {r['ddclose'] * 100:.1f}% | "
@@ -461,7 +498,8 @@ def main():
           f"- {n_eps} selloffs, and QQQ and SPY mostly fall together, so the independent sample is nearer 25.",
           "- Only three of them were long bear markets. The model cannot tell a bear-market rally from a final low early on.",
           "- Everything is on closing prices. An intraday reading uses the live price as if it were the close.",
-          "- VIX readings before 2002-05 were not available, so the 2000-01 part of the dot-com bust is not in the VIX model.", ""]
+          f"- It is weaker in bear markets (skill {chosen['early'] * 100:.0f}% on 1999-2009 against {chosen['late'] * 100:.0f}% since 2010).",
+          "- The model was chosen among about a dozen combinations on the same out-of-sample test, so its own score is a little flattering.", ""]
     (HERE / "bottom_results.md").write_text("\n".join(L))
     model = {
         "_comment": "Written by bottom_backtest.py. Do not edit by hand; changing the model needs a live Ryan turn and a re-run.",
@@ -469,11 +507,9 @@ def main():
         "features": FEATS, "clip": {k: list(CLIP[k]) for k in FEATS},
         "mean": [round(float(x), 6) for x in mu], "sd": [round(float(x), 6) for x in sd],
         "intercept": round(float(b[0]), 6), "beta": [round(float(x), 6) for x in b[1:]], "calibration": knots,
-        "fallback": {"features": FALLBACK, "mean": [round(float(x), 6) for x in muf], "sd": [round(float(x), 6) for x in sdf],
-                     "intercept": round(float(bf[0]), 6), "beta": [round(float(x), 6) for x in bf[1:]], "calibration": knots_f,
-                     "auc": round(mf["auc"], 3)},
         "checkpoints": checks,
-        "oos": {"auc": round(m["auc"], 3), "skill": round(m["skill"], 3), "days": m["n"], "selloffs": len(tab), "reliability": rel,
+        "oos": {"auc": round(m["auc"], 3), "skill": round(m["skill"], 3), "skill_1999_2009": round(chosen["early"], 3),
+                "skill_2010_2026": round(chosen["late"], 3), "days": m["n"], "selloffs": len(tab), "reliability": rel,
                 "median_sessions_to_50": st.median(x[0] for x in lead[0.5]), "median_sessions_to_70": st.median(x[0] for x in lead[0.7]),
                 "false_50": false[0.5], "false_70": false[0.7]},
     }

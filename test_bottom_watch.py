@@ -82,28 +82,25 @@ def test_nothing_from_the_future():
             assert (v == w) or (isinstance(v, float) and abs(v - w) < 1e-9), (j, k, v, w)
 
 
-def test_probability_direction_bounds_and_fallback():
-    f = {"vix_off": -0.20, "dist200": -0.05, "rsi14": 40.0}
+def test_probability_direction_and_bounds():
+    f = {"dist200": -0.08, "retr": 0.15}
     p0, basis = bw.probability(MODEL, f)
     assert basis == "full" and 0.03 <= p0 <= 0.95
-    assert bw.probability(MODEL, {**f, "vix_off": -0.45})[0] > p0      # VIX further under its peak
     assert bw.probability(MODEL, {**f, "dist200": 0.03})[0] > p0       # back above the 200-day
-    assert bw.probability(MODEL, {**f, "rsi14": 60.0})[0] > p0
-    lo = bw.probability(MODEL, {"vix_off": 0.0, "dist200": -0.9, "rsi14": 1.0})[0]
-    hi = bw.probability(MODEL, {"vix_off": -0.99, "dist200": 0.9, "rsi14": 99.0})[0]
-    assert 0.03 <= lo < 0.2 and 0.9 <= hi <= 0.95                      # never certain either way
-    p, basis = bw.probability(MODEL, {"vix_off": None, "dist200": -0.05, "rsi14": 40.0})
-    assert basis == "no_vix" and 0.03 <= p <= 0.95
+    assert bw.probability(MODEL, {**f, "retr": 0.6})[0] > p0           # more of the drop retraced
+    lo = bw.probability(MODEL, {"dist200": -0.9, "retr": 0.0})[0]
+    hi = bw.probability(MODEL, {"dist200": 0.9, "retr": 1.0})[0]
+    assert 0.03 <= lo < 0.25 and 0.85 <= hi <= 0.95                    # never certain either way
+    assert bw.probability(MODEL, {"dist200": None, "retr": 0.2}) == (None, "missing")
 
 
 def test_model_file():
-    for m in (MODEL, MODEL["fallback"]):
-        n = len(m["features"])
-        assert n == len(m["mean"]) == len(m["sd"]) == len(m["beta"])
-        ys = [k[1] for k in m["calibration"]]
-        assert ys == sorted(ys) and all(0.03 <= y <= 0.95 for y in ys)
-    assert MODEL["features"] == ["vix_off", "dist200", "rsi14"]
-    assert MODEL["oos"]["auc"] > 0.8 and MODEL["oos"]["skill"] > 0.25
+    n = len(MODEL["features"])
+    assert n == len(MODEL["mean"]) == len(MODEL["sd"]) == len(MODEL["beta"])
+    ys = [k[1] for k in MODEL["calibration"]]
+    assert ys == sorted(ys) and all(0.03 <= y <= 0.95 for y in ys)
+    assert MODEL["features"] == ["dist200", "retr"] and all(b > 0 for b in MODEL["beta"])
+    assert MODEL["oos"]["auc"] > 0.75 and MODEL["oos"]["skill"] > 0.25
     assert len(MODEL["checkpoints"]) >= 6 and all(0.5 < c["hit"] < 1 and c["hit"] > c["miss"] for c in MODEL["checkpoints"])
 
 
@@ -111,7 +108,7 @@ def test_stages():
     def stage(c):
         return bw.reading("QQQ", _bars(c), None, MODEL)
     r = stage(_path((85, 10)))
-    assert r["stage"] == "NEW LOW" and r["open"] and r["days"] == 0 and r["basis"] == "no_vix"
+    assert r["stage"] == "NEW LOW" and r["open"] and r["days"] == 0 and r["basis"] == "full" and r["vix"] is None
     r = stage(_path((85, 10), (92, 5)))
     assert r["stage"] == "REBOUND" and abs(r["reb"] - (92 / 85 - 1)) < 1e-9 and r["days"] == 5
     r = stage(_path((85, 10), (92, 5), (86, 4)))
@@ -249,6 +246,19 @@ def test_compute_end_to_end_and_quiet_second_run():
     assert why2 == [] and st2["pushed"] == st1["pushed"]             # same inputs, no second push
     st3, _, _, _, why3, imp3 = run.compute(bars, V, st2, MODEL, plan, session, True, False, "3:20 pm CT Fri Nov 20")
     assert why3 == ["Daily summary after the close"] and not imp3 and st3["final_session"] == session
+
+
+def test_a_refit_is_not_a_market_move():
+    """After the model changes, the next run must not push 'the chance rose' off the old model's number."""
+    bars, V = run.offline({"QQQ": 615.03, "SPY": 695.46}, 35.43)
+    plan = json.loads((HERE / "bottom_watch_plan.json").read_text())
+    session = bars["QQQ"]["d"][-1]
+    st1 = run.compute(bars, V, {}, MODEL, plan, session, False, False, "t")[0]
+    other = {**MODEL, "intercept": MODEL["intercept"] + 2.5}          # a re-fit that moves every reading up a band or more
+    assert bw.probability(other, {"dist200": -0.1, "retr": 0.0})[0] - bw.probability(MODEL, {"dist200": -0.1, "retr": 0.0})[0] > 0.2
+    st2, _, _, _, why, _ = run.compute(bars, V, st1, other, plan, session, False, False, "t")
+    assert why == [] and st2["model_id"] != st1["model_id"]
+    assert st2["pushed"]["QQQ"]["prob"] == st2["readings"]["QQQ"]["prob"] != st1["pushed"]["QQQ"]["prob"]
 
 
 def test_reading_matches_the_backtest_row():
