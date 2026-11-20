@@ -108,3 +108,27 @@ well under the per-minute limit.
   and you get the ntfy alert (heartbeat on a no-trade day, high-priority on ACTION).
   The run log's "Determine mode" step prints the resolved mode + CT hour, so you
   can confirm `auto` picked the slot you expected.
+
+---
+
+## Second job: the bottom watch's after-close reading (added 2026-11-20)
+
+The bottom watch (`.github/workflows/bottom-watch.yml`) needs no cron-job.org job for its
+intraday readings: it runs by itself right after every Stock Report run on master, so it
+inherits the hourly 09:00 to 14:00 CT schedule above.
+
+It does need one for a **punctual after-close reading**. Without it, the confirmed
+reading and the daily summary push wait for one of GitHub's own crons, which arrive hours
+late (5 to 8 hours on 2026-11-20).
+
+Clone the Stock Report job and change three things:
+
+| Setting | Value |
+|---------|-------|
+| URL | `https://api.github.com/repos/Bart-AIG/stock-autopilot/actions/workflows/bottom-watch.yml/dispatches` |
+| Request body | `{"ref":"master"}` |
+| Schedule | `20 15 * * 1-5`, timezone **America/Chicago** (3:20 pm Central, 20 minutes after the close) |
+
+Headers and token stay the same as the Stock Report job (the token needs Actions
+read/write on this repository, which it already has). A good trigger returns **204**.
+On a half day the reading taken at 3:20 pm is still the confirmed one.

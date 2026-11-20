@@ -1,6 +1,7 @@
 """Bottom watch job: is the low of the QQQ / SPY selloff in, and is the rebound holding?
 
-Runs on a GitHub runner a few times each trading day (.github/workflows/bottom-watch.yml).
+Runs on a GitHub runner after every Stock Report run and after the close
+(.github/workflows/bottom-watch.yml explains the triggers).
 It reads QQQ, SPY and the VIX from FMP, computes the reading with bottom_watch.py (the code
 the backtest ran), writes bottom_watch_report.md and bottom_watch.json, and tells the
 workflow whether to send a push. It never trades and has no broker connection.
@@ -146,6 +147,16 @@ def compute(bars, V, state, model, plan, session, final, late_day, when):
     return new, report, push, bw.headline(readings), why, important
 
 
+def push_priority(important, now_et):
+    """high for a change, default for the after-close summary. Between 9 pm and 7 am Eastern both
+    drop a step: GitHub's own cron can deliver the fallback run hours late (5 to 8 hours, measured
+    2026-11-20), and a reading of a 4 pm close should not buzz a phone at midnight."""
+    night = now_et.hour >= 21 or now_et.hour < 7
+    if important:
+        return "default" if night else "high"
+    return "low" if night else "default"
+
+
 def load_state(path):
     """The state only stops repeat pushes, so a missing or unreadable file must not stop the job."""
     try:
@@ -221,7 +232,7 @@ def main():
     STATE.write_text(json.dumps(new, indent=1) + "\n")
     REPORT.write_text(report)
     PUSH.write_text(push)
-    _output(bool(why), "high" if important else "default", title)
+    _output(bool(why), push_priority(important, now), title)
     return 0
 
 
