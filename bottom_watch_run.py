@@ -146,6 +146,18 @@ def compute(bars, V, state, model, plan, session, final, late_day, when):
     return new, report, push, bw.headline(readings), why, important
 
 
+def load_state(path):
+    """The state only stops repeat pushes, so a missing or unreadable file must not stop the job."""
+    try:
+        st = json.loads(Path(path).read_text())
+        return st if isinstance(st, dict) else {}
+    except FileNotFoundError:
+        return {}
+    except (ValueError, OSError) as e:
+        print(f"::warning::bottom_watch.json could not be read ({type(e).__name__}); starting from an empty state")
+        return {}
+
+
 def model_id(model):
     return "+".join(model["features"]) + f":{model['intercept']}:" + ",".join(str(b) for b in model["beta"])
 
@@ -161,7 +173,7 @@ def main():
 
     model = json.loads((HERE / "bottom_model.json").read_text())
     plan = json.loads((HERE / "bottom_watch_plan.json").read_text())
-    state = json.loads(STATE.read_text()) if STATE.exists() else {}
+    state = load_state(STATE)
     now = datetime.now(ET)
 
     if a.offline:

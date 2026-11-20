@@ -248,6 +248,19 @@ def test_compute_end_to_end_and_quiet_second_run():
     assert why3 == ["Daily summary after the close"] and not imp3 and st3["final_session"] == session
 
 
+def test_state_file_on_disk_is_valid_and_a_bad_one_does_not_stop_the_job(tmp_path=None):
+    import tempfile
+    assert isinstance(json.loads((HERE / "bottom_watch.json").read_text()), dict) if (HERE / "bottom_watch.json").exists() else True
+    d = Path(tempfile.mkdtemp())
+    assert run.load_state(d / "missing.json") == {}
+    (d / "bad.json").write_text('{"pushed": {}}\\n')              # the hand-edit that broke the 2026-11-20 test run
+    assert run.load_state(d / "bad.json") == {}
+    (d / "list.json").write_text("[1, 2]")
+    assert run.load_state(d / "list.json") == {}
+    (d / "ok.json").write_text('{"pushed": {"QQQ": {"prob": 0.2}}}')
+    assert run.load_state(d / "ok.json")["pushed"]["QQQ"]["prob"] == 0.2
+
+
 def test_a_refit_is_not_a_market_move():
     """After the model changes, the next run must not push 'the chance rose' off the old model's number."""
     bars, V = run.offline({"QQQ": 615.03, "SPY": 695.46}, 35.43)
