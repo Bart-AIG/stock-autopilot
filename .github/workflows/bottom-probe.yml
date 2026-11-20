@@ -1,0 +1,34 @@
+name: Bottom watch probe (temporary)
+
+# TEMPORARY. Runs once per push of the probe from the session branch: tests which VIX sources
+# the runner can read and pulls three monthly series for the backtest. Deleted before merge.
+
+on:
+  push:
+    branches: ['claude/beautiful-heisenberg-yoiwls']
+    paths: ['bottom_probe.py', '.github/workflows/bottom-probe.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet openpyxl xlrd
+      - name: Probe
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+        run: python bottom_probe.py
+      - name: Commit the monthly series to the session branch
+        run: |
+          git config user.name 'stock-autopilot-bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/bottom/macro
+          git commit -m "bottom watch: monthly series pulled by the probe" || { echo "nothing to commit"; exit 0; }
+          git pull --rebase --quiet && git push
