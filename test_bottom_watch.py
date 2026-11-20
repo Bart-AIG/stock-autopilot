@@ -271,6 +271,22 @@ def test_state_file_on_disk_is_valid_and_a_bad_one_does_not_stop_the_job(tmp_pat
     assert run.load_state(d / "ok.json")["pushed"]["QQQ"]["prob"] == 0.2
 
 
+def test_push_priority_is_quieter_at_night():
+    at = lambda h: datetime(2026, 11, 20, h, 30, tzinfo=run.ET)
+    assert run.push_priority(True, at(11)) == "high" and run.push_priority(False, at(16)) == "default"
+    assert run.push_priority(True, at(23)) == "default" and run.push_priority(False, at(23)) == "low"
+    assert run.push_priority(False, at(2)) == "low" and run.push_priority(False, at(7)) == "default"
+
+
+def test_the_watch_is_chained_to_the_report_not_only_to_github_cron():
+    """GitHub's own cron runs hours late in this repo, so the intraday trigger is the Stock Report."""
+    wf = (HERE / ".github" / "workflows" / "bottom-watch.yml").read_text()
+    report = (HERE / ".github" / "workflows" / "stock-report.yml").read_text()
+    name = next(ln.split(":", 1)[1].strip() for ln in report.splitlines() if ln.startswith("name:"))
+    assert "workflow_run:" in wf and f'workflows: ["{name}"]' in wf and "branches: [master]" in wf
+    assert "workflow_dispatch:" in wf                                # the cron-job.org entry point
+
+
 def test_a_refit_is_not_a_market_move():
     """After the model changes, the next run must not push 'the chance rose' off the old model's number."""
     bars, V = run.offline({"QQQ": 615.03, "SPY": 695.46}, 35.43)

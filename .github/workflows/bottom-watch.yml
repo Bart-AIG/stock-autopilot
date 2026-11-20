@@ -4,17 +4,25 @@ name: Bottom watch
 # a report and a phone push out. No broker connection and no trading. It runs here, not as a
 # Claude routine, so it cannot draw on the usage allowance the trading routine needs.
 #
-# Four readings each trading day, plus a backstop for the last one (GitHub cron can be late
-# or skipped):
-#   14:47, 17:07, 19:37 UTC  intraday, provisional (the live price stands in for the close)
-#   21:20 UTC                the confirmed after-close reading and the daily summary push
-#   22:50 UTC                repeats the after-close reading only if 21:20 did not record one
-# In winter that is 8:47 am, 11:07 am, 1:37 pm and 3:20 pm Central. In summer the clock times
-# are an hour later; every run still falls inside or after the session.
+# What triggers it, and why (measured 2026-11-20: GitHub's own cron fired 5 to 8 hours late in
+# this repo, as docs/cron-job-setup.md already warned):
+#   workflow_run       THE INTRADAY TRIGGER. It runs right after every Stock Report run on master.
+#                      cron-job.org fires that report on time, hourly from 9:00 am to 2:00 pm
+#                      Central, so the watch reads at about 9:15, 10:07 ... 2:07 pm Central.
+#   workflow_dispatch  The manual button, and the entry point for a cron-job.org job at 3:20 pm
+#                      Central that gives a punctual after-close reading (docs/cron-job-setup.md).
+#   schedule           Fallbacks only. They arrive hours late, usually in the evening. The first
+#                      one to land after the close writes the confirmed reading if nothing else
+#                      has; the rest see it is recorded and exit without writing or pushing.
 #
+# Before 4:05 pm Eastern a reading is provisional (the live price stands in for the close).
 # A push goes out only when something changed (bottom_watch.decide). The rules are in CLAUDE.md.
 
 on:
+  workflow_run:
+    workflows: ["Stock Report"]
+    types: [completed]
+    branches: [master]
   schedule:
     - cron: '47 14 * * 1-5'
     - cron: '7 17 * * 1-5'
@@ -76,11 +84,11 @@ jobs:
           python3 .github/scripts/ntfy_send.py --title "$TITLE" --priority "$PRIO" \
             --tags chart_with_downwards_trend --file bottom_watch_push.txt --fallback-issue \
             --click https://github.com/Bart-AIG/stock-autopilot/blob/master/bottom_watch_report.md
-      - name: Say so when the after-close reading fails
-        if: failure() && (github.event.schedule == '20 21 * * 1-5' || github.event.schedule == '50 22 * * 1-5')
+      - name: Say so when a fallback or hand-started reading fails
+        if: failure() && (github.event.schedule == '20 21 * * 1-5' || github.event.schedule == '50 22 * * 1-5' || github.event_name == 'workflow_dispatch')
         env:
           NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
           GH_TOKEN: ${{ github.token }}
         run: |
-          python3 .github/scripts/ntfy_send.py --title "Bottom watch: the after-close reading failed" --priority default \
-            --tags warning --soft --message "No reading was produced for today. Run log: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          python3 .github/scripts/ntfy_send.py --title "Bottom watch: a reading failed" --priority low \
+            --tags warning --soft --message "A bottom watch run produced no reading. Run log: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
