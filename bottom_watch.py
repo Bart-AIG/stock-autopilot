@@ -82,6 +82,15 @@ def scan(sym, B, vix=None, hyg=None, ief=None, rsp=None, spy=None):
     for x in tr:
         ts.append(ts[-1] + x)
     atrp = [((ts[i + 1] - ts[i - 19]) / 20) / c[i] if i >= 19 else None for i in range(n)]
+    c2 = [0.0]
+    for x in c:
+        c2.append(c2[-1] + x * x)
+    bbz, bbw = [None] * n, [None] * n          # Bollinger (20, 2): position in sd from the middle band; band width
+    for i in range(19, n):
+        m = (cs[i + 1] - cs[i - 19]) / 20
+        sd = math.sqrt(max(0.0, (c2[i + 1] - c2[i - 19]) / 20 - m * m))
+        if sd > 0:
+            bbz[i], bbw[i] = (c[i] - m) / sd, 4 * sd / m
     vx = _aligned(d, vix)
     ratio = None
     if hyg and ief:
@@ -97,9 +106,13 @@ def scan(sym, B, vix=None, hyg=None, ief=None, rsp=None, spy=None):
                 e["legs"] += 1
                 e["prev"] = {"rsi": rsi14[e["low_i"]], "vix": vx[e["low_i"]], "low": e["runlow"],
                              "volr": volr[e["low_i"]], "i": e["low_i"]}
-            e["runlow"], e["low_i"], e["maxc"], e["ftd"] = c[j], j, c[j], 0
+            if e["low_i"] is not None and bbz[e["low_i"]] is not None and bbz[e["low_i"]] <= -2:
+                e["bb_out_before"] = True          # an earlier low closed under the lower band
+            e["runlow"], e["low_i"], e["maxc"], e["ftd"], e["zmax"] = c[j], j, c[j], 0, bbz[j]
         else:
             e["maxc"] = max(e["maxc"], c[j])
+            if bbz[j] is not None and (e["zmax"] is None or bbz[j] > e["zmax"]):
+                e["zmax"] = bbz[j]
             if (j - e["low_i"] >= 3 and c[j] / c[j - 1] - 1 >= FTD_MIN[sym]
                     and v[j] is not None and v[j - 1] is not None and v[j] > v[j - 1]):
                 e["ftd"] = 1
@@ -107,6 +120,10 @@ def scan(sym, B, vix=None, hyg=None, ief=None, rsp=None, spy=None):
             e["vixpk"], e["vixpk_i"] = vx[j], j
         if volr[j] is not None and (e["climax"] is None or volr[j] >= e["climax"]):
             e["climax"], e["climax_i"] = volr[j], j
+        if bbz[j] is not None and bbz[j] <= -2:
+            e["bb_out_i"] = j
+        if bbw[j] is not None and (e["bbw_max"] is None or bbw[j] >= e["bbw_max"]):
+            e["bbw_max"] = bbw[j]
 
     def feats(e, j):
         low, li, pk = e["runlow"], e["low_i"], e["peak"]
@@ -146,6 +163,11 @@ def scan(sym, B, vix=None, hyg=None, ief=None, rsp=None, spy=None):
         dn = sum(v[q] for q in range(j - 9, j + 1) if c[q] < c[q - 1] and v[q])
         f["updn10"] = math.log((up + 1) / (dn + 1))
         f["ftd"] = e["ftd"]
+        f["bb_z"], f["bb_z_low"], f["bb_width"], f["bb_zmax"] = bbz[j], bbz[li], bbw[j], e["zmax"]
+        f["bb_width_off"] = (bbw[j] / e["bbw_max"] - 1) if bbw[j] and e["bbw_max"] else None
+        f["bb_out_age"] = (j - e["bb_out_i"]) if e["bb_out_i"] is not None else None
+        f["bb_reentry"] = int(e["bb_out_i"] is not None and bbz[j] is not None and bbz[j] > -2)
+        f["bb_w_bottom"] = int(e["bb_out_before"] and bbz[li] is not None and bbz[li] > -2)
         if vx[j] is not None and e["vixpk"]:
             f["vix"] = vx[j]
             f["vix_peak"] = e["vixpk"]
@@ -177,7 +199,8 @@ def scan(sym, B, vix=None, hyg=None, ief=None, rsp=None, spy=None):
                 pk_i = max(range(w0, i + 1), key=lambda q: (c[q], q))
                 ep = {"sym": sym, "k": len(eps), "peak_i": pk_i, "peak": c[pk_i], "start_i": i,
                       "runlow": None, "low_i": None, "maxc": None, "ftd": 0, "legs": 0, "prev": None,
-                      "vixpk": None, "vixpk_i": None, "climax": None, "climax_i": None, "end_i": None}
+                      "vixpk": None, "vixpk_i": None, "climax": None, "climax_i": None, "end_i": None,
+                      "bb_out_i": None, "bb_out_before": False, "bbw_max": None, "zmax": None}
                 for j in range(pk_i + 1, i):
                     update(ep, j)
             else:
