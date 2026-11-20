@@ -94,6 +94,16 @@ def test_probability_direction_and_bounds():
     assert bw.probability(MODEL, {"dist200": None, "retr": 0.2}) == (None, "missing")
 
 
+def test_price_that_would_move_the_reading():
+    f = {"runlow": 600.0, "peak": 760.0}
+    p50, p70 = bw.price_for(MODEL, f, 683.0, 0.5), bw.price_for(MODEL, f, 683.0, 0.7)
+    assert 600 < p50 < p70 < 760
+    at = lambda c: bw.probability(MODEL, {"dist200": c / 683.0 - 1, "retr": (c - 600) / 160})[0]
+    assert abs(at(p50) - 0.5) < 0.01 and abs(at(p70) - 0.7) < 0.01 and at(p50 - 5) < 0.5
+    assert bw.price_for({**MODEL, "features": ["dist200", "retr", "rsi14"]}, f, 683.0, 0.5) is None   # only for the price-only model
+    assert bw.price_for(MODEL, f, 683.0, 0.99) is None                                              # the model never says 99%
+
+
 def test_model_file():
     n = len(MODEL["features"])
     assert n == len(MODEL["mean"]) == len(MODEL["sd"]) == len(MODEL["beta"])

@@ -9,8 +9,8 @@ c, v. The backtest (bottom_backtest.py -> bottom_results.md) and the scheduled j
 (bottom_watch_run.py) both call scan() below, so the live reading is computed by the code
 that was tested.
 
-Everything is on CLOSING prices (a bad intraday print or a flash crash cannot move it, and
-the live job and the backtest use different data vendors). A selloff ("episode") starts when
+Everything is on CLOSING prices, so a bad intraday print or a flash crash cannot move it.
+The backtest and the live job read the same vendor (FMP). A selloff ("episode") starts when
 the close is 10% (QQQ) or 8% (SPY) under the 252-session closing high. It ends when the close
 is back within 3% of that high or makes a new 252-session closing high. The question on every
 day inside one: has the lowest close of the episode already printed?
@@ -223,7 +223,7 @@ def scan(sym, B, vix=None, hyg=None, ief=None, rsp=None, spy=None):
 
 # ------------------------------------------------------------------ the live reading
 
-BANDS = ((0.25, "Low not in"), (0.50, "Low unlikely in"), (0.70, "Toss-up"),
+BANDS = ((0.25, "Low probably not in"), (0.50, "More likely not in than in"), (0.70, "Toss-up, leaning in"),
          (0.85, "Low probably in"), (9.9, "Low very likely in"))
 STAGE_TEXT = {"NEW LOW": "New closing low", "FAILED REBOUND": "Rebound failed, new closing low",
               "REBOUND": "Rebounding", "RETEST": "Retesting the low", "RECOVERED": "Recovered",
@@ -270,6 +270,24 @@ def probability(model, f):
         z += beta * (min(hi, max(lo, x)) - mu) / sd
     raw = 1 / (1 + math.exp(-z))
     return _interp(raw, [k[0] for k in use["calibration"]], [k[1] for k in use["calibration"]]), basis
+
+
+def price_for(model, f, sma200, target):
+    """The close at which the chance would reach `target`, holding the low, the high and the
+    200-day average where they are (so it is "near", not exact). None if no close between the
+    low and the high gets there, or if the model uses anything but the two price readings."""
+    if set(model["features"]) - {"dist200", "retr"} or not sma200 or f["peak"] <= f["runlow"]:
+        return None
+    at = lambda c: probability(model, {"dist200": c / sma200 - 1, "retr": (c - f["runlow"]) / (f["peak"] - f["runlow"])})[0]
+    lo, hi = f["runlow"], f["peak"]
+    if at(hi) < target:
+        return None
+    if at(lo) >= target:
+        return lo
+    for _ in range(50):
+        mid = (lo + hi) / 2
+        lo, hi = (mid, hi) if at(mid) < target else (lo, mid)
+    return hi
 
 
 def _need(cp, f, r):
@@ -329,7 +347,8 @@ def reading(sym, B, vix, model):
               "sess_pk": f["sess_pk"], "rsi14": f["rsi14"], "dist200": f["dist200"],
               "vix": f.get("vix"), "vix_peak": f.get("vix_peak"),
               "vix_peak_date": d[e["vixpk_i"]] if e.get("vixpk_i") is not None else None,
-              "vix_off": f.get("vix_off"), "checks": checks, "trend": trend})
+              "vix_off": f.get("vix_off"), "checks": checks, "trend": trend,
+              "px50": price_for(model, f, r["sma200"], 0.5), "px70": price_for(model, f, r["sma200"], 0.7)})
     return r
 
 
@@ -523,6 +542,14 @@ def _index_lines(r, was, final=True):
     return out
 
 
+def _levels_line(r):
+    parts = []
+    for label, px in (("50%", r.get("px50")), ("70%", r.get("px70"))):
+        if px and px > r["close"] * 1.0005:
+            parts.append(f"{label} near ${px:,.0f} ({px / r['close'] - 1:+.1%})")
+    return f"- {r['sym']}: " + ", ".join(parts) if parts else ""
+
+
 def _vix_line(readings):
     r = next((x for x in readings.values() if x.get("vix") is not None), None)
     if not r:
@@ -558,19 +585,10 @@ def push_text(readings, plan_items, why, when, final, pushed):
     live = [r for r in readings.values() if r["stage"] not in ("NO SELLOFF", "RECOVERED")]
     if live:
         L += [_vix_line(readings), ""]
-        todo = []
-        for r in live:
-            for ck in r["checks"]:
-                if ck["met"] is False and ck["need"]:
-                    todo.append((ck["hit"], f"- {r['sym'] + ': ' if 'VIX' not in ck['need'] else ''}{ck['need']} "
-                                            f"(low was in {ck['hit']:.0%} of the time once met)"))
-        seen, lines = set(), []
-        for _, t in sorted(todo):
-            if t not in seen:
-                seen.add(t)
-                lines.append(t)
+        lines = [_levels_line(r) for r in live]
+        lines = [x for x in lines if x]
         if lines:
-            L += ["What would raise the odds:"] + lines[:4] + [""]
+            L += ["Closes that would move the reading, if no new low comes first:"] + lines + [""]
     if plan_items:
         L += ["Your buy-back levels:"] + _plan_lines(plan_items)
     return "\n".join(L).strip() + "\n"
@@ -598,6 +616,8 @@ def report(readings, plan_items, why, when, final, pushed, model):
         row("Best rebound, failed rebounds", lambda r: f"{r['maxreb']:.1%}, {r['legs']}")
         row("Close vs the 200-day", lambda r: f"{r['dist200']:.1%} (${r['sma200']:,.2f})")
         row("Share of the drop retraced", lambda r: f"{r['retr']:.0%}")
+        row("Close that would read 50%", lambda r: f"${r['px50']:,.2f}" if r.get("px50") else "n/a")
+        row("Close that would read 70%", lambda r: f"${r['px70']:,.2f}" if r.get("px70") else "n/a")
         row("RSI(14)", lambda r: f"{r['rsi14']:.0f}")
         row("VIX vs its peak close", lambda r: "n/a" if r.get("vix_off") is None else f"{r['vix_off']:.0%} ({r['vix']:.1f} vs {r['vix_peak']:.1f})")
         L += ["", "**Rebound checkpoints.** \"Past odds\" is how often the low was already in on days when the checkpoint was met.", "",
