@@ -151,3 +151,29 @@ job's execution history in cron-job.org. Press TEST RUN there:
   recorded. Nothing to do." and exits. The 204 and the new run are the only signs it worked.
 - A test does not prove the schedule or the timezone. Only a `workflow_dispatch` run that
   starts at 3:20 pm Central on a weekday does.
+
+**Status (2026-11-20).** Ryan added the job as "Bottom watch after close". His test run
+returned **204** at 23:33:34Z, and Bottom watch run #6 (event `workflow_dispatch`) started on
+GitHub in the same second, found the day's confirmed reading recorded, wrote nothing and sent
+no push. The schedule preview in cron-job.org showed 3:20 PM, Monday to Friday,
+America/Chicago. The first scheduled fire is due 2026-11-23 at 21:20Z.
+
+The job also fires on market holidays (Thanksgiving, 2026-11-26, is the first). That is
+harmless: with no trading that day, the run sees the last session's confirmed reading
+already recorded and exits.
+
+## Two dates that stop the cron-job.org GitHub jobs
+
+Both were read from GitHub's response to the 2026-11-20 test run of the bottom watch job.
+If the Stock Report job sends the same token and headers, as a clone does, they apply to it
+too, and the bottom watch's intraday readings depend on the Stock Report runs.
+
+| Date | What happens | What to do before it |
+|------|--------------|----------------------|
+| **2027-06-09** 05:00 UTC | The GitHub token expires (`github-authentication-token-expiration` header). Every fire then returns **401**: no hourly Stock Report, so no intraday bottom watch readings, and no punctual after-close reading. Only GitHub's own late crons are left. | Create a new fine-grained token (Actions read and write on this repository) and paste it into the `Authorization` header of every cron-job.org job that calls `api.github.com`. Press TEST RUN on each and expect 204. |
+| **2028-03-10** | GitHub ends support for REST API version `2022-11-28`, which the jobs pin in `X-GitHub-Api-Version` (`Sunset` header). A request that names an unsupported version returns **410**. | Change the header to a supported version (`2026-03-10` is the current one, and it has breaking changes). Change the bottom watch job first, press TEST RUN, and change the Stock Report job only after a 204. |
+
+Sources: [REST API version 2026-03-10 is now available](https://github.blog/changelog/2026-03-12-rest-api-version-2026-03-10-is-now-available/)
+and [API Versions](https://docs.github.com/en/rest/about-the-rest-api/api-versions).
+This is the failure of 2026-08-18 again (the Options autopilot trigger's token died and
+nobody saw it for three trading days), so the dates are written down here.
