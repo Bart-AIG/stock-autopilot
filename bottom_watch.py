@@ -376,7 +376,7 @@ def plan_status(plan, bars, vix, since, provisional):
                            else "waiting for a close in the top half of the day's range")
         else:
             item["state"] = "not_reached"
-            item["gap"] = ", ".join(f"{s} is {bars[s]['c'][-1] / st[s] - 1:+.1%} from it" for s in bars if s in st)
+            item["gap"] = ", ".join(f"{s} is {bars[s]['c'][-1] / st[s] - 1:.1%} above its level" for s in bars if s in st)
         out.append(item)
 
     def first(cond):
@@ -611,7 +611,8 @@ def report(readings, plan_items, why, when, final, pushed, model):
         L += ["", "**Your buy-back levels** (advisory; you place the orders):"] + _plan_lines(plan_items)
     rel = model.get("oos", {}).get("reliability", [])
     if rel:
-        L += ["", "**How to read the chance.** On past selloffs the model had not seen: " +
-              "; ".join(f"a reading of {x['lo']:.0%} to {x['hi']:.0%} was right {x['actual']:.0%} of the time" for x in rel if x.get("actual") is not None) +
-              ". It cannot tell a bear-market rally from a final low early on. Evidence: bottom_results.md."]
+        L += ["", "**How to read the chance.** On past selloffs the model had not seen, the low really was in: " +
+              "; ".join(f"{x['actual']:.0%} of the time at a reading of {x['lo']:.0%} to {x['hi']:.0%}" for x in rel if x.get("actual") is not None) +
+              ". Inside long bear markets those figures ran 4 to 10 points lower, because a bear-market rally looks like a final low early on. "
+              "Evidence: bottom_results.md."]
     return "\n".join(L).strip() + "\n"

@@ -355,6 +355,41 @@ def vendor_check():
         print("    lows off by >1%:", len(lo), lo[:5], flush=True)
 
 
+def fmp_history():
+    """Round 4: the full daily history from FMP, so the backtest uses the vendor the live job reads."""
+    section("FMP full history")
+    out = Path(__file__).parent / "data" / "bottom" / "fmp"
+    out.mkdir(parents=True, exist_ok=True)
+    today = datetime.now(timezone.utc).date()
+    for sym, fsym in (("QQQ", "QQQ"), ("SPY", "SPY"), ("VIX", "%5EVIX"), ("HYG", "HYG"), ("IEF", "IEF"), ("RSP", "RSP")):
+        rows, to = {}, today
+        for page in range(4):
+            st, body = get(f"{BASE}/historical-price-eod/full?symbol={fsym}&from=1998-01-01&to={to}&apikey={KEY}")
+            try:
+                d = json.loads(body)
+            except Exception:  # noqa: BLE001
+                d = []
+            if not isinstance(d, list) or not d:
+                print(sym, "page", page, "status", st, "no rows")
+                break
+            for r in d:
+                if r.get("close"):
+                    rows[r["date"][:10]] = r
+            oldest = min(r["date"][:10] for r in d)
+            print(sym, "page", page, "status", st, "rows", len(d), "oldest", oldest, flush=True)
+            if len(d) < 4900:
+                break
+            to = (datetime.fromisoformat(oldest) - timedelta(days=1)).date()
+        keep = sorted(k for k in rows if k < today.isoformat())          # today's bar is still forming
+        with open(out / f"{sym}.csv", "w", newline="") as fh:
+            w = csv.writer(fh)
+            w.writerow(["date", "open", "high", "low", "close", "volume"])
+            for k in keep:
+                r = rows[k]
+                w.writerow([k, r.get("open"), r.get("high"), r.get("low"), r.get("close"), r.get("volume") or 0])
+        print(sym, "saved", len(keep), "rows", keep[0] if keep else None, "..", keep[-1] if keep else None)
+
+
 if __name__ == "__main__":
     print("key present:", bool(KEY))
-    vendor_check()          # round 3: only the vendor comparison, so it is at the end of the log
+    fmp_history()

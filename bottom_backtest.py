@@ -323,17 +323,22 @@ def main():
     rel = []
     for a, c in [(0, .25), (.25, .5), (.5, .7), (.7, .85), (.85, 1.01)]:
         k = (cal >= a) & (cal < c)
-        rel.append({"lo": a, "hi": min(c, 1.0), "n": int(k.sum()), "actual": round(float(np.average(y[k], weights=w[k])), 3) if k.sum() else None})
+        rel.append({"lo": a, "hi": min(c, 1.0), "n": int(k.sum()),
+                    "actual": round(float(np.average(y[k], weights=w[k])), 3) if k.sum() else None,      # every selloff counted equally
+                    "actual_days": round(float(y[k].mean()), 3) if k.sum() else None})                  # every day counted equally
     L += ["## The model", "", "Chance the low is in = a logistic blend of three readings, then adjusted so that the "
           "stated chance matches how often it was right out of sample.", "",
           "| Reading | Average in past selloffs | Weight (per standard deviation) |", "|---|---|---|"]
     for f, mm, bb_ in zip(FEATS, mu, b[1:]):
         L.append(f"| {NAMES[f]} | {mm:.3f} | {bb_:+.2f} |")
     L += ["", f"Out of sample: score {m['auc']:.3f}; {m['skill'] * 100:.1f}% better than always quoting the average.", "",
-          "| Stated chance | Days | Low really was in |", "|---|---|---|"]
+          "| Stated chance | Days | Low really was in (each selloff counted equally) | Low really was in (each day counted equally) |", "|---|---|---|---|"]
     for r_ in rel:
-        L.append(f"| {r_['lo'] * 100:.0f}% to {r_['hi'] * 100:.0f}% | {r_['n']:,} | " + (f"{r_['actual'] * 100:.0f}% |" if r_["n"] else "n/a |"))
-    L += ["", "The adjustment was fitted on these same out-of-sample predictions, so this table is slightly flattering.", ""]
+        L.append(f"| {r_['lo'] * 100:.0f}% to {r_['hi'] * 100:.0f}% | {r_['n']:,} | "
+                 + (f"{r_['actual'] * 100:.0f}% | {r_['actual_days'] * 100:.0f}% |" if r_["n"] else "n/a | n/a |"))
+    L += ["", "Counting each day equally gives the long bear markets (2000-02, 2008, 2022) more weight, and there the readings ran too high: "
+          "that column is the one to trust if this selloff turns into one. "
+          "The adjustment was fitted on these same out-of-sample predictions, so both columns are slightly flattering.", ""]
 
     # ---- rebound checkpoints
     checks = []

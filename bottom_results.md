@@ -103,15 +103,15 @@ Chance the low is in = a logistic blend of three readings, then adjusted so that
 
 Out of sample: score 0.835; 30.5% better than always quoting the average.
 
-| Stated chance | Days | Low really was in |
-|---|---|---|
-| 0% to 25% | 482 | 18% |
-| 25% to 50% | 766 | 39% |
-| 50% to 70% | 458 | 58% |
-| 70% to 85% | 884 | 78% |
-| 85% to 100% | 1,659 | 92% |
+| Stated chance | Days | Low really was in (each selloff counted equally) | Low really was in (each day counted equally) |
+|---|---|---|---|
+| 0% to 25% | 482 | 18% | 14% |
+| 25% to 50% | 766 | 39% | 30% |
+| 50% to 70% | 458 | 58% | 50% |
+| 70% to 85% | 884 | 78% | 68% |
+| 85% to 100% | 1,659 | 92% | 89% |
 
-The adjustment was fitted on these same out-of-sample predictions, so this table is slightly flattering.
+Counting each day equally gives the long bear markets (2000-02, 2008, 2022) more weight, and there the readings ran too high: that column is the one to trust if this selloff turns into one. The adjustment was fitted on these same out-of-sample predictions, so both columns are slightly flattering.
 
 ## Rebound checkpoints
 
