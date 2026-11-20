@@ -1,4 +1,4 @@
-"""TEMPORARY probe, run once on a GitHub runner from the session branch. Deleted before merge.
+"""TEMPORARY probe (round 2), run once on a GitHub runner from the session branch. Deleted before merge.
 
 1. Which sources can the runner read VIX from (FMP, Yahoo, Cboe, FRED)?
 2. What does the FMP quote return for QQQ / SPY (fields, timestamp)?
