@@ -1,0 +1,208 @@
+{
+  "_comment": "Written by bottom_backtest.py. Do not edit by hand; changing the model needs a live Ryan turn and a re-run.",
+  "built_from_data_through": "2026-11-19",
+  "features": [
+    "dist200",
+    "retr"
+  ],
+  "clip": {
+    "dist200": [
+      -0.4,
+      0.15
+    ],
+    "retr": [
+      0.0,
+      1.0
+    ]
+  },
+  "mean": [
+    -0.048839,
+    0.283703
+  ],
+  "sd": [
+    0.110001,
+    0.218143
+  ],
+  "intercept": 0.508595,
+  "beta": [
+    0.674882,
+    1.185632
+  ],
+  "calibration": [
+    [
+      0.02,
+      0.124
+    ],
+    [
+      0.05,
+      0.135
+    ],
+    [
+      0.1,
+      0.162
+    ],
+    [
+      0.15,
+      0.189
+    ],
+    [
+      0.2,
+      0.209
+    ],
+    [
+      0.3,
+      0.312
+    ],
+    [
+      0.4,
+      0.417
+    ],
+    [
+      0.5,
+      0.491
+    ],
+    [
+      0.6,
+      0.523
+    ],
+    [
+      0.7,
+      0.716
+    ],
+    [
+      0.8,
+      0.807
+    ],
+    [
+      0.85,
+      0.855
+    ],
+    [
+      0.9,
+      0.89
+    ],
+    [
+      0.95,
+      0.95
+    ],
+    [
+      0.98,
+      0.95
+    ]
+  ],
+  "checkpoints": [
+    {
+      "label": "VIX 20% under its peak close",
+      "f": "vix_off",
+      "op": "<=",
+      "x": -0.2,
+      "hit": 0.718,
+      "miss": 0.456
+    },
+    {
+      "label": "VIX 40% under its peak close",
+      "f": "vix_off",
+      "op": "<=",
+      "x": -0.4,
+      "hit": 0.837,
+      "miss": 0.552
+    },
+    {
+      "label": "Close above the 20-day average",
+      "f": "above20",
+      "op": ">=",
+      "x": 1,
+      "hit": 0.821,
+      "miss": 0.48
+    },
+    {
+      "label": "Close above the 50-day average",
+      "f": "above50",
+      "op": ">=",
+      "x": 1,
+      "hit": 0.857,
+      "miss": 0.511
+    },
+    {
+      "label": "RSI(14) at 50 or more",
+      "f": "rsi14",
+      "op": ">=",
+      "x": 50,
+      "hit": 0.846,
+      "miss": 0.477
+    },
+    {
+      "label": "Half of the drop retraced",
+      "f": "retr",
+      "op": ">=",
+      "x": 0.5,
+      "hit": 0.959,
+      "miss": 0.545
+    },
+    {
+      "label": "Close above the 200-day average",
+      "f": "above200",
+      "op": ">=",
+      "x": 1,
+      "hit": 0.874,
+      "miss": 0.476
+    },
+    {
+      "label": "10 sessions without a new closing low",
+      "f": "days",
+      "op": ">=",
+      "x": 10,
+      "hit": 0.742,
+      "miss": 0.514
+    }
+  ],
+  "oos": {
+    "auc": 0.786,
+    "skill": 0.304,
+    "skill_1999_2009": 0.192,
+    "skill_2010_2026": 0.335,
+    "days": 5296,
+    "selloffs": 54,
+    "reliability": [
+      {
+        "lo": 0,
+        "hi": 0.25,
+        "n": 862,
+        "actual": 0.198,
+        "actual_days": 0.172
+      },
+      {
+        "lo": 0.25,
+        "hi": 0.5,
+        "n": 1431,
+        "actual": 0.386,
+        "actual_days": 0.338
+      },
+      {
+        "lo": 0.5,
+        "hi": 0.7,
+        "n": 693,
+        "actual": 0.549,
+        "actual_days": 0.439
+      },
+      {
+        "lo": 0.7,
+        "hi": 0.85,
+        "n": 903,
+        "actual": 0.787,
+        "actual_days": 0.647
+      },
+      {
+        "lo": 0.85,
+        "hi": 1.0,
+        "n": 1407,
+        "actual": 0.925,
+        "actual_days": 0.84
+      }
+    ],
+    "median_sessions_to_50": 3.0,
+    "median_sessions_to_70": 4,
+    "false_50": 123,
+    "false_70": 81
+  }
+}
