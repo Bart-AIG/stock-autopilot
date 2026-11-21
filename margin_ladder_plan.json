@@ -1,0 +1,179 @@
+{
+ "_comment": "Ryan's joint-account margin ladder (live turns 2026-11-21). Up to $60,000 of margin, raised in four stages. AMZN stays at its current size. Advisory only: the agent never trades the joint account and never changes the borrowing limit; Ryan does both in the app. margin_ladder.py checks the triggers on every bottom-watch run and pushes when a stage unlocks or a de-lever rule fires. Change this file only on a live Ryan turn; a new 'set' date restarts the ladder from stage 0.",
+ "set": "2026-11-21",
+ "account": "joint (116713985343), advisory",
+ "not_before": "2026-12-21",
+ "not_before_why": "Wash-sale locks: META, SPCX, QQQI, BE and the leveraged versions of NVDA, SOXX, MU and COHR (NVDL, SOXL, MUU, COHX) clear on 2026-12-21. A trigger met earlier waits for this date.",
+ "vix_spike": 36,
+ "vix_spike_since": "2026-10-06",
+ "equity_at_set": 50926,
+ "stages": [
+  {
+   "n": 1,
+   "limit": 10000,
+   "spend": 23200,
+   "dip": {
+    "QQQ": 590,
+    "SPY": 675,
+    "text": "QQQ at or under $590 or SPY at or under $675, the VIX has spiked above 36, and a close in the top half of the day's range"
+   },
+   "confirm": {
+    "above": {
+     "QQQ": 648,
+     "SPY": 716
+    },
+    "any": true,
+    "vix_below": 26,
+    "text": "QQQ closes above $648 or SPY above $716, with the VIX closing under 26"
+   },
+   "buys": {
+    "NVDA": 6000,
+    "META": 6000,
+    "QQQI": 6000,
+    "SOXX": 2000,
+    "MU": 2000,
+    "RBRK": 1200
+   }
+  },
+  {
+   "n": 2,
+   "limit": 25000,
+   "spend": 15000,
+   "dip": {
+    "QQQ": 556,
+    "SPY": 630,
+    "text": "QQQ at or under $556 or SPY at or under $630, the VIX has spiked above 36, and a close in the top half of the day's range"
+   },
+   "confirm": {
+    "above_sma": 200,
+    "any": true,
+    "vix_below": 22,
+    "text": "QQQ or SPY closes above its 200-day average, with the VIX closing under 22"
+   },
+   "buys": {
+    "NVDA": 2500,
+    "META": 2500,
+    "QQQI": 5000,
+    "SPCX": 3000,
+    "COHR": 2000
+   }
+  },
+  {
+   "n": 3,
+   "limit": 40000,
+   "spend": 15000,
+   "confirm": {
+    "above_sma": 50,
+    "any": false,
+    "vix_below": 20,
+    "sessions_no_new_low": 10,
+    "text": "QQQ and SPY both close above their 50-day averages, the VIX closes under 20, and QQQ has gone 10 sessions without a new closing low"
+   },
+   "buys": {
+    "QQQI": 5000,
+    "SPCX": 2500,
+    "SOXX": 2000,
+    "MU": 2000,
+    "BE": 1500,
+    "NBIS": 1500,
+    "RBRK": 500
+   }
+  },
+  {
+   "n": 4,
+   "limit": 60000,
+   "spend": 20000,
+   "confirm": {
+    "near_high": 0.03,
+    "any": false,
+    "vix_below": 18,
+    "sma200_rising": true,
+    "text": "QQQ and SPY both close within 3% of their 1-year closing highs (about QQQ $737 / SPY $756), the VIX closes under 18, and QQQ's 200-day average is rising"
+   },
+   "buys": {
+    "NVDA": 2420,
+    "META": 2420,
+    "QQQI": 3980,
+    "SPCX": 1450,
+    "SOXX": 1960,
+    "MU": 1960,
+    "COHR": 1970,
+    "RBRK": 1420,
+    "BE": 1480,
+    "NBIS": 1480
+   },
+   "note": "These add up to $20,540. Trim the last few buys by about $540 so margin stays at $60,000."
+  }
+ ],
+ "delever": [
+  {
+   "key": "below_50d",
+   "from_stage": 4,
+   "to_stage": 3,
+   "text": "QQQ closes below its 50-day average: cut margin to $40,000 within 2 sessions, selling QQQI and the speculative names first"
+  },
+  {
+   "key": "below_200d",
+   "from_stage": 3,
+   "to_stage": 2,
+   "text": "QQQ closes below its 200-day average: cut margin to $25,000"
+  },
+  {
+   "key": "new_selloff",
+   "from_stage": 3,
+   "to_stage": 1,
+   "text": "QQQ closes 10% or more under its 1-year closing high, or the VIX closes above 30: cut margin to $10,000"
+  }
+ ],
+ "cooldown_sessions": 5,
+ "trims": [
+  {
+   "sym": "MPWR",
+   "usd": 1905,
+   "after": "2026-11-23",
+   "text": "Trim MPWR by about $1,905 (cash, no margin)"
+  },
+  {
+   "sym": "ANT",
+   "usd": 5110,
+   "after": "2026-12-21",
+   "text": "Trim ANT by about $5,110 (cash, no margin). Before 12/21 a sale at a loss is washed."
+  }
+ ],
+ "targets": {
+  "AMZN": 21480,
+  "QQQI": 19980,
+  "META": 10920,
+  "NVDA": 10920,
+  "ANT": 9930,
+  "SPCX": 6950,
+  "SOXX": 5960,
+  "MU": 5960,
+  "MPWR": 4960,
+  "COHR": 3970,
+  "RBRK": 3970,
+  "BE": 2980,
+  "NBIS": 2980
+ },
+ "hard_rules": [
+  "Never more than $60,000 of margin.",
+  "If a price drop pushes margin above 125% of equity, sell back under 100% that day.",
+  "Raise the borrowing limit after a stage's trigger closes, never ahead of it.",
+  "No stage up within 5 sessions of a de-lever."
+ ],
+ "alerts": {
+  "_comment": "Robinhood alerts set 2026-11-21 (Ryan, live turn: 'a routine that alerts me'). Early warnings only: an alert fires on an intraday touch, the ladder decides on the close. risk_watch.grade() skips these ids (margin_ladder_alert_ids).",
+  "QQQ_below_590_stage1_dip": "1ec9d8ca-55c2-4b45-ada1-990b17fcd410",
+  "QQQ_below_556_stage2_dip": "634d188f-3d7a-4f9d-91ff-047a33590b70",
+  "QQQ_above_648_stage1_confirm": "ec45bb05-c7fe-4b07-bbd6-8dd8ffb32448",
+  "QQQ_above_200d_stage2_confirm": "e1efb4f6-68ab-4411-8693-026f5ed9a240",
+  "QQQ_above_50d_stage3_confirm": "94ca71cd-c43f-4ec8-be68-aad972439ee9",
+  "QQQ_above_737_stage4_confirm": "232b2027-57c5-4a63-9604-4f9a328638d0",
+  "SPY_below_675_stage1_dip": "65257101-e8f2-4b85-84e3-d6bbdb73e506",
+  "SPY_below_630_stage2_dip": "eb9aac19-2501-41f3-89d7-04ee009b59ce",
+  "SPY_above_716_stage1_confirm": "a4dd635e-cb6f-446e-9be8-26e62220df0a",
+  "SPY_above_200d_stage2_confirm": "dd56c8a0-c1ae-49b1-a714-959f76846d0e",
+  "SPY_above_50d_stage3_confirm": "2d880116-da50-41a7-adc9-1a0b0a1354ac",
+  "SPY_above_756_stage4_confirm": "b54c8f5a-efa5-456a-9e87-4bd025d4cc3c"
+ }
+}

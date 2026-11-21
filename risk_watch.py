@@ -169,6 +169,17 @@ def lev_ladder_alert_ids(path: str | Path | None = None) -> set[str]:
     return {a.get("alert_id") for a in alerts.values() if a.get("alert_id")}
 
 
+def margin_ladder_alert_ids(path: str | Path | None = None) -> set[str]:
+    """alert_ids of the joint margin-ladder alerts (margin_ladder_plan.json, set 2026-11-21):
+    QQQ / SPY stage levels for adding margin, not risk benchmarks, so they never score points."""
+    p = Path(path) if path else Path(__file__).with_name("margin_ladder_plan.json")
+    try:
+        alerts = json.loads(p.read_text()).get("alerts") or {}
+    except (OSError, ValueError):
+        return set()
+    return {v for k, v in alerts.items() if not k.startswith("_") and isinstance(v, str)}
+
+
 _UUID = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
 
 
@@ -217,7 +228,8 @@ def grade(alerts: list[dict], prices: dict[str, float], smas: dict | None = None
     if ignore_ids is None:
         ignore = (quality_watch_alert_ids() | holding_support_alert_ids()
                   | rebuy_watch_alert_ids() | option_watch_alert_ids()
-                  | price_target_alert_ids() | lev_ladder_alert_ids())
+                  | price_target_alert_ids() | lev_ladder_alert_ids()
+                  | margin_ladder_alert_ids())
     else:
         ignore = ignore_ids
     rows, score = [], 0

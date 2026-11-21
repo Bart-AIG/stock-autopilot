@@ -28,6 +28,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import bottom_watch as bw
+import margin_ladder as ml
 
 HERE = Path(__file__).parent
 BASE = "https://financialmodelingprep.com/stable"
@@ -36,6 +37,8 @@ SYMS = ("QQQ", "SPY")
 HISTORY_DAYS = 3300          # about 9 years: far more than any selloff plus the 252-session lookback
 STATE, REPORT, PUSH = HERE / "bottom_watch.json", HERE / "bottom_watch_report.md", HERE / "bottom_watch_push.txt"
 REPORT_URL = "https://github.com/Bart-AIG/stock-autopilot/blob/master/bottom_watch_report.md"
+ML_PLAN, ML_STATE, ML_REPORT, ML_PUSH = (HERE / "margin_ladder_plan.json", HERE / "margin_ladder.json",
+                                         HERE / "margin_ladder_report.md", HERE / "margin_ladder_push.txt")
 
 
 # ------------------------------------------------------------------ data
@@ -228,12 +231,45 @@ def main():
     print("-" * 60, "\nPUSH:", "yes" if why else "no", "|", "; ".join(why))
     if a.dry:
         print("-" * 60, "\n" + push)
+        ladder(bars, V, session, final, when, now, write=False)
         return 0
     STATE.write_text(json.dumps(new, indent=1) + "\n")
     REPORT.write_text(report)
     PUSH.write_text(push)
     _output(bool(why), push_priority(important, now), title)
+    ladder(bars, V, session, final, when, now, write=True)
     return 0
+
+
+def ladder(bars, V, session, final, when, now, write):
+    """Margin ladder (margin_ladder.py). Its own state, report and push, so a fault here can never
+    stop the bottom watch's own reading: any error is logged and the ladder skips this run."""
+    try:
+        if not ML_PLAN.exists():
+            return
+        plan = json.loads(ML_PLAN.read_text())
+        prev = load_state(ML_STATE).get("state") or {}
+        st, status, lines = ml.run(plan, bars, V, prev, session, final)
+        rep = ml.report(plan, status, when)
+        print(rep)
+        print("LADDER PUSH:", "yes" if lines else "no", "|", " / ".join(lines[:1]))
+        if not write:
+            return
+        ML_STATE.write_text(json.dumps({"updated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"),
+                                        "state": st, "status": status}, indent=1) + "\n")
+        ML_REPORT.write_text(rep)
+        if lines:
+            ML_PUSH.write_text("\n".join(lines) + "\n\nPlan and checklist: https://claude.ai/artifact/9eRATUyXUkkWcvFpMhC2Y1\n")
+        prio = "high" if any(x.startswith(("STAGE", "DE-LEVER")) for x in lines) else "default"
+        if now.hour >= 21 or now.hour < 7:
+            prio = "default" if prio == "high" else "low"
+        title = lines[0].split(".")[0][:80] if lines else ""
+        path = os.environ.get("GITHUB_OUTPUT")
+        if path:
+            with open(path, "a") as fh:
+                fh.write(f"ladder_notify={'true' if lines else 'false'}\nladder_priority={prio}\nladder_title=Margin ladder: {title}\n")
+    except Exception as e:                                  # never let the ladder break the watch
+        print(f"::warning::margin ladder skipped this run: {type(e).__name__}: {e}")
 
 
 def _output(notify, priority, title):
