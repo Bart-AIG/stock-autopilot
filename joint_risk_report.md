@@ -1,58 +1,55 @@
-RISK RED (14) - big rebound (QQQ +6%), still RED; margin is back ($1.8k) after new buys
+RISK RED (14) - still RED; margin jumped to $37.7k after ~$36k of new buys today
 
-**14:42Z, Mon Nov 23 (9:42 ET).** QQQ is **646.16 (+6.2%)** and SPY **716.81 (+3.9%)**. NVDA is up about 30% after Nvidia reinstated Jensen Huang as CEO. The score fell from 17 to 14, which is still RED.
-- **HYG is back above 76.35** (76.62), so its 2 points are gone.
-- **VIX 29.87** (37.72 Friday): the volatility slot dropped from 3 points to 2.
-- **Your alerts that fired this morning:** QQQ > 648 at 14:02Z (648.20) and SPY > 716 at 13:57Z (716.06). These are your 11-21 buy-back "turn trigger" levels. The plan's turn trigger needs a **close** above QQQ 648 / SPY 716 with the **VIX closing under 26**. The VIX is 29.87, so it is not met yet. This watch does not score these buy-back alerts (the 12 alerts you set 11-21).
+**15:41Z, Mon Nov 23 (10:41 ET).** QQQ **655.99 (+7.8%)**, SPY **726.34 (+5.3%)**. The bounce kept going after the 14:42Z check, but the score is unchanged at **14 (RED)**. SPY is 0.4% under its 729 level, and the VIX fell to **26.59**, but both are still on.
 
-**Your account:** total $53,566, stock $55,380, **cash −$1,814 (margin in use again)**. Since Friday's check you added: ANT +65 sh (now 170), META 2, MRVL 7, MU 1, SPCX 5, SOXL 30, NVDL 100, COHX 120, NEBX 375 and HTEC 12 (bought today). EPIX^ 25 sh is still there at $0 cost with no quote.
+**What changed: margin.** Cash is now **−$37,746** (it was −$1,814 at 14:42Z). The account is worth $54,295 net and holds $92,041 of stock, so about **1.7x leverage**. $12,254 of buying power is left. Since the last check you bought (on margin): **COHR 50 sh (~$11.1k)**, **META +15 (~$8.9k)**, **SPCX +50 (~$6.9k)**, **SOXX 25 (~$3.5k)**, **MRVL +20 (~$2.9k)**, **MU +2**, **MUU 80 (2x MU, ~$1.1k)** and a fraction of QQQ. That is a large leveraged bet on semis and AI while every trend measure is still broken. If the market turns, the borrowed $37.7k is what a drawdown hits first. The leveraged funds (MUU, SOXL, NVDL, COHX, NEBX) carry higher margin requirements.
 
-**Wash sales (please check):** on 11-19/20 you sold META, SOXL, NVDL, COHX, NEBX and SPCX at a loss. Buying them back within 30 days probably washes part of those losses (META −$4.3k, SOXL −$8.1k, NVDL −$4.6k, SPCX −$1.7k, COHX −$1.5k). In this taxable account the washed loss is added to the new shares' cost basis, so it is deferred, not lost. The 1099 is the final word.
+**Wash sale:** SPCX was sold at a loss on 11-19/20 and you bought 50 shares today, so part of that loss is probably washed (deferred into the new shares' basis). The 1099 is the final word.
 
-**Benchmarks (14:42Z):**
+**Benchmarks (15:41Z):**
 | Alert | Level | Price | Distance |
 |---|---|---|---|
-| IEF > 91.10 | 91.10 | 91.43 | +0.4% (on, 1) |
-| SPY < 729 | 729.00 | 716.81 | −1.7% (on, 2) |
-| QQQ < 666 | 666.00 | 646.16 | −3.0% (on, 3) |
-| QQQ < 20-day | 678.53 | 646.16 | −4.8% (on, 1) |
-| SPY < 50-day | 760.18 | 716.81 | −5.7% (on, 1) |
-| QQQ < 704.88 | 704.88 | 646.16 | −8.3% (on, 2) |
-| QQQ < 50-day | 710.96 | 646.16 | −9.1% (on, 1) |
-| QQQ < 733 | 733.00 | 646.16 | −11.9% (on, 1) |
-| VIXY > 21.15 / VIX | 21.15 / 32 | 22.82 / 29.87 | on, shared slot 2 |
-| HYG < 76.35 | 76.35 | 76.62 | **+0.4% (off)** |
-| TIP < 102.85 | 102.85 | 105.59 | +2.7% |
-| IEF < 88.95 | 88.95 | 91.43 | +2.8% |
-| SPY < 690 | 690.00 | 716.81 | +3.9% |
-| KRE < 65.25 | 65.25 | 69.24 | +6.1% |
-| TLT < 75.92 | 75.92 | 81.26 | +7.0% |
-| USO > 163.80 | 163.80 | 136.31 | −16.8% |
+| IEF > 91.10 | 91.10 | 91.42 | +0.4% (on, 1) |
+| SPY < 729 | 729.00 | 726.34 | −0.4% (on, 2) |
+| QQQ < 666 | 666.00 | 655.99 | −1.5% (on, 3) |
+| QQQ < 20-day | 678.53 | 655.99 | −3.3% (on, 1) |
+| VIXY > 21.15 / VIX | 21.15 / 26 | 21.90 / 26.59 | on, shared slot 2 |
+| SPY < 50-day | 760.18 | 726.34 | −4.4% (on, 1) |
+| QQQ < 704.88 | 704.88 | 655.99 | −6.9% (on, 2) |
+| QQQ < 50-day | 710.96 | 655.99 | −7.7% (on, 1) |
+| QQQ < 733 | 733.00 | 655.99 | −10.5% (on, 1) |
+| HYG < 76.35 | 76.35 | 76.70 | +0.5% (off) |
+| TIP < 102.85 | 102.85 | 105.55 | +2.6% |
+| IEF < 88.95 | 88.95 | 91.42 | +2.8% |
+| SPY < 690 | 690.00 | 726.34 | +5.3% |
+| KRE < 65.25 | 65.25 | 69.33 | +6.3% |
+| TLT < 75.92 | 75.92 | 81.35 | +7.2% |
+| USO > 163.80 | 163.80 | 133.87 | −18.3% |
 
-SMA levels are from the 11-20 close.
+**Credit check:** no crack, 0 REDs. LQD/IEF is now −0.46% over 20 sessions and HYG/IEF −0.97%. Both moved from CAUTION to GREEN, just inside the line. The 10-year yield is about 4.9% (CAUTION, carried from the morning check). **Rally check:** OK (file as of 11-20).
 
-**Credit check:** no crack, 0 REDs. LQD/IEF is −0.56% over 20 sessions (CAUTION) and HYG/IEF −1.08% (CAUTION, at the edge of GREEN). Both improved today. The 10-year yield is about 4.9% (CAUTION). No pulled or weak hyperscaler bond deal is reported today; November issuance is still heavy (about $67B in five deals since 10-29). QQQ is 11% below its 25-day high, so there is no equity/credit divergence. **Rally check:** OK, but the file is stale (as of 11-19).
-
-**Ladder:** de-risk stage 4 is unchanged (QQQ is below 700). The reinvest tranche moved back from **2 to 1**: QQQ is above 633 but below 666. The plan's reclaim rule needs 2 closes above the 50-day (710.96), which is 10% away.
+**Ladder:** de-risk stage 4 is unchanged (QQQ below 700). Reinvest tranche 1 (QQQ between 633 and 666). The plan's reclaim rule needs 2 closes above the 50-day (710.96).
 
 **Holdings health:**
-- **WEAK, newly flagged:** META, MRVL, MU, SOXL, NVDL, NEBX. Each is under its 50-day and 200-day and 25% to 94% off its 1-year high. Today's bounce has not repaired any of those trends.
-- **WATCH:** MPWR (better than Friday's WEAK: back above its 50-day, still under its 200-day), RBRK, SPCX, COHX.
+- **WEAK, newly flagged:** COHR, SOXX, MUU (all bought today), SPCX and COHX. Each is under its 50-day and 200-day and 35% to 86% off its 1-year high.
+- **WEAK, already flagged:** META, MRVL, MU, SOXL, NVDL, NEBX.
+- **Better:** MPWR is back above its 50-day and 200-day (OK). RBRK is back above its 50-day (OK, revenue growth slowing).
 - **OK:** AMZN, ANT, HTEC.
+- WEAK now covers about $36k of the $92k book.
 
 **Earnings:** RBRK Nov 30 pm (7d), MRVL Dec 1 pm (8d).
 
-**SELL LIST** (for you to place in-app, ordered by `sell_plan`). At RED it is about $34k: $1.8k to clear the margin, then about $8k to reach the 15% cash target, plus the concentration trims. Several names are up today, so a trim now would be selling into strength.
-1. **AMZN** $15.4k, 70% (+9%). It is 40% of the book, against the 12% RED cap. Core: trim it, keep a position. Thesis: intact.
-2. **ANT** $9.7k, 64% (−4%). 27% of the book. A loss, but the 11-20 and new buys mean any loss sale within 30 days is washed unless you sell every share and wait 31 days.
-3. **MPWR** $2.2k, 29% (+12%). 14% of the book, over the 10% cap.
-4. **NVDL** $1.6k, all (+38% on your new lot). WEAK, a 2x fund. Today's +52% is a chance to step out.
-5. **NEBX** $1.4k, all (+34%). WEAK, leveraged.
-6. **SOXL** $1.3k, all (+22%). WEAK, 3x semis.
-7. **MRVL** $1.0k, all (+11%). WEAK. Reports Dec 1 (pm).
-8. **MU** $0.7k, all (+10%). WEAK.
-9. **META** $0.6k, half (+1%). WEAK. Core: half.
+**SELL LIST** (for you to place in-app, ordered by `sell_plan`). At RED it is about $57k: $37.7k to clear the margin, then about $8k to reach the 15% cash target, plus concentration trims. You don't have to do it all at once: **clearing the margin is the one step that matters most**. Today's bounce lets you do it into strength.
+1. **AMZN** $11.4k, 51% (+11%). 24% of the book, against the 12% RED cap. Core: trim, keep a position. Thesis intact.
+2. **ANT** $5.5k, 38% (−7%). 16% of the book. A loss, but your 11-20 and later buys mean a partial sale is washed.
+3. **COHR** $11.2k, all (+1%). WEAK, 12% of the book, bought today on margin. Its business is strong (revenue +50% YoY, beat on 11-04); the chart is the problem. The thesis is intact; this is a trend and leverage call.
+4. **META** $5.0k, half (+0.3%). WEAK. Core: half.
+5. **MRVL** $4.0k, all (+3%). WEAK. Reports Dec 1 (pm).
+6. **MU** $2.2k, all (+6%). WEAK.
+7. **SPCX** $7.6k, all (−0.1%). WEAK. Selling at a loss now is also washed (bought today).
+8. **SOXL** $1.3k (+28%), **NVDL** $1.7k (+51%), **COHX** $1.3k (+28%), **MUU** $1.1k (+1%), **NEBX** $1.4k (+34%): all WEAK leveraged funds. Most are well up today.
+9. **SOXX** $3.5k, all (+1%). WEAK.
 
-The leveraged buys (SOXL, NVDL, COHX, NEBX) went in on margin while the tier is RED. The 2026-08-05 rule is no margin, and leveraged funds lose more than their multiple in a choppy tape. Clearing the $1.8k margin is the first step; selling NVDL alone would cover it.
+Thesis notes: no new company news found this run. This morning's move is NVDA-led (Huang reinstated), so the news check from 14:42Z stands.
 
-**What moves the tier down:** SPY back above 729 (−2), QQQ above 666 (−3), and VIXY back under 21.15 with the VIX under 26 (−1) would take the score to 8, still RED. ORANGE (6 or less) also needs QQQ above its 20-day (678.53) and 704.88.
+**What moves the tier down:** SPY above 729 (−2) and QQQ above 666 (−3) would take the score to 9, still RED. ORANGE (6 or less) also needs the VIX under 22 with VIXY back under 21.15 (−2) and QQQ above its 20-day 678.53 (−1). Today's move is a big rebound inside a downtrend until QQQ gets back above its 50-day.
