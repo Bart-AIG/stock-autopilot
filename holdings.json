@@ -1,6 +1,6 @@
 {
   "_comment": "Positions ledger. positions[] holds the sleeve positions (sleeve swing_q, swing_m, bbw, levx) and Ryan's own positions (placed_agent 'user': never sold by the agent). _closed_positions[] holds every closed position. _SLEEVE_PROCESS holds the sleeve process state, including the real-money drawdown reading (drawdown_real, written by capital.py). The agent places no stop orders. Notes from the earlier processes are in ledger_findings_archive.json.",
-  "updated_utc": "2026-11-23T20:50Z",
+  "updated_utc": "2026-11-23T21:02:00Z",
   "positions": [
     {
       "symbol": "ILMN",
@@ -54,42 +54,6 @@
       "order_id": "6b04a2bf-a098-4ac4-bafb-e163d1e2d913",
       "filled_utc": "2026-11-23T20:31:59Z",
       "cost_usd": 75.57
-    },
-    {
-      "symbol": "QQQ",
-      "sleeve": "options",
-      "track": "user_own",
-      "option_type": "put",
-      "side": "put",
-      "chain_id": "a95fe906-11f0-4699-bfc2-520dd706e98d",
-      "entry_date": "2026-11-23",
-      "placed_agent": "user",
-      "stop": null,
-      "target": null,
-      "contract": "QQQ 2026-11-24 650P",
-      "strike": 650.0,
-      "expiration_date": "2026-11-24",
-      "option_id": "c3b809d4-0184-41c8-aec4-9d6c16bfb12a",
-      "contracts": 1,
-      "entry_premium": 5.04,
-      "cost_basis_usd": 504.0,
-      "max_loss": 504.0,
-      "order_id": "6b04a388-9f89-47f9-b476-7607ed6756d1",
-      "filled_utc": "2026-11-23T20:35:20Z",
-      "lots": [
-        {
-          "qty": 1,
-          "price": 5.04,
-          "cost_usd": 504.0,
-          "filled_utc": "2026-11-23T20:35:20Z"
-        }
-      ],
-      "_note": "Ryan's own in-app buy (placed_agent user, limit 5.10, filled 5.04), detected 2026-11-23T20:50Z. Expires 2026-11-24 (1 DTE). Agent detects, records, notifies once, NEVER closes. Counts as user value in capital.py.",
-      "_current_state": {
-        "mark_usd": 498.0,
-        "asof_utc": "2026-11-23T20:47Z",
-        "source": "get_portfolio options_value"
-      }
     }
   ],
   "_resolved_flags": [
@@ -2395,6 +2359,44 @@
       "realized_pnl": 243.0,
       "exit_placed_agent": "user",
       "_exit_note": "Ryan sold it himself in-app (placed_agent user, limit). Detected 2026-11-23T16:47Z; the agent placed nothing. P/L before fees."
+    },
+    {
+      "symbol": "QQQ",
+      "sleeve": "options",
+      "track": "user_own",
+      "option_type": "put",
+      "side": "put",
+      "chain_id": "a95fe906-11f0-4699-bfc2-520dd706e98d",
+      "entry_date": "2026-11-23",
+      "placed_agent": "user",
+      "stop": null,
+      "target": null,
+      "contract": "QQQ 2026-11-24 650P",
+      "strike": 650.0,
+      "expiration_date": "2026-11-24",
+      "option_id": "c3b809d4-0184-41c8-aec4-9d6c16bfb12a",
+      "contracts": 1,
+      "entry_premium": 5.04,
+      "cost_basis_usd": 504.0,
+      "max_loss": 504.0,
+      "order_id": "6b04a388-9f89-47f9-b476-7607ed6756d1",
+      "filled_utc": "2026-11-23T20:35:20Z",
+      "lots": [
+        {
+          "qty": 1,
+          "price": 5.04,
+          "cost_usd": 504.0,
+          "filled_utc": "2026-11-23T20:35:20Z"
+        }
+      ],
+      "exit_date": "2026-11-23",
+      "exit_premium": 5.84,
+      "proceeds_usd": 584.0,
+      "realized_pnl_usd": 80.0,
+      "exit_order_id": "6b04a8dd-2b7f-4e0c-ad16-4c1e34f6b5e4",
+      "exit_filled_utc": "2026-11-23T20:58:33Z",
+      "closed_by": "user",
+      "_close_note": "Ryan sold it himself in-app at 5.84 (limit), 23 min after buying at 5.04: +$80.00 / +15.9%. Detected by the 21:01Z post-bell run."
     }
   ],
   "_findings_archive_pointer": "Notes and findings from the August and September 2026 processes live in ledger_findings_archive.json under their original key names (first move 2026-08-28; the rest moved 2026-11-13; nothing deleted). A holdings.json._KEY named in CLAUDE.md that is not in this file is there. Journal entries older than 30 days are in trade_journal_archive_YYYY-MM.json. Keep THIS file to the book plus live state.",
@@ -2480,22 +2482,22 @@
       "rule": "Since 2026-11-13 (Ryan, REAL live turn, audit finding 4: 'lets fix finding 4. 5.'). The sleeves' return on SLEEVE MONEY (total_value minus Ryan's own positions), written only by capital.py: index *= 1 + (change in sleeve P/L) / (sleeve money at the last reading). -20% from the high-water mark: notify Ryan once. -25%: notify him, no new sleeve buys until a live Ryan turn runs capital.py lift. His own trades and deposits never move it. Spec: docs/sleeve-money.md.",
       "start": "2026-09-30 close = 1.0",
       "seeded": "Index and high-water mark seeded 2026-11-13 from capital_backfill.py (daily closes 2026-09-30 to 11-12: high 1.022029 at the 2026-10-09 close, 0.909264 at the 2026-11-12 close), then stepped to the 2026-11-13 close on ILMN's move.",
-      "index": 0.9071809839217861,
+      "index": 0.9072211222429277,
       "hwm_index": 1.022029,
       "hwm_utc": "2026-10-09T20:00Z",
-      "drawdown_pct": -11.24,
+      "drawdown_pct": -11.23,
       "status": "ok",
       "notice_utc": null,
       "halt": null,
       "suspect": null,
       "last": {
-        "utc": "2026-11-23T20:47:00Z",
-        "sleeve_pnl": 25.89,
+        "utc": "2026-11-23T21:01:40Z",
+        "sleeve_pnl": 25.98,
         "realized": 26.36,
-        "unrealized": -0.47,
-        "sleeve_money": 2147.13,
-        "total_value": 2645.13,
-        "user_value": 498.0
+        "unrealized": -0.38,
+        "sleeve_money": 2731.16,
+        "total_value": 2731.16,
+        "user_value": 0.0
       },
       "marks": {
         "day": "2026-11-23",
