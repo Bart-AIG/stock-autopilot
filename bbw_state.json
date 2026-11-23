@@ -12,7 +12,7 @@
       "added": "2026-11-01",
       "added_by": "Ryan, REAL live turn 2026-11-01: 'just add this as a sleeve to the auto options routine' + '20%, from SWING_Q'",
       "evidence": "Backtest 2026-02-23..2026-10-30 (15-min candles from Robinhood 5-min bars): +92.9% vs buy-and-hold -5.0%, 23 trades, 39% wins, max DD -3.2%, +30.5% without its 3 best trades. Matches TrendSpider's published curve (~+95-100% same window). Weak points: same rules failed on SOXL/TQQQ/QQQ; profits concentrated; ~2-day holds carry overnight gap risk on a 2x fund.",
-      "last_candle": "2026-11-20T20:45:00+00:00"
+      "last_candle": "2026-11-23T20:45:00+00:00"
     }
   ],
   "positions": {},
@@ -49,24 +49,31 @@
     "TECL"
   ],
   "last_search": {
-    "run_utc": "2026-11-16T15:35Z",
+    "run_utc": "2026-11-23T15:35Z",
     "cache_refreshed": [
-      "PLTU",
-      "MU",
-      "QLD",
-      "SPY",
-      "SPXL",
-      "SMH",
-      "USD",
-      "TECL"
+      "NVDA",
+      "NVDL",
+      "QQQ",
+      "SOXL",
+      "TQQQ",
+      "AAPL",
+      "AAPU",
+      "AMD"
     ],
     "results": [
       {
         "symbol": "SOXL",
         "pass": false,
         "variant": "hold30",
-        "score": 0.5594515915231714,
-        "why": "in-sample 20.9% does not beat buy-and-hold 126.0%; without its 3 best trades it makes -9.9%; drawdown -23.8% worse than -15%"
+        "score": 0.7992653758539634,
+        "why": "in-sample 11.1% does not beat buy-and-hold 90.8%; without its 3 best trades it makes -12.2%; drawdown -23.8% worse than -15%"
+      },
+      {
+        "symbol": "NVDL",
+        "pass": true,
+        "variant": "template",
+        "score": 0.5784877489586315,
+        "why": "passes every rule"
       },
       {
         "symbol": "AMDL",
@@ -76,17 +83,17 @@
         "why": "in-sample return -13.3% <= 0; in-sample -13.3% does not beat buy-and-hold 345.8%; without its 3 best trades it makes -26.3%; drawdown -32.2% worse than -15%"
       },
       {
-        "symbol": "NVDL",
-        "pass": true,
-        "variant": "template",
-        "score": 0.42818508499163344,
-        "why": "passes every rule"
-      },
-      {
         "symbol": "NVDU",
         "pass": true,
         "variant": "template",
         "score": 0.36349247936421425,
+        "why": "passes every rule"
+      },
+      {
+        "symbol": "NVDA",
+        "pass": true,
+        "variant": "template",
+        "score": 0.2734358726054147,
         "why": "passes every rule"
       },
       {
@@ -104,18 +111,18 @@
         "why": "out-of-sample return -6.7% <= 0; without its 3 best trades it makes -2.5%"
       },
       {
+        "symbol": "TQQQ",
+        "pass": false,
+        "variant": "hold80",
+        "score": 0.1923880475696368,
+        "why": "in-sample 6.8% does not beat buy-and-hold 45.0%; out-of-sample return -11.5% <= 0; without its 3 best trades it makes -26.9%; drawdown -21.5% worse than -15%"
+      },
+      {
         "symbol": "MU",
         "pass": false,
         "variant": "template",
         "score": 0.1569926335629509,
         "why": "in-sample return -23.1% <= 0; in-sample -23.1% does not beat buy-and-hold 85.8%; without its 3 best trades it makes -28.8%; drawdown -24.1% worse than -15%"
-      },
-      {
-        "symbol": "AMD",
-        "pass": false,
-        "variant": "hold80",
-        "score": 0.15028510319473076,
-        "why": "in-sample return -6.4% <= 0; in-sample -6.4% does not beat buy-and-hold 141.3%; without its 3 best trades it makes -16.4%; drawdown -17.9% worse than -15%"
       },
       {
         "symbol": "AVGO",
@@ -132,11 +139,11 @@
         "why": "in-sample 24.3% does not beat buy-and-hold 59.4%; out-of-sample return -10.8% <= 0; without its 3 best trades it makes -30.7%; drawdown -22.2% worse than -15%"
       },
       {
-        "symbol": "NVDA",
-        "pass": true,
+        "symbol": "AMD",
+        "pass": false,
         "variant": "hold80",
-        "score": 0.12808488316432376,
-        "why": "passes every rule"
+        "score": 0.10633569162420864,
+        "why": "in-sample return -6.4% <= 0; in-sample -6.4% does not beat buy-and-hold 123.3%; without its 3 best trades it makes -21.0%; drawdown -17.9% worse than -15%"
       },
       {
         "symbol": "GOOGL",
@@ -153,6 +160,13 @@
         "why": "in-sample return -7.4% <= 0; without its 3 best trades it makes -23.5%"
       },
       {
+        "symbol": "QQQ",
+        "pass": false,
+        "variant": "macd12_26",
+        "score": 0.06270167232819146,
+        "why": "in-sample 5.7% does not beat buy-and-hold 17.6%; out-of-sample return -2.1% <= 0; without its 3 best trades it makes -5.7%"
+      },
+      {
         "symbol": "SMH",
         "pass": false,
         "variant": "hold80",
@@ -165,13 +179,6 @@
         "variant": "hold80",
         "score": 0.04378286006859888,
         "why": "in-sample 7.4% does not beat buy-and-hold 24.6%; out-of-sample return -6.6% <= 0; without its 3 best trades it makes -15.7%"
-      },
-      {
-        "symbol": "QQQ",
-        "pass": false,
-        "variant": "macd12_26",
-        "score": 0.03206334022937307,
-        "why": "in-sample 4.4% does not beat buy-and-hold 13.8%; without its 3 best trades it makes -1.8%"
       },
       {
         "symbol": "SPXL",
@@ -195,20 +202,6 @@
         "why": "out-of-sample 5.4% does not beat buy-and-hold 8.2%; without its 3 best trades it makes -2.9%"
       },
       {
-        "symbol": "AAPU",
-        "pass": false,
-        "variant": "hold30",
-        "score": -0.06427642677961887,
-        "why": "in-sample 2.7% does not beat buy-and-hold 33.8%; out-of-sample return -2.8% <= 0; out-of-sample -2.8% does not beat buy-and-hold 3.6%; without its 3 best trades it makes -14.4%"
-      },
-      {
-        "symbol": "AAPL",
-        "pass": false,
-        "variant": "hold30",
-        "score": -0.06917850900472466,
-        "why": "in-sample 4.3% does not beat buy-and-hold 20.0%; out-of-sample return -2.8% <= 0; out-of-sample -2.8% does not beat buy-and-hold 4.1%; without its 3 best trades it makes -6.0%"
-      },
-      {
         "symbol": "AMZN",
         "pass": false,
         "variant": "macd12_26",
@@ -216,18 +209,25 @@
         "why": "in-sample return -3.8% <= 0; in-sample -3.8% does not beat buy-and-hold 11.1%; out-of-sample 0.4% does not beat buy-and-hold 8.6%; without its 3 best trades it makes -8.3%"
       },
       {
-        "symbol": "TQQQ",
-        "pass": false,
-        "variant": "macd12_26",
-        "score": -0.10561550622103866,
-        "why": "in-sample 12.8% does not beat buy-and-hold 33.0%; out-of-sample return -16.3% <= 0; out-of-sample -16.3% does not beat buy-and-hold -5.7%; without its 3 best trades it makes -23.6%; drawdown -20.5% worse than -15%"
-      },
-      {
         "symbol": "PLTR",
         "pass": false,
         "variant": "hold30",
         "score": -0.11321203451164163,
         "why": "in-sample return -5.9% <= 0; in-sample -5.9% does not beat buy-and-hold -5.0%; out-of-sample 25.4% does not beat buy-and-hold 36.8%; without its 3 best trades it makes -13.2%"
+      },
+      {
+        "symbol": "AAPL",
+        "pass": false,
+        "variant": "hold30",
+        "score": -0.11388215645433997,
+        "why": "in-sample 3.6% does not beat buy-and-hold 15.6%; out-of-sample 0.2% does not beat buy-and-hold 11.6%; without its 3 best trades it makes -4.2%"
+      },
+      {
+        "symbol": "AAPU",
+        "pass": false,
+        "variant": "hold30",
+        "score": -0.16520994580460457,
+        "why": "in-sample 1.2% does not beat buy-and-hold 22.6%; out-of-sample 2.9% does not beat buy-and-hold 19.4%; without its 3 best trades it makes -12.1%"
       },
       {
         "symbol": "AMZU",
