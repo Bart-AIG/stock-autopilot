@@ -1,13 +1,13 @@
 # Daily report: trading day 2026-11-23 (Monday)
 
-*Written by the run that started at 20:16Z (15:16 ET, prompt v20), before the 15:20–15:52 ET decision window. The decision-window run amends section 1 if it places a sleeve order. Figures are from the broker at 20:16Z.*
+*Written by the run that started at 20:16Z (15:16 ET, prompt v20), before the 15:20–15:52 ET decision window; amended by the 15:31 and 15:46 ET runs. Figures are from the broker at 20:16Z unless marked.*
 
 **Today in one line:** a broad, semi-led rebound.
 - QQQ is **+7.18%** at 652.11 (prior close 608.45).
 - SOXX is **+13.32%** at 139.84.
 - NVDL is **+62.9%** at 16.83.
 
-**Agent orders today:** three SWING_M buys at 15:31 ET (section 1). You sold all your MU options in the app at 16:44–16:45Z (+$238 realized). The whole account, **$2,651.64**, is now sleeve money.
+**Agent orders today:** three SWING_M buys at 15:31 ET (section 1). You sold all your MU options in the app at 16:44–16:45Z (+$238 realized). The whole account, **$2,651.64**, was sleeve money until 20:35Z, when you bought a **QQQ 2026-11-24 650P ×1 @ 5.04** ($504) in the app; it is your position and the agent will not touch it.
 
 ## 1. Sleeves (SWING_Q 40% / SWING_M 30%)
 *Amended by the 15:31 ET decision-window run (20:31Z).*
@@ -23,7 +23,7 @@
 - **MRNA** was on after Friday's close but is off today (it closed well above its 5-day average). It was never held, so there was nothing to sell.
 - **QLD:** QQQ at 652.57 is still below its 200-day average (683.28), so SWING_Q stays flat.
 - **Out today:** LITE, MU, DELL, WDC, MRVL and VIAV are below their 200-day averages. MRNA's legs are off.
-- The 15:46 ET run re-decides on fresher prices and corrects any difference.
+- The 15:46 ET run re-decided on 20:46:51Z prices: same targets (ILMN, VLO, MPC held; everything else off). No correction.
 
 ## 2. BBW sleeve (NVDL, 20%)
 - Flat all day. Every 15-minute candle through 20:00Z returned `none`. There were no trades and no late exits.
@@ -33,7 +33,7 @@
 - **Sleeve:** $251.91.
 - **Last night:** no position.
 - **DAY leg (TQQQ):** out at every check through 15:00. The reference level was 50.17; TQQQ opened near it and traded below it, closing the 15:00 check at 48.99.
-- **Tonight:** QQQ (652.11) and SOXX (139.84) are both below their 200-day averages, so both night targets are 0. The 15:46 ET run confirms this.
+- **Tonight:** QQQ (652.11) and SOXX (139.84) are both below their 200-day averages, so both night targets are 0. The 15:46 ET run confirmed it (QQQ 652.38 vs 683.27; SOXX 140.18 vs 161.09): no night position.
 - No action was late or skipped. No targets were null.
 
 ## 4. Your own options
@@ -49,13 +49,13 @@
 
 ## 5. Legacy book, options book, growth paper
 - **Legacy book:** closed out on 10-14.
-- **Options:** no agentic options are open.
+- **Options:** no agentic options are open. Yours: QQQ 2026-11-24 650P ×1, cost $504, marked $498 at 20:47Z. It expires tomorrow.
 - **Growth paper** (marked at 15:01 ET): $134.57 on $164.01 cost (**−17.95%**). CRWD is −24.57%, close to the −25% exit. That exit is checked on Mondays and was held at today's check.
 
 ## 6. Account and drawdown
 - **Total value $2,651.64:** all cash, plus a $100 pending deposit. That is above Robinhood's $2,000 margin-account minimum again.
-- **Sleeve money $2,651.64:** base $2,519.06, reserve $132.58, deployable $2,519.06.
-- **Drawdown** (real sleeve money, `capital.py`): index 0.9073 against a high-water mark of 1.0220 (2026-10-09), **−11.22%**. No action. **$262.20** more of sleeve loss reaches the −20% notice, and **$411.54** reaches the −25% halt.
+- **Sleeve money $2,651.64** at 20:16Z: base $2,519.06, reserve $132.58, deployable $2,519.06. At 20:47Z, after your put: total $2,645.13, your put $498, **sleeve money $2,147.13**, base $2,039.77, deployable $1,813.53.
+- **Drawdown** (real sleeve money, `capital.py`): index 0.9073 against a high-water mark of 1.0220 (2026-10-09), **−11.24%** at 20:47Z. No action. **$211.97** more of sleeve loss reaches the −20% notice, and **$332.91** reaches the −25% halt (smaller because sleeve money is smaller).
 - **Sleeves vs QQQ:**
 
   | Period | Sleeves | QQQ |
