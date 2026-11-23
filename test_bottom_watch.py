@@ -309,6 +309,43 @@ def test_reading_matches_the_backtest_row():
     assert [c["label"] for c in r["checks"]] == [c["label"] for c in MODEL["checkpoints"]]
 
 
+def test_close_audit_measures_and_never_changes_the_reading():
+    """A confirmed run records the prices it used; a later session fills in the official close."""
+    days = ["2026-11-19", "2026-11-20"]
+    mk = lambda q, s, v: {"QQQ": {"d": list(q[0]), "c": list(q[1])}, "SPY": {"d": list(s[0]), "c": list(s[1])},
+                          "VIX": ({"d": list(v[0]), "c": list(v[1])} if v else None)}
+    fri = mk((days, [620.0, 609.81]), (days, [700.0, 690.87]), (days, [30.0, 35.9]))
+    src = {"QQQ": {"bar_date": "2026-11-20", "bar": 609.5, "quote": 609.81},
+           "SPY": {"bar_date": "2026-11-20", "bar": 690.4, "quote": 690.87},
+           "VIX": {"bar_date": "2026-11-19", "bar": 30.0, "quote": 35.9}}       # no bar for today yet
+    a = run.close_audit(None, fri, src, "2026-11-20", True)
+    assert len(a) == 1 and a[0]["quote"] == {"QQQ": 609.81, "SPY": 690.87, "VIX": 35.9}
+    assert a[0]["bar"] == {"QQQ": 609.5, "SPY": 690.4, "VIX": None} and "official" not in a[0]
+    assert run.close_audit(a, fri, src, "2026-11-20", True) == a                # a second run that evening adds nothing
+    assert run.close_audit(None, fri, src, "2026-11-20", False) == []           # an intraday run records nothing
+    assert run.close_audit(a, fri, None, "2026-11-20", True) == a               # offline: nothing to record
+    d3 = days + ["2026-11-23"]
+    mon = mk((d3, [620.0, 608.45, 652.0]), (d3, [700.0, 689.81, 723.0]), (d3, [30.0, 35.89, 27.0]))
+    b = run.close_audit(a, mon, src, "2026-11-23", False)
+    assert b[0]["official"] == {"QQQ": 608.45, "SPY": 689.81, "VIX": 35.89}
+    assert b[0]["gap_pct"]["QQQ"] == {"quote": round((609.81 / 608.45 - 1) * 100, 3), "bar": round((609.5 / 608.45 - 1) * 100, 3)}
+    assert b[0]["gap_pct"]["VIX"] == {"quote": round((35.9 / 35.89 - 1) * 100, 3)}          # no bar candidate that evening
+    assert a[0].get("official") is None                                         # the input is not modified
+    assert run.close_audit(b, mon, src, "2026-11-23", False) == b               # filled once
+    novix = run.close_audit(a, mk((d3, [620.0, 608.45, 652.0]), (d3, [700.0, 689.81, 723.0]), None), src, "2026-11-23", False)
+    assert "official" not in novix[0]                                           # wait until every series has the day
+    many = [{"session": f"2026-{m:02d}-{d:02d}", "quote": {"QQQ": 1.0}, "bar": {"QQQ": None}, "official": {"QQQ": 1.0}}
+            for m in (1, 2) for d in range(1, 21)]
+    assert len(run.close_audit(many, mon, src, "2026-11-23", True)) == run.AUDIT_KEEP
+    # and it is measurement only: the reading and the pushes do not read it
+    bars, V = run.offline({"QQQ": 615.03, "SPY": 695.46}, 35.43)
+    plan = json.loads((HERE / "bottom_watch_plan.json").read_text())
+    session = bars["QQQ"]["d"][-1]
+    plain = run.compute(bars, V, {}, MODEL, plan, session, True, False, "t")
+    with_audit = run.compute(bars, V, {"close_audit": b}, MODEL, plan, session, True, False, "t")
+    assert plain[1:] == with_audit[1:] and with_audit[0]["close_audit"] == b
+
+
 if __name__ == "__main__":
     tests = [(k, v) for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
     for name, fn in tests:

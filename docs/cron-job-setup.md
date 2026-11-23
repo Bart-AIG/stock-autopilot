@@ -156,7 +156,13 @@ job's execution history in cron-job.org. Press TEST RUN there:
 returned **204** at 23:33:34Z, and Bottom watch run #6 (event `workflow_dispatch`) started on
 GitHub in the same second, found the day's confirmed reading recorded, wrote nothing and sent
 no push. The schedule preview in cron-job.org showed 3:20 PM, Monday to Friday,
-America/Chicago. The first scheduled fire is due 2026-11-23 at 21:20Z.
+America/Chicago.
+
+**Schedule verified (2026-11-23).** The first scheduled fire arrived on time: run #15 (event
+`workflow_dispatch`) started at 21:20:07Z, 3:20:07 pm Central, and wrote the confirmed reading and
+the daily summary. The same day a `workflow_run` run followed each of the six Stock Report
+runs (runs #9 to #14, 15:15Z to 20:07Z). Health check from now on: a weekday with no
+`workflow_dispatch` run of Bottom watch at 3:20 pm Central means this job failed.
 
 The job also fires on market holidays (Thanksgiving, 2026-11-26, is the first). That is
 harmless: with no trading that day, the run sees the last session's confirmed reading

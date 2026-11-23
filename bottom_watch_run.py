@@ -90,6 +90,43 @@ def merge_live(B, q):
     return ts
 
 
+AUDIT_KEEP = 30
+
+
+def _source(B, q):
+    """The two candidates for a session's close, read before the quote replaces the running bar."""
+    return {"bar_date": B["d"][-1], "bar": float(B["c"][-1]), "quote": float(q["price"])}
+
+
+def close_audit(prev, series, src, session, final):
+    """Measurement only: how far is the price a confirmed reading used from the official close?
+
+    A confirmed reading takes FMP's quote a few minutes after the bell. On 2026-11-20 that quote
+    was $1.36 (QQQ) and $1.06 (SPY) above the official closing price. Each confirmed run records
+    the quote it used and FMP's daily-bar close at that moment. A later session fills in the
+    official close from the daily bars, which are settled by then, and the gap of each candidate.
+    Nothing here changes which price a reading uses.
+    """
+    out = [dict(e) for e in (prev or [])]
+    for e in out:
+        if e.get("official") or e["session"] >= session:
+            continue                                   # filled already, or its bar is still the live one
+        off = {}
+        for s in e["quote"]:
+            B = series.get(s) or {}
+            if e["session"] in (B.get("d") or []):
+                off[s] = round(float(B["c"][B["d"].index(e["session"])]), 4)
+        if off and len(off) == len(e["quote"]):
+            e["official"] = off
+            e["gap_pct"] = {s: {k: round((e[k][s] / off[s] - 1) * 100, 3)
+                                for k in ("quote", "bar") if (e.get(k) or {}).get(s)} for s in off}
+    if final and src and not any(e["session"] == session for e in out):
+        out.append({"session": session,
+                    "quote": {s: round(v["quote"], 4) for s, v in src.items()},
+                    "bar": {s: (round(v["bar"], 4) if v["bar_date"] == session else None) for s, v in src.items()}})
+    return out[-AUDIT_KEEP:]
+
+
 def offline(prices, vix_now):
     """Bars from the repo's backtest history, with optional live prices as one more bar."""
     def load(sym):
@@ -190,19 +227,23 @@ def main():
     if a.offline:
         bars, V = offline({p.split("=")[0]: float(p.split("=")[1]) for p in a.price}, a.vix)
         session = max(bars[s]["d"][-1] for s in SYMS)
-        final, late_day, note = not a.price, False, ""
+        final, late_day, note, src = not a.price, False, "", None
     else:
         key = os.environ.get("FMP_API_KEY", "").strip()
         if not key:
             sys.exit("ERROR: FMP_API_KEY is not set")
         today = datetime.now(timezone.utc).date()
-        bars, stamps = {}, []
+        bars, stamps, src = {}, [], {}
         for s in SYMS:
             bars[s] = daily(s, key, today)
-            stamps.append(merge_live(bars[s], quote(s, key)))
+            q = quote(s, key)
+            src[s] = _source(bars[s], q)
+            stamps.append(merge_live(bars[s], q))
         try:
             V = daily("^VIX", key, today)
-            merge_live(V, quote("^VIX", key))
+            q = quote("^VIX", key)
+            src["VIX"] = _source(V, q)
+            merge_live(V, q)
             note = ""
         except RuntimeError as e:                      # the estimate does not use the VIX; the buy-back levels do
             V, note = None, f"VIX unavailable this run ({e}). The chance is unaffected; the buy-back levels that need a VIX reading were not checked."
@@ -213,6 +254,8 @@ def main():
         final = (not traded_today) or (now.hour, now.minute) >= (16, 5) or (now.hour >= 13 and age_min > 45)
         late_day = traded_today and not final and now.hour >= 14
         print(f"session {session} traded_today={traded_today} final={final} late_day={late_day} quote_age_min={age_min:.0f}")
+        for sym, v in src.items():
+            print(f"close source {sym}: FMP daily bar {v['bar_date']} close {v['bar']:.2f}, quote {v['quote']:.2f}")
 
     if final and state.get("final_session") == session and not (a.force or a.dry):
         print(f"The final reading for {session} is already recorded. Nothing to do.")
@@ -221,6 +264,10 @@ def main():
 
     when = datetime.now(CT).strftime("%-I:%M %p CT %a %b %-d").replace("AM", "am").replace("PM", "pm")
     new, report, push, title, why, important = compute(bars, V, state, model, plan, session, final, late_day, when)
+    new["close_audit"] = close_audit(state.get("close_audit"), {**bars, "VIX": V}, src, session, final)
+    for e in new["close_audit"][-2:]:
+        if e.get("gap_pct"):
+            print(f"close audit {e['session']}: official {e['official']}, gap % by source {e['gap_pct']}")
     if note:
         report += "\n" + note + "\n"
         push += note + "\n"
