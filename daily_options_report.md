@@ -7,13 +7,23 @@
 - SOXX is **+13.32%** at 139.84.
 - NVDL is **+62.9%** at 16.83.
 
-**No agent orders so far today.** You sold all your MU options in the app at 16:44–16:45Z (+$238 realized). The whole account, **$2,651.64**, is now sleeve money.
+**Agent orders today:** three SWING_M buys at 15:31 ET (section 1). You sold all your MU options in the app at 16:44–16:45Z (+$238 realized). The whole account, **$2,651.64**, is now sleeve money.
 
 ## 1. Sleeves (SWING_Q 40% / SWING_M 30%)
-- **No sleeve positions are open.**
-- **QLD:** QQQ at 652.11 is still below its 200-day average (about 683.3), so SWING_Q stays flat whatever the RSI(2) and IBS readings say.
-- **The 15:31 ET run decides** on $2,651.64 of sleeve money: QLD target about $1,008 if it were on, and about $76 per SWING_M name with a signal.
-- **The month's picks:** MRNA, LITE, MU, DELL, WDC, ILMN, VLO, MPC, MRVL, VIAV.
+*Amended by the 15:31 ET decision-window run (20:31Z).*
+- **SWING_M bought three names at 20:31:56–59Z, all filled:**
+
+  | Name | Legs on | $ | Shares | Avg fill |
+  |---|---|---|---|---|
+  | ILMN | IBS | 75.57 | 0.368508 | 205.07 |
+  | VLO | RSI(2) 2.2, IBS 0.15 | 75.57 | 0.228449 | 330.795 |
+  | MPC | RSI(2) 1.2, IBS 0.05 | 75.57 | 0.210889 | 358.34 |
+
+- **Why now:** on Friday 11-20 the rules already had these names on, but sleeve money was $26.98 (your MU options held the cash), so every target was under the $1 minimum. With the options sold, the sleeves are funded at their tested size again.
+- **MRNA** was on after Friday's close but is off today (it closed well above its 5-day average). It was never held, so there was nothing to sell.
+- **QLD:** QQQ at 652.57 is still below its 200-day average (683.28), so SWING_Q stays flat.
+- **Out today:** LITE, MU, DELL, WDC, MRVL and VIAV are below their 200-day averages. MRNA's legs are off.
+- The 15:46 ET run re-decides on fresher prices and corrects any difference.
 
 ## 2. BBW sleeve (NVDL, 20%)
 - Flat all day. Every 15-minute candle through 20:00Z returned `none`. There were no trades and no late exits.
