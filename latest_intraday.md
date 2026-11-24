@@ -1,4 +1,4 @@
-# Strategy report - INTRADAY  (2026-11-24 18:07 UTC)
+# Strategy report - INTRADAY  (2026-11-24 19:06 UTC)
 
 ## >>> ACTION <<<
 
@@ -10,7 +10,8 @@ Top 10% of the universe by quality grade (>= 9/12 traits, beating SPY over 3 mon
 
 | Ticker | Grade | Q | Rank | Trigger | Theme | Spec | Held | Earnings | Price | RSI2 | Entry | Stop | Target | Stop% |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| MAR | A+ | 12/12 | #4 | 21 EMA pullback | Other |  |  |  | 413.81 | 47.4 | 413.81 | 397.07 | 429.18 | -4.0% |
+| MAR | A+ | 12/12 | #4 | 21 EMA pullback | Other |  |  |  | 413.21 | 44.7 | 413.21 | 396.46 | 429.18 | -4.1% |
+| MO | A+ | 11/12 | #16 | 21 EMA pullback | Other |  |  |  | 74.48 | 46.7 | 74.48 | 71.43 | 78.9 | -4.1% |
 
 ### How to read this (concentration & sizing)
 - ✅ **Discipline:** take the highest-ranked, least-correlated names. Per-name cap 30% of account value; target 3-4 concurrent positions, minimum entry ~$600. Equity capital excludes the 20% options bucket and the 5% reserve. The agent places NO stop (HARD RULE 5): exits are the RSI2>=70 take-profit on a green position, the GRADE EXIT (rank leaves the top 25%), and Ryan's native trail once green enough.
@@ -22,62 +23,62 @@ Value = valuation grade vs the name's own 10-yr multiples; Disruption = is the b
 
 | # | Ticker | Grade | Q | RS vs SPY 3M | Off 52W hi | Value | Disruption | Traits firing |
 |---|---|---|---|---|---|---|---|---|
-| 1 | LLY | A+ | 12/12 | +24.8% | -2.1% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 2 | WBD | A+ | 12/12 | +24.6% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 3 | DLTR | A+ | 12/12 | +23.7% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 4 | MAR | A+ | 12/12 | +21.5% | -3.6% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 5 | COST | A+ | 12/12 | +20.2% | -2.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 6 | ABBV | A+ | 12/12 | +20.1% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 7 | CME | A+ | 12/12 | +16.7% | -4.8% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 8 | TGT | A+ | 12/12 | +13.5% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 9 | WMT | A+ | 11/12 | +32.6% | -1.7% | — | — | 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 10 | PG | A+ | 11/12 | +25.1% | -0.3% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 1 | WBD | A+ | 12/12 | +24.9% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 2 | LLY | A+ | 12/12 | +24.9% | -2.3% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 3 | DLTR | A+ | 12/12 | +24.2% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 4 | MAR | A+ | 12/12 | +21.6% | -3.7% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 5 | ABBV | A+ | 12/12 | +20.6% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 6 | COST | A+ | 12/12 | +20.1% | -2.4% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 7 | CME | A+ | 12/12 | +16.9% | -4.9% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 8 | TGT | A+ | 12/12 | +13.2% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 9 | WMT | A+ | 11/12 | +32.8% | -1.7% | — | — | 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 10 | PG | A+ | 11/12 | +25.2% | -0.5% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
 | 11 | DIS | A+ | 11/12 | +18.1% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 12 | TMO | A+ | 11/12 | +15.8% | -3.7% | — | — | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 13 | KO | A+ | 11/12 | +14.9% | -1.5% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP |
-| 14 | V | A+ | 11/12 | +14.5% | -4.7% | — | — | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 15 | ASND | A+ | 11/12 | +14.5% | -2.1% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP |
-| 16 | MO | A+ | 11/12 | +14.0% | -5.4% | — | — | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 17 | AMGN | A+ | 11/12 | +12.9% | -1.7% | — | — | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 18 | VRTX | A+ | 11/12 | +8.5% | 0.0% | — | — | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 19 | BLK | A+ | 11/12 | +3.7% | -6.7% | — | — | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 20 | MRNA | A | 10/12 | +57.2% | -15.9% | — | — | MA STACK, > 50 SMA, 200 UP, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
-| 21 | GILD | A | 10/12 | +26.6% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, HH/HL |
-| 22 | REGN | A | 10/12 | +26.0% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, RS 3M, RS 6M, U/D VOL, OBV UP |
-| 23 | AAPL | A | 10/12 | +18.9% | -0.8% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, HH/HL |
-| 24 | SPOT | B | 10/12 | +15.9% | -3.8% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, RS 3M, RS 6M, U/D VOL, OBV UP |
-| 25 | MA | B | 10/12 | +14.1% | -3.9% | — | — | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP |
+| 12 | TMO | A+ | 11/12 | +16.5% | -3.3% | — | — | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 13 | KO | A+ | 11/12 | +14.9% | -1.8% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP |
+| 14 | ASND | A+ | 11/12 | +14.8% | -2.1% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP |
+| 15 | V | A+ | 11/12 | +14.4% | -5.0% | — | — | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 16 | MO | A+ | 11/12 | +14.2% | -5.6% | — | — | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 17 | AMGN | A+ | 11/12 | +13.6% | -1.4% | — | — | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 18 | VRTX | A+ | 11/12 | +8.8% | 0.0% | — | — | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 19 | BLK | A+ | 11/12 | +3.6% | -7.0% | — | — | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 20 | MRNA | A | 10/12 | +57.5% | -15.9% | — | — | MA STACK, > 50 SMA, 200 UP, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP, HH/HL |
+| 21 | GILD | A | 10/12 | +27.1% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, HH/HL |
+| 22 | REGN | A | 10/12 | +26.2% | 0.0% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, RS 3M, RS 6M, U/D VOL, OBV UP |
+| 23 | AAPL | A | 10/12 | +18.7% | -1.2% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, HH/HL |
+| 24 | SPOT | B | 10/12 | +15.1% | -4.7% | — | — | MA STACK, 21 EMA UP, > 50 SMA, 200 UP, 52W HI, W.EMA, RS 3M, RS 6M, U/D VOL, OBV UP |
+| 25 | MA | B | 10/12 | +14.2% | -4.1% | — | — | MA STACK, > 50 SMA, 200 UP, 52W HI, W.EMA, 12-1 MOM, RS 3M, RS 6M, U/D VOL, OBV UP |
 
 ## 12-1 momentum ranking (top decile = 21 of 219)
 Multi-week / monthly trend holds. Rebalance on a monthly cadence, not daily.
 
 | # | Ticker | mom12-1% | RSI14 | >200MA |
 |---|---|---|---|---|
-| 1 **TOP** | MRNA | 648.3 | 53.2 | T |
+| 1 **TOP** | MRNA | 648.3 | 53.1 | T |
 | 2 **TOP** | SNDK | 565.0 | 28.3 | F |
-| 3 **TOP** | LITE | 321.7 | 36.1 | F |
-| 4 **TOP** | MU | 300.7 | 37.7 | F |
-| 5 **TOP** | DELL | 187.7 | 36.7 | F |
+| 3 **TOP** | LITE | 321.7 | 35.9 | F |
+| 4 **TOP** | MU | 300.7 | 37.4 | F |
+| 5 **TOP** | DELL | 187.7 | 36.6 | F |
 | 6 **TOP** | MRVL | 171.6 | 35.5 | F |
-| 7 **TOP** | ILMN | 169.1 | 40.6 | T |
-| 8 **TOP** | VLO | 145.1 | 30.9 | T |
-| 9 **TOP** | MPC | 133.0 | 30.0 | T |
-| 10 **TOP** | INTC | 127.2 | 36.5 | F |
-| 11 **TOP** | VIAV | 121.5 | 40.4 | F |
-| 12 **TOP** | PSX | 109.8 | 32.5 | T |
-| 13 **TOP** | AMD | 104.3 | 38.6 | F |
-| 14 **TOP** | AAOI | 98.5 | 33.3 | F |
-| 15 **TOP** | CRWD | 95.4 | 41.0 | T |
-| 16 **TOP** | SOXL | 93.7 | 33.4 | F |
-| 17 **TOP** | NUE | 86.1 | 41.8 | T |
-| 18 **TOP** | PANW | 75.3 | 53.1 | T |
-| 19 **TOP** | DDOG | 72.3 | 33.5 | F |
-| 20 **TOP** | COP | 71.3 | 44.1 | T |
-| 21 **TOP** | TXN | 68.3 | 40.8 | F |
-| 22  | MTSI | 67.7 | 42.2 | F |
-| 23  | RBRK | 67.2 | 49.8 | T |
-| 24  | MRK | 66.0 | 46.1 | T |
-| 25  | AMAT | 64.9 | 39.4 | F |
+| 7 **TOP** | ILMN | 169.1 | 41.5 | T |
+| 8 **TOP** | VLO | 145.1 | 31.2 | T |
+| 9 **TOP** | MPC | 133.0 | 30.6 | T |
+| 10 **TOP** | INTC | 127.2 | 36.4 | F |
+| 11 **TOP** | VIAV | 121.5 | 40.2 | F |
+| 12 **TOP** | PSX | 109.8 | 32.9 | T |
+| 13 **TOP** | AMD | 104.3 | 38.7 | F |
+| 14 **TOP** | AAOI | 98.5 | 33.2 | F |
+| 15 **TOP** | CRWD | 95.4 | 39.4 | T |
+| 16 **TOP** | SOXL | 93.7 | 33.3 | F |
+| 17 **TOP** | NUE | 86.1 | 42.4 | T |
+| 18 **TOP** | PANW | 75.3 | 51.3 | T |
+| 19 **TOP** | DDOG | 72.3 | 32.8 | F |
+| 20 **TOP** | COP | 71.3 | 44.7 | T |
+| 21 **TOP** | TXN | 68.3 | 40.3 | F |
+| 22  | MTSI | 67.7 | 41.9 | F |
+| 23  | RBRK | 67.2 | 48.8 | T |
+| 24  | MRK | 66.0 | 47.4 | T |
+| 25  | AMAT | 64.9 | 39.3 | F |
 | 26  | ROKU | 64.7 | 61.0 | T |
 
 ## Joint long-term port — accumulate signals (oversold within an uptrend)
@@ -86,21 +87,21 @@ Watch-only — the agent can't trade the joint account, so this surfaces BUY/ADD
 **Held in the joint port — ADD / average-in candidates (oversold within their uptrend):**
 | Signal | Ticker | Theme | Price | RSI14 | RSI2 | vs 20d | vs 50d | mom12-1% | Value | Fair | Analysts | Disruption | Basis |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 🟡 dip | AMZN | Other | 252.86 | 46.9 | 42.6 | -1.9% | -0.9% | 10.6 | DEEP VALUE +100% (LOW) | 510.78 | +29% | DISRUPTOR (quant INNOVATING) [research: innovating] | steady: business changed (margin 32% vs 13% 10-yr median): its own history is a weak yardstick; far from its own history: the market has re-rated it, find out why; analysts agree | disruption: revenue +12%/yr over 3 yrs; gross margin up 6 pts (50%); research 2026-10-12: AWS grew 28% last quarter and Trainium is reported at a ~$20B annual pace with large Anthropic/OpenAI commitments; Amazon gains from the AI-compute shift rather than being displaced by it. |
+| 🟡 dip | AMZN | Other | 251.67 | 46.1 | 38.6 | -2.3% | -1.4% | 10.6 | DEEP VALUE +100% (LOW) | 510.78 | +29% | DISRUPTOR (quant INNOVATING) [research: innovating] | steady: business changed (margin 32% vs 13% 10-yr median): its own history is a weak yardstick; far from its own history: the market has re-rated it, find out why; analysts agree | disruption: revenue +12%/yr over 3 yrs; gross margin up 6 pts (50%); research 2026-10-12: AWS grew 28% last quarter and Trainium is reported at a ~$20B annual pace with large Anthropic/OpenAI commitments; Amazon gains from the AI-compute shift rather than being displaced by it. |
 
 **New long-term ideas you don't hold (oversold uptrends):**
 | Signal | Ticker | Theme | Price | RSI14 | RSI2 | vs 20d | vs 50d | mom12-1% | Value | Fair | Analysts | Disruption | Basis |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 🟢 oversold | MDT | Other | 97.05 | 45.0 | 9.0 | -3.5% | +2.3% | 1.9 | DEEP VALUE +30% (MED) | 128.9 | -0% | STABLE | steady: analysts disagree |
-| 🟢 oversold | PSX | Energy | 235.75 | 32.5 | 1.2 | -8.2% | -11.7% | 109.8 | RICH -23% (LOW) | 182.77 | +26% | STABLE [research: neutral] | cyclical: PEAK-CYCLE margins (12% vs 6% normal): earnings multiples ignored; analysts disagree | disruption: commodity producer: revenue and margins follow the commodity price, not competitors; research 2026-11-06: Refiner + midstream; refining margins held up by tight supply (96% utilization Q2 2026) and midstream EBITDA targeted at $4.5B run rate by 2027. EV-driven gasoline decline is a long-run risk not yet visible in demand or results. |
-| 🟡 dip | EOG | Energy | 147.01 | 42.0 | 43.0 | -3.9% | -2.2% | 53.3 | UNDERVALUED +15% (HIGH) | 167.77 | +14% | STABLE [research: neutral] | cyclical: analysts agree | disruption: commodity producer: revenue and margins follow the commodity price, not competitors; research 2026-11-05: Low-cost shale producer; gas demand from LNG and data-center power is a tailwind (management sees 3-5%/yr US gas demand growth), but it is a commodity producer riding a trend, not creating a market. |
-| 🟡 dip | MSFT | Other | 498.63 | 42.2 | 66.4 | -4.0% | -4.0% | 0.2 | FAIR -10% (MED) | 444.23 | +28% | INNOVATING (quant STABLE) [research: innovating] | growth: its multiples disagree with each other | disruption: revenue +16%/yr over 3 yrs; research 2026-11-17: AI is a demand driver, not a substitute: Azure +43% in FY26 Q4 and past $100B/yr, M365 Copilot at 30M paid seats; the risk is value shifting from per-seat Copilot to consumption and rival agent tools (Salesforce Agentforce, ServiceNow), plus margin pressure from >$50B capex. |
-| 🟡 dip | COP | Energy | 134.82 | 44.1 | 56.3 | -3.6% | -1.7% | 71.3 | FAIR -4% (HIGH) | 126.45 | +17% | STABLE [research: neutral] | cyclical | disruption: commodity producer: revenue and margins follow the commodity price, not competitors; research 2026-11-09: Pure upstream producer, most exposed to a post-2030 oil demand peak (IEA ~2029); demand still rising this decade, so the EV threat is not visible in its volumes yet. |
-| 🟡 dip | GM | Other | 82.15 | 46.4 | 67.1 | -4.2% | -1.0% | 9.0 | FAIR +4% (MED) | 84.74 | +21% | STABLE [research: neutral] | cyclical: TROUGH-CYCLE margins (8% vs 13% normal): earnings multiples ignored | disruption: cyclical: judged on 5-yr trends; research 2026-11-23: Software/autonomy race is the risk: Tesla's software lead and Chinese automakers' 2-3 year development cycles; GM's 2026-10-21 'GM Forward' plan (central computer, eyes-off highway driving from the 2028 Escalade IQ, AI to halve development time) is a catch-up, not a new market. No lost share in its core US trucks/SUVs visible yet; Chinese rivals are largely kept out of the US by tariffs. |
-| 🟡 dip | ROST | Other | 227.52 | 49.1 | 81.7 | -1.0% | -1.4% | 46.3 | FAIR -10% (HIGH) | 204.85 | +24% | STABLE [research: neutral] | steady | disruption: analysts see revenue +13% next year; research 2026-10-12: Off-price store chain gaining share from value-seeking shoppers (Deutsche Bank sees +210 bp off-price share in 2026); no sign online retail is eroding the treasure-hunt model, and no new market either. |
-| 🟡 dip | SNOW | AI-software | 276.53 | 42.7 | 72.5 | -4.3% | -12.6% | 26.2 | DEEP VALUE +26% (LOW) | 341.13 | +62% | INNOVATING (quant DISRUPTOR) [research: threatened] | preprofit: analysts agree | disruption: revenue +31%/yr over 3 yrs; analysts see revenue +35% next year; research 2026-10-21: Databricks is pulling ahead in the AI data-platform race (~$6.9B ARR +80% vs Snowflake ~$5.3B +34%, mid-2026, Tunguz), with ~25% of Databricks ARR from AI; Snowflake product revenue still +31% (Q2 FY27) and its AI layer (Cortex, Snowflake Intelligence) is small. Share loss, not yet shrinking. |
-| 🟡 dip | PLTR | AI-software | 162.83 | 44.4 | 78.1 | -3.1% | -10.9% | 6.6 | EXPENSIVE -50% (LOW) | 79.68 | +55% | DISRUPTOR [research: disruptor] | preprofit: far from its own history: the market has re-rated it, find out why; analysts disagree | disruption: revenue +33%/yr over 3 yrs; analysts see revenue +91% next year; research 2026-11-02: AIP is opening a largely new enterprise market for operational AI (US commercial revenue +149% y/y to $764M in Q2 2026; FY26 guide ~$8.15B, +82%); Microsoft Fabric and frontier-model vendors (Anthropic) are named threats but have not dented reported growth. |
-| 🟡 dip | MRK | Other | 140.47 | 46.1 | 85.2 | -2.5% | -3.1% | 66.0 | EXPENSIVE -38% (LOW) | 84.26 | +22% | STABLE [research: neutral] | steady: business changed (margin 18% vs 35% 10-yr median): its own history is a weak yardstick; its multiples disagree with each other; analysts disagree | disruption: R&D 19% of revenue; research 2026-11-17: Main risk is a patent cliff, not a new technology: Keytruda (~$31.7B, about half of sales) loses exclusivity 2028-29; Merck is moving patients to subcutaneous Keytruda Qlex and building Winrevair (PAH, ~2x y/y) and Capvaxive as offsets. No product creating a large untapped market yet. |
+| 🟢 oversold | MDT | Other | 96.77 | 44.4 | 8.6 | -3.8% | +2.0% | 1.9 | DEEP VALUE +30% (MED) | 128.9 | -0% | STABLE | steady: analysts disagree |
+| 🟢 oversold | PSX | Energy | 236.6 | 32.9 | 1.3 | -7.9% | -11.4% | 109.8 | RICH -23% (LOW) | 182.77 | +26% | STABLE [research: neutral] | cyclical: PEAK-CYCLE margins (12% vs 6% normal): earnings multiples ignored; analysts disagree | disruption: commodity producer: revenue and margins follow the commodity price, not competitors; research 2026-11-06: Refiner + midstream; refining margins held up by tight supply (96% utilization Q2 2026) and midstream EBITDA targeted at $4.5B run rate by 2027. EV-driven gasoline decline is a long-run risk not yet visible in demand or results. |
+| 🟡 dip | EOG | Energy | 147.63 | 43.1 | 50.7 | -3.5% | -1.8% | 53.3 | UNDERVALUED +15% (HIGH) | 167.77 | +14% | STABLE [research: neutral] | cyclical: analysts agree | disruption: commodity producer: revenue and margins follow the commodity price, not competitors; research 2026-11-05: Low-cost shale producer; gas demand from LNG and data-center power is a tailwind (management sees 3-5%/yr US gas demand growth), but it is a commodity producer riding a trend, not creating a market. |
+| 🟡 dip | MSFT | Other | 494.34 | 40.1 | 53.5 | -4.8% | -4.8% | 0.2 | FAIR -10% (MED) | 444.23 | +28% | INNOVATING (quant STABLE) [research: innovating] | growth: its multiples disagree with each other | disruption: revenue +16%/yr over 3 yrs; research 2026-11-17: AI is a demand driver, not a substitute: Azure +43% in FY26 Q4 and past $100B/yr, M365 Copilot at 30M paid seats; the risk is value shifting from per-seat Copilot to consumption and rival agent tools (Salesforce Agentforce, ServiceNow), plus margin pressure from >$50B capex. |
+| 🟡 dip | COP | Energy | 135.2 | 44.7 | 59.2 | -3.3% | -1.5% | 71.3 | FAIR -4% (HIGH) | 126.45 | +17% | STABLE [research: neutral] | cyclical | disruption: commodity producer: revenue and margins follow the commodity price, not competitors; research 2026-11-09: Pure upstream producer, most exposed to a post-2030 oil demand peak (IEA ~2029); demand still rising this decade, so the EV threat is not visible in its volumes yet. |
+| 🟡 dip | GM | Other | 81.66 | 45.3 | 60.5 | -4.8% | -1.6% | 9.0 | FAIR +4% (MED) | 84.74 | +21% | STABLE [research: neutral] | cyclical: TROUGH-CYCLE margins (8% vs 13% normal): earnings multiples ignored | disruption: cyclical: judged on 5-yr trends; research 2026-11-23: Software/autonomy race is the risk: Tesla's software lead and Chinese automakers' 2-3 year development cycles; GM's 2026-10-21 'GM Forward' plan (central computer, eyes-off highway driving from the 2028 Escalade IQ, AI to halve development time) is a catch-up, not a new market. No lost share in its core US trucks/SUVs visible yet; Chinese rivals are largely kept out of the US by tariffs. |
+| 🟡 dip | ROST | Other | 226.66 | 48.5 | 80.6 | -1.4% | -1.7% | 46.3 | FAIR -10% (HIGH) | 204.85 | +24% | STABLE [research: neutral] | steady | disruption: analysts see revenue +13% next year; research 2026-10-12: Off-price store chain gaining share from value-seeking shoppers (Deutsche Bank sees +210 bp off-price share in 2026); no sign online retail is eroding the treasure-hunt model, and no new market either. |
+| 🟡 dip | SNOW | AI-software | 273.4 | 41.3 | 67.1 | -5.3% | -13.6% | 26.2 | DEEP VALUE +26% (LOW) | 341.13 | +62% | INNOVATING (quant DISRUPTOR) [research: threatened] | preprofit: analysts agree | disruption: revenue +31%/yr over 3 yrs; analysts see revenue +35% next year; research 2026-10-21: Databricks is pulling ahead in the AI data-platform race (~$6.9B ARR +80% vs Snowflake ~$5.3B +34%, mid-2026, Tunguz), with ~25% of Databricks ARR from AI; Snowflake product revenue still +31% (Q2 FY27) and its AI layer (Cortex, Snowflake Intelligence) is small. Share loss, not yet shrinking. |
+| 🟡 dip | PLTR | AI-software | 161.81 | 43.7 | 76.5 | -3.7% | -11.5% | 6.6 | EXPENSIVE -50% (LOW) | 79.68 | +55% | DISRUPTOR [research: disruptor] | preprofit: far from its own history: the market has re-rated it, find out why; analysts disagree | disruption: revenue +33%/yr over 3 yrs; analysts see revenue +91% next year; research 2026-11-02: AIP is opening a largely new enterprise market for operational AI (US commercial revenue +149% y/y to $764M in Q2 2026; FY26 guide ~$8.15B, +82%); Microsoft Fabric and frontier-model vendors (Anthropic) are named threats but have not dented reported growth. |
+| 🟡 dip | NET | AI-software | 289.22 | 46.9 | 49.6 | -0.4% | -9.0% | 49.5 | EXPENSIVE -43% (LOW) | 166.27 | +20% | DISRUPTOR [research: innovating] | growth: analysts disagree | disruption: revenue +31%/yr over 3 yrs; analysts see revenue +37% next year; research 2026-10-21: Moving from CDN/security into infrastructure for AI agents (agent runtime, Agent Memory, AI Search, Workers AI inference at the edge); revenue ~+34% YoY. Competes with AWS, Google, Akamai, Fastly, Vercel on this; gains from the shift. Sources are thin secondary coverage. |
 
 _The technical screen is the SIGNAL (oversold within an uptrend); the valuation grade says whether the price is cheap for that business, and the disruption grade says whether the business itself is under threat. Confirm each with the news/thesis (HARD RULE 7) before buying: a name can sit below its own history because its future really is worse._
 
@@ -130,20 +131,20 @@ Underlyings only, drawn from the quality grade: CALLS on top-graded leaders, PUT
 **Calls (bullish — strong uptrend > 200MA):**
 | Ticker | mom12-1% | RSI14 | Spec |
 |---|---|---|---|
-| LLY | 20.7 | 59.9 |  |
-| DLTR | 22.7 | 68.9 |  |
-| MAR | 33.4 | 54.6 |  |
-| COST | 11.8 | 64.2 |  |
-| ABBV | 21.4 | 63.7 |  |
+| LLY | 20.7 | 59.5 |  |
+| DLTR | 22.7 | 69.1 |  |
+| MAR | 33.4 | 54.1 |  |
+| ABBV | 21.4 | 64.2 |  |
+| COST | 11.8 | 62.5 |  |
 
 **Puts (bearish — downtrend < 200MA):**
 | Ticker | mom12-1% | RSI14 | Spec |
 |---|---|---|---|
-| IREN | -39.8 | 30.8 | SPEC |
-| QBTS | -43.5 | 28.9 | SPEC |
-| ASTS | -23.2 | 31.0 | SPEC |
-| UEC | -31.7 | 33.9 | SPEC |
-| APLD | -15.5 | 35.8 | SPEC |
+| IREN | -39.8 | 30.9 | SPEC |
+| UUUU | -40.8 | 25.1 | SPEC |
+| QBTS | -43.5 | 29.2 | SPEC |
+| ASTS | -23.2 | 31.1 | SPEC |
+| UEC | -31.7 | 34.0 | SPEC |
 
 ---
 _Read-only. No positions checked, no trades placed. Bring this into a session to act with live quotes and per-order approval._
