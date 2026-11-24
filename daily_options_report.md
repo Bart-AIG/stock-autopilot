@@ -10,7 +10,13 @@
 **Agent orders today:** none so far. You placed no trades in the agentic account today. You hold no positions of your own, so the whole account is sleeve money.
 
 ## 1. Sleeves (SWING_Q 40% / SWING_M 30%)
-*Before the decision window. The 15:20–15:52 ET runs decide on fresh prices and amend this section.*
+**Decision window, amended by the 15:31 ET run (20:31Z):** `sleeves.py decide` on 20:31Z prices, sleeve money $2,729.79, base $2,593.30. **No orders.**
+- ILMN (IBS leg on, IBS 0.687), VLO (RSI2 1.1 + IBS 0.348) and MPC (RSI2 0.9 + IBS 0.601) all hold through the close, target $77.80 each. Held, so KEEP (no resizing mid-month).
+- QQQ 636.02 is below its 200-day (683.38): SWING_Q target 0, QLD stays flat.
+- The other seven picks have no leg on: MRNA (RSI2 91.1, IBS 0.787) is above its 200-day but neither oversold; LITE, MU, DELL, WDC, MRVL and VIAV are below their 200-day averages.
+- Tomorrow (11-25) is not a turn-of-month session.
+
+*Pre-window snapshot from the 15:16 ET run follows.*
 - **SWING_M holds** the three names bought Monday at 15:31 ET:
 
   | Name | Shares | Avg cost | Price 20:16Z | Value | P/L |
