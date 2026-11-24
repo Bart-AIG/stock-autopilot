@@ -35,7 +35,7 @@
 - **Sleeve:** $259.34.
 - **Last night:** no position (both indexes were below their 200-day averages at Monday's close).
 - **DAY leg (TQQQ):** out at every check through 15:00. The reference level was 49.10 (Monday's close); TQQQ opened at 46.61 and never got back to it. It was 45.90 at 20:16Z.
-- **Tonight:** QQQ (636.82, 200-day about 683) and SOXX (129.08, 200-day about 161) are both below their 200-day averages, so both night targets are 0 on 20:16Z prices. The 15:46 ET run makes the decision.
+- **Tonight (decided at 15:46 ET, 20:46Z):** QQQ 636.64 vs its 200-day 683.38 and SOXX 128.67 vs 161.15, both below, so TQQQ and SOXL targets are 0. No night position, no order.
 - No action was late or skipped. No targets were null.
 
 ## 4. Your own positions
