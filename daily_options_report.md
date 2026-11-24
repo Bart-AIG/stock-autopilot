@@ -39,14 +39,18 @@
 - No action was late or skipped. No targets were null.
 
 ## 4. Your own positions
-- None. You hold no options or stock of your own in the agentic account.
+- **NEW, 20:55Z (amended by the 16:01 ET post-bell run): SOXL 2026-11-27 32C x2**, bought by you in the app at 2.89 ($578, order 6b05f9ab). At 21:01Z it was marked at 3.14 (bid 2.88 / ask 3.40, 17% of mid wide): $628, about +$50. Delta 0.58, theta −0.48 a contract per day, IV 241%, 3 days to expiry. **Thursday 11-26 is a holiday and Friday is a half day. Robinhood force-closes it at 12:45 PM ET Friday (sellout 17:45Z) if it is still open.** The agent records it and never closes it.
+- It shares the account's one cash pool, so sleeve money fell to **$2,151.19** (base $2,043.63, deployable $1,819.19). Every sleeve target shrinks in proportion. Nothing goes unfunded and nothing was sold.
+- LEVX holds no SOXL tonight (SOXX is under its 200-day average), so there is no wash-sale overlap from the sleeve today.
 
 ## 5. Legacy book, options book, growth paper
 - **Legacy book:** closed out on 10-14.
-- **Options:** no agentic options are open.
+- **Options:** no agentic options are open. Your SOXL calls are in section 4.
 - **Growth paper** (marked at 15:16 ET): $136.13 on $164.01 cost (**−17.00%**). NET −20.65%, CRWD −22.95% (the −25% exit is at 204.34; it is checked on Mondays, next 11-30), LLY +2.48%. Two slots are empty.
 
 ## 6. Account and drawdown
+- **Post-bell reading (21:02Z):** total $2,779.19 = cash $1,926.75 + SWING_M $224.44 + your SOXL calls $628. Sleeve money $2,151.19. Drawdown index 0.9066, **−11.29%**, no action. Now **$211.14** of sleeve loss reaches the −20% notice and **$332.40** reaches the −25% halt (smaller dollars because sleeve money is smaller). Sleeves today −0.07%, month −0.82%, since 09-30 −9.34%; QQQ closed 638.12 (−1.98% today).
+- *Figures below are from 20:16Z, before your option buy.*
 - **Total value $2,729.92:** $2,504.83 cash plus $225.09 in the three SWING_M names. That is above Robinhood's $2,000 margin-account minimum.
 - **Sleeve money $2,729.92:** base $2,593.42, reserve $136.50, deployable $2,368.33.
 - **Drawdown** (real sleeve money, `capital.py`): index 0.9068 against a high-water mark of 1.0220 (2026-10-09), **−11.27%**. No action. **$268.52** more of sleeve loss reaches the −20% notice, and **$422.36** reaches the −25% halt.
