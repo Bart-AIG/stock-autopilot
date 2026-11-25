@@ -12,7 +12,7 @@
 **Your own trades today (agentic account):** you bought **1 NFLX 2027-06-17 60C** at 7.25 (filled 14:30Z) and **3 more SOXL 2026-11-27 32C** at 0.95 (filled 17:55Z). You now hold 5 of the SOXL calls ($863 basis). Both are recorded as yours. The agent never closes them.
 
 ## 1. Sleeves (SWING_Q 40% / SWING_M 30%)
-**Decision window (run started 20:31Z / 15:31 ET): no orders. All three held names stay in through the close; nothing new qualifies.**
+**Decision window (runs started 20:31Z and 20:46Z, 15:31 and 15:46 ET): no orders. The 15:46 re-run on fresher prices gave the same targets. ILMN (IBS), VLO (RSI2) and MPC (RSI2, IBS) are held through the close at $32.42 each; QLD and the other seven picks are out. Drawdown -11.35% from the high-water mark: $111 more sleeve loss before the -20% notice, $175 before the -25% halt.**
 - ILMN: IBS leg still on (199.93, IBS 0.637). VLO: RSI2 leg on (RSI2 0.9, price 323.33 under its 5-day average 330.01); its IBS leg ended after 5 sessions. MPC: RSI2 and IBS legs on (RSI2 0.3, 346.21 under its 5-day 358.85).
 - QLD: QQQ 630.68 vs its 200-day 683.48, below, so flat. The other seven picks: no leg on (MRNA above its 200-day but RSI2 67.5 / IBS 0.63; the rest below their 200-day).
 - Sleeve money $1,137.15 (total $2,612.15 minus your options $1,475.00); base $1,080.29; deployable $859.73. Drawdown −11.37% from the high-water mark ($110.73 more sleeve loss to the −20% notice, $174.88 to the −25% halt).
@@ -37,7 +37,7 @@
 ## 3. LEVX (10%, live)
 - **Last night:** no position (QQQ and SOXX both below their 200-day averages).
 - **DAY leg today:** TQQQ never closed above its trigger at a check (the 15:00 check closed at 44.795 against a reference of 46.19, yesterday's close). No trades.
-- **Tonight's NIGHT decision (15:46 ET run):** QQQ 632.48 vs its 200-day about 683.5, SOXX 126.81 vs its 200-day about 161.2. Both are below, so expect no night position, target $0.
+- **Tonight's NIGHT decision (made by the run that started at 20:46Z / 15:46 ET):** QQQ 631.72 against its 200-day 683.49, SOXX 126.245 against its 200-day 161.19. Both are below, so the target is $0 for TQQQ and for SOXL. No night position and no order.
 
 ## 4. Legacy run-off and options
 - Legacy book: closed. No agentic options open.
