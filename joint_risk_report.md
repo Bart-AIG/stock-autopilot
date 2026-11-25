@@ -1,49 +1,48 @@
-RISK RED (14) - margin doubled to $54.1k (114% of account value) on 13 new buys today, all WEAK
+RISK RED (14) - you sold NVDL, PLTU, SOXL and NFXL (margin $54.1k to $48.2k) but bought MUU, a 2x Micron fund, which reads WEAK
 
-**Joint risk watch, 2026-11-25 18:45Z (13:45 ET).** Advisory only. Nothing here was placed; every sale is for you to place in-app.
+**Joint risk watch, 2026-11-25 19:42Z (14:42 ET).** Advisory only. Nothing here was placed; every sale is for you to place in-app.
 
-## What changed since 17:41Z
-- **Margin went from $27,798 to $54,077.** Equity held $101,535 against an account value of $47,459, which is **2.14x leverage**. Buying power left is $5,923.
-- **13 positions were bought today:** NFLX 75, APLD 100, NVDA 10, RBRK 10, NFXL 50, MU 3, BE 25, SKHY 25, SPCX 30, SOXL 50, NVDL +100, SOXX +20, PLTU +20.
-- **Every new name except RBRK reads WEAK**: each is under both its 50-day and 200-day and 39% to 90% below its 1-year high. RBRK reads WATCH.
-- Rough margin-call cushion: at a ~30% maintenance requirement, the book can fall about **24%** before a call. Leveraged ETFs (SOXL, NVDL, PLTU, NFXL) carry higher requirements, so the real cushion is smaller. Check the exact figure in the app.
-- Alerts that fired (FNV and RGLD above their 200-day) are Quality-watch buy alerts. They do not count toward risk.
+## What changed since 18:45Z
+- **Sold:** all of NVDL, PLTU, SOXL and NFXL. Those were four of the five leveraged funds flagged an hour ago.
+- **Bought:** MUU 25 shares at $9.29 ($234). MUU is a 2x Micron fund. It is under its 50-day and 200-day averages, so it reads **WEAK**, and it puts leverage back on a falling semi bought with borrowed money.
+- **Margin fell from $54,077 to $48,224.** Equity held is $97,154 against an account value of $48,930, so leverage is **1.99x** (was 2.14x). Buying power is $11,776.
+- No benchmark alert fired. TXN crossing above its 200-day is a Quality-watch buy alert and does not count toward risk.
 
 ## Benchmarks (score 14, unchanged)
 | Alert | Level | Now | Distance |
 |---|---|---|---|
-| QQQ < 666 | 666 | 629.72 | -5.5% (3 pts) |
-| QQQ < 704.88 / < 733 | | 629.72 | -10.7% / -14.1% (2+1) |
-| QQQ < 20d / 50d | 671.31 / 708.47 | 629.72 | -6.2% / -11.1% (1+1) |
-| SPY < 729 | 729 | 715.06 | -1.9% (2) |
-| SPY < 50d | 758.64 | 715.06 | -5.7% (1) |
-| VIXY > 21.15 | 21.15 | 23.40 | +10.6% (2); VIX 28.55 |
-| IEF > 91.10 | 91.10 | 92.26 | +1.3% (1) |
-| HYG < 76.35 | 76.35 | 76.60 | 0.3% away, not hit |
-| SPY < 690 | 690 | 715.06 | 3.6% away |
+| QQQ < 666 | 666 | 633.70 | -4.8% (3 pts) |
+| QQQ < 704.88 / < 733 | | 633.70 | -10.1% / -13.6% (2+1) |
+| QQQ < 20d / 50d | 671.31 / 708.47 | 633.70 | -5.6% / -10.6% (1+1) |
+| SPY < 729 | 729 | 717.20 | -1.6% (2) |
+| SPY < 50d | 758.64 | 717.20 | -5.5% (1) |
+| VIXY > 21.15 | 21.15 | 23.26 | +10.0% (2); VIX 27.80 |
+| IEF > 91.10 | 91.10 | 92.19 | +1.2% (1) |
+| HYG < 76.35 | 76.35 | 76.66 | 0.4% away, not hit |
+| SPY < 690 | 690 | 717.20 | 3.9% away |
 
 ## Ladder
-**Stage 4 is reached** (QQQ 629.72 is below 700). The plan's first step at every stage is to **take margin to zero**, and today's buys moved it the other way. **Reinvest tranche 2 is reached** (QQQ below 633). The plan funds tranches from cash raised, not from margin, so it is not actionable at -$54k cash. Tranche 3 is at QQQ 600.
+**Stage 4 still applies** (QQQ is below 700). The plan's first step at every stage is to take margin to zero: $48.2k is still owed. QQQ traded under 633 today, so **reinvest tranche 2 was reached**. It is back at 633.70 now. The plan funds tranches from cash raised, not from margin, so it is not actionable at -$48k cash. Tranche 3 is at QQQ 600.
 
 ## Holdings health
-- **WEAK:** MPWR (-34% off high), META (-27%, revenue growth slowing), SOXX (-45%), NVDL (-72%), PLTU (-63%), QQQI, and the new names NFLX (-46%), BE (-57%), SPCX (-45%), SKHY (-46%), MU (-53%), NVDA (-39%), APLD (-76%), SOXL (-90%), NFXL (-79%).
-- **WATCH:** AMZN, QQQ, RBRK (under the 50-day).
-- **OK:** ANT, HTEC.
+- **WEAK:** MPWR (-34% off high), META (-27%, revenue growth slowing), SOXX (-45%), NFLX (-46%), BE (-57%), SPCX, SKHY (-46%), MU (-53%), NVDA (-39%), APLD (-76%), QQQI, and the new **MUU**.
+- **WATCH:** QQQ, RBRK (under the 50-day, 21% off high, revenue growth slowing).
+- **OK:** AMZN (now under its 50-day only), ANT, HTEC.
 
 ## Earnings
-RBRK reports Nov 30 after the close (4 days).
+RBRK reports Nov 30 after the close (5 days).
 
-## Sell list (to clear $54.1k of margin and reach the RED 15% cash target, about $72k in total)
-1. **MPWR**: sell all, $19.7k (-2.5%, tax loss). 19% of the book, over the 10% RED cap, and WEAK.
-2. **ANT**: sell about $9.6k, 49% of the position (-8.9%, tax loss). 19% of the book.
-3. **AMZN** (core): trim about $9.1k, 43% (+5.5%, check lot dates). 21% of the book, over the 12% core cap. Trim only, never a full exit.
-4. **META** (core, WEAK): trim half, $5.2k (+2.4%).
-5. **Today's WEAK buys**, sold in full: NFLX $4.4k, BE $3.8k, SOXX $3.8k, SPCX $3.7k, SKHY $2.7k, PLTU $2.0k, NVDL $2.0k, MU $1.8k, SOXL $1.5k, NVDA $1.5k, APLD $1.2k, NFXL $0.5k. All are within about ±6% of cost, so the tax cost is close to zero. Selling a name bought today is a same-day round trip, and a sale at a loss starts a 30-day wash-sale window on it.
+## Sell list (to clear $48.2k of margin and reach the RED 15% cash target, about $69k in total)
+1. **MPWR**: sell all, $20.3k (+0.1%, about break-even). It is 21% of the book, over the 10% RED cap, and WEAK.
+2. **ANT**: sell about $10.3k, 52% of the position (-7.6%, a tax loss to harvest). It is 21% of the book.
+3. **AMZN** (core): trim about $9.7k, 45% (+6.0%, check lot dates). It is 22% of the book, over the 12% core cap. Trim only, never a full exit.
+4. **META** (core, WEAK): trim half, $5.1k (+2.4%).
+5. **The rest of today's WEAK buys**, sold in full: NFLX $4.4k, BE $3.9k, SPCX $3.8k, SOXX $3.8k, SKHY $2.8k, MU $1.8k, NVDA $1.5k, APLD $1.2k, MUU $0.2k. All are within about ±6% of cost, so the tax cost is close to zero. A sale at a loss starts a 30-day wash-sale window on that name.
 
-**Thesis check:** I found no single-company news for these names this run. Today's drop is concentrated in chips (NVDA -5%, MU -7%, SOXL -8%), and every semi you hold is in a broken trend. Treat the theses as **unverified, trend broken**. That is a reason to hold less of them on borrowed money, not proof that each business is broken.
+**Thesis check** (carried from 18:45Z, no new company news): chips led today's drop (NVDA -4.5%, MU -4.7%, MUU -9.7%). Treat the semi theses as **unverified, trend broken**. That is a reason to hold less of them on borrowed money. It does not prove each business is broken.
 
 ## What would bring the tier down
-- Margin back to zero. This sets nothing in the score, but it is the plan's stage-4 step.
-- QQQ closing back above 666, then its 20-day (671).
+- Margin back to zero. This does not change the score, but it is the plan's stage-4 step.
+- QQQ closing back above 666, then above its 20-day (671).
 - SPY back above 729.
 - The VIX under 26 and VIXY under 21.15.
