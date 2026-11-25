@@ -12,7 +12,12 @@
 **Your own trades today (agentic account):** you bought **1 NFLX 2027-06-17 60C** at 7.25 (filled 14:30Z) and **3 more SOXL 2026-11-27 32C** at 0.95 (filled 17:55Z). You now hold 5 of the SOXL calls ($863 basis). Both are recorded as yours. The agent never closes them.
 
 ## 1. Sleeves (SWING_Q 40% / SWING_M 30%)
-*Pre-window snapshot. The decision-window run fills in the orders.*
+**Decision window (run started 20:31Z / 15:31 ET): no orders. All three held names stay in through the close; nothing new qualifies.**
+- ILMN: IBS leg still on (199.93, IBS 0.637). VLO: RSI2 leg on (RSI2 0.9, price 323.33 under its 5-day average 330.01); its IBS leg ended after 5 sessions. MPC: RSI2 and IBS legs on (RSI2 0.3, 346.21 under its 5-day 358.85).
+- QLD: QQQ 630.68 vs its 200-day 683.48, below, so flat. The other seven picks: no leg on (MRNA above its 200-day but RSI2 67.5 / IBS 0.63; the rest below their 200-day).
+- Sleeve money $1,137.15 (total $2,612.15 minus your options $1,475.00); base $1,080.29; deployable $859.73. Drawdown −11.37% from the high-water mark ($110.73 more sleeve loss to the −20% notice, $174.88 to the −25% halt).
+
+*Snapshot below is from the 15:16 ET run.*
 - **SWING_M holds** the three names bought Monday:
 
   | Name | Shares | Avg cost | Price 20:16Z | Value | P/L |
