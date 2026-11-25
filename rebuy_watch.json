@@ -1,67 +1,7 @@
 {
   "_note": "RE-BUY WATCH for the JOINT account (set 2026-10-08, Ryan live turn: selling CRCL, WULF and APLD and watching them for buy-back signals). Run by the Quality @ 200-day routine, prompt v3 step 4b. Each name owns 3 Robinhood alerts (reclaim 50-day, reclaim 200-day, daily MACD above signal) outside the quality watch's 15-slot cap. Only a live Ryan turn adds a name. risk_watch.grade() skips these alert ids. Kept in its own file so the quality watch's state overwrite can never drop it.",
-  "updated_utc": "2026-11-24T20:35Z",
+  "updated_utc": "2026-11-25T20:45Z",
   "names": {
-    "SOXX": {
-      "watch_type": "dip_buy",
-      "sale_confirmed": true,
-      "sold_date": null,
-      "sold_price": null,
-      "added_utc": "2026-11-20T15:43Z",
-      "expires": "2027-03-20",
-      "prev_stage": "WAIT",
-      "stage": "WAIT",
-      "wash_clear": "2026-12-17",
-      "wash_note": "SOXL (3x the same NYSE Semiconductor index) was sold at a -$7,016 loss through 2026-11-16, locked to 2026-12-17. Whether SOXX is 'substantially identical' to SOXL is unsettled; buying SOXX before 12-17 risks deferring part of that loss.",
-      "alerts": {
-        "reclaim_50d": {
-          "alert_id": "6c3962c7-ba7d-4776-884b-e75dade8b1c8",
-          "condition_type": "price_above_sma",
-          "created_utc": "2026-11-20T15:43Z"
-        },
-        "reclaim_200d": {
-          "alert_id": "dc9e1603-13c9-4d70-bfbc-907bd291042e",
-          "condition_type": "price_above_sma",
-          "created_utc": "2026-11-20T15:43Z"
-        },
-        "macd_turn": {
-          "alert_id": "e6a3de36-1f64-4e4e-9a67-12d6891e1b74",
-          "condition_type": "macd_above_signal",
-          "created_utc": "2026-11-20T15:43Z"
-        }
-      },
-      "_note": "DIP-BUY WATCH, not a buy-back (Ryan, live turn 2026-11-20: 'Help me track when soxx, MU and coherent are good buys based on tried to estimate a bottom and change in momentum'). Never sold, so sale_confirmed is set true with no sale; the routine's step 4b then tracks the stage and re-arms alerts, and drops the name once Ryan holds it in joint. Bottom estimate = setups.json prebreakout score (built because report.py reads these names)."
-    },
-    "MU": {
-      "watch_type": "dip_buy",
-      "sale_confirmed": true,
-      "sold_date": null,
-      "sold_price": null,
-      "added_utc": "2026-11-20T15:43Z",
-      "expires": "2027-03-20",
-      "prev_stage": "WAIT",
-      "stage": "WAIT",
-      "wash_clear": "2026-12-25",
-      "wash_note": "Joint sold 12 MU at a $630.60 loss on 2026-11-24 (bought 11-23 evening, sold 11-24 pre-market): a buy before 2026-12-25 defers that loss. MU earnings 2026-12-17 pm (verified).",
-      "alerts": {
-        "reclaim_50d": {
-          "alert_id": "b8beb29e-a702-4f8a-a9cb-7c52051e6c2e",
-          "condition_type": "price_above_sma",
-          "created_utc": "2026-11-20T15:43Z"
-        },
-        "reclaim_200d": {
-          "alert_id": "78c7e073-5ba8-4632-ac21-ec88b9710c4f",
-          "condition_type": "price_above_sma",
-          "created_utc": "2026-11-20T15:43Z"
-        },
-        "macd_turn": {
-          "alert_id": "fa24940f-3a72-40a2-aa95-9fc5ea3f5d4e",
-          "condition_type": "macd_above_signal",
-          "created_utc": "2026-11-20T15:43Z"
-        }
-      },
-      "_note": "DIP-BUY WATCH, not a buy-back (Ryan, live turn 2026-11-20: 'Help me track when soxx, MU and coherent are good buys based on tried to estimate a bottom and change in momentum'). Never sold, so sale_confirmed is set true with no sale; the routine's step 4b then tracks the stage and re-arms alerts, and drops the name once Ryan holds it in joint. Bottom estimate = setups.json prebreakout score (built because report.py reads these names)."
-    },
     "COHR": {
       "watch_type": "dip_buy",
       "sale_confirmed": true,
@@ -71,8 +11,8 @@
       "expires": "2027-03-20",
       "prev_stage": "TURNING",
       "stage": "TURNING",
-      "wash_clear": null,
-      "wash_note": "COHX (2x COHR) carries a sell trap to 2026-12-19 per wash_sale_watch.json.",
+      "wash_clear": "2026-12-24",
+      "wash_note": "COHR itself was sold 2026-11-23 at a -$313 loss (wash_sale_watch.json lockout, clear 2026-12-24); COHX (2x COHR) also carries a lockout to 2026-12-21.",
       "alerts": {
         "reclaim_50d": {
           "alert_id": "907d9bdd-b0cf-41ce-ae6c-167204ba9dd6",
@@ -112,6 +52,22 @@
       "now_held": 10,
       "avg_buy_price": 107.44,
       "note": "Bought back 2026-11-11 (10 sh @ $107.44, user order 20:09Z) inside the wash-sale window (clear 2026-11-14); ~10 sh worth of the -$904 loss is deferred. Watch removed, 3 alerts deleted."
+    },
+    "MU": {
+      "detected_utc": "2026-11-25T20:45Z",
+      "sold_date": null,
+      "sold_price": null,
+      "now_held": 3,
+      "avg_buy_price": 573.34,
+      "note": "Dip-buy watch name, bought 2026-11-25 (3 sh @ $573.34, user order 17:49Z) while stage WAIT; inside the wash-sale window (MU loss sales 11-24/11-25, clear 2026-12-26), so those shares carry part of the deferred loss. Watch removed, 3 alerts deleted."
+    },
+    "SOXX": {
+      "detected_utc": "2026-11-25T20:45Z",
+      "sold_date": null,
+      "sold_price": null,
+      "now_held": 30,
+      "avg_buy_price": 125.55,
+      "note": "Dip-buy watch name, bought 10 sh 2026-11-24 20:56Z @ $128.63 and 20 sh 2026-11-25 17:56Z @ $124.01 while stage WAIT; SOXL loss sales (clear 2026-12-26) make SOXX a possible substantially-identical wash. Watch removed, 3 alerts deleted."
     }
   }
 }
