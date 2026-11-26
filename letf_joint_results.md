@@ -149,3 +149,27 @@ From the LEVX research (`levx_results.md`, 2026-11-13; real 5-minute bars 2018-2
 | `python3 letf_joint_backtest.py` | the full battery, into `data/letf/_battery.csv` (about 4 minutes) |
 | `python3 letf_joint_backtest.py recommended` | the recommended rule's table, into `data/letf/_recommended.csv` |
 | `python3 letf_joint_backtest.py signals` | today's state, entry and exit lines and size for SPY / QQQ / SOXX |
+
+## 10. A published fixed-dollar SOXL band strategy, tested (2026-11-26)
+
+Ryan shared an article ("When the market turns, I don't want to guess: My $SOXL Agentic Strategy"). Its rules: keep $5,000 in SOXL with $5,000 cash, buy back to $5,000 when the position closes at or below $4,500, trim to $5,000 at or above $5,500 (or $7,500 when SOXX closes above its 20-day average and the 20-day is above the 100-day), decide after the close, size at the next open, 0.10% cost. Code `letf_band_test.py`.
+
+**Replication on real SOXL, 2026-01-02 to 2026-06-22:** $24,151 with 8 trims and 10 buys, the article's figures exactly. To 11-24: $14,886 against its $14,964. Drawdown from the June high was -39.2%, and holding $5,000 of SOXL plus $5,000 cash ended at $8,614, both identical to the article.
+
+**Over longer history** ($10,000 start, cash at the T-bill rate unless stated):
+
+| Strategy | Synthetic SOXL 2002-26 | Real SOXL 2010-26 | 3-year windows from 258 monthly starts: median / 10th percentile / worst | Worst 3-year drawdown |
+|---|---|---|---|---|
+| Article, cash at 0% | 6.2% / -98.8% | 11.9% / -36.8% | | |
+| Article | 6.9% / -98.8% | 13.1% / -36.8% | +85% / -60% / -95% | -97% |
+| Article, no dip buys while SOXX is OFF (2%-band 200-day) | 8.7% / -54.5% | 12.0% / -38.0% | +70% / -4% / -62% | -67% |
+| 50% of the account instead of $5,000, out while OFF | 16.1% / -52.3% | 20.1% / -52.1% | +50% / -15% / -39% | -52% |
+| Joint trend rule on SOXL (section 5) | 17.8% / -60.0% | 24.5% / -60.0% | +59% / -21% / -46% | -60% |
+| Hold $5,000 SOXL + $5,000 cash | -0.3% / -78.0% | 21.9% / -89.7% | +35% / -40% / -51% | -84% |
+| Hold SPY | 10.1% / -55.2% | 13.5% / -33.7% | +40% / -8% / -39% | -55% |
+
+- **The cash reserve runs out in a long decline.** Started in May 2002, the article's rule spent all its cash buying a 3x fund that fell about 95% twice (2002, 2008). A buy was cut short for lack of cash on 2,730 trading days. Cash ran short in 23% of the 3-year windows. The worst starts were early 2006, going into 2008: -91% to -95%.
+- **Its trend rule only works on the sell side.** It widens the trim band in uptrends, but buys dips in downtrends. Gating the buys with the 2%-band 200-day rule (no new setting) cut the 10th-percentile 3-year result from -60% to -4%, for a lower median (+85% to +70%). In the article's own windows it was within about 4% of the original's ending value with half the trades. From 2022-01-03, the worst drawdown fell from -80% to -63%.
+- **A fixed dollar target slowly turns the account into cash.** SOXL becomes a small part of a growing account. That is why its drawdown from 2010 looks small (-37%), and also why it earned about what SPY did (13.1% vs 13.5%). Sizing as a share of the account, with the trend gate, kept the exposure: 16.1% / -52% from 2002.
+- **Good ideas in it:** write down the add level, the trim level and the most cash committed before trading. Never borrow to buy a dip. Trim into strength. Decide after the close and act the next morning. Test the bad start dates, not only the good ones.
+- **Not modelled by the article:** taxes (14 to 24 trades a year, mostly short-term gains, and wash sales on buys within 30 days of loss trims) and interest on cash.
