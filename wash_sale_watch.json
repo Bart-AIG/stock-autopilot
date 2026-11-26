@@ -1,6 +1,6 @@
 {
   "_comment": "Wash-sale watch for the JOINT account (Ryan, live turn 2026-10-23: a Robinhood list the routine keeps current, plus a reminder). lockouts = joint names sold at a LOSS in the last 30 days; buying one before 'clear' (last loss sale + 31 days) defers that loss into the new shares, and a buy in an IRA loses it for good. Buys in ANY of Ryan's accounts count, including the Robinhood managed portfolios and the agentic sleeves. sell_traps = names held now that were bought in the last 30 days: a loss sale before the date is washed. Rebuilt every run of the Quality @ 200-day routine (step 4e, docs/quality-watch-prompt.md v6) from get_pnl_trade_history + get_equity_orders; mirrored to the Robinhood list 'Wash-Sale Lockout' (watchlists.json managed.wash_sale). Code: wash_sale.py. A reminder, not tax advice; stock trades only (options on a locked stock are not checked).",
-  "asof_utc": "2026-11-25T20:40Z",
+  "asof_utc": "2026-11-26T20:30Z",
   "seeded": "2026-10-23 live session, from get_pnl_trade_history (3month) and filled orders in all 7 accounts since 2026-04-23 (joint) / 2026-08-23 (others)",
   "accounts": {
     "116713985343": "joint_tenancy_with_ros",
@@ -791,19 +791,9 @@
     "SPCX": "2026-12-26"
   },
   "last_events": {
-    "locked": [
-      "APLD",
-      "IREN",
-      "RBRK"
-    ],
+    "locked": [],
     "cleared": [],
-    "extended": [
-      "MU",
-      "MUU",
-      "NBIS",
-      "NVDL",
-      "SOXL"
-    ]
+    "extended": []
   },
   "lots_cache": {
     "date": "2026-11-25",
@@ -930,5 +920,5 @@
       }
     }
   },
-  "_run_note_2026-11-25": "Incremental: joint trades/orders since 2026-11-24T20:30Z (only the joint account had fills across all 7 accounts) merged into the 11-24 state. New loss sales 11-25: RBRK, APLD, IREN (new locks), MU, MUU, NBIS, NVDL, SOXL (dates pushed out). Same-day rebuys after loss sales: RBRK 10 sh, APLD 100 sh (marked after_sale by hand; buys_in_window() compares dates only). Lots for names bought today have no cost basis yet (pending)."
+  "_run_note_2026-11-26": "Thanksgiving (market closed). Incremental: no filled equity orders in any of the 7 accounts since 2026-11-25T20:30Z, so no new loss sales or buys; lockouts, buys_in_window and sell_traps carried from the 11-25 state. No lockout clears today (CRCL clears 2026-11-27). lots_cache kept (11-25, last trading day)."
 }
