@@ -1,30 +1,29 @@
-Bottom watch: chance the low is in, QQQ 50%, SPY 77%
+Bottom watch: chance the low is in, QQQ 51%, SPY 80%
 
-**9:14 am CT Fri Nov 27, intraday (provisional: the after-close run confirms it).**
-What changed: SPY chance the low is in rose to 77% from 68%.
+**10:08 am CT Fri Nov 27, intraday (provisional: the after-close run confirms it).**
 
-QQQ $641.04: 50% chance the low is in (44% at the last push). More likely not in than in.
-  Rebounding: up 5.4% from the $608.45 low close of Nov 20 (4 sessions ago), best 7.0%. 15.6% under the Oct 6 high close of $759.66, session 37 of the selloff.
-SPY $722.40: 77% chance the low is in (68% at the last push). Low probably in.
-  Rebounding: up 4.7% from the $689.81 low close of Nov 20 (4 sessions ago), best 4.7%. 7.3% under the Oct 6 high close of $779.09, session 37 of the selloff.
-VIX 26.6, 26% under its peak close of 35.9 on Nov 20.
+QQQ $645.18: 51% chance the low is in (50% at the last push). Toss-up, leaning in.
+  Rebounding: up 6.0% from the $608.45 low close of Nov 20 (4 sessions ago), best 7.0%. 15.1% under the Oct 6 high close of $759.66, session 37 of the selloff.
+SPY $725.18: 80% chance the low is in (77% at the last push). Low probably in.
+  Rebounding: up 5.1% from the $689.81 low close of Nov 20 (4 sessions ago), best 5.1%. 6.9% under the Oct 6 high close of $779.09, session 37 of the selloff.
+VIX 25.4, 29% under its peak close of 35.9 on Nov 20.
 
 | | QQQ | SPY |
 |---|---|---|
-| Chance the low is in | **50%** | **77%** |
+| Chance the low is in | **51%** | **80%** |
 | Stage | Rebounding | Rebounding |
-| Price | $641.04 | $722.40 |
+| Price | $645.18 | $725.18 |
 | High close | $759.66 (Oct 6) | $779.09 (Oct 6) |
-| From the high | -15.6% | -7.3% |
+| From the high | -15.1% | -6.9% |
 | Lowest close | $608.45 (Nov 20) | $689.81 (Nov 20) |
-| Up from the low | 5.4% in 4 sessions | 4.7% in 4 sessions |
-| Best rebound, failed rebounds | 7.0%, 0 | 4.7%, 0 |
-| Close vs the 200-day | -6.2% ($683.64) | -1.5% ($733.31) |
-| Share of the drop retraced | 22% | 37% |
-| Close that would read 50% | $642.31 | $707.29 |
+| Up from the low | 6.0% in 4 sessions | 5.1% in 4 sessions |
+| Best rebound, failed rebounds | 7.0%, 0 | 5.1%, 0 |
+| Close vs the 200-day | -5.6% ($683.66) | -1.1% ($733.33) |
+| Share of the drop retraced | 24% | 40% |
+| Close that would read 50% | $642.32 | $707.29 |
 | Close that would read 70% | $657.80 | $717.33 |
-| RSI(14) | 41 | 43 |
-| VIX vs its peak close | -26% (26.6 vs 35.9) | -26% (26.6 vs 35.9) |
+| RSI(14) | 42 | 44 |
+| VIX vs its peak close | -29% (25.4 vs 35.9) | -29% (25.4 vs 35.9) |
 
 **Rebound checkpoints.** "Past odds" is how often the low was already in on days when the checkpoint was met.
 
@@ -32,22 +31,22 @@ VIX 26.6, 26% under its peak close of 35.9 on Nov 20.
 |---|---|---|---|
 | VIX 20% under its peak close | 72% | yes | yes |
 | VIX 40% under its peak close | 84% | no: VIX at or under 21.5 | no: VIX at or under 21.5 |
-| Close above the 20-day average | 82% | no: close above $663.02 | no: close above $737.98 |
-| Close above the 50-day average | 86% | no: close above $705.53 | no: close above $757.08 |
-| RSI(14) at 50 or more | 85% | no: RSI(14) at 50 or more (now 41) | no: RSI(14) at 50 or more (now 43) |
+| Close above the 20-day average | 82% | no: close above $663.22 | no: close above $738.12 |
+| Close above the 50-day average | 86% | no: close above $705.61 | no: close above $757.14 |
+| RSI(14) at 50 or more | 85% | no: RSI(14) at 50 or more (now 42) | no: RSI(14) at 50 or more (now 44) |
 | Half of the drop retraced | 96% | no: close at or above $684.06 | no: close at or above $734.45 |
-| Close above the 200-day average | 87% | no: close above $683.64 | no: close above $733.31 |
+| Close above the 200-day average | 87% | no: close above $683.66 | no: close above $733.33 |
 | 10 sessions without a new closing low | 74% | no: 10 sessions without a new closing low (now 4) | no: 10 sessions without a new closing low (now 4) |
 
 **Chance by day (closing readings, today's is live until the close):**
-- QQQ: Nov 17 40%, Nov 18 43%, Nov 19 27%, Nov 20 21%, Nov 23 57%, Nov 24 48%, Nov 25 44%, Nov 27 50%
-- SPY: Nov 19 31%, Nov 20 26%, Nov 23 77%, Nov 24 73%, Nov 25 68%, Nov 27 77%
+- QQQ: Nov 17 40%, Nov 18 43%, Nov 19 27%, Nov 20 21%, Nov 23 57%, Nov 24 48%, Nov 25 44%, Nov 27 51%
+- SPY: Nov 19 31%, Nov 20 26%, Nov 23 77%, Nov 24 73%, Nov 25 68%, Nov 27 80%
 
 **Your buy-back levels** (advisory; you place the orders):
-- Buy step 1 (QQQ $590 or SPY $675): not reached (QQQ is 8.7% above its level, SPY is 7.0% above its level).
-- Buy step 2 (QQQ $575 or SPY $665): not reached (QQQ is 11.5% above its level, SPY is 8.6% above its level).
-- Buy step 3 (QQQ $556 or SPY $630): not reached (QQQ is 15.3% above its level, SPY is 14.7% above its level).
-- Turn trigger (QQQ closes above $648 or SPY closes above $716, with VIX closing under 26): not reached (VIX 26.6).
-- Trend repaired (QQQ closes above its 200-day ($684) or SPY closes above its 200-day ($733), with VIX closing under 22): not reached (VIX 26.6).
+- Buy step 1 (QQQ $590 or SPY $675): not reached (QQQ is 9.4% above its level, SPY is 7.4% above its level).
+- Buy step 2 (QQQ $575 or SPY $665): not reached (QQQ is 12.2% above its level, SPY is 9.0% above its level).
+- Buy step 3 (QQQ $556 or SPY $630): not reached (QQQ is 16.0% above its level, SPY is 15.1% above its level).
+- Turn trigger (QQQ closes above $648 or SPY closes above $716, with VIX closing under 26): conditions met so far today (not final until the close).
+- Trend repaired (QQQ closes above its 200-day ($684) or SPY closes above its 200-day ($733), with VIX closing under 22): not reached (VIX 25.4).
 
 **How to read the chance.** On past selloffs the model had not seen, the low really was in: 20% of the time at a reading of 0% to 25%; 39% of the time at a reading of 25% to 50%; 55% of the time at a reading of 50% to 70%; 79% of the time at a reading of 70% to 85%; 92% of the time at a reading of 85% to 100%. Counting every day equally, which gives long bear markets more weight, those figures were 3 to 14 points lower: a bear-market rally looks like a final low early on. Evidence: bottom_results.md.
