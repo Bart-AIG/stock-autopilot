@@ -1,63 +1,46 @@
-# Daily report: trading day 2026-11-25 (Wednesday)
+# Daily report: trading day 2026-11-27 (Friday, half day, close 13:00 ET)
 
-*Written by the run that started at 20:16Z (15:16 ET, prompt v20), before the 15:20–15:52 ET decision window. The decision-window runs amend section 1. Figures are from the broker at 20:16Z unless marked.*
+*Written by the first post-close run (18:01Z, 13:01 ET, prompt v20). Figures are from the broker at about 18:03Z.*
 
-**Today in one line:** a weak open, a midday recovery, and a red close into the Thanksgiving break.
-- QQQ is **−0.88%** at 632.48 (prior close 638.10).
-- SOXX is **−1.41%** at 126.81 (prior close 128.62).
-- NVDL is **−9.47%** at 13.335 (prior close 14.73).
+**Today in one line:** a strong half-day rally after Thanksgiving, with a late push in the final minutes.
+- QQQ **+2.65%** at 650.76 (prior close 633.93). Still below its 200-day average (about 683).
+- SOXX **+4.73%** at 134.03. NVDL **+1.40%** at 13.76.
 
-**Agent orders today:** none so far.
+**Agent orders today:** none.
 
-**Your own trades today (agentic account):** you bought **1 NFLX 2027-06-17 60C** at 7.25 (filled 14:30Z) and **3 more SOXL 2026-11-27 32C** at 0.95 (filled 17:55Z). You now hold 5 of the SOXL calls ($863 basis). Both are recorded as yours. The agent never closes them.
+**Your own trades today (agentic account):** you sold your **5 SOXL 2026-11-27 32C** in-app (recorded by the 16:16Z run, about +$612 realized on an $863 basis). You still hold **1 NFLX 2027-06-17 60C** (mark about $868). The agent never closes your positions.
 
 ## 1. Sleeves (SWING_Q 40% / SWING_M 30%)
-**Decision window (runs started 20:31Z and 20:46Z, 15:31 and 15:46 ET): no orders. The 15:46 re-run on fresher prices gave the same targets. ILMN (IBS), VLO (RSI2) and MPC (RSI2, IBS) are held through the close at $32.42 each; QLD and the other seven picks are out. Drawdown -11.35% from the high-water mark: $111 more sleeve loss before the -20% notice, $175 before the -25% halt.**
-- ILMN: IBS leg still on (199.93, IBS 0.637). VLO: RSI2 leg on (RSI2 0.9, price 323.33 under its 5-day average 330.01); its IBS leg ended after 5 sessions. MPC: RSI2 and IBS legs on (RSI2 0.3, 346.21 under its 5-day 358.85).
-- QLD: QQQ 630.68 vs its 200-day 683.48, below, so flat. The other seven picks: no leg on (MRNA above its 200-day but RSI2 67.5 / IBS 0.63; the rest below their 200-day).
-- Sleeve money $1,137.15 (total $2,612.15 minus your options $1,475.00); base $1,080.29; deployable $859.73. Drawdown −11.37% from the high-water mark ($110.73 more sleeve loss to the −20% notice, $174.88 to the −25% halt).
+**No orders. A half day has no 15:20-15:52 ET decision window, so the rules placed nothing (CLAUDE.md, "Half-day closes").**
+- **What the rules would have done at today's close (shadow run at 12:21 ET, journaled, you were notified once):** the turn-of-month leg switches on at today's close, because Monday 11-30 is the month's last trading day. `sleeves.py decide` would BUY **QLD $994.84** and **MRNA / LITE / MU / DELL / WDC / MRVL / VIAV at $74.61 each**, about $1,517 in all, and KEEP ILMN / VLO / MPC.
+- **Monday's 15:20-15:52 ET window buys them**, since the turn-of-month leg is still on that day. The cost is one session of turn-of-month exposure, which today was a +2.65% QQQ day.
+- SWING_M holds:
 
-*Snapshot below is from the 15:16 ET run.*
-- **SWING_M holds** the three names bought Monday:
-
-  | Name | Shares | Avg cost | Price 20:16Z | Value | P/L |
+  | Name | Shares | Avg cost | Price | Value | P/L |
   |---|---|---|---|---|---|
-  | ILMN | 0.368508 | 205.07 | 201.505 | $74.26 | −$1.31 |
-  | VLO | 0.228449 | 330.80 | 324.205 | $74.06 | −$1.51 |
-  | MPC | 0.210889 | 358.34 | 347.835 | $73.35 | −$2.22 |
-
-- Legs going into today (from yesterday's close): ILMN IBS (day 4 of 5), VLO RSI2 + IBS (IBS day 5 of 5), MPC RSI2 + IBS (IBS day 4 of 5). The window decides on today's prices.
-- **QLD:** QQQ (632.48) is below its 200-day average (about 683.5), so SWING_Q stays flat.
-- The other seven picks had no leg on at yesterday's close.
-- Today's state (`sleeves_state.json`) is built for 2026-11-25, so the window can trade.
+  | ILMN | 0.368508 | 205.07 | 205.98 | $75.91 | +$0.34 |
+  | VLO | 0.228449 | 330.80 | 329.55 | $75.29 | −$0.29 |
+  | MPC | 0.210889 | 358.34 | 360.28 | $75.98 | +$0.41 |
 
 ## 2. BBW (NVDL, 20%)
-- Flat all day. Every 15-minute candle through 20:00Z showed no entry signal. No trades and no late exits.
+- No position. The day's last candle (12:45-13:00 ET) closed 13.76: **no signal**. No candle gave a signal today.
 
 ## 3. LEVX (10%, live)
-- **Last night:** no position (QQQ and SOXX both below their 200-day averages).
-- **DAY leg today:** TQQQ never closed above its trigger at a check (the 15:00 check closed at 44.795 against a reference of 46.19, yesterday's close). No trades.
-- **Tonight's NIGHT decision (made by the run that started at 20:46Z / 15:46 ET):** QQQ 631.72 against its 200-day 683.49, SOXX 126.245 against its 200-day 161.19. Both are below, so the target is $0 for TQQQ and for SOXL. No night position and no order.
+- Half day: morning exit only (`levx.EARLY_CLOSE`), and nothing was held from Wednesday night. **No DAY leg and no NIGHT position today**, so nothing is carried over the weekend. Next NIGHT decision: Monday 15:46 ET.
 
-## 4. Legacy run-off and options
-- Legacy book: closed. No agentic options open.
-- Your options, marked by the broker at 20:16Z: **$1,640 in total** (NFLX 60C x1, cost $725; SOXL 32C x5, cost $863). **The SOXL calls expire Friday 11-27. Friday is an early close (1:00 PM ET), and Robinhood's sell-out time for that contract is 17:45Z (12:45 PM ET).**
+## 4. Legacy book and options
+- Legacy run-off: closed (since 2026-10-14). No agentic options are open.
 
 ## 5. Growth paper book
-- Marked at the 15:01 ET run: $134.68 against $164.01 cost, **−17.9%**. NET −21.7%, CRWD −23.5% (the −25% exit line is 204.34; it is checked Mondays, next 11-30), LLY +1.4%. Two slots are empty.
+- No daily mark today: the mark runs on the first run after 15:00 ET and a half day has none. Monday's run marks it.
 
 ## 6. Money and drawdown
-- Total $2,778.24 = your options $1,640.00 + **sleeve money $1,138.24**. Base $1,081.33, reserve $56.91, cash $916.59, deployable $859.68.
-- Sleeves vs QQQ: today +0.01% (QQQ −0.88%); month to date −0.81%; since 2026-09-30 **−9.33%** (QQQ −14.5% from 739.71).
-- Drawdown from the 2026-10-09 high-water mark: **−11.28%**. A further $111.84 of sleeve loss reaches the −20% notice; $175.99 reaches the −25% halt.
+- Total $3,486.29. Your positions (NFLX call) $868.00. **Sleeve money $2,618.29**; base $2,487.38; reserve $130.91; deployable $2,260.44.
+- Sleeves: **+0.50% today**, −0.40% month to date, **−8.95% since 2026-09-30** (QQQ −12.02% since its 739.71 close that day).
+- Drawdown **−10.92%** from the high-water mark (2026-10-09). **$267.00** more sleeve loss to the −20% notice, **$413.95** to the −25% halt.
 
-## 7. Tomorrow and what's due
-- **Thursday 11-26: market closed (Thanksgiving).**
-- **Friday 11-27 closes at 1:00 PM ET, and the swing sleeves have no decision run that day. This needs your decision before Friday.**
-  - `sleeves.py` treats an early close as an ordinary session, so the backtest's fill is Friday's 1:00 PM close.
-  - The routine only places swing orders in the 15:20–15:52 ET window, which on Friday comes after the bell. So nothing gets decided at Friday's close.
-  - It matters this Friday in particular. Monday 11-30 is November's last trading day, so the turn-of-month leg comes on at Friday's close. That means QLD (about $430) and every pick (about $32 each), roughly $750 in all.
-  - With no run, those buys slip to Monday's window, and the sleeves miss Monday's session. Held names (ILMN, VLO, MPC) carry over the weekend whatever their legs say.
-  - LEVX already handles early closes: Friday is a morning sell only, with no night entry.
-  - **The fix to approve, if you want it:** on early-close days (11-27, 12-24), a decision window of 12:20–12:52 ET. The cron already fires at 11:16, 11:31 and 11:46 CT, so only the prompt and `CLAUDE.md` change, not cron-job.org.
-- Turn of the month: TOM is on for Monday 11-30 and the first three December sessions (held through Thursday 12-03's close). December's picks are fixed on Tuesday 12-01.
+## 7. Next session (Monday 2026-11-30)
+- **Last trading day of November: turn-of-month leg ON.** The 15:20-15:52 ET window is expected to buy QLD and the seven SWING_M picks (about $1,500), on Monday's prices.
+- **Tuesday 12-01 is the first session of December:** new SWING_M picks from the November closes, the first-session resize check, the BBW monthly review and the growth scorecard.
+- Monday's first run after 10:30 ET: BBW weekly search and growth paper weekly research.
+- Next half day: 2026-12-24.
