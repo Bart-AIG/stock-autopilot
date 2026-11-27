@@ -56,53 +56,6 @@
       "cost_usd": 75.57
     },
     {
-      "symbol": "SOXL",
-      "sleeve": "options",
-      "asset": "option",
-      "placed_agent": "user",
-      "option_id": "22bee30a-72e6-4c91-92b7-0b2a91434f51",
-      "option_type": "call",
-      "strike": 32.0,
-      "expiration_date": "2026-11-27",
-      "contracts": 5,
-      "entry_date": "2026-11-24",
-      "entry_premium_blended": 1.726,
-      "total_cost_basis_usd": 863.0,
-      "max_loss": 863.0,
-      "lots": [
-        {
-          "qty": 2,
-          "price": 2.89,
-          "cost_usd": 578.0,
-          "filled_utc": "2026-11-24T20:55:08Z",
-          "order_id": "6b05f9ab-1dd0-4077-a8e9-a770b2163b5a"
-        },
-        {
-          "qty": 3,
-          "price": 0.95,
-          "cost_usd": 285.0,
-          "filled_utc": "2026-11-25T17:55:49.066Z",
-          "order_id": "6b072124-ea37-4ec8-aee2-ccac5ec6fec2"
-        }
-      ],
-      "stop": null,
-      "target": null,
-      "_note": "Ryan's own in-app buy (placed_agent user, agent_initiated false), long call. Per v16/v20: detect, record, notify once, NEVER close. Counts as user value in capital.py (sleeve money = total - its mark). sellout_datetime 2026-11-27T17:45Z (Fri half day after Thanksgiving; market shut Thu 11-26).",
-      "_current_state": {
-        "asof_utc": "2026-11-25T14:31:58Z",
-        "mark": 0.455,
-        "bid": 0.43,
-        "ask": 0.48,
-        "value_usd": 91.0,
-        "pnl_usd": -487.0,
-        "delta": 0.1733,
-        "theta": -0.3231,
-        "iv": 2.7562,
-        "dte": 2,
-        "notified": "2026-11-24T21:0xZ at entry; 2026-11-25T14:3xZ once more on the -84% move (SOXL underlying 25.59, -21.5% on the day, strike 32); 2026-11-25T17:55Z add of 3 @ 0.95 (his own, limit 1.00) recorded 18:03Z, not re-notified (his own trade)"
-      }
-    },
-    {
       "symbol": "NFLX",
       "sleeve": "options",
       "asset": "option",
@@ -2484,6 +2437,48 @@
       "exit_filled_utc": "2026-11-23T20:58:33Z",
       "closed_by": "user",
       "_close_note": "Ryan sold it himself in-app at 5.84 (limit), 23 min after buying at 5.04: +$80.00 / +15.9%. Detected by the 21:01Z post-bell run."
+    },
+    {
+      "symbol": "SOXL",
+      "sleeve": "options",
+      "asset": "option",
+      "placed_agent": "user",
+      "option_id": "22bee30a-72e6-4c91-92b7-0b2a91434f51",
+      "option_type": "call",
+      "strike": 32.0,
+      "expiration_date": "2026-11-27",
+      "contracts": 5,
+      "entry_date": "2026-11-24",
+      "entry_premium_blended": 1.726,
+      "total_cost_basis_usd": 863.0,
+      "max_loss": 863.0,
+      "lots": [
+        {
+          "qty": 2,
+          "price": 2.89,
+          "cost_usd": 578.0,
+          "filled_utc": "2026-11-24T20:55:08Z",
+          "order_id": "6b05f9ab-1dd0-4077-a8e9-a770b2163b5a"
+        },
+        {
+          "qty": 3,
+          "price": 0.95,
+          "cost_usd": 285.0,
+          "filled_utc": "2026-11-25T17:55:49.066Z",
+          "order_id": "6b072124-ea37-4ec8-aee2-ccac5ec6fec2"
+        }
+      ],
+      "stop": null,
+      "target": null,
+      "_note": "Ryan's own in-app buy (placed_agent user, agent_initiated false), long call. Per v16/v20: detect, record, notify once, NEVER close. Counts as user value in capital.py (sleeve money = total - its mark). sellout_datetime 2026-11-27T17:45Z (Fri half day after Thanksgiving; market shut Thu 11-26).",
+      "exit_date": "2026-11-27",
+      "exit_premium": 2.95,
+      "proceeds_usd": 1475.0,
+      "realized_pnl_usd": 612.0,
+      "exit_order_id": "6b09aaf8-d200-4887-a91b-ce1c1c596d02",
+      "exit_filled_utc": "2026-11-27T16:09:03Z",
+      "closed_by": "user",
+      "_close_note": "Ryan sold all 5 himself in-app (limit 2.95 gfd, placed_agent user, agent_initiated false) on expiry day: $1,475 proceeds vs $863 basis = +$612.00 / +70.9%. Detected by the 16:16Z run. Proceeds settle 2026-11-30 and join sleeve money (cash) under capital.py."
     }
   ],
   "_findings_archive_pointer": "Notes and findings from the August and September 2026 processes live in ledger_findings_archive.json under their original key names (first move 2026-08-28; the rest moved 2026-11-13; nothing deleted). A holdings.json._KEY named in CLAUDE.md that is not in this file is there. Journal entries older than 30 days are in trade_journal_archive_YYYY-MM.json. Keep THIS file to the book plus live state.",
@@ -2569,26 +2564,26 @@
       "rule": "Since 2026-11-13 (Ryan, REAL live turn, audit finding 4: 'lets fix finding 4. 5.'). The sleeves' return on SLEEVE MONEY (total_value minus Ryan's own positions), written only by capital.py: index *= 1 + (change in sleeve P/L) / (sleeve money at the last reading). -20% from the high-water mark: notify Ryan once. -25%: notify him, no new sleeve buys until a live Ryan turn runs capital.py lift. His own trades and deposits never move it. Spec: docs/sleeve-money.md.",
       "start": "2026-09-30 close = 1.0",
       "seeded": "Index and high-water mark seeded 2026-11-13 from capital_backfill.py (daily closes 2026-09-30 to 11-12: high 1.022029 at the 2026-10-09 close, 0.909264 at the 2026-11-12 close), then stepped to the 2026-11-13 close on ILMN's move.",
-      "index": 0.9059170374710147,
+      "index": 0.9104389808241004,
       "hwm_index": 1.022029,
       "hwm_utc": "2026-10-09T20:00Z",
-      "drawdown_pct": -11.36,
+      "drawdown_pct": -10.92,
       "status": "ok",
       "notice_utc": null,
       "halt": null,
       "suspect": null,
       "last": {
-        "utc": "2026-11-25T21:02:00Z",
-        "sleeve_pnl": 20.31,
+        "utc": "2026-11-27T17:02:00Z",
+        "sleeve_pnl": 26.52,
         "realized": 26.36,
-        "unrealized": -6.05,
-        "sleeve_money": 1137.25,
-        "total_value": 2905.25,
-        "user_value": 1768.0
+        "unrealized": 0.16,
+        "sleeve_money": 2618.2,
+        "total_value": 3481.2,
+        "user_value": 863.0
       },
       "marks": {
-        "day": "2026-11-25",
-        "day_start_index": 0.9066088157615145,
+        "day": "2026-11-27",
+        "day_start_index": 0.9059170374710147,
         "month": "2026-11",
         "month_start_index": 0.914139
       },
