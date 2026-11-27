@@ -1,6 +1,6 @@
-# QUALITY @ 200-DAY: 12 name(s) (1 new)
+# QUALITY @ 200-DAY: 16 name(s) (7 new)
 
-As of 2026-11-25T20:45Z. Joint account, advisory only. Quality = business score >= 7/8 (growth, margins, ROE, free cash flow); band = -8% to +5% vs the 200-day SMA. Rank = grade, then Comp (0-100 blend of growth, margins and ROE, capped so one outlier can't dominate), then distance to the line. Value = valuation grade vs the stock's own 10-year multiples (positive = undervalued by that much). Disruption = is the business being disrupted or doing the disrupting. Within a grade, names not under threat rank first, then cheaper names. The first table re-ranks the same names by pre-breakout chart setup (Q # = their business-quality rank).
+As of 2026-11-27T20:45Z. Joint account, advisory only. Quality = business score >= 7/8 (growth, margins, ROE, free cash flow); band = -8% to +5% vs the 200-day SMA. Rank = grade, then Comp (0-100 blend of growth, margins and ROE, capped so one outlier can't dominate), then distance to the line. Value = valuation grade vs the stock's own 10-year multiples (positive = undervalued by that much). Disruption = is the business being disrupted or doing the disrupting. Within a grade, names not under threat rank first, then cheaper names. The first table re-ranks the same names by pre-breakout chart setup (Q # = their business-quality rank).
 
 ## Ranked by pre-breakout setup (most coiled first)
 
@@ -8,37 +8,45 @@ Names that passed the business grade, re-ranked by how pulled back their chart i
 
 | # | Ticker | Pre-breakout | Traits | Pattern | Grade | Value | Zone | Q # |
 |---|---|---|---|---|---|---|---|---|
-| 1 | META | 71 COILED | pattern forming, RSI(14) < 40, below 20-day, >= 8% off 60-day high, volume drying up | double bottom, forming (+1.3% to 612.43) | A+ | FAIR -8% (MED) | below | 2 |
-| 2 | ANET | 71 COILED | RSI divergence, fresh 60-day low, RSI(14) < 40, below 20-day, >= 8% off 60-day high | no pattern | A+ | RICH -21% (LOW) | at the line | 3 |
-| 3 | UI | 57 PULLING BACK | pattern forming, below 20-day, >= 8% off 60-day high, volume drying up | double bottom, near trigger (-1.1% to 627.3) **BREAKING OUT NOW** | A+ | FAIR -9% (HIGH) | below | 1 |
-| 4 | TXN | 57 PULLING BACK | fresh 60-day low, RSI(14) < 40, below 20-day, >= 8% off 60-day high | no pattern | A+ | RICH -21% (MED) | at the line | 5 |
-| 5 | RGLD | 57 PULLING BACK | pattern forming, below 20-day, >= 8% off 60-day high, volume drying up | double bottom, forming (+17.5% to 283.99) | A | UNDERVALUED +19% (HIGH) | approaching | 7 |
-| 6 | FNV | 43 PULLING BACK | pattern forming, below 20-day, >= 8% off 60-day high | double bottom, forming (+8.5% to 265.85) | A | FAIR +1% (MED) | approaching | 9 |
-| 7 | APP | 43 PULLING BACK | pattern forming, >= 8% off 60-day high, volume drying up | bull flag, forming (+10.3% to 418.77) | A | DEEP VALUE +53% (LOW) | below | 10 |
-| 8 | ISRG | 43 PULLING BACK | below 20-day, >= 8% off 60-day high, volume drying up | no pattern | A | DEEP VALUE +51% (MED) | at the line | 11 |
-| 9 | ADBE | 43 PULLING BACK | below 20-day, >= 8% off 60-day high, volume drying up | no pattern | A | DEEP VALUE +100% (LOW) | below | 12 |
-| 10 | FTNT | 29 MIXED | below 20-day, >= 8% off 60-day high | no pattern | A+ | FAIR -7% (LOW) | approaching | 4 |
-| 11 | PAC | 29 MIXED | below 20-day, >= 8% off 60-day high, volume drying up, already broke out (-1) | double bottom, broke out (older) | A | DEEP VALUE +50% (MED) | at the line | 6 |
-| 12 | WPM | — | — | — | A | FAIR -8% (MED) | below | 8 |
+| 1 | ANET | 43 PULLING BACK | RSI divergence, below 20-day, >= 8% off 60-day high | no pattern | A+ | EXPENSIVE -25% (LOW) | approaching | 2 |
+| 2 | CDNS | 43 PULLING BACK | below 20-day, >= 8% off 60-day high, volume drying up | no pattern | A | FAIR +1% (HIGH) | below | 8 |
+| 3 | ADBE | 43 PULLING BACK | below 20-day, >= 8% off 60-day high, volume drying up | no pattern | A | DEEP VALUE +100% (LOW) | below | 16 |
+| 4 | AFRM | 29 MIXED | below 20-day, >= 8% off 60-day high | no pattern | A+ | N/A | below | 3 |
+| 5 | TXN | 29 MIXED | below 20-day, >= 8% off 60-day high | no pattern | A+ | EXPENSIVE -26% (MED) | approaching | 6 |
+| 6 | APP | 29 MIXED | pattern forming, volume drying up | bull flag, forming (+4.9% to 418.77) | A | DEEP VALUE +50% (LOW) | at the line | 9 |
+| 7 | MPWR | 29 MIXED | below 20-day, >= 8% off 60-day high | no pattern | A | RICH -20% (LOW) | below | 13 |
+| 8 | ISRG | 29 MIXED | below 20-day, >= 8% off 60-day high | no pattern | A | DEEP VALUE +51% (MED) | at the line | 15 |
+| 9 | META | 14 EXTENDED | >= 8% off 60-day high, volume drying up, already broke out (-1) | double bottom, broke out | A+ | RICH -14% (LOW) | at the line | 4 |
+| 10 | WPM | 14 EXTENDED | >= 8% off 60-day high | no pattern | A | RICH -14% (LOW) | at the line | 10 |
+| 11 | UI | 0 EXTENDED | volume drying up, already broke out (-1) | double bottom, broke out | A+ | RICH -14% (HIGH) | at the line | 5 |
+| 12 | PAC | 0 EXTENDED | volume drying up, already broke out (-1) | double bottom, broke out (older) | A | DEEP VALUE +46% (HIGH) | at the line | 7 |
+| 13 | WES | — | — | — | A+ | FAIR -6% (HIGH) | below | 1 |
+| 14 | AEM | — | — | — | A | RICH -12% (LOW) | below | 11 |
+| 15 | NEM | — | — | — | A | RICH -23% (LOW) | below | 12 |
+| 16 | CSCO | — | — | — | A | EXPENSIVE -32% (MED) | below | 14 |
 
 ## Ranked by business quality (decides the alert slots)
 
 | # | Ticker | Grade | Q | Value | Fair | Analysts | Fwd P/E | Earnings | Disruption | Comp | Sector | Zone | Price | 200-day | Dist | 200d slope | Alert | Why |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | UI | A+ | 8/8 | FAIR -9% (HIGH) | 557.52 | -20% | 31.4 | Feb 5? (72d) | DISRUPTOR (quant INNOVATING) [research: innovating] | 81 | Technology | below | 634.5 | 667.08 | -4.9% | rising | reclaim | rev growth 40%, net margin 29%, op margin 36%, gross margin 46%, ROE 91%, FCF positive, disruption: revenue +19%/yr over 3 yrs; analysts see revenue +27% next year; research 2026-10-06: Enterprise Technology grew ~32% in FY26 to ~$2.97B by selling a unified stack (Protect cameras, Access door readers, Talk phones, cloud gateways) to SMB/prosumer IT at prices below Cisco/HPE; component cost inflation is the near-term margin risk. |
-| 2 | META | A+ | 8/8 | FAIR -8% (MED) | 535.42 | +46% | 17.1 | Jan 28? (64d) | DISRUPTOR (quant INNOVATING) [research: disruptor] | 75 | Communication Services | below | 604.4966 | 627.84 | -3.7% | FALLING | reclaim | rev growth 26%, net margin 32%, op margin 33%, gross margin 81%, ROE 32%, FCF positive, value: its multiples disagree with each other, disruption: revenue +20%/yr over 3 yrs; analysts see revenue +28% next year; research 2026-10-22: AI glasses are a new device category Meta dominates (~76% of 2025 smart-glasses shipments per IDC); the core ad business is growing (+26%), and the open question is the return on its capex. |
-| 3 | ANET | A+ | 8/8 | RICH -21% (LOW) | 125.06 | +58% | 28.7 | Feb 12? (79d) | STABLE (quant INNOVATING) [research: threatened] | 87 | Technology | at the line | 163.95 | 168.92 | -2.9% | rising | reclaim | rev growth 58%, net margin 40%, op margin 44%, gross margin 63%, ROE 34%, FCF positive, value: business changed (margin 50% vs 34% 10-yr median): its own history is a weak yardstick, value: its multiples disagree with each other, value: analysts disagree, disruption: revenue +27%/yr over 3 yrs; analysts see revenue +49% next year; research 2026-10-22: Nvidia's Spectrum-X Ethernet switches, bundled with its GPUs and already used by Meta and Oracle, threaten Arista's pricing power; Arista still leads data-center switching and the threat is not yet in its results. |
-| 4 | FTNT | A+ | 8/8 | FAIR -7% (LOW) | 122.0 | +11% | 33.1 | Feb 5? (72d) | DISRUPTOR (quant INNOVATING) [research: innovating] | 78 | Technology | approaching | 134.795 | 132.35 | +1.8% | rising | touch | rev growth 20%, net margin 29%, op margin 33%, gross margin 80%, ROE 153%, FCF positive, value: business changed (margin 38% vs 23% 10-yr median): its own history is a weak yardstick, value: its multiples disagree with each other, disruption: revenue +15%/yr over 3 yrs; analysts see revenue +20% next year; research 2026-11-02: Firewall/SD-WAN leader extending into unified SASE (on-prem, hybrid and sovereign deployments); SASE ARR grows slower (~12%) than Palo Alto Prisma (~40%) and Zscaler (~25%), so it rides the cloud-security shift rather than leading it; no evidence of lost share yet. |
-| 5 | TXN | A+ | 8/8 | RICH -21% (MED) | 200.73 | +31% | 22.7 | Jan 27? (63d) | STABLE [research: neutral] | 78 | Technology | at the line | 266.92 | 266.92 | -0.0% | rising | reclaim | rev growth 28%, net margin 35%, op margin 41%, gross margin 60%, ROE 39%, FCF positive, value: analysts disagree, disruption: analysts see revenue +27% next year; cyclical: judged on 5-yr trends; research 2026-11-06: Analog leader with a 300mm-fab cost edge; main risk is subsidized Chinese mature-node analog makers (e.g. Will Semi, 3Peak) pressuring price in cost-sensitive segments, plus fab under-utilization. Share loss not clearly visible yet; sources disagree on China exposure. |
-| 6 | PAC | A | 7/8 | DEEP VALUE +50% (MED) | 338.29 | +22% | — | Feb 23? (90d) | DISRUPTOR [research: neutral] | 65 | Industrials | at the line | 230.84 | 232.96 | -0.9% | FALLING | reclaim | rev growth 22%, net margin 24%, op margin 43%, gross margin 55%, ROE 27%, FCF positive, consistency unverified, value: far from its own history: the market has re-rated it, find out why, value: analysts agree, disruption: revenue +22%/yr over 5 yrs; analysts see revenue +30% next year; research 2026-10-21: Mexican airport operator (12 airports + Jamaica); September traffic -6.7% YoY on airline seat cuts and Hurricane Polo, Q2 network traffic -5.6%. A cyclical/demand dip, not a technology threat; terminal expansion and tariff increases planned. |
-| 7 | RGLD | A | 7/8 | UNDERVALUED +19% (HIGH) | 272.85 | +33% | 21.1 | Feb 18? (85d) | STABLE [research: neutral] | 83 | Basic Materials | approaching | 241.76 | 239.02 | +1.1% | FALLING | touch | rev growth 84%, net margin 49%, op margin 63%, gross margin 66%, ROE 15%, FCF positive, value: analysts agree, disruption: commodity producer: revenue and margins follow the commodity price, not competitors; research 2026-10-20: Gold royalty/streaming company; revenue roughly doubled YoY with gold prices (company financials). Business model faces no technology disruption; results follow the metal price. |
-| 8 | WPM (new) | A | 7/8 | FAIR -8% (MED) | 110.13 | +33% | 26.0 | Mar 12? (107d) | STABLE [research: neutral] | 78 | Basic Materials | below | 122.505 | 132.62 | -7.6% | FALLING | reclaim | rev growth 62%, net margin 60%, op margin 72%, gross margin 75%, ROE 23%, consistency unverified, value: its multiples disagree with each other, disruption: commodity producer: revenue and margins follow the commodity price, not competitors; research 2026-10-20: Precious-metals streamer; record Q2 2026 revenue $929M on higher prices and the Antamina silver stream. Revenue follows gold/silver, no obsolescence threat. |
-| 9 | FNV | A | 7/8 | FAIR +1% (MED) | 236.76 | +18% | 30.9 | Mar 10? (105d) | STABLE [research: neutral] | 74 | Basic Materials | approaching | 244.97 | 239.53 | +2.3% | FALLING | touch | rev growth 13%, net margin 65%, op margin 80%, gross margin 78%, ROE 20%, FCF positive, consistency unverified, value: its multiples disagree with each other, disruption: commodity producer: revenue and margins follow the commodity price, not competitors; research 2026-10-20: Gold/oil royalty and streaming company; revenue follows commodity prices (Q2 2026 revenue +57% YoY on higher gold). No technology making the royalty model obsolete. |
-| 10 | APP | A | 7/8 | DEEP VALUE +53% (LOW) | 563.29 | +29% | 18.1 | Feb 11? (78d) | DISRUPTOR [research: innovating] | 100 | Communication Services | below | 379.7122 | 404.0 | -6.0% | FALLING | reclaim | rev growth 55%, net margin 66%, op margin 78%, gross margin 89%, ROE 210%, FCF positive, revenue fell YoY in a recent quarter, value: business changed (margin 82% vs 40% 10-yr median): its own history is a weak yardstick, value: its multiples disagree with each other, value: far from its own history: the market has re-rated it, find out why, value: analysts agree, disruption: revenue +25%/yr over 3 yrs; analysts see revenue +52% next year; research 2026-11-06: Axon AI ad engine gains share in mobile game ads and is expanding into e-commerce advertisers (self-serve, Shopify integration; e-commerce est. ~38% of spend in Q3); Q3 2026 revenue +55%. Competes with Meta, Google, Unity Vector; no sign of losing share. |
-| 11 | ISRG | A | 7/8 | DEEP VALUE +51% (MED) | 644.18 | +17% | 34.8 | Jan 22? (58d) | AT RISK [research: innovating] | 62 | Healthcare | at the line | 426.695 | 427.03 | -0.1% | FALLING | reclaim | **VALUE TRAP?**, rev growth 22%, net margin 29%, op margin 32%, gross margin 67%, ROE 18%, FCF positive, value: far from its own history: the market has re-rated it, find out why, value: analysts agree, disruption: revenue +17%/yr over 3 yrs; market fear: price 34% below what its own 10-yr multiples imply, with normal margins; research 2026-10-23: da Vinci 5 (force feedback, efficiency) drives a replacement cycle; 2026 procedure growth guided 13.5-15.5%; no technology making robotic surgery obsolete, rivals (Medtronic Hugo, J&J Ottava) still small. |
-| 12 | ADBE | A | 7/8 | DEEP VALUE +100% (LOW) | 466.68 | +8% | 8.4 | **Dec 9 pm (14d)** | AT RISK [research: threatened] | 75 | Technology | below | 233.52 | 245.96 | -5.1% | FALLING | reclaim | **VALUE TRAP?**, rev growth 13%, net margin 28%, op margin 36%, gross margin 89%, ROE 62%, FCF positive, value: far from its own history: the market has re-rated it, find out why, value: analysts disagree, disruption: revenue +11%/yr over 3 yrs; R&D 18% of revenue; research 2026-10-08: AI-native image/video generators and design tools (Figma, Canva, Midjourney, Google/OpenAI models) lower the value of pro creative software; Adobe answers with Firefly and partner models, growth slowed to ~13%. Pressure is real but revenue still rising. |
+| 1 | WES (new) | A+ | 8/8 | FAIR -6% (HIGH) | 38.27 | +23% | 10.2 | Feb 17 pm? (82d) | STABLE [research: neutral] | 74 | Energy | below | 41.2709 | 44.17 | -6.6% | rising | reclaim | rev growth 25%, net margin 28%, op margin 37%, gross margin 73%, ROE 34%, FCF positive, consistency unverified, disruption: commodity producer: revenue and margins follow the commodity price, not competitors; research 2026-10-05: Permian midstream, 2026 EBITDA guide raised to $2.75-2.95B (Brazos Delaware deal, produced-water growth). Volume follows oil and gas activity; no disruption visible. |
+| 2 | ANET | A+ | 8/8 | EXPENSIVE -25% (LOW) | 125.16 | +49% | 27.9 | Feb 12? (77d) | STABLE (quant INNOVATING) [research: threatened] | 87 | Technology | approaching | 174.25 | 169.02 | +3.1% | rising | touch | rev growth 58%, net margin 40%, op margin 44%, gross margin 63%, ROE 34%, FCF positive, value: business changed (margin 50% vs 34% 10-yr median): its own history is a weak yardstick, value: its multiples disagree with each other, value: analysts disagree, disruption: revenue +27%/yr over 3 yrs; analysts see revenue +49% next year; research 2026-10-22: Nvidia's Spectrum-X Ethernet switches, bundled with its GPUs and already used by Meta and Oracle, threaten Arista's pricing power; Arista still leads data-center switching and the threat is not yet in its results. |
+| 3 | AFRM (new) | A+ | 8/8 | N/A | — | — | 27.8 | Feb 4 pm? (69d) | DISRUPTOR [research: innovating] | 81 | Financial Services | below | 61.3 | 66.43 | -7.7% | FALLING | reclaim | rev growth 35%, net margin 45%, op margin 20%, gross margin 68%, ROE 45%, FCF positive, value: not enough history for this industry's multiples, disruption: revenue +35%/yr over 3 yrs; analysts see revenue +41% next year; research 2026-10-14: BNPL keeps taking share of card spend (Amazon renewal, JPMorgan merchant tie-up); not obsolescence, but Klarna competition is real (Walmart switched to Klarna) and funding debt is rising. |
+| 4 | META | A+ | 8/8 | RICH -14% (LOW) | 538.16 | +36% | 17.7 | Jan 28? (62d) | DISRUPTOR (quant INNOVATING) [research: disruptor] | 75 | Communication Services | at the line | 629.0 | 627.54 | +0.2% | FALLING | touch | rev growth 26%, net margin 32%, op margin 33%, gross margin 81%, ROE 32%, FCF positive, value: its multiples disagree with each other, value: analysts disagree, disruption: revenue +20%/yr over 3 yrs; analysts see revenue +28% next year; research 2026-10-22: AI glasses are a new device category Meta dominates (~76% of 2025 smart-glasses shipments per IDC); the core ad business is growing (+26%), and the open question is the return on its capex. |
+| 5 | UI | A+ | 8/8 | RICH -14% (HIGH) | 557.52 | -25% | 31.7 | Feb 5? (70d) | DISRUPTOR (quant INNOVATING) [research: innovating] | 81 | Technology | at the line | 652.25 | 666.68 | -2.2% | rising | reclaim | rev growth 40%, net margin 29%, op margin 36%, gross margin 46%, ROE 91%, FCF positive, value: analysts agree, disruption: revenue +19%/yr over 3 yrs; analysts see revenue +27% next year; research 2026-10-06: Enterprise Technology grew ~32% in FY26 to ~$2.97B by selling a unified stack (Protect cameras, Access door readers, Talk phones, cloud gateways) to SMB/prosumer IT at prices below Cisco/HPE; component cost inflation is the near-term margin risk. |
+| 6 | TXN | A+ | 8/8 | EXPENSIVE -26% (MED) | 200.6 | +21% | 23.8 | Jan 27? (61d) | STABLE [research: neutral] | 78 | Technology | approaching | 279.51 | 267.17 | +4.6% | rising | touch | rev growth 28%, net margin 35%, op margin 41%, gross margin 60%, ROE 39%, FCF positive, value: analysts disagree, disruption: analysts see revenue +27% next year; cyclical: judged on 5-yr trends; research 2026-11-06: Analog leader with a 300mm-fab cost edge; main risk is subsidized Chinese mature-node analog makers (e.g. Will Semi, 3Peak) pressuring price in cost-sensitive segments, plus fab under-utilization. Share loss not clearly visible yet; sources disagree on China exposure. |
+| 7 | PAC | A | 7/8 | DEEP VALUE +46% (HIGH) | 340.48 | +18% | — | Feb 23? (88d) | DISRUPTOR [research: neutral] | 65 | Industrials | at the line | 232.16 | 232.67 | -0.2% | FALLING | reclaim | rev growth 22%, net margin 24%, op margin 43%, gross margin 55%, ROE 27%, FCF positive, consistency unverified, value: analysts agree, disruption: revenue +22%/yr over 5 yrs; analysts see revenue +30% next year; research 2026-10-21: Mexican airport operator (12 airports + Jamaica); September traffic -6.7% YoY on airline seat cuts and Hurricane Polo, Q2 network traffic -5.6%. A cyclical/demand dip, not a technology threat; terminal expansion and tariff increases planned. |
+| 8 | CDNS (new) | A | 7/8 | FAIR +1% (HIGH) | 299.79 | +42% | 30.0 | Feb 16 pm? (81d) | DISRUPTOR (quant INNOVATING) [research: innovating] | 63 | Technology | below | 302.99 | 328.77 | -7.8% | rising | reclaim | rev growth 22%, net margin 21%, op margin 30%, gross margin 86%, ROE 23%, FCF positive, consistency unverified, disruption: revenue +14%/yr over 3 yrs; analysts see revenue +21% next year; research 2026-10-13: EDA leader gaining from AI chip design demand (Q2 revenue +24% to $1.58B, FY26 growth guide raised to 19%); AI-driven design tools extend the moat rather than replace it. No sign AI startups or in-house tools are taking share. |
+| 9 | APP | A | 7/8 | DEEP VALUE +50% (LOW) | 588.95 | +21% | 18.1 | Feb 11? (76d) | DISRUPTOR [research: innovating] | 100 | Communication Services | at the line | 399.39 | 403.53 | -1.0% | FALLING | reclaim | rev growth 55%, net margin 66%, op margin 78%, gross margin 89%, ROE 210%, FCF positive, revenue fell YoY in a recent quarter, value: business changed (margin 82% vs 40% 10-yr median): its own history is a weak yardstick, value: its multiples disagree with each other, value: far from its own history: the market has re-rated it, find out why, value: analysts agree, disruption: revenue +25%/yr over 3 yrs; analysts see revenue +52% next year; research 2026-11-06: Axon AI ad engine gains share in mobile game ads and is expanding into e-commerce advertisers (self-serve, Shopify integration; e-commerce est. ~38% of spend in Q3); Q3 2026 revenue +55%. Competes with Meta, Google, Unity Vector; no sign of losing share. |
+| 10 | WPM | A | 7/8 | RICH -14% (LOW) | 110.61 | +24% | 26.5 | Mar 12? (105d) | STABLE [research: neutral] | 78 | Basic Materials | at the line | 130.69 | 132.52 | -1.4% | FALLING | reclaim | rev growth 62%, net margin 60%, op margin 72%, gross margin 75%, ROE 23%, consistency unverified, value: its multiples disagree with each other, value: analysts disagree, disruption: commodity producer: revenue and margins follow the commodity price, not competitors; research 2026-10-20: Precious-metals streamer; record Q2 2026 revenue $929M on higher prices and the Antamina silver stream. Revenue follows gold/silver, no obsolescence threat. |
+| 11 | AEM (new) | A | 7/8 | RICH -12% (LOW) | 140.27 | +32% | 14.4 | Feb 11 pm? (76d) | STABLE [research: neutral] | 74 | Basic Materials | below | 173.29 | 186.49 | -7.1% | FALLING | reclaim | rev growth 17%, net margin 40%, op margin 59%, gross margin 63%, ROE 23%, FCF positive, consistency unverified, value: PEAK-CYCLE margins (72% vs 46% normal): earnings multiples ignored, value: analysts disagree, disruption: commodity producer: revenue and margins follow the commodity price, not competitors; research 2026-10-07: Senior gold miner; 2026 guide 3.3-3.5Moz at AISC $1,400-1,550 held, capex raised for Hope Bay; no technology substitute for mined gold, results track the gold price. |
+| 12 | NEM (new) | A | 7/8 | RICH -23% (LOW) | 80.1 | +34% | 9.8 | Feb 18 pm? (83d) | STABLE [research: neutral] | 72 | Basic Materials | below | 106.85 | 111.63 | -4.3% | FALLING | reclaim | rev growth 15%, net margin 37%, op margin 56%, gross margin 60%, ROE 27%, FCF positive, value: PEAK-CYCLE margins (64% vs 33% normal): earnings multiples ignored, value: analysts disagree, disruption: commodity producer: revenue and margins follow the commodity price, not competitors; research 2026-10-12: Largest gold producer; results follow the gold price, no technology shift threatens or expands its market. |
+| 13 | MPWR (new) | A | 7/8 | RICH -20% (LOW) | 963.36 | +49% | 25.4 | Feb 4 pm? (69d) | DISRUPTOR (quant INNOVATING) [research: innovating] | 67 | Technology | below | 1255.0 | 1332.27 | -5.8% | rising | reclaim | rev growth 63%, net margin 24%, op margin 29%, gross margin 55%, ROE 24%, FCF positive, value: its multiples disagree with each other, value: analysts disagree, disruption: revenue +27%/yr over 5 yrs; analysts see revenue +56% next year; research 2026-10-12: Power-management chips riding the AI data-center buildout: Q2 revenue +47.6% YoY to a record $981M, Enterprise Data growth floor raised to 130% for 2026. |
+| 14 | CSCO (new) | A | 7/8 | EXPENSIVE -32% (MED) | 64.17 | +43% | 17.1 | Feb 10 pm (75d) | DISRUPTOR (quant INNOVATING) [research: innovating] | 59 | Technology | below | 97.32 | 102.82 | -5.3% | rising | reclaim | rev growth 24%, net margin 20%, op margin 25%, gross margin 65%, ROE 27%, FCF positive, value: analysts disagree, disruption: analysts see revenue +19% next year; R&D 15% of revenue; research 2026-10-30: AI networking shift is lifting it: FY2026 hyperscaler AI infrastructure orders $9.3B (~4.5x FY25), ~$4B AI revenue, guiding ~$7.5B in FY2027; FY26 revenue $63.3B +12%. |
+| 15 | ISRG | A | 7/8 | DEEP VALUE +51% (MED) | 644.18 | +16% | 34.2 | Jan 22? (56d) | AT RISK [research: innovating] | 62 | Healthcare | at the line | 430.16 | 426.69 | +0.8% | FALLING | touch | **VALUE TRAP?**, rev growth 22%, net margin 29%, op margin 32%, gross margin 67%, ROE 18%, FCF positive, value: far from its own history: the market has re-rated it, find out why, value: analysts agree, disruption: revenue +17%/yr over 3 yrs; market fear: price 34% below what its own 10-yr multiples imply, with normal margins; research 2026-10-23: da Vinci 5 (force feedback, efficiency) drives a replacement cycle; 2026 procedure growth guided 13.5-15.5%; no technology making robotic surgery obsolete, rivals (Medtronic Hugo, J&J Ottava) still small. |
+| 16 | ADBE | A | 7/8 | DEEP VALUE +100% (LOW) | 466.54 | +8% | 8.4 | **Dec 9 pm (12d)** | AT RISK [research: threatened] | 75 | Technology | below | 235.6718 | 245.8 | -4.1% | FALLING | - | **VALUE TRAP?**, rev growth 13%, net margin 28%, op margin 36%, gross margin 89%, ROE 62%, FCF positive, value: far from its own history: the market has re-rated it, find out why, value: analysts disagree, disruption: revenue +11%/yr over 3 yrs; R&D 18% of revenue; research 2026-10-08: AI-native image/video generators and design tools (Figma, Canva, Midjourney, Google/OpenAI models) lower the value of pro creative software; Adobe answers with Firefly and partner models, growth slowed to ~13%. Pressure is real but revenue still rising. |
 
-Robinhood alerts: 4 created, 5 removed, 8 kept (touch = price drops through the 200-day; reclaim = price gets back above it). Max 15, at most 3 per industry group; '-' = qualifies but no slot.
+Robinhood alerts: 10 created, 7 removed, 5 kept (touch = price drops through the 200-day; reclaim = price gets back above it). Max 15, at most 3 per industry group; '-' = qualifies but no slot.
 
 A FALLING 200-day means the long-term trend itself is rolling over: a touch there is weaker evidence than a touch of a rising line. Every name still needs the news/thesis check before a buy; '—' in Value = not valued yet (next morning's report run values it). Fwd P/E = price over next year's consensus earnings (display only).
 
@@ -50,76 +58,68 @@ _Valuation grade: DEEP VALUE >= +25% below fair | UNDERVALUED +10 to +25% | FAIR
 
 _Disruption grade: is a changing trend or new technology making this business obsolete (AT RISK / BEING DISRUPTED), or is its innovation creating a new, untapped market (DISRUPTOR / INNOVATING)? The research note (dated, sourced) is the main judgment; the quant layer is an early warning. Quant layer: 10 years of revenue, gross margin and R&D plus analysts' next-year revenue (shrinking or fading revenue and eroding gross margin = threat; fast or accelerating growth, expanding margin and heavy R&D = innovator), plus MARKET FEAR when a stock with normal margins trades >= 40% below its own historical multiples. Cyclicals use 5-yr trends at LOW confidence; banks, insurers and REITs are judged on revenue only. A dated research note (competitors, emerging tech, new markets, with sources) moves the label one step. VALUE TRAP = cheap vs history but AT RISK or BEING DISRUPTED._
 
-## Fired since last run (2026-11-24T20:36Z)
 
-| Ticker | Alert | Triggered (UTC) | At | Now |
-|---|---|---|---|---|
-| TXN | reclaim (back above the 200-day) | 2026-11-25 18:46 | 267.23 | 266.75, sitting on the line; reclaim alert kept |
-| RGLD | reclaim | 2026-11-25 18:24 | 238.85 | 241.91 (+1.2% over); swapped to a touch alert |
-| FNV | reclaim | 2026-11-25 17:54 | 239.48 | 245.17 (+2.3% over); swapped to a touch alert |
-| ISRG | touch (dropped through the 200-day) | 2026-11-25 14:27 | 426.50 | 426.62 (-0.1% under); swapped to a reclaim alert |
-| FTNT | touch | 2026-11-25 12:08 (pre-market) | 127.66 | 134.69, back above (+1.8%); touch alert kept |
-| PLTR | touch | 2026-11-25 12:00 (pre-market) | 153.60 | 163.54, now +6.1% over the line, out of the band; alert removed |
+### Fired since last run (managed alerts)
+- META reclaim (price_above_sma 200d) at $627.90, 2026-11-27 12:00Z; closed $629 (+0.2% over the line), so its alert now flips to "touch".
+- ANET reclaim at $171.00, 12:01Z; closed $174.25 (+3.1%), alert flips to "touch".
+- APP reclaim at $403.45, 14:31Z; closed $399.39, back 1.0% under the line, so its reclaim alert stays.
+- PAC reclaim at $233.27, 14:35Z; closed $232.16, 0.2% under, reclaim alert stays.
+- FTNT touch (price_below_sma) at $132.82, 14:42Z; FTNT then left the scan (see below).
 
-## Left the list
+### Left the list
+- FTNT, RGLD, FNV: no longer returned by the scan (outside 0.92-1.05x the 200-day, or below a fundamental floor). RGLD and FNV rallied with gold today. Their alerts were deleted.
+- ADBE stays a candidate (#16, grade A, weakened thesis, disruption AT RISK) but lost its alert slot to the higher-ranked names; its alert was deleted.
+- PR (Permian Resources) passed the scan but scored 6/8 after the consistency check (Q4 2025 revenue fell year over year), so it does not qualify.
 
-- **PLTR**: out of band (price 163.54 is +6.1% over its 200-day 154.18; the band tops out at +5%). Alert deleted.
-- **WES**: out of band (40.53 is -8.3% under its 200-day 44.18; the band bottoms out at -8%). Alert deleted.
+### News check, names new to the list (HARD RULE 7 style)
+- WES: weakened. No new news since the 11-04 Q3 miss; distribution held at $0.93; the Street is mostly Hold.
+- AFRM: intact, with a watch item. Revenue +35% beat on 11-05, but a 4th straight EPS miss and credit-cost worries; about -20% this year.
+- CDNS: intact. No new news since the 10-26 Q3 beat and raise; -7.8% under a rising 200-day.
+- AEM: intact. Up 7.7% today with gold; no company news.
+- NEM: intact. Up 5.5% today with gold; no company news.
+- MPWR and CSCO are also new to the list (MPWR held in joint); their last checks (11-02, 11-19) read intact. They are re-checked next run (5-per-run cap).
 
-## News check (new names)
-
-- **WPM: intact.** Q3 2026 (Nov 5) revenue +62% YoY to $772M, net earnings $410M, record year-to-date production and cash flow; EPS a hair under consensus ($0.901 vs $0.9011); Q4 dividend $0.195 (+18%). It sits under the 200-day with the precious-metals pullback, not on company news, and is +5% today. Now holds a reclaim alert. Sources: [finviz](https://finviz.com/news/417944/wheaton-precious-metals-announces-third-quarter-2026-results-and-record-year-to-date-production-sales-volume-revenue-earnings-and-cash-flow), [24/7 Wall St](https://247wallst.com/cards/wheaton-precious-metals-q3-2026-earnings-wpm-01m6pycnep554wvn8xj38rjbws).
-
-## Disruption research
-
-- **NFLX: neutral.** At a 52-week low (~48% off its high) on a cut 2026 ad-revenue outlook (~$2.7B vs ~$3B), content spend rising faster than amortization and uncertainty over a proposed Warner Bros. deal; still guiding record 2026 revenue (+13%). Pressure on ads and margins, not a technology making streaming obsolete.
-- **APLD: neutral.** AI data-center developer with ~400MW leased to CoreWeave (~$11B contracted, last 150MW due 2027). Risk is an AI-capex slowdown and tenant concentration; no fresh Nov-2026 company news found, so the evidence is thin.
-
-## Joint changes seen today (your trades)
-
-You re-shaped the joint account today: bought NVDA 10, NFLX 75, MU 3, BE 25, SKHY 25, SPCX 30, MUU 25, SOXX 20 (30 total), APLD 100, RBRK 10; sold all of RBRK (68), NVDL, PLTU, NFXL, SOXL, IREN, NBIS and part of APLD/MUU. Effects here:
-- **Re-buy watch:** MU and SOXX are now held, so their dip watches closed and their 6 alerts were deleted. COHR is still watched.
-- **Price targets:** 6 new target alerts (NVDA $223.07, NFLX $84.46, MU $1,601.35, BE $290.22, SKHY $291.27, SPCX $247.19) and APLD moved to $54.64. **Caution:** after the semis/AI selloff, many analyst targets have not caught up (MU's Robinhood mean is $1,601 against a $597 price; APLD's is $54 against $12), so read the upside column as stale-high on those names. NVDA's named targets were cut to ~$170-230 in mid-November and are used here.
-- **Tracker (Holdings ACTION):** 0 review, 3 overweight (AMZN 22%, MPWR 21%, ANT 20% of joint holdings value, cap 15%), 0 trim; MU reports 2026-12-17 (verified). Advisory: a line is a prompt to re-check, never an order.
+### Disruption research
+- None due: every candidate has a note under 90 days old, and the only joint holdings without one are ETFs (QQQ, QQQI, AAOX, SOXL).
 
 ## Re-buy watch (names you sold or want to buy on a turn; buy signals)
 
 | Ticker | Stage | Was | Price | Sold at | Signals | Wash-sale clear |
 |---|---|---|---|---|---|---|
-| COHR | **TURNING** | TURNING | 195.62 | dip watch | below 50-day (-22.9%), below 200-day (-34.0%), MACD above signal, 50-day falling, RSI14 43 | 2026-12-24 (open: buying now defers the loss) |
+| COHR | **TURNING** | TURNING | 223.78 | — | below 50-day (-11.1%), below 200-day (-24.4%), MACD above signal, 50-day falling, RSI14 43 | 2026-12-24 (open: buying now defers the loss) |
 
 Ladder: WAIT → TURNING (daily MACD crossed above signal, still under the 50-day) → EARLY (back above the 50-day) → BUY (above the 50- and 200-day). A signal is a technical trigger only: it still needs the news/thesis check before a buy.
 
 
-## Joint price targets (2026-11-25T20:31Z)
+## Joint price targets (2026-11-27T20:35Z)
 
 | Symbol | Price | 1. Fundamental | 2. Robinhood | 3. Analysts | **Final** | Upside | Agreement | Alert |
 |---|---|---|---|---|---|---|---|---|
-| APLD | $12.28 | — | $54.28 | $55.00 | **$54.64** | +345.1% | MED | moved |
-| MU | $596.78 | $1,128.31 | $1,601.35 | $1,625.00 | **$1,601.35** | +168.3% | MED | set |
-| SKHY | $110.32 | — | $257.55 | $325.00 | **$291.27** | +164.0% | MED | set |
-| SPCX | $127.61 | — | $250.38 | $244.00 | **$247.19** | +93.7% | MED | set |
-| BE | $153.55 | — | $290.22 | — | **$290.22** | +89.0% | LOW | set |
-| ANT | $83.36 | — | $149.32 | — | **$149.32** | +79.1% | LOW | set |
-| MPWR | $1,182.13 | $2,321.99 | $1,837.62 | — | **$2,079.80** | +75.9% | MED | set |
-| NVDA | $148.33 | $223.07 | $239.79 | $200.00 | **$223.07** | +50.4% | MED | set |
-| AMZN | $245.28 | $443.64 | $327.94 | $350.00 | **$350.00** | +42.7% | MED | set |
-| NFLX | $59.34 | — | $84.46 | — | **$84.46** | +42.3% | LOW | set |
-| META | $604.85 | $892.11 | $842.47 | $840.00 | **$842.47** | +39.3% | HIGH | set |
-| RBRK | $108.01 | — | $125.57 | $120.00 | **$122.78** | +13.7% | MED | reached |
+| APLD | $12.98 | — | $54.28 | $55.00 | **$54.64** | +320.8% | MED | set |
+| SKHY | $119.34 | — | $257.55 | $325.00 | **$291.27** | +144.1% | MED | set |
+| SPCX | $133.17 | — | $250.38 | $244.00 | **$247.19** | +85.6% | MED | set |
+| BE | $163.07 | — | $290.22 | — | **$290.22** | +78.0% | LOW | set |
+| ANT | $91.74 | — | $149.32 | — | **$149.32** | +62.8% | LOW | set |
+| MPWR | $1,281.90 | $2,321.99 | $1,837.62 | — | **$2,079.80** | +62.2% | MED | set |
+| NVDA | $150.62 | $223.07 | $239.79 | $200.00 | **$223.07** | +48.1% | MED | set |
+| NFLX | $60.98 | — | $84.46 | — | **$84.46** | +38.5% | LOW | set |
+| AMZN | $254.24 | $443.74 | $327.94 | $350.00 | **$350.00** | +37.7% | MED | set |
+| META | $630.00 | $892.17 | $842.47 | $840.00 | **$842.47** | +33.7% | HIGH | set |
+| RBRK | $113.12 | — | $125.57 | $120.00 | **$122.78** | +8.5% | MED | reached |
 
 _Final = median of the three methods (average of two; one alone is LOW). Fundamental = next fiscal year's consensus estimates x the stock's 5-year median multiples, by industry. Robinhood = mean analyst target in the app. Analysts = median of dated targets from named major-firm analysts in the last 120 days. Agreement = spread between methods (HIGH <= 15%, MED <= 35%). A target is an estimate, not a sell signal: AT/ABOVE TARGET means re-check the thesis, not sell._
 
+- MU target alert ($1,601.35) deleted: MU was fully sold from joint today. AMZN target moved 341.39 -> 350.00 (+2.5%, under the 3% re-alert line), so the alert stays at $341.39.
+
 ## Wash-sale watch (joint account)
 
-**Newly locked:** APLD (loss $59, safe after 2026-12-26), IREN (loss $81, safe after 2026-12-26), RBRK (loss $738, safe after 2026-12-26)
-**Date pushed out by a new loss sale:** MU -> 2026-12-26, MUU -> 2026-12-26, NBIS -> 2026-12-26, NVDL -> 2026-12-26, SOXL -> 2026-12-26
+**Cleared, safe to buy again:** CRCL
+**Newly locked:** ANT (loss $274, safe after 2026-12-28), KTOS (loss $6, safe after 2026-12-28)
 
-41 name(s) locked, $38,536 of losses. Buying one before its date defers that loss into the new shares (an IRA buy loses it for good).
+42 name(s) locked, $38,600 of losses. Buying one before its date defers that loss into the new shares (an IRA buy loses it for good).
 
 | Safe to buy after | Name | Loss | Sales |
 |---|---|---|---|
-| 2026-11-27 | CRCL | $215 | 1 |
 | 2026-11-29 | AMZN | $946 | 1 |
 | 2026-11-30 | IONQ | $135 | 1 |
 | 2026-11-30 | SNDK | $444 | 1 |
@@ -160,6 +160,8 @@ _Final = median of the three methods (average of two; one alone is LOW). Fundame
 | 2026-12-26 | NVDL | $4,632 | 4 |
 | 2026-12-26 | RBRK | $738 | 1 |
 | 2026-12-26 | SOXL | $5,959 | 8 |
+| 2026-12-28 | ANT | $274 | 1 |
+| 2026-12-28 | KTOS | $6 | 1 |
 
 **You bought inside the window (that part of the loss is deferred):** AAOX 3525 sh 2026-11-06, AMZN 130 sh 2026-10-30, APLD 150 sh 2026-11-25, AUR 300 sh 2026-10-16, BE 45 sh 2026-11-25, COHX 1470 sh 2026-11-23, GOOGL 30.2054 sh 2026-10-28, META 124 sh 2026-11-23, MU 17 sh 2026-11-25, MUU 500 sh 2026-11-25, NBIS 71 sh 2026-11-24, NEBX 600 sh 2026-11-23, NVDA 40 sh 2026-11-25, NVDL 897 sh 2026-11-25, OKLO 230 sh 2026-10-26, RBRK 10 sh 2026-11-25, SOXL 711 sh 2026-11-25, SOXX 55 sh 2026-11-25, SPCX 170 sh 2026-11-25
 
@@ -167,20 +169,24 @@ Managed portfolios / sleeves bought locked names (only these shares' worth is wa
 
 Recurring buys keep washing small losses on: QQQ, QQQI
 
-**Sell trap:** these were bought in the last 30 days, so selling them at a loss before the date is washed: AMZN (2026-12-06), ANT (2026-12-24), APLD (2026-12-26), BE (2026-12-26), HTEC (2026-12-24), META (2026-12-24), MPWR (2026-12-25), MU (2026-12-26), MUU (2026-12-26), NFLX (2026-12-26), NVDA (2026-12-26), QQQ (2026-12-26), QQQI (2026-12-26), RBRK (2026-12-26), SKHY (2026-12-26), SOXX (2026-12-26), SPCX (2026-12-26)
+**Sell trap:** these were bought in the last 30 days, so selling them at a loss before the date is washed: AMZN (2026-12-06), ANT (2026-12-24), APLD (2026-12-26), BE (2026-12-26), HTEC (2026-12-24), META (2026-12-24), MPWR (2026-12-25), NFLX (2026-12-26), NVDA (2026-12-26), QQQ (2026-12-28), QQQI (2026-12-28), RBRK (2026-12-26), SKHY (2026-12-26), SPCX (2026-12-26)
 
 **Your lots (broker tax lots, live price):**
-- AMZN 86.9167 sh (all short-term): 70 sh at a loss (-$634), +$645 on the rest; 55 sh opened in the last 30 days, a loss sale before 2026-12-06 is washed; first lot turns long-term 2027-02-07.
-- ANT 235 sh (all short-term): 235 sh at a loss (-$2,119), +$0 on the rest; 235 sh opened in the last 30 days, a loss sale before 2026-12-24 is washed; first lot turns long-term 2027-11-20.
-- APLD 100 sh (all short-term); 100 sh opened in the last 30 days, a loss sale before 2026-12-26 is washed; first lot turns long-term 2027-11-26.
-- BE 25 sh (all short-term); 25 sh opened in the last 30 days, a loss sale before 2026-12-26 is washed; first lot turns long-term 2027-11-26.
-- META 17 sh (all short-term): 17 sh at a loss (-$3,532), +$0 on the rest; 17 sh opened in the last 30 days, a loss sale before 2026-12-24 is washed; first lot turns long-term 2027-11-24.
-- MPWR 17 sh (all short-term): 11 sh at a loss (-$241), +$100 on the rest; 11 sh opened in the last 30 days, a loss sale before 2026-12-25 is washed; first lot turns long-term 2027-10-24.
-- MU 3 sh (all short-term); 3 sh opened in the last 30 days, a loss sale before 2026-12-26 is washed; first lot turns long-term 2027-11-26.
-- NFLX 75 sh (all short-term); 75 sh opened in the last 30 days, a loss sale before 2026-12-26 is washed; first lot turns long-term 2027-11-26.
-- NVDA 10 sh (all short-term); 10 sh opened in the last 30 days, a loss sale before 2026-12-26 is washed; first lot turns long-term 2027-11-26.
-- RBRK 10 sh (all short-term); 10 sh opened in the last 30 days, a loss sale before 2026-12-26 is washed; first lot turns long-term 2027-11-26.
-- SKHY 25 sh (all short-term); 25 sh opened in the last 30 days, a loss sale before 2026-12-26 is washed; first lot turns long-term 2027-11-26.
-- SPCX 30 sh (all short-term); 30 sh opened in the last 30 days, a loss sale before 2026-12-26 is washed; first lot turns long-term 2027-11-26.
+- AMZN 86.9167 sh (all short-term): 30 sh at a loss (-$182), +$971 on the rest; 50 sh opened in the last 30 days, a loss sale before 2026-12-06 is washed; first lot turns long-term 2027-02-07.
+- ANT 35 sh (all short-term): all at a gain (+$74); 35 sh opened in the last 30 days, a loss sale before 2026-12-24 is washed; first lot turns long-term 2027-11-24.
+- APLD 25 sh (all short-term): all at a gain (+$13); 25 sh opened in the last 30 days, a loss sale before 2026-12-26 is washed; first lot turns long-term 2027-11-26.
+- BE 4 sh (all short-term): 4 sh at a loss (-$16), +$0 on the rest; 4 sh opened in the last 30 days, a loss sale before 2026-12-26 is washed; first lot turns long-term 2027-11-26.
+- META 17 sh (all short-term): 17 sh at a loss (-$3,105), +$0 on the rest; 17 sh opened in the last 30 days, a loss sale before 2026-12-24 is washed; first lot turns long-term 2027-11-24.
+- MPWR 5 sh (all short-term): all at a gain (+$392); 5 sh opened in the last 30 days, a loss sale before 2026-12-25 is washed; first lot turns long-term 2027-11-25.
+- NFLX 75 sh (all short-term): all at a gain (+$160); 75 sh opened in the last 30 days, a loss sale before 2026-12-26 is washed; first lot turns long-term 2027-11-26.
+- NVDA 10 sh (all short-term): all at a gain (+$14); 10 sh opened in the last 30 days, a loss sale before 2026-12-26 is washed; first lot turns long-term 2027-11-26.
+- RBRK 3 sh (all short-term): 3 sh at a loss (-$3), +$0 on the rest; 3 sh opened in the last 30 days, a loss sale before 2026-12-26 is washed; first lot turns long-term 2027-11-26.
+- SKHY 3 sh (all short-term): all at a gain (+$38); 3 sh opened in the last 30 days, a loss sale before 2026-12-26 is washed; first lot turns long-term 2027-11-26.
+- SPCX 10 sh (all short-term): 10 sh at a loss (-$14), +$0 on the rest; 10 sh opened in the last 30 days, a loss sale before 2026-12-26 is washed; first lot turns long-term 2027-11-26.
 
-_As of 2026-11-25. A reminder, not tax advice: the 1099 decides. Options on a locked stock can also trigger a wash sale and are not checked._
+_As of 2026-11-27. A reminder, not tax advice: the 1099 decides. Options on a locked stock can also trigger a wash sale and are not checked._
+
+- Note: the KTOS "buy in window" is the same 50 shares bought 16:36Z and sold 16:56Z at -$5.75, not a separate replacement buy; the broker 1099 is the authority.
+
+### Joint tracker
+- Holdings ACTION: 0 review, 2 overweight (AMZN, META), 0 trim. Changed since the last run: META HOLD -> OVERWEIGHT (the book shrank after today's sales, so its weight rose past the 15% cap); MPWR and ANT OVERWEIGHT -> HOLD (trimmed today). MU, MUU and SOXX are gone (fully sold). An OVERWEIGHT line is a prompt to re-check sizing, not a sell order.
