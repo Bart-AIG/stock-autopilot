@@ -44,3 +44,18 @@
 - **Tuesday 12-01 is the first session of December:** new SWING_M picks from the November closes, the first-session resize check, the BBW monthly review and the growth scorecard.
 - Monday's first run after 10:30 ET: BBW weekly search and growth paper weekly research.
 - Next half day: 2026-12-24.
+
+## 8. Friday review: week of 2026-11-23 (added by the 19:01Z post-close run)
+*The 18:01Z run wrote the daily report and left out the weekly review; this run adds it. P/L is from the broker at about 19:05Z.*
+- **Sleeve trades this week:** three SWING_M buys at the Monday window (20:31:56-59Z): ILMN, VLO and MPC at $75.57 each, all filled. No sleeve sells, so **$0.00 realized by the sleeves**. SWING_Q held nothing all week (QQQ under its 200-day). BBW (NVDL) had no signal on any candle. LEVX held no position all week (no NIGHT target, no DAY entry).
+- **Broker realized P/L this week, all from your own options: +$930.00.** MU calls 11-23 (+$243.00 and −$5.00), QQQ put 11-23 (+$80.00), SOXL 11-27 32C ×5 sold today (+$612.00).
+- **Sleeves vs QQQ, week:** sleeve index 0.907342 → 0.910467 (**+0.34%**) against QQQ 608.45 → 650.76 (**+6.95%**). The sleeves were close to all cash: before Monday, sleeve money was $26.98 (your options held the cash), and from Monday on only about $227 was invested. Since 2026-09-30: sleeves −8.95%, QQQ −12.02%.
+- **Drawdown:** −11.22% at the start of the week and −10.92% now, against the 2026-10-09 high-water mark. No notice level was reached.
+- **Legacy run-off and growth paper:** the legacy book closed 2026-10-14. The growth paper book has no marks from Thursday (holiday) or Friday (half day); Monday's run marks it.
+- **Execution fidelity:**
+  - Decision windows: Mon 15:31 ET (bought the three decide() targets, filled) and 15:46 (re-check, no change); Tue 15:31 and 15:46 (keep); Wed 15:31 and 15:46 (keep). Every target was executed as decide() printed it.
+  - Thursday: market closed for the holiday.
+  - Friday: half day, so no window. The shadow decide() at 12:21 ET would have put the turn-of-month leg on (QLD $995 plus seven SWING_M names at $75, about $1,517). Nothing was placed; Monday's window buys them.
+  - **Missed slots:** one, Wed 11-25 at 11:01 ET (16:01Z). That slot was the LEVX DAY check on the 11:00 bar and the BBW 15:45Z candle. The 11:16 ET run caught up on the candle. Nothing was held, so no exit was missed, and no DAY entry was signalled on the next checks.
+  - No late exits, no stale DAY entries, no null targets that changed an action, and no DAY position carried overnight.
+  - **Best execution:** Monday's three buys, each filled within 0.2 s of sending. **Worst:** the turn-of-month entry that could not be taken today because a half day has no decision window (a known gap; the fix needs your OK, see CLAUDE.md).
