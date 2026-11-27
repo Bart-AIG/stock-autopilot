@@ -1,29 +1,29 @@
-Bottom watch: chance the low is in, QQQ 51%, SPY 80%
+Bottom watch: chance the low is in, QQQ 51%, SPY 81%
 
-**10:08 am CT Fri Nov 27, intraday (provisional: the after-close run confirms it).**
+**11:06 am CT Fri Nov 27, intraday (provisional: the after-close run confirms it).**
 
-QQQ $645.18: 51% chance the low is in (50% at the last push). Toss-up, leaning in.
-  Rebounding: up 6.0% from the $608.45 low close of Nov 20 (4 sessions ago), best 7.0%. 15.1% under the Oct 6 high close of $759.66, session 37 of the selloff.
-SPY $725.18: 80% chance the low is in (77% at the last push). Low probably in.
-  Rebounding: up 5.1% from the $689.81 low close of Nov 20 (4 sessions ago), best 5.1%. 6.9% under the Oct 6 high close of $779.09, session 37 of the selloff.
-VIX 25.4, 29% under its peak close of 35.9 on Nov 20.
+QQQ $645.78: 51% chance the low is in (50% at the last push). Toss-up, leaning in.
+  Rebounding: up 6.1% from the $608.45 low close of Nov 20 (4 sessions ago), best 7.0%. 15.0% under the Oct 6 high close of $759.66, session 37 of the selloff.
+SPY $726.03: 81% chance the low is in (77% at the last push). Low probably in.
+  Rebounding: up 5.3% from the $689.81 low close of Nov 20 (4 sessions ago), best 5.3%. 6.8% under the Oct 6 high close of $779.09, session 37 of the selloff.
+VIX 24.9, 31% under its peak close of 35.9 on Nov 20.
 
 | | QQQ | SPY |
 |---|---|---|
-| Chance the low is in | **51%** | **80%** |
+| Chance the low is in | **51%** | **81%** |
 | Stage | Rebounding | Rebounding |
-| Price | $645.18 | $725.18 |
+| Price | $645.78 | $726.03 |
 | High close | $759.66 (Oct 6) | $779.09 (Oct 6) |
-| From the high | -15.1% | -6.9% |
+| From the high | -15.0% | -6.8% |
 | Lowest close | $608.45 (Nov 20) | $689.81 (Nov 20) |
-| Up from the low | 6.0% in 4 sessions | 5.1% in 4 sessions |
-| Best rebound, failed rebounds | 7.0%, 0 | 5.1%, 0 |
-| Close vs the 200-day | -5.6% ($683.66) | -1.1% ($733.33) |
-| Share of the drop retraced | 24% | 40% |
+| Up from the low | 6.1% in 4 sessions | 5.3% in 4 sessions |
+| Best rebound, failed rebounds | 7.0%, 0 | 5.3%, 0 |
+| Close vs the 200-day | -5.5% ($683.66) | -1.0% ($733.33) |
+| Share of the drop retraced | 25% | 41% |
 | Close that would read 50% | $642.32 | $707.29 |
-| Close that would read 70% | $657.80 | $717.33 |
+| Close that would read 70% | $657.80 | $717.34 |
 | RSI(14) | 42 | 44 |
-| VIX vs its peak close | -29% (25.4 vs 35.9) | -29% (25.4 vs 35.9) |
+| VIX vs its peak close | -31% (24.9 vs 35.9) | -31% (24.9 vs 35.9) |
 
 **Rebound checkpoints.** "Past odds" is how often the low was already in on days when the checkpoint was met.
 
@@ -31,8 +31,8 @@ VIX 25.4, 29% under its peak close of 35.9 on Nov 20.
 |---|---|---|---|
 | VIX 20% under its peak close | 72% | yes | yes |
 | VIX 40% under its peak close | 84% | no: VIX at or under 21.5 | no: VIX at or under 21.5 |
-| Close above the 20-day average | 82% | no: close above $663.22 | no: close above $738.12 |
-| Close above the 50-day average | 86% | no: close above $705.61 | no: close above $757.14 |
+| Close above the 20-day average | 82% | no: close above $663.25 | no: close above $738.16 |
+| Close above the 50-day average | 86% | no: close above $705.63 | no: close above $757.16 |
 | RSI(14) at 50 or more | 85% | no: RSI(14) at 50 or more (now 42) | no: RSI(14) at 50 or more (now 44) |
 | Half of the drop retraced | 96% | no: close at or above $684.06 | no: close at or above $734.45 |
 | Close above the 200-day average | 87% | no: close above $683.66 | no: close above $733.33 |
@@ -40,13 +40,13 @@ VIX 25.4, 29% under its peak close of 35.9 on Nov 20.
 
 **Chance by day (closing readings, today's is live until the close):**
 - QQQ: Nov 17 40%, Nov 18 43%, Nov 19 27%, Nov 20 21%, Nov 23 57%, Nov 24 48%, Nov 25 44%, Nov 27 51%
-- SPY: Nov 19 31%, Nov 20 26%, Nov 23 77%, Nov 24 73%, Nov 25 68%, Nov 27 80%
+- SPY: Nov 19 31%, Nov 20 26%, Nov 23 77%, Nov 24 73%, Nov 25 68%, Nov 27 81%
 
 **Your buy-back levels** (advisory; you place the orders):
-- Buy step 1 (QQQ $590 or SPY $675): not reached (QQQ is 9.4% above its level, SPY is 7.4% above its level).
-- Buy step 2 (QQQ $575 or SPY $665): not reached (QQQ is 12.2% above its level, SPY is 9.0% above its level).
-- Buy step 3 (QQQ $556 or SPY $630): not reached (QQQ is 16.0% above its level, SPY is 15.1% above its level).
+- Buy step 1 (QQQ $590 or SPY $675): not reached (QQQ is 9.5% above its level, SPY is 7.6% above its level).
+- Buy step 2 (QQQ $575 or SPY $665): not reached (QQQ is 12.3% above its level, SPY is 9.2% above its level).
+- Buy step 3 (QQQ $556 or SPY $630): not reached (QQQ is 16.1% above its level, SPY is 15.2% above its level).
 - Turn trigger (QQQ closes above $648 or SPY closes above $716, with VIX closing under 26): conditions met so far today (not final until the close).
-- Trend repaired (QQQ closes above its 200-day ($684) or SPY closes above its 200-day ($733), with VIX closing under 22): not reached (VIX 25.4).
+- Trend repaired (QQQ closes above its 200-day ($684) or SPY closes above its 200-day ($733), with VIX closing under 22): not reached (VIX 24.9).
 
 **How to read the chance.** On past selloffs the model had not seen, the low really was in: 20% of the time at a reading of 0% to 25%; 39% of the time at a reading of 25% to 50%; 55% of the time at a reading of 50% to 70%; 79% of the time at a reading of 70% to 85%; 92% of the time at a reading of 85% to 100%. Counting every day equally, which gives long bear markets more weight, those figures were 3 to 14 points lower: a bear-market rally looks like a final low early on. Evidence: bottom_results.md.
