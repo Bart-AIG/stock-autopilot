@@ -1,0 +1,44 @@
+name: LETF research data
+
+# Fetches long daily history (FMP) and the 3-month T-bill rate (FRED DTB3) for the joint-account
+# leveraged-ETF research, and commits the CSVs to data/letf/ on the branch that triggered it.
+# Read-only research input: it never touches the ledger, the reports or any account.
+
+on:
+  push:
+    branches: ['claude/**', '!claude/joint-risk-watch**', '!claude/quality-watch**']
+    paths: ['letf_fetch.py', '.github/workflows/letf-data.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: letf-data-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Fetch FMP daily bars
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+        run: python letf_fetch.py
+      - name: Fetch FRED 3-month T-bill
+        run: |
+          curl -sSL --retry 4 "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTB3" -o data/letf/DTB3.csv || echo "FRED failed"
+          head -3 data/letf/DTB3.csv || true
+          wc -l data/letf/*.csv
+      - name: Commit data to the branch
+        run: |
+          git config user.name 'stock-autopilot-bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/letf
+          git commit -m "letf: research data $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3; do git pull --rebase --quiet && git push && break; sleep 5; done
