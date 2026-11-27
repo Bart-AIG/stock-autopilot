@@ -1,0 +1,94 @@
+name: LETF signal
+
+# The joint account's leveraged-ETF rule (docs/joint-letf-process.md): a Friday update and a daily
+# heads-up, pushed to Ryan's phone. Read-only: FMP prices in, a report and a push out. No broker
+# connection and no trading; Ryan places every joint trade himself. It runs here, not as a Claude
+# routine, so it never draws on the usage allowance the trading routine needs.
+#
+# What triggers it, and why (GitHub's own cron fired 5 to 8 hours late here, measured 2026-11-20):
+#   workflow_run       THE INTRADAY TRIGGER: right after every Bottom watch run, which itself runs
+#                      after every Stock Report run (cron-job.org fires those on time, hourly from
+#                      9:00 am to 2:00 pm Central). So readings land at about 9:17, 10:09 ... 2:09 pm
+#                      Central, and after the close whenever the bottom watch's after-close run lands
+#                      (a cron-job.org job at 3:20 pm Central, if Ryan adds it; docs/cron-job-setup.md).
+#   workflow_dispatch  The manual button.
+#   schedule           Fallbacks only. They arrive hours late. The first run after the close writes
+#                      the confirmed reading; the rest see it recorded and exit.
+#
+# When it pushes (letf_signal.decide): a confirmed close flips a signal; a live price is past the line
+# that would flip one (once per index per day); the Friday update (the first run at or after 1 pm
+# Central on a Friday, with live prices, so there is time to act before the close; after the close
+# only if the close changed it); a catch-up after 8 days with no weekly update; the first reading.
+
+on:
+  workflow_run:
+    workflows: ["Bottom watch"]
+    types: [completed]
+    branches: [master]
+  schedule:
+    - cron: '25 21 * * 1-5'
+    - cron: '55 22 * * 1-5'
+    - cron: '30 1 * * 2-6'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Write a reading even if the final one for this session is already recorded'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  issues: write        # ntfy_send.py --fallback-issue opens an issue when a push cannot be delivered
+
+concurrency:
+  group: letf-signal
+  cancel-in-progress: false
+
+jobs:
+  signal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Check the rule against its tests
+        run: python test_letf_signal.py
+      - name: Reading
+        id: run
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+        run: python letf_signal_run.py ${{ inputs.force && '--force' || '' }}
+      - name: Commit the report and state
+        run: |
+          git config user.name 'stock-autopilot-bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add letf_signal.json letf_signal_report.md 2>/dev/null || true
+          git commit -m "letf signal: reading $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "no change"; exit 0; }
+          for attempt in 1 2 3 4 5; do
+            if git pull --rebase --quiet && git push; then echo "pushed on attempt $attempt"; exit 0; fi
+            if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ]; then git rebase --abort; fi
+            sleep $((attempt * 3))
+          done
+          echo "::error::could not push the LETF signal report"
+          exit 1
+      - name: Push to Ryan's phone
+        if: steps.run.outputs.notify == 'true'
+        env:
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          TITLE: ${{ steps.run.outputs.title }}
+          PRIO: ${{ steps.run.outputs.priority }}
+        run: |
+          python3 .github/scripts/ntfy_send.py --title "$TITLE" --priority "$PRIO" \
+            --tags bar_chart --file letf_signal_push.txt --fallback-issue \
+            --click https://github.com/Bart-AIG/stock-autopilot/blob/master/letf_signal_report.md
+      - name: Say so when a fallback or hand-started reading fails
+        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        env:
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 .github/scripts/ntfy_send.py --title "LETF signal: a reading failed" --priority low \
+            --tags warning --soft --message "A LETF signal run produced no reading. Run log: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"

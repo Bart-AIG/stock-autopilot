@@ -149,6 +149,7 @@ From the LEVX research (`levx_results.md`, 2026-11-13; real 5-minute bars 2018-2
 | `python3 letf_joint_backtest.py` | the full battery, into `data/letf/_battery.csv` (about 4 minutes) |
 | `python3 letf_joint_backtest.py recommended` | the recommended rule's table, into `data/letf/_recommended.csv` |
 | `python3 letf_joint_backtest.py signals` | today's state, entry and exit lines and size for SPY / QQQ / SOXX |
+| `letf-signal.yml` (GitHub Actions, live 2026-11-27) | the Friday update and daily heads-up pushes, from `letf_signal.py` / `letf_signal_run.py`; `python3 letf_signal_run.py --offline --dry` reproduces a reading here |
 
 ## 10. A published fixed-dollar SOXL band strategy, tested (2026-11-26)
 

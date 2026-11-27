@@ -132,3 +132,4 @@ Clone the Stock Report job and change three things:
 Headers and token stay the same as the Stock Report job (the token needs Actions
 read/write on this repository, which it already has). A good trigger returns **204**.
 On a half day the reading taken at 3:20 pm is still the confirmed one.
+The LETF signal job (`letf-signal.yml`) runs right after every bottom watch run, so this job also gives it a punctual after-close reading (set 2026-11-27).

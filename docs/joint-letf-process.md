@@ -24,29 +24,35 @@ Backtest 1993-2026, after 5 bp a side: **17.3% a year before tax, about 14.5% af
 4. **Optional second leg: TQQQ on QQQ's signal, at most half the sleeve.** Same rule. It needs the daily exit check, because weekly-only checks cost 3 to 5 points a year on Nasdaq. It overlaps with the agentic account's TQQQ and QLD for wash sales.
 5. **SOXL: a small satellite at most** (a quarter of the sleeve or less), same rule on SOXX. The rule held SOXL at 41-45% size through a -58% drop in October 2026 before it exited on Nov 2.
 
-## Set up once: Robinhood alerts (5 minutes)
+## The phone push does the arithmetic (live 2026-11-27)
 
-| Alert | Type | Why |
+The **LETF signal** job (`.github/workflows/letf-signal.yml`, code `letf_signal.py`) reads SPY, QQQ and SOXX after every hourly Stock Report run and pushes to your phone. The latest numbers are always in `letf_signal_report.md` (the push links to it). It never trades and uses no Claude usage.
+
+| Push | When | What to do |
 |---|---|---|
-| SPY price crosses its 200-day SMA (daily bars) | `price_crosses_sma`, period 200, daily | Early warning that the line is near. The SMA moves on its own, so this alert never needs re-setting |
-| SPY price above the ON line | `price_above` at the 200-day x 1.02, re-set each Friday | Entry check |
-| SPY price below the OFF line | `price_below` at the 200-day x 0.98, re-set each Friday | Exit check |
+| **LETF Friday update** | The first run at or after 1:00 pm CT on a Friday (about 1:09 pm), with live prices | The weekly step below. If the close then changes the answer, a second push says so |
+| **LETF heads-up** | Any day a live price is past the line that would flip a signal, once per index per day | Look again near 2:45 pm CT and trade only if it is still across |
+| **LETF signal: X turned ON / OFF** | A confirmed close flipped a signal (one you did not act on, or one that changed on the close) | Trade the next morning. The backtest found that as good as trading at the close |
+| **Catch-up** | No weekly update for 8 days (a missed Friday) | The weekly step, on Monday |
 
-An alert is a cue to look, not the signal. The signal is the **close**.
+The push decides nothing for you and does not know what you hold. The signal is the **close**; a heads-up is a cue to look.
 
-## Every Friday, 2:30 to 2:50 PM CT (10 minutes)
+Optional backup if the push ever goes quiet: a Robinhood alert on SPY crossing its 200-day SMA (`price_crosses_sma`, period 200, daily bars). It never needs re-setting.
 
-1. Get this week's numbers: SPY's close, 200-day average, ON line, OFF line, 20-day volatility, size. The command is `python3 letf_joint_backtest.py signals` (refresh `data/letf/` first), or ask Claude after the bell.
-2. **If OFF and SPY is above the ON line:** buy UPRO for the size in the table below.
-3. **If ON and SPY is below the OFF line:** sell all UPRO.
-4. **If ON and inside the band:** compare the size to what you hold. Trade only if it differs by more than a sixth of the sleeve, which is about 0.5x of exposure (the backtest's threshold).
-5. Re-set the two fixed-price alerts to this week's ON and OFF lines.
-6. Log it: date, SPY close, 200-day, state, size, the trade if any.
+## Every Friday, when the update arrives (10 minutes, before the 3:00 PM CT close)
 
-## Any day an alert fires
+1. Read the update. It gives each index's state, its ON and OFF lines, its 20-day volatility and the size.
+2. **It says BUY:** buy UPRO for the size it gives.
+3. **It says SELL:** sell all UPRO.
+4. **It says hold, with a size:** compare the size to what you hold. Trade only if it differs by more than a sixth of the sleeve, which is about 0.5x of exposure (the backtest's threshold).
+5. Log it: date, SPY close, 200-day, state, size, the trade if any.
 
-1. Near 2:45 PM CT, check SPY against the line. If it is still across, place the trade before the 3:00 PM CT close. Otherwise do nothing.
-2. If you miss the close, check the official close that evening and trade the next morning. That is equally valid in the backtest.
+## Any day a heads-up arrives
+
+1. Near 2:45 PM CT, check SPY against the line in the push. If it is still across, place the trade before the 3:00 PM CT close. Otherwise do nothing.
+2. If you miss the close, the confirmed-flip push follows after the close. Trade the next morning; that is equally valid in the backtest.
+
+The job reads the unadjusted closes your Robinhood chart shows, while the backtest used dividend-adjusted closes. That changed the SPY signal on 2.2% of days from 2011 to 2026, and the rule's result by -0.5 to +0.4 points a year across the three indexes.
 
 ## Size table (SPY's 20-day realized volatility to % of the sleeve in UPRO)
 
